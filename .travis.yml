@@ -36,7 +36,7 @@ android:
     - android-27
 
     # System image to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-27
 
 addons:
   apt_packages:
