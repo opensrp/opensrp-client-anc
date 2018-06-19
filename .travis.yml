@@ -17,7 +17,7 @@ cache:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-27 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-27 ANDROID_ABI=armeabi-v7a $ANDROID_EMULATOR_API_LEVEL=22
 
   global:
     # wait up to 20 minutes for adb to connect to emulator
@@ -38,7 +38,7 @@ android:
     - android-27
 
     # System image to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-27
+    - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_API_LEVEL
 
 addons:
   apt_packages:
