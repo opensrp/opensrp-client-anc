@@ -46,6 +46,7 @@ addons:
 
 before_script:
   # Emulator Management: Create, Start and Wait
+  - android list targets #debug only
   - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR_API_LEVEL --abi google_apis/$ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
