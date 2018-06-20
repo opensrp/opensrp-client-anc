@@ -17,7 +17,7 @@ cache:
 
 env:
   matrix:
-    - ANDROID_TARGET=android-27 ANDROID_ABI=armeabi-v7a $ANDROID_EMULATOR_API_LEVEL=22
+    - ANDROID_TARGET=android-27 ANDROID_ABI=armeabi-v7a $ANDROID_EMULATOR_API_LEVEL=21
 
   global:
     # wait up to 20 minutes for adb to connect to emulator
