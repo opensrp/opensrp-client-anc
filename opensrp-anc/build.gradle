@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:3.1.2"
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
     }
 }
 
