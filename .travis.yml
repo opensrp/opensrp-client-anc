@@ -13,12 +13,8 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
 
 env:
-  matrix:
-    - ANDROID_TARGET=android-27 ANDROID_ABI=armeabi-v7a $ANDROID_EMULATOR_API_LEVEL=22
-
   global:
     # wait up to 20 minutes for adb to connect to emulator
     - MALLOC_ARENA_MAX=2
@@ -28,36 +24,20 @@ android:
   components:
     # tools required
     - tools
-    - platform-tools
-    - tools
-
     # The BuildTools version used by your project
     - build-tools-27.0.3
-
     # The SDK version used to compile your projects
     - android-27
-
-    # System image to run emulator(s) during your tests
-    - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMULATOR_API_LEVEL
 
 addons:
   apt_packages:
   - pandoc
-
-before_script:
-  # Emulator Management: Create, Start and Wait
-  - android list targets #debug only
-  - echo no | android create avd --force -n test -t android-$ANDROID_EMULATOR_API_LEVEL --abi google_apis/$ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
 
 script:
   - echo "Travis branch is $TRAVIS_BRANCH"
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
   - chmod 755 gradlew
   - ls -la
-
   #Run All Unit tests Unit
   - travis_wait ./gradlew :opensrp-anc:jacocoTestReport coveralls --stacktrace
 
