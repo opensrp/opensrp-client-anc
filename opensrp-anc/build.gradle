@@ -39,7 +39,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: 'org.smartregister.anc.HPVEventBusIndex']
+                arguments = [eventBusIndex: 'org.smartregister.anc.ANCEventBusIndex']
             }
         }
     }
