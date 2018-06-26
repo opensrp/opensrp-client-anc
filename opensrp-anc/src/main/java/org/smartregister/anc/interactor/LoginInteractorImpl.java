@@ -82,11 +82,11 @@ public class LoginInteractorImpl implements LoginInteractor {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                android.util.Log.i(getClass().getName(), "Starting DrishtiSyncScheduler " + DateTime.now().toString());
+                Log.i(getClass().getName(), "Starting DrishtiSyncScheduler " + DateTime.now().toString());
                 if (NetworkUtils.isNetworkAvailable()) {
                     AlarmReceiver.setAlarm(getApplicationContext(), BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
                 }
-                android.util.Log.i(getClass().getName(), "Started DrishtiSyncScheduler " + DateTime.now().toString());
+                Log.i(getClass().getName(), "Started DrishtiSyncScheduler " + DateTime.now().toString());
             }
         }).start();
     }

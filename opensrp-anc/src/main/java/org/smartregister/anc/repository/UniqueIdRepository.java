@@ -8,8 +8,8 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.anc.domain.UniqueId;
+import org.smartregister.repository.BaseRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -156,13 +156,13 @@ public class UniqueIdRepository extends BaseRepository {
      */
     public void open(String openmrsId) {
         try {
-            if (!openmrsId.contains("-")) {
-                openmrsId = formatId(openmrsId);
-            }
+
+            String openmrsId_ = !openmrsId.contains("-") ? formatId(openmrsId) : openmrsId;
+
             ContentValues values = new ContentValues();
             values.put(STATUS_COLUMN, STATUS_NOT_USED);
             values.put(USED_BY_COLUMN, "");
-            getWritableDatabase().update(UniqueIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ?", new String[]{openmrsId});
+            getWritableDatabase().update(UniqueIds_TABLE_NAME, values, OPENMRS_ID_COLUMN + " = ?", new String[]{openmrsId_});
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }

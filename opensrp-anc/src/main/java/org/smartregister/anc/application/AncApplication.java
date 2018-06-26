@@ -241,7 +241,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
             int recordsRetrievedCount = intent.getIntExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, 0);
             if (recordsRetrievedCount > 0) {
-                //To Do add check for language configs
+                Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
             }
 
             Utils.postEvent(new ViewConfigurationSyncCompleteEvent());

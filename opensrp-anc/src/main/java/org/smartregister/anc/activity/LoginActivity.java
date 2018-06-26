@@ -260,7 +260,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        dialogInterface.dismiss();
                     }
                 })
                 .create();
