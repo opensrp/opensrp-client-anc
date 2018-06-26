@@ -123,7 +123,8 @@
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/login_edit_text_textSize"
-                android:typeface="sans" />
+                android:typeface="sans"
+                android:imeActionId="@+id/login" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -163,7 +164,6 @@
                 android:layout_weight="8"
                 android:background="@drawable/login_button"
                 android:ems="10"
-                android:onClick="login"
                 android:shadowColor="#ffffff"
                 android:shadowDx="0"
                 android:shadowDy="1"
