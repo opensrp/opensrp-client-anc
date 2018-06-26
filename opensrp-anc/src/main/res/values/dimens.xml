@@ -21,4 +21,20 @@
     <item name="checkbox_scale" format="float" type="dimen">1.7</item>
     <dimen name="checkbox_margin_top">10dp</dimen>
 
+    <dimen name="register_status_bar_margin">5dp</dimen>
+    <dimen name="ec_main_header_search_layout_height">43dp</dimen>
+    <dimen name="default_font_size_search_bar">16sp</dimen>
+    <dimen name="search_view_cancel_image_margin_right">3dp</dimen>
+    <dimen name="title_label_text_max_width">150dp</dimen>
+
+    <dimen name="loc_picker_text_max_width">210dp</dimen>
+    <dimen name="loc_picker_text_min_width">130dp</dimen>
+    <dimen name="loc_picker_bottom_margin">20dp</dimen>
+    <dimen name="loc_picker_service_location_title_margin">30dp</dimen>
+    <dimen name="loc_picker_service_location_title_margin_top">10dp</dimen>
+    <dimen name="loc_picker_service_location_check_image_size">30dp</dimen>
+    <dimen name="loc_picker_service_location_check_margin_left">0dp</dimen>
+    <dimen name="loc_picker_service_location_text_item_margin_left">5dp</dimen>
+    <dimen name="loc_picker_title_textview_size">19sp</dimen>
+
 </resources>

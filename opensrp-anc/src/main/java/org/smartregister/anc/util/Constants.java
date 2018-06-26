@@ -23,7 +23,11 @@ public class Constants {
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
+        public static final String HOME_REGISTER = "home_register";
+    }
 
+    public static final class EventType {
+        public static final String REGISTRATION = "ANC Registration";
     }
 
     public enum State {

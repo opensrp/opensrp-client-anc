@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/header1"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textAllCaps="true"
+        android:textColor="@color/dark_grey_text"
+        android:textSize="16sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/header2"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2.5"
+        android:gravity="center_horizontal"
+        android:paddingLeft="0dp"
+        android:text="Header 2"
+        android:textAllCaps="true"
+        android:textColor="@color/dark_grey_text"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/header3"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2.6"
+        android:gravity="center_horizontal"
+        android:paddingLeft="0dp"
+        android:text="Header 3"
+        android:textAllCaps="true"
+        android:textColor="@color/dark_grey_text"
+        android:textSize="16sp"
+        android:visibility="gone" />
+</merge>

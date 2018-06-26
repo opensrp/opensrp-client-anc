@@ -58,4 +58,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
+    <string name="opensrp_id">OpenSRP ID</string>
+    <string name="anc">WHO ANC</string>
+
 </resources>

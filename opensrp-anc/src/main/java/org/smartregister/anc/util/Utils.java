@@ -8,13 +8,18 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -30,6 +35,8 @@ import static org.smartregister.util.Log.logError;
  */
 
 public class Utils {
+
+    private static final String TAG = Utils.class.getCanonicalName();
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -97,6 +104,24 @@ public class Utils {
         editor.commit();
     }
 
+    public static String getDuration(String date) {
+        DateTime duration;
+        if (StringUtils.isNotBlank(date)) {
+            try {
+                duration = new DateTime(date);
+                return DateUtil.getDuration(duration);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+        }
+        return "";
+    }
+
+    public static int convertDpToPx(Context context, int dp) {
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        return Math.round(px);
+    }
 
     public static String convertDateFormat(Date date, SimpleDateFormat formatter) {
 

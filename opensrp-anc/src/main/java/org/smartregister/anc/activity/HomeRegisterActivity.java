@@ -1,23 +1,56 @@
 package org.smartregister.anc.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.MenuItem;
 
-import org.smartregister.anc.R;
+import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.util.Constants;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Created by ndegwamartin on 21/06/2018.
+ * Created by keyman on 26/06/2018.
  */
-public class HomeRegisterActivity extends AppCompatActivity {
+
+public class HomeRegisterActivity extends BaseRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_register);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        try {
+            super.onCreate(savedInstanceState);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
 
     }
+
+    @Override
+    public Fragment getRegisterFragment() {
+        return new HomeRegisterFragment();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return superOnOptionsItemsSelected(item);
+
+    }
+
+    @Override
+    protected void onCreation() {//Do something on creation
+
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Constants.CONFIGURATION.HOME_REGISTER);
+    }
+
+    protected boolean superOnOptionsItemsSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

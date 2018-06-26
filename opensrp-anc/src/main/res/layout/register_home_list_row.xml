@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/register_columns"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:background="#eeeeee"
+    android:orientation="horizontal">
+
+    <include layout="@layout/register_list_row" />
+
+    <LinearLayout
+        android:id="@+id/identifier_column"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_weight="2.4"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/opensrp_id"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center_horizontal"
+            android:paddingLeft="0dp"
+            android:text="1029283"
+            android:textColor="@color/dark_grey_text"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dose_column"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_weight="2.8"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="2dp">
+
+        <Button
+            android:id="@+id/dose_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:background="@color/vaccine_blue_bg_st"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:minWidth="250dp"
+            android:padding="5dp"
+            android:text="D2 Due\n 23/11/14\nD1: 23/05/14"
+            android:textAllCaps="false"
+            android:textColor="@color/status_bar_text_almost_white"
+            android:textSize="15sp"
+            android:typeface="normal" />
+
+        <LinearLayout
+            android:id="@+id/completedView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/completedTextView" />
+
+            <TextView
+                android:id="@+id/completedTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:paddingTop="0dp"
+                android:text="@string/complete"
+                android:textAllCaps="false"
+                android:textColor="@color/dark_grey_text"
+                android:textSize="13sp"
+                android:typeface="normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
