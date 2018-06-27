@@ -17,6 +17,7 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.receiver.AlarmReceiver;
+import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
@@ -69,6 +70,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         CoreLibrary.init(context);
         ConfigurableViewsLibrary.init(context, getRepository());
 
+        SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
 

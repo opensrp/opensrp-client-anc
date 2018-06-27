@@ -28,6 +28,9 @@ public class Constants {
 
     public static final class EventType {
         public static final String REGISTRATION = "ANC Registration";
+        public static final String UPDATE_REGISTRATION = "Update Registration";
+        public static final String CLOSE = "ANC Close";
+
     }
 
     public enum State {
