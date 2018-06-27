@@ -25,12 +25,14 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.event.SyncEvent;
+import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.servicemode.CustomServiceModeOption;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -69,7 +71,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private String viewConfigurationIdentifier;
 
-    //private LocationPickerView facilitySelection;
+    private LocationPickerView facilitySelection;
 
     private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
     private Snackbar syncStatusSnackbar;
@@ -104,7 +106,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
             @Override
             public String nameInShortFormForTitle() {
-                return context().getStringResource(R.string.anc );
+                return context().getStringResource(R.string.anc);
             }
         };
     }
@@ -233,10 +235,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             initialsTextView.setText(initials);
         }
 
-        /*facilitySelection = view.findViewById(R.id.facility_selection);
+        facilitySelection = view.findViewById(R.id.facility_selection);
         if (facilitySelection != null) {
             facilitySelection.init();
-        }*/
+        }
 
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
         if (syncProgressBar != null) {
@@ -413,7 +415,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         }
     }
 
-    /*protected void updateLocationText() {
+    protected void updateLocationText() {
         if (facilitySelection != null) {
             facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
                     facilitySelection.getSelectedItem()));
@@ -421,11 +423,11 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             context().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
 
         }
-    }*/
+    }
 
-    /*public LocationPickerView getFacilitySelection() {
+    public LocationPickerView getFacilitySelection() {
         return facilitySelection;
-    }*/
+    }
 
 
     private void registerSyncStatusBroadcastReceiver() {

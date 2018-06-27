@@ -58,7 +58,9 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
+    <!-- register -->
     <string name="opensrp_id">OpenSRP ID</string>
     <string name="anc">WHO ANC</string>
+    <string name="error_unable_to_start_form">An error occurred when starting the form</string>
 
 </resources>

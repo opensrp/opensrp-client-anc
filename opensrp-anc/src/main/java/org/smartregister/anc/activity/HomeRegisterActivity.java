@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.presenter.BaseRegisterPresenter;
 import org.smartregister.anc.util.Constants;
 
 import java.util.Arrays;
@@ -41,6 +42,11 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
     @Override
     protected void onCreation() {//Do something on creation
 
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new BaseRegisterPresenter(this);
     }
 
     @Override

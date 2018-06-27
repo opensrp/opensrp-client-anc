@@ -6,6 +6,7 @@ import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.view.LocationPickerView;
 
 /**
  * Created by keyman on 26/06/2018.
@@ -29,9 +30,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         return new String[]{};
     }
 
-    /*public LocationPickerView getLocationPickerView() {
+    public LocationPickerView getLocationPickerView() {
         return getFacilitySelection();
-    }*/
+    }
 
 
 }

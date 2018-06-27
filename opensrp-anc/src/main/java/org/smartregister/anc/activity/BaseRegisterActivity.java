@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,25 +34,21 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.barcode.BarcodeIntentResult;
+import org.smartregister.anc.contract.BaseRegisterContract;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
-import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.presenter.BaseRegisterPresenter;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.DetailsRepository;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
-import java.io.File;
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,7 +58,7 @@ import butterknife.ButterKnife;
  * Created by keyman on 26/06/2018.
  */
 
-public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity {
+public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements BaseRegisterContract.View {
 
     public static final String TAG = BaseRegisterActivity.class.getCanonicalName();
 
@@ -69,42 +68,22 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private final int MINIUM_LANG_COUNT = 2;
 
-
     @Bind(R.id.view_pager)
     protected OpenSRPViewPager mPager;
+
+    protected BaseRegisterPresenter presenter;
+
     private FragmentPagerAdapter mPagerAdapter;
 
     private static final int REQUEST_CODE_GET_JSON = 3432;
-    public static final String EXTRA_CLIENT_DETAILS = "client_details";
-    private CommonPersonObjectClient clientDetails;
 
     private Fragment mBaseFragment = null;
-    ////////////////////////////////////////////////
-    public DetailsRepository detailsRepository;
-    private Map<String, String> details;
-    private static final int REQUEST_TAKE_PHOTO = 1;
-    private File currentfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_register);
         ButterKnife.bind(this);
-
-        Bundle extras = this.getIntent().getExtras();
-        if (extras != null) {
-            Serializable serializable = extras.getSerializable(EXTRA_CLIENT_DETAILS);
-            if (serializable != null && serializable instanceof CommonPersonObjectClient) {
-                clientDetails = (CommonPersonObjectClient) serializable;
-            }
-        }
-
-        /*detailsRepository = detailsRepository == null ? AncApplication.getInstance().getContext().detailsRepository() : detailsRepository;
-        if (clientDetails != null) {
-            details = detailsRepository.getAllDetailsForClient(clientDetails.entityId());
-            Utils.putAll(details, clientDetails.getColumnmaps());
-        }*/
-
 
         Fragment[] otherFragments = {};
 
@@ -116,7 +95,17 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         mPager.setOffscreenPageLimit(otherFragments.length);
         mPager.setAdapter(mPagerAdapter);
 
+        initializePresenter();
+
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy(isChangingConfigurations());
+    }
+
+    protected abstract void initializePresenter();
 
     protected abstract Fragment getRegisterFragment();
 
@@ -136,34 +125,28 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         int id = item.getItemId();
 
         if (id == R.id.action_language) {
-            this.showLanguageDialog();
+            presenter.availableLanguages();
             return true;
         } else if (id == R.id.action_logout) {
-            logOutUser();
+            presenter.logOutUser();
             return true;
 
         } else if (id == R.id.action_sync) {
-
-            TriggerSyncEvent syncEvent = new TriggerSyncEvent();
-            syncEvent.setManualSync(true);
-            AncApplication.getInstance().triggerSync(syncEvent);
-
-            Snackbar syncStatusSnackbar = Snackbar.make(this.getWindow().getDecorView(), R.string.manual_sync_triggered, Snackbar.LENGTH_LONG);
-            syncStatusSnackbar.show();
+            presenter.triggerSync();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void logOutUser() {
-        AncApplication.getInstance().logoutCurrentUser();
+    @Override
+    public void displaySyncNotification() {
+        Snackbar syncStatusSnackbar = Snackbar.make(this.getWindow().getDecorView(), R.string.manual_sync_triggered, Snackbar.LENGTH_LONG);
+        syncStatusSnackbar.show();
     }
 
-    public void showLanguageDialog() {
-
-
-        final List<String> displayValues = ConfigurableViewsLibrary.getJsonSpecHelper().getAvailableLanguages();
+    @Override
+    public void showLanguageDialog(final List<String> displayValues) {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, displayValues.toArray(new String[displayValues.size()])) {
             @Override
@@ -180,10 +163,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String selectedItem = displayValues.get(which);
-                Map<String, String> langs = AncApplication.getJsonSpecHelper().getAvailableLanguagesMap();
-                Utils.saveLanguage(Utils.getKeyByValue(langs, selectedItem));
-                // Utils.postEvent(new LanguageConfigurationEvent(false));
-                Utils.showToast(getApplicationContext(), selectedItem + " selected");
+                presenter.saveLanguage(selectedItem);
                 dialog.dismiss();
             }
         });
@@ -191,6 +171,22 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         final AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public void displayToast(int resourceId) {
+        displayToast(getString(resourceId));
+    }
+
+    @Override
+    public void displayToast(String message) {
+        Utils.showToast(getApplicationContext(), message);
+    }
+
+    @Override
+    public void displayShortToast(int resourceId) {
+        Utils.showShortToast(getApplicationContext(), getString(resourceId));
+    }
+
 
     @Override
     protected DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -213,7 +209,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     protected void onResumption() {
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(getViewIdentifiers());
+        presenter.registerViewConfigurations(getViewIdentifiers());
     }
 
     @Override
@@ -290,11 +286,15 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Override
     protected void onStop() {
         super.onStop();
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(getViewIdentifiers());
+        presenter.unregisterViewConfiguration(getViewIdentifiers());
     }
 
     public abstract List<String> getViewIdentifiers();
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 
     public void startQrCodeScanner() {
         BarcodeIntentIntegrator barcodeIntentIntegrator = new BarcodeIntentIntegrator(this);
@@ -306,14 +306,21 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                //LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();
-                //String locationId = LocationHelper.getInstance().getOpenMrsLocationId(locationPickerView.getSelectedItem());
-                //JsonFormUtils.startForm(this, context(), REQUEST_CODE_GET_JSON, formName, entityId, metaData, locationId);
+                LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();
+                presenter.startForm(formName, entityId, metaData, locationPickerView);
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
+            displayToast(getString(R.string.error_unable_to_start_form));
         }
 
+    }
+
+    @Override
+    public void startFormActivity(JSONObject form) {
+        Intent intent = new Intent(this, JsonFormActivity.class);
+        intent.putExtra("json", form.toString());
+        startActivityForResult(intent, REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -334,13 +341,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
-
-        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            String imageLocation = currentfile.getAbsolutePath();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
-            //JsonFormUtils.saveImage(this, allSharedPreferences.fetchRegisteredANM(), clientDetails.entityId(), imageLocation);
 
         } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE && resultCode == RESULT_OK) {
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);

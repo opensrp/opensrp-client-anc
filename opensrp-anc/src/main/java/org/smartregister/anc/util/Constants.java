@@ -20,6 +20,7 @@ public class Constants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
+    public static final String CURRENT_LOCATION_ID = "CURRENT_LOCATION_ID";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -30,7 +31,11 @@ public class Constants {
         public static final String REGISTRATION = "ANC Registration";
         public static final String UPDATE_REGISTRATION = "Update Registration";
         public static final String CLOSE = "ANC Close";
+    }
 
+    public static class JSON_FORM {
+        public static final String ANC_REGISTRATION = "anc_registration";
+        public static final String ANC_CLOSE = "anc_close";
     }
 
     public enum State {
