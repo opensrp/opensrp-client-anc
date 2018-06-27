@@ -116,6 +116,7 @@
                 android:cursorVisible="true"
                 android:ems="10"
                 android:hint="Password"
+                android:imeActionId="@integer/login"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingLeft="10dp"
@@ -123,8 +124,7 @@
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/login_edit_text_textSize"
-                android:typeface="sans"
-                android:imeActionId="@+id/login" />
+                android:typeface="sans" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -1,5 +1,11 @@
 package org.smartregister.anc.contract;
 
+import android.app.Activity;
+
+import org.smartregister.Context;
+
+import java.lang.ref.WeakReference;
+
 /**
  * Created by ndegwamartin on 22/06/2018.
  */
@@ -10,6 +16,21 @@ public interface LoginContract {
         void attemptLogin(String username, String password);
 
         View getLoginView();
+
+        void onDestroy(boolean isChangingConfiguration);
+
+        String getBuildDate();
+
+        boolean isUserLoggedOut();
+
+        void processViewCustomizations();
+
+        void positionViews();
+
+        void setLanguage();
+
+        Context getOpenSRPContext();
+
     }
 
     interface View {
@@ -32,9 +53,27 @@ public interface LoginContract {
 
         void goToHome(boolean isRemote);
 
-        boolean isPasswordValid(String password);
-
-        boolean isEmptyUsername(String username);
+        Activity getActivityContext();
     }
 
+    interface Interactor {
+
+        void onDestroy(boolean isChangingConfiguration);
+
+        void login(WeakReference<View> view, String userName, String password);
+    }
+
+    interface Model {
+
+        boolean isEmptyUsername(String username);
+
+        boolean isPasswordValid(String password);
+
+        Context getOpenSRPContext();
+
+        String getBuildDate();
+
+        boolean isUserLoggedOut();
+
+    }
 }
