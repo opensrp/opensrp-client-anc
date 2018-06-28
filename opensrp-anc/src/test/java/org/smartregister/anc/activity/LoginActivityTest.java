@@ -77,34 +77,6 @@ public class LoginActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testUnauthorizedUserDialogIsDisplayedWithMissingCredentials() {
-
-        attemptInvalidLogin("", "");
-        assertNotNull(ShadowAlertDialog.getLatestAlertDialog());
-    }
-
-    @Test
-    public void testUnauthorizedUserDialogIsDisplayedWithMissingUserName() {
-
-        attemptInvalidLogin("", "password");
-        assertNotNull(ShadowAlertDialog.getLatestAlertDialog());
-    }
-
-    @Test
-    public void testUnauthorizedUserDialogIsDisplayedWithMissingPassword() {
-
-        attemptInvalidLogin("username", "");
-        assertNotNull(ShadowAlertDialog.getLatestAlertDialog());
-    }
-
-    @Test
-    public void testUnauthorizedUserDialogIsDisplayedWithInvalidCredentials() {
-
-        attemptInvalidLogin("username", "password");
-        assertNotNull(ShadowAlertDialog.getLatestAlertDialog());
-    }
-
-    @Test
     public void testGoToHome() {
 
         try {
@@ -121,23 +93,6 @@ public class LoginActivityTest extends BaseUnitTest {
         Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
         Intent actual = ShadowApplication.getInstance().getNextStartedActivity();
         assertEquals(expectedIntent.getComponent(), actual.getComponent());
-    }
-
-    private void attemptInvalidLogin(String userName, String password) {
-
-        loginActivity = Robolectric.setupActivity(LoginActivity.class);
-        Button loginButton = loginActivity.findViewById(R.id.login_login_btn);
-
-        EditText userNameEditText = Whitebox.getInternalState(loginActivity, "userNameEditText");
-        EditText userPasswordEditText = Whitebox.getInternalState(loginActivity, "passwordEditText");
-
-        userNameEditText.setText(userName);
-        userPasswordEditText.setText(password);
-        try {
-            Whitebox.invokeMethod(loginActivity, LoginActivity.class, "login", loginButton, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void destroyController() {

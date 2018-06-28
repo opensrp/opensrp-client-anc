@@ -204,4 +204,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     public Context getOpenSRPContext() {
         return mLoginModel.getOpenSRPContext();
     }
+
+    //for testing only, setter methods instead?
+    public void setLoginInteractor(LoginContract.Interactor mLoginInteractor) {
+        this.mLoginInteractor = mLoginInteractor;
+    }
+
+    public void setLoginModel(LoginContract.Model mLoginModel) {
+        this.mLoginModel = mLoginModel;
+
+    }
 }
