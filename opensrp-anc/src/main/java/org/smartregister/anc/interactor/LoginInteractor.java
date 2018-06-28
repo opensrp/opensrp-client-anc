@@ -16,6 +16,8 @@ import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.domain.jsonmapping.LoginResponseData;
 import org.smartregister.event.Listener;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.service.UserService;
 
 import java.lang.ref.WeakReference;
 import java.util.TimeZone;
@@ -48,13 +50,13 @@ public class LoginInteractor implements LoginContract.Interactor {
 
     @Override
     public void login(WeakReference<LoginContract.View> view, String userName, String password) {
-        login(view, !mLoginPresenter.getOpenSRPContext().allSharedPreferences().fetchForceRemoteLogin(), userName, password);
+        loginWithLocalFlag(view, !getSharedPreferences().fetchForceRemoteLogin(), userName, password);
     }
 
-    private void login(WeakReference<LoginContract.View> view, boolean localLogin, String userName, String password) {
+    protected void loginWithLocalFlag(WeakReference<LoginContract.View> view, boolean localLogin, String userName, String password) {
 
-        mLoginPresenter.getLoginView().hideKeyboard();
-        mLoginPresenter.getLoginView().enableLoginButton(false);
+        getLoginView().hideKeyboard();
+        getLoginView().enableLoginButton(false);
         if (localLogin) {
             localLogin(view, userName, password);
         } else {
@@ -65,19 +67,19 @@ public class LoginInteractor implements LoginContract.Interactor {
     }
 
     private void localLogin(WeakReference<LoginContract.View> view, String userName, String password) {
-        mLoginPresenter.getLoginView().enableLoginButton(true);
-        if (mLoginPresenter.getOpenSRPContext().userService().isUserInValidGroup(userName, password)
-                && (!Constants.TIME_CHECK || TimeStatus.OK.equals(mLoginPresenter.getOpenSRPContext().userService().validateStoredServerTimeZone()))) {
+        getLoginView().enableLoginButton(true);
+        if (getUserService().isUserInValidGroup(userName, password)
+                && (!Constants.TIME_CHECK || TimeStatus.OK.equals(getUserService().validateStoredServerTimeZone()))) {
             localLoginWith(userName, password);
         } else {
-            login(view, false, userName, password);
+            loginWithLocalFlag(view, false, userName, password);
         }
     }
 
     private void localLoginWith(String userName, String password) {
 
-        mLoginPresenter.getOpenSRPContext().userService().localLogin(userName, password);
-        mLoginPresenter.getLoginView().goToHome(false);
+        getUserService().localLogin(userName, password);
+        getLoginView().goToHome(false);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -93,14 +95,14 @@ public class LoginInteractor implements LoginContract.Interactor {
     private void remoteLogin(final String userName, final String password) {
 
         try {
-            if (!mLoginPresenter.getOpenSRPContext().allSharedPreferences().fetchBaseURL("").isEmpty()) {
+            if (!getSharedPreferences().fetchBaseURL("").isEmpty()) {
                 tryRemoteLogin(userName, password, new Listener<LoginResponse>() {
 
                     public void onEvent(LoginResponse loginResponse) {
-                        mLoginPresenter.getLoginView().enableLoginButton(true);
+                        getLoginView().enableLoginButton(true);
                         if (loginResponse == LoginResponse.SUCCESS) {
-                            if (mLoginPresenter.getOpenSRPContext().userService().isUserInPioneerGroup(userName)) {
-                                TimeStatus timeStatus = mLoginPresenter.getOpenSRPContext().userService().validateDeviceTime(
+                            if (getUserService().isUserInPioneerGroup(userName)) {
+                                TimeStatus timeStatus = getUserService().validateDeviceTime(
                                         loginResponse.payload(), Constants.MAX_SERVER_TIME_DIFFERENCE
                                 );
                                 if (!Constants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
@@ -111,41 +113,41 @@ public class LoginInteractor implements LoginContract.Interactor {
                                     if (timeStatus.equals(TimeStatus.TIMEZONE_MISMATCH)) {
                                         TimeZone serverTimeZone = mLoginPresenter.getOpenSRPContext().userService()
                                                 .getServerTimeZone(loginResponse.payload());
-                                        mLoginPresenter.getLoginView().showErrorDialog(getApplicationContext().getString(timeStatus.getMessage(),
+                                        getLoginView().showErrorDialog(getApplicationContext().getString(timeStatus.getMessage(),
                                                 serverTimeZone.getDisplayName()));
                                     } else {
-                                        mLoginPresenter.getLoginView().showErrorDialog(getApplicationContext().getString(timeStatus.getMessage()));
+                                        getLoginView().showErrorDialog(getApplicationContext().getString(timeStatus.getMessage()));
                                     }
                                 }
                             } else {
                                 // Valid user from wrong group trying to log in
-                                mLoginPresenter.getLoginView().showErrorDialog(getApplicationContext().getString(R.string.unauthorized_group));
+                                getLoginView().showErrorDialog(getApplicationContext().getString(R.string.unauthorized_group));
                             }
                         } else {
                             if (loginResponse == null) {
-                                mLoginPresenter.getLoginView().showErrorDialog("Sorry, your login failed. Please try again");
+                                getLoginView().showErrorDialog("Sorry, your loginWithLocalFlag failed. Please try again");
                             } else {
                                 if (loginResponse == NO_INTERNET_CONNECTIVITY) {
-                                    mLoginPresenter.getLoginView().showErrorDialog(getApplicationContext().getResources().getString(R.string.no_internet_connectivity));
+                                    getLoginView().showErrorDialog(getApplicationContext().getResources().getString(R.string.no_internet_connectivity));
                                 } else if (loginResponse == UNKNOWN_RESPONSE) {
-                                    mLoginPresenter.getLoginView().showErrorDialog(getApplicationContext().getResources().getString(R.string.unknown_response));
+                                    getLoginView().showErrorDialog(getApplicationContext().getResources().getString(R.string.unknown_response));
                                 } else if (loginResponse == UNAUTHORIZED) {
-                                    mLoginPresenter.getLoginView().showErrorDialog(getApplicationContext().getResources().getString(R.string.unauthorized));
+                                    getLoginView().showErrorDialog(getApplicationContext().getResources().getString(R.string.unauthorized));
                                 } else {
-                                    mLoginPresenter.getLoginView().showErrorDialog(loginResponse.message());
+                                    getLoginView().showErrorDialog(loginResponse.message());
                                 }
                             }
                         }
                     }
                 });
             } else {
-                mLoginPresenter.getLoginView().enableLoginButton(true);
-                mLoginPresenter.getLoginView().showErrorDialog("OpenSRP Base URL is missing. Please add it in Setting and try again");
+                getLoginView().enableLoginButton(true);
+                getLoginView().showErrorDialog("OpenSRP Base URL is missing. Please add it in Setting and try again");
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
 
-            mLoginPresenter.getLoginView().showErrorDialog("Error occurred trying to login in. Please try again...");
+            getLoginView().showErrorDialog("Error occurred trying to loginWithLocalFlag in. Please try again...");
         }
     }
 
@@ -153,19 +155,31 @@ public class LoginInteractor implements LoginContract.Interactor {
         if (remoteLoginTask != null && !remoteLoginTask.isCancelled()) {
             remoteLoginTask.cancel(true);
         }
-        remoteLoginTask = new RemoteLoginTask(mLoginPresenter.getLoginView(), userName, password, afterLogincheck);
+        remoteLoginTask = new RemoteLoginTask(getLoginView(), userName, password, afterLogincheck);
         remoteLoginTask.execute();
     }
 
     private void remoteLoginWith(String userName, String password, LoginResponseData userInfo) {
-        mLoginPresenter.getOpenSRPContext().userService().remoteLogin(userName, password, userInfo);
-        mLoginPresenter.getLoginView().goToHome(true);
+        getUserService().remoteLogin(userName, password, userInfo);
+        getLoginView().goToHome(true);
         if (NetworkUtils.isNetworkAvailable()) {
             AlarmReceiver.setAlarm(getApplicationContext(), BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
         }
     }
 
-    private Context getApplicationContext() {
+    public Context getApplicationContext() {
         return AncApplication.getInstance().getApplicationContext();
+    }
+
+    public AllSharedPreferences getSharedPreferences() {
+        return mLoginPresenter.getOpenSRPContext().allSharedPreferences();
+    }
+
+    public LoginContract.View getLoginView() {
+        return mLoginPresenter.getLoginView();
+    }
+
+    public UserService getUserService() {
+        return mLoginPresenter.getOpenSRPContext().userService();
     }
 }

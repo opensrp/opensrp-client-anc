@@ -25,9 +25,6 @@ import static org.mockito.ArgumentMatchers.eq;
  */
 public class LoginPresenterTest extends BaseUnitTest {
 
-    private static final String DUMMY_USERNAME = "myusername";
-    private static final String DUMMY_PASSWORD = "mypassword";
-
     @Mock
     private LoginContract.View view;
 
@@ -45,7 +42,6 @@ public class LoginPresenterTest extends BaseUnitTest {
         presenter = new LoginPresenter(view);
     }
 
-    //testRenderUndoVaccinationButtonShouldNotBeVisibleIfButtonActivateIsFalse
     @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMM yyyy";

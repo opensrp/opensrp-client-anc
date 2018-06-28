@@ -43,7 +43,6 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class LoginActivity extends AppCompatActivity implements LoginContract.View, TextView.OnEditorActionListener, View.OnClickListener {
 
-    private static final String TAG = LoginActivity.class.getName();
     private EditText userNameEditText;
     private EditText passwordEditText;
     private CheckBox showPasswordCheckBox;

@@ -14,4 +14,7 @@ import org.smartregister.anc.application.TestAncApplication;
 @Config(application = TestAncApplication.class, constants = BuildConfig.class, sdk = 22)
 public abstract class BaseUnitTest {
 
+    protected static final String DUMMY_USERNAME = "myusername";
+    protected static final String DUMMY_PASSWORD = "mypassword";
+
 }
