@@ -1,11 +1,9 @@
 package org.smartregister.anc.fragment;
 
 
-import android.view.View;
-
-import org.smartregister.anc.R;
+import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
-import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.view.LocationPickerView;
 
 /**
@@ -15,9 +13,13 @@ import org.smartregister.anc.view.LocationPickerView;
 public class HomeRegisterFragment extends BaseRegisterFragment {
 
     @Override
-    protected void populateClientListHeaderView(View view) {
-        //View headerLayout = getLayoutInflater(null).inflate(R.layout.register_home_list_header, null);
-        //populateClientListHeaderView(view, headerLayout, Constants.CONFIGURATION.HOME_REGISTER_HEADER);
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new RegisterFragmentPresenter(this, context(), viewConfigurationIdentifier);
     }
 
     @Override
@@ -25,14 +27,8 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         return DBQueryHelper.getHomePatientRegisterCondition();
     }
 
-    @Override
-    protected String[] getAdditionalColumns(String tableName) {
-        return new String[]{};
-    }
-
     public LocationPickerView getLocationPickerView() {
         return getFacilitySelection();
     }
-
 
 }

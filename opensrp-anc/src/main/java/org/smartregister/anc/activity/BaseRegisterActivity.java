@@ -34,11 +34,11 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.barcode.BarcodeIntentResult;
-import org.smartregister.anc.contract.BaseRegisterContract;
+import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.presenter.BaseRegisterPresenter;
+import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -58,11 +58,9 @@ import butterknife.ButterKnife;
  * Created by keyman on 26/06/2018.
  */
 
-public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements BaseRegisterContract.View {
+public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements RegisterContract.View {
 
     public static final String TAG = BaseRegisterActivity.class.getCanonicalName();
-
-    public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
     private ProgressDialog progressDialog;
 
@@ -71,7 +69,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @Bind(R.id.view_pager)
     protected OpenSRPViewPager mPager;
 
-    protected BaseRegisterPresenter presenter;
+    protected RegisterPresenter presenter;
 
     private FragmentPagerAdapter mPagerAdapter;
 

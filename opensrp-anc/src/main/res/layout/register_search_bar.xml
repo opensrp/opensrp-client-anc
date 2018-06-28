@@ -10,10 +10,9 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="@dimen/ec_main_header_search_layout_height"
-        android:layout_marginLeft="@dimen/register_status_bar_margin"
-        android:layout_weight="1"
-        android:background="@drawable/search_edit_text_bg"
-        android:paddingLeft="15dp">
+        android:layout_marginLeft="@dimen/register_search_bar_margin"
+        android:layout_marginRight="@dimen/register_search_bar_margin"
+        android:layout_weight="1.24">
 
         <EditText
             android:id="@+id/edt_search"
@@ -21,12 +20,13 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="0dp"
-            android:background="@android:color/transparent"
+            android:background="@android:color/white"
             android:ellipsize="end"
             android:hint="@string/str_search_hint"
             android:maxLines="1"
             android:minWidth="@dimen/ec_main_header_search_box_width"
-            android:textColor="@color/dark_grey"
+            android:padding="@dimen/register_search_bar_padding"
+            android:textColor="@color/light_grey_text"
             android:textColorHint="@color/search_hint_white"
             android:textSize="@dimen/default_font_size_search_bar" />
 
@@ -43,35 +43,38 @@
     </RelativeLayout>
 
 
-    <FrameLayout
-        android:id="@+id/scan_qr_code"
-        style="?android:attr/buttonStyle"
+    <LinearLayout
+        android:id="@+id/search_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/ec_main_header_search_layout_height"
-        android:layout_marginLeft="@dimen/register_status_bar_margin"
-        android:layout_marginRight="@dimen/register_status_bar_margin"
-        android:layout_weight="1"
-        android:background="@drawable/scan_qr_code_bg">
+        android:layout_marginLeft="@dimen/register_search_bar_margin"
+        android:layout_marginRight="@dimen/register_search_bar_min_margin"
+        android:layout_weight="0.38">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:layout_marginLeft="@dimen/register_status_bar_margin"
-            android:background="@android:color/transparent"
-            android:clickable="false"
-            android:drawableLeft="@drawable/ic_action_barcode"
-            android:drawablePadding="2dp"
-            android:focusable="false"
-            android:gravity="center"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingLeft="10dp"
-            android:text="@string/scan_qr_code"
-            android:textAllCaps="false"
-            android:textColor="@color/search_hint_white"
-            android:textSize="@dimen/default_font_size_search_bar" />
-    </FrameLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:background="@drawable/scan_qr_code_bg"
+            android:padding="@dimen/register_search_bar_button_padding"
+            android:src="@drawable/ic_icon_search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/scan_qr_code"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/ec_main_header_search_layout_height"
+        android:layout_marginLeft="@dimen/register_search_bar_min_margin"
+        android:layout_marginRight="@dimen/register_search_bar_margin"
+        android:layout_weight="0.38">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ec_main_header_search_layout_height"
+            android:background="@drawable/scan_qr_code_bg"
+            android:padding="@dimen/register_search_bar_min_padding"
+            android:src="@drawable/ic_action_barcode" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

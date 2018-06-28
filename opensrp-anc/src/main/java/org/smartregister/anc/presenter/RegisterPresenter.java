@@ -7,10 +7,10 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.BaseRegisterContract;
+import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.interactor.BaseRegisterInteractor;
+import org.smartregister.anc.interactor.RegisterInteractor;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
@@ -23,16 +23,16 @@ import java.util.Map;
 /**
  * Created by keyamn on 27/06/2018.
  */
-public class BaseRegisterPresenter implements BaseRegisterContract.Presenter, BaseRegisterContract.InteractorCallBack {
+public class RegisterPresenter implements RegisterContract.Presenter, RegisterContract.InteractorCallBack {
 
-    public static final String TAG = BaseRegisterPresenter.class.getName();
+    public static final String TAG = RegisterPresenter.class.getName();
 
-    private WeakReference<BaseRegisterContract.View> viewReference;
-    private BaseRegisterContract.Interactor interactor;
+    private WeakReference<RegisterContract.View> viewReference;
+    private RegisterContract.Interactor interactor;
 
-    public BaseRegisterPresenter(BaseRegisterContract.View view) {
+    public RegisterPresenter(RegisterContract.View view) {
         viewReference = new WeakReference<>(view);
-        interactor = new BaseRegisterInteractor();
+        interactor = new RegisterInteractor();
     }
 
     @Override
@@ -110,7 +110,7 @@ public class BaseRegisterPresenter implements BaseRegisterContract.Presenter, Ba
     }
 
     @Override
-    public BaseRegisterContract.View getView() {
+    public RegisterContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
         else

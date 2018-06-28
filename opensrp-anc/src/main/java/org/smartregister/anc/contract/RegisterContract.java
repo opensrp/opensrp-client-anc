@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by keyamn on 27/06/2018.
  */
-public class BaseRegisterContract {
+public class RegisterContract {
     public interface Presenter {
 
         void registerViewConfigurations(List<String> viewIdentifiers);
@@ -26,7 +26,7 @@ public class BaseRegisterContract {
 
         void triggerSync();
 
-        BaseRegisterContract.View getView();
+        RegisterContract.View getView();
 
         void startForm(String formName, String entityId, String metatata, LocationPickerView locationPickerView) throws Exception;
 
@@ -54,7 +54,7 @@ public class BaseRegisterContract {
     }
 
     public interface Interactor {
-        void getNextUniqueId(Triple<String, String, String> triple, BaseRegisterContract.InteractorCallBack callBack);
+        void getNextUniqueId(Triple<String, String, String> triple, RegisterContract.InteractorCallBack callBack);
     }
 
     public interface InteractorCallBack {

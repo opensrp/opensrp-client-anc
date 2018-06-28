@@ -5,17 +5,17 @@ import android.support.annotation.VisibleForTesting;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.BaseRegisterContract;
+import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.AppExecutors;
 
 /**
  * Created by keyman 27/06/2018.
  */
-public class BaseRegisterInteractor implements BaseRegisterContract.Interactor {
+public class RegisterInteractor implements RegisterContract.Interactor {
 
 
-    public static final String TAG = BaseRegisterInteractor.class.getName();
+    public static final String TAG = RegisterInteractor.class.getName();
 
     public enum type {SAVED, UPDATED}
 
@@ -23,16 +23,16 @@ public class BaseRegisterInteractor implements BaseRegisterContract.Interactor {
     private AppExecutors appExecutors;
 
     @VisibleForTesting
-    BaseRegisterInteractor(AppExecutors appExecutors) {
+    RegisterInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public BaseRegisterInteractor() {
+    public RegisterInteractor() {
         this(new AppExecutors());
     }
 
     @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple, final BaseRegisterContract.InteractorCallBack callBack) {
+    public void getNextUniqueId(final Triple<String, String, String> triple, final RegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override
