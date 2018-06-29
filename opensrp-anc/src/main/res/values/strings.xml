@@ -62,5 +62,6 @@
     <string name="opensrp_id">OpenSRP ID</string>
     <string name="anc">WHO ANC</string>
     <string name="error_unable_to_start_form">An error occurred when starting the form</string>
+    <string name="filter">FILTER</string>
 
 </resources>

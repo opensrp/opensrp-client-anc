@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -229,6 +230,11 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
                 }
             });
         }
+
+        // Sort and Filter
+        TextView filterStatus = view.findViewById(R.id.filter_status);
+        String text = "<font color=#727272>FILTER</font> <font color=#f0ab41>(1)</font>";
+        filterStatus.setText(Html.fromHtml(text));
     }
 
     @Override
