@@ -25,19 +25,19 @@ public class LoginModelTest extends BaseUnitTest {
 
     @Test
     public void testIsUserLoggedOutShouldReturnTrue() {
-        junit.framework.Assert.assertTrue(model.isUserLoggedOut());
+        Assert.assertTrue(model.isUserLoggedOut());
     }
 
     @Test
     public void testGetOpenSRPContextShouldReturnValidValue() {
-        junit.framework.Assert.assertNotNull(model.getOpenSRPContext());
+        Assert.assertNotNull(model.getOpenSRPContext());
     }
 
     @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMM yyyy";
         String todaysDate = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
-        junit.framework.Assert.assertEquals(todaysDate, model.getBuildDate());
+        Assert.assertEquals(todaysDate, model.getBuildDate());
     }
 
     @Test

@@ -8,7 +8,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.LoginContract;
-import org.smartregister.repository.AllSharedPreferences;
 
 /**
  * Created by ndegwamartin on 27/06/2018.
@@ -19,11 +18,6 @@ public class LoginInteractorTest extends BaseUnitTest {
 
     @Mock
     private LoginContract.Presenter presenter;
-    @Mock
-    private LoginContract.View view;
-
-    @Mock
-    private AllSharedPreferences sharedPreferences;
 
     private static final String FIELD_LOGIN_PRESENTER = "mLoginPresenter";
 
