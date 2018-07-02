@@ -1,0 +1,91 @@
+{
+  "count": "1",
+  "encounter_type": "Close",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Remove From Register",
+    "fields": [
+      {
+        "key": "remove_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "What is the reason for closing? *",
+        "values": [
+          "Live birth",
+          "Stillbirth",
+          "Miscarriage",
+          "Abortion",
+          "Woman died",
+          "Moved away",
+          "False pregnancy",
+          "Lost to follow-up",
+          "Wrong Entry",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Live birth": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Stillbirth": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Miscarriage": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Abortion": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Woman Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Lost to follow-up": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "False Pregnancy": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Wrong entry": "163133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option *"
+        }
+      }
+    ]
+  }
+}
