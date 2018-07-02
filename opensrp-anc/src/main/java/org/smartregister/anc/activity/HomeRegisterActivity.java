@@ -58,5 +58,8 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void updateFilter() {
 
+    }
 }

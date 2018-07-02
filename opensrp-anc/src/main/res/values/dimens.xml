@@ -43,4 +43,5 @@
     <dimen name="loc_picker_service_location_text_item_margin_left">5dp</dimen>
     <dimen name="loc_picker_title_textview_size">19sp</dimen>
 
+    <dimen name="dialog_list_padding_vertical">8dp</dimen>
 </resources>

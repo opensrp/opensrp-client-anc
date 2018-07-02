@@ -1,5 +1,9 @@
 package org.smartregister.anc.contract;
 
+import android.content.Context;
+
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+
 import java.util.Set;
 
 public class RegisterFragmentContract {
@@ -19,6 +23,8 @@ public class RegisterFragmentContract {
         void updateSearchBarHint(String searchBarText);
 
         void updateInitialsText(String initals);
+
+        String getString(int resId);
     }
 
     public interface Presenter {
@@ -31,6 +37,8 @@ public class RegisterFragmentContract {
         void updateInitials();
 
         void startSync();
+
+        RegisterConfiguration getConfig();
 
     }
 

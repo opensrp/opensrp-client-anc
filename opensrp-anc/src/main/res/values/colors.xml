@@ -41,4 +41,5 @@
     <color name="vaccine_na_bg_st">#EFEFEF</color>
     <color name="vaccine_na_bg_end">#ECECEC</color>
 
+    <color name="vaccine_yellow">#F0AB41</color>
 </resources>

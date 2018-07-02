@@ -2,15 +2,19 @@ package org.smartregister.anc.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.Context;
+import org.smartregister.anc.R;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,6 +28,8 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     private String countSelect;
     private String mainSelect;
 
+    private RegisterConfiguration config;
+
 
     private Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     private String viewConfigurationIdentifier;
@@ -32,6 +38,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         this.viewReference = new WeakReference<>(view);
         this.context = context;
         this.viewConfigurationIdentifier = viewConfigurationIdentifier;
+        this.config = defaultRegisterConfiguration();
     }
 
     @Override
@@ -41,13 +48,15 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         }
 
         ViewConfiguration viewConfiguration = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
-        if (viewConfiguration == null)
-            return;
-        RegisterConfiguration config = (RegisterConfiguration) viewConfiguration.getMetadata();
+        if (viewConfiguration != null) {
+            config = (RegisterConfiguration) viewConfiguration.getMetadata();
+            setVisibleColumns(ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(viewConfigurationIdentifier));
+        }
+
         if (config.getSearchBarText() != null && getView() != null) {
             getView().updateSearchBarHint(config.getSearchBarText());
         }
-        setVisibleColumns(ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(viewConfigurationIdentifier));
+
     }
 
     @Override
@@ -114,6 +123,11 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     }
 
     @Override
+    public RegisterConfiguration getConfig() {
+        return config;
+    }
+
+    @Override
     public RegisterFragmentContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
@@ -123,5 +137,35 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     private void setVisibleColumns(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         this.visibleColumns = visibleColumns;
+    }
+
+    private RegisterConfiguration defaultRegisterConfiguration() {
+        RegisterConfiguration config = new RegisterConfiguration();
+        config.setEnableAdvancedSearch(true);
+        config.setEnableFilterList(true);
+        config.setEnableSortList(true);
+        config.setSearchBarText(getView().getString(R.string.search_name_or_id));
+        config.setEnableJsonViews(false);
+
+        List<Field> filers = new ArrayList<>();
+        filers.add(new Field(getView().getString(R.string.has_tasks_due), "has_tasks_due"));
+        filers.add(new Field(getView().getString(R.string.risky_pregnancy), "risky_pregnancy"));
+        filers.add(new Field(getView().getString(R.string.syphilis_positive), "syphilis_positive"));
+        filers.add(new Field(getView().getString(R.string.hiv_positive), "hiv_positive"));
+        filers.add(new Field(getView().getString(R.string.hypertensive), "hypertensive"));
+        config.setFilterFields(filers);
+
+        List<Field> sortFields = new ArrayList<>();
+        sortFields.add(new Field(getView().getString(R.string.updated_recent_first), "updated_at desc"));
+        sortFields.add(new Field(getView().getString(R.string.ga_older_first), "ga asc"));
+        sortFields.add(new Field(getView().getString(R.string.ga_younger_first), "ga desc"));
+        sortFields.add(new Field(getView().getString(R.string.id), "id"));
+        sortFields.add(new Field(getView().getString(R.string.first_name_a_to_z), "first_name asc"));
+        sortFields.add(new Field(getView().getString(R.string.first_name_z_to_a), "first_name desc"));
+        sortFields.add(new Field(getView().getString(R.string.last_name_a_to_z), "last_name asc"));
+        sortFields.add(new Field(getView().getString(R.string.last_name_z_to_a), "last_name desc"));
+        config.setSortFields(sortFields);
+
+        return config;
     }
 }

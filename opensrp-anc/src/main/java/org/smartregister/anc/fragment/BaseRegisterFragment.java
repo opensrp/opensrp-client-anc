@@ -1,5 +1,6 @@
 package org.smartregister.anc.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -57,6 +58,8 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
+
+    public static final String DIALOG_TAG = "DIALOG_TAG";
 
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
@@ -223,9 +226,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             searchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String currentSearchText = getSearchView().getText().toString();
-                    if (StringUtils.isNotBlank(currentSearchText)) {
-                        filter(currentSearchText, "", getMainCondition());
+                    if (getActivity() != null) {
+                        ((BaseRegisterActivity) getActivity()).displayToast("TODO: go to advanced search page");
                     }
                 }
             });
@@ -235,6 +237,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         TextView filterStatus = view.findViewById(R.id.filter_status);
         String text = "<font color=#727272>FILTER</font> <font color=#f0ab41>(1)</font>";
         filterStatus.setText(Html.fromHtml(text));
+        filterStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FilterDialogFragment.launchDialog(getActivity(), presenter.getConfig(), DIALOG_TAG);
+            }
+        });
     }
 
     @Override

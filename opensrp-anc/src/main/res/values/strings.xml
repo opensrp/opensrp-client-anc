@@ -62,6 +62,21 @@
     <string name="opensrp_id">OpenSRP ID</string>
     <string name="anc">WHO ANC</string>
     <string name="error_unable_to_start_form">An error occurred when starting the form</string>
+    <string name="search_name_or_id">Search name or ID</string>
     <string name="filter">FILTER</string>
-
+    <string name="clear_filters">CLEAR FILTERS</string>
+    <string name="apply">APPLY</string>
+    <string name="has_tasks_due">Has tasks due</string>
+    <string name="risky_pregnancy">Risky pregnancy</string>
+    <string name="syphilis_positive">Syphilis pregnancy</string>
+    <string name="hiv_positive">HIV pregnancy</string>
+    <string name="hypertensive">Hypertensive</string>
+    <string name="updated_recent_first">Updated (recent first)</string>
+    <string name="ga_older_first">GA (older first)</string>
+    <string name="ga_younger_first">GA (younger first)</string>
+    <string name="id_sort">ID</string>
+    <string name="first_name_a_to_z">First name (A to Z)</string>
+    <string name="first_name_z_to_a">First name (Z to A)</string>
+    <string name="last_name_a_to_z">Last name (A to Z)</string>
+    <string name="last_name_z_to_a">Last name (Z to A)</string>
 </resources>

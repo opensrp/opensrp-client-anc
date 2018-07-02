@@ -169,7 +169,8 @@
         android:layout_marginRight="8dp"
         android:layout_toRightOf="@+id/top_left_layout"
         android:scaleType="fitXY"
-        android:src="@drawable/separator" />
+        android:src="@drawable/separator"
+        android:visibility="gone" />
 
     <org.smartregister.anc.view.LocationPickerView
         android:id="@+id/facility_selection"
@@ -180,12 +181,12 @@
         android:background="@drawable/transparent_gray_background"
         android:drawableRight="@drawable/ic_arrow_drop_down_white"
         android:gravity="left|center_vertical"
-        android:minWidth="@dimen/loc_picker_text_min_width"
         android:maxWidth="@dimen/loc_picker_text_max_width"
-        android:paddingLeft="0dp"
+        android:minWidth="@dimen/loc_picker_text_min_width"
+        android:paddingLeft="16dp"
         android:paddingRight="8dp"
-        android:textSize="@dimen/loc_picker_title_textview_size"
-        android:text="Bukesa Urban Health Center" />
+        android:text="Bukesa Urban Health Center"
+        android:textSize="@dimen/loc_picker_title_textview_size" />
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/service_mode_selection"

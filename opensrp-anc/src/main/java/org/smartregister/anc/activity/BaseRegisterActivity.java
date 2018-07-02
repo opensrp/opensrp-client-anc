@@ -37,6 +37,7 @@ import org.smartregister.anc.barcode.BarcodeIntentResult;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.fragment.FilterDialogFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Utils;
@@ -58,7 +59,7 @@ import butterknife.ButterKnife;
  * Created by keyman on 26/06/2018.
  */
 
-public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements RegisterContract.View {
+public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements RegisterContract.View, FilterDialogFragment.OnFilterChangedListener {
 
     public static final String TAG = BaseRegisterActivity.class.getCanonicalName();
 
@@ -350,5 +351,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
-
+    @Override
+    public abstract void updateFilter();
 }
