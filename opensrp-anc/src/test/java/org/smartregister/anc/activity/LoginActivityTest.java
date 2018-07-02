@@ -30,8 +30,6 @@ import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by ndegwamartin on 27/06/2018.
@@ -43,25 +41,25 @@ public class LoginActivityTest extends BaseUnitTest {
     private static final String STRING_SETTINGS = "Settings";
 
     @Mock
-    Menu menu;
+    private Menu menu;
 
     @Mock
-    SettingsTestMenuItem menuItem;
+    private SettingsTestMenuItem menuItem;
 
     @Mock
-    LoginContract.Presenter presenter;
+    private LoginContract.Presenter presenter;
 
     @Mock
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @Mock
-    Button loginButton;
+    private Button loginButton;
 
     @Mock
-    TextView textView;
+    private TextView textView;
 
     @Mock
-    KeyEvent keyEvent;
+    private KeyEvent keyEvent;
 
     @Before
     public void setUp() {
@@ -79,14 +77,14 @@ public class LoginActivityTest extends BaseUnitTest {
     public void testUserNameEditTextIsInitialized() {
 
         EditText userNameEditText = Whitebox.getInternalState(loginActivity, "userNameEditText");
-        assertNotNull(userNameEditText);
+        Assert.assertNotNull(userNameEditText);
     }
 
     @Test
     public void testPasswordEditTextIsInitialized() {
 
         EditText userPasswordEditText = Whitebox.getInternalState(loginActivity, "passwordEditText");
-        assertNotNull(userPasswordEditText);
+        Assert.assertNotNull(userPasswordEditText);
     }
 
 
@@ -94,21 +92,21 @@ public class LoginActivityTest extends BaseUnitTest {
     public void testShowPasswordCheckBoxIsInitialized() {
 
         CheckBox showPasswordCheckBox = Whitebox.getInternalState(loginActivity, "showPasswordCheckBox");
-        assertNotNull(showPasswordCheckBox);
+        Assert.assertNotNull(showPasswordCheckBox);
     }
 
     @Test
     public void testProgressDialogIsInitialized() {
 
         ProgressDialog progressDialog = Whitebox.getInternalState(loginActivity, "progressDialog");
-        assertNotNull(progressDialog);
+        Assert.assertNotNull(progressDialog);
     }
 
     @Test
     public void testBuildDetailsAreInitialized() {
 
         TextView buildDetails = loginActivity.findViewById(R.id.login_build_text_view);
-        assertNotNull(buildDetails.getText());
+        Assert.assertNotNull(buildDetails.getText());
     }
 
     @Test
@@ -139,7 +137,7 @@ public class LoginActivityTest extends BaseUnitTest {
 
         Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
         Intent actual = ShadowApplication.getInstance().getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test
@@ -340,7 +338,6 @@ public class LoginActivityTest extends BaseUnitTest {
 
         Mockito.verify(presenter).processViewCustomizations();
     }
-
 
     @Test
     public void testGetActivityContextReturnsCorrectInstance() {

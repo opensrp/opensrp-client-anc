@@ -114,35 +114,41 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void positionViews() {
         final ScrollView canvasSV = getLoginView().getActivityContext().findViewById(R.id.canvasSV);
-        final RelativeLayout canvasRL = getLoginView().getActivityContext().findViewById(R.id.login_layout);
-        final LinearLayout logoCanvasLL = getLoginView().getActivityContext().findViewById(R.id.bottom_section);
-        final LinearLayout credentialsCanvasLL = getLoginView().getActivityContext().findViewById(R.id.middle_section);
-
         canvasSV.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
             @Override
             public void onGlobalLayout() {
-                canvasSV.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-                int windowHeight = canvasSV.getHeight();
-                int topMargin = (windowHeight / 2)
-                        - (credentialsCanvasLL.getHeight() / 2)
-                        - logoCanvasLL.getHeight();
-                topMargin = topMargin / 2;
-
-                RelativeLayout.LayoutParams logoCanvasLP = (RelativeLayout.LayoutParams) logoCanvasLL.getLayoutParams();
-                logoCanvasLP.setMargins(0, topMargin, 0, 0);
-                logoCanvasLL.setLayoutParams(logoCanvasLP);
-
-                canvasRL.setMinimumHeight(windowHeight);
+                canvasGlobalLayoutListenerProcessor(canvasSV, this);
             }
+
         });
+    }
+
+
+    protected void canvasGlobalLayoutListenerProcessor(ScrollView canvasSV, ViewTreeObserver.OnGlobalLayoutListener layoutListener) {
+        final RelativeLayout canvasRL = getLoginView().getActivityContext().findViewById(R.id.login_layout);
+        final LinearLayout logoCanvasLL = getLoginView().getActivityContext().findViewById(R.id.bottom_section);
+        final LinearLayout credentialsCanvasLL = getLoginView().getActivityContext().findViewById(R.id.middle_section);
+
+        canvasSV.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
+
+        int windowHeight = canvasSV.getHeight();
+        int topMargin = (windowHeight / 2)
+                - (credentialsCanvasLL.getHeight() / 2)
+                - logoCanvasLL.getHeight();
+        topMargin = topMargin / 2;
+
+        RelativeLayout.LayoutParams logoCanvasLP = (RelativeLayout.LayoutParams) logoCanvasLL.getLayoutParams();
+        logoCanvasLP.setMargins(0, topMargin, 0, 0);
+        logoCanvasLL.setLayoutParams(logoCanvasLP);
+
+        canvasRL.setMinimumHeight(windowHeight);
     }
 
     @Override
     public void processViewCustomizations() {
         try {
-            String jsonString = Utils.getPreference(getLoginView().getActivityContext(), Constants.VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN, null);
+            String jsonString = getJsonViewFromPreference(Constants.VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN);
             if (jsonString == null) {
                 return;
             }
@@ -213,5 +219,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void setLoginModel(LoginContract.Model mLoginModel) {
         this.mLoginModel = mLoginModel;
 
+    }
+
+    protected String getJsonViewFromPreference(String viewKey) {
+        return Utils.getPreference(getLoginView().getActivityContext(), viewKey, null);
     }
 }

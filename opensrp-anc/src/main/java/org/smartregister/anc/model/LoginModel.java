@@ -27,7 +27,7 @@ public class LoginModel implements LoginContract.Model {
 
     @Override
     public boolean isEmptyUsername(String username) {
-        return TextUtils.isEmpty(username);
+        return username == null || TextUtils.isEmpty(username);
     }
 
     public String getBuildDate() {
