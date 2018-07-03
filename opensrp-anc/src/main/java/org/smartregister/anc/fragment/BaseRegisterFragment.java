@@ -33,6 +33,7 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
 import org.smartregister.cursoradapter.CursorSortOption;
@@ -46,6 +47,7 @@ import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -74,8 +76,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private TextView initialsTextView;
     private ProgressBar syncProgressBar;
-    private TextView filterStatus;
-    private TextView sortStatus;
+    protected TextView filterStatus;
+    protected TextView sortStatus;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -235,12 +237,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         // Sort and Filter
         filterStatus = view.findViewById(R.id.filter_status);
         sortStatus = view.findViewById(R.id.sort_status);
-        filterStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FilterDialogFragment.launchDialog(getActivity(), presenter, DIALOG_TAG);
-            }
-        });
     }
 
     @Override
@@ -304,6 +300,10 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         if (sortStatus != null) {
             sortStatus.setText(Html.fromHtml(sortText));
         }
+    }
+
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+        presenter.updateSortAndFilter(filterList, sortField);
     }
 
     protected final TextWatcher textWatcher = new TextWatcher() {

@@ -34,7 +34,6 @@ public class RegisterFragmentContract {
     }
 
     public interface Presenter {
-        RegisterFragmentContract.View getView();
 
         void processViewConfigurations();
 
@@ -44,13 +43,7 @@ public class RegisterFragmentContract {
 
         void startSync();
 
-        void updateSortAndFilter();
-
-        List<Field> getFilterList();
-
-        Field getSortField();
-
-        RegisterConfiguration getConfig();
+        void updateSortAndFilter(List<Field> filterList, Field sortField);
 
     }
 

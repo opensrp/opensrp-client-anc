@@ -109,8 +109,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         }
     }
 
-    @Override
-    public RegisterContract.View getView() {
+    private RegisterContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
         else

@@ -75,7 +75,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private static final int REQUEST_CODE_GET_JSON = 3432;
 
-    private Fragment mBaseFragment = null;
+    protected BaseRegisterFragment mBaseFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         setContentView(R.layout.activity_base_register);
         ButterKnife.bind(this);
 
-        Fragment[] otherFragments = {};
+        Fragment[] otherFragments = getOtherFragments();
 
         mBaseFragment = getRegisterFragment();
         mBaseFragment.setArguments(this.getIntent().getExtras());
@@ -104,7 +104,9 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     protected abstract void initializePresenter();
 
-    protected abstract Fragment getRegisterFragment();
+    protected abstract BaseRegisterFragment getRegisterFragment();
+
+    protected abstract Fragment[] getOtherFragments();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -347,6 +349,28 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 ((HomeRegisterFragment) mBaseFragment).setSearchTerm(res.getContents());
             } else Log.i("", "NO RESULT FOR QR CODE");
         }
+    }
+
+    public void switchToFragment(final int position) {
+        Log.v("we are here", "switchtofragragment");
+        try {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                mPager.setCurrentItem(position, false);
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPager.setCurrentItem(position, false);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+    }
+
+    public void switchToBaseFragment() {
+        switchToFragment(0);
     }
 
 }

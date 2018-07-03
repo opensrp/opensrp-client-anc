@@ -26,8 +26,6 @@ public class RegisterContract {
 
         void triggerSync();
 
-        RegisterContract.View getView();
-
         void startForm(String formName, String entityId, String metatata, LocationPickerView locationPickerView) throws Exception;
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;

@@ -1,12 +1,9 @@
 package org.smartregister.anc.presenter;
 
-import android.text.Html;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.RegisterFragmentContract;
-import org.smartregister.anc.fragment.FilterDialogFragment;
 import org.smartregister.anc.util.ConfigHelper;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -17,7 +14,6 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -33,10 +29,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     private String mainSelect;
 
     private RegisterConfiguration config;
-
-    private List<Field> filterList = new ArrayList<>();
-    private Field sortField;
-
 
     private Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     private String viewConfigurationIdentifier;
@@ -63,7 +55,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         if (config.getSearchBarText() != null && getView() != null) {
             getView().updateSearchBarHint(config.getSearchBarText());
         }
-
     }
 
     @Override
@@ -130,7 +121,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     }
 
     @Override
-    public void updateSortAndFilter() {
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         String filterText = "<font color=#727272>" + getView().getString(R.string.filter) + "</font> <font color=#f0ab41>(" + filterList.size() + ")</font>";
         String sortText = "";
         if (sortField != null) {
@@ -140,8 +131,8 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         getView().updateFilterAndFilterStatus(filterText, sortText);
     }
 
-    @Override
-    public RegisterFragmentContract.View getView() {
+
+    private RegisterFragmentContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
         else
@@ -150,22 +141,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     private void setVisibleColumns(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         this.visibleColumns = visibleColumns;
-    }
-
-    @Override
-    public RegisterConfiguration getConfig() {
-        return config;
-    }
-
-    public List<Field> getFilterList() {
-        return filterList;
-    }
-
-    public Field getSortField() {
-        if (sortField == null && config != null && config.getSortFields() != null) {
-            sortField = config.getSortFields().get(0);
-        }
-        return sortField;
     }
 
 }

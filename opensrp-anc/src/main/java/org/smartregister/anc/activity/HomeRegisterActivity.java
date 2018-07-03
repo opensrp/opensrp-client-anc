@@ -5,9 +5,14 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.vijay.jsonwizard.mvp.BaseFragment;
+
+import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.configurableviews.model.Field;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +22,8 @@ import java.util.List;
  */
 
 public class HomeRegisterActivity extends BaseRegisterActivity {
+
+    private int SORT_FILTER_POSITION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +36,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
     }
 
     @Override
-    public Fragment getRegisterFragment() {
+    public BaseRegisterFragment getRegisterFragment() {
         return new HomeRegisterFragment();
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new Fragment[]{new SortFilterFragment()};
     }
 
     @Override
@@ -56,5 +68,10 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 
     protected boolean superOnOptionsItemsSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+        mBaseFragment.updateSortAndFilter(filterList, sortField);
+        switchToBaseFragment();
     }
 }
