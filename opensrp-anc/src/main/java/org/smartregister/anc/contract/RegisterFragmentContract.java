@@ -2,8 +2,10 @@ package org.smartregister.anc.contract;
 
 import android.content.Context;
 
+import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 
+import java.util.List;
 import java.util.Set;
 
 public class RegisterFragmentContract {
@@ -25,6 +27,8 @@ public class RegisterFragmentContract {
         void updateInitialsText(String initals);
 
         String getString(int resId);
+
+        void updateFilterAndFilterStatus(String filterText, String sortText);
     }
 
     public interface Presenter {
@@ -37,6 +41,12 @@ public class RegisterFragmentContract {
         void updateInitials();
 
         void startSync();
+
+        void updateSortAndFilter();
+
+        List<Field> getFilterList();
+
+        Field getSortField();
 
         RegisterConfiguration getConfig();
 

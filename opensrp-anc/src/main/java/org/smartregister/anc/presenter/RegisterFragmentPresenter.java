@@ -1,9 +1,12 @@
 package org.smartregister.anc.presenter;
 
+import android.text.Html;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.RegisterFragmentContract;
+import org.smartregister.anc.fragment.FilterDialogFragment;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
@@ -29,6 +32,9 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     private String mainSelect;
 
     private RegisterConfiguration config;
+
+    private List<Field> filterList = new ArrayList<>();
+    private Field sortField;
 
 
     private Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
@@ -123,8 +129,14 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     }
 
     @Override
-    public RegisterConfiguration getConfig() {
-        return config;
+    public void updateSortAndFilter() {
+        String filterText = "<font color=#727272>" + getView().getString(R.string.filter) + "</font> <font color=#f0ab41>(" + filterList.size() + ")</font>";
+        String sortText = "";
+        if (sortField != null) {
+            sortText = "<b>Sort: </b>" + sortField.getDisplayName();
+        }
+
+        getView().updateFilterAndFilterStatus(filterText, sortText);
     }
 
     @Override
@@ -137,6 +149,22 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     private void setVisibleColumns(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         this.visibleColumns = visibleColumns;
+    }
+
+    @Override
+    public RegisterConfiguration getConfig() {
+        return config;
+    }
+
+    public List<Field> getFilterList() {
+        return filterList;
+    }
+
+    public Field getSortField() {
+        if (sortField == null && config != null && config.getSortFields() != null) {
+            sortField = config.getSortFields().get(0);
+        }
+        return sortField;
     }
 
     private RegisterConfiguration defaultRegisterConfiguration() {

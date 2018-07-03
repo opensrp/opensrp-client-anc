@@ -1,6 +1,5 @@
 package org.smartregister.anc.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -75,6 +74,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     private TextView initialsTextView;
     private ProgressBar syncProgressBar;
+    private TextView filterStatus;
+    private TextView sortStatus;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -151,8 +152,6 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         activity.getSupportActionBar().setLogo(R.drawable.round_white_background);
         activity.getSupportActionBar().setDisplayUseLogoEnabled(false);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        initializePresenter();
 
         setupViews(view);
 
@@ -234,13 +233,12 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         }
 
         // Sort and Filter
-        TextView filterStatus = view.findViewById(R.id.filter_status);
-        String text = "<font color=#727272>FILTER</font> <font color=#f0ab41>(1)</font>";
-        filterStatus.setText(Html.fromHtml(text));
+        filterStatus = view.findViewById(R.id.filter_status);
+        sortStatus = view.findViewById(R.id.sort_status);
         filterStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FilterDialogFragment.launchDialog(getActivity(), presenter.getConfig(), DIALOG_TAG);
+                FilterDialogFragment.launchDialog(getActivity(), presenter, DIALOG_TAG);
             }
         });
     }
@@ -297,6 +295,17 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         filterandSortExecute();
     }
 
+    @Override
+    public void updateFilterAndFilterStatus(String filterText, String sortText) {
+        if (filterStatus != null) {
+            filterStatus.setText(Html.fromHtml(filterText));
+        }
+
+        if (sortStatus != null) {
+            sortStatus.setText(Html.fromHtml(sortText));
+        }
+    }
+
     protected final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -330,6 +339,8 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
     @Override
     protected void onCreation() {
+        initializePresenter();
+
         Bundle extras = getActivity().getIntent().getExtras();
         if (extras != null) {
             boolean isRemote = extras.getBoolean(Constants.IS_REMOTE_LOGIN);

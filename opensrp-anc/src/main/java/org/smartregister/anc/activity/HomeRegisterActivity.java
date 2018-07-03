@@ -57,9 +57,4 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
     protected boolean superOnOptionsItemsSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void updateFilter() {
-
-    }
 }

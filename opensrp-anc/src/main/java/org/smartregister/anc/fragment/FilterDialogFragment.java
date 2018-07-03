@@ -5,18 +5,20 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.configurableviews.model.Field;
-import org.smartregister.configurableviews.model.RegisterConfiguration;
 
 import java.util.List;
 
@@ -25,12 +27,13 @@ import java.util.List;
  */
 public class FilterDialogFragment extends DialogFragment {
 
-    private OnFilterChangedListener listener;
-    private RegisterConfiguration configuration;
+    private FilterDialogClickListener actionHandler = new FilterDialogClickListener();
+    private RegisterFragmentContract.Presenter presenter;
+    private BaseAdapter baseAdapter;
 
-    public static FilterDialogFragment newInstance(RegisterConfiguration registerConfiguration) {
+    public static FilterDialogFragment newInstance(RegisterFragmentContract.Presenter presenter) {
         FilterDialogFragment filterDialogFragment = new FilterDialogFragment();
-        filterDialogFragment.setRegisterConfiguration(registerConfiguration);
+        filterDialogFragment.setPresenter(presenter);
         return filterDialogFragment;
     }
 
@@ -49,56 +52,21 @@ public class FilterDialogFragment extends DialogFragment {
                 R.layout.dialog_fragment_filter,
                 container, false);
 
-        updateFilterList(view, configuration.getFilterFields());
+        updateFilterList(view, presenter.getConfig().getFilterFields());
+
+        View apply = view.findViewById(R.id.apply_layout);
+        apply.setOnClickListener(actionHandler);
+
+        View clear = view.findViewById(R.id.clear_filter);
+        clear.setOnClickListener(actionHandler);
+
+        View cancel = view.findViewById(R.id.cancel_filter);
+        cancel.setOnClickListener(actionHandler);
         return view;
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // without a handler, the window sizes itself correctly
-        // but the keyboard does not show up
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                /*Window window = null;
-                if (getDialog() != null) {
-                    window = getDialog().getWindow();
-                }
-
-                if (window == null) {
-                    return;
-                }
-
-                Point size = new Point();
-
-                Display display = window.getWindowManager().getDefaultDisplay();
-                display.getSize(size);
-
-                int width = size.x;
-
-                window.setLayout((int) (width * 0.7), FrameLayout.LayoutParams.WRAP_CONTENT);
-                window.setGravity(Gravity.CENTER);*/
-            }
-        });
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // Verify that the host activity implements the callback interface
-        try {
-            listener = (OnFilterChangedListener) activity;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFilterChangedListener");
-        }
-    }
-
-    public static FilterDialogFragment launchDialog(Activity activity, RegisterConfiguration configuration, String dialogTag) {
-        FilterDialogFragment dialogFragment = FilterDialogFragment.newInstance(configuration);
+    public static FilterDialogFragment launchDialog(Activity activity, RegisterFragmentContract.Presenter presenter, String dialogTag) {
+        FilterDialogFragment dialogFragment = FilterDialogFragment.newInstance(presenter);
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
         Fragment prev = activity.getFragmentManager().findFragmentByTag(dialogTag);
         if (prev != null) {
@@ -111,17 +79,13 @@ public class FilterDialogFragment extends DialogFragment {
         return dialogFragment;
     }
 
-    public void setRegisterConfiguration(RegisterConfiguration registerConfiguration) {
-        this.configuration = registerConfiguration;
-    }
-
     protected <T> void updateFilterList(final View view, final List<Field> filterList) {
 
         if (filterList == null) {
             return;
         }
 
-        BaseAdapter baseAdapter = new BaseAdapter() {
+        baseAdapter = new BaseAdapter() {
             @Override
             public int getCount() {
                 return filterList.size();
@@ -139,7 +103,7 @@ public class FilterDialogFragment extends DialogFragment {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View view;
+                final View view;
                 final LayoutInflater inflater =
                         getActivity().getLayoutInflater();
                 if (convertView == null) {
@@ -151,16 +115,39 @@ public class FilterDialogFragment extends DialogFragment {
                 Field field = filterList.get(position);
 
                 View filterItem = view.findViewById(R.id.filter_item_layout);
-                filterItem.setTag(field.getDbAlias());
-                filterItem.setOnClickListener(new View.OnClickListener() {
+                filterItem.setOnClickListener(actionHandler);
+
+                TextView filterLabel = view.findViewById(R.id.filter_label);
+                filterLabel.setText(field.getDisplayName());
+
+                final List<Field> currentFilters = presenter.getFilterList();
+
+                final CheckBox checkBox = view.findViewById(R.id.filter_check);
+                checkBox.setTag(field);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View v) {
-                        listener.updateFilter();
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        Object tag = buttonView.getTag();
+                        if (tag != null && tag instanceof Field) {
+                            Field currentField = (Field) tag;
+                            if (isChecked) {
+                                if (!currentFilters.contains(currentField)) {
+                                    currentFilters.add(currentField);
+                                }
+                            } else {
+                                if (currentFilters.contains(currentField)) {
+                                    currentFilters.remove(currentField);
+                                }
+                            }
+                        }
                     }
                 });
 
-                TextView filterLabel = filterItem.findViewById(R.id.filter_label);
-                filterLabel.setText(field.getDisplayName());
+                if (currentFilters.contains(field) && !checkBox.isChecked()) {
+                    checkBox.setChecked(true);
+                } else if (!currentFilters.contains(field) && checkBox.isChecked()) {
+                    checkBox.setChecked(false);
+                }
 
                 return view;
             }
@@ -171,11 +158,37 @@ public class FilterDialogFragment extends DialogFragment {
         listView.setAdapter(baseAdapter);
     }
 
+    public void setPresenter(RegisterFragmentContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
-    public interface OnFilterChangedListener {
-        void updateFilter();
+    public class FilterDialogClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+
+            switch (v.getId()) {
+                case R.id.cancel_filter:
+                    dismiss();
+                    break;
+                case R.id.apply_layout:
+                    presenter.updateSortAndFilter();
+                    dismiss();
+                    break;
+                case R.id.clear_filter:
+                    presenter.getFilterList().clear();
+                    baseAdapter.notifyDataSetChanged();
+                    break;
+                case R.id.filter_item_layout:
+                    CheckBox checkBox = v.findViewById(R.id.filter_check);
+                    checkBox.toggle();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

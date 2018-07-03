@@ -110,6 +110,7 @@
         android:background="@color/light_grey" />
 
     <RelativeLayout
+        android:id="@+id/apply_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
@@ -119,7 +120,6 @@
         android:background="@color/vaccine_yellow">
 
         <Button
-            android:id="@+id/button_apply"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
