@@ -24,7 +24,9 @@ public class RegisterFragmentContract {
 
         void updateSearchBarHint(String searchBarText);
 
-        void updateInitialsText(String initals);
+        void updateInitialsText(String initials);
+
+        Context getContext();
 
         String getString(int resId);
 

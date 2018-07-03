@@ -57,6 +57,9 @@ public class FilterDialogFragment extends DialogFragment {
         View apply = view.findViewById(R.id.apply_layout);
         apply.setOnClickListener(actionHandler);
 
+        View buttonApply = view.findViewById(R.id.button_apply);
+        buttonApply.setOnClickListener(actionHandler);
+
         View clear = view.findViewById(R.id.clear_filter);
         clear.setOnClickListener(actionHandler);
 
@@ -175,6 +178,9 @@ public class FilterDialogFragment extends DialogFragment {
                     dismiss();
                     break;
                 case R.id.apply_layout:
+                    v.findViewById(R.id.button_apply).performClick();
+                    break;
+                case R.id.button_apply:
                     presenter.updateSortAndFilter();
                     dismiss();
                     break;
