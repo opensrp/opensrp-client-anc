@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import org.json.JSONObject;
 import org.smartregister.Context;
@@ -14,7 +13,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.R;
 import org.smartregister.util.FormUtils;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +27,15 @@ public class LoginActivity extends AppCompatActivity {
         context.updateApplicationContext(getApplicationContext());
         CoreLibrary.init(context);
 
-        TextView textView = findViewById(R.id.textView);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startFormActivity();
-            }
-        });
+        findViewById(R.id.register).setOnClickListener(this);
+        findViewById(R.id.close).setOnClickListener(this);
     }
 
-    private void startFormActivity() {
+    private void startFormActivity(int form_identifier) {
         try {
             Intent intent = new Intent(this, AncJsonFormActivity.class);
 
-            JSONObject form = FormUtils.getInstance(this).getFormJson("anc_close");
+            JSONObject form = FormUtils.getInstance(this).getFormJson(form_identifier == R.id.close ? "anc_close" : "anc_register");
             if (form != null) {
                 intent.putExtra("json", form.toString());
 
@@ -52,4 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        startFormActivity(view.getId());
+    }
 }
