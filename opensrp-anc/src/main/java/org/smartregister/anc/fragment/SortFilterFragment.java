@@ -1,18 +1,20 @@
 package org.smartregister.anc.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.RadioButton;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,7 @@ import org.smartregister.anc.contract.SortFilterContract;
 import org.smartregister.anc.presenter.SortFilterPresenter;
 import org.smartregister.configurableviews.model.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,12 +34,12 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
 
     private FilterDialogClickListener actionHandler = new FilterDialogClickListener();
     private SortFilterContract.Presenter presenter;
-    private BaseAdapter filterAdapter;
+
+    private FilterAdapter filterAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Black_NoTitleBar);
 
         initializePresenter();
     }
@@ -69,6 +72,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
         return view;
     }
 
+
     private void initializePresenter() {
         presenter = new SortFilterPresenter(this);
     }
@@ -99,174 +103,47 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
             return;
         }
 
-        filterAdapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return filterList.size();
-            }
+        RecyclerView recyclerView = view.findViewById(R.id.filter_recycler_view);
+        recyclerView.setHasFixedSize(true);
 
-            @Override
-            public Object getItem(int position) {
-                return filterList.get(position);
-            }
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
 
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
+        DividerItemDecoration itemDecor = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecor);
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                final View view;
-                final LayoutInflater inflater =
-                        getActivity().getLayoutInflater();
-                if (convertView == null) {
-                    view = inflater.inflate(R.layout.register_filter_item, null);
-                } else {
-                    view = convertView;
-                }
-
-                Field field = filterList.get(position);
-
-                View filterItem = view.findViewById(R.id.filter_item_layout);
-                filterItem.setOnClickListener(actionHandler);
-
-                TextView filterLabel = view.findViewById(R.id.filter_label);
-                filterLabel.setText(field.getDisplayName());
-
-                final List<Field> currentFilters = presenter.getFilterList();
-
-                final CheckBox checkBox = view.findViewById(R.id.filter_check);
-                checkBox.setTag(field);
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Object tag = buttonView.getTag();
-                        if (tag != null && tag instanceof Field) {
-                            Field currentField = (Field) tag;
-                            if (isChecked) {
-                                if (!currentFilters.contains(currentField)) {
-                                    currentFilters.add(currentField);
-                                }
-                            } else {
-                                if (currentFilters.contains(currentField)) {
-                                    currentFilters.remove(currentField);
-                                }
-                            }
-                        }
-                    }
-                });
-
-                if (currentFilters.contains(field) && !checkBox.isChecked()) {
-                    checkBox.setChecked(true);
-                } else if (!currentFilters.contains(field) && checkBox.isChecked()) {
-                    checkBox.setChecked(false);
-                }
-
-                return view;
-            }
-        };
-
-
-        ListView listView = view.findViewById(R.id.filter_list);
-        listView.setAdapter(filterAdapter);
+        filterAdapter = new FilterAdapter(filterList);
+        recyclerView.setAdapter(filterAdapter);
     }
 
     private void updateSortList(final List<Field> sortFields) {
 
+
+        int currentChecked = -1;
+        if (presenter.getSortField() != null) {
+            currentChecked = sortFields.indexOf(presenter.getSortField());
+        }
+        final SortArrayAdapter arrayAdapter = new SortArrayAdapter(getActivity(), sortFields);
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
-
-        final BaseAdapter sortAdapter = new BaseAdapter() {
-
-            RadioButton checkedRadio;
-
+        builderSingle.setSingleChoiceItems(arrayAdapter, currentChecked, new DialogInterface.OnClickListener() {
             @Override
-            public int getCount() {
-                return sortFields.size();
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.setSortField(sortFields.get(which));
             }
-
-            @Override
-            public Object getItem(int position) {
-                return sortFields.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                final View view;
-                final LayoutInflater inflater =
-                        getActivity().getLayoutInflater();
-                if (convertView == null) {
-                    view = inflater.inflate(R.layout.register_sort_item, null);
-                } else {
-                    view = convertView;
-                }
-
-                Field field = sortFields.get(position);
-
-                View filterItem = view.findViewById(R.id.sort_item_layout);
-                filterItem.setOnClickListener(actionHandler);
-
-                TextView filterLabel = view.findViewById(R.id.sort_label);
-                filterLabel.setText(field.getDisplayName());
-
-                final RadioButton radioButton = view.findViewById(R.id.sort_radio);
-                radioButton.setTag(field);
-                radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Object tag = buttonView.getTag();
-                        if (tag != null && tag instanceof Field) {
-                            Field currentField = (Field) tag;
-                            if (isChecked) {
-                                presenter.setSortField(currentField);
-
-                                if (checkedRadio == null) {
-                                    checkedRadio = (RadioButton) buttonView;
-                                    checkedRadio.setChecked(true);
-                                    return;
-                                }
-
-                                if (checkedRadio == buttonView) {
-                                    return;
-                                }
-
-                                checkedRadio.setChecked(false);
-                                buttonView.setChecked(true);
-                                checkedRadio = (RadioButton) buttonView;
-                            }
-                        }
-                    }
-                });
-
-                final Field currentSortField = presenter.getSortField();
-                if (currentSortField != null) {
-                    if (currentSortField.equals(field)) {
-                        radioButton.setChecked(true);
-                        checkedRadio = radioButton;
-                    } else {
-                        radioButton.setChecked(false);
-                    }
-                }
-                return view;
-            }
-        };
+        });
 
         builderSingle.setNegativeButton("DONE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.updateSort();
                 dialog.dismiss();
             }
         });
 
-        builderSingle.setAdapter(sortAdapter, new DialogInterface.OnClickListener() {
+
+        builderSingle.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onDismiss(DialogInterface dialog) {
+                presenter.updateSort();
             }
         });
 
@@ -277,7 +154,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
-    public class FilterDialogClickListener implements View.OnClickListener {
+    private class FilterDialogClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             int id = v.getId();
@@ -293,16 +170,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
                     presenter.updateSortAndFilter();
                     break;
                 case R.id.clear_filter:
-                    presenter.getFilterList().clear();
-                    filterAdapter.notifyDataSetChanged();
-                    break;
-                case R.id.filter_item_layout:
-                    CheckBox checkBox = v.findViewById(R.id.filter_check);
-                    checkBox.toggle();
-                    break;
-                case R.id.sort_item_layout:
-                    RadioButton radioButton = v.findViewById(R.id.sort_radio);
-                    radioButton.toggle();
+                    filterAdapter.clear();
                     break;
                 case R.id.sort_layout:
                     updateSortList(presenter.getConfig().getSortFields());
@@ -310,6 +178,107 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
                 default:
                     break;
             }
+        }
+    }
+
+    private class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder> {
+        private List<Field> filterList;
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public CheckedTextView checkedTextView;
+
+            public ViewHolder(CheckedTextView v) {
+                super(v);
+                checkedTextView = v;
+            }
+        }
+
+        public FilterAdapter(List<Field> filterList) {
+            this.filterList = filterList;
+        }
+
+        @Override
+        public FilterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                           int viewType) {
+            CheckedTextView v = (CheckedTextView) LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.register_filter_item, parent, false);
+
+            ViewHolder vh = new ViewHolder(v);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            Field field = filterList.get(position);
+            holder.checkedTextView.setText(field.getDisplayName());
+            holder.checkedTextView.setTag(field);
+
+            holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((CheckedTextView) v).toggle();
+                    boolean isChecked = ((CheckedTextView) v).isChecked();
+                    Object tag = v.getTag();
+                    if (tag != null && tag instanceof Field) {
+                        Field currentField = (Field) tag;
+                        if (isChecked) {
+                            if (!presenter.getFilterList().contains(currentField)) {
+                                presenter.getFilterList().add(currentField);
+                            }
+                        } else {
+                            if (presenter.getFilterList().contains(currentField)) {
+                                presenter.getFilterList().remove(currentField);
+                            }
+                        }
+
+                    }
+                }
+            });
+
+            if (presenter.getFilterList().contains(field) && !holder.checkedTextView.isChecked()) {
+                holder.checkedTextView.setChecked(true);
+            } else if (!presenter.getFilterList().contains(field) && holder.checkedTextView.isChecked()) {
+                holder.checkedTextView.setChecked(false);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return filterList.size();
+        }
+
+        public void clear() {
+            presenter.getFilterList().clear();
+            notifyDataSetChanged();
+        }
+    }
+
+    private class SortArrayAdapter extends ArrayAdapter<Field> {
+
+        private Context context;
+        private List<Field> list = new ArrayList<>();
+
+        private SortArrayAdapter(@NonNull Context context, @NonNull List<Field> list) {
+            super(context, 0, list);
+            this.context = context;
+            this.list = list;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View view = convertView;
+            if (view == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.register_sort_item, parent, false);
+            }
+
+            Field field = list.get(position);
+
+            TextView text = (TextView) view;
+            text.setTag(field);
+            text.setText(field.getDisplayName());
+
+            return view;
         }
     }
 }

@@ -302,7 +302,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         }
     }
 
-    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+    public void updateSortAndFilter(List<Field> filterList, Field sortField){
         presenter.updateSortAndFilter(filterList, sortField);
     }
 

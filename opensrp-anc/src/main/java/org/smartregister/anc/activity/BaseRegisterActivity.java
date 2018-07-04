@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
@@ -77,6 +78,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     protected BaseRegisterFragment mBaseFragment = null;
 
+    private int currentPage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,14 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mBaseFragment, otherFragments);
         mPager.setOffscreenPageLimit(otherFragments.length);
         mPager.setAdapter(mPagerAdapter);
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+            }
+
+        });
 
         initializePresenter();
     }
@@ -100,6 +111,16 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy(isChangingConfigurations());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (currentPage == 0) {
+            super.onBackPressed();
+        } else {
+            switchToBaseFragment();
+
+        }
     }
 
     protected abstract void initializePresenter();
