@@ -298,11 +298,11 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
         }
 
         if (sortStatus != null) {
-            sortStatus.setText(Html.fromHtml(sortText));
+            sortStatus.setText(Html.fromHtml(totalcount + " patients " + sortText));
         }
     }
 
-    public void updateSortAndFilter(List<Field> filterList, Field sortField){
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         presenter.updateSortAndFilter(filterList, sortField);
     }
 

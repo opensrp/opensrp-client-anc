@@ -32,7 +32,7 @@ public class SortFilterPresenter implements SortFilterContract.Presenter {
     @Override
     public void updateSort() {
         if (sortField != null) {
-            getView().updateSortLabel(sortField.getDisplayName());
+            getView().updateSortLabel("<b>Sort: </b>" + sortField.getDisplayName());
         }
     }
 

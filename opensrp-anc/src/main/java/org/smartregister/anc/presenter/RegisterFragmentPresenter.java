@@ -125,7 +125,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         String filterText = "<font color=#727272>" + getView().getString(R.string.filter) + "</font> <font color=#f0ab41>(" + filterList.size() + ")</font>";
         String sortText = "";
         if (sortField != null) {
-            sortText = "<b>Sort: </b>" + sortField.getDisplayName();
+            sortText = "(Sort: " + sortField.getDisplayName() + ")";
         }
 
         getView().updateFilterAndFilterStatus(filterText, sortText);

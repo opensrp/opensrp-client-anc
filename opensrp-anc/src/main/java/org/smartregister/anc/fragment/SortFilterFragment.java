@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,11 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        presenter.updateSort();
+    }
 
     private void initializePresenter() {
         presenter = new SortFilterPresenter(this);
@@ -93,7 +99,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
     public void updateSortLabel(String sortText) {
         if (getView() != null && StringUtils.isNotBlank(sortText)) {
             TextView sortLabel = getView().findViewById(R.id.sort_label);
-            sortLabel.setText(sortText);
+            sortLabel.setText(Html.fromHtml(sortText));
         }
     }
 
