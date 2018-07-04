@@ -23,7 +23,7 @@
         android:textSize="@dimen/nav_view_text_max_size" />
 
     <Button
-        android:id="@+id/logout_button"
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_gravity="left"

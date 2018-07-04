@@ -85,4 +85,6 @@
     <string name="counseling_resources">Counseling resources</string>
     <string name="site_characteristics">Site characteristics</string>
     <string name="sync_data">Sync data</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
 </resources>

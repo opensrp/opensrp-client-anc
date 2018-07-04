@@ -18,13 +18,7 @@ public class RegisterContract {
 
         void unregisterViewConfiguration(List<String> viewIdentifiers);
 
-        void availableLanguages();
-
         void saveLanguage(String language);
-
-        void logOutUser();
-
-        void triggerSync();
 
         void startForm(String formName, String entityId, String metatata, LocationPickerView locationPickerView) throws Exception;
 

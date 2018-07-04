@@ -3,6 +3,8 @@ package org.smartregister.anc.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -206,7 +208,24 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
 
         // Initials
         initialsTextView = view.findViewById(R.id.name_initials);
+        initialsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                if (!drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
         presenter.updateInitials();
+
+        View topLeftLayout = view.findViewById(R.id.top_left_layout);
+        topLeftLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initialsTextView.performLongClick();
+            }
+        });
 
         // Location
         facilitySelection = view.findViewById(R.id.facility_selection);

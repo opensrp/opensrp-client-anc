@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,14 +10,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -31,7 +33,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.PagerAdapter;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.barcode.BarcodeIntentResult;
@@ -39,6 +40,7 @@ import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.listener.NavigationItemListener;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
@@ -104,6 +106,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         });
 
+        registerSideNav();
         initializePresenter();
     }
 
@@ -123,41 +126,39 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
+    private void registerSideNav() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        BaseActivityToggle toggle = new BaseActivityToggle(this, drawer,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+            }
+        };
+
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationItemListener navigationItemListener = new NavigationItemListener(this);
+
+        drawer.findViewById(R.id.anc_register).setOnClickListener(navigationItemListener);
+        drawer.findViewById(R.id.counseling_resources).setOnClickListener(navigationItemListener);
+        drawer.findViewById(R.id.site_characteristics).setOnClickListener(navigationItemListener);
+        drawer.findViewById(R.id.sync_data).setOnClickListener(navigationItemListener);
+        drawer.findViewById(R.id.logout).setOnClickListener(navigationItemListener);
+    }
+
     protected abstract void initializePresenter();
 
     protected abstract BaseRegisterFragment getRegisterFragment();
 
     protected abstract Fragment[] getOtherFragments();
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_register, menu);
-        if (AncApplication.getJsonSpecHelper().getAvailableLanguages().size() < MINIUM_LANG_COUNT) {
-            invalidateOptionsMenu();
-            MenuItem item = menu.findItem(R.id.action_language);
-            item.setVisible(false);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_language) {
-            presenter.availableLanguages();
-            return true;
-        } else if (id == R.id.action_logout) {
-            presenter.logOutUser();
-            return true;
-
-        } else if (id == R.id.action_sync) {
-            presenter.triggerSync();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void displaySyncNotification() {
@@ -393,5 +394,29 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void switchToBaseFragment() {
         switchToFragment(0);
     }
+
+    ////////////////////////////////////////////////////////////////
+    // Inner classes
+    ////////////////////////////////////////////////////////////////
+    private class BaseActivityToggle extends ActionBarDrawerToggle {
+
+        private BaseActivityToggle(Activity activity, DrawerLayout drawerLayout, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
+            super(activity, drawerLayout, openDrawerContentDescRes, closeDrawerContentDescRes);
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+           /* if (!SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+                updateLastSyncText();
+            }*/
+        }
+
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            super.onDrawerClosed(drawerView);
+        }
+    }
+
 
 }

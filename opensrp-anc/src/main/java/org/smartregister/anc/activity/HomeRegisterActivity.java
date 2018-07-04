@@ -2,11 +2,15 @@ package org.smartregister.anc.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.mvp.BaseFragment;
 
+import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
@@ -52,8 +56,10 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
     }
 
     @Override
-    protected void onCreation() {//Do something on creation
-
+    protected void onResumption() {
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        View ancRegister = drawer.findViewById(R.id.anc_register);
+        ancRegister.setBackgroundColor(getResources().getColor(R.color.tintcolor));
     }
 
     @Override

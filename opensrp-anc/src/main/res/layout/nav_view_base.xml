@@ -59,7 +59,7 @@
                     android:textSize="@dimen/nav_view_text_size" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/coverage_reports_text_view"
+                    android:id="@+id/site_characteristics"
                     style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             </LinearLayout>
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/nav_synctextview"
+                android:id="@+id/sync_data"
                 style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

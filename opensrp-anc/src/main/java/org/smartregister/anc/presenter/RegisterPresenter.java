@@ -46,31 +46,11 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void availableLanguages() {
-        List<String> availableLanguages = ConfigurableViewsLibrary.getJsonSpecHelper().getAvailableLanguages();
-        getView().showLanguageDialog(availableLanguages);
-    }
-
-    @Override
     public void saveLanguage(String language) {
         Map<String, String> langs = AncApplication.getJsonSpecHelper().getAvailableLanguagesMap();
         Utils.saveLanguage(Utils.getKeyByValue(langs, language));
 
         getView().displayToast(language + " selected");
-    }
-
-    @Override
-    public void logOutUser() {
-        AncApplication.getInstance().logoutCurrentUser();
-    }
-
-    @Override
-    public void triggerSync() {
-        TriggerSyncEvent syncEvent = new TriggerSyncEvent();
-        syncEvent.setManualSync(true);
-        AncApplication.getInstance().triggerSync(syncEvent);
-
-        getView().displaySyncNotification();
     }
 
     public void startForm(String formName, String entityId, String metadata, LocationPickerView locationPickerView) throws Exception {
