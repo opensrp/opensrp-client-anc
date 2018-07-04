@@ -1,4 +1,4 @@
-package org.smartregister.anc.widgets;
+package org.smartregister.anc.widget;
 
 import android.content.Context;
 import android.text.InputType;
@@ -38,8 +38,7 @@ public class AncEditTextFactory extends EditTextFactory {
         if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) && jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
-            RelativeLayout rootLayout = (RelativeLayout) LayoutInflater.from(context).inflate(
-                    R.layout.item_edit_text_number_picker, null);
+            RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
 
             attachJson(stepName, context, formFragment, jsonObject, editText);
@@ -89,7 +88,11 @@ public class AncEditTextFactory extends EditTextFactory {
             return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener);
         }
 
+    }
 
+    protected RelativeLayout getRootLayout(Context context) {
+        return (RelativeLayout) LayoutInflater.from(context).inflate(
+                R.layout.item_edit_text_number_picker, null);
     }
 
 }

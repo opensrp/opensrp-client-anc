@@ -4,7 +4,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
-import org.smartregister.anc.widgets.AncEditTextFactory;
+import org.smartregister.anc.widget.AncEditTextFactory;
 
 
 /**

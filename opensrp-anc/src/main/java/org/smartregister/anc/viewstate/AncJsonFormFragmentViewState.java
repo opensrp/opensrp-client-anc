@@ -1,4 +1,4 @@
-package org.smartregister.anc.viewstates;
+package org.smartregister.anc.viewstate;
 
 import android.os.Parcel;
 

@@ -12,7 +12,7 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import org.smartregister.anc.interactor.AncJsonFormInteractor;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.viewstates.AncJsonFormFragmentViewState;
+import org.smartregister.anc.viewstate.AncJsonFormFragmentViewState;
 
 
 /**
