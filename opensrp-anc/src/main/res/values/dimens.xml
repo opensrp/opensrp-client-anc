@@ -43,5 +43,20 @@
     <dimen name="loc_picker_service_location_text_item_margin_left">5dp</dimen>
     <dimen name="loc_picker_title_textview_size">19sp</dimen>
 
+    <dimen name="activity_horizontal_margin">20dp</dimen>
+    <dimen name="activity_vertical_margin">20dp</dimen>
     <dimen name="dialog_list_padding_vertical">8dp</dimen>
+
+    <dimen name="sort_filter_padding">20dp</dimen>
+    <dimen name="sort_filter_text_size">16sp</dimen>
+    <dimen name="sort_filter_drawable_padding">10dp</dimen>
+    <dimen name="sort_filter_apply_margin">30dp</dimen>
+    <dimen name="sort_filter_apply_margin_bottom">15dp</dimen>
+    <dimen name="sort_filter_apply_button_height">60dp</dimen>
+    <dimen name="sort_filter_apply_text_size">20sp</dimen>
+
+    <dimen name="nav_view_text_max_size">21sp</dimen>
+    <dimen name="nav_view_text_size">18sp</dimen>
+    <dimen name="nav_view_text_min_size">16sp</dimen>
+    <dimen name="nav_view_item_padding">18dp</dimen>
 </resources>

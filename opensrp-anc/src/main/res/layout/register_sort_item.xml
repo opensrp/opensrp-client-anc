@@ -5,7 +5,7 @@
     android:layout_height="?android:attr/listPreferredItemHeightSmall"
     android:checkMark="@null"
     android:drawableLeft="?android:attr/listChoiceIndicatorSingle"
-    android:drawablePadding="10dp"
+    android:drawablePadding="@dimen/sort_filter_drawable_padding"
     android:gravity="center_vertical"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"

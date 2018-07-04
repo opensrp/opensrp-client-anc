@@ -18,6 +18,7 @@
     <color name="dark_grey_text">#727272</color>
 
     <color name="search_bar_bg_dark_grey">#494949</color>
+    <color name="logout_bg_grey">#686868</color>
     <color name="search_hint_white">#dbdbdb</color>
 
     <color name="sort_filter_bg_light_grey">#F2F2F2</color>
