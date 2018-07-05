@@ -130,7 +130,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
             currentChecked = sortFields.indexOf(presenter.getSortField());
         }
         final SortArrayAdapter arrayAdapter = new SortArrayAdapter(getActivity(), sortFields);
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext(), R.style.AncAlertDialog);
         builderSingle.setSingleChoiceItems(arrayAdapter, currentChecked, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#208CC5</color>
+    <color name="colorPrimaryDark">#155c82</color>
+    <color name="colorAccent">#203ac5</color>
 
     <color name="customAppThemeBlue">#218CC5</color>
     <color name="customAppThemeDarkest">#272727</color>
     <color name="customAppThemeDark">#373737</color>
     <color name="customAppThemeGray">#EEEEEE</color>
 
-    <color name="actionbar">#208CC5</color>
     <color name="text_color_primary">#737373</color>
 
     <color name="light_grey">#cccccc</color>

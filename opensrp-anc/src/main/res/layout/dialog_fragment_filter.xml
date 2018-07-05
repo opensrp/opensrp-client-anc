@@ -24,7 +24,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                android:background="@color/actionbar">
+                android:background="@color/customAppThemeBlue">
 
                 <ImageButton
                     android:id="@+id/cancel_filter"
@@ -33,7 +33,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@android:color/transparent"
-                    android:paddingLeft="@dimen/sort_filter_padding"
+                    android:paddingLeft="@dimen/sort_filter_drawable_padding"
                     android:paddingRight="@dimen/sort_filter_padding"
                     android:src="@drawable/ic_clear" />
 

@@ -4,7 +4,7 @@
     android:id="@+id/register_nav_bar_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/actionbar"
+    android:background="@color/customAppThemeBlue"
     android:focusableInTouchMode="true"
     tools:showIn="@layout/toolbar_register">
 
@@ -23,7 +23,7 @@
             android:gravity="center"
             android:text="MN"
             android:textAllCaps="true"
-            android:textColor="@color/actionbar"
+            android:textColor="@color/customAppThemeBlue"
             android:textSize="20sp" />
 
         <ProgressBar
