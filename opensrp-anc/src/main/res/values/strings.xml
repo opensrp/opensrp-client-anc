@@ -1,4 +1,61 @@
 <resources>
+    <!-- Actions -->
+    <string name="action_logout">Logout</string>
+    <string name="action_language">Language</string>
+
+    <!-- General -->
     <string name="app_name">ANC</string>
-    <string name="title_activity_login">Login Activity</string>
+    <string name="saving_dialog_title">Saving…</string>
+    <string name="please_wait_message">Please wait</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="str_search_hint">Search name or ID</string>
+    <string name="select_language">Select Language</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+    <string name="alphabetical_sort">Alphabetical (Name)</string>
+    <string name="name">Name</string>
+    <string name="dismiss">Cancel</string>
+    <string name="dose_d">DOSE (D)</string>
+    <string name="id">ID</string>
+    <string name="service_location">Service Location</string>
+    <string name="patient_location">Location: %1$s</string>
+    <string name="dose_given_date">Dose %1$s given %2$s</string>
+
+
+    <string name="unauthorized">Please check the credentials</string>
+    <string name="unauthorized_group">Your user group is not allowed to access this device</string>
+    <string name="unknown_response">login failed. Try later</string>
+    <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
+    <string name="login_text">Log In</string>
+    <string name="show_password_text">Show password</string>
+    <string name="complete">Complete</string>
+    <string name="updating_dialog_title">Updating…</string>
+    <string name="remove_from_register">REMOVE FROM REGISTER</string>
+    <string name="url_separator">/</string>
+    <string name="clients_key">clients</string>
+    <string name="events_key">events</string>
+    <string name="sync">Sync</string>
+    <string name="sync_round_complete">Sync round complete&#8230;</string>
+    <string name="device_timezone_changed">"The device's timezone changed. Please login again."</string>
+    <string name="device_time_changed">"The device's time has changed. Please login again."</string>
+
+    <!-- sync -->
+    <string name="sync_failed_no_internet">Sync failed. Check your internet connection.</string>
+    <string name="syncing">Syncing...</string>
+    <string name="sync_failed">Sync failed</string>
+    <string name="retry">Retry</string>
+    <string name="sync_complete">Sync complete</string>
+    <string name="sync_">Sync%1$s</string>
+    <string name="last_sync">(last %1$s)</string>
+    <string name="manual_sync_triggered">Manual Sync triggered&#8230;</string>
+
+    <!-- login -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_username">This username is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
 </resources>

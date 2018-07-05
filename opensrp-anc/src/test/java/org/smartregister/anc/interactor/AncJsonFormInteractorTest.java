@@ -20,13 +20,12 @@ import java.util.Map;
 @RunWith(RobolectricTestRunner.class)
 public class AncJsonFormInteractorTest {
 
-    private Map<String, FormWidgetFactory> formWidgetFactoryMap;
-
     @Test
     public void testRegisterWidgetsShouldAddCustomChildWidgetsToInteractorMapCorrectly() {
+
         AncJsonFormInteractor jsonFormInteractor = (AncJsonFormInteractor) AncJsonFormInteractor.getInstance();
 
-        formWidgetFactoryMap = Whitebox.getInternalState(jsonFormInteractor, "map");
+        Map<String, FormWidgetFactory> formWidgetFactoryMap = Whitebox.getInternalState(jsonFormInteractor, "map");
         int formWidgetFactoryMapSizeParent = formWidgetFactoryMap.size(); //Get count of widgets added by super class
 
         Map<String, FormWidgetFactory> factoryMapSpy = Mockito.spy(formWidgetFactoryMap);
