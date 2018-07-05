@@ -13,10 +13,6 @@ public class Constants {
 
     public static final String IS_REMOTE_LOGIN = "is_remote_login";
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
-    public static final String ENGLISH_LOCALE = "en";
-    public static final String URDU_LOCALE = "ur";
-    public static final String ENGLISH_LANGUAGE = "English";
-    public static final String URDU_LANGUAGE = "Urdu";
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
@@ -36,14 +32,6 @@ public class Constants {
     public static class JSON_FORM {
         public static final String ANC_REGISTRATION = "anc_registration";
         public static final String ANC_CLOSE = "anc_close";
-    }
-
-    public enum State {
-        DUE,
-        OVERDUE,
-        EXPIRED,
-        INACTIVE,
-        FULLY_IMMUNIZED
     }
 
     public static final class ServiceType {

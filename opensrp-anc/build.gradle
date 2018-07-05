@@ -130,7 +130,7 @@ tasks.withType(Test) {
 
 dependencies {
 
-    implementation('org.smartregister:opensrp-client-native-form:1.2.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.2.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -190,6 +190,8 @@ dependencies {
 
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
+    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+
     // PowerMock
     def powerMockVersion = '1.7.1'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
