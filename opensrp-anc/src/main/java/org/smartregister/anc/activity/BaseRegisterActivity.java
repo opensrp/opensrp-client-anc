@@ -43,6 +43,8 @@ import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.listener.NavigationItemListener;
 import org.smartregister.anc.presenter.RegisterPresenter;
+import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -361,10 +363,10 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
                 JSONObject form = new JSONObject(jsonString);
-                /*if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.REGISTRATION)) {
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.REGISTRATION)) {
 
-                    JsonFormUtils.saveForm(this, AncApplication.getInstance().getContext(), jsonString, allSharedPreferences.fetchRegisteredANM());
-                }*/
+                    //JsonFormUtils.saveForm(this, AncApplication.getInstance().getContext(), jsonString, allSharedPreferences.fetchRegisteredANM());
+                }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }

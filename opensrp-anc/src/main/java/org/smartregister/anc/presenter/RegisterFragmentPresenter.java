@@ -24,7 +24,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     private Context context;
 
-    private String tableName = DBConstants.PATIENT_TABLE_NAME;
+    private String tableName = DBConstants.WOMAN_TABLE_NAME;
     private String countSelect;
     private String mainSelect;
 

@@ -35,7 +35,6 @@ public class Constants {
     }
 
     public static final class ServiceType {
-
         public static final int AUTO_SYNC = 1;
         public static final int PULL_UNIQUE_IDS = 4;
         public static final int IMAGE_UPLOAD = 8;
@@ -43,4 +42,14 @@ public class Constants {
 
     }
 
+    public static final class KEY {
+        public static final String _ID = "_id";
+        public static final String KEY = "key";
+        public static final String VALUE = "value";
+        public static final String TREE = "tree";
+        public static final String DEFAULT = "default";
+        public static final String PHOTO = "photo";
+        public static final String CHILD = "child";
+
+    }
 }

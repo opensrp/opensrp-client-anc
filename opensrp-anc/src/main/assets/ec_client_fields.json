@@ -1,7 +1,7 @@
 {
   "bindobjects": [
     {
-      "name": "ec_patient",
+      "name": "ec_woman",
       "columns": [
         {
           "column_name": "base_entity_id",

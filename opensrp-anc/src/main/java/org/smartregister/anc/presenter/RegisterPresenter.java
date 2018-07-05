@@ -1,6 +1,10 @@
 package org.smartregister.anc.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -8,13 +12,15 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.interactor.RegisterInteractor;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -53,11 +59,13 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         getView().displayToast(language + " selected");
     }
 
+    @Override
     public void startForm(String formName, String entityId, String metadata, LocationPickerView locationPickerView) throws Exception {
         String currentLocationId = getlocationId(locationPickerView);
         startForm(formName, entityId, metadata, currentLocationId);
     }
 
+    @Override
     public void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception {
 
         if (StringUtils.isBlank(entityId)) {
@@ -70,6 +78,82 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         getView().startFormActivity(form);
 
     }
+
+    @Override
+    public void saveForm(String jsonString) {
+
+        try {
+
+            Context context = getView().getContext();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
+            String providerId = allSharedPreferences.fetchRegisteredANM();
+
+            Pair<Client, Event> pair = JsonFormUtils.processRegistration(jsonString, providerId);
+            if (pair == null) {
+                return;
+            }
+
+            Client baseClient = pair.first;
+            Event baseEvent = pair.second;
+
+            /*ECSyncHelper ecUpdater = ECSyncHelper.getInstance(context);
+
+            JsonFormUtils.tagSyncMetadata(baseEvent);
+
+            if (baseClient != null) {
+                JSONObject clientJson = new JSONObject(gson.toJson(baseClient));
+
+
+                if (isEditMode) {
+                    mergeAndSaveClient(context, baseClient);
+                } else {
+
+                    ecUpdater.addClient(baseClient.getBaseEntityId(), clientJson);
+                }
+            }
+
+            if (baseEvent != null) {
+                JSONObject eventJson = new JSONObject(gson.toJson(baseEvent));
+                ecUpdater.addEvent(baseEvent.getBaseEntityId(), eventJson);
+            }
+
+
+            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+
+            if (isEditMode) {
+
+                // Unassign current OPENSRP ID
+                if (baseClient != null) {
+                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.OPENSRP_ID).replace("-", "");
+                    String currentOpenSRPId = getString(jsonForm, CURRENT_OPENSRP_ID).replace("-", "");
+                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
+                        //OPENSRP ID was changed
+                        AncApplication.getInstance().getUniqueIdRepository().open(currentOpenSRPId);
+                    }
+                }
+
+            } else {
+
+                String opensrpId = baseClient.getIdentifier(DBConstants.KEY.OPENSRP_ID);
+                //mark OPENSRP ID as used
+                AncApplication.getInstance().getUniqueIdRepository().close(opensrpId);
+            }
+
+
+            String imageLocation = getFieldValue(fields, imageKey);
+            saveImage(context, providerId, entityId, imageLocation);
+
+            ClientProcessorForJava.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
+            */
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+
 
     private String getlocationId(LocationPickerView locationPickerView) {
         return LocationHelper.getInstance().getOpenMrsLocationId(locationPickerView.getSelectedItem());

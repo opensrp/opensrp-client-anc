@@ -166,7 +166,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     private static String[] getFtsTables() {
-        return new String[]{DBConstants.PATIENT_TABLE_NAME};
+        return new String[]{DBConstants.WOMAN_TABLE_NAME};
     }
 
     private static String[] getFtsSearchFields() {

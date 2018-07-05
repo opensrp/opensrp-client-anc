@@ -173,7 +173,7 @@
           "err": "Please enter the woman's home address"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z0-9\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },

@@ -24,6 +24,8 @@ public class RegisterContract {
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
+        void saveForm(String jsonString);
+
         void onDestroy(boolean isChangingConfiguration);
     }
 
