@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -114,6 +115,11 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy(isChangingConfigurations());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 
     @Override

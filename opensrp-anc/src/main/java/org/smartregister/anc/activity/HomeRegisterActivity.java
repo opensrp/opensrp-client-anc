@@ -27,8 +27,6 @@ import java.util.List;
 
 public class HomeRegisterActivity extends BaseRegisterActivity {
 
-    private int SORT_FILTER_POSITION = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
