@@ -33,12 +33,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (jsonObject.getString(JsonFormUtils.KEY)
-                            .equalsIgnoreCase(DBConstants.KEY.OPENSRP_ID)) {
+                            .equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
                         jsonObject.remove(JsonFormUtils.VALUE);
                         jsonObject.put(JsonFormUtils.VALUE, entityId);
                     }
                 }
-            } else if (Constants.JSON_FORM.ANC_REGISTRATION.equals(formName)) {
+            } else if (Constants.JSON_FORM.ANC_CLOSE.equals(formName)) {
                 if (StringUtils.isNotBlank(entityId)) {
                     // Inject entity id into the remove form
                     form.remove(JsonFormUtils.ENTITY_ID);

@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/opensrp_id"
+            android:id="@+id/anc_id"
             style="@style/CustomFontTextViewStyle.ClientList.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

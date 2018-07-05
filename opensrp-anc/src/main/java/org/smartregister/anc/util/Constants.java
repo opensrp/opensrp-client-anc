@@ -30,7 +30,7 @@ public class Constants {
     }
 
     public static class JSON_FORM {
-        public static final String ANC_REGISTRATION = "anc_registration";
+        public static final String ANC_REGISTRATION = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
     }
 

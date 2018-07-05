@@ -63,6 +63,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         if (StringUtils.isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metadata, currentLocationId);
             interactor.getNextUniqueId(triple, this);
+            return;
         }
 
         JSONObject form = JsonFormUtils.getFormAsJson(getView().getContext(), formName, entityId, currentLocationId);

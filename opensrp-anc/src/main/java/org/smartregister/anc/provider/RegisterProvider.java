@@ -98,7 +98,7 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, View view) {
 
-        fillValue((TextView) view.findViewById(R.id.opensrp_id), org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.OPENSRP_ID, false));
+        fillValue((TextView) view.findViewById(R.id.anc_id), org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false));
     }
 
 

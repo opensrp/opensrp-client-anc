@@ -129,7 +129,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
             public DialogOption[] sortingOptions() {
                 return new DialogOption[]{
                         new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), DBConstants.KEY.FIRST_NAME),
-                        new CursorCommonObjectSort(getResources().getString(R.string.opensrp_id), DBConstants.KEY.OPENSRP_ID)
+                        new CursorCommonObjectSort(getResources().getString(R.string.opensrp_id), DBConstants.KEY.ANC_ID)
                 };
             }
 

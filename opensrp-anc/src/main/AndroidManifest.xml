@@ -56,6 +56,20 @@
             android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/captured_images_path" />
+        </provider>
+
+        <service android:name=".service.intent.PullUniqueIdsIntentService" />
+        <service android:name=".service.AncImageUploadSyncService" />
+
     </application>
 
 </manifest>
