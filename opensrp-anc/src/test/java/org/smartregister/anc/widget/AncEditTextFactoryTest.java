@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.util.DBConstants;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
-public class AncEditTextFactoryTest {
+public class AncEditTextFactoryTest extends BaseUnitTest {
 
     private AncEditTextFactory factory;
 

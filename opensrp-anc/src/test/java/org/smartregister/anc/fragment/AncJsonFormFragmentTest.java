@@ -20,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
+import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.viewstate.AncJsonFormFragmentViewState;
 
@@ -27,8 +28,7 @@ import org.smartregister.anc.viewstate.AncJsonFormFragmentViewState;
  * Created by ndegwamartin on 04/07/2018.
  */
 
-@RunWith(RobolectricTestRunner.class)
-public class AncJsonFormFragmentTest {
+public class AncJsonFormFragmentTest extends BaseUnitTest{
 
     @Mock
     private MenuItem menuItem;

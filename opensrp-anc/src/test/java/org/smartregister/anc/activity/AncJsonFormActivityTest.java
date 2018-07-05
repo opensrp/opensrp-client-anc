@@ -10,8 +10,7 @@ import org.robolectric.RobolectricTestRunner;
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
-@RunWith(RobolectricTestRunner.class)
-public class AncJsonFormActivityTest {
+public class AncJsonFormActivityTest extends BaseUnitTest {
 
     @Test
     public void testInitializeFormFragmentShouldCallInitializeFormFragmentCore() {

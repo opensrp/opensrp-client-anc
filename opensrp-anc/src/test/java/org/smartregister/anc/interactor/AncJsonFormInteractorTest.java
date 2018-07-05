@@ -10,6 +10,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
+import org.smartregister.anc.activity.BaseUnitTest;
 
 import java.util.Map;
 
@@ -17,8 +18,7 @@ import java.util.Map;
  * Created by ndegwamartin on 04/07/2018.
  */
 
-@RunWith(RobolectricTestRunner.class)
-public class AncJsonFormInteractorTest {
+public class AncJsonFormInteractorTest extends BaseUnitTest{
 
     @Test
     public void testRegisterWidgetsShouldAddCustomChildWidgetsToInteractorMapCorrectly() {

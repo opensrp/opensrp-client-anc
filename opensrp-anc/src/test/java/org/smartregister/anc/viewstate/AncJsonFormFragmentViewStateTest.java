@@ -10,11 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.smartregister.anc.activity.BaseUnitTest;
 
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
-public class AncJsonFormFragmentViewStateTest {
+public class AncJsonFormFragmentViewStateTest extends BaseUnitTest {
     @Mock
     private Parcel parcel;
 
