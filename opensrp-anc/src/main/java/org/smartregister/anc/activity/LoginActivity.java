@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -248,11 +249,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         if (syncCompleteEvent != null) {
             logInfo("Refreshing Login View...");
             mLoginPresenter.processViewCustomizations();
+
         }
     }
 
     @Override
     public Activity getActivityContext() {
         return this;
+
     }
 }
