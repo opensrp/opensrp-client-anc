@@ -14,12 +14,10 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricTestRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.viewstate.AncJsonFormFragmentViewState;
@@ -28,7 +26,7 @@ import org.smartregister.anc.viewstate.AncJsonFormFragmentViewState;
  * Created by ndegwamartin on 04/07/2018.
  */
 
-public class AncJsonFormFragmentTest extends BaseUnitTest{
+public class AncJsonFormFragmentTest extends BaseUnitTest {
 
     @Mock
     private MenuItem menuItem;

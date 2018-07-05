@@ -5,11 +5,9 @@ import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
-import org.robolectric.RobolectricTestRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
 
 import java.util.Map;
@@ -18,7 +16,7 @@ import java.util.Map;
  * Created by ndegwamartin on 04/07/2018.
  */
 
-public class AncJsonFormInteractorTest extends BaseUnitTest{
+public class AncJsonFormInteractorTest extends BaseUnitTest {
 
     @Test
     public void testRegisterWidgetsShouldAddCustomChildWidgetsToInteractorMapCorrectly() {

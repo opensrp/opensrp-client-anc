@@ -3,9 +3,7 @@ package org.smartregister.anc.activity;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 
 /**
  * Created by ndegwamartin on 04/07/2018.
