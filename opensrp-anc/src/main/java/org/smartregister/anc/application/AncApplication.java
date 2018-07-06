@@ -16,6 +16,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.receiver.AlarmReceiver;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.repository.AncRepository;
@@ -32,9 +33,12 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
+
+import id.zelory.compressor.Compressor;
 
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
@@ -51,6 +55,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private static CommonFtsObject commonFtsObject;
     private ConfigurableViewsHelper configurableViewsHelper;
     private UniqueIdRepository uniqueIdRepository;
+
+    private ECSyncHelper ecSyncHelper;
+    private Compressor compressor;
+    private ClientProcessorForJava clientProcessorForJava;
 
     private static final String TAG = AncApplication.class.getCanonicalName();
     private String password;
@@ -207,6 +215,26 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return configurableViewsHelper;
     }
 
+    public ECSyncHelper getEcSyncHelper() {
+        if (ecSyncHelper == null) {
+            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+        }
+        return ecSyncHelper;
+    }
+
+    public Compressor getCompressor() {
+        if (compressor == null) {
+            compressor = Compressor.getDefault(getApplicationContext());
+        }
+        return compressor;
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (clientProcessorForJava == null) {
+            clientProcessorForJava = ClientProcessorForJava.getInstance(getApplicationContext());
+        }
+        return clientProcessorForJava;
+    }
 
     private void setUpEventHandling() {
 

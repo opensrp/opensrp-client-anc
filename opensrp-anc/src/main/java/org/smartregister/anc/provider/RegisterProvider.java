@@ -56,7 +56,8 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
 
             return;
         }
-        /* for (org.smartregister.configurableviews.model.View columnView : visibleColumns) {
+
+       /* for (org.smartregister.configurableviews.model.View columnView : visibleColumns) {
             switch (columnView.getIdentifier()) {
                 case ID:
                     populatePatientColumn(pc, client, convertView);
@@ -76,7 +77,7 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
         mapping.put(DOSE, R.id.identifier_column);
         mapping.put(NAME, R.id.dose_column);
         ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
-    */
+        */
     }
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {

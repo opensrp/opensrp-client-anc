@@ -18,6 +18,9 @@ public class Constants {
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
     public static final String CURRENT_LOCATION_ID = "CURRENT_LOCATION_ID";
 
+    public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
+    public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
+
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
@@ -25,7 +28,7 @@ public class Constants {
 
     public static final class EventType {
         public static final String REGISTRATION = "ANC Registration";
-        public static final String UPDATE_REGISTRATION = "Update Registration";
+        public static final String UPDATE_REGISTRATION = "Update ANC Registration";
         public static final String CLOSE = "ANC Close";
     }
 

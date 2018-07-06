@@ -5,11 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -50,7 +48,6 @@ import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
@@ -290,6 +287,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         }
     }
 
+    @Override
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -299,18 +297,17 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             progressDialog.show();
     }
 
+    @Override
     public void hideProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
 
-
     public Fragment findFragmentByPosition(int position) {
         FragmentPagerAdapter fragmentPagerAdapter = mPagerAdapter;
         return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
     }
-
 
     @Override
     protected void onStop() {
@@ -359,13 +356,9 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 String jsonString = data.getStringExtra("json");
                 Log.d("JSONResult", jsonString);
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-                AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.REGISTRATION)) {
-
-                    //JsonFormUtils.saveForm(this, AncApplication.getInstance().getContext(), jsonString, allSharedPreferences.fetchRegisteredANM());
+                    presenter.saveForm(jsonString, Constants.KEY.PHOTO, false);
                 }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
@@ -375,8 +368,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (StringUtils.isNotBlank(res.getContents())) {
                 Log.d("Scanned QR Code", res.getContents());
-                ((HomeRegisterFragment) mBaseFragment).onQRCodeSucessfullyScanned(res.getContents());
-                ((HomeRegisterFragment) mBaseFragment).setSearchTerm(res.getContents());
+                mBaseFragment.onQRCodeSucessfullyScanned(res.getContents());
+                mBaseFragment.setSearchTerm(res.getContents());
             } else Log.i("", "NO RESULT FOR QR CODE");
         }
     }
@@ -425,6 +418,5 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             super.onDrawerClosed(drawerView);
         }
     }
-
 
 }

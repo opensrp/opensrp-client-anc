@@ -1,8 +1,5 @@
 package org.smartregister.anc.presenter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
 
@@ -20,6 +17,7 @@ import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
@@ -80,75 +78,21 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void saveForm(String jsonString) {
+    public void saveForm(String jsonString, String imageKey, boolean isEditMode) {
 
         try {
 
-            Context context = getView().getContext();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            getView().showProgressDialog();
 
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            String providerId = allSharedPreferences.fetchRegisteredANM();
+            AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
 
-            Pair<Client, Event> pair = JsonFormUtils.processRegistration(jsonString, providerId);
+            Pair<Client, Event> pair = JsonFormUtils.processRegistration(jsonString, allSharedPreferences.fetchRegisteredANM());
             if (pair == null) {
                 return;
             }
 
-            Client baseClient = pair.first;
-            Event baseEvent = pair.second;
+            interactor.saveRegistration(pair, jsonString, imageKey, isEditMode, this);
 
-            /*ECSyncHelper ecUpdater = ECSyncHelper.getInstance(context);
-
-            JsonFormUtils.tagSyncMetadata(baseEvent);
-
-            if (baseClient != null) {
-                JSONObject clientJson = new JSONObject(gson.toJson(baseClient));
-
-
-                if (isEditMode) {
-                    mergeAndSaveClient(context, baseClient);
-                } else {
-
-                    ecUpdater.addClient(baseClient.getBaseEntityId(), clientJson);
-                }
-            }
-
-            if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(gson.toJson(baseEvent));
-                ecUpdater.addEvent(baseEvent.getBaseEntityId(), eventJson);
-            }
-
-
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
-            Date lastSyncDate = new Date(lastSyncTimeStamp);
-
-            if (isEditMode) {
-
-                // Unassign current OPENSRP ID
-                if (baseClient != null) {
-                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.OPENSRP_ID).replace("-", "");
-                    String currentOpenSRPId = getString(jsonForm, CURRENT_OPENSRP_ID).replace("-", "");
-                    if (!newOpenSRPId.equals(currentOpenSRPId)) {
-                        //OPENSRP ID was changed
-                        AncApplication.getInstance().getUniqueIdRepository().open(currentOpenSRPId);
-                    }
-                }
-
-            } else {
-
-                String opensrpId = baseClient.getIdentifier(DBConstants.KEY.OPENSRP_ID);
-                //mark OPENSRP ID as used
-                AncApplication.getInstance().getUniqueIdRepository().close(opensrpId);
-            }
-
-
-            String imageLocation = getFieldValue(fields, imageKey);
-            saveImage(context, providerId, entityId, imageLocation);
-
-            ClientProcessorForJava.getInstance(context).processClient(ecUpdater.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
-            */
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
@@ -172,6 +116,12 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             Log.e(TAG, Log.getStackTraceString(e));
             getView().displayToast(R.string.error_unable_to_start_form);
         }
+    }
+
+    @Override
+    public void onRegistrationSaved() {
+        getView().refreshList(FetchStatus.fetched);
+        getView().hideProgressDialog();
     }
 
     private RegisterContract.View getView() {

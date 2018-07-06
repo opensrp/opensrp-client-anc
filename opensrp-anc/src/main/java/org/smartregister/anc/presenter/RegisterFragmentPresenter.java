@@ -114,7 +114,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         return allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
     }
 
-
     @Override
     public void startSync() {
         //ServiceTools.startSyncService(getActivity());
@@ -130,7 +129,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
         getView().updateFilterAndFilterStatus(filterText, sortText);
     }
-
 
     private RegisterFragmentContract.View getView() {
         if (viewReference != null)

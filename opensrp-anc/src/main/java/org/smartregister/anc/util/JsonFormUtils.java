@@ -1,18 +1,34 @@
 package org.smartregister.anc.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.FormUtils;
+import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.UUID;
+
+import id.zelory.compressor.Compressor;
 
 /**
  * Created by keyman on 27/06/2018.
@@ -22,7 +38,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     private static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
-    public static final String ENCOUNTER_LOCATION = "encounter_location";
+
+    public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
 
     public static JSONObject getFormAsJson(Context context,
                                            String formName, String entityId,
@@ -65,16 +82,19 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static Pair<Client, Event> processRegistration(String jsonString, String providerId) {
 
         try {
-            JSONObject jsonForm = new JSONObject(jsonString);
-
-            String entityId = getString(jsonForm, ENTITY_ID);
-            if (StringUtils.isBlank(entityId)) {
-                entityId = generateRandomUUIDString();
+            JSONObject jsonForm = toJSONObject(jsonString);
+            if (jsonForm == null) {
+                return null;
             }
 
             JSONArray fields = fields(jsonForm);
             if (fields == null) {
                 return null;
+            }
+
+            String entityId = getString(jsonForm, ENTITY_ID);
+            if (StringUtils.isBlank(entityId)) {
+                entityId = generateRandomUUIDString();
             }
 
             String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
@@ -92,6 +112,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             FormTag formTag = new FormTag();
             formTag.providerId = providerId;
+            formTag.appVersion = BuildConfig.VERSION_CODE;
+            formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
 
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
@@ -103,5 +125,95 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
+    public static void mergeAndSaveClient(ECSyncHelper ecUpdater, Client baseClient) throws Exception {
+        JSONObject updatedClientJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseClient));
 
+        JSONObject originalClientJsonObject = ecUpdater.getClient(baseClient.getBaseEntityId());
+
+        JSONObject mergedJson = org.smartregister.util.JsonFormUtils.merge(originalClientJsonObject, updatedClientJson);
+
+        //TODO Save edit log ?
+
+        ecUpdater.addClient(baseClient.getBaseEntityId(), mergedJson);
+    }
+
+    public static void saveImage(String providerId, String entityId, String imageLocation) {
+        if (StringUtils.isBlank(imageLocation)) {
+            return;
+        }
+
+        File file = new File(imageLocation);
+
+        if (!file.exists()) {
+            return;
+        }
+
+        Bitmap compressedImageFile = AncApplication.getInstance().getCompressor().compressToBitmap(file);
+        saveStaticImageToDisk(compressedImageFile, providerId, entityId);
+
+    }
+
+    private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
+        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+            return;
+        }
+        OutputStream os = null;
+        try {
+
+            if (entityId != null && !entityId.isEmpty()) {
+                final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
+
+                File outputFile = new File(absoluteFileName);
+                os = new FileOutputStream(outputFile);
+                Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
+                if (compressFormat != null) {
+                    image.compress(compressFormat, 100, os);
+                } else {
+                    throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
+                            + absoluteFileName);
+                }
+                // insert into the db
+                ProfileImage profileImage = new ProfileImage();
+                profileImage.setImageid(UUID.randomUUID().toString());
+                profileImage.setAnmId(providerId);
+                profileImage.setEntityID(entityId);
+                profileImage.setFilepath(absoluteFileName);
+                profileImage.setFilecategory("profilepic");
+                profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                ImageRepository imageRepo = AncApplication.getInstance().getContext().imageRepository();
+                imageRepo.add(profileImage);
+            }
+
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "Failed to save static image to disk");
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    Log.e(TAG, "Failed to close static images output stream after attempting to write image");
+                }
+            }
+        }
+
+    }
+
+    public static String getString(String jsonString, String field) {
+        return getString(toJSONObject(jsonString), field);
+    }
+
+    public static String getFieldValue(String jsonString, String key) {
+        JSONObject jsonForm = toJSONObject(jsonString);
+        if (jsonForm == null) {
+            return null;
+        }
+
+        JSONArray fields = fields(jsonForm);
+        if (fields == null) {
+            return null;
+        }
+
+        return getFieldValue(fields, key);
+
+    }
 }

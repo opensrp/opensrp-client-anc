@@ -21,7 +21,7 @@
           },
           {
             "field": "eventType",
-            "field_value": "Update Registration",
+            "field_value": "Update ANC Registration",
             "creates_case": [
               "ec_woman"
             ]

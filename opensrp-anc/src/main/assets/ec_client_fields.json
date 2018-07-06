@@ -11,10 +11,10 @@
           }
         },
         {
-          "column_name": "opensrp_id",
+          "column_name": "anc_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.OpenSRP_ID"
+            "field": "identifiers.ANC_ID"
           }
         },
         {

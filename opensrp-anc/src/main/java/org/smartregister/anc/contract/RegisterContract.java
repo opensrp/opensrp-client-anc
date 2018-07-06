@@ -1,10 +1,14 @@
 package org.smartregister.anc.contract;
 
 import android.content.Context;
+import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.anc.view.LocationPickerView;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.FetchStatus;
 
 import java.util.List;
 
@@ -24,7 +28,7 @@ public class RegisterContract {
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
-        void saveForm(String jsonString);
+        void saveForm(String jsonString, String imageKey, boolean isEditMode);
 
         void onDestroy(boolean isChangingConfiguration);
     }
@@ -45,15 +49,24 @@ public class RegisterContract {
 
         void startFormActivity(JSONObject form);
 
+        void refreshList(final FetchStatus fetchStatus);
+
+        void showProgressDialog();
+
+        void hideProgressDialog();
     }
 
     public interface Interactor {
         void getNextUniqueId(Triple<String, String, String> triple, RegisterContract.InteractorCallBack callBack);
+
+        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final String imageKey, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack);
     }
 
     public interface InteractorCallBack {
         void onUniqueIdFetched(Triple<String, String, String> triple, String entityId);
 
         void onNoUniqueId();
+
+        void onRegistrationSaved();
     }
 }
