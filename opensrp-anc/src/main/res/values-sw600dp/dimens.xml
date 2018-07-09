@@ -2,4 +2,7 @@
 <resources>
     <dimen name="register_sort_bar_left_padding">20dp</dimen>
     <dimen name="register_sort_bar_right_padding">10dp</dimen>
+    <dimen name="login_horizontal_margin">60dp</dimen>
+    <dimen name="login_logo_top_padding">120dp</dimen>
+    <dimen name="login_middle_section_padding_top">40dp</dimen>
 </resources>
