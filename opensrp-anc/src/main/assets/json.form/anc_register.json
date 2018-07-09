@@ -70,7 +70,7 @@
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "ANC ID *",
-        "value":"0",
+        "value": "0",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
@@ -139,7 +139,28 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "step1:isDateOfBirthUnknown": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
+      },
+      {
+        "key": "isDateOfBirthUnknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "isDateOfBirthUnknown",
+            "text": "DOB unknown?",
+            "value": "false"
+          }
+        ]
       },
       {
         "key": "age",
@@ -158,6 +179,16 @@
         },
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step1:isDateOfBirthUnknown": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the woman's age"
         }
       },
       {

@@ -14,35 +14,6 @@
         android:background="#0092D5"
         android:paddingBottom="@dimen/login_bottom_margin">
 
-        <!-- Bottom section -->
-        <LinearLayout
-            android:id="@+id/bottom_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:paddingTop="150dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingBottom="5dp"
-                android:paddingTop="10dp"
-                android:text="Powered by"
-                android:textAlignment="center"
-                android:textColor="#A6ffffff" />
-
-            <ImageView
-                android:id="@+id/opensrp_logo_image_view"
-                android:layout_width="@dimen/login_opensrp_logo_width"
-                android:layout_height="@dimen/login_opensrp_logo_height"
-                android:layout_gravity="center_horizontal"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_opensrp_logo" />
-        </LinearLayout>
 
         <!-- Top section -->
         <LinearLayout
@@ -71,9 +42,9 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="@dimen/login_text_build_margin"
                 android:gravity="center_horizontal"
-                android:text="build_number"
-                android:textColor="#90c4dc"
-                android:textSize="@dimen/login_build_text_view_textSize"
+                android:text="@string/antenatal_care_module"
+                android:textColor="@color/white"
+                android:textSize="@dimen/login_title_text_size"
                 android:typeface="sans" />
         </LinearLayout>
 
@@ -82,11 +53,11 @@
             android:id="@+id/middle_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@+id/top_section"
             android:orientation="vertical"
             android:paddingLeft="@dimen/login_horizontal_margin"
             android:paddingRight="@dimen/login_horizontal_margin"
-            android:paddingTop="35dp">
+            android:layout_marginTop="@dimen/login_middle_section_padding_top" >
 
             <EditText
                 android:id="@+id/login_user_name_edit_text"
@@ -128,7 +99,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/checkbox_margin_top">
 
                 <CheckBox
@@ -170,7 +141,37 @@
                 android:shadowRadius="0.5"
                 android:text="@string/login_text"
                 android:textColor="#666666"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textAllCaps="true"/>
+        </LinearLayout>
+        <!-- Bottom section -->
+        <LinearLayout
+            android:id="@+id/bottom_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:paddingTop="150dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:text="Powered by"
+                android:textAlignment="center"
+                android:textColor="#A6ffffff" />
+
+            <ImageView
+                android:id="@+id/opensrp_logo_image_view"
+                android:layout_width="@dimen/login_opensrp_logo_width"
+                android:layout_height="@dimen/login_opensrp_logo_height"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_opensrp_logo" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
