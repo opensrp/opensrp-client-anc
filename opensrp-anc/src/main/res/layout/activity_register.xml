@@ -43,12 +43,11 @@
         android:layout_weight="1"
         android:background="@drawable/listview_background_rounded">
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:divider="@color/smart_register_client_divider_color"
-            android:dividerHeight="@dimen/smart_register_client_divider_height"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
             android:visibility="invisible" />
 
         <ProgressBar
@@ -67,6 +66,8 @@
             android:padding="32dp"
             android:text="No Record"
             android:visibility="gone" />
+
+        <include layout="@layout/smart_register_pagination" />
 
     </FrameLayout>
 

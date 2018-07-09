@@ -39,8 +39,8 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
 import org.smartregister.cursoradapter.CursorCommonObjectSort;
 import org.smartregister.cursoradapter.CursorSortOption;
-import org.smartregister.cursoradapter.SecuredNativeSmartRegisterCursorAdapterFragment;
-import org.smartregister.cursoradapter.SmartRegisterPaginatedCursorAdapter;
+import org.smartregister.cursoradapter.RecyclerViewFragment;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
@@ -58,7 +58,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  * Created by keyman on 26/06/2018.
  */
 
-public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCursorAdapterFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
+public abstract class BaseRegisterFragment extends RecyclerViewFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
@@ -290,7 +290,7 @@ public abstract class BaseRegisterFragment extends SecuredNativeSmartRegisterCur
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         RegisterProvider registerProvider = new RegisterProvider(getActivity(), visibleColumns, registerActionHandler);
-        clientAdapter = new SmartRegisterPaginatedCursorAdapter(getActivity(), null, registerProvider, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter(getActivity(), null, registerProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 

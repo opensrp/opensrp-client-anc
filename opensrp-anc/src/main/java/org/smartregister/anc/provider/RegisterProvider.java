@@ -2,6 +2,7 @@ package org.smartregister.anc.provider;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,10 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
-import org.smartregister.cursoradapter.SmartRegisterCLientsProviderForCursorAdapter;
+import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
 import org.smartregister.view.dialog.FilterOption;
@@ -31,7 +31,7 @@ import static org.smartregister.util.Utils.getName;
  * Created by keyman on 26/06/2018.
  */
 
-public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAdapter {
+public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.RegisterViewHolder> {
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
@@ -47,12 +47,12 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
     }
 
     @Override
-    public void getView(Cursor cursor, SmartRegisterClient client, View convertView) {
+    public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder convertView) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, convertView);
-            populateIdentifierColumn(pc, convertView);
-            populateDoseColumn(pc, convertView);
+            //populateIdentifierColumn(pc, convertView);
+            //populateDoseColumn(pc, convertView);
 
             return;
         }
@@ -80,20 +80,20 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
         */
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, View view) {
+    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
         String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
-        fillValue((TextView) view.findViewById(R.id.patient_name), WordUtils.capitalize(patientName));
+        fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
         //fillValue((TextView) view.findViewById(R.id.caretaker_name), WordUtils.capitalize(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CARETAKER_NAME, false)));
 
-        String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        /*String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         fillValue((TextView) view.findViewById(R.id.age), dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString);
 
         View patient = view.findViewById(R.id.patient_column);
-        attachPatientOnclickListener(patient, client);
+        attachPatientOnclickListener(patient, client);*/
     }
 
 
@@ -169,7 +169,7 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
     }
 
     @Override
-    public View inflatelayoutForCursorAdapter() {
+    public RegisterViewHolder createViewHolder() {
         View view;
         view = inflater.inflate(R.layout.register_home_list_row, null);
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
@@ -182,13 +182,28 @@ public class RegisterProvider implements SmartRegisterCLientsProviderForCursorAd
                 return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
             }*/
         }
-        return view;
+
+        return new RegisterViewHolder(view);
     }
 
     public static void fillValue(TextView v, String value) {
         if (v != null)
             v.setText(value);
 
+    }
+
+    ////////////////////////////////////////////////////////////////
+    // Inner classes
+    ////////////////////////////////////////////////////////////////
+
+    public class RegisterViewHolder extends RecyclerView.ViewHolder {
+        public TextView patientName;
+
+        public RegisterViewHolder(View itemView) {
+            super(itemView);
+            patientName = itemView.findViewById(R.id.patient_name);
+
+        }
     }
 
 }
