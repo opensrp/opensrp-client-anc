@@ -39,10 +39,6 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-22
 
-addons:
-  apt_packages:
-  - pandoc
-
 before_script:
   # Emulator Management: Create, Start and Wait
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
@@ -57,9 +53,6 @@ script:
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
   - travis_wait ./gradlew :opensrp-anc:jacocoTestReport coveralls --stacktrace
-
-after_failure:
- - pandoc opensrp-anc/build/reports/tests/index.html -t plain
 
 notifications:
   slack:
