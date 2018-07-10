@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ProfileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/collapsing_toolbar_appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="#218CC5"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:id="@+id/profile_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#218CC5"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax">
+
+                <org.smartregister.anc.view.RoundedImageView
+                    android:id="@+id/imageview_profile"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/profile_image_sample_59" />
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_name"
+                    style="@style/CustomFontTextViewStyle.ClientList.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="0dp"
+                    android:text="Charity Otala"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/activity_title_size" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_child_id"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ID: 07564131"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/activity_sub_title_size" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_age"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="AGE 24"
+                        android:textColor="@color/white" />
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/textview_dob"
+                        style="@style/CustomFontTextViewStyle.ClientList.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="GA: 31 WEEKS"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_profile_registration_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/transparent_white_button"
+                    android:text="@string/registration_info"
+                    tools:text="Registration info"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="@dimen/btn_profile_registration_info_padding"
+                    android:paddingRight="@dimen/btn_profile_registration_info_padding"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_home_register" />
+
+</android.support.design.widget.CoordinatorLayout>

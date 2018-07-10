@@ -65,4 +65,8 @@
 
     <dimen name="register_list_item_height">82dp</dimen>
     <dimen name="register_list_item_margin">15dp</dimen>
+
+    <dimen name="activity_title_size">18sp</dimen>
+    <dimen name="activity_sub_title_size">14sp</dimen>
+    <dimen name="btn_profile_registration_info_padding">14dp</dimen>
 </resources>
