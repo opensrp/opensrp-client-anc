@@ -88,6 +88,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="antenatal_care_module">Antenatal Care \n Module</string>
-
+    <string name="anc_id_text">ID: %1$s</string>
+    <string name="age_text">Age: %1$s</string>
+    <string name="ga_text">GA: %1$s</string>
 
 </resources>

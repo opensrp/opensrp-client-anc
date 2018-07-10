@@ -67,7 +67,11 @@
             android:text="No Record"
             android:visibility="gone" />
 
-        <include layout="@layout/smart_register_pagination" />
+        <include
+            layout="@layout/smart_register_pagination"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/pagination_bar_height"
+            android:layout_gravity="bottom" />
 
     </FrameLayout>
 

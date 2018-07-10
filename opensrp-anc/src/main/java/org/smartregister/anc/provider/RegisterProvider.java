@@ -5,13 +5,18 @@ import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
@@ -51,8 +56,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, convertView);
-            //populateIdentifierColumn(pc, convertView);
-            //populateDoseColumn(pc, convertView);
+            populateIdentifierColumn(pc, convertView);
+            populateDoseColumn(pc, convertView);
 
             return;
         }
@@ -87,23 +92,23 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         String patientName = getName(firstName, lastName);
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
-        //fillValue((TextView) view.findViewById(R.id.caretaker_name), WordUtils.capitalize(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CARETAKER_NAME, false)));
 
-        /*String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-        fillValue((TextView) view.findViewById(R.id.age), dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString);
+        String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+        fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
-        View patient = view.findViewById(R.id.patient_column);
-        attachPatientOnclickListener(patient, client);*/
+        View patient = viewHolder.patientColumn;
+        attachPatientOnclickListener(patient, client);
     }
 
 
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, View view) {
-
-        fillValue((TextView) view.findViewById(R.id.anc_id), org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false));
+    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        String ancId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
+        fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 
 
-    private void populateDoseColumn(CommonPersonObjectClient pc, View view) {
+    private void populateDoseColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
 
 
         /*DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
@@ -174,8 +179,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         view = inflater.inflate(R.layout.register_home_list_row, null);
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
         if (helper.isJsonViewsEnabled()) {
-
-            /*ViewConfiguration viewConfiguration = helper.getViewConfiguration(Constants.CONFIGURATION.HOME_REGISTER_ROW);
+            /*
+            ViewConfiguration viewConfiguration = helper.getViewConfiguration(Constants.CONFIGURATION.HOME_REGISTER_ROW);
             ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
 
             if (viewConfiguration != null) {
@@ -198,11 +203,24 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
         public TextView patientName;
+        public TextView age;
+        public TextView ga;
+        public TextView ancId;
+        public TextView risk;
+        public Button dueButton;
+        public View patientColumn;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
-            patientName = itemView.findViewById(R.id.patient_name);
 
+            patientName = itemView.findViewById(R.id.patient_name);
+            age = itemView.findViewById(R.id.age);
+            ga = itemView.findViewById(R.id.ga);
+            ancId = itemView.findViewById(R.id.anc_id);
+            risk = itemView.findViewById(R.id.risk);
+            dueButton = itemView.findViewById(R.id.due_button);
+
+            patientColumn = itemView.findViewById(R.id.patient_column);
         }
     }
 
