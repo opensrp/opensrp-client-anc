@@ -5,16 +5,13 @@ import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -174,9 +171,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     @Override
-    public RegisterViewHolder createViewHolder() {
+    public RegisterViewHolder createViewHolder(ViewGroup parent) {
         View view;
-        view = inflater.inflate(R.layout.register_home_list_row, null);
+        view = inflater.inflate(R.layout.register_home_list_row, parent, false);
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
         if (helper.isJsonViewsEnabled()) {
             /*

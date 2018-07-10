@@ -62,4 +62,7 @@
 
     <dimen name="login_title_text_size">35sp</dimen>
     <dimen name="login_middle_section_padding_top">20dp</dimen>
+
+    <dimen name="register_list_item_height">82dp</dimen>
+    <dimen name="register_list_item_margin">15dp</dimen>
 </resources>
