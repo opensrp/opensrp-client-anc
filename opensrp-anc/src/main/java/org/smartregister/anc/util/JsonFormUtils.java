@@ -5,7 +5,10 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
+import com.google.gson.JsonObject;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,6 +112,27 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             lastInteractedWith.put(Constants.KEY.KEY, DBConstants.KEY.LAST_INTERACTED_WITH);
             lastInteractedWith.put(Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
             fields.put(lastInteractedWith);
+
+            final String IS_DATE_OF_BIRTH_UNKNOWN = "isDateOfBirthUnknown";
+            final String OPTIONS = "options";
+            final String DOB = "dob";
+            final String AGE = "age";
+
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, IS_DATE_OF_BIRTH_UNKNOWN);
+            JSONArray options = getJSONArray(dobUnknownObject, OPTIONS);
+            JSONObject option = getJSONObject(options, 0);
+            String dobUnKnownString = option != null ? option.getString(VALUE) : null;
+            if (StringUtils.isNotBlank(dobUnKnownString)) {
+                boolean isDateOfBirthUnknown = Boolean.valueOf(dobUnKnownString);
+                if (isDateOfBirthUnknown) {
+                    String ageString = getFieldValue(fields, AGE);
+                    if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
+                        int age = Integer.valueOf(ageString);
+                        JSONObject dobJSONObject = getFieldJSONObject(fields, DOB);
+                        dobJSONObject.put(VALUE, Utils.getDob(age));
+                    }
+                }
+            }
 
             FormTag formTag = new FormTag();
             formTag.providerId = providerId;
@@ -215,5 +239,20 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         return getFieldValue(fields, key);
 
+    }
+
+    public static JSONObject getFieldJSONObject(JSONArray jsonArray, String key) {
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return null;
+        }
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = getJSONObject(jsonArray, i);
+            String keyVal = getString(jsonObject, KEY);
+            if (keyVal != null && keyVal.equals(key)) {
+                return jsonObject;
+            }
+        }
+        return null;
     }
 }

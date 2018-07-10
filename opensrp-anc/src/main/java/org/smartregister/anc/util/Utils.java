@@ -13,6 +13,8 @@ import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.vijay.jsonwizard.widgets.DatePickerFactory;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
@@ -22,6 +24,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.DateUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
@@ -115,6 +118,14 @@ public class Utils {
             }
         }
         return "";
+    }
+
+    public static String getDob(int age) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -age);
+
+        return DatePickerFactory.DATE_FORMAT.format(cal.getTime());
     }
 
     public static int convertDpToPx(Context context, int dp) {
