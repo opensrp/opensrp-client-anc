@@ -55,8 +55,6 @@ public class Utils {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication.getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
-
-
     }
 
 

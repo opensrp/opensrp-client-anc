@@ -7,22 +7,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.interactor.RegisterInteractor;
-import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.util.Utils;
+import org.smartregister.anc.model.RegisterModel;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by keyamn on 27/06/2018.
@@ -33,34 +27,46 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     private WeakReference<RegisterContract.View> viewReference;
     private RegisterContract.Interactor interactor;
+    private RegisterContract.Model model;
 
     public RegisterPresenter(RegisterContract.View view) {
         viewReference = new WeakReference<>(view);
         interactor = new RegisterInteractor();
+        model = new RegisterModel();
+    }
+
+    public void setModel(RegisterContract.Model model) {
+        this.model = model;
+    }
+
+    public void setInteractor(RegisterContract.Interactor interactor) {
+        this.interactor = interactor;
     }
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(viewIdentifiers);
+        model.registerViewConfigurations(viewIdentifiers);
     }
 
     @Override
     public void unregisterViewConfiguration(List<String> viewIdentifiers) {
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(viewIdentifiers);
+        model.unregisterViewConfiguration(viewIdentifiers);
     }
 
     @Override
     public void saveLanguage(String language) {
-        Map<String, String> langs = AncApplication.getJsonSpecHelper().getAvailableLanguagesMap();
-        Utils.saveLanguage(Utils.getKeyByValue(langs, language));
-
+        model.saveLanguage(language);
         getView().displayToast(language + " selected");
     }
 
     @Override
     public void startForm(String formName, String entityId, String metadata, LocationPickerView locationPickerView) throws Exception {
-        String currentLocationId = getlocationId(locationPickerView);
-        startForm(formName, entityId, metadata, currentLocationId);
+        if (locationPickerView == null || StringUtils.isBlank(locationPickerView.getSelectedItem())) {
+            getView().displayToast(R.string.no_location_picker);
+        } else {
+            String currentLocationId = model.getLocationId(locationPickerView.getSelectedItem());
+            startForm(formName, entityId, metadata, currentLocationId);
+        }
     }
 
     @Override
@@ -72,7 +78,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             return;
         }
 
-        JSONObject form = JsonFormUtils.getFormAsJson(getView().getContext(), formName, entityId, currentLocationId);
+        JSONObject form = model.getFormAsJson(formName, entityId, currentLocationId);
         getView().startFormActivity(form);
 
     }
@@ -84,9 +90,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
             getView().showProgressDialog();
 
-            AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-
-            Pair<Client, Event> pair = JsonFormUtils.processRegistration(jsonString, allSharedPreferences.fetchRegisteredANM());
+            Pair<Client, Event> pair = model.processRegistration(jsonString);
             if (pair == null) {
                 return;
             }
@@ -96,11 +100,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-    }
-
-
-    private String getlocationId(LocationPickerView locationPickerView) {
-        return LocationHelper.getInstance().getOpenMrsLocationId(locationPickerView.getSelectedItem());
     }
 
     @Override
@@ -124,15 +123,24 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         getView().hideProgressDialog();
     }
 
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+
+        viewReference = null;//set to null on destroy
+        // Inform interactor
+        interactor.onDestroy(isChangingConfiguration);
+        // Activity destroyed set interactor to null
+        if (!isChangingConfiguration) {
+            interactor = null;
+            model = null;
+        }
+    }
+
     private RegisterContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
         else
             return null;
-    }
-
-    public void onDestroy(boolean isChangingConfiguration) {
-        viewReference = null;//set to null on destroy
     }
 
 }

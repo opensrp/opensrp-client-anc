@@ -141,4 +141,11 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         }
     }
 
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        if (!isChangingConfiguration) {
+            //TODO set presenter or model to null
+        }
+    }
+
 }

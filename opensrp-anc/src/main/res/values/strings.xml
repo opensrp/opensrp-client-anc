@@ -79,6 +79,7 @@
     <string name="first_name_z_to_a">First name (Z to A)</string>
     <string name="last_name_a_to_z">Last name (A to Z)</string>
     <string name="last_name_z_to_a">Last name (Z to A)</string>
+    <string name="no_location_picker">No location selected </string>
 
     <!-- side nav -->
     <string name="anc_clients">ANC clients</string>

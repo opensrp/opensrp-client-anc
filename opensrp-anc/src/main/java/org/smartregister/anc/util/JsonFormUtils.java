@@ -44,42 +44,41 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
 
-    public static JSONObject getFormAsJson(Context context,
+    public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String entityId,
                                            String currentLocationId) throws Exception {
-        JSONObject form = FormUtils.getInstance(context).getFormJson(formName);
-        if (form != null) {
-            form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
-
-            if (Constants.JSON_FORM.ANC_REGISTRATION.equals(formName)) {
-                if (StringUtils.isNotBlank(entityId)) {
-                    entityId = entityId.replace("-", "");
-                }
-
-                // Inject opensrp id into the form
-                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (jsonObject.getString(JsonFormUtils.KEY)
-                            .equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
-                        jsonObject.remove(JsonFormUtils.VALUE);
-                        jsonObject.put(JsonFormUtils.VALUE, entityId);
-                    }
-                }
-            } else if (Constants.JSON_FORM.ANC_CLOSE.equals(formName)) {
-                if (StringUtils.isNotBlank(entityId)) {
-                    // Inject entity id into the remove form
-                    form.remove(JsonFormUtils.ENTITY_ID);
-                    form.put(JsonFormUtils.ENTITY_ID, entityId);
-                }
-            } else {
-                Log.w(TAG, "Unsupported form requested for launch " + formName);
-            }
-            Log.d(TAG, "form is " + form.toString());
-            return form;
+        if (form == null) {
+            return null;
         }
-        return null;
+        form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
+
+        if (Constants.JSON_FORM.ANC_REGISTRATION.equals(formName)) {
+            if (StringUtils.isNotBlank(entityId)) {
+                entityId = entityId.replace("-", "");
+            }
+
+            // Inject opensrp id into the form
+            JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString(JsonFormUtils.KEY)
+                        .equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
+                    jsonObject.remove(JsonFormUtils.VALUE);
+                    jsonObject.put(JsonFormUtils.VALUE, entityId);
+                }
+            }
+        } else if (Constants.JSON_FORM.ANC_CLOSE.equals(formName)) {
+            if (StringUtils.isNotBlank(entityId)) {
+                // Inject entity id into the remove form
+                form.remove(JsonFormUtils.ENTITY_ID);
+                form.put(JsonFormUtils.ENTITY_ID, entityId);
+            }
+        } else {
+            Log.w(TAG, "Unsupported form requested for launch " + formName);
+        }
+        Log.d(TAG, "form is " + form.toString());
+        return form;
     }
 
     public static Pair<Client, Event> processRegistration(String jsonString, String providerId) {
