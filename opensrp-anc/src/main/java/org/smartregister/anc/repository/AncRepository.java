@@ -30,7 +30,13 @@ public class AncRepository extends Repository {
         super.onCreate(database);
         ConfigurableViewsRepository.createTable(database);
         EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+
+        // EventClientRepository.createTable(database, EventClientRepository.Table.address, EventClientRepository.address_column.values());
+        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+        // EventClientRepository.createTable(database, EventClientRepository.Table.obs, EventClientRepository.obs_column.values());
+
         UniqueIdRepository.createTable(database);
 
         //onUpgrade(database, 1, 2);

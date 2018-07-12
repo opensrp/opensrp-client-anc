@@ -3,6 +3,8 @@ package org.smartregister.anc.activity;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.adapter.ViewPagerAdapter;
+import org.smartregister.anc.fragment.ProfileContactsFragment;
+import org.smartregister.anc.fragment.ProfileOverviewFragment;
+import org.smartregister.anc.fragment.ProfileTasksFragment;
 import org.smartregister.anc.util.Utils;
 
 /**
@@ -21,6 +27,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +52,29 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
         appBarLayout.addOnOffsetChangedListener(this);
 
+        tabLayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewpager);
+
+        tabLayout.setupWithViewPager(setupViewPager(viewPager));
+
     }
 
+
+    private ViewPager setupViewPager(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
+        ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
+        ProfileTasksFragment profileTasksFragment = ProfileTasksFragment.newInstance(this.getIntent().getExtras());
+
+        adapter.addFragment(profileOverviewFragment, this.getString(R.string.overview));
+        adapter.addFragment(profileContactsFragment, this.getString(R.string.contacts));
+        adapter.addFragment(profileTasksFragment, this.getString(R.string.tasks));
+
+        viewPager.setAdapter(adapter);
+
+        return viewPager;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

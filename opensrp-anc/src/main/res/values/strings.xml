@@ -94,4 +94,8 @@
     <string name="age_text">Age: %1$s</string>
     <string name="ga_text">GA: %1$s</string>
 
+    <string name="overview">OVERVIEW</string>
+    <string name="contacts">CONTACTS</string>
+    <string name="tasks">TASKS</string>
+
 </resources>

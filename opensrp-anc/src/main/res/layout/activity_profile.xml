@@ -9,7 +9,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/collapsing_toolbar_appbarlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#218CC5">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
@@ -91,13 +92,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/transparent_white_button"
-                    android:text="@string/registration_info"
-                    tools:text="Registration info"
-                    android:paddingTop="0dp"
                     android:paddingBottom="0dp"
                     android:paddingLeft="@dimen/btn_profile_registration_info_padding"
                     android:paddingRight="@dimen/btn_profile_registration_info_padding"
-                    android:textAllCaps="false"/>
+                    android:paddingTop="0dp"
+                    android:text="@string/registration_info"
+                    android:textAllCaps="false"
+                    tools:text="Registration info" />
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
@@ -109,8 +110,20 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#E2E363"
+            app:tabIndicatorHeight="4dp"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator.anc" />
+
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home_register" />
+    <include layout="@layout/content_profile" />
 
 </android.support.design.widget.CoordinatorLayout>
