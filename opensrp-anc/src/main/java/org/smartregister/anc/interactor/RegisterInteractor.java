@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
+import org.smartregister.anc.domain.UniqueId;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.AppExecutors;
@@ -17,8 +18,11 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
+
+import id.zelory.compressor.Compressor;
 
 /**
  * Created by keyman 27/06/2018.
@@ -32,6 +36,14 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
 
     private AppExecutors appExecutors;
+
+    private UniqueIdRepository uniqueIdRepository;
+
+    private ECSyncHelper syncHelper;
+
+    private AllSharedPreferences allSharedPreferences;
+
+    private ClientProcessorForJava clientProcessorForJava;
 
     @VisibleForTesting
     RegisterInteractor(AppExecutors appExecutors) {
@@ -48,8 +60,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                UniqueIdRepository uniqueIdRepo = AncApplication.getInstance().getUniqueIdRepository();
-                final String entityId = uniqueIdRepo.getNextUniqueId() != null ? uniqueIdRepo.getNextUniqueId().getOpenmrsId() : "";
+                UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
+                final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -88,7 +100,6 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, String imageKey, boolean isEditMode) {
 
         try {
-            ECSyncHelper syncHelper = AncApplication.getInstance().getEcSyncHelper();
 
             Client baseClient = pair.first;
             Event baseEvent = pair.second;
@@ -96,15 +107,15 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             if (baseClient != null) {
                 JSONObject clientJson = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(baseClient));
                 if (isEditMode) {
-                    org.smartregister.anc.util.JsonFormUtils.mergeAndSaveClient(syncHelper, baseClient);
+                    org.smartregister.anc.util.JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
                 } else {
-                    syncHelper.addClient(baseClient.getBaseEntityId(), clientJson);
+                    getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
                 }
             }
 
             if (baseEvent != null) {
                 JSONObject eventJson = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(baseEvent));
-                syncHelper.addEvent(baseEvent.getBaseEntityId(), eventJson);
+                getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
             if (isEditMode) {
@@ -114,15 +125,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     String currentOpenSRPId = org.smartregister.anc.util.JsonFormUtils.getString(jsonString, org.smartregister.anc.util.JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
-                        AncApplication.getInstance().getUniqueIdRepository().open(currentOpenSRPId);
+                        getUniqueIdRepository().open(currentOpenSRPId);
                     }
                 }
 
             } else {
                 if (baseClient != null) {
                     String opensrpId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID);
+
                     //mark OPENSRP ID as used
-                    AncApplication.getInstance().getUniqueIdRepository().close(opensrpId);
+                    getUniqueIdRepository().close(opensrpId);
                 }
             }
 
@@ -131,11 +143,10 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 org.smartregister.anc.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
-            AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-            long lastSyncTimeStamp = allSharedPreferences.fetchLastUpdatedAtDate(0);
+            long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-            AncApplication.getInstance().getClientProcessorForJava().processClient(syncHelper.getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
-            allSharedPreferences.saveLastUpdatedAtDate(lastSyncDate.getTime());
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unsynced));
+            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
@@ -148,4 +159,47 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         }
     }
 
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (uniqueIdRepository == null) {
+            uniqueIdRepository = AncApplication.getInstance().getUniqueIdRepository();
+        }
+        return uniqueIdRepository;
+    }
+
+    public void setUniqueIdRepository(UniqueIdRepository uniqueIdRepository) {
+        this.uniqueIdRepository = uniqueIdRepository;
+    }
+
+    public ECSyncHelper getSyncHelper() {
+        if (syncHelper == null) {
+            syncHelper = AncApplication.getInstance().getEcSyncHelper();
+        }
+        return syncHelper;
+    }
+
+    public void setSyncHelper(ECSyncHelper syncHelper) {
+        this.syncHelper = syncHelper;
+    }
+
+    public AllSharedPreferences getAllSharedPreferences() {
+        if (allSharedPreferences == null) {
+            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        }
+        return allSharedPreferences;
+    }
+
+    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
+        this.allSharedPreferences = allSharedPreferences;
+    }
+
+    public ClientProcessorForJava getClientProcessorForJava() {
+        if (clientProcessorForJava == null) {
+            clientProcessorForJava = AncApplication.getInstance().getClientProcessorForJava();
+        }
+        return clientProcessorForJava;
+    }
+
+    public void setClientProcessorForJava(ClientProcessorForJava clientProcessorForJava) {
+        this.clientProcessorForJava = clientProcessorForJava;
+    }
 }

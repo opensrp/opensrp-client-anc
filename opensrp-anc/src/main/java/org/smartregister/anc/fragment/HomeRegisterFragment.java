@@ -22,7 +22,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         }
 
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new RegisterFragmentPresenter(this, context(), viewConfigurationIdentifier);
+        presenter = new RegisterFragmentPresenter(this, viewConfigurationIdentifier);
     }
 
     @Override

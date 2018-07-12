@@ -1,16 +1,12 @@
 package org.smartregister.anc.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
-import com.google.gson.JsonObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
@@ -20,7 +16,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.ImageRepository;
-import org.smartregister.util.FormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;

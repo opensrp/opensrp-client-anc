@@ -4,6 +4,9 @@ import android.content.Context;
 
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.List;
 import java.util.Set;
@@ -44,6 +47,26 @@ public class RegisterFragmentContract {
         void startSync();
 
         void updateSortAndFilter(List<Field> filterList, Field sortField);
+
+    }
+
+    public interface Model {
+
+        RegisterConfiguration defaultRegisterConfiguration();
+
+        ViewConfiguration getViewConfiguration(String viewConfigurationIdentifier);
+
+        Set<org.smartregister.configurableviews.model.View> getRegisterActiveColumns(String viewConfigurationIdentifier);
+
+        String countSelect(String tableName, String mainCondition);
+
+        String mainSelect(String tableName, String mainCondition);
+
+        String getInitials();
+
+        String getFilterText(List<Field> filterList, String filter);
+
+        String getSortText(Field sortField);
 
     }
 
