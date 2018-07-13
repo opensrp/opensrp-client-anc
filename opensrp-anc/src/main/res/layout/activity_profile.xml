@@ -59,7 +59,7 @@
 
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/textview_child_id"
+                        android:id="@+id/textview_anc_id"
                         style="@style/CustomFontTextViewStyle.ClientList.Light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                         android:textColor="@color/white" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
-                        android:id="@+id/textview_dob"
+                        android:id="@+id/textview_gestation_age"
                         style="@style/CustomFontTextViewStyle.ClientList.Light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -18,5 +18,6 @@ public abstract class BaseUnitTest {
 
     protected static final String DUMMY_USERNAME = "myusername";
     protected static final String DUMMY_PASSWORD = "mypassword";
+    protected static final String TEST_STRING = "teststring";
 
 }

@@ -11,18 +11,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
+import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.fragment.ProfileContactsFragment;
 import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
+import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Utils;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
+public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private boolean appBarTitleIsShown = true;
@@ -30,7 +33,12 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
-
+    private ProfileContract.Presenter mProfilePresenter;
+    private TextView nameView;
+    private TextView ageView;
+    private TextView gestationAgeView;
+    private TextView ancIdView;
+    private String womanName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,14 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        setUpViews();
+
+        mProfilePresenter = new ProfilePresenter(this);
+
+    }
+
+    private void setUpViews() {
+
         AppBarLayout appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
 
         // Set collapsing tool bar title.
@@ -54,8 +70,12 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.viewpager);
-
         tabLayout.setupWithViewPager(setupViewPager(viewPager));
+
+        ageView = findViewById(R.id.textview_age);
+        gestationAgeView = findViewById(R.id.textview_gestation_age);
+        ancIdView = findViewById(R.id.textview_anc_id);
+        nameView = findViewById(R.id.textview_name);
 
     }
 
@@ -104,12 +124,46 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         }
         if (appBarLayoutScrollRange + verticalOffset == 0) {
 
-            collapsingToolbarLayout.setTitle("Charity Otala");
+            collapsingToolbarLayout.setTitle(womanName);
             appBarTitleIsShown = true;
         } else if (appBarTitleIsShown) {
             collapsingToolbarLayout.setTitle(" ");
             appBarTitleIsShown = false;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mProfilePresenter.refreshProfileView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mProfilePresenter.onDestroy(isChangingConfigurations());
+    }
+
+    @Override
+    public void setProfileName(String fullName) {
+        this.womanName = fullName;
+        nameView.setText(fullName);
+    }
+
+    @Override
+    public void setProfileID(String ancId) {
+        ancIdView.setText("ID: " + ancId);
+    }
+
+    @Override
+    public void setProfileAge(String age) {
+        ageView.setText("AGE " + age);
+
+    }
+
+    @Override
+    public void setProfileGestationAge(String gestationAge) {
+        gestationAgeView.setText("GA: " + gestationAge + " WEEKS");
     }
 }
