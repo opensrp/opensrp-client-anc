@@ -67,8 +67,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private ProgressDialog progressDialog;
 
-    private final int MINIUM_LANG_COUNT = 2;
-
     @Bind(R.id.view_pager)
     protected OpenSRPViewPager mPager;
 

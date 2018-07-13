@@ -372,6 +372,10 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected abstract String getMainCondition();
 
     private void goToPatientDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
+        if (launchDialog) {
+            Log.i(BaseRegisterFragment.TAG, patient.name);
+        }
+
         /*Map<String, String> patientDetails = patient.getDetails();
         Intent intent = null;
         String registerToken = "";
@@ -514,6 +518,10 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
     }
 
+    @Override
+    public void countExecute() {
+        super.CountExecute();
+    }
 }
 
 

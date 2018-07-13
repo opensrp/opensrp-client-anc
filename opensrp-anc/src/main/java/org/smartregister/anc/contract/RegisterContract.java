@@ -9,10 +9,8 @@ import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.util.FormUtils;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by keyamn on 27/06/2018.

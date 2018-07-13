@@ -26,8 +26,6 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.UUID;
 
-import id.zelory.compressor.Compressor;
-
 /**
  * Created by keyman on 27/06/2018.
  */
@@ -40,11 +38,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
 
     public static JSONObject getFormAsJson(JSONObject form,
-                                           String formName, String entityId,
+                                           String formName, String id,
                                            String currentLocationId) throws Exception {
         if (form == null) {
             return null;
         }
+
+        String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
         if (Constants.JSON_FORM.ANC_REGISTRATION.equals(formName)) {
@@ -97,9 +97,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
-            String lastLocationName = null;
-            String lastLocationId = null;
-            //TODO Replace values for location questions with their corresponding location IDs
+            // String lastLocationName = null;
+            // String lastLocationId = null;
+            // TODO Replace values for location questions with their corresponding location IDs
 
 
             JSONObject lastInteractedWith = new JSONObject();

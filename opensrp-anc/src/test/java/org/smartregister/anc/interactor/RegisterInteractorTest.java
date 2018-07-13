@@ -9,7 +9,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -28,7 +27,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,10 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-import id.zelory.compressor.Compressor;
-
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.floatThat;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
@@ -228,7 +223,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject clientObject = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(event));
 
-        String jsonString = "{\"" + org.smartregister.anc.util.JsonFormUtils.CURRENT_OPENSRP_ID + "\":\"" + originalAncId + "\"}";
+        String jsonString = "{\"" + JsonFormUtils.CURRENT_OPENSRP_ID + "\":\"" + originalAncId + "\"}";
         String imageKey = "img";
 
         long timestamp = new Date().getTime();

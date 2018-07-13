@@ -11,12 +11,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class PagerAdapter extends FragmentPagerAdapter {
     private static final String ARG_PAGE = "page";
     private final Fragment mBaseFragment;
-    private final FragmentManager fragmentManager;
     private final Fragment[] fragments;
 
     public PagerAdapter(FragmentManager fragmentManager, Fragment baseFragment, Fragment[] fragments) {
         super(fragmentManager);
-        this.fragmentManager = fragmentManager;
         this.mBaseFragment = baseFragment;
         this.fragments = fragments;
     }

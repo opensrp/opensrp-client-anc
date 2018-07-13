@@ -1,12 +1,9 @@
 package org.smartregister.anc.listener;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.MenuItem;
 import android.view.View;
 
 import org.smartregister.anc.R;
@@ -34,10 +31,11 @@ public class NavigationItemListener implements View.OnClickListener {
             Intent intent = new Intent(context, HomeRegisterActivity.class);
             context.startActivity(intent);
         } else if (id == R.id.counseling_resources) {
-
+            // TODO go to counseling resources page
         } else if (id == R.id.site_characteristics) {
-
+            // TODO go to site characteristics page
         } else if (id == R.id.sync_data) {
+            // TODO start sync service
             //ServiceTools.startSyncService(context.getApplicationContext());
         } else if (id == R.id.logout) {
             AncApplication.getInstance().logoutCurrentUser();

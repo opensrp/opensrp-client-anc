@@ -55,7 +55,7 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
         Mockito.verify(view).initializeQueryParams(DBConstants.WOMAN_TABLE_NAME, countSelect, mainSelect);
         Mockito.verify(view).initializeAdapter(ArgumentMatchers.any((Class<Set<View>>) (Object) Set.class));
-        Mockito.verify(view).CountExecute();
+        Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
         Mockito.verify(view).refresh();
     }

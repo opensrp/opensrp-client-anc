@@ -8,7 +8,7 @@ import org.smartregister.view.dialog.ServiceModeOption;
  * Created by keyman on 26/06/2018.
  */
 
-public class CustomServiceModeOption extends org.smartregister.view.dialog.ServiceModeOption {
+public class CustomServiceModeOption extends ServiceModeOption {
 
     private final String name;
     private final int[] headerTextResourceIds;

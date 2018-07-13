@@ -20,10 +20,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     private RegisterFragmentContract.Model model;
 
-    private String tableName = DBConstants.WOMAN_TABLE_NAME;
-    private String countSelect;
-    private String mainSelect;
-
     private RegisterConfiguration config;
 
     private Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
@@ -55,13 +51,15 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     @Override
     public void initializeQueries(String mainCondition) {
-        this.countSelect = model.countSelect(tableName, mainCondition);
-        this.mainSelect = model.mainSelect(tableName, mainCondition);
+        String tableName = DBConstants.WOMAN_TABLE_NAME;
+
+        String countSelect = model.countSelect(tableName, mainCondition);
+        String mainSelect = model.mainSelect(tableName, mainCondition);
 
         getView().initializeQueryParams(tableName, countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
 
-        getView().CountExecute();
+        getView().countExecute();
         getView().filterandSortInInitializeQueries();
 
         getView().refresh();

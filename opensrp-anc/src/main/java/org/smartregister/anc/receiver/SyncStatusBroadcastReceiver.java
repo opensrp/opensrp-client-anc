@@ -29,7 +29,7 @@ public class SyncStatusBroadcastReceiver extends BroadcastReceiver {
     private static SyncStatusBroadcastReceiver singleton;
     private final ArrayList<SyncStatusListener> syncStatusListeners;
     private boolean isSyncing;
-    private boolean alarmsTriggered = false;
+    //private boolean alarmsTriggered = false;
     private long lastFetchedTimestamp;
 
     public SyncStatusBroadcastReceiver() {

@@ -4,9 +4,7 @@ import android.content.Context;
 
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
-import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.List;
 import java.util.Set;
@@ -19,7 +17,7 @@ public class RegisterFragmentContract {
 
         void initializeQueryParams(String tableName, String countSelect, String mainSelect);
 
-        void CountExecute();
+        void countExecute();
 
         void filterandSortInInitializeQueries();
 

@@ -15,8 +15,6 @@ import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -54,7 +52,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, convertView);
             populateIdentifierColumn(pc, convertView);
-            populateDoseColumn(pc, convertView);
+            //populateDoseColumn(pc, convertView);
 
             return;
         }
@@ -104,11 +102,11 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 
-
+    /*
     private void populateDoseColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
 
 
-        /*DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
+       DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
 
         Button patient = (Button) view.findViewById(R.id.dose_button);
 
@@ -125,10 +123,16 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             patient.setBackground(Utils.getDoseButtonBackground(context, Utils.getRegisterViewButtonStatus(doseStatus)));
             patient.setTextColor(Utils.getDoseButtonTextColor(context, Utils.getRegisterViewButtonStatus(doseStatus)));
             attachDosageOnclickListener(patient, pc);
-        } */
+        }
+    }*/
+
+    private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
-
+    /*
     private void adjustLayoutParams(View view, TextView details) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -139,17 +143,12 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         details.setLayoutParams(params);
     }
 
-    private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
-    }
 
     private void attachDosageOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
-    }
+    }*/
 
     @Override
     public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption, FilterOption searchFilter, SortOption sortOption) {
@@ -174,16 +173,18 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
         View view;
         view = inflater.inflate(R.layout.register_home_list_row, parent, false);
+
+        /*
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
         if (helper.isJsonViewsEnabled()) {
-            /*
+
             ViewConfiguration viewConfiguration = helper.getViewConfiguration(Constants.CONFIGURATION.HOME_REGISTER_ROW);
             ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
 
             if (viewConfiguration != null) {
                 return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
-            }*/
-        }
+            }
+        }*/
 
         return new RegisterViewHolder(view);
     }

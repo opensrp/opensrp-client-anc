@@ -6,9 +6,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-
-import com.vijay.jsonwizard.mvp.BaseFragment;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;

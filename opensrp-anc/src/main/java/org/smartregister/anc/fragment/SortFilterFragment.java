@@ -163,7 +163,6 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
     private class FilterDialogClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            int id = v.getId();
 
             switch (v.getId()) {
                 case R.id.cancel_filter:

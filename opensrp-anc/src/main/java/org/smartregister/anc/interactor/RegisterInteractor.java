@@ -22,8 +22,6 @@ import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
 
-import id.zelory.compressor.Compressor;
-
 /**
  * Created by keyman 27/06/2018.
  */
@@ -154,9 +152,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-        if (!isChangingConfiguration) {
-            //TODO set presenter or model to null
-        }
+        //TODO set presenter or model to null
     }
 
     public UniqueIdRepository getUniqueIdRepository() {
