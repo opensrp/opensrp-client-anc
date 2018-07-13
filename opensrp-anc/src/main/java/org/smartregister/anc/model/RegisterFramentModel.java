@@ -13,6 +13,7 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,9 @@ import java.util.Set;
  * Created by keyman on 12/07/2018.
  */
 public class RegisterFramentModel implements RegisterFragmentContract.Model {
+
+    private AllSharedPreferences allSharedPreferences;
+
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
         return ConfigHelper.defaultRegisterConfiguration(AncApplication.getInstance().getApplicationContext());
@@ -77,6 +81,13 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
     @Override
     public String getFilterText(List<Field> filterList, String filter) {
+        if (filterList == null) {
+            filterList = new ArrayList<>();
+        }
+
+        if (filter == null) {
+            filter = "";
+        }
         return "<font color=#727272>" + filter + "</font> <font color=#f0ab41>(" + filterList.size() + ")</font>";
     }
 
@@ -84,7 +95,11 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
     public String getSortText(Field sortField) {
         String sortText = "";
         if (sortField != null) {
-            sortText = "(Sort: " + sortField.getDisplayName() + ")";
+            if (StringUtils.isNotBlank(sortField.getDisplayName())) {
+                sortText = "(Sort: " + sortField.getDisplayName() + ")";
+            } else if (StringUtils.isNotBlank(sortField.getDbAlias())) {
+                sortText = "(Sort: " + sortField.getDbAlias() + ")";
+            }
         }
         return sortText;
     }
@@ -98,6 +113,13 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
     }
 
     private AllSharedPreferences getAllSharedPreferences() {
-        return AncApplication.getInstance().getContext().allSharedPreferences();
+        if (allSharedPreferences == null) {
+            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        }
+        return allSharedPreferences;
+    }
+
+    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
+        this.allSharedPreferences = allSharedPreferences;
     }
 }
