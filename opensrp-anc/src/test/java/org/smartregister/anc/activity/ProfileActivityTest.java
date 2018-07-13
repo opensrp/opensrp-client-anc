@@ -37,7 +37,7 @@ public class ProfileActivityTest extends BaseUnitTest {
     private TextView textView;
 
     @Mock
-    AppBarLayout appBarLayout;
+    private AppBarLayout appBarLayout;
 
     @Before
     public void setUp() {

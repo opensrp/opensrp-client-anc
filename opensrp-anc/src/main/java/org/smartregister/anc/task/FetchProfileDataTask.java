@@ -39,7 +39,7 @@ public class FetchProfileDataTask extends AsyncTask<Void, Integer, Map<String, S
         if (commonPersonObjectClient != null) {
             commonPersonObjectClient.toString();
         }
-        ;
+
         //The rest of the code using newCarAsync
         return stringMap;
     }

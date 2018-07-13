@@ -11,8 +11,6 @@ import org.smartregister.anc.R;
  * Created by ndegwamartin on 12/07/2018.
  */
 public class ProfileTasksFragment extends BaseProfileFragment {
-    private View fragmentView;
-
     public static ProfileTasksFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
         ProfileTasksFragment fragment = new ProfileTasksFragment();
@@ -23,10 +21,6 @@ public class ProfileTasksFragment extends BaseProfileFragment {
         return fragment;
     }
 
-    public ProfileTasksFragment() {
-        // empty public constructor mandatory
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +29,7 @@ public class ProfileTasksFragment extends BaseProfileFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
         return fragmentView;
     }
 }

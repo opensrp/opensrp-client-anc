@@ -30,9 +30,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ViewPagerAdapter adapter;
     private ProfileContract.Presenter mProfilePresenter;
     private TextView nameView;
     private TextView ageView;
@@ -68,8 +65,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
         appBarLayout.addOnOffsetChangedListener(this);
 
-        tabLayout = findViewById(R.id.tabs);
-        viewPager = findViewById(R.id.viewpager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         tabLayout.setupWithViewPager(setupViewPager(viewPager));
 
         ageView = findViewById(R.id.textview_age);
@@ -81,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
 
     private ViewPager setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
         ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
