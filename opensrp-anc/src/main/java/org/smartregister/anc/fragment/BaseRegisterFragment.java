@@ -290,7 +290,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         RegisterProvider registerProvider = new RegisterProvider(getActivity(), visibleColumns, registerActionHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(getActivity(), null, registerProvider, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 
@@ -306,7 +306,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.joinTable = joinTableString;
         this.mainCondition = mainConditionString;
 
-        CountExecute();
+        countExecute();
         filterandSortExecute();
     }
 
@@ -516,11 +516,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             syncProgressBar.setVisibility(View.GONE);
             initialsTextView.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public void countExecute() {
-        super.CountExecute();
     }
 }
 
