@@ -80,7 +80,8 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
     }
 
     @Override
-    public String getFilterText(List<Field> filterList, String filterTitle) {
+    public String getFilterText(List<Field> list, String filterTitle) {
+        List<Field> filterList = list;
         if (filterList == null) {
             filterList = new ArrayList<>();
         }
