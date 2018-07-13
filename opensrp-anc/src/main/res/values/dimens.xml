@@ -20,6 +20,7 @@
     <dimen name="login_logo_top_padding">0dp</dimen>
     <item name="checkbox_scale" format="float" type="dimen">1.7</item>
     <dimen name="checkbox_margin_top">10dp</dimen>
+<<<<<<< Updated upstream
 
     <dimen name="register_search_bar_margin">10dp</dimen>
     <dimen name="register_search_bar_min_margin">5dp</dimen>
@@ -65,4 +66,7 @@
 
     <dimen name="register_list_item_height">82dp</dimen>
     <dimen name="register_list_item_margin">15dp</dimen>
+=======
+g
+>>>>>>> Stashed changes
 </resources>
