@@ -11,8 +11,8 @@
     <dimen name="login_bottom_margin">15dp</dimen>
     <dimen name="login_opensrp_logo_height">32dp</dimen>
     <dimen name="login_opensrp_logo_width">100dp</dimen>
-    <dimen name="login_logo_height">140dp</dimen>
-    <dimen name="login_text_build_margin">-30dp</dimen>
+    <dimen name="login_logo_height">150dp</dimen>
+    <dimen name="login_text_build_margin">-32dp</dimen>
     <dimen name="login_view_component_height">40dp</dimen>
     <dimen name="login_build_text_view_textSize">12sp</dimen>
     <dimen name="login_edit_text_textSize">16sp</dimen>
@@ -20,8 +20,6 @@
     <dimen name="login_logo_top_padding">0dp</dimen>
     <item name="checkbox_scale" format="float" type="dimen">1.7</item>
     <dimen name="checkbox_margin_top">10dp</dimen>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
     <dimen name="register_search_bar_margin">10dp</dimen>
     <dimen name="register_search_bar_min_margin">5dp</dimen>
@@ -67,10 +65,4 @@
 
     <dimen name="register_list_item_height">82dp</dimen>
     <dimen name="register_list_item_margin">15dp</dimen>
-=======
-g
->>>>>>> Stashed changes
-=======
-g
->>>>>>> Stashed changes
 </resources>
