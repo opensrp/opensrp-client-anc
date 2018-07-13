@@ -1,3 +1,4 @@
 <resources>
+    <item name="VIEW_ID" type="id" />
     <item name="Settings" type="id" />
 </resources>

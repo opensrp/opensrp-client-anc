@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#208CC5</color>
+    <color name="colorPrimaryDark">#155c82</color>
+    <color name="colorAccent">#203ac5</color>
+
+    <color name="customAppThemeBlue">#218CC5</color>
+    <color name="customAppThemeDarkest">#272727</color>
+    <color name="customAppThemeDark">#373737</color>
+    <color name="customAppThemeGray">#EEEEEE</color>
+
+    <color name="text_color_primary">#737373</color>
+
+    <color name="light_grey">#cccccc</color>
+    <color name="light_grey_text">#7f7f7f</color>
+    <color name="lighter_grey_text">#737373</color>
+    <color name="dark_grey_text">#727272</color>
+
+    <color name="search_bar_bg_dark_grey">#494949</color>
+    <color name="logout_bg_grey">#686868</color>
+    <color name="search_hint_white">#dbdbdb</color>
+
+    <color name="sort_filter_bg_light_grey">#F2F2F2</color>
+
+    <color name="scan_qr_code_bg_st_grey">#585858</color>
+    <color name="scan_qr_code_bg_end_grey">#3e3e3e</color>
+    <color name="scan_qr_code_bg_stk_grey">#212121</color>
+
+    <color name="snackbar_background_yellow">#FFED18</color>
+    <color name="snackbar_action_color">#eeff1c</color>
+
+    <color name="vaccine_red_bg_stk">#a82525</color>
+    <color name="vaccine_red_bg_st">#cd2c2c</color>
+    <color name="vaccine_red_bg_end">#be2727</color>
+
+    <color name="vaccine_blue_bg_stk">#267ea5</color>
+    <color name="vaccine_blue_bg_st">#389cc8</color>
+    <color name="vaccine_blue_bg_end">#3495bf</color>
+
+    <color name="vaccine_na_bg_stk">#D4D4D4</color>
+    <color name="vaccine_na_bg_st">#EFEFEF</color>
+    <color name="vaccine_na_bg_end">#ECECEC</color>
+
+    <color name="vaccine_yellow">#F0AB41</color>
 </resources>

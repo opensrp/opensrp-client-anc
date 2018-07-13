@@ -1,23 +1,78 @@
 package org.smartregister.anc.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.fragment.SortFilterFragment;
+import org.smartregister.anc.presenter.RegisterPresenter;
+import org.smartregister.anc.util.Constants;
+import org.smartregister.configurableviews.model.Field;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Created by ndegwamartin on 21/06/2018.
+ * Created by keyman on 26/06/2018.
  */
-public class HomeRegisterActivity extends AppCompatActivity {
+
+public class HomeRegisterActivity extends BaseRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_register);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        try {
+            super.onCreate(savedInstanceState);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
 
     }
 
+    @Override
+    public BaseRegisterFragment getRegisterFragment() {
+        return new HomeRegisterFragment();
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new Fragment[]{new SortFilterFragment()};
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return superOnOptionsItemsSelected(item);
+
+    }
+
+    @Override
+    protected void onResumption() {
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        View ancRegister = drawer.findViewById(R.id.anc_register);
+        ancRegister.setBackgroundColor(getResources().getColor(R.color.tintcolor));
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new RegisterPresenter(this);
+    }
+
+    @Override
+    public List<String> getViewIdentifiers() {
+        return Arrays.asList(Constants.CONFIGURATION.HOME_REGISTER);
+    }
+
+    protected boolean superOnOptionsItemsSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+        mBaseFragment.updateSortAndFilter(filterList, sortField);
+        switchToBaseFragment();
+    }
 }

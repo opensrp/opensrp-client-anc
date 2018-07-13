@@ -4,10 +4,10 @@
         <shape android:shape="rectangle">
             <solid android:color="#1E81BD" />
             <corners
-                android:bottomRightRadius="7dp"
-                android:bottomLeftRadius="7dp"
-                android:topRightRadius="7dp"
-                android:topLeftRadius="7dp" />
+                android:bottomRightRadius="4dp"
+                android:bottomLeftRadius="4dp"
+                android:topRightRadius="4dp"
+                android:topLeftRadius="4dp" />
         </shape>
     </item>
 
@@ -19,10 +19,10 @@
         <shape android:shape="rectangle">
             <solid android:color="#fafafa" />
             <corners
-                android:bottomRightRadius="7dp"
-                android:bottomLeftRadius="7dp"
-                android:topRightRadius="7dp"
-                android:topLeftRadius="7dp" />
+                android:bottomRightRadius="4dp"
+                android:bottomLeftRadius="4dp"
+                android:topRightRadius="4dp"
+                android:topLeftRadius="4dp" />
             <stroke android:color="#1E81BD"
                 android:width="1dp" />
         </shape>

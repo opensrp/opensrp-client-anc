@@ -16,14 +16,28 @@ public class Constants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
+    public static final String CURRENT_LOCATION_ID = "CURRENT_LOCATION_ID";
+
+    public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
+    public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
+        public static final String HOME_REGISTER = "home_register";
+    }
 
+    public static final class EventType {
+        public static final String REGISTRATION = "ANC Registration";
+        public static final String UPDATE_REGISTRATION = "Update ANC Registration";
+        public static final String CLOSE = "ANC Close";
+    }
+
+    public static class JSON_FORM {
+        public static final String ANC_REGISTRATION = "anc_register";
+        public static final String ANC_CLOSE = "anc_close";
     }
 
     public static final class ServiceType {
-
         public static final int AUTO_SYNC = 1;
         public static final int PULL_UNIQUE_IDS = 4;
         public static final int IMAGE_UPLOAD = 8;
@@ -31,4 +45,14 @@ public class Constants {
 
     }
 
+    public static final class KEY {
+        public static final String _ID = "_id";
+        public static final String KEY = "key";
+        public static final String VALUE = "value";
+        public static final String TREE = "tree";
+        public static final String DEFAULT = "default";
+        public static final String PHOTO = "photo";
+        public static final String CHILD = "child";
+
+    }
 }

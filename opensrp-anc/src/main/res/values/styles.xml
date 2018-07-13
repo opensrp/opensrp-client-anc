@@ -36,4 +36,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="AppTheme.NoActionBar.NavigationDrawerStyle">
+        <item name="android:textSize">20sp</item>
+        <!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">70dp</item>
+        <!-- item size in menu-->
+    </style>
 </resources>

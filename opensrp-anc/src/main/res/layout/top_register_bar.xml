@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_nav_bar_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/customAppThemeBlue"
+    android:focusableInTouchMode="true"
+    tools:showIn="@layout/toolbar_register">
+
+    <RelativeLayout
+        android:id="@+id/top_left_layout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/name_initials"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/round_white_background"
+            android:gravity="center"
+            android:text="MN"
+            android:textAllCaps="true"
+            android:textColor="@color/customAppThemeBlue"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/sync_progress_bar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btn_back_to_home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/separator"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@id/top_left_layout"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:paddingLeft="2.5dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/smart_register_nav_bar_separator"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/separator" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/txt_title_label"
+            style="@style/CustomFontTextViewStyle.NavBar.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/title_label_text_max_width"
+            android:singleLine="true"
+            android:text="OPENSRP" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/btn_report_month"
+            style="@style/CustomFontTextViewStyle.NavBar.Black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingLeft="7dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/global_search"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/transparent_gray_background"
+        android:gravity="center"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:src="@drawable/ic_icon_search"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/filter_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@id/global_search"
+        android:background="@drawable/transparent_gray_background"
+        android:gravity="center"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/filter_count"
+        style="@style/CustomFontTextViewStyle.Badge"
+        android:layout_width="@dimen/client_profile_badge_width"
+        android:layout_height="@dimen/client_profile_badge_height"
+        android:layout_alignRight="@id/filter_selection"
+        android:layout_alignTop="@id/filter_selection"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+
+    <ImageButton
+        android:id="@+id/register_client"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/top_left_layout"
+        android:background="@drawable/transparent_gray_background"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/ic_action_add" />
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_nav_bar_separator"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@+id/register_client"
+        android:scaleType="fitXY"
+        android:src="@drawable/separator" />
+
+
+    <ImageButton
+        android:id="@+id/sort_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@id/filter_selection"
+        android:background="@drawable/transparent_gray_background"
+        android:gravity="center"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:src="@drawable/ic_sort"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="@dimen/smart_register_nav_bar_separator"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@+id/sort_selection"
+        android:scaleType="fitXY"
+        android:src="@drawable/separator"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/location_picker_seperator"
+        android:layout_width="@dimen/smart_register_nav_bar_separator"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toRightOf="@+id/top_left_layout"
+        android:scaleType="fitXY"
+        android:src="@drawable/separator"
+        android:visibility="gone" />
+
+    <org.smartregister.anc.view.LocationPickerView
+        android:id="@+id/facility_selection"
+        style="@style/CustomFontTextViewStyle.NavBar.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@id/location_picker_seperator"
+        android:background="@drawable/transparent_gray_background"
+        android:drawableRight="@drawable/ic_arrow_drop_down_white"
+        android:gravity="left|center_vertical"
+        android:maxWidth="@dimen/loc_picker_text_max_width"
+        android:minWidth="@dimen/loc_picker_text_min_width"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:text="Bukesa Urban Health Center"
+        android:textSize="@dimen/loc_picker_title_textview_size" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/service_mode_selection"
+        style="@style/CustomFontTextViewStyle.NavBar.Bold"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/facility_selection"
+        android:background="@drawable/transparent_gray_background"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Linda Clinic"
+        android:visibility="gone" />
+
+</RelativeLayout>

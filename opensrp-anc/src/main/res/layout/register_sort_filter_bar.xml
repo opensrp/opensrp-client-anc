@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_weight="2"
+    android:background="@color/sort_filter_bg_light_grey"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/sort_status"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/register_search_bar_margin"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:padding="@dimen/register_search_bar_padding"
+        android:singleLine="true"
+        android:text="0 Clients (Sort: updated)"
+        android:textColor="@color/light_grey_text"
+        android:textSize="@dimen/default_font_size_search_bar" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/filter_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/register_sort_bar_left_padding"
+            android:layout_marginRight="@dimen/register_sort_bar_right_padding"
+            android:drawableRight="@drawable/ic_arrow_drop_down"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:padding="@dimen/register_search_bar_padding"
+            android:singleLine="true"
+            android:text="@string/filter"
+            android:textColor="@color/dark_grey_text"
+            android:textSize="@dimen/default_font_size_search_bar" />
+
+        <View
+            android:id="@+id/separator_v"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_toLeftOf="@id/filter_status"
+            android:background="@color/light_grey"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+</LinearLayout>
