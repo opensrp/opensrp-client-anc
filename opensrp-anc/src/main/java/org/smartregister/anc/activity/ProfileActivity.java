@@ -28,7 +28,7 @@ import org.smartregister.anc.util.Utils;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
+public class ProfileActivity extends BaseProfileActivity implements AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private boolean appBarTitleIsShown = true;
@@ -45,16 +45,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         setUpViews();
 
         mProfilePresenter = new ProfilePresenter(this);
