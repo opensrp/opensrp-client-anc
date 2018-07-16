@@ -124,7 +124,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     private void initializeBuildDetails() {
         try {
-            buildDetailsView.setText(getResources().getString(R.string.antenatal_care_module));
+            buildDetailsView.setText("Version " + getVersion() + ", Built on: " + mLoginPresenter.getBuildDate());
+
         } catch (Exception e) {
             logError("Error fetching build details: " + e);
         }

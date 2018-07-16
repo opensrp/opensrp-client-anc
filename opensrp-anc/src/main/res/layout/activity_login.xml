@@ -36,7 +36,7 @@
                 android:src="@drawable/ic_who_logo" />
 
             <TextView
-                android:id="@+id/login_build_text_view"
+                android:id="@+id/login_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -46,6 +46,17 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/login_title_text_size"
                 android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/login_build_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_horizontal"
+                android:text="build_number"
+                android:textColor="#90c4dc"
+                android:textSize="@dimen/login_build_text_view_textSize"
+                android:typeface="sans" />
         </LinearLayout>
 
         <!-- Middle section -->
@@ -54,10 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/top_section"
+            android:layout_marginTop="@dimen/login_middle_section_padding_top"
             android:orientation="vertical"
             android:paddingLeft="@dimen/login_horizontal_margin"
-            android:paddingRight="@dimen/login_horizontal_margin"
-            android:layout_marginTop="@dimen/login_middle_section_padding_top" >
+            android:paddingRight="@dimen/login_horizontal_margin">
 
             <EditText
                 android:id="@+id/login_user_name_edit_text"
@@ -140,9 +151,9 @@
                 android:shadowDy="1"
                 android:shadowRadius="0.5"
                 android:text="@string/login_text"
+                android:textAllCaps="true"
                 android:textColor="#666666"
-                android:textSize="18sp"
-                android:textAllCaps="true"/>
+                android:textSize="18sp" />
         </LinearLayout>
         <!-- Bottom section -->
         <LinearLayout

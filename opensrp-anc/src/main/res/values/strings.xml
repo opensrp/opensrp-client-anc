@@ -4,7 +4,7 @@
     <string name="action_language">Language</string>
 
     <!-- General -->
-    <string name="app_name">ANC</string>
+    <string name="app_name">WHO ANC</string>
     <string name="saving_dialog_title">Saving…</string>
     <string name="please_wait_message">Please wait</string>
     <string name="scan_qr_code">Scan QR code</string>
