@@ -68,10 +68,6 @@
 
     <dimen name="activity_title_size">18sp</dimen>
     <dimen name="activity_sub_title_size">14sp</dimen>
-<<<<<<< HEAD
-    <dimen name="btn_profile_registration_info_padding">14dp</dimen>
-=======
     <dimen name="btn_profile_registration_info_padding">24dp</dimen>
 
->>>>>>> Implement Profiles details Tabbed layout for overview, contacts and tasks tabs
 </resources>

@@ -21,9 +21,9 @@ public class ProfileInteractor implements ProfileContract.Interactor {
     }
 
     @Override
-    public void refreshProfileView() {
+    public void refreshProfileView(String baseEntityId) {
 
-        new FetchProfileDataTask(getProfileView(), null).execute();
+        new FetchProfileDataTask(getProfileView()).execute(baseEntityId);
 
     }
 

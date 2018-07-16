@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
@@ -19,7 +20,9 @@ import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.fragment.ProfileContactsFragment;
 import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
+import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
 
 /**
@@ -36,6 +39,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     private TextView gestationAgeView;
     private TextView ancIdView;
     private String womanName;
+    private ImageView imageView;
+    private ImageRenderHelper imageRenderHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         setUpViews();
 
         mProfilePresenter = new ProfilePresenter(this);
+
+        imageRenderHelper = new ImageRenderHelper(this);
 
     }
 
@@ -73,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         gestationAgeView = findViewById(R.id.textview_gestation_age);
         ancIdView = findViewById(R.id.textview_anc_id);
         nameView = findViewById(R.id.textview_name);
+        imageView = findViewById(R.id.imageview_profile);
 
     }
 
@@ -133,7 +141,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     protected void onResume() {
         super.onResume();
-        mProfilePresenter.refreshProfileView();
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        mProfilePresenter.refreshProfileView(baseEntityId);
     }
 
     @Override
@@ -161,6 +170,11 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText("GA: " + gestationAge + " WEEKS");
+        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+    }
+
+    @Override
+    public void setProfileImage(String baseEntityId) {
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
     }
 }

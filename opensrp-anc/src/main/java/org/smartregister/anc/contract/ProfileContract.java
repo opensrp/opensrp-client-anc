@@ -11,7 +11,7 @@ public interface ProfileContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void refreshProfileView();
+        void refreshProfileView(String baseEntityId);
 
     }
 
@@ -24,13 +24,15 @@ public interface ProfileContract {
         void setProfileAge(String age);
 
         void setProfileGestationAge(String gestationAge);
+
+        void setProfileImage(String baseEntityId);
     }
 
     interface Interactor {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void refreshProfileView();
+        void refreshProfileView(String baseEntityId);
 
     }
 }

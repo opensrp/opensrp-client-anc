@@ -34,8 +34,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void refreshProfileView() {
-        mProfileInteractor.refreshProfileView();
+    public void refreshProfileView(String baseEntityId) {
+        mProfileInteractor.refreshProfileView(baseEntityId);
     }
 
     @Override

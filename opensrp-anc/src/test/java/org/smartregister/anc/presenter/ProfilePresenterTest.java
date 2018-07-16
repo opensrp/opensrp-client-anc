@@ -43,8 +43,8 @@ public class ProfilePresenterTest extends BaseUnitTest {
 
         ProfileContract.Presenter spyPresenter = Mockito.spy(presenter);
         Whitebox.setInternalState(spyPresenter, "mProfileInteractor", interactor);
-        spyPresenter.refreshProfileView();
-        Mockito.verify(interactor).refreshProfileView();
+        spyPresenter.refreshProfileView(TEST_STRING);
+        Mockito.verify(interactor).refreshProfileView(TEST_STRING);
 
     }
 

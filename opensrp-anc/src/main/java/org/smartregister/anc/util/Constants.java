@@ -55,4 +55,9 @@ public class Constants {
         public static final String CHILD = "child";
 
     }
+
+    public static final class INTENT_KEY {
+        public static final String BASE_ENTITY_ID = "base_entity_id";
+    }
+    public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 }

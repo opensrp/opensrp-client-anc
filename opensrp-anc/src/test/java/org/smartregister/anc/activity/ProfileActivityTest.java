@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.contract.ProfileContract;
+import org.smartregister.anc.util.Constants;
 
 
 /**
@@ -42,7 +44,9 @@ public class ProfileActivityTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(ProfileActivity.class).create().start();
+        Intent testIntent = new Intent();
+        testIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start();
         profileActivity = controller.get();
     }
 
@@ -95,7 +99,7 @@ public class ProfileActivityTest extends BaseUnitTest {
 
         spyActivity.onResume();
 
-        Mockito.verify(presenter).refreshProfileView();
+        Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
     }
 
 
@@ -145,6 +149,10 @@ public class ProfileActivityTest extends BaseUnitTest {
         spyActivity.setProfileGestationAge(TEST_STRING);
 
         Mockito.verify(textView).setText("GA: " + TEST_STRING + " WEEKS");
+
+        spyActivity.setProfileGestationAge(null);
+
+        Mockito.verify(textView).setText("GA");
     }
 
     @Test

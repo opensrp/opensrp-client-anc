@@ -27,15 +27,17 @@
                 android:background="#218CC5"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                app:layout_collapseMode="parallax">
+                app:layout_collapseMode="parallax"
+                android:layout_marginTop="36dp">
 
-                <org.smartregister.anc.view.RoundedImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageview_profile"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/profile_image_sample_59" />
+                    android:src="@drawable/ic_african_girl"
+                    app:civ_border_width="0dp"
+                    app:civ_border_color="#FFFFFFFF"/>
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/textview_name"
