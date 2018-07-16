@@ -1,5 +1,6 @@
 package org.smartregister.anc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
+import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
@@ -146,7 +148,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         View view = inflater.inflate(R.layout.activity_register, container, false);
         rootView = view;//handle to the root
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.register_toolbar);
+        Toolbar toolbar = view.findViewById(R.id.register_toolbar);
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
 
         activity.setSupportActionBar(toolbar);
@@ -376,19 +378,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             Log.i(BaseRegisterFragment.TAG, patient.name);
         }
 
-        /*Map<String, String> patientDetails = patient.getDetails();
-        Intent intent = null;
-        String registerToken = "";
-        intent = new Intent(getActivity(), PatientDetailActivity.class);
-        registerToken = Constants.VIEW_CONFIGS.HOME_REGISTER;
-
-        String registerTitle = Utils.readPrefString(getActivity(), TOOLBAR_TITLE + registerToken, "");
-        intent.putExtra(Constants.INTENT_KEY.REGISTER_TITLE, registerTitle);
-        intent.putExtra(Constants.INTENT_KEY.PATIENT_DETAIL_MAP, (HashMap) patientDetails);
-        intent.putExtra(Constants.INTENT_KEY.CLIENT_OBJECT, patient);
-        intent.putExtra(Constants.INTENT_KEY.OPENSRP_ID, patientDetails.get(Constants.INTENT_KEY.OPENSRP_ID));
-        intent.putExtra(Constants.INTENT_KEY.LAUNCH_VACCINE_DIALOG, launchDialog);
-        startActivity(intent);*/
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        startActivity(intent);
     }
 
     class RegisterActionHandler implements View.OnClickListener {

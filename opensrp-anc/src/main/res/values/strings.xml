@@ -57,6 +57,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="registration_info">Registration info</string>
 
     <!-- register -->
     <string name="opensrp_id">OpenSRP ID</string>
@@ -92,5 +93,9 @@
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">Age: %1$s</string>
     <string name="ga_text">GA: %1$s</string>
+
+    <string name="overview">OVERVIEW</string>
+    <string name="contacts">CONTACTS</string>
+    <string name="tasks">TASKS</string>
 
 </resources>

@@ -36,11 +36,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <style name="AppTheme.NoActionBar.NavigationDrawerStyle">
         <item name="android:textSize">20sp</item>
         <!-- text size in menu-->
         <item name="android:listPreferredItemHeightSmall">70dp</item>
         <!-- item size in menu-->
+    </style>
+
+    <style name="CustomFontTextViewStyle.tabIndicator.anc" parent="CustomFontTextViewStyle.tabIndicator">
+        <item name="fontVariant">medium</item>
+        <item name="android:textSize">@dimen/activity_sub_title_size</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>

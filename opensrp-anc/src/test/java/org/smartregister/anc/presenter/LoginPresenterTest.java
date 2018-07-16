@@ -205,6 +205,12 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     }
 
+    @Test
+    public void testGetLoginViewShouldReturnNullIfNoViewIsSet() {
+        LoginPresenter presenter = new LoginPresenter(null);
+        Assert.assertNull(presenter.getLoginView());
+
+    }
 
     @Test
     public void testProcessViewCustomizationsShouldPerformCorrectOperations() {
