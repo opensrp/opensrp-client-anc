@@ -20,13 +20,13 @@ import org.smartregister.view.activity.DrishtiApplication;
  */
 public class ImageRenderHelper {
 
+    private static final String TAG = ImageRenderHelper.class.getCanonicalName();
+
     private Context context;
 
     public ImageRenderHelper(Context context) {
         this.context = context;
     }
-
-    private static final String TAG = ImageRenderHelper.class.getCanonicalName();
 
     public void refreshProfileImage(String clientBaseEntityId, ImageView profileImageView) {
 

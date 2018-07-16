@@ -4,7 +4,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
-import org.smartregister.repository.ImageRepository;
 
 /**
  * Created by ndegwamartin on 12/04/2018.

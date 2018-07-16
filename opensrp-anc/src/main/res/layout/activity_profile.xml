@@ -24,11 +24,11 @@
                 android:id="@+id/profile_name_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
                 android:background="#218CC5"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                app:layout_collapseMode="parallax"
-                android:layout_marginTop="36dp">
+                app:layout_collapseMode="parallax">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageview_profile"
@@ -36,8 +36,8 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_african_girl"
-                    app:civ_border_width="0dp"
-                    app:civ_border_color="#FFFFFFFF"/>
+                    app:civ_border_color="#FFFFFFFF"
+                    app:civ_border_width="0dp" />
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/textview_name"
@@ -66,8 +66,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ID: 07564131"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/activity_sub_title_size" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/white" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
                         android:id="@+id/textview_age"
@@ -76,6 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="AGE 24"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
@@ -85,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="GA: 31 WEEKS"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
