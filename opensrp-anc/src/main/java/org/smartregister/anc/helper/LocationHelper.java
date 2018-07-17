@@ -45,6 +45,7 @@ public class LocationHelper {
     private AncApplication application;
 
     public static final String FACILITY = "Facility";
+    public static final String HOME_ADDRESS = "HOME ADDRESS";
 
     static {
         ALLOWED_LEVELS = new ArrayList<>();

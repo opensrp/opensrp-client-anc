@@ -1,21 +1,34 @@
 package org.smartregister.anc.util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
+import com.google.common.reflect.TypeToken;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.helper.ECSyncHelper;
+import org.smartregister.anc.helper.LocationHelper;
+import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.ImageRepository;
+import org.smartregister.util.AssetHandler;
+import org.smartregister.util.FormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
@@ -23,7 +36,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -34,8 +52,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     private static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
+    public static final String READ_ONLY = "read_only";
 
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
@@ -47,7 +67,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String entityId = id;
         form.getJSONObject(METADATA).put(ENCOUNTER_LOCATION, currentLocationId);
 
-        if (Constants.JSON_FORM.ANC_REGISTRATION.equals(formName)) {
+        if (Constants.JSON_FORM.ANC_REGISTER.equals(formName)) {
             if (StringUtils.isNotBlank(entityId)) {
                 entityId = entityId.replace("-", "");
             }
@@ -249,4 +269,167 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
         return null;
     }
+
+    public static String getAutoPopulatedJsonEditFormString(Context context, Map<String, String> womanClient) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_REGISTER);
+            LocationPickerView lpv = new LocationPickerView(context);
+            lpv.init();
+            JsonFormUtils.addAdolescentRegLocHierarchyQuestions(form);
+            Log.d(TAG, "Form is " + form.toString());
+            if (form != null) {
+                form.put(JsonFormUtils.ENTITY_ID, womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
+                JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+                metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
+
+                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
+
+                //inject opensrp id into the form
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.FIRST_NAME)) {
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.FIRST_NAME));
+
+                    }
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
+
+                        Photo photo = ImageUtils.profilePhotoByClientID(DBConstants.KEY.BASE_ENTITY_ID);
+
+                        if (StringUtils.isNotBlank(photo.getFilePath())) {
+
+                            jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
+
+                        }
+                    }
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.LAST_NAME)) {
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get("last_name"));
+
+                    }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Sex")) {
+
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.GENDER));
+                    }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
+
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
+                    }
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ALTERNATE_NAME)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ALTERNATE_NAME));
+                    }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ALTERNATE_PHONE)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ALTERNATE_PHONE));
+                    }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.AGE));
+                    }
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.PHONE_NUMBER)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.PHONE_NUMBER));
+                    }
+
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
+
+
+                        String dobString = womanClient.get(DBConstants.KEY.DOB);
+                        Date dob = Utils.dobStringToDate(dobString);
+                        if (dob != null) {
+                            jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+                        }
+                    }
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
+
+                        String school = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
+                        jsonObject.put(JsonFormUtils.VALUE, school);
+                        jsonObject.toString();
+                    }
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
+                        List<String> schoolFacilityHierarchy = new ArrayList<>();
+                        String address5 = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
+                        schoolFacilityHierarchy.add(address5);
+
+                        String schoolFacilityHierarchyString = AssetHandler.javaToJsonString(schoolFacilityHierarchy, new TypeToken<List<String>>() {
+                        }.getType());
+                        if (StringUtils.isNotBlank(schoolFacilityHierarchyString)) {
+                            jsonObject.put(JsonFormUtils.VALUE, schoolFacilityHierarchyString);
+                        }
+
+
+                    }
+
+                }
+
+                return form.toString();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return "";
+    }
+
+    public static void addAdolescentRegLocHierarchyQuestions(JSONObject form) {
+        try {
+            JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
+            ArrayList<String> allLevels = new ArrayList<>();
+            allLevels.add("Country");
+            allLevels.add("Province");
+            allLevels.add("District");
+            allLevels.add("City/Town");
+            allLevels.add("Health Facility");
+            allLevels.add(LocationHelper.HOME_ADDRESS);
+
+
+            ArrayList<String> healthFacilities = new ArrayList<>();
+            healthFacilities.add(LocationHelper.HOME_ADDRESS);
+
+
+            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+
+            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
+                    new TypeToken<List<String>>() {
+                    }.getType());
+
+            String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities,
+                    new TypeToken<List<FormLocation>>() {
+                    }.getType());
+
+            for (int i = 0; i < questions.length(); i++) {
+                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(LocationHelper.HOME_ADDRESS)) {
+                    if (StringUtils.isNotBlank(upToFacilitiesString)) {
+                        questions.getJSONObject(i).put(Constants.KEY.TREE, new JSONArray(upToFacilitiesString));
+                    }
+                    if (StringUtils.isNotBlank(defaultFacilityString)) {
+                        questions.getJSONObject(i).put(Constants.KEY.DEFAULT, defaultFacilityString);
+                    }
+                }
+            }
+
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) throws Exception {
+        Intent intent = new Intent(context,JsonFormActivity.class);
+        intent.putExtra("json", metaData);
+        Log.d(TAG, "form is " + metaData);
+        context.startActivityForResult(intent, jsonFormActivityRequestCode);
+
+    }
+
 }
