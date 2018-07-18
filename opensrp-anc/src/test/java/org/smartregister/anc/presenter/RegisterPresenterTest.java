@@ -181,7 +181,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
 
         String jsonString = "{'json':'string'}";
-        String imageKey = "img";
 
         String baseEntityId = "112123";
         Client client = new Client(baseEntityId);
@@ -189,13 +188,13 @@ public class RegisterPresenterTest extends BaseUnitTest {
         Pair<Client, Event> pair = Pair.create(client, event);
 
         Mockito.doReturn(pair).when(model).processRegistration(ArgumentMatchers.anyString());
-        Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class), ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
+        Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
 
-        presenter.saveForm(jsonString, imageKey, false);
+        presenter.saveForm(jsonString, false);
 
         Mockito.verify(view).showProgressDialog();
         Mockito.verify(model).processRegistration(jsonString);
-        Mockito.verify(interactor).saveRegistration(pair, jsonString, imageKey, false, (RegisterContract.InteractorCallBack) presenter);
+        Mockito.verify(interactor).saveRegistration(pair, jsonString, false, (RegisterContract.InteractorCallBack) presenter);
     }
 
     @Test

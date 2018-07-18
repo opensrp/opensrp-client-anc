@@ -1,7 +1,6 @@
 package org.smartregister.anc.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,7 +14,7 @@ import org.smartregister.view.fragment.SecuredFragment;
  */
 public abstract class BaseProfileFragment extends SecuredFragment implements View.OnTouchListener {
 
-    GestureDetectorCompat gestureDetector;
+    private GestureDetectorCompat gestureDetector;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

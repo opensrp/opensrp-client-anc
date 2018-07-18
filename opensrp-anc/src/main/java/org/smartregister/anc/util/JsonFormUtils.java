@@ -96,7 +96,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return form;
     }
 
-    public static Pair<Client, Event> processRegistration(String jsonString, String providerId) {
+    public static Pair<Client, Event> processRegistrationForm(String jsonString, String providerId) {
 
         try {
             JSONObject jsonForm = toJSONObject(jsonString);
@@ -126,23 +126,19 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             lastInteractedWith.put(Constants.KEY.KEY, DBConstants.KEY.LAST_INTERACTED_WITH);
             lastInteractedWith.put(Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
             fields.put(lastInteractedWith);
-
-            final String IS_DATE_OF_BIRTH_UNKNOWN = "isDateOfBirthUnknown";
             final String OPTIONS = "options";
-            final String DOB = "dob";
-            final String AGE = "age";
 
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, IS_DATE_OF_BIRTH_UNKNOWN);
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.IS_DATE_OF_BIRTH_UNKNOWN);
             JSONArray options = getJSONArray(dobUnknownObject, OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
             if (StringUtils.isNotBlank(dobUnKnownString)) {
                 boolean isDateOfBirthUnknown = Boolean.valueOf(dobUnKnownString);
                 if (isDateOfBirthUnknown) {
-                    String ageString = getFieldValue(fields, AGE);
+                    String ageString = getFieldValue(fields, DBConstants.KEY.DOB);
                     if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
                         int age = Integer.valueOf(ageString);
-                        JSONObject dobJSONObject = getFieldJSONObject(fields, DOB);
+                        JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.IS_DATE_OF_BIRTH_UNKNOWN);
                         dobJSONObject.put(VALUE, Utils.getDob(age));
                     }
                 }
@@ -275,7 +271,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_REGISTER);
             LocationPickerView lpv = new LocationPickerView(context);
             lpv.init();
-            JsonFormUtils.addAdolescentRegLocHierarchyQuestions(form);
+            JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));
@@ -381,7 +377,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return "";
     }
 
-    public static void addAdolescentRegLocHierarchyQuestions(JSONObject form) {
+    public static void addWomanRegisterHierarchyQuestions(JSONObject form) {
         try {
             JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
             ArrayList<String> allLevels = new ArrayList<>();
@@ -424,8 +420,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) throws Exception {
-        Intent intent = new Intent(context,JsonFormActivity.class);
+    public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
+        Intent intent = new Intent(context, JsonFormActivity.class);
         intent.putExtra("json", metaData);
         Log.d(TAG, "form is " + metaData);
         context.startActivityForResult(intent, jsonFormActivityRequestCode);

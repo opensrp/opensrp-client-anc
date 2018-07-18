@@ -161,7 +161,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
         Mockito.doReturn(eventClients).when(syncHelper).getEvents(new Date(timestamp), BaseRepository.TYPE_Unsynced);
 
-        registerInteractor.saveRegistration(pair, jsonString, imageKey, false, callBack);
+        registerInteractor.saveRegistration(pair, jsonString, false, callBack);
 
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
 
@@ -224,7 +224,6 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject eventObject = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(event));
 
         String jsonString = "{\"" + JsonFormUtils.CURRENT_OPENSRP_ID + "\":\"" + originalAncId + "\"}";
-        String imageKey = "img";
 
         long timestamp = new Date().getTime();
 
@@ -240,7 +239,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
         Mockito.doReturn(eventClients).when(syncHelper).getEvents(new Date(timestamp), BaseRepository.TYPE_Unsynced);
 
-        registerInteractor.saveRegistration(pair, jsonString, imageKey, true, callBack);
+        registerInteractor.saveRegistration(pair, jsonString, true, callBack);
 
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).getClient(stringArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());

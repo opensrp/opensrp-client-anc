@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
 import org.smartregister.anc.contract.ProfileContract;
@@ -41,6 +42,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         mProfilePresenter = new ProfilePresenter(this);
 
         imageRenderHelper = new ImageRenderHelper(this);
+
 
     }
 
@@ -142,5 +144,22 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     public void setProfileImage(String baseEntityId) {
         imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
+    }
+
+    @Override
+    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+
+    }
+
+
+    @Override
+    public void onNoUniqueId() {
+        Utils.showShortToast(this, this.getString(R.string.no_openmrs_id));
+    }
+
+    @Override
+    public void onRegistrationSaved() {
+
+        Utils.showShortToast(this, "New registration saved!");
     }
 }

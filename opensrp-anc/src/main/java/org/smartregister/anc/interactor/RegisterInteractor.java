@@ -13,6 +13,7 @@ import org.smartregister.anc.domain.UniqueId;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.AppExecutors;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -77,12 +78,12 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final String imageKey, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                saveRegistration(pair, jsonString, imageKey, isEditMode);
+                saveRegistration(pair, jsonString, isEditMode);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -95,7 +96,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString, String imageKey, boolean isEditMode) {
+    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
 
@@ -137,7 +138,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = org.smartregister.anc.util.JsonFormUtils.getFieldValue(jsonString, imageKey);
+                String imageLocation = org.smartregister.anc.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
                 org.smartregister.anc.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
