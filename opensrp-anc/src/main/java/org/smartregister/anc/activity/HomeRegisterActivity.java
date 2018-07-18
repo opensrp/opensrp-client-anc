@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
@@ -41,7 +42,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{new SortFilterFragment()};
+        return new Fragment[]{new AdvancedSearchFragment(), new SortFilterFragment()};
     }
 
     @Override

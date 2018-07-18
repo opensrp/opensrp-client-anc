@@ -31,25 +31,17 @@ import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.anc.servicemode.CustomServiceModeOption;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
-import org.smartregister.cursoradapter.CursorCommonObjectFilterOption;
-import org.smartregister.cursoradapter.CursorCommonObjectSort;
-import org.smartregister.cursoradapter.CursorSortOption;
 import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
-import org.smartregister.view.dialog.FilterOption;
-import org.smartregister.view.dialog.ServiceModeOption;
-import org.smartregister.view.dialog.SortOption;
 
 import java.util.List;
 import java.util.Set;
@@ -64,8 +56,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
-    public static final String DIALOG_TAG = "DIALOG_TAG";
-
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
     protected RegisterFragmentContract.Presenter presenter;
@@ -74,7 +64,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
     private Snackbar syncStatusSnackbar;
-    private View rootView;
+    protected View rootView;
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
 
@@ -85,31 +75,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
-        return new SecuredNativeSmartRegisterActivity.DefaultOptionsProvider() {
-
-
-            @Override
-            public ServiceModeOption serviceMode() {
-                return new CustomServiceModeOption(null, "Name", new int[]{
-                        R.string.name, R.string.opensrp_id, R.string.dose_d
-                }, new int[]{4, 3, 2});
-            }
-
-            @Override
-            public FilterOption villageFilter() {
-                return new CursorCommonObjectFilterOption("no village filter", "");
-            }
-
-            @Override
-            public SortOption sortOption() {
-                return new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), DBConstants.KEY.LAST_INTERACTED_WITH + " DESC");
-            }
-
-            @Override
-            public String nameInShortFormForTitle() {
-                return context().getStringResource(R.string.anc);
-            }
-        };
+        return null;
     }
 
     @Override
@@ -130,8 +96,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             @Override
             public DialogOption[] sortingOptions() {
                 return new DialogOption[]{
-                        new CursorCommonObjectSort(getResources().getString(R.string.alphabetical_sort), DBConstants.KEY.FIRST_NAME),
-                        new CursorCommonObjectSort(getResources().getString(R.string.opensrp_id), DBConstants.KEY.ANC_ID)
                 };
             }
 
@@ -145,7 +109,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         rootView = view;//handle to the root
 
         Toolbar toolbar = view.findViewById(R.id.register_toolbar);
@@ -197,37 +161,36 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         super.setupViews(view);
         clientsView.setVisibility(View.VISIBLE);
         clientsProgressView.setVisibility(View.INVISIBLE);
-        view.findViewById(R.id.sorted_by_bar).setVisibility(View.GONE);
 
         presenter.processViewConfigurations();
         presenter.initializeQueries(getMainCondition());
         updateSearchView();
         setServiceModeViewDrawableRight(null);
 
-        // QR Code
-        View qrCode = view.findViewById(R.id.scan_qr_code);
-        qrCode.setOnClickListener(registerActionHandler);
-
         // Initials
         initialsTextView = view.findViewById(R.id.name_initials);
-        initialsTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-                if (!drawer.isDrawerOpen(GravityCompat.START)) {
-                    drawer.openDrawer(GravityCompat.START);
+        if(initialsTextView != null) {
+            initialsTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                    if (!drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.openDrawer(GravityCompat.START);
+                    }
                 }
-            }
-        });
+            });
+        }
         presenter.updateInitials();
 
         View topLeftLayout = view.findViewById(R.id.top_left_layout);
-        topLeftLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initialsTextView.performLongClick();
-            }
-        });
+        if(topLeftLayout != null) {
+            topLeftLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initialsTextView.performLongClick();
+                }
+            });
+        }
 
         // Location
         facilitySelection = view.findViewById(R.id.facility_selection);
@@ -240,19 +203,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         if (syncProgressBar != null) {
             FadingCircle circle = new FadingCircle();
             syncProgressBar.setIndeterminateDrawable(circle);
-        }
-
-        // Search button
-        View searchButton = view.findViewById(R.id.search_button);
-        if (searchButton != null) {
-            searchButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getActivity() != null) {
-                        ((BaseRegisterActivity) getActivity()).displayToast("TODO: go to advanced search page");
-                    }
-                }
-            });
         }
 
         // Sort and Filter
@@ -283,7 +233,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.mainCondition = getMainCondition();
         this.countSelect = countSelect;
         this.mainSelect = mainSelect;
-        this.Sortqueries = ((CursorSortOption) getDefaultOptionsProvider().sortOption()).sort();
+        this.Sortqueries = "";
 
         BaseRegisterFragment.currentlimit = 20;
         // BaseRegisterFragment.currentoffset = 0;
@@ -383,20 +333,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         startActivity(intent);
     }
 
-    class RegisterActionHandler implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.scan_qr_code) {
-                ((HomeRegisterActivity) getActivity()).startQrCodeScanner();
-            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-                goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
-            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-                goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), true);
-            }
-
-        }
-    }
+    protected abstract void onViewClicked(View view);
 
     protected void updateLocationText() {
         if (facilitySelection != null) {
@@ -502,13 +439,41 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     private void refreshSyncProgressSpinner() {
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-            syncProgressBar.setVisibility(View.VISIBLE);
-            initialsTextView.setVisibility(View.GONE);
+            if (syncProgressBar != null) {
+                syncProgressBar.setVisibility(View.VISIBLE);
+            }
+            if (initialsTextView != null) {
+                initialsTextView.setVisibility(View.GONE);
+            }
         } else {
-            syncProgressBar.setVisibility(View.GONE);
-            initialsTextView.setVisibility(View.VISIBLE);
+            if (syncProgressBar != null) {
+                syncProgressBar.setVisibility(View.GONE);
+            }
+            if (initialsTextView != null) {
+                initialsTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
+
+    ////////////////////////////////////////////////////////////////
+    // Inner classes
+    ////////////////////////////////////////////////////////////////
+
+    private class RegisterActionHandler implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+                goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
+            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+                goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), true);
+            } else {
+                onViewClicked(view);
+            }
+
+        }
+    }
+
 }
 
 

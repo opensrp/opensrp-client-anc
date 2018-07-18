@@ -51,7 +51,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(
-                R.layout.dialog_fragment_filter,
+                R.layout.fragment_sort_filter,
                 container, false);
 
         updateFilterList(view, presenter.getConfig().getFilterFields());

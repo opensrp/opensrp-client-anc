@@ -1,0 +1,294 @@
+package org.smartregister.anc.fragment;
+
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
+import com.rengwuxian.materialedittext.MaterialEditText;
+import com.vijay.jsonwizard.customviews.RadioButton;
+
+import org.smartregister.anc.R;
+import org.smartregister.anc.activity.HomeRegisterActivity;
+import org.smartregister.anc.listener.DatePickerListener;
+import org.smartregister.anc.presenter.AdvancedPresenter;
+import org.smartregister.util.Utils;
+import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
+
+public class AdvancedSearchFragment extends BaseRegisterFragment {
+
+    private View listViewLayout;
+    private View advancedSearchForm;
+
+    private ImageButton backButton;
+    private ImageButton cancelButton;
+
+    private ProgressDialog progressDialog;
+
+    private RadioButton outsideInside;
+    private RadioButton myCatchment;
+
+    private MaterialEditText ancId;
+    private MaterialEditText firstName;
+    private MaterialEditText lastName;
+    private MaterialEditText edd;
+    private MaterialEditText dob;
+    private MaterialEditText phoneNumber;
+    private MaterialEditText altContactName;
+
+    private boolean listMode = false;
+
+    private BroadcastReceiver connectionChangeReciever;
+    private boolean registeredConnectionChangeReceiver = false;
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new AdvancedPresenter();
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_advanced_search, container, false);
+        rootView = view;//handle to the root
+
+        setupViews(view);
+        onResumption();
+        return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            switchViews(false);
+            updateSeachLimits();
+            resetForm();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (connectionChangeReciever != null && registeredConnectionChangeReceiver) {
+            getActivity().unregisterReceiver(connectionChangeReciever);
+            registeredConnectionChangeReceiver = false;
+        }
+    }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+
+        listViewLayout = view.findViewById(R.id.advanced_search_list);
+        listViewLayout.setVisibility(View.GONE);
+        advancedSearchForm = view.findViewById(R.id.advanced_search_form);
+
+        backButton = view.findViewById(R.id.back_button);
+        backButton.setOnClickListener(registerActionHandler);
+
+        cancelButton = view.findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener(registerActionHandler);
+
+        populateFormViews(view);
+
+        initializeProgressDialog();
+    }
+
+    private void populateFormViews(View view) {
+        Button search = view.findViewById(R.id.search);
+
+        outsideInside = view.findViewById(R.id.out_and_inside);
+        myCatchment = view.findViewById(R.id.my_catchment);
+
+        outsideInside.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!Utils.isConnectedToNetwork(getActivity())) {
+                    myCatchment.setChecked(true);
+                    outsideInside.setChecked(false);
+                } else {
+                    myCatchment.setChecked(!isChecked);
+                }
+            }
+        });
+
+        myCatchment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!Utils.isConnectedToNetwork(getActivity())) {
+                    myCatchment.setChecked(true);
+                    outsideInside.setChecked(false);
+                } else {
+                    outsideInside.setChecked(!isChecked);
+                }
+            }
+        });
+
+        View outsideInsideLayout = view.findViewById(R.id.out_and_inside_layout);
+        outsideInsideLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                outsideInside.toggle();
+            }
+        });
+
+        View mycatchmentLayout = view.findViewById(R.id.my_catchment_layout);
+        mycatchmentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myCatchment.toggle();
+            }
+        });
+
+
+        ancId = view.findViewById(R.id.anc_id);
+        firstName = view.findViewById(R.id.first_name);
+        lastName = view.findViewById(R.id.last_name);
+        edd = view.findViewById(R.id.edd);
+        dob = view.findViewById(R.id.dob);
+        phoneNumber = view.findViewById(R.id.phone_number);
+        altContactName = view.findViewById(R.id.alternate_contact_name);
+
+        setDatePicker(dob);
+
+        search.setOnClickListener(registerActionHandler);
+
+        resetForm();
+    }
+
+    private void switchViews(boolean showList) {
+        if (showList) {
+            advancedSearchForm.setVisibility(View.GONE);
+            listViewLayout.setVisibility(View.VISIBLE);
+            clientsView.setVisibility(View.VISIBLE);
+
+            cancelButton.setVisibility(View.GONE);
+            backButton.setVisibility(View.VISIBLE);
+
+            if (titleLabelView != null) {
+                titleLabelView.setText(getString(R.string.search_results));
+            }
+
+
+            //updateMatchingResults(0);
+            showProgressView();
+            listMode = true;
+        } else {
+            //clearSearchCriteria();
+            advancedSearchForm.setVisibility(View.VISIBLE);
+            listViewLayout.setVisibility(View.GONE);
+            clientsView.setVisibility(View.INVISIBLE);
+
+            backButton.setVisibility(View.GONE);
+            cancelButton.setVisibility(View.VISIBLE);
+
+            if (titleLabelView != null) {
+                titleLabelView.setText(getString(R.string.advanced_search));
+            }
+
+
+            listMode = false;
+        }
+    }
+
+    private void updateSeachLimits() {
+        if (Utils.isConnectedToNetwork(getActivity())) {
+            outsideInside.setChecked(true);
+            myCatchment.setChecked(false);
+
+        } else {
+            myCatchment.setChecked(true);
+            outsideInside.setChecked(false);
+        }
+
+        if (connectionChangeReciever == null) {
+            connectionChangeReciever = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (!Utils.isConnectedToNetwork(getActivity())) {
+                        myCatchment.setChecked(true);
+                        outsideInside.setChecked(false);
+                    }
+                }
+            };
+
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            getActivity().registerReceiver(connectionChangeReciever, intentFilter);
+            registeredConnectionChangeReceiver = true;
+        }
+
+    }
+
+    private void resetForm() {
+        ancId.setText("");
+        firstName.setText("");
+        lastName.setText("");
+        edd.setText("");
+        dob.setText("");
+        phoneNumber.setText("");
+        altContactName.setText("");
+    }
+
+    private void initializeProgressDialog() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+    }
+
+    @Override
+    public void showProgressView() {
+        progressDialog.setTitle(getString(R.string.searching_dialog_title));
+        progressDialog.setMessage(getString(R.string.searching_dialog_message));
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressView() {
+        progressDialog.hide();
+    }
+
+    private void setDatePicker(final EditText editText) {
+        editText.setOnClickListener(new DatePickerListener(getActivity(), editText, true));
+    }
+
+    @Override
+    public void setupSearchView(View view) {
+        // TODO implement this
+    }
+
+    @Override
+    protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
+        return null;
+    }
+
+
+    @Override
+    protected String getMainCondition() {
+        return null;
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        if (view.getId() == R.id.search) {
+            // TODO Implement this
+        } else if (view.getId() == R.id.cancel_button) {
+            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+        } else if (view.getId() == R.id.back_button) {
+            switchViews(false);
+        }
+    }
+
+}

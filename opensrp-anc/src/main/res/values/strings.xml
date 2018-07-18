@@ -81,6 +81,29 @@
     <string name="last_name_a_to_z">Last name (A to Z)</string>
     <string name="last_name_z_to_a">Last name (Z to A)</string>
     <string name="no_location_picker">No location selected </string>
+    <string name="no_record">No Record</string>
+
+    <!-- advanced search -->
+    <string name="advanced_search">Advanced Search</string>
+    <string name="out_and_inside">Outside and Inside\nMy Catchment Area</string>
+    <string name="requires_internet_connection">(Requires internet connection)</string>
+    <string name="my_catchment_area">My Catchment Area Only</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="anc_id">Anc ID</string>
+    <string name="id_number">Id number</string>
+    <string name="edd">Edd</string>
+    <string name="exp_date_of_delivery">Exp. date of delivery</string>
+    <string name="dob">Dob</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="mobile_phone_number">Mobile phone number</string>
+    <string name="phone_number">Phone number</string>
+    <string name="alternate_contact_name">Alternate contact name</string>
+    <string name="alt_contact_name">Alt. contact name</string>
+    <string name="search">Search</string>
+    <string name="search_results">Search Results</string>
+    <string name="searching_dialog_title">Searching…</string>
+    <string name="searching_dialog_message">Please wait</string>
 
     <!-- side nav -->
     <string name="anc_clients">ANC clients</string>

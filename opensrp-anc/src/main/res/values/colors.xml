@@ -42,4 +42,9 @@
     <color name="vaccine_na_bg_end">#ECECEC</color>
 
     <color name="vaccine_yellow">#F0AB41</color>
+
+    <color name="button_navy_blue">#2539BC</color>
+
+    <color name="radio_dark_grey">#999999</color>
+    <color name="radio_light_blue">#1a93d2</color>
 </resources>
