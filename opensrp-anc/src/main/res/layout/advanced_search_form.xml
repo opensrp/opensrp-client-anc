@@ -37,6 +37,7 @@
 
                     <com.vijay.jsonwizard.customviews.RadioButton
                         android:id="@+id/out_and_inside"
+                        style="@style/Material.Drawable.RadioButton.AdvancedSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -77,6 +78,7 @@
 
                     <com.vijay.jsonwizard.customviews.RadioButton
                         android:id="@+id/my_catchment"
+                        style="@style/Material.Drawable.RadioButton.AdvancedSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
