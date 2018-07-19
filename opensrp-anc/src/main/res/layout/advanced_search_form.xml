@@ -17,8 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -32,7 +32,7 @@
                     android:id="@+id/out_and_inside_layout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="1.5dp"
+                    android:layout_marginEnd="1.5dp"
                     android:layout_weight="1">
 
                     <com.vijay.jsonwizard.customviews.RadioButton
@@ -40,20 +40,21 @@
                         style="@style/Material.Drawable.RadioButton.AdvancedSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/out_and_inside"
+                        android:layout_toEndOf="@id/out_and_inside"
                         android:orientation="vertical">
 
                         <org.smartregister.view.customcontrols.CustomFontTextView
                             style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="2"
+                            android:maxLines="5"
+                            android:paddingStart="@dimen/advanced_search_text_padding"
                             android:text="@string/out_and_inside"
                             android:textColor="@color/lighter_grey_text"
                             android:textSize="@dimen/advanced_search_label_size" />
@@ -62,8 +63,10 @@
                             style="@style/CustomFontTextViewStyle.ClientList.Light"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/advanced_search_text_padding"
                             android:text="@string/requires_internet_connection"
                             android:textColor="@color/lighter_grey_text"
+                            android:maxLines="2"
                             android:textSize="@dimen/advanced_search_label_small_size" />
                     </LinearLayout>
 
@@ -73,7 +76,7 @@
                     android:id="@+id/my_catchment_layout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="1.5dp"
+                    android:layout_marginStart="1.5dp"
                     android:layout_weight="1">
 
                     <com.vijay.jsonwizard.customviews.RadioButton
@@ -81,15 +84,16 @@
                         style="@style/Material.Drawable.RadioButton.AdvancedSearch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true" />
 
                     <org.smartregister.view.customcontrols.CustomFontTextView
                         style="@style/CustomFontTextViewStyle.ClientList.Light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/my_catchment"
-                        android:maxLines="2"
+                        android:layout_toEndOf="@id/my_catchment"
+                        android:maxLines="5"
+                        android:paddingStart="@dimen/advanced_search_text_padding"
                         android:text="@string/my_catchment_area"
                         android:textColor="@color/lighter_grey_text"
                         android:textSize="@dimen/advanced_search_label_size" />
@@ -109,7 +113,7 @@
                     android:hint="@string/first_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:paddingLeft="@dimen/advanced_search_label_padding"
+                    android:paddingStart="@dimen/advanced_search_label_padding"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
@@ -132,7 +136,7 @@
                     android:hint="@string/last_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:paddingLeft="@dimen/advanced_search_label_padding"
+                    android:paddingStart="@dimen/advanced_search_label_padding"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
@@ -177,7 +181,7 @@
                     android:hint="@string/exp_date_of_delivery"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:paddingLeft="@dimen/advanced_search_label_padding"
+                    android:paddingStart="@dimen/advanced_search_label_padding"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
@@ -200,7 +204,7 @@
                     android:hint="@string/date_of_birth"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:paddingLeft="@dimen/advanced_search_label_padding"
+                    android:paddingStart="@dimen/advanced_search_label_padding"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
@@ -223,7 +227,7 @@
                     android:hint="@string/phone_number"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:paddingLeft="@dimen/advanced_search_label_padding"
+                    android:paddingStart="@dimen/advanced_search_label_padding"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
@@ -246,7 +250,7 @@
                     android:hint="@string/alt_contact_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:paddingLeft="@dimen/advanced_search_label_padding"
+                    android:paddingStart="@dimen/advanced_search_label_padding"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
@@ -265,9 +269,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@color/transparent"
-                android:padding="@dimen/advanced_search_label_size"
+                android:padding="@dimen/advanced_search_button_padding"
                 android:text="@string/search"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/button_navy_blue"
                 android:textSize="@dimen/advanced_search_text_size" />

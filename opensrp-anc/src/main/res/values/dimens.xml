@@ -70,12 +70,14 @@
     <dimen name="activity_sub_title_size">14sp</dimen>
     <dimen name="btn_profile_registration_info_padding">24dp</dimen>
 
-    <dimen name="advanced_search_text_size">28dp</dimen>
-    <dimen name="advanced_search_label_size">20dp</dimen>
-    <dimen name="advanced_search_label_small_size">16dp</dimen>
+    <dimen name="advanced_search_text_size">20sp</dimen>
+    <dimen name="advanced_search_label_size">12.5sp</dimen>
+    <dimen name="advanced_search_label_small_size">8sp</dimen>
     <dimen name="advanced_search_label_padding">5dp</dimen>
     <dimen name="advanced_search_toolbar_padding">20dp</dimen>
     <dimen name="advanced_search_toolbar_drawable_padding">10dp</dimen>
     <dimen name="advanced_search_toolbar_text_size">20sp</dimen>
+    <dimen name="advanced_search_button_padding">20dp</dimen>
+    <dimen name="advanced_search_text_padding">5dp</dimen>
 
 </resources>
