@@ -53,11 +53,20 @@ public class Constants {
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
-        public static final String CHILD = "child";
 
     }
 
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
     }
+
+    public static class OPENMRS {
+        public static final String ENTITY = "openmrs_entity";
+        public static final String ENTITY_ID = "openmrs_entity_id";
+    }
+
+    public static class ENTITY {
+        public static final String PERSON = "person";
+    }
+
 }

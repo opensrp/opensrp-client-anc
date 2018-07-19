@@ -51,6 +51,27 @@
           "json_mapping": {
             "field": "attributes.dateRemoved"
           }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.phoneNumber"
+          }
+        },
+        {
+          "column_name": "alternate_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.alternateName"
+          }
+        },
+        {
+          "column_name": "alternate_phone",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.alternatePhone"
+          }
         }
       ]
     }

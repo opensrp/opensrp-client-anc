@@ -23,6 +23,7 @@ import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
@@ -135,11 +136,19 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (StringUtils.isNotBlank(dobUnKnownString)) {
                 boolean isDateOfBirthUnknown = Boolean.valueOf(dobUnKnownString);
                 if (isDateOfBirthUnknown) {
-                    String ageString = getFieldValue(fields, DBConstants.KEY.DOB);
+                    String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
                     if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
                         int age = Integer.valueOf(ageString);
                         JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.IS_DATE_OF_BIRTH_UNKNOWN);
                         dobJSONObject.put(VALUE, Utils.getDob(age));
+
+                        //Mark the birth date as an approximation
+                        JSONObject isBirthdateApproximate = new JSONObject();
+                        isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
+                        isBirthdateApproximate.put(Constants.KEY.VALUE, true);
+                        isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
+                        isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, "164130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        fields.put(isBirthdateApproximate);
                     }
                 }
             }
