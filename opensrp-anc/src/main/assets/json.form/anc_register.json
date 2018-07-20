@@ -141,22 +141,22 @@
           "err": "Please enter the date of birth"
         },
         "relevance": {
-          "step1:is_date_of_birth_unknown": {
+          "step1:dob_unknown": {
             "type": "string",
             "ex": "equalTo(., \"false\")"
           }
         }
       },
       {
-        "key": "is_date_of_birth_unknown",
+        "key": "dob_unknown",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
         "label": "",
         "options": [
           {
-            "key": "is_date_of_birth_unknown",
+            "key": "dob_unknown",
             "text": "DOB unknown?",
             "value": "false"
           }
@@ -166,7 +166,7 @@
         "key": "age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age_entered",
+        "openmrs_entity_id": "age",
         "type": "edit_text",
         "hint": "Enter Age if DOB unknown *",
         "v_numeric": {
@@ -181,7 +181,7 @@
           "value": false
         },
         "relevance": {
-          "step1:is_date_of_birth_unknown": {
+          "step1:dob_unknown": {
             "type": "string",
             "ex": "equalTo(., \"true\")"
           }
@@ -231,8 +231,8 @@
       {
         "key": "reminders",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "reminders",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Reminders throughout pregnancy?",

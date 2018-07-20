@@ -47,7 +47,7 @@ public class Constants {
     }
 
     public static final class KEY {
-        public static final String _ID = "_id";
+        public static final String SEX = "Sex";
         public static final String KEY = "key";
         public static final String VALUE = "value";
         public static final String TREE = "tree";
@@ -67,6 +67,10 @@ public class Constants {
 
     public static class ENTITY {
         public static final String PERSON = "person";
+    }
+
+    public static class BOOLEAN_INT {
+        public static final int TRUE = 1;
     }
 
 }

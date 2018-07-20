@@ -129,7 +129,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             fields.put(lastInteractedWith);
             final String OPTIONS = "options";
 
-            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.IS_DATE_OF_BIRTH_UNKNOWN);
+            JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB_UNKNOWN);
             JSONArray options = getJSONArray(dobUnknownObject, OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
@@ -139,15 +139,15 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
                     if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
                         int age = Integer.valueOf(ageString);
-                        JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.IS_DATE_OF_BIRTH_UNKNOWN);
+                        JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
                         dobJSONObject.put(VALUE, Utils.getDob(age));
 
                         //Mark the birth date as an approximation
                         JSONObject isBirthdateApproximate = new JSONObject();
                         isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-                        isBirthdateApproximate.put(Constants.KEY.VALUE, true);
+                        isBirthdateApproximate.put(Constants.KEY.VALUE, Constants.BOOLEAN_INT.TRUE);
                         isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
-                        isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, "164130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
                         fields.put(isBirthdateApproximate);
                     }
                 }
@@ -314,10 +314,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     }
 
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.LAST_NAME)) {
-                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get("last_name"));
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.LAST_NAME));
 
                     }
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Sex")) {
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.SEX)) {
 
                         jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.GENDER));
                     }
@@ -326,23 +326,30 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                         jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
                     }
 
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ALTERNATE_NAME)) {
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ALT_NAME)) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ALTERNATE_NAME));
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ALT_NAME));
                     }
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ALTERNATE_PHONE)) {
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ALT_PHONE_NUMBER)) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ALTERNATE_PHONE));
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ALT_PHONE_NUMBER));
                     }
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
-                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.AGE));
-                    }
+
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.PHONE_NUMBER)) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, false);
                         jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.PHONE_NUMBER));
                     }
 
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB_UNKNOWN)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.DOB_UNKNOWN));
+                    }
+
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
+                    }
 
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
 
