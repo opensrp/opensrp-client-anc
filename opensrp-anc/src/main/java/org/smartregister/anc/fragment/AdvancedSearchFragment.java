@@ -5,9 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +23,17 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
+import org.smartregister.anc.contract.AdvancedSearchContract;
+import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.listener.DatePickerListener;
-import org.smartregister.anc.presenter.AdvancedPresenter;
+import org.smartregister.anc.presenter.AdvancedSearchPresenter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
-public class AdvancedSearchFragment extends BaseRegisterFragment {
+public class AdvancedSearchFragment extends BaseRegisterFragment implements AdvancedSearchContract.View {
 
     private View listViewLayout;
     private View advancedSearchForm;
@@ -52,9 +59,11 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
 
+
     @Override
     protected void initializePresenter() {
-        presenter = new AdvancedPresenter();
+        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new AdvancedSearchPresenter(this, viewConfigurationIdentifier);
 
     }
 
@@ -104,7 +113,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
 
         populateFormViews(view);
 
-        initializeProgressDialog();
     }
 
     private void populateFormViews(View view) {
@@ -162,6 +170,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
         phoneNumber = view.findViewById(R.id.phone_number);
         altContactName = view.findViewById(R.id.alternate_contact_name);
 
+        setDatePicker(edd);
         setDatePicker(dob);
 
         search.setOnClickListener(registerActionHandler);
@@ -169,7 +178,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
         resetForm();
     }
 
-    private void switchViews(boolean showList) {
+    @Override
+    public void switchViews(boolean showList) {
         if (showList) {
             advancedSearchForm.setVisibility(View.GONE);
             listViewLayout.setVisibility(View.VISIBLE);
@@ -244,12 +254,17 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
     }
 
     private void initializeProgressDialog() {
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setCancelable(false);
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(false);
+        }
     }
 
     @Override
     public void showProgressView() {
+        if (progressDialog == null) {
+            initializeProgressDialog();
+        }
         progressDialog.setTitle(getString(R.string.searching_dialog_title));
         progressDialog.setMessage(getString(R.string.searching_dialog_message));
         progressDialog.show();
@@ -274,16 +289,41 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
         return null;
     }
 
-
     @Override
     protected String getMainCondition() {
-        return null;
+        return DBQueryHelper.getHomePatientRegisterCondition();
+    }
+
+    private void search() {
+        String fn = firstName.getText().toString();
+        String ln = lastName.getText().toString();
+        String id = ancId.getText().toString();
+        String eddDate = edd.getText().toString();
+        String dobDate = dob.getText().toString();
+        String pn = phoneNumber.getText().toString();
+        String altName = altContactName.getText().toString();
+
+        boolean isLocal = true;
+        if (outsideInside.isChecked()) {
+            isLocal = false;
+        }
+
+        ((AdvancedSearchContract.Presenter) presenter).search(fn, ln, id, eddDate, dobDate, pn, altName, isLocal);
+    }
+
+    @Override
+    protected void goBack() {
+        if (listMode) {
+            switchViews(false);
+        } else {
+            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+        }
     }
 
     @Override
     protected void onViewClicked(View view) {
         if (view.getId() == R.id.search) {
-            // TODO Implement this
+            search();
         } else if (view.getId() == R.id.cancel_button) {
             ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
         } else if (view.getId() == R.id.back_button) {
@@ -291,4 +331,51 @@ public class AdvancedSearchFragment extends BaseRegisterFragment {
         }
     }
 
+    @Override
+    public void countExecute() {
+
+        Cursor c = null;
+
+        try {
+
+            Log.i(getClass().getName(), countSelect);
+            c = commonRepository().rawCustomQueryForAdapter(countSelect);
+            c.moveToFirst();
+            totalcount = c.getInt(0);
+            Log.v("total count here", "" + totalcount);
+            currentlimit = 20;
+            currentoffset = 0;
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+    }
+
+    private String filterandSortQuery() {
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        return queryBUilder.Endquery(queryBUilder.addlimitandOffset(mainSelect, currentlimit, currentoffset));
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch (id) {
+            case LOADER_ID:
+                // Returns a new CursorLoader
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        // Select register query
+                        String query = filterandSortQuery();
+                        return commonRepository().rawCustomQueryForAdapter(query);
+                    }
+                };
+            default:
+                // An invalid id was passed in
+                return null;
+        }
+    }
 }

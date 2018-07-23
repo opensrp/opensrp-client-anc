@@ -39,6 +39,20 @@
           }
         },
         {
+          "column_name": "phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.phone_number"
+          }
+        },
+        {
+          "column_name": "alt_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.alt_name"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

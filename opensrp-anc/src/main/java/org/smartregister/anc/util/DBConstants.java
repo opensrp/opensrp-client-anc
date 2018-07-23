@@ -16,6 +16,8 @@ public class DBConstants {
         public static final String DOB = "dob";
         public static final String EDD = "edd";
         public static final String ANC_ID = "anc_id";
+        public static final String PHONE_NUMBER = "phone_number";
+        public static final String ALT_CONTACT_NAME = "alt_name";
         public static final String LAST_INTERACTED_WITH = "last_interacted_with";
         public static final String DATE_REMOVED = "date_removed";
     }

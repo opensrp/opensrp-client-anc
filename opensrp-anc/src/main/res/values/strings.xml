@@ -85,9 +85,9 @@
 
     <!-- advanced search -->
     <string name="advanced_search">Advanced Search</string>
-    <string name="out_and_inside">Outside and Inside\nMy Catchment Area</string>
-    <string name="requires_internet_connection">(Requires internet connection)</string>
-    <string name="my_catchment_area">My Catchment Area Only</string>
+    <string name="out_and_inside">Outside and inside my health facility</string>
+    <string name="requires_internet_connection">(requires internet connection)</string>
+    <string name="my_catchment_area">My health facility only</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="anc_id">Anc ID</string>

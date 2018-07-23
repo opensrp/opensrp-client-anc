@@ -140,7 +140,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     public void updateSearchBarHint(String searchBarText) {
-        getSearchView().setHint(searchBarText);
+        if(getSearchView() != null) {
+            getSearchView().setHint(searchBarText);
+        }
     }
 
     public void setSearchTerm(String searchText) {
@@ -248,7 +250,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     public void updateInitialsText(String initials) {
-        initialsTextView.setText(initials);
+        if(initialsTextView != null) {
+            initialsTextView.setText(initials);
+        }
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString) {
