@@ -38,6 +38,10 @@ public class Constants {
         public static final String ANC_CLOSE = "anc_close";
     }
 
+    public static class JSON_FORM_KEY {
+        public static final String OPTIONS = "options";
+    }
+
     public static final class ServiceType {
         public static final int AUTO_SYNC = 1;
         public static final int PULL_UNIQUE_IDS = 4;

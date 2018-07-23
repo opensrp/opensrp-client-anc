@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
 import org.smartregister.anc.contract.ProfileContract;
@@ -26,7 +25,6 @@ import org.smartregister.anc.util.Utils;
  */
 public class ProfileActivity extends BaseProfileActivity implements ProfileContract.View {
 
-    private ProfileContract.Presenter mProfilePresenter;
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
@@ -146,20 +144,17 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
     }
 
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
-    }
-
 
     @Override
-    public void onNoUniqueId() {
-        Utils.showShortToast(this, this.getString(R.string.no_openmrs_id));
+    public String getIntentString(String intentKey) {
+
+        return this.getIntent().getStringExtra(intentKey);
     }
 
     @Override
-    public void onRegistrationSaved() {
+    public void displayToast(int stringID) {
 
-        Utils.showShortToast(this, "New registration saved!");
+        Utils.showShortToast(this, this.getString(stringID));
     }
+
 }

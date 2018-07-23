@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
@@ -188,7 +189,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
         assertEquals(new Long(timestamp), longArgumentCaptor.getValue());
 
-        verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved();
+        verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved(ArgumentMatchers.anyBoolean());
     }
 
     @Test
@@ -270,6 +271,6 @@ public class RegisterInteractorTest extends BaseUnitTest {
         verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
         assertEquals(new Long(timestamp), longArgumentCaptor.getValue());
 
-        verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved();
+        verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved(ArgumentMatchers.anyBoolean());
     }
 }

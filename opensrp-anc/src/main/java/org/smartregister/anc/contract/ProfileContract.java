@@ -1,5 +1,9 @@
 package org.smartregister.anc.contract;
 
+import android.content.Intent;
+
+import org.smartregister.repository.AllSharedPreferences;
+
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
@@ -13,6 +17,7 @@ public interface ProfileContract {
 
         void refreshProfileView(String baseEntityId);
 
+        void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
     }
 
     interface View {
@@ -26,6 +31,15 @@ public interface ProfileContract {
         void setProfileGestationAge(String gestationAge);
 
         void setProfileImage(String baseEntityId);
+
+        void showProgressDialog();
+
+        void hideProgressDialog();
+
+        void displayToast(int resourceId);
+
+        String getIntentString(String intentKey);
+
     }
 
     interface Interactor {

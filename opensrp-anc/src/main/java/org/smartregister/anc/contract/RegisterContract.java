@@ -84,6 +84,6 @@ public class RegisterContract {
 
         void onNoUniqueId();
 
-        void onRegistrationSaved();
+        void onRegistrationSaved(boolean isEdit);
     }
 }

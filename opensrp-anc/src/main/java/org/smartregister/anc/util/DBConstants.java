@@ -25,5 +25,6 @@ public class DBConstants {
         public static final String ALT_PHONE_NUMBER = "alt_phone_number";
         public static final String HOME_ADDRESS = "home_address";
         public static final String AGE = "age";
+        public static final String REMINDERS = "reminders";
     }
 }

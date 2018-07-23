@@ -127,10 +127,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             lastInteractedWith.put(Constants.KEY.KEY, DBConstants.KEY.LAST_INTERACTED_WITH);
             lastInteractedWith.put(Constants.KEY.VALUE, Calendar.getInstance().getTimeInMillis());
             fields.put(lastInteractedWith);
-            final String OPTIONS = "options";
 
             JSONObject dobUnknownObject = getFieldJSONObject(fields, DBConstants.KEY.DOB_UNKNOWN);
-            JSONArray options = getJSONArray(dobUnknownObject, OPTIONS);
+            JSONArray options = getJSONArray(dobUnknownObject, Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
             if (StringUtils.isNotBlank(dobUnKnownString)) {
@@ -304,7 +303,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
 
-                        Photo photo = ImageUtils.profilePhotoByClientID(DBConstants.KEY.BASE_ENTITY_ID);
+                        Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));
 
                         if (StringUtils.isNotBlank(photo.getFilePath())) {
 
@@ -343,7 +342,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB_UNKNOWN)) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.DOB_UNKNOWN));
+                        JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+                        optionsObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.DOB_UNKNOWN));
                     }
 
                     if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
@@ -351,8 +351,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                         jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
                     }
 
-                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.REMINDERS)) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.REMINDERS));
+                    }
 
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB) && !Boolean.valueOf(womanClient.get(DBConstants.KEY.DOB_UNKNOWN))) {
 
                         String dobString = womanClient.get(DBConstants.KEY.DOB);
                         Date dob = Utils.dobStringToDate(dobString);

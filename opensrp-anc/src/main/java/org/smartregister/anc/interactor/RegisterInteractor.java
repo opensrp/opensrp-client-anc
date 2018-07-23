@@ -87,7 +87,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onRegistrationSaved();
+                        callBack.onRegistrationSaved(isEditMode);
                     }
                 });
             }

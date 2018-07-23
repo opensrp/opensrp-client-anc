@@ -234,7 +234,7 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
         Mockito.doNothing().when(view).refreshList(ArgumentMatchers.any(FetchStatus.class));
 
-        registerPresenter.onRegistrationSaved();
+        registerPresenter.onRegistrationSaved(false);
 
         Mockito.verify(view).refreshList(FetchStatus.fetched);
         Mockito.verify(view).hideProgressDialog();
