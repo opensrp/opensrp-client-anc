@@ -93,7 +93,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         }
     }
 
-
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
         //Overriden
