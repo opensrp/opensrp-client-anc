@@ -132,23 +132,22 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONArray options = getJSONArray(dobUnknownObject, Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
-            if (StringUtils.isNotBlank(dobUnKnownString)) {
-                boolean isDateOfBirthUnknown = Boolean.valueOf(dobUnKnownString);
-                if (isDateOfBirthUnknown) {
-                    String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-                    if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-                        int age = Integer.valueOf(ageString);
-                        JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-                        dobJSONObject.put(VALUE, Utils.getDob(age));
+            if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
 
-                        //Mark the birth date as an approximation
-                        JSONObject isBirthdateApproximate = new JSONObject();
-                        isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-                        isBirthdateApproximate.put(Constants.KEY.VALUE, Constants.BOOLEAN_INT.TRUE);
-                        isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
-                        isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-                        fields.put(isBirthdateApproximate);
-                    }
+                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
+                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
+                    int age = Integer.valueOf(ageString);
+                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
+                    dobJSONObject.put(VALUE, Utils.getDob(age));
+
+                    //Mark the birth date as an approximation
+                    JSONObject isBirthdateApproximate = new JSONObject();
+                    isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
+                    isBirthdateApproximate.put(Constants.KEY.VALUE, Constants.BOOLEAN_INT.TRUE);
+                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
+                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
+                    fields.put(isBirthdateApproximate);
+
                 }
             }
 

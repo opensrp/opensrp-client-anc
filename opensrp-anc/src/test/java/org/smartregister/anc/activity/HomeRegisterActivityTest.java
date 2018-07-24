@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
@@ -39,8 +38,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     @Mock
     private SettingsTestMenuItem menuItem;
 
-    @Mock
-    private RegisterContract.Presenter presenter;
     @Mock
     private List<Field> filterList;
     @Mock

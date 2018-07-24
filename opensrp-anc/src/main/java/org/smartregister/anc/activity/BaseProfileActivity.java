@@ -17,7 +17,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.event.ClientDetailsFetchedEvent;
-import org.smartregister.anc.fragment.BaseProfileFragment;
 import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
@@ -36,7 +35,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
 
-    private static final String TAG = BaseProfileFragment.class.getCanonicalName();
     private static final int REQUEST_CODE_GET_JSON = 3432;
 
     protected ProfileContract.Presenter mProfilePresenter;

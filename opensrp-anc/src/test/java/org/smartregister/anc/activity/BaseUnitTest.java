@@ -1,10 +1,7 @@
 package org.smartregister.anc.activity;
 
-import android.app.Activity;
-
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
