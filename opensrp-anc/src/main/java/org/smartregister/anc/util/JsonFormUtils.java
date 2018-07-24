@@ -12,6 +12,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,18 +98,26 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return form;
     }
 
+    private static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
+
+        JSONObject jsonForm = toJSONObject(jsonString);
+        JSONArray fields = fields(jsonForm);
+
+        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
+        return registrationFormParams;
+    }
+
     public static Pair<Client, Event> processRegistrationForm(String jsonString, String providerId) {
 
         try {
-            JSONObject jsonForm = toJSONObject(jsonString);
-            if (jsonForm == null) {
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+
+            if (!registrationFormParams.getLeft()) {
                 return null;
             }
 
-            JSONArray fields = fields(jsonForm);
-            if (fields == null) {
-                return null;
-            }
+            JSONObject jsonForm = registrationFormParams.getMiddle();
+            JSONArray fields = registrationFormParams.getRight();
 
             String entityId = getString(jsonForm, ENTITY_ID);
             if (StringUtils.isBlank(entityId)) {
