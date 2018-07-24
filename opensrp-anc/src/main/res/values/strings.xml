@@ -101,4 +101,9 @@
     <string name="new_registration_saved">New registration saved &#x21;</string>
     <string name="registration_info_updated">Registration info updated &#x21;</string>
 
+    <string name="call">Call</string>
+    <string name="start_contact">Start Contact</string>
+    <string name="close_anc_record">Close ANC Record</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+
 </resources>

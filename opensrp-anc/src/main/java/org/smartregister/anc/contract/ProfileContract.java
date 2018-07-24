@@ -44,6 +44,7 @@ public interface ProfileContract {
 
         String getIntentString(String intentKey);
 
+
     }
 
     interface Interactor {

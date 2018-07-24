@@ -1,11 +1,19 @@
 package org.smartregister.anc.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +27,8 @@ import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.anc.view.CopyToClipboardDialog;
+import org.smartregister.util.PermissionUtils;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -83,7 +93,35 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         if (itemId == android.R.id.home) {
             finish();
         } else {
-            Utils.showToast(this, "Showing ANC Edit menu...");
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+            arrayAdapter.add(getString(R.string.call));
+            arrayAdapter.add(getString(R.string.start_contact));
+            arrayAdapter.add(getString(R.string.close_anc_record));
+
+            builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String textClicked = arrayAdapter.getItem(which);
+                    switch (textClicked) {
+                        case "Call":
+                            launchPhoneDialer("072...");
+                            break;
+                        case "Start Contact":
+                            Utils.showShortToast(ProfileActivity.this, textClicked);
+                            break;
+                        case "Close ANC Record":
+                            break;
+                        default:
+                            break;
+                    }
+
+                    dialog.dismiss();
+                }
+
+            });
+            builderSingle.show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -157,4 +195,19 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         Utils.showShortToast(this, this.getString(stringID));
     }
 
+    public void launchPhoneDialer(String phoneNumber) {
+        if (PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE)) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
+                this.startActivity(intent);
+            } catch (Exception e) {
+
+                CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(this, R.style.copy_clipboard_dialog);
+                copyToClipboardDialog.setContent(phoneNumber);
+                copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                copyToClipboardDialog.show();
+
+            }
+        }
+    }
 }
