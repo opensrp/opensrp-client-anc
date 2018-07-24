@@ -2,10 +2,8 @@ package org.smartregister.anc.task;
 
 import android.os.AsyncTask;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
-import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.anc.contract.ProfileContract;

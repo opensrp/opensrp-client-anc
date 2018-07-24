@@ -150,7 +150,6 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject eventObject = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(event));
 
         String jsonString = "{'json':'string'}";
-        String imageKey = "img";
 
         long timestamp = new Date().getTime();
 

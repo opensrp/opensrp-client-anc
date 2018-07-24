@@ -8,25 +8,19 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
-import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.fragment.BaseProfileFragment;
-import org.smartregister.anc.interactor.RegisterInteractor;
 import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -45,7 +39,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     private static final String TAG = BaseProfileFragment.class.getCanonicalName();
     private static final int REQUEST_CODE_GET_JSON = 3432;
 
-    private RegisterContract.Interactor registerInteractor;
     protected ProfileContract.Presenter mProfilePresenter;
 
     @Override
@@ -62,8 +55,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        registerInteractor = new RegisterInteractor();
 
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
 

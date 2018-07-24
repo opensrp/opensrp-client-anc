@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by ndegwamartin on 17/07/2018.
  */
 public class ClientDetailsFetchedEvent extends BaseEvent {
-    Map<String, String> womanClient;
+    private Map<String, String> womanClient;
 
     public Map<String, String> getWomanClient() {
         return womanClient;

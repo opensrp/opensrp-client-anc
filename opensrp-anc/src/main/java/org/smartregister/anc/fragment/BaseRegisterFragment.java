@@ -64,8 +64,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
-    public static final String DIALOG_TAG = "DIALOG_TAG";
-
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
     protected RegisterFragmentContract.Presenter presenter;

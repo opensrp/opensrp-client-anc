@@ -35,7 +35,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_african_girl"
+                    android:src="@drawable/ic_woman_with_baby"
                     app:civ_border_color="#FFFFFFFF"
                     app:civ_border_width="0dp" />
 

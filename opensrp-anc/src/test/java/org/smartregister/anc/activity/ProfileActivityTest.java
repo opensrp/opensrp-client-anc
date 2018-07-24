@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -24,7 +25,7 @@ import org.smartregister.anc.util.Constants;
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
-public class ProfileActivityTest extends BaseUnitTest {
+public class ProfileActivityTest extends BaseActivityUnitTest {
 
     private ProfileActivity profileActivity;
     private ActivityController<ProfileActivity> controller;
@@ -200,15 +201,13 @@ public class ProfileActivityTest extends BaseUnitTest {
 
     }
 
-    private void destroyController() {
-        try {
-            profileActivity.finish();
-            controller.pause().stop().destroy(); //destroy controller if we can
+    @Override
+    protected Activity getActivity() {
+        return profileActivity;
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.gc();
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
     }
 }

@@ -21,7 +21,7 @@ import org.smartregister.anc.R;
  */
 public class RoundedImageView extends AppCompatImageView {
 
-    private Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.ic_african_girl);
+    private Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.ic_woman_with_baby);
 
     public RoundedImageView(Context context) {
         super(context);
