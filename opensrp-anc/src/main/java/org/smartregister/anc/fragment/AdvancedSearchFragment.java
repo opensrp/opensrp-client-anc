@@ -26,6 +26,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.listener.DatePickerListener;
 import org.smartregister.anc.presenter.AdvancedSearchPresenter;
@@ -55,10 +56,10 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     private MaterialEditText altContactName;
 
     private boolean listMode = false;
+    private boolean isLocal = false;
 
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
-
 
     @Override
     protected void initializePresenter() {
@@ -303,8 +304,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         String pn = phoneNumber.getText().toString();
         String altName = altContactName.getText().toString();
 
-        boolean isLocal = true;
-        if (outsideInside.isChecked()) {
+        if (myCatchment.isChecked()) {
+            isLocal = true;
+        } else if (outsideInside.isChecked()) {
             isLocal = false;
         }
 
@@ -331,33 +333,30 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         }
     }
 
-    @Override
-    public void countExecute() {
+    private String filterandSortQuery() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
-        Cursor c = null;
-
+        String query = "";
         try {
-
-            Log.i(getClass().getName(), countSelect);
-            c = commonRepository().rawCustomQueryForAdapter(countSelect);
-            c.moveToFirst();
-            totalcount = c.getInt(0);
-            Log.v("total count here", "" + totalcount);
-            currentlimit = 20;
-            currentoffset = 0;
-
+            sqb.addCondition(filters);
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(sqb.addlimitandOffset(query, currentlimit, currentoffset));
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
         }
+
+        return query;
     }
 
-    private String filterandSortQuery() {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        return queryBUilder.Endquery(queryBUilder.addlimitandOffset(mainSelect, currentlimit, currentoffset));
+    @Override
+    public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
+        totalcount = matrixCursor.getCount();
+        Log.v("total count here", "" + totalcount);
+        currentlimit = 20;
+        if (totalcount > 0) {
+            currentlimit = totalcount;
+        }
+        currentoffset = 0;
     }
 
     @Override
@@ -368,9 +367,21 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
                 return new CursorLoader(getActivity()) {
                     @Override
                     public Cursor loadInBackground() {
-                        // Select register query
-                        String query = filterandSortQuery();
-                        return commonRepository().rawCustomQueryForAdapter(query);
+                        AdvancedMatrixCursor matrixCursor = ((AdvancedSearchContract.Presenter) presenter).getMatrixCursor();
+                        if (isLocal || matrixCursor == null) {
+                            String query = filterandSortQuery();
+                            Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    hideProgressView();
+                                }
+                            });
+
+                            return cursor;
+                        } else {
+                            return matrixCursor;
+                        }
                     }
                 };
             default:

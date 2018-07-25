@@ -1,37 +1,39 @@
 package org.smartregister.anc.presenter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
-import org.smartregister.anc.contract.RegisterFragmentContract;
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
+import org.smartregister.anc.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.model.AdvancedSearchModel;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.configurableviews.model.Field;
+import org.smartregister.domain.Response;
 
 import java.lang.ref.WeakReference;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class AdvancedSearchPresenter extends RegisterFragmentPresenter implements AdvancedSearchContract.Presenter {
+public class AdvancedSearchPresenter extends RegisterFragmentPresenter implements AdvancedSearchContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
     private WeakReference<AdvancedSearchContract.View> viewReference;
 
     private AdvancedSearchContract.Model model;
 
+    private AdvancedSearchContract.Interactor interactor;
+
+    private AdvancedMatrixCursor matrixCursor;
+
     public AdvancedSearchPresenter(AdvancedSearchContract.View view, String viewConfigurationIdentifier) {
         super(view, viewConfigurationIdentifier);
         this.viewReference = new WeakReference<>(view);
         model = new AdvancedSearchModel();
+        interactor = new AdvancedSearchInteractor();
     }
 
     public void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal) {
-        Map<String, String> editMap = model.createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Map<String, String> editMap = model.createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         if (editMap == null || editMap.isEmpty()) {
             return;
         }
 
-        if(isLocal) {
+        if (isLocal) {
             String mainCondition = model.getMainConditionString(editMap);
             String tableName = DBConstants.WOMAN_TABLE_NAME;
 
@@ -47,8 +49,28 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             getView().refresh();
 
             getView().switchViews(true);
-        }
+        } else {
+            interactor.search(editMap, this);
 
+        }
+    }
+
+    @Override
+    public void onResultsFound(Response<String> response) {
+        matrixCursor = model.createMatrixCursor(response);
+
+        getView().recalculatePagination(matrixCursor);
+
+        getView().filterandSortInInitializeQueries();
+        getView().refresh();
+
+        getView().switchViews(true);
+
+
+    }
+
+    public AdvancedMatrixCursor getMatrixCursor() {
+        return matrixCursor;
     }
 
     protected AdvancedSearchContract.View getView() {

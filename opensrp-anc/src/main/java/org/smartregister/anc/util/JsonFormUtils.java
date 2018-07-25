@@ -36,6 +36,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String ENCOUNTER_TYPE = "encounter_type";
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
+    public static final String ANC_ID = "ANC_ID";
 
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
