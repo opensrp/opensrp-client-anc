@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
 import org.smartregister.anc.contract.ProfileContract;
@@ -28,6 +32,7 @@ import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
+import org.smartregister.util.FormUtils;
 import org.smartregister.util.PermissionUtils;
 
 /**
@@ -41,6 +46,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private TextView ancIdView;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
+
+    private static final String TAG = ProfileActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +119,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                             Utils.showShortToast(ProfileActivity.this, textClicked);
                             break;
                         case "Close ANC Record":
+                            launchANCCloseForm();
                             break;
                         default:
                             break;
@@ -195,19 +203,33 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         Utils.showShortToast(this, this.getString(stringID));
     }
 
-    public void launchPhoneDialer(String phoneNumber) {
+    protected void launchPhoneDialer(String phoneNumber) {
         if (PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE)) {
             try {
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
                 this.startActivity(intent);
             } catch (Exception e) {
 
+                Log.i(TAG, "No dial application so we launch copy to clipboard...");
                 CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(this, R.style.copy_clipboard_dialog);
                 copyToClipboardDialog.setContent(phoneNumber);
                 copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 copyToClipboardDialog.show();
-
             }
+        }
+    }
+
+    protected void launchANCCloseForm() {
+        try {
+            Intent intent = new Intent(this, JsonFormActivity.class);
+
+            JSONObject form = FormUtils.getInstance(this).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
+            if (form != null) {
+                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
+                startActivityForResult(intent, 0);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 }
