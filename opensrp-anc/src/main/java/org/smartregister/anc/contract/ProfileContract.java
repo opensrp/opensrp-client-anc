@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.Map;
+
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
@@ -18,6 +20,8 @@ public interface ProfileContract {
         void refreshProfileView(String baseEntityId);
 
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
+
+        void refreshProfileTopSection(Map<String, String> client);
     }
 
     interface View {

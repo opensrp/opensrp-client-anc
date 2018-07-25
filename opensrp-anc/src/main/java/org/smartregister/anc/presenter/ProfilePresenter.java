@@ -5,6 +5,10 @@ import android.util.Log;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.LocalDate;
+import org.joda.time.Weeks;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ProfileContract;
@@ -12,12 +16,15 @@ import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.interactor.ProfileInteractor;
 import org.smartregister.anc.interactor.RegisterInteractor;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 13/07/2018.
@@ -29,6 +36,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private WeakReference<ProfileContract.View> mProfileView;
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
+    private DateTimeFormatter formatter = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
 
     public ProfilePresenter(ProfileContract.View loginView) {
         mProfileView = new WeakReference<>(loginView);
@@ -106,5 +114,21 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         getProfileView().hideProgressDialog();
 
         getProfileView().displayToast(isEdit ? R.string.registration_info_updated : R.string.new_registration_saved);
+    }
+
+    @Override
+    public void refreshProfileTopSection(Map<String, String> client) {
+
+        getProfileView().setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
+        getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
+        getProfileView().setProfileGestationAge(client.containsKey(DBConstants.KEY.EDD) ? String.valueOf(getGestationAgeFromDate(client.get(DBConstants.KEY.EDD))) : null);
+        getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
+        getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
+    }
+
+    private int getGestationAgeFromDate(String expectedDeliveryDate) {
+        LocalDate date = formatter.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+        Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
+        return weeks.getWeeks();
     }
 }

@@ -20,6 +20,7 @@ import org.smartregister.anc.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -65,12 +66,12 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     @Override
     public void onClick(View view) {
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        new FetchProfileDataTask(null).execute(baseEntityId);
+        new FetchProfileDataTask(true).execute(baseEntityId);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
-        if (event != null) {
+        if (event != null && event.isEditMode()) {
 
             String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditFormString(this, event.getWomanClient());
             try {
@@ -83,6 +84,15 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
 
     }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void refreshProfileTopSection(ClientDetailsFetchedEvent event) {
+        if (event != null && !event.isEditMode()) {
+            Utils.removeStickyEvent(event);
+            mProfilePresenter.refreshProfileTopSection(event.getWomanClient());
+        }
+    }
+
 
     @Override
     public void onResume() {
@@ -116,7 +126,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
