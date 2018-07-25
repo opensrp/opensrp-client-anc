@@ -97,7 +97,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     @Override
     public void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
+        registerEventBus();
     }
 
     @Override
@@ -153,4 +153,8 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
     }
 
+    protected void registerEventBus() {
+
+        EventBus.getDefault().register(this);
+    }
 }

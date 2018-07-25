@@ -1,5 +1,7 @@
 package org.smartregister.anc.presenter;
 
+import android.util.ArrayMap;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -12,6 +14,10 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
+
+import java.util.Map;
 
 
 /**
@@ -109,6 +115,29 @@ public class ProfilePresenterTest extends BaseUnitTest {
         Mockito.doNothing().when(presenterSpy2).refreshProfileView(null);
         presenterSpy2.onRegistrationSaved(false);
         Mockito.verify(view).displayToast(R.string.new_registration_saved);
+    }
+
+    @Test
+    public void testRefreshProfileTopSectionShouldInvokeCorrectViewMethods() {
+
+
+        ProfileContract.Presenter presenterSpy = Mockito.spy(presenter);
+
+        Map<String, String> client = new ArrayMap<>();
+        client.put(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME);
+        client.put(DBConstants.KEY.LAST_NAME, DUMMY_USERNAME);
+        client.put(DBConstants.KEY.DOB, "1997-08-09");
+        client.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        client.put(DBConstants.KEY.ANC_ID, TEST_STRING);
+
+        presenterSpy.refreshProfileTopSection(client);
+
+
+        Mockito.verify(view).setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
+        Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
+        Mockito.verify(view).setProfileID(client.get(DBConstants.KEY.ANC_ID));
+        Mockito.verify(view).setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
+
     }
 
 }

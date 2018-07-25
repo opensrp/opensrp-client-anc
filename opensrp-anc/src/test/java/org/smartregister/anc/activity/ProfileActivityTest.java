@@ -97,7 +97,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
         Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
-
+        Mockito.doNothing().when(spyActivity).registerEventBus();
         spyActivity.onResume();
 
         Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
