@@ -67,6 +67,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected View rootView;
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
+    public static final String CLICK_VIEW_SYNC = "click_view_sync";
 
     private TextView initialsTextView;
     private ProgressBar syncProgressBar;
@@ -140,7 +141,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     public void updateSearchBarHint(String searchBarText) {
-        if(getSearchView() != null) {
+        if (getSearchView() != null) {
             getSearchView().setHint(searchBarText);
         }
     }
@@ -171,7 +172,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
         // Initials
         initialsTextView = view.findViewById(R.id.name_initials);
-        if(initialsTextView != null) {
+        if (initialsTextView != null) {
             initialsTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -185,7 +186,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         presenter.updateInitials();
 
         View topLeftLayout = view.findViewById(R.id.top_left_layout);
-        if(topLeftLayout != null) {
+        if (topLeftLayout != null) {
             topLeftLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -250,7 +251,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     public void updateInitialsText(String initials) {
-        if(initialsTextView != null) {
+        if (initialsTextView != null) {
             initialsTextView.setText(initials);
         }
     }
@@ -323,6 +324,10 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 presenter.startSync();
             }
         }
+    }
+
+    public boolean onBackPressed() {
+        return false;
     }
 
     protected abstract String getMainCondition();
@@ -471,6 +476,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), true);
+            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) {
+                // TODO Move to catchment
             } else {
                 onViewClicked(view);
             }

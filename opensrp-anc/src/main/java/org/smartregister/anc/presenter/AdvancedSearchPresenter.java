@@ -1,5 +1,6 @@
 package org.smartregister.anc.presenter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
@@ -33,7 +34,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             return;
         }
 
+        String searchCriteria = model.createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        getView().updateSearchCriteria(searchCriteria);
+
         if (isLocal) {
+            getView().showProgressView();
+            getView().switchViews(true);
+
             String mainCondition = model.getMainConditionString(editMap);
             String tableName = DBConstants.WOMAN_TABLE_NAME;
 
@@ -48,8 +55,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
 
             getView().refresh();
 
-            getView().switchViews(true);
+            getView().hideProgressView();
+
+
         } else {
+            getView().showProgressView();
+            getView().switchViews(true);
+
             interactor.search(editMap, this);
 
         }
@@ -64,7 +76,7 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         getView().filterandSortInInitializeQueries();
         getView().refresh();
 
-        getView().switchViews(true);
+        getView().hideProgressView();
 
 
     }

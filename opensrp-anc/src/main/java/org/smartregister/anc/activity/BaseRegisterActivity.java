@@ -121,6 +121,14 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void onBackPressed() {
+        Fragment fragment = findFragmentByPosition(currentPage);
+        if (fragment instanceof BaseRegisterFragment) {
+            BaseRegisterFragment registerFragment = (BaseRegisterFragment) fragment;
+            if (registerFragment.onBackPressed()) {
+                return;
+            }
+        }
+
         if (currentPage == 0) {
             super.onBackPressed();
         } else {

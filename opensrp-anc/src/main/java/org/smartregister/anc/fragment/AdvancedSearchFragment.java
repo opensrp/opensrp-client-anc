@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
@@ -30,9 +31,13 @@ import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.listener.DatePickerListener;
 import org.smartregister.anc.presenter.AdvancedSearchPresenter;
+import org.smartregister.anc.provider.AdvancedSearchProvider;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
+
+import java.util.Set;
 
 public class AdvancedSearchFragment extends BaseRegisterFragment implements AdvancedSearchContract.View {
 
@@ -41,8 +46,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private ImageButton backButton;
     private ImageButton cancelButton;
-
-    private ProgressDialog progressDialog;
 
     private RadioButton outsideInside;
     private RadioButton myCatchment;
@@ -54,6 +57,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     private MaterialEditText dob;
     private MaterialEditText phoneNumber;
     private MaterialEditText altContactName;
+
+    private TextView searchCriteria;
+    private TextView matchingResults;
 
     private boolean listMode = false;
     private boolean isLocal = false;
@@ -99,6 +105,32 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     }
 
     @Override
+    public boolean onBackPressed() {
+        goBack();
+        return true;
+    }
+
+    @Override
+    protected void goBack() {
+        if (listMode) {
+            switchViews(false);
+        } else {
+            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+        }
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        if (view.getId() == R.id.search) {
+            search();
+        } else if (view.getId() == R.id.cancel_button) {
+            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+        } else if (view.getId() == R.id.back_button) {
+            switchViews(false);
+        }
+    }
+
+    @Override
     public void setupViews(View view) {
         super.setupViews(view);
 
@@ -112,8 +144,18 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(registerActionHandler);
 
+        searchCriteria = view.findViewById(R.id.search_criteria);
+        matchingResults = view.findViewById(R.id.matching_results);
+
         populateFormViews(view);
 
+    }
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
+        clientsView.setAdapter(clientAdapter);
     }
 
     private void populateFormViews(View view) {
@@ -245,6 +287,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     }
 
     private void resetForm() {
+        clearSearchCriteria();
+        clearMatchingResults();
+
         ancId.setText("");
         firstName.setText("");
         lastName.setText("");
@@ -254,27 +299,36 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         altContactName.setText("");
     }
 
-    private void initializeProgressDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(false);
+    private void clearSearchCriteria() {
+        if (searchCriteria != null) {
+            searchCriteria.setVisibility(View.GONE);
+            searchCriteria.setText("");
+        }
+    }
+
+    private void clearMatchingResults() {
+        if (matchingResults != null) {
+            matchingResults.setVisibility(View.GONE);
+            matchingResults.setText("");
+        }
+    }
+
+
+    public void updateMatchingResults(int count) {
+        if (matchingResults != null) {
+            matchingResults.setText(String.format(getString(R.string.matching_results), String.valueOf(count)));
+            matchingResults.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    public void showProgressView() {
-        if (progressDialog == null) {
-            initializeProgressDialog();
+    public void updateSearchCriteria(String searchCriteriaString) {
+        if (searchCriteria != null) {
+            searchCriteria.setText(searchCriteriaString);
+            searchCriteria.setVisibility(View.VISIBLE);
         }
-        progressDialog.setTitle(getString(R.string.searching_dialog_title));
-        progressDialog.setMessage(getString(R.string.searching_dialog_message));
-        progressDialog.show();
     }
 
-    @Override
-    public void hideProgressView() {
-        progressDialog.hide();
-    }
 
     private void setDatePicker(final EditText editText) {
         editText.setOnClickListener(new DatePickerListener(getActivity(), editText, true));
@@ -313,40 +367,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         ((AdvancedSearchContract.Presenter) presenter).search(fn, ln, id, eddDate, dobDate, pn, altName, isLocal);
     }
 
-    @Override
-    protected void goBack() {
-        if (listMode) {
-            switchViews(false);
-        } else {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
-        }
-    }
-
-    @Override
-    protected void onViewClicked(View view) {
-        if (view.getId() == R.id.search) {
-            search();
-        } else if (view.getId() == R.id.cancel_button) {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
-        } else if (view.getId() == R.id.back_button) {
-            switchViews(false);
-        }
-    }
-
-    private String filterandSortQuery() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
-
-        String query = "";
-        try {
-            sqb.addCondition(filters);
-            query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(sqb.addlimitandOffset(query, currentlimit, currentoffset));
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        }
-
-        return query;
-    }
 
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
@@ -357,6 +377,40 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             currentlimit = totalcount;
         }
         currentoffset = 0;
+
+        updateMatchingResults(totalcount);
+    }
+
+    @Override
+    public void countExecute() {
+        Cursor c = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            String query = "";
+
+            sqb.addCondition(filters);
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(query);
+
+            Log.i(getClass().getName(), query);
+            c = commonRepository().rawCustomQueryForAdapter(query);
+            c.moveToFirst();
+            totalcount = c.getInt(0);
+            Log.v("total count here", "" + totalcount);
+            
+            currentlimit = 20;
+            currentoffset = 0;
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        updateMatchingResults(totalcount);
     }
 
     @Override
@@ -388,5 +442,20 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
                 // An invalid id was passed in
                 return null;
         }
+    }
+
+    private String filterandSortQuery() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            sqb.addCondition(filters);
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(sqb.addlimitandOffset(query, currentlimit, currentoffset));
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        }
+
+        return query;
     }
 }

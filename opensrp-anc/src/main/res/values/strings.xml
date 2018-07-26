@@ -104,6 +104,7 @@
     <string name="search_results">Search Results</string>
     <string name="searching_dialog_title">Searching…</string>
     <string name="searching_dialog_message">Please wait</string>
+    <string name="matching_results">%1$s matches</string>
 
     <!-- side nav -->
     <string name="anc_clients">ANC clients</string>

@@ -64,6 +64,34 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
     }
 
     @Override
+    public String createSearchString(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact) {
+        String searchCriteria = "";
+
+        if (StringUtils.isNotBlank(firstName)) {
+            searchCriteria += " First name: " + firstName + ",";
+        }
+        if (StringUtils.isNotBlank(lastName)) {
+            searchCriteria += " Last name: " + lastName + ",";
+        }
+        if (StringUtils.isNotBlank(ancId)) {
+            searchCriteria += " Anc ID: " + ancId + ",";
+        }
+        if (StringUtils.isNotBlank(edd)) {
+            searchCriteria += " Edd: " + edd + ",";
+        }
+        if (StringUtils.isNotBlank(dob)) {
+            searchCriteria += " Dob: " + dob + ",";
+        }
+        if (StringUtils.isNotBlank(phoneNumber)) {
+            searchCriteria += " Mobile phone number: " + phoneNumber + ",";
+        }
+        if (StringUtils.isNotBlank(alternateContact)) {
+            searchCriteria += " Alternate contact name: " + alternateContact + ",";
+        }
+        return removeLastComma(searchCriteria);
+    }
+
+    @Override
     public String getMainConditionString(Map<String, String> editMap) {
 
         String mainConditionString = "";
@@ -93,7 +121,6 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
         JSONArray jsonArray = getJsonArray(response);
         if (jsonArray != null) {
 
-            List<JSONObject> jsonValues = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject client = getJsonObject(jsonArray, i);
                 String entityId = "";
@@ -194,4 +221,16 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
         }
         return null;
     }
+
+    private String removeLastComma(String str) {
+        if (StringUtils.isBlank(str)) {
+            return str;
+        }
+        String s = str.trim();
+        if (s.charAt(s.length() - 1) == ',') {
+            return s.substring(0, s.length() - 1);
+        }
+        return s;
+    }
+
 }

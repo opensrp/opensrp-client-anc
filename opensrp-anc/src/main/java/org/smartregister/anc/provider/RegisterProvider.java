@@ -47,11 +47,11 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     @Override
-    public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder convertView) {
+    public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
-            populatePatientColumn(pc, client, convertView);
-            populateIdentifierColumn(pc, convertView);
+            populatePatientColumn(pc, client, viewHolder);
+            populateIdentifierColumn(pc, viewHolder);
             //populateDoseColumn(pc, convertView);
 
             return;
@@ -80,7 +80,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         */
     }
 
-    protected void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
         String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -97,7 +97,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
 
-    protected void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         String ancId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }

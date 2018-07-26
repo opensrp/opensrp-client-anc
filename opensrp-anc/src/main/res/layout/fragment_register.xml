@@ -57,12 +57,18 @@
             android:text="@string/no_record"
             android:visibility="gone" />
 
-        <include
-            layout="@layout/smart_register_pagination"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/pagination_bar_height"
-            android:layout_gravity="bottom" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sort_filter_bg_light_grey">
+
+        <include
+            layout="@layout/smart_register_pagination"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pagination_bar_height" />
+    </LinearLayout>
 
 </LinearLayout>
