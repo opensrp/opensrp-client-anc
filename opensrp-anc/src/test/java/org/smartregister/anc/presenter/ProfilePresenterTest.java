@@ -129,6 +129,7 @@ public class ProfilePresenterTest extends BaseUnitTest {
         client.put(DBConstants.KEY.DOB, "1997-08-09");
         client.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         client.put(DBConstants.KEY.ANC_ID, TEST_STRING);
+        client.put(DBConstants.KEY.PHONE_NUMBER, TEST_STRING);
 
         presenterSpy.refreshProfileTopSection(client);
 
@@ -137,6 +138,7 @@ public class ProfilePresenterTest extends BaseUnitTest {
         Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
         Mockito.verify(view).setProfileID(client.get(DBConstants.KEY.ANC_ID));
         Mockito.verify(view).setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
+        Mockito.verify(view).setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
 
     }
 

@@ -93,7 +93,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
