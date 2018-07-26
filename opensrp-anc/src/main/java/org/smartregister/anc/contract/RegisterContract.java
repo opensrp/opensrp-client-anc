@@ -77,6 +77,9 @@ public class RegisterContract {
         void getNextUniqueId(Triple<String, String, String> triple, RegisterContract.InteractorCallBack callBack);
 
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack);
+
+        void removeWomanFromANCRegister(String closeFormJsonString, String providerId);
+
     }
 
     public interface InteractorCallBack {

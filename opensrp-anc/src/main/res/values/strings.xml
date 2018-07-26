@@ -6,6 +6,7 @@
     <!-- General -->
     <string name="app_name">WHO ANC</string>
     <string name="saving_dialog_title">Saving…</string>
+    <string name="removing_dialog_title">Removing…</string>
     <string name="please_wait_message">Please wait</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="str_search_hint">Search name or ID</string>

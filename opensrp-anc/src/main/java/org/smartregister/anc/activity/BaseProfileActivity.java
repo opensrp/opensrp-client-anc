@@ -17,6 +17,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.event.ClientDetailsFetchedEvent;
+import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
@@ -32,12 +33,11 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
 
+    protected static final int REQUEST_CODE_GET_JSON = 3432;
+
     protected String womanName;
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
-
-    private static final int REQUEST_CODE_GET_JSON = 3432;
-
     protected ProfileContract.Presenter mProfilePresenter;
 
     @Override
@@ -94,6 +94,15 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     }
 
 
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void removePatient(PatientRemovedEvent event) {
+        if (event != null) {
+            Utils.removeStickyEvent(event);
+            hideProgressDialog();
+            finish();
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -136,11 +145,11 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
     }
 
-    public void showProgressDialog() {
+    public void showProgressDialog(int saveMessageStringIdentifier) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
             progressDialog.setCancelable(false);
-            progressDialog.setTitle(getString(R.string.saving_dialog_title));
+            progressDialog.setTitle(getString(saveMessageStringIdentifier));
             progressDialog.setMessage(getString(R.string.please_wait_message));
         }
         if (!isFinishing())

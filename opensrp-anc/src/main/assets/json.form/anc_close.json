@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Close",
+  "encounter_type": "ANC Close",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -101,6 +101,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of delivery"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -124,6 +130,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option *"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -139,6 +151,12 @@
         },
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -161,6 +179,37 @@
         },
         "v_required": {
           "value": "false"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
+        }
+      },
+      {
+        "key": "birthweight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "birthweight",
+        "type": "edit_text",
+        "hint": "Birth weight (kg) *",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "([1-9]|10)|\s*",
+          "err": "Number must in the range 1 to 10"
+        },
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Live birth\")"
+          }
         }
       },
       {
@@ -181,6 +230,12 @@
         },
         "v_required": {
           "value": "false"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Live birth\")"
+          }
         }
       },
       {
@@ -213,25 +268,12 @@
         },
         "v_required": {
           "value": "false"
-        }
-      },
-      {
-        "key": "birthweight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "birthweight",
-        "type": "edit_text",
-        "hint": "Birth weight (kg) *",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
-        "v_regex": {
-          "value": "([1-9]|10)|\s*",
-          "err": "Number must in the range 1 to 10"
-        },
-        "v_required": {
-          "value": false
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -313,6 +355,12 @@
         ],
         "v_required": {
           "value": "false"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -330,6 +378,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of miscarriage/abortion"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Miscarriage|Abortion)\")"
+          }
         }
       },
       {
@@ -362,6 +416,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of death"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Woman died\")"
+          }
         }
       },
       {
@@ -382,6 +442,12 @@
           "Infection",
           "Other"
         ],
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Woman died\")"
+          }
+        },
         "openmrs_choice_ids": {
           "Unknown": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Abortion-related complications": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

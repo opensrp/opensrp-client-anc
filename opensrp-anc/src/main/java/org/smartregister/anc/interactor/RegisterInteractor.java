@@ -15,6 +15,7 @@ import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
@@ -90,6 +91,19 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                         callBack.onRegistrationSaved(isEditMode);
                     }
                 });
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void removeWomanFromANCRegister(final String closeFormJsonString, final String providerId) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                JsonFormUtils.saveRemovedFromANCRegister(closeFormJsonString, providerId);
             }
         };
 

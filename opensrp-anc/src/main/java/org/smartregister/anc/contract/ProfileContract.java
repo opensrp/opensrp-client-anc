@@ -36,7 +36,7 @@ public interface ProfileContract {
 
         void setProfileImage(String baseEntityId);
 
-        void showProgressDialog();
+        void showProgressDialog(int messageStringIdentifier);
 
         void hideProgressDialog();
 
