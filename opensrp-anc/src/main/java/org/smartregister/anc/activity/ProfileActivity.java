@@ -1,13 +1,8 @@
 package org.smartregister.anc.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,49 +23,28 @@ import org.smartregister.anc.util.Utils;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
+public class ProfileActivity extends BaseProfileActivity implements ProfileContract.View {
 
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private boolean appBarTitleIsShown = true;
-    private int appBarLayoutScrollRange = -1;
-    private ProfileContract.Presenter mProfilePresenter;
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
     private TextView ancIdView;
-    private String womanName;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         setUpViews();
 
         mProfilePresenter = new ProfilePresenter(this);
 
         imageRenderHelper = new ImageRenderHelper(this);
 
+
     }
 
     private void setUpViews() {
-
-        AppBarLayout appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
-
-        // Set collapsing tool bar title.
-        collapsingToolbarLayout = appBarLayout.findViewById(R.id.collapsing_toolbar_layout);
-
-        appBarLayout.addOnOffsetChangedListener(this);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -122,24 +96,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-        if (appBarLayoutScrollRange == -1) {
-            appBarLayoutScrollRange = appBarLayout.getTotalScrollRange();
-        }
-        if (appBarLayoutScrollRange + verticalOffset == 0) {
-
-            collapsingToolbarLayout.setTitle(womanName);
-            appBarTitleIsShown = true;
-        } else if (appBarTitleIsShown) {
-            collapsingToolbarLayout.setTitle(" ");
-            appBarTitleIsShown = false;
-        }
-
-    }
-
-    @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         mProfilePresenter.refreshProfileView(baseEntityId);
@@ -149,6 +106,15 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onDestroy() {
         super.onDestroy();
         mProfilePresenter.onDestroy(isChangingConfigurations());
+    }
+
+    @Override
+    protected void onCreation() { //Overriden from Secured Activity
+    }
+
+    @Override
+    protected void onResumption() {//Overriden from Secured Activity
+
     }
 
     @Override
@@ -177,4 +143,18 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     public void setProfileImage(String baseEntityId) {
         imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
     }
+
+
+    @Override
+    public String getIntentString(String intentKey) {
+
+        return this.getIntent().getStringExtra(intentKey);
+    }
+
+    @Override
+    public void displayToast(int stringID) {
+
+        Utils.showShortToast(this, this.getString(stringID));
+    }
+
 }

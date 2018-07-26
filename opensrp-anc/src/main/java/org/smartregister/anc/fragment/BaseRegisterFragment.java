@@ -64,8 +64,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
-    public static final String DIALOG_TAG = "DIALOG_TAG";
-
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
     protected RegisterFragmentContract.Presenter presenter;
@@ -355,7 +353,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     protected void startRegistration() {
-        ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTRATION, null, null);
+        ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
 
     @Override

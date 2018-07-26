@@ -116,7 +116,7 @@
         }
       },
       {
-        "key": "Sex",
+        "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
@@ -141,22 +141,22 @@
           "err": "Please enter the date of birth"
         },
         "relevance": {
-          "step1:isDateOfBirthUnknown": {
+          "step1:dob_unknown": {
             "type": "string",
             "ex": "equalTo(., \"false\")"
           }
         }
       },
       {
-        "key": "isDateOfBirthUnknown",
+        "key": "dob_unknown",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
         "label": "",
         "options": [
           {
-            "key": "isDateOfBirthUnknown",
+            "key": "dob_unknown",
             "text": "DOB unknown?",
             "value": "false"
           }
@@ -166,7 +166,7 @@
         "key": "age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age_entered",
+        "openmrs_entity_id": "age",
         "type": "edit_text",
         "hint": "Enter Age if DOB unknown *",
         "v_numeric": {
@@ -181,7 +181,7 @@
           "value": false
         },
         "relevance": {
-          "step1:isDateOfBirthUnknown": {
+          "step1:dob_unknown": {
             "type": "string",
             "ex": "equalTo(., \"true\")"
           }
@@ -226,6 +226,23 @@
         "v_required": {
           "value": true,
           "err": "Please specify the woman's phone number"
+        }
+      },
+      {
+        "key": "reminders",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "reminders",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Reminders throughout pregnancy?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select whether the woman has agreed to receiving reminder notifications"
         }
       },
       {

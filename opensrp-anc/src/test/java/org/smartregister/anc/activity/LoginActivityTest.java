@@ -34,7 +34,7 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 /**
  * Created by ndegwamartin on 27/06/2018.
  */
-public class LoginActivityTest extends BaseUnitTest {
+public class LoginActivityTest extends BaseActivityUnitTest {
 
     private LoginActivity loginActivity;
     private ActivityController<LoginActivity> controller;
@@ -347,15 +347,13 @@ public class LoginActivityTest extends BaseUnitTest {
 
     }
 
-    private void destroyController() {
-        try {
-            loginActivity.finish();
-            controller.pause().stop().destroy(); //destroy controller if we can
+    @Override
+    protected Activity getActivity() {
+        return loginActivity;
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.gc();
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
     }
 }

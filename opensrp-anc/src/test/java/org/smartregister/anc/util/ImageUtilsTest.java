@@ -1,4 +1,4 @@
-package org.smartregister.anc;
+package org.smartregister.anc.util;
 
 import org.junit.Assert;
 import org.junit.Before;

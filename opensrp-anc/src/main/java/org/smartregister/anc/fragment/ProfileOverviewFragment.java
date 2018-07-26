@@ -28,6 +28,16 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     }
 
     @Override
+    protected void onCreation() {
+        //Overriden
+    }
+
+    @Override
+    protected void onResumption() {
+        //Overriden
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View fragmentView = inflater.inflate(R.layout.fragment_profile_overview, container, false);

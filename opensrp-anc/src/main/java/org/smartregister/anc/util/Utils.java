@@ -18,6 +18,8 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -122,6 +124,8 @@ public class Utils {
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -age);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.MONTH, 0);
 
         return DatePickerFactory.DATE_FORMAT.format(cal.getTime());
     }
@@ -152,5 +156,31 @@ public class Utils {
         } catch (Exception e) {
             logError("Error encountered while hiding keyboard " + e);
         }
+    }
+
+    public static Date dobStringToDate(String dobString) {
+        DateTime dateTime = dobStringToDateTime(dobString);
+        if (dateTime != null) {
+            return dateTime.toDate();
+        }
+        return null;
+    }
+
+    public static DateTime dobStringToDateTime(String dobString) {
+        try {
+            if (StringUtils.isBlank(dobString)) {
+                return null;
+            }
+            return new DateTime(dobString);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static int getAgeFromDate(String dateOfBirth) {
+        DateTime date = DateTime.parse(dateOfBirth);
+        Years age = Years.yearsBetween(date.toLocalDate(), LocalDate.now());
+        return age.getYears();
     }
 }
