@@ -1,5 +1,6 @@
 package org.smartregister.anc.model;
 
+import android.util.Log;
 import android.util.Pair;
 
 import org.json.JSONObject;
@@ -18,6 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RegisterModel implements RegisterContract.Model {
+
+    private AllSharedPreferences allSharedPreferences;
+
+    private FormUtils formUtils;
+
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
         ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(viewIdentifiers);
@@ -45,8 +51,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public Pair<Client, Event> processRegistration(String jsonString) {
-        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        return JsonFormUtils.processRegistration(jsonString, allSharedPreferences.fetchRegisteredANM());
+        return JsonFormUtils.processRegistration(jsonString, getAllSharedPreferences().fetchRegisteredANM());
     }
 
     @Override
@@ -58,7 +63,31 @@ public class RegisterModel implements RegisterContract.Model {
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
-    private FormUtils getFormUtils() throws Exception {
-        return FormUtils.getInstance(AncApplication.getInstance().getApplicationContext());
+    private FormUtils getFormUtils() {
+        if (formUtils == null) {
+            try {
+                formUtils = FormUtils.getInstance(AncApplication.getInstance().getApplicationContext());
+            } catch (Exception e) {
+                Log.e(RegisterModel.class.getCanonicalName(), e.getMessage(), e);
+            }
+        }
+        return formUtils;
     }
+
+    public void setFormUtils(FormUtils formUtils) {
+        this.formUtils = formUtils;
+    }
+
+    public AllSharedPreferences getAllSharedPreferences() {
+        if (allSharedPreferences == null) {
+            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        }
+        return allSharedPreferences;
+    }
+
+    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
+        this.allSharedPreferences = allSharedPreferences;
+    }
+
+
 }

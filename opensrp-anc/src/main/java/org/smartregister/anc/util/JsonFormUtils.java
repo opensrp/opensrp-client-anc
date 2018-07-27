@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
+import com.google.gson.JsonObject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
@@ -32,7 +34,7 @@ import java.util.UUID;
 public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     private static final String TAG = JsonFormUtils.class.getCanonicalName();
 
-    private static final String METADATA = "metadata";
+    public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
@@ -54,16 +56,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
             // Inject opensrp id into the form
-            JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString(JsonFormUtils.KEY)
-                        .equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
-                    jsonObject.remove(JsonFormUtils.VALUE);
-                    jsonObject.put(JsonFormUtils.VALUE, entityId);
-                }
+            JSONArray field = fields(form);
+            JSONObject ancId = getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+            if (ancId != null) {
+                ancId.remove(JsonFormUtils.VALUE);
+                ancId.put(JsonFormUtils.VALUE, entityId);
             }
+
         } else if (Constants.JSON_FORM.ANC_CLOSE.equals(formName)) {
             if (StringUtils.isNotBlank(entityId)) {
                 // Inject entity id into the remove form
