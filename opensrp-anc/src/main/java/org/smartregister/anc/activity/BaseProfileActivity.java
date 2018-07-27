@@ -93,7 +93,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
     }
 
-
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void removePatient(PatientRemovedEvent event) {
         if (event != null) {

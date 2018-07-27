@@ -201,6 +201,24 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
     }
 
+    @Test
+    public void testSetWomanPhoneNumberUpdatesFieldCorrectly() {
+
+        ProfileActivity spyActivity = Mockito.spy(profileActivity);
+
+        String womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
+
+        Assert.assertNull(womanPhoneNumber);
+
+        spyActivity.setWomanPhoneNumber(TEST_STRING);
+
+        womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
+
+
+        Assert.assertNotNull(womanPhoneNumber);
+        Assert.assertEquals(TEST_STRING, womanPhoneNumber);
+    }
+
     @Override
     protected Activity getActivity() {
         return profileActivity;

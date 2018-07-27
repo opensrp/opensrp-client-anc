@@ -46,6 +46,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private TextView ancIdView;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
+    private String womanPhoneNumber;
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
 
@@ -113,7 +114,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                     String textClicked = arrayAdapter.getItem(which);
                     switch (textClicked) {
                         case "Call":
-                            launchPhoneDialer("072...");
+                            launchPhoneDialer(womanPhoneNumber);
                             break;
                         case "Start Contact":
                             Utils.showShortToast(ProfileActivity.this, textClicked);
@@ -190,6 +191,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
     }
 
+    @Override
+    public void setWomanPhoneNumber(String phoneNumber) {
+        womanPhoneNumber = phoneNumber;
+    }
 
     @Override
     public String getIntentString(String intentKey) {
