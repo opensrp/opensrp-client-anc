@@ -118,16 +118,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             Event baseEvent = pair.second;
 
             if (baseClient != null) {
-                JSONObject clientJson = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(baseClient));
+                JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
                 if (isEditMode) {
-                    org.smartregister.anc.util.JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
+                    JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
                 } else {
                     getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
                 }
             }
 
             if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(baseEvent));
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
@@ -135,7 +135,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
                     String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID).replace("-", "");
-                    String currentOpenSRPId = org.smartregister.anc.util.JsonFormUtils.getString(jsonString, org.smartregister.anc.util.JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
@@ -152,8 +152,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = org.smartregister.anc.util.JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
-                org.smartregister.anc.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
