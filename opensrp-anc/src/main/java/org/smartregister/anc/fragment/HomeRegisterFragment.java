@@ -57,18 +57,24 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
 
     @Override
     protected void onViewClicked(View view) {
-        if (view.getId() == R.id.scan_qr_code) {
-            if (getActivity() != null) {
-                ((HomeRegisterActivity) getActivity()).startQrCodeScanner();
-            }
-        } else if (view.getId() == R.id.search_button) {
-            if (getActivity() != null) {
-                ((HomeRegisterActivity) getActivity()).switchToFragment(1);
-            }
-        } else if (view.getId() == R.id.filter_status) {
-            if (getActivity() != null) {
-                ((HomeRegisterActivity) getActivity()).switchToFragment(2);
-            }
+        if (getActivity() == null) {
+            return;
+        }
+
+        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+
+        switch (view.getId()) {
+            case R.id.scan_qr_code:
+                homeRegisterActivity.startQrCodeScanner();
+                break;
+            case R.id.search_button:
+                homeRegisterActivity.switchToFragment(1);
+                break;
+            case R.id.filter_status:
+                homeRegisterActivity.switchToFragment(2);
+                break;
+            default:
+                break;
         }
     }
 }

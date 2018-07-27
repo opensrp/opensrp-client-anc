@@ -1,6 +1,5 @@
 package org.smartregister.anc.contract;
 
-import org.json.JSONArray;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.domain.Response;
 

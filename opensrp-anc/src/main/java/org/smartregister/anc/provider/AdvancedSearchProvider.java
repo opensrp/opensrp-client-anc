@@ -151,8 +151,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     }
 
     @Override
-    public void onServiceModeSelected(ServiceModeOption serviceModeOption) {
-
+    public void onServiceModeSelected(ServiceModeOption serviceModeOption) { //Implement Abstract Method
     }
 
     @Override

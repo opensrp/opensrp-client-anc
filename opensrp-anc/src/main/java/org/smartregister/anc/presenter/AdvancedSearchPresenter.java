@@ -1,6 +1,5 @@
 package org.smartregister.anc.presenter;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;

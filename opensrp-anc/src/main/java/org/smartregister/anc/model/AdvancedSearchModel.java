@@ -8,19 +8,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AdvancedSearchModel extends RegisterFramentModel implements AdvancedSearchContract.Model {
@@ -174,7 +169,7 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
         try {
             if (jsonObject != null && jsonObject.has(field)) {
                 String string = jsonObject.getString(field);
-                if (string.equals("null")) {
+                if (StringUtils.isBlank(string)) {
                     return "";
                 } else {
                     return string;
