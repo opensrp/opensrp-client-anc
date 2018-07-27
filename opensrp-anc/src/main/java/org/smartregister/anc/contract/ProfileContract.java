@@ -44,6 +44,9 @@ public interface ProfileContract {
 
         String getIntentString(String intentKey);
 
+        void setWomanPhoneNumber(String phoneNumber);
+
+
     }
 
     interface Interactor {

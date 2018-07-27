@@ -72,4 +72,7 @@
     <dimen name="profile_btn_registration_info_padding">24dp</dimen>
     <dimen name="profile_dot_separator_margin">10dp</dimen>
 
+    <dimen name="copy_to_clipboard_header_text_size">20sp</dimen>
+    <dimen name="copy_to_clipboard_message_text_size">14sp</dimen>
+
 </resources>

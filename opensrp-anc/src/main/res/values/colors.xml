@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#208CC5</color>
     <color name="colorPrimaryDark">#155c82</color>
-    <color name="colorAccent">#203ac5</color>
+    <color name="colorAccent">#3495bf</color>
 
     <color name="customAppThemeBlue">#218CC5</color>
     <color name="customAppThemeDarkest">#272727</color>

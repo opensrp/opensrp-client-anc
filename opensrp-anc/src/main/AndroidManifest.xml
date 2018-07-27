@@ -63,7 +63,8 @@
         <activity
             android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
