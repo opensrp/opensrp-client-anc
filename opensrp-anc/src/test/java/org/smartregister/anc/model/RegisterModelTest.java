@@ -40,12 +40,21 @@ public class RegisterModelTest extends BaseUnitTest {
         registerModel.setAllSharedPreferences(allSharedPreferences);
 
         String providerId = "PRoviderID";
+        String teamId = "TEAmId";
+        String team = "TeAM";
+        String locationID = "LocationID";
 
         Mockito.doReturn(providerId).when(allSharedPreferences).fetchRegisteredANM();
+        Mockito.doReturn(locationID).when(allSharedPreferences).fetchDefaultLocalityId(providerId);
+        Mockito.doReturn(team).when(allSharedPreferences).fetchDefaultTeam(providerId);
+        Mockito.doReturn(teamId).when(allSharedPreferences).fetchDefaultTeamId(providerId);
 
         Pair<Client, Event> pair = registerModel.processRegistration(jsonString);
 
-        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
+        Mockito.verify(allSharedPreferences, Mockito.times(4)).fetchRegisteredANM();
+        Mockito.verify(allSharedPreferences).fetchDefaultLocalityId(providerId);
+        Mockito.verify(allSharedPreferences).fetchDefaultTeam(providerId);
+        Mockito.verify(allSharedPreferences).fetchDefaultTeamId(providerId);
 
         Client client = pair.first;
         Event event = pair.second;
@@ -78,7 +87,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
         Assert.assertEquals(providerId, event.getProviderId());
         Assert.assertEquals("ANC Registration", event.getEventType());
-        Assert.assertEquals("44de66fb-e6c6-4bae-92bb-386dfe626eba", event.getLocationId());
+        Assert.assertEquals("LocationID", event.getLocationId());
         Assert.assertEquals("ec_woman", event.getEntityType());
         Assert.assertEquals(JsonFormUtils.formatDate("25-07-2018", true), event.getEventDate());
 

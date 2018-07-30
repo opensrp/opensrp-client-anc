@@ -22,7 +22,7 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
 
     private DristhiConfiguration dristhiConfiguration;
 
-    private static final String SEARCH_URL = "/rest/search/search";
+    public static final String SEARCH_URL = "/rest/search/search";
 
     @VisibleForTesting
     AdvancedSearchInteractor(AppExecutors appExecutors) {

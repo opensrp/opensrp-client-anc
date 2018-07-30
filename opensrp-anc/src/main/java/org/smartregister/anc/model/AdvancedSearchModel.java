@@ -15,25 +15,26 @@ import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AdvancedSearchModel extends RegisterFramentModel implements AdvancedSearchContract.Model {
 
 
-    private static final String GLOBAL_FIRST_NAME = "firstName";
-    private static final String GLOBAL_LAST_NAME = "lastName";
-    private static final String GLOBAL_BIRTH_DATE = "birthdate";
-    private static final String GLOBAL_ATTRIBUTE = "attribute";
-    private static final String GLOBAL_IDENTIFIER = "identifier";
-    private static final String ANC_ID = "ANC_ID";
-    private static final String PHONE_NUMBER = "phone_number";
-    private static final String ALT_CONTACT_NAME = "alt_name";
+    public static final String GLOBAL_FIRST_NAME = "firstName";
+    public static final String GLOBAL_LAST_NAME = "lastName";
+    public static final String GLOBAL_BIRTH_DATE = "birthdate";
+    public static final String GLOBAL_ATTRIBUTE = "attribute";
+    public static final String GLOBAL_IDENTIFIER = "identifier";
+    public static final String ANC_ID = "ANC_ID";
+    public static final String EDD_ATTR = "edd";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String ALT_CONTACT_NAME = "alt_name";
 
 
     @Override
     public Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal) {
-        Map<String, String> editMap = new HashMap<>();
+        Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(firstName)) {
             editMap.put(isLocal ? DBConstants.KEY.FIRST_NAME : GLOBAL_FIRST_NAME, firstName);
         }
@@ -44,16 +45,16 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
             editMap.put(isLocal ? DBConstants.KEY.ANC_ID : GLOBAL_IDENTIFIER, isLocal ? ancId : ANC_ID + ":" + ancId);
         }
         if (StringUtils.isNotBlank(edd)) {
-            editMap.put(isLocal ? DBConstants.KEY.EDD : GLOBAL_ATTRIBUTE, isLocal ? edd : "edd:" + edd);
+            editMap.put(isLocal ? DBConstants.KEY.EDD : GLOBAL_ATTRIBUTE, isLocal ? edd : EDD_ATTR + ":" + edd);
         }
         if (StringUtils.isNotBlank(dob)) {
             editMap.put(isLocal ? DBConstants.KEY.DOB : GLOBAL_BIRTH_DATE, dob);
         }
         if (StringUtils.isNotBlank(phoneNumber)) {
-            editMap.put(isLocal ? DBConstants.KEY.PHONE_NUMBER : GLOBAL_ATTRIBUTE, isLocal ? phoneNumber : PHONE_NUMBER + ":" + phoneNumber);
+            editMap.put(isLocal ? DBConstants.KEY.PHONE_NUMBER : PHONE_NUMBER, phoneNumber);
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            editMap.put(isLocal ? DBConstants.KEY.ALT_NAME : GLOBAL_ATTRIBUTE, isLocal ? alternateContact : ALT_CONTACT_NAME + ":" + alternateContact);
+            editMap.put(isLocal ? DBConstants.KEY.ALT_NAME : ALT_CONTACT_NAME, alternateContact);
         }
         return editMap;
     }
@@ -104,6 +105,8 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
             }
         }
 
+        mainConditionString += " ";
+
         return mainConditionString;
 
     }
@@ -112,6 +115,10 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
         String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME};
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
+
+        if (response == null || response.isFailure() || StringUtils.isBlank(response.payload())) {
+            return matrixCursor;
+        }
 
         JSONArray jsonArray = getJsonArray(response);
         if (jsonArray != null) {

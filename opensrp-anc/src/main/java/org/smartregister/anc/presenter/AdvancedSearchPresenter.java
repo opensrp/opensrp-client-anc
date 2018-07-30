@@ -1,5 +1,6 @@
 package org.smartregister.anc.presenter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
@@ -20,6 +21,8 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
 
     private AdvancedMatrixCursor matrixCursor;
 
+    public static final String TABLE_NAME = DBConstants.WOMAN_TABLE_NAME;
+
     public AdvancedSearchPresenter(AdvancedSearchContract.View view, String viewConfigurationIdentifier) {
         super(view, viewConfigurationIdentifier);
         this.viewReference = new WeakReference<>(view);
@@ -28,25 +31,28 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
     }
 
     public void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal) {
+        String searchCriteria = model.createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        if (StringUtils.isBlank(searchCriteria)) {
+            return;
+        }
+
+        getView().updateSearchCriteria(searchCriteria);
+
         Map<String, String> editMap = model.createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         if (editMap == null || editMap.isEmpty()) {
             return;
         }
-
-        String searchCriteria = model.createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
-        getView().updateSearchCriteria(searchCriteria);
 
         if (isLocal) {
             getView().showProgressView();
             getView().switchViews(true);
 
             String mainCondition = model.getMainConditionString(editMap);
-            String tableName = DBConstants.WOMAN_TABLE_NAME;
 
-            String countSelect = model.countSelect(tableName, mainCondition);
-            String mainSelect = model.mainSelect(tableName, mainCondition);
+            String countSelect = model.countSelect(TABLE_NAME, mainCondition);
+            String mainSelect = model.mainSelect(TABLE_NAME, mainCondition);
 
-            getView().initializeQueryParams(tableName, countSelect, mainSelect);
+            getView().initializeQueryParams(TABLE_NAME, countSelect, mainSelect);
             getView().initializeAdapter(visibleColumns);
 
             getView().countExecute();
@@ -55,7 +61,6 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             getView().refresh();
 
             getView().hideProgressView();
-
 
         } else {
             getView().showProgressView();
@@ -76,8 +81,6 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         getView().refresh();
 
         getView().hideProgressView();
-
-
     }
 
     public AdvancedMatrixCursor getMatrixCursor() {
@@ -89,5 +92,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             return viewReference.get();
         else
             return null;
+    }
+
+    public void setModel(AdvancedSearchContract.Model model) {
+        this.model = model;
+    }
+
+    public void setInteractor(AdvancedSearchContract.Interactor interactor) {
+        this.interactor = interactor;
     }
 }
