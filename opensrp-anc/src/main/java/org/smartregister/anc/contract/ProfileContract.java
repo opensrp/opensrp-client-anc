@@ -36,7 +36,7 @@ public interface ProfileContract {
 
         void setProfileImage(String baseEntityId);
 
-        void showProgressDialog();
+        void showProgressDialog(int messageStringIdentifier);
 
         void hideProgressDialog();
 
@@ -45,7 +45,6 @@ public interface ProfileContract {
         String getIntentString(String intentKey);
 
         void setWomanPhoneNumber(String phoneNumber);
-
 
     }
 

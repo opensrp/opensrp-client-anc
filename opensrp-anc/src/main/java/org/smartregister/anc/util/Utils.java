@@ -43,6 +43,8 @@ public class Utils {
 
     private static final String TAG = Utils.class.getCanonicalName();
 
+    private static final SimpleDateFormat DB_DF = new SimpleDateFormat("yyyy-MM-dd");
+
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
 
@@ -182,5 +184,9 @@ public class Utils {
         DateTime date = DateTime.parse(dateOfBirth);
         Years age = Years.yearsBetween(date.toLocalDate(), LocalDate.now());
         return age.getYears();
+    }
+
+    public static String getTodaysDate() {
+        return convertDateFormat(Calendar.getInstance().getTime(), DB_DF);
     }
 }

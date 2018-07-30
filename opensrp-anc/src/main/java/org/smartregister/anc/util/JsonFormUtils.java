@@ -1,6 +1,7 @@
 package org.smartregister.anc.util;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,16 +20,21 @@ import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.FormLocation;
+import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.ImageRepository;
+import org.smartregister.sync.ClientProcessor;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -42,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -168,6 +175,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
+
+            JsonFormUtils.tagSyncMetadata(baseEvent);// tag docs
+
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -425,10 +435,155 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
         Intent intent = new Intent(context, JsonFormActivity.class);
-        intent.putExtra("json", metaData);
+        intent.putExtra(Constants.INTENT_KEY.JSON, metaData);
+
         Log.d(TAG, "form is " + metaData);
+
         context.startActivityForResult(intent, jsonFormActivityRequestCode);
 
     }
 
+    public static void saveRemovedFromANCRegister(String jsonString, String providerId) {
+
+
+        try {
+            boolean isDeath = false;
+
+            EventClientRepository db = AncApplication.getInstance().getEventClientRepository();
+
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+
+            if (!registrationFormParams.getLeft()) {
+                return;
+            }
+
+            JSONObject jsonForm = registrationFormParams.getMiddle();
+            JSONArray fields = registrationFormParams.getRight();
+
+
+            String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+            JSONObject metadata = getJSONObject(jsonForm, METADATA);
+
+
+            String encounterLocation = null;
+
+
+            try {
+                encounterLocation = metadata.getString(Constants.JSON_FORM_KEY.ENCOUNTER_LOCATION);
+            } catch (JSONException e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            Date encounterDate = new Date();
+            String entityId = getString(jsonForm, ENTITY_ID);
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(entityId) //should be different for main and subform
+                    .withEventDate(encounterDate)
+                    .withEventType(encounterType)
+                    .withLocationId(encounterLocation)
+                    .withProviderId(providerId)
+                    .withEntityType(DBConstants.WOMAN_TABLE_NAME)
+                    .withFormSubmissionId(generateRandomUUIDString())
+                    .withDateCreated(new Date());  JsonFormUtils.tagSyncMetadata(event);
+
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject jsonObject = getJSONObject(fields, i);
+
+                String value = getString(jsonObject, VALUE);
+                if (StringUtils.isNotBlank(value)) {
+                    addObservation(event, jsonObject);
+                    if (jsonObject.get(JsonFormUtils.KEY).equals(Constants.JSON_FORM_KEY.ANC_CLOSE_REASON)) {
+                        isDeath = "Woman Died".equalsIgnoreCase(value);
+                    }
+                }
+            }
+
+            if (metadata != null) {
+                Iterator<?> keys = metadata.keys();
+
+                while (keys.hasNext()) {
+                    String key = (String) keys.next();
+                    JSONObject jsonObject = getJSONObject(metadata, key);
+                    String value = getString(jsonObject, VALUE);
+                    if (StringUtils.isNotBlank(value)) {
+                        String entityVal = getString(jsonObject, OPENMRS_ENTITY);
+                        if (entityVal != null) {
+                            if (entityVal.equals(CONCEPT)) {
+                                addToJSONObject(jsonObject, KEY, key);
+                                addObservation(event, jsonObject);
+
+                            } else if (entityVal.equals(ENCOUNTER)) {
+                                String entityIdVal = getString(jsonObject, OPENMRS_ENTITY_ID);
+                                if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
+                                    Date eDate = formatDate(value, false);
+                                    if (eDate != null) {
+                                        event.setEventDate(eDate);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (event != null) {
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+
+                //Update client to deceased
+                JSONObject client = db.getClientByBaseEntityId(eventJson.getString(ClientProcessor.baseEntityIdJSONKey));
+                if (isDeath) {
+                    client.put(Constants.JSON_FORM_KEY.DEATH_DATE, Utils.getTodaysDate());
+                    client.put(Constants.JSON_FORM_KEY.DEATH_DATE_APPROX, false);
+                }
+                JSONObject attributes = client.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
+                attributes.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
+                client.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
+                db.addorUpdateClient(entityId, client);
+
+                //Add Remove Event for child to flag for Server delete
+                db.addEvent(event.getBaseEntityId(), eventJson);
+
+                //Update Child Entity to include death date
+                Event updateChildDetailsEvent = (Event) new Event()
+                        .withBaseEntityId(entityId) //should be different for main and subform
+                        .withEventDate(encounterDate)
+                        .withEventType(Constants.EventType.UPDATE_REGISTRATION)
+                        .withLocationId(encounterLocation)
+                        .withProviderId(providerId)
+                        .withEntityType(DBConstants.WOMAN_TABLE_NAME)
+                        .withFormSubmissionId(generateRandomUUIDString())
+                        .withDateCreated(new Date());
+                JsonFormUtils.tagSyncMetadata(updateChildDetailsEvent);
+                JSONObject eventJsonUpdateChildEvent = new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
+
+                db.addEvent(entityId, eventJsonUpdateChildEvent); //Add event to flag server update
+
+                //Update REGISTER and FTS Tables
+                AllCommonsRepository allCommonsRepository = AncApplication.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
+                if (allCommonsRepository != null) {
+                    ContentValues values = new ContentValues();
+                    values.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
+                    allCommonsRepository.update(DBConstants.WOMAN_TABLE_NAME, values, entityId);
+                    allCommonsRepository.updateSearch(entityId);
+
+                }
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "", e);
+        } finally {
+
+            Utils.postStickyEvent(new PatientRemovedEvent());
+        }
+    }
+
+    private static Event tagSyncMetadata(Event event) {
+        AllSharedPreferences sharedPreferences = AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
+        event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
+        event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+        return event;
+    }
 }

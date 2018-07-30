@@ -78,15 +78,24 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     @Override
     public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
         try {
-            getProfileView().showProgressDialog();
-            String jsonString = data.getStringExtra("json");
+            String jsonString = data.getStringExtra(Constants.INTENT_KEY.JSON);
             Log.d("JSONResult", jsonString);
 
             JSONObject form = new JSONObject(jsonString);
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE) || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
+
+            getProfileView().showProgressDialog(form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
+
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
 
                 Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(jsonString, allSharedPreferences.fetchRegisteredANM());
                 mRegisterInteractor.saveRegistration(values, jsonString, true, this);
+
+            } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
+
+                mRegisterInteractor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
+
+            } else {
+                getProfileView().hideProgressDialog();
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));

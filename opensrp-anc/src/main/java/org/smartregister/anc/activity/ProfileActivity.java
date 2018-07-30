@@ -229,9 +229,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             Intent intent = new Intent(this, JsonFormActivity.class);
 
             JSONObject form = FormUtils.getInstance(this).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
+            form.put(Constants.JSON_FORM_KEY.ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
             if (form != null) {
                 intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
-                startActivityForResult(intent, 0);
+                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

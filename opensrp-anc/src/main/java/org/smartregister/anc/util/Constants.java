@@ -39,7 +39,13 @@ public class Constants {
     }
 
     public static class JSON_FORM_KEY {
+        public static final String ENTITY_ID = "entity_id";
         public static final String OPTIONS = "options";
+        public static final String ENCOUNTER_LOCATION = "encounter_location";
+        public static final String ATTRIBUTES = "attributes";
+        public static final String DEATH_DATE = "deathdate";
+        public static final String DEATH_DATE_APPROX = "deathdateApprox";
+        public static final String ANC_CLOSE_REASON = "anc_close_reason";
     }
 
     public static final class ServiceType {
