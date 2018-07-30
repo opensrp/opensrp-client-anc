@@ -120,7 +120,7 @@ public class RegisterModelTest extends BaseUnitTest {
         return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
     }
 
-    String json = "{\n" +
+    private String json = "{\n" +
             "  \"count\": \"1\",\n" +
             "  \"encounter_type\": \"ANC Registration\",\n" +
             "  \"entity_id\": \"\",\n" +

@@ -476,8 +476,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), true);
-            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) {
-                //TODO Move to catchment
+            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
+                // TODO Move to catchment
             } else {
                 onViewClicked(view);
             }

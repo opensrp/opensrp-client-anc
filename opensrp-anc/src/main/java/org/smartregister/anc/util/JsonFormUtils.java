@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.Pair;
 
-import com.google.gson.JsonObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONArray;
