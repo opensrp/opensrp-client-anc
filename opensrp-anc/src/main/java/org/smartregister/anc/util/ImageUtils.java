@@ -11,7 +11,7 @@ import org.smartregister.domain.ProfileImage;
 
 public class ImageUtils {
     public static int getProfileImageResourceIDentifier() {
-        return R.drawable.ic_african_girl;
+        return R.drawable.ic_woman_with_baby;
     }
 
     public static Photo profilePhotoByClientID(String clientEntityId) {

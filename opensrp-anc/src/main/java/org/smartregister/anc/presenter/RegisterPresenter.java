@@ -84,7 +84,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void saveForm(String jsonString, String imageKey, boolean isEditMode) {
+    public void saveForm(String jsonString, boolean isEditMode) {
 
         try {
 
@@ -95,7 +95,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
                 return;
             }
 
-            interactor.saveRegistration(pair, jsonString, imageKey, isEditMode, this);
+            interactor.saveRegistration(pair, jsonString, isEditMode, this);
 
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -118,7 +118,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void onRegistrationSaved() {
+    public void onRegistrationSaved(boolean isEdit) {
         getView().refreshList(FetchStatus.fetched);
         getView().hideProgressDialog();
     }

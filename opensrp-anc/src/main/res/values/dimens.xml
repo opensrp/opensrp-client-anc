@@ -68,7 +68,12 @@
 
     <dimen name="activity_title_size">18sp</dimen>
     <dimen name="activity_sub_title_size">14sp</dimen>
-    <dimen name="btn_profile_registration_info_padding">24dp</dimen>
+
+    <dimen name="profile_btn_registration_info_padding">24dp</dimen>
+    <dimen name="profile_dot_separator_margin">10dp</dimen>
+
+    <dimen name="copy_to_clipboard_header_text_size">20sp</dimen>
+    <dimen name="copy_to_clipboard_message_text_size">14sp</dimen>
 
     <dimen name="advanced_search_text_size">15sp</dimen>
     <dimen name="advanced_search_label_size">15sp</dimen>

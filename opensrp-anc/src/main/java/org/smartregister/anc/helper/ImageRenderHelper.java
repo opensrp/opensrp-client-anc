@@ -39,7 +39,7 @@ public class ImageRenderHelper {
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
 
-                int backgroundResource = R.drawable.ic_african_girl;
+                int backgroundResource = R.drawable.ic_woman_with_baby;
                 profileImageView.setImageDrawable(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? context.getDrawable(backgroundResource) : ContextCompat.getDrawable(context, backgroundResource));
 
             }

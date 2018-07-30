@@ -53,7 +53,7 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
             editMap.put(isLocal ? DBConstants.KEY.PHONE_NUMBER : GLOBAL_ATTRIBUTE, isLocal ? phoneNumber : PHONE_NUMBER + ":" + phoneNumber);
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            editMap.put(isLocal ? DBConstants.KEY.ALT_CONTACT_NAME : GLOBAL_ATTRIBUTE, isLocal ? alternateContact : ALT_CONTACT_NAME + ":" + alternateContact);
+            editMap.put(isLocal ? DBConstants.KEY.ALT_NAME : GLOBAL_ATTRIBUTE, isLocal ? alternateContact : ALT_CONTACT_NAME + ":" + alternateContact);
         }
         return editMap;
     }
@@ -110,7 +110,7 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
 
     @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
-        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_CONTACT_NAME};
+        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME};
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
 
         JSONArray jsonArray = getJsonArray(response);

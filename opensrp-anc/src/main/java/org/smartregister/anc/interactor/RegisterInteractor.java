@@ -13,7 +13,9 @@ import org.smartregister.anc.domain.UniqueId;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.AppExecutors;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
@@ -77,16 +79,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final String imageKey, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                saveRegistration(pair, jsonString, imageKey, isEditMode);
+                saveRegistration(pair, jsonString, isEditMode);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onRegistrationSaved();
+                        callBack.onRegistrationSaved(isEditMode);
                     }
                 });
             }
@@ -95,7 +97,20 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    private void saveRegistration(Pair<Client, Event> pair, String jsonString, String imageKey, boolean isEditMode) {
+    @Override
+    public void removeWomanFromANCRegister(final String closeFormJsonString, final String providerId) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                JsonFormUtils.saveRemovedFromANCRegister(closeFormJsonString, providerId);
+            }
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
 
@@ -103,16 +118,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             Event baseEvent = pair.second;
 
             if (baseClient != null) {
-                JSONObject clientJson = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(baseClient));
+                JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
                 if (isEditMode) {
-                    org.smartregister.anc.util.JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
+                    JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
                 } else {
                     getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
                 }
             }
 
             if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(baseEvent));
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
@@ -120,7 +135,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
                     String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID).replace("-", "");
-                    String currentOpenSRPId = org.smartregister.anc.util.JsonFormUtils.getString(jsonString, org.smartregister.anc.util.JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
@@ -137,8 +152,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = org.smartregister.anc.util.JsonFormUtils.getFieldValue(jsonString, imageKey);
-                org.smartregister.anc.util.JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);

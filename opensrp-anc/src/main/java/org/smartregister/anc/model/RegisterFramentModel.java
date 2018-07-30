@@ -58,7 +58,7 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                 tableName + "." + DBConstants.KEY.ANC_ID,
                 tableName + "." + DBConstants.KEY.DOB,
                 tableName + "." + DBConstants.KEY.PHONE_NUMBER,
-                tableName + "." + DBConstants.KEY.ALT_CONTACT_NAME,
+                tableName + "." + DBConstants.KEY.ALT_NAME,
                 tableName + "." + DBConstants.KEY.DATE_REMOVED};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);

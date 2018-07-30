@@ -34,8 +34,18 @@ public class Constants {
     }
 
     public static class JSON_FORM {
-        public static final String ANC_REGISTRATION = "anc_register";
+        public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
+    }
+
+    public static class JSON_FORM_KEY {
+        public static final String ENTITY_ID = "entity_id";
+        public static final String OPTIONS = "options";
+        public static final String ENCOUNTER_LOCATION = "encounter_location";
+        public static final String ATTRIBUTES = "attributes";
+        public static final String DEATH_DATE = "deathdate";
+        public static final String DEATH_DATE_APPROX = "deathdateApprox";
+        public static final String ANC_CLOSE_REASON = "anc_close_reason";
     }
 
     public static final class ServiceType {
@@ -47,17 +57,31 @@ public class Constants {
     }
 
     public static final class KEY {
-        public static final String _ID = "_id";
+        public static final String SEX = "Sex";
         public static final String KEY = "key";
         public static final String VALUE = "value";
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
-        public static final String CHILD = "child";
 
     }
 
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
+        public static final String JSON = "json";
     }
+
+    public static class OPENMRS {
+        public static final String ENTITY = "openmrs_entity";
+        public static final String ENTITY_ID = "openmrs_entity_id";
+    }
+
+    public static class ENTITY {
+        public static final String PERSON = "person";
+    }
+
+    public static class BOOLEAN_INT {
+        public static final int TRUE = 1;
+    }
+
 }

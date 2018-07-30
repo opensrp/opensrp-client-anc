@@ -28,7 +28,7 @@ public class RegisterContract {
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
-        void saveForm(String jsonString, String imageKey, boolean isEditMode);
+        void saveForm(String jsonString, boolean isEditMode);
 
         void onDestroy(boolean isChangingConfiguration);
     }
@@ -76,7 +76,10 @@ public class RegisterContract {
 
         void getNextUniqueId(Triple<String, String, String> triple, RegisterContract.InteractorCallBack callBack);
 
-        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final String imageKey, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack);
+        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack);
+
+        void removeWomanFromANCRegister(String closeFormJsonString, String providerId);
+
     }
 
     public interface InteractorCallBack {
@@ -84,6 +87,6 @@ public class RegisterContract {
 
         void onNoUniqueId();
 
-        void onRegistrationSaved();
+        void onRegistrationSaved(boolean isEdit);
     }
 }

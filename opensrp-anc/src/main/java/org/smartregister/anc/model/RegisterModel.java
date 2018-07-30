@@ -51,7 +51,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public Pair<Client, Event> processRegistration(String jsonString) {
-        return JsonFormUtils.processRegistration(jsonString, getAllSharedPreferences().fetchRegisteredANM());
+        return JsonFormUtils.processRegistrationForm(jsonString, getAllSharedPreferences().fetchRegisteredANM());
     }
 
     @Override

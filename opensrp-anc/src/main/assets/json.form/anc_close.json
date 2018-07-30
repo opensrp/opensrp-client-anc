@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Close",
+  "encounter_type": "ANC Close",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -101,6 +101,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of delivery"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -124,6 +130,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option *"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -139,6 +151,12 @@
         },
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -161,6 +179,37 @@
         },
         "v_required": {
           "value": "false"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
+        }
+      },
+      {
+        "key": "birthweight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "birthweight",
+        "type": "edit_text",
+        "hint": "Birth weight (kg) *",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "([1-9]|10)|\s*",
+          "err": "Number must in the range 1 to 10"
+        },
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Live birth\")"
+          }
         }
       },
       {
@@ -181,6 +230,12 @@
         },
         "v_required": {
           "value": "false"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Live birth\")"
+          }
         }
       },
       {
@@ -213,25 +268,12 @@
         },
         "v_required": {
           "value": "false"
-        }
-      },
-      {
-        "key": "birthweight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "birthweight",
-        "type": "edit_text",
-        "hint": "Birth weight (kg) *",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
-        "v_regex": {
-          "value": "([1-9]|10)|\s*",
-          "err": "Number must in the range 1 to 10"
-        },
-        "v_required": {
-          "value": false
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -251,8 +293,14 @@
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Severe bleeding/Hemorrhage",
-            "text": "Severe bleeding/Hemorrhage",
+            "key": "Postpartum haemorrhage",
+            "text": "Postpartum haemorrhage",
+            "value": false,
+            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Antepartum haemorrhage",
+            "text": "Antepartum haemorrhage",
             "value": false,
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -263,20 +311,32 @@
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "Placenta abruption",
+            "text": "Placenta abruption",
+            "value": false,
+            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "Cord prolapse",
             "text": "Cord prolapse",
             "value": false,
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Prolonged/obstructed labour",
-            "text": "Prolonged/obstructed labour",
+            "key": "Obstructed labour",
+            "text": "Obstructed labour",
             "value": false,
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "Abnormal presentation",
             "text": "Abnormal presentation",
+            "value": false,
+            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Pre-eclampsia/eclampsia",
+            "text": "Pre-eclampsia/eclampsia",
             "value": false,
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -295,6 +355,12 @@
         ],
         "v_required": {
           "value": "false"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
         }
       },
       {
@@ -312,6 +378,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of miscarriage/abortion"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "regex(., \"(Miscarriage|Abortion)\")"
+          }
         }
       },
       {
@@ -344,6 +416,12 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of death"
+        },
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Woman died\")"
+          }
         }
       },
       {
@@ -357,19 +435,27 @@
         "values": [
           "Unknown",
           "Abortion-related complications",
-          "Prolonged/obstructed labour",
-          "Severe hypertension/seizure",
-          "Severe bleeding/Hemorrhage",
-          "Fever/infection",
+          "Obstructed labour",
+          "Pre-eclampsia/eclampsia",
+          "Post-partum haemorrhage",
+          "Antepartum haemorrhage (abrumption or praevia)",
+          "Infection",
           "Other"
         ],
+        "relevance": {
+          "step1:anc_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Woman died\")"
+          }
+        },
         "openmrs_choice_ids": {
           "Unknown": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Abortion-related complications": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Prolonged/obstructed labour": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe hypertension/seizure": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe bleeding/Hemorrhage": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Fever/infection": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Obstructed labour": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Pre-eclampsia/eclampsia": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Post-partum haemorrhage": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Antepartum haemorrhage": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Infection": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {

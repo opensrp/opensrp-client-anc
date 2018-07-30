@@ -57,4 +57,9 @@
         <item name="rbd_innerRadius">10dp</item>
         <item name="rbd_strokeColor">@drawable/advanced_search_rdb_stoke_color_list</item>
     </style>
+
+    <style name="copy_clipboard_dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
 </resources>

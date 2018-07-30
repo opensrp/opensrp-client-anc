@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -24,7 +25,7 @@ import org.smartregister.anc.util.Constants;
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
-public class ProfileActivityTest extends BaseUnitTest {
+public class ProfileActivityTest extends BaseActivityUnitTest {
 
     private ProfileActivity profileActivity;
     private ActivityController<ProfileActivity> controller;
@@ -96,7 +97,7 @@ public class ProfileActivityTest extends BaseUnitTest {
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
         Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
-
+        Mockito.doNothing().when(spyActivity).registerEventBus();
         spyActivity.onResume();
 
         Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
@@ -200,15 +201,31 @@ public class ProfileActivityTest extends BaseUnitTest {
 
     }
 
-    private void destroyController() {
-        try {
-            profileActivity.finish();
-            controller.pause().stop().destroy(); //destroy controller if we can
+    @Test
+    public void testSetWomanPhoneNumberUpdatesFieldCorrectly() {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
-        System.gc();
+        String womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
+
+        Assert.assertNull(womanPhoneNumber);
+
+        spyActivity.setWomanPhoneNumber(TEST_STRING);
+
+        womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
+
+
+        Assert.assertNotNull(womanPhoneNumber);
+        Assert.assertEquals(TEST_STRING, womanPhoneNumber);
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return profileActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
     }
 }

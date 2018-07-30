@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
@@ -18,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.AncJsonFormActivity;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.util.DBConstants;
 
@@ -31,7 +31,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     private AncEditTextFactory factory;
 
     @Mock
-    private JsonFormActivity context;
+    private AncJsonFormActivity context;
 
     @Mock
     private JsonFormFragment formFragment;

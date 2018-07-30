@@ -39,17 +39,10 @@
           }
         },
         {
-          "column_name": "phone_number",
+          "column_name": "dob_unknown",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.phone_number"
-          }
-        },
-        {
-          "column_name": "alt_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.alt_name"
+            "field": "birthdateApprox"
           }
         },
         {
@@ -64,6 +57,34 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.dateRemoved"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.phone_number"
+          }
+        },
+        {
+          "column_name": "alt_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.alt_name"
+          }
+        },
+        {
+          "column_name": "alt_phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.alt_phone_number"
+          }
+        },
+        {
+          "column_name": "reminders",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.reminders"
           }
         }
       ]

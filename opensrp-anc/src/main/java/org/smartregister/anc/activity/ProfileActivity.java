@@ -1,19 +1,24 @@
 package org.smartregister.anc.activity;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
 import org.smartregister.anc.contract.ProfileContract;
@@ -24,53 +29,38 @@ import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.anc.view.CopyToClipboardDialog;
+import org.smartregister.util.FormUtils;
+import org.smartregister.util.PermissionUtils;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
-public class ProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
+public class ProfileActivity extends BaseProfileActivity implements ProfileContract.View {
 
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private boolean appBarTitleIsShown = true;
-    private int appBarLayoutScrollRange = -1;
-    private ProfileContract.Presenter mProfilePresenter;
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
     private TextView ancIdView;
-    private String womanName;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
+    private String womanPhoneNumber;
+
+    private static final String TAG = ProfileActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         setUpViews();
 
         mProfilePresenter = new ProfilePresenter(this);
 
         imageRenderHelper = new ImageRenderHelper(this);
 
+
     }
 
     private void setUpViews() {
-
-        AppBarLayout appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
-
-        // Set collapsing tool bar title.
-        collapsingToolbarLayout = appBarLayout.findViewById(R.id.collapsing_toolbar_layout);
-
-        appBarLayout.addOnOffsetChangedListener(this);
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -109,7 +99,36 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         if (itemId == android.R.id.home) {
             finish();
         } else {
-            Utils.showToast(this, "Showing ANC Edit menu...");
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+            arrayAdapter.add(getString(R.string.call));
+            arrayAdapter.add(getString(R.string.start_contact));
+            arrayAdapter.add(getString(R.string.close_anc_record));
+
+            builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String textClicked = arrayAdapter.getItem(which);
+                    switch (textClicked) {
+                        case "Call":
+                            launchPhoneDialer(womanPhoneNumber);
+                            break;
+                        case "Start Contact":
+                            Utils.showShortToast(ProfileActivity.this, textClicked);
+                            break;
+                        case "Close ANC Record":
+                            launchANCCloseForm();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    dialog.dismiss();
+                }
+
+            });
+            builderSingle.show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -122,24 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
-        if (appBarLayoutScrollRange == -1) {
-            appBarLayoutScrollRange = appBarLayout.getTotalScrollRange();
-        }
-        if (appBarLayoutScrollRange + verticalOffset == 0) {
-
-            collapsingToolbarLayout.setTitle(womanName);
-            appBarTitleIsShown = true;
-        } else if (appBarTitleIsShown) {
-            collapsingToolbarLayout.setTitle(" ");
-            appBarTitleIsShown = false;
-        }
-
-    }
-
-    @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         mProfilePresenter.refreshProfileView(baseEntityId);
@@ -149,6 +151,15 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onDestroy() {
         super.onDestroy();
         mProfilePresenter.onDestroy(isChangingConfigurations());
+    }
+
+    @Override
+    protected void onCreation() { //Overriden from Secured Activity
+    }
+
+    @Override
+    protected void onResumption() {//Overriden from Secured Activity
+
     }
 
     @Override
@@ -176,5 +187,53 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     @Override
     public void setProfileImage(String baseEntityId) {
         imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
+    }
+
+    @Override
+    public void setWomanPhoneNumber(String phoneNumber) {
+        womanPhoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String getIntentString(String intentKey) {
+
+        return this.getIntent().getStringExtra(intentKey);
+    }
+
+    @Override
+    public void displayToast(int stringID) {
+
+        Utils.showShortToast(this, this.getString(stringID));
+    }
+
+    protected void launchPhoneDialer(String phoneNumber) {
+        if (PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE)) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
+                this.startActivity(intent);
+            } catch (Exception e) {
+
+                Log.i(TAG, "No dial application so we launch copy to clipboard...");
+                CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(this, R.style.copy_clipboard_dialog);
+                copyToClipboardDialog.setContent(phoneNumber);
+                copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                copyToClipboardDialog.show();
+            }
+        }
+    }
+
+    protected void launchANCCloseForm() {
+        try {
+            Intent intent = new Intent(this, AncJsonFormActivity.class);
+
+            JSONObject form = FormUtils.getInstance(this).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
+            form.put(Constants.JSON_FORM_KEY.ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+            if (form != null) {
+                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
+                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 }
