@@ -1,9 +1,12 @@
 package org.smartregister.anc.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +30,13 @@ import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.contract.RegisterFragmentContract;
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -73,6 +78,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     private ProgressBar syncProgressBar;
     protected TextView filterStatus;
     protected TextView sortStatus;
+
+    private boolean globalQrSearch = false;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -155,7 +162,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(TAG, "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
-            filter(qrCode.replace("-", ""), "", getMainCondition());
+            filter(qrCode.replace("-", ""), "", getMainCondition(), true);
         }
     }
 
@@ -244,7 +251,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        RegisterProvider registerProvider = new RegisterProvider(getActivity(), visibleColumns, registerActionHandler);
+        RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
@@ -256,7 +263,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
     }
 
-    public void filter(String filterString, String joinTableString, String mainConditionString) {
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         getSearchCancelView().setVisibility(isEmpty(filterString) ? View.INVISIBLE : View.VISIBLE);
 
         this.filters = filterString;
@@ -264,7 +271,13 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.mainCondition = mainConditionString;
 
         countExecute();
-        filterandSortExecute();
+
+        if (qrCode && StringUtils.isNotBlank(filterString) && totalcount == 0 && NetworkUtils.isNetworkAvailable()) {
+            globalQrSearch = true;
+            presenter.searchGlobally(filterString);
+        } else {
+            filterandSortExecute();
+        }
     }
 
     @Override
@@ -290,7 +303,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
         @Override
         public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-            filter(cs.toString(), "", getMainCondition());
+            filter(cs.toString(), "", getMainCondition(), false);
         }
 
         @Override
@@ -460,6 +473,40 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             }
             if (initialsTextView != null) {
                 initialsTextView.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
+        totalcount = matrixCursor.getCount();
+        Log.v("total count here", "" + totalcount);
+        currentlimit = 20;
+        if (totalcount > 0) {
+            currentlimit = totalcount;
+        }
+        currentoffset = 0;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        final AdvancedMatrixCursor matrixCursor = presenter.getMatrixCursor();
+        if (!globalQrSearch || matrixCursor == null) {
+            return super.onCreateLoader(id, args);
+        } else {
+            globalQrSearch = false;
+            switch (id) {
+                case LOADER_ID:
+                    // Returns a new CursorLoader
+                    return new CursorLoader(getActivity()) {
+                        @Override
+                        public Cursor loadInBackground() {
+                            return matrixCursor;
+                        }
+                    };
+                default:
+                    // An invalid id was passed in
+                    return null;
             }
         }
     }

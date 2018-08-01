@@ -14,7 +14,9 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -35,15 +37,17 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
+
     private Context context;
+    private CommonRepository commonRepository;
 
-
-    public RegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener) {
+    public RegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.context = context;
+        this.commonRepository = commonRepository;
     }
 
     @Override
@@ -52,7 +56,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
-            //populateDoseColumn(pc, convertView);
+            populateLastColumn(pc, viewHolder);
 
             return;
         }
@@ -102,11 +106,27 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 
-    /*
-    private void populateDoseColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
 
+    private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
 
-       DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
+        if (commonRepository != null) {
+            CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
+            if (commonPersonObject != null) {
+                viewHolder.sync.setVisibility(View.GONE);
+                viewHolder.dueButton.setVisibility(View.VISIBLE);
+
+                //updateDoseButton();
+            } else {
+                viewHolder.dueButton.setVisibility(View.GONE);
+                viewHolder.sync.setVisibility(View.VISIBLE);
+
+                attachSyncOnclickListener(viewHolder.sync, pc);
+            }
+        }
+    }
+
+    /*private void updateDoseButton(){
+        DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
 
         Button patient = (Button) view.findViewById(R.id.dose_button);
 
@@ -125,6 +145,12 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             attachDosageOnclickListener(patient, pc);
         }
     }*/
+
+    private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_SYNC);
+    }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
@@ -206,6 +232,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         public TextView ancId;
         public TextView risk;
         public Button dueButton;
+        public Button sync;
         public View patientColumn;
 
         public RegisterViewHolder(View itemView) {
@@ -217,6 +244,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             ancId = itemView.findViewById(R.id.anc_id);
             risk = itemView.findViewById(R.id.risk);
             dueButton = itemView.findViewById(R.id.due_button);
+            sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
         }

@@ -366,17 +366,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         ((AdvancedSearchContract.Presenter) presenter).search(fn, ln, id, eddDate, dobDate, pn, altName, isLocal);
     }
 
-
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
-        totalcount = matrixCursor.getCount();
-        Log.v("total count here", "" + totalcount);
-        currentlimit = 20;
-        if (totalcount > 0) {
-            currentlimit = totalcount;
-        }
-        currentoffset = 0;
-
+        super.recalculatePagination(matrixCursor);
         updateMatchingResults(totalcount);
     }
 
@@ -397,7 +389,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             c.moveToFirst();
             totalcount = c.getInt(0);
             Log.v("total count here", "" + totalcount);
-            
+
             currentlimit = 20;
             currentoffset = 0;
 
@@ -420,7 +412,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
                 return new CursorLoader(getActivity()) {
                     @Override
                     public Cursor loadInBackground() {
-                        AdvancedMatrixCursor matrixCursor = ((AdvancedSearchContract.Presenter) presenter).getMatrixCursor();
+                        AdvancedMatrixCursor matrixCursor = presenter.getMatrixCursor();
                         if (isLocal || matrixCursor == null) {
                             String query = filterandSortQuery();
                             Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);

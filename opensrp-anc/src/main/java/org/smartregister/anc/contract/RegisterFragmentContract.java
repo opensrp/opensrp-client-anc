@@ -2,11 +2,14 @@ package org.smartregister.anc.contract;
 
 import android.content.Context;
 
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.domain.Response;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class RegisterFragmentContract {
@@ -32,6 +35,12 @@ public class RegisterFragmentContract {
         String getString(int resId);
 
         void updateFilterAndFilterStatus(String filterText, String sortText);
+
+        void recalculatePagination(AdvancedMatrixCursor matrixCursor);
+
+        void showProgressView();
+
+        void hideProgressView();
     }
 
     public interface Presenter {
@@ -46,6 +55,9 @@ public class RegisterFragmentContract {
 
         void updateSortAndFilter(List<Field> filterList, Field sortField);
 
+        void searchGlobally(String ancId);
+
+        AdvancedMatrixCursor getMatrixCursor();
     }
 
     public interface Model {
@@ -65,6 +77,10 @@ public class RegisterFragmentContract {
         String getFilterText(List<Field> filterList, String filter);
 
         String getSortText(Field sortField);
+
+        Map<String, String> createEditMap(String ancId);
+
+        AdvancedMatrixCursor createMatrixCursor(Response<String> response);
 
     }
 

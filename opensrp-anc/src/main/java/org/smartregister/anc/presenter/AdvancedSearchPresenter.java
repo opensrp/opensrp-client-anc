@@ -17,10 +17,6 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
 
     private AdvancedSearchContract.Model model;
 
-    private AdvancedSearchContract.Interactor interactor;
-
-    private AdvancedMatrixCursor matrixCursor;
-
     public static final String TABLE_NAME = DBConstants.WOMAN_TABLE_NAME;
 
     public AdvancedSearchPresenter(AdvancedSearchContract.View view, String viewConfigurationIdentifier) {
@@ -81,10 +77,6 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         getView().refresh();
 
         getView().hideProgressView();
-    }
-
-    public AdvancedMatrixCursor getMatrixCursor() {
-        return matrixCursor;
     }
 
     protected AdvancedSearchContract.View getView() {
