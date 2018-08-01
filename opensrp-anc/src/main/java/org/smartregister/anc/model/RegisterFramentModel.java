@@ -36,7 +36,7 @@ import java.util.Set;
 public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
     private AllSharedPreferences allSharedPreferences;
-    private static final String GLOBAL_IDENTIFIER = "identifier";
+    public static final String GLOBAL_IDENTIFIER = "identifier";
     private static final String ANC_ID = "ANC_ID";
 
     @Override

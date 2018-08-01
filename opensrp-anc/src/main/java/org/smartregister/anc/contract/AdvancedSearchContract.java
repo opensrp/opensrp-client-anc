@@ -25,8 +25,6 @@ public class AdvancedSearchContract {
 
         String getMainConditionString(Map<String, String> editMap);
 
-        AdvancedMatrixCursor createMatrixCursor(Response<String> response);
-
     }
 
     public interface Interactor {

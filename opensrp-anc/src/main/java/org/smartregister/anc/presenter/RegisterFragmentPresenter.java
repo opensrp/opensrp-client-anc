@@ -139,4 +139,8 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     public AdvancedMatrixCursor getMatrixCursor() {
         return matrixCursor;
     }
+
+    public void setInteractor(AdvancedSearchContract.Interactor interactor) {
+        this.interactor = interactor;
+    }
 }
