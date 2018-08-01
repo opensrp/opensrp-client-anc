@@ -87,7 +87,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
             if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
 
-                Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(jsonString, allSharedPreferences.fetchRegisteredANM());
+                Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
                 mRegisterInteractor.saveRegistration(values, jsonString, true, this);
 
             } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {

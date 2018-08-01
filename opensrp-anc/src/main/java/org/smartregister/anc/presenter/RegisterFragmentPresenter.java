@@ -22,7 +22,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     private RegisterConfiguration config;
 
-    private Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
+    protected Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     private String viewConfigurationIdentifier;
 
     public RegisterFragmentPresenter(RegisterFragmentContract.View view, String viewConfigurationIdentifier) {
@@ -86,7 +86,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         getView().updateFilterAndFilterStatus(filterText, sortText);
     }
 
-    private RegisterFragmentContract.View getView() {
+    protected RegisterFragmentContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
         else

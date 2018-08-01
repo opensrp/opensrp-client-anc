@@ -18,8 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
@@ -226,7 +224,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     protected void launchANCCloseForm() {
         try {
-            Intent intent = new Intent(this, JsonFormActivity.class);
+            Intent intent = new Intent(this, AncJsonFormActivity.class);
 
             JSONObject form = FormUtils.getInstance(this).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
             form.put(Constants.JSON_FORM_KEY.ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));

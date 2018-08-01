@@ -23,8 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -121,6 +119,14 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void onBackPressed() {
+        Fragment fragment = findFragmentByPosition(currentPage);
+        if (fragment instanceof BaseRegisterFragment) {
+            BaseRegisterFragment registerFragment = (BaseRegisterFragment) fragment;
+            if (registerFragment.onBackPressed()) {
+                return;
+            }
+        }
+
         if (currentPage == 0) {
             super.onBackPressed();
         } else {
@@ -342,7 +348,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, JsonFormActivity.class);
+        Intent intent = new Intent(this, AncJsonFormActivity.class);
         intent.putExtra("json", form.toString());
         startActivityForResult(intent, REQUEST_CODE_GET_JSON);
     }

@@ -7,16 +7,6 @@
 
     <include layout="@layout/toolbar_register" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone">
-
-        <include
-            android:id="@+id/sorted_by_bar"
-            layout="@layout/smart_register_status_bar" />
-    </LinearLayout>
-
     <include
         layout="@layout/register_search_bar"
         android:layout_width="match_parent"
@@ -64,15 +54,21 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:padding="32dp"
-            android:text="No Record"
+            android:text="@string/no_record"
             android:visibility="gone" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sort_filter_bg_light_grey">
 
         <include
             layout="@layout/smart_register_pagination"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/pagination_bar_height"
-            android:layout_gravity="bottom" />
-
-    </FrameLayout>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pagination_bar_height" />
+    </LinearLayout>
 
 </LinearLayout>

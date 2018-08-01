@@ -12,9 +12,12 @@ import android.widget.TextView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
@@ -25,34 +28,43 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.util.Set;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static org.smartregister.util.Utils.getName;
 
 /**
  * Created by keyman on 26/06/2018.
  */
 
-public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.RegisterViewHolder> {
+public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSearchProvider.AdvancedSearchViewHolder> {
+
+
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
+
     private Context context;
+    private CommonRepository commonRepository;
+    private ImageRenderHelper imageRenderHelper;
 
 
-    public RegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener) {
+    public AdvancedSearchProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.context = context;
+        this.commonRepository = commonRepository;
+        this.imageRenderHelper = new ImageRenderHelper(context);
     }
 
     @Override
-    public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+    public void getView(Cursor cursor, SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
-            //populateDoseColumn(pc, convertView);
+            populateLastColumn(pc, viewHolder);
 
             return;
         }
@@ -80,7 +92,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         */
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
 
         String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -97,34 +109,10 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
 
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+    private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
         String ancId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
-
-    /*
-    private void populateDoseColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-
-
-       DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
-
-        Button patient = (Button) view.findViewById(R.id.dose_button);
-
-        LinearLayout completeView = (LinearLayout) view.findViewById(R.id.completedView);
-
-        if (StringUtils.isNotBlank(doseStatus.getDateDoseTwoGiven())) {
-            patient.setVisibility(View.GONE);
-            completeView.setVisibility(View.VISIBLE);
-        } else {
-
-            patient.setVisibility(View.VISIBLE);
-            completeView.setVisibility(View.GONE);
-            patient.setText(getDoseButtonText(doseStatus));
-            patient.setBackground(Utils.getDoseButtonBackground(context, Utils.getRegisterViewButtonStatus(doseStatus)));
-            patient.setTextColor(Utils.getDoseButtonTextColor(context, Utils.getRegisterViewButtonStatus(doseStatus)));
-            attachDosageOnclickListener(patient, pc);
-        }
-    }*/
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
@@ -132,35 +120,42 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
-    /*
-    private void adjustLayoutParams(View view, TextView details) {
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        view.setLayoutParams(params);
 
-        params = details.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        details.setLayoutParams(params);
+    private void populateLastColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
+
+        if (commonRepository != null) {
+            CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
+            if (commonPersonObject != null) {
+                imageRenderHelper.refreshProfileImage(pc.entityId(), viewHolder.profile);
+
+                viewHolder.sync.setVisibility(View.GONE);
+                viewHolder.profile.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.profile.setVisibility(View.GONE);
+                viewHolder.sync.setVisibility(View.VISIBLE);
+                attachSyncOnclickListener(viewHolder.sync, pc);
+            }
+        }
     }
 
-
-    private void attachDosageOnclickListener(View view, SmartRegisterClient client) {
+    private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
-    }*/
+    }
+
 
     @Override
-    public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption, FilterOption searchFilter, SortOption sortOption) {
+    public SmartRegisterClients updateClients(FilterOption filterOption, ServiceModeOption serviceModeOption, FilterOption filterOption1, SortOption sortOption) {
         return null;
     }
 
     @Override
-    public void onServiceModeSelected(ServiceModeOption serviceModeOption) {//Implement Abstract Method
+    public void onServiceModeSelected(ServiceModeOption serviceModeOption) { //Implement Abstract Method
     }
 
     @Override
-    public OnClickFormLauncher newFormLauncher(String formName, String entityId, String metaData) {
+    public OnClickFormLauncher newFormLauncher(String s, String s1, String s2) {
         return null;
     }
 
@@ -170,9 +165,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     @Override
-    public RegisterViewHolder createViewHolder(ViewGroup parent) {
+    public AdvancedSearchProvider.AdvancedSearchViewHolder createViewHolder(ViewGroup parent) {
         View view;
-        view = inflater.inflate(R.layout.register_home_list_row, parent, false);
+        view = inflater.inflate(R.layout.advanced_result_list_row, parent, false);
 
         /*
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
@@ -186,7 +181,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             }
         }*/
 
-        return new RegisterViewHolder(view);
+        return new AdvancedSearchViewHolder(view);
     }
 
     public static void fillValue(TextView v, String value) {
@@ -199,16 +194,20 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     // Inner classes
     ////////////////////////////////////////////////////////////////
 
-    public class RegisterViewHolder extends RecyclerView.ViewHolder {
+    public class AdvancedSearchViewHolder extends RecyclerView.ViewHolder {
         public TextView patientName;
         public TextView age;
         public TextView ga;
         public TextView ancId;
         public TextView risk;
-        public Button dueButton;
+
+        public CircleImageView profile;
+        public Button sync;
+
         public View patientColumn;
 
-        public RegisterViewHolder(View itemView) {
+
+        public AdvancedSearchViewHolder(View itemView) {
             super(itemView);
 
             patientName = itemView.findViewById(R.id.patient_name);
@@ -216,7 +215,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             ga = itemView.findViewById(R.id.ga);
             ancId = itemView.findViewById(R.id.anc_id);
             risk = itemView.findViewById(R.id.risk);
-            dueButton = itemView.findViewById(R.id.due_button);
+            profile = itemView.findViewById(R.id.profile);
+            sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
         }

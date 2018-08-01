@@ -1,42 +1,42 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AncAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AncAppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AncAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AncAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AncDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
 
-    <style name="AppTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AncAppTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textSize">@dimen/login_font_size</item>
         <item name="colorControlActivated">@android:color/black</item>
     </style>
 
     <style name="AncAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.NavigationDrawerStyle">
+    <style name="AncAppTheme.NoActionBar.NavigationDrawerStyle">
         <item name="android:textSize">20sp</item>
         <!-- text size in menu-->
         <item name="android:listPreferredItemHeightSmall">70dp</item>
@@ -49,8 +49,17 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Material.Drawable.RadioButton.AdvancedSearch" parent="Material.Drawable.RadioButton">
+        <item name="rbd_width">40dp</item>
+        <item name="rbd_height">40dp</item>
+        <item name="rbd_strokeSize">2dp</item>
+        <item name="rbd_radius">15dp</item>
+        <item name="rbd_innerRadius">10dp</item>
+        <item name="rbd_strokeColor">@drawable/advanced_search_rdb_stoke_color_list</item>
+    </style>
+
     <style name="copy_clipboard_dialog" parent="android:Theme.Holo.Dialog">
-    <item name="android:windowMinWidthMajor">90%</item>
-    <item name="android:windowMinWidthMinor">90%</item>
-</style>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
 </resources>

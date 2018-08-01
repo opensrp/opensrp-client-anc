@@ -9,7 +9,6 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.google.common.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -18,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.activity.AncJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.event.PatientRemovedEvent;
@@ -59,11 +59,12 @@ import java.util.UUID;
 public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     private static final String TAG = JsonFormUtils.class.getCanonicalName();
 
-    private static final String METADATA = "metadata";
+    public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
+    public static final String ANC_ID = "ANC_ID";
     public static final String READ_ONLY = "read_only";
 
     public static JSONObject getFormAsJson(JSONObject form,
@@ -82,16 +83,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
             // Inject opensrp id into the form
-            JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
-            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.getString(JsonFormUtils.KEY)
-                        .equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
-                    jsonObject.remove(JsonFormUtils.VALUE);
-                    jsonObject.put(JsonFormUtils.VALUE, entityId);
-                }
+            JSONArray field = fields(form);
+            JSONObject ancId = getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+            if (ancId != null) {
+                ancId.remove(JsonFormUtils.VALUE);
+                ancId.put(JsonFormUtils.VALUE, entityId);
             }
+
         } else if (Constants.JSON_FORM.ANC_CLOSE.equals(formName)) {
             if (StringUtils.isNotBlank(entityId)) {
                 // Inject entity id into the remove form
@@ -114,7 +112,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return registrationFormParams;
     }
 
-    public static Pair<Client, Event> processRegistrationForm(String jsonString, String providerId) {
+    public static Pair<Client, Event> processRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
 
         try {
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
@@ -168,7 +166,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
             FormTag formTag = new FormTag();
-            formTag.providerId = providerId;
+            formTag.providerId = allSharedPreferences.fetchRegisteredANM();
             formTag.appVersion = BuildConfig.VERSION_CODE;
             formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
 
@@ -176,7 +174,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
 
-            JsonFormUtils.tagSyncMetadata(baseEvent);// tag docs
+            JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
             return Pair.create(baseClient, baseEvent);
         } catch (Exception e) {
@@ -434,7 +432,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
-        Intent intent = new Intent(context, JsonFormActivity.class);
+        Intent intent = new Intent(context, AncJsonFormActivity.class);
         intent.putExtra(Constants.INTENT_KEY.JSON, metaData);
 
         Log.d(TAG, "form is " + metaData);
@@ -485,7 +483,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .withProviderId(providerId)
                     .withEntityType(DBConstants.WOMAN_TABLE_NAME)
                     .withFormSubmissionId(generateRandomUUIDString())
-                    .withDateCreated(new Date());  JsonFormUtils.tagSyncMetadata(event);
+                    .withDateCreated(new Date());
+            JsonFormUtils.tagSyncMetadata(event);
 
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject jsonObject = getJSONObject(fields, i);
@@ -579,11 +578,20 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    private static Event tagSyncMetadata(Event event) {
-        AllSharedPreferences sharedPreferences = AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
-        event.setLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
-        event.setTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()));
-        event.setTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()));
+    private static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
+        event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        event.setTeam(allSharedPreferences.fetchDefaultTeam(allSharedPreferences.fetchRegisteredANM()));
+        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
         return event;
     }
+
+    private static Event tagSyncMetadata(Event event) {
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        event.setTeam(allSharedPreferences.fetchDefaultTeam(allSharedPreferences.fetchRegisteredANM()));
+        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
+        return event;
+    }
+
+
 }

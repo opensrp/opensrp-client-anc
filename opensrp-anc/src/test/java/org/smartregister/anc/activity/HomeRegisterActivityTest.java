@@ -15,6 +15,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
+import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
@@ -74,8 +75,9 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
         Fragment[] fragments = homeRegisterActivity.getOtherFragments();
         Assert.assertNotNull(fragments);
-        Assert.assertTrue(fragments.length == 1);
-        Assert.assertTrue(fragments[0] instanceof SortFilterFragment);
+        Assert.assertTrue(fragments.length == 2);
+        Assert.assertTrue(fragments[0] instanceof AdvancedSearchFragment);
+        Assert.assertTrue(fragments[1] instanceof SortFilterFragment);
     }
 
     @Test

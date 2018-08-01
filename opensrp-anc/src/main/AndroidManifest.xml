@@ -21,11 +21,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AncAppTheme">
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Login"
+            android:theme="@style/AncAppTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
             <intent-filter>
@@ -39,7 +39,7 @@
             android:name=".activity.AncJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
@@ -47,24 +47,19 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AncAppTheme.NoActionBar" />
 
         <activity
             android:name=".activity.ProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AncAppTheme.NoActionBar" />
 
         <activity
             android:name=".activity.SettingsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

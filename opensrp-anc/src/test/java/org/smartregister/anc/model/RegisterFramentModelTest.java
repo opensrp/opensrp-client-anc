@@ -44,13 +44,13 @@ public class RegisterFramentModelTest extends BaseUnitTest {
     public void testMainSelect() {
 
         String mainCondition = "anc_id is not null";
-        String sql = "Select ec_woman.id as _id , ec_woman.relationalid , ec_woman.last_interacted_with , ec_woman.base_entity_id , ec_woman.first_name , ec_woman.last_name , ec_woman.anc_id , ec_woman.dob , ec_woman.date_removed FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
+        String sql = "Select ec_woman.id as _id , ec_woman.relationalid , ec_woman.last_interacted_with , ec_woman.base_entity_id , ec_woman.first_name , ec_woman.last_name , ec_woman.anc_id , ec_woman.dob , ec_woman.phone_number , ec_woman.alt_name , ec_woman.date_removed FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
 
         // With main condition
         String mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
         Assert.assertEquals(mainSelect, sql);
 
-        sql = "Select ec_woman.id as _id , ec_woman.relationalid , ec_woman.last_interacted_with , ec_woman.base_entity_id , ec_woman.first_name , ec_woman.last_name , ec_woman.anc_id , ec_woman.dob , ec_woman.date_removed FROM " + DBConstants.WOMAN_TABLE_NAME;
+        sql = "Select ec_woman.id as _id , ec_woman.relationalid , ec_woman.last_interacted_with , ec_woman.base_entity_id , ec_woman.first_name , ec_woman.last_name , ec_woman.anc_id , ec_woman.dob , ec_woman.phone_number , ec_woman.alt_name , ec_woman.date_removed FROM " + DBConstants.WOMAN_TABLE_NAME;
 
         // Without main condition
         mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, "");
@@ -101,6 +101,27 @@ public class RegisterFramentModelTest extends BaseUnitTest {
     }
 
     @Test
+    public void testGetInitialsFromOneNames() {
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+
+        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
+        registerFramentModel.setAllSharedPreferences(allSharedPreferences);
+
+        // Test ==> T
+        String username = "OpenSRP_USER_NAME";
+        String preferredName = "Test";
+
+        Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
+        Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
+
+        String initials = registerFramentModel.getInitials();
+        Assert.assertEquals("T", initials);
+
+        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
+        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
+    }
+
+    @Test
     public void testGetInitialsWhenPreferredNameIsEmpty() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
 
@@ -118,6 +139,15 @@ public class RegisterFramentModelTest extends BaseUnitTest {
 
         Mockito.verify(allSharedPreferences).fetchRegisteredANM();
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
+    }
+
+    @Test
+    public void testGetInitialsWhenAllSharedPreferencesIsNull() {
+        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
+        registerFramentModel.setAllSharedPreferences(null);
+
+        String initials = registerFramentModel.getInitials();
+        Assert.assertNull( initials);
     }
 
     @Test
