@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  */
 public class AdvancedSearchInteractorTest extends BaseUnitTest {
 
-    AdvancedSearchContract.Interactor interactor;
+    private AdvancedSearchContract.Interactor interactor;
 
     @Before
     public void setUp() {
