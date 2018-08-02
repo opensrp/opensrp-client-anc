@@ -141,9 +141,8 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
+        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_SYNC);
     }
-
 
     @Override
     public SmartRegisterClients updateClients(FilterOption filterOption, ServiceModeOption serviceModeOption, FilterOption filterOption1, SortOption sortOption) {

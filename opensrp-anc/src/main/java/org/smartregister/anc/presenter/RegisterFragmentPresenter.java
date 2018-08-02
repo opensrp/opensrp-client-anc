@@ -2,25 +2,34 @@ package org.smartregister.anc.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
+import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
+import org.smartregister.anc.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.model.RegisterFramentModel;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.domain.Response;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class RegisterFragmentPresenter implements RegisterFragmentContract.Presenter {
+public class RegisterFragmentPresenter implements RegisterFragmentContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
     private WeakReference<RegisterFragmentContract.View> viewReference;
 
     private RegisterFragmentContract.Model model;
 
     private RegisterConfiguration config;
+
+    protected AdvancedSearchContract.Interactor interactor;
+
+    protected AdvancedMatrixCursor matrixCursor;
 
     protected Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
     private String viewConfigurationIdentifier;
@@ -30,6 +39,8 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         this.model = new RegisterFramentModel();
         this.viewConfigurationIdentifier = viewConfigurationIdentifier;
         this.config = model.defaultRegisterConfiguration();
+
+        this.interactor = new AdvancedSearchInteractor();
     }
 
     @Override
@@ -86,6 +97,26 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         getView().updateFilterAndFilterStatus(filterText, sortText);
     }
 
+    @Override
+    public void searchGlobally(String ancId) {
+        getView().showProgressView();
+
+        Map<String, String> editMap = model.createEditMap(ancId);
+        interactor.search(editMap, this);
+    }
+
+    @Override
+    public void onResultsFound(Response<String> response) {
+        matrixCursor = model.createMatrixCursor(response);
+
+        getView().recalculatePagination(matrixCursor);
+
+        getView().filterandSortInInitializeQueries();
+        getView().refresh();
+
+        getView().hideProgressView();
+    }
+
     protected RegisterFragmentContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
@@ -99,5 +130,17 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     public void setModel(RegisterFragmentContract.Model model) {
         this.model = model;
+    }
+
+    public void setMatrixCursor(AdvancedMatrixCursor matrixCursor) {
+        this.matrixCursor = matrixCursor;
+    }
+
+    public AdvancedMatrixCursor getMatrixCursor() {
+        return matrixCursor;
+    }
+
+    public void setInteractor(AdvancedSearchContract.Interactor interactor) {
+        this.interactor = interactor;
     }
 }

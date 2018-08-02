@@ -13,6 +13,7 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RegisterFramentModelTest extends BaseUnitTest {
 
@@ -147,7 +148,7 @@ public class RegisterFramentModelTest extends BaseUnitTest {
         registerFramentModel.setAllSharedPreferences(null);
 
         String initials = registerFramentModel.getInitials();
-        Assert.assertNull( initials);
+        Assert.assertNull(initials);
     }
 
     @Test
@@ -208,5 +209,20 @@ public class RegisterFramentModelTest extends BaseUnitTest {
         String expected = "";
         String sortText = model.getSortText(field);
         Assert.assertEquals(expected, sortText);
+    }
+
+
+    @Test
+    public void testCreateEditMap() {
+        String ancId = "anc_id";
+
+        Map<String, String> editMap = model.createEditMap(ancId);
+
+        Assert.assertNotNull(editMap);
+        Assert.assertEquals(1, editMap.size());
+
+        //TODO Change to OpenSRP_ID
+        Assert.assertEquals("OpenSRP_ID:" + ancId, editMap.get(RegisterFramentModel.GLOBAL_IDENTIFIER));
+
     }
 }

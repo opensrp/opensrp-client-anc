@@ -8,14 +8,20 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.domain.Response;
+import org.smartregister.domain.ResponseStatus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class RegisterFragmentPresenterTest extends BaseUnitTest {
@@ -25,6 +31,9 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
     @Mock
     private RegisterFragmentContract.Model model;
+
+    @Mock
+    private AdvancedSearchContract.Interactor interactor;
 
     private RegisterFragmentContract.Presenter presenter;
 
@@ -108,6 +117,47 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         Mockito.verify(model).getSortText(sort);
 
         Mockito.verify(view).updateFilterAndFilterStatus(filterText, sortText);
+
+    }
+
+    @Test
+    public void testSearchGlobally() {
+        RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
+        registerFragmentPresenter.setInteractor(interactor);
+        registerFragmentPresenter.setModel(model);
+
+        String ancId = "ANC ID";
+
+        Map<String, String> editMap = new HashMap<>();
+        editMap.put("abc", "1");
+
+        Mockito.doReturn(editMap).when(model).createEditMap(ancId);
+
+        registerFragmentPresenter.searchGlobally(ancId);
+
+        Mockito.verify(view).showProgressView();
+        Mockito.verify(interactor).search(editMap, registerFragmentPresenter);
+
+    }
+
+    @Test
+    public void testOnResultsFound() {
+        RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
+        registerFragmentPresenter.setModel(model);
+
+        AdvancedMatrixCursor matrixCursor = Mockito.mock(AdvancedMatrixCursor.class);
+
+        Response<String> response = new Response<>(ResponseStatus.success, "Payload");
+
+        Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
+
+        registerFragmentPresenter.onResultsFound(response);
+
+        Mockito.verify(model).createMatrixCursor(response);
+        Mockito.verify(view).recalculatePagination(matrixCursor);
+        Mockito.verify(view).filterandSortInInitializeQueries();
+        Mockito.verify(view).refresh();
+        Mockito.verify(view).hideProgressView();
 
     }
 
