@@ -22,8 +22,10 @@ import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
+import org.smartregister.anc.service.intent.SyncIntentService;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.ServiceTools;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -286,6 +288,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     public void startPullUniqueIdsService() {
         Intent intent = new Intent(getApplicationContext(), PullUniqueIdsIntentService.class);
         getApplicationContext().startService(intent);
+        ServiceTools.startService(this, SyncIntentService.class, false);
     }
 
     public static void setAlarms(android.content.Context context) {
@@ -294,6 +297,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         AlarmReceiver.setAlarm(context, BuildConfig.PULL_UNIQUE_IDS_MINUTES, Constants.ServiceType.PULL_UNIQUE_IDS);
         AlarmReceiver.setAlarm(context, BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
         AlarmReceiver.setAlarm(context, BuildConfig.SYNC_VIEW_CONFIGURATIONS_MINUTES, Constants.ServiceType.PULL_VIEW_CONFIGURATIONS);
+        AlarmReceiver.setAlarm(context, BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
+
     }
 
     @Override

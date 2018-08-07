@@ -88,4 +88,9 @@ public class Constants {
     public static class BOOLEAN_INT {
         public static final int TRUE = 1;
     }
+
+    public static final class SyncFilters {
+
+        public static final String FILTER_TEAM_ID = "teamId";
+    }
 }
