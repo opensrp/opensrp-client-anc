@@ -10,6 +10,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.exception.MissingApplicationContextException;
 import org.smartregister.anc.service.AncImageUploadSyncService;
 import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
+import org.smartregister.anc.service.intent.SyncIntentService;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.util.Log;
@@ -38,6 +39,11 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         if (!AncApplication.getInstance().getContext().IsUserLoggedOut()) {
             Intent serviceIntent = null;
             switch (serviceType) {
+                case Constants.ServiceType.AUTO_SYNC:
+                    android.util.Log.i(TAG, "Started AUTO_SYNC service at: " + dateFormatter.format(new Date()));
+                    serviceIntent = new Intent(context, SyncIntentService.class);
+                    serviceIntent.putExtra(SyncIntentService.WAKE_UP, true);
+                    break;
                 case Constants.ServiceType.PULL_UNIQUE_IDS:
                     serviceIntent = new Intent(context, PullUniqueIdsIntentService.class);
                     android.util.Log.i(TAG, "Started PULL_UNIQUE_IDS service at: " + dateFormatter.format(new Date()));
