@@ -30,6 +30,8 @@ public class RegisterContract {
 
         void saveForm(String jsonString, boolean isEditMode);
 
+        void closeAncRecord(String jsonString);
+
         void onDestroy(boolean isChangingConfiguration);
     }
 
@@ -51,7 +53,7 @@ public class RegisterContract {
 
         void refreshList(final FetchStatus fetchStatus);
 
-        void showProgressDialog();
+        void showProgressDialog(int messageStringIdentifier);
 
         void hideProgressDialog();
     }

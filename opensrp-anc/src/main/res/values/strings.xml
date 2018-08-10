@@ -131,4 +131,6 @@
     <string name="close_anc_record">Close ANC Record</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
 
+    <string name="record_birth">Record Birth</string>
+
 </resources>

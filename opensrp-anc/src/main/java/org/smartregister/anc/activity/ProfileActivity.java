@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
 import org.smartregister.anc.contract.ProfileContract;
@@ -28,9 +27,9 @@ import org.smartregister.anc.fragment.ProfileTasksFragment;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
-import org.smartregister.util.FormUtils;
 import org.smartregister.util.PermissionUtils;
 
 /**
@@ -118,7 +117,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                             Utils.showShortToast(ProfileActivity.this, textClicked);
                             break;
                         case "Close ANC Record":
-                            launchANCCloseForm();
+                            JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
                             break;
                         default:
                             break;
@@ -221,19 +220,5 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             }
         }
     }
-
-    protected void launchANCCloseForm() {
-        try {
-            Intent intent = new Intent(this, AncJsonFormActivity.class);
-
-            JSONObject form = FormUtils.getInstance(this).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
-            form.put(Constants.JSON_FORM_KEY.ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-            if (form != null) {
-                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
-                startActivityForResult(intent, REQUEST_CODE_GET_JSON);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
 }
+

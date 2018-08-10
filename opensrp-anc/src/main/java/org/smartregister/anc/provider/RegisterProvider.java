@@ -98,6 +98,10 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
+
+        View dueButton = viewHolder.dueButton;
+        attachDosageOnclickListener(dueButton, client);
+
     }
 
 
@@ -168,13 +172,13 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         details.setLayoutParams(params);
     }
-
+*/
 
     private void attachDosageOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
-    }*/
+    }
 
     @Override
     public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption, FilterOption searchFilter, SortOption sortOption) {
