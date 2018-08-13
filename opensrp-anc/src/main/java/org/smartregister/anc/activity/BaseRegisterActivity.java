@@ -383,7 +383,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
-                String jsonString = data.getStringExtra("json");
+                String jsonString = data.getStringExtra("json.characteristics");
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
