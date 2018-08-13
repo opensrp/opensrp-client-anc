@@ -33,6 +33,7 @@ import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
@@ -67,6 +68,8 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AlertDialog attentionFlagsAlertDialog;
+    @Mock
+    private RegisterPresenter registerPresenter;
 
     @Before
     public void setUp() {
@@ -205,6 +208,16 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
         homeRegisterActivitySpy.showAttentionFlagsDialog(testAttentionFlags);
         Mockito.verify(attentionFlagsAlertDialog).show();
+    }
+
+    @Test
+    public void testStartFormActivityInvokesPresenterStartFormMethodWithCorrectParameters() throws Exception {
+        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", registerPresenter);
+
+        homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
+        LocationPickerView locationPickerView = null;
+        Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));
     }
 
     @Test()
