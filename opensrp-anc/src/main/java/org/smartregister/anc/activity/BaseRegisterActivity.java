@@ -293,14 +293,14 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showProgressDialog(ShowProgressDialogEvent showProgressDialogEvent) {
+    public void showProgressDialogHandler(ShowProgressDialogEvent showProgressDialogEvent) {
         if (showProgressDialogEvent != null) {
             showProgressDialog(R.string.saving_dialog_title);
         }
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void removePatient(PatientRemovedEvent event) {
+    public void removePatientHandler(PatientRemovedEvent event) {
         if (event != null) {
             Utils.removeStickyEvent(event);
             refreshList(FetchStatus.fetched);
