@@ -482,9 +482,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     @NonNull
     protected AlertDialog createAttentionFlagsAlertDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
 
-        attentionFlagDialogView = inflater.inflate(R.layout.alert_dialog_attention_flag, null);
+        attentionFlagDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag, null);
         dialogBuilder.setView(attentionFlagDialogView);
 
         attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener() {

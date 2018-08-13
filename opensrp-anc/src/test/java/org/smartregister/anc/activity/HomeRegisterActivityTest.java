@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
@@ -17,9 +18,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
+import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
+import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
@@ -33,6 +37,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +48,7 @@ import java.util.Map;
 public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     private HomeRegisterActivity homeRegisterActivity;
+
     private ActivityController<HomeRegisterActivity> controller;
 
     @Mock
@@ -58,6 +64,9 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AlertDialog recordBirthAlertDialog;
+
+    @Mock
+    private AlertDialog attentionFlagsAlertDialog;
 
     @Before
     public void setUp() {
@@ -186,6 +195,35 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 19 weeks\nEDD: 25/12/2018 (4m 2w to go). \n\nmyusername should come in immediately for delivery.");
         Mockito.verify(recordBirthAlertDialog).show();
+    }
+
+    public void testShowAttentionFlagsAlertDialogPopUpInvokesMethodsOnAttentionFlagsAlertDialogsCorrectly() {
+        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        Whitebox.setInternalState(homeRegisterActivitySpy, "attentionFlagAlertDialog", attentionFlagsAlertDialog);
+
+        List<AttentionFlag> testAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
+
+        homeRegisterActivitySpy.showAttentionFlagsDialog(testAttentionFlags);
+        Mockito.verify(attentionFlagsAlertDialog).show();
+    }
+
+    @Test()
+    public void testStartFormActivityDisplaysErrorMessageToastWhenExceptionThrown() {
+        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        RegisterContract.Presenter presenter = null;
+        Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", presenter);
+
+        homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
+        Mockito.verify(homeRegisterActivitySpy).displayToast(RuntimeEnvironment.application.getString(R.string.error_unable_to_start_form));
+    }
+
+    @Test
+    public void testGetContextReturnsCorrectActivityInstance() {
+
+        Context context = homeRegisterActivity.getContext();
+
+        Assert.assertNotNull(context);
+        Assert.assertTrue(context instanceof HomeRegisterActivity);
 
     }
 
