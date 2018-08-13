@@ -461,16 +461,15 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         red_flags_container.removeAllViews();
         yellow_flags_container.removeAllViews();
 
-        LayoutInflater inflater = this.getLayoutInflater();
-
-        LinearLayout redRow = (LinearLayout) inflater.inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
-        LinearLayout yellowRow = (LinearLayout) inflater.inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
 
         for (AttentionFlag flag : attentionFlags) {
             if (flag.isRedFlag()) {
+                LinearLayout redRow = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
                 ((TextView) redRow.getChildAt(1)).setText(flag.getTitle());
                 red_flags_container.addView(redRow);
             } else {
+
+                LinearLayout yellowRow = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
                 ((TextView) yellowRow.getChildAt(1)).setText(flag.getTitle());
                 yellow_flags_container.addView(yellowRow);
             }
