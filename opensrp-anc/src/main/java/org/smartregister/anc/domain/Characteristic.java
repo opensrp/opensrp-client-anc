@@ -7,13 +7,13 @@ public class Characteristic {
     private String key;
     private boolean value;
     private String label;
-    private String info;
+    private String description;
 
-    public Characteristic(String key, boolean value, String label, String info) {
+    public Characteristic(String key, boolean value, String label, String description) {
         this.key = key;
         this.value = value;
         this.label = label;
-        this.info = info;
+        this.description = description;
     }
 
     public boolean getValue() {
@@ -40,11 +40,11 @@ public class Characteristic {
         this.label = label;
     }
 
-    public String getInfo() {
-        return info;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

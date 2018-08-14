@@ -69,6 +69,17 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/nav_view_text_size" />
 
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/population_characteristics"
+                    style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/nav_view_item_padding"
+                    android:text="@string/population_characteristics"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/nav_view_text_size" />
+
             </LinearLayout>
 
             <org.smartregister.view.customcontrols.CustomFontTextView
