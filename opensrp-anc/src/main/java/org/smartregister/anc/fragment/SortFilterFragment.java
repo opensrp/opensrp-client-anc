@@ -103,7 +103,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
         }
     }
 
-    protected <T> void updateFilterList(final View view, final List<Field> filterList) {
+    protected void updateFilterList(final View view, final List<Field> filterList) {
 
         if (filterList == null) {
             return;

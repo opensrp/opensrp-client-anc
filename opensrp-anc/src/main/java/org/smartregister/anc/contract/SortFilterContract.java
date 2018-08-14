@@ -7,7 +7,7 @@ import org.smartregister.configurableviews.model.RegisterConfiguration;
 
 import java.util.List;
 
-public class SortFilterContract {
+public interface SortFilterContract {
 
     public interface View {
 

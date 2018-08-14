@@ -85,4 +85,7 @@
     <dimen name="advanced_search_button_padding">20dp</dimen>
     <dimen name="advanced_search_text_padding">5dp</dimen>
 
+    <dimen name="quick_check_padding">20dp</dimen>
+    <dimen name="quick_check_drawable_padding">10dp</dimen>
+    <dimen name="quick_check_text_size">16sp</dimen>
 </resources>

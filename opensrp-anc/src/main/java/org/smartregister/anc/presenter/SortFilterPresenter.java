@@ -19,8 +19,8 @@ public class SortFilterPresenter implements SortFilterContract.Presenter {
     public SortFilterPresenter(SortFilterContract.View view) {
         this.viewReference = new WeakReference<>(view);
         this.config = ConfigHelper.defaultRegisterConfiguration(view.getContext());
-        if (sortField == null && config != null && config.getSortFields() != null) {
-            sortField = config.getSortFields().get(0);
+        if (this.sortField == null && this.config != null && this.config.getSortFields() != null) {
+            this.sortField = this.config.getSortFields().get(0);
         }
     }
 

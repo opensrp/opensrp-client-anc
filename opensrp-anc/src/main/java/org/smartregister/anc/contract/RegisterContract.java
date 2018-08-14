@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by keyamn on 27/06/2018.
  */
-public class RegisterContract {
+public interface RegisterContract {
     public interface Presenter {
 
         void registerViewConfigurations(List<String> viewIdentifiers);
