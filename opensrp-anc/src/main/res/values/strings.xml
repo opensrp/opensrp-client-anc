@@ -140,7 +140,7 @@
     <string name="scheduled_contact">Scheduled contact</string>
     <string name="specific_complaint">Specific complaint</string>
 
-    <string name="specific_complaints">Specific complaint(s)</string>
+    <string name="specific_complaints"><font fgcolor="black">Specific complaint(s) </font><font fgcolor="red">*</font></string>
 
     <string name="abnormal_discharge">Abnormal vaginal discharge</string>
     <string name="altered_skin_color">Altered skin colour</string>
@@ -182,7 +182,7 @@
 
     <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
 
-    <string name="none">None</string>
+    <string name="danger_none">None</string>
     <string name="danger_bleeding">Bleeding vaginally</string>
     <string name="central_cyanosis">Central cyanosis</string>
     <string name="convulsing">Convulsing</string>

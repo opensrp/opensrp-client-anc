@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,8 +27,11 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     private QuickCheckContract.Presenter presenter;
     private ReasonAdapter reasonAdapter;
-    private ComplaintAdapter complaintAdapter;
-    private DangerSignAdapter dangerSignAdapter;
+    private ComplaintDangerAdapter complaintAdapter;
+    private ComplaintDangerAdapter dangerSignAdapter;
+
+    private View complaintLayout;
+    private View dangerSignLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,9 +64,9 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                 R.layout.fragment_quick_check,
                 container, false);
 
-        updateReasonList(view, presenter.getConfig().getReasons());
-        updateComplaintList(view, presenter.getConfig().getComplaints());
-        updateDangerList(view, presenter.getConfig().getDangerSigns());
+        updateReasonList(view);
+        updateComplaintList(view);
+        updateDangerList(view);
         return view;
     }
 
@@ -81,11 +85,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
     }
 
-    protected void updateReasonList(final View view, final List<Field> reasons) {
-
-        if (reasons == null) {
-            return;
-        }
+    protected void updateReasonList(final View view) {
 
         RecyclerView recyclerView = view.findViewById(R.id.reason_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -93,16 +93,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        reasonAdapter = new ReasonAdapter(reasons);
+        reasonAdapter = new ReasonAdapter();
         recyclerView.setAdapter(reasonAdapter);
     }
 
 
-    protected void updateComplaintList(final View view, final List<Field> complaints) {
+    protected void updateComplaintList(final View view) {
 
-        if (complaints == null) {
-            return;
-        }
+        complaintLayout = view.findViewById(R.id.complaint_layout);
 
         RecyclerView recyclerView = view.findViewById(R.id.complaint_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -110,26 +108,58 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        complaintAdapter = new ComplaintAdapter(complaints);
+        complaintAdapter = new ComplaintDangerAdapter(false);
         recyclerView.setAdapter(complaintAdapter);
     }
 
-    protected void updateDangerList(final View view, final List<Field> dangerSigns) {
+    protected void updateDangerList(final View view) {
 
-        if (dangerSigns == null) {
-            return;
-        }
+        dangerSignLayout = view.findViewById(R.id.danger_sign_layout);
 
-        RecyclerView recyclerView = view.findViewById(R.id.complaint_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.danger_sign_recycler_view);
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        dangerSignAdapter = new DangerSignAdapter(dangerSigns);
-        recyclerView.setAdapter(complaintAdapter);
+        dangerSignAdapter = new ComplaintDangerAdapter(true);
+        recyclerView.setAdapter(dangerSignAdapter);
     }
 
+    @Override
+    public void displayComplaintLayout() {
+        if (complaintLayout != null) {
+            complaintLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideComplaintLayout() {
+        if (complaintLayout != null) {
+            complaintLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void notifyComplaintAdapter() {
+        if (complaintAdapter != null) {
+            complaintAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void notifyDangerSignAdapter() {
+        if (dangerSignAdapter != null) {
+            dangerSignAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void displayDangerSignLayout() {
+        if (dangerSignLayout != null) {
+            dangerSignLayout.setVisibility(View.VISIBLE);
+        }
+    }
 
     private void initializePresenter() {
         presenter = new QuickCheckPresenter(this);
@@ -144,30 +174,29 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         private CheckedTextView lastChecked;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public CheckedTextView checkedTextView;
+            private CheckedTextView checkedTextView;
 
-            public ViewHolder(CheckedTextView v) {
+            private ViewHolder(CheckedTextView v) {
                 super(v);
                 checkedTextView = v;
             }
         }
 
-        public ReasonAdapter(List<Field> reasons) {
-            this.reasons = reasons;
+        private ReasonAdapter() {
+            this.reasons = presenter.getConfig().getReasons();
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                              int viewType) {
             CheckedTextView v = (CheckedTextView) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.quick_check_reason_item, parent, false);
 
-            ViewHolder vh = new ViewHolder(v);
-            return vh;
+            return new ViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Field reason = reasons.get(position);
             holder.checkedTextView.setText(reason.getDisplayName());
             holder.checkedTextView.setTag(reason);
@@ -188,11 +217,9 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     if (tag != null && tag instanceof Field) {
                         Field currentField = (Field) tag;
                         presenter.setReason(currentField);
-
                     }
                 }
             });
-
         }
 
         @Override
@@ -202,8 +229,9 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     }
 
-    private class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.ViewHolder> {
+    private class ComplaintDangerAdapter extends RecyclerView.Adapter<ComplaintDangerAdapter.ViewHolder> {
         private List<Field> list;
+        private boolean isDangerSign;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public CheckedTextView checkedTextView;
@@ -214,22 +242,22 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             }
         }
 
-        public ComplaintAdapter(List<Field> list) {
-            this.list = list;
+        public ComplaintDangerAdapter(boolean isDangerSign) {
+            this.isDangerSign = isDangerSign;
+            this.list = isDangerSign ? presenter.getConfig().getDangerSigns() : presenter.getConfig().getComplaints();
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                              int viewType) {
             CheckedTextView v = (CheckedTextView) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.complaint_danger_item, parent, false);
 
-            ViewHolder vh = new ViewHolder(v);
-            return vh;
+            return new ViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Field field = list.get(position);
             holder.checkedTextView.setText(field.getDisplayName());
             holder.checkedTextView.setTag(field);
@@ -242,77 +270,23 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     Object tag = v.getTag();
                     if (tag != null && tag instanceof Field) {
                         Field currentField = (Field) tag;
-                        if (isChecked) {
-                            // TODO
-                        } else {
-                            // TODO
-                        }
-
+                        presenter.addToComplaintsOrDangerList(currentField, isChecked, isDangerSign);
                     }
                 }
             });
-        }
 
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-    }
 
-    private class DangerSignAdapter extends RecyclerView.Adapter<DangerSignAdapter.ViewHolder> {
-        private List<Field> list;
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public CheckedTextView checkedTextView;
-
-            public ViewHolder(CheckedTextView v) {
-                super(v);
-                checkedTextView = v;
+            if (presenter.containsComplaintOrDangerSign(field, isDangerSign) && !holder.checkedTextView.isChecked()) {
+                holder.checkedTextView.setChecked(true);
+            } else if (!presenter.containsComplaintOrDangerSign(field, isDangerSign) && holder.checkedTextView.isChecked()) {
+                holder.checkedTextView.setChecked(false);
             }
         }
 
-        public DangerSignAdapter(List<Field> list) {
-            this.list = list;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                             int viewType) {
-            CheckedTextView v = (CheckedTextView) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.complaint_danger_item, parent, false);
-
-            ViewHolder vh = new ViewHolder(v);
-            return vh;
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Field field = list.get(position);
-            holder.checkedTextView.setText(field.getDisplayName());
-            holder.checkedTextView.setTag(field);
-
-            holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((CheckedTextView) v).toggle();
-                    boolean isChecked = ((CheckedTextView) v).isChecked();
-                    Object tag = v.getTag();
-                    if (tag != null && tag instanceof Field) {
-                        Field currentField = (Field) tag;
-                        if (isChecked) {
-                            // TODO
-                        } else {
-                            // TODO
-                        }
-
-                    }
-                }
-            });
-        }
-
         @Override
         public int getItemCount() {
             return list.size();
         }
+
     }
 }

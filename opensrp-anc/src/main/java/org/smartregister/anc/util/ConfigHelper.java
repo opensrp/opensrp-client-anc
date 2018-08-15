@@ -100,7 +100,7 @@ public class ConfigHelper {
         config.setComplaints(specificComplaints);
 
         List<Field> dangerSigns = new ArrayList<>();
-        dangerSigns.add(new Field(context.getString(R.string.none), "none"));
+        dangerSigns.add(new Field(context.getString(R.string.danger_none), "danger_none"));
         dangerSigns.add(new Field(context.getString(R.string.danger_bleeding), "danger_bleeding"));
         dangerSigns.add(new Field(context.getString(R.string.central_cyanosis), "central_cyanosis"));
         dangerSigns.add(new Field(context.getString(R.string.convulsing), "convulsing"));

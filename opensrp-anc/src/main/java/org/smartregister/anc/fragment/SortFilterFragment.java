@@ -235,7 +235,6 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
                                 presenter.getFilterList().remove(currentField);
                             }
                         }
-
                     }
                 }
             });
