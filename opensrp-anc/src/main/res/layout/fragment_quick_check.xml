@@ -50,15 +50,18 @@
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical" />
 
-            <TextView
-                android:id="@+id/specify_text"
+            <EditText
+                android:id="@+id/specify"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginLeft="@dimen/quick_check_padding"
                 android:layout_marginRight="@dimen/quick_check_padding"
                 android:gravity="center_vertical"
+                android:hint="@string/specify"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
                 android:textSize="@dimen/quick_check_text_size"
-                android:textStyle="bold"
                 android:visibility="gone" />
 
 

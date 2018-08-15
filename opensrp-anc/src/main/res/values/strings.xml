@@ -178,7 +178,7 @@
     <string name="trauma">Trauma</string>
     <string name="bleeding">Vaginal bleeding</string>
     <string name="visual_disturbance">Visual disturbance</string>
-    <string name="other_specify">Other (specify)</string>
+    <string name="complaint_other_specify">Other (specify)</string>
 
     <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
 
@@ -195,5 +195,7 @@
     <string name="severe_pain">Severe pain</string>
     <string name="severe_abdominal_pain">Severe abdominal pain</string>
     <string name="unconscious">Unconscious</string>
+
+    <string name="specify">Specify</string>
 
 </resources>

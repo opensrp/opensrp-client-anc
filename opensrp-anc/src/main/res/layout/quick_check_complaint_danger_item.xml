@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:checkMark="@null"
+    android:drawablePadding="@dimen/quick_check_drawable_padding"
     android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
     android:gravity="center_vertical"
-    android:paddingBottom="@dimen/quick_check_padding"
+    android:paddingBottom="@dimen/quick_check_drawable_padding"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:paddingTop="@dimen/quick_check_padding"
+    android:paddingTop="@dimen/quick_check_drawable_padding"
     android:textAppearance="?android:attr/textAppearanceListItemSmall" />

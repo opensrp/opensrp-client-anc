@@ -96,7 +96,7 @@ public class ConfigHelper {
         specificComplaints.add(new Field(context.getString(R.string.trauma), "trauma"));
         specificComplaints.add(new Field(context.getString(R.string.bleeding), "bleeding"));
         specificComplaints.add(new Field(context.getString(R.string.visual_disturbance), "visual_disturbance"));
-        specificComplaints.add(new Field(context.getString(R.string.other_specify), "other_specify"));
+        specificComplaints.add(new Field(context.getString(R.string.complaint_other_specify), "other_specify"));
         config.setComplaints(specificComplaints);
 
         List<Field> dangerSigns = new ArrayList<>();

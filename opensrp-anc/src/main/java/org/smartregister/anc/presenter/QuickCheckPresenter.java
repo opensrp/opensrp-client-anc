@@ -81,9 +81,17 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter {
 
                 }
             } else {
+                if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
+                    getView().showSpecifyEditText();
+                }
+
                 currentList.add(field);
             }
         } else {
+            if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
+                getView().hideSpecifyEditText();
+            }
+
             currentList.remove(field);
         }
 

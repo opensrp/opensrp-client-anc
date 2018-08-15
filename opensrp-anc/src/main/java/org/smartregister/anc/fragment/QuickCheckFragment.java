@@ -4,17 +4,25 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.QuickCheckContract;
@@ -31,6 +39,8 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private ComplaintDangerAdapter dangerSignAdapter;
 
     private View complaintLayout;
+    private EditText specifyEditText;
+
     private View dangerSignLayout;
 
     @Override
@@ -55,6 +65,29 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         dialogFragment.show(ft, dialogTag);
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity(), getTheme()) {
+            @Override
+            public boolean dispatchTouchEvent(@NonNull MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    View v = getCurrentFocus();
+                    if (v instanceof EditText) {
+                        Rect outRect = new Rect();
+                        v.getGlobalVisibleRect(outRect);
+                        if (!outRect.contains((int) motionEvent.getRawX(), (int) motionEvent.getRawY())) {
+                            hideSoftKeyboard(v);
+                        }
+                    }
+                }
+
+                return super.dispatchTouchEvent(motionEvent);
+            }
+
+        };
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -67,6 +100,8 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         updateReasonList(view);
         updateComplaintList(view);
         updateDangerList(view);
+
+        cancel(view);
         return view;
     }
 
@@ -85,7 +120,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
     }
 
-    protected void updateReasonList(final View view) {
+    private void updateReasonList(final View view) {
 
         RecyclerView recyclerView = view.findViewById(R.id.reason_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -98,9 +133,21 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     }
 
 
-    protected void updateComplaintList(final View view) {
+    private void updateComplaintList(final View view) {
 
         complaintLayout = view.findViewById(R.id.complaint_layout);
+
+        specifyEditText = view.findViewById(R.id.specify);
+        specifyEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    hideSoftKeyboard(v);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         RecyclerView recyclerView = view.findViewById(R.id.complaint_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -112,7 +159,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         recyclerView.setAdapter(complaintAdapter);
     }
 
-    protected void updateDangerList(final View view) {
+    private void updateDangerList(final View view) {
 
         dangerSignLayout = view.findViewById(R.id.danger_sign_layout);
 
@@ -124,6 +171,16 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         dangerSignAdapter = new ComplaintDangerAdapter(true);
         recyclerView.setAdapter(dangerSignAdapter);
+    }
+
+    private void cancel(View view) {
+        View cancel = view.findViewById(R.id.cancel_quick_check);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 
     @Override
@@ -161,8 +218,38 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         }
     }
 
+    @Override
+    public void showSpecifyEditText() {
+        if (specifyEditText != null) {
+            specifyEditText.setVisibility(View.VISIBLE);
+            specifyEditText.requestFocus();
+        }
+    }
+
+    @Override
+    public void hideSpecifyEditText() {
+        if (specifyEditText != null) {
+            specifyEditText.setVisibility(View.GONE);
+            specifyEditText.setText("");
+        }
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
+    }
+
     private void initializePresenter() {
         presenter = new QuickCheckPresenter(this);
+    }
+
+    private void hideSoftKeyboard(View v) {
+        v.clearFocus();
+
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 
     ////////////////////////////////////////////////////////////////
@@ -251,7 +338,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                              int viewType) {
             CheckedTextView v = (CheckedTextView) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.complaint_danger_item, parent, false);
+                    .inflate(R.layout.quick_check_complaint_danger_item, parent, false);
 
             return new ViewHolder(v);
         }

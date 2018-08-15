@@ -39,5 +39,9 @@ public interface QuickCheckContract {
 
         void notifyDangerSignAdapter();
 
+        void showSpecifyEditText();
+
+        void hideSpecifyEditText();
     }
+
 }
