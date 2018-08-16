@@ -21,6 +21,11 @@ public interface QuickCheckContract {
         boolean containsComplaintOrDangerSign(Field field, boolean isDangerSign);
 
         void addToComplaintsOrDangerList(Field field, boolean isChecked, boolean isDangerSign);
+
+        void proceedToNormalContact();
+
+        void referAndCloseContact();
+
     }
 
     public interface View {
@@ -42,6 +47,15 @@ public interface QuickCheckContract {
         void showSpecifyEditText();
 
         void hideSpecifyEditText();
+
+        void displayNavigationLayout();
+
+        void displayReferButton();
+
+        void hideReferButton();
+
+        void displayToast(int resourceId);
+
     }
 
 }

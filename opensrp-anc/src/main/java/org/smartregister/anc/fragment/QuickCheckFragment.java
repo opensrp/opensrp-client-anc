@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,14 +28,17 @@ import android.widget.TextView;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.configurableviews.model.Field;
 
 import java.util.List;
 
 public class QuickCheckFragment extends DialogFragment implements QuickCheckContract.View {
 
+    private QuickCheckDialogClickListener actionHandler = new QuickCheckDialogClickListener();
+
     private QuickCheckContract.Presenter presenter;
-    private ReasonAdapter reasonAdapter;
+
     private ComplaintDangerAdapter complaintAdapter;
     private ComplaintDangerAdapter dangerSignAdapter;
 
@@ -42,6 +46,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private EditText specifyEditText;
 
     private View dangerSignLayout;
+
+    private View navigationLayout;
+
+    private Button refer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +109,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         updateComplaintList(view);
         updateDangerList(view);
 
-        cancel(view);
+        setupViews(view);
         return view;
     }
 
@@ -128,12 +136,39 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        reasonAdapter = new ReasonAdapter();
+        ReasonAdapter reasonAdapter = new ReasonAdapter();
         recyclerView.setAdapter(reasonAdapter);
     }
 
 
     private void updateComplaintList(final View view) {
+
+        RecyclerView recyclerView = view.findViewById(R.id.complaint_recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        complaintAdapter = new ComplaintDangerAdapter(false);
+        recyclerView.setAdapter(complaintAdapter);
+    }
+
+    private void updateDangerList(final View view) {
+
+
+        RecyclerView recyclerView = view.findViewById(R.id.danger_sign_recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        dangerSignAdapter = new ComplaintDangerAdapter(true);
+        recyclerView.setAdapter(dangerSignAdapter);
+    }
+
+    private void setupViews(View view) {
+        View cancel = view.findViewById(R.id.cancel_quick_check);
+        cancel.setOnClickListener(actionHandler);
 
         complaintLayout = view.findViewById(R.id.complaint_layout);
 
@@ -149,38 +184,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.complaint_recycler_view);
-        recyclerView.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-        complaintAdapter = new ComplaintDangerAdapter(false);
-        recyclerView.setAdapter(complaintAdapter);
-    }
-
-    private void updateDangerList(final View view) {
-
         dangerSignLayout = view.findViewById(R.id.danger_sign_layout);
+        navigationLayout = view.findViewById(R.id.navigation_layout);
 
-        RecyclerView recyclerView = view.findViewById(R.id.danger_sign_recycler_view);
-        recyclerView.setHasFixedSize(true);
+        Button proceed = view.findViewById(R.id.proceed);
+        proceed.setOnClickListener(actionHandler);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-        dangerSignAdapter = new ComplaintDangerAdapter(true);
-        recyclerView.setAdapter(dangerSignAdapter);
-    }
-
-    private void cancel(View view) {
-        View cancel = view.findViewById(R.id.cancel_quick_check);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        refer = view.findViewById(R.id.refer);
+        refer.setOnClickListener(actionHandler);
     }
 
     @Override
@@ -235,6 +246,32 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     }
 
     @Override
+    public void displayNavigationLayout() {
+        if (navigationLayout != null) {
+            navigationLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void displayReferButton() {
+        if (refer != null) {
+            refer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideReferButton() {
+        if (refer != null) {
+            refer.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void displayToast(int resourceId) {
+        Utils.showShortToast(getActivity(), getActivity().getString(resourceId));
+    }
+
+    @Override
     public Context getContext() {
         return getActivity();
     }
@@ -255,6 +292,27 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
+
+    private class QuickCheckDialogClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+                case R.id.cancel_quick_check:
+                    dismiss();
+                    break;
+                case R.id.proceed:
+                    presenter.proceedToNormalContact();
+                    break;
+                case R.id.refer:
+                    presenter.referAndCloseContact();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 
     private class ReasonAdapter extends RecyclerView.Adapter<ReasonAdapter.ViewHolder> {
         private List<Field> reasons;
@@ -361,7 +419,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     }
                 }
             });
-
 
             if (presenter.containsComplaintOrDangerSign(field, isDangerSign) && !holder.checkedTextView.isChecked()) {
                 holder.checkedTextView.setChecked(true);

@@ -39,6 +39,8 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter {
         }
 
         getView().displayDangerSignLayout();
+
+        getView().displayNavigationLayout();
     }
 
     @Override
@@ -68,7 +70,10 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter {
                 if (field.getDisplayName().equals(getView().getString(R.string.danger_none))) {
                     currentList.clear();
                     currentList.add(field);
+
                     getView().notifyDangerSignAdapter();
+                    getView().hideReferButton();
+
                 } else {
                     currentList.add(field);
 
@@ -79,6 +84,7 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter {
                         getView().notifyDangerSignAdapter();
                     }
 
+                    getView().displayReferButton();
                 }
             } else {
                 if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
@@ -95,6 +101,30 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter {
             currentList.remove(field);
         }
 
+    }
+
+    @Override
+    public void proceedToNormalContact() {
+        if (selectedReason == null) {
+            getView().displayToast(R.string.validation_no_reason_selected);
+            return;
+        }
+
+        if (selectedReason.getDisplayName().equals(getView().getString(R.string.specific_complaint)) && specificComplaints.isEmpty()) {
+            getView().displayToast(R.string.validation_no_specific_complaint);
+            return;
+        }
+
+        if (selectedDangerSigns.isEmpty()) {
+            getView().displayToast(R.string.validation_no_danger_sign);
+            return;
+        }
+
+    }
+
+    @Override
+    public void referAndCloseContact() {
+        // Refer and Close Contact
     }
 
     private Field getField(Set<Field> set, String displayName) {

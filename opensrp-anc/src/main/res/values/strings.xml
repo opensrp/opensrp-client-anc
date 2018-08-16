@@ -198,4 +198,11 @@
 
     <string name="specify">Specify</string>
 
+    <string name="proceed_to_normal_contact">Proceed to normal contact</string>
+    <string name="refer_and_close_contact">Refer and close contact</string>
+
+    <string name="validation_no_reason_selected">Please select a reason for coming to facility</string>
+    <string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
+    <string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
+
 </resources>
