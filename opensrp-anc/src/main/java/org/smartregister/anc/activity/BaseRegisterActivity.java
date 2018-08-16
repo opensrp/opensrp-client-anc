@@ -18,10 +18,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +37,7 @@ import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.barcode.BarcodeIntentResult;
 import org.smartregister.anc.contract.RegisterContract;
+import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
@@ -85,6 +88,10 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private AlertDialog recordBirthAlertDialog;
 
+    private AlertDialog attentionFlagAlertDialog;
+
+    private View attentionFlagDialogView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +119,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         registerSideNav();
         initializePresenter();
         recordBirthAlertDialog = createAlertDialog();
+
+        createAttentionFlagsAlertDialog();
     }
 
     @Override
@@ -442,6 +451,54 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                     }
                 });
         return alertDialog;
+    }
+
+    @Override
+    public void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags) {
+        ViewGroup red_flags_container = attentionFlagDialogView.findViewById(R.id.red_flags_container);
+        ViewGroup yellow_flags_container = attentionFlagDialogView.findViewById(R.id.yellow_flags_container);
+
+        red_flags_container.removeAllViews();
+        yellow_flags_container.removeAllViews();
+
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        LinearLayout redRow = (LinearLayout) inflater.inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
+        LinearLayout yellowRow = (LinearLayout) inflater.inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
+
+        for (AttentionFlag flag : attentionFlags) {
+            if (flag.isRedFlag()) {
+                ((TextView) redRow.getChildAt(1)).setText(flag.getTitle());
+                red_flags_container.addView(redRow);
+            } else {
+                ((TextView) yellowRow.getChildAt(1)).setText(flag.getTitle());
+                yellow_flags_container.addView(yellowRow);
+            }
+        }
+
+
+        attentionFlagAlertDialog.show();
+    }
+
+    @NonNull
+    protected AlertDialog createAttentionFlagsAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        attentionFlagDialogView = inflater.inflate(R.layout.alert_dialog_attention_flag, null);
+        dialogBuilder.setView(attentionFlagDialogView);
+
+        attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attentionFlagAlertDialog.dismiss();
+            }
+        });
+
+
+        attentionFlagAlertDialog = dialogBuilder.create();
+
+        return attentionFlagAlertDialog;
     }
 
     public void switchToBaseFragment() {
