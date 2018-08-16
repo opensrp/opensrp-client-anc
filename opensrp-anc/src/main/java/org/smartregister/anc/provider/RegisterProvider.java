@@ -99,9 +99,13 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
 
+
         View dueButton = viewHolder.dueButton;
         attachDosageOnclickListener(dueButton, client);
 
+
+        View riskLayout = viewHolder.risk;
+        attachRiskLayoutOnclickListener(riskLayout, client);
     }
 
 
@@ -160,6 +164,12 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         view.setOnClickListener(onClickListener);
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
+    }
+
+    private void attachRiskLayoutOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
     }
 
     /*

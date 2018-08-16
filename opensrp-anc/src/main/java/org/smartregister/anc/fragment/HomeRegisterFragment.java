@@ -59,6 +59,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
             contactButton.setOnClickListener(registerActionHandler);
         }
 
+        //Risk view
+        View attentionFlag = view.findViewById(R.id.risk_layout);
+        if (attentionFlag != null) {
+            attentionFlag.setOnClickListener(registerActionHandler);
+        }
+
     }
 
     @Override

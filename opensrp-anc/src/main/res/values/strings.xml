@@ -130,6 +130,8 @@
     <string name="start_contact">Start Contact</string>
     <string name="close_anc_record">Close ANC Record</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="yellow">YELLOW</string>
+    <string name="red">RED</string>
 
     <string name="record_birth">Record Birth</string>
 

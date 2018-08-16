@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -56,6 +57,8 @@ public class RegisterContract {
         void showProgressDialog(int messageStringIdentifier);
 
         void hideProgressDialog();
+
+        void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags);
     }
 
     public interface Model {

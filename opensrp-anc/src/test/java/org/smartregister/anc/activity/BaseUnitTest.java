@@ -22,5 +22,6 @@ public abstract class BaseUnitTest {
     protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     protected static final String TEST_STRING = "teststring";
     protected static final int DEFAULT_PROFILE_IMAGE_RESOURCE_ID = R.drawable.ic_woman_with_baby;
+    protected static final String NULL_STRING = null;
 
 }
