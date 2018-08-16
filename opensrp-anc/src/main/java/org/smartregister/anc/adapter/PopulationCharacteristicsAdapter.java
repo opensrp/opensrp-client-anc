@@ -29,7 +29,7 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.alert_dialog_population_characteristics_row, parent, false);
+        View view = mInflater.inflate(R.layout.activity_population_characteristics_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,9 +52,9 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView labelTextView;
-        TextView valueTextView;
-        LinearLayout infoLayout;
+        private TextView labelTextView;
+        private TextView valueTextView;
+        private LinearLayout infoLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -68,10 +68,6 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
-    }
-
-    Characteristic getItem(int id) {
-        return mData.get(id);
     }
 
     public void setClickListener(ItemClickListener itemClickListener) {

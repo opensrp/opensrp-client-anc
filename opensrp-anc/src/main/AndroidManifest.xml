@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.smartregister.anc">
 
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -27,35 +26,30 @@
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.AncJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-
         <activity
             android:name=".activity.HomeRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.ProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
-
         <activity
             android:name=".activity.SettingsActivity"
             android:launchMode="singleTask"
@@ -74,6 +68,7 @@
         <service android:name=".service.intent.PullUniqueIdsIntentService" />
         <service android:name=".service.AncImageUploadSyncService" />
 
+        <activity android:name=".activity.PopulationCharacteristicsActivity"></activity>
     </application>
 
 </manifest>

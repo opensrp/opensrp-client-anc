@@ -8,8 +8,8 @@ import android.view.View;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.HomeRegisterActivity;
+import org.smartregister.anc.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.helper.CharacteristicsViewRenderHelper;
 
 /**
  * Created by keyman on 4/07/18.
@@ -18,11 +18,9 @@ import org.smartregister.anc.helper.CharacteristicsViewRenderHelper;
 public class NavigationItemListener implements View.OnClickListener {
 
     private Activity context;
-    private CharacteristicsViewRenderHelper populationCharacteristicsHelper;
 
     public NavigationItemListener(Activity context) {
         this.context = context;
-        populationCharacteristicsHelper = new CharacteristicsViewRenderHelper(context);
     }
 
 
@@ -37,8 +35,8 @@ public class NavigationItemListener implements View.OnClickListener {
             // TODO go to counseling resources page
         } else if (id == R.id.site_characteristics) {
             // TODO go to site characteristics page
-        }  else if (id == R.id.population_characteristics) {
-            populationCharacteristicsHelper.showDialog();
+        } else if (id == R.id.population_characteristics) {
+            context.startActivity(new Intent(context, PopulationCharacteristicsActivity.class));
         } else if (id == R.id.sync_data) {
             // TODO start sync service
             //ServiceTools.startSyncService(context.getApplicationContext());

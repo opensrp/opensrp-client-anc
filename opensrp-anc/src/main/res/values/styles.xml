@@ -68,13 +68,4 @@
         <item name="android:windowMinWidthMinor">90%</item>
     </style>
 
-    <style name="AncAlertDialogFullScreen" parent="AncAlertDialog">
-
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:windowIsFloating">false</item>
-    </style>
-
 </resources>

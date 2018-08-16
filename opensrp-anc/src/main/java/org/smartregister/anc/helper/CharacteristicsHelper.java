@@ -18,14 +18,16 @@ import java.util.List;
 public class CharacteristicsHelper {
 
     private static final String TAG = CharacteristicsHelper.class.getCanonicalName();
+
     public List<Characteristic> populationCharacteristics;
+
+    private static final Type CHARACTERISTIC_TYPE = new TypeToken<List<Characteristic>>() {
+    }.getType();
 
     public List<Characteristic> getPopulationCharacteristics() {
         return populationCharacteristics;
     }
 
-    private static final Type CHARACTERISTIC_TYPE = new TypeToken<List<Characteristic>>() {
-    }.getType();
 
     public CharacteristicsHelper() {
 
