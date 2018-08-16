@@ -21,9 +21,8 @@ public class NoMatchDialogPresenter implements NoMatchDialogContract.Presenter {
 	
 	@Override
 	public void goToAdvancedSearch(String whoAncId) {
-		((HomeRegisterActivity)parentActivity).startAdvancedSearch();
-		android.support.v4.app.Fragment currentFragment =
-				parentActivity.findFragmentByPosition(HomeRegisterActivity.ADVANCED_SEARCH_POSITION);
+		((HomeRegisterActivity) parentActivity).startAdvancedSearch();
+		android.support.v4.app.Fragment currentFragment = parentActivity.findFragmentByPosition(HomeRegisterActivity.ADVANCED_SEARCH_POSITION);
 		((AdvancedSearchFragment)currentFragment).getAncId().setText(whoAncId);
 	}
 	

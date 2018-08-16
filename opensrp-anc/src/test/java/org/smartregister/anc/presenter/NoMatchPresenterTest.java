@@ -1,11 +1,12 @@
 package org.smartregister.anc.presenter;
 
+import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.NoMatchDialogContract;
-import org.smartregister.anc.contract.ProfileContract;
 
 public class NoMatchPresenterTest extends BaseUnitTest {
 	@Mock
@@ -19,5 +20,10 @@ public class NoMatchPresenterTest extends BaseUnitTest {
 		presenter = new NoMatchDialogPresenter(view);
 	}
 	
-	
+	@Test
+	public void testGoToAdvancedSearch() {
+		NoMatchDialogPresenter noMatchDialogPresenter = (NoMatchDialogPresenter) presenter;
+		noMatchDialogPresenter.goToAdvancedSearch(BaseUnitTest.WHO_ANC_ID);
+		
+	}
 }

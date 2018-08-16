@@ -1,6 +1,11 @@
 package org.smartregister.anc.presenter;
 
+import com.google.gson.JsonArray;
+import com.google.gson.annotations.JsonAdapter;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
@@ -107,7 +112,9 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     @Override
     public void onResultsFound(Response<String> response, String ancId) {
-    	if (response != null) {
+        JSONArray jsonArray = model.getJsonArray(response);
+        
+        if (response == null || jsonArray.length() <= 0) {
 		  getView().showNotFoundPopup(ancId);
 	    } else {
 		    matrixCursor = model.createMatrixCursor(response);

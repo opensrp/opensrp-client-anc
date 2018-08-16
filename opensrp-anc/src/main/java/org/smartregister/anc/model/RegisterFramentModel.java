@@ -245,7 +245,8 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
     }
 
-    private JSONArray getJsonArray(Response<String> response) {
+    @Override
+    public JSONArray getJsonArray(Response<String> response) {
         try {
             if (response.status().equals(ResponseStatus.success)) {
                 return new JSONArray(response.payload());

@@ -150,8 +150,8 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         Response<String> response = new Response<>(ResponseStatus.success, "Payload");
 
         Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
-
-        registerFragmentPresenter.onResultsFound(response, null);
+	
+	    registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
 
         Mockito.verify(model).createMatrixCursor(response);
         Mockito.verify(view).recalculatePagination(matrixCursor);

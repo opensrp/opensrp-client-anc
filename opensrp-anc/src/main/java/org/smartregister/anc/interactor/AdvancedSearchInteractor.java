@@ -22,7 +22,8 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
     private HTTPAgent httpAgent;
 
     private DristhiConfiguration dristhiConfiguration;
-    private String[] whoAncId;
+    private String[] whoAncId ;
+    private String ancId = "";
 
     public static final String SEARCH_URL = "/rest/search/search";
 
@@ -42,11 +43,14 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
             public void run() {
 
                 final Response<String> response = globalSearch(editMap);
-                whoAncId = editMap.get(Constants.GLOBAL_IDENTIFIER).split(":",2);
+                if (!StringUtils.isEmpty(editMap.get(Constants.GLOBAL_IDENTIFIER))){
+                    whoAncId = editMap.get(Constants.GLOBAL_IDENTIFIER).split(":",2);
+                }
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onResultsFound(response,whoAncId[1]);
+                    	if (whoAncId != null) { ancId = whoAncId[1]; }
+                        callBack.onResultsFound(response, ancId);
                     }
                 });
             }
