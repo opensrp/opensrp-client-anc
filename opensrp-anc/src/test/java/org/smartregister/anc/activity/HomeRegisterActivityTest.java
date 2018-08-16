@@ -68,6 +68,7 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AlertDialog attentionFlagsAlertDialog;
+
     @Mock
     private RegisterPresenter registerPresenter;
 
@@ -196,7 +197,7 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         client.setColumnmaps(details);
         homeRegisterActivitySpy.showRecordBirthPopUp(client);
 
-        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 19 weeks\nEDD: 25/12/2018 (4m 2w to go). \n\nmyusername should come in immediately for delivery.");
+        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 18 weeks\nEDD: 25/12/2018 (4m 1w to go). \n\nmyusername should come in immediately for delivery.");
         Mockito.verify(recordBirthAlertDialog).show();
     }
 
