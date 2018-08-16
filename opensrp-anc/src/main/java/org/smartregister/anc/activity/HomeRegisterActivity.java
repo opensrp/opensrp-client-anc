@@ -1,12 +1,16 @@
 package org.smartregister.anc.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.view.ViewDebug;
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
@@ -24,7 +28,9 @@ import java.util.List;
  */
 
 public class HomeRegisterActivity extends BaseRegisterActivity {
-
+	
+	public static final int ADVANCED_SEARCH_POSITION = 1;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -76,4 +82,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
         mBaseFragment.updateSortAndFilter(filterList, sortField);
         switchToBaseFragment();
     }
+	
+	public void startAdvancedSearch() {
+		try {
+			mPager.setCurrentItem(ADVANCED_SEARCH_POSITION, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

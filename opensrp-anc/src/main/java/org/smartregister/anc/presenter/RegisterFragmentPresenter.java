@@ -106,15 +106,19 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     }
 
     @Override
-    public void onResultsFound(Response<String> response) {
-        matrixCursor = model.createMatrixCursor(response);
-
-        getView().recalculatePagination(matrixCursor);
-
-        getView().filterandSortInInitializeQueries();
-        getView().refresh();
-
-        getView().hideProgressView();
+    public void onResultsFound(Response<String> response, String ancId) {
+    	if (response != null) {
+		  getView().showNotFoundPopup(ancId);
+	    } else {
+		    matrixCursor = model.createMatrixCursor(response);
+		
+		    getView().recalculatePagination(matrixCursor);
+		
+		    getView().filterandSortInInitializeQueries();
+		    getView().refresh();
+		
+		    getView().hideProgressView();
+	    }
     }
 
     protected RegisterFragmentContract.View getView() {

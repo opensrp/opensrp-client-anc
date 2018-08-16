@@ -41,6 +41,8 @@ public class RegisterFragmentContract {
         void showProgressView();
 
         void hideProgressView();
+        
+        void showNotFoundPopup(String whoAncId);
     }
 
     public interface Presenter {

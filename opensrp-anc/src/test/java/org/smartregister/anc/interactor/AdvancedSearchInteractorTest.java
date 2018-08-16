@@ -57,7 +57,7 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
 
         Mockito.verify(configuration, Mockito.timeout(ASYNC_TIMEOUT)).dristhiBaseURL();
         Mockito.verify(httpAgent, Mockito.timeout(ASYNC_TIMEOUT)).fetch(fullURL);
-        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response);
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response, whoAncId[1]);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
 
         Mockito.verify(configuration, Mockito.timeout(ASYNC_TIMEOUT)).dristhiBaseURL();
         Mockito.verify(httpAgent, Mockito.timeout(ASYNC_TIMEOUT)).fetch(fullURL);
-        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response);
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response, whoAncId[1]);
     }
 
 }

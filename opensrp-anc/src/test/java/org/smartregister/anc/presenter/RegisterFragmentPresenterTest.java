@@ -151,7 +151,7 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
 
-        registerFragmentPresenter.onResultsFound(response);
+        registerFragmentPresenter.onResultsFound(response, null);
 
         Mockito.verify(model).createMatrixCursor(response);
         Mockito.verify(view).recalculatePagination(matrixCursor);

@@ -1,6 +1,5 @@
 package org.smartregister.anc.contract;
 
-import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.domain.Response;
 
 import java.util.Map;
@@ -32,6 +31,6 @@ public class AdvancedSearchContract {
     }
 
     public interface InteractorCallBack {
-        void onResultsFound(Response<String> response);
+        void onResultsFound(Response<String> response, String ancId);
     }
 }

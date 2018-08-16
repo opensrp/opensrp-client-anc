@@ -69,6 +69,7 @@ public class Constants {
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
+        public static final String WHO_ANC_ID = "who_anc_id";
     }
 
     public static class OPENMRS {
@@ -83,5 +84,8 @@ public class Constants {
     public static class BOOLEAN_INT {
         public static final int TRUE = 1;
     }
+    
+	public static final String GLOBAL_IDENTIFIER = "identifier";
+	public static final String ANC_ID = "ANC_ID";
 
 }
