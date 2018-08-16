@@ -67,6 +67,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String ANC_ID = "ANC_ID";
     public static final String READ_ONLY = "read_only";
 
+    public static final int REQUEST_CODE_GET_JSON = 3432;
+
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
                                            String currentLocationId) throws Exception {
@@ -593,5 +595,18 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return event;
     }
 
+    public static void launchANCCloseForm(Activity activity) {
+        try {
+            Intent intent = new Intent(activity, AncJsonFormActivity.class);
 
+            JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
+            form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+            if (form != null) {
+                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
+                activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
 }

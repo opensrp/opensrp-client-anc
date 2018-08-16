@@ -33,8 +33,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
 
-    protected static final int REQUEST_CODE_GET_JSON = 3432;
-
     protected String womanName;
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
@@ -76,7 +74,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
             String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditFormString(this, event.getWomanClient());
             try {
 
-                JsonFormUtils.startFormForEdit(this, REQUEST_CODE_GET_JSON, formMetadata);
+                JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
 
             } catch (Exception e) {
                 Log.e("TAG", e.getMessage());
@@ -138,7 +136,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             mProfilePresenter.processFormDetailsSave(data, allSharedPreferences);
 
         }

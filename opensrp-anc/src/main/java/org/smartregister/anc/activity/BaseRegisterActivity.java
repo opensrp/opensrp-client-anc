@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -34,21 +35,25 @@ import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.barcode.BarcodeIntentResult;
 import org.smartregister.anc.contract.RegisterContract;
+import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.listener.NavigationItemListener;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.Bind;
@@ -72,11 +77,13 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     private FragmentPagerAdapter mPagerAdapter;
 
-    private static final int REQUEST_CODE_GET_JSON = 3432;
-
     protected BaseRegisterFragment mBaseFragment = null;
 
     private int currentPage;
+
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+
+    private AlertDialog recordBirthAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +111,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         registerSideNav();
         initializePresenter();
+        recordBirthAlertDialog = createAlertDialog();
     }
 
     @Override
@@ -285,17 +293,26 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showProgressDialog(ShowProgressDialogEvent showProgressDialogEvent) {
+    public void showProgressDialogHandler(ShowProgressDialogEvent showProgressDialogEvent) {
         if (showProgressDialogEvent != null) {
-            showProgressDialog();
+            showProgressDialog(R.string.saving_dialog_title);
+        }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void removePatientHandler(PatientRemovedEvent event) {
+        if (event != null) {
+            Utils.removeStickyEvent(event);
+            refreshList(FetchStatus.fetched);
+            hideProgressDialog();
         }
     }
 
     @Override
-    public void showProgressDialog() {
+    public void showProgressDialog(int titleIdentifier) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setTitle(getString(R.string.saving_dialog_title));
+        progressDialog.setTitle(titleIdentifier);
         progressDialog.setMessage(getString(R.string.please_wait_message));
         if (!isFinishing())
             progressDialog.show();
@@ -350,12 +367,12 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void startFormActivity(JSONObject form) {
         Intent intent = new Intent(this, AncJsonFormActivity.class);
         intent.putExtra("json", form.toString());
-        startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra("json");
                 Log.d("JSONResult", jsonString);
@@ -363,6 +380,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.REGISTRATION)) {
                     presenter.saveForm(jsonString, false);
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
+                    presenter.closeAncRecord(jsonString);
                 }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
@@ -394,6 +413,35 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
+    }
+
+    public void showRecordBirthPopUp(CommonPersonObjectClient client) {
+
+        client.getColumnmaps().put(DBConstants.KEY.EDD, "2018-12-25"); //To remove temporary for dev testing
+
+        getIntent().putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
+        recordBirthAlertDialog.setMessage("GA: " + Utils.getGestationAgeFromDate(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " weeks\nEDD: " + Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)), dateFormatter) + " (" + Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " to go). \n\n" + client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME) + " should come in immediately for delivery.");
+        recordBirthAlertDialog.show();
+    }
+
+    @NonNull
+    protected AlertDialog createAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.record_birth) + "?");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel).toUpperCase(),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.record_birth).toUpperCase(),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        JsonFormUtils.launchANCCloseForm(BaseRegisterActivity.this);
+                    }
+                });
+        return alertDialog;
     }
 
     public void switchToBaseFragment() {

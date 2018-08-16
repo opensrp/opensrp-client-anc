@@ -36,7 +36,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private WeakReference<ProfileContract.View> mProfileView;
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
-    private DateTimeFormatter formatter = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
 
     public ProfilePresenter(ProfileContract.View loginView) {
         mProfileView = new WeakReference<>(loginView);
@@ -129,15 +128,9 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
         getProfileView().setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
         getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
-        getProfileView().setProfileGestationAge(client.containsKey(DBConstants.KEY.EDD) ? String.valueOf(getGestationAgeFromDate(client.get(DBConstants.KEY.EDD))) : null);
+        getProfileView().setProfileGestationAge(client.containsKey(DBConstants.KEY.EDD) ? String.valueOf(Utils.getGestationAgeFromDate(client.get(DBConstants.KEY.EDD))) : null);
         getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
         getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
         getProfileView().setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
-    }
-
-    private int getGestationAgeFromDate(String expectedDeliveryDate) {
-        LocalDate date = formatter.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-        Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
-        return weeks.getWeeks();
     }
 }
