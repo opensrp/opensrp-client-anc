@@ -56,6 +56,18 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
             qrCode.setOnClickListener(registerActionHandler);
         }
 
+        // Due Button
+        View contactButton = view.findViewById(R.id.due_button);
+        if (contactButton != null) {
+            contactButton.setOnClickListener(registerActionHandler);
+        }
+
+        //Risk view
+        View attentionFlag = view.findViewById(R.id.risk_layout);
+        if (attentionFlag != null) {
+            attentionFlag.setOnClickListener(registerActionHandler);
+        }
+
     }
 
     @Override

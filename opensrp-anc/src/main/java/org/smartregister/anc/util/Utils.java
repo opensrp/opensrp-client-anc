@@ -19,7 +19,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.Weeks;
 import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -43,7 +46,8 @@ public class Utils {
 
     private static final String TAG = Utils.class.getCanonicalName();
 
-    private static final SimpleDateFormat DB_DF = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
+    private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -188,5 +192,12 @@ public class Utils {
 
     public static String getTodaysDate() {
         return convertDateFormat(Calendar.getInstance().getTime(), DB_DF);
+    }
+
+
+    public static int getGestationAgeFromDate(String expectedDeliveryDate) {
+        LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+        Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
+        return weeks.getWeeks();
     }
 }

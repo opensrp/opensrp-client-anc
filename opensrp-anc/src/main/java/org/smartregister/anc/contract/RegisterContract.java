@@ -5,6 +5,7 @@ import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -30,6 +31,8 @@ public class RegisterContract {
 
         void saveForm(String jsonString, boolean isEditMode);
 
+        void closeAncRecord(String jsonString);
+
         void onDestroy(boolean isChangingConfiguration);
     }
 
@@ -51,9 +54,11 @@ public class RegisterContract {
 
         void refreshList(final FetchStatus fetchStatus);
 
-        void showProgressDialog();
+        void showProgressDialog(int messageStringIdentifier);
 
         void hideProgressDialog();
+
+        void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags);
     }
 
     public interface Model {

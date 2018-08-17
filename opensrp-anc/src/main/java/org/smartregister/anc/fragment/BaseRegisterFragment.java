@@ -31,6 +31,7 @@ import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
+import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
@@ -48,6 +49,7 @@ import org.smartregister.provider.SmartRegisterClientsProvider;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.dialog.DialogOption;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -73,6 +75,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
+    public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
+
 
     private TextView initialsTextView;
     private ProgressBar syncProgressBar;
@@ -522,7 +526,17 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-                goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), true);
+
+                ((HomeRegisterActivity) getActivity()).showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+
+            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
+
+                //Temporary for testing UI , To remove for real dynamic data
+
+                List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
+
+                ((HomeRegisterActivity) getActivity()).showAttentionFlagsDialog(dummyAttentionFlags);
+
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             } else {

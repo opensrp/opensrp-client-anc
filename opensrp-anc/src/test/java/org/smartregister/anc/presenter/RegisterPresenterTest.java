@@ -192,7 +192,7 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
         presenter.saveForm(jsonString, false);
 
-        Mockito.verify(view).showProgressDialog();
+        Mockito.verify(view).showProgressDialog(R.string.saving_dialog_title);
         Mockito.verify(model).processRegistration(jsonString);
         Mockito.verify(interactor).saveRegistration(pair, jsonString, false, (RegisterContract.InteractorCallBack) presenter);
     }
