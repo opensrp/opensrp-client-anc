@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
-import org.smartregister.anc.contract.NoMatchDialogContract;
-import org.smartregister.anc.presenter.NoMatchDialogPresenter;
+import org.smartregister.anc.activity.HomeRegisterActivity;
 
 @SuppressLint("ValidFragment")
-public class NoMatchDialogFragment extends DialogFragment implements NoMatchDialogContract.View {
+public class NoMatchDialogFragment extends DialogFragment {
 	private final NoMatchDialogActionHandler noMatchDialogActionHandler = new NoMatchDialogActionHandler();
 	private final BaseRegisterActivity baseRegisterActivity;
 	private final String whoAncId;
-	private NoMatchDialogContract.Presenter presenter;
 	
 	public NoMatchDialogFragment(BaseRegisterActivity baseRegisterActivity, String whoAncId) {
 		this.whoAncId = whoAncId;
@@ -45,23 +43,17 @@ public class NoMatchDialogFragment extends DialogFragment implements NoMatchDial
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
-		presenter = new NoMatchDialogPresenter(this);
 	}
 	
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ViewGroup dialogView = (ViewGroup)inflater.inflate(R.layout.dialog_no_woman_match, container, false);
-		Button cancel = (Button)dialogView.findViewById(R.id.cancel_no_match_dialog);
+		Button cancel = dialogView.findViewById(R.id.cancel_no_match_dialog);
 		cancel.setOnClickListener(noMatchDialogActionHandler);
-		Button advancedSearch = (Button)dialogView.findViewById(R.id.go_to_advanced_search);
+		Button advancedSearch = dialogView.findViewById(R.id.go_to_advanced_search);
 		advancedSearch.setOnClickListener(noMatchDialogActionHandler);
 		return dialogView;
-	}
-	
-	@Override
-	public BaseRegisterActivity getBaseActivity() {
-		return baseRegisterActivity;
 	}
 	
 	////////////////////////////////////////////////////////////////
@@ -77,12 +69,19 @@ public class NoMatchDialogFragment extends DialogFragment implements NoMatchDial
 					dismiss();
 					break;
 				case R.id.go_to_advanced_search:
-					presenter.goToAdvancedSearch(whoAncId);
+					goToAdvancedSearch(whoAncId);
 					dismiss();
 					break;
 				default:
 					break;
 			}
+		}
+		
+		private void goToAdvancedSearch(String whoAncId) {
+			((HomeRegisterActivity) baseRegisterActivity).startAdvancedSearch();
+			android.support.v4.app.Fragment currentFragment =
+					baseRegisterActivity.findFragmentByPosition(HomeRegisterActivity.ADVANCED_SEARCH_POSITION);
+			((AdvancedSearchFragment) currentFragment).getAncId().setText(whoAncId);
 		}
 	}
 }
