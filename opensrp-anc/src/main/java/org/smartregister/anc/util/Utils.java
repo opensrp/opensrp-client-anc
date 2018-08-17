@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -188,5 +189,14 @@ public class Utils {
 
     public static String getTodaysDate() {
         return convertDateFormat(Calendar.getInstance().getTime(), DB_DF);
+    }
+
+    @Nullable
+    public static int getAttributeDrawableResource(
+            Context context,
+            int attributeId) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        return typedValue.resourceId;
     }
 }

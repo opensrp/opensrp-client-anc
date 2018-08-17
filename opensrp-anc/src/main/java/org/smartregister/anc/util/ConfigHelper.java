@@ -8,7 +8,9 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConfigHelper {
     public static RegisterConfiguration defaultRegisterConfiguration(Context context) {
@@ -114,6 +116,10 @@ public class ConfigHelper {
         dangerSigns.add(new Field(context.getString(R.string.severe_abdominal_pain), "severe_abdominal_pain"));
         dangerSigns.add(new Field(context.getString(R.string.unconscious), "unconscious"));
         config.setDangerSigns(dangerSigns);
+
+        Map<String, String> infoMap = new HashMap<>();
+        infoMap.put(context.getString(R.string.central_cyanosis), context.getString(R.string.cyanosis_info));
+        config.setInfoMap(infoMap);
 
         return config;
     }

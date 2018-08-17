@@ -1,10 +1,13 @@
 package org.smartregister.anc.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -289,6 +292,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         }
     }
 
+
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
@@ -401,11 +405,46 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             return new ViewHolder(v);
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             Field field = list.get(position);
             holder.checkedTextView.setText(field.getDisplayName());
             holder.checkedTextView.setTag(field);
+
+            if (field.getDisplayName().equals(getString(R.string.central_cyanosis))) {
+                holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
+
+                holder.checkedTextView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        final int DRAWABLE_RIGHT = 2;
+
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            if (event.getRawX() >= (holder.checkedTextView.getRight() - (holder.checkedTextView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() + (2 * holder.checkedTextView.getPaddingEnd())))) {
+
+                                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext(), R.style.AncAlertDialog);
+                                builderSingle.setTitle(R.string.central_cyanosis);
+                                builderSingle.setMessage(R.string.cyanosis_info);
+                                builderSingle.setIcon(R.drawable.ic_info);
+
+                                builderSingle.setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                                builderSingle.show();
+
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+
+            }
 
             holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
