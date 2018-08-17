@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.smartregister.DristhiConfiguration;
-import org.smartregister.anc.activity.BaseActivityUnitTest;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.util.AppExecutors;

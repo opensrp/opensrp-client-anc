@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
-import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.NoMatchDialogContract;
 import org.smartregister.anc.presenter.NoMatchDialogPresenter;
 
@@ -70,8 +69,6 @@ public class NoMatchDialogFragment extends DialogFragment implements NoMatchDial
 	////////////////////////////////////////////////////////////////
 	
 	private class NoMatchDialogActionHandler implements View.OnClickListener {
-		
-		private final HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity)getActivity();
 		
 		@Override
 		public void onClick(View view) {

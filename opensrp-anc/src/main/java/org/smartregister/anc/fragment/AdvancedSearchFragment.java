@@ -373,7 +373,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     }
 	
 	@Override
-	public void showNotFoundPopup(String whoAncId) { }
+	public void showNotFoundPopup(String whoAncId) {
+		//Todo implement this
+	}
 	
 	@Override
     public void countExecute() {

@@ -1,5 +1,7 @@
 package org.smartregister.anc.presenter;
 
+import org.json.JSONArray;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -146,19 +148,39 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         registerFragmentPresenter.setModel(model);
 
         AdvancedMatrixCursor matrixCursor = Mockito.mock(AdvancedMatrixCursor.class);
-
-        Response<String> response = new Response<>(ResponseStatus.success, "Payload");
-
+        Response<String> response = new Response<>(ResponseStatus.success, "payload");
+        
+	    JSONArray jsonArray = new JSONArray().put("test");
+	    Mockito.doReturn(jsonArray).when(model).getJsonArray(response);
         Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
-	
+	    
 	    registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
-
+	
+	    Mockito.verify(model).getJsonArray(response);
         Mockito.verify(model).createMatrixCursor(response);
         Mockito.verify(view).recalculatePagination(matrixCursor);
         Mockito.verify(view).filterandSortInInitializeQueries();
         Mockito.verify(view).refresh();
         Mockito.verify(view).hideProgressView();
 
+    }
+    
+    @Test
+    public void showNotFoundPopup(){
+	    RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
+	    registerFragmentPresenter.setModel(model);
+	
+	    AdvancedMatrixCursor matrixCursor = Mockito.mock(AdvancedMatrixCursor.class);
+	    Response<String> response = new Response<>(ResponseStatus.success, "payload");
+	
+	    JSONArray jsonArray = new JSONArray();
+	    Mockito.doReturn(jsonArray).when(model).getJsonArray(response);
+	    Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
+	
+	    registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
+	
+	    Mockito.verify(model).getJsonArray(response);
+	    Mockito.verify(view).showNotFoundPopup(BaseUnitTest.WHO_ANC_ID);
     }
 
     private String countSelect(String tableName, String mainCondition) {
