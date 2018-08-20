@@ -43,6 +43,7 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
         holder.valueTextView.setText(characteristic.getValue() ? "Yes" : "No");
 
         holder.infoLayout.setTag(characteristic.getKey());
+
         holder.infoLayout.setTag(R.id.CHARACTERISTIC_DESC, characteristic.getDescription());
     }
 
