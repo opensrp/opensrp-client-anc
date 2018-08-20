@@ -55,8 +55,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     private Button refer;
 
-    private static final String BASE_ENTITY_ID = "BASE_ENTITY_ID";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -448,26 +446,25 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     public boolean onTouch(View v, MotionEvent event) {
                         final int DRAWABLE_RIGHT = 2;
 
-                        if (event.getAction() == MotionEvent.ACTION_UP) {
-                            if (event.getRawX() >= (holder.checkedTextView.getRight() - (holder.checkedTextView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() + (2 * holder.checkedTextView.getPaddingEnd())))) {
+                        if (event.getAction() == MotionEvent.ACTION_UP && event.getRawX() >= (holder.checkedTextView.getRight() - (holder.checkedTextView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width() + (2 * holder.checkedTextView.getPaddingEnd())))) {
 
-                                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext(), R.style.AncAlertDialog);
-                                builderSingle.setTitle(R.string.central_cyanosis);
-                                builderSingle.setMessage(R.string.cyanosis_info);
-                                builderSingle.setIcon(R.drawable.ic_info);
+                            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext(), R.style.AncAlertDialog);
+                            builderSingle.setTitle(R.string.central_cyanosis);
+                            builderSingle.setMessage(R.string.cyanosis_info);
+                            builderSingle.setIcon(R.drawable.ic_info);
 
-                                builderSingle.setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
+                            builderSingle.setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
 
-                                builderSingle.show();
+                            builderSingle.show();
 
-                                return true;
-                            }
+                            return true;
                         }
+
                         return false;
                     }
                 });

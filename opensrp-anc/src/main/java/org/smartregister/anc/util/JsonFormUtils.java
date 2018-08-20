@@ -451,8 +451,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static void saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, ECSyncHelper syncHelper, AllCommonsRepository allCommonsRepository, String jsonString, String providerId) {
-
+    public static void saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences,
+                                                  ECSyncHelper syncHelper, AllCommonsRepository allCommonsRepository,
+                                                  String jsonString, String providerId) {
 
         try {
             boolean isDeath = false;

@@ -3,7 +3,6 @@ package org.smartregister.anc.interactor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.QuickCheckContract;
