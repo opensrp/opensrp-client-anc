@@ -35,7 +35,6 @@ import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.sync.ClientProcessor;
 import org.smartregister.util.AssetHandler;
@@ -75,6 +74,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     private static final String TEXT_DATA_TYPE = "text";
     private static final String SELECT_ONE_DATA_TYPE = "select one";
     private static final String SELECT_MULTIPLE_DATA_TYPE = "select multiple";
+
+    public static final int REQUEST_CODE_GET_JSON = 3432;
 
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
@@ -667,4 +668,18 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return event;
     }
 
+    public static void launchANCCloseForm(Activity activity) {
+        try {
+            Intent intent = new Intent(activity, AncJsonFormActivity.class);
+
+            JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
+            if (form != null) {
+                form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
+                activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
 }
