@@ -1,13 +1,11 @@
 package org.smartregister.anc.interactor;
 
 import android.support.annotation.VisibleForTesting;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.DristhiConfiguration;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.util.AppExecutors;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.domain.Response;
 import org.smartregister.service.HTTPAgent;
 

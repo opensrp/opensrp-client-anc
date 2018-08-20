@@ -1,6 +1,5 @@
 package org.smartregister.anc.interactor;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,6 +54,7 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
 		        "?identifier=OpenSRP_ID%3A12345678&one=1&two=2&three=3";
         Mockito.doReturn(baseUrl).when(configuration).dristhiBaseURL();
         Mockito.doReturn(response).when(httpAgent).fetch(fullURL);
+        Assert.assertNotNull(editMap.get(BaseUnitTest.GLOBAL_IDENTIFIER));
 
         interactor.search(editMap, callBack, BaseUnitTest.WHO_ANC_ID);
 
