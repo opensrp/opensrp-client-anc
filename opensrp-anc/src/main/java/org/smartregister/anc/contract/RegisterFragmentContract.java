@@ -14,7 +14,7 @@ import java.util.Set;
 
 public interface RegisterFragmentContract {
 
-    public interface View {
+    interface View {
 
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
 
@@ -43,7 +43,7 @@ public interface RegisterFragmentContract {
         void hideProgressView();
     }
 
-    public interface Presenter {
+    interface Presenter {
 
         void processViewConfigurations();
 
@@ -60,7 +60,7 @@ public interface RegisterFragmentContract {
         AdvancedMatrixCursor getMatrixCursor();
     }
 
-    public interface Model {
+    interface Model {
 
         RegisterConfiguration defaultRegisterConfiguration();
 

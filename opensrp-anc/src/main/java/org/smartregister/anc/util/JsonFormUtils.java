@@ -23,11 +23,14 @@ import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.LocationHelper;
+import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
@@ -51,6 +54,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -66,6 +70,11 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String ANC_ID = "ANC_ID";
     public static final String READ_ONLY = "read_only";
+
+    private static final String FORM_SUBMISSION_FIELD = "formsubmissionField";
+    private static final String TEXT_DATA_TYPE = "text";
+    private static final String SELECT_ONE_DATA_TYPE = "select one";
+    private static final String SELECT_MULTIPLE_DATA_TYPE = "select multiple";
 
     public static JSONObject getFormAsJson(JSONObject form,
                                            String formName, String id,
@@ -441,13 +450,11 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static void saveRemovedFromANCRegister(String jsonString, String providerId) {
+    public static void saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, ECSyncHelper syncHelper, AllCommonsRepository allCommonsRepository, String jsonString, String providerId) {
 
 
         try {
             boolean isDeath = false;
-
-            EventClientRepository db = AncApplication.getInstance().getEventClientRepository();
 
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 
@@ -484,7 +491,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .withEntityType(DBConstants.WOMAN_TABLE_NAME)
                     .withFormSubmissionId(generateRandomUUIDString())
                     .withDateCreated(new Date());
-            JsonFormUtils.tagSyncMetadata(event);
+            JsonFormUtils.tagSyncMetadata(allSharedPreferences, event);
 
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject jsonObject = getJSONObject(fields, i);
@@ -531,7 +538,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
                 //Update client to deceased
-                JSONObject client = db.getClientByBaseEntityId(eventJson.getString(ClientProcessor.baseEntityIdJSONKey));
+                JSONObject client = syncHelper.getClient(eventJson.getString(ClientProcessor.baseEntityIdJSONKey));
                 if (isDeath) {
                     client.put(Constants.JSON_FORM_KEY.DEATH_DATE, Utils.getTodaysDate());
                     client.put(Constants.JSON_FORM_KEY.DEATH_DATE_APPROX, false);
@@ -539,10 +546,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 JSONObject attributes = client.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
                 attributes.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
                 client.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
-                db.addorUpdateClient(entityId, client);
+                syncHelper.addClient(entityId, client);
 
                 //Add Remove Event for child to flag for Server delete
-                db.addEvent(event.getBaseEntityId(), eventJson);
+                syncHelper.addEvent(event.getBaseEntityId(), eventJson);
 
                 //Update Child Entity to include death date
                 Event updateChildDetailsEvent = (Event) new Event()
@@ -554,13 +561,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                         .withEntityType(DBConstants.WOMAN_TABLE_NAME)
                         .withFormSubmissionId(generateRandomUUIDString())
                         .withDateCreated(new Date());
-                JsonFormUtils.tagSyncMetadata(updateChildDetailsEvent);
+                JsonFormUtils.tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
                 JSONObject eventJsonUpdateChildEvent = new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
 
-                db.addEvent(entityId, eventJsonUpdateChildEvent); //Add event to flag server update
+                syncHelper.addEvent(entityId, eventJsonUpdateChildEvent); //Add event to flag server update
 
                 //Update REGISTER and FTS Tables
-                AllCommonsRepository allCommonsRepository = AncApplication.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
                 if (allCommonsRepository != null) {
                     ContentValues values = new ContentValues();
                     values.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
@@ -578,20 +584,87 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
+    public static Event createQuickCheckEvent(AllSharedPreferences allSharedPreferences, QuickCheckPresenter.QuickCheck quickCheck, String baseEntityId) {
+
+        try {
+
+            Field selectedReason = quickCheck.selectedReason;
+            Set<Field> selectedComplaints = quickCheck.specificComplaints;
+            Set<Field> selectedDangerSigns = quickCheck.selectedDangerSigns;
+            String specify = quickCheck.otherSpecify;
+
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(baseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType(Constants.EventType.QUICK_CHECK)
+                    .withEntityType(DBConstants.WOMAN_TABLE_NAME)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+
+            if (selectedReason != null) {
+                event.addObs(createObs("contact_reason", SELECT_ONE_DATA_TYPE, selectedReason.getDisplayName()));
+            }
+
+            if (selectedComplaints != null && !selectedComplaints.isEmpty()) {
+                event.addObs(createObs("specific_complaint", SELECT_MULTIPLE_DATA_TYPE, selectedComplaints));
+            }
+
+            if (StringUtils.isNotBlank(specify)) {
+                event.addObs(createObs("specific_complaint_other", TEXT_DATA_TYPE, specify));
+            }
+
+            if (selectedDangerSigns != null && !selectedDangerSigns.isEmpty()) {
+                event.addObs(createObs("danger_signs", SELECT_MULTIPLE_DATA_TYPE, selectedDangerSigns));
+            }
+
+            if (quickCheck.hasDangerSigns) {
+                String value = quickCheck.isProceed ? quickCheck.proceedToContact : quickCheck.referAndCloseContact;
+                event.addObs(createObs("danger_signs_proceed", SELECT_ONE_DATA_TYPE, value));
+
+                if (!quickCheck.isProceed) {
+                    value = quickCheck.isReferred ? quickCheck.yes : quickCheck.no;
+                    event.addObs(createObs("danger_signs_treat", SELECT_ONE_DATA_TYPE, value));
+                }
+            }
+
+            JsonFormUtils.tagSyncMetadata(allSharedPreferences, event);
+
+            return event;
+
+        } catch (
+                Exception e)
+
+        {
+            Log.e(TAG, Log.getStackTraceString(e));
+            return null;
+        }
+
+    }
+
+    private static Obs createObs(String formSubmissionField, String dataType, Set<Field> fieldList) {
+        List<Object> vall = new ArrayList<>();
+        for (Field field : fieldList) {
+            vall.add(field.getDisplayName());
+        }
+        return new Obs(FORM_SUBMISSION_FIELD, dataType, formSubmissionField,
+                "", vall, new ArrayList<>(), null, formSubmissionField);
+    }
+
+    private static Obs createObs(String formSubmissionField, String dataType, String value) {
+        List<Object> vall = new ArrayList<>();
+        vall.add(value);
+        return new Obs(FORM_SUBMISSION_FIELD, dataType, formSubmissionField,
+                "", vall, new ArrayList<>(), null, formSubmissionField);
+    }
+
     private static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
-        event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM()));
-        event.setTeam(allSharedPreferences.fetchDefaultTeam(allSharedPreferences.fetchRegisteredANM()));
-        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
+        String providerId = allSharedPreferences.fetchRegisteredANM();
+        event.setProviderId(providerId);
+        event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(providerId));
+        event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
+        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
         return event;
     }
-
-    private static Event tagSyncMetadata(Event event) {
-        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM()));
-        event.setTeam(allSharedPreferences.fetchDefaultTeam(allSharedPreferences.fetchRegisteredANM()));
-        event.setTeamId(allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
-        return event;
-    }
-
 
 }

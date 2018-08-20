@@ -18,6 +18,7 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -44,6 +45,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     private AllSharedPreferences allSharedPreferences;
 
     private ClientProcessorForJava clientProcessorForJava;
+
+    private AllCommonsRepository allCommonsRepository;
 
     @VisibleForTesting
     RegisterInteractor(AppExecutors appExecutors) {
@@ -103,7 +106,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             @Override
             public void run() {
 
-                JsonFormUtils.saveRemovedFromANCRegister(closeFormJsonString, providerId);
+                JsonFormUtils.saveRemovedFromANCRegister(getAllSharedPreferences(), getSyncHelper(), getAllCommonsRepository(), closeFormJsonString, providerId);
             }
         };
 
@@ -212,5 +215,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     public void setClientProcessorForJava(ClientProcessorForJava clientProcessorForJava) {
         this.clientProcessorForJava = clientProcessorForJava;
+    }
+
+    public AllCommonsRepository getAllCommonsRepository() {
+        if (allCommonsRepository == null) {
+            allCommonsRepository = AncApplication.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
+        }
+        return allCommonsRepository;
+    }
+
+    public void setAllCommonsRepository(AllCommonsRepository allCommonsRepository) {
+        this.allCommonsRepository = allCommonsRepository;
     }
 }

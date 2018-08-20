@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -152,12 +153,22 @@ public class Utils {
         return collection == null || collection.isEmpty();
     }
 
-    public static void hideKeyboard(Activity activityContext) {
+    public static void hideKeyboard(Context context, View view) {
         try {
-            InputMethodManager inputMethodManager = (InputMethodManager) activityContext.getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(activityContext.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         } catch (Exception e) {
             logError("Error encountered while hiding keyboard " + e);
+        }
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            hideKeyboard(activity, view);
         }
     }
 

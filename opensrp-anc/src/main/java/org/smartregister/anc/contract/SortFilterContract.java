@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SortFilterContract {
 
-    public interface View {
+    interface View {
 
         Context getContext();
 
@@ -18,7 +18,7 @@ public interface SortFilterContract {
         void updateSortLabel(String sortText);
     }
 
-    public interface Presenter {
+    interface Presenter {
 
         void updateSortAndFilter();
 

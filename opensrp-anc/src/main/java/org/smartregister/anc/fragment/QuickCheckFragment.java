@@ -8,20 +8,20 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -31,6 +31,7 @@ import android.widget.TextView;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.configurableviews.model.Field;
 
@@ -54,6 +55,8 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     private Button refer;
 
+    private static final String BASE_ENTITY_ID = "BASE_ENTITY_ID";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,13 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     public static void launchDialog(Activity activity,
                                     String dialogTag) {
         QuickCheckFragment dialogFragment = new QuickCheckFragment();
+
+        Bundle args = activity.getIntent().getExtras();
+        if (args == null) {
+            args = new Bundle();
+        }
+        dialogFragment.setArguments(args);
+
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
         android.app.Fragment prev = activity.getFragmentManager().findFragmentByTag(dialogTag);
         if (prev != null) {
@@ -74,29 +84,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         ft.addToBackStack(null);
 
         dialogFragment.show(ft, dialogTag);
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new Dialog(getActivity(), getTheme()) {
-            @Override
-            public boolean dispatchTouchEvent(@NonNull MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    View v = getCurrentFocus();
-                    if (v instanceof EditText) {
-                        Rect outRect = new Rect();
-                        v.getGlobalVisibleRect(outRect);
-                        if (!outRect.contains((int) motionEvent.getRawX(), (int) motionEvent.getRawY())) {
-                            hideSoftKeyboard(v);
-                        }
-                    }
-                }
-
-                return super.dispatchTouchEvent(motionEvent);
-            }
-
-        };
     }
 
     @Nullable
@@ -108,11 +95,16 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                 R.layout.fragment_quick_check,
                 container, false);
 
+        Bundle args = getArguments();
+        String baseEntityId = args.getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        presenter.setBaseEntityId(baseEntityId);
+
         updateReasonList(view);
         updateComplaintList(view);
         updateDangerList(view);
 
         setupViews(view);
+
         return view;
     }
 
@@ -179,8 +171,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         specifyEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    hideSoftKeyboard(v);
+                if (actionId == EditorInfo.IME_ACTION_NEXT ||
+                        (event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    Utils.hideKeyboard(getActivity(), v);
                     return true;
                 }
                 return false;
@@ -283,15 +277,49 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         presenter = new QuickCheckPresenter(this);
     }
 
-    private void hideSoftKeyboard(View v) {
-        v.clearFocus();
+    private void displayReferralDialog() {
 
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.referral_dialog, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+
+        Button yes = view.findViewById(R.id.refer_yes);
+        final Button no = view.findViewById(R.id.refer_no);
+
+        final AlertDialog dialog = builder.create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            window.setAttributes(param);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.referAndCloseContact(getSpecifyText(), true);
+                dialog.dismiss();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.referAndCloseContact(getSpecifyText(), false);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
+    private String getSpecifyText() {
+        return specifyEditText != null ? specifyEditText.getText().toString() : null;
+    }
 
     ////////////////////////////////////////////////////////////////
     // Inner classes
@@ -306,10 +334,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     dismiss();
                     break;
                 case R.id.proceed:
-                    presenter.proceedToNormalContact();
+                    presenter.proceedToNormalContact(getSpecifyText());
                     break;
                 case R.id.refer:
-                    presenter.referAndCloseContact();
+                    displayReferralDialog();
                     break;
                 default:
                     break;
@@ -391,7 +419,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             }
         }
 
-        public ComplaintDangerAdapter(boolean isDangerSign) {
+        private ComplaintDangerAdapter(boolean isDangerSign) {
             this.isDangerSign = isDangerSign;
             this.list = isDangerSign ? presenter.getConfig().getDangerSigns() : presenter.getConfig().getComplaints();
         }

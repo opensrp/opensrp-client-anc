@@ -208,4 +208,8 @@
 
     <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
 
+    <string name="any_treatment">Any treatment given\nbefore referral?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>

@@ -3,14 +3,16 @@ package org.smartregister.anc.contract;
 import android.content.Context;
 
 import org.smartregister.anc.domain.QuickCheckConfiguration;
+import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.configurableviews.model.Field;
+import org.smartregister.view.dialog.BPLSort;
 
 import java.util.List;
 import java.util.Set;
 
 
 public interface QuickCheckContract {
-    public interface Presenter {
+    interface Presenter {
 
         void setReason(Field reason);
 
@@ -22,13 +24,15 @@ public interface QuickCheckContract {
 
         void addToComplaintsOrDangerList(Field field, boolean isChecked, boolean isDangerSign);
 
-        void proceedToNormalContact();
+        void proceedToNormalContact(String specify);
 
-        void referAndCloseContact();
+        void referAndCloseContact(String specify, Boolean refer);
+
+        void setBaseEntityId(String baseEntityId);
 
     }
 
-    public interface View {
+    interface View {
 
         Context getContext();
 
@@ -56,6 +60,19 @@ public interface QuickCheckContract {
 
         void displayToast(int resourceId);
 
+        void dismiss();
+
+    }
+
+    interface Interactor {
+
+        void saveQuickCheckEvent(QuickCheckPresenter.QuickCheck quickCheck, String baseEntityId, InteractorCallback callback);
+
+    }
+
+    interface InteractorCallback {
+
+        void quickCheckSaved(boolean saved);
     }
 
 }
