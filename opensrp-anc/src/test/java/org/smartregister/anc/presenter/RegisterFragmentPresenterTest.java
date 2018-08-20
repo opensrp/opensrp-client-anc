@@ -137,7 +137,7 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         registerFragmentPresenter.searchGlobally(ancId);
 
         Mockito.verify(view).showProgressView();
-        Mockito.verify(interactor).search(editMap, registerFragmentPresenter);
+        Mockito.verify(interactor).search(editMap, registerFragmentPresenter, ancId);
 
     }
 

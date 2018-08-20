@@ -119,7 +119,7 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         Mockito.verify(model).createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         Mockito.verify(view).showProgressView();
         Mockito.verify(view).switchViews(true);
-        Mockito.verify(interactor).search(editMap, advancedSearchPresenter);
+        Mockito.verify(interactor).search(editMap, advancedSearchPresenter, ancId);
     }
 
     @Test

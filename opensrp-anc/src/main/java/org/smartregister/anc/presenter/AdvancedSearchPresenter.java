@@ -61,7 +61,7 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             getView().showProgressView();
             getView().switchViews(true);
 
-            interactor.search(editMap, this);
+            interactor.search(editMap, this,ancId);
 
         }
     }

@@ -1,5 +1,6 @@
 package org.smartregister.anc.interactor;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,8 +56,7 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
         Mockito.doReturn(baseUrl).when(configuration).dristhiBaseURL();
         Mockito.doReturn(response).when(httpAgent).fetch(fullURL);
 
-        interactor.search(editMap, callBack);
-	    Assert.assertNotNull(editMap.get(BaseUnitTest.GLOBAL_IDENTIFIER).split(":",2));
+        interactor.search(editMap, callBack, BaseUnitTest.WHO_ANC_ID);
 
         Mockito.verify(configuration, Mockito.timeout(ASYNC_TIMEOUT)).dristhiBaseURL();
         Mockito.verify(httpAgent, Mockito.timeout(ASYNC_TIMEOUT)).fetch(fullURL);
@@ -86,9 +86,8 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
         String fullURL = baseUrl + AdvancedSearchInteractor.SEARCH_URL + "?one=1";
         Mockito.doReturn(baseUrl).when(configuration).dristhiBaseURL();
         Mockito.doReturn(response).when(httpAgent).fetch(fullURL);
-        Assert.assertNull(editMap.get(BaseUnitTest.GLOBAL_IDENTIFIER));
 
-        interactor.search(editMap, callBack);
+        interactor.search(editMap, callBack, "");
 
         Mockito.verify(configuration, Mockito.timeout(ASYNC_TIMEOUT)).dristhiBaseURL();
         Mockito.verify(httpAgent, Mockito.timeout(ASYNC_TIMEOUT)).fetch(fullURL);

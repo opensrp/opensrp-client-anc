@@ -103,7 +103,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         getView().showProgressView();
 
         Map<String, String> editMap = model.createEditMap(ancId);
-        interactor.search(editMap, this);
+        interactor.search(editMap, this, ancId);
     }
 
     @Override
