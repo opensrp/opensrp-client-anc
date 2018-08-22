@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.service.intent.SyncIntentService;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.configurableviews.helper.PrefsHelper;
 import org.smartregister.domain.Response;
@@ -124,7 +125,7 @@ public class ECSyncHelper implements PrefsHelper {
             Long lastSyncDatetime = getLastSyncTimeStamp();
             Log.i(ECSyncHelper.class.getName(), "LAST SYNC DT :" + new DateTime(lastSyncDatetime));
 
-            String url = baseUrl + SEARCH_URL + "?" + filter + "=" + filterValue + "&serverVersion=" + lastSyncDatetime + "&limit="; //+ SyncIntentService.EVENT_PULL_LIMIT;
+            String url = baseUrl + SEARCH_URL + "?" + filter + "=" + filterValue + "&serverVersion=" + lastSyncDatetime + "&limit=" + SyncIntentService.EVENT_PULL_LIMIT;
             Log.i(ECSyncHelper.class.getName(), "URL: " + url);
 
             if (httpAgent == null) {
