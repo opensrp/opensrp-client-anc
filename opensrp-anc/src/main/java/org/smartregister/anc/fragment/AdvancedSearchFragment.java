@@ -68,9 +68,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
 	
-	private static final String TAG = AdvancedSearchFragment.class.getCanonicalName();
-	
-	
 	@Override
     protected void initializePresenter() {
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
