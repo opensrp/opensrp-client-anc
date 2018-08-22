@@ -188,17 +188,12 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     public void testShowRecordBirthPopUpInvokesMethodsOnRecordBirthAlertDialogsCorrectly() {
 
         HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        Whitebox.setInternalState(homeRegisterActivitySpy, "attentionFlagAlertDialog", attentionFlagsAlertDialog);
 
-        Whitebox.setInternalState(homeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
+        List<AttentionFlag> testAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
 
-        CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID, ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"), DUMMY_USERNAME);
-        Map<String, String> details = new HashMap<>();
-        details.putAll(client.getDetails());
-        client.setColumnmaps(details);
-        homeRegisterActivitySpy.showRecordBirthPopUp(client);
-
-        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 18 weeks\nEDD: 25/12/2018 (4m 1w to go). \n\nmyusername should come in immediately for delivery.");
-        Mockito.verify(recordBirthAlertDialog).show();
+        homeRegisterActivitySpy.showAttentionFlagsDialog(testAttentionFlags);
+        Mockito.verify(attentionFlagsAlertDialog).show();
     }
 
     public void testShowAttentionFlagsAlertDialogPopUpInvokesMethodsOnAttentionFlagsAlertDialogsCorrectly() {
