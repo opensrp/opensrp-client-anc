@@ -6,29 +6,22 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
-import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -94,54 +87,55 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Integer parseInt(String string) {
-        try {
-            return Integer.valueOf(string);
-        } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
-        }
-        return null;
-    }
-
-    private ContentValues processCaseModel(EventClient eventClient, Table table) {
-        try {
-            List<Column> columns = table.columns;
-            ContentValues contentValues = new ContentValues();
-
-            for (Column column : columns) {
-                processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
-            }
-
-            return contentValues;
-        } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
-        }
-        return null;
-    }
-
-    private Date getDate(String eventDateStr) {
-        Date date = null;
-        if (StringUtils.isNotBlank(eventDateStr)) {
+    /*
+        private Integer parseInt(String string) {
             try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-                date = dateFormat.parse(eventDateStr);
-            } catch (ParseException e) {
+                return Integer.valueOf(string);
+            } catch (NumberFormatException e) {
+                Log.e(TAG, e.toString(), e);
+            }
+            return null;
+        }
+
+        private ContentValues processCaseModel(EventClient eventClient, Table table) {
+            try {
+                List<Column> columns = table.columns;
+                ContentValues contentValues = new ContentValues();
+
+                for (Column column : columns) {
+                    processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
+                }
+
+                return contentValues;
+            } catch (Exception e) {
+                Log.e(TAG, e.toString(), e);
+            }
+            return null;
+        }
+
+        private Date getDate(String eventDateStr) {
+            Date date = null;
+            if (StringUtils.isNotBlank(eventDateStr)) {
                 try {
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
                     date = dateFormat.parse(eventDateStr);
-                } catch (ParseException pe) {
+                } catch (ParseException e) {
                     try {
-                        date = DateUtil.parseDate(eventDateStr);
-                    } catch (ParseException pee) {
-                        Log.e(TAG, pee.toString(), pee);
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                        date = dateFormat.parse(eventDateStr);
+                    } catch (ParseException pe) {
+                        try {
+                            date = DateUtil.parseDate(eventDateStr);
+                        } catch (ParseException pee) {
+                            Log.e(TAG, pee.toString(), pee);
+                        }
                     }
                 }
             }
+            return date;
         }
-        return date;
-    }
 
-
+    */
     private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects, Event event, String registeredAnm) {
         try {
             String baseEntityId = event.getBaseEntityId();
