@@ -56,8 +56,10 @@ public class NoMatchDialogFragment extends DialogFragment {
 		ViewGroup dialogView = (ViewGroup)inflater.inflate(R.layout.dialog_no_woman_match, container, false);
 		Button cancel = dialogView.findViewById(R.id.cancel_no_match_dialog);
 		cancel.setOnClickListener(noMatchDialogActionHandler);
+		
 		Button advancedSearch = dialogView.findViewById(R.id.go_to_advanced_search);
 		advancedSearch.setOnClickListener(noMatchDialogActionHandler);
+		
 		return dialogView;
 	}
 	
