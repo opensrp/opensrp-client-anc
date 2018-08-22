@@ -147,27 +147,39 @@
                     app:met_singleLineEllipsis="true" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                <RelativeLayout
+		                android:layout_width="match_parent"
+		                android:layout_height="match_parent">
+	                <com.rengwuxian.materialedittext.MaterialEditText
+			                android:id="@+id/anc_id"
+			                android:layout_width="match_parent"
+			                android:layout_height="wrap_content"
+			                android:layout_toStartOf="@+id/qrCodeButton"
+			                android:layout_toLeftOf="@+id/qrCodeButton"
+			                android:layout_alignParentStart="true"
+			                android:hint="@string/id_number"
+			                android:imeOptions="actionNext"
+			                android:inputType="text"
+			                android:textColor="@color/lighter_grey_text"
+			                android:textColorHint="@color/light_grey"
+			                android:textSize="@dimen/advanced_search_text_size"
+			                app:met_floatingLabel="highlight"
+			                app:met_floatingLabelText="@string/anc_id"
+			                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+			                app:met_primaryColor="@color/light_blue"
+			                app:met_singleLineEllipsis="true" android:layout_marginEnd="0dp"
+			                android:layout_marginRight="0dp"/>
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/anc_id"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/id_number"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:textColor="@color/lighter_grey_text"
-                    android:textColorHint="@color/light_grey"
-                    android:textSize="@dimen/advanced_search_text_size"
-                    app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/anc_id"
-                    app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
-                    app:met_primaryColor="@color/light_blue"
-                    app:met_singleLineEllipsis="true" />
-            </LinearLayout>
+	                <ImageView
+			                android:id="@+id/qrCodeButton"
+			                android:layout_width="52dp"
+			                android:layout_height="52dp"
+			                android:layout_alignParentEnd="true"
+			                android:background="@drawable/scan_qr_code_bg"
+			                android:padding="@dimen/register_search_bar_min_padding"
+			                android:src="@drawable/ic_action_barcode"
+			                android:contentDescription="@string/the_qr_code_scanner_button"/>
+                </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
