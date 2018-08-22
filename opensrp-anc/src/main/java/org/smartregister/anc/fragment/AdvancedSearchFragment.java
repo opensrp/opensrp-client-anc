@@ -45,6 +45,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private ImageButton backButton;
     private ImageButton cancelButton;
+    private Button searchButton;
 
     private RadioButton outsideInside;
     private RadioButton myCatchment;
@@ -88,7 +89,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             switchViews(false);
-            updateSeachLimits();
+            updateSearchLimits();
             resetForm();
         }
     }
@@ -142,6 +143,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
         cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(registerActionHandler);
+        searchButton = view.findViewById(R.id.search);
 
         searchCriteria = view.findViewById(R.id.search_criteria);
         matchingResults = view.findViewById(R.id.matching_results);
@@ -229,6 +231,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
             cancelButton.setVisibility(View.GONE);
             backButton.setVisibility(View.VISIBLE);
+            searchButton.setVisibility(View.GONE);
 
             if (titleLabelView != null) {
                 titleLabelView.setText(getString(R.string.search_results));
@@ -246,6 +249,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
             backButton.setVisibility(View.GONE);
             cancelButton.setVisibility(View.VISIBLE);
+            searchButton.setVisibility(View.VISIBLE);
 
             if (titleLabelView != null) {
                 titleLabelView.setText(getString(R.string.advanced_search));
@@ -256,11 +260,10 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         }
     }
 
-    private void updateSeachLimits() {
+    private void updateSearchLimits() {
         if (Utils.isConnectedToNetwork(getActivity())) {
             outsideInside.setChecked(true);
             myCatchment.setChecked(false);
-
         } else {
             myCatchment.setChecked(true);
             outsideInside.setChecked(false);
