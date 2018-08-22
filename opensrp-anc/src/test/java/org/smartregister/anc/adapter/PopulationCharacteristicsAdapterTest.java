@@ -24,7 +24,7 @@ public class PopulationCharacteristicsAdapterTest extends BaseUnitTest {
     private PopulationCharacteristicsAdapter adapter;
 
     @Mock
-    List<Characteristic> data;
+    private List<Characteristic> data;
 
     @Before
     public void setUp() {
