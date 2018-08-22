@@ -154,8 +154,8 @@
 			                android:id="@+id/anc_id"
 			                android:layout_width="match_parent"
 			                android:layout_height="wrap_content"
-			                android:layout_toStartOf="@+id/qrCodeButton"
-			                android:layout_toLeftOf="@+id/qrCodeButton"
+			                android:layout_toStartOf="@+id/qrCodeImageView"
+			                android:layout_toLeftOf="@+id/qrCodeImageView"
 			                android:layout_alignParentStart="true"
 			                android:hint="@string/id_number"
 			                android:imeOptions="actionNext"
@@ -171,8 +171,8 @@
 			                android:layout_marginRight="0dp"/>
 
 	                <ImageView
-			                android:id="@+id/qrCodeButton"
-			                android:layout_width="52dp"
+			                android:id="@+id/qrCodeImageView"
+			                android:layout_width="85dp"
 			                android:layout_height="52dp"
 			                android:layout_alignParentEnd="true"
 			                android:background="@drawable/scan_qr_code_bg"

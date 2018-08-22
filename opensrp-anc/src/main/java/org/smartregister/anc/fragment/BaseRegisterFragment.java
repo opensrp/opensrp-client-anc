@@ -29,6 +29,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
+import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
@@ -66,6 +67,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
 
     protected RegisterFragmentContract.Presenter presenter;
+    
+    protected AdvancedSearchContract.View advancedSearchView;
 
     private LocationPickerView facilitySelection;
 
@@ -162,12 +165,20 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             getSearchView().setText(searchText);
         }
     }
-
+    
     public void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(TAG, "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
             filter(qrCode.replace("-", ""), "", getMainCondition(), true);
+            setAncId(qrCode);
         }
+    }
+    
+    public void setAncId(String qrCode){
+    	HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+	    android.support.v4.app.Fragment currentFragment =
+			    homeRegisterActivity.findFragmentByPosition(1);
+	    ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
 
     @Override
