@@ -19,25 +19,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
-
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
-import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
-import org.smartregister.anc.barcode.BarcodeIntentResult;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.listener.DatePickerListener;
 import org.smartregister.anc.presenter.AdvancedSearchPresenter;
 import org.smartregister.anc.provider.AdvancedSearchProvider;
-import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.util.Utils;
@@ -399,14 +391,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         super.recalculatePagination(matrixCursor);
         updateMatchingResults(totalcount);
     }
-	
-	public void onQRCodeSucessfullyScanned(String qrCode) {
-		Log.i(TAG, "QR code: " + qrCode);
-		if (StringUtils.isNotBlank(qrCode)) {
-		
-		}
-	}
-	
+    
 	public MaterialEditText getAncId() {
 		return ancId;
 	}
