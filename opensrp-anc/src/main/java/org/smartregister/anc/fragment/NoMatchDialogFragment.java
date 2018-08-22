@@ -25,18 +25,23 @@ public class NoMatchDialogFragment extends DialogFragment {
 		this.baseRegisterActivity = baseRegisterActivity;
 	}
 	
+	@Nullable
 	public static NoMatchDialogFragment launchDialog(BaseRegisterActivity activity, String dialogTag, String whoAncId) {
 		NoMatchDialogFragment noMatchDialogFragment = new NoMatchDialogFragment(activity, whoAncId);
-		FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();
-		Fragment prev = activity.getFragmentManager().findFragmentByTag(dialogTag);
-		if (prev != null) {
-			fragmentTransaction.remove(prev);
+		if (activity != null){
+			FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();
+			Fragment prev = activity.getFragmentManager().findFragmentByTag(dialogTag);
+			if (prev != null) {
+				fragmentTransaction.remove(prev);
+			}
+			fragmentTransaction.addToBackStack(null);
+			
+			noMatchDialogFragment.show(fragmentTransaction, dialogTag);
+			
+			return noMatchDialogFragment;
+		} else{
+			return null;
 		}
-		fragmentTransaction.addToBackStack(null);
-		
-		noMatchDialogFragment.show(fragmentTransaction, dialogTag);
-		
-		return noMatchDialogFragment;
 	}
 	
 	@Override
