@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="woman_filter">Filter</string>
+	<string name="search">Search</string>
+	<string name="register">Register</string>
+	<string name="library">Library</string>
+	<string name="me">Me</string>
 </resources>

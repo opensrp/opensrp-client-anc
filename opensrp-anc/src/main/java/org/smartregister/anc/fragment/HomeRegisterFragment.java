@@ -1,8 +1,9 @@
 package org.smartregister.anc.fragment;
 
-
+import android.support.annotation.ColorRes;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
@@ -60,8 +61,18 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
         }
+	
+	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+	        disableShiftMode(bottomNavigationView);
+            bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
+        }
 
     }
+	
+	private int fetchColor(@ColorRes int color) {
+		return ContextCompat.getColor(getContext(), color);
+	}
 
     @Override
     protected void onViewClicked(View view) {

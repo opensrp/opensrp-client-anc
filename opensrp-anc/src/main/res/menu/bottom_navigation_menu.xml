@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+			android:id="@+id/action_clients"
+			android:enabled="true"
+			android:icon="@drawable/ic_tune_grey"
+			android:title="@string/clients"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/action_search"
+			android:enabled="true"
+			android:icon="@drawable/qrcode"
+			android:title="@string/search"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/action_register"
+			android:enabled="true"
+			android:icon="@drawable/ic_african_girl"
+			android:title="@string/register"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/action_library"
+			android:enabled="true"
+			android:icon="@drawable/qrcode"
+			android:title="@string/library"
+			app:showAsAction="ifRoom"/>
+	<item
+			android:id="@+id/action_me"
+			android:enabled="true"
+			android:icon="@drawable/ic_african_girl"
+			android:title="@string/me"
+			app:showAsAction="always"/>
+</menu>

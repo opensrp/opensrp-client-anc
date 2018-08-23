@@ -1,9 +1,14 @@
 package org.smartregister.anc.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -15,6 +20,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -61,6 +67,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
+    protected BottomNavigationBarActionHandler bottomNavigationBarActionHandler = new BottomNavigationBarActionHandler();
 
     protected RegisterFragmentContract.Presenter presenter;
 
@@ -79,8 +86,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     private ProgressBar syncProgressBar;
     protected TextView filterStatus;
     protected TextView sortStatus;
-
-    private boolean globalQrSearch = false;
+	
+	private boolean globalQrSearch = false;
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -131,7 +138,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         activity.getSupportActionBar().setLogo(R.drawable.round_white_background);
         activity.getSupportActionBar().setDisplayUseLogoEnabled(false);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+        
         setupViews(view);
 
         return view;
@@ -229,7 +236,40 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         // Sort and Filter
         filterStatus = view.findViewById(R.id.filter_status);
         sortStatus = view.findViewById(R.id.sort_status);
+	
+	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+	        disableShiftMode(bottomNavigationView);
+	        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
+        }
     }
+	
+    
+    /*
+    * This solution is hacky of any app using the support library < 28.0.0-alpha1. When we upgrade to => 28.0.0-alpha1
+    * please use this
+    * bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED)
+    * */
+	@SuppressLint("RestrictedApi")
+	public static void disableShiftMode(BottomNavigationView view) {
+		BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+		try {
+			java.lang.reflect.Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+			shiftingMode.setAccessible(true);
+			shiftingMode.setBoolean(menuView, false);
+			shiftingMode.setAccessible(false);
+			for (int i = 0; i < menuView.getChildCount(); i++) {
+				BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+				item.setShiftingMode(false);
+				// set once again checked value, so view will be updated
+				item.setChecked(item.getItemData().isChecked());
+			}
+		} catch (NoSuchFieldException e) {
+			//Timber.e(e, "Unable to get shift mode field");
+		} catch (IllegalAccessException e) {
+			//Timber.e(e, "Unable to change value of shift mode");
+		}
+	}
 
     @Override
     protected void onResumption() {
@@ -526,24 +566,40 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-
                 ((HomeRegisterActivity) getActivity()).showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
 
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-
                 //Temporary for testing UI , To remove for real dynamic data
-
                 List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
-
                 ((HomeRegisterActivity) getActivity()).showAttentionFlagsDialog(dummyAttentionFlags);
-
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             } else {
                 onViewClicked(view);
             }
-
         }
+    }
+    
+    private class BottomNavigationBarActionHandler implements BottomNavigationView.OnNavigationItemSelectedListener {
+	
+	    @Override
+	    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+		    switch (item.getItemId()) {
+			    case R.id.action_clients:
+					break;
+			    case R.id.action_search:
+					break;
+			    case R.id.action_register:
+			    	break;
+			    case R.id.action_library:
+				    break;
+			    case R.id.action_me:
+				    break;
+			    default:
+			    	break;
+		    }
+		    return true;
+	    }
     }
 
 }

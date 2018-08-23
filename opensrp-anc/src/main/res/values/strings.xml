@@ -135,5 +135,9 @@
 
     <string name="record_birth">Record Birth</string>
 	<string name="woman_filter">Filter</string>
+	<string name="clients">Clients</string>
+    <string name="register">Register</string>
+    <string name="library">Library</string>
+    <string name="me">Me</string>
 
 </resources>

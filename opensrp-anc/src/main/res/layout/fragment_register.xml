@@ -71,4 +71,10 @@
             android:layout_height="@dimen/pagination_bar_height" />
     </LinearLayout>
 
+	<include
+			layout="@layout/bottom_navigation_bar"
+			style="@style/Widget.Design.BottomNavigationView"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"/>
+
 </LinearLayout>
