@@ -38,19 +38,15 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        View searchButton = view.findViewById(R.id.search_button);
-        if (searchButton != null) {
-            searchButton.setOnClickListener(registerActionHandler);
-        }
-
-        if (filterStatus != null) {
-            filterStatus.setOnClickListener(registerActionHandler);
-        }
-
         // QR Code
-        View qrCode = view.findViewById(R.id.scan_qr_code);
-        if (qrCode != null) {
-            qrCode.setOnClickListener(registerActionHandler);
+        View filterImage = view.findViewById(R.id.filter_image_view);
+        if (filterImage != null) {
+            filterImage.setOnClickListener(registerActionHandler);
+        }
+        
+        View filterText = view.findViewById(R.id.filter_text_view);
+        if(filterText != null) {
+        	filterText.setOnClickListener(registerActionHandler);
         }
 
         // Due Button
@@ -76,12 +72,11 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 
         switch (view.getId()) {
-            case R.id.scan_qr_code:
-                homeRegisterActivity.startQrCodeScanner();
+            case R.id.filter_image_view:
+                homeRegisterActivity.switchToFragment(2);
                 break;
-            case R.id.search_button:
-                homeRegisterActivity.switchToFragment(1);
-                break;
+	        case R.id.filter_text_view:
+	        	homeRegisterActivity.switchToFragment(2);
             case R.id.filter_status:
                 homeRegisterActivity.switchToFragment(2);
                 break;

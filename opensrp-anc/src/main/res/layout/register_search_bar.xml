@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/ec_main_header_search_layout_height"
         android:layout_marginLeft="@dimen/register_search_bar_margin"
-        android:layout_marginRight="@dimen/register_search_bar_margin"
+        android:layout_marginRight="@dimen/search_bar_min_margin"
         android:layout_weight="1.24">
 
         <EditText
@@ -20,13 +20,13 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="0dp"
-            android:background="@android:color/white"
+            android:background="@drawable/grey_edit_text_shape"
             android:ellipsize="end"
             android:hint="@string/str_search_hint"
             android:maxLines="1"
-            android:minWidth="@dimen/ec_main_header_search_box_width"
+            android:minWidth="100dp"
             android:padding="@dimen/register_search_bar_padding"
-            android:textColor="@color/light_grey_text"
+            android:textColor="@color/white"
             android:textColorHint="@color/search_hint_white"
             android:textSize="@dimen/default_font_size_search_bar" />
 
@@ -43,38 +43,37 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/search_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/ec_main_header_search_layout_height"
-        android:layout_marginLeft="@dimen/register_search_bar_margin"
+        android:layout_marginLeft="@dimen/search_bar_min_margin"
+        android:layout_marginStart="@dimen/search_bar_min_margin"
         android:layout_marginRight="@dimen/register_search_bar_min_margin"
+        android:layout_marginEnd="@dimen/register_search_bar_min_margin"
         android:layout_weight="0.38">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
-            android:background="@drawable/scan_qr_code_bg"
-            android:padding="@dimen/register_search_bar_button_padding"
-            android:src="@drawable/ic_icon_search" />
-    </LinearLayout>
+                android:id="@+id/filter_image_view"
+                android:layout_width="43dp"
+                android:layout_height="@dimen/ec_main_header_search_layout_height"
+                android:background="@drawable/transparent_gray_background"
+                android:padding="@dimen/register_search_bar_button_min_padding"
+                android:adjustViewBounds="false"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_tune_grey"/>
 
-    <LinearLayout
-        android:id="@+id/scan_qr_code"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/ec_main_header_search_layout_height"
-        android:layout_marginLeft="@dimen/register_search_bar_min_margin"
-        android:layout_marginRight="@dimen/register_search_bar_margin"
-        android:layout_weight="0.38">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ec_main_header_search_layout_height"
-            android:background="@drawable/scan_qr_code_bg"
-            android:padding="@dimen/register_search_bar_min_padding"
-            android:src="@drawable/ic_action_barcode" />
-
-    </LinearLayout>
-
-
+        <TextView
+                android:id="@+id/filter_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/filter"
+                android:textColor="@color/white"
+                android:textSize="@dimen/default_font_size_search_bar"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"/>
+    </RelativeLayout>
 </LinearLayout>

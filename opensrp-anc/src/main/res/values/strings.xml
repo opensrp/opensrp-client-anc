@@ -134,5 +134,6 @@
     <string name="red">RED</string>
 
     <string name="record_birth">Record Birth</string>
+	<string name="woman_filter">Filter</string>
 
 </resources>
