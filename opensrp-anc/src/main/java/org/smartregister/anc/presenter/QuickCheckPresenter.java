@@ -2,6 +2,7 @@ package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.QuickCheckContract;
+import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.domain.QuickCheckConfiguration;
 import org.smartregister.anc.interactor.QuickCheckInteractor;
 import org.smartregister.anc.util.ConfigHelper;
@@ -155,21 +156,21 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
         return null;
     }
 
-    private QuickCheck populate(String specify, Boolean proceed, Boolean refer) {
+    private QuickCheck populate(String specify, Boolean proceed, Boolean treat) {
         QuickCheck quickCheck = new QuickCheck();
-        quickCheck.selectedReason = selectedReason;
-        quickCheck.specificComplaints = specificComplaints;
-        quickCheck.selectedDangerSigns = selectedDangerSigns;
-        quickCheck.otherSpecify = specify;
+        quickCheck.setSelectedReason(selectedReason);
+        quickCheck.setSpecificComplaints(specificComplaints);
+        quickCheck.setSelectedDangerSigns(selectedDangerSigns);
+        quickCheck.setOtherSpecify(specify);
 
-        quickCheck.proceedToContact = getView().getString(R.string.proceed_to_normal_contact);
-        quickCheck.referAndCloseContact = getView().getString(R.string.refer_and_close_contact);
-        quickCheck.yes = getView().getString(R.string.yes);
-        quickCheck.no = getView().getString(R.string.no);
+        quickCheck.setProceedToContact(getView().getString(R.string.proceed_to_normal_contact));
+        quickCheck.setReferAndCloseContact(getView().getString(R.string.refer_and_close_contact));
+        quickCheck.setYes(getView().getString(R.string.yes));
+        quickCheck.setNo(getView().getString(R.string.no));
 
-        quickCheck.hasDangerSigns = hasDangerSigns();
-        quickCheck.isProceed = proceed;
-        quickCheck.isReferred = refer;
+        quickCheck.setHasDangerSigns(hasDangerSigns());
+        quickCheck.setProceedRefer(proceed);
+        quickCheck.setTreat(treat);
 
         return quickCheck;
     }
@@ -246,24 +247,4 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
         this.interactor = interactor;
     }
 
-    ////////////////////////////////////////////////////////////////
-    // Inner classes
-    ////////////////////////////////////////////////////////////////
-
-    public class QuickCheck {
-        public Field selectedReason;
-        public Set<Field> specificComplaints;
-        public Set<Field> selectedDangerSigns;
-        public String otherSpecify;
-
-        public String proceedToContact;
-        public String referAndCloseContact;
-        public String yes;
-        public String no;
-
-        public Boolean hasDangerSigns;
-        public Boolean isProceed;
-        public Boolean isReferred;
-
-    }
 }

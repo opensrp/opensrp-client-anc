@@ -15,6 +15,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.QuickCheckContract;
+import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.domain.QuickCheckConfiguration;
 import org.smartregister.anc.util.ConfigHelper;
 import org.smartregister.configurableviews.model.Field;
@@ -32,7 +33,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
     private QuickCheckContract.Interactor interactor;
 
     @Captor
-    private ArgumentCaptor<QuickCheckPresenter.QuickCheck> quickCheckArgumentCaptor;
+    private ArgumentCaptor<QuickCheck> quickCheckArgumentCaptor;
 
     private QuickCheckContract.Presenter presenter;
 
@@ -440,21 +441,21 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         quickCheckPresenter.proceedToNormalContact(specify);
 
-        QuickCheckPresenter.QuickCheck quickCheck = quickCheckArgumentCaptor.getValue();
+        QuickCheck quickCheck = quickCheckArgumentCaptor.getValue();
 
-        Assert.assertEquals(reason, quickCheck.selectedReason);
-        Assert.assertTrue(quickCheck.specificComplaints.isEmpty());
-        Assert.assertEquals(dangerSet, quickCheck.selectedDangerSigns);
-        Assert.assertEquals(specify, quickCheck.otherSpecify);
+        Assert.assertEquals(reason, quickCheck.getSelectedReason());
+        Assert.assertTrue(quickCheck.getSpecificComplaints().isEmpty());
+        Assert.assertEquals(dangerSet, quickCheck.getSelectedDangerSigns());
+        Assert.assertEquals(specify, quickCheck.getOtherSpecify());
 
-        Assert.assertEquals(context.getString(R.string.proceed_to_normal_contact), quickCheck.proceedToContact);
-        Assert.assertEquals(context.getString(R.string.refer_and_close_contact), quickCheck.referAndCloseContact);
-        Assert.assertEquals(context.getString(R.string.yes), quickCheck.yes);
-        Assert.assertEquals(context.getString(R.string.no), quickCheck.no);
+        Assert.assertEquals(context.getString(R.string.proceed_to_normal_contact), quickCheck.getProceedToContact());
+        Assert.assertEquals(context.getString(R.string.refer_and_close_contact), quickCheck.getReferAndCloseContact());
+        Assert.assertEquals(context.getString(R.string.yes), quickCheck.getYes());
+        Assert.assertEquals(context.getString(R.string.no), quickCheck.getNo());
 
-        Assert.assertFalse(quickCheck.hasDangerSigns);
-        Assert.assertTrue(quickCheck.isProceed);
-        Assert.assertNull(quickCheck.isReferred);
+        Assert.assertFalse(quickCheck.getHasDangerSigns());
+        Assert.assertTrue(quickCheck.getProceedRefer());
+        Assert.assertNull(quickCheck.getTreat());
 
     }
 
@@ -489,21 +490,21 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         quickCheckPresenter.referAndCloseContact(specify, true);
 
-        QuickCheckPresenter.QuickCheck quickCheck = quickCheckArgumentCaptor.getValue();
+        QuickCheck quickCheck = quickCheckArgumentCaptor.getValue();
 
-        Assert.assertEquals(reason, quickCheck.selectedReason);
-        Assert.assertTrue(quickCheck.specificComplaints.isEmpty());
-        Assert.assertEquals(dangerSet, quickCheck.selectedDangerSigns);
-        Assert.assertEquals(specify, quickCheck.otherSpecify);
+        Assert.assertEquals(reason, quickCheck.getSelectedReason());
+        Assert.assertTrue(quickCheck.getSpecificComplaints().isEmpty());
+        Assert.assertEquals(dangerSet, quickCheck.getSelectedDangerSigns());
+        Assert.assertEquals(specify, quickCheck.getOtherSpecify());
 
-        Assert.assertEquals(context.getString(R.string.proceed_to_normal_contact), quickCheck.proceedToContact);
-        Assert.assertEquals(context.getString(R.string.refer_and_close_contact), quickCheck.referAndCloseContact);
-        Assert.assertEquals(context.getString(R.string.yes), quickCheck.yes);
-        Assert.assertEquals(context.getString(R.string.no), quickCheck.no);
+        Assert.assertEquals(context.getString(R.string.proceed_to_normal_contact), quickCheck.getProceedToContact());
+        Assert.assertEquals(context.getString(R.string.refer_and_close_contact), quickCheck.getReferAndCloseContact());
+        Assert.assertEquals(context.getString(R.string.yes), quickCheck.getYes());
+        Assert.assertEquals(context.getString(R.string.no), quickCheck.getNo());
 
-        Assert.assertTrue(quickCheck.hasDangerSigns);
-        Assert.assertFalse(quickCheck.isProceed);
-        Assert.assertTrue(quickCheck.isReferred);
+        Assert.assertTrue(quickCheck.getHasDangerSigns());
+        Assert.assertFalse(quickCheck.getProceedRefer());
+        Assert.assertTrue(quickCheck.getTreat());
 
     }
 
@@ -538,21 +539,21 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         quickCheckPresenter.referAndCloseContact(specify, false);
 
-        QuickCheckPresenter.QuickCheck quickCheck = quickCheckArgumentCaptor.getValue();
+        QuickCheck quickCheck = quickCheckArgumentCaptor.getValue();
 
-        Assert.assertEquals(reason, quickCheck.selectedReason);
-        Assert.assertTrue(quickCheck.specificComplaints.isEmpty());
-        Assert.assertEquals(dangerSet, quickCheck.selectedDangerSigns);
-        Assert.assertEquals(specify, quickCheck.otherSpecify);
+        Assert.assertEquals(reason, quickCheck.getSelectedReason());
+        Assert.assertTrue(quickCheck.getSpecificComplaints().isEmpty());
+        Assert.assertEquals(dangerSet, quickCheck.getSelectedDangerSigns());
+        Assert.assertEquals(specify, quickCheck.getOtherSpecify());
 
-        Assert.assertEquals(context.getString(R.string.proceed_to_normal_contact), quickCheck.proceedToContact);
-        Assert.assertEquals(context.getString(R.string.refer_and_close_contact), quickCheck.referAndCloseContact);
-        Assert.assertEquals(context.getString(R.string.yes), quickCheck.yes);
-        Assert.assertEquals(context.getString(R.string.no), quickCheck.no);
+        Assert.assertEquals(context.getString(R.string.proceed_to_normal_contact), quickCheck.getProceedToContact());
+        Assert.assertEquals(context.getString(R.string.refer_and_close_contact), quickCheck.getReferAndCloseContact());
+        Assert.assertEquals(context.getString(R.string.yes), quickCheck.getYes());
+        Assert.assertEquals(context.getString(R.string.no), quickCheck.getNo());
 
-        Assert.assertTrue(quickCheck.hasDangerSigns);
-        Assert.assertFalse(quickCheck.isProceed);
-        Assert.assertFalse(quickCheck.isReferred);
+        Assert.assertTrue(quickCheck.getHasDangerSigns());
+        Assert.assertFalse(quickCheck.getProceedRefer());
+        Assert.assertFalse(quickCheck.getTreat());
 
     }
 

@@ -20,10 +20,10 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.AncJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.FormLocation;
+import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -586,14 +586,14 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    public static Event createQuickCheckEvent(AllSharedPreferences allSharedPreferences, QuickCheckPresenter.QuickCheck quickCheck, String baseEntityId) {
+    public static Event createQuickCheckEvent(AllSharedPreferences allSharedPreferences, QuickCheck quickCheck, String baseEntityId) {
 
         try {
 
-            Field selectedReason = quickCheck.selectedReason;
-            Set<Field> selectedComplaints = quickCheck.specificComplaints;
-            Set<Field> selectedDangerSigns = quickCheck.selectedDangerSigns;
-            String specify = quickCheck.otherSpecify;
+            Field selectedReason = quickCheck.getSelectedReason();
+            Set<Field> selectedComplaints = quickCheck.getSpecificComplaints();
+            Set<Field> selectedDangerSigns = quickCheck.getSelectedDangerSigns();
+            String specify = quickCheck.getOtherSpecify();
 
 
             Event event = (Event) new Event()
@@ -620,12 +620,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 event.addObs(createObs("danger_signs", SELECT_MULTIPLE_DATA_TYPE, selectedDangerSigns));
             }
 
-            if (quickCheck.hasDangerSigns) {
-                String value = quickCheck.isProceed ? quickCheck.proceedToContact : quickCheck.referAndCloseContact;
+            if (quickCheck.getHasDangerSigns()) {
+                String value = quickCheck.getProceedRefer() ? quickCheck.getProceedToContact() : quickCheck.getReferAndCloseContact();
                 event.addObs(createObs("danger_signs_proceed", SELECT_ONE_DATA_TYPE, value));
 
-                if (!quickCheck.isProceed) {
-                    value = quickCheck.isReferred ? quickCheck.yes : quickCheck.no;
+                if (!quickCheck.getProceedRefer()) {
+                    value = quickCheck.getTreat() ? quickCheck.getYes() : quickCheck.getNo();
                     event.addObs(createObs("danger_signs_treat", SELECT_ONE_DATA_TYPE, value));
                 }
             }

@@ -6,8 +6,8 @@ import android.util.Log;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.QuickCheckContract;
+import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -36,29 +36,25 @@ public class QuickCheckInteractor implements QuickCheckContract.Interactor {
     }
 
     @Override
-    public void saveQuickCheckEvent(final QuickCheckPresenter.QuickCheck quickCheck, final String baseEntityId, final QuickCheckContract.InteractorCallback callback) {
+    public void saveQuickCheckEvent(final QuickCheck quickCheck, final String baseEntityId, final QuickCheckContract.InteractorCallback callback) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
+                boolean isSaved = false;
                 try {
                     Event event = JsonFormUtils.createQuickCheckEvent(getAllSharedPreferences(), quickCheck, baseEntityId);
                     JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
                     getSyncHelper().addEvent(baseEntityId, eventJson);
-
-                    appExecutors.mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.quickCheckSaved(true);
-                        }
-                    });
+                    isSaved = true;
                 } catch (Exception e) {
                     Log.e(TAG, Log.getStackTraceString(e));
-
+                } finally {
+                    final boolean finalIsSaved = isSaved;
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
-                            callback.quickCheckSaved(false);
+                            callback.quickCheckSaved(finalIsSaved);
                         }
                     });
                 }

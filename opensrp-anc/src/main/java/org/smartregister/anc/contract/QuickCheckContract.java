@@ -2,6 +2,7 @@ package org.smartregister.anc.contract;
 
 import android.content.Context;
 
+import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.domain.QuickCheckConfiguration;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.configurableviews.model.Field;
@@ -62,7 +63,7 @@ public interface QuickCheckContract {
 
     interface Interactor {
 
-        void saveQuickCheckEvent(QuickCheckPresenter.QuickCheck quickCheck, String baseEntityId, InteractorCallback callback);
+        void saveQuickCheckEvent(QuickCheck quickCheck, String baseEntityId, InteractorCallback callback);
 
     }
 
