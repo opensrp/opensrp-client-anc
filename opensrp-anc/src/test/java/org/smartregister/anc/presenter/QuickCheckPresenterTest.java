@@ -375,7 +375,6 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
     @Test
     public void testRemoveFromDangerSignList() {
-        String specifyOther = context.getString(R.string.complaint_other_specify);
         Field dangerSignToRemove = new Field("Danger Sign To Remove", "dbAlias");
         Set<Field> set = new HashSet<>();
         set.add(dangerSignToRemove);

@@ -4,10 +4,7 @@ import android.content.Context;
 
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.domain.QuickCheckConfiguration;
-import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.configurableviews.model.Field;
-
-import java.util.Set;
 
 
 public interface QuickCheckContract {

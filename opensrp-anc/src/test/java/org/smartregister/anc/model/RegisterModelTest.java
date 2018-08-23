@@ -316,7 +316,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
         Pair<Client, Event> pair = registerModel.processRegistration(jsonString);
 
-        Mockito.verify(allSharedPreferences, Mockito.times(4)).fetchRegisteredANM();
+        Mockito.verify(allSharedPreferences, Mockito.times(2)).fetchRegisteredANM();
         Mockito.verify(allSharedPreferences).fetchDefaultLocalityId(providerId);
         Mockito.verify(allSharedPreferences).fetchDefaultTeam(providerId);
         Mockito.verify(allSharedPreferences).fetchDefaultTeamId(providerId);

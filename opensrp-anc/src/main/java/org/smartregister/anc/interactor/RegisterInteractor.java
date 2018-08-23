@@ -1,5 +1,6 @@
 package org.smartregister.anc.interactor;
 
+import android.content.ContentValues;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import android.util.Pair;
@@ -10,12 +11,14 @@ import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.domain.UniqueId;
+import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -106,7 +109,52 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             @Override
             public void run() {
 
-                JsonFormUtils.saveRemovedFromANCRegister(getAllSharedPreferences(), getSyncHelper(), getAllCommonsRepository(), closeFormJsonString, providerId);
+                try {
+
+                    Triple<Boolean, Event, Event> triple = JsonFormUtils.saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
+
+                    if (triple == null) {
+                        return;
+                    }
+
+                    boolean isDeath = triple.getLeft();
+                    Event event = triple.getMiddle();
+                    Event updateChildDetailsEvent = triple.getRight();
+
+                    String baseEntityId = event.getBaseEntityId();
+
+                    //Update client to deceased
+                    JSONObject client = getSyncHelper().getClient(baseEntityId);
+                    if (isDeath) {
+                        client.put(Constants.JSON_FORM_KEY.DEATH_DATE, Utils.getTodaysDate());
+                        client.put(Constants.JSON_FORM_KEY.DEATH_DATE_APPROX, false);
+                    }
+                    JSONObject attributes = client.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
+                    attributes.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
+                    client.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
+                    getSyncHelper().addClient(baseEntityId, client);
+
+                    //Add Remove Event for child to flag for Server delete
+                    JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                    getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
+
+                    //Update Child Entity to include death date
+                    JSONObject eventJsonUpdateChildEvent = new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
+                    getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
+
+                    //Update REGISTER and FTS Tables
+                    if (getAllCommonsRepository() != null) {
+                        ContentValues values = new ContentValues();
+                        values.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
+                        getAllCommonsRepository().update(DBConstants.WOMAN_TABLE_NAME, values, baseEntityId);
+                        getAllCommonsRepository().updateSearch(baseEntityId);
+
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "", e);
+                } finally {
+                    Utils.postStickyEvent(new PatientRemovedEvent());
+                }
             }
         };
 

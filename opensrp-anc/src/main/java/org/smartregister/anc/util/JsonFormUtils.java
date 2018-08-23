@@ -451,29 +451,26 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static void saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences,
-                                                  ECSyncHelper syncHelper, AllCommonsRepository allCommonsRepository,
-                                                  String jsonString, String providerId) {
+    public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(
+            AllSharedPreferences allSharedPreferences,
+            String jsonString, String providerId) {
 
         try {
-            boolean isDeath = false;
 
+            boolean isDeath = false;
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 
             if (!registrationFormParams.getLeft()) {
-                return;
+                return null;
             }
 
             JSONObject jsonForm = registrationFormParams.getMiddle();
             JSONArray fields = registrationFormParams.getRight();
 
-
             String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
             JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
-
             String encounterLocation = null;
-
 
             try {
                 encounterLocation = metadata.getString(Constants.JSON_FORM_KEY.ENCOUNTER_LOCATION);
@@ -535,55 +532,24 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
 
+            //Update Child Entity to include death date
+            Event updateChildDetailsEvent = (Event) new Event()
+                    .withBaseEntityId(entityId) //should be different for main and subform
+                    .withEventDate(encounterDate)
+                    .withEventType(Constants.EventType.UPDATE_REGISTRATION)
+                    .withLocationId(encounterLocation)
+                    .withProviderId(providerId)
+                    .withEntityType(DBConstants.WOMAN_TABLE_NAME)
+                    .withFormSubmissionId(generateRandomUUIDString())
+                    .withDateCreated(new Date());
+            JsonFormUtils.tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
 
-            if (event != null) {
-                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-
-                //Update client to deceased
-                JSONObject client = syncHelper.getClient(eventJson.getString(ClientProcessor.baseEntityIdJSONKey));
-                if (isDeath) {
-                    client.put(Constants.JSON_FORM_KEY.DEATH_DATE, Utils.getTodaysDate());
-                    client.put(Constants.JSON_FORM_KEY.DEATH_DATE_APPROX, false);
-                }
-                JSONObject attributes = client.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
-                attributes.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
-                client.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
-                syncHelper.addClient(entityId, client);
-
-                //Add Remove Event for child to flag for Server delete
-                syncHelper.addEvent(event.getBaseEntityId(), eventJson);
-
-                //Update Child Entity to include death date
-                Event updateChildDetailsEvent = (Event) new Event()
-                        .withBaseEntityId(entityId) //should be different for main and subform
-                        .withEventDate(encounterDate)
-                        .withEventType(Constants.EventType.UPDATE_REGISTRATION)
-                        .withLocationId(encounterLocation)
-                        .withProviderId(providerId)
-                        .withEntityType(DBConstants.WOMAN_TABLE_NAME)
-                        .withFormSubmissionId(generateRandomUUIDString())
-                        .withDateCreated(new Date());
-                JsonFormUtils.tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
-                JSONObject eventJsonUpdateChildEvent = new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
-
-                syncHelper.addEvent(entityId, eventJsonUpdateChildEvent); //Add event to flag server update
-
-                //Update REGISTER and FTS Tables
-                if (allCommonsRepository != null) {
-                    ContentValues values = new ContentValues();
-                    values.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
-                    allCommonsRepository.update(DBConstants.WOMAN_TABLE_NAME, values, entityId);
-                    allCommonsRepository.updateSearch(entityId);
-
-                }
-            }
+            return Triple.of(isDeath, event, updateChildDetailsEvent);
 
         } catch (Exception e) {
             Log.e(TAG, "", e);
-        } finally {
-
-            Utils.postStickyEvent(new PatientRemovedEvent());
         }
+        return null;
     }
 
     public static Event createQuickCheckEvent(AllSharedPreferences allSharedPreferences, QuickCheck quickCheck, String baseEntityId) {
