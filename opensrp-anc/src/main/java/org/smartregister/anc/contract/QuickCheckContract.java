@@ -16,11 +16,9 @@ public interface QuickCheckContract {
 
         QuickCheckConfiguration getConfig();
 
-        Set<Field> currentComplaintsOrDangerSigns(boolean isDangerSign);
-
         boolean containsComplaintOrDangerSign(Field field, boolean isDangerSign);
 
-        void addToComplaintsOrDangerList(Field field, boolean isChecked, boolean isDangerSign);
+        void modifyComplaintsOrDangerList(Field field, boolean isChecked, boolean isDangerSign);
 
         void proceedToNormalContact(String specify);
 

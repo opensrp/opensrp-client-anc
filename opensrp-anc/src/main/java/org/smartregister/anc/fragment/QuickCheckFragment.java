@@ -479,7 +479,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     Object tag = v.getTag();
                     if (tag != null && tag instanceof Field) {
                         Field currentField = (Field) tag;
-                        presenter.addToComplaintsOrDangerList(currentField, isChecked, isDangerSign);
+                        presenter.modifyComplaintsOrDangerList(currentField, isChecked, isDangerSign);
                     }
                 }
             });

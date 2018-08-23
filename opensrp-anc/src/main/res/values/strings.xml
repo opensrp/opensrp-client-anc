@@ -209,6 +209,7 @@
     <string name="validation_no_reason_selected">Please select a reason for coming to facility</string>
     <string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
     <string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
+    <string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
 
     <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
 

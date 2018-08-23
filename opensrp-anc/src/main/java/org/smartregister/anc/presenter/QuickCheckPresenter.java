@@ -32,6 +32,11 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
     @Override
     public void setReason(Field reason) {
+        if (reason == null) {
+            getView().displayToast(R.string.validation_no_reason_selected);
+            return;
+        }
+
         this.selectedReason = reason;
         if (reason.getDisplayName().equals(getView().getString(R.string.specific_complaint))) {
             getView().displayComplaintLayout();
@@ -53,18 +58,13 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
     }
 
     @Override
-    public Set<Field> currentComplaintsOrDangerSigns(boolean isDangerSign) {
-        return isDangerSign ? this.selectedDangerSigns : this.specificComplaints;
-    }
-
-    @Override
     public boolean containsComplaintOrDangerSign(Field field, boolean isDangerSign) {
         Set<Field> currentList = currentComplaintsOrDangerSigns(isDangerSign);
         return currentList.contains(field);
     }
 
     @Override
-    public void addToComplaintsOrDangerList(Field field, boolean isChecked, boolean isDangerSign) {
+    public void modifyComplaintsOrDangerList(Field field, boolean isChecked, boolean isDangerSign) {
         Set<Field> currentList = currentComplaintsOrDangerSigns(isDangerSign);
 
         if (isChecked) {
@@ -98,7 +98,7 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
                 currentList.add(field);
             }
         } else {
-            if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
+            if (!isDangerSign && field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
                 getView().hideSpecifyEditText();
             }
 
@@ -109,30 +109,25 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
     @Override
     public void proceedToNormalContact(String specify) {
-        if (selectedReason == null) {
-            getView().displayToast(R.string.validation_no_reason_selected);
+        boolean proceed = true;
+
+        if (hasValidationErrors(proceed)) {
             return;
         }
 
-        if (selectedReason.getDisplayName().equals(getView().getString(R.string.specific_complaint)) && specificComplaints.isEmpty()) {
-            getView().displayToast(R.string.validation_no_specific_complaint);
-            return;
-        }
-
-        if (selectedDangerSigns.isEmpty()) {
-            getView().displayToast(R.string.validation_no_danger_sign);
-            return;
-        }
-
-        QuickCheck quickCheck = populate(specify, true, null);
-
+        QuickCheck quickCheck = populate(specify, proceed, null);
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, this);
 
     }
 
     @Override
     public void referAndCloseContact(String specify, Boolean referred) {
-        QuickCheck quickCheck = populate(specify, false, referred);
+        boolean proceed = false;
+        if (hasValidationErrors(proceed)) {
+            return;
+        }
+
+        QuickCheck quickCheck = populate(specify, proceed, referred);
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, this);
     }
 
@@ -145,6 +140,10 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
     public void quickCheckSaved(boolean saved) {
         getView().displayToast(R.string.proceed_to_normal_contact);
         getView().dismiss();
+    }
+
+    private Set<Field> currentComplaintsOrDangerSigns(boolean isDangerSign) {
+        return isDangerSign ? this.selectedDangerSigns : this.specificComplaints;
     }
 
     private Field getField(Set<Field> set, String displayName) {
@@ -176,15 +175,38 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
     }
 
     private boolean hasDangerSigns() {
-        if (selectedDangerSigns == null) {
-            return false;
-        } else if (selectedDangerSigns.size() == 1) {
-            Field field = selectedDangerSigns.iterator().next();
-            return !field.getDisplayName().equals(getView().getString(R.string.danger_none));
-
+        for (Field dangerSign : selectedDangerSigns) {
+            if (dangerSign.getDisplayName().equals(getView().getString(R.string.danger_none))) {
+                return false;
+            }
         }
-        return true;
 
+        return true;
+    }
+
+    private boolean hasValidationErrors(boolean proceed) {
+
+        if (selectedReason == null) {
+            getView().displayToast(R.string.validation_no_reason_selected);
+            return true;
+        }
+
+        if (selectedReason.getDisplayName().equals(getView().getString(R.string.specific_complaint)) && specificComplaints.isEmpty()) {
+            getView().displayToast(R.string.validation_no_specific_complaint);
+            return true;
+        }
+
+        if (selectedDangerSigns.isEmpty()) {
+            getView().displayToast(R.string.validation_no_danger_sign);
+            return true;
+        }
+
+        if (!proceed && getField(selectedDangerSigns, getView().getString(R.string.danger_none)) != null) {
+            getView().displayToast(R.string.validation_no_valid_danger_sign);
+            return true;
+        }
+
+        return false;
     }
 
     private QuickCheckContract.View getView() {
@@ -193,6 +215,40 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
         else
             return null;
     }
+
+    // Test methods
+
+    public void setConfig(QuickCheckConfiguration config) {
+        this.config = config;
+    }
+
+    public void setSpecificComplaints(Set<Field> specificComplaints) {
+        this.specificComplaints = specificComplaints;
+    }
+
+    public Set<Field> getSpecificComplaints() {
+        return specificComplaints;
+    }
+
+    public void setSelectedDangerSigns(Set<Field> selectedDangerSigns) {
+        this.selectedDangerSigns = selectedDangerSigns;
+    }
+
+    public Set<Field> getSelectedDangerSigns() {
+        return selectedDangerSigns;
+    }
+
+    public void setSelectedReason(Field selectedReason) {
+        this.selectedReason = selectedReason;
+    }
+
+    public void setInteractor(QuickCheckContract.Interactor interactor) {
+        this.interactor = interactor;
+    }
+
+    ////////////////////////////////////////////////////////////////
+    // Inner classes
+    ////////////////////////////////////////////////////////////////
 
     public class QuickCheck {
         public Field selectedReason;
