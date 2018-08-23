@@ -28,8 +28,6 @@ public class RegisterFragmentContract {
 
         void updateSearchBarHint(String searchBarText);
 
-        void updateInitialsText(String initials);
-
         Context getContext();
 
         String getString(int resId);
@@ -48,8 +46,6 @@ public class RegisterFragmentContract {
         void processViewConfigurations();
 
         void initializeQueries(String mainCondition);
-
-        void updateInitials();
 
         void startSync();
 

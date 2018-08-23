@@ -7,8 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -19,11 +17,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.github.ybq.android.spinkit.style.FadingCircle;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
@@ -78,7 +75,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
 
 
-    private TextView initialsTextView;
+    private ImageView qrCodeScanImageView,womanSync;
     private ProgressBar syncProgressBar;
     protected TextView filterStatus;
     protected TextView sortStatus;
@@ -182,35 +179,45 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         setServiceModeViewDrawableRight(null);
 
         // Initials
-        initialsTextView = view.findViewById(R.id.name_initials);
-        if (initialsTextView != null) {
-            initialsTextView.setOnClickListener(new View.OnClickListener() {
+        qrCodeScanImageView = view.findViewById(R.id.scanQrCode);
+        if (qrCodeScanImageView != null) {
+            qrCodeScanImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-                    if (!drawer.isDrawerOpen(GravityCompat.START)) {
-                        drawer.openDrawer(GravityCompat.START);
-                    }
+                    HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+	                if (homeRegisterActivity != null) {
+		                homeRegisterActivity.startQrCodeScanner();
+	                }
                 }
             });
         }
-        presenter.updateInitials();
+        
+        //Sync
+	    womanSync = view.findViewById(R.id.woman_sync);
+        if(womanSync != null) {
+	        womanSync.setOnClickListener(new View.OnClickListener() {
+	        	@Override
+		        public void onClick(View view) {
+	        		//Todo implement sync
+		        }
+	        });
+        }
 
         View topLeftLayout = view.findViewById(R.id.top_left_layout);
         if (topLeftLayout != null) {
             topLeftLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    initialsTextView.performLongClick();
+                    qrCodeScanImageView.performLongClick();
                 }
             });
         }
 
-        // Location
+        /*// Location
         facilitySelection = view.findViewById(R.id.facility_selection);
         if (facilitySelection != null) {
             facilitySelection.init();
-        }
+        }*/
 
         // Progress bar
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
@@ -258,13 +265,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
-    }
-
-    @Override
-    public void updateInitialsText(String initials) {
-        if (initialsTextView != null) {
-            initialsTextView.setText(initials);
-        }
     }
 
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
@@ -468,15 +468,15 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             if (syncProgressBar != null) {
                 syncProgressBar.setVisibility(View.VISIBLE);
             }
-            if (initialsTextView != null) {
-                initialsTextView.setVisibility(View.GONE);
+            if (qrCodeScanImageView != null) {
+                qrCodeScanImageView.setVisibility(View.GONE);
             }
         } else {
             if (syncProgressBar != null) {
                 syncProgressBar.setVisibility(View.GONE);
             }
-            if (initialsTextView != null) {
-                initialsTextView.setVisibility(View.VISIBLE);
+            if (qrCodeScanImageView != null) {
+                qrCodeScanImageView.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -77,14 +77,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     }
 
     @Override
-    public void updateInitials() {
-        String initials = model.getInitials();
-        if (initials != null) {
-            getView().updateInitialsText(initials);
-        }
-    }
-
-    @Override
     public void startSync() {
         //ServiceTools.startSyncService(getActivity());
     }
