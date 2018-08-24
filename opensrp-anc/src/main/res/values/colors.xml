@@ -48,4 +48,7 @@
 
     <color name="radio_dark_grey">#999999</color>
     <color name="radio_light_blue">#1a93d2</color>
+
+    <color name="quick_check_red">#EC5B47</color>
+    <color name="refer_close_red">#BF271B</color>
 </resources>

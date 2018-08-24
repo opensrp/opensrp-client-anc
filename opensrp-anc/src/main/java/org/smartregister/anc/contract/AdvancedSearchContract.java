@@ -4,7 +4,7 @@ import org.smartregister.domain.Response;
 
 import java.util.Map;
 
-public class AdvancedSearchContract {
+public interface AdvancedSearchContract {
 
     public interface Presenter extends RegisterFragmentContract.Presenter {
         void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal);

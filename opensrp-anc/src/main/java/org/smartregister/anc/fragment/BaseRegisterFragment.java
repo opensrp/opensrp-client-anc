@@ -456,7 +456,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                Utils.hideKeyboard(getActivity());
+                Utils.hideKeyboard(getActivity(), v);
                 return true;
             }
             return false;

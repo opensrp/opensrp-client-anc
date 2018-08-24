@@ -89,4 +89,13 @@
     <dimen name="attention_flag_dialog_dot_left_margin">12dp</dimen>
 
 
+    <dimen name="quick_check_padding">20dp</dimen>
+    <dimen name="quick_check_drawable_padding">10dp</dimen>
+    <dimen name="quick_check_title_text_size">18sp</dimen>
+    <dimen name="quick_check_text_size">16sp</dimen>
+    <dimen name="quick_check_item_padding">5dp</dimen>
+
+    <dimen name="referral_dialog_padding">20dp</dimen>
+    <dimen name="referral_dialog_title_text_size">22sp</dimen>
+    <dimen name="referral_dialog_text_size">16sp</dimen>
 </resources>

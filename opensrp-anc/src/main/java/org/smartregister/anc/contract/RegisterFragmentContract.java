@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class RegisterFragmentContract {
+public interface RegisterFragmentContract {
 
-    public interface View {
+    interface View {
 
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
 
@@ -46,7 +46,7 @@ public class RegisterFragmentContract {
         void showNotFoundPopup(String whoAncId);
     }
 
-    public interface Presenter {
+    interface Presenter {
 
         void processViewConfigurations();
 
@@ -63,7 +63,7 @@ public class RegisterFragmentContract {
         AdvancedMatrixCursor getMatrixCursor();
     }
 
-    public interface Model {
+    interface Model {
 
         RegisterConfiguration defaultRegisterConfiguration();
 
