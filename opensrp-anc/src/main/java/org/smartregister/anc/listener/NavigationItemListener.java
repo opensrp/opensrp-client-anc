@@ -34,9 +34,12 @@ public class NavigationItemListener implements View.OnClickListener {
         } else if (id == R.id.counseling_resources) {
             // TODO go to counseling resources page
         } else if (id == R.id.site_characteristics) {
+
             // TODO go to site characteristics page
         } else if (id == R.id.population_characteristics) {
+
             context.startActivity(new Intent(context, PopulationCharacteristicsActivity.class));
+
         } else if (id == R.id.sync_data) {
             // TODO start sync service
             //ServiceTools.startSyncService(context.getApplicationContext());

@@ -1,7 +1,6 @@
 package org.smartregister.anc.util;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,7 +20,6 @@ import org.smartregister.anc.activity.AncJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.domain.QuickCheck;
-import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.view.LocationPickerView;
@@ -29,14 +27,12 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
-import org.smartregister.sync.ClientProcessor;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -50,6 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -647,6 +644,47 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public static void launchSiteCharacteristicsForm(Activity activity) {
+        try {
+            Intent intent = new Intent(activity, AncJsonFormActivity.class);
+
+            JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
+            if (form != null) {
+                form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
+                activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public static Map<String, String> processSiteCharacteristics(String jsonString) {
+        try {
+
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+
+            if (!registrationFormParams.getLeft()) {
+                return null;
+            }
+
+            Map<String, String> settings = new HashMap<>();
+            JSONArray fields = registrationFormParams.getRight();
+
+            for (int i = 0; i < fields.length(); i++) {
+                settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+
+            }
+
+            return settings;
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
+            return null;
+
         }
     }
 }

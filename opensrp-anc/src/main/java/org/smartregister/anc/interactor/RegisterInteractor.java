@@ -27,6 +27,7 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by keyman 27/06/2018.
@@ -159,6 +160,11 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
+    public void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap) {
+        Utils.showShortToast(AncApplication.getInstance().getApplicationContext(), siteCharacteristicsSettingsMap.toString());
     }
 
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {

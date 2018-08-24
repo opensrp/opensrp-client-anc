@@ -35,11 +35,13 @@ public class Constants {
         public static final String UPDATE_REGISTRATION = "Update ANC Registration";
         public static final String QUICK_CHECK = "Quick Check";
         public static final String CLOSE = "ANC Close";
+        public static final String SITE_CHARACTERISTICS = "Site Characteristics";
     }
 
     public static class JSON_FORM {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
+        public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
     }
 
     public static class JSON_FORM_KEY {

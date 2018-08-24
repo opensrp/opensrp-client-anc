@@ -63,6 +63,11 @@ public class RegisterModel implements RegisterContract.Model {
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
+    @Override
+    public Map<String, String> processSiteCharacteristics(String jsonString) {
+        return JsonFormUtils.processSiteCharacteristics(jsonString);
+    }
+
     private FormUtils getFormUtils() {
         if (formUtils == null) {
             try {

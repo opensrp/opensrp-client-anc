@@ -1,0 +1,186 @@
+{
+  "count": "1",
+  "encounter_type": "Site Characteristics",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Site Characteristics",
+    "fields": [
+      {
+        "key": "label_site_ipv_assess",
+        "type": "label",
+        "text": "1. Are all of the following in place at your facility:",
+        "text_size": "24px",
+        "text_color": "black"
+      },
+      {
+        "key": "label_site_ipv_assess_sub_info",
+        "type": "label",
+        "text": " a. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \n\nb. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\n\nc. A private setting;\n\nd. A way to ensure confidentiality;\n\ne. Time to allow for appropriate disclosure; and\n\nf. A system for referral in place. ",
+        "text_size": "18px",
+        "text_color": "black"
+      },
+      {
+        "key": "site_ipv_assess",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "e6799d64-d10d-4011-b8c2-0e4d4a3f65ce",
+            "text": "Yes"
+          },
+          {
+            "key": "13037147-1769-4735-90a7-b9b310d128b8",
+            "text": "No"
+          }
+        ],
+        "value": "",
+        "v_required": {
+          "value": false,
+          "err": "Please select where stock was issued"
+        }
+      },
+      {
+        "key": "label_site_anc_hiv",
+        "type": "label",
+        "text": "2. Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?",
+        "text_size": "24px",
+        "text_color": "black"
+      },
+      {
+        "key": "site_anc_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "e6799d64-d10d-4011-b8c2-0e4d4a3f65ce",
+            "text": "Yes"
+          },
+          {
+            "key": "13037147-1769-4735-90a7-b9b310d128b8",
+            "text": "No"
+          }
+        ],
+        "value": false,
+        "v_required": {
+          "value": true,
+          "err": "Please select where stock was issued"
+        }
+      },
+      {
+        "key": "label_site_ultrasound",
+        "type": "label",
+        "text": "3. Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?",
+        "text_size": "24px",
+        "text_color": "black"
+      },
+      {
+        "key": "site_ultrasound",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "e6799d64-d10d-4011-b8c2-0e4d4a3f65ce",
+            "text": "Yes"
+          },
+          {
+            "key": "13037147-1769-4735-90a7-b9b310d128b8",
+            "text": "No"
+          }
+        ],
+        "value": false,
+        "v_required": {
+          "value": true,
+          "err": "Please select where stock was issued"
+        }
+      },
+      {
+        "key": "label_site_bp_tool",
+        "type": "label",
+        "text": "4. Does your facility use an automated blood pressure (BP) measurement tool?",
+        "text_size": "24px",
+        "text_color": "black"
+      },
+      {
+        "key": "site_bp_tool",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "e6799d64-d10d-4011-b8c2-0e4d4a3f65ce",
+            "text": "Yes"
+          },
+          {
+            "key": "13037147-1769-4735-90a7-b9b310d128b8",
+            "text": "No"
+          }
+        ],
+        "value": false,
+        "v_required": {
+          "value": true,
+          "err": "Please select where stock was issued"
+        }
+      }
+    ]
+  }
+}
