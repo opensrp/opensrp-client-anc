@@ -103,7 +103,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
         }
     }
 
-    protected <T> void updateFilterList(final View view, final List<Field> filterList) {
+    protected void updateFilterList(final View view, final List<Field> filterList) {
 
         if (filterList == null) {
             return;
@@ -138,7 +138,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
             }
         });
 
-        builderSingle.setNegativeButton("DONE", new DialogInterface.OnClickListener() {
+        builderSingle.setNegativeButton(getString(R.string.done), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -235,7 +235,6 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
                                 presenter.getFilterList().remove(currentField);
                             }
                         }
-
                     }
                 }
             });

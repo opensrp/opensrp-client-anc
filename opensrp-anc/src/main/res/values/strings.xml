@@ -68,6 +68,7 @@
     <string name="filter">FILTER</string>
     <string name="clear_filters">CLEAR FILTERS</string>
     <string name="apply">APPLY</string>
+    <string name="done">DONE</string>
     <string name="has_tasks_due">Has tasks due</string>
     <string name="risky_pregnancy">Risky pregnancy</string>
     <string name="syphilis_positive">Syphilis pregnancy</string>
@@ -134,5 +135,86 @@
     <string name="red">RED</string>
 
     <string name="record_birth">Record Birth</string>
+
+    <!-- Quick Check -->
+    <string name="quick_check">Quick Check</string>
+
+    <string name="reason_for"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
+
+    <string name="first_contact">First contact</string>
+    <string name="scheduled_contact">Scheduled contact</string>
+    <string name="specific_complaint">Specific complaint</string>
+
+    <string name="specific_complaints"><font fgcolor="black">Specific complaint(s) </font><font fgcolor="red">*</font></string>
+
+    <string name="abnormal_discharge">Abnormal vaginal discharge</string>
+    <string name="altered_skin_color">Altered skin colour</string>
+    <string name="changes_in_bp">Changes in blood pressure</string>
+    <string name="constipation">Constipation</string>
+    <string name="contractions">Contractions</string>
+    <string name="cough">Cough</string>
+    <string name="depressive_anxious">Depressive / anxious</string>
+    <string name="dizziness">Dizziness</string>
+    <string name="domestic_violence">Domestic violence</string>
+    <string name="extreme_pelvic_pain">Extreme pelvic pain - can\'t walk (symphysis pubis dysfunction)</string>
+    <string name="fever">Fever</string>
+    <string name="full_abdominal_pain">Full abdominal pain</string>
+    <string name="flu_symptoms">Flu symptoms</string>
+    <string name="fluid_loss">Fluid loss</string>
+    <string name="headache">Headache</string>
+    <string name="heartburn">Heartburn</string>
+    <string name="leg_cramps">Leg cramps</string>
+    <string name="leg_pain">Leg pain</string>
+    <string name="leg_redness">Leg redness</string>
+    <string name="low_back_pelvic_pain">Low back and pelvic pain</string>
+    <string name="nausea_vomiting_diarrhea">Nausea / vomiting / diarrhea</string>
+    <string name="no_fetal_movement">No fetal movement</string>
+    <string name="oedema">Oedema</string>
+    <string name="other_bleeding">Other bleeding</string>
+    <string name="other_pain">Other pain</string>
+    <string name="other_psychological_symptoms">Other psychological symptoms</string>
+    <string name="other_skin_disorder">Other skin disorder</string>
+    <string name="other_types_of_voilence">Other types of violence</string>
+    <string name="dysuria">Pain during urination (dysuria)</string>
+    <string name="pruritus">Pruritus</string>
+    <string name="reduced_fetal_movement">Reduced or poor fetal movement</string>
+    <string name="shortness_of_breath">Shortness of breath</string>
+    <string name="tiredness">Tiredness</string>
+    <string name="trauma">Trauma</string>
+    <string name="bleeding">Vaginal bleeding</string>
+    <string name="visual_disturbance">Visual disturbance</string>
+    <string name="complaint_other_specify">Other (specify)</string>
+
+    <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
+
+    <string name="danger_none">None</string>
+    <string name="danger_bleeding">Bleeding vaginally</string>
+    <string name="central_cyanosis">Central cyanosis</string>
+    <string name="convulsing">Convulsing</string>
+    <string name="danger_fever">Fever</string>
+    <string name="headache_visual_disturbance">Headache and visual disturbance</string>
+    <string name="imminent_delivery">Imminent delivery</string>
+    <string name="labour">Labour</string>
+    <string name="looks_very_ill">Looks very ill</string>
+    <string name="severe_vomiting">Severe vomiting</string>
+    <string name="severe_pain">Severe pain</string>
+    <string name="severe_abdominal_pain">Severe abdominal pain</string>
+    <string name="unconscious">Unconscious</string>
+
+    <string name="specify">Specify</string>
+
+    <string name="proceed_to_normal_contact">Proceed to normal contact</string>
+    <string name="refer_and_close_contact">Refer and close contact</string>
+
+    <string name="validation_no_reason_selected">Please select a reason for coming to facility</string>
+    <string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
+    <string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
+    <string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
+
+    <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
+
+    <string name="any_treatment">Any treatment given\nbefore referral?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

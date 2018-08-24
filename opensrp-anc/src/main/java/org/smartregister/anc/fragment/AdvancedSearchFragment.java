@@ -223,6 +223,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     @Override
     public void switchViews(boolean showList) {
         if (showList) {
+            org.smartregister.anc.util.Utils.hideKeyboard(getActivity());
+
             advancedSearchForm.setVisibility(View.GONE);
             listViewLayout.setVisibility(View.VISIBLE);
             clientsView.setVisibility(View.VISIBLE);
