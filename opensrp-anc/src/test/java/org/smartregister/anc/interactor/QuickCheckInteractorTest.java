@@ -100,7 +100,7 @@ public class QuickCheckInteractorTest extends BaseUnitTest {
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, callback);
 
         Mockito.verify(syncHelper, Mockito.timeout(ASYNC_TIMEOUT)).addEvent(Mockito.eq(baseEntityId), jsonArgumentCaptor.capture());
-        Mockito.verify(callback, Mockito.timeout(ASYNC_TIMEOUT)).quickCheckSaved(true);
+        Mockito.verify(callback, Mockito.timeout(ASYNC_TIMEOUT)).quickCheckSaved(true, true);
 
         JSONObject eventJson = jsonArgumentCaptor.getValue();
         Assert.assertNotNull(eventJson);
@@ -194,7 +194,7 @@ public class QuickCheckInteractorTest extends BaseUnitTest {
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, callback);
 
         Mockito.verify(syncHelper, Mockito.timeout(ASYNC_TIMEOUT)).addEvent(Mockito.eq(baseEntityId), jsonArgumentCaptor.capture());
-        Mockito.verify(callback, Mockito.timeout(ASYNC_TIMEOUT)).quickCheckSaved(true);
+        Mockito.verify(callback, Mockito.timeout(ASYNC_TIMEOUT)).quickCheckSaved(false, true);
 
         JSONObject eventJson = jsonArgumentCaptor.getValue();
         Assert.assertNotNull(eventJson);
@@ -292,7 +292,7 @@ public class QuickCheckInteractorTest extends BaseUnitTest {
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, callback);
 
         Mockito.verify(syncHelper, Mockito.timeout(ASYNC_TIMEOUT)).addEvent(Mockito.eq(baseEntityId), jsonArgumentCaptor.capture());
-        Mockito.verify(callback, Mockito.timeout(ASYNC_TIMEOUT)).quickCheckSaved(true);
+        Mockito.verify(callback, Mockito.timeout(ASYNC_TIMEOUT)).quickCheckSaved(false, true);
 
         JSONObject eventJson = jsonArgumentCaptor.getValue();
         Assert.assertNotNull(eventJson);

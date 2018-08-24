@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.ContactActivity;
 import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.util.Constants;
@@ -271,6 +273,13 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         return getActivity();
     }
 
+    @Override
+    public void proceedToContact(String baseEntityId) {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        getActivity().startActivity(intent);
+    }
+
     private void initializePresenter() {
         presenter = new QuickCheckPresenter(this);
     }
@@ -318,6 +327,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private String getSpecifyText() {
         return specifyEditText != null ? specifyEditText.getText().toString() : null;
     }
+
 
     ////////////////////////////////////////////////////////////////
     // Inner classes

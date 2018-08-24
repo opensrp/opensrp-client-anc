@@ -88,6 +88,15 @@
     <dimen name="attention_flag_dialog_title_margin_bottom">12dp</dimen>
     <dimen name="attention_flag_dialog_dot_left_margin">12dp</dimen>
 
+    <dimen name="contact_name_text_size">22sp</dimen>
+    <dimen name="contact_detail_text_size">18sp</dimen>
+    <dimen name="contact_default_text_size">15sp</dimen>
+    <dimen name="contact_default_padding">20dp</dimen>
+    <dimen name="contact_medium_padding">15dp</dimen>
+    <dimen name="contact_drawable_padding">10dp</dimen>
+    <dimen name="contact_small_padding">5dp</dimen>
+    <dimen name="contact_layout_margin">7dp</dimen>
+    <dimen name="contact_elevation">5dp</dimen>
 
     <dimen name="quick_check_padding">20dp</dimen>
     <dimen name="quick_check_drawable_padding">10dp</dimen>

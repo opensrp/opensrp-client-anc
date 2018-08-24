@@ -51,4 +51,6 @@
 
     <color name="quick_check_red">#EC5B47</color>
     <color name="refer_close_red">#BF271B</color>
+
+    <color name="translucent_white">#ccffffff</color>
 </resources>

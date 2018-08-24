@@ -210,11 +210,22 @@
     <string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
     <string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
     <string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
+    <string name="validation_unable_to_save_quick_check">Unable to save quick check event</string>
 
     <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
 
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <!-- contact -->
+    <string name="profile">Profile</string>
+    <string name="symptoms_follow_up">Symptoms &amp; Follow-up</string>
+    <string name="physical_exam">Physical Exam</string>
+    <string name="tests">Tests</string>
+    <string name="counselling_treatment">Counselling &amp; Treatment</string>
+
+    <string name="finalize">Finalize</string>
+    <string name="required_fields">%1$d required fields</string>
 
 </resources>
