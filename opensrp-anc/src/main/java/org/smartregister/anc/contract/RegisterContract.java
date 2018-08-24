@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * Created by keyamn on 27/06/2018.
  */
-public class RegisterContract {
-    public interface Presenter {
+public interface RegisterContract {
+    interface Presenter {
 
         void registerViewConfigurations(List<String> viewIdentifiers);
 
@@ -36,7 +36,7 @@ public class RegisterContract {
         void onDestroy(boolean isChangingConfiguration);
     }
 
-    public interface View {
+    interface View {
 
         Context getContext();
 
@@ -61,7 +61,7 @@ public class RegisterContract {
         void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags);
     }
 
-    public interface Model {
+    interface Model {
         void registerViewConfigurations(List<String> viewIdentifiers);
 
         void unregisterViewConfiguration(List<String> viewIdentifiers);
@@ -76,7 +76,7 @@ public class RegisterContract {
                                  String currentLocationId) throws Exception;
     }
 
-    public interface Interactor {
+    interface Interactor {
         void onDestroy(boolean isChangingConfiguration);
 
         void getNextUniqueId(Triple<String, String, String> triple, RegisterContract.InteractorCallBack callBack);

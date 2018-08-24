@@ -24,6 +24,7 @@ import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.fragment.ProfileContactsFragment;
 import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
+import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
@@ -46,6 +47,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private String womanPhoneNumber;
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
+
+    public static final String DIALOG_TAG = "PROFILE_DIALOG_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +117,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                             launchPhoneDialer(womanPhoneNumber);
                             break;
                         case "Start Contact":
-                            Utils.showShortToast(ProfileActivity.this, textClicked);
+                            QuickCheckFragment.launchDialog(ProfileActivity.this, DIALOG_TAG);
                             break;
                         case "Close ANC Record":
                             JsonFormUtils.launchANCCloseForm(ProfileActivity.this);

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/toolbar_quick_check" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginLeft="@dimen/quick_check_padding"
+                android:layout_marginRight="@dimen/quick_check_padding"
+                android:gravity="center_vertical"
+                android:text="@string/reason_for"
+                android:textSize="@dimen/quick_check_text_size"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reason_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical" />
+
+            <LinearLayout
+                android:id="@+id/complaint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginLeft="@dimen/quick_check_padding"
+                    android:layout_marginRight="@dimen/quick_check_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/specific_complaints"
+                    android:textSize="@dimen/quick_check_text_size"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/complaint_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+                <EditText
+                    android:id="@+id/specify"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginLeft="@dimen/quick_check_padding"
+                    android:layout_marginRight="@dimen/quick_check_padding"
+                    android:gravity="center_vertical"
+                    android:hint="@string/specify"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="@dimen/quick_check_text_size"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/danger_sign_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginLeft="@dimen/quick_check_padding"
+                    android:layout_marginRight="@dimen/quick_check_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/danger_signs"
+                    android:textSize="@dimen/quick_check_text_size"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/danger_sign_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/navigation_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginLeft="@dimen/quick_check_drawable_padding"
+        android:layout_marginRight="@dimen/quick_check_padding"
+        android:layout_marginTop="@dimen/quick_check_drawable_padding"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/refer"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/refer_close_background"
+            android:paddingEnd="@dimen/quick_check_drawable_padding"
+            android:paddingStart="@dimen/quick_check_drawable_padding"
+            android:text="@string/refer_and_close_contact"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="@dimen/quick_check_text_size"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/proceed"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/quick_check_item_padding"
+            android:background="@color/transparent"
+            android:paddingEnd="@dimen/quick_check_drawable_padding"
+            android:paddingStart="@dimen/quick_check_drawable_padding"
+            android:text="@string/proceed_to_normal_contact"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/button_navy_blue"
+            android:textSize="@dimen/quick_check_text_size" />
+    </LinearLayout>
+</LinearLayout>
