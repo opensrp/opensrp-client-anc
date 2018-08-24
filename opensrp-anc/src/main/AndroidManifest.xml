@@ -61,6 +61,20 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+	    <activity
+			    android:name=".activity.MeActivity"
+			    android:configChanges="keyboardHidden|orientation|screenSize"
+			    android:launchMode="singleTask"
+			    android:screenOrientation="portrait"
+			    android:theme="@style/AncAppTheme.NoActionBar" />
+
+	    <activity
+			    android:name=".activity.LibraryActivity"
+			    android:configChanges="keyboardHidden|orientation|screenSize"
+			    android:launchMode="singleTask"
+			    android:screenOrientation="portrait"
+			    android:theme="@style/AncAppTheme.NoActionBar" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

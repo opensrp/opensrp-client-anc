@@ -139,5 +139,6 @@
     <string name="register">Register</string>
     <string name="library">Library</string>
     <string name="me">Me</string>
+	<string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
 </resources>

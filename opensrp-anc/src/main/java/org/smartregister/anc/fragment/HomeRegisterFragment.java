@@ -85,9 +85,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
 	        case R.id.filter_text_view:
 	        	homeRegisterActivity.switchToFragment(2);
 	        	break;
-            case R.id.filter_status:
-                homeRegisterActivity.switchToFragment(2);
-                break;
             default:
                 break;
         }

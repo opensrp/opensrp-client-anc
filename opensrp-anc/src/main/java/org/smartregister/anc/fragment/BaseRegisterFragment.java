@@ -233,9 +233,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             syncProgressBar.setIndeterminateDrawable(circle);
         }
 
-        // Sort and Filter
+       /* // Sort and Filter
         filterStatus = view.findViewById(R.id.filter_status);
-        sortStatus = view.findViewById(R.id.sort_status);
+        sortStatus = view.findViewById(R.id.sort_status);*/
 	
 	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
@@ -584,12 +584,16 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 	
 	    @Override
 	    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+		    HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 		    switch (item.getItemId()) {
 			    case R.id.action_clients:
+			    	homeRegisterActivity.getRegisterFragment();
 					break;
 			    case R.id.action_search:
+			    	homeRegisterActivity.switchToFragment(1);
 					break;
 			    case R.id.action_register:
+			    	startRegistration();
 			    	break;
 			    case R.id.action_library:
 				    break;
