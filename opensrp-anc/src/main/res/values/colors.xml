@@ -55,4 +55,7 @@
 	<color name="bottom_nav_bar_background">#FAFAFA</color>
 	<color name="bottom_nav_bar_unselected_background">#CBCBCB</color>
 	<color name="bottom_nav_bar_selected_background">#288CC4</color>
+
+    <color name="quick_check_red">#EC5B47</color>
+    <color name="refer_close_red">#BF271B</color>
 </resources>
