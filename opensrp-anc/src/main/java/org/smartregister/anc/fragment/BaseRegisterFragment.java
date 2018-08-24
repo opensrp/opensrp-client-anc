@@ -82,7 +82,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
 
 
-    private ImageView qrCodeScanImageView,womanSync;
+    private ImageView qrCodeScanImageView;
     private ProgressBar syncProgressBar;
     protected TextView filterStatus;
     protected TextView sortStatus;
@@ -200,7 +200,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
         
         //Sync
-	    womanSync = view.findViewById(R.id.woman_sync);
+        ImageView womanSync = view.findViewById(R.id.woman_sync);
         if(womanSync != null) {
 	        womanSync.setOnClickListener(new View.OnClickListener() {
 	        	@Override

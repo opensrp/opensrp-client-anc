@@ -69,10 +69,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         }
 
     }
-	
-	private int fetchColor(@ColorRes int color) {
-		return ContextCompat.getColor(getContext(), color);
-	}
 
     @Override
     protected void onViewClicked(View view) {
@@ -88,6 +84,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
                 break;
 	        case R.id.filter_text_view:
 	        	homeRegisterActivity.switchToFragment(2);
+	        	break;
             case R.id.filter_status:
                 homeRegisterActivity.switchToFragment(2);
                 break;
