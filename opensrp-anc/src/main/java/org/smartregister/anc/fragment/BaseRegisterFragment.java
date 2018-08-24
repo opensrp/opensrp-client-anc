@@ -81,7 +81,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     private ImageView qrCodeScanImageView;
     private ProgressBar syncProgressBar;
-    protected TextView filterStatus;
+    protected TextView headerTextDisplay;
     protected TextView sortStatus;
 	
 	private boolean globalQrSearch = false;
@@ -137,7 +137,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         
         setupViews(view);
-
         return view;
     }
 
@@ -233,6 +232,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
        /* // Sort and Filter
         filterStatus = view.findViewById(R.id.filter_status);
         sortStatus = view.findViewById(R.id.sort_status);*/
+       headerTextDisplay = view.findViewById(R.id.filter_status);
 	
 	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
@@ -285,19 +285,20 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.mainCondition = mainConditionString;
 
         countExecute();
-
+        
         if (qrCode && StringUtils.isNotBlank(filterString) && totalcount == 0 && NetworkUtils.isNetworkAvailable()) {
             globalQrSearch = true;
             presenter.searchGlobally(filterString);
         } else {
             filterandSortExecute();
         }
+        
     }
 
     @Override
     public void updateFilterAndFilterStatus(String filterText, String sortText) {
-        if (filterStatus != null) {
-            filterStatus.setText(Html.fromHtml(filterText));
+        if (headerTextDisplay != null) {
+	        headerTextDisplay.setText(Html.fromHtml(filterText));
         }
 
         if (sortStatus != null) {

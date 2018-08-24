@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-    <include
-        layout="@layout/register_sort_filter_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+	<include
+			layout="@layout/register_sort_filter_bar"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"/>
 
     <LinearLayout
         android:id="@+id/clients_header_layout"
