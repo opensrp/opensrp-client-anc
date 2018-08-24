@@ -1,4 +1,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:color="@color/white" android:state_enabled="true"/>
-	<item android:color="@color/primary" android:state_enabled="false"/>
+	<item android:color="@color/lighter_grey_text" android:state_enabled="true"/>
+	<item android:color="@color/bottom_nav_bar_selected_background" android:state_enabled="false"/>
 </selector>

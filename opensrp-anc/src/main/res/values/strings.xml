@@ -65,7 +65,7 @@
     <string name="anc">WHO ANC</string>
     <string name="error_unable_to_start_form">An error occurred when starting the form</string>
     <string name="search_name_or_id">Search name or ID</string>
-    <string name="filter">FILTER</string>
+    <string name="filter">Filter</string>
     <string name="clear_filters">CLEAR FILTERS</string>
     <string name="apply">APPLY</string>
     <string name="has_tasks_due">Has tasks due</string>

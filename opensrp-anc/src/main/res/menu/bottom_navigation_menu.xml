@@ -10,19 +10,19 @@
 	<item
 			android:id="@+id/action_search"
 			android:enabled="true"
-			android:icon="@drawable/qrcode"
+			android:icon="@drawable/ic_icon_search"
 			android:title="@string/search"
 			app:showAsAction="ifRoom"/>
 	<item
 			android:id="@+id/action_register"
 			android:enabled="true"
-			android:icon="@drawable/ic_african_girl"
+			android:icon="@drawable/ic_icon_add"
 			android:title="@string/register"
 			app:showAsAction="ifRoom"/>
 	<item
 			android:id="@+id/action_library"
 			android:enabled="true"
-			android:icon="@drawable/qrcode"
+			android:icon="@drawable/ic_icon_open_book"
 			android:title="@string/library"
 			app:showAsAction="ifRoom"/>
 	<item

@@ -48,4 +48,11 @@
 
     <color name="radio_dark_grey">#999999</color>
     <color name="radio_light_blue">#1a93d2</color>
+    
+    <color name="search_bar_background_black">#2E383D</color>
+    <color name="search_textfield_background_grey">#4A5357</color>
+
+	<color name="bottom_nav_bar_background">#FAFAFA</color>
+	<color name="bottom_nav_bar_unselected_background">#CBCBCB</color>
+	<color name="bottom_nav_bar_selected_background">#288CC4</color>
 </resources>

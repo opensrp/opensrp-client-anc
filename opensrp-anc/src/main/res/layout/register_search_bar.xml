@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:layout_weight="2"
-    android:background="@color/search_bar_bg_dark_grey"
+    android:background="@color/search_bar_background_black"
     android:gravity="center_vertical">
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="@dimen/ec_main_header_search_layout_height"
         android:layout_marginLeft="@dimen/register_search_bar_margin"
-        android:layout_marginRight="@dimen/search_bar_min_margin"
+        android:layout_marginRight="@dimen/register_search_bar_max_margin"
         android:layout_weight="1.24">
 
         <EditText
@@ -49,7 +49,7 @@
         android:layout_height="@dimen/ec_main_header_search_layout_height"
         android:layout_marginLeft="@dimen/search_bar_min_margin"
         android:layout_marginStart="@dimen/search_bar_min_margin"
-        android:layout_marginRight="@dimen/register_search_bar_min_margin"
+        android:layout_marginRight="@dimen/register_search_bar_margin"
         android:layout_marginEnd="@dimen/register_search_bar_min_margin"
         android:layout_weight="0.38">
 
@@ -61,12 +61,14 @@
                 android:padding="@dimen/register_search_bar_button_min_padding"
                 android:adjustViewBounds="false"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_tune_grey"/>
+                android:src="@drawable/ic_icon_filter"/>
 
         <TextView
                 android:id="@+id/filter_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/filter_image_view"
+                android:layout_toRightOf="@+id/filter_image_view"
                 android:text="@string/filter"
                 android:textColor="@color/white"
                 android:textSize="@dimen/default_font_size_search_bar"

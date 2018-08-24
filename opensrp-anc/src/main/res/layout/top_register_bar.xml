@@ -20,7 +20,7 @@
 				android:layout_height="match_parent"
 				android:layout_margin="3dp"
 				android:gravity="center"
-				android:src="@drawable/ic_qrcode_white"
+				android:src="@drawable/ic_icon_qr_code"
 				android:layout_alignParentBottom="true"/>
 
 		<ProgressBar
@@ -73,7 +73,7 @@
 				android:layout_margin="3dp"
 				android:layout_alignParentEnd="true"
 				android:gravity="center"
-				android:src="@drawable/sync_white"
+				android:src="@drawable/ic_icon_synchronize"
 				android:layout_alignParentBottom="true"/>
 
 	</RelativeLayout>
