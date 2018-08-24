@@ -5,4 +5,9 @@
               android:layout_height="match_parent"
               tools:context=".activity.LibraryActivity">
 
+	<FrameLayout
+			android:id="@+id/fragment_library"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+	</FrameLayout>
 </LinearLayout>

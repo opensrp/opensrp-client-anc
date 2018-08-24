@@ -115,8 +115,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             }
 
         });
-
-        registerSideNav();
         initializePresenter();
         recordBirthAlertDialog = createAlertDialog();
 
@@ -150,34 +148,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             switchToBaseFragment();
 
         }
-    }
-
-    private void registerSideNav() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
-        BaseActivityToggle toggle = new BaseActivityToggle(this, drawer,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-            }
-        };
-
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationItemListener navigationItemListener = new NavigationItemListener(this);
-
-        drawer.findViewById(R.id.anc_register).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.counseling_resources).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.site_characteristics).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.sync_data).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.logout).setOnClickListener(navigationItemListener);
     }
 
     protected abstract void initializePresenter();

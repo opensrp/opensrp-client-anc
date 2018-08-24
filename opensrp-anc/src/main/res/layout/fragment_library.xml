@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/client_list_header_dark_grey"
                 android:orientation="vertical">
-	<include layout="@layout/toolbar_register" />
 
-	<LinearLayout
+	<RelativeLayout
+			android:id="@+id/fragment_library"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-		<TextView
-				android:id="@+id/library_placeholder"
-				android:text="Placeholder"
-				android:gravity="center"
-				android:layout_gravity="center"
+		<include layout="@layout/toolbar_register"/>
+		<LinearLayout
 				android:layout_width="match_parent"
-		          android:layout_height="wrap_content"/>
+				android:layout_height="match_parent">
 
-	</LinearLayout>
+			<TextView
+					android:id="@+id/library_placeholder"
+					android:text="Placeholder"
+					android:gravity="center"
+					android:layout_gravity="center"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
 
-	<include
-			layout="@layout/bottom_navigation_bar"
-			style="@style/Widget.Design.BottomNavigationView"
-			android:layout_gravity="end"
-			android:layout_alignParentBottom="true"
-			android:layout_height="?attr/actionBarSize"
-			android:layout_width="match_parent"/>
-
-</RelativeLayout>
+		</LinearLayout>
+		<include
+				layout="@layout/bottom_navigation_bar"
+				style="@style/Widget.Design.BottomNavigationView"
+				android:layout_gravity="end"
+				android:layout_alignParentBottom="true"
+				android:layout_height="?attr/actionBarSize"
+				android:layout_width="match_parent"/>
+	</RelativeLayout>
+</LinearLayout>

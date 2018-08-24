@@ -1,13 +1,9 @@
 package org.smartregister.anc.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.CursorLoader;
@@ -20,7 +16,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,7 +34,9 @@ import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.anc.util.BottomNavigationBarActionHandler;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DisableShitModeBottomNavigation;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
@@ -239,36 +236,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 	
 	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
-	        disableShiftMode(bottomNavigationView);
+	        DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
 	        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
         }
-    }
-	
-    
-    /*
-    * This solution is hacky of any app using the support library < 28.0.0-alpha1. When we upgrade to => 28.0.0-alpha1
-    * please use this
-    * bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED)
-    * */
-	@SuppressLint("RestrictedApi")
-	public static void disableShiftMode(BottomNavigationView view) {
-		BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
-		try {
-			java.lang.reflect.Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-			shiftingMode.setAccessible(true);
-			shiftingMode.setBoolean(menuView, false);
-			shiftingMode.setAccessible(false);
-			for (int i = 0; i < menuView.getChildCount(); i++) {
-				BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-				item.setShiftingMode(false);
-				// set once again checked value, so view will be updated
-				item.setChecked(item.getItemData().isChecked());
-			}
-		} catch (NoSuchFieldException e) {
-			//Timber.e(e, "Unable to get shift mode field");
-		} catch (IllegalAccessException e) {
-			//Timber.e(e, "Unable to change value of shift mode");
-		}
 	}
 
     @Override
@@ -579,33 +549,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             }
         }
     }
-    
-    private class BottomNavigationBarActionHandler implements BottomNavigationView.OnNavigationItemSelectedListener {
-	
-	    @Override
-	    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-		    HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-		    switch (item.getItemId()) {
-			    case R.id.action_clients:
-			    	homeRegisterActivity.getRegisterFragment();
-					break;
-			    case R.id.action_search:
-			    	homeRegisterActivity.switchToFragment(1);
-					break;
-			    case R.id.action_register:
-			    	startRegistration();
-			    	break;
-			    case R.id.action_library:
-				    break;
-			    case R.id.action_me:
-				    break;
-			    default:
-			    	break;
-		    }
-		    return true;
-	    }
-    }
-
 }
 
 

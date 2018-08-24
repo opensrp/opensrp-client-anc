@@ -53,9 +53,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 
     @Override
     protected void onResumption() {
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        View ancRegister = drawer.findViewById(R.id.anc_register);
-        ancRegister.setBackgroundColor(getResources().getColor(R.color.tintcolor));
     }
 
     @Override

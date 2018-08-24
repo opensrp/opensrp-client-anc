@@ -11,6 +11,4 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <include layout="@layout/nav_view_base" />
 </android.support.v4.widget.DrawerLayout>

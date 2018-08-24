@@ -1,14 +1,13 @@
 package org.smartregister.anc.fragment;
 
-import android.support.annotation.ColorRes;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
+import org.smartregister.anc.util.DisableShitModeBottomNavigation;
 import org.smartregister.anc.view.LocationPickerView;
 
 /**
@@ -64,7 +63,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
 	
 	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
-	        disableShiftMode(bottomNavigationView);
+	        DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
             bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
         }
 
