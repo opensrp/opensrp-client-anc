@@ -1,5 +1,6 @@
 package org.smartregister.anc.interactor;
 
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -29,7 +30,6 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
 
     @Test
     public void testSearch() {
-
         DristhiConfiguration configuration = Mockito.mock(DristhiConfiguration.class);
         HTTPAgent httpAgent = Mockito.mock(HTTPAgent.class);
 
@@ -43,21 +43,24 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
         editMap.put("one", "1");
         editMap.put("two", "2");
         editMap.put("three", "3");
+        editMap.put(BaseUnitTest.GLOBAL_IDENTIFIER, "OpenSRP_ID:" + BaseUnitTest.WHO_ANC_ID);
 
         String baseUrl = "https://baseurl.com";
         String payload = "PAYLOAD";
 
         Response<String> response = new Response<>(ResponseStatus.success, payload);
 
-        String fullURL = baseUrl + AdvancedSearchInteractor.SEARCH_URL + "?one=1&two=2&three=3";
+        String fullURL = baseUrl + AdvancedSearchInteractor.SEARCH_URL +
+		        "?identifier=OpenSRP_ID%3A12345678&one=1&two=2&three=3";
         Mockito.doReturn(baseUrl).when(configuration).dristhiBaseURL();
         Mockito.doReturn(response).when(httpAgent).fetch(fullURL);
+        Assert.assertNotNull(editMap.get(BaseUnitTest.GLOBAL_IDENTIFIER));
 
-        interactor.search(editMap, callBack);
+        interactor.search(editMap, callBack, BaseUnitTest.WHO_ANC_ID);
 
         Mockito.verify(configuration, Mockito.timeout(ASYNC_TIMEOUT)).dristhiBaseURL();
         Mockito.verify(httpAgent, Mockito.timeout(ASYNC_TIMEOUT)).fetch(fullURL);
-        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response);
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
     }
 
     @Test
@@ -84,11 +87,11 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
         Mockito.doReturn(baseUrl).when(configuration).dristhiBaseURL();
         Mockito.doReturn(response).when(httpAgent).fetch(fullURL);
 
-        interactor.search(editMap, callBack);
+        interactor.search(editMap, callBack, "");
 
         Mockito.verify(configuration, Mockito.timeout(ASYNC_TIMEOUT)).dristhiBaseURL();
         Mockito.verify(httpAgent, Mockito.timeout(ASYNC_TIMEOUT)).fetch(fullURL);
-        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response);
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onResultsFound(response, "");
     }
 
 }
