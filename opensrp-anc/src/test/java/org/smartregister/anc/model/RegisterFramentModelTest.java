@@ -7,6 +7,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.RegisterFragmentContract;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.repository.AllSharedPreferences;
@@ -222,7 +223,7 @@ public class RegisterFramentModelTest extends BaseUnitTest {
         Assert.assertEquals(1, editMap.size());
 
         //TODO Change to OpenSRP_ID
-        Assert.assertEquals("OpenSRP_ID:" + ancId, editMap.get(RegisterFramentModel.GLOBAL_IDENTIFIER));
+        Assert.assertEquals("OpenSRP_ID:" + ancId, editMap.get(Constants.GLOBAL_IDENTIFIER));
 
     }
 }

@@ -1,6 +1,7 @@
 package org.smartregister.anc.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.view.View;
 
 import org.smartregister.anc.R;
@@ -9,6 +10,8 @@ import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.view.LocationPickerView;
+
+import java.util.Objects;
 
 /**
  * Created by keyman on 26/06/2018.
@@ -89,4 +92,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
                 break;
         }
     }
+    
+    @SuppressLint("NewApi")
+    @Override
+    public void showNotFoundPopup(String whoAncId) {
+        NoMatchDialogFragment.launchDialog((BaseRegisterActivity)Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
+    }
+    
+    
 }
