@@ -154,8 +154,8 @@
 			                android:id="@+id/anc_id"
 			                android:layout_width="match_parent"
 			                android:layout_height="wrap_content"
-			                android:layout_toStartOf="@+id/qrCodeImageView"
-			                android:layout_toLeftOf="@+id/qrCodeImageView"
+			                android:layout_toStartOf="@+id/qrCodeButton"
+			                android:layout_toLeftOf="@+id/qrCodeButton"
 			                android:layout_alignParentStart="true"
 			                android:hint="@string/id_number"
 			                android:imeOptions="actionNext"
@@ -170,15 +170,21 @@
 			                app:met_singleLineEllipsis="true" android:layout_marginEnd="0dp"
 			                android:layout_marginRight="0dp"/>
 
-	                <ImageView
-			                android:id="@+id/qrCodeImageView"
-			                android:layout_width="85dp"
-			                android:layout_height="52dp"
-			                android:layout_alignParentEnd="true"
-			                android:background="@drawable/scan_qr_code_bg"
-			                android:padding="@dimen/register_search_bar_min_padding"
-			                android:src="@drawable/ic_action_barcode"
-			                android:contentDescription="@string/the_qr_code_scanner_button"/>
+	               <Button
+			               android:id="@+id/qrCodeButton"
+			               android:layout_alignParentRight="true"
+			               android:layout_alignParentEnd="true"
+			               android:text="@string/scan_qr_code"
+			               android:background="@color/primary"
+			               android:backgroundTint="@color/primary"
+			               android:textColor="@color/white"
+			               android:paddingLeft="@dimen/register_search_bar_min_margin"
+			               android:paddingStart="@dimen/register_search_bar_min_margin"
+			               android:paddingEnd="@dimen/register_search_bar_min_margin"
+			               android:paddingRight="@dimen/register_search_bar_min_margin"
+			               android:layout_width="85dp"
+			               android:layout_height="match_parent"/>
+
                 </RelativeLayout>
 
             <LinearLayout

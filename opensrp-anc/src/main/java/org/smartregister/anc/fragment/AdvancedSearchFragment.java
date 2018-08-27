@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
@@ -60,7 +59,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     private TextView searchCriteria;
     private TextView matchingResults;
     
-    private ImageView qrCodeImageView;
+    private Button qrCodeButton;
 
     private boolean listMode = false;
     private boolean isLocal = false;
@@ -145,7 +144,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(registerActionHandler);
         searchButton = view.findViewById(R.id.search);
-        qrCodeImageView = view.findViewById(R.id.qrCodeImageView);
+        qrCodeButton = view.findViewById(R.id.qrCodeButton);
 
         searchCriteria = view.findViewById(R.id.search_criteria);
         matchingResults = view.findViewById(R.id.matching_results);
@@ -221,7 +220,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
         search.setOnClickListener(registerActionHandler);
         
-        qrCodeImageView.setOnClickListener(new View.OnClickListener(){
+        qrCodeButton.setOnClickListener(new View.OnClickListener(){
 	        @Override
 	        public void onClick(View view) {
 		        if (getActivity() == null) {
