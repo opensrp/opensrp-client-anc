@@ -12,7 +12,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by keyamn on 27/06/2018.
@@ -35,8 +34,6 @@ public interface RegisterContract {
         void closeAncRecord(String jsonString);
 
         void onDestroy(boolean isChangingConfiguration);
-
-        void saveSiteCharacteristics(String jsonString);
     }
 
     interface View {
@@ -77,8 +74,6 @@ public interface RegisterContract {
 
         JSONObject getFormAsJson(String formName, String entityId,
                                  String currentLocationId) throws Exception;
-
-        Map<String, String> processSiteCharacteristics(String jsonString);
     }
 
     interface Interactor {
@@ -89,8 +84,6 @@ public interface RegisterContract {
         void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack);
 
         void removeWomanFromANCRegister(String closeFormJsonString, String providerId);
-
-        void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap);
 
     }
 

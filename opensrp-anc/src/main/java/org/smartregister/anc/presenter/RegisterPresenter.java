@@ -21,7 +21,6 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by keyamn on 27/06/2018.
@@ -157,12 +156,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             interactor = null;
             model = null;
         }
-    }
-
-    @Override
-    public void saveSiteCharacteristics(String jsonString) {
-        Map<String, String> settings = model.processSiteCharacteristics(jsonString);
-        interactor.saveSiteCharacteristics(settings);
     }
 
     private RegisterContract.View getView() {

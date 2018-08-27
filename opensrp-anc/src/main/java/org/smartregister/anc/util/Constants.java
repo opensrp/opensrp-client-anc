@@ -12,7 +12,6 @@ public class Constants {
     public static final int OPENMRS_UNIQUE_ID_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE;
     public static final int OPENMRS_UNIQUE_ID_SOURCE = BuildConfig.OPENMRS_UNIQUE_ID_SOURCE;
 
-    public static final String IS_REMOTE_LOGIN = "is_remote_login";
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
@@ -28,6 +27,13 @@ public class Constants {
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
+    }
+
+    public static class SITE_CHARACTERISTICS_KEY {
+        public static final String IPV_ASSESS = "site_ipv_assess";
+        public static final String HIV = "site_anc_hiv";
+        public static final String ULTRASOUND = "site_ultrasound";
+        public static final String BP_TOOL = "site_bp_tool";
     }
 
     public static final class EventType {
@@ -69,6 +75,7 @@ public class Constants {
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
+        public static final String TYPE = "type";
 
     }
 
@@ -76,6 +83,7 @@ public class Constants {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
         public static final String WHO_ANC_ID = "who_anc_id";
+        public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 
     public static class OPENMRS {

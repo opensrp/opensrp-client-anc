@@ -672,10 +672,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
             Map<String, String> settings = new HashMap<>();
-            JSONArray fields = registrationFormParams.getRight();
+            JSONArray fields = registrationFormParams.getMiddle().getJSONObject(JsonFormUtils.STEP1).getJSONArray(JsonFormUtils.FIELDS);
 
             for (int i = 0; i < fields.length(); i++) {
-                settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+                if (!"label".equals(fields.getJSONObject(i).getString(Constants.KEY.TYPE))) {
+                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+                }
 
             }
 

@@ -392,8 +392,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                     presenter.saveForm(jsonString, false);
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
                     presenter.closeAncRecord(jsonString);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.SITE_CHARACTERISTICS)) {
-                    presenter.saveSiteCharacteristics(jsonString);
                 }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));

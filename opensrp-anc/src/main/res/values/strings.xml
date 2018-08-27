@@ -137,9 +137,8 @@
     <string name="yellow">YELLOW</string>
     <string name="red">RED</string>
 
-    <string name="record_birth">Record Birth</string>
-	<string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
-
+    <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
+    <string name="record_birth">Record birth</string>
 
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
@@ -220,9 +219,11 @@
     <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
 
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
+    <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site charactersitcs.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="population_characteristics">Population Characteristics</string>
+    <string name="continue_">continue</string>
 
     <!-- contact -->
     <string name="profile">Profile</string>
