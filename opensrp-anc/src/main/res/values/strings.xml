@@ -228,4 +228,6 @@
     <string name="finalize">Finalize</string>
     <string name="required_fields">%1$d required fields</string>
 
+    <string name="view_anc_history">View Anc History</string>
+
 </resources>

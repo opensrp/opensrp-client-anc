@@ -53,4 +53,6 @@
     <color name="refer_close_red">#BF271B</color>
 
     <color name="translucent_white">#ccffffff</color>
+
+    <color name="view_history_blue">#1f8bc5</color>
 </resources>
