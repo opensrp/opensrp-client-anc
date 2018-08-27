@@ -391,8 +391,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         updateMatchingResults(totalcount);
     }
     
-	public MaterialEditText getAncId() {
-		return ancId;
+	@Override
+	public void showNotFoundPopup(String whoAncId) {
+		//Todo implement this
 	}
 	
 	@Override
@@ -471,5 +472,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         }
 
         return query;
+    }
+    
+    public EditText getAncId() {
+        return this.ancId;
     }
 }
