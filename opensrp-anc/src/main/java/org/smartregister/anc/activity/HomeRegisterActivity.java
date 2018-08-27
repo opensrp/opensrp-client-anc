@@ -24,7 +24,9 @@ import java.util.List;
  */
 
 public class HomeRegisterActivity extends BaseRegisterActivity {
-
+	
+	public static final int ADVANCED_SEARCH_POSITION = 1;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -73,4 +75,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
         mBaseFragment.updateSortAndFilter(filterList, sortField);
         switchToBaseFragment();
     }
+	
+	public void startAdvancedSearch() {
+		try {
+			mPager.setCurrentItem(ADVANCED_SEARCH_POSITION, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

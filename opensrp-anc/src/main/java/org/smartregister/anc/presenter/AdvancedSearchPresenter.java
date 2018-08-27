@@ -2,7 +2,6 @@ package org.smartregister.anc.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
-import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.model.AdvancedSearchModel;
 import org.smartregister.anc.util.DBConstants;
@@ -62,13 +61,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             getView().showProgressView();
             getView().switchViews(true);
 
-            interactor.search(editMap, this);
+            interactor.search(editMap, this,ancId);
 
         }
     }
 
     @Override
-    public void onResultsFound(Response<String> response) {
+    public void onResultsFound(Response<String> response, String ancId) {
         matrixCursor = model.createMatrixCursor(response);
 
         getView().recalculatePagination(matrixCursor);

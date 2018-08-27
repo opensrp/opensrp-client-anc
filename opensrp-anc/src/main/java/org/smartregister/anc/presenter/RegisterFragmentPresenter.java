@@ -1,6 +1,7 @@
 package org.smartregister.anc.presenter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
@@ -94,19 +95,24 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
         getView().showProgressView();
 
         Map<String, String> editMap = model.createEditMap(ancId);
-        interactor.search(editMap, this);
+        interactor.search(editMap, this, ancId);
     }
 
     @Override
-    public void onResultsFound(Response<String> response) {
-        matrixCursor = model.createMatrixCursor(response);
-
-        getView().recalculatePagination(matrixCursor);
-
-        getView().filterandSortInInitializeQueries();
-        getView().refresh();
-
-        getView().hideProgressView();
+    public void onResultsFound(Response<String> response, String ancId) {
+    	JSONArray jsonArray = model.getJsonArray(response);
+    	
+    	if (jsonArray == null || jsonArray.length() <= 0) {
+    		getView().showNotFoundPopup(ancId);
+    	} else {
+    		matrixCursor = model.createMatrixCursor(response);
+			
+    		getView().recalculatePagination(matrixCursor);
+			
+    		getView().filterandSortInInitializeQueries();
+    		getView().refresh();
+    		getView().hideProgressView();
+    	}
     }
 
     protected RegisterFragmentContract.View getView() {

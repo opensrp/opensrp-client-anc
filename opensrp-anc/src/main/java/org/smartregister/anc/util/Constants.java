@@ -21,6 +21,9 @@ public class Constants {
 
     public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
     public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
+    
+    public static final String GLOBAL_IDENTIFIER = "identifier";
+    public static final String ANC_ID = "ANC_ID";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -70,6 +73,7 @@ public class Constants {
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
+        public static final String WHO_ANC_ID = "who_anc_id";
     }
 
     public static class OPENMRS {

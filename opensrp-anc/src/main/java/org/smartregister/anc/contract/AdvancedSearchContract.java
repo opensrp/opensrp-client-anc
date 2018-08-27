@@ -26,11 +26,12 @@ public interface AdvancedSearchContract {
 
     }
 
-    interface Interactor {
-        void search(Map<String, String> editMap, AdvancedSearchContract.InteractorCallBack callBack);
+
+    public interface Interactor {
+        void search(Map<String, String> editMap, InteractorCallBack callBack, String ancId);
     }
 
-    interface InteractorCallBack {
-        void onResultsFound(Response<String> response);
+    public interface InteractorCallBack {
+        void onResultsFound(Response<String> response, String ancId);
     }
 }

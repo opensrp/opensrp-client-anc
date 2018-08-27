@@ -119,7 +119,7 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         Mockito.verify(model).createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         Mockito.verify(view).showProgressView();
         Mockito.verify(view).switchViews(true);
-        Mockito.verify(interactor).search(editMap, advancedSearchPresenter);
+        Mockito.verify(interactor).search(editMap, advancedSearchPresenter, ancId);
     }
 
     @Test
@@ -184,8 +184,7 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
 
-        advancedSearchPresenter.onResultsFound(response);
-
+        advancedSearchPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
         Mockito.verify(model).createMatrixCursor(response);
         Mockito.verify(view).recalculatePagination(matrixCursor);
         Mockito.verify(view).filterandSortInInitializeQueries();
