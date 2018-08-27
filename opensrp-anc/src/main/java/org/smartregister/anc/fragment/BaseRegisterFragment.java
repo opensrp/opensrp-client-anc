@@ -82,7 +82,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     private ImageView qrCodeScanImageView;
     private ProgressBar syncProgressBar;
     protected TextView headerTextDisplay;
-    protected TextView sortStatus;
+    protected TextView filterStatus;
 	
 	private boolean globalQrSearch = false;
 
@@ -218,7 +218,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
         /*// Location
         facilitySelection = view.findViewById(R.id.facility_selection);
-        if (facilitySelection != null) {
+        if (facilitySelection != null) {m
             facilitySelection.init();
         }*/
 
@@ -229,10 +229,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             syncProgressBar.setIndeterminateDrawable(circle);
         }
 
-       /* // Sort and Filter
+        // Sort and Filter
+        headerTextDisplay = view.findViewById(R.id.header_text_display);
         filterStatus = view.findViewById(R.id.filter_status);
-        sortStatus = view.findViewById(R.id.sort_status);*/
-       headerTextDisplay = view.findViewById(R.id.filter_status);
 	
 	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
@@ -301,8 +300,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 	        headerTextDisplay.setText(Html.fromHtml(filterText));
         }
 
-        if (sortStatus != null) {
-            sortStatus.setText(Html.fromHtml(totalcount + " patients " + sortText));
+        if (filterStatus != null) {
+            filterStatus.setText(Html.fromHtml(totalcount + " patients " + sortText));
         }
     }
 

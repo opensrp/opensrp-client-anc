@@ -222,5 +222,6 @@
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+	<string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
 </resources>
