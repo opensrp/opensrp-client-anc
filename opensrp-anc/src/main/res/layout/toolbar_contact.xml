@@ -64,7 +64,7 @@
                 android:text="@string/finalize"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="@color/white"
+                android:textColor="@color/finalize_color"
                 android:textSize="@dimen/contact_detail_text_size" />
 
         </RelativeLayout>
