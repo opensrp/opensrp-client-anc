@@ -11,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.LibraryContract;
+import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.presenter.LibraryPresenter;
 import org.smartregister.anc.util.DisableShitModeBottomNavigation;
 
-public class LibraryFragment extends Fragment implements LibraryContract.View {
+public class LibraryFragment extends Fragment implements LibraryContract.View, BottomNavigationView.OnNavigationItemSelectedListener{
 	private LibraryContract.Presenter presenter;
-	protected BottomNavigationBarActionHandler
-			bottomNavigationBarActionHandler = new BottomNavigationBarActionHandler();
+	private BottomNavigationListener bottomNavigationListener;
+	private BottomNavigationView bottomNavigationView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,10 +40,10 @@ public class LibraryFragment extends Fragment implements LibraryContract.View {
 	}
 	
 	private void setUpViews(View view) {
-		BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+		bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 		if (bottomNavigationView != null) {
 			DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
-			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
+			bottomNavigationListener = new BottomNavigationListener(this.getActivity());
 		}
 	}
 	
@@ -50,25 +51,7 @@ public class LibraryFragment extends Fragment implements LibraryContract.View {
 		presenter = new LibraryPresenter(this);
 	}
 	
-	private class BottomNavigationBarActionHandler implements BottomNavigationView.OnNavigationItemSelectedListener {
-		
-		@Override
-		public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-			switch (item.getItemId()) {
-				case R.id.action_clients:
-					break;
-				case R.id.action_search:
-					break;
-				case R.id.action_register:
-					break;
-				case R.id.action_library:
-					break;
-				case R.id.action_me:
-					break;
-				default:
-					break;
-			}
-			return true;
-		}
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+		return bottomNavigationListener.onNavigationItemSelected(item);
 	}
 }

@@ -1,13 +1,16 @@
 package org.smartregister.anc.fragment;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.annotation.SuppressLint;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MenuItem;
 import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
+import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.util.DisableShitModeBottomNavigation;
 import org.smartregister.anc.view.LocationPickerView;
@@ -18,8 +21,8 @@ import java.util.Objects;
  * Created by keyman on 26/06/2018.
  */
 
-public class HomeRegisterFragment extends BaseRegisterFragment {
-
+public class HomeRegisterFragment extends BaseRegisterFragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+	
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -64,12 +67,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
 	    if (attentionFlag != null) {
 		    attentionFlag.setOnClickListener(registerActionHandler);
 	    }
-	
-	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-	    if (bottomNavigationView != null) {
-		    DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
-		    bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
-	    }
     }
 
     @Override
@@ -97,6 +94,4 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment.launchDialog((BaseRegisterActivity)Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
-    
-    
 }

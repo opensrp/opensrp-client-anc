@@ -42,7 +42,6 @@ import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.listener.NavigationItemListener;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
