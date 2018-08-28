@@ -88,5 +88,13 @@ public class Constants {
     public static class BOOLEAN_INT {
         public static final int TRUE = 1;
     }
+    
+    public static final class IntentExtras {
+        public static final String METHOD_NAME = "method_name";
+        public static final String BASE_FRAGMENT = "base_fragment";
+        public static final String SWITCH_FRAGMENT = "switch_fragment";
+        public static final String START_REGISTRATION = "start_registration";
+        public static final String FRAGMENT_LOCATION = "fragment_location";
+    }
 
 }

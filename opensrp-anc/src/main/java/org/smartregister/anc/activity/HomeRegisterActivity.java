@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +12,8 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.fragment.LibraryFragment;
+import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
@@ -44,7 +47,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{new AdvancedSearchFragment(), new SortFilterFragment()};
+        return new Fragment[]{new AdvancedSearchFragment(), new SortFilterFragment(), new MeFragment(), new LibraryFragment()};
     }
 
     @Override
@@ -83,5 +86,24 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		switch (intent.getStringExtra(Constants.IntentExtras.METHOD_NAME)) {
+			case Constants.IntentExtras.BASE_FRAGMENT:
+				switchToBaseFragment();
+				break;
+			case Constants.IntentExtras.START_REGISTRATION:
+				startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
+				break;
+			case Constants.IntentExtras.SWITCH_FRAGMENT:
+				switchToFragment(intent.getIntExtra(Constants.IntentExtras.FRAGMENT_LOCATION,0));
+				break;
+			default:
+				break;
+		}
 	}
 }

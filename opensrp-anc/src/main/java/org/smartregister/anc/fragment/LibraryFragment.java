@@ -44,6 +44,7 @@ public class LibraryFragment extends Fragment implements LibraryContract.View, B
 		if (bottomNavigationView != null) {
 			DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
 			bottomNavigationListener = new BottomNavigationListener(this.getActivity());
+			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 		}
 	}
 	

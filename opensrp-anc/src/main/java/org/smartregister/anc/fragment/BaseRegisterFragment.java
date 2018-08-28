@@ -241,8 +241,11 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         filterRelativeLayout = view.findViewById(R.id.filter_display_view);
 	
 	    bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-	    DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
-	    bottomNavigationListener = new BottomNavigationListener(this.getActivity());
+	    if (bottomNavigationView != null) {
+		    DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
+		    bottomNavigationListener = new BottomNavigationListener(this.getActivity());
+		    bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
+	    }
 	}
 
     @Override

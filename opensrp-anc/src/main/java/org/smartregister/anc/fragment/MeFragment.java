@@ -43,6 +43,7 @@ public class MeFragment extends Fragment implements MeContract.View, BottomNavig
 		if (bottomNavigationView != null) {
 			DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
 			bottomNavigationListener = new BottomNavigationListener(this.getActivity());
+			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 		}
 	}
 	

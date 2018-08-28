@@ -233,7 +233,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Override
-    public void startRegistration() {//Implement Abstract Method
+    public void startRegistration() {
+    	startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
 
     public void refreshList(final FetchStatus fetchStatus) {

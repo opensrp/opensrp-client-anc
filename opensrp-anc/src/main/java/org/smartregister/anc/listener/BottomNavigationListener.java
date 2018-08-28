@@ -7,8 +7,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
-import org.smartregister.anc.activity.LibraryActivity;
-import org.smartregister.anc.activity.MeActivity;
+import org.smartregister.anc.activity.HomeRegisterActivity;
+import org.smartregister.anc.util.Constants;
 
 public class BottomNavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 	
@@ -22,33 +22,23 @@ public class BottomNavigationListener implements BottomNavigationView.OnNavigati
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.action_clients:
-				((BaseRegisterActivity) context).switchToBaseFragment();
+				((HomeRegisterActivity) context).switchToBaseFragment();
 				break;
 			case R.id.action_search:
-				((BaseRegisterActivity) context).switchToFragment(1);
+				((HomeRegisterActivity) context).switchToFragment(1);
 				break;
 			case R.id.action_register:
-				((BaseRegisterActivity) context).startRegistration();
+				((HomeRegisterActivity) context).startRegistration();
 				break;
 			case R.id.action_library:
-				goToLibrary();
+				((HomeRegisterActivity) context).switchToFragment(4);
 				break;
 			case R.id.action_me:
-				goToMe();
+				((HomeRegisterActivity) context).switchToFragment(3);
 				break;
 			default:
 				break;
 		}
 		return true;
-	}
-	
-	private void goToLibrary() {
-		Intent intent = new Intent(context, LibraryActivity.class);
-		context.startActivity(intent);
-	}
-	
-	private void goToMe() {
-		Intent intent = new Intent(context, MeActivity.class);
-		context.startActivity(intent);
 	}
 }

@@ -227,5 +227,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 	<string name="contact">CONTACT&#10;22/05/2018</string>
+	<string name="library_placeholder">Library Placeholder</string>
+	<string name="me_page_placeholder">Me Page Placeholder</string>
 
 </resources>
