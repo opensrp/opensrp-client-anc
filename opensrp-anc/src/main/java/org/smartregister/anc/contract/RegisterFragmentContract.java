@@ -2,6 +2,7 @@ package org.smartregister.anc.contract;
 
 import android.content.Context;
 
+import org.json.JSONArray;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -41,6 +42,8 @@ public interface RegisterFragmentContract {
         void showProgressView();
 
         void hideProgressView();
+        
+        void showNotFoundPopup(String whoAncId);
     }
 
     interface Presenter {
@@ -81,6 +84,8 @@ public interface RegisterFragmentContract {
         Map<String, String> createEditMap(String ancId);
 
         AdvancedMatrixCursor createMatrixCursor(Response<String> response);
+        
+        JSONArray getJsonArray(Response<String> response);
 
     }
 

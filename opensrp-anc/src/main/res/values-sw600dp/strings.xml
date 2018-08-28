@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="no_matching_woman_found_on_this_device">No matching woman found on this device.</string>
+	<string name="go_to_advanced_search">Go to advanced search</string>
+</resources>

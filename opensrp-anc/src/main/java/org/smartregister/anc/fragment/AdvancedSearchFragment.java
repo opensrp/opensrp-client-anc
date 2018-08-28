@@ -373,8 +373,13 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         super.recalculatePagination(matrixCursor);
         updateMatchingResults(totalcount);
     }
-
-    @Override
+	
+	@Override
+	public void showNotFoundPopup(String whoAncId) {
+		//Todo implement this
+	}
+	
+	@Override
     public void countExecute() {
         Cursor c = null;
 
@@ -450,5 +455,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         }
 
         return query;
+    }
+    
+    public EditText getAncId() {
+        return this.ancId;
     }
 }

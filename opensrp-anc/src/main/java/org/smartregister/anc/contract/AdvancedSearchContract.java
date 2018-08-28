@@ -27,10 +27,10 @@ public interface AdvancedSearchContract {
     }
 
     public interface Interactor {
-        void search(Map<String, String> editMap, AdvancedSearchContract.InteractorCallBack callBack);
+        void search(Map<String, String> editMap, InteractorCallBack callBack, String ancId);
     }
 
     public interface InteractorCallBack {
-        void onResultsFound(Response<String> response);
+        void onResultsFound(Response<String> response, String ancId);
     }
 }

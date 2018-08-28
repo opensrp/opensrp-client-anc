@@ -1,7 +1,6 @@
 package org.smartregister.anc.interactor;
 
 import android.support.annotation.VisibleForTesting;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.DristhiConfiguration;
 import org.smartregister.anc.application.AncApplication;
@@ -34,16 +33,17 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
     }
 
     @Override
-    public void search(final Map<String, String> editMap, final AdvancedSearchContract.InteractorCallBack callBack) {
+    public void search(final Map<String, String> editMap, final AdvancedSearchContract.InteractorCallBack callBack,
+		    final String ancId) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-
+                
                 final Response<String> response = globalSearch(editMap);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onResultsFound(response);
+                        callBack.onResultsFound(response, ancId);
                     }
                 });
             }

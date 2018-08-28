@@ -10,6 +10,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.util.ConfigHelper;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
@@ -30,14 +31,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.smartregister.anc.util.Constants.GLOBAL_IDENTIFIER;
+
 /**
  * Created by keyman on 12/07/2018.
  */
 public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
     private AllSharedPreferences allSharedPreferences;
-    public static final String GLOBAL_IDENTIFIER = "identifier";
-    private static final String ANC_ID = "ANC_ID";
 
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
@@ -136,7 +137,7 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
         Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(ancId)) {
             //TODO replace with ANC_ID
-            editMap.put(GLOBAL_IDENTIFIER, ANC_ID + ":" + ancId);
+            editMap.put(GLOBAL_IDENTIFIER, Constants.ANC_ID + ":" + ancId);
             editMap.put(GLOBAL_IDENTIFIER, "OpenSRP_ID:" + ancId);
         }
         return editMap;
@@ -244,7 +245,8 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
     }
 
-    private JSONArray getJsonArray(Response<String> response) {
+    @Override
+    public JSONArray getJsonArray(Response<String> response) {
         try {
             if (response.status().equals(ResponseStatus.success)) {
                 return new JSONArray(response.payload());
