@@ -17,6 +17,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     private String baseEntityId;
 
+    private Map<String, String> details;
+
     public ContactPresenter(ContactContract.View contactView) {
         viewReference = new WeakReference<>(contactView);
         contactInteractor = new ContactInteractor();
@@ -45,9 +47,18 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             return;
         }
 
+        this.details = womanDetails;
         String patientName = extractNames(womanDetails);
         getView().displayPatientName(patientName);
 
+    }
+
+    @Override
+    public String getPatientName() {
+        if (details == null || details.isEmpty()) {
+            return "";
+        }
+        return extractNames(details);
     }
 
     private String extractNames(Map<String, String> womanDetails) {

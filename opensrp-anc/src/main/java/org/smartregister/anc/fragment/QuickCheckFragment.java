@@ -287,7 +287,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private void displayReferralDialog() {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.referral_dialog, null);
+        View view = inflater.inflate(R.layout.alert_referral_dialog, null);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

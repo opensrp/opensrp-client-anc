@@ -1,9 +1,21 @@
 package org.smartregister.anc.activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
@@ -63,6 +75,64 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected abstract void createContacts();
 
+    private void displayContactSaveDialog() {
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.alert_contact_save_dialog, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+
+        TextView titleLabel = view.findViewById(R.id.title_label);
+        titleLabel.setText(String.format(getString(R.string.exit_contact_with), presenter.getPatientName()));
+
+        Spannable spannable = new SpannableString(getString(R.string.save_changes));
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 13
+                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 13, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+
+        Button saveChanges = view.findViewById(R.id.save_changes);
+        saveChanges.setText(spannable);
+
+        spannable = new SpannableString(getString(R.string.close_without_saving));
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 21
+                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+
+        Button closeWithoutSaving = view.findViewById(R.id.close_without_saving);
+        closeWithoutSaving.setText(spannable);
+
+        final AlertDialog dialog = builder.create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            window.setAttributes(param);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        saveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        closeWithoutSaving.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        dialog.show();
+    }
+
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
@@ -73,7 +143,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.cancel_button:
-                    finish();
+                    displayContactSaveDialog();
                     break;
                 default:
                     break;

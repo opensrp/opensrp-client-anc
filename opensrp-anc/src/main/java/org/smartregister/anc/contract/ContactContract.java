@@ -17,6 +17,8 @@ public interface ContactContract {
 
         boolean baseEntityIdExists();
 
+        String getPatientName();
+
         void onDestroy(boolean isChangingConfiguration);
     }
 
