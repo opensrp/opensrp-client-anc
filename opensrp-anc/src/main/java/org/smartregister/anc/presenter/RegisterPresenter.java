@@ -65,12 +65,12 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     @Override
     public void startForm(String formName, String entityId, String metadata, LocationPickerView locationPickerView) throws Exception {
-        if (locationPickerView == null || StringUtils.isBlank(locationPickerView.getSelectedItem())) {
+        /*if (locationPickerView == null || StringUtils.isBlank(locationPickerView.getSelectedItem())) {
             getView().displayToast(R.string.no_location_picker);
-        } else {
-            String currentLocationId = model.getLocationId(locationPickerView.getSelectedItem());
-            startForm(formName, entityId, metadata, currentLocationId);
-        }
+        } else {*/
+            //String currentLocationId = model.getLocationId(locationPickerView.getSelectedItem());
+            startForm(formName, entityId, metadata, "");
+        /*}*/
     }
 
     @Override

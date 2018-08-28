@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/client_list_header_dark_grey"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/client_list_header_dark_grey"
+              android:orientation="vertical">
 
     <include layout="@layout/toolbar_register" />
 
@@ -15,7 +15,7 @@
 	<include
 			layout="@layout/register_sort_filter_bar"
 			android:layout_width="match_parent"
-			android:layout_height="40dp"/>
+			android:layout_height="50dp"/>
 
     <LinearLayout
         android:id="@+id/clients_header_layout"
@@ -28,10 +28,10 @@
         android:visibility="gone" />
 
     <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/listview_background_rounded">
+		    android:layout_width="fill_parent"
+		    android:layout_height="0dp"
+		    android:layout_weight="1"
+		    android:background="@drawable/listview_background_rounded">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -60,16 +60,10 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/sort_filter_bg_light_grey">
-
-        <include
-            layout="@layout/smart_register_pagination"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pagination_bar_height" />
-    </LinearLayout>
+	<include
+			layout="@layout/smart_register_pagination"
+			android:layout_width="match_parent"
+			android:layout_height="35dp"/>
 
 	<include
 			layout="@layout/bottom_navigation_bar"

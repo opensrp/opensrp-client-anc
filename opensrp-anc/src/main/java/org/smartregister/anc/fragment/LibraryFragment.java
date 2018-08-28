@@ -6,12 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.LibraryContract;
 import org.smartregister.anc.presenter.LibraryPresenter;
-import org.smartregister.anc.util.BottomNavigationBarActionHandler;
 import org.smartregister.anc.util.DisableShitModeBottomNavigation;
 
 public class LibraryFragment extends Fragment implements LibraryContract.View {
@@ -48,5 +48,27 @@ public class LibraryFragment extends Fragment implements LibraryContract.View {
 	
 	private void initializePresenter() {
 		presenter = new LibraryPresenter(this);
+	}
+	
+	private class BottomNavigationBarActionHandler implements BottomNavigationView.OnNavigationItemSelectedListener {
+		
+		@Override
+		public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+			switch (item.getItemId()) {
+				case R.id.action_clients:
+					break;
+				case R.id.action_search:
+					break;
+				case R.id.action_register:
+					break;
+				case R.id.action_library:
+					break;
+				case R.id.action_me:
+					break;
+				default:
+					break;
+			}
+			return true;
+		}
 	}
 }

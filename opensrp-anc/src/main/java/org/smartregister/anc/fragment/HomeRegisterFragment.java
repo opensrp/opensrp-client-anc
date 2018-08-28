@@ -2,6 +2,7 @@ package org.smartregister.anc.fragment;
 
 import android.support.design.widget.BottomNavigationView;
 import android.annotation.SuppressLint;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
@@ -40,36 +41,35 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
 
     @Override
     public void setupViews(View view) {
-        super.setupViews(view);
-        // QR Code
-        View filterImage = view.findViewById(R.id.filter_image_view);
-        if (filterImage != null) {
-            filterImage.setOnClickListener(registerActionHandler);
-        }
-        
-        View filterText = view.findViewById(R.id.filter_text_view);
-        if(filterText != null) {
-        	filterText.setOnClickListener(registerActionHandler);
-        }
-
-        // Due Button
-        View contactButton = view.findViewById(R.id.due_button);
-        if (contactButton != null) {
-            contactButton.setOnClickListener(registerActionHandler);
-        }
-
-        //Risk view
-        View attentionFlag = view.findViewById(R.id.risk_layout);
-        if (attentionFlag != null) {
-            attentionFlag.setOnClickListener(registerActionHandler);
-        }
+	    super.setupViews(view);
+	    // QR Code
+	    View filterImage = view.findViewById(R.id.filter_image_view);
+	    if (filterImage != null) {
+		    filterImage.setOnClickListener(registerActionHandler);
+	    }
+	
+	    View filterText = view.findViewById(R.id.filter_text_view);
+	    if (filterText != null) {
+		    filterText.setOnClickListener(registerActionHandler);
+	    }
+	
+	    // Due Button
+	    View contactButton = view.findViewById(R.id.due_button);
+	    if (contactButton != null) {
+		    contactButton.setOnClickListener(registerActionHandler);
+	    }
+	
+	    //Risk view
+	    View attentionFlag = view.findViewById(R.id.risk_layout);
+	    if (attentionFlag != null) {
+		    attentionFlag.setOnClickListener(registerActionHandler);
+	    }
 	
 	    BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-        if (bottomNavigationView != null) {
-	        DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
-            bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
-        }
-
+	    if (bottomNavigationView != null) {
+		    DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
+		    bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationBarActionHandler);
+	    }
     }
 
     @Override

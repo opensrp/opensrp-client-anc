@@ -39,14 +39,14 @@
             android:textColor="@color/dark_grey_text"
             android:textSize="@dimen/default_font_size_search_bar" />
 
-        <View
-            android:id="@+id/separator_v"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_toStartOf="@id/filter_status"
-            android:background="@color/light_grey"
-            android:scaleType="fitXY" />
-    </RelativeLayout>
+		<View
+				android:id="@+id/separator_v"
+				android:layout_width="1dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="right|center_vertical"
+				android:layout_toStartOf="@id/filter_status"
+				android:background="@color/light_grey"
+				android:scaleType="fitXY"/>
+	</RelativeLayout>
 
 </LinearLayout>

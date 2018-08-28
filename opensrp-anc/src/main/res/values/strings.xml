@@ -139,7 +139,8 @@
 
     <string name="record_birth">Record Birth</string>
 	<string name="woman_filter">Filter</string>
-	<string name="clients">Clients</string>
+	<string name="clients">%1$d Clients</string>
+	<string name="client">%1$d Client</string>
     <string name="register">Register</string>
     <string name="library">Library</string>
     <string name="me">Me</string>
@@ -225,5 +226,6 @@
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+	<string name="contact">CONTACT&#10;22/05/2018</string>
 
 </resources>
