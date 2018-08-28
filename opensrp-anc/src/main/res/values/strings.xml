@@ -139,6 +139,7 @@
 
     <string name="record_birth">Record Birth</string>
 
+
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
 
@@ -219,6 +220,6 @@
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="population_characteristics">Population characteristics</string>
+    <string name="population_characteristics">Population Characteristics</string>
 
 </resources>
