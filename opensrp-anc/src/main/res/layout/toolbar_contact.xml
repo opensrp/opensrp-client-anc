@@ -33,7 +33,7 @@
 
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/name_label"
+                android:id="@+id/top_patient_name"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -44,13 +44,12 @@
                 android:gravity="center_vertical"
                 android:paddingRight="@dimen/contact_drawable_padding"
                 android:singleLine="true"
-                android:text="Charity Otala"
                 android:textColor="@color/white"
                 android:textSize="@dimen/contact_name_text_size" />
 
 
             <Button
-                android:id="@+id/search"
+                android:id="@+id/finalize"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
