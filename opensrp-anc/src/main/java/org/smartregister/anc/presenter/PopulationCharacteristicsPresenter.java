@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class PopulationCharacteristicsPresenter implements PopulationCharacteristicsContract.Presenter {
 
-    private static final String TAG = PopulationCharacteristicsPresenter.class.getCanonicalName();
-
     private WeakReference<PopulationCharacteristicsContract.View> view;
     private PopulationCharacteristicsContract.Interactor interactor;
 
