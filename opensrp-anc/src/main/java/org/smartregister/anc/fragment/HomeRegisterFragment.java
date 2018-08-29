@@ -2,7 +2,10 @@ package org.smartregister.anc.fragment;
 
 import android.support.design.widget.BottomNavigationView;
 import android.annotation.SuppressLint;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
@@ -95,5 +98,13 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
     	if(initialMenuItem != null) {
     		initialMenuItem.setText("TR");
     	}
+	}
+	
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		/*final MenuItem alertMenuItem = menu.findItem(R.id.action_me);
+		LinearLayout rootView = (LinearLayout) alertMenuItem.getActionView();
+		
+		initialMenuItem = rootView.findViewById(R.id.name_initials);*/
 	}
 }

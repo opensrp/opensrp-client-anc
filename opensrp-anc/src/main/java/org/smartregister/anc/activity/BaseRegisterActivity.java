@@ -20,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -90,6 +91,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     private AlertDialog attentionFlagAlertDialog;
 
     private View attentionFlagDialogView;
+    
+    private TextView intialMenuMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -462,7 +465,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 attentionFlagAlertDialog.dismiss();
             }
         });
-
 
         attentionFlagAlertDialog = dialogBuilder.create();
 

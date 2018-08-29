@@ -27,11 +27,11 @@ public interface AdvancedSearchContract {
     }
 
 
-    public interface Interactor {
+    interface Interactor {
         void search(Map<String, String> editMap, InteractorCallBack callBack, String ancId);
     }
 
-    public interface InteractorCallBack {
+    interface InteractorCallBack {
         void onResultsFound(Response<String> response, String ancId);
     }
 }

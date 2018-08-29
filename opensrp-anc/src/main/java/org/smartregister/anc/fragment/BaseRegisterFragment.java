@@ -16,10 +16,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -88,7 +90,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected TextView filterStatus;
     protected BottomNavigationView bottomNavigationView;
     protected TextView initialMenuItem;
-	
 	protected RelativeLayout filterRelativeLayout;
 	
 	private boolean globalQrSearch = false;
@@ -241,8 +242,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         filterStatus = view.findViewById(R.id.filter_status);
         filterRelativeLayout = view.findViewById(R.id.filter_display_view);
         
-        //Menu item initials
-        initialMenuItem = view.findViewById(R.id.name_initials);
         presenter.updateInitials();
 	
 	    bottomNavigationView = view.findViewById(R.id.bottom_navigation);
@@ -554,8 +553,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 	public boolean onNavigationItemSelected(MenuItem item) {
 		return bottomNavigationListener.onNavigationItemSelected(item);
 	}
-
-    ////////////////////////////////////////////////////////////////
+	
+	////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
 

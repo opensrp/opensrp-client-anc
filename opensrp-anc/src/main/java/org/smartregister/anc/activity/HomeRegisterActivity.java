@@ -94,18 +94,21 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 		super.onNewIntent(intent);
 		Bundle bundle = intent.getExtras();
 		if (bundle != null) {
-			switch (bundle.getString(Constants.IntentExtras.METHOD_NAME)) {
-				case Constants.IntentExtras.BASE_FRAGMENT:
-					switchToBaseFragment();
-					break;
-				case Constants.IntentExtras.START_REGISTRATION:
-					startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
-					break;
-				case Constants.IntentExtras.SWITCH_FRAGMENT:
-					switchToFragment(bundle.getInt(Constants.IntentExtras.FRAGMENT_LOCATION,0));
-					break;
-				default:
-					break;
+			String methodCheck = bundle.getString(Constants.IntentExtras.METHOD_NAME);
+			if (methodCheck != null){
+				switch (methodCheck) {
+					case Constants.IntentExtras.BASE_FRAGMENT:
+						switchToBaseFragment();
+						break;
+					case Constants.IntentExtras.START_REGISTRATION:
+						startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
+						break;
+					case Constants.IntentExtras.SWITCH_FRAGMENT:
+						switchToFragment(bundle.getInt(Constants.IntentExtras.FRAGMENT_LOCATION,0));
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}

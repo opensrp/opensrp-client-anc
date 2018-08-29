@@ -1,17 +1,14 @@
 package org.smartregister.anc.listener;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.util.Constants;
 
 public class BottomNavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener {
-	
 	private Activity context;
 	
 	public BottomNavigationListener(Activity context) {
@@ -33,7 +30,7 @@ public class BottomNavigationListener implements BottomNavigationView.OnNavigati
 			case R.id.action_library:
 				((HomeRegisterActivity) context).switchToFragment(4);
 				break;
-			case R.id.action_me:
+			case Constants.BOTTOM_NAV_MENU_ME:
 				((HomeRegisterActivity) context).switchToFragment(3);
 				break;
 			default:

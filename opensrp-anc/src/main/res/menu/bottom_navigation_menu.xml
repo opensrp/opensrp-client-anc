@@ -25,9 +25,9 @@
 			android:icon="@drawable/ic_icon_open_book"
 			android:title="@string/library"
 			app:showAsAction="ifRoom"/>
-	<item
+	<!--<item
 			android:id="@+id/action_me"
 			android:enabled="true"
 			android:title="@string/me"
-			app:showAsAction="always|withText"/>
+			app:showAsAction="always|withText"/>-->
 </menu>
