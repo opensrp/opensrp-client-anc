@@ -2,7 +2,6 @@ package org.smartregister.anc.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import org.smartregister.anc.R;
@@ -18,8 +17,6 @@ import java.util.Map;
  */
 public class SiteCharacteristicsActivity extends BaseActivity implements View.OnClickListener, SiteCharacteristicsContract.View {
 
-    private static final String TAG = SiteCharacteristicsActivity.class.getCanonicalName();
-    private SiteCharacteristicsContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +39,6 @@ public class SiteCharacteristicsActivity extends BaseActivity implements View.On
     public void launchSiteCharacteristicsSettingsForm() {
 
         JsonFormUtils.launchSiteCharacteristicsForm(this);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
-            try {
-                String jsonString = data.getStringExtra("json");
-                Log.d("JSONResult", jsonString);
-
-                presenter.saveSiteCharacteristics(jsonString);
-
-            } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
-
-        }
     }
 
     @Override

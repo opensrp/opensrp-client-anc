@@ -1,10 +1,14 @@
 package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.contract.SiteCharacteristicsContract;
+import org.smartregister.anc.util.JsonFormUtils;
 
 /**
  * Created by ndegwamartin on 27/08/2018.
@@ -12,6 +16,8 @@ import org.smartregister.anc.R;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected ProgressDialog progressDialog;
+    protected SiteCharacteristicsContract.Presenter presenter;
+    private static final String TAG = BaseActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void hideProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            try {
+                String jsonString = data.getStringExtra("json");
+                Log.d("JSONResult", jsonString);
+
+                presenter.saveSiteCharacteristics(jsonString);
+
+            } catch (Exception e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+            }
+
         }
     }
 }

@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/register_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/customAppThemeBlue"
-            app:contentInsetLeft="10dp"
-            app:contentInsetStart="10dp">
+        <ImageView
+            android:id="@+id/btn_back_to_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow_back_light_blue" />
 
-            <include layout="@layout/activity_site_chars_exit_toolbar_bar_content" />
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:id="@+id/txt_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/go_back_to_site_characteristics"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#0F95D6"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/top_section"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="#ffffff"
         android:gravity="center"
@@ -34,8 +50,7 @@
             android:id="@+id/site_characteristics_facility_name"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:maxWidth="200dp"
+            android:layout_marginBottom="17dp"
             android:text="@string/your_site_characteristics_for_facility_name"
             android:textColor="#229cd9"
             android:textSize="24sp"
@@ -60,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:gravity="right"
-        android:padding="18dp"
+        android:padding="20dp"
         android:text="@string/continue_to_your_client_list"
         android:textAllCaps="true"
         android:textColor="#2432c3" />
