@@ -60,4 +60,7 @@
     <color name="quick_check_red">#EC5B47</color>
     <color name="refer_close_red">#BF271B</color>
 
+	<color name="bottom_bar_focused_background">#a7d7f1</color>
+	<color name="bottom_bar_text_focused_background">#208cc5</color>
+
 </resources>

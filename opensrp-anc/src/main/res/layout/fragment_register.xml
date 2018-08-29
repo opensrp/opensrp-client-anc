@@ -13,12 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-	<include
-			layout="@layout/register_sort_filter_bar"
-			android:layout_width="match_parent"
-			android:layout_height="50dp"/>
-
-    <LinearLayout
+	<LinearLayout
         android:id="@+id/clients_header_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_header_height"
@@ -28,7 +23,11 @@
         android:orientation="horizontal"
         android:visibility="gone" />
 
-    <FrameLayout
+	<include
+			layout="@layout/register_sort_filter_bar"
+			android:layout_width="match_parent"
+			android:layout_height="30dp"/>
+	<FrameLayout
 		    android:layout_width="fill_parent"
 		    android:layout_height="0dp"
 		    android:layout_weight="1"

@@ -6,8 +6,9 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import org.smartregister.anc.R;
 
 public class BottomNavigationHelper {
@@ -47,7 +48,7 @@ public class BottomNavigationHelper {
 	 * @param view
 	 * @param context
 	 */
-	public static void addMeTextOnBottomBar(BottomNavigationView view, Context context){
+	public static void addMeMenuItem(BottomNavigationView view, Context context){
 		BottomNavigationMenuView bottomNavigation = (BottomNavigationMenuView) view.getChildAt(0);
 		
 		View meBadge = LayoutInflater.from(context).inflate(R.layout.me_menu,bottomNavigation,false);

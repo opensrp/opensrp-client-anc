@@ -3,6 +3,7 @@ package org.smartregister.anc.fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
@@ -16,7 +17,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +90,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected TextView filterStatus;
     protected BottomNavigationView bottomNavigationView;
     protected TextView initialMenuItem;
+    protected TextView initialMenuItemText;
 	protected RelativeLayout filterRelativeLayout;
+	protected MenuItem menuItem;
 	
 	private boolean globalQrSearch = false;
 
@@ -241,16 +243,21 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         headerTextDisplay = view.findViewById(R.id.header_text_display);
         filterStatus = view.findViewById(R.id.filter_status);
         filterRelativeLayout = view.findViewById(R.id.filter_display_view);
-        
-        presenter.updateInitials();
 	
 	    bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 	    if (bottomNavigationView != null) {
 		    BottomNavigationHelper.disableShiftMode(bottomNavigationView);
-		    BottomNavigationHelper.addMeTextOnBottomBar(bottomNavigationView,getContext());
+		    BottomNavigationHelper.addMeMenuItem(bottomNavigationView,getContext());
+		
+		    RelativeLayout relativeLayout = bottomNavigationView.findViewById(Constants.BOTTOM_NAV_MENU_ME);
+		    initialMenuItem = relativeLayout.findViewById(R.id.name_initials);
+		    initialMenuItemText = relativeLayout.findViewById(R.id.name_initials_text);
+		    
 		    bottomNavigationListener = new BottomNavigationListener(this.getActivity());
 		    bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 	    }
+	
+	    presenter.updateInitials();
 	}
 
     @Override
@@ -550,7 +557,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
     }
     
-	public boolean onNavigationItemSelected(MenuItem item) {
+    @Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 		return bottomNavigationListener.onNavigationItemSelected(item);
 	}
 	

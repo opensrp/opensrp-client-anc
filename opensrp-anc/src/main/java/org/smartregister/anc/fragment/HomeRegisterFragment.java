@@ -1,11 +1,8 @@
 package org.smartregister.anc.fragment;
 
-import android.support.design.widget.BottomNavigationView;
 import android.annotation.SuppressLint;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.design.widget.BottomNavigationView;
 import android.view.View;
-import android.widget.LinearLayout;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
@@ -65,6 +62,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
 	    if (attentionFlag != null) {
 		    attentionFlag.setOnClickListener(registerActionHandler);
 	    }
+	    
+	    initialMenuItem.setOnClickListener(registerActionHandler);
+	    initialMenuItemText.setOnClickListener(registerActionHandler);
     }
 
     @Override
@@ -82,9 +82,20 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
 	        case R.id.filter_text_view:
 	        	homeRegisterActivity.switchToFragment(2);
 	        	break;
+	        case R.id.name_initials:
+	        	switchToMeFragment();
+	        	break;
+	        case R.id.name_initials_text:
+	        	switchToMeFragment();
+	        	break;
             default:
                 break;
         }
+    }
+    
+    private void switchToMeFragment() {
+	    HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+	    homeRegisterActivity.switchToFragment(3);
     }
     
     @SuppressLint("NewApi")
@@ -96,15 +107,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
 	@Override
 	public void updateInitialsText(String initials) {
     	if(initialMenuItem != null) {
-    		initialMenuItem.setText("TR");
+    		initialMenuItem.setText(initials);
     	}
-	}
-	
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		/*final MenuItem alertMenuItem = menu.findItem(R.id.action_me);
-		LinearLayout rootView = (LinearLayout) alertMenuItem.getActionView();
-		
-		initialMenuItem = rootView.findViewById(R.id.name_initials);*/
 	}
 }

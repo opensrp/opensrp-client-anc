@@ -35,6 +35,7 @@
     <dimen name="title_label_text_max_width">150dp</dimen>
     <dimen name="register_sort_bar_left_padding">10dp</dimen>
     <dimen name="register_sort_bar_right_padding">0dp</dimen>
+    <dimen name="min_padding_size">2dp</dimen>
 
     <dimen name="loc_picker_text_max_width">210dp</dimen>
     <dimen name="loc_picker_text_min_width">130dp</dimen>
