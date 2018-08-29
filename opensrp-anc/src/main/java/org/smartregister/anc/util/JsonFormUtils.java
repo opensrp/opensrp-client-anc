@@ -349,7 +349,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
-            jsonObject.toString();
 
             List<String> healthFacilityHierarchy = new ArrayList<>();
             String address5 = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
@@ -688,5 +687,33 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return null;
 
         }
+    }
+
+    public static String getAutoPopulatedSiteCharacteristicsEditFormString(Context context, Map<String, String> characteristics) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
+
+            Log.d(TAG, "Form is " + form.toString());
+            if (form != null) {
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.SITE_CHARACTERISTICS);
+
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                    jsonObject.put(JsonFormUtils.VALUE, characteristics.get(jsonObject.getString(JsonFormUtils.KEY)));
+                    ;
+
+                }
+
+                return form.toString();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return "";
     }
 }

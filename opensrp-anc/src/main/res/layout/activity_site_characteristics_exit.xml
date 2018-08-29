@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/register_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/customAppThemeBlue"
+            app:contentInsetLeft="10dp"
+            app:contentInsetStart="10dp">
+
+            <include layout="@layout/activity_site_chars_exit_toolbar_bar_content" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:id="@+id/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/site_characteristics_facility_name"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:maxWidth="200dp"
+            android:text="@string/your_site_characteristics_for_facility_name"
+            android:textColor="#229cd9"
+            android:textSize="24sp"
+            android:typeface="sans" />
+
+
+        <TextView
+            android:id="@+id/site_characteristics_text_view"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:text="@string/site_characteristics_are_shared_for_all"
+            android:textColor="#229cd9"
+            android:textSize="16sp"
+            android:typeface="sans" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/btn_site_characteristics_home_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:gravity="right"
+        android:padding="18dp"
+        android:text="@string/continue_to_your_client_list"
+        android:textAllCaps="true"
+        android:textColor="#2432c3" />
+</FrameLayout>

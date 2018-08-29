@@ -13,6 +13,8 @@ public interface SiteCharacteristicsContract {
 
         void launchSiteCharacteristicsForm();
 
+        void launchSiteCharacteristicsFormForEdit();
+
         void onDestroy(boolean isChangingConfiguration);
 
         void saveSiteCharacteristics(String jsonString);
@@ -26,7 +28,9 @@ public interface SiteCharacteristicsContract {
 
         void hideProgressDialog();
 
-        void goToHomeRegisterPage();
+        void goToSiteCharacteristicsExitPage();
+
+        void launchSiteCharacteristicsSettingsFormForEdit(Map<String, String> characteristics);
 
     }
 
