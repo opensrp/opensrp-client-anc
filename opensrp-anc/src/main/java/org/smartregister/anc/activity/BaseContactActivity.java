@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
@@ -86,23 +87,26 @@ public abstract class BaseContactActivity extends SecuredActivity {
         TextView titleLabel = view.findViewById(R.id.title_label);
         titleLabel.setText(String.format(getString(R.string.exit_contact_with), presenter.getPatientName()));
 
-        Spannable spannable = new SpannableString(getString(R.string.save_changes));
+        String saveChanges = getString(R.string.save_changes);
+        Spannable spannable = new SpannableString(saveChanges);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 13
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 13, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 14, saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
-        Button saveChanges = view.findViewById(R.id.save_changes);
-        saveChanges.setText(spannable);
+        Button saveButton = view.findViewById(R.id.save_changes);
+        saveButton.setText(spannable);
 
-        spannable = new SpannableString(getString(R.string.close_without_saving));
+        String closeWithoutSaving = getString(R.string.close_without_saving);
+        spannable = new SpannableString(closeWithoutSaving);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 21
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 22, closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        Button closeButton = view.findViewById(R.id.close_without_saving);
+        closeButton.setText(spannable);
 
-        Button closeWithoutSaving = view.findViewById(R.id.close_without_saving);
-        closeWithoutSaving.setText(spannable);
+        Button cancel = view.findViewById(R.id.cancel);
 
         final AlertDialog dialog = builder.create();
 
@@ -114,7 +118,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
-        saveChanges.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -122,7 +126,14 @@ public abstract class BaseContactActivity extends SecuredActivity {
             }
         });
 
-        closeWithoutSaving.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

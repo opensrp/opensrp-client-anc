@@ -99,9 +99,12 @@
     <dimen name="contact_layout_margin">7dp</dimen>
     <dimen name="contact_elevation">5dp</dimen>
 
-    <dimen name="contact_save_title_text_size">30sp</dimen>
+    <dimen name="contact_save_title_text_size">27sp</dimen>
     <dimen name="contact_save_detail_text_size">18sp</dimen>
     <dimen name="contact_save_layout_margin">10dp</dimen>
+    <dimen name="contact_save_spacing_margin">15dp</dimen>
+    <dimen name="contact_save_default_padding">20dp</dimen>
+    <dimen name="contact_save_small_padding">10dp</dimen>
 
     <dimen name="quick_check_padding">20dp</dimen>
     <dimen name="quick_check_drawable_padding">10dp</dimen>

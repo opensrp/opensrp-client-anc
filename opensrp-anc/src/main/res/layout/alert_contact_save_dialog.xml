@@ -2,14 +2,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/referral_dialog_padding">
+    android:paddingBottom="@dimen/contact_save_small_padding"
+    android:paddingLeft="@dimen/contact_save_default_padding"
+    android:paddingRight="@dimen/contact_save_default_padding"
+    android:paddingTop="@dimen/contact_save_default_padding">
 
     <org.smartregister.view.customcontrols.CustomFontTextView
         android:id="@+id/title_label"
         style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/contact_save_layout_margin"
+        android:layout_marginLeft="@dimen/contact_save_layout_margin"
+        android:layout_marginTop="@dimen/contact_save_layout_margin"
         android:lines="2"
         android:paddingStart="0dp"
         android:text="@string/exit_contact_with"
@@ -22,7 +26,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/contact_save_layout_margin"
+        android:layout_marginTop="@dimen/contact_save_spacing_margin"
         android:background="@color/transparent"
         android:gravity="start|center_vertical"
         android:paddingStart="@dimen/referral_dialog_padding"
@@ -37,6 +41,7 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/contact_save_spacing_margin"
         android:background="@color/transparent"
         android:gravity="start|center_vertical"
         android:paddingStart="@dimen/referral_dialog_padding"
@@ -44,6 +49,21 @@
         android:textAllCaps="false"
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="@color/text_black"
+        android:textSize="@dimen/contact_save_detail_text_size" />
+
+    <Button
+        android:id="@+id/cancel"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/contact_save_spacing_margin"
+        android:background="@color/transparent"
+        android:gravity="end|center_vertical"
+        android:paddingStart="@dimen/referral_dialog_padding"
+        android:text="@string/cancel"
+        android:textAllCaps="true"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/contact_save_blue"
         android:textSize="@dimen/contact_save_detail_text_size" />
 
 </LinearLayout>
