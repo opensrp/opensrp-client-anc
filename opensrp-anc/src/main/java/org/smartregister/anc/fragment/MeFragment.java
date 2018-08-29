@@ -13,7 +13,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.presenter.MePresenter;
-import org.smartregister.anc.util.DisableShitModeBottomNavigation;
+import org.smartregister.anc.util.BottomNavigationHelper;
 
 public class MeFragment extends Fragment implements MeContract.View, BottomNavigationView.OnNavigationItemSelectedListener {
 	private MeContract.Presenter presenter;
@@ -41,8 +41,9 @@ public class MeFragment extends Fragment implements MeContract.View, BottomNavig
 	private void setUpViews(View view) {
 		bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 		if (bottomNavigationView != null) {
-			DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
+			BottomNavigationHelper.disableShiftMode(bottomNavigationView);
 			bottomNavigationListener = new BottomNavigationListener(this.getActivity());
+			BottomNavigationHelper.addMeTextOnBottomBar(bottomNavigationView,getContext());
 			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 		}
 	}

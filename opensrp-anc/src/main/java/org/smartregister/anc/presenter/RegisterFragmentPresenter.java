@@ -81,7 +81,15 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
     public void startSync() {
         //ServiceTools.startSyncService(getActivity());
     }
-
+    
+    @Override
+    public void updateInitials() {
+        String initials = model.getInitials();
+        if (initials != null) {
+            getView().updateInitialsText(initials);
+        }
+    }
+    
     @Override
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         String filterText = model.getFilterText(filterList, getView().getString(R.string.filter));

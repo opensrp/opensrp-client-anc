@@ -13,7 +13,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.contract.LibraryContract;
 import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.presenter.LibraryPresenter;
-import org.smartregister.anc.util.DisableShitModeBottomNavigation;
+import org.smartregister.anc.util.BottomNavigationHelper;
 
 public class LibraryFragment extends Fragment implements LibraryContract.View, BottomNavigationView.OnNavigationItemSelectedListener{
 	private LibraryContract.Presenter presenter;
@@ -42,8 +42,9 @@ public class LibraryFragment extends Fragment implements LibraryContract.View, B
 	private void setUpViews(View view) {
 		bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 		if (bottomNavigationView != null) {
-			DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
+			BottomNavigationHelper.disableShiftMode(bottomNavigationView);
 			bottomNavigationListener = new BottomNavigationListener(this.getActivity());
+			BottomNavigationHelper.addMeTextOnBottomBar(bottomNavigationView,getContext());
 			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 		}
 	}

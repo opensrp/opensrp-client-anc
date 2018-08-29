@@ -378,8 +378,13 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 	public void showNotFoundPopup(String whoAncId) {
 		//Todo implement this
 	}
-	
-	@Override
+    
+    @Override
+    public void updateInitialsText(String initials) {
+        //Todo implement the menu initials
+    }
+    
+    @Override
     public void countExecute() {
         Cursor c = null;
 

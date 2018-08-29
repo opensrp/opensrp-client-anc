@@ -1,18 +1,13 @@
 package org.smartregister.anc.fragment;
 
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.annotation.SuppressLint;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.MenuItem;
 import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
-import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
-import org.smartregister.anc.util.DisableShitModeBottomNavigation;
 import org.smartregister.anc.view.LocationPickerView;
 
 import java.util.Objects;
@@ -94,4 +89,11 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment.launchDialog((BaseRegisterActivity)Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
+	
+	@Override
+	public void updateInitialsText(String initials) {
+    	if(initialMenuItem != null) {
+    		initialMenuItem.setText("TR");
+    	}
+	}
 }

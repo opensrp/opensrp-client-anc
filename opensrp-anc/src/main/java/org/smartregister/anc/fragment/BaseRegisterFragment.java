@@ -38,7 +38,7 @@ import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.DisableShitModeBottomNavigation;
+import org.smartregister.anc.util.BottomNavigationHelper;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
@@ -87,6 +87,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected TextView headerTextDisplay;
     protected TextView filterStatus;
     protected BottomNavigationView bottomNavigationView;
+    protected TextView initialMenuItem;
 	
 	protected RelativeLayout filterRelativeLayout;
 	
@@ -187,7 +188,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         updateSearchView();
         setServiceModeViewDrawableRight(null);
 
-        // Initials
+        // QR Code
         qrCodeScanImageView = view.findViewById(R.id.scanQrCode);
         if (qrCodeScanImageView != null) {
             qrCodeScanImageView.setOnClickListener(new View.OnClickListener() {
@@ -239,10 +240,15 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         headerTextDisplay = view.findViewById(R.id.header_text_display);
         filterStatus = view.findViewById(R.id.filter_status);
         filterRelativeLayout = view.findViewById(R.id.filter_display_view);
+        
+        //Menu item initials
+        initialMenuItem = view.findViewById(R.id.name_initials);
+        presenter.updateInitials();
 	
 	    bottomNavigationView = view.findViewById(R.id.bottom_navigation);
 	    if (bottomNavigationView != null) {
-		    DisableShitModeBottomNavigation.disableShiftMode(bottomNavigationView);
+		    BottomNavigationHelper.disableShiftMode(bottomNavigationView);
+		    BottomNavigationHelper.addMeTextOnBottomBar(bottomNavigationView,getContext());
 		    bottomNavigationListener = new BottomNavigationListener(this.getActivity());
 		    bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 	    }

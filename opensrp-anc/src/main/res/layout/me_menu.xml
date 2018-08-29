@@ -1,0 +1,17 @@
+<TextView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/name_initials"
+		android:layout_width="25dp"
+		android:layout_height="25dp"
+		android:padding="4dp"
+		android:layout_margin="1dp"
+		android:background="@drawable/initials_background"
+		android:layout_gravity="center_vertical|center_horizontal"
+		android:gravity="center_vertical|center_horizontal"
+		android:text="@string/me"
+		android:textAllCaps="true"
+		android:textColor="@color/dark_grey_text"
+		android:textSize="10sp"
+		android:clickable="true"
+		android:orientation="vertical"
+		android:focusable="true"/>

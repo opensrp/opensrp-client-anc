@@ -42,6 +42,8 @@ public interface RegisterFragmentContract {
         void hideProgressView();
         
         void showNotFoundPopup(String whoAncId);
+        
+        void updateInitialsText(String initials);
     }
 
     interface Presenter {
@@ -52,6 +54,8 @@ public interface RegisterFragmentContract {
 
         void startSync();
 
+        void updateInitials();
+        
         void updateSortAndFilter(List<Field> filterList, Field sortField);
 
         void searchGlobally(String ancId);
