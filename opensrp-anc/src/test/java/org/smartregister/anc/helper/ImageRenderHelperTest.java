@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;

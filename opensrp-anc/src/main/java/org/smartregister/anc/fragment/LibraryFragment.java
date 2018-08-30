@@ -30,11 +30,6 @@ public class LibraryFragment extends Fragment implements LibraryContract.View{
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		setUpViews(view);
-	}
-	
-	private void setUpViews(View view) {
-	
 	}
 	
 	private void initializePresenter() {
@@ -44,23 +39,5 @@ public class LibraryFragment extends Fragment implements LibraryContract.View{
 	@Override
 	public void onStart() {
 		super.onStart();
-	}
-	
-	/**
-	 * Handles the click events on the Library Fragment
-	 */
-	private class LibraryClickListener implements View.OnClickListener {
-		
-		@Override
-		public void onClick(View view) {
-			if (getActivity() == null) {
-				return;
-			}
-			
-			switch (view.getId()) {
-				default:
-					break;
-			}
-		}
 	}
 }

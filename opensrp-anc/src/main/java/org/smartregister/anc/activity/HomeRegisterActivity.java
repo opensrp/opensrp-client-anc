@@ -3,12 +3,8 @@ package org.smartregister.anc.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-
-import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
@@ -54,10 +50,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return superOnOptionsItemsSelected(item);
 
-    }
-
-    @Override
-    protected void onResumption() {
     }
 
     @Override

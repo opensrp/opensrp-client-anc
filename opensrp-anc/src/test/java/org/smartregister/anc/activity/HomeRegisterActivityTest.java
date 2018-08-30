@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-
 import com.google.common.collect.ImmutableMap;
-
 import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -25,10 +25,4 @@
 			android:icon="@drawable/ic_icon_open_book"
 			android:title="@string/library"
 			app:showAsAction="ifRoom"/>
-	<!--<item
-			android:id="@+id/action_me"
-			android:enabled="true"
-			android:title="@string/me"
-			app:actionLayout="@layout/me_menu"
-			app:showAsAction="always|withText"/>-->
 </menu>

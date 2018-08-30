@@ -1,7 +1,6 @@
 package org.smartregister.anc.model;
 
 import android.util.Pair;
-
 import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,7 +46,6 @@ import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.helper.BottomNavigationHelper;
 import org.smartregister.anc.listener.BottomNavigationListener;
-import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
@@ -92,13 +90,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     private AlertDialog attentionFlagAlertDialog;
 
     private View attentionFlagDialogView;
-    
-    private TextView intialMenuMe;
-    
-    private BottomNavigationView bottomNavigationView;
-	protected TextView initialMenuItem;
-	protected TextView initialMenuItemText;
-	protected RelativeLayout filterRelativeLayout;
+	
+	protected String userInitials;
 	BottomNavigationListener bottomNavigationListener;
 
     @Override
@@ -125,6 +118,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         });
         initializePresenter();
+	    presenter.updateInitials();
         recordBirthAlertDialog = createAlertDialog();
 	
 	    registerBottomNavigation();
@@ -132,27 +126,16 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 	
 	private void registerBottomNavigation() {
-		bottomNavigationView = findViewById(R.id.bottom_navigation);
+		BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 		if (bottomNavigationView != null) {
+			bottomNavigationView.getMenu().add(Menu.NONE, 4, Menu.NONE, R.string.me).setIcon(BottomNavigationHelper
+					.writeOnDrawable(R.drawable.initials_background, userInitials, getResources()));
 			BottomNavigationHelper.disableShiftMode(bottomNavigationView);
-			BottomNavigationHelper.addMeMenuItem(bottomNavigationView,getContext());
-			
-			RelativeLayout relativeLayout = bottomNavigationView.findViewById(Constants.BOTTOM_NAV_MENU_ME);
-			initialMenuItem = relativeLayout.findViewById(R.id.name_initials);
-			initialMenuItemText = relativeLayout.findViewById(R.id.name_initials_text);
 			
 			bottomNavigationListener = new BottomNavigationListener(this);
 			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
-			
-			initialMenuItem.setOnClickListener(bottomNavigationListener);
-			initialMenuItemText.setOnClickListener(bottomNavigationListener);
-			presenter.updateInitials();
 		}
 		
-	}
-	
-	public BottomNavigationView getBottomNavigationView() {
-		return bottomNavigationView;
 	}
 	
 	@Override
@@ -504,10 +487,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
     
     @Override
-    public void updateInitialsText(String intials){
-    	if (initialMenuItem != null) {
-		    initialMenuItem.setText(intials);
-	    }
+    public void updateInitialsText(String initials){
+    	this.userInitials = initials;
     }
 
     public void switchToBaseFragment() {

@@ -1,18 +1,20 @@
 package org.smartregister.anc.helper;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.DrawableRes;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import org.smartregister.anc.R;
-import org.smartregister.anc.util.Constants;
 
 public class BottomNavigationHelper {
 	/*
@@ -47,26 +49,60 @@ public class BottomNavigationHelper {
 	}
 	
 	/**
-	 * Adds the bottom navigation bar me icon.
-	 * @param view
-	 * @param context
+	 * Convert Some kinds of Drawables to Bitmaps
+	 * @param drawableId
+	 * @param resources
+	 * @return
 	 */
-	public static void addMeMenuItem(BottomNavigationView view, Context context){
-	BottomNavigationMenuView bottomNavigation = (BottomNavigationMenuView) view.getChildAt(0);
-		View meBadge = LayoutInflater.from(context).inflate(R.layout.me_menu,bottomNavigation,false);
-		meBadge.setId(Constants.BOTTOM_NAV_MENU_ME);
-		bottomNavigation.addView(meBadge);
-	/*view.getMenu().add(Menu.NONE,4,Menu.NONE,R.string.me).setA;*/
+	private static Bitmap convertDrawableResToBitmap(@DrawableRes int drawableId,
+			Resources resources) {
+		Drawable drawable = resources.getDrawable(drawableId);
+		
+		if (drawable instanceof BitmapDrawable) {
+			return ((BitmapDrawable)drawable).getBitmap();
+		} else if (drawable instanceof GradientDrawable) {
+			GradientDrawable gradientDrawable = (GradientDrawable)drawable;
+			
+			int width = drawable.getIntrinsicWidth() > 0 ? drawable.getIntrinsicWidth() : 27;
+			int height = drawable.getIntrinsicHeight() > 0 ? drawable.getIntrinsicHeight() : 27;
+			
+			Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+			Canvas canvas = new Canvas(bitmap);
+			gradientDrawable.setBounds(0, 0, width, height);
+			gradientDrawable.setStroke(2, resources.getColor(R.color.light_grey_text));
+			gradientDrawable.setColor(resources.getColor(R.color.transparent));
+			gradientDrawable.setFilterBitmap(true);
+			gradientDrawable.draw(canvas);
+			return bitmap;
+		} else {
+			Bitmap bit = BitmapFactory.decodeResource(resources, drawableId);
+			return bit.copy(Bitmap.Config.ARGB_8888, true);
+		}
 	}
 	
-	/*public static void setCheckedBottomNavItem(BottomNavigationView bottomNavItem,int index) {
-		for (int i = 0; i < bottomNavItem.getMenu().size(); i++) {
-			MenuItem menuItem = bottomNavItem.getMenu().getItem(i);
-			if(menuItem.getItemId() == index) {
-				menuItem.setChecked(true);
-			} else {
-				menuItem.setChecked(false);
-			}
-		}
-	}*/
+	/**
+	 * Write Text to drawables, example used to write the bottom navigation bar me menu
+	 * @param drawableId
+	 * @param initials
+	 * @param resources
+	 * @return
+	 */
+	public static BitmapDrawable writeOnDrawable(int drawableId, String initials, Resources resources) {
+		Bitmap drawableResToBitmap = convertDrawableResToBitmap(drawableId, resources);
+		drawableResToBitmap.copy(Bitmap.Config.ARGB_8888, true);
+		
+		Paint initialsPaint = new Paint();
+		initialsPaint.setStyle(Paint.Style.FILL);
+		initialsPaint.setColor(resources.getColor(R.color.dark_grey));
+		initialsPaint.setTextSize(25);
+		initialsPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+		initialsPaint.setTextAlign(Paint.Align.CENTER);
+		Canvas canvas = new Canvas(drawableResToBitmap);
+		int xPos = (canvas.getWidth() / 2);
+		int yPos = (int)(((canvas.getHeight() / 2) - ((initialsPaint.descent() + initialsPaint.ascent()) / 2)) + 1);
+		
+		canvas.drawText(initials, xPos, yPos, initialsPaint);
+		
+		return new BitmapDrawable(resources, drawableResToBitmap);
+	}
 }

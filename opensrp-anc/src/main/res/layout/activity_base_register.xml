@@ -18,7 +18,6 @@
             android:layout_alignParentBottom="true"
             android:background="?android:attr/windowBackground"
             app:itemBackground="@color/bottom_nav_bar_background"
-            app:itemIconTint="@drawable/bottom_navigation_selector"
             app:itemTextColor="@drawable/bottom_navigation_selector"
             app:menu="@menu/bottom_navigation_menu"
     />

@@ -39,12 +39,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
     @Override
     public void setupViews(View view) {
 	    super.setupViews(view);
-	    // QR Code
-	    View filterImage = view.findViewById(R.id.filter_image_view);
-	    if (filterImage != null) {
-		    filterImage.setOnClickListener(registerActionHandler);
-	    }
-	
 	    View filterText = view.findViewById(R.id.filter_text_view);
 	    if (filterText != null) {
 		    filterText.setOnClickListener(registerActionHandler);
@@ -72,14 +66,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 
         switch (view.getId()) {
+	        case R.id.filter_text_view:
+	        	homeRegisterActivity.switchToFragment(2);
+	        	break;
             default:
                 break;
         }
-    }
-    
-    private void switchToMeFragment() {
-	    HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-	    homeRegisterActivity.switchToFragment(3);
     }
     
     @SuppressLint("NewApi")
