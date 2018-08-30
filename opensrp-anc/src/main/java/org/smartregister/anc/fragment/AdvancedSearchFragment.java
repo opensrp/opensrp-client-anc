@@ -18,10 +18,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
-
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
@@ -111,6 +109,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     @Override
     protected void goBack() {
+	    /*BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,0);*/
         if (listMode) {
             switchViews(false);
         } else {
@@ -147,6 +146,9 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         matchingResults = view.findViewById(R.id.matching_results);
 
         populateFormViews(view);
+    
+    
+       /* BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_search);*/
 
     }
 
@@ -380,11 +382,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 	}
     
     @Override
-    public void updateInitialsText(String initials) {
-        //Todo implement the menu initials
-    }
-    
-    @Override
     public void countExecute() {
         Cursor c = null;
 
@@ -465,4 +462,22 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     public EditText getAncId() {
         return this.ancId;
     }
+    
+    /*@Override
+    public void onResume() {
+        super.onResume();
+        BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_search);
+    }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_search);
+    }
+    
+    @Override
+	public void onStop() {
+		super.onStop();
+	    BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_clients);
+	}*/
 }

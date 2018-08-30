@@ -1,7 +1,6 @@
 package org.smartregister.anc.contract;
 
 import android.content.Context;
-
 import org.json.JSONArray;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
@@ -42,8 +41,6 @@ public interface RegisterFragmentContract {
         void hideProgressView();
         
         void showNotFoundPopup(String whoAncId);
-        
-        void updateInitialsText(String initials);
     }
 
     interface Presenter {
@@ -53,8 +50,6 @@ public interface RegisterFragmentContract {
         void initializeQueries(String mainCondition);
 
         void startSync();
-
-        void updateInitials();
         
         void updateSortAndFilter(List<Field> filterList, Field sortField);
 
@@ -74,8 +69,6 @@ public interface RegisterFragmentContract {
         String countSelect(String tableName, String mainCondition);
 
         String mainSelect(String tableName, String mainCondition);
-
-        String getInitials();
 
         String getFilterText(List<Field> filterList, String filter);
 

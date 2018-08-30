@@ -3,9 +3,7 @@ package org.smartregister.anc.fragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -21,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,11 +33,9 @@ import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.BottomNavigationHelper;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
@@ -64,12 +59,11 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  */
 
 public abstract class BaseRegisterFragment extends RecyclerViewFragment implements RegisterFragmentContract.View,
-		SyncStatusBroadcastReceiver.SyncStatusListener, BottomNavigationView.OnNavigationItemSelectedListener {
+		SyncStatusBroadcastReceiver.SyncStatusListener {
 
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
-	private BottomNavigationListener bottomNavigationListener;
 	
 	protected RegisterFragmentContract.Presenter presenter;
 
@@ -88,10 +82,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     private ProgressBar syncProgressBar;
     protected TextView headerTextDisplay;
     protected TextView filterStatus;
-    protected BottomNavigationView bottomNavigationView;
-    protected TextView initialMenuItem;
-    protected TextView initialMenuItemText;
-	protected RelativeLayout filterRelativeLayout;
+    protected RelativeLayout filterRelativeLayout;
 	protected MenuItem menuItem;
 	
 	private boolean globalQrSearch = false;
@@ -243,21 +234,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         headerTextDisplay = view.findViewById(R.id.header_text_display);
         filterStatus = view.findViewById(R.id.filter_status);
         filterRelativeLayout = view.findViewById(R.id.filter_display_view);
-	
-	    bottomNavigationView = view.findViewById(R.id.bottom_navigation);
-	    if (bottomNavigationView != null) {
-		    BottomNavigationHelper.disableShiftMode(bottomNavigationView);
-		    BottomNavigationHelper.addMeMenuItem(bottomNavigationView,getContext());
-		
-		    RelativeLayout relativeLayout = bottomNavigationView.findViewById(Constants.BOTTOM_NAV_MENU_ME);
-		    initialMenuItem = relativeLayout.findViewById(R.id.name_initials);
-		    initialMenuItemText = relativeLayout.findViewById(R.id.name_initials_text);
-		    
-		    bottomNavigationListener = new BottomNavigationListener(this.getActivity());
-		    bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
-	    }
-	
-	    presenter.updateInitials();
 	}
 
     @Override
@@ -556,11 +532,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             }
         }
     }
-    
-    @Override
-	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-		return bottomNavigationListener.onNavigationItemSelected(item);
-	}
 	
 	////////////////////////////////////////////////////////////////
     // Inner classes

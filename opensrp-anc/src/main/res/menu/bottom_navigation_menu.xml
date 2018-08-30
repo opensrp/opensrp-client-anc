@@ -29,5 +29,6 @@
 			android:id="@+id/action_me"
 			android:enabled="true"
 			android:title="@string/me"
+			app:actionLayout="@layout/me_menu"
 			app:showAsAction="always|withText"/>-->
 </menu>

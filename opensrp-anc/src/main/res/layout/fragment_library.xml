@@ -24,12 +24,5 @@
 					android:layout_height="wrap_content"/>
 
 		</LinearLayout>
-		<include
-				layout="@layout/bottom_navigation_bar"
-				style="@style/Widget.Design.BottomNavigationView"
-				android:layout_gravity="end"
-				android:layout_alignParentBottom="true"
-				android:layout_height="?attr/actionBarSize"
-				android:layout_width="match_parent"/>
 	</RelativeLayout>
 </LinearLayout>

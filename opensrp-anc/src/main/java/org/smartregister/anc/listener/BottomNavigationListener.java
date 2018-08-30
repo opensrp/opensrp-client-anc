@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
+import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.util.Constants;
 
-public class BottomNavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class BottomNavigationListener implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 	private Activity context;
 	
 	public BottomNavigationListener(Activity context) {
@@ -37,5 +38,23 @@ public class BottomNavigationListener implements BottomNavigationView.OnNavigati
 				break;
 		}
 		return true;
+	}
+	
+	@Override
+	public void onClick(View view) {
+		if (context == null) {
+			return;
+		}
+		
+		switch (view.getId()) {
+			case R.id.name_initials:
+				((HomeRegisterActivity) context).switchToFragment(3);
+				break;
+			case  R.id.name_initials_text:
+				((HomeRegisterActivity) context).switchToFragment(3);
+				break;
+			default:
+				break;
+		}
 	}
 }

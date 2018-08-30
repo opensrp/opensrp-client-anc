@@ -81,11 +81,6 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
     }
 
     @Override
-    public String getInitials() {
-        return Utils.getInitials();
-    }
-
-    @Override
     public String getFilterText(List<Field> list, String filterTitle) {
         List<Field> filterList = list;
         if (filterList == null) {

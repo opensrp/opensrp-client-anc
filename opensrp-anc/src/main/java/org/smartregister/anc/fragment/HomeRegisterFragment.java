@@ -1,7 +1,6 @@
 package org.smartregister.anc.fragment;
 
 import android.annotation.SuppressLint;
-import android.support.design.widget.BottomNavigationView;
 import android.view.View;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
@@ -16,7 +15,7 @@ import java.util.Objects;
  * Created by keyman on 26/06/2018.
  */
 
-public class HomeRegisterFragment extends BaseRegisterFragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeRegisterFragment extends BaseRegisterFragment {
 	
     @Override
     protected void initializePresenter() {
@@ -62,9 +61,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
 	    if (attentionFlag != null) {
 		    attentionFlag.setOnClickListener(registerActionHandler);
 	    }
-	    
-	    initialMenuItem.setOnClickListener(registerActionHandler);
-	    initialMenuItemText.setOnClickListener(registerActionHandler);
     }
 
     @Override
@@ -76,18 +72,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
         HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 
         switch (view.getId()) {
-            case R.id.filter_image_view:
-                homeRegisterActivity.switchToFragment(2);
-                break;
-	        case R.id.filter_text_view:
-	        	homeRegisterActivity.switchToFragment(2);
-	        	break;
-	        case R.id.name_initials:
-	        	switchToMeFragment();
-	        	break;
-	        case R.id.name_initials_text:
-	        	switchToMeFragment();
-	        	break;
             default:
                 break;
         }
@@ -103,11 +87,4 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Bottom
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment.launchDialog((BaseRegisterActivity)Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
-	
-	@Override
-	public void updateInitialsText(String initials) {
-    	if(initialMenuItem != null) {
-    		initialMenuItem.setText(initials);
-    	}
-	}
 }

@@ -2,7 +2,6 @@ package org.smartregister.anc.model;
 
 import android.util.Log;
 import android.util.Pair;
-
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
@@ -62,7 +61,12 @@ public class RegisterModel implements RegisterContract.Model {
         }
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
-
+    
+    @Override
+    public String getInitials() {
+        return Utils.getInitials();
+    }
+    
     private FormUtils getFormUtils() {
         if (formUtils == null) {
             try {
