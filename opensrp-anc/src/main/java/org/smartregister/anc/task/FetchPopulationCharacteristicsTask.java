@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FetchPopulationCharacteristicsTask extends AsyncTask<Void, Void, List<Characteristic>> {
 
-    PopulationCharacteristicsContract.Presenter presenter;
+    private PopulationCharacteristicsContract.Presenter presenter;
 
     public FetchPopulationCharacteristicsTask(PopulationCharacteristicsContract.Presenter presenter) {
         this.presenter = presenter;

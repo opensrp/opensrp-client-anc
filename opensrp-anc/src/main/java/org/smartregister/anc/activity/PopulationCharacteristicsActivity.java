@@ -23,7 +23,6 @@ import java.util.List;
 
 public class PopulationCharacteristicsActivity extends AppCompatActivity implements PopulationCharacteristicsAdapter.ItemClickListener, PopulationCharacteristicsContract.View {
 
-    private PopulationCharacteristicsContract.Presenter presenter;
     private RecyclerView recyclerView;
 
     @Override
@@ -48,7 +47,7 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        presenter = new PopulationCharacteristicsPresenter(this);
+        PopulationCharacteristicsContract.Presenter presenter = new PopulationCharacteristicsPresenter(this);
         presenter.getPopulationCharacteristics();
 
 
