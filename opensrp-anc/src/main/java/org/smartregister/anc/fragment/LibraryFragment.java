@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.LibraryContract;
-import org.smartregister.anc.presenter.LibraryPresenter;
 
 public class LibraryFragment extends Fragment implements LibraryContract.View{
-	private LibraryContract.Presenter presenter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initializePresenter();
 	}
 	
 	@Nullable
@@ -31,11 +28,7 @@ public class LibraryFragment extends Fragment implements LibraryContract.View{
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 	}
-	
-	private void initializePresenter() {
-		presenter = new LibraryPresenter(this);
-	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();

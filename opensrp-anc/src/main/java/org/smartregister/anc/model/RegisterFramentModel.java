@@ -12,7 +12,6 @@ import org.smartregister.anc.util.ConfigHelper;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
@@ -105,14 +104,6 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
             }
         }
         return sortText;
-    }
-
-    private String getPrefferedName() {
-        if (getAllSharedPreferences() == null) {
-            return null;
-        }
-
-        return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
     }
 
     @Override
@@ -238,13 +229,6 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
             Log.e(getClass().getName(), "", e);
         }
         return null;
-    }
-
-    private AllSharedPreferences getAllSharedPreferences() {
-        if (allSharedPreferences == null) {
-            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        }
-        return allSharedPreferences;
     }
 
     public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {

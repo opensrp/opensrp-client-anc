@@ -26,6 +26,8 @@ import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.fragment.LibraryFragment;
+import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
@@ -101,9 +103,11 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
         Fragment[] fragments = homeRegisterActivity.getOtherFragments();
         Assert.assertNotNull(fragments);
-        Assert.assertTrue(fragments.length == 2);
+        Assert.assertTrue(fragments.length == 4);
         Assert.assertTrue(fragments[0] instanceof AdvancedSearchFragment);
         Assert.assertTrue(fragments[1] instanceof SortFilterFragment);
+        Assert.assertTrue(fragments[2] instanceof MeFragment);
+        Assert.assertTrue(fragments[3] instanceof LibraryFragment);
     }
 
     @Test
@@ -194,7 +198,8 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         client.setColumnmaps(details);
         homeRegisterActivitySpy.showRecordBirthPopUp(client);
 
-        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 17 weeks\nEDD: 25/12/2018 (4m to go). \n\nmyusername should come in immediately for delivery.");
+        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 16 weeks\nEDD: 25/12/2018 (3m 3w to go). "
+                + "\n\nmyusername should come in immediately for delivery.");
         Mockito.verify(recordBirthAlertDialog).show();
     }
 

@@ -92,9 +92,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     private View attentionFlagDialogView;
 	
 	protected String userInitials;
-	BottomNavigationListener bottomNavigationListener;
-
-    @Override
+	
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_register);
@@ -132,7 +131,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 					.writeOnDrawable(R.drawable.initials_background, userInitials, getResources()));
 			BottomNavigationHelper.disableShiftMode(bottomNavigationView);
 			
-			bottomNavigationListener = new BottomNavigationListener(this);
+			BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
 			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
 		}
 		

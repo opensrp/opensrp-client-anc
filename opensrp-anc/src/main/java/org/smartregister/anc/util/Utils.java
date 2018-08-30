@@ -48,7 +48,6 @@ public class Utils {
 
     private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
-	private static AllSharedPreferences allSharedPreferences;
     
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -218,36 +217,5 @@ public class Utils {
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
         Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
         return weeks.getWeeks();
-    }
-    
-    public static String getInitials() {
-        String initials = null;
-        String preferredName = getPrefferedName();
-        
-        if (StringUtils.isNotBlank(preferredName)) {
-            String[] preferredNameArray = preferredName.split(" ");
-            initials = "";
-            if (preferredNameArray.length > 1) {
-                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
-            } else if (preferredNameArray.length == 1) {
-                initials = String.valueOf(preferredNameArray[0].charAt(0));
-            }
-        }
-        return initials;
-    }
-	
-	private static String getPrefferedName() {
-		if (getAllSharedPreferences() == null) {
-			return null;
-		}
-		
-		return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
-	}
-    
-    private static AllSharedPreferences getAllSharedPreferences() {
-        if (allSharedPreferences == null) {
-            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        }
-        return allSharedPreferences;
     }
 }

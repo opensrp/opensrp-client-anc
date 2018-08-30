@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.MeContract;
-import org.smartregister.anc.presenter.MePresenter;
 
 public class MeFragment extends Fragment implements MeContract.View {
-	private MeContract.Presenter presenter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initializePresenter();
 	}
 	
 	@Nullable
@@ -30,10 +27,6 @@ public class MeFragment extends Fragment implements MeContract.View {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-	}
-	
-	private void initializePresenter() {
-		presenter = new MePresenter(this);
 	}
 	
 	@Override
