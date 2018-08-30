@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
@@ -42,9 +42,9 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
 
         holder.valueTextView.setText(characteristic.getValue() ? "Yes" : "No");
 
-        holder.infoLayout.setTag(characteristic.getKey());
+        holder.info.setTag(characteristic.getKey());
 
-        holder.infoLayout.setTag(R.id.CHARACTERISTIC_DESC, characteristic.getDescription());
+        holder.info.setTag(R.id.CHARACTERISTIC_DESC, characteristic.getDescription());
     }
 
     @Override
@@ -55,14 +55,14 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView labelTextView;
         private TextView valueTextView;
-        private LinearLayout infoLayout;
+        private View info;
 
         ViewHolder(View itemView) {
             super(itemView);
             labelTextView = itemView.findViewById(R.id.label);
             valueTextView = itemView.findViewById(R.id.value);
-            infoLayout = itemView.findViewById(R.id.info);
-            infoLayout.setOnClickListener(this);
+            info = itemView.findViewById(R.id.info);
+            info.setOnClickListener(this);
         }
 
         @Override

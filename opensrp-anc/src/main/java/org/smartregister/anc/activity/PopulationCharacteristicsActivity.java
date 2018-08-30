@@ -30,12 +30,12 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_population_characteristics);
 
-        ActionBar toolbar = getSupportActionBar();
+        /*ActionBar toolbar = getSupportActionBar();
         toolbar.setHomeAsUpIndicator(R.drawable.ic_cross_white);
         toolbar.setDisplayHomeAsUpEnabled(true);
         toolbar.setHomeButtonEnabled(true);
         toolbar.setDisplayShowHomeEnabled(true);
-        toolbar.setTitle(R.string.population_characteristics);
+        toolbar.setTitle(R.string.population_characteristics);*/
 
 
         recyclerView = findViewById(R.id.population_characteristics);
@@ -63,7 +63,7 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
 
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(this, R.style.AncDialog);
+            builder = new AlertDialog.Builder(this, R.style.AncAlertDialog);
         } else {
             builder = new AlertDialog.Builder(this);
         }
@@ -73,7 +73,7 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
-                }).setIcon(android.R.drawable.ic_dialog_info);
+                }).setIcon(R.drawable.ic_info);
 
         AlertDialog dialog = builder.create();
         dialog.show();

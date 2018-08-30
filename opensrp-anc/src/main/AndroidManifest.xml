@@ -51,6 +51,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
+            android:name=".activity.PopulationCharacteristicsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar"/>
+        <activity
             android:name=".activity.SettingsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
@@ -68,7 +74,6 @@
         <service android:name=".service.intent.PullUniqueIdsIntentService" />
         <service android:name=".service.AncImageUploadSyncService" />
 
-        <activity android:name=".activity.PopulationCharacteristicsActivity"></activity>
     </application>
 
 </manifest>
