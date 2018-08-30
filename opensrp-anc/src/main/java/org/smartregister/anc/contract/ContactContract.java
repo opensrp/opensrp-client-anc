@@ -1,7 +1,5 @@
 package org.smartregister.anc.contract;
 
-import android.util.Pair;
-
 import java.util.Map;
 
 public interface ContactContract {
