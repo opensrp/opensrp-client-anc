@@ -3,14 +3,13 @@ package org.smartregister.anc.activity;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.View;
 
 import org.smartregister.anc.R;
@@ -30,14 +29,6 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_population_characteristics);
 
-        /*ActionBar toolbar = getSupportActionBar();
-        toolbar.setHomeAsUpIndicator(R.drawable.ic_cross_white);
-        toolbar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setHomeButtonEnabled(true);
-        toolbar.setDisplayShowHomeEnabled(true);
-        toolbar.setTitle(R.string.population_characteristics);*/
-
-
         recyclerView = findViewById(R.id.population_characteristics);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -49,6 +40,14 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
 
         PopulationCharacteristicsContract.Presenter presenter = new PopulationCharacteristicsPresenter(this);
         presenter.getPopulationCharacteristics();
+
+        Toolbar mToolbar = findViewById(R.id.register_toolbar);
+        mToolbar.findViewById(R.id.close_population_characteristics).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
     }
@@ -78,12 +77,6 @@ public class PopulationCharacteristicsActivity extends AppCompatActivity impleme
         AlertDialog dialog = builder.create();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
-        return true;
     }
 
     @Override

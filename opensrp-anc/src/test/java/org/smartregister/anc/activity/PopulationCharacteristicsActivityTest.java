@@ -44,16 +44,6 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
     }
 
     @Test
-    public void testOnOptionsItemSelectedInvokesSuperWithCorrectParams() {
-        PopulationCharacteristicsActivity spyActivity = Mockito.spy(populationCharacteristicsActivity);
-
-        spyActivity.onOptionsItemSelected(menuItem);
-
-        Mockito.verify(spyActivity).onBackPressed();
-
-    }
-
-    @Test
     public void testOnItemClickInvokesRenderSubInfoAlertDialog() {
         PopulationCharacteristicsActivity spyActivity = Mockito.spy(populationCharacteristicsActivity);
 
