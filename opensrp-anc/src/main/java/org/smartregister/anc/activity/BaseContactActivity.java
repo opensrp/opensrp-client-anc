@@ -47,6 +47,12 @@ public abstract class BaseContactActivity extends SecuredActivity {
         setupViews();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy(isChangingConfigurations());
+    }
+
     protected void setupViews() {
         initializeRecyclerView();
 

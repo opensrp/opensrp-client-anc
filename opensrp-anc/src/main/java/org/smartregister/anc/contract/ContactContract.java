@@ -22,6 +22,10 @@ public interface ContactContract {
         void onDestroy(boolean isChangingConfiguration);
     }
 
+    interface Model {
+        String extractPatientName(Map<String, String> womanDetails);
+    }
+
     interface Interactor {
         void fetchWomanDetails(String baseEntityId, InteractorCallBack callBack);
     }

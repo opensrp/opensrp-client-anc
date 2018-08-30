@@ -3,17 +3,16 @@ package org.smartregister.anc.presenter;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.interactor.ContactInteractor;
-import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.model.ContactModel;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
 public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallBack {
 
-    private static final String TAG = ProfilePresenter.class.getCanonicalName();
-
     private WeakReference<ContactContract.View> viewReference;
-    private ContactContract.Interactor contactInteractor;
+    private ContactContract.Interactor interactor;
+    private ContactContract.Model model;
 
     private String baseEntityId;
 
@@ -21,7 +20,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public ContactPresenter(ContactContract.View contactView) {
         viewReference = new WeakReference<>(contactView);
-        contactInteractor = new ContactInteractor();
+        interactor = new ContactInteractor();
+        model = new ContactModel();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     @Override
     public void fetchPatient(String baseEntityId) {
-        contactInteractor.fetchWomanDetails(baseEntityId, this);
+        interactor.fetchWomanDetails(baseEntityId, this);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         }
 
         this.details = womanDetails;
-        String patientName = extractNames(womanDetails);
+        String patientName = model.extractPatientName(womanDetails);
         getView().displayPatientName(patientName);
 
     }
@@ -58,27 +58,9 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         if (details == null || details.isEmpty()) {
             return "";
         }
-        return extractNames(details);
+        return model.extractPatientName(details);
     }
 
-    private String extractNames(Map<String, String> womanDetails) {
-        String firstName = womanDetails.get(DBConstants.KEY.FIRST_NAME);
-        String lastName = womanDetails.get(DBConstants.KEY.LAST_NAME);
-
-        String patientName = "";
-        if (StringUtils.isBlank(firstName) && StringUtils.isBlank(lastName)) {
-            return patientName;
-        }
-
-        if (StringUtils.isBlank(firstName)) {
-            patientName = lastName;
-        } else if (StringUtils.isBlank(lastName)) {
-            patientName = firstName;
-        } else {
-            patientName = firstName + " " + lastName;
-        }
-        return patientName;
-    }
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
@@ -86,7 +68,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {
-            contactInteractor = null;
+            interactor = null;
         }
     }
 
@@ -95,6 +77,31 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             return viewReference.get();
         else
             return null;
+    }
+
+    // Test methods
+    public WeakReference<ContactContract.View> getViewReference() {
+        return viewReference;
+    }
+
+    public ContactContract.Interactor getInteractor() {
+        return interactor;
+    }
+
+    public void setInteractor(ContactContract.Interactor interactor) {
+        this.interactor = interactor;
+    }
+
+    public void setModel(ContactContract.Model model) {
+        this.model = model;
+    }
+
+    public Map<String, String> getDetails() {
+        return details;
+    }
+
+    public void setDetails(Map<String, String> details) {
+        this.details = details;
     }
 
 }

@@ -9,15 +9,11 @@ import org.smartregister.anc.util.AppExecutors;
 import java.util.Map;
 
 /**
- * Created by keyman 28/07/2018.
+ * Created by keyman 30/07/2018.
  */
 public class ContactInteractor implements ContactContract.Interactor {
 
-
     public static final String TAG = ContactInteractor.class.getName();
-
-    public enum type {SAVED, UPDATED}
-
 
     private AppExecutors appExecutors;
 
