@@ -2,4 +2,5 @@
     <item name="VIEW_ID" type="id" />
     <item name="Settings" type="id" />
     <item name="CLIENT_ID" type="id" />
+    <item name="CHARACTERISTIC_DESC" type="id" />
 </resources>
