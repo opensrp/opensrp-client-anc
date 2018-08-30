@@ -2,7 +2,6 @@ package org.smartregister.anc.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,15 +10,11 @@ import org.smartregister.anc.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.presenter.SiteCharacteristicsPresenter;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.JsonFormUtils;
-
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 28/08/2018.
  */
 public class SiteCharacteristicsExitActivity extends BaseActivity implements View.OnClickListener, SiteCharacteristicsContract.View {
-    private static final String TAG = SiteCharacteristicsExitActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,28 +53,5 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
         startActivity(intent);
 
         finish();//finish this
-    }
-
-    @Override
-    public void launchSiteCharacteristicsSettingsForm() {
-        //InterfaceOverriden
-    }
-
-    @Override
-    public void goToSiteCharacteristicsExitPage() {
-        //Interface overridden
-    }
-
-    @Override
-    public void launchSiteCharacteristicsSettingsFormForEdit(Map<String, String> characteristics) {
-
-        String formMetadata = JsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(this, characteristics);
-        try {
-
-            JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
     }
 }

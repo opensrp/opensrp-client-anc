@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     private void goToSiteCharacteristics(boolean remote) {
-        Intent intent = new Intent(this, SiteCharacteristicsActivity.class);
+        Intent intent = new Intent(this, SiteCharacteristicsEnterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }

@@ -8,12 +8,15 @@ import android.util.Log;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
+
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 27/08/2018.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements SiteCharacteristicsContract.View {
 
     protected ProgressDialog progressDialog;
     protected SiteCharacteristicsContract.Presenter presenter;
@@ -55,6 +58,34 @@ public abstract class BaseActivity extends AppCompatActivity {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
 
+        }
+    }
+
+    @Override
+    public void launchSiteCharacteristicsSettingsForm() {
+
+        JsonFormUtils.launchSiteCharacteristicsForm(this);
+    }
+
+    @Override
+    public void goToSiteCharacteristicsExitPage() {
+        Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
+        startActivity(intent);
+
+        finish();//finish this
+    }
+
+    @Override
+    public void launchSiteCharacteristicsSettingsFormForEdit(Map<String, String> characteristics) {
+
+        String formMetadata = JsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(this, characteristics);
+        try {
+
+            JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 }

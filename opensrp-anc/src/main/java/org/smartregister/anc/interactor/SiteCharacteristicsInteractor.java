@@ -2,6 +2,7 @@ package org.smartregister.anc.interactor;
 
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
+import org.smartregister.repository.AllSettings;
 
 import java.util.Map;
 
@@ -14,9 +15,12 @@ public class SiteCharacteristicsInteractor implements SiteCharacteristicsContrac
     public void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap) {
 
         for (Map.Entry<String, String> setting : siteCharacteristicsSettingsMap.entrySet()) {
-            AncApplication.getInstance().getContext().allSettings().put(setting.getKey(), setting.getValue());
+            getAllSettingsRepo().put(setting.getKey(), setting.getValue());
         }
 
     }
 
+    protected AllSettings getAllSettingsRepo() {
+        return AncApplication.getInstance().getContext().allSettings();
+    }
 }

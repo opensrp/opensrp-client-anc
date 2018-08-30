@@ -44,10 +44,17 @@ public class SiteCharacteristicsPresenter implements SiteCharacteristicsContract
     @Override
     public void launchSiteCharacteristicsFormForEdit() {
         AllSettings allSettings = AncApplication.getInstance().getContext().allSettings();
-        Map<String, String> settings = ImmutableMap.of(Constants.SITE_CHARACTERISTICS_KEY.ULTRASOUND, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.ULTRASOUND),
-                Constants.SITE_CHARACTERISTICS_KEY.BP_TOOL, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.BP_TOOL),
-                Constants.SITE_CHARACTERISTICS_KEY.HIV, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.HIV), Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS));
+        Map<String, String> settings = getSettingsMap(allSettings);
         getSiteCharacteristicsView().launchSiteCharacteristicsSettingsFormForEdit(settings);
+    }
+
+    protected Map<String, String> getSettingsMap(AllSettings allSettings) {
+        return ImmutableMap.of(Constants.SITE_CHARACTERISTICS_KEY.ULTRASOUND, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.ULTRASOUND),
+                Constants.SITE_CHARACTERISTICS_KEY.BP_TOOL, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.BP_TOOL),
+                Constants.SITE_CHARACTERISTICS_KEY.HIV, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.HIV),
+                Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS));
+
+
     }
 
     @Override
