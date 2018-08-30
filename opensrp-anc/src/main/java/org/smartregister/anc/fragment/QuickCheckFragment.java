@@ -64,6 +64,16 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         initializePresenter();
     }
 
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity(), getTheme()) {
+            @Override
+            public void onBackPressed() {
+                confirmClose();
+            }
+        };
+    }
+
     public static void launchDialog(Activity activity,
                                     String dialogTag) {
         QuickCheckFragment dialogFragment = new QuickCheckFragment();
@@ -191,14 +201,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void displayComplaintLayout() {
-        if (complaintLayout != null) {
+        if (complaintLayout != null && complaintLayout.getVisibility() != View.VISIBLE) {
             complaintLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void hideComplaintLayout() {
-        if (complaintLayout != null) {
+        if (complaintLayout != null && complaintLayout.getVisibility() != View.GONE) {
             complaintLayout.setVisibility(View.GONE);
         }
     }
@@ -219,14 +229,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void displayDangerSignLayout() {
-        if (dangerSignLayout != null) {
+        if (dangerSignLayout != null && dangerSignLayout.getVisibility() != View.VISIBLE) {
             dangerSignLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void showSpecifyEditText() {
-        if (specifyEditText != null) {
+        if (specifyEditText != null && specifyEditText.getVisibility() != View.VISIBLE) {
             specifyEditText.setVisibility(View.VISIBLE);
             specifyEditText.requestFocus();
         }
@@ -234,7 +244,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void hideSpecifyEditText() {
-        if (specifyEditText != null) {
+        if (specifyEditText != null && specifyEditText.getVisibility() != View.GONE) {
             specifyEditText.setVisibility(View.GONE);
             specifyEditText.setText("");
         }
@@ -242,21 +252,21 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void displayNavigationLayout() {
-        if (navigationLayout != null) {
+        if (navigationLayout != null && navigationLayout.getVisibility() != View.VISIBLE) {
             navigationLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void displayReferButton() {
-        if (refer != null) {
+        if (refer != null && refer.getVisibility() != View.VISIBLE) {
             refer.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void hideReferButton() {
-        if (refer != null) {
+        if (refer != null && refer.getVisibility() != View.GONE) {
             refer.setVisibility(View.GONE);
         }
     }
@@ -319,6 +329,27 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         return specifyEditText != null ? specifyEditText.getText().toString() : null;
     }
 
+    private void confirmClose() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AncAlertDialog)
+                .setTitle(com.vijay.jsonwizard.R.string.confirm_form_close)
+                .setMessage(com.vijay.jsonwizard.R.string.confirm_form_close_explanation)
+                .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                })
+                .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .create();
+
+        dialog.show();
+
+    }
+
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
@@ -329,7 +360,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
             switch (v.getId()) {
                 case R.id.cancel_quick_check:
-                    dismiss();
+                    confirmClose();
                     break;
                 case R.id.proceed:
                     presenter.proceedToNormalContact(getSpecifyText());

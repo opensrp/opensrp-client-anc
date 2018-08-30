@@ -5,6 +5,8 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar_quick_check" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -14,8 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <include layout="@layout/toolbar_quick_check" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -101,27 +101,29 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
+
     <LinearLayout
         android:id="@+id/navigation_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginLeft="@dimen/quick_check_drawable_padding"
-        android:layout_marginRight="@dimen/quick_check_padding"
-        android:layout_marginTop="@dimen/quick_check_drawable_padding"
-        android:elevation="2dp"
+        android:background="@drawable/grey_border"
+        android:elevation="@dimen/quick_check_elevation"
         android:orientation="vertical"
         android:visibility="gone">
 
         <Button
             android:id="@+id/refer"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/quick_check_padding"
+            android:layout_marginStart="@dimen/quick_check_drawable_padding"
+            android:layout_marginTop="@dimen/quick_check_drawable_padding"
             android:background="@drawable/refer_close_background"
-            android:paddingEnd="@dimen/quick_check_drawable_padding"
-            android:paddingStart="@dimen/quick_check_drawable_padding"
+            android:paddingEnd="@dimen/quick_check_padding"
+            android:paddingStart="@dimen/quick_check_padding"
             android:text="@string/refer_and_close_contact"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
@@ -132,10 +134,12 @@
         <Button
             android:id="@+id/proceed"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="@dimen/quick_check_item_padding"
+            android:layout_marginEnd="@dimen/quick_check_padding"
+            android:layout_marginStart="@dimen/quick_check_drawable_padding"
+            android:layout_marginTop="@dimen/quick_check_elevation"
             android:background="@color/transparent"
             android:paddingEnd="@dimen/quick_check_drawable_padding"
             android:paddingStart="@dimen/quick_check_drawable_padding"

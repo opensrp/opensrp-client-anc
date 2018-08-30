@@ -57,8 +57,6 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         Mockito.verify(view).notifyComplaintAdapter();
         Mockito.verify(view).hideComplaintLayout();
-        Mockito.verify(view).displayNavigationLayout();
-        Mockito.verify(view).displayNavigationLayout();
 
     }
 
@@ -73,8 +71,6 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.setReason(reason);
 
         Mockito.verify(view).displayComplaintLayout();
-        Mockito.verify(view).displayNavigationLayout();
-        Mockito.verify(view).displayNavigationLayout();
 
     }
 
@@ -266,6 +262,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerNone, true, true);
 
         Mockito.verify(view).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).hideReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -298,6 +295,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerNone, true, true);
 
         Mockito.verify(view).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).hideReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -330,6 +328,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerSignAdd, true, true);
 
         Mockito.verify(view).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).displayReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -363,6 +362,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerSignAdd, true, true);
 
         Mockito.verify(view, Mockito.times(0)).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).displayReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();

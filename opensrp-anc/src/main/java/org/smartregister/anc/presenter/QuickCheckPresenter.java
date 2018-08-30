@@ -50,7 +50,6 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
         getView().displayDangerSignLayout();
 
-        getView().displayNavigationLayout();
     }
 
     @Override
@@ -91,6 +90,8 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
                     getView().displayReferButton();
                 }
+
+                getView().displayNavigationLayout();
             } else {
                 if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
                     getView().showSpecifyEditText();
