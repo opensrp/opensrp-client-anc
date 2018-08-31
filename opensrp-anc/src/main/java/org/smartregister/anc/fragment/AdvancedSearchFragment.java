@@ -18,10 +18,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
-
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
@@ -45,6 +43,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private ImageButton backButton;
     private ImageButton cancelButton;
+    private Button searchButton;
 
     private RadioButton outsideInside;
     private RadioButton myCatchment;
@@ -59,14 +58,16 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private TextView searchCriteria;
     private TextView matchingResults;
+    
+    private Button qrCodeButton;
 
     private boolean listMode = false;
     private boolean isLocal = false;
 
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
-
-    @Override
+	
+	@Override
     protected void initializePresenter() {
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new AdvancedSearchPresenter(this, viewConfigurationIdentifier);
@@ -88,7 +89,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             switchViews(false);
-            updateSeachLimits();
+            updateSearchLimits();
             resetForm();
         }
     }
@@ -142,6 +143,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
         cancelButton = view.findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(registerActionHandler);
+        searchButton = view.findViewById(R.id.search);
+        qrCodeButton = view.findViewById(R.id.qrCodeButton);
 
         searchCriteria = view.findViewById(R.id.search_criteria);
         matchingResults = view.findViewById(R.id.matching_results);
@@ -153,7 +156,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter<>(null, advancedSearchProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 
@@ -216,6 +219,18 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         setDatePicker(dob);
 
         search.setOnClickListener(registerActionHandler);
+        
+        qrCodeButton.setOnClickListener(new View.OnClickListener(){
+	        @Override
+	        public void onClick(View view) {
+		        if (getActivity() == null) {
+			        return;
+		        }
+		        
+		        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+				homeRegisterActivity.startQrCodeScanner();
+	        }
+        });
 
         resetForm();
     }
@@ -231,6 +246,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
             cancelButton.setVisibility(View.GONE);
             backButton.setVisibility(View.VISIBLE);
+            searchButton.setVisibility(View.GONE);
 
             if (titleLabelView != null) {
                 titleLabelView.setText(getString(R.string.search_results));
@@ -248,6 +264,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
             backButton.setVisibility(View.GONE);
             cancelButton.setVisibility(View.VISIBLE);
+            searchButton.setVisibility(View.VISIBLE);
 
             if (titleLabelView != null) {
                 titleLabelView.setText(getString(R.string.advanced_search));
@@ -258,11 +275,10 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         }
     }
 
-    private void updateSeachLimits() {
+    private void updateSearchLimits() {
         if (Utils.isConnectedToNetwork(getActivity())) {
             outsideInside.setChecked(true);
             myCatchment.setChecked(false);
-
         } else {
             myCatchment.setChecked(true);
             outsideInside.setChecked(false);
@@ -373,7 +389,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         super.recalculatePagination(matrixCursor);
         updateMatchingResults(totalcount);
     }
-	
+    
 	@Override
 	public void showNotFoundPopup(String whoAncId) {
 		//Todo implement this
