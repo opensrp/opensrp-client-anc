@@ -165,7 +165,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         }
     }
-
+    
     protected abstract void initializePresenter();
 
     protected abstract BaseRegisterFragment getRegisterFragment();
