@@ -187,7 +187,7 @@
     <string name="trauma">Trauma</string>
     <string name="bleeding">Vaginal bleeding</string>
     <string name="visual_disturbance">Visual disturbance</string>
-    <string name="complaint_other_specify">Other (specify)</string>
+    <string name="complaint_other_specify">Other</string>
 
     <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
 

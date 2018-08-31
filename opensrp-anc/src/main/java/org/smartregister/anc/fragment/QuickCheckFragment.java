@@ -176,6 +176,22 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         complaintLayout = view.findViewById(R.id.complaint_layout);
 
         specifyEditText = view.findViewById(R.id.specify);
+        specifyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utils.hideKeyboard(getActivity(), v);
+                } else {
+                    Field otherSpecify = complaintAdapter.getSpecifyField();
+                    if (otherSpecify != null) {
+                        presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
+                        complaintAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+
         specifyEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -235,22 +251,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     }
 
     @Override
-    public void showSpecifyEditText() {
-        if (specifyEditText != null && specifyEditText.getVisibility() != View.VISIBLE) {
-            specifyEditText.setVisibility(View.VISIBLE);
-            specifyEditText.requestFocus();
-        }
-    }
-
-    @Override
-    public void hideSpecifyEditText() {
-        if (specifyEditText != null && specifyEditText.getVisibility() != View.GONE) {
-            specifyEditText.setVisibility(View.GONE);
-            specifyEditText.setText("");
-        }
-    }
-
-    @Override
     public void displayNavigationLayout() {
         if (navigationLayout != null && navigationLayout.getVisibility() != View.VISIBLE) {
             navigationLayout.setVisibility(View.VISIBLE);
@@ -268,6 +268,20 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     public void hideReferButton() {
         if (refer != null && refer.getVisibility() != View.GONE) {
             refer.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void enableSpecifyEditText() {
+        if (specifyEditText != null) {
+            specifyEditText.requestFocus();
+        }
+    }
+
+    @Override
+    public void disableSpecifyEditText() {
+        if (specifyEditText != null) {
+            specifyEditText.clearFocus();
         }
     }
 
@@ -525,6 +539,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         @Override
         public int getItemCount() {
             return list.size();
+        }
+
+        public Field getSpecifyField() {
+            return presenter.getField(list, getString(R.string.complaint_other_specify));
         }
 
     }

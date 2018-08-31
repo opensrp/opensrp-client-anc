@@ -6,6 +6,8 @@ import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.domain.QuickCheckConfiguration;
 import org.smartregister.configurableviews.model.Field;
 
+import java.util.Collection;
+
 
 public interface QuickCheckContract {
     interface Presenter {
@@ -24,6 +26,7 @@ public interface QuickCheckContract {
 
         void setBaseEntityId(String baseEntityId);
 
+        Field getField(Collection<Field> set, String displayName);
     }
 
     interface View {
@@ -42,9 +45,9 @@ public interface QuickCheckContract {
 
         void notifyDangerSignAdapter();
 
-        void showSpecifyEditText();
+        void enableSpecifyEditText();
 
-        void hideSpecifyEditText();
+        void disableSpecifyEditText();
 
         void displayNavigationLayout();
 
