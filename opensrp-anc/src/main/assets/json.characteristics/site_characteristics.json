@@ -1,0 +1,26 @@
+[
+  {
+    "key": "pop_undernourish",
+    "value": true,
+    "label": "Undernourished prevalence 20% or higher",
+    "description": "The proportion of women in the adult population (18 years or older), with a BMI less than 18.5, is 20% or higher."
+  },
+  {
+    "key": "pop_anaemia_40",
+    "value": false,
+    "label": "Anaemia prevalence 40% or higher",
+    "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 40% or higher."
+  },
+  {
+    "key": "pop_anaemia_20",
+    "value": false,
+    "label": "Anaemia prevalence 20% or lower",
+    "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 20% or lower."
+  },
+  {
+    "key": "pop_low_calcium",
+    "value": true,
+    "label": "Low dietary calcium intake",
+    "description": "Women in the population are likely to have low dietary calcium intake (less than 900 mg of calcium per day). "
+  }
+]

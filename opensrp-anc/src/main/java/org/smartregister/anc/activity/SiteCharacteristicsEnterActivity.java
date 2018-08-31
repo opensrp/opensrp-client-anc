@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.domain.Characteristic;
 import org.smartregister.anc.presenter.SiteCharacteristicsPresenter;
+
+import java.util.List;
 
 /**
  * Created by ndegwamartin on 27/08/2018.

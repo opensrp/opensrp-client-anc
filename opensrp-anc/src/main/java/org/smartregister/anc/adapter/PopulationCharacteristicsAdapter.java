@@ -28,7 +28,7 @@ public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<Popul
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.activity_population_characteristics_row, parent, false);
+        View view = mInflater.inflate(R.layout.activity_characteristics_row, parent, false);
         return new ViewHolder(view);
     }
 
