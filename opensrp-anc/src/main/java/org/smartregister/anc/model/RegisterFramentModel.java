@@ -21,7 +21,6 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,9 +35,7 @@ import static org.smartregister.anc.util.Constants.GLOBAL_IDENTIFIER;
  * Created by keyman on 12/07/2018.
  */
 public class RegisterFramentModel implements RegisterFragmentContract.Model {
-
-    private AllSharedPreferences allSharedPreferences;
-
+    
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
         return ConfigHelper.defaultRegisterConfiguration(AncApplication.getInstance().getApplicationContext());
@@ -229,9 +226,5 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
             Log.e(getClass().getName(), "", e);
         }
         return null;
-    }
-
-    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
-        this.allSharedPreferences = allSharedPreferences;
     }
 }

@@ -23,8 +23,6 @@ public class RegisterModel implements RegisterContract.Model {
     private AllSharedPreferences allSharedPreferences;
 
     private FormUtils formUtils;
-    
-    private Utils utils;
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {

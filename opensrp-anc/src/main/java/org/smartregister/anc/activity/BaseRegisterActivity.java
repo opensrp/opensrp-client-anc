@@ -93,6 +93,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 	
 	protected String userInitials;
 	
+	protected BottomNavigationHelper bottomNavigationHelper;
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,9 +128,9 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 	private void registerBottomNavigation() {
 		BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 		if (bottomNavigationView != null) {
-			bottomNavigationView.getMenu().add(Menu.NONE, 4, Menu.NONE, R.string.me).setIcon(BottomNavigationHelper
+			bottomNavigationView.getMenu().add(Menu.NONE, 4, Menu.NONE, R.string.me).setIcon(bottomNavigationHelper
 					.writeOnDrawable(R.drawable.initials_background, userInitials, getResources()));
-			BottomNavigationHelper.disableShiftMode(bottomNavigationView);
+			bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 			
 			BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
 			bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);

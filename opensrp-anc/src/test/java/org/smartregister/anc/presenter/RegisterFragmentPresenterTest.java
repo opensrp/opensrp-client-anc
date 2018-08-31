@@ -2,7 +2,6 @@ package org.smartregister.anc.presenter;
 
 import org.json.JSONArray;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
