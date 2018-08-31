@@ -1,6 +1,5 @@
 package org.smartregister.anc.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -78,30 +77,5 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 			e.printStackTrace();
 		}
 		
-	}
-	
-	
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		Bundle bundle = intent.getExtras();
-		if (bundle != null) {
-			String methodCheck = bundle.getString(Constants.IntentExtras.METHOD_NAME);
-			if (methodCheck != null){
-				switch (methodCheck) {
-					case Constants.IntentExtras.BASE_FRAGMENT:
-						switchToBaseFragment();
-						break;
-					case Constants.IntentExtras.START_REGISTRATION:
-						startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
-						break;
-					case Constants.IntentExtras.SWITCH_FRAGMENT:
-						switchToFragment(bundle.getInt(Constants.IntentExtras.FRAGMENT_LOCATION,0));
-						break;
-					default:
-						break;
-				}
-			}
-		}
 	}
 }

@@ -109,7 +109,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     @Override
     protected void goBack() {
-	    /*BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,0);*/
         if (listMode) {
             switchViews(false);
         } else {
@@ -146,9 +145,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         matchingResults = view.findViewById(R.id.matching_results);
 
         populateFormViews(view);
-    
-    
-       /* BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_search);*/
 
     }
 
@@ -462,22 +458,4 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     public EditText getAncId() {
         return this.ancId;
     }
-    
-    /*@Override
-    public void onResume() {
-        super.onResume();
-        BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_search);
-    }
-    
-    @Override
-    public void onStart() {
-        super.onStart();
-        BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_search);
-    }
-    
-    @Override
-	public void onStop() {
-		super.onStop();
-	    BottomNavigationHelper.setCheckedBottomNavItem(bottomNavigationView,R.id.action_clients);
-	}*/
 }

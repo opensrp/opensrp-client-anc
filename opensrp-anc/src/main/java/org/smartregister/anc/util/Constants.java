@@ -1,6 +1,5 @@
 package org.smartregister.anc.util;
 
-import android.view.Menu;
 import org.smartregister.anc.BuildConfig;
 
 /**
@@ -25,8 +24,6 @@ public class Constants {
     
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
-    
-    public static final int BOTTOM_NAV_MENU_ME = Menu.FIRST + 3;
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -91,13 +88,4 @@ public class Constants {
     public static class BOOLEAN_INT {
         public static final int TRUE = 1;
     }
-    
-    public static final class IntentExtras {
-        public static final String METHOD_NAME = "method_name";
-        public static final String BASE_FRAGMENT = "base_fragment";
-        public static final String SWITCH_FRAGMENT = "switch_fragment";
-        public static final String START_REGISTRATION = "start_registration";
-        public static final String FRAGMENT_LOCATION = "fragment_location";
-    }
-
 }
