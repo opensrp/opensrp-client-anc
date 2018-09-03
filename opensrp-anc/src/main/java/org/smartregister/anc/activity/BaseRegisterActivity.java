@@ -176,6 +176,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         drawer.findViewById(R.id.anc_register).setOnClickListener(navigationItemListener);
         drawer.findViewById(R.id.counseling_resources).setOnClickListener(navigationItemListener);
         drawer.findViewById(R.id.site_characteristics).setOnClickListener(navigationItemListener);
+        drawer.findViewById(R.id.population_characteristics).setOnClickListener(navigationItemListener);
         drawer.findViewById(R.id.sync_data).setOnClickListener(navigationItemListener);
         drawer.findViewById(R.id.logout).setOnClickListener(navigationItemListener);
     }

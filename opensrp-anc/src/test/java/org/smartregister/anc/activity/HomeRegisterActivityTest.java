@@ -197,7 +197,8 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         client.setColumnmaps(details);
         homeRegisterActivitySpy.showRecordBirthPopUp(client);
 
-        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage("GA: 17 weeks\nEDD: 25/12/2018 (4m to go). \n\nmyusername should come in immediately for delivery.");
+        Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage(ArgumentMatchers.contains("25/12/2018"));
+
         Mockito.verify(recordBirthAlertDialog).show();
     }
 
