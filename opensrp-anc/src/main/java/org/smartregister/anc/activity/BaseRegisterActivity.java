@@ -50,7 +50,6 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
@@ -352,8 +351,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();
-                presenter.startForm(formName, entityId, metaData, locationPickerView);
+               /* LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();*/
+                presenter.startForm(formName, entityId, metaData, "");
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));

@@ -3,7 +3,6 @@ package org.smartregister.anc.helper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -41,12 +40,7 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 	private BitmapDrawable bitmapDrawable;
 	
 	@Mock
-	private Canvas canvas;
-	
-	@Mock
 	private BottomNavigationMenuView bottomNavigationMenuView;
-	
-	private Field shiftingMode;
 	
 	@Mock
 	private BottomNavigationItemView item;
@@ -65,8 +59,9 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		BottomNavigationHelper spyBottomNavigationHelper = Mockito.spy(bottomNavigationHelper);
 		
 		Resources resources = Mockito.mock(Resources.class);
-		Mockito.doReturn(drawable).when(resources).getDrawable(INITIALS_RESOURCE_ID);
 		Assert.assertNotNull(resources);
+		
+		Mockito.doReturn(drawable).when(resources).getDrawable(INITIALS_RESOURCE_ID);
 		Assert.assertNotNull(drawable);
 		
 		PowerMockito.mockStatic(BitmapFactory.class);
@@ -84,25 +79,20 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		BottomNavigationHelper spyBottomNavigationHelper = Mockito.spy(bottomNavigationHelper);
 		
 		Resources resources = Mockito.mock(Resources.class);
+		Assert.assertNotNull(resources);
+		
 		Mockito.doReturn(gradientDrawable).when(resources).getDrawable(R.drawable.initials_background);
 		Assert.assertNotNull(gradientDrawable);
 		
-		int width = 27, height = 27;
+		int width = 27;
+		int height = 27;
 		PowerMockito.mockStatic(Bitmap.class);
 		PowerMockito.when(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)).thenReturn(bitmap);
 		Assert.assertNotNull(bitmap);
 		
-		canvas = new Canvas(bitmap);
-		Assert.assertNotNull(canvas);
-		
-		gradientDrawable.setBounds(0, 0, width, height);
-		gradientDrawable.setStroke(2, resources.getColor(R.color.light_grey_text));
-		gradientDrawable.setColor(resources.getColor(R.color.transparent));
-		gradientDrawable.setFilterBitmap(true);
-		gradientDrawable.draw(canvas);
-		
 		spyBottomNavigationHelper.convertDrawableResToBitmap(INITIALS_RESOURCE_ID, resources);
 		Assert.assertNotNull(bitmap);
+		Mockito.verify(Bitmap.createBitmap(width ,height, Bitmap.Config.ARGB_8888));
 		
 	}
 	
@@ -146,7 +136,7 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		Assert.assertNotNull(bottomNavigationMenuView);
 		
 		try {
-			shiftingMode = bottomNavigationMenuView.getClass().getDeclaredField("mShiftingMode");
+			Field shiftingMode = bottomNavigationMenuView.getClass().getDeclaredField("mShiftingMode");
 			
 			shiftingMode.setAccessible(true);
 			shiftingMode.setBoolean(bottomNavigationMenuView, false);
