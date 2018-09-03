@@ -3,14 +3,11 @@ package org.smartregister.anc.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;

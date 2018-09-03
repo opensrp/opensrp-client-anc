@@ -82,7 +82,6 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		spyBottomNavigationHelper.convertDrawableResToBitmap(INITIALS_RESOURCE_ID, resources);
 		Assert.assertNotNull(bitmap);
 		Mockito.verify(Bitmap.createBitmap(width ,height, Bitmap.Config.ARGB_8888));
-		
 	}
 	
 	@Test
@@ -106,8 +105,7 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		Resources resources = Mockito.mock(Resources.class);
 		Assert.assertNotNull(resources);
 		
-		Mockito.doReturn(bitmap).when(spyBottomNavigationHelper).convertDrawableResToBitmap(INITIALS_RESOURCE_ID,
-				resources);
+		Mockito.doReturn(bitmap).when(spyBottomNavigationHelper).convertDrawableResToBitmap(INITIALS_RESOURCE_ID, resources);
 		Assert.assertNotNull(bitmap);
 		
 		spyBottomNavigationHelper.writeOnDrawable(INITIALS_RESOURCE_ID, INITIALS_TEXT, resources);

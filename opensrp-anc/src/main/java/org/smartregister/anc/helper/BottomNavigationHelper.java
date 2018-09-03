@@ -16,6 +16,8 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import org.smartregister.anc.R;
 
+import java.lang.reflect.Field;
+
 public class BottomNavigationHelper {
 	/*
 	 * This solution is hacky of any app using the support library < 28.0.0-alpha1. When we upgrade to => 28.0.0-alpha1
@@ -31,7 +33,7 @@ public class BottomNavigationHelper {
 	public void disableShiftMode(BottomNavigationView view) {
 		BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
 		try {
-			java.lang.reflect.Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+			Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
 			shiftingMode.setAccessible(true);
 			shiftingMode.setBoolean(menuView, false);
 			shiftingMode.setAccessible(false);
