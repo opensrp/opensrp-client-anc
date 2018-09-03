@@ -704,7 +704,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
                     jsonObject.put(JsonFormUtils.READ_ONLY, false);
                     jsonObject.put(JsonFormUtils.VALUE, characteristics.get(jsonObject.getString(JsonFormUtils.KEY)));
-                    ;
 
                 }
 
