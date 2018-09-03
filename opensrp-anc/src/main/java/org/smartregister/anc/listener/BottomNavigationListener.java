@@ -29,6 +29,8 @@ public class BottomNavigationListener implements BottomNavigationView.OnNavigati
 			case R.id.action_library:
 				((HomeRegisterActivity) context).switchToFragment(4);
 				break;
+			case R.string.action_me:
+				((HomeRegisterActivity) context).switchToFragment(3);
 			default:
 				break;
 		}

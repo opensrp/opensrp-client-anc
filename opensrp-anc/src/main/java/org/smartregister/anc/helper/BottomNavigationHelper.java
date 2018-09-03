@@ -28,7 +28,7 @@ public class BottomNavigationHelper {
 	 * @param view
 	 */
 	@SuppressLint("RestrictedApi")
-	public static void disableShiftMode(BottomNavigationView view) {
+	public void disableShiftMode(BottomNavigationView view) {
 		BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
 		try {
 			java.lang.reflect.Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
@@ -54,7 +54,7 @@ public class BottomNavigationHelper {
 	 * @param resources
 	 * @return
 	 */
-	private static Bitmap convertDrawableResToBitmap(@DrawableRes int drawableId,
+	protected Bitmap convertDrawableResToBitmap(@DrawableRes int drawableId,
 			Resources resources) {
 		Drawable drawable = resources.getDrawable(drawableId);
 		
@@ -87,7 +87,7 @@ public class BottomNavigationHelper {
 	 * @param resources
 	 * @return
 	 */
-	public static BitmapDrawable writeOnDrawable(int drawableId, String initials, Resources resources) {
+	public  BitmapDrawable writeOnDrawable(int drawableId, String initials, Resources resources) {
 		Bitmap drawableResToBitmap = convertDrawableResToBitmap(drawableId, resources);
 		drawableResToBitmap.copy(Bitmap.Config.ARGB_8888, true);
 		
