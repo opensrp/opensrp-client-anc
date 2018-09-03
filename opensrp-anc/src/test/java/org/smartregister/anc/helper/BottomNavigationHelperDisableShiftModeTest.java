@@ -1,14 +1,11 @@
 package org.smartregister.anc.helper;
 
 import android.app.Activity;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
@@ -18,14 +15,6 @@ import org.smartregister.anc.activity.BaseActivityUnitTest;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 
 public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnitTest {
-	
-	private BottomNavigationMenuView bottomNavigationMenuView;
-	
-	@Mock
-	private BottomNavigationItemView item;
-	
-	@Mock
-	private BottomNavigationMenuView menuView;
 	
 	private HomeRegisterActivity homeRegisterActivity;
 	private ActivityController<HomeRegisterActivity> controller;
@@ -56,8 +45,8 @@ public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnit
 		BottomNavigationView bottomNavigationView = Mockito.mock(BottomNavigationView.class);
 		Assert.assertNotNull(bottomNavigationView);
 		
-		Mockito.doReturn(bottomNavigationMenuView).when(bottomNavigationView).getChildAt(0);
-		Assert.assertNull(bottomNavigationMenuView);
+		Mockito.doReturn(null).when(bottomNavigationView).getChildAt(0);
+		Assert.assertTrue(true);
 		
 		spyBottomNavigationHelper.disableShiftMode(bottomNavigationView);
 	}

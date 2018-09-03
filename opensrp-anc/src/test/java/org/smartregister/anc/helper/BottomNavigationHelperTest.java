@@ -6,9 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
-import android.support.design.widget.BottomNavigationView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +18,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
-
-import java.lang.reflect.Field;
 
 @RunWith(PowerMockRunner.class)
 public class BottomNavigationHelperTest extends BaseUnitTest {
@@ -38,12 +33,6 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 	
 	@Mock
 	private BitmapDrawable bitmapDrawable;
-	
-	@Mock
-	private BottomNavigationMenuView bottomNavigationMenuView;
-	
-	@Mock
-	private BottomNavigationItemView item;
 	
 	private BottomNavigationHelper bottomNavigationHelper;
 	
@@ -124,37 +113,5 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		spyBottomNavigationHelper.writeOnDrawable(INITIALS_RESOURCE_ID, INITIALS_TEXT, resources);
 		
 		Mockito.verify(bitmap).copy(Bitmap.Config.ARGB_8888, true);
-	}
-	
-	@Test
-	public void testDisableShiftMode() {
-		BottomNavigationHelper spyBottomNavigationHelper = Mockito.spy(bottomNavigationHelper);
-		
-		BottomNavigationView bottomNavigationView = Mockito.mock(BottomNavigationView.class);
-		
-		Mockito.doReturn(bottomNavigationMenuView).when(bottomNavigationView).getChildAt(0);
-		Assert.assertNotNull(bottomNavigationMenuView);
-		
-		try {
-			Field shiftingMode = bottomNavigationMenuView.getClass().getDeclaredField("mShiftingMode");
-			
-			shiftingMode.setAccessible(true);
-			shiftingMode.setBoolean(bottomNavigationMenuView, false);
-			shiftingMode.setAccessible(false);
-			for (int i = 0; i < bottomNavigationMenuView.getChildCount(); i++) {
-				Mockito.doReturn(item).when(bottomNavigationMenuView).getChildAt(i);
-				Assert.assertNotNull(item);
-				item.setShiftingMode(false);
-				// set once again checked value, so view will be updated
-				item.setChecked(item.getItemData().isChecked());
-			}
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		
-		spyBottomNavigationHelper.disableShiftMode(bottomNavigationView);
-		Mockito.verify(bottomNavigationView).getChildAt(0);
 	}
 }
