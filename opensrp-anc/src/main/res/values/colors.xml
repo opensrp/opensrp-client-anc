@@ -51,4 +51,11 @@
 
     <color name="quick_check_red">#EC5B47</color>
     <color name="refer_close_red">#BF271B</color>
+
+    <color name="translucent_white">#ccffffff</color>
+
+    <color name="view_history_blue">#1f8bc5</color>
+
+    <color name="contact_save_grey">#666666</color>
+    <color name="contact_save_blue">#3458C7</color>
 </resources>
