@@ -221,6 +221,7 @@
     <string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
     <string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
     <string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
+    <string name="validation_unable_to_save_quick_check">Unable to save quick check event</string>
 
     <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
 
@@ -232,5 +233,22 @@
 	<string name="me_page_placeholder">Me Page Placeholder</string>
     <string name="action_me">action_me</string>
     <string name="population_characteristics">Population Characteristics</string>
+
+    <!-- contact -->
+    <string name="profile">Profile</string>
+    <string name="symptoms_follow_up">Symptoms &amp; Follow-up</string>
+    <string name="physical_exam">Physical Exam</string>
+    <string name="tests">Tests</string>
+    <string name="counselling_treatment">Counselling &amp; Treatment</string>
+
+    <string name="finalize">Finalize</string>
+    <string name="required_fields">%1$d required fields</string>
+
+    <string name="view_anc_history">View Anc History</string>
+
+    <string name="exit_contact_with">Exit Contact with\n%1$s</string>
+    <string name="save_changes">Save Changes\nContinue with this contact at\na later time</string>
+    <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
+
 
 </resources>

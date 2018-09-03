@@ -625,11 +625,43 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    public void testQuickCheckSaved() {
+    public void testProceedQuickCheckSaved() {
 
-        ((QuickCheckPresenter) presenter).quickCheckSaved(true);
+        String baseEntityId = UUID.randomUUID().toString();
+
+        presenter.setBaseEntityId(baseEntityId);
+        ((QuickCheckPresenter) presenter).quickCheckSaved(true, true);
 
         Mockito.verify(view).dismiss();
+        Mockito.verify(view, Mockito.times(0)).displayToast(R.string.validation_unable_to_save_quick_check);
+        Mockito.verify(view).proceedToContact(baseEntityId);
+    }
+
+    @Test
+    public void testReferQuickCheckSaved() {
+
+        String baseEntityId = UUID.randomUUID().toString();
+
+        presenter.setBaseEntityId(baseEntityId);
+        ((QuickCheckPresenter) presenter).quickCheckSaved(false, true);
+
+        Mockito.verify(view).dismiss();
+        Mockito.verify(view, Mockito.times(0)).displayToast(R.string.validation_unable_to_save_quick_check);
+        Mockito.verify(view, Mockito.times(0)).proceedToContact(baseEntityId);
+    }
+
+
+    @Test
+    public void testUnableToSaveQuickCheck() {
+
+        String baseEntityId = UUID.randomUUID().toString();
+
+        presenter.setBaseEntityId(baseEntityId);
+        ((QuickCheckPresenter) presenter).quickCheckSaved(false, false);
+
+        Mockito.verify(view).dismiss();
+        Mockito.verify(view).displayToast(R.string.validation_unable_to_save_quick_check);
+        Mockito.verify(view, Mockito.times(0)).proceedToContact(baseEntityId);
     }
 
 }

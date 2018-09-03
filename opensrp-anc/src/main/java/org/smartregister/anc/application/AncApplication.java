@@ -128,8 +128,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
+        //getApplicationContext().startActivity(intent);
+        //context.userService().logoutSession();
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {

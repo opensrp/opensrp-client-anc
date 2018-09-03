@@ -62,5 +62,10 @@
 
 	<color name="bottom_bar_focused_background">#a7d7f1</color>
 	<color name="bottom_bar_text_focused_background">#208cc5</color>
+    <color name="translucent_white">#ccffffff</color>
 
+    <color name="view_history_blue">#1f8bc5</color>
+
+    <color name="contact_save_grey">#666666</color>
+    <color name="contact_save_blue">#3458C7</color>
 </resources>

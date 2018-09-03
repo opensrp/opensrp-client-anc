@@ -56,6 +56,8 @@ public interface QuickCheckContract {
 
         void dismiss();
 
+        void proceedToContact(String baseEntityId);
+
     }
 
     interface Interactor {
@@ -66,7 +68,7 @@ public interface QuickCheckContract {
 
     interface InteractorCallback {
 
-        void quickCheckSaved(boolean saved);
+        void quickCheckSaved(boolean proceed, boolean saved);
     }
 
 }

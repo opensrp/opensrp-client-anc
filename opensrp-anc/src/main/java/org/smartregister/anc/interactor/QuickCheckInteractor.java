@@ -54,7 +54,7 @@ public class QuickCheckInteractor implements QuickCheckContract.Interactor {
                     appExecutors.mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
-                            callback.quickCheckSaved(finalIsSaved);
+                            callback.quickCheckSaved(quickCheck.getProceedRefer(), finalIsSaved);
                         }
                     });
                 }
