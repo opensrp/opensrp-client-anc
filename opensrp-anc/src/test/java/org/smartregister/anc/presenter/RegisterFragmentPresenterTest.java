@@ -1,8 +1,8 @@
 package org.smartregister.anc.presenter;
 
 import org.json.JSONArray;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
@@ -15,7 +15,9 @@ import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
@@ -38,6 +40,9 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
     private AdvancedSearchContract.Interactor interactor;
 
     private RegisterFragmentContract.Presenter presenter;
+    
+    @Mock
+    private RegisterConfiguration configuration;
 
     @Before
     public void setUp() {
@@ -70,6 +75,19 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         Mockito.verify(view).filterandSortInInitializeQueries();
         Mockito.verify(view).refresh();
     }
+	
+	@Test
+	public void testViewConfiguration() {
+		RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
+		registerFragmentPresenter.setModel(model);
+		
+		ViewConfiguration viewConfiguration = Mockito.mock(ViewConfiguration.class);
+		Mockito.doReturn(viewConfiguration).when(model).getViewConfiguration("register");
+		Assert.assertNotNull(viewConfiguration);
+		
+		Mockito.doReturn(configuration).when(viewConfiguration).getMetadata();
+		Assert.assertNotNull(configuration);
+	}
 
     @SuppressWarnings("unchecked")
     @Test

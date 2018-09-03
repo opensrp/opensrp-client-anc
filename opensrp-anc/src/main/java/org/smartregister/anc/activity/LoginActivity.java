@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mLoginPresenter = new LoginPresenter(this);
         mLoginPresenter.setLanguage();
         setupViews(mLoginPresenter);
+
     }
 
     @Override

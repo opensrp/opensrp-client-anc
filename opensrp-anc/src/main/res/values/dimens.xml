@@ -93,8 +93,6 @@
     <dimen name="attention_flag_dialog_dot_left_margin">12dp</dimen>
 
     <dimen name="search_bar_min_margin">1dp</dimen>
-
-
     <dimen name="quick_check_padding">20dp</dimen>
     <dimen name="quick_check_drawable_padding">10dp</dimen>
     <dimen name="quick_check_title_text_size">18sp</dimen>
@@ -106,4 +104,9 @@
     <dimen name="referral_dialog_text_size">16sp</dimen>
 
     <dimen name="card_margin">5dp</dimen>
+    <dimen name="population_characteristics_text_size">23sp</dimen>
+    <dimen name="population_characteristics_padding">20dp</dimen>
+    <dimen name="population_characteristics_drawable_padding">10dp</dimen>
+    <dimen name="population_characteristics_item_spacing">7dp</dimen>
+    <dimen name="population_characteristics_line_spacing">5dp</dimen>
 </resources>

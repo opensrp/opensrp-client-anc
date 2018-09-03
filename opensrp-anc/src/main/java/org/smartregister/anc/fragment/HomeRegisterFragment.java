@@ -7,7 +7,6 @@ import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
-import org.smartregister.anc.view.LocationPickerView;
 
 import java.util.Objects;
 
@@ -16,8 +15,7 @@ import java.util.Objects;
  */
 
 public class HomeRegisterFragment extends BaseRegisterFragment {
-	
-    @Override
+	@Override
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
@@ -32,9 +30,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         return DBQueryHelper.getHomePatientRegisterCondition();
     }
 
-    public LocationPickerView getLocationPickerView() {
+   /* public LocationPickerView getLocationPickerView() {
         return getFacilitySelection();
-    }
+    }*/
 
     @Override
     public void setupViews(View view) {

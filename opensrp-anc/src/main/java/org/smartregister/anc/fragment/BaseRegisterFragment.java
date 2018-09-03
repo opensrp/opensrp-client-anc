@@ -32,13 +32,11 @@ import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.RecyclerViewFragment;
@@ -64,11 +62,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
 
     protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
-	
-	protected RegisterFragmentContract.Presenter presenter;
-
-    private LocationPickerView facilitySelection;
-
+    protected RegisterFragmentContract.Presenter presenter;
     private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
     private Snackbar syncStatusSnackbar;
     protected View rootView;
@@ -86,7 +80,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 	protected MenuItem menuItem;
 	
 	private boolean globalQrSearch = false;
-
+    
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
         return null;
@@ -163,12 +157,20 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             getSearchView().setText(searchText);
         }
     }
-
+    
     public void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(TAG, "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
             filter(qrCode.replace("-", ""), "", getMainCondition(), true);
+            setAncId(qrCode);
         }
+    }
+    
+    public void setAncId(String qrCode){
+    	HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+	    android.support.v4.app.Fragment currentFragment =
+			    homeRegisterActivity.findFragmentByPosition(1);
+	    ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
 
     @Override
@@ -249,7 +251,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
         updateSearchView();
         presenter.processViewConfigurations();
-        updateLocationText();
+       // updateLocationText();
         refreshSyncProgressSpinner();
         setTotalPatients();
     }
@@ -379,7 +381,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     protected abstract void onViewClicked(View view);
 
-    protected void updateLocationText() {
+    /*protected void updateLocationText() {
         if (facilitySelection != null) {
             facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
                     facilitySelection.getSelectedItem()));
@@ -391,7 +393,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     public LocationPickerView getFacilitySelection() {
         return facilitySelection;
-    }
+    }*/
 
 
     private void registerSyncStatusBroadcastReceiver() {
