@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.domain.Characteristic;
-import org.smartregister.anc.presenter.SiteCharacteristicsPresenter;
-
-import java.util.List;
+import org.smartregister.anc.presenter.CharacteristicsPresenter;
 
 /**
  * Created by ndegwamartin on 27/08/2018.
@@ -22,7 +19,7 @@ public class SiteCharacteristicsEnterActivity extends BaseActivity implements Vi
 
         findViewById(R.id.btn_site_characteristics).setOnClickListener(this);
 
-        presenter = new SiteCharacteristicsPresenter(this);
+        presenter = new CharacteristicsPresenter(this);
 
     }
 

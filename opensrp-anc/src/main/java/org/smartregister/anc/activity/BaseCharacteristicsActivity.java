@@ -4,16 +4,16 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.adapter.PopulationCharacteristicsAdapter;
+import org.smartregister.anc.adapter.CharacteristicsAdapter;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.domain.Characteristic;
@@ -23,10 +23,10 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 31/08/2018.
  */
-public abstract class BaseCharacteristicsActivity extends AppCompatActivity implements PopulationCharacteristicsAdapter.ItemClickListener, PopulationCharacteristicsContract.View {
+public abstract class BaseCharacteristicsActivity extends BaseActivity implements CharacteristicsAdapter.ItemClickListener, PopulationCharacteristicsContract.View {
 
     private RecyclerView recyclerView;
-    protected BaseCharacteristicsContract.BasePresenter presenter;
+    protected Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +42,22 @@ public abstract class BaseCharacteristicsActivity extends AppCompatActivity impl
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        BaseCharacteristicsContract.BasePresenter presenter = getPresenter();
-        presenter.getCharacteristics();
+        BaseCharacteristicsContract.BasePresenter basePresenter = getPresenter();
+        basePresenter.getCharacteristics();
 
-        Toolbar mToolbar = findViewById(R.id.register_toolbar);
-        mToolbar.findViewById(R.id.close_population_characteristics).setOnClickListener(new View.OnClickListener() {
+        mToolbar = findViewById(R.id.register_toolbar);
+        mToolbar.findViewById(R.id.close_characteristics).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
 
+        TextView titleTextView = mToolbar.findViewById(R.id.characteristics_toolbar_title);
+        String title = getToolbarTitle();
+        titleTextView.setText(title);
+
+        mToolbar.findViewById(R.id.characteristics_toolbar_edit).setVisibility(title.equals(getString(R.string.population_characteristics)) ? View.GONE : View.VISIBLE);
 
     }
 
@@ -84,12 +89,14 @@ public abstract class BaseCharacteristicsActivity extends AppCompatActivity impl
     }
 
     @Override
-    public void renderSettings(List<Characteristic> populationCharacteristics) {
+    public void renderSettings(List<Characteristic> characteristics) {
 
-        PopulationCharacteristicsAdapter adapter = new PopulationCharacteristicsAdapter(this, populationCharacteristics);
+        CharacteristicsAdapter adapter = new CharacteristicsAdapter(this, characteristics);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
 
     protected abstract BaseCharacteristicsContract.BasePresenter getPresenter();
+
+    protected abstract String getToolbarTitle();
 }

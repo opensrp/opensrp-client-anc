@@ -28,7 +28,7 @@ public interface SiteCharacteristicsContract {
 
         void hideProgressDialog();
 
-        void goToSiteCharacteristicsExitPage();
+        void goToLastPage();
 
         void launchSiteCharacteristicsSettingsFormForEdit(Map<String, String> characteristics);
 

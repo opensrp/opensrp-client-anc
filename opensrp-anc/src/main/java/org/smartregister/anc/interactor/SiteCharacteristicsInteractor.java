@@ -1,26 +1,30 @@
 package org.smartregister.anc.interactor;
 
-import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.SiteCharacteristicsContract;
-import org.smartregister.repository.AllSettings;
-
-import java.util.Map;
+import org.smartregister.anc.contract.BaseCharacteristicsContract;
+import org.smartregister.anc.contract.PopulationCharacteristicsContract;
+import org.smartregister.anc.task.FetchSiteCharacteristicsTask;
 
 /**
- * Created by ndegwamartin on 13/07/2018.
+ * Created by ndegwamartin on 28/08/2018.
  */
-public class SiteCharacteristicsInteractor implements SiteCharacteristicsContract.Interactor {
+public class SiteCharacteristicsInteractor implements BaseCharacteristicsContract.Interactor {
+    private PopulationCharacteristicsContract.Presenter presenter;
+
+    public SiteCharacteristicsInteractor(PopulationCharacteristicsContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
     @Override
-    public void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap) {
+    public void onDestroy(boolean isChangingConfiguration) {
 
-        for (Map.Entry<String, String> setting : siteCharacteristicsSettingsMap.entrySet()) {
-            getAllSettingsRepo().put(setting.getKey(), setting.getValue());
+        if (!isChangingConfiguration) {
+            presenter = null;
         }
-
     }
 
-    protected AllSettings getAllSettingsRepo() {
-        return AncApplication.getInstance().getContext().allSettings();
+    @Override
+    public void fetchCharacteristics() {
+        new FetchSiteCharacteristicsTask(presenter).execute();
     }
+
 }

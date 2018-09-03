@@ -98,11 +98,12 @@
     <dimen name="referral_dialog_title_text_size">22sp</dimen>
     <dimen name="referral_dialog_text_size">16sp</dimen>
 
-    <dimen name="population_characteristics_text_size">23sp</dimen>
-    <dimen name="population_characteristics_padding">20dp</dimen>
-    <dimen name="population_characteristics_drawable_padding">10dp</dimen>
-    <dimen name="population_characteristics_item_spacing">7dp</dimen>
-    <dimen name="population_characteristics_line_spacing">5dp</dimen>
+    <dimen name="characteristics_text_size">23sp</dimen>
+    <dimen name="characteristics_padding">20dp</dimen>
+    <dimen name="characteristics_drawable_padding">10dp</dimen>
+    <dimen name="characteristics_item_spacing">7dp</dimen>
+    <dimen name="characteristics_line_spacing">5dp</dimen>
+    <dimen name="characteristics_edit_button_margin_right">30dp</dimen>
 
     <dimen name="contact_name_text_size">22sp</dimen>
     <dimen name="contact_detail_text_size">18sp</dimen>

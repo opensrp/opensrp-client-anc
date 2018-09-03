@@ -1,26 +1,27 @@
 [
   {
-    "key": "pop_undernourish",
+    "key": "site_ipv_assess",
     "value": true,
-    "label": "Undernourished prevalence 20% or higher",
-    "description": "The proportion of women in the adult population (18 years or older), with a BMI less than 18.5, is 20% or higher."
+    "label": "Minimum requirements for IPV assessment",
+    "description": "1. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \n\n2. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\n\n3. A private setting;\n\n4. A way to ensure confidentiality;\n\n5. Time to allow for appropriate disclosure; and\n\n6. A system for referral in place. "
+
   },
   {
-    "key": "pop_anaemia_40",
-    "value": false,
-    "label": "Anaemia prevalence 40% or higher",
-    "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 40% or higher."
-  },
-  {
-    "key": "pop_anaemia_20",
-    "value": false,
-    "label": "Anaemia prevalence 20% or lower",
-    "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 20% or lower."
-  },
-  {
-    "key": "pop_low_calcium",
+    "key": "site_anc_hiv",
     "value": true,
-    "label": "Low dietary calcium intake",
-    "description": "Women in the population are likely to have low dietary calcium intake (less than 900 mg of calcium per day). "
+    "label": "Generalized HIV epidemic",
+    "description": "Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?"
+  },
+  {
+    "key": "site_ultrasound",
+    "value": false,
+    "label": "Ultrasound available",
+    "description": "Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?"
+  },
+  {
+    "key": "site_bp_tool",
+    "value": true,
+    "label": "Automated BP measurement tool",
+    "description": "Does your facility use an automated blood pressure (BP) measurement tool?"
   }
 ]

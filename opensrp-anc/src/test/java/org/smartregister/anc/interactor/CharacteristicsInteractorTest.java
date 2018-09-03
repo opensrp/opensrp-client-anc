@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by ndegwamartin on 30/08/2018.
  */
-public class SiteCharacteristicsInteractorTest extends BaseUnitTest {
+public class CharacteristicsInteractorTest extends BaseUnitTest {
 
 
     @Mock
@@ -30,9 +30,9 @@ public class SiteCharacteristicsInteractorTest extends BaseUnitTest {
     @Test
     public void testSaveCharacteristicsSavesCorrectKeyValuesToAllSettingsRepository() {
 
-        SiteCharacteristicsInteractor interactor = new SiteCharacteristicsInteractor();
+        CharacteristicsInteractor interactor = new CharacteristicsInteractor();
 
-        SiteCharacteristicsInteractor interactorSpy = Mockito.spy(interactor);
+        CharacteristicsInteractor interactorSpy = Mockito.spy(interactor);
 
         Map<String, String> testSettings = ImmutableMap.of(TEST_STRING, TEST_STRING);
 

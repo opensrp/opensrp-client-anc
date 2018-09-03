@@ -15,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
-import org.smartregister.anc.custom.SettingsTestMenuItem;
 
 /**
  * Created by ndegwamartin on 20/08/2018.
@@ -24,9 +23,6 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
 
     private PopulationCharacteristicsActivity populationCharacteristicsActivity;
     private ActivityController<PopulationCharacteristicsActivity> controller;
-
-    @Mock
-    private SettingsTestMenuItem menuItem;
 
     @Mock
     private LinearLayout view;
@@ -61,7 +57,6 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
     public void tearDown() {
         destroyController();
     }
-
 
     @Override
     protected Activity getActivity() {

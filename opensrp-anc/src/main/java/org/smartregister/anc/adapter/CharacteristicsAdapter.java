@@ -15,13 +15,13 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 14/08/2018.
  */
-public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<PopulationCharacteristicsAdapter.ViewHolder> {
+public class CharacteristicsAdapter extends RecyclerView.Adapter<CharacteristicsAdapter.ViewHolder> {
 
     private List<Characteristic> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public PopulationCharacteristicsAdapter(Context context, List<Characteristic> data) {
+    public CharacteristicsAdapter(Context context, List<Characteristic> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

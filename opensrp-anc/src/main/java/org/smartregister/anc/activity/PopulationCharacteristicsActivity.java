@@ -1,5 +1,8 @@
 package org.smartregister.anc.activity;
 
+import android.view.View;
+
+import org.smartregister.anc.R;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.presenter.PopulationCharacteristicsPresenter;
 
@@ -8,5 +11,10 @@ public class PopulationCharacteristicsActivity extends BaseCharacteristicsActivi
     @Override
     protected BaseCharacteristicsContract.BasePresenter getPresenter() {
         return new PopulationCharacteristicsPresenter(this);
+    }
+
+    @Override
+    protected String getToolbarTitle() {
+        return getString(R.string.population_characteristics);
     }
 }

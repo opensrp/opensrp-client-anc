@@ -1,20 +1,17 @@
 package org.smartregister.anc.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.presenter.SiteCharacteristicsPresenter;
-import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.presenter.CharacteristicsPresenter;
 
 /**
  * Created by ndegwamartin on 28/08/2018.
  */
-public class SiteCharacteristicsExitActivity extends BaseActivity implements View.OnClickListener, SiteCharacteristicsContract.View {
+public class SiteCharacteristicsExitActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +21,7 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
         findViewById(R.id.btn_site_characteristics_home_register).setOnClickListener(this);
         findViewById(R.id.btn_back_to_home).setOnClickListener(this);
 
-        presenter = new SiteCharacteristicsPresenter(this);
+        presenter = new CharacteristicsPresenter(this);
 
         String defaultLocation = LocationHelper.getInstance().getOpenMrsLocationName(LocationHelper.getInstance().getDefaultLocation());
         TextView textView = findViewById(R.id.site_characteristics_facility_name);
@@ -45,13 +42,5 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
             presenter.launchSiteCharacteristicsFormForEdit();
         }
 
-    }
-
-    public void goToHomeRegisterPage() {
-        Intent intent = new Intent(this, HomeRegisterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
-        startActivity(intent);
-
-        finish();//finish this
     }
 }

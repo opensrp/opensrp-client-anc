@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by ndegwamartin on 30/08/2018.
  */
-public class SiteCharacteristicsPresenterTest extends BaseUnitTest {
+public class CharacteristicsPresenterTest extends BaseUnitTest {
 
     private SiteCharacteristicsContract.Presenter presenter;
 
@@ -32,7 +32,7 @@ public class SiteCharacteristicsPresenterTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        presenter = new SiteCharacteristicsPresenter(view);
+        presenter = new CharacteristicsPresenter(view);
     }
 
     @Test
@@ -44,8 +44,8 @@ public class SiteCharacteristicsPresenterTest extends BaseUnitTest {
 
     @Test
     public void testLaunchSiteCharacteristicsSettingsFormForEditInvokesMethodOnViewCorrectly() {
-        SiteCharacteristicsPresenter presenter = new SiteCharacteristicsPresenter(view);
-        SiteCharacteristicsPresenter presenterSpy = Mockito.spy(presenter);
+        CharacteristicsPresenter presenter = new CharacteristicsPresenter(view);
+        CharacteristicsPresenter presenterSpy = Mockito.spy(presenter);
         Mockito.doReturn(ImmutableMap.of(TEST_STRING, TEST_STRING)).when(presenterSpy).getSettingsMap(ArgumentMatchers.any(AllSettings.class));
         presenterSpy.launchSiteCharacteristicsFormForEdit();
         Mockito.verify(view).launchSiteCharacteristicsSettingsFormForEdit(ArgumentMatchers.<String, String>anyMap());

@@ -68,8 +68,25 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     }
 
     @Override
+    public void goToLastPage() {
+
+        if (this instanceof SiteCharacteristicsActivity) {
+            goToHomeRegisterPage();
+        } else {
+            goToSiteCharacteristicsExitPage();
+        }
+    }
+
     public void goToSiteCharacteristicsExitPage() {
         Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
+        startActivity(intent);
+
+        finish();//finish this
+    }
+
+    public void goToHomeRegisterPage() {
+        Intent intent = new Intent(this, HomeRegisterActivity.class);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 

@@ -74,7 +74,6 @@
         <activity
             android:name=".activity.SiteCharacteristicsExitActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
 
