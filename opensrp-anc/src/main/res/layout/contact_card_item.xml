@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/contact_drawable_padding"
         android:paddingEnd="@dimen/contact_drawable_padding"
-        android:paddingLeft="0dp"
+        android:paddingStart="0dp"
         android:paddingTop="@dimen/contact_medium_padding">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -80,8 +80,8 @@
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:paddingRight="@dimen/contact_drawable_padding"
                 android:paddingLeft="0dp"
+                android:paddingRight="@dimen/contact_drawable_padding"
                 android:singleLine="true"
                 android:text="@string/complete"
                 android:textColor="@color/translucent_white"

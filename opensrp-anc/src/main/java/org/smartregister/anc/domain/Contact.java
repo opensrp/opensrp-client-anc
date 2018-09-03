@@ -5,6 +5,7 @@ public class Contact {
     private String name;
     private int background;
     private int requiredFields;
+    private String formName;
 
     public void setName(String name) {
         this.name = name;
@@ -28,5 +29,13 @@ public class Contact {
 
     public void setRequiredFields(int requiredFields) {
         this.requiredFields = requiredFields;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
     }
 }

@@ -40,6 +40,13 @@ public class Constants {
     public static class JSON_FORM {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
+        public static final String QUICK_CHECK = "quick_check";
+        public static final String PROFILE = "profile";
+        public static final String SYMPTOMS_FOLLOW_UP = "symptoms_follow_up";
+        public static final String PHYSICAL_EXAM = "physical_exam";
+        public static final String TESTS = "tests";
+        public static final String COUNSELLING_TREATMENT = "counselling_treatment";
+
     }
 
     public static class JSON_FORM_KEY {

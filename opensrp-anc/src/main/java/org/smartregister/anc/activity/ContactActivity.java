@@ -3,11 +3,13 @@ package org.smartregister.anc.activity;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,16 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     }
 
     @Override
+    public void startFormActivity(JSONObject form) {
+        super.startFormActivity(form);
+    }
+
+    @Override
+    public void displayToast(int resourceId) {
+        Utils.showToast(getApplicationContext(), getString(resourceId));
+    }
+
+    @Override
     protected void createContacts() {
         List<Contact> contacts = new ArrayList<>();
 
@@ -53,36 +65,42 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         quickCheck.setName(getString(R.string.quick_check));
         quickCheck.setBackground(R.drawable.quick_check_bg);
         quickCheck.setRequiredFields(0);
+        quickCheck.setFormName(Constants.JSON_FORM.QUICK_CHECK);
         contacts.add(quickCheck);
 
         Contact profile = new Contact();
         profile.setName(getString(R.string.profile));
         profile.setBackground(R.drawable.profile_bg);
         profile.setRequiredFields(7);
+        profile.setFormName(Constants.JSON_FORM.PROFILE);
         contacts.add(profile);
 
         Contact symptomsAndFollowUp = new Contact();
         symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
         symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
         symptomsAndFollowUp.setRequiredFields(0);
+        symptomsAndFollowUp.setFormName(Constants.JSON_FORM.SYMPTOMS_FOLLOW_UP);
         contacts.add(symptomsAndFollowUp);
 
         Contact physicalExam = new Contact();
         physicalExam.setName(getString(R.string.physical_exam));
         physicalExam.setBackground(R.drawable.physical_exam_bg);
         physicalExam.setRequiredFields(18);
+        physicalExam.setFormName(Constants.JSON_FORM.PHYSICAL_EXAM);
         contacts.add(physicalExam);
 
         Contact tests = new Contact();
         tests.setName(getString(R.string.tests));
         tests.setBackground(R.drawable.tests_bg);
         tests.setRequiredFields(12);
+        tests.setFormName(Constants.JSON_FORM.TESTS);
         contacts.add(tests);
 
         Contact counsellingAndTreatment = new Contact();
         counsellingAndTreatment.setName(getString(R.string.counselling_treatment));
         counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
         counsellingAndTreatment.setRequiredFields(5);
+        counsellingAndTreatment.setFormName(Constants.JSON_FORM.COUNSELLING_TREATMENT);
         contacts.add(counsellingAndTreatment);
 
         contactAdapter.setContacts(contacts);

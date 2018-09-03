@@ -1,11 +1,18 @@
 package org.smartregister.anc.contract;
 
+import org.json.JSONObject;
+import org.smartregister.anc.domain.Contact;
+
 import java.util.Map;
 
 public interface ContactContract {
 
     interface View {
         void displayPatientName(String patientName);
+
+        void startFormActivity(JSONObject form);
+
+        void displayToast(int resourceId);
     }
 
     interface Presenter {
@@ -17,11 +24,15 @@ public interface ContactContract {
 
         String getPatientName();
 
+        void startForm(Object tag);
+
         void onDestroy(boolean isChangingConfiguration);
     }
 
     interface Model {
         String extractPatientName(Map<String, String> womanDetails);
+
+        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
     }
 
     interface Interactor {

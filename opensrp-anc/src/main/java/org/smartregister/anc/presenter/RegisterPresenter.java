@@ -132,7 +132,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
         try {
-            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
+             startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             getView().displayToast(R.string.error_unable_to_start_form);
