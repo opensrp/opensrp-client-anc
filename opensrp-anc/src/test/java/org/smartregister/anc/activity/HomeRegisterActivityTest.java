@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+
 import com.google.common.collect.ImmutableMap;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +35,6 @@ import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
@@ -221,8 +223,8 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
                 ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));*/
         // Todo Use the above line after the location picker functionality is added on the me page
-	    Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
-			    ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(""));
+        Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
+                ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(""));
     }
 
     @Test()
