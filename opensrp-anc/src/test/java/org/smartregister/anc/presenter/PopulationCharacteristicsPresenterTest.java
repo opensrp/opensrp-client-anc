@@ -34,7 +34,7 @@ public class PopulationCharacteristicsPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnDestroyShouldNotResetThePresenterIfIsChangingConfigurationChangeIsTrue() {
+    public void testOnDestroyShouldNotResetTheInteractorIfIsChangingConfigurationChangeIsTrue() {
 
         PopulationCharacteristicsInteractor interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
         Assert.assertNotNull(interactor);
@@ -46,7 +46,7 @@ public class PopulationCharacteristicsPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnDestroyShouldResetThePresenterIfIsChangingConfigurationChangeIsFalse() {
+    public void testOnDestroyShouldResetTheInteractorIfIsChangingConfigurationChangeIsFalse() {
 
         PopulationCharacteristicsInteractor interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
         Assert.assertNotNull(interactor);
