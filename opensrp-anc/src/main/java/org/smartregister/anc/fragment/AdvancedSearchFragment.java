@@ -18,8 +18,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
+
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
@@ -58,7 +60,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private TextView searchCriteria;
     private TextView matchingResults;
-    
+
     private Button qrCodeButton;
 
     private boolean listMode = false;
@@ -66,8 +68,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
-	
-	@Override
+
+    @Override
     protected void initializePresenter() {
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new AdvancedSearchPresenter(this, viewConfigurationIdentifier);
@@ -125,6 +127,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             search();
         } else if (view.getId() == R.id.cancel_button) {
             ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+            ((HomeRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
         }
@@ -219,17 +222,17 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         setDatePicker(dob);
 
         search.setOnClickListener(registerActionHandler);
-        
-        qrCodeButton.setOnClickListener(new View.OnClickListener(){
-	        @Override
-	        public void onClick(View view) {
-		        if (getActivity() == null) {
-			        return;
-		        }
-		        
-		        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-				homeRegisterActivity.startQrCodeScanner();
-	        }
+
+        qrCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity() == null) {
+                    return;
+                }
+
+                HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+                homeRegisterActivity.startQrCodeScanner();
+            }
         });
 
         resetForm();
@@ -389,13 +392,13 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         super.recalculatePagination(matrixCursor);
         updateMatchingResults(totalcount);
     }
-    
-	@Override
-	public void showNotFoundPopup(String whoAncId) {
-		//Todo implement this
-	}
-	
-	@Override
+
+    @Override
+    public void showNotFoundPopup(String whoAncId) {
+        //Todo implement this
+    }
+
+    @Override
     public void countExecute() {
         Cursor c = null;
 
@@ -472,7 +475,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
         return query;
     }
-    
+
     public EditText getAncId() {
         return this.ancId;
     }

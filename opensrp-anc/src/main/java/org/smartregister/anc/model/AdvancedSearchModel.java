@@ -1,20 +1,9 @@
 package org.smartregister.anc.model;
 
-import android.util.Log;
-
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.anc.contract.AdvancedSearchContract;
-import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.DateUtil;
-import org.smartregister.domain.Response;
-import org.smartregister.domain.ResponseStatus;
 
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -3,14 +3,11 @@ package org.smartregister.anc.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,99 +54,6 @@ public class RegisterFramentModelTest extends BaseUnitTest {
         // Without main condition
         mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, "");
         Assert.assertEquals(mainSelect, sql);
-    }
-
-    @Test
-    public void testGetInitials() {
-        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-
-        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
-        registerFramentModel.setAllSharedPreferences(allSharedPreferences);
-
-        // Foo Bar ==> FB
-        String username = "OpenSRP_USER_NAME";
-        String preferredName = "Foo Bar";
-
-        Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
-        Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
-
-        String initials = registerFramentModel.getInitials();
-        Assert.assertEquals("FB", initials);
-
-        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
-        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
-
-    }
-
-    @Test
-    public void testGetInitialsFromThreeNames() {
-        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-
-        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
-        registerFramentModel.setAllSharedPreferences(allSharedPreferences);
-
-        // Test Foo Bar ==> TF
-        String username = "OpenSRP_USER_NAME";
-        String preferredName = "Test Foo Bar";
-
-        Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
-        Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
-
-        String initials = registerFramentModel.getInitials();
-        Assert.assertEquals("TF", initials);
-
-        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
-        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
-    }
-
-    @Test
-    public void testGetInitialsFromOneNames() {
-        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-
-        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
-        registerFramentModel.setAllSharedPreferences(allSharedPreferences);
-
-        // Test ==> T
-        String username = "OpenSRP_USER_NAME";
-        String preferredName = "Test";
-
-        Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
-        Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
-
-        String initials = registerFramentModel.getInitials();
-        Assert.assertEquals("T", initials);
-
-        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
-        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
-    }
-
-    @Test
-    public void testGetInitialsWhenPreferredNameIsEmpty() {
-        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-
-        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
-        registerFramentModel.setAllSharedPreferences(allSharedPreferences);
-
-        // Test Foo Bar ==> TF
-        String username = "OpenSRP_USER_NAME";
-
-        Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
-        Mockito.doReturn("").when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
-
-        String initials = registerFramentModel.getInitials();
-        Assert.assertNull(initials);
-
-        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
-        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
-    }
-
-    @Test
-    public void testGetInitialsWhenAllSharedPreferencesIsNull() {
-        RegisterFramentModel registerFramentModel = (RegisterFramentModel) model;
-        registerFramentModel.setAllSharedPreferences(null);
-
-        String initials = registerFramentModel.getInitials();
-        Assert.assertNull(initials);
     }
 
     @Test

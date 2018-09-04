@@ -1,6 +1,5 @@
 package org.smartregister.anc.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,13 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,13 +39,12 @@ import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.listener.NavigationItemListener;
-import org.smartregister.anc.presenter.RegisterPresenter;
+import org.smartregister.anc.helper.BottomNavigationHelper;
+import org.smartregister.anc.listener.BottomNavigationListener;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
@@ -62,7 +58,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
 /**
  * Created by keyman on 26/06/2018.
  */
@@ -70,26 +65,20 @@ import butterknife.ButterKnife;
 public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterActivity implements RegisterContract.View {
 
     public static final String TAG = BaseRegisterActivity.class.getCanonicalName();
-
-    private ProgressDialog progressDialog;
-
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
     @Bind(R.id.view_pager)
     protected OpenSRPViewPager mPager;
 
-    protected RegisterPresenter presenter;
-
-    private FragmentPagerAdapter mPagerAdapter;
-
+    protected RegisterContract.Presenter presenter;
     protected BaseRegisterFragment mBaseFragment = null;
-
+    protected String userInitials;
+    protected BottomNavigationHelper bottomNavigationHelper;
+    protected BottomNavigationView bottomNavigationView;
+    private ProgressDialog progressDialog;
+    private FragmentPagerAdapter mPagerAdapter;
     private int currentPage;
-
-    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-
     private AlertDialog recordBirthAlertDialog;
-
     private AlertDialog attentionFlagAlertDialog;
-
     private View attentionFlagDialogView;
 
     @Override
@@ -115,12 +104,27 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             }
 
         });
-
-        registerSideNav();
         initializePresenter();
+        presenter.updateInitials();
         recordBirthAlertDialog = createAlertDialog();
 
+        registerBottomNavigation();
         createAttentionFlagsAlertDialog();
+    }
+
+    private void registerBottomNavigation() {
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.getMenu().add(Menu.NONE, R.string.action_me, Menu.NONE, R.string.me)
+                    .setIcon(bottomNavigationHelper
+                            .writeOnDrawable(R.drawable.initials_background, userInitials, getResources()));
+            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
+
+            BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
+        }
+
     }
 
     @Override
@@ -138,6 +142,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void onBackPressed() {
         Fragment fragment = findFragmentByPosition(currentPage);
         if (fragment instanceof BaseRegisterFragment) {
+            setSelectedBottomBarMenuItem(R.id.action_clients);
             BaseRegisterFragment registerFragment = (BaseRegisterFragment) fragment;
             if (registerFragment.onBackPressed()) {
                 return;
@@ -148,37 +153,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             super.onBackPressed();
         } else {
             switchToBaseFragment();
-
+            setSelectedBottomBarMenuItem(R.id.action_clients);
         }
-    }
-
-    private void registerSideNav() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
-        BaseActivityToggle toggle = new BaseActivityToggle(this, drawer,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-            }
-        };
-
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationItemListener navigationItemListener = new NavigationItemListener(this);
-
-        drawer.findViewById(R.id.anc_register).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.counseling_resources).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.site_characteristics).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.population_characteristics).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.sync_data).setOnClickListener(navigationItemListener);
-        drawer.findViewById(R.id.logout).setOnClickListener(navigationItemListener);
     }
 
     protected abstract void initializePresenter();
@@ -189,18 +165,22 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void displaySyncNotification() {
-        Snackbar syncStatusSnackbar = Snackbar.make(this.getWindow().getDecorView(), R.string.manual_sync_triggered, Snackbar.LENGTH_LONG);
+        Snackbar syncStatusSnackbar =
+                Snackbar.make(this.getWindow().getDecorView(), R.string.manual_sync_triggered, Snackbar.LENGTH_LONG);
         syncStatusSnackbar.show();
     }
 
     @Override
     public void showLanguageDialog(final List<String> displayValues) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, displayValues.toArray(new String[displayValues.size()])) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout
+                .simple_list_item_1,
+                displayValues.toArray(new String[displayValues.size()])) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView view = (TextView) super.getView(position, convertView, parent);
-                view.setTextColor(ConfigurableViewsLibrary.getInstance().getContext().getColorResource(R.color.customAppThemeBlue));
+                view.setTextColor(
+                        ConfigurableViewsLibrary.getInstance().getContext().getColorResource(R.color.customAppThemeBlue));
 
                 return view;
             }
@@ -235,7 +215,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         Utils.showShortToast(getApplicationContext(), getString(resourceId));
     }
 
-
     @Override
     protected DefaultOptionsProvider getDefaultOptionsProvider() {
         return null;
@@ -265,7 +244,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     @Override
-    public void startRegistration() {//Implement Abstract Method
+    public void startRegistration() {
+        startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
 
     public void refreshList(final FetchStatus fetchStatus) {
@@ -289,11 +269,13 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        if (bottomNavigationView.getSelectedItemId() != R.id.action_clients) {
+            setSelectedBottomBarMenuItem(R.id.action_clients);
+        }
     }
 
     @Override
@@ -337,7 +319,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     public Fragment findFragmentByPosition(int position) {
         FragmentPagerAdapter fragmentPagerAdapter = mPagerAdapter;
-        return getSupportFragmentManager().findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
+        return getSupportFragmentManager()
+                .findFragmentByTag("android:switcher:" + mPager.getId() + ":" + fragmentPagerAdapter.getItemId(position));
     }
 
     @Override
@@ -363,8 +346,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();
-                presenter.startForm(formName, entityId, metaData, locationPickerView);
+                /* LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();*/
+                presenter.startForm(formName, entityId, metaData, "");
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -403,7 +386,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 Log.d("Scanned QR Code", res.getContents());
                 mBaseFragment.onQRCodeSucessfullyScanned(res.getContents());
                 mBaseFragment.setSearchTerm(res.getContents());
-            } else Log.i("", "NO RESULT FOR QR CODE");
+            } else
+                Log.i("", "NO RESULT FOR QR CODE");
         }
     }
 
@@ -429,8 +413,14 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
         client.getColumnmaps().put(DBConstants.KEY.EDD, "2018-12-25"); //To remove temporary for dev testing
 
-        getIntent().putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
-        recordBirthAlertDialog.setMessage("GA: " + Utils.getGestationAgeFromDate(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " weeks\nEDD: " + Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)), dateFormatter) + " (" + Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " to go). \n\n" + client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME) + " should come in immediately for delivery.");
+        getIntent()
+                .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
+        recordBirthAlertDialog.setMessage(
+                "GA: " + Utils.getGestationAgeFromDate(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " weeks\nEDD: "
+                        + Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
+                        dateFormatter) + " (" + Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD))
+                        + " to go). \n\n" + client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)
+                        + " should come in immediately for delivery.");
         recordBirthAlertDialog.show();
     }
 
@@ -462,20 +452,20 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         red_flags_container.removeAllViews();
         yellow_flags_container.removeAllViews();
 
-
         for (AttentionFlag flag : attentionFlags) {
             if (flag.isRedFlag()) {
-                LinearLayout redRow = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
+                LinearLayout redRow = (LinearLayout) LayoutInflater.from(this)
+                        .inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
                 ((TextView) redRow.getChildAt(1)).setText(flag.getTitle());
                 red_flags_container.addView(redRow);
             } else {
 
-                LinearLayout yellowRow = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
+                LinearLayout yellowRow = (LinearLayout) LayoutInflater.from(this)
+                        .inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
                 ((TextView) yellowRow.getChildAt(1)).setText(flag.getTitle());
                 yellow_flags_container.addView(yellowRow);
             }
         }
-
 
         attentionFlagAlertDialog.show();
     }
@@ -494,37 +484,22 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
             }
         });
 
-
         attentionFlagAlertDialog = dialogBuilder.create();
 
         return attentionFlagAlertDialog;
+    }
+
+    @Override
+    public void updateInitialsText(String initials) {
+        this.userInitials = initials;
     }
 
     public void switchToBaseFragment() {
         switchToFragment(0);
     }
 
-    ////////////////////////////////////////////////////////////////
-    // Inner classes
-    ////////////////////////////////////////////////////////////////
-    private class BaseActivityToggle extends ActionBarDrawerToggle {
-
-        private BaseActivityToggle(Activity activity, DrawerLayout drawerLayout, @StringRes int openDrawerContentDescRes, @StringRes int closeDrawerContentDescRes) {
-            super(activity, drawerLayout, openDrawerContentDescRes, closeDrawerContentDescRes);
-        }
-
-        @Override
-        public void onDrawerOpened(View drawerView) {
-            super.onDrawerOpened(drawerView);
-           /* if (!SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-                updateLastSyncText();
-            }*/
-        }
-
-        @Override
-        public void onDrawerClosed(View drawerView) {
-            super.onDrawerClosed(drawerView);
-        }
+    public void setSelectedBottomBarMenuItem(int itemId) {
+        bottomNavigationView.setSelectedItemId(itemId);
     }
 
 }
