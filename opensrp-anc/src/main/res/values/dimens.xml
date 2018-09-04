@@ -127,4 +127,7 @@
     <dimen name="contact_save_spacing_margin">15dp</dimen>
     <dimen name="contact_save_default_padding">20dp</dimen>
     <dimen name="contact_save_small_padding">10dp</dimen>
+
+    <dimen name="me_page_initials_background_margin">26dp</dimen>
+    <dimen name="me_page_initials_text_size">50sp</dimen>
 </resources>

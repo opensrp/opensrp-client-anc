@@ -50,23 +50,26 @@
 
     <color name="radio_dark_grey">#999999</color>
     <color name="radio_light_blue">#1a93d2</color>
-    
+
     <color name="search_bar_background_black">#2E383D</color>
     <color name="search_textfield_background_grey">#4A5357</color>
 
-	<color name="bottom_nav_bar_background">#FAFAFA</color>
-	<color name="bottom_nav_bar_unselected_background">#CBCBCB</color>
-	<color name="bottom_nav_bar_selected_background">#288CC4</color>
+    <color name="bottom_nav_bar_background">#FAFAFA</color>
+    <color name="bottom_nav_bar_unselected_background">#CBCBCB</color>
+    <color name="bottom_nav_bar_selected_background">#288CC4</color>
 
     <color name="quick_check_red">#EC5B47</color>
     <color name="refer_close_red">#BF271B</color>
 
-	<color name="bottom_bar_focused_background">#a7d7f1</color>
-	<color name="bottom_bar_text_focused_background">#208cc5</color>
+    <color name="bottom_bar_focused_background">#a7d7f1</color>
+    <color name="bottom_bar_text_focused_background">#208cc5</color>
     <color name="translucent_white">#ccffffff</color>
 
     <color name="view_history_blue">#1f8bc5</color>
 
     <color name="contact_save_grey">#666666</color>
     <color name="contact_save_blue">#3458C7</color>
+
+    <color name="me_page_initials_background">#DBF2F9</color>
+    <color name="me_page_dark_blue">#278bc4</color>
 </resources>

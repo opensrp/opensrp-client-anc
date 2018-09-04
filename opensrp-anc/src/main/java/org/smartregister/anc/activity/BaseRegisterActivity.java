@@ -118,7 +118,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         if (bottomNavigationView != null) {
             bottomNavigationView.getMenu().add(Menu.NONE, R.string.action_me, Menu.NONE, R.string.me)
                     .setIcon(bottomNavigationHelper
-                            .writeOnDrawable(R.drawable.initials_background, userInitials, getResources()));
+                            .writeOnDrawable(R.drawable.bottom_bar_initials_background, userInitials, getResources()));
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
             BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
