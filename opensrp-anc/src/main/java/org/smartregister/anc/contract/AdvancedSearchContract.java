@@ -6,17 +6,17 @@ import java.util.Map;
 
 public interface AdvancedSearchContract {
 
-    public interface Presenter extends RegisterFragmentContract.Presenter {
+    interface Presenter extends RegisterFragmentContract.Presenter {
         void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal);
     }
 
-    public interface View extends RegisterFragmentContract.View {
+    interface View extends RegisterFragmentContract.View {
         void switchViews(boolean showList);
 
         void updateSearchCriteria(String searchCriteriaString);
     }
 
-    public interface Model extends RegisterFragmentContract.Model {
+    interface Model extends RegisterFragmentContract.Model {
 
         Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal);
 
@@ -26,11 +26,12 @@ public interface AdvancedSearchContract {
 
     }
 
-    public interface Interactor {
+
+    interface Interactor {
         void search(Map<String, String> editMap, InteractorCallBack callBack, String ancId);
     }
 
-    public interface InteractorCallBack {
+    interface InteractorCallBack {
         void onResultsFound(Response<String> response, String ancId);
     }
 }

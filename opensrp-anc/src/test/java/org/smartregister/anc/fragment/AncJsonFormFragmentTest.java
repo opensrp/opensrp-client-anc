@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.mvp.MvpBasePresenter;
 import com.vijay.jsonwizard.mvp.ViewState;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
