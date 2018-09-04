@@ -9,7 +9,7 @@
     <string name="removing_dialog_title">Removing…</string>
     <string name="please_wait_message">Please wait</string>
     <string name="scan_qr_code">Scan QR code</string>
-    <string name="str_search_hint">Search name or ID</string>
+    <string name="search_hint">Find name or ID</string>
     <string name="select_language">Select Language</string>
     <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
     <string name="alphabetical_sort">Alphabetical (Name)</string>
@@ -144,6 +144,7 @@
     <string name="register">Register</string>
     <string name="library">Library</string>
     <string name="me">Me</string>
+    <string name="clients_menu">Clients</string>
 	<string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 	<string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
 

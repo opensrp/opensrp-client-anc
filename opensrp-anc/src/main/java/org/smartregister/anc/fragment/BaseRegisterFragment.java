@@ -22,7 +22,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.github.ybq.android.spinkit.style.FadingCircle;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
@@ -57,30 +59,53 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  */
 
 public abstract class BaseRegisterFragment extends RecyclerViewFragment implements RegisterFragmentContract.View,
-		SyncStatusBroadcastReceiver.SyncStatusListener {
+        SyncStatusBroadcastReceiver.SyncStatusListener {
 
-    public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
-
-    protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
-    protected RegisterFragmentContract.Presenter presenter;
-    private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
-    private Snackbar syncStatusSnackbar;
-    protected View rootView;
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
-
-
-    private ImageView qrCodeScanImageView;
-    private ProgressBar syncProgressBar;
+    private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
+    public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
+    protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
+    protected RegisterFragmentContract.Presenter presenter;
+    protected View rootView;
     protected TextView headerTextDisplay;
     protected TextView filterStatus;
     protected RelativeLayout filterRelativeLayout;
-	protected MenuItem menuItem;
-	
-	private boolean globalQrSearch = false;
-    
+    protected MenuItem menuItem;
+    protected View.OnKeyListener hideKeyboard = new View.OnKeyListener() {
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                Utils.hideKeyboard(getActivity(), v);
+                return true;
+            }
+            return false;
+        }
+    };
+    private Snackbar syncStatusSnackbar;
+    private ImageView qrCodeScanImageView;
+    private ProgressBar syncProgressBar;
+    private boolean globalQrSearch = false;
+    protected final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            //Overriden Do something before Text Changed
+        }
+
+        @Override
+        public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+            filter(cs.toString(), "", getMainCondition(), false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            //Overriden Do something after Text Changed
+        }
+    };
+
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
         return null;
@@ -109,7 +134,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
             @Override
             public String searchHint() {
-                return context().getStringResource(R.string.str_search_hint);
+                return context().getStringResource(R.string.search_hint);
             }
         };
     }
@@ -130,7 +155,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         activity.getSupportActionBar().setLogo(R.drawable.round_white_background);
         activity.getSupportActionBar().setDisplayUseLogoEnabled(false);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        
+
         setupViews(view);
         return view;
     }
@@ -157,7 +182,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             getSearchView().setText(searchText);
         }
     }
-    
+
     public void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(TAG, "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
@@ -165,12 +190,12 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             setAncId(qrCode);
         }
     }
-    
-    public void setAncId(String qrCode){
-    	HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-	    android.support.v4.app.Fragment currentFragment =
-			    homeRegisterActivity.findFragmentByPosition(1);
-	    ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+
+    public void setAncId(String qrCode) {
+        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+        android.support.v4.app.Fragment currentFragment =
+                homeRegisterActivity.findFragmentByPosition(1);
+        ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
 
     @Override
@@ -191,22 +216,22 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 @Override
                 public void onClick(View v) {
                     HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-	                if (homeRegisterActivity != null) {
-		                homeRegisterActivity.startQrCodeScanner();
-	                }
+                    if (homeRegisterActivity != null) {
+                        homeRegisterActivity.startQrCodeScanner();
+                    }
                 }
             });
         }
-        
+
         //Sync
         ImageView womanSync = view.findViewById(R.id.woman_sync);
-        if(womanSync != null) {
-	        womanSync.setOnClickListener(new View.OnClickListener() {
-	        	@Override
-		        public void onClick(View view) {
-	        		//Todo implement sync
-		        }
-	        });
+        if (womanSync != null) {
+            womanSync.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Todo implement sync
+                }
+            });
         }
 
         View topLeftLayout = view.findViewById(R.id.top_left_layout);
@@ -236,7 +261,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         headerTextDisplay = view.findViewById(R.id.header_text_display);
         filterStatus = view.findViewById(R.id.filter_status);
         filterRelativeLayout = view.findViewById(R.id.filter_display_view);
-	}
+    }
 
     @Override
     protected void onResumption() {
@@ -251,22 +276,22 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
         updateSearchView();
         presenter.processViewConfigurations();
-       // updateLocationText();
+        // updateLocationText();
         refreshSyncProgressSpinner();
         setTotalPatients();
     }
-	
-	private void setTotalPatients() {
-    	if (headerTextDisplay!= null){
-		    headerTextDisplay.setText(totalcount > 1 ?
-				    String.format(getString(R.string.clients), totalcount) :
-				    String.format(getString(R.string.client), totalcount));
-		    
-		    filterRelativeLayout.setVisibility(View.GONE);
-	    }
-	}
-	
-	@Override
+
+    private void setTotalPatients() {
+        if (headerTextDisplay != null) {
+            headerTextDisplay.setText(totalcount > 1 ?
+                    String.format(getString(R.string.clients), totalcount) :
+                    String.format(getString(R.string.client), totalcount));
+
+            filterRelativeLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void initializeQueryParams(String tableName, String countSelect, String mainSelect) {
         this.tablename = tableName;
         this.mainCondition = getMainCondition();
@@ -293,21 +318,21 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.mainCondition = mainConditionString;
 
         countExecute();
-        
+
         if (qrCode && StringUtils.isNotBlank(filterString) && totalcount == 0 && NetworkUtils.isNetworkAvailable()) {
             globalQrSearch = true;
             presenter.searchGlobally(filterString);
         } else {
             filterandSortExecute();
         }
-        
+
     }
 
     @Override
     public void updateFilterAndFilterStatus(String filterText, String sortText) {
         if (headerTextDisplay != null) {
-	        headerTextDisplay.setText(Html.fromHtml(filterText));
-	        filterRelativeLayout.setVisibility(View.VISIBLE);
+            headerTextDisplay.setText(Html.fromHtml(filterText));
+            filterRelativeLayout.setVisibility(View.VISIBLE);
         }
 
         if (filterStatus != null) {
@@ -318,23 +343,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         presenter.updateSortAndFilter(filterList, sortField);
     }
-
-    protected final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            //Overriden Do something before Text Changed
-        }
-
-        @Override
-        public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-            filter(cs.toString(), "", getMainCondition(), false);
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            //Overriden Do something after Text Changed
-        }
-    };
 
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
@@ -379,8 +387,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         startActivity(intent);
     }
 
-    protected abstract void onViewClicked(View view);
-
     /*protected void updateLocationText() {
         if (facilitySelection != null) {
             facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
@@ -395,6 +401,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         return facilitySelection;
     }*/
 
+    protected abstract void onViewClicked(View view);
 
     private void registerSyncStatusBroadcastReceiver() {
         SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
@@ -414,7 +421,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public void onSyncStart() {
         refreshSyncStatusViews(null);
     }
-
 
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
@@ -471,18 +477,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         super.onPause();
     }
 
-    protected View.OnKeyListener hideKeyboard = new View.OnKeyListener() {
-
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                Utils.hideKeyboard(getActivity(), v);
-                return true;
-            }
-            return false;
-        }
-    };
-
     private void refreshSyncProgressSpinner() {
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             if (syncProgressBar != null) {
@@ -534,8 +528,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             }
         }
     }
-	
-	////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
 

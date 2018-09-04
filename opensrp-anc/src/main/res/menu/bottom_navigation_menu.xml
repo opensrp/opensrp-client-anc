@@ -5,7 +5,7 @@
 			android:id="@+id/action_clients"
 			android:enabled="true"
 			android:icon="@drawable/ic_icon_nav_clients"
-			android:title="@string/clients_key"
+			android:title="@string/clients_menu"
 			app:showAsAction="ifRoom"/>
 	<item
 			android:id="@+id/action_search"

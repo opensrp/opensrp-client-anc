@@ -95,8 +95,8 @@ public class BottomNavigationHelper {
 		
 		Paint initialsPaint = new Paint();
 		initialsPaint.setStyle(Paint.Style.FILL);
-		initialsPaint.setColor(resources.getColor(R.color.dark_grey));
-		initialsPaint.setTextSize(25);
+		initialsPaint.setColor(resources.getColor(R.color.scan_qr_code_bg_end_grey));
+		initialsPaint.setTextSize(35);
 		initialsPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 		initialsPaint.setTextAlign(Paint.Align.CENTER);
 		Canvas canvas = new Canvas(drawableResToBitmap);

@@ -22,7 +22,7 @@
                 android:layout_marginRight="0dp"
                 android:background="@drawable/grey_edit_text_shape"
                 android:ellipsize="end"
-                android:hint="@string/str_search_hint"
+                android:hint="@string/search_hint"
                 android:maxLines="1"
                 android:minWidth="100dp"
                 android:padding="@dimen/register_search_bar_padding"
