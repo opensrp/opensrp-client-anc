@@ -217,8 +217,8 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", registerPresenter);
 
         homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
-        LocationPickerView locationPickerView = null;
-        /*Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
+        /*LocationPickerView locationPickerView = null;
+        Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
                 ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));*/
         // Todo Use the above line after the location picker functionality is added on the me page
 	    Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
