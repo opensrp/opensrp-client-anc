@@ -65,7 +65,7 @@ public class SiteCharacteristicsPresenterTest extends BaseUnitTest {
         presenter.onDestroy(true);
 
         interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
-        org.junit.Assert.assertNotNull(interactor);
+        Assert.assertNotNull(interactor);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class SiteCharacteristicsPresenterTest extends BaseUnitTest {
         presenter.onDestroy(false);
 
         interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
-        org.junit.Assert.assertNull(interactor);
+        Assert.assertNull(interactor);
 
     }
 
