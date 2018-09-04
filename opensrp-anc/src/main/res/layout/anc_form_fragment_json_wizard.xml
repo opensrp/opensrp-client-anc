@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -14,24 +14,26 @@
             android:id="@+id/container_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/form_container_default_margin"
             android:orientation="vertical">
+
+            <include layout="@layout/toolbar_container_form" />
 
             <LinearLayout
                 android:id="@+id/main_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/form_container_default_margin"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:paddingLeft="@dimen/default_left_margin"
-                android:paddingRight="@dimen/default_right_margin"
+                android:paddingEnd="@dimen/default_right_margin"
+                android:paddingStart="@dimen/default_left_margin"
                 android:paddingTop="8dp" />
 
             <RelativeLayout
                 android:id="@+id/bottom_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/form_container_default_margin"
                 android:elevation="@dimen/form_container_navigation_elevation">
 
                 <Button
@@ -45,8 +47,10 @@
                     android:paddingStart="@dimen/form_container_start_end_navigation_padding"
                     android:paddingTop="@dimen/form_container_top_bottom_navigation_padding"
                     android:text="@string/previous"
+                    android:textAllCaps="true"
                     android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@color/button_navy_blue" />
+                    android:textColor="@color/button_navy_blue"
+                    android:textSize="@dimen/form_container_navigation_text_size" />
 
                 <Button
                     android:id="@+id/next"
@@ -60,13 +64,13 @@
                     android:paddingStart="@dimen/form_container_start_end_navigation_padding"
                     android:paddingTop="@dimen/form_container_top_bottom_navigation_padding"
                     android:text="@string/next"
+                    android:textAllCaps="true"
                     android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@color/button_navy_blue" />
+                    android:textColor="@color/button_navy_blue"
+                    android:textSize="@dimen/form_container_navigation_text_size" />
             </RelativeLayout>
 
-
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
+    </ScrollView>
 
 </LinearLayout>

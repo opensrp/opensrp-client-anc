@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AncAppTheme.AppBarOverlay">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/register_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/customAppThemeBlue"
+        app:contentInsetLeft="10dp"
+        app:contentInsetStart="10dp"
+        app:popupTheme="@style/AncAppTheme.PopupOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/customAppThemeBlue"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/previous_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:paddingEnd="@dimen/contact_small_padding"
+                android:paddingStart="@dimen/contact_drawable_padding"
+                android:src="@drawable/ic_action_back" />
+
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/step_title"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/previous_icon"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/contact_drawable_padding"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/contact_name_text_size" />
+
+
+            <ImageButton
+                android:id="@+id/next_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:paddingEnd="@dimen/contact_drawable_padding"
+                android:paddingStart="@dimen/contact_small_padding"
+                android:src="@drawable/ic_action_next" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+</android.support.design.widget.AppBarLayout>

@@ -138,7 +138,7 @@
     <string name="red">RED</string>
 
     <string name="record_birth">Record Birth</string>
-	<string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
+    <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
 
 
     <!-- Quick Check -->
@@ -243,5 +243,6 @@
     <!-- Form container -->
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="submit">Submit</string>
 
 </resources>
