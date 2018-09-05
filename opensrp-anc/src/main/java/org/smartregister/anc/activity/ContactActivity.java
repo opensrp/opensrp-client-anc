@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
@@ -16,9 +17,9 @@ import java.util.List;
 
 public class ContactActivity extends BaseContactActivity implements ContactContract.View {
 
+    public static final String DIALOG_TAG = "CONTACT_DIALOG_TAG";
 
     private TextView patientNameView;
-
 
     @Override
     protected void onResume() {
@@ -48,13 +49,18 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     }
 
     @Override
-    public void startFormActivity(JSONObject form) {
-        super.startFormActivity(form);
+    public void startFormActivity(JSONObject form, Contact contact) {
+        super.startFormActivity(form, contact);
     }
 
     @Override
     public void displayToast(int resourceId) {
         Utils.showToast(getApplicationContext(), getString(resourceId));
+    }
+
+    @Override
+    public void startQuickCheck(Contact contact) {
+        QuickCheckFragment.launchDialog(ContactActivity.this, DIALOG_TAG);
     }
 
     @Override
@@ -65,12 +71,13 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         quickCheck.setName(getString(R.string.quick_check));
         quickCheck.setBackground(R.drawable.quick_check_bg);
         quickCheck.setRequiredFields(0);
-        quickCheck.setFormName(Constants.JSON_FORM.QUICK_CHECK);
         contacts.add(quickCheck);
 
         Contact profile = new Contact();
         profile.setName(getString(R.string.profile));
         profile.setBackground(R.drawable.profile_bg);
+        profile.setActionBarBackground(R.color.contact_profile_actionbar);
+        profile.setNavigationBackground(R.color.contact_profile_navigation);
         profile.setRequiredFields(7);
         profile.setFormName(Constants.JSON_FORM.PROFILE);
         contacts.add(profile);
@@ -78,6 +85,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         Contact symptomsAndFollowUp = new Contact();
         symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
         symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
+        symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
+        symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
         symptomsAndFollowUp.setRequiredFields(0);
         symptomsAndFollowUp.setFormName(Constants.JSON_FORM.SYMPTOMS_FOLLOW_UP);
         contacts.add(symptomsAndFollowUp);
@@ -85,6 +94,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         Contact physicalExam = new Contact();
         physicalExam.setName(getString(R.string.physical_exam));
         physicalExam.setBackground(R.drawable.physical_exam_bg);
+        physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
+        physicalExam.setNavigationBackground(R.color.contact_exam_navigation);
         physicalExam.setRequiredFields(18);
         physicalExam.setFormName(Constants.JSON_FORM.PHYSICAL_EXAM);
         contacts.add(physicalExam);
@@ -92,6 +103,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         Contact tests = new Contact();
         tests.setName(getString(R.string.tests));
         tests.setBackground(R.drawable.tests_bg);
+        tests.setActionBarBackground(R.color.contact_tests_actionbar);
+        tests.setNavigationBackground(R.color.contact_tests_navigation);
         tests.setRequiredFields(12);
         tests.setFormName(Constants.JSON_FORM.TESTS);
         contacts.add(tests);
@@ -99,6 +112,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         Contact counsellingAndTreatment = new Contact();
         counsellingAndTreatment.setName(getString(R.string.counselling_treatment));
         counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
+        counsellingAndTreatment.setActionBarBackground(R.color.contact_counselling_actionbar);
+        counsellingAndTreatment.setNavigationBackground(R.color.contact_counselling_navigation);
         counsellingAndTreatment.setRequiredFields(5);
         counsellingAndTreatment.setFormName(Constants.JSON_FORM.COUNSELLING_TREATMENT);
         contacts.add(counsellingAndTreatment);

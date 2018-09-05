@@ -1,7 +1,6 @@
 package org.smartregister.anc.util;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +8,7 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.google.common.reflect.TypeToken;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -17,11 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.activity.AncJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.domain.QuickCheck;
-import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.view.LocationPickerView;
@@ -29,14 +27,12 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
-import org.smartregister.sync.ClientProcessor;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -442,7 +438,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
-        Intent intent = new Intent(context, AncJsonFormActivity.class);
+        Intent intent = new Intent(context, JsonFormActivity.class);
         intent.putExtra(Constants.INTENT_KEY.JSON, metaData);
 
         Log.d(TAG, "form is " + metaData);
@@ -637,7 +633,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchANCCloseForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, AncJsonFormActivity.class);
+            Intent intent = new Intent(activity, JsonFormActivity.class);
 
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
             if (form != null) {

@@ -83,9 +83,10 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected abstract void createContacts();
 
-    protected void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, AncJsonFormActivity.class);
-        intent.putExtra("json", form.toString());
+    protected void startFormActivity(JSONObject form, Contact contact) {
+        Intent intent = new Intent(this, ContactJsonFormActivity.class);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
+        intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

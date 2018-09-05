@@ -25,8 +25,8 @@
                 android:layout_margin="@dimen/form_container_default_margin"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:paddingEnd="@dimen/default_right_margin"
-                android:paddingStart="@dimen/default_left_margin"
+                android:paddingEnd="@dimen/form_container_default_padding"
+                android:paddingStart="@dimen/form_container_default_padding"
                 android:paddingTop="8dp" />
 
             <RelativeLayout

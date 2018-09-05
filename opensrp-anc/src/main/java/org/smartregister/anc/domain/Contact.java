@@ -1,9 +1,16 @@
 package org.smartregister.anc.domain;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private String name;
+
     private int background;
+
+    private int actionBarBackground;
+    private int navigationBackground;
+
     private int requiredFields;
     private String formName;
 
@@ -21,6 +28,22 @@ public class Contact {
 
     public void setBackground(int background) {
         this.background = background;
+    }
+
+    public int getActionBarBackground() {
+        return actionBarBackground;
+    }
+
+    public void setActionBarBackground(int actionBarBackground) {
+        this.actionBarBackground = actionBarBackground;
+    }
+
+    public int getNavigationBackground() {
+        return navigationBackground;
+    }
+
+    public void setNavigationBackground(int navigationBackground) {
+        this.navigationBackground = navigationBackground;
     }
 
     public int getRequiredFields() {

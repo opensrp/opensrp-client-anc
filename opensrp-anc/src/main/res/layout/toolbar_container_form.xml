@@ -6,18 +6,17 @@
     android:theme="@style/AncAppTheme.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/register_toolbar"
+        android:id="@+id/navigation_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/customAppThemeBlue"
-        app:contentInsetLeft="10dp"
-        app:contentInsetStart="10dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         app:popupTheme="@style/AncAppTheme.PopupOverlay">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/customAppThemeBlue"
             android:orientation="horizontal">
 
             <ImageButton
@@ -35,17 +34,17 @@
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/step_title"
                 style="@style/CustomFontTextViewStyle.ClientList"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/previous_icon"
+                android:layout_toStartOf="@+id/next_icon"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:paddingEnd="@dimen/contact_drawable_padding"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/contact_name_text_size" />
+                android:textSize="@dimen/form_container_step_title_text_size" />
 
 
             <ImageButton

@@ -1,7 +1,6 @@
 {
   "count": "3",
-  "encounter_type": "Profile",
-  "title": "Profile",
+  "encounter_type": "Test",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -53,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Demographic info",
+    "title": "Test",
     "next": "step2",
     "fields": [
       {
@@ -93,7 +92,7 @@
     ]
   },
   "step2": {
-    "title": "Demographic info 2",
+    "title": "Test 2",
     "next": "step3",
     "fields": [
       {
@@ -133,7 +132,7 @@
     ]
   },
   "step3": {
-    "title": "Demographic info 3",
+    "title": "Test 3",
     "fields": [
       {
         "key": "first_name",

@@ -8,13 +8,13 @@ import org.mockito.Mockito;
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
-public class AncJsonFormActivityTest extends BaseUnitTest {
+public class ContactJsonFormActivityTest extends BaseUnitTest {
 
     @Test
     public void testInitializeFormFragmentShouldCallInitializeFormFragmentCore() {
 
-        AncJsonFormActivity activity = new AncJsonFormActivity();
-        AncJsonFormActivity activitySpy = Mockito.spy(activity);
+        ContactJsonFormActivity activity = new ContactJsonFormActivity();
+        ContactJsonFormActivity activitySpy = Mockito.spy(activity);
 
         Assert.assertNotNull(activitySpy);
 
@@ -28,8 +28,8 @@ public class AncJsonFormActivityTest extends BaseUnitTest {
     @Test
     public void testOnFormFinishShouldCallCallSuperFinishMethodOfParent() {
 
-        AncJsonFormActivity activity = new AncJsonFormActivity();
-        AncJsonFormActivity activitySpy = Mockito.spy(activity);
+        ContactJsonFormActivity activity = new ContactJsonFormActivity();
+        ContactJsonFormActivity activitySpy = Mockito.spy(activity);
         Assert.assertNotNull(activitySpy);
 
         Mockito.doNothing().when(activitySpy).callSuperFinish();
@@ -42,8 +42,8 @@ public class AncJsonFormActivityTest extends BaseUnitTest {
     @Test
     public void testWriteValueShouldCallcallSuperWriteValueWithCorrectParameters() throws JSONException {
 
-        AncJsonFormActivity activity = new AncJsonFormActivity();
-        AncJsonFormActivity activitySpy = Mockito.spy(activity);
+        ContactJsonFormActivity activity = new ContactJsonFormActivity();
+        ContactJsonFormActivity activitySpy = Mockito.spy(activity);
 
         Assert.assertNotNull(activitySpy);
 

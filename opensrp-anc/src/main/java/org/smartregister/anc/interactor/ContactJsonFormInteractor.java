@@ -10,11 +10,11 @@ import org.smartregister.anc.widget.AncEditTextFactory;
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
-public class AncJsonFormInteractor extends JsonFormInteractor {
+public class ContactJsonFormInteractor extends JsonFormInteractor {
 
-    private static final JsonFormInteractor INSTANCE = new AncJsonFormInteractor();
+    private static final JsonFormInteractor INSTANCE = new ContactJsonFormInteractor();
 
-    private AncJsonFormInteractor() {
+    private ContactJsonFormInteractor() {
         super();
     }
 

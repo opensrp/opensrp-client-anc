@@ -16,19 +16,19 @@ import java.util.Map;
  * Created by ndegwamartin on 04/07/2018.
  */
 
-public class AncJsonFormInteractorTest extends BaseUnitTest {
+public class ContactJsonFormInteractorTest extends BaseUnitTest {
 
     @Test
     public void testRegisterWidgetsShouldAddCustomChildWidgetsToInteractorMapCorrectly() {
 
-        AncJsonFormInteractor jsonFormInteractor = (AncJsonFormInteractor) AncJsonFormInteractor.getInstance();
+        ContactJsonFormInteractor jsonFormInteractor = (ContactJsonFormInteractor) ContactJsonFormInteractor.getInstance();
 
         Map<String, FormWidgetFactory> formWidgetFactoryMap = Whitebox.getInternalState(jsonFormInteractor, "map");
         int formWidgetFactoryMapSizeParent = formWidgetFactoryMap.size(); //Get count of widgets added by super class
 
         Map<String, FormWidgetFactory> factoryMapSpy = Mockito.spy(formWidgetFactoryMap);
         Whitebox.setInternalState(jsonFormInteractor, "map", factoryMapSpy);
-        AncJsonFormInteractor interactorSpy = Mockito.spy(jsonFormInteractor);
+        ContactJsonFormInteractor interactorSpy = Mockito.spy(jsonFormInteractor);
 
         Assert.assertNotNull(interactorSpy);
         interactorSpy.registerWidgets();

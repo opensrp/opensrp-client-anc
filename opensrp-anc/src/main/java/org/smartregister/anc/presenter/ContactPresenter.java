@@ -77,9 +77,12 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             }
 
             Contact contact = (Contact) tag;
-
-            JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
-            getView().startFormActivity(form);
+            if (contact.getName().equals(getView().getString(R.string.quick_check))) {
+                getView().startQuickCheck(contact);
+            } else {
+                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+                getView().startFormActivity(form, contact);
+            }
 
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));

@@ -10,9 +10,13 @@ public interface ContactContract {
     interface View {
         void displayPatientName(String patientName);
 
-        void startFormActivity(JSONObject form);
+        void startFormActivity(JSONObject form, Contact contact);
+
+        void startQuickCheck(Contact contact);
 
         void displayToast(int resourceId);
+
+        String getString(int resourceId);
     }
 
     interface Presenter {
