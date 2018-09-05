@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -157,7 +156,15 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             model = null;
         }
     }
-
+    
+    @Override
+    public void updateInitials() {
+        String initials = model.getInitials();
+        if (initials != null) {
+            getView().updateInitialsText(initials);
+        }
+    }
+    
     private RegisterContract.View getView() {
         if (viewReference != null)
             return viewReference.get();

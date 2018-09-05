@@ -2,7 +2,6 @@ package org.smartregister.anc.contract;
 
 import android.content.Context;
 import android.util.Pair;
-
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.anc.domain.AttentionFlag;
@@ -34,6 +33,8 @@ public interface RegisterContract {
         void closeAncRecord(String jsonString);
 
         void onDestroy(boolean isChangingConfiguration);
+        
+	    void updateInitials();
     }
 
     interface View {
@@ -59,6 +60,8 @@ public interface RegisterContract {
         void hideProgressDialog();
 
         void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags);
+        
+	    void updateInitialsText(String initials);
     }
 
     interface Model {
@@ -74,6 +77,8 @@ public interface RegisterContract {
 
         JSONObject getFormAsJson(String formName, String entityId,
                                  String currentLocationId) throws Exception;
+	
+	    String getInitials();
     }
 
     interface Interactor {

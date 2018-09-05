@@ -1,7 +1,6 @@
 package org.smartregister.anc.activity;
 
 import android.app.Activity;
-
 import org.robolectric.android.controller.ActivityController;
 
 /**

@@ -22,7 +22,7 @@ public class ConfigHelper {
         config.setEnableAdvancedSearch(true);
         config.setEnableFilterList(true);
         config.setEnableSortList(true);
-        config.setSearchBarText(context.getString(R.string.search_name_or_id));
+        config.setSearchBarText(context.getString(R.string.search_hint));
         config.setEnableJsonViews(false);
 
         List<Field> filers = new ArrayList<>();

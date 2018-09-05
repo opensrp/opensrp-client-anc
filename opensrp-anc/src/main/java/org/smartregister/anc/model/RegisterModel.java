@@ -2,7 +2,7 @@ package org.smartregister.anc.model;
 
 import android.util.Log;
 import android.util.Pair;
-
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
@@ -62,7 +62,7 @@ public class RegisterModel implements RegisterContract.Model {
         }
         return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
-
+    
     private FormUtils getFormUtils() {
         if (formUtils == null) {
             try {
@@ -88,6 +88,29 @@ public class RegisterModel implements RegisterContract.Model {
     public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
         this.allSharedPreferences = allSharedPreferences;
     }
-
-
+	
+	@Override
+	public   String getInitials() {
+		String initials = null;
+		String preferredName = getPrefferedName();
+		
+		if (StringUtils.isNotBlank(preferredName)) {
+			String[] preferredNameArray = preferredName.split(" ");
+			initials = "";
+			if (preferredNameArray.length > 1) {
+				initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
+			} else if (preferredNameArray.length == 1) {
+				initials = String.valueOf(preferredNameArray[0].charAt(0));
+			}
+		}
+		return initials;
+	}
+	
+	private  String getPrefferedName() {
+		if (getAllSharedPreferences() == null) {
+			return null;
+		}
+		
+		return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
+	}
 }

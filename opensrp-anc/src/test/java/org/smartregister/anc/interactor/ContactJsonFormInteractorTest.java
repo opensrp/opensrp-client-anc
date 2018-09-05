@@ -2,7 +2,6 @@ package org.smartregister.anc.interactor;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;

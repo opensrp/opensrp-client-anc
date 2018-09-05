@@ -1,7 +1,6 @@
 package org.smartregister.anc.model;
 
 import android.util.Log;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +21,6 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,9 +35,7 @@ import static org.smartregister.anc.util.Constants.GLOBAL_IDENTIFIER;
  * Created by keyman on 12/07/2018.
  */
 public class RegisterFramentModel implements RegisterFragmentContract.Model {
-
-    private AllSharedPreferences allSharedPreferences;
-
+    
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
         return ConfigHelper.defaultRegisterConfiguration(AncApplication.getInstance().getApplicationContext());
@@ -81,23 +77,6 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
     }
 
     @Override
-    public String getInitials() {
-        String initials = null;
-        String preferredName = getPrefferedName();
-
-        if (StringUtils.isNotBlank(preferredName)) {
-            String[] preferredNameArray = preferredName.split(" ");
-            initials = "";
-            if (preferredNameArray.length > 1) {
-                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
-            } else if (preferredNameArray.length == 1) {
-                initials = String.valueOf(preferredNameArray[0].charAt(0));
-            }
-        }
-        return initials;
-    }
-
-    @Override
     public String getFilterText(List<Field> list, String filterTitle) {
         List<Field> filterList = list;
         if (filterList == null) {
@@ -122,14 +101,6 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
             }
         }
         return sortText;
-    }
-
-    private String getPrefferedName() {
-        if (getAllSharedPreferences() == null) {
-            return null;
-        }
-
-        return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
     }
 
     @Override
@@ -255,16 +226,5 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
             Log.e(getClass().getName(), "", e);
         }
         return null;
-    }
-
-    private AllSharedPreferences getAllSharedPreferences() {
-        if (allSharedPreferences == null) {
-            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        }
-        return allSharedPreferences;
-    }
-
-    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
-        this.allSharedPreferences = allSharedPreferences;
     }
 }

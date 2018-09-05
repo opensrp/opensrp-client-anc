@@ -89,28 +89,6 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 		Assert.assertNotNull(configuration);
 	}
 
-    @Test
-    public void testUpdateInitials() {
-        RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
-        registerFragmentPresenter.setModel(model);
-
-        String initials = "EK";
-
-        // Null initials
-        Mockito.doReturn(null).when(model).getInitials();
-
-        registerFragmentPresenter.updateInitials();
-
-        Mockito.verify(view, Mockito.times(0)).updateInitialsText(initials);
-
-        // Not null initials
-        Mockito.doReturn(initials).when(model).getInitials();
-
-        registerFragmentPresenter.updateInitials();
-
-        Mockito.verify(view).updateInitialsText(initials);
-    }
-
     @SuppressWarnings("unchecked")
     @Test
     public void testUpdateSortAndFilter() {
