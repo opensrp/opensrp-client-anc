@@ -138,15 +138,15 @@
     <string name="red">RED</string>
 
     <string name="record_birth">Record Birth</string>
-	<string name="woman_filter">Filter</string>
-	<string name="clients">%1$d Clients</string>
-	<string name="client">%1$d Client</string>
+    <string name="woman_filter">Filter</string>
+    <string name="clients">%1$d Clients</string>
+    <string name="client">%1$d Client</string>
     <string name="register">Register</string>
     <string name="library">Library</string>
     <string name="me">Me</string>
     <string name="clients_menu">Clients</string>
-	<string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
-	<string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
+    <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
+    <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
 
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
@@ -229,9 +229,9 @@
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-	<string name="contact">CONTACT&#10;22/05/2018</string>
-	<string name="library_placeholder">Library Placeholder</string>
-	<string name="me_page_placeholder">Me Page Placeholder</string>
+    <string name="contact">CONTACT&#10;22/05/2018</string>
+    <string name="library_placeholder">Library Placeholder</string>
+    <string name="me_page_placeholder">Me Page Placeholder</string>
     <string name="action_me">action_me</string>
     <string name="population_characteristics">Population Characteristics</string>
 
@@ -251,5 +251,8 @@
     <string name="save_changes">Save Changes\nContinue with this contact at\na later time</string>
     <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
 
-
+    <string name="me_page_location_text">Location: %1$s</string>
+    <string name="right_arrow">Right Arrow</string>
+    <string name="section_icon">Section Icon</string>
+    <string name="settings">Settings</string>
 </resources>

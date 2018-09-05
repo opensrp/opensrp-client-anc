@@ -72,4 +72,6 @@
 
     <color name="me_page_initials_background">#DBF2F9</color>
     <color name="me_page_dark_blue">#278bc4</color>
+    <color name="me_page_line_separator">#DFDFDF</color>
+    <color name="me_page_arrow">#C7C7C7</color>
 </resources>

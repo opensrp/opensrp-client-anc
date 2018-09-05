@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,45 +8,298 @@
 
     <include layout="@layout/toolbar_register" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/me_header"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/initials"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="@dimen/register_search_bar_margin"
-                android:layout_marginLeft="@dimen/me_page_initials_background_margin"
-                android:layout_marginStart="@dimen/me_page_initials_background_margin"
-                android:layout_marginTop="@dimen/me_page_initials_background_margin"
-                android:background="@drawable/me_page_initials_background"
-                android:gravity="center"
-                android:text="RW"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/me_page_dark_blue"
-                android:textSize="@dimen/me_page_initials_text_size" />
-
-            <TextView
-                android:id="@+id/user_name"
+            <RelativeLayout
+                android:id="@+id/me_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/initials"
-                android:layout_marginBottom="@dimen/register_search_bar_margin"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/initials"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="@dimen/register_search_bar_margin"
+                    android:layout_marginStart="@dimen/me_page_initials_background_margin"
+                    android:layout_marginTop="@dimen/me_page_initials_background_margin"
+                    android:background="@drawable/me_page_initials_background"
+                    android:gravity="center"
+                    android:text="RW"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/me_page_dark_blue"
+                    android:textSize="@dimen/me_page_initials_text_size" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/initials"
+                    android:layout_marginBottom="@dimen/register_search_bar_margin"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:layout_marginLeft="@dimen/me_page_initials_background_margin"
+                    android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                    android:layout_marginStart="@dimen/me_page_initials_background_margin"
+                    android:text="Roger Wong"
+                    android:textColor="@color/text_black"
+                    android:textSize="30sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_page_line_separator" />
+
+            <RelativeLayout
+                android:id="@+id/me_location_section"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/me_page_initials_background_margin"
                 android:layout_marginLeft="@dimen/me_page_initials_background_margin"
-                android:layout_marginStart="@dimen/me_page_initials_background_margin"
-                android:text="Roger Wong"
-                android:textColor="@color/text_black"
-                android:textSize="35sp" />
+                android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                android:layout_marginStart="@dimen/me_page_initials_background_margin">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/locationImageView"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:contentDescription="@string/section_icon"
+                    android:gravity="center"
+                    android:src="@drawable/ic_icon_location" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/location_text"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/register_search_bar_margin"
+                    android:layout_toEndOf="@+id/locationImageView"
+                    android:text="@string/me_page_location_text"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/me_page_section_text_size" />
+
+                <ImageView
+                    android:id="@+id/locationRightCaret"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/right_arrow"
+                    android:gravity="center"
+                    android:src="@drawable/baseline_keyboard_arrow_right"
+                    android:tint="@color/me_page_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_page_line_separator" />
+
+            <RelativeLayout
+                android:id="@+id/me_pop_characteristics_section"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                android:layout_marginLeft="@dimen/me_page_initials_background_margin"
+                android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                android:layout_marginStart="@dimen/me_page_initials_background_margin">
+
+                <ImageView
+                    android:id="@+id/pop_characteristicsImageView"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:contentDescription="@string/section_icon"
+                    android:gravity="center"
+                    android:src="@drawable/ic_icon_pop_characteristics" />
+
+                <TextView
+                    android:id="@+id/pop_characteristics_text"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/register_search_bar_margin"
+                    android:layout_toEndOf="@+id/pop_characteristicsImageView"
+                    android:text="@string/population_characteristics"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/me_page_section_text_size" />
+
+                <ImageView
+                    android:id="@+id/pop_characteristicsRightCaret"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/pop_characteristics_text"
+                    android:contentDescription="@string/right_arrow"
+                    android:gravity="center"
+                    android:src="@drawable/baseline_keyboard_arrow_right"
+                    android:tint="@color/me_page_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_page_line_separator" />
+
+            <RelativeLayout
+                android:id="@+id/site_characteristics_section"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                android:layout_marginLeft="@dimen/me_page_initials_background_margin"
+                android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                android:layout_marginStart="@dimen/me_page_initials_background_margin">
+
+                <ImageView
+                    android:id="@+id/site_characteristicsImageView"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:contentDescription="@string/section_icon"
+                    android:gravity="center"
+                    android:src="@drawable/ic_icon_site_characteristics" />
+
+                <TextView
+                    android:id="@+id/site_characteristics_text"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/register_search_bar_margin"
+                    android:layout_toEndOf="@+id/site_characteristicsImageView"
+                    android:text="@string/site_characteristics"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/me_page_section_text_size" />
+
+                <ImageView
+                    android:id="@+id/site_characteristicsCaret"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/right_arrow"
+                    android:gravity="center"
+                    android:src="@drawable/baseline_keyboard_arrow_right"
+                    android:tint="@color/me_page_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_page_line_separator" />
+
+            <RelativeLayout
+                android:id="@+id/setting_section"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                android:layout_marginLeft="@dimen/me_page_initials_background_margin"
+                android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                android:layout_marginStart="@dimen/me_page_initials_background_margin">
+
+                <ImageView
+                    android:id="@+id/settingImageView"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:contentDescription="@string/section_icon"
+                    android:gravity="center"
+                    android:src="@drawable/ic_icon_settings" />
+
+                <TextView
+                    android:id="@+id/setting_text"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/register_search_bar_margin"
+                    android:layout_toEndOf="@+id/settingImageView"
+                    android:text="@string/settings"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/me_page_section_text_size" />
+
+                <ImageView
+                    android:id="@+id/settingRightCaret"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/right_arrow"
+                    android:gravity="center"
+                    android:src="@drawable/baseline_keyboard_arrow_right"
+                    android:tint="@color/me_page_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_page_line_separator" />
+
+            <RelativeLayout
+                android:id="@+id/logout_section"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                android:layout_marginLeft="@dimen/me_page_initials_background_margin"
+                android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                android:layout_marginStart="@dimen/me_page_initials_background_margin">
+
+                <ImageView
+                    android:id="@+id/logoutImageView"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:contentDescription="@string/section_icon"
+                    android:gravity="center"
+                    android:src="@drawable/ic_icon_logout" />
+
+                <TextView
+                    android:id="@+id/logout_text"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/register_search_bar_margin"
+                    android:layout_toEndOf="@+id/logoutImageView"
+                    android:text="@string/logout_text"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/me_page_section_text_size" />
+
+                <ImageView
+                    android:id="@+id/logoutRightCaret"
+                    android:layout_width="@dimen/me_page_section_square_dimension"
+                    android:layout_height="@dimen/me_page_section_square_dimension"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/right_arrow"
+                    android:gravity="center"
+                    android:src="@drawable/baseline_keyboard_arrow_right"
+                    android:tint="@color/me_page_arrow" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_page_line_separator" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
