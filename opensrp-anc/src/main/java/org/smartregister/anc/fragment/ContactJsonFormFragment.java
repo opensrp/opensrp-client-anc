@@ -192,10 +192,6 @@ public class ContactJsonFormFragment extends JsonFormFragment {
 
     }
 
-    private ContactJsonFormFragmentPresenter getPresenter() {
-        return (ContactJsonFormFragmentPresenter) presenter;
-    }
-
     private void save() {
         try {
             Boolean skipValidation = ((JsonFormActivity) mMainView.getContext()).getIntent().getBooleanExtra(JsonFormConstants.SKIP_VALIDATION, false);
