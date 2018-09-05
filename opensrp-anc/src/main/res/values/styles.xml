@@ -69,4 +69,9 @@
         <item name="android:windowMinWidthMinor">90%</item>
     </style>
 
+    <style name="CustomFontTextViewStyle.NavBar.Normal">
+        <item name="fontVariant">black</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
 </resources>

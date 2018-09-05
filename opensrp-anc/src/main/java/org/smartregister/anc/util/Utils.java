@@ -14,7 +14,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
@@ -23,6 +25,7 @@ import org.joda.time.Weeks;
 import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -45,10 +48,10 @@ import static org.smartregister.util.Log.logError;
 public class Utils {
 
     private static final String TAG = Utils.class.getCanonicalName();
-
     private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
-    
+    private AllSharedPreferences allSharedPreferences;
+
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
 
@@ -217,5 +220,48 @@ public class Utils {
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
         Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
         return weeks.getWeeks();
+    }
+
+    public AllSharedPreferences getAllSharedPreferences() {
+        if (allSharedPreferences == null) {
+            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        }
+        return allSharedPreferences;
+    }
+
+    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
+        this.allSharedPreferences = allSharedPreferences;
+    }
+
+    private String getPrefferedName() {
+        if (getAllSharedPreferences() == null) {
+            return null;
+        }
+
+        return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
+    }
+
+    public String getUserInitials() {
+        String initials = null;
+        String preferredName = getPrefferedName();
+
+        if (StringUtils.isNotBlank(preferredName)) {
+            String[] preferredNameArray = preferredName.split(" ");
+            initials = "";
+            if (preferredNameArray.length > 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
+            } else if (preferredNameArray.length == 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0));
+            }
+        }
+        return initials;
+    }
+
+    public String getName() {
+        return getPrefferedName();
+    }
+
+    public String getAppBuildDate() {
+        return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
     }
 }
