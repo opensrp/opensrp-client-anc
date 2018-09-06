@@ -23,6 +23,10 @@ import org.smartregister.anc.presenter.MePresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.view.LocationPickerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MeFragment extends Fragment implements MeContract.View {
     private MeFragmentActionHandler meFragmentActionHandler = new MeFragmentActionHandler();
     private MeContract.Presenter presenter;
@@ -106,6 +110,12 @@ public class MeFragment extends Fragment implements MeContract.View {
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+        synced_data = view.findViewById(R.id.synced_data);
+        if (synced_data != null) {
+            //Todo Update this to the values after the sync functionality is added.
+            synced_data.setText(String.format(getString(R.string.data_synced), new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new
+                    Date()), new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date())));
         }
     }
 

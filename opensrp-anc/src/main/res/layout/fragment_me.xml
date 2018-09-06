@@ -139,7 +139,7 @@
 
                     <org.smartregister.anc.view.LocationPickerView
                         android:id="@+id/facility_selection"
-                        style="@style/CustomFontTextViewStyle.NavBar.Normal"
+                        style="@style/me_page_location_selector"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
@@ -151,7 +151,9 @@
                         android:paddingStart="16dp"
                         android:text="Bukesa Urban Health Center"
                         android:textColor="@color/text_black"
-                        android:textSize="@dimen/me_page_location_text_size" />
+                        android:textSize="@dimen/me_page_location_text_size"
+                        android:textStyle="bold"
+                        android:typeface="sans" />
 
                 </RelativeLayout>
 
