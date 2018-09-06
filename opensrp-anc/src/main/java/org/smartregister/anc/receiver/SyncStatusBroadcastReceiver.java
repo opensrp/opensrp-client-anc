@@ -89,7 +89,6 @@ public class SyncStatusBroadcastReceiver extends BroadcastReceiver {
                     boolean isComplete = data.getBoolean(EXTRA_COMPLETE_STATUS);
                     if (isComplete) {
                         complete(fetchStatus, context);
-
                         startExtendedSync();
                     } else {
                         inProgress(fetchStatus);

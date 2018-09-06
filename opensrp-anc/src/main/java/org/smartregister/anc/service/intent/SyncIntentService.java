@@ -41,8 +41,6 @@ public class SyncIntentService extends IntentService {
     public static final int EVENT_PULL_LIMIT = 250;
     private static final int EVENT_PUSH_LIMIT = 50;
 
-    public static String WAKE_UP = "WAKE_UP";
-
     public SyncIntentService() {
         super("SyncIntentService");
     }
