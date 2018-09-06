@@ -33,8 +33,6 @@ public class MeFragment extends Fragment implements MeContract.View {
 
     private TextView initials;
     private TextView userName;
-    private TextView synced_data;
-    private TextView application_version;
     private TextView location_text;
 
     private RelativeLayout me_location_section;
@@ -50,7 +48,6 @@ public class MeFragment extends Fragment implements MeContract.View {
     private LocationPickerView facilitySelection;
 
     private Boolean selected = false;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +91,6 @@ public class MeFragment extends Fragment implements MeContract.View {
         site_characteristics_section = view.findViewById(R.id.site_characteristics_section);
         setting_section = view.findViewById(R.id.setting_section);
         logout_section = view.findViewById(R.id.logout_section);
-        synced_data = view.findViewById(R.id.synced_data);
         locationRightCaret = view.findViewById(R.id.locationRightCaret);
         locationDownCaret = view.findViewById(R.id.locationDownCaret);
         me_location_selection_section = view.findViewById(R.id.me_location_selection_section);
@@ -103,7 +99,7 @@ public class MeFragment extends Fragment implements MeContract.View {
             facilitySelection.init();
         }
         location_text = view.findViewById(R.id.location_text);
-        application_version = view.findViewById(R.id.application_version);
+        TextView application_version = view.findViewById(R.id.application_version);
         if (application_version != null) {
             try {
                 application_version.setText(String.format(getString(R.string.app_version), getVersion(), presenter.getBuildDate()));
@@ -111,7 +107,7 @@ public class MeFragment extends Fragment implements MeContract.View {
                 e.printStackTrace();
             }
         }
-        synced_data = view.findViewById(R.id.synced_data);
+        TextView synced_data = view.findViewById(R.id.synced_data);
         if (synced_data != null) {
             //Todo Update this to the values after the sync functionality is added.
             synced_data.setText(String.format(getString(R.string.data_synced), new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new
@@ -162,7 +158,11 @@ public class MeFragment extends Fragment implements MeContract.View {
     }
 
     public LocationPickerView getFacilitySelection() {
-        return facilitySelection;
+        LocationPickerView locationPickerView = null;
+        if (facilitySelection != null) {
+            locationPickerView = facilitySelection;
+        }
+        return locationPickerView;
     }
 
     /**

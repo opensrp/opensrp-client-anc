@@ -244,12 +244,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             });
         }
 
-        /*// Location
-        facilitySelection = view.findViewById(R.id.facility_selection);
-        if (facilitySelection != null) {m
-            facilitySelection.init();
-        }*/
-
         // Progress bar
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
         if (syncProgressBar != null) {
@@ -276,7 +270,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
         updateSearchView();
         presenter.processViewConfigurations();
-        // updateLocationText();
         refreshSyncProgressSpinner();
         setTotalPatients();
     }
@@ -531,7 +524,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
                 //Temporary for testing UI , To remove for real dynamic data
-                List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
+                List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new
+                        AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
                 ((HomeRegisterActivity) getActivity()).showAttentionFlagsDialog(dummyAttentionFlags);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
