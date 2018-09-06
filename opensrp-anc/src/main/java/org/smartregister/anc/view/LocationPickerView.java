@@ -15,7 +15,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
@@ -111,15 +110,11 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     private void showDialog() {
         serviceLocationsAdapter.setSelectedLocation(getSelectedItem());
 
-
         Window window = locationPickerDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.TOP;
+        wlp.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL;
         int[] coords = new int[2];
         LocationPickerView.this.getLocationInWindow(coords);
-        wlp.x = coords[0]
-                + (int) (LocationPickerView.this.getWidth() * 0.5)
-                - (int) (Utils.convertDpToPx(context, 780) * 0.5);
 
         locationPickerDialog.show();
     }

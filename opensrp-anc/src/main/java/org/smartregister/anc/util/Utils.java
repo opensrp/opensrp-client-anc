@@ -25,7 +25,6 @@ import org.joda.time.Weeks;
 import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -63,14 +62,16 @@ public class Utils {
     }
 
     public static void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
+                .getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
     }
 
 
     public static String getLanguage() {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
+                .getInstance().getApplicationContext()));
         return allSharedPreferences.fetchLanguagePreference();
     }
 
@@ -91,7 +92,8 @@ public class Utils {
         EventBus.getDefault().post(event);
     }
 
-    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent after handling
+    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent after
+        // handling
         EventBus.getDefault().postSticky(event);
     }
 
@@ -259,9 +261,5 @@ public class Utils {
 
     public String getName() {
         return getPrefferedName();
-    }
-
-    public String getAppBuildDate() {
-        return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
     }
 }

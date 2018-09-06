@@ -31,6 +31,7 @@ public class MeFragment extends Fragment implements MeContract.View {
     private TextView userName;
     private TextView synced_data;
     private TextView application_version;
+    private TextView location_text;
 
     private RelativeLayout me_location_section;
     private RelativeLayout me_pop_characteristics_section;
@@ -72,6 +73,13 @@ public class MeFragment extends Fragment implements MeContract.View {
     @Override
     public void onStart() {
         super.onStart();
+        updateLocationText();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateLocationText();
     }
 
     private void setUpViews(View view) {
@@ -83,13 +91,21 @@ public class MeFragment extends Fragment implements MeContract.View {
         setting_section = view.findViewById(R.id.setting_section);
         logout_section = view.findViewById(R.id.logout_section);
         synced_data = view.findViewById(R.id.synced_data);
-        application_version = view.findViewById(R.id.application_version);
         locationRightCaret = view.findViewById(R.id.locationRightCaret);
         locationDownCaret = view.findViewById(R.id.locationDownCaret);
         me_location_selection_section = view.findViewById(R.id.me_location_selection_section);
         facilitySelection = view.findViewById(R.id.facility_selection);
         if (facilitySelection != null) {
             facilitySelection.init();
+        }
+        location_text = view.findViewById(R.id.location_text);
+        application_version = view.findViewById(R.id.application_version);
+        if (application_version != null) {
+            try {
+                application_version.setText(String.format(getString(R.string.app_version), getVersion(), presenter.getBuildDate()));
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -99,13 +115,6 @@ public class MeFragment extends Fragment implements MeContract.View {
         site_characteristics_section.setOnClickListener(meFragmentActionHandler);
         setting_section.setOnClickListener(meFragmentActionHandler);
         logout_section.setOnClickListener(meFragmentActionHandler);
-        if (application_version != null) {
-            try {
-                application_version.setText(String.format(getString(R.string.app_version), getVersion(), presenter.getBuildDate()));
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void initializePresenter() {
@@ -137,6 +146,8 @@ public class MeFragment extends Fragment implements MeContract.View {
             String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
             AncApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
 
+            location_text.setText(String.format(getString(R.string.me_page_location_text), LocationHelper.getInstance().getOpenMrsReadableName(
+                    facilitySelection.getSelectedItem())));
         }
     }
 

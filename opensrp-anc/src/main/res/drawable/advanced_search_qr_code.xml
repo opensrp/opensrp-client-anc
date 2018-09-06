@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:shape="rectangle">
+    <corners android:radius="1dp" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/advance_search_qr_code" />
+</shape>

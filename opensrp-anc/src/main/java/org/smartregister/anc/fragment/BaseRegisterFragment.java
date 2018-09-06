@@ -387,19 +387,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         startActivity(intent);
     }
 
-    /*protected void updateLocationText() {
-        if (facilitySelection != null) {
-            facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
-                    facilitySelection.getSelectedItem()));
-            String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
-            context().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
-
-        }
-    }
-
-    public LocationPickerView getFacilitySelection() {
-        return facilitySelection;
-    }*/
 
     protected abstract void onViewClicked(View view);
 

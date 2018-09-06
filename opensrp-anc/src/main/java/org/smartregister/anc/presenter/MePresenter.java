@@ -1,7 +1,7 @@
 package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.contract.MeContract;
-import org.smartregister.anc.model.MeFragmentModel;
+import org.smartregister.anc.model.MeModel;
 
 import java.lang.ref.WeakReference;
 
@@ -10,7 +10,7 @@ public class MePresenter implements MeContract.Presenter {
     private MeContract.Model model;
 
     public MePresenter(MeContract.View view) {
-        model = new MeFragmentModel();
+        model = new MeModel();
         viewReference = new WeakReference<>(view);
     }
 

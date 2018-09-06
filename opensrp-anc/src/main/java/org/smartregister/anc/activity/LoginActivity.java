@@ -36,7 +36,6 @@ import org.smartregister.anc.task.SaveTeamLocationsTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.util.Utils;
 
-import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
 /**
@@ -49,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private CheckBox showPasswordCheckBox;
     private ProgressDialog progressDialog;
     private Button loginButton;
-    private TextView buildDetailsView;
     private LoginContract.Presenter mLoginPresenter;
 
     @Override
@@ -101,7 +99,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         presenter.positionViews();
         initializeLoginChildViews();
         initializeProgressDialog();
-        initializeBuildDetails();
         setListenerOnShowPasswordCheckbox();
 
     }
@@ -111,7 +108,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         passwordEditText = findViewById(R.id.login_password_edit_text);
         showPasswordCheckBox = findViewById(R.id.login_show_password_checkbox);
         passwordEditText.setOnEditorActionListener(this);
-        buildDetailsView = findViewById(R.id.login_build_text_view);
         loginButton = findViewById(R.id.login_login_btn);
         loginButton.setOnClickListener(this);
     }
@@ -121,15 +117,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(org.smartregister.R.string.loggin_in_dialog_title));
         progressDialog.setMessage(getString(org.smartregister.R.string.loggin_in_dialog_message));
-    }
-
-    private void initializeBuildDetails() {
-        try {
-            buildDetailsView.setText("Version " + getVersion() + ", Built on: " + mLoginPresenter.getBuildDate());
-
-        } catch (Exception e) {
-            logError("Error fetching build details: " + e);
-        }
     }
 
     private void setListenerOnShowPasswordCheckbox() {

@@ -142,8 +142,7 @@
                         style="@style/CustomFontTextViewStyle.NavBar.Normal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
                         android:background="@drawable/transparent_gray_background"
                         android:drawableRight="@drawable/ic_arrow_drop_down_white"
                         android:drawableTint="@color/text_black"
@@ -379,7 +378,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/register_search_bar_margin"
                     android:text="@string/data_synced"
-                    android:textColor="@color/dark_grey_text" />
+                    android:textColor="@color/dark_grey_text"
+                    android:textSize="@dimen/login_build_text_view_textSize"
+                    android:typeface="sans" />
 
                 <TextView
                     android:id="@+id/application_version"
@@ -387,7 +388,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/register_search_bar_margin"
                     android:text="@string/app_version"
-                    android:textColor="@color/dark_grey_text" />
+                    android:textColor="@color/dark_grey_text"
+                    android:textSize="@dimen/login_build_text_view_textSize"
+                    android:typeface="sans" />
 
             </LinearLayout>
         </RelativeLayout>

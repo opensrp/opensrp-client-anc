@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,10 +36,9 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
  */
 public class LoginActivityTest extends BaseActivityUnitTest {
 
+    private static final String STRING_SETTINGS = "Settings";
     private LoginActivity loginActivity;
     private ActivityController<LoginActivity> controller;
-    private static final String STRING_SETTINGS = "Settings";
-
     @Mock
     private Menu menu;
 
@@ -98,13 +99,6 @@ public class LoginActivityTest extends BaseActivityUnitTest {
 
         ProgressDialog progressDialog = Whitebox.getInternalState(loginActivity, "progressDialog");
         Assert.assertNotNull(progressDialog);
-    }
-
-    @Test
-    public void testBuildDetailsAreInitialized() {
-
-        TextView buildDetails = loginActivity.findViewById(R.id.login_build_text_view);
-        Assert.assertNotNull(buildDetails.getText());
     }
 
     @Test

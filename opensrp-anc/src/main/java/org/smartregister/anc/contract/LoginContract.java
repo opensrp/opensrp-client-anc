@@ -19,8 +19,6 @@ public interface LoginContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        String getBuildDate();
-
         boolean isUserLoggedOut();
 
         void processViewCustomizations();
@@ -70,8 +68,6 @@ public interface LoginContract {
         boolean isPasswordValid(String password);
 
         Context getOpenSRPContext();
-
-        String getBuildDate();
 
         boolean isUserLoggedOut();
 
