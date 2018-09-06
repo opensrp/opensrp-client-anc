@@ -6,6 +6,8 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.evernote.android.job.JobManager;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -17,15 +19,16 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.receiver.AlarmReceiver;
+import org.smartregister.anc.job.AncJobCreator;
+import org.smartregister.anc.job.ImageUploadServiceJob;
+import org.smartregister.anc.job.PullUniqueIdsServiceJob;
+import org.smartregister.anc.job.SyncServiceJob;
+import org.smartregister.anc.job.ViewConfigurationsServiceJob;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
-import org.smartregister.anc.service.intent.SyncIntentService;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.ServiceTools;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -40,6 +43,8 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
+import java.util.concurrent.TimeUnit;
+
 import id.zelory.compressor.Compressor;
 
 import static org.smartregister.util.Log.logError;
@@ -49,6 +54,8 @@ import static org.smartregister.util.Log.logInfo;
  * Created by ndegwamartin on 21/06/2018.
  */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
+
+    private static final int MINIMUM_JOB_FLEX_VALUE = 1;
 
     private static JsonSpecHelper jsonSpecHelper;
 
@@ -94,6 +101,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         this.jsonSpecHelper = new JsonSpecHelper(this);
 
         setUpEventHandling();
+
+        scheduleJobs();
     }
 
     public static synchronized AncApplication getInstance() {
@@ -287,17 +296,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     public void startPullUniqueIdsService() {
         Intent intent = new Intent(getApplicationContext(), PullUniqueIdsIntentService.class);
         getApplicationContext().startService(intent);
-        ServiceTools.startService(this, SyncIntentService.class, false);
-    }
-
-    public static void setAlarms(android.content.Context context) {
-
-        AlarmReceiver.setAlarm(context, BuildConfig.IMAGE_UPLOAD_MINUTES, Constants.ServiceType.IMAGE_UPLOAD);
-        AlarmReceiver.setAlarm(context, BuildConfig.PULL_UNIQUE_IDS_MINUTES, Constants.ServiceType.PULL_UNIQUE_IDS);
-        AlarmReceiver.setAlarm(context, BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
-        AlarmReceiver.setAlarm(context, BuildConfig.SYNC_VIEW_CONFIGURATIONS_MINUTES, Constants.ServiceType.PULL_VIEW_CONFIGURATIONS);
-
-
     }
 
     @Override
@@ -312,6 +310,30 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         Utils.showToast(this, this.getString(R.string.device_timezone_changed));
         context.userService().forceRemoteLogin();
         logoutCurrentUser();
+    }
+
+    private void scheduleJobs() {
+        //init Job Manager
+
+        JobManager.create(this).addJobCreator(new AncJobCreator());
+
+        //schedule jobs
+        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+        PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
+        ImageUploadServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
+        ViewConfigurationsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES), getFlexValue(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES));
+
+    }
+
+    private long getFlexValue(int value) {
+        int minutes = MINIMUM_JOB_FLEX_VALUE;
+
+        if (value > MINIMUM_JOB_FLEX_VALUE) {
+
+            minutes = (int) Math.ceil(value / 3);
+        }
+
+        return TimeUnit.MINUTES.toMillis(minutes);
     }
 
 }

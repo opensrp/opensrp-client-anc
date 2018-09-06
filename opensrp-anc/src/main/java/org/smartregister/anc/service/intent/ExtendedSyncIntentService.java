@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.receiver.AlarmReceiver;
+import org.smartregister.anc.job.ValidateSyncDataServiceJob;
 import org.smartregister.anc.util.NetworkUtils;
-import org.smartregister.anc.util.ServiceTools;
 import org.smartregister.service.ActionService;
 
 
@@ -32,24 +31,20 @@ public class ExtendedSyncIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent workIntent) {
         try {
-            boolean wakeup = workIntent.getBooleanExtra(SyncIntentService.WAKE_UP, false);
 
             if (NetworkUtils.isNetworkAvailable()) {
                 actionService.fetchNewActions();
 
-                startSyncValidation(wakeup);
+                startSyncValidation();
             }
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
-        } finally {
-            AlarmReceiver.completeWakefulIntent(workIntent);
         }
     }
 
-
-    private void startSyncValidation(boolean wakeup) {
-        ServiceTools.startService(context, ValidateIntentService.class, wakeup);
+    private void startSyncValidation() {
+        ValidateSyncDataServiceJob.scheduleJobImmediately(ValidateSyncDataServiceJob.TAG);
     }
 
 

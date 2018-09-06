@@ -4,11 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import org.joda.time.DateTime;
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.LoginContract;
-import org.smartregister.anc.receiver.AlarmReceiver;
+import org.smartregister.anc.job.SyncServiceJob;
 import org.smartregister.anc.task.RemoteLoginTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.NetworkUtils;
@@ -85,7 +84,7 @@ public class LoginInteractor implements LoginContract.Interactor {
             public void run() {
                 Log.i(getClass().getName(), "Starting DrishtiSyncScheduler " + DateTime.now().toString());
                 if (NetworkUtils.isNetworkAvailable()) {
-                    AlarmReceiver.setAlarm(getApplicationContext(), BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
+                    SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
                 }
                 Log.i(getClass().getName(), "Started DrishtiSyncScheduler " + DateTime.now().toString());
             }
@@ -163,7 +162,7 @@ public class LoginInteractor implements LoginContract.Interactor {
         getUserService().remoteLogin(userName, password, userInfo);
         getLoginView().goToHome(true);
         if (NetworkUtils.isNetworkAvailable()) {
-            AlarmReceiver.setAlarm(getApplicationContext(), BuildConfig.AUTO_SYNC_DURATION, Constants.ServiceType.AUTO_SYNC);
+            SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         }
     }
 
