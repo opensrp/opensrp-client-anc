@@ -11,12 +11,11 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.domain.Response;
-import org.smartregister.service.HTTPAgent;
 import org.smartregister.anc.exception.PullUniqueIdsException;
-import org.smartregister.anc.receiver.AlarmReceiver;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.domain.Response;
+import org.smartregister.service.HTTPAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +48,6 @@ public class PullUniqueIdsIntentService extends IntentService {
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
-        } finally {
-            AlarmReceiver.completeWakefulIntent(intent);
         }
     }
 

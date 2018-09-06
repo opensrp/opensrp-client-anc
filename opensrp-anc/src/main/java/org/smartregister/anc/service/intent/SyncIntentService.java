@@ -15,7 +15,6 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.receiver.AlarmReceiver;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.sync.AncClientProcessorForJava;
 import org.smartregister.anc.util.Constants;
@@ -43,7 +42,6 @@ public class SyncIntentService extends IntentService {
     private static final int EVENT_PUSH_LIMIT = 50;
 
     public static String WAKE_UP = "WAKE_UP";
-    private boolean wakeup = false;
 
     public SyncIntentService() {
         super("SyncIntentService");
@@ -58,13 +56,8 @@ public class SyncIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        wakeup = intent.getBooleanExtra(WAKE_UP, false);
 
         handleSync();
-
-        if (wakeup) {
-            AlarmReceiver.completeWakefulIntent(intent);
-        }
     }
 
     protected void handleSync() {
@@ -233,9 +226,6 @@ public class SyncIntentService extends IntentService {
         intent.setAction(SyncStatusBroadcastReceiver.ACTION_SYNC_STATUS);
         intent.putExtra(SyncStatusBroadcastReceiver.EXTRA_FETCH_STATUS, fetchStatus);
         intent.putExtra(SyncStatusBroadcastReceiver.EXTRA_COMPLETE_STATUS, true);
-        if (wakeup) {
-            intent.putExtra(SyncIntentService.WAKE_UP, true);
-        }
 
         sendBroadcast(intent);
 

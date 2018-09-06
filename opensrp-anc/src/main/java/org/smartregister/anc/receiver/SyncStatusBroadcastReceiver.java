@@ -7,10 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import org.joda.time.DateTime;
-import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.service.intent.ExtendedSyncIntentService;
-import org.smartregister.anc.service.intent.SyncIntentService;
-import org.smartregister.anc.util.ServiceTools;
+import org.smartregister.anc.job.ExtendedSyncServiceJob;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.DrishtiSyncScheduler;
@@ -33,7 +30,6 @@ public class SyncStatusBroadcastReceiver extends BroadcastReceiver {
     private static SyncStatusBroadcastReceiver singleton;
     private final ArrayList<SyncStatusListener> syncStatusListeners;
     private boolean isSyncing;
-    private boolean alarmsTriggered = false;
     private long lastFetchedTimestamp;
 
     public SyncStatusBroadcastReceiver() {
@@ -94,8 +90,7 @@ public class SyncStatusBroadcastReceiver extends BroadcastReceiver {
                     if (isComplete) {
                         complete(fetchStatus, context);
 
-                        boolean wakeup = intent.getBooleanExtra(SyncIntentService.WAKE_UP, false);
-                        startExtendedSyncAndAlarms(context, wakeup);
+                        startExtendedSync();
                     } else {
                         inProgress(fetchStatus);
                     }
@@ -142,16 +137,8 @@ public class SyncStatusBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void startExtendedSyncAndAlarms(Context context, boolean wakeup) {
-        startExtendedSync(context, wakeup);
-        if (!alarmsTriggered) {
-            AncApplication.setAlarms(context);
-            alarmsTriggered = true;
-        }
-    }
-
-    private void startExtendedSync(Context context, boolean wakeup) {
-        ServiceTools.startService(context, ExtendedSyncIntentService.class, wakeup);
+    private void startExtendedSync() {
+        ExtendedSyncServiceJob.scheduleJobImmediately(ExtendedSyncServiceJob.TAG);
     }
 
     public interface SyncStatusListener {
