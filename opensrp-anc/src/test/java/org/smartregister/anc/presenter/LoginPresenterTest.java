@@ -246,17 +246,7 @@ public class LoginPresenterTest extends BaseUnitTest {
 
         ImageView imageView = Mockito.mock(ImageView.class);
         Mockito.doReturn(imageView).when(activity).findViewById(R.id.login_logo);
-
-        textView = new TextView(RuntimeEnvironment.application);
-        TextView textViewSpy = Mockito.spy(textView);
-        Mockito.doReturn(textViewSpy).when(activity).findViewById(R.id.login_build_text_view);
-        Mockito.doReturn(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)).when
-                (textViewSpy).getLayoutParams();
-
         spyPresenter.processViewCustomizations();
-
-        Mockito.verify(textViewSpy, Mockito.times(1)).setLayoutParams(ArgumentMatchers.any(LinearLayout.LayoutParams.class));
-
     }
 
 }

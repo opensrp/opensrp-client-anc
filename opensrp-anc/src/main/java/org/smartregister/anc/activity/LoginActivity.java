@@ -6,8 +6,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -226,11 +224,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void resetPaswordError() {
         passwordEditText.setError(null);
-    }
-
-    private String getVersion() throws PackageManager.NameNotFoundException {
-        PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-        return packageInfo.versionName;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)

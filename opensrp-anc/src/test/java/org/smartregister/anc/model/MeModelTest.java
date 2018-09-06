@@ -20,7 +20,7 @@ public class MeModelTest extends BaseUnitTest {
 
     @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
-        String dateFormat = "dd MMM yyyy";
+        String dateFormat = "dd MMMM yyyy";
         String todaysDate = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
         Assert.assertEquals(todaysDate, model.getBuildDate());
     }
