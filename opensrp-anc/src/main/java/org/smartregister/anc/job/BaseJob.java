@@ -28,16 +28,21 @@ public abstract class BaseJob extends Job {
 
         if (toReschedule) {
 
-            jobRequest.setExact(start);
+            jobRequest.setBackoffCriteria(start, JobRequest.BackoffPolicy.LINEAR).setExact(start);
 
         } else {
 
             jobRequest.setPeriodic(TimeUnit.MINUTES.toMillis(start), TimeUnit.MINUTES.toMillis(flex));
         }
 
-        jobRequest.build().schedule();
+        try {
 
-        Log.d(TAG, "Scheduling job with name " + jobTag);
+            int jobId = jobRequest.build().schedule();
+            Log.d(TAG, "Scheduling job with name " + jobTag + " periodically with JOB ID " + jobId);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     /**
@@ -45,11 +50,17 @@ public abstract class BaseJob extends Job {
      */
     public static void scheduleJobImmediately(String jobTag) {
 
-        new JobRequest.Builder(jobTag)
+        int jobId = new JobRequest.Builder(jobTag)
                 .startNow()
                 .build()
                 .schedule();
 
-        Log.d(TAG, "Scheduling job with name " + jobTag + " immediately");
+        Log.d(TAG, "Scheduling job with name " + jobTag + " immediately with JOB ID " + jobId);
+    }
+
+    @Override
+    protected void onReschedule(int newJobId) {
+
+        Log.d(TAG, "Rescheduling job with name " + this.getParams().getTag() + " JOB ID " + newJobId);
     }
 }
