@@ -1,9 +1,12 @@
 package org.smartregister.anc.util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -44,24 +47,122 @@ public class UtilsTest extends BaseUnitTest {
 
         String name = utils.getName();
         Assert.assertNull(name);
+
     }
 
     @PrepareForTest(AncApplication.class)
     @Test
     public void testGetName() {
-        Utils utils = Mockito.mock(Utils.class);
+        String username = ArgumentMatchers.anyString();
 
         PowerMockito.mockStatic(AncApplication.class);
         PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
         PowerMockito.when(ancApplication.getContext()).thenReturn(context);
         PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(username);
         Assert.assertNotNull(allSharedPreferences);
 
         utils.setAllSharedPreferences(allSharedPreferences);
         Assert.assertNotNull(utils);
 
-        Mockito.doReturn(name).when(utils).getName();
         utils.getName();
-        
+
+        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
+        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
+
     }
+
+    @PrepareForTest({AncApplication.class, StringUtils.class})
+    @Test
+    public void testGetUserInitialsWithTwoNames() {
+        String username = ArgumentMatchers.anyString();
+        String preferredName = "Anc Reference";
+
+        PowerMockito.mockStatic(AncApplication.class);
+        PowerMockito.mockStatic(StringUtils.class);
+
+        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
+        PowerMockito.when(ancApplication.getContext()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(username);
+        PowerMockito.when(allSharedPreferences.getANMPreferredName(username)).thenReturn(preferredName);
+
+        PowerMockito.when(StringUtils.isNotBlank(preferredName)).thenReturn(true);
+
+        Assert.assertNotNull(allSharedPreferences);
+        Assert.assertNotNull(username);
+        Assert.assertNotNull(preferredName);
+
+        utils.setAllSharedPreferences(allSharedPreferences);
+        Assert.assertNotNull(utils);
+
+        String initials = utils.getUserInitials();
+        Assert.assertEquals("AR", initials);
+
+        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
+        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
+    }
+
+    @PrepareForTest({AncApplication.class, StringUtils.class})
+    @Test
+    public void testGetUserInitialsWithOneNames() {
+        String username = ArgumentMatchers.anyString();
+        String preferredName = "Anc";
+
+        PowerMockito.mockStatic(AncApplication.class);
+        PowerMockito.mockStatic(StringUtils.class);
+
+        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
+        PowerMockito.when(ancApplication.getContext()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(username);
+        PowerMockito.when(allSharedPreferences.getANMPreferredName(username)).thenReturn(preferredName);
+
+        PowerMockito.when(StringUtils.isNotBlank(preferredName)).thenReturn(true);
+
+        Assert.assertNotNull(allSharedPreferences);
+        Assert.assertNotNull(username);
+        Assert.assertNotNull(preferredName);
+
+        utils.setAllSharedPreferences(allSharedPreferences);
+        Assert.assertNotNull(utils);
+
+        String initials = utils.getUserInitials();
+        Assert.assertEquals("A", initials);
+
+        Mockito.verify(allSharedPreferences).getANMPreferredName(username);
+        Mockito.verify(allSharedPreferences).fetchRegisteredANM();
+    }
+
+    @Test
+    public void testGerPreferredNameWithNullSharePreferences() {
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+        utils.setAllSharedPreferences(allSharedPreferences);
+
+        String name = utils.getPrefferedName();
+        Assert.assertNull(name);
+    }
+
+    @PrepareForTest(StringUtils.class)
+    @Test
+    public void testDobStringToDateTime() {
+        String dobString = ArgumentMatchers.anyString();
+
+        PowerMockito.mockStatic(StringUtils.class);
+        PowerMockito.when(StringUtils.isNotBlank(dobString)).thenReturn(true);
+
+        DateTime dobStringToDateTime = Utils.dobStringToDateTime(dobString);
+        Assert.assertEquals(dobStringToDateTime, dobStringToDateTime);
+    }
+
+    @PrepareForTest(StringUtils.class)
+    @Test
+    public void testDobStringToDateTimeWithNullStringDate() {
+        PowerMockito.mockStatic(StringUtils.class);
+        PowerMockito.when(StringUtils.isBlank(null)).thenReturn(true);
+
+        DateTime dobStringToDateTime = Utils.dobStringToDateTime(null);
+        Assert.assertEquals(dobStringToDateTime, dobStringToDateTime);
+    }
+
 }

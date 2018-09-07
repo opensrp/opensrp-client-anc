@@ -5,6 +5,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.MeContract;
@@ -17,6 +18,9 @@ public class MePresenterTest extends BaseUnitTest {
     @Mock
     private MeContract.View view;
 
+    @Mock
+    private MeContract.Model model;
+
     private MeContract.Presenter presenter;
 
     @Before
@@ -26,9 +30,41 @@ public class MePresenterTest extends BaseUnitTest {
     }
 
     @Test
+    public void testPresenterInitializedCorrectly() {
+        Assert.assertNotNull(presenter);
+    }
+
+    @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMMM yyyy";
         String todaysDate = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
         Assert.assertEquals(todaysDate, presenter.getBuildDate());
     }
+
+    @Test
+    public void testUpdateInitials() {
+        MePresenter mePresenter = (MePresenter) presenter;
+        mePresenter.setModel(model);
+
+        String initials = "TR";
+        Mockito.doReturn(initials).when(model).getInitials();
+
+        presenter.updateInitials();
+
+        Mockito.verify(view).updateInitialsText(initials);
+    }
+
+    @Test
+    public void testUpdateName() {
+        MePresenter mePresenter = (MePresenter) presenter;
+        mePresenter.setModel(model);
+
+        String name = "ANC Reference";
+        Mockito.doReturn(name).when(model).getName();
+
+        presenter.updateName();
+
+        Mockito.verify(view).updateNameText(name);
+    }
+
 }

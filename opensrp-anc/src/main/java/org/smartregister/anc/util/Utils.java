@@ -235,7 +235,7 @@ public class Utils {
         this.allSharedPreferences = allSharedPreferences;
     }
 
-    private String getPrefferedName() {
+    protected String getPrefferedName() {
         if (getAllSharedPreferences() == null) {
             return null;
         }

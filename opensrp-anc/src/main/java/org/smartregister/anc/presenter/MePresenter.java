@@ -41,4 +41,8 @@ public class MePresenter implements MeContract.Presenter {
         else
             return null;
     }
+
+    public void setModel(MeContract.Model model) {
+        this.model = model;
+    }
 }
