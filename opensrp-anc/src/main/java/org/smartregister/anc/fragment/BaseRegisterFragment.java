@@ -527,8 +527,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new
                         AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
                 ((HomeRegisterActivity) getActivity()).showAttentionFlagsDialog(dummyAttentionFlags);
-            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
-                // TODO Move to catchment
+            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) {
+                // TODO Need to implement move to catchment
             } else {
                 onViewClicked(view);
             }

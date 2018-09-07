@@ -33,12 +33,16 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Mock
     ViewTreeObserver viewTreeObserver;
+
     @Mock
     ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener;
+
     @Mock
     private LoginContract.View view;
+
     @Mock
     private LoginContract.Interactor interactor;
+
     @Mock
     private LoginContract.Model model;
     private LoginContract.Presenter presenter;
