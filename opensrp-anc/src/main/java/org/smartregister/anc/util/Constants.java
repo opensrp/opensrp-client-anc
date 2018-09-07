@@ -6,7 +6,7 @@ import org.smartregister.anc.BuildConfig;
  * Created by ndegwamartin on 14/03/2018.
  */
 
-public class Constants {
+public abstract class Constants {
     public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
     public static final int OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE;
     public static final int OPENMRS_UNIQUE_ID_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE;
