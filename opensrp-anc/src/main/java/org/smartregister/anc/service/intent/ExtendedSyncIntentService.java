@@ -1,7 +1,6 @@
 package org.smartregister.anc.service.intent;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -13,7 +12,6 @@ import org.smartregister.service.ActionService;
 
 public class ExtendedSyncIntentService extends IntentService {
 
-    private Context context;
     private ActionService actionService;
     private static final String TAG = ExtendedSyncIntentService.class.getCanonicalName();
 
@@ -23,7 +21,6 @@ public class ExtendedSyncIntentService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        context = getBaseContext();
         actionService = AncApplication.getInstance().getContext().actionService();
         return super.onStartCommand(intent, flags, startId);
     }

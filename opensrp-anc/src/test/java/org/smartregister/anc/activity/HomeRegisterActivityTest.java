@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
+import com.google.common.collect.ImmutableMap;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -38,7 +40,9 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 24/07/2018.
@@ -62,6 +66,9 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AlertDialog attentionFlagsAlertDialog;
+
+    @Mock
+    private AlertDialog recordBirthAlertDialog;
 
     @Mock
     private RegisterPresenter registerPresenter;
