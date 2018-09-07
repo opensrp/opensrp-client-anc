@@ -1,7 +1,6 @@
 package org.smartregister.anc.contract;
 
 import android.content.Context;
-
 import org.json.JSONArray;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
@@ -29,8 +28,6 @@ public interface RegisterFragmentContract {
 
         void updateSearchBarHint(String searchBarText);
 
-        void updateInitialsText(String initials);
-
         Context getContext();
 
         String getString(int resId);
@@ -52,10 +49,8 @@ public interface RegisterFragmentContract {
 
         void initializeQueries(String mainCondition);
 
-        void updateInitials();
-
         void startSync();
-
+        
         void updateSortAndFilter(List<Field> filterList, Field sortField);
 
         void searchGlobally(String ancId);
@@ -74,8 +69,6 @@ public interface RegisterFragmentContract {
         String countSelect(String tableName, String mainCondition);
 
         String mainSelect(String tableName, String mainCondition);
-
-        String getInitials();
 
         String getFilterText(List<Field> filterList, String filter);
 

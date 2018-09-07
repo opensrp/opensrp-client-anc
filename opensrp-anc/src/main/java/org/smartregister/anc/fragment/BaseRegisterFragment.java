@@ -7,8 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -17,9 +15,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.ybq.android.spinkit.style.FadingCircle;
@@ -29,18 +30,15 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
-import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.RecyclerViewFragment;
@@ -60,33 +58,53 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  * Created by keyman on 26/06/2018.
  */
 
-public abstract class BaseRegisterFragment extends RecyclerViewFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
+public abstract class BaseRegisterFragment extends RecyclerViewFragment implements RegisterFragmentContract.View,
+        SyncStatusBroadcastReceiver.SyncStatusListener {
 
-    public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
-
-    protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
-
-    protected RegisterFragmentContract.Presenter presenter;
-    
-    protected AdvancedSearchContract.View advancedSearchView;
-
-    private LocationPickerView facilitySelection;
-
-    private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
-    private Snackbar syncStatusSnackbar;
-    protected View rootView;
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
-
-
-    private TextView initialsTextView;
-    private ProgressBar syncProgressBar;
+    private static final String TAG = BaseRegisterFragment.class.getCanonicalName();
+    public static String TOOLBAR_TITLE = BaseRegisterActivity.class.getPackage() + ".toolbarTitle";
+    protected RegisterActionHandler registerActionHandler = new RegisterActionHandler();
+    protected RegisterFragmentContract.Presenter presenter;
+    protected View rootView;
+    protected TextView headerTextDisplay;
     protected TextView filterStatus;
-    protected TextView sortStatus;
+    protected RelativeLayout filterRelativeLayout;
+    protected MenuItem menuItem;
+    protected View.OnKeyListener hideKeyboard = new View.OnKeyListener() {
 
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                Utils.hideKeyboard(getActivity(), v);
+                return true;
+            }
+            return false;
+        }
+    };
+    private Snackbar syncStatusSnackbar;
+    private ImageView qrCodeScanImageView;
+    private ProgressBar syncProgressBar;
     private boolean globalQrSearch = false;
+    protected final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            //Overriden Do something before Text Changed
+        }
+
+        @Override
+        public void onTextChanged(final CharSequence cs, int start, int before, int count) {
+            filter(cs.toString(), "", getMainCondition(), false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            //Overriden Do something after Text Changed
+        }
+    };
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
@@ -116,7 +134,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
             @Override
             public String searchHint() {
-                return context().getStringResource(R.string.str_search_hint);
+                return context().getStringResource(R.string.search_hint);
             }
         };
     }
@@ -139,7 +157,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         setupViews(view);
-
         return view;
     }
 
@@ -165,7 +182,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             getSearchView().setText(searchText);
         }
     }
-    
+
     public void onQRCodeSucessfullyScanned(String qrCode) {
         Log.i(TAG, "QR code: " + qrCode);
         if (StringUtils.isNotBlank(qrCode)) {
@@ -173,12 +190,12 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             setAncId(qrCode);
         }
     }
-    
-    public void setAncId(String qrCode){
-    	HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-	    android.support.v4.app.Fragment currentFragment =
-			    homeRegisterActivity.findFragmentByPosition(1);
-	    ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+
+    public void setAncId(String qrCode) {
+        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+        android.support.v4.app.Fragment currentFragment =
+                homeRegisterActivity.findFragmentByPosition(1);
+        ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
 
     @Override
@@ -192,36 +209,46 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         updateSearchView();
         setServiceModeViewDrawableRight(null);
 
-        // Initials
-        initialsTextView = view.findViewById(R.id.name_initials);
-        if (initialsTextView != null) {
-            initialsTextView.setOnClickListener(new View.OnClickListener() {
+        // QR Code
+        qrCodeScanImageView = view.findViewById(R.id.scanQrCode);
+        if (qrCodeScanImageView != null) {
+            qrCodeScanImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-                    if (!drawer.isDrawerOpen(GravityCompat.START)) {
-                        drawer.openDrawer(GravityCompat.START);
+                    HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+                    if (homeRegisterActivity != null) {
+                        homeRegisterActivity.startQrCodeScanner();
                     }
                 }
             });
         }
-        presenter.updateInitials();
+
+        //Sync
+        ImageView womanSync = view.findViewById(R.id.woman_sync);
+        if (womanSync != null) {
+            womanSync.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Todo implement sync
+                }
+            });
+        }
 
         View topLeftLayout = view.findViewById(R.id.top_left_layout);
         if (topLeftLayout != null) {
             topLeftLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    initialsTextView.performLongClick();
+                    qrCodeScanImageView.performLongClick();
                 }
             });
         }
 
-        // Location
+        /*// Location
         facilitySelection = view.findViewById(R.id.facility_selection);
-        if (facilitySelection != null) {
+        if (facilitySelection != null) {m
             facilitySelection.init();
-        }
+        }*/
 
         // Progress bar
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
@@ -231,8 +258,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
 
         // Sort and Filter
+        headerTextDisplay = view.findViewById(R.id.header_text_display);
         filterStatus = view.findViewById(R.id.filter_status);
-        sortStatus = view.findViewById(R.id.sort_status);
+        filterRelativeLayout = view.findViewById(R.id.filter_display_view);
     }
 
     @Override
@@ -248,8 +276,19 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
         updateSearchView();
         presenter.processViewConfigurations();
-        updateLocationText();
+        // updateLocationText();
         refreshSyncProgressSpinner();
+        setTotalPatients();
+    }
+
+    private void setTotalPatients() {
+        if (headerTextDisplay != null) {
+            headerTextDisplay.setText(totalcount > 1 ?
+                    String.format(getString(R.string.clients), totalcount) :
+                    String.format(getString(R.string.client), totalcount));
+
+            filterRelativeLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -271,13 +310,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         clientsView.setAdapter(clientAdapter);
     }
 
-    @Override
-    public void updateInitialsText(String initials) {
-        if (initialsTextView != null) {
-            initialsTextView.setText(initials);
-        }
-    }
-
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         getSearchCancelView().setVisibility(isEmpty(filterString) ? View.INVISIBLE : View.VISIBLE);
 
@@ -293,39 +325,24 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         } else {
             filterandSortExecute();
         }
+
     }
 
     @Override
     public void updateFilterAndFilterStatus(String filterText, String sortText) {
-        if (filterStatus != null) {
-            filterStatus.setText(Html.fromHtml(filterText));
+        if (headerTextDisplay != null) {
+            headerTextDisplay.setText(Html.fromHtml(filterText));
+            filterRelativeLayout.setVisibility(View.VISIBLE);
         }
 
-        if (sortStatus != null) {
-            sortStatus.setText(Html.fromHtml(totalcount + " patients " + sortText));
+        if (filterStatus != null) {
+            filterStatus.setText(Html.fromHtml(totalcount + " patients " + sortText));
         }
     }
 
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         presenter.updateSortAndFilter(filterList, sortField);
     }
-
-    protected final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            //Overriden Do something before Text Changed
-        }
-
-        @Override
-        public void onTextChanged(final CharSequence cs, int start, int before, int count) {
-            filter(cs.toString(), "", getMainCondition(), false);
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            //Overriden Do something after Text Changed
-        }
-    };
 
     @Override
     protected SmartRegisterClientsProvider clientsProvider() {
@@ -370,9 +387,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         startActivity(intent);
     }
 
-    protected abstract void onViewClicked(View view);
-
-    protected void updateLocationText() {
+    /*protected void updateLocationText() {
         if (facilitySelection != null) {
             facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
                     facilitySelection.getSelectedItem()));
@@ -384,8 +399,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     public LocationPickerView getFacilitySelection() {
         return facilitySelection;
-    }
+    }*/
 
+    protected abstract void onViewClicked(View view);
 
     private void registerSyncStatusBroadcastReceiver() {
         SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
@@ -405,7 +421,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public void onSyncStart() {
         refreshSyncStatusViews(null);
     }
-
 
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
@@ -462,32 +477,20 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         super.onPause();
     }
 
-    protected View.OnKeyListener hideKeyboard = new View.OnKeyListener() {
-
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                Utils.hideKeyboard(getActivity(), v);
-                return true;
-            }
-            return false;
-        }
-    };
-
     private void refreshSyncProgressSpinner() {
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             if (syncProgressBar != null) {
                 syncProgressBar.setVisibility(View.VISIBLE);
             }
-            if (initialsTextView != null) {
-                initialsTextView.setVisibility(View.GONE);
+            if (qrCodeScanImageView != null) {
+                qrCodeScanImageView.setVisibility(View.GONE);
             }
         } else {
             if (syncProgressBar != null) {
                 syncProgressBar.setVisibility(View.GONE);
             }
-            if (initialsTextView != null) {
-                initialsTextView.setVisibility(View.VISIBLE);
+            if (qrCodeScanImageView != null) {
+                qrCodeScanImageView.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -537,26 +540,19 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-
                 ((HomeRegisterActivity) getActivity()).showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
 
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-
                 //Temporary for testing UI , To remove for real dynamic data
-
                 List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
-
                 ((HomeRegisterActivity) getActivity()).showAttentionFlagsDialog(dummyAttentionFlags);
-
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             } else {
                 onViewClicked(view);
             }
-
         }
     }
-
 }
 
 

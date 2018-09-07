@@ -3,7 +3,7 @@
     android:id="@+id/register_columns"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="2"
+    android:layout_weight="1"
     android:background="@color/white"
     android:orientation="horizontal">
 
@@ -13,133 +13,141 @@
         android:layout_alignParentStart="true"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:id="@+id/patient_column"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="15dp">
+	    <RelativeLayout
+			    android:id="@+id/patient_column"
+			    android:layout_width="wrap_content"
+			    android:layout_height="match_parent"
+			    android:layout_gravity="center_vertical"
+			    android:layout_marginBottom="7dp"
+			    android:layout_marginEnd="15dp"
+			    android:layout_marginLeft="15dp"
+			    android:layout_marginRight="15dp"
+			    android:layout_marginStart="15dp"
+			    android:layout_marginTop="7dp">
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/patient_name"
-                style="@style/CustomFontTextViewStyle.ClientList.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="0dp"
-                android:text="Patient Name"
-                android:textColor="@color/text_black"
-                android:textSize="18sp" />
+		    <org.smartregister.view.customcontrols.CustomFontTextView
+				    android:id="@+id/patient_name"
+				    style="@style/CustomFontTextViewStyle.ClientList.Medium"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_alignParentTop="true"
+				    android:paddingLeft="0dp"
+				    android:text="Patient Name"
+				    android:textColor="@color/text_black"
+				    android:textSize="18sp"/>
 
-            <LinearLayout
-                android:id="@+id/age_ga_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
+		    <LinearLayout
+				    android:id="@+id/age_ga_layout"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_centerVertical="true"
+				    android:orientation="horizontal">
 
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/age"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="0dp"
-                    android:text="Age: 33"
-                    android:textColor="@color/text_black"
-                    android:textSize="16sp" />
+			    <org.smartregister.view.customcontrols.CustomFontTextView
+					    android:id="@+id/age"
+					    style="@style/CustomFontTextViewStyle.ClientList.Light"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:paddingLeft="0dp"
+					    android:text="Age: 33"
+					    android:textColor="@color/text_black"
+					    android:textSize="16sp"/>
 
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/ga"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="GA: 12 weeks"
-                    android:textColor="@color/text_black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/anc_id"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:paddingLeft="0dp"
-                android:text="ID: 3034503"
-                android:textColor="@color/text_black"
-                android:textSize="17sp" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/risk_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/register_list_item_height"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/risk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/grey_border"
-                android:drawableLeft="@drawable/icon_referral_warning"
-                android:drawablePadding="2dp"
-                android:padding="2.5dp"
-                android:text="2"
-                android:textColor="@color/dark_grey_text"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/register_list_item_height"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp">
-
-        <Button
-            android:id="@+id/due_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:background="@color/vaccine_blue_bg_st"
-            android:gravity="center"
-            android:hapticFeedbackEnabled="true"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="Contact 2"
-            android:textAllCaps="false"
-            android:textColor="@color/status_bar_text_almost_white"
-            android:textSize="17sp"
-            android:typeface="normal"/>
-
-        <Button
-            android:id="@+id/sync"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:padding="@dimen/advanced_search_button_padding"
-            android:text="@string/sync"
-            android:textAllCaps="true"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/button_navy_blue"
-            android:textSize="@dimen/advanced_search_text_size"
-            android:visibility="gone"/>
-
-    </LinearLayout>
+			    <org.smartregister.view.customcontrols.CustomFontTextView
+					    android:id="@+id/ga"
+					    style="@style/CustomFontTextViewStyle.ClientList.Light"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:paddingLeft="10dp"
+					    android:text="GA: 12 weeks"
+					    android:textColor="@color/text_black"
+					    android:textSize="16sp"/>
+		    </LinearLayout>
 
 
+		    <org.smartregister.view.customcontrols.CustomFontTextView
+				    android:id="@+id/anc_id"
+				    style="@style/CustomFontTextViewStyle.ClientList.Light"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_alignParentBottom="true"
+				    android:paddingLeft="0dp"
+				    android:text="ID: 3034503"
+				    android:textColor="@color/text_black"
+				    android:textSize="17sp"/>
+
+	    </RelativeLayout>
+
+	    <LinearLayout
+			    android:id="@+id/risk_layout"
+			    android:layout_width="wrap_content"
+			    android:layout_height="@dimen/register_list_item_height"
+			    android:layout_marginBottom="7dp"
+			    android:layout_marginTop="7dp"
+			    android:gravity="bottom|center_horizontal"
+			    android:orientation="vertical">
+
+		    <TextView
+				    android:id="@+id/risk"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:background="@drawable/grey_border"
+				    android:drawableLeft="@drawable/icon_referral_warning"
+				    android:drawablePadding="2dp"
+				    android:padding="2.5dp"
+				    android:text="2"
+				    android:textColor="@color/dark_grey_text"
+				    android:textSize="16sp"/>
+
+	    </LinearLayout>
+
+	</LinearLayout>
+
+	<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="@dimen/register_list_item_height"
+			android:layout_alignParentEnd="true"
+			android:layout_marginBottom="7dp"
+			android:layout_marginLeft="15dp"
+			android:layout_marginRight="10dp"
+			android:layout_marginTop="7dp">
+
+		<Button
+				android:id="@+id/due_button"
+				android:layout_width="120dp"
+				android:layout_height="match_parent"
+				android:layout_gravity="center"
+				android:adjustViewBounds="true"
+				android:background="@drawable/due_contact"
+				android:gravity="center"
+				android:hapticFeedbackEnabled="true"
+				android:paddingLeft="20dp"
+				android:paddingRight="20dp"
+				android:elevation="8dp"
+				android:stateListAnimator="@drawable/button"
+				android:text="@string/contact"
+				android:textAllCaps="false"
+				android:textColor="@color/vaccine_blue_bg_st"
+				android:textSize="15sp"
+				android:textAppearance="?android:textAppearanceSmall"
+				android:typeface="normal"/>
+
+		<Button
+				android:id="@+id/sync"
+				style="?android:attr/borderlessButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:elevation="8dp"
+				android:stateListAnimator="@drawable/button"
+				android:background="@color/transparent"
+				android:padding="@dimen/advanced_search_button_padding"
+				android:text="@string/sync"
+				android:textAllCaps="true"
+				android:textAppearance="?android:textAppearanceSmall"
+				android:textColor="@color/button_navy_blue"
+				android:textSize="@dimen/advanced_search_text_size"
+				android:visibility="gone"/>
+
+	</LinearLayout>
 </RelativeLayout>

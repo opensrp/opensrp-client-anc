@@ -98,5 +98,4 @@ public class Constants {
     public static class BOOLEAN_INT {
         public static final int TRUE = 1;
     }
-
 }

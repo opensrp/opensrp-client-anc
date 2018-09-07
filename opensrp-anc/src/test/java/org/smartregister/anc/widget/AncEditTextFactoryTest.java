@@ -3,12 +3,10 @@ package org.smartregister.anc.widget;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
-
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
