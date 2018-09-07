@@ -244,6 +244,12 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             });
         }
 
+        /*// Location
+        facilitySelection = view.findViewById(R.id.facility_selection);
+        if (facilitySelection != null) {m
+            facilitySelection.init();
+        }*/
+
         // Progress bar
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
         if (syncProgressBar != null) {
@@ -270,6 +276,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
         updateSearchView();
         presenter.processViewConfigurations();
+        // updateLocationText();
         refreshSyncProgressSpinner();
         setTotalPatients();
     }
@@ -380,6 +387,19 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         startActivity(intent);
     }
 
+    /*protected void updateLocationText() {
+        if (facilitySelection != null) {
+            facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
+                    facilitySelection.getSelectedItem()));
+            String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
+            context().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
+
+        }
+    }
+
+    public LocationPickerView getFacilitySelection() {
+        return facilitySelection;
+    }*/
 
     protected abstract void onViewClicked(View view);
 
@@ -527,9 +547,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new
                         AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
                 ((HomeRegisterActivity) getActivity()).showAttentionFlagsDialog(dummyAttentionFlags);
-            } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) {
-                // TODO Need to implement move to catchment
-            } else {
+            } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
+                // TODO Move to catchment
+            }*/ else {
                 onViewClicked(view);
             }
         }
