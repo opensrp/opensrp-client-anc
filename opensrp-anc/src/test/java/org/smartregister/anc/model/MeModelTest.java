@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MeModelTest extends BaseUnitTest {
-    Utils utils;
+    private Utils utils;
 
     private MeContract.Model model;
 
