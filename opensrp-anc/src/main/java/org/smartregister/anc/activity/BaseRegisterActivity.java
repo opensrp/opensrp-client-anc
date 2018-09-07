@@ -81,7 +81,6 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     private AlertDialog recordBirthAlertDialog;
     private AlertDialog attentionFlagAlertDialog;
     private View attentionFlagDialogView;
-    private Fragment meFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

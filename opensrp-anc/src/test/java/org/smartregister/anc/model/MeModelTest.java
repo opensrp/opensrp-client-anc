@@ -10,11 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class MeModelTest extends BaseUnitTest {
+public class
+MeModelTest extends BaseUnitTest {
     private MeContract.Model model;
 
     @Before
-    public void setup() {
+    public void setUp() {
         model = new MeModel();
     }
 
