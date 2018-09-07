@@ -32,8 +32,6 @@ public class UtilsTest extends BaseUnitTest {
     @Mock
     private AllSharedPreferences allSharedPreferences;
 
-    private String name;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
