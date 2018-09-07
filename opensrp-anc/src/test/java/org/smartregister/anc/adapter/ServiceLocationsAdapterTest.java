@@ -1,7 +1,5 @@
 package org.smartregister.anc.adapter;
 
-import android.view.View;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,19 +11,12 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.activity.BaseUnitTest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ServiceLocationsAdapterTest extends BaseUnitTest {
     private ServiceLocationsAdapter serviceLocationsAdapter;
 
     @Mock
     private ArrayList<String> locationNames;
-
-    @Mock
-    private HashMap<String, View> hashMap;
-
-    @Mock
-    private View view;
 
     @Before
     public void setUp() {

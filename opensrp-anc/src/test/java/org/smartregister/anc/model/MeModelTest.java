@@ -3,7 +3,6 @@ package org.smartregister.anc.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.activity.BaseUnitTest;
@@ -16,8 +15,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MeModelTest extends BaseUnitTest {
-    @Mock
     Utils utils;
+
     private MeContract.Model model;
 
     @Before
