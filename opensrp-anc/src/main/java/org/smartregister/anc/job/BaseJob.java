@@ -1,5 +1,6 @@
 package org.smartregister.anc.job;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.evernote.android.job.Job;
@@ -62,5 +63,10 @@ public abstract class BaseJob extends Job {
     protected void onReschedule(int newJobId) {
 
         Log.d(TAG, "Rescheduling job with name " + this.getParams().getTag() + " JOB ID " + newJobId);
+    }
+
+    //Custom app context method to aid unit testing
+    protected Context getApplicationContext() {
+        return super.getContext();
     }
 }

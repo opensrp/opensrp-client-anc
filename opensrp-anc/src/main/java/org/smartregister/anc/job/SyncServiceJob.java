@@ -16,8 +16,8 @@ public class SyncServiceJob extends BaseJob {
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
-        Intent intent = new Intent(getContext(), SyncIntentService.class);
-        getContext().startService(intent);
-        return params.getExtras().getBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, false) ? Result.RESCHEDULE : Result.SUCCESS;
+        Intent intent = new Intent(getApplicationContext(), SyncIntentService.class);
+        getApplicationContext().startService(intent);
+        return params != null && params.getExtras().getBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, false) ? Result.RESCHEDULE : Result.SUCCESS;
     }
 }

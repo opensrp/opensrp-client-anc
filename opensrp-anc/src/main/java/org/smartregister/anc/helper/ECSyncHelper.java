@@ -234,7 +234,7 @@ public class ECSyncHelper implements PrefsHelper {
         eventClientRepository.batchInsertClients(clients);
     }
 
-    private void batchInsertEvents(JSONArray events) {
+    protected void batchInsertEvents(JSONArray events) {
         eventClientRepository.batchInsertEvents(events, getLastSyncTimeStamp());
     }
 
