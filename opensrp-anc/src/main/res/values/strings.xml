@@ -251,7 +251,7 @@
     <string name="save_changes">Save Changes\nContinue with this contact at\na later time</string>
     <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
 
-    <string name="me_page_location_text">Location: %1$s</string>
+    <string name="me_page_location_text">Location: </string>
     <string name="right_arrow">Right Arrow</string>
     <string name="section_icon">Section Icon</string>
     <string name="settings">Settings</string>

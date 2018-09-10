@@ -2,6 +2,7 @@ package org.smartregister.anc.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -44,6 +45,10 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     public LocationPickerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.context = context;
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.anc_CustomFontTextView, 0, defStyle);
+        int variant = attributes.getInt(R.styleable.anc_CustomFontTextView_fontVariant, 2);
+        attributes.recycle();
+        setFontVariant(variant);
     }
 
     public void init() {
@@ -100,7 +105,6 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
 
         return locations;
     }
-
 
     @Override
     public void onClick(View v) {

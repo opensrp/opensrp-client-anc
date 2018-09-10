@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,21 +32,13 @@ public class MeFragment extends Fragment implements MeContract.View {
 
     private TextView initials;
     private TextView userName;
-    private TextView location_text;
 
     private RelativeLayout me_location_section;
     private RelativeLayout me_pop_characteristics_section;
     private RelativeLayout site_characteristics_section;
     private RelativeLayout setting_section;
     private RelativeLayout logout_section;
-    private RelativeLayout me_location_selection_section;
-
-    private ImageView locationRightCaret;
-    private ImageView locationDownCaret;
-
     private LocationPickerView facilitySelection;
-
-    private Boolean selected = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,14 +82,10 @@ public class MeFragment extends Fragment implements MeContract.View {
         site_characteristics_section = view.findViewById(R.id.site_characteristics_section);
         setting_section = view.findViewById(R.id.setting_section);
         logout_section = view.findViewById(R.id.logout_section);
-        locationRightCaret = view.findViewById(R.id.locationRightCaret);
-        locationDownCaret = view.findViewById(R.id.locationDownCaret);
-        me_location_selection_section = view.findViewById(R.id.me_location_selection_section);
         facilitySelection = view.findViewById(R.id.facility_selection);
         if (facilitySelection != null) {
             facilitySelection.init();
         }
-        location_text = view.findViewById(R.id.location_text);
         TextView application_version = view.findViewById(R.id.application_version);
         if (application_version != null) {
             try {
@@ -151,18 +138,7 @@ public class MeFragment extends Fragment implements MeContract.View {
             facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(facilitySelection.getSelectedItem()));
             String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
             AncApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
-
-            location_text.setText(String.format(getString(R.string.me_page_location_text), LocationHelper.getInstance().getOpenMrsReadableName(
-                    facilitySelection.getSelectedItem())));
         }
-    }
-
-    public LocationPickerView getFacilitySelection() {
-        LocationPickerView locationPickerView = null;
-        if (facilitySelection != null) {
-            locationPickerView = facilitySelection;
-        }
-        return locationPickerView;
     }
 
     /**
@@ -184,17 +160,6 @@ public class MeFragment extends Fragment implements MeContract.View {
                     getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
                     break;
                 case R.id.me_location_section:
-                    if (selected) {
-                        selected = false;
-                        me_location_selection_section.setVisibility(View.GONE);
-                        locationDownCaret.setVisibility(View.GONE);
-                        locationRightCaret.setVisibility(View.VISIBLE);
-                    } else {
-                        selected = true;
-                        me_location_selection_section.setVisibility(View.VISIBLE);
-                        locationDownCaret.setVisibility(View.VISIBLE);
-                        locationRightCaret.setVisibility(View.GONE);
-                    }
                     break;
                 default:
                     break;

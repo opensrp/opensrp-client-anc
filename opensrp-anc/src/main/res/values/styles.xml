@@ -70,9 +70,6 @@
     </style>
 
     <style name="me_page_location_selector">
-        <item name="fontVariant">black</item>
-        <item name="fontWeight">50</item>
-        <item name="fontStyle">normal</item>
         <item name="android:textSize">16sp</item>
     </style>
 
