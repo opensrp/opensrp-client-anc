@@ -159,7 +159,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter<>(null, advancedSearchProvider, context().commonrepository(this.tablename));
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 
