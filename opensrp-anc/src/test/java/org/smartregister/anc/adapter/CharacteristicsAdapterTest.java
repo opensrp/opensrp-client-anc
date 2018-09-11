@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 20/08/2018.
  */
-public class PopulationCharacteristicsAdapterTest extends BaseUnitTest {
+public class CharacteristicsAdapterTest extends BaseUnitTest {
 
-    private PopulationCharacteristicsAdapter adapter;
+    private CharacteristicsAdapter adapter;
 
     @Mock
     private List<Characteristic> data;
@@ -27,7 +27,7 @@ public class PopulationCharacteristicsAdapterTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        adapter = new PopulationCharacteristicsAdapter(RuntimeEnvironment.application, data);
+        adapter = new CharacteristicsAdapter(RuntimeEnvironment.application, data);
 
     }
 
@@ -41,7 +41,7 @@ public class PopulationCharacteristicsAdapterTest extends BaseUnitTest {
 
         LinearLayout viewGroup = new LinearLayout(RuntimeEnvironment.application);
         viewGroup.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
-        PopulationCharacteristicsAdapter.ViewHolder viewHolder = adapter.onCreateViewHolder(viewGroup, 0);
+        CharacteristicsAdapter.ViewHolder viewHolder = adapter.onCreateViewHolder(viewGroup, 0);
         Assert.assertNotNull(viewHolder);
     }
 

@@ -1,0 +1,27 @@
+[
+  {
+    "key": "site_ipv_assess",
+    "value": true,
+    "label": "Minimum requirements for IPV assessment",
+    "description": "1. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \n\n2. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\n\n3. A private setting;\n\n4. A way to ensure confidentiality;\n\n5. Time to allow for appropriate disclosure; and\n\n6. A system for referral in place. "
+
+  },
+  {
+    "key": "site_anc_hiv",
+    "value": true,
+    "label": "Generalized HIV epidemic",
+    "description": "Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?"
+  },
+  {
+    "key": "site_ultrasound",
+    "value": false,
+    "label": "Ultrasound available",
+    "description": "Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?"
+  },
+  {
+    "key": "site_bp_tool",
+    "value": true,
+    "label": "Automated BP measurement tool",
+    "description": "Does your facility use an automated blood pressure (BP) measurement tool?"
+  }
+]

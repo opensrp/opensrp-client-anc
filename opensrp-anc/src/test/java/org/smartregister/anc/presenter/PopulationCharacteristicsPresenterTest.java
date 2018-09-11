@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
+import org.smartregister.anc.interactor.PopulationCharacteristicsInteractor;
 
 /**
  * Created by ndegwamartin on 28/08/2018.
@@ -33,9 +34,9 @@ public class PopulationCharacteristicsPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnDestroyShouldNotResetThePresenterIfIsChangingConfigurationChangeIsTrue() {
+    public void testOnDestroyShouldNotResetTheInteractorIfIsChangingConfigurationChangeIsTrue() {
 
-        PopulationCharacteristicsContract.Interactor interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
+        PopulationCharacteristicsInteractor interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
         Assert.assertNotNull(interactor);
 
         presenter.onDestroy(true);//configuration change
@@ -45,9 +46,9 @@ public class PopulationCharacteristicsPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnDestroyShouldResetThePresenterIfIsChangingConfigurationChangeIsFalse() {
+    public void testOnDestroyShouldResetTheInteractorIfIsChangingConfigurationChangeIsFalse() {
 
-        PopulationCharacteristicsContract.Interactor interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
+        PopulationCharacteristicsInteractor interactor = Whitebox.getInternalState(presenter, FIELD_INTERACTOR);
         Assert.assertNotNull(interactor);
 
         presenter.onDestroy(false);//Not configuration change

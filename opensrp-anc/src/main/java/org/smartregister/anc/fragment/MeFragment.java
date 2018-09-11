@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.PopulationCharacteristicsActivity;
+import org.smartregister.anc.activity.SiteCharacteristicsActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.helper.LocationHelper;
@@ -155,6 +156,7 @@ public class MeFragment extends Fragment implements MeContract.View {
                     //ToDO Add the functionality for the setting page after that is decided.
                     break;
                 case R.id.site_characteristics_section:
+                    getContext().startActivity(new Intent(getContext(), SiteCharacteristicsActivity.class));
                     break;
                 case R.id.me_pop_characteristics_section:
                     getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));

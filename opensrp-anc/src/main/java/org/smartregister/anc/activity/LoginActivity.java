@@ -27,6 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.joda.time.DateTime;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.presenter.LoginPresenter;
@@ -135,13 +136,30 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        Intent intent = new Intent(this, HomeRegisterActivity.class);
-        intent.putExtra(Constants.IS_REMOTE_LOGIN, remote);
-        startActivity(intent);
+
+        if (AncApplication.getInstance().getContext().allSettings().get(Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS) != null) {
+
+            gotToHomeRegister(remote);
+
+        } else {
+
+            goToSiteCharacteristics(remote);
+        }
 
         finish();
     }
 
+    private void gotToHomeRegister(boolean remote) {
+        Intent intent = new Intent(this, HomeRegisterActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
+    }
+
+    private void goToSiteCharacteristics(boolean remote) {
+        Intent intent = new Intent(this, SiteCharacteristicsEnterActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
+    }
 
     @Override
     public void showErrorDialog(String message) {

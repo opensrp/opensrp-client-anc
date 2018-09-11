@@ -73,4 +73,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="ActionBarNoShadow">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

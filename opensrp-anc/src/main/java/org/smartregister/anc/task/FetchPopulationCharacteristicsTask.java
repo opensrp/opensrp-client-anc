@@ -21,7 +21,7 @@ public class FetchPopulationCharacteristicsTask extends AsyncTask<Void, Void, Li
 
     @Override
     protected List<Characteristic> doInBackground(final Void... params) {
-        CharacteristicsHelper helper = new CharacteristicsHelper();
+        CharacteristicsHelper helper = new CharacteristicsHelper("population_characteristics");
         return helper.getPopulationCharacteristics();
     }
 

@@ -110,7 +110,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
     @Test
@@ -122,7 +122,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
     private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
