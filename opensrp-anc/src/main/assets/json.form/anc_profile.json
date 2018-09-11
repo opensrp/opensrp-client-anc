@@ -56,6 +56,29 @@
     "next": "step2",
     "fields": [
       {
+        "key": "native_radio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "school_level",
+        "type": "radio",
+        "label": "Highest Level of School",
+        "options": [
+          {
+            "key": "high_school",
+            "text": "High School"
+          },
+          {
+            "key": "higher_education",
+            "text": "College/University"
+          },
+          {
+            "key": "primary_school",
+            "text": "Primary school"
+          }
+        ],
+        "value": "primary_school"
+      },
+      {
         "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
