@@ -87,21 +87,21 @@
                         android:gravity="center"
                         android:src="@drawable/ic_icon_location" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/locationPickerView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/me_page_section_text_right_margin"
+                        android:layout_marginStart="0dp"
                         android:layout_toEndOf="@+id/locationImageView"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/location_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
                             android:text="@string/me_page_location_text"
                             android:textColor="@color/text_black"
                             android:textSize="@dimen/me_page_section_text_size" />
@@ -109,16 +109,23 @@
                         <org.smartregister.anc.view.LocationPickerView
                             android:id="@+id/facility_selection"
                             style="@style/me_page_location_selector"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.6"
-                            android:gravity="bottom|start"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@+id/location_text"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:scrollHorizontally="true"
                             android:text="Bukesa Urban Health Center"
+                            android:textAlignment="gravity"
                             android:textColor="@color/text_black"
                             android:textStyle="normal"
-                            android:typeface="sans" />
+                            android:typeface="normal" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <ImageView
                         android:id="@+id/locationRightCaret"
@@ -165,6 +172,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/register_search_bar_margin"
                         android:layout_toEndOf="@+id/pop_characteristicsImageView"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
                         android:text="@string/population_characteristics"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/me_page_section_text_size" />
@@ -215,6 +225,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/me_page_section_text_right_margin"
                         android:layout_toEndOf="@+id/site_characteristicsImageView"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
                         android:text="@string/site_characteristics"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/me_page_section_text_size" />
@@ -265,6 +278,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/me_page_section_text_right_margin"
                         android:layout_toEndOf="@+id/settingImageView"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
                         android:text="@string/settings"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/me_page_section_text_size" />

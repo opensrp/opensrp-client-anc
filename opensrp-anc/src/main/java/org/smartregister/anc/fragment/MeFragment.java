@@ -84,7 +84,7 @@ public class MeFragment extends Fragment implements MeContract.View {
         setting_section = view.findViewById(R.id.setting_section);
         logout_section = view.findViewById(R.id.logout_section);
         facilitySelection = view.findViewById(R.id.facility_selection);
-        if (facilitySelection != null) {
+        if (me_location_section != null) {
             facilitySelection.init();
         }
         TextView application_version = view.findViewById(R.id.application_version);
@@ -162,6 +162,11 @@ public class MeFragment extends Fragment implements MeContract.View {
                     getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
                     break;
                 case R.id.me_location_section:
+                    if (facilitySelection != null) {
+                        LocationPickerView locationPickerView = new LocationPickerView(getContext());
+                        locationPickerView.init();
+                        locationPickerView.onClick(facilitySelection);
+                    }
                     break;
                 default:
                     break;
