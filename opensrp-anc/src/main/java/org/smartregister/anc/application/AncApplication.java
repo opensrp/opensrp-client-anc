@@ -55,22 +55,72 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
 
+    private static final String TAG = AncApplication.class.getCanonicalName();
     private static final int MINIMUM_JOB_FLEX_VALUE = 1;
-
     private static JsonSpecHelper jsonSpecHelper;
-
+    private static CommonFtsObject commonFtsObject;
     private ConfigurableViewsRepository configurableViewsRepository;
     private EventClientRepository eventClientRepository;
-    private static CommonFtsObject commonFtsObject;
     private ConfigurableViewsHelper configurableViewsHelper;
     private UniqueIdRepository uniqueIdRepository;
-
     private ECSyncHelper ecSyncHelper;
     private Compressor compressor;
     private ClientProcessorForJava clientProcessorForJava;
-
-    private static final String TAG = AncApplication.class.getCanonicalName();
     private String password;
+    // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
+    // is broadcast.
+    private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(android.content.Context context, Intent intent) {
+            // Retrieve the extra data included in the Intent
+
+            int recordsRetrievedCount = intent.getIntExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, 0);
+            if (recordsRetrievedCount > 0) {
+                Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
+            }
+
+            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+
+            String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
+
+            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+
+        }
+    };
+
+    public static synchronized AncApplication getInstance() {
+        return (AncApplication) mInstance;
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
+    }
+
+    public static CommonFtsObject createCommonFtsObject() {
+        if (commonFtsObject == null) {
+            commonFtsObject = new CommonFtsObject(getFtsTables());
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+            }
+        }
+        return commonFtsObject;
+    }
+
+    private static String[] getFtsTables() {
+        return new String[]{DBConstants.WOMAN_TABLE_NAME};
+    }
+
+    private static String[] getFtsSearchFields() {
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID,
+                DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.PHONE_NUMBER};
+
+    }
+
+    private static String[] getFtsSortFields() {
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
+                .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+    }
 
     @Override
     public void onCreate() {
@@ -105,10 +155,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         scheduleJobs();
     }
 
-    public static synchronized AncApplication getInstance() {
-        return (AncApplication) mInstance;
-    }
-
     @Override
     public Repository getRepository() {
         try {
@@ -138,12 +184,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //getApplicationContext().startActivity(intent);
-        //context.userService().logoutSession();
-    }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
 
     public Context getContext() {
@@ -170,30 +212,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     public void startPullConfigurableViewsIntentService(android.content.Context context) {
         Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
         context.startService(intent);
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        if (commonFtsObject == null) {
-            commonFtsObject = new CommonFtsObject(getFtsTables());
-            for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
-            }
-        }
-        return commonFtsObject;
-    }
-
-    private static String[] getFtsTables() {
-        return new String[]{DBConstants.WOMAN_TABLE_NAME};
-    }
-
-    private static String[] getFtsSearchFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID, DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.PHONE_NUMBER};
-
-    }
-
-    private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
     }
 
     public ConfigurableViewsRepository getConfigurableViewsRepository() {
@@ -250,7 +268,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         try {
 
             EventBus.builder().addIndex(new org.smartregister.anc.ANCEventBusIndex()).installDefaultEventBus();
-            LocalBroadcastManager.getInstance(this).registerReceiver(syncCompleteMessageReceiver, new IntentFilter(PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE));
+            LocalBroadcastManager.getInstance(this).registerReceiver(syncCompleteMessageReceiver, new IntentFilter
+                    (PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE));
 
         } catch
                 (Exception e) {
@@ -270,28 +289,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         }
 
     }
-
-
-    // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE is broadcast.
-    private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(android.content.Context context, Intent intent) {
-            // Retrieve the extra data included in the Intent
-
-            int recordsRetrievedCount = intent.getIntExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, 0);
-            if (recordsRetrievedCount > 0) {
-                Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
-            }
-
-            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
-
-            String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
-
-            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
-
-        }
-    };
-
 
     public void startPullUniqueIdsService() {
         Intent intent = new Intent(getApplicationContext(), PullUniqueIdsIntentService.class);
@@ -318,10 +315,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         JobManager.create(this).addJobCreator(new AncJobCreator());
 
         //schedule jobs
-        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
-        PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
-        ImageUploadServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
-        ViewConfigurationsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES), getFlexValue(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES));
+        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
+                .DATA_SYNC_DURATION_MINUTES));
+        PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
+                (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
+        ImageUploadServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
+                .IMAGE_UPLOAD_MINUTES));
+        ViewConfigurationsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES),
+                getFlexValue(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES));
 
     }
 

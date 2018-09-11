@@ -28,7 +28,7 @@ public abstract class BaseUnitTest {
     protected static final String WHO_ANC_ID = "12345678";
     protected static final String GLOBAL_IDENTIFIER = "identifier";
     protected static final String NULL_STRING = null;
-    protected static final int INITIALS_RESOURCE_ID = R.drawable.initials_background;
+    protected static final int INITIALS_RESOURCE_ID = R.drawable.bottom_bar_initials_background;
     protected static final String INITIALS_TEXT = "TR";
     protected static final long DUMMY_LONG = 1000l;
     protected static final Date DUMMY_DATE = Calendar.getInstance().getTime();

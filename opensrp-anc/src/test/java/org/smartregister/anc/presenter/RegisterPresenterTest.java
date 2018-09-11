@@ -1,10 +1,10 @@
 package org.smartregister.anc.presenter;
 
 import android.util.Pair;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
@@ -102,7 +102,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testStartFormWithNoLocation() throws Exception {
         String formName = "anc_registration";
         String entityId = "1";
@@ -121,7 +120,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    @Ignore
     public void testStartFormWithNoEntityId() throws Exception {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
         registerPresenter.setModel(model);
@@ -137,7 +135,8 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
         Mockito.when(locationPickerView.getSelectedItem()).thenReturn(locationName);
         Mockito.doReturn(locationID).when(model).getLocationId(ArgumentMatchers.anyString());
-        Mockito.doNothing().when(interactor).getNextUniqueId(ArgumentMatchers.any((Class<Triple<String, String, String>>) (Object) Triple.class), Mockito.any(RegisterContract.InteractorCallBack.class));
+        Mockito.doNothing().when(interactor).getNextUniqueId(ArgumentMatchers.any((Class<Triple<String, String, String>>) (Object) Triple.class),
+                Mockito.any(RegisterContract.InteractorCallBack.class));
 
         presenter.startForm(formName, entityId, metadata, locationPickerView);
 
@@ -148,7 +147,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testStartEditForm() throws Exception {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
         registerPresenter.setModel(model);
@@ -191,7 +189,8 @@ public class RegisterPresenterTest extends BaseUnitTest {
         Pair<Client, Event> pair = Pair.create(client, event);
 
         Mockito.doReturn(pair).when(model).processRegistration(ArgumentMatchers.anyString());
-        Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
+        Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
 
         presenter.saveForm(jsonString, false);
 
@@ -256,23 +255,23 @@ public class RegisterPresenterTest extends BaseUnitTest {
         Mockito.verify(interactor).onDestroy(false);
 
     }
-    
+
     @Test
     public void testUpdateInitials() {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
         registerPresenter.setModel(model);
-        
+
         String initials = "EK";
-        
+
         // Null initials
         Mockito.doReturn(null).when(model).getInitials();
-        
+
         registerPresenter.updateInitials();
         Mockito.verify(view, Mockito.times(0)).updateInitialsText(initials);
-        
+
         // Not null initials
         Mockito.doReturn(initials).when(model).getInitials();
-        
+
         registerPresenter.updateInitials();
         Mockito.verify(view).updateInitialsText(initials);
     }

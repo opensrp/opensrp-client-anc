@@ -102,11 +102,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public String getBuildDate() {
-        return mLoginModel.getBuildDate();
-    }
-
-    @Override
     public boolean isUserLoggedOut() {
         return mLoginModel.isUserLoggedOut();
     }
@@ -183,10 +178,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                 ImageLoaderRequest.getInstance(getLoginView().getActivityContext()).getImageLoader()
                         .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
                                 R.drawable.ic_who_logo, R.drawable.ic_who_logo)).getBitmap();
-                TextView loginBuild = getLoginView().getActivityContext().findViewById(R.id.login_build_text_view);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(loginBuild.getLayoutParams());
-                lp.setMargins(0, 0, 0, 0);
-                loginBuild.setLayoutParams(lp);
             }
 
         } catch (Exception e) {
@@ -196,7 +187,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void setLanguage() {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(mLoginModel.getOpenSRPContext().applicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(getDefaultSharedPreferences(mLoginModel.getOpenSRPContext()
+                .applicationContext()));
         String preferredLocale = allSharedPreferences.fetchLanguagePreference();
         Resources resources = mLoginModel.getOpenSRPContext().applicationContext().getResources();
 
