@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
 
 /**
@@ -14,7 +15,7 @@ import org.smartregister.anc.contract.PopulationCharacteristicsContract;
  */
 public class PopulationCharacteristicsInteractorTest extends BaseUnitTest {
 
-    private PopulationCharacteristicsContract.Interactor interactor;
+    private BaseCharacteristicsContract.Interactor interactor;
 
     @Mock
     private PopulationCharacteristicsContract.Presenter presenter;

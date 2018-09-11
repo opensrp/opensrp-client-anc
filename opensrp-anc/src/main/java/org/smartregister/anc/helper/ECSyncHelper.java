@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.service.intent.SyncIntentService;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.configurableviews.helper.PrefsHelper;
 import org.smartregister.domain.Response;
@@ -32,6 +33,7 @@ import static org.smartregister.util.Utils.getPreference;
 public class ECSyncHelper implements PrefsHelper {
 
     public static final String SEARCH_URL = "/rest/event/sync";
+    public static final String MOVE_TO_CATCHMENT_EVENT = "MOVE_TO_CATCHMENT_EVENT";
 
     private final EventClientRepository eventClientRepository;
     private final Context context;
@@ -124,7 +126,7 @@ public class ECSyncHelper implements PrefsHelper {
             Long lastSyncDatetime = getLastSyncTimeStamp();
             Log.i(ECSyncHelper.class.getName(), "LAST SYNC DT :" + new DateTime(lastSyncDatetime));
 
-            String url = baseUrl + SEARCH_URL + "?" + filter + "=" + filterValue + "&serverVersion=" + lastSyncDatetime + "&limit="; //+ SyncIntentService.EVENT_PULL_LIMIT;
+            String url = baseUrl + SEARCH_URL + "?" + filter + "=" + filterValue + "&serverVersion=" + lastSyncDatetime + "&limit=" + SyncIntentService.EVENT_PULL_LIMIT;
             Log.i(ECSyncHelper.class.getName(), "URL: " + url);
 
             if (httpAgent == null) {
@@ -233,7 +235,7 @@ public class ECSyncHelper implements PrefsHelper {
         eventClientRepository.batchInsertClients(clients);
     }
 
-    private void batchInsertEvents(JSONArray events) {
+    protected void batchInsertEvents(JSONArray events) {
         eventClientRepository.batchInsertEvents(events, getLastSyncTimeStamp());
     }
 
@@ -250,6 +252,6 @@ public class ECSyncHelper implements PrefsHelper {
     }
 
     public boolean deleteEventsByBaseEntityId(String baseEntityId) {
-        return eventClientRepository.deleteEventsByBaseEntityId(baseEntityId, "MOVE_TO_CATCHMENT_EVENT");
+        return eventClientRepository.deleteEventsByBaseEntityId(baseEntityId, MOVE_TO_CATCHMENT_EVENT);
     }
 }

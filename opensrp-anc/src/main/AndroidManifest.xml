@@ -2,11 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.smartregister.anc">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,7 +19,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AncAppTheme">
+        android:theme="@style/AncAppTheme"
+        android:fullBackupContent="@xml/backup_config">
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -33,7 +33,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AncJsonFormActivity"
+            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".activity.ContactJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar"
@@ -55,7 +61,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AncAppTheme.NoActionBar"/>
+            android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
             android:name=".activity.ContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -64,11 +70,31 @@
             android:theme="@style/AncAppTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.SiteCharacteristicsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.SiteCharacteristicsEnterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.SiteCharacteristicsExitActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.SettingsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-	    <provider
+        <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
@@ -79,7 +105,9 @@
         </provider>
 
         <service android:name=".service.intent.PullUniqueIdsIntentService" />
-        <service android:name=".service.AncImageUploadSyncService" />
+        <service android:name=".service.intent.SyncIntentService" />
+        <service android:name=".service.intent.ValidateIntentService" />
+        <service android:name=".service.intent.ExtendedSyncIntentService" />
 
     </application>
 
