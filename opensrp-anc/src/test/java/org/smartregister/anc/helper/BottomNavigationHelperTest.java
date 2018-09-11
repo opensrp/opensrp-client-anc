@@ -70,7 +70,7 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		Resources resources = Mockito.mock(Resources.class);
 		Assert.assertNotNull(resources);
 		
-		Mockito.doReturn(gradientDrawable).when(resources).getDrawable(R.drawable.initials_background);
+		Mockito.doReturn(gradientDrawable).when(resources).getDrawable(R.drawable.bottom_bar_initials_background);
 		Assert.assertNotNull(gradientDrawable);
 		
 		int width = 27;
@@ -89,7 +89,7 @@ public class BottomNavigationHelperTest extends BaseUnitTest {
 		BottomNavigationHelper spyBottomNavigationHelper = Mockito.spy(bottomNavigationHelper);
 		
 		Resources resources = Mockito.mock(Resources.class);
-		Mockito.doReturn(bitmapDrawable).when(resources).getDrawable(R.drawable.initials_background);
+		Mockito.doReturn(bitmapDrawable).when(resources).getDrawable(R.drawable.bottom_bar_initials_background);
 		Assert.assertNotNull(bitmapDrawable);
 		
 		Mockito.doReturn(bitmap).when(bitmapDrawable).getBitmap();

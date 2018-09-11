@@ -14,7 +14,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
@@ -45,10 +47,10 @@ import static org.smartregister.util.Log.logError;
 public class Utils {
 
     private static final String TAG = Utils.class.getCanonicalName();
-
     private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
-    
+    private AllSharedPreferences allSharedPreferences;
+
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
 
@@ -60,14 +62,16 @@ public class Utils {
     }
 
     public static void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
+                .getInstance().getApplicationContext()));
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
     }
 
 
     public static String getLanguage() {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication.getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
+                .getInstance().getApplicationContext()));
         return allSharedPreferences.fetchLanguagePreference();
     }
 
@@ -88,7 +92,8 @@ public class Utils {
         EventBus.getDefault().post(event);
     }
 
-    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent after handling
+    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent after
+        // handling
         EventBus.getDefault().postSticky(event);
     }
 
@@ -217,5 +222,44 @@ public class Utils {
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
         Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
         return weeks.getWeeks();
+    }
+
+    public AllSharedPreferences getAllSharedPreferences() {
+        if (allSharedPreferences == null) {
+            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        }
+        return allSharedPreferences;
+    }
+
+    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
+        this.allSharedPreferences = allSharedPreferences;
+    }
+
+    protected String getPrefferedName() {
+        if (getAllSharedPreferences() == null) {
+            return null;
+        }
+
+        return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
+    }
+
+    public String getUserInitials() {
+        String initials = null;
+        String preferredName = getPrefferedName();
+
+        if (StringUtils.isNotBlank(preferredName)) {
+            String[] preferredNameArray = preferredName.split(" ");
+            initials = "";
+            if (preferredNameArray.length > 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
+            } else if (preferredNameArray.length == 1) {
+                initials = String.valueOf(preferredNameArray[0].charAt(0));
+            }
+        }
+        return initials;
+    }
+
+    public String getName() {
+        return getPrefferedName();
     }
 }

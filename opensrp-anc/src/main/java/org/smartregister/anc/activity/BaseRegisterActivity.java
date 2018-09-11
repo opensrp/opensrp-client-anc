@@ -32,6 +32,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.PagerAdapter;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.barcode.BarcodeIntentResult;
@@ -110,6 +111,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         presenter.updateInitials();
         recordBirthAlertDialog = createAlertDialog();
 
+
         registerBottomNavigation();
         createAttentionFlagsAlertDialog();
     }
@@ -120,7 +122,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
         if (bottomNavigationView != null) {
             bottomNavigationView.getMenu().add(Menu.NONE, R.string.action_me, Menu.NONE, R.string.me)
                     .setIcon(bottomNavigationHelper
-                            .writeOnDrawable(R.drawable.initials_background, userInitials, getResources()));
+                            .writeOnDrawable(R.drawable.bottom_bar_initials_background, userInitials, getResources()));
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
 
             BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
@@ -348,8 +350,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                /* LocationPickerView locationPickerView = ((HomeRegisterFragment) mBaseFragment).getLocationPickerView();*/
-                presenter.startForm(formName, entityId, metaData, "");
+                String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.CURRENT_LOCATION_ID);
+                presenter.startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
