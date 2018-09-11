@@ -8,12 +8,11 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.domain.Response;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
-import org.smartregister.anc.R;
-import org.smartregister.anc.receiver.AlarmReceiver;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -115,8 +114,6 @@ public class ValidateIntentService extends IntentService {
 
         } catch (Exception e) {
             Log.e(getClass().getName(), "", e);
-        } finally {
-            AlarmReceiver.completeWakefulIntent(intent);
         }
     }
 

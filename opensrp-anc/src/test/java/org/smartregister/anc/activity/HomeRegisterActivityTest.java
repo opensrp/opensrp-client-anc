@@ -65,10 +65,10 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     private Field sortField;
 
     @Mock
-    private AlertDialog recordBirthAlertDialog;
+    private AlertDialog attentionFlagsAlertDialog;
 
     @Mock
-    private AlertDialog attentionFlagsAlertDialog;
+    private AlertDialog recordBirthAlertDialog;
 
     @Mock
     private RegisterPresenter registerPresenter;
@@ -191,7 +191,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     public void testShowRecordBirthPopUpInvokesMethodsOnRecordBirthAlertDialogsCorrectly() {
 
         HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-
         Whitebox.setInternalState(homeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
 
         CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID, ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"), DUMMY_USERNAME);
