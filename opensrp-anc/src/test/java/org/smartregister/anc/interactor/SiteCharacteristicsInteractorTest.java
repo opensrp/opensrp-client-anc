@@ -8,17 +8,17 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
-import org.smartregister.anc.contract.PopulationCharacteristicsContract;
+import org.smartregister.anc.presenter.BaseCharacteristicsPresenter;
 
 /**
  * Created by ndegwamartin on 28/08/2018.
  */
-public class PopulationCharacteristicsInteractorTest extends BaseUnitTest {
+public class SiteCharacteristicsInteractorTest extends BaseUnitTest {
 
     private BaseCharacteristicsContract.Interactor interactor;
 
     @Mock
-    private PopulationCharacteristicsContract.Presenter presenter;
+    private BaseCharacteristicsPresenter presenter;
 
 
     private static final String FIELD_PRESENTER = "presenter";
@@ -26,18 +26,18 @@ public class PopulationCharacteristicsInteractorTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        interactor = new PopulationCharacteristicsInteractor(presenter);
+        interactor = new SiteCharacteristicsInteractor(presenter);
     }
 
     @Test
-    public void testPopulationCharacteristicsInteractorInstantiatesCorrectly() {
+    public void testSiteCharacteristicsInteractorInstantiatesCorrectly() {
         Assert.assertNotNull(interactor);
     }
 
     @Test
     public void testOnDestroyShouldNotResetThePresenterIfIsChangingConfigurationChangeIsTrue() {
 
-        PopulationCharacteristicsContract.Presenter presenter = Whitebox.getInternalState(interactor, FIELD_PRESENTER);
+        BaseCharacteristicsPresenter presenter = Whitebox.getInternalState(interactor, FIELD_PRESENTER);
         Assert.assertNotNull(presenter);
 
         interactor.onDestroy(true);//configuration change
@@ -49,7 +49,7 @@ public class PopulationCharacteristicsInteractorTest extends BaseUnitTest {
     @Test
     public void testOnDestroyShouldResetThePresenterIfIsChangingConfigurationChangeIsFalse() {
 
-        PopulationCharacteristicsContract.Presenter presenter = Whitebox.getInternalState(interactor, FIELD_PRESENTER);
+        BaseCharacteristicsPresenter presenter = Whitebox.getInternalState(interactor, FIELD_PRESENTER);
         Assert.assertNotNull(presenter);
 
         interactor.onDestroy(false);//Not configuration change

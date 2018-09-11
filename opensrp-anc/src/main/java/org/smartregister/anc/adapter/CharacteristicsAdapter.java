@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
@@ -16,20 +15,20 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 14/08/2018.
  */
-public class PopulationCharacteristicsAdapter extends RecyclerView.Adapter<PopulationCharacteristicsAdapter.ViewHolder> {
+public class CharacteristicsAdapter extends RecyclerView.Adapter<CharacteristicsAdapter.ViewHolder> {
 
     private List<Characteristic> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public PopulationCharacteristicsAdapter(Context context, List<Characteristic> data) {
+    public CharacteristicsAdapter(Context context, List<Characteristic> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.activity_population_characteristics_row, parent, false);
+        View view = mInflater.inflate(R.layout.activity_characteristics_row, parent, false);
         return new ViewHolder(view);
     }
 

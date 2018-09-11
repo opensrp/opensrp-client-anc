@@ -1,36 +1,20 @@
 package org.smartregister.anc.contract;
 
-import org.smartregister.anc.domain.Characteristic;
-
-import java.util.List;
-
 /**
  * Created by ndegwamartin on 28/08/2018.
  */
 public interface PopulationCharacteristicsContract {
 
-    interface Presenter {
+    interface Presenter extends BaseCharacteristicsContract.BasePresenter {
 
-        PopulationCharacteristicsContract.View getView();
-
-        void onDestroy(boolean isChangingConfiguration);
-
-       void getPopulationCharacteristics();
-
-        void renderView(List<Characteristic> data);
+        BaseCharacteristicsContract.View getView();
     }
 
-    interface View {
-
-        void renderSettings(List<Characteristic> settings);
+    interface View extends BaseCharacteristicsContract.View {
 
     }
 
-    interface Interactor {
-
-        void onDestroy(boolean isChangingConfiguration);
-
-        void fetchPopulationCharacteristics();
+    interface Interactor extends BaseCharacteristicsContract.Interactor {
 
     }
 }

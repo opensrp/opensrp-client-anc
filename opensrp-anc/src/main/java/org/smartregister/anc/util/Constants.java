@@ -12,7 +12,6 @@ public abstract class Constants {
     public static final int OPENMRS_UNIQUE_ID_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE;
     public static final int OPENMRS_UNIQUE_ID_SOURCE = BuildConfig.OPENMRS_UNIQUE_ID_SOURCE;
 
-    public static final String IS_REMOTE_LOGIN = "is_remote_login";
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
@@ -30,16 +29,25 @@ public abstract class Constants {
         public static final String HOME_REGISTER = "home_register";
     }
 
+    public static class SITE_CHARACTERISTICS_KEY {
+        public static final String IPV_ASSESS = "site_ipv_assess";
+        public static final String HIV = "site_anc_hiv";
+        public static final String ULTRASOUND = "site_ultrasound";
+        public static final String BP_TOOL = "site_bp_tool";
+    }
+
     public static final class EventType {
         public static final String REGISTRATION = "ANC Registration";
         public static final String UPDATE_REGISTRATION = "Update ANC Registration";
         public static final String QUICK_CHECK = "Quick Check";
         public static final String CLOSE = "ANC Close";
+        public static final String SITE_CHARACTERISTICS = "Site Characteristics";
     }
 
     public static class JSON_FORM {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
+        public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
     }
 
     public static class JSON_FORM_KEY {
@@ -67,6 +75,7 @@ public abstract class Constants {
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
+        public static final String TYPE = "type";
 
     }
 
@@ -75,6 +84,7 @@ public abstract class Constants {
         public static final String JSON = "json";
         public static final String WHO_ANC_ID = "who_anc_id";
         public static final String TO_RESCHEDULE = "to_reschedule";
+        public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 
     public static class OPENMRS {
