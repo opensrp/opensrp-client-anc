@@ -391,12 +391,15 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                 public void onClick(View v) {
 
                     CheckedTextView checkedTextView = (CheckedTextView) v;
-                    checkedTextView.setChecked(true);
-
                     if (lastChecked != null) {
-                        lastChecked.setChecked(false);
+                        if (lastChecked.equals(checkedTextView)) {
+                            return;
+                        } else {
+                            lastChecked.setChecked(false);
+                        }
                     }
                     lastChecked = checkedTextView;
+                    lastChecked.setChecked(true);
 
                     Object tag = v.getTag();
                     if (tag != null && tag instanceof Field) {

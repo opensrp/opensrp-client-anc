@@ -17,6 +17,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     private Context context;
     private List<Contact> contacts;
 
+    private View.OnClickListener clickListener;
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View cardLayout;
         public TextView name;
@@ -33,9 +35,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
     }
 
-    public ContactAdapter(Context context, List<Contact> contacts) {
+    public ContactAdapter(Context context, List<Contact> contacts, View.OnClickListener clickListener) {
         this.context = context;
         this.contacts = contacts;
+        this.clickListener = clickListener;
     }
 
     public void setContacts(List<Contact> contacts) {
@@ -53,8 +56,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Contact contact = contacts.get(position);
+
         holder.cardLayout.setBackgroundResource(contact.getBackground());
+        holder.cardLayout.setOnClickListener(clickListener);
+        holder.cardLayout.setTag(contact);
+
         holder.name.setText(contact.getName());
+
         if (contact.getRequiredFields() > 0) {
             holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
 

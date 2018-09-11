@@ -69,4 +69,16 @@
 
     <color name="contact_save_grey">#666666</color>
     <color name="contact_save_blue">#3458C7</color>
+
+    <color name="contact_profile_actionbar">#5927E5</color>
+    <color name="contact_profile_navigation">#3119AC</color>
+    <color name="contact_symptoms_actionbar">#558CF7</color>
+    <color name="contact_symptoms_navigation">#2865E2</color>
+    <color name="contact_exam_actionbar">#EB5281</color>
+    <color name="contact_exam_navigation">#D23063</color>
+    <color name="contact_tests_actionbar">#102E4F</color>
+    <color name="contact_tests_navigation">#051B3A</color>
+    <color name="contact_counselling_actionbar">#5D9D52</color>
+    <color name="contact_counselling_navigation">#3A7729</color>
+
 </resources>

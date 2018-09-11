@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +17,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
@@ -69,7 +72,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     protected void initializeRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        contactAdapter = new ContactAdapter(this, new ArrayList<Contact>());
+        contactAdapter = new ContactAdapter(this, new ArrayList<Contact>(), contactActionHandler);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -79,6 +82,14 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     protected abstract void createContacts();
+
+    protected void startFormActivity(JSONObject form, Contact contact) {
+        Intent intent = new Intent(this, ContactJsonFormActivity.class);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
+        intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
 
     private void displayContactSaveDialog() {
 
@@ -159,6 +170,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
             switch (view.getId()) {
                 case R.id.cancel_button:
                     displayContactSaveDialog();
+                    break;
+                case R.id.card_layout:
+                    presenter.startForm(view.getTag());
                     break;
                 default:
                     break;

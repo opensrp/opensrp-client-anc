@@ -8,6 +8,7 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.google.common.reflect.TypeToken;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -16,7 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.activity.AncJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.domain.QuickCheck;
@@ -438,7 +438,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
-        Intent intent = new Intent(context, AncJsonFormActivity.class);
+        Intent intent = new Intent(context, JsonFormActivity.class);
         intent.putExtra(Constants.INTENT_KEY.JSON, metaData);
 
         Log.d(TAG, "form is " + metaData);
@@ -633,7 +633,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchANCCloseForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, AncJsonFormActivity.class);
+            Intent intent = new Intent(activity, JsonFormActivity.class);
 
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
             if (form != null) {
@@ -648,7 +648,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchSiteCharacteristicsForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, AncJsonFormActivity.class);
+            Intent intent = new Intent(activity, JsonFormActivity.class);
 
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
             if (form != null) {

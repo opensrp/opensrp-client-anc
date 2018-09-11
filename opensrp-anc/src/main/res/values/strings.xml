@@ -257,5 +257,9 @@
     <string name="save_changes">Save Changes\nContinue with this contact at\na later time</string>
     <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
 
+    <!-- Form container -->
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
 
 </resources>
