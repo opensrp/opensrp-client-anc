@@ -15,7 +15,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,6 +33,7 @@ import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
+import org.smartregister.anc.job.SyncServiceJob;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
@@ -73,7 +73,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     protected TextView headerTextDisplay;
     protected TextView filterStatus;
     protected RelativeLayout filterRelativeLayout;
-    protected MenuItem menuItem;
     protected View.OnKeyListener hideKeyboard = new View.OnKeyListener() {
 
         @Override
@@ -89,6 +88,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     private ImageView qrCodeScanImageView;
     private ProgressBar syncProgressBar;
     private boolean globalQrSearch = false;
+    private ImageView womanSyncButton;
     protected final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -224,12 +224,12 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
 
         //Sync
-        ImageView womanSync = view.findViewById(R.id.woman_sync);
-        if (womanSync != null) {
-            womanSync.setOnClickListener(new View.OnClickListener() {
+        womanSyncButton = view.findViewById(R.id.woman_sync);
+        if (womanSyncButton != null) {
+            womanSyncButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Todo implement sync
+                    SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
                 }
             });
         }
@@ -355,7 +355,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     protected void startRegistration() {
-        ((HomeRegisterActivity) getActivity()). startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
+        ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
 
     @Override
@@ -429,7 +429,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     private void refreshSyncStatusViews(FetchStatus fetchStatus) {
 
-
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             if (syncStatusSnackbar != null) syncStatusSnackbar.dismiss();
             syncStatusSnackbar = Snackbar.make(rootView, R.string.syncing,
@@ -482,15 +481,15 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             if (syncProgressBar != null) {
                 syncProgressBar.setVisibility(View.VISIBLE);
             }
-            if (qrCodeScanImageView != null) {
-                qrCodeScanImageView.setVisibility(View.GONE);
+            if (womanSyncButton != null) {
+                womanSyncButton.setVisibility(View.GONE);
             }
         } else {
             if (syncProgressBar != null) {
                 syncProgressBar.setVisibility(View.GONE);
             }
-            if (qrCodeScanImageView != null) {
-                qrCodeScanImageView.setVisibility(View.VISIBLE);
+            if (womanSyncButton != null) {
+                womanSyncButton.setVisibility(View.VISIBLE);
             }
         }
     }
