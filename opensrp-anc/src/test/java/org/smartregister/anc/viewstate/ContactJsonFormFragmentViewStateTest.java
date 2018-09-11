@@ -13,7 +13,7 @@ import org.smartregister.anc.activity.BaseUnitTest;
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
-public class AncJsonFormFragmentViewStateTest extends BaseUnitTest {
+public class ContactJsonFormFragmentViewStateTest extends BaseUnitTest {
     @Mock
     private Parcel parcel;
 
@@ -25,7 +25,7 @@ public class AncJsonFormFragmentViewStateTest extends BaseUnitTest {
     @Test
     public void testGetFormFragmentShouldCreateAValidFragmentInstance() {
 
-        AncJsonFormFragmentViewState viewState = new AncJsonFormFragmentViewState();
+        ContactJsonFormFragmentViewState viewState = new ContactJsonFormFragmentViewState();
         Assert.assertNotNull(viewState);
 
         viewState.writeToParcel(parcel, 0);
@@ -37,14 +37,14 @@ public class AncJsonFormFragmentViewStateTest extends BaseUnitTest {
     @Test
     public void testStaticCreatorPropertyShouldHaveValidCreatorInstance() {
 
-        Parcelable.Creator<AncJsonFormFragmentViewState> creator = AncJsonFormFragmentViewState.CREATOR;
+        Parcelable.Creator<ContactJsonFormFragmentViewState> creator = ContactJsonFormFragmentViewState.CREATOR;
         Assert.assertNotNull(creator);
 
         JsonFormFragmentViewState viewState = creator.createFromParcel(parcel);
         Assert.assertNotNull(viewState);
-        Assert.assertTrue(viewState instanceof AncJsonFormFragmentViewState);
+        Assert.assertTrue(viewState instanceof ContactJsonFormFragmentViewState);
 
-        AncJsonFormFragmentViewState[] viewStateArray = creator.newArray(3);
+        ContactJsonFormFragmentViewState[] viewStateArray = creator.newArray(3);
         Assert.assertNotNull(viewStateArray);
         Assert.assertEquals(3, viewStateArray.length);
 

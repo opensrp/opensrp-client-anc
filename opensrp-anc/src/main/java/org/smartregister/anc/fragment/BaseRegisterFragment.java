@@ -355,7 +355,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     protected void startRegistration() {
-        ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
+        ((HomeRegisterActivity) getActivity()). startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
 
     @Override

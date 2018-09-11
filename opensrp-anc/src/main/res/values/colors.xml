@@ -69,11 +69,20 @@
 
     <color name="contact_save_grey">#666666</color>
     <color name="contact_save_blue">#3458C7</color>
-
     <color name="me_page_initials_background">#DBF2F9</color>
     <color name="me_page_dark_blue">#278bc4</color>
     <color name="me_page_line_separator">#DFDFDF</color>
     <color name="me_page_arrow">#C7C7C7</color>
 
     <color name="advance_search_qr_code">#FBAB26</color>
+    <color name="contact_profile_actionbar">#5927E5</color>
+    <color name="contact_profile_navigation">#3119AC</color>
+    <color name="contact_symptoms_actionbar">#558CF7</color>
+    <color name="contact_symptoms_navigation">#2865E2</color>
+    <color name="contact_exam_actionbar">#EB5281</color>
+    <color name="contact_exam_navigation">#D23063</color>
+    <color name="contact_tests_actionbar">#102E4F</color>
+    <color name="contact_tests_navigation">#051B3A</color>
+    <color name="contact_counselling_actionbar">#5D9D52</color>
+    <color name="contact_counselling_navigation">#3A7729</color>
 </resources>
