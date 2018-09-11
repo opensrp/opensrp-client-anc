@@ -69,4 +69,9 @@
         <item name="android:windowMinWidthMinor">90%</item>
     </style>
 
+    <style name="ActionBarNoShadow">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
 </resources>

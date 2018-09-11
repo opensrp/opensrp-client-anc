@@ -12,7 +12,6 @@ public class Constants {
     public static final int OPENMRS_UNIQUE_ID_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE;
     public static final int OPENMRS_UNIQUE_ID_SOURCE = BuildConfig.OPENMRS_UNIQUE_ID_SOURCE;
 
-    public static final String IS_REMOTE_LOGIN = "is_remote_login";
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
@@ -30,22 +29,30 @@ public class Constants {
         public static final String HOME_REGISTER = "home_register";
     }
 
+    public static class SITE_CHARACTERISTICS_KEY {
+        public static final String IPV_ASSESS = "site_ipv_assess";
+        public static final String HIV = "site_anc_hiv";
+        public static final String ULTRASOUND = "site_ultrasound";
+        public static final String BP_TOOL = "site_bp_tool";
+    }
+
     public static final class EventType {
         public static final String REGISTRATION = "ANC Registration";
         public static final String UPDATE_REGISTRATION = "Update ANC Registration";
         public static final String QUICK_CHECK = "Quick Check";
         public static final String CLOSE = "ANC Close";
+        public static final String SITE_CHARACTERISTICS = "Site Characteristics";
     }
 
     public static class JSON_FORM {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
-        public static final String PROFILE = "anc_profile";
-        public static final String SYMPTOMS_FOLLOW_UP = "anc_symptoms_follow_up";
-        public static final String PHYSICAL_EXAM = "anc_physical_exam";
-        public static final String TESTS = "anc_test";
-        public static final String COUNSELLING_TREATMENT = "anc_counselling_treatment";
-
+        public static final String ANC_PROFILE = "anc_profile";
+        public static final String ANC_SYMPTOMS_FOLLOW_UP = "anc_symptoms_follow_up";
+        public static final String ANC_PHYSICAL_EXAM = "anc_physical_exam";
+        public static final String ANC_TEST = "anc_test";
+        public static final String ANC_COUNSELLING_TREATMENT = "anc_counselling_treatment";
+        public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
     }
 
     public static class JSON_FORM_KEY {
@@ -80,6 +87,7 @@ public class Constants {
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
+        public static final String TYPE = "type";
 
     }
 
@@ -87,6 +95,7 @@ public class Constants {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
         public static final String WHO_ANC_ID = "who_anc_id";
+        public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 
     public static class OPENMRS {

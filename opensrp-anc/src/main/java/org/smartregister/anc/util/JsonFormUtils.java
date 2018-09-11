@@ -46,6 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -348,7 +349,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
-            jsonObject.toString();
 
             List<String> healthFacilityHierarchy = new ArrayList<>();
             String address5 = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
@@ -644,5 +644,75 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
+    }
+
+    public static void launchSiteCharacteristicsForm(Activity activity) {
+        try {
+            Intent intent = new Intent(activity, JsonFormActivity.class);
+
+            JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
+            if (form != null) {
+                form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
+                activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public static Map<String, String> processSiteCharacteristics(String jsonString) {
+        try {
+
+            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
+
+            if (!registrationFormParams.getLeft()) {
+                return null;
+            }
+
+            Map<String, String> settings = new HashMap<>();
+            JSONArray fields = registrationFormParams.getMiddle().getJSONObject(JsonFormUtils.STEP1).getJSONArray(JsonFormUtils.FIELDS);
+
+            for (int i = 0; i < fields.length(); i++) {
+                if (!"label".equals(fields.getJSONObject(i).getString(Constants.KEY.TYPE))) {
+                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+                }
+
+            }
+
+            return settings;
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
+            return null;
+
+        }
+    }
+
+    public static String getAutoPopulatedSiteCharacteristicsEditFormString(Context context, Map<String, String> characteristics) {
+        try {
+            JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
+
+            Log.d(TAG, "Form is " + form.toString());
+            if (form != null) {
+                form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.SITE_CHARACTERISTICS);
+
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                    jsonObject.put(JsonFormUtils.VALUE, characteristics.get(jsonObject.getString(JsonFormUtils.KEY)));
+
+                }
+
+                return form.toString();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return "";
     }
 }

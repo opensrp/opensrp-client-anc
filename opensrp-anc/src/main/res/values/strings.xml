@@ -111,7 +111,7 @@
     <!-- side nav -->
     <string name="anc_clients">ANC clients</string>
     <string name="counseling_resources">Counseling resources</string>
-    <string name="site_characteristics">Site characteristics</string>
+    <string name="site_characteristics">Site Characteristics</string>
     <string name="sync_data">Sync data</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -136,11 +136,8 @@
     <string name="cancel">Cancel</string>
     <string name="yellow">YELLOW</string>
     <string name="red">RED</string>
-
-    <string name="record_birth">Record Birth</string>
-
     <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
-
+    <string name="record_birth">Record birth</string>
     <string name="woman_filter">Filter</string>
     <string name="clients">%1$d Clients</string>
     <string name="client">%1$d Client</string>
@@ -229,6 +226,7 @@
     <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
 
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
+    <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="contact">CONTACT&#10;22/05/2018</string>
@@ -236,6 +234,12 @@
     <string name="me_page_placeholder">Me Page Placeholder</string>
     <string name="action_me">action_me</string>
     <string name="population_characteristics">Population Characteristics</string>
+    <string name="continue_">continue</string>
+    <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
+    <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
+    <string name="site_characteristics_are_shared_for_all">Site charactersitics ares shared by all OpenSRP users at the facility. You can update site characteristics at any time</string>
+    <string name="go_back_to_site_characteristics">Go back to site characteristics</string>
+    <string name="edit"> edit </string>
 
     <!-- contact -->
     <string name="profile">Profile</string>

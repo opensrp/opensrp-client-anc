@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/population_characteristics_item_spacing"
-    android:paddingLeft="@dimen/population_characteristics_drawable_padding"
-    android:paddingRight="@dimen/population_characteristics_drawable_padding"
-    android:paddingTop="@dimen/population_characteristics_item_spacing">
+    android:paddingBottom="@dimen/characteristics_item_spacing"
+    android:paddingLeft="@dimen/characteristics_drawable_padding"
+    android:paddingRight="@dimen/characteristics_drawable_padding"
+    android:paddingTop="@dimen/characteristics_item_spacing">
 
     <TextView
         android:id="@+id/label"
@@ -16,7 +16,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_toLeftOf="@id/value"
-        android:lineSpacingExtra="@dimen/population_characteristics_line_spacing"
+        android:lineSpacingExtra="@dimen/characteristics_line_spacing"
         android:text="Undernourished 20% or higher"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_black" />
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/info"
-        android:padding="@dimen/population_characteristics_padding"
+        android:padding="@dimen/characteristics_padding"
         android:text="No"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_black" />
@@ -39,7 +39,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:padding="@dimen/population_characteristics_padding"
+        android:padding="@dimen/characteristics_padding"
         android:src="@drawable/ic_info" />
 
 </RelativeLayout>
