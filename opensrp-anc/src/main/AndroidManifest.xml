@@ -19,7 +19,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AncAppTheme">
+        android:theme="@style/AncAppTheme"
+        android:fullBackupContent="@xml/backup_config">
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -104,7 +105,9 @@
         </provider>
 
         <service android:name=".service.intent.PullUniqueIdsIntentService" />
-        <service android:name=".service.AncImageUploadSyncService" />
+        <service android:name=".service.intent.SyncIntentService" />
+        <service android:name=".service.intent.ValidateIntentService" />
+        <service android:name=".service.intent.ExtendedSyncIntentService" />
 
     </application>
 
