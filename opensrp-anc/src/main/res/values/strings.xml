@@ -136,8 +136,8 @@
     <string name="cancel">Cancel</string>
     <string name="yellow">YELLOW</string>
     <string name="red">RED</string>
+    <string name="record_birth">Record Birth</string>
     <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
-    <string name="record_birth">Record birth</string>
     <string name="woman_filter">Filter</string>
     <string name="clients">%1$d Clients</string>
     <string name="client">%1$d Client</string>
@@ -256,7 +256,14 @@
     <string name="exit_contact_with">Exit Contact with\n%1$s</string>
     <string name="save_changes">Save Changes\nContinue with this contact at\na later time</string>
     <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
-
+    <string name="me_page_location_text">Location: </string>
+    <string name="right_arrow">Right Arrow</string>
+    <string name="section_icon">Section Icon</string>
+    <string name="settings">Settings</string>
+    <string name="app_version">App Version: %1$s (built on %2$s)</string>
+    <string name="data_synced">Data Synced: %1$s at %2$s</string>
+    <string name="qr_code_label">QR Code</string>
+    <string name="clients_facility">Client\'s facility</string>
     <!-- Form container -->
     <string name="previous">Previous</string>
     <string name="next">Next</string>

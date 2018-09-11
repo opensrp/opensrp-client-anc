@@ -6,10 +6,6 @@ import org.junit.Test;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.LoginContract;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
 /**
  * Created by ndegwamartin on 28/06/2018.
  */
@@ -31,13 +27,6 @@ public class LoginModelTest extends BaseUnitTest {
     @Test
     public void testGetOpenSRPContextShouldReturnValidValue() {
         Assert.assertNotNull(model.getOpenSRPContext());
-    }
-
-    @Test
-    public void testGetBuildDateShouldReturnCorrectValue() {
-        String dateFormat = "dd MMM yyyy";
-        String todaysDate = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
-        Assert.assertEquals(todaysDate, model.getBuildDate());
     }
 
     @Test
