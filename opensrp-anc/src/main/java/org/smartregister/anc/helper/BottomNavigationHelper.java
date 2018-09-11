@@ -19,6 +19,8 @@ import org.smartregister.anc.R;
 
 import java.lang.reflect.Field;
 
+import static android.util.DisplayMetrics.DENSITY_DEFAULT;
+
 public class BottomNavigationHelper {
     /*
      * This solution is hacky of any app using the support library < 28.0.0-alpha1. When we upgrade to => 28.0.0-alpha1
@@ -96,14 +98,15 @@ public class BottomNavigationHelper {
     public BitmapDrawable writeOnDrawable(int drawableId, String initials, Resources resources) {
         Bitmap drawableResToBitmap = convertDrawableResToBitmap(drawableId, resources);
         drawableResToBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(drawableResToBitmap);
+        canvas.setDensity(DENSITY_DEFAULT);
 
         Paint initialsPaint = new Paint();
         initialsPaint.setStyle(Paint.Style.FILL);
         initialsPaint.setColor(resources.getColor(R.color.scan_qr_code_bg_end_grey));
-        initialsPaint.setTextSize(resources.getDimensionPixelSize(R.dimen.me_bottom_nav_bar_text_size));
+        initialsPaint.setTextSize((float) (resources.getDimensionPixelSize(R.dimen.me_bottom_nav_bar_text_size)));
         initialsPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         initialsPaint.setTextAlign(Paint.Align.CENTER);
-        Canvas canvas = new Canvas(drawableResToBitmap);
         int xPos = (canvas.getWidth() / 2);
         int yPos = (int) (((canvas.getHeight() / 2) - ((initialsPaint.descent() + initialsPaint.ascent()) / 2)) + 1);
 
