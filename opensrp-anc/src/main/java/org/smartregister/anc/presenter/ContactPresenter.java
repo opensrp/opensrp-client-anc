@@ -1,7 +1,12 @@
 package org.smartregister.anc.presenter;
 
+import android.util.Log;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
+import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ContactContract;
+import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactInteractor;
 import org.smartregister.anc.model.ContactModel;
 
@@ -9,6 +14,8 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 
 public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallBack {
+
+    public static final String TAG = ContactPresenter.class.getName();
 
     private WeakReference<ContactContract.View> viewReference;
     private ContactContract.Interactor interactor;
@@ -61,6 +68,27 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         return model.extractPatientName(details);
     }
 
+    @Override
+    public void startForm(Object tag) {
+
+        try {
+            if (tag == null || !(tag instanceof Contact)) {
+                return;
+            }
+
+            Contact contact = (Contact) tag;
+            if (contact.getName().equals(getView().getString(R.string.quick_check))) {
+                getView().startQuickCheck(contact);
+            } else {
+                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+                getView().startFormActivity(form, contact);
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            getView().displayToast(R.string.error_unable_to_start_form);
+        }
+    }
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {

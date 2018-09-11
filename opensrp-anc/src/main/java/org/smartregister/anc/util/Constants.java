@@ -47,6 +47,11 @@ public abstract class Constants {
     public static class JSON_FORM {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
+        public static final String ANC_PROFILE = "anc_profile";
+        public static final String ANC_SYMPTOMS_FOLLOW_UP = "anc_symptoms_follow_up";
+        public static final String ANC_PHYSICAL_EXAM = "anc_physical_exam";
+        public static final String ANC_TEST = "anc_test";
+        public static final String ANC_COUNSELLING_TREATMENT = "anc_counselling_treatment";
         public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
     }
 
@@ -58,6 +63,13 @@ public abstract class Constants {
         public static final String DEATH_DATE = "deathdate";
         public static final String DEATH_DATE_APPROX = "deathdateApprox";
         public static final String ANC_CLOSE_REASON = "anc_close_reason";
+
+    }
+
+    public static class JSON_FORM_EXTRA {
+        public static final String CONTACT = "contact";
+        public static final String JSON = "json";
+
     }
 
     public static final class ServiceType {

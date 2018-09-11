@@ -23,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -358,8 +360,8 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, AncJsonFormActivity.class);
-        intent.putExtra("json", form.toString());
+        Intent intent = new Intent(this, JsonFormActivity.class);
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -367,7 +369,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
-                String jsonString = data.getStringExtra("json");
+                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
