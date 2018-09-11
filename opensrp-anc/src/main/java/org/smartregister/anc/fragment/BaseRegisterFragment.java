@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -84,7 +83,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             return false;
         }
     };
-    private Snackbar syncStatusSnackbar;
     private ImageView qrCodeScanImageView;
     private ProgressBar syncProgressBar;
     private boolean globalQrSearch = false;
@@ -430,33 +428,26 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     private void refreshSyncStatusViews(FetchStatus fetchStatus) {
 
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
-            if (syncStatusSnackbar != null) syncStatusSnackbar.dismiss();
-            syncStatusSnackbar = Snackbar.make(rootView, R.string.syncing,
-                    Snackbar.LENGTH_LONG);
-            syncStatusSnackbar.show();
+            Utils.showShortToast(getActivity(), getString(R.string.syncing));
         } else {
             if (fetchStatus != null) {
-                if (syncStatusSnackbar != null) syncStatusSnackbar.dismiss();
+
                 if (fetchStatus.equals(FetchStatus.fetchedFailed)) {
-                    syncStatusSnackbar = Snackbar.make(rootView, R.string.sync_failed, Snackbar.LENGTH_INDEFINITE);
-                    syncStatusSnackbar.setActionTextColor(getResources().getColor(R.color.snackbar_action_color));
-                    syncStatusSnackbar.setAction(R.string.retry, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            presenter.startSync();
-                        }
-                    });
+
+                    Utils.showShortToast(getActivity(), getString(R.string.sync_failed));
+
                 } else if (fetchStatus.equals(FetchStatus.fetched)
                         || fetchStatus.equals(FetchStatus.nothingFetched)) {
 
                     setRefreshList(true);
                     renderView();
 
-                    syncStatusSnackbar = Snackbar.make(rootView, R.string.sync_complete, Snackbar.LENGTH_LONG);
+                    Utils.showShortToast(getActivity(), getString(R.string.sync_complete));
+
                 } else if (fetchStatus.equals(FetchStatus.noConnection)) {
-                    syncStatusSnackbar = Snackbar.make(rootView, R.string.sync_failed_no_internet, Snackbar.LENGTH_LONG);
+
+                    Utils.showShortToast(getActivity(), getString(R.string.sync_failed_no_internet));
                 }
-                syncStatusSnackbar.show();
             }
 
         }

@@ -25,7 +25,7 @@ import java.util.List;
 public class ECSyncHelperTest extends BaseUnitTest {
 
     private ECSyncHelper syncHelper;
-    private static final String MOVE_TO_CATCHMENT_EVENT = "MOVE_TO_CATCHMENT_EVENT";
+    private static final String EVENT_CLIENT_REPOSITORY = "eventClientRepository";
 
     @Mock
     private EventClientRepository eventClientRepository;
@@ -35,7 +35,7 @@ public class ECSyncHelperTest extends BaseUnitTest {
         MockitoAnnotations.initMocks(this);
 
         syncHelper = ECSyncHelper.getInstance(RuntimeEnvironment.application);
-        Whitebox.setInternalState(syncHelper, "eventClientRepository", eventClientRepository);
+        Whitebox.setInternalState(syncHelper, EVENT_CLIENT_REPOSITORY, eventClientRepository);
     }
 
     @Test
@@ -65,6 +65,14 @@ public class ECSyncHelperTest extends BaseUnitTest {
     }
 
     @Test
+    public void testSaveAllClientsAndEventsShouldReturnFalseForNullParam() throws Exception {
+        ECSyncHelper syncHelperSpy = Mockito.spy(syncHelper);
+
+        boolean result = syncHelperSpy.saveAllClientsAndEvents(null);
+        Assert.assertFalse(result);
+    }
+
+    @Test
     public void testAllEventClientsInvokesRepositoryFetchEventClientsWithCorrectParams() {
 
         ECSyncHelper syncHelperSpy = Mockito.spy(syncHelper);
@@ -76,6 +84,12 @@ public class ECSyncHelperTest extends BaseUnitTest {
 
         Mockito.verify(eventClientRepository).fetchEventClients(DUMMY_LONG, DUMMY_LONG);
 
+        //On Exception
+        EventClientRepository eventClientRepository = null;
+        Whitebox.setInternalState(syncHelperSpy, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        result = syncHelperSpy.allEventClients(DUMMY_LONG, DUMMY_LONG);
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isEmpty());
     }
 
     @Test
@@ -89,6 +103,14 @@ public class ECSyncHelperTest extends BaseUnitTest {
         Assert.assertNull(result);
 
         Mockito.verify(eventClientRepository).fetchEventClients(DUMMY_DATE, TEST_STRING);
+
+
+        //On Exception
+        EventClientRepository eventClientRepository = null;
+        Whitebox.setInternalState(syncHelperSpy, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        result = syncHelperSpy.getEvents(DUMMY_DATE, TEST_STRING);
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isEmpty());
 
     }
 
@@ -104,6 +126,12 @@ public class ECSyncHelperTest extends BaseUnitTest {
 
         Mockito.verify(eventClientRepository).getClientByBaseEntityId(DUMMY_BASE_ENTITY_ID);
 
+        //On Exception
+        EventClientRepository eventClientRepository = null;
+        Whitebox.setInternalState(syncHelperSpy, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        result = syncHelperSpy.getClient(TEST_STRING);
+        Assert.assertNull(result);
+
     }
 
     @Test
@@ -117,6 +145,11 @@ public class ECSyncHelperTest extends BaseUnitTest {
         syncHelperSpy.addClient(DUMMY_BASE_ENTITY_ID, object);
 
         Mockito.verify(eventClientRepository).addorUpdateClient(DUMMY_BASE_ENTITY_ID, object);
+
+        //On Exception
+        EventClientRepository eventClientRepository = null;
+        Whitebox.setInternalState(syncHelperSpy, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        syncHelperSpy.addClient(DUMMY_BASE_ENTITY_ID, object);
 
     }
 
@@ -132,6 +165,11 @@ public class ECSyncHelperTest extends BaseUnitTest {
 
         Mockito.verify(eventClientRepository).addEvent(DUMMY_BASE_ENTITY_ID, object);
 
+        //On Exception
+        EventClientRepository eventClientRepository = null;
+        Whitebox.setInternalState(syncHelperSpy, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        syncHelperSpy.addEvent(DUMMY_BASE_ENTITY_ID, object);
+
     }
 
     @Test
@@ -145,6 +183,13 @@ public class ECSyncHelperTest extends BaseUnitTest {
         Assert.assertNull(result);
 
         Mockito.verify(eventClientRepository).fetchEventClients(DUMMY_LONG, DUMMY_LONG);
+
+        //On Exception
+        EventClientRepository eventClientRepository = null;
+        Whitebox.setInternalState(syncHelperSpy, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        result = syncHelperSpy.allEvents(DUMMY_LONG, DUMMY_LONG);
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result.isEmpty());
 
     }
 
@@ -245,11 +290,11 @@ public class ECSyncHelperTest extends BaseUnitTest {
     public void testDeleteEventsByBaseEntityIdInvokesRepositoryDeleteEventsByBaseEntityIdWithCorrectParams() {
 
         ECSyncHelper syncHelperSpy = Mockito.spy(syncHelper);
-        Mockito.doReturn(true).when(eventClientRepository).deleteEventsByBaseEntityId(DUMMY_BASE_ENTITY_ID, MOVE_TO_CATCHMENT_EVENT);
+        Mockito.doReturn(true).when(eventClientRepository).deleteEventsByBaseEntityId(DUMMY_BASE_ENTITY_ID, ECSyncHelper.MOVE_TO_CATCHMENT_EVENT);
 
         syncHelperSpy.deleteEventsByBaseEntityId(DUMMY_BASE_ENTITY_ID);
 
-        Mockito.verify(eventClientRepository).deleteEventsByBaseEntityId(DUMMY_BASE_ENTITY_ID, MOVE_TO_CATCHMENT_EVENT);
+        Mockito.verify(eventClientRepository).deleteEventsByBaseEntityId(DUMMY_BASE_ENTITY_ID, ECSyncHelper.MOVE_TO_CATCHMENT_EVENT);
 
     }
 }

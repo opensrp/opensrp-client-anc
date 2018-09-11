@@ -33,6 +33,7 @@ import static org.smartregister.util.Utils.getPreference;
 public class ECSyncHelper implements PrefsHelper {
 
     public static final String SEARCH_URL = "/rest/event/sync";
+    public static final String MOVE_TO_CATCHMENT_EVENT = "MOVE_TO_CATCHMENT_EVENT";
 
     private final EventClientRepository eventClientRepository;
     private final Context context;
@@ -251,6 +252,6 @@ public class ECSyncHelper implements PrefsHelper {
     }
 
     public boolean deleteEventsByBaseEntityId(String baseEntityId) {
-        return eventClientRepository.deleteEventsByBaseEntityId(baseEntityId, "MOVE_TO_CATCHMENT_EVENT");
+        return eventClientRepository.deleteEventsByBaseEntityId(baseEntityId, MOVE_TO_CATCHMENT_EVENT);
     }
 }
