@@ -29,11 +29,11 @@ public class CharacteristicsHelper {
     }
 
 
-    public CharacteristicsHelper() {
+    public CharacteristicsHelper(String fileName) {
 
         try {
             Gson gson = new Gson();
-            String jsonstring = AssetHandler.readFileFromAssetsFolder("json.characteristics/population_characteristics.json", AncApplication.getInstance().getApplicationContext());
+            String jsonstring = AssetHandler.readFileFromAssetsFolder("json.characteristics/"+fileName+".json", AncApplication.getInstance().getApplicationContext());
 
             populationCharacteristics = gson.fromJson(jsonstring, CHARACTERISTIC_TYPE); // contains the whole reviews list
 

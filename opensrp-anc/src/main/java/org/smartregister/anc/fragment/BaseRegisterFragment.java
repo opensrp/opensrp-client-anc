@@ -364,7 +364,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
         Bundle extras = getActivity().getIntent().getExtras();
         if (extras != null) {
-            boolean isRemote = extras.getBoolean(Constants.IS_REMOTE_LOGIN);
+            boolean isRemote = extras.getBoolean(Constants.INTENT_KEY.IS_REMOTE_LOGIN);
             if (isRemote) {
                 presenter.startSync();
             }

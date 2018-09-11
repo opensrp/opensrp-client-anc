@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,7 +118,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
     @Test
@@ -128,7 +130,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
     private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
