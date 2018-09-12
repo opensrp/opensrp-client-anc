@@ -14,7 +14,7 @@
     <dimen name="login_logo_height">150dp</dimen>
     <dimen name="login_text_build_margin">-32dp</dimen>
     <dimen name="login_view_component_height">40dp</dimen>
-    <dimen name="login_build_text_view_textSize">12sp</dimen>
+    <dimen name="login_build_text_view_textSize">15sp</dimen>
     <dimen name="login_edit_text_textSize">16sp</dimen>
     <dimen name="login_show_password_dimen">10dp</dimen>
     <dimen name="login_logo_top_padding">0dp</dimen>
@@ -134,6 +134,13 @@
     <dimen name="contact_save_default_padding">20dp</dimen>
     <dimen name="contact_save_small_padding">10dp</dimen>
 
+    <dimen name="me_page_initials_background_margin">20dp</dimen>
+    <dimen name="me_page_initials_text_size">25sp</dimen>
+    <dimen name="me_page_section_text_size">18sp</dimen>
+    <dimen name="me_page_section_square_dimension">30dp</dimen>
+    <dimen name="me_page_location_text_size">14sp</dimen>
+    <dimen name="me_page_section_text_right_margin">40dp</dimen>
+    <dimen name="me_bottom_nav_bar_text_size">13sp</dimen>
     <!-- Form Container -->
     <dimen name="form_container_default_padding">20dp</dimen>
     <dimen name="form_container_start_end_navigation_padding">20dp</dimen>
@@ -142,5 +149,4 @@
     <dimen name="form_container_step_title_text_size">18sp</dimen>
     <dimen name="form_container_navigation_text_size">16sp</dimen>
     <dimen name="form_container_navigation_elevation">3dp</dimen>
-
 </resources>

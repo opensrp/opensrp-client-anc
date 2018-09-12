@@ -2,6 +2,7 @@ package org.smartregister.anc.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -15,7 +16,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
@@ -45,6 +45,10 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     public LocationPickerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.context = context;
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.anc_CustomFontTextView, 0, defStyle);
+        int variant = attributes.getInt(R.styleable.anc_CustomFontTextView_fontVariant, 2);
+        attributes.recycle();
+        setFontVariant(variant);
     }
 
     public void init() {
@@ -102,7 +106,6 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
         return locations;
     }
 
-
     @Override
     public void onClick(View v) {
         showDialog();
@@ -111,15 +114,11 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     private void showDialog() {
         serviceLocationsAdapter.setSelectedLocation(getSelectedItem());
 
-
         Window window = locationPickerDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.TOP;
+        wlp.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL;
         int[] coords = new int[2];
         LocationPickerView.this.getLocationInWindow(coords);
-        wlp.x = coords[0]
-                + (int) (LocationPickerView.this.getWidth() * 0.5)
-                - (int) (Utils.convertDpToPx(context, 780) * 0.5);
 
         locationPickerDialog.show();
     }

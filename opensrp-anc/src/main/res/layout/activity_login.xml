@@ -46,17 +46,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/login_title_text_size"
                 android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/login_build_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:gravity="center_horizontal"
-                android:text="build_number"
-                android:textColor="#90c4dc"
-                android:textSize="@dimen/login_build_text_view_textSize"
-                android:typeface="sans" />
         </LinearLayout>
 
         <!-- Middle section -->
