@@ -26,6 +26,7 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
+import java.text.MessageFormat;
 import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -38,21 +39,24 @@ import static org.smartregister.util.Utils.getName;
 
 public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSearchProvider.AdvancedSearchViewHolder> {
 
-
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
+
     private View.OnClickListener onClickListener;
+    private View.OnClickListener paginationClickListener;
 
     private Context context;
     private CommonRepository commonRepository;
     private ImageRenderHelper imageRenderHelper;
 
-
-    public AdvancedSearchProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener) {
+    public AdvancedSearchProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
+
         this.onClickListener = onClickListener;
+        this.paginationClickListener = paginationClickListener;
+
         this.context = context;
         this.commonRepository = commonRepository;
         this.imageRenderHelper = new ImageRenderHelper(context);
@@ -92,6 +96,20 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         */
     }
 
+    @Override
+    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
+        FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
+        footerViewHolder.pageInfoView.setText(
+                MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount,
+                        totalPageCount));
+
+        footerViewHolder.nextPageView.setVisibility(hasNext ? View.VISIBLE : View.INVISIBLE);
+        footerViewHolder.previousPageView.setVisibility(hasPrevious ? View.VISIBLE : View.INVISIBLE);
+
+        footerViewHolder.nextPageView.setOnClickListener(paginationClickListener);
+        footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
+    }
+
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
 
         String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -119,7 +137,6 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         view.setTag(client);
         view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
     }
-
 
     private void populateLastColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
 
@@ -183,6 +200,17 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         return new AdvancedSearchViewHolder(view);
     }
 
+    @Override
+    public RecyclerView.ViewHolder createFooterHolder(ViewGroup parent) {
+        View view = inflater.inflate(R.layout.smart_register_pagination, parent, false);
+        return new FooterViewHolder(view);
+    }
+
+    @Override
+    public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
+        return FooterViewHolder.class.isInstance(viewHolder);
+    }
+
     public static void fillValue(TextView v, String value) {
         if (v != null)
             v.setText(value);
@@ -218,6 +246,20 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
             sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        private TextView pageInfoView;
+        private Button nextPageView;
+        private Button previousPageView;
+
+        public FooterViewHolder(View view) {
+            super(view);
+
+            nextPageView = view.findViewById(org.smartregister.R.id.btn_next_page);
+            previousPageView = view.findViewById(org.smartregister.R.id.btn_previous_page);
+            pageInfoView = view.findViewById(org.smartregister.R.id.txt_page_info);
         }
     }
 

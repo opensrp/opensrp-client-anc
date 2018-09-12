@@ -281,9 +281,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     private void setTotalPatients() {
         if (headerTextDisplay != null) {
-            headerTextDisplay.setText(totalcount > 1 ?
-                    String.format(getString(R.string.clients), totalcount) :
-                    String.format(getString(R.string.client), totalcount));
+            headerTextDisplay.setText(clientAdapter.getTotalcount() > 1 ?
+                    String.format(getString(R.string.clients), clientAdapter.getTotalcount()) :
+                    String.format(getString(R.string.client), clientAdapter.getTotalcount()));
 
             filterRelativeLayout.setVisibility(View.GONE);
         }
@@ -296,15 +296,13 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.countSelect = countSelect;
         this.mainSelect = mainSelect;
         this.Sortqueries = "";
-
-        BaseRegisterFragment.currentlimit = 20;
-        // BaseRegisterFragment.currentoffset = 0;
     }
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
+        RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
 
@@ -317,7 +315,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
         countExecute();
 
-        if (qrCode && StringUtils.isNotBlank(filterString) && totalcount == 0 && NetworkUtils.isNetworkAvailable()) {
+        if (qrCode && StringUtils.isNotBlank(filterString) && clientAdapter.getTotalcount() == 0 && NetworkUtils.isNetworkAvailable()) {
             globalQrSearch = true;
             presenter.searchGlobally(filterString);
         } else {
@@ -334,7 +332,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         }
 
         if (filterStatus != null) {
-            filterStatus.setText(Html.fromHtml(totalcount + " patients " + sortText));
+            filterStatus.setText(Html.fromHtml(clientAdapter.getTotalcount() + " patients " + sortText));
         }
     }
 
@@ -487,13 +485,13 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
-        totalcount = matrixCursor.getCount();
-        Log.v("total count here", "" + totalcount);
-        currentlimit = 20;
-        if (totalcount > 0) {
-            currentlimit = totalcount;
+        clientAdapter.setTotalcount(matrixCursor.getCount());
+        Log.v("total count here", "" + clientAdapter.getTotalcount());
+        clientAdapter.setCurrentlimit(20);
+        if (clientAdapter.getTotalcount() > 0) {
+            clientAdapter.setCurrentlimit(clientAdapter.getTotalcount());
         }
-        currentoffset = 0;
+        clientAdapter.setCurrentoffset(0);
     }
 
     @Override

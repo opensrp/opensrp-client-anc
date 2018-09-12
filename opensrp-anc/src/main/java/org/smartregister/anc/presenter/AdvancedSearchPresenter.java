@@ -53,15 +53,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
             getView().countExecute();
             getView().filterandSortInInitializeQueries();
 
-            getView().refresh();
-
             getView().hideProgressView();
 
         } else {
             getView().showProgressView();
             getView().switchViews(true);
 
-            interactor.search(editMap, this,ancId);
+            interactor.search(editMap, this, ancId);
 
         }
     }
@@ -73,7 +71,6 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         getView().recalculatePagination(matrixCursor);
 
         getView().filterandSortInInitializeQueries();
-        getView().refresh();
 
         getView().hideProgressView();
     }
