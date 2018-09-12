@@ -56,100 +56,222 @@
     "next": "step2",
     "fields": [
       {
-        "key": "native_radio",
+        "key": "educ_level",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "school_level",
-        "type": "radio",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
         "label": "Highest Level of School",
+        "label_text_size": "20sp",
         "options": [
           {
-            "key": "high_school",
-            "text": "High School"
+            "key": "none",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Unknown",
+            "openmrs_entity_id": "1107",
+            "text": "None"
           },
           {
-            "key": "higher_education",
-            "text": "College/University"
+            "key": "dont_know",
+            "text": "Don't Know",
+            "openmrs_entity_parent": "Highest Education Level",
+            "openmrs_entity": "Unknown",
+            "openmrs_entity_id": "1067"
           },
           {
-            "key": "primary_school",
-            "text": "Primary school"
+            "key": "primary",
+            "text": "Primary",
+            "openmrs_entity_parent": "Highest Education Level",
+            "openmrs_entity": "Primary School Education",
+            "openmrs_entity_id": "1713"
+          },
+          {
+            "key": "secondary",
+            "text": "Secondary",
+            "openmrs_entity_parent": "Highest Education Level",
+            "openmrs_entity": "Secondary School Education",
+            "openmrs_entity_id": "1714"
+          },
+          {
+            "key": "higher",
+            "text": "Higher",
+            "openmrs_entity_parent": "Highest Education Level",
+            "openmrs_entity": "Tertiary education complete",
+            "openmrs_entity_id": "160292"
           }
         ],
-        "value": "primary_school"
-      },
-      {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "value": "none",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "marital_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Marital status",
+        "label_text_size": "20sp",
+        "options": [
+          {
+            "key": "married",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "MARRIED OR LIVING WITH PARTNER         ",
+            "openmrs_entity_id": "1055",
+            "text": "Married or living together"
+          },
+          {
+            "key": "divorced",
+            "text": "Divorced / separated",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Divorced",
+            "openmrs_entity_id": "1058"
+          },
+          {
+            "key": "single",
+            "text": "Never married and never lived together (single)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5615"
+          },
+          {
+            "key": "widowed",
+            "text": "Widowed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1059"
+          }
+        ],
+        "value": "single",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Occupation",
+        "hint": "Occupation",
+        "options": [
+          {
+            "key": "Student",
+            "text": "Student",
+            "value": false
+          },
+          {
+            "key": "Unemployed",
+            "text": "Unemployed",
+            "value": false
+          },
+          {
+            "key": "Formal employment",
+            "text": "Formal employment",
+            "value": false
+          },
+          {
+            "key": "Informal employment (sex worker)",
+            "text": "Informal employment (sex worker)",
+            "value": false
+          },
+          {
+            "key": "Informal employment (other)",
+            "text": "Informal employment (other)",
+            "value": false
+          },
+          {
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
+          "err": "Please select at least one occupation"
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "occupation_other",
+        "type": "edit_text",
+        "hint": "Specify *",
+        "v_required": {
+          "value": true,
+          "err": "Please specify your occupation"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please specify your occupation"
         }
       }
     ]
   },
   "step2": {
-    "title": "Demographic info 2",
+    "title": "Current Pregnancy",
     "next": "step3",
     "fields": [
       {
-        "key": "first_name",
+        "key": "lmp_known",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "LMP Known?",
+        "label_text_size": "20sp",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Yes",
+            "openmrs_entity_id": "",
+            "text": "Yes (Specify Date)"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "no",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "ultrasound_done",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Ultrasound Done?",
+        "label_text_size": "20sp",
+        "options": [
+          {
+            "key": "yesy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Yes",
+            "openmrs_entity_id": "Yes",
+            "text": "Yes (Specify Date)"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       }
     ]
