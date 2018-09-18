@@ -158,8 +158,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter<>(null, advancedSearchProvider, context().commonrepository(this.tablename));
+        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 
@@ -390,7 +390,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
         super.recalculatePagination(matrixCursor);
-        updateMatchingResults(totalcount);
+        updateMatchingResults(clientAdapter.getTotalcount());
     }
 
     @Override
@@ -413,11 +413,11 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             Log.i(getClass().getName(), query);
             c = commonRepository().rawCustomQueryForAdapter(query);
             c.moveToFirst();
-            totalcount = c.getInt(0);
-            Log.v("total count here", "" + totalcount);
+            clientAdapter.setTotalcount(c.getInt(0));
+            Log.v("total count here", "" + clientAdapter.getTotalcount());
 
-            currentlimit = 20;
-            currentoffset = 0;
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
 
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
@@ -427,7 +427,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             }
         }
 
-        updateMatchingResults(totalcount);
+        updateMatchingResults(clientAdapter.getTotalcount());
     }
 
     @Override
@@ -468,7 +468,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         try {
             sqb.addCondition(filters);
             query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(sqb.addlimitandOffset(query, currentlimit, currentoffset));
+            query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
         }

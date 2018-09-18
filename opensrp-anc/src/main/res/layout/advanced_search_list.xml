@@ -77,10 +77,4 @@
 
     </FrameLayout>
 
-    <include
-        layout="@layout/smart_register_pagination"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/pagination_bar_height"
-        android:visibility="gone" />
-
 </LinearLayout>
