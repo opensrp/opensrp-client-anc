@@ -55,8 +55,6 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         Mockito.verify(view).notifyComplaintAdapter();
         Mockito.verify(view).hideComplaintLayout();
-        Mockito.verify(view).displayNavigationLayout();
-        Mockito.verify(view).displayNavigationLayout();
 
     }
 
@@ -71,8 +69,6 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.setReason(reason);
 
         Mockito.verify(view).displayComplaintLayout();
-        Mockito.verify(view).displayNavigationLayout();
-        Mockito.verify(view).displayNavigationLayout();
 
     }
 
@@ -157,8 +153,8 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         Assert.assertEquals(1, complaints.size());
         Assert.assertEquals(complaint, complaints.iterator().next());
 
-        Mockito.verify(view, Mockito.times(0)).showSpecifyEditText();
-        Mockito.verify(view, Mockito.times(0)).hideSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).enableSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).disableSpecifyEditText();
     }
 
     @Test
@@ -173,8 +169,8 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         presenter.modifyComplaintsOrDangerList(complaint, false, false);
 
-        Mockito.verify(view, Mockito.times(0)).showSpecifyEditText();
-        Mockito.verify(view, Mockito.times(0)).hideSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).enableSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).disableSpecifyEditText();
 
         Set<Field> complaints = ((QuickCheckPresenter) presenter).getSpecificComplaints();
 
@@ -194,8 +190,8 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         presenter.modifyComplaintsOrDangerList(complaint, false, false);
 
-        Mockito.verify(view, Mockito.times(0)).showSpecifyEditText();
-        Mockito.verify(view, Mockito.times(0)).hideSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).enableSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).disableSpecifyEditText();
 
         Set<Field> complaints = ((QuickCheckPresenter) presenter).getSpecificComplaints();
 
@@ -216,8 +212,8 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
 
-        Mockito.verify(view).showSpecifyEditText();
-        Mockito.verify(view, Mockito.times(0)).hideSpecifyEditText();
+        Mockito.verify(view).enableSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).disableSpecifyEditText();
 
         Set<Field> complaints = ((QuickCheckPresenter) presenter).getSpecificComplaints();
 
@@ -240,8 +236,8 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         presenter.modifyComplaintsOrDangerList(otherSpecify, false, false);
 
-        Mockito.verify(view, Mockito.times(0)).showSpecifyEditText();
-        Mockito.verify(view).hideSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).enableSpecifyEditText();
+        Mockito.verify(view).disableSpecifyEditText();
 
         Set<Field> complaints = ((QuickCheckPresenter) presenter).getSpecificComplaints();
 
@@ -264,6 +260,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerNone, true, true);
 
         Mockito.verify(view).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).hideReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -296,6 +293,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerNone, true, true);
 
         Mockito.verify(view).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).hideReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -328,6 +326,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerSignAdd, true, true);
 
         Mockito.verify(view).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).displayReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -361,6 +360,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
         presenter.modifyComplaintsOrDangerList(dangerSignAdd, true, true);
 
         Mockito.verify(view, Mockito.times(0)).notifyDangerSignAdapter();
+        Mockito.verify(view).displayNavigationLayout();
         Mockito.verify(view).displayReferButton();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
@@ -380,7 +380,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         presenter.modifyComplaintsOrDangerList(dangerSignToRemove, false, true);
 
-        Mockito.verify(view, Mockito.times(0)).hideSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).disableSpecifyEditText();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
 
@@ -398,7 +398,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         presenter.modifyComplaintsOrDangerList(dangerSignToRemove, false, true);
 
-        Mockito.verify(view, Mockito.times(0)).hideSpecifyEditText();
+        Mockito.verify(view, Mockito.times(0)).disableSpecifyEditText();
 
         Set<Field> dangerSigns = ((QuickCheckPresenter) presenter).getSelectedDangerSigns();
 
