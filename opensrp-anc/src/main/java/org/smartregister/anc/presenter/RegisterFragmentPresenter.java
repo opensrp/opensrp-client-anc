@@ -73,16 +73,6 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
         getView().countExecute();
         getView().filterandSortInInitializeQueries();
-
-        getView().refresh();
-    }
-
-    @Override
-    public void updateInitials() {
-        String initials = model.getInitials();
-        if (initials != null) {
-            getView().updateInitialsText(initials);
-        }
     }
 
     @Override
@@ -108,19 +98,19 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     @Override
     public void onResultsFound(Response<String> response, String ancId) {
-    	JSONArray jsonArray = model.getJsonArray(response);
-    	
-    	if (jsonArray == null || jsonArray.length() <= 0) {
-    		getView().showNotFoundPopup(ancId);
-    	} else {
-    		matrixCursor = model.createMatrixCursor(response);
-			
-    		getView().recalculatePagination(matrixCursor);
-			
-    		getView().filterandSortInInitializeQueries();
-    		getView().refresh();
-    		getView().hideProgressView();
-    	}
+        JSONArray jsonArray = model.getJsonArray(response);
+
+        if (jsonArray == null || jsonArray.length() <= 0) {
+            getView().showNotFoundPopup(ancId);
+        } else {
+            matrixCursor = model.createMatrixCursor(response);
+
+            getView().recalculatePagination(matrixCursor);
+
+            getView().filterandSortInInitializeQueries();
+
+            getView().hideProgressView();
+        }
     }
 
     protected RegisterFragmentContract.View getView() {

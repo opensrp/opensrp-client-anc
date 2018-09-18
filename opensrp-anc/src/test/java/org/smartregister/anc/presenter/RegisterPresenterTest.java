@@ -135,7 +135,8 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
         Mockito.when(locationPickerView.getSelectedItem()).thenReturn(locationName);
         Mockito.doReturn(locationID).when(model).getLocationId(ArgumentMatchers.anyString());
-        Mockito.doNothing().when(interactor).getNextUniqueId(ArgumentMatchers.any((Class<Triple<String, String, String>>) (Object) Triple.class), Mockito.any(RegisterContract.InteractorCallBack.class));
+        Mockito.doNothing().when(interactor).getNextUniqueId(ArgumentMatchers.any((Class<Triple<String, String, String>>) (Object) Triple.class),
+                Mockito.any(RegisterContract.InteractorCallBack.class));
 
         presenter.startForm(formName, entityId, metadata, locationPickerView);
 
@@ -188,7 +189,8 @@ public class RegisterPresenterTest extends BaseUnitTest {
         Pair<Client, Event> pair = Pair.create(client, event);
 
         Mockito.doReturn(pair).when(model).processRegistration(ArgumentMatchers.anyString());
-        Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class), ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
+        Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class),
+                ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
 
         presenter.saveForm(jsonString, false);
 
@@ -252,5 +254,25 @@ public class RegisterPresenterTest extends BaseUnitTest {
         registerPresenter.onDestroy(false);
         Mockito.verify(interactor).onDestroy(false);
 
+    }
+
+    @Test
+    public void testUpdateInitials() {
+        RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
+        registerPresenter.setModel(model);
+
+        String initials = "EK";
+
+        // Null initials
+        Mockito.doReturn(null).when(model).getInitials();
+
+        registerPresenter.updateInitials();
+        Mockito.verify(view, Mockito.times(0)).updateInitialsText(initials);
+
+        // Not null initials
+        Mockito.doReturn(initials).when(model).getInitials();
+
+        registerPresenter.updateInitials();
+        Mockito.verify(view).updateInitialsText(initials);
     }
 }

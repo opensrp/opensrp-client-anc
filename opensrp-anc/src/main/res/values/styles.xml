@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="cardViewStyle">@style/CardView</item>
     </style>
 
     <style name="AncAppTheme.NoActionBar">
@@ -68,4 +69,11 @@
         <item name="android:windowMinWidthMinor">90%</item>
     </style>
 
+    <style name="me_page_location_selector">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ActionBarNoShadow">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

@@ -6,8 +6,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.joda.time.DateTime;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.presenter.LoginPresenter;
@@ -36,7 +35,6 @@ import org.smartregister.anc.task.SaveTeamLocationsTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.util.Utils;
 
-import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
 /**
@@ -49,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private CheckBox showPasswordCheckBox;
     private ProgressDialog progressDialog;
     private Button loginButton;
-    private TextView buildDetailsView;
     private LoginContract.Presenter mLoginPresenter;
 
     @Override
@@ -101,7 +98,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         presenter.positionViews();
         initializeLoginChildViews();
         initializeProgressDialog();
-        initializeBuildDetails();
         setListenerOnShowPasswordCheckbox();
 
     }
@@ -111,7 +107,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         passwordEditText = findViewById(R.id.login_password_edit_text);
         showPasswordCheckBox = findViewById(R.id.login_show_password_checkbox);
         passwordEditText.setOnEditorActionListener(this);
-        buildDetailsView = findViewById(R.id.login_build_text_view);
         loginButton = findViewById(R.id.login_login_btn);
         loginButton.setOnClickListener(this);
     }
@@ -121,15 +116,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         progressDialog.setCancelable(false);
         progressDialog.setTitle(getString(org.smartregister.R.string.loggin_in_dialog_title));
         progressDialog.setMessage(getString(org.smartregister.R.string.loggin_in_dialog_message));
-    }
-
-    private void initializeBuildDetails() {
-        try {
-            buildDetailsView.setText("Version " + getVersion() + ", Built on: " + mLoginPresenter.getBuildDate());
-
-        } catch (Exception e) {
-            logError("Error fetching build details: " + e);
-        }
     }
 
     private void setListenerOnShowPasswordCheckbox() {
@@ -150,13 +136,30 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-        Intent intent = new Intent(this, HomeRegisterActivity.class);
-        intent.putExtra(Constants.IS_REMOTE_LOGIN, remote);
-        startActivity(intent);
+
+        if (AncApplication.getInstance().getContext().allSettings().get(Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS) != null) {
+
+            gotToHomeRegister(remote);
+
+        } else {
+
+            goToSiteCharacteristics(remote);
+        }
 
         finish();
     }
 
+    private void gotToHomeRegister(boolean remote) {
+        Intent intent = new Intent(this, HomeRegisterActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
+    }
+
+    private void goToSiteCharacteristics(boolean remote) {
+        Intent intent = new Intent(this, SiteCharacteristicsEnterActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        startActivity(intent);
+    }
 
     @Override
     public void showErrorDialog(String message) {
@@ -239,11 +242,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void resetPaswordError() {
         passwordEditText.setError(null);
-    }
-
-    private String getVersion() throws PackageManager.NameNotFoundException {
-        PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-        return packageInfo.versionName;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)

@@ -25,11 +25,7 @@ public interface RegisterFragmentContract {
 
         void filterandSortInInitializeQueries();
 
-        void refresh();
-
         void updateSearchBarHint(String searchBarText);
-
-        void updateInitialsText(String initials);
 
         Context getContext();
 
@@ -42,7 +38,7 @@ public interface RegisterFragmentContract {
         void showProgressView();
 
         void hideProgressView();
-        
+
         void showNotFoundPopup(String whoAncId);
     }
 
@@ -51,8 +47,6 @@ public interface RegisterFragmentContract {
         void processViewConfigurations();
 
         void initializeQueries(String mainCondition);
-
-        void updateInitials();
 
         void startSync();
 
@@ -75,8 +69,6 @@ public interface RegisterFragmentContract {
 
         String mainSelect(String tableName, String mainCondition);
 
-        String getInitials();
-
         String getFilterText(List<Field> filterList, String filter);
 
         String getSortText(Field sortField);
@@ -84,7 +76,7 @@ public interface RegisterFragmentContract {
         Map<String, String> createEditMap(String ancId);
 
         AdvancedMatrixCursor createMatrixCursor(Response<String> response);
-        
+
         JSONArray getJsonArray(Response<String> response);
 
     }

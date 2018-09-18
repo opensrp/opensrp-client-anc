@@ -40,7 +40,7 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
     private AdvancedSearchContract.Interactor interactor;
 
     private RegisterFragmentContract.Presenter presenter;
-    
+
     @Mock
     private RegisterConfiguration configuration;
 
@@ -73,42 +73,19 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         Mockito.verify(view).initializeAdapter(ArgumentMatchers.any((Class<Set<View>>) (Object) Set.class));
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
-        Mockito.verify(view).refresh();
     }
-	
-	@Test
-	public void testViewConfiguration() {
-		RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
-		registerFragmentPresenter.setModel(model);
-		
-		ViewConfiguration viewConfiguration = Mockito.mock(ViewConfiguration.class);
-		Mockito.doReturn(viewConfiguration).when(model).getViewConfiguration("register");
-		Assert.assertNotNull(viewConfiguration);
-		
-		Mockito.doReturn(configuration).when(viewConfiguration).getMetadata();
-		Assert.assertNotNull(configuration);
-	}
 
     @Test
-    public void testUpdateInitials() {
+    public void testViewConfiguration() {
         RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
         registerFragmentPresenter.setModel(model);
 
-        String initials = "EK";
+        ViewConfiguration viewConfiguration = Mockito.mock(ViewConfiguration.class);
+        Mockito.doReturn(viewConfiguration).when(model).getViewConfiguration("register");
+        Assert.assertNotNull(viewConfiguration);
 
-        // Null initials
-        Mockito.doReturn(null).when(model).getInitials();
-
-        registerFragmentPresenter.updateInitials();
-
-        Mockito.verify(view, Mockito.times(0)).updateInitialsText(initials);
-
-        // Not null initials
-        Mockito.doReturn(initials).when(model).getInitials();
-
-        registerFragmentPresenter.updateInitials();
-
-        Mockito.verify(view).updateInitialsText(initials);
+        Mockito.doReturn(configuration).when(viewConfiguration).getMetadata();
+        Assert.assertNotNull(configuration);
     }
 
     @SuppressWarnings("unchecked")
@@ -167,38 +144,37 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
         AdvancedMatrixCursor matrixCursor = Mockito.mock(AdvancedMatrixCursor.class);
         Response<String> response = new Response<>(ResponseStatus.success, "payload");
-        
-	    JSONArray jsonArray = new JSONArray().put("test");
-	    Mockito.doReturn(jsonArray).when(model).getJsonArray(response);
+
+        JSONArray jsonArray = new JSONArray().put("test");
+        Mockito.doReturn(jsonArray).when(model).getJsonArray(response);
         Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
-	    
-	    registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
-	
-	    Mockito.verify(model).getJsonArray(response);
+
+        registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
+
+        Mockito.verify(model).getJsonArray(response);
         Mockito.verify(model).createMatrixCursor(response);
         Mockito.verify(view).recalculatePagination(matrixCursor);
         Mockito.verify(view).filterandSortInInitializeQueries();
-        Mockito.verify(view).refresh();
         Mockito.verify(view).hideProgressView();
 
     }
-    
+
     @Test
-    public void showNotFoundPopup(){
-	    RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
-	    registerFragmentPresenter.setModel(model);
-	
-	    AdvancedMatrixCursor matrixCursor = Mockito.mock(AdvancedMatrixCursor.class);
-	    Response<String> response = new Response<>(ResponseStatus.success, "payload");
-	
-	    JSONArray jsonArray = new JSONArray();
-	    Mockito.doReturn(jsonArray).when(model).getJsonArray(response);
-	    Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
-	
-	    registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
-	
-	    Mockito.verify(model).getJsonArray(response);
-	    Mockito.verify(view).showNotFoundPopup(BaseUnitTest.WHO_ANC_ID);
+    public void showNotFoundPopup() {
+        RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
+        registerFragmentPresenter.setModel(model);
+
+        AdvancedMatrixCursor matrixCursor = Mockito.mock(AdvancedMatrixCursor.class);
+        Response<String> response = new Response<>(ResponseStatus.success, "payload");
+
+        JSONArray jsonArray = new JSONArray();
+        Mockito.doReturn(jsonArray).when(model).getJsonArray(response);
+        Mockito.doReturn(matrixCursor).when(model).createMatrixCursor(response);
+
+        registerFragmentPresenter.onResultsFound(response, BaseUnitTest.WHO_ANC_ID);
+
+        Mockito.verify(model).getJsonArray(response);
+        Mockito.verify(view).showNotFoundPopup(BaseUnitTest.WHO_ANC_ID);
     }
 
     private String countSelect(String tableName, String mainCondition) {

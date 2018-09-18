@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.R;
+import org.smartregister.anc.helper.LocationHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,10 +19,10 @@ import java.util.HashMap;
  * @since 03/03/2017
  */
 public class ServiceLocationsAdapter extends BaseAdapter {
-    private String selectedLocation;
     private final ArrayList<String> locationNames;
     private final HashMap<String, View> views;
     private final Context context;
+    private String selectedLocation;
 
     public ServiceLocationsAdapter(Context context, ArrayList<String> locationNames) {
         this.context = context;
@@ -54,7 +54,7 @@ public class ServiceLocationsAdapter extends BaseAdapter {
             View view = inflater.inflate(R.layout.location_picker_dropdown_item, null);
             view.setId(position + 2321);
 
-            TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+            TextView text1 = view.findViewById(android.R.id.text1);
             text1.setText(LocationHelper.getInstance().getOpenMrsReadableName(locationNames.get(position)));
             views.put(locationNames.get(position), view);
         }
@@ -79,12 +79,10 @@ public class ServiceLocationsAdapter extends BaseAdapter {
 
     private void refreshView(View view, boolean selected) {
         if (selected) {
-            //view.setBackgroundColor(context.getResources().getColor(R.color.primary_background));
-            ImageView checkbox = (ImageView) view.findViewById(R.id.checkbox);
+            ImageView checkbox = view.findViewById(R.id.checkbox);
             checkbox.setVisibility(View.VISIBLE);
         } else {
-            //view.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            ImageView checkbox = (ImageView) view.findViewById(R.id.checkbox);
+            ImageView checkbox = view.findViewById(R.id.checkbox);
             checkbox.setVisibility(View.INVISIBLE);
         }
     }

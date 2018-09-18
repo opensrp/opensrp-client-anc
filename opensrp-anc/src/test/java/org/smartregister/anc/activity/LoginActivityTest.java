@@ -36,10 +36,9 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
  */
 public class LoginActivityTest extends BaseActivityUnitTest {
 
+    private static final String STRING_SETTINGS = "Settings";
     private LoginActivity loginActivity;
     private ActivityController<LoginActivity> controller;
-    private static final String STRING_SETTINGS = "Settings";
-
     @Mock
     private Menu menu;
 
@@ -103,13 +102,6 @@ public class LoginActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testBuildDetailsAreInitialized() {
-
-        TextView buildDetails = loginActivity.findViewById(R.id.login_build_text_view);
-        Assert.assertNotNull(buildDetails.getText());
-    }
-
-    @Test
     public void testGoToHome() {
 
         try {
@@ -118,7 +110,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
     @Test
@@ -130,7 +122,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
     private void assertActivityStarted(Activity currActivity, Activity nextActivity) {

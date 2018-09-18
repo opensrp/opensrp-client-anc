@@ -83,7 +83,6 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         Mockito.verify(view).initializeAdapter(Mockito.<View>anySet());
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
-        Mockito.verify(view).refresh();
         Mockito.verify(view).hideProgressView();
     }
 
@@ -188,7 +187,6 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         Mockito.verify(model).createMatrixCursor(response);
         Mockito.verify(view).recalculatePagination(matrixCursor);
         Mockito.verify(view).filterandSortInInitializeQueries();
-        Mockito.verify(view).refresh();
         Mockito.verify(view).hideProgressView();
     }
 

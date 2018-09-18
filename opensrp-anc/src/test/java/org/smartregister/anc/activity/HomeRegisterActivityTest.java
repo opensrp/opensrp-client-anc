@@ -29,11 +29,12 @@ import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.BaseRegisterFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.fragment.LibraryFragment;
+import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
@@ -64,10 +65,10 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     private Field sortField;
 
     @Mock
-    private AlertDialog recordBirthAlertDialog;
+    private AlertDialog attentionFlagsAlertDialog;
 
     @Mock
-    private AlertDialog attentionFlagsAlertDialog;
+    private AlertDialog recordBirthAlertDialog;
 
     @Mock
     private RegisterPresenter registerPresenter;
@@ -104,9 +105,11 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
         Fragment[] fragments = homeRegisterActivity.getOtherFragments();
         Assert.assertNotNull(fragments);
-        Assert.assertTrue(fragments.length == 2);
+        Assert.assertTrue(fragments.length == 4);
         Assert.assertTrue(fragments[0] instanceof AdvancedSearchFragment);
         Assert.assertTrue(fragments[1] instanceof SortFilterFragment);
+        Assert.assertTrue(fragments[2] instanceof MeFragment);
+        Assert.assertTrue(fragments[3] instanceof LibraryFragment);
     }
 
     @Test
@@ -188,7 +191,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     public void testShowRecordBirthPopUpInvokesMethodsOnRecordBirthAlertDialogsCorrectly() {
 
         HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-
         Whitebox.setInternalState(homeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
 
         CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID, ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"), DUMMY_USERNAME);
@@ -196,9 +198,7 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         details.putAll(client.getDetails());
         client.setColumnmaps(details);
         homeRegisterActivitySpy.showRecordBirthPopUp(client);
-
         Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage(ArgumentMatchers.contains("25/12/2018"));
-
         Mockito.verify(recordBirthAlertDialog).show();
     }
 
@@ -218,8 +218,12 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", registerPresenter);
 
         homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
-        LocationPickerView locationPickerView = null;
-        Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));
+        /*LocationPickerView locationPickerView = null;
+        Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
+                ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));*/
+        // Todo Use the above line after the location picker functionality is added on the me page
+        Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
+                ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(""));
     }
 
     @Test()

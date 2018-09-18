@@ -2,9 +2,7 @@ package org.smartregister.anc.activity;
 
 import android.app.Activity;
 import android.widget.LinearLayout;
-
 import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
-import org.smartregister.anc.custom.SettingsTestMenuItem;
 
 /**
  * Created by ndegwamartin on 20/08/2018.
@@ -24,9 +21,6 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
 
     private PopulationCharacteristicsActivity populationCharacteristicsActivity;
     private ActivityController<PopulationCharacteristicsActivity> controller;
-
-    @Mock
-    private SettingsTestMenuItem menuItem;
 
     @Mock
     private LinearLayout view;
@@ -41,16 +35,6 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
     @Test
     public void testActivityCreatedSuccesfully() {
         Assert.assertNotNull(populationCharacteristicsActivity);
-    }
-
-    @Test
-    public void testOnOptionsItemSelectedInvokesSuperWithCorrectParams() {
-        PopulationCharacteristicsActivity spyActivity = Mockito.spy(populationCharacteristicsActivity);
-
-        spyActivity.onOptionsItemSelected(menuItem);
-
-        Mockito.verify(spyActivity).onBackPressed();
-
     }
 
     @Test
@@ -71,7 +55,6 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
     public void tearDown() {
         destroyController();
     }
-
 
     @Override
     protected Activity getActivity() {

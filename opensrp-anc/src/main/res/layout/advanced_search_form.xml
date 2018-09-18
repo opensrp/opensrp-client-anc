@@ -25,15 +25,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/register_search_bar_max_margin"
+                    android:text="@string/clients_facility"
+                    android:textStyle="bold" />
 
                 <RelativeLayout
                     android:id="@+id/out_and_inside_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="1.5dp"
-                    android:layout_weight="1">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <com.vijay.jsonwizard.customviews.RadioButton
                         android:id="@+id/out_and_inside"
@@ -74,10 +78,9 @@
 
                 <RelativeLayout
                     android:id="@+id/my_catchment_layout"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="1.5dp"
-                    android:layout_weight="1">
+                    android:layout_marginTop="@dimen/register_search_bar_margin">
 
                     <com.vijay.jsonwizard.customviews.RadioButton
                         android:id="@+id/my_catchment"
@@ -147,45 +150,55 @@
                     app:met_singleLineEllipsis="true" />
             </LinearLayout>
 
-                <RelativeLayout
-		                android:layout_width="match_parent"
-		                android:layout_height="match_parent">
-	                <com.rengwuxian.materialedittext.MaterialEditText
-			                android:id="@+id/anc_id"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"
-			                android:layout_toStartOf="@+id/qrCodeButton"
-			                android:layout_toLeftOf="@+id/qrCodeButton"
-			                android:layout_alignParentStart="true"
-			                android:hint="@string/id_number"
-			                android:imeOptions="actionNext"
-			                android:inputType="text"
-			                android:textColor="@color/lighter_grey_text"
-			                android:textColorHint="@color/light_grey"
-			                android:textSize="@dimen/advanced_search_text_size"
-			                app:met_floatingLabel="highlight"
-			                app:met_floatingLabelText="@string/anc_id"
-			                app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
-			                app:met_primaryColor="@color/light_blue"
-			                app:met_singleLineEllipsis="true" android:layout_marginEnd="0dp"
-			                android:layout_marginRight="0dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-	               <Button
-			               android:id="@+id/qrCodeButton"
-			               android:layout_alignParentRight="true"
-			               android:layout_alignParentEnd="true"
-			               android:text="@string/scan_qr_code"
-			               android:background="@color/primary"
-			               android:backgroundTint="@color/primary"
-			               android:textColor="@color/white"
-			               android:paddingLeft="@dimen/register_search_bar_min_margin"
-			               android:paddingStart="@dimen/register_search_bar_min_margin"
-			               android:paddingEnd="@dimen/register_search_bar_min_margin"
-			               android:paddingRight="@dimen/register_search_bar_min_margin"
-			               android:layout_width="85dp"
-			               android:layout_height="match_parent"/>
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/anc_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="0dp"
+                    android:hint="@string/id_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textColor="@color/lighter_grey_text"
+                    android:textColorHint="@color/light_grey"
+                    android:textSize="@dimen/advanced_search_text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="@string/anc_id"
+                    app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
+                    app:met_primaryColor="@color/light_blue"
+                    app:met_singleLineEllipsis="true" />
 
-                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/register_search_bar_max_margin"
+                    android:text="@string/qr_code_label"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/qrCodeButton"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/advanced_search_qr_code"
+                    android:paddingEnd="@dimen/register_search_bar_min_margin"
+                    android:paddingLeft="@dimen/register_search_bar_min_margin"
+                    android:paddingRight="@dimen/register_search_bar_min_margin"
+                    android:paddingStart="@dimen/register_search_bar_min_margin"
+                    android:text="@string/scan_qr_code"
+                    android:textColor="@color/advance_search_qr_code" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

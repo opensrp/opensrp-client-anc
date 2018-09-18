@@ -1,6 +1,5 @@
 package org.smartregister.anc.fragment;
 
-
 import android.annotation.SuppressLint;
 import android.view.View;
 
@@ -9,7 +8,6 @@ import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
-import org.smartregister.anc.view.LocationPickerView;
 
 import java.util.Objects;
 
@@ -18,7 +16,6 @@ import java.util.Objects;
  */
 
 public class HomeRegisterFragment extends BaseRegisterFragment {
-
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -34,26 +31,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         return DBQueryHelper.getHomePatientRegisterCondition();
     }
 
-    public LocationPickerView getLocationPickerView() {
-        return getFacilitySelection();
-    }
-
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
-        View searchButton = view.findViewById(R.id.search_button);
-        if (searchButton != null) {
-            searchButton.setOnClickListener(registerActionHandler);
-        }
-
-        if (filterStatus != null) {
-            filterStatus.setOnClickListener(registerActionHandler);
-        }
-
-        // QR Code
-        View qrCode = view.findViewById(R.id.scan_qr_code);
-        if (qrCode != null) {
-            qrCode.setOnClickListener(registerActionHandler);
+        View filterText = view.findViewById(R.id.filter_text_view);
+        if (filterText != null) {
+            filterText.setOnClickListener(registerActionHandler);
         }
 
         // Due Button
@@ -67,7 +50,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
         }
-
     }
 
     @Override
@@ -79,25 +61,17 @@ public class HomeRegisterFragment extends BaseRegisterFragment {
         HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 
         switch (view.getId()) {
-            case R.id.scan_qr_code:
-                homeRegisterActivity.startQrCodeScanner();
-                break;
-            case R.id.search_button:
-                homeRegisterActivity.switchToFragment(1);
-                break;
-            case R.id.filter_status:
+            case R.id.filter_text_view:
                 homeRegisterActivity.switchToFragment(2);
                 break;
             default:
                 break;
         }
     }
-    
+
     @SuppressLint("NewApi")
     @Override
     public void showNotFoundPopup(String whoAncId) {
-        NoMatchDialogFragment.launchDialog((BaseRegisterActivity)Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
+        NoMatchDialogFragment.launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
-    
-    
 }

@@ -3,7 +3,7 @@
     android:id="@+id/register_columns"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="2"
+    android:layout_weight="1"
     android:background="@color/white"
     android:orientation="horizontal">
 
@@ -18,7 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_margin="15dp">
+            android:layout_marginBottom="7dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="7dp">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/patient_name"
@@ -36,7 +41,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:orientation="horizontal">
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
+                android:orientation="horizontal"
+                android:paddingBottom="0dp"
+                android:paddingTop="0dp">
 
                 <org.smartregister.view.customcontrols.CustomFontTextView
                     android:id="@+id/age"
@@ -77,8 +86,8 @@
             android:id="@+id/risk_layout"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/register_list_item_height"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
             android:gravity="bottom|center_horizontal"
             android:orientation="vertical">
 
@@ -102,27 +111,30 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="7dp">
 
         <Button
             android:id="@+id/due_button"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:background="@color/vaccine_blue_bg_st"
+            android:background="@drawable/due_contact"
+            android:elevation="8dp"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="Contact 2"
+            android:stateListAnimator="@drawable/button"
+            android:text="@string/contact"
             android:textAllCaps="false"
-            android:textColor="@color/status_bar_text_almost_white"
-            android:textSize="17sp"
-            android:typeface="normal"/>
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/vaccine_blue_bg_st"
+            android:textSize="15sp"
+            android:typeface="normal" />
 
         <Button
             android:id="@+id/sync"
@@ -131,15 +143,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
+            android:elevation="8dp"
             android:padding="@dimen/advanced_search_button_padding"
+            android:stateListAnimator="@drawable/button"
             android:text="@string/sync"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/button_navy_blue"
             android:textSize="@dimen/advanced_search_text_size"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
-
-
 </RelativeLayout>

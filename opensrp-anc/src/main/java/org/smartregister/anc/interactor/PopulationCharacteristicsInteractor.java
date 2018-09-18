@@ -1,12 +1,13 @@
 package org.smartregister.anc.interactor;
 
+import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.task.FetchPopulationCharacteristicsTask;
 
 /**
  * Created by ndegwamartin on 28/08/2018.
  */
-public class PopulationCharacteristicsInteractor implements PopulationCharacteristicsContract.Interactor {
+public class PopulationCharacteristicsInteractor implements BaseCharacteristicsContract.Interactor {
     private PopulationCharacteristicsContract.Presenter presenter;
 
     public PopulationCharacteristicsInteractor(PopulationCharacteristicsContract.Presenter presenter) {
@@ -22,7 +23,7 @@ public class PopulationCharacteristicsInteractor implements PopulationCharacteri
     }
 
     @Override
-    public void fetchPopulationCharacteristics() {
+    public void fetchCharacteristics() {
         new FetchPopulationCharacteristicsTask(presenter).execute();
     }
 

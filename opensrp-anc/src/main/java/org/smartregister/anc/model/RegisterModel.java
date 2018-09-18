@@ -12,17 +12,14 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
 
 import java.util.List;
 import java.util.Map;
 
 public class RegisterModel implements RegisterContract.Model {
-
-    private AllSharedPreferences allSharedPreferences;
-
     private FormUtils formUtils;
+    private Utils utils = new Utils();
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
@@ -51,7 +48,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public Pair<Client, Event> processRegistration(String jsonString) {
-        return JsonFormUtils.processRegistrationForm(getAllSharedPreferences(), jsonString);
+        return JsonFormUtils.processRegistrationForm(utils.getAllSharedPreferences(), jsonString);
     }
 
     @Override
@@ -78,16 +75,9 @@ public class RegisterModel implements RegisterContract.Model {
         this.formUtils = formUtils;
     }
 
-    public AllSharedPreferences getAllSharedPreferences() {
-        if (allSharedPreferences == null) {
-            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        }
-        return allSharedPreferences;
+
+    @Override
+    public String getInitials() {
+        return utils.getUserInitials();
     }
-
-    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
-        this.allSharedPreferences = allSharedPreferences;
-    }
-
-
 }

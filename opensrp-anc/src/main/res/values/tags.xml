@@ -3,4 +3,5 @@
     <item name="Settings" type="id" />
     <item name="CLIENT_ID" type="id" />
     <item name="CHARACTERISTIC_DESC" type="id" />
+    <item name="NEXT_STATE" type="id" />
 </resources>

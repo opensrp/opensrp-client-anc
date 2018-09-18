@@ -1,7 +1,6 @@
 package org.smartregister.anc.repository;
 
 import junit.framework.Assert;
-
 import org.junit.Test;
 import org.smartregister.anc.activity.BaseUnitTest;
 

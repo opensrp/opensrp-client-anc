@@ -18,6 +18,8 @@
             android:background="@color/customAppThemeBlue"
             app:contentInsetLeft="10dp"
             app:contentInsetStart="10dp"
+            app:contentInsetRight="10dp"
+            app:contentInsetEnd="10dp"
             app:popupTheme="@style/AncAppTheme.PopupOverlay">
 
             <include layout="@layout/top_register_bar" />
