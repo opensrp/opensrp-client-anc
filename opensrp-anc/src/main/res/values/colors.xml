@@ -3,6 +3,7 @@
     <color name="primary">#218CC5</color>
     <color name="primaryDark">#0d384e</color>
     <color name="accent">#3797ca</color>
+    <color name="primaryAccent">#3797ca</color>
     <color name="primaryBackground">#a6d1e7</color>
 
     <color name="customAppThemeBlue">#218CC5</color>

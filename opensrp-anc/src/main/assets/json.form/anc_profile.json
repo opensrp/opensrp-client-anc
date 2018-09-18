@@ -62,7 +62,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Highest Level of School",
-        "label_text_size": "20sp",
+        "label_text_size": "18sp",
         "options": [
           {
             "key": "none",
@@ -100,10 +100,7 @@
             "openmrs_entity_id": "160292"
           }
         ],
-        "value": "none",
-        "v_required": {
-          "value": true
-        }
+        "value": "none"
       },
       {
         "key": "marital_status",
@@ -112,7 +109,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Marital status",
-        "label_text_size": "20sp",
+        "label_text_size": "18sp",
         "options": [
           {
             "key": "married",
@@ -143,10 +140,7 @@
             "openmrs_entity_id": "1059"
           }
         ],
-        "value": "single",
-        "v_required": {
-          "value": true
-        }
+        "value": "single"
       },
       {
         "key": "occupation",
@@ -157,6 +151,7 @@
         "type": "check_box",
         "label": "Occupation",
         "hint": "Occupation",
+        "label_text_size": "18sp",
         "options": [
           {
             "key": "Student",
@@ -209,6 +204,18 @@
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please specify your occupation"
         }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "HIV risk counseling",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:- STI screening and treatment (syndromic and syphilis)- Condom promotion- Risk reduction counselling- PrEP with emphasis on adherence- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_title": "HIV risk counseling",
+        "toaster_type": "problem",
+        "text_color": "#CF0800"
       }
     ]
   },
@@ -223,7 +230,9 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "LMP Known?",
-        "label_text_size": "20sp",
+        "label_text_size": "18sp",
+        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, check unknown and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
+        "label_info_title": "LMP Known?",
         "options": [
           {
             "key": "yes",
@@ -252,7 +261,9 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Ultrasound Done?",
-        "label_text_size": "20sp",
+        "label_text_size": "18sp",
+        "label_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
+        "label_info_title": "Ultrasound Done?",
         "options": [
           {
             "key": "yesy",
@@ -272,6 +283,110 @@
         "value": "none",
         "v_required": {
           "value": true
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Ultrasound recommended",
+        "text_color": "#1199F9",
+        "toaster_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
+        "toaster_info_title": "Ultrasound recommended",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "toaster_notes",
+        "type": "toaster_notes",
+        "text": "Refer for ultrasound in facility with U/S equipment",
+        "text_color": "#1199F9",
+        "toaster_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
+        "toaster_info_title": "Refer for ultrasound in facility with U/S equipment",
+        "toaster_type": "info"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20sp"
+      },
+      {
+        "key": "ultrasound_gest_age_wks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "ultrasound_gest_age_wks",
+        "type": "edit_text",
+        "hint": "GA from ultrasound - weeks *",
+        "v_required": {
+          "value": true,
+          "err": "Please give the GA from ultrasound - weeks"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a Valid GA from ultrasound - weeks value"
+        },
+        "v_min": {
+          "value": "4",
+          "err": "GA from ultrasound - weeks must be equal or greater than 4"
+        },
+        "v_max": {
+          "value": "43",
+          "err": "GA from ultrasound - weeks must be equal or less than 43"
+        }
+      },
+      {
+        "key": "ultrasound_gest_age_days",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "ultrasound_gest_age_days",
+        "type": "edit_text",
+        "hint": "GA from ultrasound - days *",
+        "v_required": {
+          "value": true,
+          "err": "Please give the GA from ultrasound - days"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a Valid GA from ultrasound - days value"
+        },
+        "v_min": {
+          "value": "1",
+          "err": "GA from ultrasound - weeks must be equal or less than 1"
+        },
+        "v_max": {
+          "value": "6",
+          "err": "GA from ultrasound - weeks must be equal or greater than 6"
+        }
+      },
+      {
+        "key": "sfh_gest_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "sfh_gest_age",
+        "type": "edit_text",
+        "hint": "GA from SFH or abdominal palpation - weeks *",
+        "v_required": {
+          "value": true,
+          "err": "Please give the GA from SFH or abdominal palpation - weeks"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a Valid GA from SFH or abdominal palpation - weeks value"
+        },
+        "v_min": {
+          "value": "4",
+          "err": "GA from SFH or abdominal palpation - weeks must be equal or less than 4"
+        },
+        "v_max": {
+          "value": "43",
+          "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
         }
       }
     ]
