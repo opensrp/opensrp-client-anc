@@ -25,6 +25,7 @@ import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
+import java.text.MessageFormat;
 import java.util.Set;
 
 import static org.smartregister.util.Utils.getName;
@@ -34,18 +35,24 @@ import static org.smartregister.util.Utils.getName;
  */
 
 public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.RegisterViewHolder> {
+
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
+
     private View.OnClickListener onClickListener;
+    private View.OnClickListener paginationClickListener;
 
     private Context context;
     private CommonRepository commonRepository;
 
-    public RegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener) {
+    public RegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
+
         this.onClickListener = onClickListener;
+        this.paginationClickListener = paginationClickListener;
+
         this.context = context;
         this.commonRepository = commonRepository;
     }
@@ -82,6 +89,20 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         mapping.put(NAME, R.id.dose_column);
         ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
         */
+    }
+
+    @Override
+    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
+        FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
+        footerViewHolder.pageInfoView.setText(
+                MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount,
+                        totalPageCount));
+
+        footerViewHolder.nextPageView.setVisibility(hasNext ? View.VISIBLE : View.INVISIBLE);
+        footerViewHolder.previousPageView.setVisibility(hasPrevious ? View.VISIBLE : View.INVISIBLE);
+
+        footerViewHolder.nextPageView.setOnClickListener(paginationClickListener);
+        footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
     }
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
@@ -211,8 +232,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
-        View view;
-        view = inflater.inflate(R.layout.register_home_list_row, parent, false);
+        View view = inflater.inflate(R.layout.register_home_list_row, parent, false);
 
         /*
         ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
@@ -228,6 +248,18 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         return new RegisterViewHolder(view);
     }
+
+    @Override
+    public RecyclerView.ViewHolder createFooterHolder(ViewGroup parent) {
+        View view = inflater.inflate(R.layout.smart_register_pagination, parent, false);
+        return new FooterViewHolder(view);
+    }
+
+    @Override
+    public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
+        return FooterViewHolder.class.isInstance(viewHolder);
+    }
+
 
     public static void fillValue(TextView v, String value) {
         if (v != null)
@@ -261,6 +293,20 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        public TextView pageInfoView;
+        public Button nextPageView;
+        public Button previousPageView;
+
+        public FooterViewHolder(View view) {
+            super(view);
+
+            nextPageView = view.findViewById(org.smartregister.R.id.btn_next_page);
+            previousPageView = view.findViewById(org.smartregister.R.id.btn_previous_page);
+            pageInfoView = view.findViewById(org.smartregister.R.id.txt_page_info);
         }
     }
 

@@ -73,15 +73,13 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
         getView().countExecute();
         getView().filterandSortInInitializeQueries();
-
-        getView().refresh();
     }
 
     @Override
     public void startSync() {
         //ServiceTools.startSyncService(getActivity());
     }
-    
+
     @Override
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         String filterText = model.getFilterText(filterList, getView().getString(R.string.filter));
@@ -100,19 +98,19 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     @Override
     public void onResultsFound(Response<String> response, String ancId) {
-    	JSONArray jsonArray = model.getJsonArray(response);
-    	
-    	if (jsonArray == null || jsonArray.length() <= 0) {
-    		getView().showNotFoundPopup(ancId);
-    	} else {
-    		matrixCursor = model.createMatrixCursor(response);
-			
-    		getView().recalculatePagination(matrixCursor);
-			
-    		getView().filterandSortInInitializeQueries();
-    		getView().refresh();
-    		getView().hideProgressView();
-    	}
+        JSONArray jsonArray = model.getJsonArray(response);
+
+        if (jsonArray == null || jsonArray.length() <= 0) {
+            getView().showNotFoundPopup(ancId);
+        } else {
+            matrixCursor = model.createMatrixCursor(response);
+
+            getView().recalculatePagination(matrixCursor);
+
+            getView().filterandSortInInitializeQueries();
+
+            getView().hideProgressView();
+        }
     }
 
     protected RegisterFragmentContract.View getView() {
