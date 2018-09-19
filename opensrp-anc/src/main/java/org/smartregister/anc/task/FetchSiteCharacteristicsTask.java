@@ -2,12 +2,11 @@ package org.smartregister.anc.task;
 
 import android.os.AsyncTask;
 
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.domain.Characteristic;
 import org.smartregister.anc.helper.CharacteristicsHelper;
-import org.smartregister.repository.AllSettings;
+import org.smartregister.anc.util.Constants;
 
 import java.util.List;
 
@@ -24,14 +23,8 @@ public class FetchSiteCharacteristicsTask extends AsyncTask<Void, Void, List<Cha
 
     @Override
     protected List<Characteristic> doInBackground(final Void... params) {
-        CharacteristicsHelper helper = new CharacteristicsHelper("site_characteristics");
-        List<Characteristic> characteristics = helper.getPopulationCharacteristics();
-
-        AllSettings settings = AncApplication.getInstance().getContext().allSettings();
-
-        for (Characteristic characteristic : characteristics) {
-            characteristic.setValue("1".equals(settings.get(characteristic.getKey())));
-        }
+        CharacteristicsHelper helper = new CharacteristicsHelper(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+        List<Characteristic> characteristics = helper.getCharacteristics();
 
         return characteristics;
     }

@@ -7,9 +7,10 @@ import com.google.gson.reflect.TypeToken;
 
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Characteristic;
-import org.smartregister.util.AssetHandler;
+import org.smartregister.domain.Setting;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,28 +20,38 @@ public class CharacteristicsHelper {
 
     private static final String TAG = CharacteristicsHelper.class.getCanonicalName();
 
-    public List<Characteristic> populationCharacteristics;
+    public static List<Characteristic> characteristics;
 
     private static final Type CHARACTERISTIC_TYPE = new TypeToken<List<Characteristic>>() {
     }.getType();
 
-    public List<Characteristic> getPopulationCharacteristics() {
-        return populationCharacteristics;
+    public CharacteristicsHelper(String key) {
+
+
+        characteristics = CharacteristicsHelper.fetchCharacteristicsByTypeKey(key);
+
+
     }
 
+    public List<Characteristic> getCharacteristics() {
+        return characteristics;
+    }
 
-    public CharacteristicsHelper(String fileName) {
-
+    public static List<Characteristic> fetchCharacteristicsByTypeKey(String typeKey) {
         try {
-            Gson gson = new Gson();
-            String jsonstring = AssetHandler.readFileFromAssetsFolder("json.characteristics/"+fileName+".json", AncApplication.getInstance().getApplicationContext());
 
-            populationCharacteristics = gson.fromJson(jsonstring, CHARACTERISTIC_TYPE); // contains the whole reviews list
+            Gson gson = new Gson();
+
+            Setting characteristic = AncApplication.getInstance().getContext().allSettings().getSetting(typeKey);
+
+            String jsonstring = characteristic.getValue();
+
+            return gson.fromJson(jsonstring, CHARACTERISTIC_TYPE); // contains the whole reviews list
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
+            return new ArrayList<>();
         }
-
     }
 
 }

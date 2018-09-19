@@ -16,11 +16,11 @@
     <application
         android:name=".application.AncApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_config"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AncAppTheme"
-        android:fullBackupContent="@xml/backup_config">
+        android:theme="@style/AncAppTheme">
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -115,7 +115,8 @@
         <service android:name=".service.intent.SyncIntentService" />
         <service android:name=".service.intent.ValidateIntentService" />
         <service android:name=".service.intent.ExtendedSyncIntentService" />
-
+        <service android:name=".service.intent.SettingsSyncIntentService" />
+        
     </application>
 
 </manifest>

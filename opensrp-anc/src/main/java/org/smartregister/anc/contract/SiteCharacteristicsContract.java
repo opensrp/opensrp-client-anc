@@ -1,5 +1,7 @@
 package org.smartregister.anc.contract;
 
+import org.json.JSONException;
+
 import java.util.Map;
 
 /**
@@ -41,7 +43,7 @@ public interface SiteCharacteristicsContract {
 
     interface Interactor {
 
-        void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap);
+        void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap) throws JSONException;
 
     }
 }

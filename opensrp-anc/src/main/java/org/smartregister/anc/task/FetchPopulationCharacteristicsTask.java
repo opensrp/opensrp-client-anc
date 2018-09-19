@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.domain.Characteristic;
 import org.smartregister.anc.helper.CharacteristicsHelper;
+import org.smartregister.anc.util.Constants;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class FetchPopulationCharacteristicsTask extends AsyncTask<Void, Void, Li
 
     @Override
     protected List<Characteristic> doInBackground(final Void... params) {
-        CharacteristicsHelper helper = new CharacteristicsHelper("population_characteristics");
-        return helper.getPopulationCharacteristics();
+        CharacteristicsHelper helper = new CharacteristicsHelper(Constants.PREF_KEY.POPULATION_CHARACTERISTICS);
+        return helper.getCharacteristics();
     }
 
     @Override

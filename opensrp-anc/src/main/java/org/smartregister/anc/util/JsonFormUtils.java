@@ -701,9 +701,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                    jsonObject.put(JsonFormUtils.VALUE, characteristics.get(jsonObject.getString(JsonFormUtils.KEY)));
+                    if (characteristics.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, "true".equals(characteristics.get(jsonObject.getString(JsonFormUtils.KEY))) ? "1" : "0");
+                    }
 
                 }
 

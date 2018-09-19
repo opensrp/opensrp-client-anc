@@ -72,6 +72,12 @@ public abstract class Constants {
 
     }
 
+    public static class PREF_KEY {
+        public static final String SITE_CHARACTERISTICS = "site_characteristics";
+        public static final String POPULATION_CHARACTERISTICS = "population_characteristics";
+
+    }
+
     public static final class ServiceType {
         public static final int AUTO_SYNC = 1;
         public static final int PULL_UNIQUE_IDS = 4;
@@ -88,6 +94,8 @@ public abstract class Constants {
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String TYPE = "type";
+        public static final String LABEL = "label";
+        public static final String DESCRIPTION = "description";
 
     }
 
