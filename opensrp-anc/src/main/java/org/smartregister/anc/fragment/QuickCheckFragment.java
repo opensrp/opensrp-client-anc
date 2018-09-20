@@ -66,6 +66,16 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         initializePresenter();
     }
 
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity(), getTheme()) {
+            @Override
+            public void onBackPressed() {
+                confirmClose();
+            }
+        };
+    }
+
     public static void launchDialog(Activity activity,
                                     String dialogTag) {
         QuickCheckFragment dialogFragment = new QuickCheckFragment();
@@ -168,6 +178,22 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         complaintLayout = view.findViewById(R.id.complaint_layout);
 
         specifyEditText = view.findViewById(R.id.specify);
+        specifyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utils.hideKeyboard(getActivity(), v);
+                } else {
+                    Field otherSpecify = complaintAdapter.getSpecifyField();
+                    if (otherSpecify != null) {
+                        presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
+                        complaintAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+
         specifyEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -193,14 +219,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void displayComplaintLayout() {
-        if (complaintLayout != null) {
+        if (complaintLayout != null && complaintLayout.getVisibility() != View.VISIBLE) {
             complaintLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void hideComplaintLayout() {
-        if (complaintLayout != null) {
+        if (complaintLayout != null && complaintLayout.getVisibility() != View.GONE) {
             complaintLayout.setVisibility(View.GONE);
         }
     }
@@ -221,45 +247,43 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void displayDangerSignLayout() {
-        if (dangerSignLayout != null) {
+        if (dangerSignLayout != null && dangerSignLayout.getVisibility() != View.VISIBLE) {
             dangerSignLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    public void showSpecifyEditText() {
-        if (specifyEditText != null) {
-            specifyEditText.setVisibility(View.VISIBLE);
-            specifyEditText.requestFocus();
-        }
-    }
-
-    @Override
-    public void hideSpecifyEditText() {
-        if (specifyEditText != null) {
-            specifyEditText.setVisibility(View.GONE);
-            specifyEditText.setText("");
-        }
-    }
-
-    @Override
     public void displayNavigationLayout() {
-        if (navigationLayout != null) {
+        if (navigationLayout != null && navigationLayout.getVisibility() != View.VISIBLE) {
             navigationLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void displayReferButton() {
-        if (refer != null) {
+        if (refer != null && refer.getVisibility() != View.VISIBLE) {
             refer.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void hideReferButton() {
-        if (refer != null) {
+        if (refer != null && refer.getVisibility() != View.GONE) {
             refer.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void enableSpecifyEditText() {
+        if (specifyEditText != null) {
+            specifyEditText.requestFocus();
+        }
+    }
+
+    @Override
+    public void disableSpecifyEditText() {
+        if (specifyEditText != null) {
+            specifyEditText.clearFocus();
         }
     }
 
@@ -328,6 +352,27 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         return specifyEditText != null ? specifyEditText.getText().toString() : null;
     }
 
+    private void confirmClose() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AncAlertDialog)
+                .setTitle(com.vijay.jsonwizard.R.string.confirm_form_close)
+                .setMessage(com.vijay.jsonwizard.R.string.confirm_form_close_explanation)
+                .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dismiss();
+                    }
+                })
+                .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+
+        dialog.show();
+
+    }
 
     ////////////////////////////////////////////////////////////////
     // Inner classes
@@ -339,7 +384,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
             switch (v.getId()) {
                 case R.id.cancel_quick_check:
-                    dismiss();
+                    confirmClose();
                     break;
                 case R.id.proceed:
                     presenter.proceedToNormalContact(getSpecifyText());
@@ -507,6 +552,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         @Override
         public int getItemCount() {
             return list.size();
+        }
+
+        public Field getSpecifyField() {
+            return presenter.getField(list, getString(R.string.complaint_other_specify));
         }
 
     }

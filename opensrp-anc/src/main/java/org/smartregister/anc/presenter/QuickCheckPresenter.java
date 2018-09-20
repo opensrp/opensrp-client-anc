@@ -9,6 +9,7 @@ import org.smartregister.anc.util.ConfigHelper;
 import org.smartregister.configurableviews.model.Field;
 
 import java.lang.ref.WeakReference;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,7 +51,6 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
         getView().displayDangerSignLayout();
 
-        getView().displayNavigationLayout();
     }
 
     @Override
@@ -91,16 +91,17 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
                     getView().displayReferButton();
                 }
-            } else {
-                if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
-                    getView().showSpecifyEditText();
+
+                getView().displayNavigationLayout();
+            } else { if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
+                    getView().enableSpecifyEditText();
                 }
 
                 currentList.add(field);
             }
         } else {
             if (!isDangerSign && field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
-                getView().hideSpecifyEditText();
+                getView().disableSpecifyEditText();
             }
 
             currentList.remove(field);
@@ -148,17 +149,18 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
     }
 
-    private Set<Field> currentComplaintsOrDangerSigns(boolean isDangerSign) {
-        return isDangerSign ? this.selectedDangerSigns : this.specificComplaints;
-    }
-
-    private Field getField(Set<Field> set, String displayName) {
+    @Override
+    public Field getField(Collection<Field> set, String displayName) {
         for (Field field : set) {
             if (field.getDisplayName().equals(displayName)) {
                 return field;
             }
         }
         return null;
+    }
+
+    private Set<Field> currentComplaintsOrDangerSigns(boolean isDangerSign) {
+        return isDangerSign ? this.selectedDangerSigns : this.specificComplaints;
     }
 
     private QuickCheck populate(String specify, Boolean proceed, Boolean treat) {
