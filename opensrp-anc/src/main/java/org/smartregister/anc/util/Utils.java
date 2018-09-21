@@ -136,6 +136,8 @@ public class Utils {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -age);
         cal.set(Calendar.DAY_OF_MONTH, 1);
+
+
         cal.set(Calendar.MONTH, 0);
 
         return DatePickerFactory.DATE_FORMAT.format(cal.getTime());

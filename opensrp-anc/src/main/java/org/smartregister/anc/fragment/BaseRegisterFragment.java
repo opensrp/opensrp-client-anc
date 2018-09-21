@@ -33,6 +33,7 @@ import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.job.SyncServiceJob;
+import org.smartregister.anc.job.SyncSettingsServiceJob;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
@@ -228,6 +229,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 @Override
                 public void onClick(View view) {
                     SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+                    SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
                 }
             });
         }

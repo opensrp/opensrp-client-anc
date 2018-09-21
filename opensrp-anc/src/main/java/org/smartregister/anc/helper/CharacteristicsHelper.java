@@ -44,7 +44,7 @@ public class CharacteristicsHelper {
 
             Setting characteristic = AncApplication.getInstance().getContext().allSettings().getSetting(typeKey);
 
-            String jsonstring = characteristic.getValue();
+            String jsonstring = characteristic.getValue().toString();
 
             return gson.fromJson(jsonstring, CHARACTERISTIC_TYPE); // contains the whole reviews list
 

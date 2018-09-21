@@ -7,6 +7,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.domain.Setting;
+import org.smartregister.domain.SyncStatus;
 import org.smartregister.repository.AllSettings;
 
 import java.util.Map;
@@ -39,6 +40,7 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
 
         characteristic.setValue(localSettings.toString());
         characteristic.setKey(Constants.PREF_KEY.SITE_CHARACTERISTICS); //We know only site characteristics are being saved at this time
+        characteristic.setSyncStatus(SyncStatus.PENDING.name());
 
         getAllSettingsRepo().putSetting(characteristic);
 

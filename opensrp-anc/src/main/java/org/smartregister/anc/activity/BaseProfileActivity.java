@@ -60,8 +60,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         collapsingToolbarLayout = appBarLayout.findViewById(R.id.collapsing_toolbar_layout);
 
         appBarLayout.addOnOffsetChangedListener(this);
-
-        SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
     }
 
     @Override
