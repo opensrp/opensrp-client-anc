@@ -112,6 +112,7 @@
     <string name="anc_clients">ANC clients</string>
     <string name="counseling_resources">Counseling resources</string>
     <string name="site_characteristics">Site Characteristics</string>
+    <string name="contact_summary">Contact Summary</string>
     <string name="sync_data">Sync data</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -268,5 +269,7 @@
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="submit">Submit</string>
+    <string name="upcoming_contact_dates">Upcoming contact dates:</string>
+    <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
 
 </resources>
