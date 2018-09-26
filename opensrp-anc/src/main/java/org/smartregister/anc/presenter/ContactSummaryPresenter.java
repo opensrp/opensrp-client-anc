@@ -1,11 +1,11 @@
 package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.contract.ContactSummaryContract;
-import org.smartregister.anc.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
     private WeakReference<ContactSummaryContract.View> contactConfirmationView;
     private ContactSummaryContract.Interactor contactSummaryInteractor;
     private ContactSummaryModel contactSummaryModel;
-    private Map<String, String> womanDetails;
+    private Map<String, String> womanDetails = new HashMap<>();
     private List<ContactSummaryModel> upcomingContacts =  new ArrayList<>();
 
 
@@ -24,13 +24,21 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
         this.contactSummaryModel = new ContactSummaryModel();
     }
 
-
     private void setWomansName() {
         getView().displayWomansName(contactSummaryModel.extractPatientName(this.womanDetails));
     }
     private void addUpcomingContactsToView(){
         getView().displayUpcomingContactDates(this.upcomingContacts);
     }
+
+    public Map<String, String> getWomanDetails() {
+        return womanDetails;
+    }
+
+    public List<ContactSummaryModel> getUpcomingContacts() {
+        return upcomingContacts;
+    }
+
     public ContactSummaryContract.View getView() {
         return contactConfirmationView.get();
     }
@@ -61,7 +69,7 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
 
     @Override
     public void onUpcomingContactsFetched(List<ContactSummaryModel> upcomingContacts) {
-        if(upcomingContacts.isEmpty()){
+        if(upcomingContacts == null || upcomingContacts.isEmpty()){
             return;
         }
         this.upcomingContacts.addAll(upcomingContacts);
