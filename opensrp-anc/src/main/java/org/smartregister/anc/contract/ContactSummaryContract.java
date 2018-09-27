@@ -3,6 +3,7 @@ package org.smartregister.anc.contract;
 import org.smartregister.anc.model.ContactSummaryModel;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ContactSummaryContract {
     interface View {
@@ -10,12 +11,14 @@ public interface ContactSummaryContract {
 
         void displayWomansName(String fullName);
         void displayUpcomingContactDates(List<ContactSummaryModel> models);
+        void setProfileImage(String baseEntityId);
     }
 
     interface Presenter {
         void loadWoman(String entityId);
         void loadUpcomingContacts(String entityId);
         void attachView(ContactSummaryContract.View view);
+        void showWomanProfileImage(String entityId);
     }
 
     interface Interactor extends BaseContactContract.Interactor{

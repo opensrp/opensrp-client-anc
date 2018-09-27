@@ -36,6 +36,7 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
 
     @Mock
     private ContactSummaryContract.View view;
+
     private ContactSummaryPresenter contactSummaryPresenter;
 
     @Before
@@ -46,6 +47,21 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
         contactSummaryPresenter = (ContactSummaryPresenter)presenter;
     }
 
+    @Test
+    public void testShowProfileImageWithNormalInput() {
+        presenter.showWomanProfileImage(baseEntityId);
+        Mockito.verify(view).setProfileImage(baseEntityId);
+    }
+    @Test
+    public void testShowProfileImageWithNullInput() {
+        presenter.showWomanProfileImage(null);
+        Mockito.verify(view, Mockito.never()).setProfileImage(Mockito.eq(baseEntityId));
+    }
+    @Test
+    public void testShowProfileImageWithEmptyInput() {
+        presenter.showWomanProfileImage("");
+        Mockito.verify(view,Mockito.never()).setProfileImage(Mockito.anyString());
+    }
     @Test
     public void testLoadWomanWithNormalInput() {
         presenter.loadWoman(baseEntityId);

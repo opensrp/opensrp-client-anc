@@ -8,15 +8,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactSummaryAdapter;
 import org.smartregister.anc.contract.ContactSummaryContract;
+import org.smartregister.anc.event.ClientDetailsFetchedEvent;
+import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.presenter.ContactSummaryPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
+import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.List;
 
@@ -24,34 +32,45 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
 
     private Button goToClientProfileButton;
     private TextView womanNameTextView;
-    private ContactSummaryContract.Presenter contactConfirmationPresenter;
+    private ContactSummaryContract.Presenter contactSummaryPresenter;
     private RecyclerView contactDatesRecyclerView;
     private ContactSummaryAdapter contactSummaryAdapter;
+    private ImageView womanProfileImage;
+    private ImageRenderHelper imageRenderHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_summary);
         setupView();
-        contactConfirmationPresenter = new ContactSummaryPresenter(new ContactSummaryInteractor());
-        contactConfirmationPresenter.attachView(this);
-        contactConfirmationPresenter.loadWoman(getEntityId());
-        contactConfirmationPresenter.loadUpcomingContacts(getEntityId());
+        contactSummaryPresenter = new ContactSummaryPresenter(new ContactSummaryInteractor());
+        contactSummaryPresenter.attachView(this);
+        imageRenderHelper = new ImageRenderHelper(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        contactSummaryPresenter.loadWoman(getEntityId());
+        contactSummaryPresenter.loadUpcomingContacts(getEntityId());
+        contactSummaryPresenter.showWomanProfileImage(getEntityId());
     }
 
     private void setupView() {
         goToClientProfileButton = findViewById(R.id.button_go_to_client_profile);
         goToClientProfileButton.setOnClickListener(this);
         womanNameTextView = findViewById(R.id.contact_summary_woman_name);
+        womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
         contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
         contactDatesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactDatesRecyclerView.setAdapter(contactSummaryAdapter);
+
     }
 
-    private String getEntityId() {
+    public String getEntityId() {
         String entityId = getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
         if (entityId != null) {
             return entityId;
@@ -79,10 +98,16 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
     }
 
     @Override
+    public void setProfileImage(String baseEntityId) {
+        imageRenderHelper.refreshProfileImage(baseEntityId, womanProfileImage);
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_go_to_client_profile:
                 goToClientProfile();
         }
     }
+
 }

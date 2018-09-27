@@ -16,7 +16,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.ContactSummaryContract;
 import org.smartregister.anc.model.ContactSummaryModel;
-import org.smartregister.anc.model.ContactSummaryModelTest;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.DBConstants;

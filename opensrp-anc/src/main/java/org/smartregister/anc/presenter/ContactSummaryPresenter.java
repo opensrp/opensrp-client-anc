@@ -2,6 +2,8 @@ package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.contract.ContactSummaryContract;
 import org.smartregister.anc.model.ContactSummaryModel;
+import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -56,6 +58,14 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
     @Override
     public void attachView(ContactSummaryContract.View view) {
         this.contactConfirmationView = new WeakReference<>(view);
+    }
+
+    @Override
+    public void showWomanProfileImage(String clientEntityId) {
+        if (clientEntityId == null || clientEntityId.isEmpty()){
+            return;
+        }
+        getView().setProfileImage(clientEntityId);
     }
 
     @Override
