@@ -388,44 +388,272 @@
           "value": "43",
           "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
         }
+      },
+      {
+        "key": "select_gest_age_edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Select preferred gestational age:",
+        "label_text_size": "18sp",
+        "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP.If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominalpalpation, use your best judgment to select GA.",
+        "options": [
+          {
+            "key": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Yes",
+            "openmrs_entity_id": "Yes",
+            "text": "Using LMP"
+          },
+          {
+            "key": "",
+            "text": "Using ultrasound",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "",
+            "text": "Using SFH or abdominal palpation",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true
+        }
       }
     ]
   },
   "step3": {
-    "title": "Demographic info 3",
+    "title": "Obstetric History",
     "fields": [
       {
-        "key": "first_name",
+        "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "Number of pregnancies",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
+          "value": true
         },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+        "label_info_text": "Total number of times the woman has been pregnant (including this pregnancy)."
+      },
+      {
+        "key": "gravida",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Gravida",
+        "openmrs_entity_id": "5624",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "1",
+        "max_value": "15",
+        "text_size": "14sp",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "No. of pregnancies lost/ended",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "label_info_text": "Total number of miscarriages and abortions."
+      },
+      {
+        "key": "miscarriages_abortions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Number of abortions/miscarriages",
+        "openmrs_entity_id": "1823",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "0",
+        "max_value": "15",
+        "text_size": "14sp",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "No. of live births",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "label_info_text": "Total number of live births."
+      },
+      {
+        "key": "live_births",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Number of live deliveries",
+        "openmrs_entity_id": "160601 ",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "0",
+        "max_value": "15",
+        "text_size": "14sp",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "No. of still births",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "label_info_text": "Total number of still births."
+      },
+      {
+        "key": "stillbirths",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Number of prior stillbirths ",
+        "openmrs_entity_id": "160077 ",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "0",
+        "max_value": "15",
+        "text_size": "14sp",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "15dp"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "No. of C-sections",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "label_info_text": "Total number of C-sections.."
+      },
+      {
+        "key": "c_sections",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Number of live deliveries",
+        "openmrs_entity_id": "160601 ",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "0",
+        "max_value": "15",
+        "text_size": "14sp",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "18sp"
+      },
+      {
+        "key": "occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Any past pregnancy problems?",
+        "hint": "Any past pregnancy problems?",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "key": "Student",
+            "text": "Student",
+            "value": false
+          },
+          {
+            "key": "Unemployed",
+            "text": "Unemployed",
+            "value": false
+          },
+          {
+            "key": "Formal employment",
+            "text": "Formal employment",
+            "value": false
+          },
+          {
+            "key": "Informal employment (sex worker)",
+            "text": "Informal employment (sex worker)",
+            "value": false
+          },
+          {
+            "key": "Informal employment (other)",
+            "text": "Informal employment (other)",
+            "value": false
+          },
+          {
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please select at least one occupation"
         }
       }
     ]
