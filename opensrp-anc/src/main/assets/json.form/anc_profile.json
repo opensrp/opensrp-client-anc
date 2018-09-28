@@ -430,6 +430,7 @@
   },
   "step3": {
     "title": "Obstetric History",
+    "next": "step4",
     "fields": [
       {
         "key": "spacer",
@@ -866,8 +867,716 @@
         "text": "Gestational diabetes mellitus (GDM) risk counseling",
         "text_color": "#000000",
         "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including: \n- Reasserting dietary interventions \n- Reasserting physical activity during pregnancy",
-        "toaster_info_title": "Ultrasound recommended",
+        "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
         "toaster_type": "warning"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Medical History",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "allergies",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "Any allergies?",
+        "hint": "Any allergies?",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "None",
+            "text": "None",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Don't know",
+            "text": "Don't know",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "ALBENDAZOLE",
+            "openmrs_entity_id": "70439",
+            "key": "Albendazole",
+            "text": "Albendazole",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Aluminium hydroxide",
+            "text": "Aluminium hydroxide",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "CALCIUM",
+            "openmrs_entity_id": "72650",
+            "key": "Calcium",
+            "text": "Calcium",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Chamomile",
+            "text": "Chamomile",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "FOLIC ACID",
+            "openmrs_entity_id": "76613",
+            "key": "Folic acid",
+            "text": "Folic acid",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "GINGER EXTRACT",
+            "openmrs_entity_id": "77001",
+            "key": "Ginger",
+            "text": "Ginger",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "IRON",
+            "openmrs_entity_id": "78218",
+            "key": "Iron",
+            "text": "Iron",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "MAGNESIUM CARBONATE",
+            "openmrs_entity_id": "79229",
+            "key": "Magnesium carbonate",
+            "text": "Magnesium carbonate",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "INTERMITTENT PREVENTIVE TREATMENT IN PREGNANCY WITH SULPHADOXINE-PYRIMETHAMINE",
+            "openmrs_entity_id": "1591",
+            "key": "Malaria medication (sulfadoxine-pyrimethamine)",
+            "text": "Malaria medication (sulfadoxine-pyrimethamine)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "MEBENDAZOLE",
+            "openmrs_entity_id": "79413",
+            "key": "Mebendazole",
+            "text": "Mebendazole",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "PENICILLIN",
+            "openmrs_entity_id": "81724",
+            "key": "Penicillin",
+            "text": "Penicillin",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "TENOFOVIR DISOPROXIL FUMARATE",
+            "openmrs_entity_id": "84797",
+            "key": "PrEP tenofovir disoproxil fumarate (TDF)",
+            "text": "PrEP tenofovir disoproxil fumarate (TDF)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please select at least one allergy"
+        }
+      },
+      {
+        "key": "allergies_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Allergies *",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the allergies"
+        }
+      },
+      {
+        "key": "surgeries",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Procedure History",
+        "openmrs_entity_id": "160714",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "Any surgeries??",
+        "hint": "Any surgeries??",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "None",
+            "text": "None",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Don't know",
+            "text": "Don't know",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Dilation and curettage",
+            "openmrs_entity_id": "1637",
+            "key": "Dilation and curettage",
+            "text": "Dilation and curettage",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Uterine myomectomy",
+            "openmrs_entity_id": "161829",
+            "key": "Removal of fibroids (myomectomy)",
+            "text": "Removal of fibroids (myomectomy)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Removal of ovarian cysts",
+            "text": "Removal of ovarian cysts",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Oophorectomy",
+            "openmrs_entity_id": "161844",
+            "key": "Removal of ovary (oophorectomy)",
+            "text": "Removal of ovary (oophorectomy)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "fallopian tube excision",
+            "openmrs_entity_id": "161835",
+            "key": "Removal of the tube (salpingectomy)",
+            "text": "Removal of the tube (salpingectomy)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Partial removal of the cervix (cervical cone)",
+            "text": "Partial removal of the cervix (cervical cone)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other gynecological procedures (specify)",
+            "text": "Other gynecological procedures (specify)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other surgeries (specify)",
+            "text": "Other surgeries (specify)",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please select at least one surgeries"
+        }
+      },
+      {
+        "key": "surgeries_other_gyn_proced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other gynecological procedures *",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the other gynecological procedures"
+        }
+      },
+      {
+        "key": "surgeries_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other surgeries *",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the Other surgeries"
+        }
+      },
+      {
+        "key": "health_conditions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "PAST MEDICAL HISTORY",
+        "openmrs_entity_id": "1633",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "Any chronic or past health conditions?",
+        "hint": "Any chronic or past health conditions?",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "None",
+            "text": "None",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Don't know",
+            "text": "Don't know",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Autoimmune Disease",
+            "openmrs_entity_id": "148117",
+            "key": "Autoimmune disease",
+            "text": "Autoimmune disease",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Blood disorder (e.g. sickle cell anemia, thalassemia)",
+            "text": "Blood disorder (e.g. sickle cell anemia, thalassemia)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Cancer",
+            "text": "Cancer",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Diabetes",
+            "text": "Diabetes",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Epilepsy",
+            "openmrs_entity_id": "155",
+            "key": "Epilepsy",
+            "text": "Epilepsy",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "HIV Positive",
+            "openmrs_entity_id": "138571",
+            "key": "HIV",
+            "text": "HIV",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Hypertension",
+            "openmrs_entity_id": "117399",
+            "key": "Hypertension",
+            "text": "Hypertension",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "RENAL DISEASE",
+            "openmrs_entity_id": "6033",
+            "key": "Kidney disease",
+            "text": "Kidney disease",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please select at least one chronic or past health conditions"
+        }
+      },
+      {
+        "key": "health_conditions_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify other chronic or past health conditions *",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the chronic or past health conditions"
+        }
+      },
+      {
+        "key": "preeclampsia_risk",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia risk counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling.",
+        "toaster_info_title": "Pre-eclampsia risk counseling",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "hiv_diagnosis_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Date of HIV diagnosis ",
+        "openmrs_entity_id": "160554",
+        "type": "date_picker",
+        "hint": "HIV diagnosis date *",
+        "expanded": false,
+        "duration": {
+          "label": "HIV Diagnosis Date"
+        },
+        "max_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the HIV diagnosis date"
+        }
+      },
+      {
+        "key": "hiv_diagnosis_date_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Unknown HIV Date",
+        "hint": "Unknown HIV Date",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Unknown HIV Date",
+            "text": "Unknown HIV Date",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please select the unknown HIV Date"
+        }
+      },
+      {
+        "openmrs_entity_parent":"",
+        "openmrs_entity":"HIV Positive",
+        "openmrs_entity_id":"138571",
+        "key": "hiv_positive",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "Immunisation Status",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "tt_immun_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Number of doses of tetanus toxoid (TT) received during pregnancy",
+        "openmrs_entity_id": "160055",
+        "type": "native_radio",
+        "label": "TT immunisation status",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "key": "3 doses of TTCV in past 5 years",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "3 doses of TTCV in past 5 years"
+          },
+          {
+            "key": "1-4 doses of TTCV in the past",
+            "text": "1-4 doses of TTCV in the past",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "TTCV not received",
+            "text": "TTCV not received",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true,
+          "err": "Please select TT Immunisation status"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TT immunisation recommended",
+        "text_color": "#000000",
+        "toaster_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus..",
+        "toaster_info_title": "TT immunisation recommended",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is fully immunised against tetanus!",
+        "text_color": "#000000",
+        "toaster_type": "positive"
+      },
+      {
+        "key": "hepb_immun_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep B immunisation status",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "key": "3 doses",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "3 doses"
+          },
+          {
+            "key": "Incomplete",
+            "text": "Incomplete",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Not received",
+            "text": "Not received",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true,
+          "err": "Please select Hep B immunisation status"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hep B testing recommended",
+        "text_color": "#000000",
+        "toaster_info_text": "Hep B testing is recommended for at risk women who are not already fully immunised against Hep B.",
+        "toaster_info_title": "Hep B testing recommended",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is fully immunised against Hep B!",
+        "text_color": "#000000",
+        "toaster_type": "positive"
+      },
+      {
+        "key": "flu_immun_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Flu immunisation status",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "key": "Seasonal flu dose given",
+            "text": "Seasonal flu dose given",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Seasonal flu dose missing",
+            "text": "Seasonal flu dose missing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true,
+          "err": "Please select Hep B immunisation status"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Flu immunisation recommended",
+        "text_color": "#000000",
+        "toaster_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy. ",
+        "toaster_info_title": "Flu immunisation recommended",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is immunised against flu!",
+        "text_color": "#000000",
+        "toaster_type": "positive"
+      }
+    ]
+  },
+  "step6": {
+    "title": "Physical Exam",
+    "fields": [
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "First name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the first name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Last name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the last name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
       }
     ]
   }
