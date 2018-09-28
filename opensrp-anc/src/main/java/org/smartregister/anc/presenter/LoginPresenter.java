@@ -32,7 +32,6 @@ import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
-import java.util.Objects;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 

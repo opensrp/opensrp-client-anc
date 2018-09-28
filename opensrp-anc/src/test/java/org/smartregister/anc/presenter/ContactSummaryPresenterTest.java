@@ -11,7 +11,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.ContactSummaryContract;
 import org.smartregister.anc.model.ContactSummaryModel;
-import org.smartregister.anc.model.ContactSummaryModelTest;
 import org.smartregister.anc.util.DBConstants;
 
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContactSummaryPresenterTest extends BaseUnitTest {
@@ -40,7 +37,7 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
     private ContactSummaryPresenter contactSummaryPresenter;
 
     @Before
-    public void setup() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         presenter = new ContactSummaryPresenter(interactor);
         presenter.attachView(view);

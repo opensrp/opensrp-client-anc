@@ -3,7 +3,6 @@ package org.smartregister.anc.contract;
 import org.smartregister.anc.model.ContactSummaryModel;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ContactSummaryContract {
     interface View {

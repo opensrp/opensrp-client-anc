@@ -10,30 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactSummaryAdapter;
 import org.smartregister.anc.contract.ContactSummaryContract;
-import org.smartregister.anc.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.presenter.ContactSummaryPresenter;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.Utils;
-import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.List;
 
 public class ContactSummaryActivity extends AppCompatActivity implements ContactSummaryContract.View, View.OnClickListener {
 
-    private Button goToClientProfileButton;
     private TextView womanNameTextView;
     private ContactSummaryContract.Presenter contactSummaryPresenter;
-    private RecyclerView contactDatesRecyclerView;
     private ContactSummaryAdapter contactSummaryAdapter;
     private ImageView womanProfileImage;
     private ImageRenderHelper imageRenderHelper;
@@ -58,13 +51,13 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
     }
 
     private void setupView() {
-        goToClientProfileButton = findViewById(R.id.button_go_to_client_profile);
+        Button goToClientProfileButton = findViewById(R.id.button_go_to_client_profile);
         goToClientProfileButton.setOnClickListener(this);
         womanNameTextView = findViewById(R.id.contact_summary_woman_name);
         womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
-        contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
+        RecyclerView contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
         contactDatesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactDatesRecyclerView.setAdapter(contactSummaryAdapter);
 
@@ -107,6 +100,9 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
         switch (view.getId()) {
             case R.id.button_go_to_client_profile:
                 goToClientProfile();
+                break;
+            default:
+                Toast.makeText(this, "Action not recognized", Toast.LENGTH_SHORT).show();
         }
     }
 

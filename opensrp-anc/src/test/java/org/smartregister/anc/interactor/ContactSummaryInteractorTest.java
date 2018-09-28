@@ -45,7 +45,7 @@ public class ContactSummaryInteractorTest extends BaseUnitTest {
 
 
     @Before
-    public void setup() {
+    public void setUp() {
         summaryInteractor = new ContactSummaryInteractor(new AppExecutors(
                 Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(),
                 Executors.newSingleThreadExecutor()));

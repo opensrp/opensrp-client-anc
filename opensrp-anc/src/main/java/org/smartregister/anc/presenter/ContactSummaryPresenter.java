@@ -2,8 +2,6 @@ package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.contract.ContactSummaryContract;
 import org.smartregister.anc.model.ContactSummaryModel;
-import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.DBConstants;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

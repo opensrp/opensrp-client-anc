@@ -13,7 +13,7 @@ public class ContactSummaryModelTest {
     private ContactSummaryModel model;
 
     @Before
-    public void setup(){
+    public void setUp(){
         model = new ContactSummaryModel();
     }
 

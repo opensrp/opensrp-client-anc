@@ -49,8 +49,8 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView contactName;
-        TextView contactDate;
+        private TextView contactName;
+        private TextView contactDate;
 
         ViewHolder(View itemView) {
             super(itemView);

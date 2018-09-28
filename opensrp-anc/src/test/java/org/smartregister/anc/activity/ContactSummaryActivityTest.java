@@ -8,15 +8,11 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.domain.ProfileImage;
-import org.smartregister.repository.ImageRepository;
 
 import java.util.UUID;
 
@@ -29,7 +25,7 @@ public class ContactSummaryActivityTest extends BaseUnitTest {
     private final String baseEntityId = UUID.randomUUID().toString();
 
     @Before
-    public void setup() {
+    public void setUp() {
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummaryActivity.class);
         contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
