@@ -103,6 +103,7 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
                 break;
             default:
                 Toast.makeText(this, "Action not recognized", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
