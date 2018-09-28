@@ -610,42 +610,116 @@
         "spacer_height": "18sp"
       },
       {
-        "key": "occupation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
+        "key": "prev_preg_comps",
+        "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Any past pregnancy problems?",
         "hint": "Any past pregnancy problems?",
         "label_text_size": "18sp",
         "options": [
           {
-            "key": "Student",
-            "text": "Student",
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "None",
+            "text": "None",
             "value": false
           },
           {
-            "key": "Unemployed",
-            "text": "Unemployed",
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Don't know",
+            "text": "Don't know",
             "value": false
           },
           {
-            "key": "Formal employment",
-            "text": "Formal employment",
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Pre-eclampsia or eclampsia",
+            "text": "Pre-eclampsia or eclampsia",
             "value": false
           },
           {
-            "key": "Informal employment (sex worker)",
-            "text": "Informal employment (sex worker)",
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Convulsions",
+            "text": "Convulsions",
             "value": false
           },
           {
-            "key": "Informal employment (other)",
-            "text": "Informal employment (other)",
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "Gestational diabetes",
+            "openmrs_entity_id": "1449",
+            "key": "Gestational Diabetes",
+            "text": "Gestational Diabetes",
             "value": false
           },
           {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": " tobacco user",
+            "openmrs_entity_id": "159084",
+            "key": "Tobacco use",
+            "text": "Tobacco use",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Alcohol or illicit substance use",
+            "text": "Alcohol or illicit substance use",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "Postpartum Hemorrhage",
+            "openmrs_entity_id": "230",
+            "key": "Heavy bleeding (during or after delivery)",
+            "text": "Heavy bleeding (during or after delivery)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Baby died within 24 hours of birth",
+            "text": "Baby died within 24 hours of birth",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "Exceptionally large baby",
+            "openmrs_entity_id": "140951",
+            "key": "Macrosomia",
+            "text": "Macrosomia",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "Forceps or Vacuum Extractor Delivery ",
+            "openmrs_entity_id": "118159",
+            "key": "Forceps or vacuum delivery",
+            "text": "Forceps or vacuum delivery",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "Third Degree Perineal Tear During Delivery with Postnatal Problem",
+            "openmrs_entity_id": "124857",
+            "key": "3rd degree tear",
+            "text": "3rd degree tear",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "key": "Other (specify)",
             "text": "Other (specify)",
             "value": false
@@ -653,8 +727,147 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select at least one occupation"
+          "err": "Please select at least one past pregnancy problems"
         }
+      },
+      {
+        "key": "prev_preg_comps_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "PAST PREGNANCY COMPLICATIONS",
+        "openmrs_entity_id": "1430",
+        "type": "edit_text",
+        "hint": "Specify Any Past Pregnancy Problems*",
+        "v_required": {
+          "value": true,
+          "err": "Please specify other past pregnancy problems"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please specify other past pregnancy problems"
+        }
+      },
+      {
+        "key": "substances_used",
+        "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "Specify Alcohol or illicit substance use",
+        "hint": "Specify Alcohol or illicit substance use",
+        "label_text_size": "18sp",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Alcohol",
+            "text": "Alcohol",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Marijuana",
+            "text": "Marijuana",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Cocaine",
+            "text": "Cocaine",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": " crack cocaine use",
+            "openmrs_entity_id": "155793",
+            "key": "Crack",
+            "text": "Crack",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": " crack cocaine use",
+            "openmrs_entity_id": "155793",
+            "key": "Injectable drugs",
+            "text": "Injectable drugs",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one Alcohol or illicit substance use"
+        }
+      },
+      {
+        "key": "substances_used_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "1430",
+        "type": "edit_text",
+        "hint": "Specify Other Substances Abused *",
+        "v_required": {
+          "value": true,
+          "err": "Please specify other substances abused"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please specify other specify other substances abused"
+        }
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "Calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia risk counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling.",
+        "toaster_info_title": "Pre-eclampsia risk counseling",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Gestational diabetes mellitus (GDM) risk counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including: \n- Reasserting dietary interventions \n- Reasserting physical activity during pregnancy",
+        "toaster_info_title": "Ultrasound recommended",
+        "toaster_type": "warning"
       }
     ]
   }
