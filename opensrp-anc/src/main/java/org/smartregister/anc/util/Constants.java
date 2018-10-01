@@ -97,6 +97,7 @@ public abstract class Constants {
         public static final String LABEL = "label";
         public static final String DESCRIPTION = "description";
         public static final String SETTING_CONFIGURATIONS = "settingConfigurations";
+        public static final String VALIDATED_RECORDS =  "validated_records";
 
     }
 

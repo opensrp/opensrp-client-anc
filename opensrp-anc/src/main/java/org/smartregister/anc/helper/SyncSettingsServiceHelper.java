@@ -33,6 +33,8 @@ public class SyncSettingsServiceHelper {
     private AncPreferenceHelper preferenceHelper;
     public final static String SETTINGS_LAST_SYNC_FROM_SERVER_TIMESTAMP = "SETTINGS_LAST_SYNC_FROM_SERVER_TIMESTAMP";
     public final static String SETTINGS_LAST_SYNC_TO_SERVER_TIMESTAMP = "SETTINGS_LAST_SYNC_TO_SERVER_TIMESTAMP";
+    private String username;
+    private String password;
 
     public SyncSettingsServiceHelper(Context applicationContext, String baseUrl, HTTPAgent httpAgent) {
 
@@ -46,7 +48,17 @@ public class SyncSettingsServiceHelper {
     public int processIntent() throws Exception {
 
         try {
-            pushSettingsToServer();
+            JSONObject response = pushSettingsToServer();
+            if (response.has(Constants.KEY.VALIDATED_RECORDS)) {
+                JSONArray records = response.getJSONArray(Constants.KEY.VALIDATED_RECORDS);
+                Setting setting;
+                for (int i = 0; i < records.length(); i++) {
+                    setting = AncApplication.getInstance().getContext().allSettings().getSetting(records.getString(0));
+                    setting.setSyncStatus(SyncStatus.SYNCED.name());
+                    AncApplication.getInstance().getContext().allSettings().putSetting(setting);
+                }
+            }
+
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -55,13 +67,13 @@ public class SyncSettingsServiceHelper {
 
         if (settings != null && settings.length() > 0) {
             settings = saveSetting(settings);
-            preferenceHelper.updateLastSettingsSyncFromServerTimeStamp(Calendar.getInstance().getTimeInMillis());
+            updateLastSettingServerSyncTimetamp();
         }
 
         return settings == null ? 0 : settings.length();
     }
 
-    private JSONArray saveSetting(JSONArray serverSettings) throws JSONException {
+    public JSONArray saveSetting(JSONArray serverSettings) throws JSONException {
         for (int i = 0; i < serverSettings.length(); i++) {
 
             JSONObject jsonObject = serverSettings.getJSONObject(i);
@@ -78,7 +90,7 @@ public class SyncSettingsServiceHelper {
         return serverSettings;
     }
 
-    private JSONArray pullSettingsFromServer() throws JSONException {
+    public JSONArray pullSettingsFromServer() throws JSONException {
 
         String endString = "/";
         if (baseUrl.endsWith(endString)) {
@@ -94,7 +106,7 @@ public class SyncSettingsServiceHelper {
             return null;
         }
 
-        Response resp = httpAgent.fetchWithCredentials(url, AncApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM(), AncApplication.getInstance().getContext().allSettings().fetchANMPassword());
+        Response resp = httpAgent.fetchWithCredentials(url, getUsername(), getPassword());
 
         if (resp.isFailure()) {
             logError(url + " not returned data");
@@ -103,7 +115,7 @@ public class SyncSettingsServiceHelper {
         return new JSONArray((String) resp.payload());
     }
 
-    private JSONArray pushSettingsToServer() throws JSONException {
+    private JSONObject pushSettingsToServer() throws JSONException {
 
         String endString = "/";
         if (baseUrl.endsWith(endString)) {
@@ -122,7 +134,7 @@ public class SyncSettingsServiceHelper {
         Response<String> response = httpAgent.postWithJsonResponse(url, createSettingsConfigurationPayload());
 
 
-        return new JSONArray(response.payload());
+        return new JSONObject(response.payload());
     }
 
     private String createSettingsConfigurationPayload() throws JSONException {
@@ -154,5 +166,25 @@ public class SyncSettingsServiceHelper {
         return siteSettingsPayload.toString();
     }
 
+    public String getUsername() {
+        return username != null ? username : AncApplication.getInstance().getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password != null ? password : AncApplication.getInstance().getContext().allSettings().fetchANMPassword();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void updateLastSettingServerSyncTimetamp() {
+
+        preferenceHelper.updateLastSettingsSyncFromServerTimeStamp(Calendar.getInstance().getTimeInMillis());
+    }
 }
 

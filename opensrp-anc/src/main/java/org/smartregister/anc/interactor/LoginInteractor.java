@@ -171,6 +171,7 @@ public class LoginInteractor implements LoginContract.Interactor {
         if (NetworkUtils.isNetworkAvailable()) {
             AncApplication.getInstance().startPullUniqueIdsService();
             SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+            SyncServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
         }
         scheduleJobs();
     }

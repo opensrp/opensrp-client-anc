@@ -272,5 +272,6 @@
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
     <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
     <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>
+    <string name="loading_client_settings">Loading client settings&#8230;</string>
 
 </resources>

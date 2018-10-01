@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
 
-        if (AncApplication.getInstance().getContext().allSettings().get(Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS) != null) {
+        if (AncApplication.getInstance().getContext().allSettings().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS) != null) {
 
             gotToHomeRegister(remote);
 
