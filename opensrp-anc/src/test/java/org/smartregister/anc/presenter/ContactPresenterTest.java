@@ -47,7 +47,7 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         presenter.setBaseEntityId(baseEntityId);
 
-        Mockito.verify(interactor).fetchWomanDetails(Mockito.eq(baseEntityId), Mockito.any(ContactContract.InteractorCallBack.class));
+        Mockito.verify(interactor).fetchWomanDetails(Mockito.eq(baseEntityId), Mockito.any(ContactContract.InteractorCallback.class));
 
         Assert.assertTrue(presenter.baseEntityIdExists());
 

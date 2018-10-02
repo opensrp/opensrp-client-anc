@@ -86,4 +86,5 @@
     <color name="contact_tests_navigation">#051B3A</color>
     <color name="contact_counselling_actionbar">#5D9D52</color>
     <color name="contact_counselling_navigation">#3A7729</color>
+    <color name="text_color">#061D24</color>
 </resources>
