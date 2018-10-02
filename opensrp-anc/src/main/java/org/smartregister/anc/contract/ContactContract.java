@@ -5,7 +5,7 @@ import org.smartregister.anc.domain.Contact;
 
 import java.util.Map;
 
-public interface ContactContract {
+public interface ContactContract  {
 
     interface View {
         void displayPatientName(String patientName);
@@ -38,12 +38,7 @@ public interface ContactContract {
 
         JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
     }
+    interface Interactor extends BaseContactContract.Interactor{    }
+    interface InteractorCallback extends BaseContactContract.InteractorCallback {}
 
-    interface Interactor {
-        void fetchWomanDetails(String baseEntityId, InteractorCallBack callBack);
-    }
-
-    interface InteractorCallBack {
-        void onWomanDetailsFetched(Map<String, String> womanDetails);
-    }
 }
