@@ -62,7 +62,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Highest Level of School",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "key": "none",
@@ -109,7 +109,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Marital status",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "key": "married",
@@ -151,7 +151,7 @@
         "type": "check_box",
         "label": "Occupation",
         "hint": "Occupation",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "key": "Student",
@@ -230,7 +230,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "LMP Known?",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, check unknown and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
         "label_info_title": "LMP Known?",
         "options": [
@@ -261,7 +261,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Ultrasound Done?",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "label_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
         "label_info_title": "Ultrasound Done?",
         "options": [
@@ -315,7 +315,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "20sp"
+        "spacer_height": "20px"
       },
       {
         "key": "ultrasound_gest_age_wks",
@@ -396,7 +396,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Select preferred gestational age:",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP.If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominalpalpation, use your best judgment to select GA.",
         "options": [
           {
@@ -459,7 +459,7 @@
         "number_of_selectors": "5",
         "start_number": "1",
         "max_value": "15",
-        "text_size": "14sp",
+        "text_size": "16px",
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
@@ -493,7 +493,7 @@
         "number_of_selectors": "5",
         "start_number": "0",
         "max_value": "15",
-        "text_size": "14sp",
+        "text_size": "16px",
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
@@ -527,7 +527,7 @@
         "number_of_selectors": "5",
         "start_number": "0",
         "max_value": "15",
-        "text_size": "14sp",
+        "text_size": "16px",
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
@@ -561,7 +561,7 @@
         "number_of_selectors": "5",
         "start_number": "0",
         "max_value": "15",
-        "text_size": "14sp",
+        "text_size": "16px",
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
@@ -595,7 +595,7 @@
         "number_of_selectors": "5",
         "start_number": "0",
         "max_value": "15",
-        "text_size": "14sp",
+        "text_size": "16px",
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
@@ -608,7 +608,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "18sp"
+        "spacer_height": "22px"
       },
       {
         "key": "prev_preg_comps",
@@ -619,7 +619,7 @@
         "type": "check_box",
         "label": "Any past pregnancy problems?",
         "hint": "Any past pregnancy problems?",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
@@ -756,7 +756,7 @@
         "type": "check_box",
         "label": "Specify Alcohol or illicit substance use",
         "hint": "Specify Alcohol or illicit substance use",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -885,7 +885,7 @@
         "type": "check_box",
         "label": "Any allergies?",
         "hint": "Any allergies?",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -1035,7 +1035,7 @@
         "type": "check_box",
         "label": "Any surgeries??",
         "hint": "Any surgeries??",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -1158,7 +1158,7 @@
         "type": "check_box",
         "label": "Any chronic or past health conditions?",
         "hint": "Any chronic or past health conditions?",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -1314,7 +1314,7 @@
         "type": "check_box",
         "label": "Unknown HIV Date",
         "hint": "Unknown HIV Date",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -1355,7 +1355,7 @@
         "openmrs_entity_id": "160055",
         "type": "native_radio",
         "label": "TT immunisation status",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "key": "3 doses of TTCV in past 5 years",
@@ -1421,7 +1421,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Hep B immunisation status",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "key": "3 doses",
@@ -1487,7 +1487,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Flu immunisation status",
-        "label_text_size": "18sp",
+        "label_text_size": "22px",
         "options": [
           {
             "key": "Seasonal flu dose given",
