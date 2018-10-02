@@ -1331,9 +1331,9 @@
         }
       },
       {
-        "openmrs_entity_parent":"",
-        "openmrs_entity":"HIV Positive",
-        "openmrs_entity_id":"138571",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "HIV Positive",
+        "openmrs_entity_id": "138571",
         "key": "hiv_positive",
         "type": "label",
         "text": "calculation",
@@ -1831,7 +1831,7 @@
         "label": "Daily caffeine intake",
         "hint": "Daily caffeine intake",
         "label_text_size": "22px",
-        "label_text_info":"Pregnant women should not consume more than 300 mg of caffeine per day. Each of the followingrepresents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.",
+        "label_text_info": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -1977,45 +1977,288 @@
           "value": false,
           "err": "Please select if you use any tobacco products"
         }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Second-hand smoke counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
+        "toaster_info_title": "Second-hand smoke counseling",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "condom_use",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Uses condoms during sex?",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": false,
+          "err": "Please select if you use any tobacco products"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Condom counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
+        "toaster_info_title": "Condom counseling",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "alcohol_substance_enquiry",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Clinical enquiry for alcohol and other substance use done?",
+        "label_text_info": "The application of a specific enquiry to assess alcohol or other substance use.",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true,
+          "err": "Please select if you use any tobacco products"
+        }
+      },
+      {
+        "key": "alcohol_substance_use",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Uses alcohol and/or other substances?",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "key": "None",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Alcohol",
+            "text": "Alcohol",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Marijuana",
+            "text": "Marijuana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Cocaine",
+            "text": "Cocaine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Crack",
+            "text": "Crack",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Injectable drugs",
+            "text": "Injectable drugs",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true,
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "other_substance_use",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify other substances abused *",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify other substances abused"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Alcohol / substance use counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "toaster_info_title": "Alcohol / substance use counseling",
+        "toaster_type": "problem"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hiv_risk",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV risk counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion\n- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_title": "HIV risk counseling",
+        "toaster_type": "problem"
       }
     ]
   },
   "step8": {
-    "title": "Physical Exam",
+    "title": "Partner's HIV Status",
     "fields": [
       {
-        "key": "first_name",
+        "key": "partner_hiv_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Partner HIV status",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "key": "Don't Know",
+            "text": "Don't Know",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": false,
+          "err": "Please select one"
         }
       },
       {
-        "key": "last_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hiv_risk",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": false
         }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Advise woman to bring partner(s) in for HIV testing.",
+        "text_color": "#000000",
+        "toaster_info_text": "Advise woman to find out the status of her partner(s) or to bring them during the next visit to get tested.",
+        "toaster_info_title": "Advise woman to bring partner(s) in for HIV testing.",
+        "toaster_type": "info"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "partner_hiv_positive",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV risk counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion\n- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_title": "HIV risk counseling",
+        "toaster_type": "info"
       }
     ]
   }
