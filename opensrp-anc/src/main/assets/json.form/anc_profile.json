@@ -1542,6 +1542,445 @@
     ]
   },
   "step6": {
+    "title": "Medications",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "medications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "Current medications",
+        "hint": "Current medications",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "None",
+            "text": "None",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Don't know",
+            "text": "Don't know",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Antacids",
+            "text": "Antacids",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Aspirin",
+            "text": "Aspirin",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Calcium",
+            "text": "Calcium",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Doxylamine",
+            "text": "Doxylamine",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Epilepsy",
+            "text": "Epilepsy",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Folic acid",
+            "text": "Folic acid",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Iron",
+            "text": "Iron",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Magnesium",
+            "text": "Magnesium",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Metoclopramide",
+            "text": "Metoclopramide",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Vitamin A",
+            "text": "Vitamin A",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Analgesic",
+            "text": "Analgesic",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Anti-convulsive",
+            "text": "Anti-convulsive",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Anti-diabetic",
+            "text": "Anti-diabetic",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Anti-heartburn",
+            "text": "Anti-heartburn",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Anthelmintic",
+            "text": "Anthelmintic",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Anti-hypertensive",
+            "text": "Anti-hypertensive",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Anti-malarials",
+            "text": "Anti-malarials",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Antivirals",
+            "text": "Antivirals",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Antiretrovirals (ARVs)",
+            "text": "Antiretrovirals (ARVs)",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Antitussive",
+            "text": "Antitussive",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Asthma",
+            "text": "Asthma",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Cotrimoxazole",
+            "text": "Cotrimoxazole",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other antibiotics",
+            "text": "Other antibiotics",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Hematinic",
+            "text": "Hematinic",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Hemorrhoidal medication",
+            "text": "Hemorrhoidal medication",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Multivitamin",
+            "text": "Multivitamin",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Thyroid medication",
+            "text": "Thyroid medication",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "Other (specify)",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please select at least one medication"
+        }
+      },
+      {
+        "key": "medications_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other medications *",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the Other medications"
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "Woman's Behaviour",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "caffeine_intake",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "Daily caffeine intake",
+        "hint": "Daily caffeine intake",
+        "label_text_size": "22px",
+        "label_text_info":"Pregnant women should not consume more than 300 mg of caffeine per day. Each of the followingrepresents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "More than 2 cups (200ml) of filtered or commercially brewed coffee",
+            "text": "More than 2 cups (200ml) of filtered or commercially brewed coffee",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "More than 2 small cups (50 ml) of espresso",
+            "text": "More than 2 small cups (50 ml) of espresso",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "More than 3 cups (300ml) of instant coffee",
+            "text": "More than 3 cups (300ml) of instant coffee",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "More than 3 cups (300ml) of instant coffee",
+            "text": "More than 3 cups (300ml) of instant coffee",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "More than 48 pieces (squares) of chocolate",
+            "text": "More than 48 pieces (squares) of chocolate",
+            "value": false
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "None of the above",
+            "text": "None of the above",
+            "value": false
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please select at least one medication"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Caffeine reduction counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.This includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 mL serving",
+        "toaster_info_title": "Caffeine reduction counseling",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "tobacco_user",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Uses tobacco products?",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "Recently quit",
+            "text": "Recently quit",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": true,
+          "err": "Please select if you use any tobacco products"
+        }
+      },
+      {
+        "key": "toaster_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Tobacco cessation counseling",
+        "text_color": "#000000",
+        "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
+        "toaster_info_title": "Tobacco cessation counseling",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "shs_exposure",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Anyone in the household smokes tobacco products?",
+        "label_text_size": "22px",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "value": "none",
+        "v_required": {
+          "value": false,
+          "err": "Please select if you use any tobacco products"
+        }
+      }
+    ]
+  },
+  "step8": {
     "title": "Physical Exam",
     "fields": [
       {
