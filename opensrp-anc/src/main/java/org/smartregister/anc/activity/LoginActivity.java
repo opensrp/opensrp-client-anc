@@ -258,4 +258,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         return this;
 
     }
+
+    @Override
+    public void updateProgressMessage(String message) {
+        progressDialog.setTitle(message);
+
+    }
 }

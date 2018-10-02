@@ -49,7 +49,7 @@ public class SyncSettingsServiceHelper {
 
         try {
             JSONObject response = pushSettingsToServer();
-            if (response.has(Constants.KEY.VALIDATED_RECORDS)) {
+            if (response != null && response.has(Constants.KEY.VALIDATED_RECORDS)) {
                 JSONArray records = response.getJSONArray(Constants.KEY.VALIDATED_RECORDS);
                 Setting setting;
                 for (int i = 0; i < records.length(); i++) {
@@ -73,23 +73,6 @@ public class SyncSettingsServiceHelper {
         return settings == null ? 0 : settings.length();
     }
 
-    public JSONArray saveSetting(JSONArray serverSettings) throws JSONException {
-        for (int i = 0; i < serverSettings.length(); i++) {
-
-            JSONObject jsonObject = serverSettings.getJSONObject(i);
-            Setting characteristic = new Setting();
-            characteristic.setKey(jsonObject.getString("identifier"));
-            characteristic.setValue(jsonObject.getString("settings"));
-            characteristic.setSyncStatus(SyncStatus.SYNCED.name());
-
-            AncApplication.getInstance().getContext().allSettings().put(SETTINGS_LAST_SYNC_FROM_SERVER_TIMESTAMP, characteristic.getVersion());
-            AncApplication.getInstance().getContext().allSettings().putSetting(characteristic);
-
-
-        }
-        return serverSettings;
-    }
-
     public JSONArray pullSettingsFromServer() throws JSONException {
 
         String endString = "/";
@@ -97,7 +80,7 @@ public class SyncSettingsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + SettingsSyncIntentService.SETTINGS_URL + "?serverVersion=" + AncPreferenceHelper.getInstance(applicationContext).getLastSettingsSyncFromServerTimeStamp();
+        String url = baseUrl + SettingsSyncIntentService.SETTINGS_URL + "?serverVersion=0";
 
         Log.i(TAG, "URL: " + url);
 
@@ -130,14 +113,20 @@ public class SyncSettingsServiceHelper {
             return null;
         }
 
+        JSONObject payload = createSettingsConfigurationPayload();
 
-        Response<String> response = httpAgent.postWithJsonResponse(url, createSettingsConfigurationPayload());
+        if (payload.getJSONArray(Constants.KEY.SETTING_CONFIGURATIONS).length() > 0) {
 
+            preferenceHelper.updateLastSettingsSyncToServerTimeStamp(Calendar.getInstance().getTimeInMillis());
 
-        return new JSONObject(response.payload());
+            Response<String> response = httpAgent.postWithJsonResponse(url, payload.toString());
+
+            return new JSONObject(response.payload());
+
+        } else return null;
     }
 
-    private String createSettingsConfigurationPayload() throws JSONException {
+    private JSONObject createSettingsConfigurationPayload() throws JSONException {
 
 
         JSONObject siteSettingsPayload = new JSONObject();
@@ -163,7 +152,7 @@ public class SyncSettingsServiceHelper {
 
         siteSettingsPayload.put(Constants.KEY.SETTING_CONFIGURATIONS, settingsArray);
 
-        return siteSettingsPayload.toString();
+        return siteSettingsPayload;
     }
 
     public String getUsername() {
@@ -180,6 +169,23 @@ public class SyncSettingsServiceHelper {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public JSONArray saveSetting(JSONArray serverSettings) throws JSONException {
+        for (int i = 0; i < serverSettings.length(); i++) {
+
+            JSONObject jsonObject = serverSettings.getJSONObject(i);
+            Setting characteristic = new Setting();
+            characteristic.setKey(jsonObject.getString("identifier"));
+            characteristic.setValue(jsonObject.getString("settings"));
+            characteristic.setSyncStatus(SyncStatus.SYNCED.name());
+
+            AncApplication.getInstance().getContext().allSettings().put(SETTINGS_LAST_SYNC_FROM_SERVER_TIMESTAMP, characteristic.getVersion());
+            AncApplication.getInstance().getContext().allSettings().putSetting(characteristic);
+
+        }
+
+        return serverSettings;
     }
 
     public void updateLastSettingServerSyncTimetamp() {

@@ -43,6 +43,8 @@ public interface LoginContract {
 
         void showProgress(final boolean show);
 
+        void updateProgressMessage(final String message);
+
         void hideKeyboard();
 
         void showErrorDialog(String message);

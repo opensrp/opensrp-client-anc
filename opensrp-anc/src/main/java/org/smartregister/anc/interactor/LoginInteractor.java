@@ -4,10 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.LoginContract;
+import org.smartregister.anc.helper.CharacteristicsHelper;
 import org.smartregister.anc.job.ImageUploadServiceJob;
 import org.smartregister.anc.job.PullUniqueIdsServiceJob;
 import org.smartregister.anc.job.SyncServiceJob;
@@ -18,7 +22,6 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
-import org.smartregister.domain.jsonmapping.LoginResponseData;
 import org.smartregister.event.Listener;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
@@ -113,12 +116,13 @@ public class LoginInteractor implements LoginContract.Interactor {
                                         loginResponse.payload(), Constants.MAX_SERVER_TIME_DIFFERENCE
                                 );
                                 if (!Constants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
-                                    remoteLoginWith(userName, password,
-                                            loginResponse.payload());
+
+                                    remoteLoginWith(userName, password, loginResponse);
+
                                 } else {
                                     if (timeStatus.equals(TimeStatus.TIMEZONE_MISMATCH)) {
-                                        TimeZone serverTimeZone = mLoginPresenter.getOpenSRPContext().userService()
-                                                .getServerTimeZone(loginResponse.payload());
+                                        TimeZone serverTimeZone = UserService.getServerTimeZone(loginResponse.payload());
+
                                         getLoginView().showErrorDialog(getApplicationContext().getString(timeStatus.getMessage(),
                                                 serverTimeZone.getDisplayName()));
                                     } else {
@@ -165,13 +169,31 @@ public class LoginInteractor implements LoginContract.Interactor {
         remoteLoginTask.execute();
     }
 
-    private void remoteLoginWith(String userName, String password, LoginResponseData userInfo) {
-        getUserService().remoteLogin(userName, password, userInfo);
+    private void remoteLoginWith(String userName, String password, LoginResponse loginResponse) {
+        getUserService().remoteLogin(userName, password, loginResponse.payload());
+
+        JSONObject data = loginResponse.getRawData();
+
+        if (data != null) {
+            try {
+
+                JSONArray settings = data.has(Constants.PREF_KEY.SITE_CHARACTERISTICS) ? data.getJSONArray(Constants.PREF_KEY.SITE_CHARACTERISTICS) : null;
+
+                if (settings != null && settings.length() > 0) {
+                    CharacteristicsHelper.saveSetting(settings);
+                    CharacteristicsHelper.updateLastSettingServerSyncTimetamp();
+                }
+
+            } catch (JSONException e) {
+                Log.e(TAG, e.getMessage());
+
+            }
+        }
+
         getLoginView().goToHome(true);
         if (NetworkUtils.isNetworkAvailable()) {
             AncApplication.getInstance().startPullUniqueIdsService();
             SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-            SyncServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
         }
         scheduleJobs();
     }
