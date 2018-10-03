@@ -45,7 +45,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     public void testFetchWomanDetails() {
 
         String baseEntityId = UUID.randomUUID().toString();
-        ContactContract.InteractorCallBack callBack = Mockito.mock(ContactContract.InteractorCallBack.class);
+        ContactContract.InteractorCallback callBack = Mockito.mock(ContactContract.InteractorCallback.class);
 
         String firstName = "First Name";
         String lastName = "Last Name";

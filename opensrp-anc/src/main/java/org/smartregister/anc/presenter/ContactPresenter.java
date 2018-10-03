@@ -13,7 +13,7 @@ import org.smartregister.anc.model.ContactModel;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallBack {
+public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallback {
 
     public static final String TAG = ContactPresenter.class.getName();
 

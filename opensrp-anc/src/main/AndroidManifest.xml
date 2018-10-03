@@ -68,6 +68,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ContactSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
 
         <activity
             android:name=".activity.SiteCharacteristicsActivity"

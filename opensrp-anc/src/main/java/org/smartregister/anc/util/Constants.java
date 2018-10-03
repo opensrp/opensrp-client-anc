@@ -116,4 +116,7 @@ public abstract class Constants {
 
         public static final String FILTER_TEAM_ID = "teamId";
     }
+    public static  final class DUMMY_DATA{
+        public static final String DUMMY_ENTITY_ID = "3342e64b-cafd-46ea-9fc7-0561acb7c8a1";
+    }
 }
