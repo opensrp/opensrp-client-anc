@@ -273,10 +273,10 @@
         }
       },
       {
+        "key": "medications_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "medications_other",
         "type": "edit_text",
         "hint": "Specify",
         "v_regex": {
@@ -451,7 +451,6 @@
             "openmrs_entity_id": "",
             "label_info_text": "High caffeine intake means consuming more than 300mg of caffeine per day. Each of the following represents 300mg of caffeine:",
             "label_info_title": "Previous behaviours"
-
           },
           {
             "key": "current_tobacco",
@@ -485,7 +484,6 @@
         "v_required": {
           "value": true
         }
-
       },
       {
         "key": "",
@@ -493,10 +491,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text":"Caffeine reduction counseling",
+        "text": "Caffeine reduction counseling",
         "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates. This includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 mL serving.",
         "toaster_info_title": "Caffeine intake folder",
-        "text_color": "#FFC600",
+        "text_color": "#D56900",
         "toaster_type": "warning"
       },
       {
@@ -505,8 +503,8 @@
         "openmrs_entity": "TOBACCO USE COUNSELLING",
         "openmrs_entity_id": "1455",
         "type": "toaster_notes",
-        "text":"Tobacco cessation counseling",
-        "toaster_info_text":"Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters." ,
+        "text": "Tobacco cessation counseling",
+        "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
         "text_color": "#E20000",
         "toaster_type": "problem"
       },
@@ -516,9 +514,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text":"Second-hand smoke counseling",
+        "text": "Second-hand smoke counseling",
         "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
-        "text_color": "#FFC600",
+        "text_color": "#D56900",
         "toaster_type": "warning"
       },
       {
@@ -527,8 +525,8 @@
         "openmrs_entity": "Counseling regarding condom",
         "openmrs_entity_id": "161594",
         "type": "toaster_notes",
-        "text":"Condom counseling",
-        "toaster_info_text":"Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
+        "text": "Condom counseling",
+        "toaster_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
         "text_color": "#E20000",
         "toaster_type": "problem"
       },
@@ -538,12 +536,11 @@
         "openmrs_entity": "ALCOHOL COUNSELING",
         "openmrs_entity_id": "1288",
         "type": "toaster_notes",
-        "text":"Alcohol / substance use counseling",
-        "toaster_info_text":"Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "text": "Alcohol / substance use counseling",
+        "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
         "text_color": "#E20000",
         "toaster_type": "problem"
       }
-
     ]
   },
   "step3": {
@@ -572,22 +569,29 @@
             "key": "nausea_vomiting",
             "text": "Nausea and vomiting",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "Nausea and Vomiting",
+            "openmrs_entity_id": "133473"
           },
           {
             "key": "heartburn",
             "text": "Heartburn",
             "value": false,
+            "openmrs_entity": "Heartburn",
+            "openmrs_entity_id": "139059"
+          },
+          {
+            "key": "leg_cramps",
+            "text": "Leg cramps",
+            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "leg_cramps",
-            "text": "Leg Cramps",
+            "key": "constipation",
+            "text": "Constipation",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "CONSTIPATION",
+            "openmrs_entity_id": "996"
           },
           {
             "key": "back_pelvic_pain",
@@ -607,7 +611,256 @@
         "v_required": {
           "value": true
         }
-
+      },
+      {
+        "key": "other_sym_lbpp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms related to low back and pelvic pain?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "contractions",
+            "text": "Contractions",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dysuria",
+            "text": "Pain during urination (dysuria)",
+            "value": false,
+            "openmrs_entity": "Dysuria",
+            "openmrs_entity_id": "118771"
+          },
+          {
+            "key": "pelvic_pains",
+            "text": "Extreme pelvic pain, can't walk (symphysis pubis dysfunction)",
+            "value": false,
+            "openmrs_entity": "Pain in pelvis",
+            "openmrs_entity_id": "131034"
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "other_sym_vvo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms related to varicose veins or oedema?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "leg_pain",
+            "text": "Leg pain",
+            "value": false,
+            "openmrs_entity": "Leg Pain",
+            "openmrs_entity_id": "114395"
+          },
+          {
+            "key": "leg_redness",
+            "text": "Leg redness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "other_symptoms_persist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Which of the following other symptoms persist?",
+        "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
+        "label_info_title": "Previous Symptoms",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "value": false,
+            "openmrs_entity": "Headache",
+            "openmrs_entity_id": "139084"
+          },
+          {
+            "key": "visual_disturbance",
+            "text": "Visual disturbance",
+            "value": false,
+            "openmrs_entity": "Visual disturbance",
+            "openmrs_entity_id": "123074"
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "Abnormal vaginal discharge",
+            "value": false,
+            "openmrs_entity": "Abnormal vaginal discharge",
+            "openmrs_entity_id": "123395"
+          },
+          {
+            "key": "fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "Fever",
+            "openmrs_entity_id": "140238"
+          },
+          {
+            "key": "cough",
+            "text": "Cough or breathing difficulty",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vaginal_discharge",
+            "text": "Vaginal discharge",
+            "value": false,
+            "openmrs_entity": "Vaginal discharge",
+            "openmrs_entity_id": "123396"
+          },
+          {
+            "key": "easily_tired",
+            "text": "Gets tired easily",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "breathless",
+            "text": "Breathless during routine activities",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pharmacological treatments for nausea and vomiting counseling",
+        "toaster_info_text": "Pharmacological treatments for nausea and vomiting, such as doxylamine and metoclopramide, should be reserved for those pregnant women experiencing distressing symptoms that are not relieved by non-pharmacological options, under the supervision of a medical doctor.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Antacid preparations to relieve heartburn counseling",
+        "toaster_info_text": "Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification. Magnesium carbonate and aluminium hydroxide preparations are probably unlikely to cause harm in recommended dosages.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Magnesium and calcium to relieve leg cramps counseling",
+        "toaster_info_text": "If leg cramps are not relieved with non-pharma measures, then give 300–360 mg magnesium per day in two or three divided doses; give calcium 1 g twice daily for two weeks.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Wheat bran or other fiber supplements to relieve constipation counseling",
+        "toaster_info_text": "Wheat bran or other fiber supplements can be used to relieve constipation, if dietary modifications are not enough, and if they are available and appropriate.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
+        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Urine test required",
+        "toaster_info_text": "Woman has dysuria. Please investigate urinary tract infection and treat if positive.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Non-pharmacological options for varicose veins and oedema counseling",
+        "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
       }
     ]
   },
@@ -615,37 +868,371 @@
     "title": "Physiologic Symptoms",
     "fields": [
       {
-        "key": "first_name",
+        "key": "phys_symptoms",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any physiological symptoms?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "nausea_vomiting",
+            "text": "Nausea and vomiting",
+            "value": false,
+            "openmrs_entity": "Nausea and Vomiting",
+            "openmrs_entity_id": "133473"
+          },
+          {
+            "key": "heartburn",
+            "text": "Heartburn",
+            "value": false,
+            "openmrs_entity": "Heartburn",
+            "openmrs_entity_id": "139059"
+          },
+          {
+            "key": "leg_cramps",
+            "text": "Leg cramps",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "constipation",
+            "text": "Constipation",
+            "value": false,
+            "openmrs_entity": "CONSTIPATION",
+            "openmrs_entity_id": "996"
+          },
+          {
+            "key": "back_pelvic_pain",
+            "text": "Low back and pelvic pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "varicose_veins",
+            "text": "Varicose veins or oedema",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "other_sym_lbpp",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms related to low back and pelvic pain?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "contractions",
+            "text": "Contractions",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dysuria",
+            "text": "Pain during urination (dysuria)",
+            "value": false,
+            "openmrs_entity": "Dysuria",
+            "openmrs_entity_id": "118771"
+          },
+          {
+            "key": "pelvic_pains",
+            "text": "Extreme pelvic pain, can't walk (symphysis pubis dysfunction)",
+            "value": false,
+            "openmrs_entity": "Pain in pelvis",
+            "openmrs_entity_id": "131034"
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
+          "value": true
+        }
+      },
+      {
+        "key": "other_sym_vvo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms related to varicose veins or oedema?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "leg_pain",
+            "text": "Leg pain",
+            "value": false,
+            "openmrs_entity": "Leg Pain",
+            "openmrs_entity_id": "114395"
+          },
+          {
+            "key": "leg_redness",
+            "text": "Leg redness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Non-pharma measures to relieve nausea and vomiting counseling",
+        "toaster_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
+        "toaster_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Non-pharmacological treatment for the relief of leg cramps counseling",
+        "toaster_info_text": "Non-pharmacological therapies, including muscle stretching, relaxation, heat therapy, dorsiflexion of the foot, and massage can be used for the relief of leg cramps in pregnancy.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Dietary modifications to relieve constipation counseling",
+        "toaster_info_text": "Dietary modifications to relieve constipation include promoting adequate intake of water and dietary fibre (found in vegetables, nuts, fruits and whole grains).",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
+        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Urine test required",
+        "toaster_info_text": "Woman has dysuria. Please investigate urinary tract infection and treat if positive.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Non-pharmacological options for varicose veins and oedema counseling",
+        "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "text_color": "#4855B3",
+        "toaster_type": "info"
+      },
+      {
+        "key": "",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "other_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "Abnormal vaginal discharge",
+            "value": false,
+            "openmrs_entity": "Abnormal vaginal discharge",
+            "openmrs_entity_id": "123395"
+          },
+          {
+            "key": "breathless",
+            "text": "Breathless during routine activities",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cough",
+            "text": "Cough or breathing difficulty",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "Fever",
+            "openmrs_entity_id": "140238"
+          },
+          {
+            "key": "easily_tired",
+            "text": "Gets tired easily",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "value": false,
+            "openmrs_entity": "Headache",
+            "openmrs_entity_id": "139084"
+          },
+          {
+            "key": "vaginal_bleeding",
+            "text": "Vaginal bleeding",
+            "value": false,
+            "openmrs_entity": "Vaginal bleeding",
+            "openmrs_entity_id": "147232"
+          },
+          {
+            "key": "visual_disturbance",
+            "text": "Visual disturbance",
+            "value": false,
+            "openmrs_entity": "Visual disturbance",
+            "openmrs_entity_id": "123074"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "other_symptoms_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please enter valid content"
+        }
+      },
+      {
+        "key": "mat_percept_fetal_move",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the woman felt the baby move?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "normal_fetal_move",
+            "text": "Normal fetal movement",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "reduced_fetal_move",
+            "text": "Reduced or poor fetal movement",
+            "value": false,
+            "openmrs_entity": "Decreased fetal movements",
+            "openmrs_entity_id": "113377"
+          },
+          {
+            "key": "no_fetal_move",
+            "text": "No fetal movement",
+            "value": false,
+            "openmrs_entity": "No fetal movements",
+            "openmrs_entity_id": "1452"
+          }
+        ],
+        "v_required": {
+          "value": true
         }
       }
     ]
