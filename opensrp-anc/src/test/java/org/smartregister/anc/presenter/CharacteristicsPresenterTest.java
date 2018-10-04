@@ -15,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
-import org.smartregister.repository.AllSettings;
 
 import java.lang.ref.WeakReference;
 
@@ -46,7 +45,7 @@ public class CharacteristicsPresenterTest extends BaseUnitTest {
     public void testLaunchSiteCharacteristicsSettingsFormForEditInvokesMethodOnViewCorrectly() {
         CharacteristicsPresenter presenter = new CharacteristicsPresenter(view);
         CharacteristicsPresenter presenterSpy = Mockito.spy(presenter);
-        Mockito.doReturn(ImmutableMap.of(TEST_STRING, TEST_STRING)).when(presenterSpy).getSettingsMapByType(ArgumentMatchers.any(AllSettings.class));
+        Mockito.doReturn(ImmutableMap.of(TEST_STRING, TEST_STRING)).when(presenterSpy).getSettingsMapByType(ArgumentMatchers.anyString());
         presenterSpy.launchSiteCharacteristicsFormForEdit();
         Mockito.verify(view).launchSiteCharacteristicsSettingsFormForEdit(ArgumentMatchers.<String, String>anyMap());
     }
