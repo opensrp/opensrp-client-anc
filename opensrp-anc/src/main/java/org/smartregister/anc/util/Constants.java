@@ -29,13 +29,6 @@ public abstract class Constants {
         public static final String HOME_REGISTER = "home_register";
     }
 
-    public static class SITE_CHARACTERISTICS_KEY {
-        public static final String IPV_ASSESS = "site_ipv_assess";
-        public static final String HIV = "site_anc_hiv";
-        public static final String ULTRASOUND = "site_ultrasound";
-        public static final String BP_TOOL = "site_bp_tool";
-    }
-
     public static final class EventType {
         public static final String REGISTRATION = "ANC Registration";
         public static final String UPDATE_REGISTRATION = "Update ANC Registration";
@@ -78,14 +71,6 @@ public abstract class Constants {
 
     }
 
-    public static final class ServiceType {
-        public static final int AUTO_SYNC = 1;
-        public static final int PULL_UNIQUE_IDS = 4;
-        public static final int IMAGE_UPLOAD = 8;
-        public static final int PULL_VIEW_CONFIGURATIONS = 9;
-
-    }
-
     public static final class KEY {
         public static final String SEX = "Sex";
         public static final String KEY = "key";
@@ -97,7 +82,9 @@ public abstract class Constants {
         public static final String LABEL = "label";
         public static final String DESCRIPTION = "description";
         public static final String SETTING_CONFIGURATIONS = "settingConfigurations";
-        public static final String VALIDATED_RECORDS =  "validated_records";
+        public static final String VALIDATED_RECORDS = "validated_records";
+        public static final String STEPNAME = "stepName";
+
 
     }
 
@@ -126,7 +113,8 @@ public abstract class Constants {
 
         public static final String FILTER_TEAM_ID = "teamId";
     }
-    public static  final class DUMMY_DATA{
+
+    public static final class DUMMY_DATA {
         public static final String DUMMY_ENTITY_ID = "3342e64b-cafd-46ea-9fc7-0561acb7c8a1";
     }
 }

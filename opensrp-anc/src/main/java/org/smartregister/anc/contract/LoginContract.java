@@ -29,6 +29,7 @@ public interface LoginContract {
 
         Context getOpenSRPContext();
 
+        boolean isSiteCharacteristicsSet();
     }
 
     interface View {
