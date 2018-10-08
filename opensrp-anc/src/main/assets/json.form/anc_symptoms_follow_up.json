@@ -64,212 +64,186 @@
         "label": "Which medications is she still taking?",
         "label_info_text": "The woman reported taking these medications in the previous contact. Un-select the medications that she has stopped taking. If still taking, leave them selected.",
         "label_info_title": "Medication follow-up",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
-            "key": "medications",
+            "key": "none",
             "text": "None",
-            "value": false,
             "openmrs_entity_id": "1193"
           },
           {
-            "key": "medications",
+            "key": "dont_known",
             "text": "Don't know",
-            "value": false,
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "antacids",
             "text": "Antacids",
-            "value": false,
             "openmrs_entity": "ANTACID",
             "openmrs_entity_id": "944"
           },
           {
-            "key": "medications",
+            "key": "aspirin",
             "text": "Aspirin",
-            "value": false,
             "openmrs_entity": "Aspirine",
             "openmrs_entity_id": "71617"
           },
           {
-            "key": "medications",
+            "key": "calcium",
             "text": "Calcium",
-            "value": false,
             "openmrs_entity": "Calcium",
             "openmrs_entity_id": "72650"
           },
           {
-            "key": "medications",
+            "key": "doxylamine",
             "text": "Doxylamine",
-            "value": false,
             "openmrs_entity": "DOXYLAMINE",
             "openmrs_entity_id": "75229"
           },
           {
-            "key": "medications",
+            "key": "folic_acid",
             "text": "Folic Acid",
-            "value": false,
             "openmrs_entity": "FOLIC ACID",
             "openmrs_entity_id": "76613"
           },
           {
-            "key": "medications",
+            "key": "iron",
             "text": "Iron",
-            "value": false,
             "openmrs_entity": "IRON",
             "openmrs_entity_id": "78218"
           },
           {
-            "key": "medications",
+            "key": "magnesium",
             "text": "Magnesium",
-            "value": false,
             "openmrs_entity": "MAGNESIUM",
             "openmrs_entity_id": "79224"
           },
           {
-            "key": "medications",
+            "key": "metoclopramide",
             "text": "Metoclopramide",
-            "value": false,
             "openmrs_entity": "METOCLOPRAMIDE",
             "openmrs_entity_id": "79755"
           },
           {
-            "key": "medications",
+            "key": "vitamina",
             "text": "Vitamin A",
-            "value": false,
             "openmrs_entity": "VITAMIN A",
             "openmrs_entity_id": "86339"
           },
           {
-            "key": "medications",
+            "key": "analgesic",
             "text": "Analgesic",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "anti_convulsive",
             "text": "Anti-convulsive",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "anti_diabetic",
             "text": "Anti-diabetic",
-            "value": false,
             "openmrs_entity": "Diabetes medications",
             "openmrs_entity_id": "159460"
           },
           {
-            "key": "medications",
+            "key": "anti_heartburn",
             "text": "Anti-heartburn",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "anthelmintic",
             "text": "Anthelmintic",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "anti_hypertensive",
             "text": "Anti-hypertensive",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "anti_malaria",
             "text": "Anti-malaria",
-            "value": false,
             "openmrs_entity": "ANTIMALARIA MEDICATIONS",
             "openmrs_entity_id": "5839"
           },
           {
-            "key": "medications",
+            "key": "antivirals",
             "text": "Antivirals",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "arvs",
             "text": "Antiretrovirals (ARVs)",
-            "value": false,
             "openmrs_entity": "ON ANTIRETROVIRALS",
             "openmrs_entity_id": "1462"
           },
           {
-            "key": "medications",
+            "key": "antitussive",
             "text": "Antitussive",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "asthma",
             "text": "Asthma",
-            "value": false,
             "openmrs_entity": "Asthma",
             "openmrs_entity_id": "121375"
           },
           {
-            "key": "medications",
+            "key": "cotrimoxazole",
             "text": "Cotrimoxazole",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "antibiotics",
             "text": "Other antibiotics",
-            "value": false,
             "openmrs_entity": "ANTIBIOTICS",
             "openmrs_entity_id": "1195"
           },
           {
-            "key": "medications",
+            "key": "hematinic",
             "text": "Hematinic",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "hemorrhoidal",
             "text": "Hemorrhoidal medication",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "multivitamin",
             "text": "Multivitamin",
-            "value": false,
             "openmrs_entity": "MULTIVITAMIN",
             "openmrs_entity_id": "461"
           },
           {
-            "key": "medications",
+            "key": "thyroid",
             "text": "Thyroid medication",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "medications",
+            "key": "other",
             "text": "Other (specify)",
-            "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "",
+            "value": "false"
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify the medication(s) that the woman is still taking"
         }
       },
       {
@@ -282,6 +256,12 @@
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step1:medications": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
         }
       },
       {
@@ -291,6 +271,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Is she taking her calcium supplements?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -310,6 +291,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Any calcium supplement side effects?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -329,6 +311,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Is she taking her IFA tablets?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -348,6 +331,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Any IFA side effects?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -367,6 +351,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Is she taking her aspirin tablets?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -386,6 +371,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Is she taking her Vitamin A supplements?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -405,6 +391,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Is she taking her penicillin treatment for syphilis?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "label_info_text": "A maximum of upto 3 weekly doses may be required.",
         "label_info_title": "Syphilis Compliance",
@@ -434,6 +421,7 @@
         "label": "Which of the following behaviours persist?",
         "label_info_text": "These behaviours were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous behaviours",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -482,7 +470,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Previous persisting behaviour is required"
         }
       },
       {
@@ -556,6 +545,7 @@
         "label": "Which of the following physiological symptoms persist?",
         "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous Symptoms",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -609,7 +599,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Previous persisting physiological symptoms is required"
         }
       },
       {
@@ -619,6 +610,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Any other symptoms related to low back and pelvic pain?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -651,7 +643,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify any other symptoms related to low back pain or select none"
         }
       },
       {
@@ -661,6 +654,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Any other symptoms related to varicose veins or oedema?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -686,7 +680,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify any other symptoms related varicose vein/oedema or select none"
         }
       },
       {
@@ -696,6 +691,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Which of the following other symptoms persist?",
+        "label_text_style": "bold",
         "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous Symptoms",
         "text_color": "#000000",
@@ -874,6 +870,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Any physiological symptoms?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -927,7 +924,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify any other physiological symptoms or select none"
         }
       },
       {
@@ -937,6 +935,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Any other symptoms related to low back and pelvic pain?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -969,7 +968,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify any other symptoms related low back and pelvic pain or select none"
         }
       },
       {
@@ -979,6 +979,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Any other symptoms related to varicose veins or oedema?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -1004,7 +1005,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify any other symptoms related varicose vein/oedema or select none"
         }
       },
       {
@@ -1185,7 +1187,9 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Please specify any other symptoms or select none"
+
         }
       },
       {
@@ -1207,6 +1211,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Has the woman felt the baby move?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
@@ -1232,7 +1237,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": true,
+          "err": "Field has the woman felt the baby move is required"
         }
       }
     ]
