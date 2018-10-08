@@ -32,8 +32,7 @@ public class CharacteristicsHelper {
     }.getType();
 
     public CharacteristicsHelper(String key) {
-
-        characteristics = CharacteristicsHelper.fetchCharacteristicsByTypeKey(key);
+        initializeCharacteristics(key);
 
     }
 
@@ -80,5 +79,10 @@ public class CharacteristicsHelper {
 
         AncPreferenceHelper preferenceHelper = AncPreferenceHelper.getInstance(AncApplication.getInstance().getApplicationContext());
         preferenceHelper.updateLastSettingsSyncFromServerTimeStamp(Calendar.getInstance().getTimeInMillis());
+    }
+
+    private static void initializeCharacteristics(String key) {
+
+        characteristics = CharacteristicsHelper.fetchCharacteristicsByTypeKey(key);
     }
 }

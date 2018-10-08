@@ -18,7 +18,6 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.event.PatientRemovedEvent;
-import org.smartregister.anc.job.SyncSettingsServiceJob;
 import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;

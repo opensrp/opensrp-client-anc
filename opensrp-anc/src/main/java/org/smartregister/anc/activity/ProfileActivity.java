@@ -225,6 +225,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 }
                 return;
             }
+            default:
+                break;
         }
     }
 

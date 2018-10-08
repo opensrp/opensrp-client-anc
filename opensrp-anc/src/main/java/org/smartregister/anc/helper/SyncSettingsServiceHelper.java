@@ -27,7 +27,6 @@ import static org.smartregister.util.Log.logError;
 public class SyncSettingsServiceHelper {
     private static final String TAG = SyncSettingsServiceHelper.class.getCanonicalName();
 
-    private Context applicationContext;
     private HTTPAgent httpAgent;
     private String baseUrl;
     private AncPreferenceHelper preferenceHelper;
@@ -38,7 +37,6 @@ public class SyncSettingsServiceHelper {
 
     public SyncSettingsServiceHelper(Context applicationContext, String baseUrl, HTTPAgent httpAgent) {
 
-        this.applicationContext = applicationContext;
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
         this.preferenceHelper = AncPreferenceHelper.getInstance(applicationContext);
