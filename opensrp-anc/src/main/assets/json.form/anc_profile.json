@@ -179,7 +179,7 @@
             "value": false
           },
           {
-            "key": "Other (specify)",
+            "key": "other",
             "text": "Other (specify)",
             "value": false
           }
@@ -192,10 +192,16 @@
       {
         "key": "occupation_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "occupation_other",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Specify *",
+        "relevance": {
+          "step1:occupation": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Please specify your occupation"
@@ -206,16 +212,34 @@
         }
       },
       {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity_id": "160581",
+        "key": "hiv_risk",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
         "key": "toaster_notes",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "toaster_notes",
+        "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
+        "openmrs_entity_id": "2047",
         "type": "toaster_notes",
         "text": "HIV risk counseling",
-        "toaster_info_text": "Provide comprehensive HIV prevention options:- STI screening and treatment (syndromic and syphilis)- Condom promotion- Risk reduction counselling- PrEP with emphasis on adherence- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)- Condom promotion- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
-        "text_color": "#CF0800"
+        "text_color": "#CF0800",
+        "relevance": {
+          "step1:hiv_risk": {
+            "type": "string",
+            "ex": "equalTo(., \"1\")"
+          }
+        }
       }
     ]
   },
@@ -239,7 +263,8 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "",
-            "text": "Yes (Specify Date)"
+            "text": "Yes",
+            "specify_info": "Specify Date"
           },
           {
             "key": "no",
@@ -255,6 +280,30 @@
         }
       },
       {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity_id": "160581",
+        "key": "lmp_edd",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity_id": "160581",
+        "key": "lmp_gest_age",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
         "key": "ultrasound_done",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -266,11 +315,12 @@
         "label_info_title": "Ultrasound Done?",
         "options": [
           {
-            "key": "yesy",
+            "key": "yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "Yes",
-            "text": "Yes (Specify Date)"
+            "text": "Yes",
+            "specify_info": "Ultrasound Date"
           },
           {
             "key": "no",
@@ -366,6 +416,30 @@
         }
       },
       {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_edd",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_gest_age",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
         "key": "sfh_gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -387,6 +461,18 @@
         "v_max": {
           "value": "43",
           "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "sfh_edd",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
         }
       },
       {
@@ -424,6 +510,30 @@
         "value": "none",
         "v_required": {
           "value": true
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "gest_age",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "edd",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
         }
       }
     ]
@@ -464,6 +574,18 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "previous_pregnancies",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
         }
       },
       {
@@ -566,6 +688,18 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "parity",
+        "type": "label",
+        "text": "calculation",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
         }
       },
       {
@@ -738,6 +872,12 @@
         "openmrs_entity_id": "1430",
         "type": "edit_text",
         "hint": "Specify Any Past Pregnancy Problems*",
+        "relevance": {
+          "step1:prev_preg_comps": {
+            "type": "string",
+            "ex": "equalTo(., \"Other (specify)\")"
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Please specify other past pregnancy problems"
@@ -757,6 +897,12 @@
         "label": "Specify Alcohol or illicit substance use",
         "hint": "Specify Alcohol or illicit substance use",
         "label_text_size": "22px",
+        "relevance": {
+          "step1:prev_preg_comps": {
+            "type": "string",
+            "ex": "equalTo(., \"Alcohol or illicit substance use\")"
+          }
+        },
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -819,6 +965,12 @@
         "openmrs_entity_id": "1430",
         "type": "edit_text",
         "hint": "Specify Other Substances Abused *",
+        "relevance": {
+          "step1:substances_used": {
+            "type": "string",
+            "ex": "equalTo(., \"Other (specify)\")"
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Please specify other substances abused"
@@ -829,9 +981,12 @@
         }
       },
       {
-        "key": "enabled_label",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "preeclampsia_risk",
         "type": "label",
-        "text": "Calculation",
+        "text": "calculation",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -850,7 +1005,10 @@
         "toaster_type": "warning"
       },
       {
-        "key": "enabled_label",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "gdm_risk",
         "type": "label",
         "text": "calculation",
         "text_color": "#FF0000",
@@ -1024,6 +1182,12 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the allergies"
+        },
+        "relevance": {
+          "step1:allergies": {
+            "type": "string",
+            "ex": "equalTo(., \"Other (specify)\")"
+          }
         }
       },
       {
@@ -1134,6 +1298,12 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the other gynecological procedures"
+        },
+        "relevance": {
+          "step1:surgeries": {
+            "type": "string",
+            "ex": "equalTo(., \"Other gynecological procedures (specify)\")"
+          }
         }
       },
       {
@@ -1147,6 +1317,12 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the Other surgeries"
+        },
+        "relevance": {
+          "step1:surgeries": {
+            "type": "string",
+            "ex": "equalTo(., \"Other surgeries (specify)\")"
+          }
         }
       },
       {
@@ -1265,9 +1441,18 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the chronic or past health conditions"
+        },
+        "relevance": {
+          "step1:health_conditions": {
+            "type": "string",
+            "ex": "equalTo(., \"Other (specify)\")"
+          }
         }
       },
       {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "key": "preeclampsia_risk",
         "type": "label",
         "text": "calculation",
@@ -1402,7 +1587,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus..",
         "toaster_info_title": "TT immunisation recommended",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step1:tt_immun_status": {
+            "type": "string",
+            "ex": "notEqualTo(., \"3 doses of TTCV in past 5 years\")"
+          }
+        }
       },
       {
         "key": "toaster_notes",
@@ -1412,7 +1603,13 @@
         "type": "toaster_notes",
         "text": "Woman is fully immunised against tetanus!",
         "text_color": "#000000",
-        "toaster_type": "positive"
+        "toaster_type": "positive",
+        "relevance": {
+          "step1:tt_immun_status": {
+            "type": "string",
+            "ex": "equalTo(., \"3 doses of TTCV in past 5 years\")"
+          }
+        }
       },
       {
         "key": "hepb_immun_status",
@@ -1468,7 +1665,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Hep B testing is recommended for at risk women who are not already fully immunised against Hep B.",
         "toaster_info_title": "Hep B testing recommended",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step1:hepb_immun_status": {
+            "type": "string",
+            "ex": "notEqualTo(., \"3 doses\")"
+          }
+        }
       },
       {
         "key": "toaster_notes",
@@ -1478,7 +1681,13 @@
         "type": "toaster_notes",
         "text": "Woman is fully immunised against Hep B!",
         "text_color": "#000000",
-        "toaster_type": "positive"
+        "toaster_type": "positive",
+        "relevance": {
+          "step1:hepb_immun_status": {
+            "type": "string",
+            "ex": "equalTo(., \"3 doses\")"
+          }
+        }
       },
       {
         "key": "flu_immun_status",
@@ -1527,7 +1736,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy. ",
         "toaster_info_title": "Flu immunisation recommended",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step1:flu_immun_status": {
+            "type": "string",
+            "ex": "notEqualTo(., \"Seasonal flu dose missing\")"
+          }
+        }
       },
       {
         "key": "toaster_notes",
@@ -1537,7 +1752,13 @@
         "type": "toaster_notes",
         "text": "Woman is immunised against flu!",
         "text_color": "#000000",
-        "toaster_type": "positive"
+        "toaster_type": "positive",
+        "relevance": {
+          "step1:flu_immun_status": {
+            "type": "string",
+            "ex": "equalTo(., \"Seasonal flu dose missing\")"
+          }
+        }
       }
     ]
   },
@@ -1813,13 +2034,19 @@
         "v_required": {
           "value": "true",
           "err": "Please specify the Other medications"
+        },
+        "relevance": {
+          "step1:medications": {
+            "type": "string",
+            "ex": "equalTo(., \"Other (specify)\")"
+          }
         }
       }
     ]
   },
   "step7": {
     "title": "Woman's Behaviour",
-    "next": "step7",
+    "next": "step8",
     "fields": [
       {
         "key": "caffeine_intake",
@@ -1897,7 +2124,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.This includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 mL serving",
         "toaster_info_title": "Caffeine reduction counseling",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:caffeine_intake": {
+            "type": "string",
+            "ex": "notEqualTo(., \"None of the above\")"
+          }
+        }
       },
       {
         "key": "tobacco_user",
@@ -1946,7 +2179,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
         "toaster_info_title": "Tobacco cessation counseling",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:tobacco_user": {
+            "type": "string",
+            "ex": "notEqualTo(., \"No\")"
+          }
+        }
       },
       {
         "key": "shs_exposure",
@@ -1988,7 +2227,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
         "toaster_info_title": "Second-hand smoke counseling",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:shs_exposure": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
       },
       {
         "key": "condom_use",
@@ -2030,7 +2275,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
         "toaster_info_title": "Condom counseling",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:condom_use": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
       },
       {
         "key": "alcohol_substance_enquiry",
@@ -2139,6 +2390,12 @@
         "v_required": {
           "value": "true",
           "err": "Please specify other substances abused"
+        },
+        "relevance": {
+          "step1:alcohol_substance_use": {
+            "type": "string",
+            "ex": "equalTo(., \"Other (specify)\")"
+          }
         }
       },
       {
@@ -2151,7 +2408,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
         "toaster_info_title": "Alcohol / substance use counseling",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:alcohol_substance_use": {
+            "type": "string",
+            "ex": "notEqualTo(., \"None\")"
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
@@ -2175,7 +2438,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion\n- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:hiv_risk": {
+            "type": "numeric",
+            "ex": "equalTo(., \"1\")"
+          }
+        }
       }
     ]
   },
@@ -2216,7 +2485,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "hiv_risk",
+        "key": "partner_hiv_positive",
         "type": "label",
         "text": "calculation",
         "text_color": "#FF0000",
@@ -2234,13 +2503,19 @@
         "text_color": "#000000",
         "toaster_info_text": "Advise woman to find out the status of her partner(s) or to bring them during the next visit to get tested.",
         "toaster_info_title": "Advise woman to bring partner(s) in for HIV testing.",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step1:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"Don't Know\")"
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "partner_hiv_positive",
+        "key": "hiv_risk",
         "type": "label",
         "text": "calculation",
         "text_color": "#FF0000",
@@ -2258,7 +2533,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion\n- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
-        "toaster_type": "info"
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:hiv_risk": {
+            "type": "numeric",
+            "ex": "equalTo(., \"1\")"
+          }
+        }
       }
     ]
   }
