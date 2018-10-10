@@ -212,7 +212,9 @@ public class LoginPresenter implements LoginContract.Presenter {
 
         try {
             Setting setting = AncApplication.getInstance().getContext().allSettings().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
-            JSONArray settingArray = new JSONArray(setting.getValue());
+
+            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+
             if (settingArray != null && settingArray.length() > 0) {
 
                 JSONObject settingObject = settingArray.getJSONObject(0);// get first setting to test
