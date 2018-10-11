@@ -259,10 +259,16 @@
         },
         "relevance": {
           "step1:medications": {
-            "type": "string",
-            "ex": "equalTo(., \"true\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
+
       },
       {
         "key": "calcium_comply",
@@ -1113,6 +1119,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Any other symptoms?",
+        "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
