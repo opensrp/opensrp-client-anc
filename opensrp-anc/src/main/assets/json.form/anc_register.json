@@ -182,8 +182,13 @@
         },
         "relevance": {
           "step1:dob_unknown": {
-            "type": "string",
-            "ex": "equalTo(., \"true\")"
+            "ex-checkbox": [
+              {
+                "and": [
+                  "dob_unknown"
+                ]
+              }
+            ]
           }
         },
         "v_required": {
