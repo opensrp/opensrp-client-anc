@@ -13,6 +13,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.Setting;
 import org.smartregister.domain.SyncStatus;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.HTTPAgent;
 
 import java.text.MessageFormat;
@@ -34,12 +35,15 @@ public class SyncSettingsServiceHelper {
     public final static String SETTINGS_LAST_SYNC_TO_SERVER_TIMESTAMP = "SETTINGS_LAST_SYNC_TO_SERVER_TIMESTAMP";
     private String username;
     private String password;
+    private String teamId;
 
     public SyncSettingsServiceHelper(Context applicationContext, String baseUrl, HTTPAgent httpAgent) {
 
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
         this.preferenceHelper = AncPreferenceHelper.getInstance(applicationContext);
+        AllSharedPreferences sharedPreferences = AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        teamId = sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
     }
 
 
@@ -78,7 +82,7 @@ public class SyncSettingsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + SettingsSyncIntentService.SETTINGS_URL + "?serverVersion=0";
+        String url = baseUrl + SettingsSyncIntentService.SETTINGS_URL + "?" + Constants.SyncFilters.FILTER_TEAM_ID + "=" + teamId + "&serverVersion=0";
 
         Log.i(TAG, "URL: " + url);
 
