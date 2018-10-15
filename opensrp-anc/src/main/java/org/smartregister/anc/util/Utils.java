@@ -3,6 +3,8 @@ package org.smartregister.anc.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -25,8 +27,10 @@ import org.joda.time.Weeks;
 import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
+import org.smartregister.domain.jsonmapping.LoginResponseData;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.DateUtil;
 
@@ -263,5 +267,26 @@ public class Utils {
 
     public String getName() {
         return getPrefferedName();
+    }
+
+    public static String getBuildDate() {
+        return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+    }
+
+    public static String getVersion(Context context) throws PackageManager.NameNotFoundException {
+        PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+        return packageInfo.versionName;
+    }
+
+    public static String getUserDefaultTeamId(LoginResponseData userInfo) {
+        try {
+            if (userInfo != null && userInfo.team != null && userInfo.team.team != null) {
+                return userInfo.team.team.uuid;
+            }
+        } catch (Exception e) {
+            Log.v("Error : ", e.getMessage());
+        }
+
+        return null;
     }
 }

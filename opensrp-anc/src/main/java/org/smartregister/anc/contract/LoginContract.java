@@ -3,6 +3,7 @@ package org.smartregister.anc.contract;
 import android.app.Activity;
 
 import org.smartregister.Context;
+import org.smartregister.domain.LoginResponse;
 
 import java.lang.ref.WeakReference;
 
@@ -55,6 +56,8 @@ public interface LoginContract {
         void goToHome(boolean isRemote);
 
         Activity getActivityContext();
+
+        String getUserTeamId(LoginResponse loginResponse);
     }
 
     interface Interactor {

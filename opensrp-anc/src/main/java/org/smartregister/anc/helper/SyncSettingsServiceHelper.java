@@ -36,13 +36,14 @@ public class SyncSettingsServiceHelper {
     private String username;
     private String password;
     private String teamId;
+    private AllSharedPreferences sharedPreferences;
 
     public SyncSettingsServiceHelper(Context applicationContext, String baseUrl, HTTPAgent httpAgent) {
 
         this.httpAgent = httpAgent;
         this.baseUrl = baseUrl;
         this.preferenceHelper = AncPreferenceHelper.getInstance(applicationContext);
-        AllSharedPreferences sharedPreferences = AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        sharedPreferences = AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
         teamId = sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
     }
 
@@ -167,6 +168,15 @@ public class SyncSettingsServiceHelper {
 
     public String getPassword() {
         return password != null ? password : AncApplication.getInstance().getContext().allSettings().fetchANMPassword();
+    }
+
+    public String getTeamId() {
+        return teamId != null ? teamId : sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
     }
 
     public void setPassword(String password) {

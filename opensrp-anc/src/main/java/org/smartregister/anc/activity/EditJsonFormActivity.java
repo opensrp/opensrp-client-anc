@@ -6,7 +6,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.smartregister.anc.R;
 
-public class CloseJsonFormActivity extends JsonFormActivity {
+public class EditJsonFormActivity extends JsonFormActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
