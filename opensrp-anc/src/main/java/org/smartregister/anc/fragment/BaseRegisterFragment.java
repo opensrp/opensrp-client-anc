@@ -242,12 +242,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             });
         }
 
-        /*// Location
-        facilitySelection = view.findViewById(R.id.facility_selection);
-        if (facilitySelection != null) {m
-            facilitySelection.init();
-        }*/
-
         // Progress bar
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
         if (syncProgressBar != null) {
@@ -382,20 +376,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
-
-    /*protected void updateLocationText() {
-        if (facilitySelection != null) {
-            facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
-                    facilitySelection.getSelectedItem()));
-            String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
-            context().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
-
-        }
-    }
-
-    public LocationPickerView getFacilitySelection() {
-        return facilitySelection;
-    }*/
 
     protected abstract void onViewClicked(View view);
 
