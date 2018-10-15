@@ -40,7 +40,6 @@ public class MeFragment extends Fragment implements MeContract.View {
     private RelativeLayout site_characteristics_section;
     private RelativeLayout setting_section;
     private RelativeLayout logout_section;
-    private RelativeLayout contact_summary;
     private LocationPickerView facilitySelection;
 
     @Override
@@ -86,7 +85,6 @@ public class MeFragment extends Fragment implements MeContract.View {
         setting_section = view.findViewById(R.id.setting_section);
         logout_section = view.findViewById(R.id.logout_section);
         facilitySelection = view.findViewById(R.id.facility_selection);
-        contact_summary = view.findViewById(R.id.contact_summary);
         if (me_location_section != null) {
             facilitySelection.init();
         }
@@ -101,7 +99,7 @@ public class MeFragment extends Fragment implements MeContract.View {
         TextView synced_data = view.findViewById(R.id.synced_data);
         if (synced_data != null) {
             //Todo Update this to the values after the sync functionality is added.
-            synced_data.setText(String.format(getString(R.string.data_synced), new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new
+            synced_data.setText(String.format(getString(R.string.data_synced), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new
                     Date()), new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date())));
         }
     }
@@ -112,7 +110,6 @@ public class MeFragment extends Fragment implements MeContract.View {
         site_characteristics_section.setOnClickListener(meFragmentActionHandler);
         setting_section.setOnClickListener(meFragmentActionHandler);
         logout_section.setOnClickListener(meFragmentActionHandler);
-        contact_summary.setOnClickListener(meFragmentActionHandler);
     }
 
     private void initializePresenter() {
@@ -164,11 +161,6 @@ public class MeFragment extends Fragment implements MeContract.View {
                     break;
                 case R.id.me_pop_characteristics_section:
                     getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
-                    break;
-                case R.id.contact_summary:
-                    Intent intent = new  Intent(getContext(), ContactSummaryActivity.class);
-                    intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,Constants.DUMMY_DATA.DUMMY_ENTITY_ID);
-                    getContext().startActivity(intent);
                     break;
                 case R.id.me_location_section:
                     if (facilitySelection != null) {
