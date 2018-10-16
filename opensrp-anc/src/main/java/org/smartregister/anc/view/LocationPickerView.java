@@ -15,7 +15,8 @@ import android.widget.ListView;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.helper.LocationHelper;
+import org.smartregister.anc.util.Utils;
+import org.smartregister.helper.LocationHelper;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
 
         ListView locationsLV = locationPickerDialog.findViewById(R.id.locations_lv);
 
-        String defaultLocation = LocationHelper.getInstance().getDefaultLocation();
+        String defaultLocation = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getDefaultLocation();
         serviceLocationsAdapter = new ServiceLocationsAdapter(context, getLocations(defaultLocation));
         locationsLV.setAdapter(serviceLocationsAdapter);
         locationsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -66,7 +67,7 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AncApplication.getInstance().getContext().allSharedPreferences().saveCurrentLocality(serviceLocationsAdapter
                         .getLocationAt(position));
-                LocationPickerView.this.setText(LocationHelper.getInstance().getOpenMrsReadableName(
+                LocationPickerView.this.setText(LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsReadableName(
                         serviceLocationsAdapter.getLocationAt(position)));
                 if (onLocationChangeListener != null) {
                     onLocationChangeListener.onLocationChange(serviceLocationsAdapter
@@ -75,7 +76,7 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
                 locationPickerDialog.dismiss();
             }
         });
-        this.setText(LocationHelper.getInstance().getOpenMrsReadableName(getSelectedItem()));
+        this.setText(LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsReadableName(getSelectedItem()));
 
         setClickable(true);
         setOnClickListener(this);
@@ -84,7 +85,7 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     public String getSelectedItem() {
         String selectedLocation = AncApplication.getInstance().getContext().allSharedPreferences().fetchCurrentLocality();
         if (TextUtils.isEmpty(selectedLocation) || !serviceLocationsAdapter.getLocationNames().contains(selectedLocation)) {
-            selectedLocation = LocationHelper.getInstance().getDefaultLocation();
+            selectedLocation = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getDefaultLocation();
             AncApplication.getInstance().getContext().allSharedPreferences().saveCurrentLocality(selectedLocation);
         }
         return selectedLocation;
@@ -95,7 +96,7 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
     }
 
     private ArrayList<String> getLocations(String defaultLocation) {
-        ArrayList<String> locations = LocationHelper.getInstance().locationNamesFromHierarchy(defaultLocation);
+        ArrayList<String> locations = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).locationNamesFromHierarchy(defaultLocation);
 
         if (locations.contains(defaultLocation)) {
             locations.remove(defaultLocation);

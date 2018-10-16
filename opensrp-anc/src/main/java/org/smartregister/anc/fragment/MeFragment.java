@@ -19,10 +19,11 @@ import org.smartregister.anc.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.activity.SiteCharacteristicsActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.MeContract;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.presenter.MePresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
+import org.smartregister.helper.LocationHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -140,8 +141,8 @@ public class MeFragment extends Fragment implements MeContract.View {
 
     protected void updateLocationText() {
         if (facilitySelection != null) {
-            facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(facilitySelection.getSelectedItem()));
-            String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
+            facilitySelection.setText(LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsReadableName(facilitySelection.getSelectedItem()));
+            String locationId = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationId(facilitySelection.getSelectedItem());
             AncApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
         }
     }

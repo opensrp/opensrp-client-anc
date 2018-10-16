@@ -6,12 +6,12 @@ import android.util.Pair;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
+import org.smartregister.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public String getLocationId(String locationName) {
-        return LocationHelper.getInstance().getOpenMrsLocationId(locationName);
+        return LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationId(locationName);
     }
 
     @Override

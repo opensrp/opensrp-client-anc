@@ -18,10 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.helper.LocationHelper;
+import org.smartregister.domain.form.FormLocation;
+import org.smartregister.helper.LocationHelper;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -309,7 +309,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+                String lastLocationId = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationId(lpv.getSelectedItem());
 
                 metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
@@ -403,15 +403,15 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             allLevels.add("District");
             allLevels.add("City/Town");
             allLevels.add("Health Facility");
-            allLevels.add(LocationHelper.HOME_ADDRESS);
+            allLevels.add(Utils.HOME_ADDRESS);
 
 
             ArrayList<String> healthFacilities = new ArrayList<>();
-            healthFacilities.add(LocationHelper.HOME_ADDRESS);
+            healthFacilities.add(Utils.HOME_ADDRESS);
 
 
-            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
-            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+            List<String> defaultFacility = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).generateLocationHierarchyTree(false, healthFacilities);
 
             String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
                     new TypeToken<List<String>>() {
@@ -422,7 +422,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     }.getType());
 
             for (int i = 0; i < questions.length(); i++) {
-                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(LocationHelper.HOME_ADDRESS)) {
+                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(Utils.HOME_ADDRESS)) {
                     if (StringUtils.isNotBlank(upToFacilitiesString)) {
                         questions.getJSONObject(i).put(Constants.KEY.TREE, new JSONArray(upToFacilitiesString));
                     }
