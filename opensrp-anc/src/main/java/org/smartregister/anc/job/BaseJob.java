@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.evernote.android.job.Job;
+import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 
@@ -20,29 +21,35 @@ public abstract class BaseJob extends Job {
 
     public static void scheduleJob(String jobTag, Long start, Long flex) {
 
-        boolean toReschedule = start < TimeUnit.MINUTES.toMillis(15); //evernote doesn't allow less than 15 mins periodic schedule, keep flag ref for workaround
+        if (JobManager.instance().getAllJobRequestsForTag(jobTag).isEmpty()) {
 
-        PersistableBundleCompat extras = new PersistableBundleCompat();
-        extras.putBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, toReschedule);
+            boolean toReschedule = start < TimeUnit.MINUTES.toMillis(15); //evernote doesn't allow less than 15 mins periodic schedule, keep flag ref for workaround
 
-        JobRequest.Builder jobRequest = new JobRequest.Builder(jobTag).setExtras(extras);
+            PersistableBundleCompat extras = new PersistableBundleCompat();
+            extras.putBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, toReschedule);
 
-        if (toReschedule) {
+            JobRequest.Builder jobRequest = new JobRequest.Builder(jobTag).setExtras(extras);
 
-            jobRequest.setBackoffCriteria(start, JobRequest.BackoffPolicy.LINEAR).setExact(start);
+            if (toReschedule) {
 
+                jobRequest.setBackoffCriteria(start, JobRequest.BackoffPolicy.LINEAR).setExact(start);
+
+            } else {
+
+                jobRequest.setPeriodic(TimeUnit.MINUTES.toMillis(start), TimeUnit.MINUTES.toMillis(flex));
+            }
+
+            try {
+
+                int jobId = jobRequest.build().schedule();
+                Log.d(TAG, "Scheduling job with name " + jobTag + " periodically with JOB ID " + jobId);
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
         } else {
+            Log.d(TAG, "Skipping schedule for job with name " + jobTag + " : Already Exists!");
 
-            jobRequest.setPeriodic(TimeUnit.MINUTES.toMillis(start), TimeUnit.MINUTES.toMillis(flex));
-        }
-
-        try {
-
-            int jobId = jobRequest.build().schedule();
-            Log.d(TAG, "Scheduling job with name " + jobTag + " periodically with JOB ID " + jobId);
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -57,6 +64,7 @@ public abstract class BaseJob extends Job {
                 .schedule();
 
         Log.d(TAG, "Scheduling job with name " + jobTag + " immediately with JOB ID " + jobId);
+
     }
 
     @Override

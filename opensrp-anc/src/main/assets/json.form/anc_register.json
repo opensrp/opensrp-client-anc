@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Woman Registration",
+    "title": "ANC Registration",
     "fields": [
       {
         "key": "photo",
@@ -142,8 +142,13 @@
         },
         "relevance": {
           "step1:dob_unknown": {
-            "type": "string",
-            "ex": "equalTo(., \"false\")"
+            "ex-checkbox": [
+              {
+                "not": [
+                  "dob_unknown"
+                ]
+              }
+            ]
           }
         }
       },
@@ -168,7 +173,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Enter Age if DOB unknown *",
+        "hint": "Age *",
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
@@ -182,8 +187,13 @@
         },
         "relevance": {
           "step1:dob_unknown": {
-            "type": "string",
-            "ex": "equalTo(., \"true\")"
+            "ex-checkbox": [
+              {
+                "and": [
+                  "dob_unknown"
+                ]
+              }
+            ]
           }
         },
         "v_required": {

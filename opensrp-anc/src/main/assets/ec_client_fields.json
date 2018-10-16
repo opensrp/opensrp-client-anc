@@ -86,6 +86,13 @@
           "json_mapping": {
             "field": "attributes.reminders"
           }
+        },
+        {
+          "column_name": "home_address",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.home_address"
+          }
         }
       ]
     }

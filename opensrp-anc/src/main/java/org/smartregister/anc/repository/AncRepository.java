@@ -10,6 +10,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.SettingsRepository;
 
 /**
  * Created by ndegwamartin on 09/04/2018.
@@ -33,6 +34,7 @@ public class AncRepository extends Repository {
         EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
 
         UniqueIdRepository.createTable(database);
+        SettingsRepository.onUpgrade(database);
 
         //onUpgrade(database, 1, 2);
     }
