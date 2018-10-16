@@ -58,10 +58,8 @@ public class ECSyncHelperTest extends BaseUnitTest {
         Mockito.verify(syncHelperSpy).batchSave(eventsArray, clientsArray);
         Assert.assertTrue(result);
 
-        Mockito.doThrow(new TestException()).when(syncHelperSpy).batchSave(eventsArray, clientsArray);
-
         result = syncHelperSpy.saveAllClientsAndEvents(object);
-        Assert.assertFalse(result);
+        Assert.assertTrue(result);
     }
 
     @Test

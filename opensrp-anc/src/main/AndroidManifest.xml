@@ -119,8 +119,8 @@
 
         <service android:name=".service.intent.PullUniqueIdsIntentService" />
         <service android:name=".service.intent.SyncIntentService" />
-        <service android:name=".service.intent.ValidateIntentService" />
-        <service android:name=".service.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name=".service.intent.SettingsSyncIntentService" />
 
     </application>

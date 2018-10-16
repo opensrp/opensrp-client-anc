@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import org.smartregister.anc.service.intent.SettingsSyncIntentService;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.job.BaseJob;
 
 /**
  * Created by ndegwamartin on 11/09/2018.

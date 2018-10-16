@@ -14,7 +14,6 @@ import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.helper.CharacteristicsHelper;
 import org.smartregister.anc.job.ImageUploadServiceJob;
 import org.smartregister.anc.job.PullUniqueIdsServiceJob;
-import org.smartregister.anc.job.SyncServiceJob;
 import org.smartregister.anc.job.SyncSettingsServiceJob;
 import org.smartregister.anc.job.ViewConfigurationsServiceJob;
 import org.smartregister.anc.task.RemoteLoginTask;
@@ -23,6 +22,7 @@ import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.event.Listener;
+import org.smartregister.job.SyncServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 
