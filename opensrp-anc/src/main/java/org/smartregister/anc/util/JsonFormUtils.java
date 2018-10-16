@@ -351,17 +351,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
 
-            List<String> healthFacilityHierarchy = new ArrayList<>();
-            String address5 = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
-            healthFacilityHierarchy.add(address5);
-
-            String schoolFacilityHierarchyString = AssetHandler.javaToJsonString(healthFacilityHierarchy, new TypeToken<List<String>>() {
-            }.getType());
-
-            if (StringUtils.isNotBlank(schoolFacilityHierarchyString)) {
-                jsonObject.put(JsonFormUtils.VALUE, schoolFacilityHierarchyString);
-            }
-
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
 
             Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));

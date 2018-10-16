@@ -37,6 +37,7 @@ import org.smartregister.anc.job.SyncSettingsServiceJob;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -107,6 +108,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     @Override
     protected SecuredNativeSmartRegisterActivity.DefaultOptionsProvider getDefaultOptionsProvider() {
+
         return null;
     }
 
@@ -297,7 +299,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         this.mainCondition = getMainCondition();
         this.countSelect = countSelect;
         this.mainSelect = mainSelect;
-        this.Sortqueries = "";
+        this.Sortqueries = DBConstants.KEY.LAST_INTERACTED_WITH + " DESC";
     }
 
     @Override

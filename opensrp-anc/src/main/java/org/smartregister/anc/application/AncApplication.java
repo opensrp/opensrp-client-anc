@@ -204,8 +204,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     public void startPullConfigurableViewsIntentService(android.content.Context context) {
-        Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
-        context.startService(intent);
+        try {
+            Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
+            context.startService(intent);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     public ConfigurableViewsRepository getConfigurableViewsRepository() {
