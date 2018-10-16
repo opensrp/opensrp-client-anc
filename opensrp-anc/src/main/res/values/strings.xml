@@ -137,7 +137,7 @@
     <string name="cancel">Cancel</string>
     <string name="yellow">YELLOW</string>
     <string name="red">RED</string>
-    <string name="record_birth">Record Birth</string>
+    <string name="record_birth">Record birth</string>
     <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
     <string name="woman_filter">Filter</string>
     <string name="clients">%1$d Clients</string>
@@ -272,5 +272,10 @@
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
     <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
     <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>
+    <string name="loading_client_settings">Loading client settings&#8230;</string>
+    <string name="allow_phone_call_management">You need to allow the WHO ANC app to manage phone calls to enable calling&#8230;</string>
+    <string name="any_changes_you_make">Any changes you make will be lost</string>
+    <string name="woman_name">Woman Name</string>
+
 
 </resources>
