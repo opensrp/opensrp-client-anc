@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.interactor.LoginInteractor;
 import org.smartregister.anc.model.LoginModel;
 import org.smartregister.anc.util.Constants;
@@ -31,6 +30,7 @@ import org.smartregister.anc.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
+import org.smartregister.login.LoginContract;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 

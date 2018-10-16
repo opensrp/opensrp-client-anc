@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.helper.CharacteristicsHelper;
 import org.smartregister.anc.job.ImageUploadServiceJob;
 import org.smartregister.anc.job.PullUniqueIdsServiceJob;
@@ -23,6 +22,7 @@ import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.event.Listener;
+import org.smartregister.login.LoginContract;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 
