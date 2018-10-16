@@ -136,8 +136,8 @@ public class MeFragment extends Fragment implements MeContract.View {
 
     protected void updateLocationText() {
         if (facilitySelection != null) {
-            facilitySelection.setText(LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsReadableName(facilitySelection.getSelectedItem()));
-            String locationId = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationId(facilitySelection.getSelectedItem());
+            facilitySelection.setText(AncApplication.getLocationHelper().getOpenMrsReadableName(facilitySelection.getSelectedItem()));
+            String locationId = AncApplication.getLocationHelper().getOpenMrsLocationId(facilitySelection.getSelectedItem());
             AncApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
         }
     }

@@ -43,7 +43,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public String getLocationId(String locationName) {
-        return LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationId(locationName);
+        return AncApplication.getLocationHelper().getOpenMrsLocationId(locationName);
     }
 
     @Override

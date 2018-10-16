@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.presenter.CharacteristicsPresenter;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.helper.LocationHelper;
@@ -24,7 +25,7 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
 
         presenter = new CharacteristicsPresenter(this);
 
-        String defaultLocation = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationName(LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getDefaultLocation());
+        String defaultLocation = LocationHelper.getInstance(Utils.ALLOWED_LEVELS,"").getOpenMrsLocationName(AncApplication.getLocationHelper().getDefaultLocation());
         TextView textView = findViewById(R.id.site_characteristics_facility_name);
         textView.setText(getString(R.string.your_site_characteristics_for_facility_name, defaultLocation));
 

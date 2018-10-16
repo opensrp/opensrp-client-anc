@@ -310,7 +310,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).getOpenMrsLocationId(lpv.getSelectedItem());
+                String lastLocationId = AncApplication.getLocationHelper().getOpenMrsLocationId(lpv.getSelectedItem());
 
                 metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
@@ -400,8 +400,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             healthFacilities.add(Utils.HOME_ADDRESS);
 
 
-            List<String> defaultFacility = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).generateDefaultLocationHierarchy(healthFacilities);
-            List<FormLocation> upToFacilities = LocationHelper.getInstance(Utils.ALLOWED_LEVELS).generateLocationHierarchyTree(false, healthFacilities);
+            List<String> defaultFacility = AncApplication.getLocationHelper().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = AncApplication.getLocationHelper().generateLocationHierarchyTree(false, healthFacilities);
 
             String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
                     new TypeToken<List<String>>() {
