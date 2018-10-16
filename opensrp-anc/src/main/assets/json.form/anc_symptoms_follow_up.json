@@ -66,6 +66,10 @@
         "label_info_title": "Medication follow-up",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
         "options": [
           {
             "key": "none",
@@ -296,7 +300,6 @@
             ]
           }
         }
-
       },
       {
         "key": "calcium_comply",
@@ -457,6 +460,9 @@
         "label_info_title": "Previous behaviours",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -475,7 +481,7 @@
             "label_info_title": "Previous behaviours"
           },
           {
-            "key": "current_tobacco",
+            "key": "current_tobacco_use",
             "text": "Current tobacco use or recently quit",
             "value": false,
             "openmrs_entity": "",
@@ -518,7 +524,18 @@
         "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates. This includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 mL serving.",
         "toaster_info_title": "Caffeine intake folder",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step2:behavior_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "high_caffeine"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "",
@@ -529,7 +546,18 @@
         "text": "Tobacco cessation counseling",
         "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step2:behavior_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "current_tobacco_use"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "",
@@ -540,7 +568,18 @@
         "text": "Second-hand smoke counseling",
         "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step2:behavior_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "tobacco_exposure"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "",
@@ -551,7 +590,18 @@
         "text": "Condom counseling",
         "toaster_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step2:behavior_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "no_condom_use"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "",
@@ -562,7 +612,18 @@
         "text": "Alcohol / substance use counseling",
         "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step2:behavior_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "alcohol_substance_use"
+                ]
+              }
+            ]
+          }
+        }
       }
     ]
   },
@@ -581,6 +642,9 @@
         "label_info_title": "Previous Symptoms",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -646,6 +710,9 @@
         "label": "Any other symptoms related to low back and pelvic pain?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -690,6 +757,9 @@
         "label": "Any other symptoms related to varicose veins or oedema?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -729,6 +799,9 @@
         "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous Symptoms",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -906,6 +979,9 @@
         "label": "Any physiological symptoms?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -971,6 +1047,9 @@
         "label": "Any other symptoms related to low back and pelvic pain?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -1015,6 +1094,9 @@
         "label": "Any other symptoms related to varicose veins or oedema?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -1149,6 +1231,9 @@
         "label": "Any other symptoms?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "none",
@@ -1237,6 +1322,17 @@
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
           "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step4:other_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
         }
       },
       {
