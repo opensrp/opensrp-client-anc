@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -206,6 +207,27 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     public void displayToast(int stringID) {
 
         Utils.showShortToast(this, this.getString(stringID));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    launchPhoneDialer(womanPhoneNumber);
+
+                } else {
+                    Utils.showToast(this, getString(R.string.allow_phone_call_management));
+
+                }
+                return;
+            }
+            default:
+                break;
+        }
     }
 
     protected void launchPhoneDialer(String phoneNumber) {

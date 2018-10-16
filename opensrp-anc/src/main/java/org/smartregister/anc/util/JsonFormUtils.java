@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
@@ -350,17 +351,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
 
-            List<String> healthFacilityHierarchy = new ArrayList<>();
-            String address5 = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
-            healthFacilityHierarchy.add(address5);
-
-            String schoolFacilityHierarchyString = AssetHandler.javaToJsonString(healthFacilityHierarchy, new TypeToken<List<String>>() {
-            }.getType());
-
-            if (StringUtils.isNotBlank(schoolFacilityHierarchyString)) {
-                jsonObject.put(JsonFormUtils.VALUE, schoolFacilityHierarchyString);
-            }
-
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
 
             Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));
@@ -438,7 +428,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
-        Intent intent = new Intent(context, JsonFormActivity.class);
+        Intent intent = new Intent(context, EditJsonFormActivity.class);
         intent.putExtra(Constants.INTENT_KEY.JSON, metaData);
 
         Log.d(TAG, "form is " + metaData);
@@ -701,9 +691,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                    jsonObject.put(JsonFormUtils.VALUE, characteristics.get(jsonObject.getString(JsonFormUtils.KEY)));
+                    if (characteristics.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {
+                        jsonObject.put(JsonFormUtils.READ_ONLY, false);
+                        jsonObject.put(JsonFormUtils.VALUE, "true".equals(characteristics.get(jsonObject.getString(JsonFormUtils.KEY))) ? "1" : "0");
+                    }
 
                 }
 

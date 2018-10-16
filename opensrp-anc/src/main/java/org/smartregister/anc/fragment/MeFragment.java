@@ -94,7 +94,7 @@ public class MeFragment extends Fragment implements MeContract.View {
         TextView application_version = view.findViewById(R.id.application_version);
         if (application_version != null) {
             try {
-                application_version.setText(String.format(getString(R.string.app_version), getVersion(), presenter.getBuildDate()));
+                application_version.setText(String.format(getString(R.string.app_version), Utils.getVersion(getActivity()), presenter.getBuildDate()));
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
@@ -132,11 +132,6 @@ public class MeFragment extends Fragment implements MeContract.View {
         if (userName != null) {
             userName.setText(name);
         }
-    }
-
-    private String getVersion() throws PackageManager.NameNotFoundException {
-        PackageInfo packageInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-        return packageInfo.versionName;
     }
 
     protected void updateLocationText() {

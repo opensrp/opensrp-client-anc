@@ -9,6 +9,16 @@ public class Characteristic {
     private String label;
     private String description;
 
+    public Characteristic() {
+
+    }
+
+    /**
+     * @param key         The key
+     * @param value
+     * @param label       the label
+     * @param description
+     */
     public Characteristic(String key, boolean value, String label, String description) {
         this.key = key;
         this.value = value;
