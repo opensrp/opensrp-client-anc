@@ -196,8 +196,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             }
         });
 
-        View mycatchmentLayout = view.findViewById(R.id.my_catchment_layout);
-        mycatchmentLayout.setOnClickListener(new View.OnClickListener() {
+        View myCatchmentLayout = view.findViewById(R.id.my_catchment_layout);
+        myCatchmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myCatchment.toggle();

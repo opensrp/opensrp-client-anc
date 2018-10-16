@@ -10,15 +10,15 @@ import java.util.Map;
 public class AdvancedSearchModel extends RegisterFramentModel implements AdvancedSearchContract.Model {
 
 
-    public static final String GLOBAL_FIRST_NAME = "firstName";
-    public static final String GLOBAL_LAST_NAME = "lastName";
-    public static final String GLOBAL_BIRTH_DATE = "birthdate";
-    public static final String GLOBAL_ATTRIBUTE = "attribute";
-    public static final String GLOBAL_IDENTIFIER = "identifier";
+    private static final String GLOBAL_FIRST_NAME = "firstName";
+    private static final String GLOBAL_LAST_NAME = "lastName";
+    private static final String GLOBAL_BIRTH_DATE = "birthdate";
+    private static final String GLOBAL_ATTRIBUTE = "attribute";
+    private static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
-    public static final String EDD_ATTR = "edd";
-    public static final String PHONE_NUMBER = "phone_number";
-    public static final String ALT_CONTACT_NAME = "alt_name";
+    private static final String EDD_ATTR = "edd";
+    private static final String PHONE_NUMBER = "phone_number";
+    private static final String ALT_CONTACT_NAME = "alt_name";
 
 
     @Override
@@ -71,9 +71,9 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
             searchCriteria += " Mobile phone number: " + phoneNumber + ";";
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            searchCriteria += " Alternate contact name: " + alternateContact + "";
+            searchCriteria += " Alternate contact name: " + alternateContact + ";";
         }
-        return removeLastComma(searchCriteria);
+        return removeLastSemiColon(searchCriteria);
     }
 
     @Override
@@ -100,12 +100,12 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
 
     }
 
-    private String removeLastComma(String str) {
+    private String removeLastSemiColon(String str) {
         if (StringUtils.isBlank(str)) {
             return str;
         }
         String s = str.trim();
-        if (s.charAt(s.length() - 1) == ',') {
+        if (s.charAt(s.length() - 1) == ';') {
             return s.substring(0, s.length() - 1);
         }
         return s;
