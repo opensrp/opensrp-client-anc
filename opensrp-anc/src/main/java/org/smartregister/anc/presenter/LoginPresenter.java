@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
@@ -27,6 +30,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.domain.Setting;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.Utils;
 
@@ -201,6 +205,27 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public Context getOpenSRPContext() {
         return mLoginModel.getOpenSRPContext();
+    }
+
+    @Override
+    public boolean isSiteCharacteristicsSet() {
+
+        try {
+            Setting setting = AncApplication.getInstance().getContext().allSettings().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+
+            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+
+            if (settingArray != null && settingArray.length() > 0) {
+
+                JSONObject settingObject = settingArray.getJSONObject(0);// get first setting to test
+                return !settingObject.isNull(Constants.KEY.VALUE);
+
+            }
+        } catch (JSONException e) {
+            return false;
+        }
+
+        return false;
     }
 
     //for testing only, setter methods instead?

@@ -3,6 +3,7 @@ package org.smartregister.anc.contract;
 import android.app.Activity;
 
 import org.smartregister.Context;
+import org.smartregister.domain.LoginResponse;
 
 import java.lang.ref.WeakReference;
 
@@ -29,6 +30,7 @@ public interface LoginContract {
 
         Context getOpenSRPContext();
 
+        boolean isSiteCharacteristicsSet();
     }
 
     interface View {
@@ -43,6 +45,8 @@ public interface LoginContract {
 
         void showProgress(final boolean show);
 
+        void updateProgressMessage(final String message);
+
         void hideKeyboard();
 
         void showErrorDialog(String message);
@@ -52,6 +56,8 @@ public interface LoginContract {
         void goToHome(boolean isRemote);
 
         Activity getActivityContext();
+
+        String getUserTeamId(LoginResponse loginResponse);
     }
 
     interface Interactor {
