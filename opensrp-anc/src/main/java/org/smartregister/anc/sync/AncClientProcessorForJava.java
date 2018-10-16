@@ -45,7 +45,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         return instance;
     }
 
-
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
 
@@ -197,7 +196,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
 
         return false;
     }
-
 
     @Override
     public String[] getOpenmrsGenIds() {

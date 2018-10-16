@@ -4,22 +4,31 @@ import android.content.Context;
 import android.util.Log;
 
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.LoginContract;
+import org.smartregister.anc.helper.CharacteristicsHelper;
+import org.smartregister.anc.job.ImageUploadServiceJob;
+import org.smartregister.anc.job.PullUniqueIdsServiceJob;
 import org.smartregister.anc.job.SyncServiceJob;
+import org.smartregister.anc.job.SyncSettingsServiceJob;
+import org.smartregister.anc.job.ViewConfigurationsServiceJob;
 import org.smartregister.anc.task.RemoteLoginTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
-import org.smartregister.domain.jsonmapping.LoginResponseData;
 import org.smartregister.event.Listener;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 
 import java.lang.ref.WeakReference;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import static org.smartregister.domain.LoginResponse.NO_INTERNET_CONNECTIVITY;
 import static org.smartregister.domain.LoginResponse.UNAUTHORIZED;
@@ -31,6 +40,8 @@ import static org.smartregister.domain.LoginResponse.UNKNOWN_RESPONSE;
 public class LoginInteractor implements LoginContract.Interactor {
 
     private LoginContract.Presenter mLoginPresenter;
+
+    private static final int MINIMUM_JOB_FLEX_VALUE = 1;
 
     private RemoteLoginTask remoteLoginTask;
 
@@ -105,13 +116,13 @@ public class LoginInteractor implements LoginContract.Interactor {
                                         loginResponse.payload(), Constants.MAX_SERVER_TIME_DIFFERENCE
                                 );
                                 if (!Constants.TIME_CHECK || timeStatus.equals(TimeStatus.OK)) {
-                                    remoteLoginWith(userName, password,
-                                            loginResponse.payload());
-                                    AncApplication.getInstance().startPullUniqueIdsService();
+
+                                    remoteLoginWith(userName, password, loginResponse);
+
                                 } else {
                                     if (timeStatus.equals(TimeStatus.TIMEZONE_MISMATCH)) {
-                                        TimeZone serverTimeZone = mLoginPresenter.getOpenSRPContext().userService()
-                                                .getServerTimeZone(loginResponse.payload());
+                                        TimeZone serverTimeZone = UserService.getServerTimeZone(loginResponse.payload());
+
                                         getLoginView().showErrorDialog(getApplicationContext().getString(timeStatus.getMessage(),
                                                 serverTimeZone.getDisplayName()));
                                     } else {
@@ -158,12 +169,33 @@ public class LoginInteractor implements LoginContract.Interactor {
         remoteLoginTask.execute();
     }
 
-    private void remoteLoginWith(String userName, String password, LoginResponseData userInfo) {
-        getUserService().remoteLogin(userName, password, userInfo);
+    private void remoteLoginWith(String userName, String password, LoginResponse loginResponse) {
+        getUserService().remoteLogin(userName, password, loginResponse.payload());
+
+        JSONObject data = loginResponse.getRawData();
+
+        if (data != null) {
+            try {
+
+                JSONArray settings = data.has(Constants.PREF_KEY.SITE_CHARACTERISTICS) ? data.getJSONArray(Constants.PREF_KEY.SITE_CHARACTERISTICS) : null;
+
+                if (settings != null && settings.length() > 0) {
+                    CharacteristicsHelper.saveSetting(settings);
+                    CharacteristicsHelper.updateLastSettingServerSyncTimetamp();
+                }
+
+            } catch (JSONException e) {
+                Log.e(TAG, e.getMessage());
+
+            }
+        }
+
         getLoginView().goToHome(true);
         if (NetworkUtils.isNetworkAvailable()) {
+            AncApplication.getInstance().startPullUniqueIdsService();
             SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         }
+        scheduleJobs();
     }
 
     public Context getApplicationContext() {
@@ -180,5 +212,35 @@ public class LoginInteractor implements LoginContract.Interactor {
 
     public UserService getUserService() {
         return mLoginPresenter.getOpenSRPContext().userService();
+    }
+
+    private void scheduleJobs() {
+
+        //schedule jobs
+        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
+                .DATA_SYNC_DURATION_MINUTES));
+
+        PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
+                (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
+
+        ImageUploadServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
+                .IMAGE_UPLOAD_MINUTES));
+
+        ViewConfigurationsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES),
+                getFlexValue(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES));
+
+        SyncSettingsServiceJob.scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
+                getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+    }
+
+    private long getFlexValue(int value) {
+        int minutes = MINIMUM_JOB_FLEX_VALUE;
+
+        if (value > MINIMUM_JOB_FLEX_VALUE) {
+
+            minutes = (int) Math.ceil(value / 3);
+        }
+
+        return TimeUnit.MINUTES.toMillis(minutes);
     }
 }

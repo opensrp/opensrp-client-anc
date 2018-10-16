@@ -1,17 +1,19 @@
 package org.smartregister.anc.presenter;
 
 
-import com.google.common.collect.ImmutableMap;
+import android.util.Log;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
+import org.smartregister.anc.domain.Characteristic;
+import org.smartregister.anc.helper.CharacteristicsHelper;
 import org.smartregister.anc.interactor.CharacteristicsInteractor;
 import org.smartregister.anc.model.SiteCharacteristicModel;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.repository.AllSettings;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,16 +45,18 @@ public class CharacteristicsPresenter implements SiteCharacteristicsContract.Pre
 
     @Override
     public void launchSiteCharacteristicsFormForEdit() {
-        AllSettings allSettings = AncApplication.getInstance().getContext().allSettings();
-        Map<String, String> settings = getSettingsMap(allSettings);
+        Map<String, String> settings = getSettingsMapByType(Constants.PREF_KEY.SITE_CHARACTERISTICS);
         getSiteCharacteristicsView().launchSiteCharacteristicsSettingsFormForEdit(settings);
     }
 
-    protected Map<String, String> getSettingsMap(AllSettings allSettings) {
-        return ImmutableMap.of(Constants.SITE_CHARACTERISTICS_KEY.ULTRASOUND, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.ULTRASOUND),
-                Constants.SITE_CHARACTERISTICS_KEY.BP_TOOL, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.BP_TOOL),
-                Constants.SITE_CHARACTERISTICS_KEY.HIV, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.HIV),
-                Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS, allSettings.get(Constants.SITE_CHARACTERISTICS_KEY.IPV_ASSESS));
+    protected Map<String, String> getSettingsMapByType(String characteristicType) {
+        List<Characteristic> characteristicList = CharacteristicsHelper.fetchCharacteristicsByTypeKey(characteristicType);
+
+        Map<String, String> settingsMap = new HashMap<>();
+        for (Characteristic characteristic : characteristicList) {
+            settingsMap.put(characteristic.getKey(), String.valueOf(characteristic.getValue()));
+        }
+        return settingsMap;
     }
 
     @Override
@@ -66,10 +70,17 @@ public class CharacteristicsPresenter implements SiteCharacteristicsContract.Pre
 
     @Override
     public void saveSiteCharacteristics(String jsonString) {
+
         getSiteCharacteristicsView().showProgressDialog(R.string.saving_dialog_title);
 
         Map<String, String> settings = model.processSiteCharacteristics(jsonString);
-        interactor.saveSiteCharacteristics(settings);
+        try {
+
+            interactor.saveSiteCharacteristics(settings);
+
+        } catch (Exception e) {
+            Log.e(CharacteristicsPresenter.class.getCanonicalName(), e.getMessage());
+        }
 
         getSiteCharacteristicsView().hideProgressDialog();
         getSiteCharacteristicsView().goToLastPage();
