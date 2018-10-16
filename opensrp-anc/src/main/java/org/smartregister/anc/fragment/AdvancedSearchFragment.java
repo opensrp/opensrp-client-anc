@@ -128,6 +128,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         } else if (view.getId() == R.id.cancel_button) {
             ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
             ((HomeRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
+            ((HomeRegisterActivity) getActivity()).setSearchTerm("");
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
         }
