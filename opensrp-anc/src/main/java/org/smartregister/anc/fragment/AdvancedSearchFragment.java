@@ -42,9 +42,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private View listViewLayout;
     private View advancedSearchForm;
-
     private ImageButton backButton;
-    private ImageButton cancelButton;
     private Button searchButton;
 
     private RadioButton outsideInside;
@@ -141,12 +139,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         listViewLayout = view.findViewById(R.id.advanced_search_list);
         listViewLayout.setVisibility(View.GONE);
         advancedSearchForm = view.findViewById(R.id.advanced_search_form);
-
         backButton = view.findViewById(R.id.back_button);
         backButton.setOnClickListener(registerActionHandler);
-
-        cancelButton = view.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(registerActionHandler);
         searchButton = view.findViewById(R.id.search);
         qrCodeButton = view.findViewById(R.id.qrCodeButton);
 
@@ -247,8 +241,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             advancedSearchForm.setVisibility(View.GONE);
             listViewLayout.setVisibility(View.VISIBLE);
             clientsView.setVisibility(View.VISIBLE);
-
-            cancelButton.setVisibility(View.GONE);
             backButton.setVisibility(View.VISIBLE);
             searchButton.setVisibility(View.GONE);
 
@@ -265,9 +257,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             advancedSearchForm.setVisibility(View.VISIBLE);
             listViewLayout.setVisibility(View.GONE);
             clientsView.setVisibility(View.INVISIBLE);
-
             backButton.setVisibility(View.GONE);
-            cancelButton.setVisibility(View.VISIBLE);
             searchButton.setVisibility(View.VISIBLE);
 
             if (titleLabelView != null) {

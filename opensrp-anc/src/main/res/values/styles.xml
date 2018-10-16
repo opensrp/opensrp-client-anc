@@ -56,11 +56,11 @@
     </style>
 
     <style name="Material.Drawable.RadioButton.AdvancedSearch" parent="Material.Drawable.RadioButton">
-        <item name="rbd_width">40dp</item>
-        <item name="rbd_height">40dp</item>
+        <item name="rbd_width">25dp</item>
+        <item name="rbd_height">25dp</item>
         <item name="rbd_strokeSize">2dp</item>
-        <item name="rbd_radius">15dp</item>
-        <item name="rbd_innerRadius">10dp</item>
+        <item name="rbd_radius">10dp</item>
+        <item name="rbd_innerRadius">5dp</item>
         <item name="rbd_strokeColor">@drawable/advanced_search_rdb_stoke_color_list</item>
     </style>
 

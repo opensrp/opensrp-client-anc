@@ -53,25 +53,25 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
         String searchCriteria = "";
 
         if (StringUtils.isNotBlank(firstName)) {
-            searchCriteria += " First name: " + firstName + ",";
+            searchCriteria += " First name: " + firstName + ";";
         }
         if (StringUtils.isNotBlank(lastName)) {
-            searchCriteria += " Last name: " + lastName + ",";
+            searchCriteria += " Last name: " + lastName + ";";
         }
         if (StringUtils.isNotBlank(ancId)) {
-            searchCriteria += " Anc ID: " + ancId + ",";
+            searchCriteria += " Anc ID: " + ancId + ";";
         }
         if (StringUtils.isNotBlank(edd)) {
-            searchCriteria += " Edd: " + edd + ",";
+            searchCriteria += " Edd: " + edd + ";";
         }
         if (StringUtils.isNotBlank(dob)) {
-            searchCriteria += " Dob: " + dob + ",";
+            searchCriteria += " Dob: " + dob + ";";
         }
         if (StringUtils.isNotBlank(phoneNumber)) {
-            searchCriteria += " Mobile phone number: " + phoneNumber + ",";
+            searchCriteria += " Mobile phone number: " + phoneNumber + ";";
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            searchCriteria += " Alternate contact name: " + alternateContact + ",";
+            searchCriteria += " Alternate contact name: " + alternateContact + "";
         }
         return removeLastComma(searchCriteria);
     }

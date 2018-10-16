@@ -31,8 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/register_search_bar_max_margin"
-                    android:text="@string/clients_facility"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black_text_color"
+                    android:text="@string/clients_facility" />
 
                 <RelativeLayout
                     android:id="@+id/out_and_inside_layout"
@@ -50,6 +50,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_toEndOf="@id/out_and_inside"
                         android:orientation="vertical">
 
@@ -60,7 +62,7 @@
                             android:maxLines="5"
                             android:paddingStart="@dimen/advanced_search_text_padding"
                             android:text="@string/out_and_inside"
-                            android:textColor="@color/lighter_grey_text"
+                            android:textColor="@color/black_text_color"
                             android:textSize="@dimen/advanced_search_label_size" />
 
                         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -70,7 +72,7 @@
                             android:maxLines="2"
                             android:paddingStart="@dimen/advanced_search_text_padding"
                             android:text="@string/requires_internet_connection"
-                            android:textColor="@color/lighter_grey_text"
+                            android:textColor="@color/black_text_color"
                             android:textSize="@dimen/advanced_search_label_small_size" />
                     </LinearLayout>
 
@@ -95,10 +97,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/my_catchment"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:maxLines="5"
                         android:paddingStart="@dimen/advanced_search_text_padding"
                         android:text="@string/my_catchment_area"
-                        android:textColor="@color/lighter_grey_text"
+                        android:textColor="@color/black_text_color"
                         android:textSize="@dimen/advanced_search_label_size" />
                 </RelativeLayout>
             </LinearLayout>
@@ -183,8 +187,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/register_search_bar_max_margin"
-                    android:text="@string/qr_code_label"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black_text_color"
+                    android:text="@string/qr_code_label" />
 
                 <Button
                     android:id="@+id/qrCodeButton"
