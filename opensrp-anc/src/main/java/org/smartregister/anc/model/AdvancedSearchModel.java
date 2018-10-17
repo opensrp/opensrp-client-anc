@@ -10,15 +10,15 @@ import java.util.Map;
 public class AdvancedSearchModel extends RegisterFramentModel implements AdvancedSearchContract.Model {
 
 
-    private static final String GLOBAL_FIRST_NAME = "firstName";
-    private static final String GLOBAL_LAST_NAME = "lastName";
-    private static final String GLOBAL_BIRTH_DATE = "birthdate";
-    private static final String GLOBAL_ATTRIBUTE = "attribute";
-    private static final String GLOBAL_IDENTIFIER = "identifier";
+    public static final String GLOBAL_FIRST_NAME = "firstName";
+    public static final String GLOBAL_LAST_NAME = "lastName";
+    public static final String GLOBAL_BIRTH_DATE = "birthdate";
+    public static final String GLOBAL_ATTRIBUTE = "attribute";
+    public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
-    private static final String EDD_ATTR = "edd";
-    private static final String PHONE_NUMBER = "phone_number";
-    private static final String ALT_CONTACT_NAME = "alt_name";
+    public static final String EDD_ATTR = "edd";
+    public static final String PHONE_NUMBER = "phone_number";
+    public static final String ALT_CONTACT_NAME = "alt_name";
 
 
     @Override
