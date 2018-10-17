@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Demographic info",
+    "title": "Demographic Info",
     "next": "step2",
     "fields": [
       {
@@ -61,8 +61,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Highest Level of School",
-        "label_text_size": "16px",
+        "label": "Highest level of school",
         "label_text_style": "bold",
         "options": [
           {
@@ -100,7 +99,11 @@
             "openmrs_entity": "Tertiary education complete",
             "openmrs_entity_id": "160292"
           }
-        ]
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify your education level"
+        }
       },
       {
         "key": "marital_status",
@@ -109,7 +112,6 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Marital status",
-        "label_text_size": "16px",
         "label_text_style": "bold",
         "options": [
           {
@@ -140,7 +142,11 @@
             "openmrs_entity": "Widowed",
             "openmrs_entity_id": "1059"
           }
-        ]
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify your marital status"
+        }
       },
       {
         "key": "occupation",
@@ -151,11 +157,7 @@
         "type": "check_box",
         "label": "Occupation",
         "hint": "Occupation",
-        "label_text_size": "16px",
         "label_text_style": "bold",
-        "exclusive": [
-          "other"
-        ],
         "options": [
           {
             "key": "student",
@@ -212,6 +214,7 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Specify *",
+        "edit_type": "name",
         "relevance": {
           "step1:occupation": {
             "ex-checkbox": [
@@ -224,7 +227,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify your occupation"
         },
         "v_regex": {
@@ -238,14 +241,15 @@
         "openmrs_entity_id": "160581",
         "key": "hiv_risk",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "hiv_risk_counseling_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
         "openmrs_entity_id": "2047",
@@ -274,10 +278,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "LMP Known?",
-        "label_text_size": "22px",
+        "label": "LMP known?",
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, check unknown and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
-        "label_info_title": "LMP Known?",
+        "label_info_title": "LMP known?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -285,7 +289,7 @@
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "",
             "text": "Yes",
-            "specify_info": "Specify Date"
+            "specify_info": "specify date"
           },
           {
             "key": "no",
@@ -305,7 +309,8 @@
         "openmrs_entity_id": "160581",
         "key": "lmp_edd",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -317,7 +322,8 @@
         "openmrs_entity_id": "160581",
         "key": "lmp_gest_age",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -329,10 +335,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Ultrasound Done?",
-        "label_text_size": "22px",
+        "label": "Ultrasound done?",
         "label_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
-        "label_info_title": "Ultrasound Done?",
+        "label_info_title": "Ultrasound done?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -340,7 +346,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "specify_info": "Ultrasound Date"
+            "specify_info": "ultrasound date"
           },
           {
             "key": "no",
@@ -355,7 +361,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "ultrasound_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "toaster_notes",
@@ -367,7 +373,7 @@
         "toaster_type": "info"
       },
       {
-        "key": "toaster_notes",
+        "key": "facility_in_us_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "toaster_notes",
@@ -452,7 +458,8 @@
         "openmrs_entity_id": "",
         "key": "ultrasound_edd",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -470,7 +477,8 @@
         "openmrs_entity_id": "",
         "key": "ultrasound_gest_age",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -512,7 +520,8 @@
         "openmrs_entity_id": "",
         "key": "sfh_edd",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -525,8 +534,8 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Select preferred gestational age:",
-        "label_text_size": "22px",
         "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP.If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominalpalpation, use your best judgment to select GA.",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "",
@@ -561,7 +570,8 @@
         "openmrs_entity_id": "",
         "key": "gest_age",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -573,7 +583,8 @@
         "openmrs_entity_id": "",
         "key": "edd",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -596,6 +607,7 @@
       {
         "key": "enabled_label",
         "type": "label",
+        "label_text_style": "bold",
         "text": "Number of pregnancies",
         "text_color": "#000000",
         "v_required": {
@@ -625,7 +637,8 @@
         "openmrs_entity_id": "",
         "key": "previous_pregnancies",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -642,6 +655,7 @@
       {
         "key": "enabled_label",
         "type": "label",
+        "label_text_style": "bold",
         "text": "No. of pregnancies lost/ended",
         "text_color": "#000000",
         "v_required": {
@@ -676,6 +690,7 @@
       {
         "key": "enabled_label",
         "type": "label",
+        "label_text_style": "bold",
         "text": "No. of live births",
         "text_color": "#000000",
         "v_required": {
@@ -710,6 +725,7 @@
       {
         "key": "enabled_label",
         "type": "label",
+        "label_text_style": "bold",
         "text": "No. of still births",
         "text_color": "#000000",
         "v_required": {
@@ -739,7 +755,8 @@
         "openmrs_entity_id": "",
         "key": "parity",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -756,6 +773,7 @@
       {
         "key": "enabled_label",
         "type": "label",
+        "label_text_style": "bold",
         "text": "No. of C-sections",
         "text_color": "#000000",
         "v_required": {
@@ -785,7 +803,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "22px"
+        "spacer_height": "22dp"
       },
       {
         "key": "prev_preg_comps",
@@ -795,8 +813,8 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Any past pregnancy problems?",
+        "label_text_style": "bold",
         "hint": "Any past pregnancy problems?",
-        "label_text_size": "22px",
         "exclusive": [
           "none",
           "dont_know"
@@ -934,8 +952,8 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Specify Alcohol or illicit substance use",
+        "label_text_style": "bold",
         "hint": "Specify Alcohol or illicit substance use",
-        "label_text_size": "22px",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [
@@ -1029,14 +1047,15 @@
         "openmrs_entity_id": "",
         "key": "preeclampsia_risk",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "pre_eclampsia_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1059,14 +1078,15 @@
         "openmrs_entity_id": "",
         "key": "gdm_risk",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "gestational_diabetes_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1097,8 +1117,8 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Any allergies?",
+        "label_text_style": "bold",
         "hint": "Any allergies?",
-        "label_text_size": "22px",
         "exclusive": [
           "none",
           "dont_know"
@@ -1247,8 +1267,8 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Any surgeries??",
+        "label_text_style": "bold",
         "hint": "Any surgeries??",
-        "label_text_size": "22px",
         "exclusive": [
           "none",
           "dont_know"
@@ -1386,8 +1406,8 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Any chronic or past health conditions?",
+        "label_text_style": "bold",
         "hint": "Any chronic or past health conditions?",
-        "label_text_size": "22px",
         "exclusive": [
           "none",
           "dont_know"
@@ -1506,14 +1526,15 @@
         "openmrs_entity_id": "",
         "key": "preeclampsia_risk",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "pre_eclampsia_two_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1566,8 +1587,8 @@
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Unknown HIV Date",
+        "label_text_style": "bold",
         "hint": "Unknown HIV Date",
-        "label_text_size": "22px",
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -1600,7 +1621,8 @@
         "openmrs_entity_id": "138571",
         "key": "hiv_positive",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -1619,7 +1641,8 @@
         "openmrs_entity_id": "160055",
         "type": "native_radio",
         "label": "TT immunisation status",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
+        "multi_relevance":true,
         "options": [
           {
             "key": "3_doses",
@@ -1657,7 +1680,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "tt_immunisation_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1669,13 +1692,20 @@
         "toaster_type": "info",
         "relevance": {
           "step5:tt_immun_status": {
-            "type": "string",
-            "ex": "notEqualTo(., \"3_doses\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "1-4_doses",
+                  "ttcv_not_received",
+                  "unknown"
+                ]
+              }
+            ]
           }
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "fully_immunised_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1685,8 +1715,13 @@
         "toaster_type": "positive",
         "relevance": {
           "step5:tt_immun_status": {
-            "type": "string",
-            "ex": "equalTo(., \"3_doses\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "3_doses"
+                ]
+              }
+            ]
           }
         }
       },
@@ -1697,7 +1732,8 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Hep B immunisation status",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
+        "multi_relevance":true,
         "options": [
           {
             "key": "3_doses",
@@ -1735,7 +1771,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "hep_b_testing_recommended_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1747,13 +1783,20 @@
         "toaster_type": "info",
         "relevance": {
           "step5:hepb_immun_status": {
-            "type": "string",
-            "ex": "notEqualTo(., \"3_doses\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "incomplete",
+                  "not_received",
+                  "unknown"
+                ]
+              }
+            ]
           }
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "fully_hep_b_immunised_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1763,8 +1806,13 @@
         "toaster_type": "positive",
         "relevance": {
           "step5:hepb_immun_status": {
-            "type": "string",
-            "ex": "equalTo(., \"3_doses\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "3_doses"
+                ]
+              }
+            ]
           }
         }
       },
@@ -1775,7 +1823,8 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Flu immunisation status",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
+        "multi_relevance":true,
         "options": [
           {
             "key": "seasonal_flu_dose_given",
@@ -1806,7 +1855,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "flu_immunisation_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1818,13 +1867,19 @@
         "toaster_type": "info",
         "relevance": {
           "step5:flu_immun_status": {
-            "type": "string",
-            "ex": "notEqualTo(., \"seasonal_flu_dose_given\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "seasonal_flu_dose_missing",
+                  "unknown"
+                ]
+              }
+            ]
           }
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "immunised_against_flu_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1834,8 +1889,13 @@
         "toaster_type": "positive",
         "relevance": {
           "step5:flu_immun_status": {
-            "type": "string",
-            "ex": "equalTo(., \"seasonal_flu_dose_given\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "seasonal_flu_dose_given"
+                ]
+              }
+            ]
           }
         }
       }
@@ -1853,8 +1913,8 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Current medications",
+        "label_text_style": "bold",
         "hint": "Current medications",
-        "label_text_size": "22px",
         "exclusive": [
           "none",
           "dont_know"
@@ -2114,9 +2174,12 @@
         "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "Daily caffeine intake",
+        "label_text_style": "bold",
         "hint": "Daily caffeine intake",
-        "label_text_size": "22px",
         "label_text_info": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -2131,13 +2194,6 @@
             "openmrs_entity_id": "",
             "key": "more_than_2_small_cups_50_ml_of_espresso",
             "text": "More than 2 small cups (50 ml) of espresso"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "key": "more_than_3_cups_300ml_of_instant_coffee",
-            "text": "More than 3 cups (300ml) of instant coffee"
           },
           {
             "openmrs_entity_parent": "",
@@ -2168,7 +2224,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "caffeine_reduction_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2179,11 +2235,14 @@
         "toaster_info_title": "Caffeine reduction counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step7:medications": {
+          "step7:caffeine_intake": {
             "ex-checkbox": [
               {
-                "not": [
-                  "none"
+                "or": [
+                  "commercially_brewed_coffee",
+                  "more_than_2_small_cups_50_ml_of_espresso",
+                  "more_than_3_cups_300ml_of_instant_coffee",
+                  "more_than_48_pieces_squares_of_chocolate"
                 ]
               }
             ]
@@ -2197,7 +2256,8 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Uses tobacco products?",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
+        "multi_relevance":true,
         "options": [
           {
             "key": "yes",
@@ -2227,7 +2287,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "tobacco_cessation_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2239,8 +2299,14 @@
         "toaster_type": "problem",
         "relevance": {
           "step7:tobacco_user": {
-            "type": "string",
-            "ex": "notEqualTo(., \"no\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "yes",
+                  "recently_quit"
+                ]
+              }
+            ]
           }
         }
       },
@@ -2251,7 +2317,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Anyone in the household smokes tobacco products?",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -2274,7 +2340,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "second_hand_smoke_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2298,7 +2364,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Uses condoms during sex?",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -2322,7 +2388,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "condom_counseling_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2346,8 +2412,8 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Clinical enquiry for alcohol and other substance use done?",
+        "label_text_style": "bold",
         "label_text_info": "The application of a specific enquiry to assess alcohol or other substance use.",
-        "label_text_size": "22px",
         "options": [
           {
             "key": "yes",
@@ -2376,7 +2442,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Uses alcohol and/or other substances?",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
         "exclusive": [
           "none"
         ],
@@ -2461,7 +2527,7 @@
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "substance_use_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2475,7 +2541,12 @@
           "step7:alcohol_substance_use": {
             "ex-checkbox": [
               {
-                "not": [
+                "or": [
+                  "alcohol",
+                  "marijuana",
+                  "cocaine",
+                  "crack",
+                  "injectable_drugs",
                   "other"
                 ]
               }
@@ -2489,14 +2560,15 @@
         "openmrs_entity_id": "",
         "key": "hiv_risk",
         "type": "label",
-        "text": "calculation",
+        "text": "1",
+        "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "hiv_counselling_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2525,7 +2597,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Partner HIV status",
-        "label_text_size": "22px",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "dont_know",
@@ -2537,6 +2609,13 @@
           {
             "key": "positive",
             "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -2553,14 +2632,15 @@
         "openmrs_entity_id": "",
         "key": "partner_hiv_positive",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "bring_partners_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2583,14 +2663,15 @@
         "openmrs_entity_id": "",
         "key": "hiv_risk",
         "type": "label",
-        "text": "calculation",
+        "label_text_style": "bold",
+        "text": "1",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
       },
       {
-        "key": "toaster_notes",
+        "key": "hiv_risk_counselling_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
