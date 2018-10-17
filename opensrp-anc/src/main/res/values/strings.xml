@@ -142,10 +142,6 @@
     <string name="woman_filter">Filter</string>
     <string name="clients">%1$d Clients</string>
     <string name="client">%1$d Client</string>
-    <string name="register">Register</string>
-    <string name="library">Library</string>
-    <string name="me">Me</string>
-    <string name="clients_menu">Clients</string>
     <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
     <!-- Quick Check -->
