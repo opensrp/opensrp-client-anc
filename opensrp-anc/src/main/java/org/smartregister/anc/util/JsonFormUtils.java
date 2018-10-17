@@ -22,7 +22,6 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.domain.form.FormLocation;
-import org.smartregister.helper.LocationHelper;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
