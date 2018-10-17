@@ -57,17 +57,18 @@
     "fields": [
       {
         "key": "educ_level",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "Highest Education Level",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Highest Level of School",
-        "label_text_size": "22px",
+        "label_text_size": "16px",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "none",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "Unknown",
+            "openmrs_entity": "",
             "openmrs_entity_id": "1107",
             "text": "None"
           },
@@ -99,8 +100,7 @@
             "openmrs_entity": "Tertiary education complete",
             "openmrs_entity_id": "160292"
           }
-        ],
-        "value": "none"
+        ]
       },
       {
         "key": "marital_status",
@@ -109,14 +109,15 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Marital status",
-        "label_text_size": "22px",
+        "label_text_size": "16px",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "married",
+            "text": "Married or living together",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "MARRIED OR LIVING WITH PARTNER         ",
-            "openmrs_entity_id": "1055",
-            "text": "Married or living together"
+            "openmrs_entity": "MARRIED OR LIVING WITH PARTNER",
+            "openmrs_entity_id": "1055"
           },
           {
             "key": "divorced",
@@ -129,18 +130,17 @@
             "key": "single",
             "text": "Never married and never lived together (single)",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
+            "openmrs_entity": "Not married",
             "openmrs_entity_id": "5615"
           },
           {
             "key": "widowed",
             "text": "Widowed",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
+            "openmrs_entity": "Widowed",
             "openmrs_entity_id": "1059"
           }
-        ],
-        "value": "single"
+        ]
       },
       {
         "key": "occupation",
@@ -151,37 +151,53 @@
         "type": "check_box",
         "label": "Occupation",
         "hint": "Occupation",
-        "label_text_size": "22px",
+        "label_text_size": "16px",
+        "label_text_style": "bold",
+        "exclusive": [
+          "other"
+        ],
         "options": [
           {
-            "key": "Student",
+            "key": "student",
             "text": "Student",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Student",
+            "openmrs_entity_id": "159465"
           },
           {
-            "key": "Unemployed",
+            "key": "unemployed",
             "text": "Unemployed",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Unemployed",
+            "openmrs_entity_id": "123801"
           },
           {
-            "key": "Formal employment",
+            "key": "formal_employment",
             "text": "Formal employment",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
-            "key": "Informal employment (sex worker)",
+            "key": "informal_employment_sex_worker",
             "text": "Informal employment (sex worker)",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Sex worker",
+            "openmrs_entity_id": "160579"
           },
           {
-            "key": "Informal employment (other)",
+            "key": "informal_employment_other",
             "text": "Informal employment (other)",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Casual Labour",
+            "openmrs_entity_id": "159613"
           },
           {
             "key": "other",
             "text": "Other (specify)",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           }
         ],
         "v_required": {
@@ -198,8 +214,13 @@
         "hint": "Specify *",
         "relevance": {
           "step1:occupation": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         },
         "v_required": {
@@ -274,7 +295,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "value": "no",
         "v_required": {
           "value": true
         }
@@ -316,10 +336,10 @@
         "options": [
           {
             "key": "yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "Yes",
-            "openmrs_entity_id": "Yes",
             "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "specify_info": "Ultrasound Date"
           },
           {
@@ -330,7 +350,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": true
         }
@@ -374,6 +393,12 @@
         "openmrs_entity_id": "ultrasound_gest_age_wks",
         "type": "edit_text",
         "hint": "GA from ultrasound - weeks *",
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
         "v_required": {
           "value": true,
           "err": "Please give the GA from ultrasound - weeks"
@@ -398,8 +423,14 @@
         "openmrs_entity_id": "ultrasound_gest_age_days",
         "type": "edit_text",
         "hint": "GA from ultrasound - days *",
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please give the GA from ultrasound - days"
         },
         "v_numeric_integer": {
@@ -425,6 +456,12 @@
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -437,6 +474,12 @@
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -754,110 +797,101 @@
         "label": "Any past pregnancy problems?",
         "hint": "Any past pregnancy problems?",
         "label_text_size": "22px",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "None",
-            "text": "None",
-            "value": false
+            "key": "none",
+            "text": "None"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Don't know",
-            "text": "Don't know",
-            "value": false
+            "key": "dont_know",
+            "text": "Don't know"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Pre-eclampsia or eclampsia",
-            "text": "Pre-eclampsia or eclampsia",
-            "value": false
+            "key": "pre_eclampsia_eclampsia",
+            "text": "Pre-eclampsia or eclampsia"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Convulsions",
-            "text": "Convulsions",
-            "value": false
+            "key": "convulsions",
+            "text": "Convulsions"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "Gestational diabetes",
             "openmrs_entity_id": "1449",
-            "key": "Gestational Diabetes",
-            "text": "Gestational Diabetes",
-            "value": false
+            "key": "gestational_diabetes",
+            "text": "Gestational Diabetes"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": " tobacco user",
             "openmrs_entity_id": "159084",
-            "key": "Tobacco use",
-            "text": "Tobacco use",
-            "value": false
+            "key": "tobacco_use",
+            "text": "Tobacco use"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Alcohol or illicit substance use",
-            "text": "Alcohol or illicit substance use",
-            "value": false
+            "key": "illicit_substance",
+            "text": "Alcohol or illicit substance use"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "Postpartum Hemorrhage",
             "openmrs_entity_id": "230",
-            "key": "Heavy bleeding (during or after delivery)",
-            "text": "Heavy bleeding (during or after delivery)",
-            "value": false
+            "key": "heavy_bleeding",
+            "text": "Heavy bleeding (during or after delivery)"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Baby died within 24 hours of birth",
-            "text": "Baby died within 24 hours of birth",
-            "value": false
+            "key": "baby_died_in_24_hrs",
+            "text": "Baby died within 24 hours of birth"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "Exceptionally large baby",
             "openmrs_entity_id": "140951",
-            "key": "Macrosomia",
-            "text": "Macrosomia",
-            "value": false
+            "key": "macrosomia",
+            "text": "Macrosomia"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "Forceps or Vacuum Extractor Delivery ",
             "openmrs_entity_id": "118159",
-            "key": "Forceps or vacuum delivery",
-            "text": "Forceps or vacuum delivery",
-            "value": false
+            "key": "vacuum_delivery",
+            "text": "Forceps or vacuum delivery"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "Third Degree Perineal Tear During Delivery with Postnatal Problem",
             "openmrs_entity_id": "124857",
-            "key": "3rd degree tear",
-            "text": "3rd degree tear",
-            "value": false
+            "key": "3rd_degree_tear",
+            "text": "3rd degree tear"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other (specify)",
-            "text": "Other (specify)",
-            "value": false
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "v_required": {
@@ -873,9 +907,14 @@
         "type": "edit_text",
         "hint": "Specify Any Past Pregnancy Problems*",
         "relevance": {
-          "step1:prev_preg_comps": {
-            "type": "string",
-            "ex": "equalTo(., \"Other (specify)\")"
+          "step3:prev_preg_comps": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         },
         "v_required": {
@@ -898,9 +937,14 @@
         "hint": "Specify Alcohol or illicit substance use",
         "label_text_size": "22px",
         "relevance": {
-          "step1:prev_preg_comps": {
-            "type": "string",
-            "ex": "equalTo(., \"Alcohol or illicit substance use\")"
+          "step3:prev_preg_comps": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "illicit_substance"
+                ]
+              }
+            ]
           }
         },
         "options": [
@@ -908,49 +952,43 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Alcohol",
-            "text": "Alcohol",
-            "value": false
+            "key": "alcohol",
+            "text": "Alcohol"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Marijuana",
-            "text": "Marijuana",
-            "value": false
+            "key": "marijuana",
+            "text": "Marijuana"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Cocaine",
-            "text": "Cocaine",
-            "value": false
+            "key": "cocaine",
+            "text": "Cocaine"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": " crack cocaine use",
             "openmrs_entity_id": "155793",
-            "key": "Crack",
-            "text": "Crack",
-            "value": false
+            "key": "crack",
+            "text": "Crack"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": " crack cocaine use",
             "openmrs_entity_id": "155793",
-            "key": "Injectable drugs",
-            "text": "Injectable drugs",
-            "value": false
+            "key": "injectable_drugs",
+            "text": "Injectable drugs"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other (specify)",
-            "text": "Other (specify)",
-            "value": false
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "v_required": {
@@ -966,9 +1004,14 @@
         "type": "edit_text",
         "hint": "Specify Other Substances Abused *",
         "relevance": {
-          "step1:substances_used": {
-            "type": "string",
-            "ex": "equalTo(., \"Other (specify)\")"
+          "step3:substances_used": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         },
         "v_required": {
@@ -1002,7 +1045,13 @@
         "text_color": "#000000",
         "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling.",
         "toaster_info_title": "Pre-eclampsia risk counseling",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:preeclampsia_risk": {
+            "type": "numeric",
+            "ex": "equalTo(., \"1\")"
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
@@ -1026,7 +1075,13 @@
         "text_color": "#000000",
         "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including: \n- Reasserting dietary interventions \n- Reasserting physical activity during pregnancy",
         "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:gdm_risk": {
+            "type": "numeric",
+            "ex": "equalTo(., \"1\")"
+          }
+        }
       }
     ]
   },
@@ -1044,126 +1099,115 @@
         "label": "Any allergies?",
         "hint": "Any allergies?",
         "label_text_size": "22px",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "None",
-            "text": "None",
-            "value": false
+            "key": "none",
+            "text": "None"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Don't know",
-            "text": "Don't know",
-            "value": false
+            "key": "dont_know",
+            "text": "Don't know"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "ALBENDAZOLE",
             "openmrs_entity_id": "70439",
-            "key": "Albendazole",
-            "text": "Albendazole",
-            "value": false
+            "key": "albendazole",
+            "text": "Albendazole"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Aluminium hydroxide",
-            "text": "Aluminium hydroxide",
-            "value": false
+            "key": "aluminium_hydroxide",
+            "text": "Aluminium hydroxide"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "CALCIUM",
             "openmrs_entity_id": "72650",
-            "key": "Calcium",
-            "text": "Calcium",
-            "value": false
+            "key": "calcium",
+            "text": "Calcium"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Chamomile",
-            "text": "Chamomile",
-            "value": false
+            "key": "chamomile",
+            "text": "Chamomile"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "FOLIC ACID",
             "openmrs_entity_id": "76613",
-            "key": "Folic acid",
-            "text": "Folic acid",
-            "value": false
+            "key": "folic_acid",
+            "text": "Folic acid"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "GINGER EXTRACT",
             "openmrs_entity_id": "77001",
-            "key": "Ginger",
-            "text": "Ginger",
-            "value": false
+            "key": "ginger",
+            "text": "Ginger"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "IRON",
             "openmrs_entity_id": "78218",
-            "key": "Iron",
-            "text": "Iron",
-            "value": false
+            "key": "iron",
+            "text": "Iron"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "MAGNESIUM CARBONATE",
             "openmrs_entity_id": "79229",
-            "key": "Magnesium carbonate",
-            "text": "Magnesium carbonate",
-            "value": false
+            "key": "magnesium_carbonate",
+            "text": "Magnesium carbonate"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "INTERMITTENT PREVENTIVE TREATMENT IN PREGNANCY WITH SULPHADOXINE-PYRIMETHAMINE",
             "openmrs_entity_id": "1591",
-            "key": "Malaria medication (sulfadoxine-pyrimethamine)",
-            "text": "Malaria medication (sulfadoxine-pyrimethamine)",
-            "value": false
+            "key": "malaria_medication",
+            "text": "Malaria medication (sulfadoxine-pyrimethamine)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "MEBENDAZOLE",
             "openmrs_entity_id": "79413",
-            "key": "Mebendazole",
-            "text": "Mebendazole",
-            "value": false
+            "key": "mebendazole",
+            "text": "Mebendazole"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "PENICILLIN",
             "openmrs_entity_id": "81724",
-            "key": "Penicillin",
-            "text": "Penicillin",
-            "value": false
+            "key": "penicillin",
+            "text": "Penicillin"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "TENOFOVIR DISOPROXIL FUMARATE",
             "openmrs_entity_id": "84797",
-            "key": "PrEP tenofovir disoproxil fumarate (TDF)",
-            "text": "PrEP tenofovir disoproxil fumarate (TDF)",
-            "value": false
+            "key": "prep_tenofovir_disoproxil_fumarate",
+            "text": "PrEP tenofovir disoproxil fumarate (TDF)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other (specify)",
-            "text": "Other (specify)",
-            "value": false
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "v_required": {
@@ -1184,9 +1228,14 @@
           "err": "Please specify the allergies"
         },
         "relevance": {
-          "step1:allergies": {
-            "type": "string",
-            "ex": "equalTo(., \"Other (specify)\")"
+          "step4:allergies": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
@@ -1200,86 +1249,80 @@
         "label": "Any surgeries??",
         "hint": "Any surgeries??",
         "label_text_size": "22px",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "None",
-            "text": "None",
-            "value": false
+            "key": "none",
+            "text": "None"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Don't know",
-            "text": "Don't know",
-            "value": false
+            "key": "dont_know",
+            "text": "Don't know"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "Dilation and curettage",
             "openmrs_entity_id": "1637",
-            "key": "Dilation and curettage",
-            "text": "Dilation and curettage",
-            "value": false
+            "key": "dilation_and_curettage",
+            "text": "Dilation and curettage"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "Uterine myomectomy",
             "openmrs_entity_id": "161829",
-            "key": "Removal of fibroids (myomectomy)",
-            "text": "Removal of fibroids (myomectomy)",
-            "value": false
+            "key": "removal_of_fibroid",
+            "text": "Removal of fibroids (myomectomy)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Removal of ovarian cysts",
-            "text": "Removal of ovarian cysts",
-            "value": false
+            "key": "removal_of_ovarian_cysts",
+            "text": "Removal of ovarian cysts"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "Oophorectomy",
             "openmrs_entity_id": "161844",
-            "key": "Removal of ovary (oophorectomy)",
-            "text": "Removal of ovary (oophorectomy)",
-            "value": false
+            "key": "removal_of_ovary",
+            "text": "Removal of ovary (oophorectomy)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "fallopian tube excision",
             "openmrs_entity_id": "161835",
-            "key": "Removal of the tube (salpingectomy)",
-            "text": "Removal of the tube (salpingectomy)",
-            "value": false
+            "key": "removal_of_the_tube",
+            "text": "Removal of the tube (salpingectomy)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Partial removal of the cervix (cervical cone)",
-            "text": "Partial removal of the cervix (cervical cone)",
-            "value": false
+            "key": "cervical_cone",
+            "text": "Partial removal of the cervix (cervical cone)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other gynecological procedures (specify)",
-            "text": "Other gynecological procedures (specify)",
-            "value": false
+            "key": "other_gynecological_procedures",
+            "text": "Other gynecological procedures (specify)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other surgeries (specify)",
-            "text": "Other surgeries (specify)",
-            "value": false
+            "key": "other",
+            "text": "Other surgeries (specify)"
           }
         ],
         "v_required": {
@@ -1295,15 +1338,20 @@
         "type": "edit_text",
         "hint": "Specify Other gynecological procedures *",
         "edit_type": "edit_text",
+        "relevance": {
+          "step4:surgeries": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_gynecological_procedures"
+                ]
+              }
+            ]
+          }
+        },
         "v_required": {
           "value": "true",
           "err": "Please specify the other gynecological procedures"
-        },
-        "relevance": {
-          "step1:surgeries": {
-            "type": "string",
-            "ex": "equalTo(., \"Other gynecological procedures (specify)\")"
-          }
         }
       },
       {
@@ -1319,9 +1367,14 @@
           "err": "Please specify the Other surgeries"
         },
         "relevance": {
-          "step1:surgeries": {
-            "type": "string",
-            "ex": "equalTo(., \"Other surgeries (specify)\")"
+          "step4:surgeries": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
@@ -1335,94 +1388,87 @@
         "label": "Any chronic or past health conditions?",
         "hint": "Any chronic or past health conditions?",
         "label_text_size": "22px",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "None",
-            "text": "None",
-            "value": false
+            "key": "none",
+            "text": "None"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Don't know",
-            "text": "Don't know",
-            "value": false
+            "key": "dont_know",
+            "text": "Don't know"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "Autoimmune Disease",
             "openmrs_entity_id": "148117",
-            "key": "Autoimmune disease",
-            "text": "Autoimmune disease",
-            "value": false
+            "key": "autoimmune_disease",
+            "text": "Autoimmune disease"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Blood disorder (e.g. sickle cell anemia, thalassemia)",
-            "text": "Blood disorder (e.g. sickle cell anemia, thalassemia)",
-            "value": false
+            "key": "blood_disorder",
+            "text": "Blood disorder (e.g. sickle cell anemia, thalassemia)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Cancer",
-            "text": "Cancer",
-            "value": false
+            "key": "cancer",
+            "text": "Cancer"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Diabetes",
-            "text": "Diabetes",
-            "value": false
+            "key": "diabetes",
+            "text": "Diabetes"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "Epilepsy",
             "openmrs_entity_id": "155",
-            "key": "Epilepsy",
-            "text": "Epilepsy",
-            "value": false
+            "key": "epilepsy",
+            "text": "Epilepsy"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "HIV Positive",
             "openmrs_entity_id": "138571",
-            "key": "HIV",
-            "text": "HIV",
-            "value": false
+            "key": "hiv",
+            "text": "HIV"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "Hypertension",
             "openmrs_entity_id": "117399",
             "key": "Hypertension",
-            "text": "Hypertension",
-            "value": false
+            "text": "Hypertension"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "RENAL DISEASE",
             "openmrs_entity_id": "6033",
-            "key": "Kidney disease",
-            "text": "Kidney disease",
-            "value": false
+            "key": "kidney_disease",
+            "text": "Kidney disease"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other (specify)",
-            "text": "Other (specify)",
-            "value": false
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "v_required": {
@@ -1443,9 +1489,14 @@
           "err": "Please specify the chronic or past health conditions"
         },
         "relevance": {
-          "step1:health_conditions": {
-            "type": "string",
-            "ex": "equalTo(., \"Other (specify)\")"
+          "step4:health_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
@@ -1471,7 +1522,13 @@
         "text_color": "#000000",
         "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling.",
         "toaster_info_title": "Pre-eclampsia risk counseling",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:preeclampsia_risk": {
+            "type": "string",
+            "ex": "equalTo(., \"1\")"
+          }
+        }
       },
       {
         "key": "hiv_diagnosis_date",
@@ -1483,6 +1540,17 @@
         "expanded": false,
         "duration": {
           "label": "HIV Diagnosis Date"
+        },
+        "relevance": {
+          "step4:health_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "hiv"
+                ]
+              }
+            ]
+          }
         },
         "max_date": "today",
         "v_required": {
@@ -1513,6 +1581,17 @@
         "v_required": {
           "value": false,
           "err": "Please select the unknown HIV Date"
+        },
+        "relevance": {
+          "step4:health_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "hiv"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -1543,28 +1622,28 @@
         "label_text_size": "22px",
         "options": [
           {
-            "key": "3 doses of TTCV in past 5 years",
+            "key": "3_doses",
+            "text": "3 doses of TTCV in past 5 years",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "text": "3 doses of TTCV in past 5 years"
+            "openmrs_entity_id": ""
           },
           {
-            "key": "1-4 doses of TTCV in the past",
+            "key": "1-4_doses",
             "text": "1-4 doses of TTCV in the past",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "TTCV not received",
+            "key": "ttcv_not_received",
             "text": "TTCV not received",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Unknown",
+            "key": "unknown",
             "text": "Unknown",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -1589,9 +1668,9 @@
         "toaster_info_title": "TT immunisation recommended",
         "toaster_type": "info",
         "relevance": {
-          "step1:tt_immun_status": {
+          "step5:tt_immun_status": {
             "type": "string",
-            "ex": "notEqualTo(., \"3 doses of TTCV in past 5 years\")"
+            "ex": "notEqualTo(., \"3_doses\")"
           }
         }
       },
@@ -1605,9 +1684,9 @@
         "text_color": "#000000",
         "toaster_type": "positive",
         "relevance": {
-          "step1:tt_immun_status": {
+          "step5:tt_immun_status": {
             "type": "string",
-            "ex": "equalTo(., \"3 doses of TTCV in past 5 years\")"
+            "ex": "equalTo(., \"3_doses\")"
           }
         }
       },
@@ -1621,28 +1700,28 @@
         "label_text_size": "22px",
         "options": [
           {
-            "key": "3 doses",
+            "key": "3_doses",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "text": "3 doses"
           },
           {
-            "key": "Incomplete",
+            "key": "incomplete",
             "text": "Incomplete",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Not received",
+            "key": "not_received",
             "text": "Not received",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Unknown",
+            "key": "unknown",
             "text": "Unknown",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -1667,9 +1746,9 @@
         "toaster_info_title": "Hep B testing recommended",
         "toaster_type": "info",
         "relevance": {
-          "step1:hepb_immun_status": {
+          "step5:hepb_immun_status": {
             "type": "string",
-            "ex": "notEqualTo(., \"3 doses\")"
+            "ex": "notEqualTo(., \"3_doses\")"
           }
         }
       },
@@ -1683,9 +1762,9 @@
         "text_color": "#000000",
         "toaster_type": "positive",
         "relevance": {
-          "step1:hepb_immun_status": {
+          "step5:hepb_immun_status": {
             "type": "string",
-            "ex": "equalTo(., \"3 doses\")"
+            "ex": "equalTo(., \"3_doses\")"
           }
         }
       },
@@ -1699,21 +1778,21 @@
         "label_text_size": "22px",
         "options": [
           {
-            "key": "Seasonal flu dose given",
+            "key": "seasonal_flu_dose_given",
             "text": "Seasonal flu dose given",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Seasonal flu dose missing",
+            "key": "seasonal_flu_dose_missing",
             "text": "Seasonal flu dose missing",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Unknown",
+            "key": "unknown",
             "text": "Unknown",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -1738,9 +1817,9 @@
         "toaster_info_title": "Flu immunisation recommended",
         "toaster_type": "info",
         "relevance": {
-          "step1:flu_immun_status": {
+          "step5:flu_immun_status": {
             "type": "string",
-            "ex": "notEqualTo(., \"Seasonal flu dose missing\")"
+            "ex": "notEqualTo(., \"seasonal_flu_dose_given\")"
           }
         }
       },
@@ -1754,9 +1833,9 @@
         "text_color": "#000000",
         "toaster_type": "positive",
         "relevance": {
-          "step1:flu_immun_status": {
+          "step5:flu_immun_status": {
             "type": "string",
-            "ex": "equalTo(., \"Seasonal flu dose missing\")"
+            "ex": "equalTo(., \"seasonal_flu_dose_given\")"
           }
         }
       }
@@ -1776,246 +1855,220 @@
         "label": "Current medications",
         "hint": "Current medications",
         "label_text_size": "22px",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "None",
-            "text": "None",
-            "value": false
+            "key": "none",
+            "text": "None"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Don't know",
-            "text": "Don't know",
-            "value": false
+            "key": "dont_know",
+            "text": "Don't know"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Antacids",
-            "text": "Antacids",
-            "value": false
+            "key": "antacids",
+            "text": "Antacids"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Aspirin",
-            "text": "Aspirin",
-            "value": false
+            "key": "aspirin",
+            "text": "Aspirin"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Calcium",
-            "text": "Calcium",
-            "value": false
+            "key": "calcium",
+            "text": "Calcium"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Doxylamine",
-            "text": "Doxylamine",
-            "value": false
+            "key": "doxylamine",
+            "text": "Doxylamine"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Epilepsy",
-            "text": "Epilepsy",
-            "value": false
+            "key": "epilepsy",
+            "text": "Epilepsy"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Folic acid",
-            "text": "Folic acid",
-            "value": false
+            "key": "folic_acid",
+            "text": "Folic acid"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Iron",
-            "text": "Iron",
-            "value": false
+            "key": "iron",
+            "text": "Iron"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Magnesium",
-            "text": "Magnesium",
-            "value": false
+            "key": "magnesium",
+            "text": "Magnesium"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Metoclopramide",
-            "text": "Metoclopramide",
-            "value": false
+            "key": "metoclopramide",
+            "text": "Metoclopramide"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Vitamin A",
-            "text": "Vitamin A",
-            "value": false
+            "key": "vitamin_a",
+            "text": "Vitamin A"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Analgesic",
-            "text": "Analgesic",
-            "value": false
+            "key": "analgesic",
+            "text": "Analgesic"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Anti-convulsive",
-            "text": "Anti-convulsive",
-            "value": false
+            "key": "anti_convulsive",
+            "text": "Anti-convulsive"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Anti-diabetic",
-            "text": "Anti-diabetic",
-            "value": false
+            "key": "anti_diabetic",
+            "text": "Anti-diabetic"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Anti-heartburn",
-            "text": "Anti-heartburn",
-            "value": false
+            "key": "anti_heartburn",
+            "text": "Anti-heartburn"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Anthelmintic",
-            "text": "Anthelmintic",
-            "value": false
+            "key": "anthelmintic",
+            "text": "Anthelmintic"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Anti-hypertensive",
-            "text": "Anti-hypertensive",
-            "value": false
+            "key": "anti_hypertensive",
+            "text": "Anti-hypertensive"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Anti-malarials",
-            "text": "Anti-malarials",
-            "value": false
+            "key": "anti_malarials",
+            "text": "Anti-malarials"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Antivirals",
-            "text": "Antivirals",
-            "value": false
+            "key": "antivirals",
+            "text": "Antivirals"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Antiretrovirals (ARVs)",
-            "text": "Antiretrovirals (ARVs)",
-            "value": false
+            "key": "antiretrovirals",
+            "text": "Antiretrovirals (ARVs)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Antitussive",
-            "text": "Antitussive",
-            "value": false
+            "key": "antitussive",
+            "text": "Antitussive"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Asthma",
-            "text": "Asthma",
-            "value": false
+            "key": "asthma",
+            "text": "Asthma"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Cotrimoxazole",
-            "text": "Cotrimoxazole",
-            "value": false
+            "key": "cotrimoxazole",
+            "text": "Cotrimoxazole"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other antibiotics",
-            "text": "Other antibiotics",
-            "value": false
+            "key": "other_antibiotics",
+            "text": "Other antibiotics"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Hematinic",
-            "text": "Hematinic",
-            "value": false
+            "key": "hematinic",
+            "text": "Hematinic"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Hemorrhoidal medication",
-            "text": "Hemorrhoidal medication",
-            "value": false
+            "key": "hemorrhoidal_medication",
+            "text": "Hemorrhoidal medication"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Multivitamin",
-            "text": "Multivitamin",
-            "value": false
+            "key": "multivitamin",
+            "text": "Multivitamin"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Thyroid medication",
-            "text": "Thyroid medication",
-            "value": false
+            "key": "thyroid_medication",
+            "text": "Thyroid medication"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Other (specify)",
-            "text": "Other (specify)",
-            "value": false
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "v_required": {
@@ -2036,9 +2089,14 @@
           "err": "Please specify the Other medications"
         },
         "relevance": {
-          "step1:medications": {
-            "type": "string",
-            "ex": "equalTo(., \"Other (specify)\")"
+          "step6:medications": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       }
@@ -2064,47 +2122,42 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "More than 2 cups (200ml) of filtered or commercially brewed coffee",
-            "text": "More than 2 cups (200ml) of filtered or commercially brewed coffee",
-            "value": false
+            "key": "commercially_brewed_coffee",
+            "text": "More than 2 cups (200ml) of filtered or commercially brewed coffee"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "More than 2 small cups (50 ml) of espresso",
-            "text": "More than 2 small cups (50 ml) of espresso",
-            "value": false
+            "key": "more_than_2_small_cups_50_ml_of_espresso",
+            "text": "More than 2 small cups (50 ml) of espresso"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "More than 3 cups (300ml) of instant coffee",
-            "text": "More than 3 cups (300ml) of instant coffee",
-            "value": false
+            "key": "more_than_3_cups_300ml_of_instant_coffee",
+            "text": "More than 3 cups (300ml) of instant coffee"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "More than 3 cups (300ml) of instant coffee",
-            "text": "More than 3 cups (300ml) of instant coffee",
-            "value": false
+            "key": "more_than_3_cups_300ml_of_instant_coffee",
+            "text": "More than 3 cups (300ml) of instant coffee"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "More than 48 pieces (squares) of chocolate",
-            "text": "More than 48 pieces (squares) of chocolate",
-            "value": false
+            "key": "more_than_48_pieces_squares_of_chocolate",
+            "text": "More than 48 pieces (squares) of chocolate"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "None of the above",
+            "key": "none",
             "text": "None of the above",
             "value": false
           }
@@ -2126,9 +2179,14 @@
         "toaster_info_title": "Caffeine reduction counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step1:caffeine_intake": {
-            "type": "string",
-            "ex": "notEqualTo(., \"None of the above\")"
+          "step7:medications": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "none"
+                ]
+              }
+            ]
           }
         }
       },
@@ -2156,14 +2214,13 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "Recently quit",
+            "key": "recently_quit",
             "text": "Recently quit",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": true,
           "err": "Please select if you use any tobacco products"
@@ -2181,9 +2238,9 @@
         "toaster_info_title": "Tobacco cessation counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step1:tobacco_user": {
+          "step7:tobacco_user": {
             "type": "string",
-            "ex": "notEqualTo(., \"No\")"
+            "ex": "notEqualTo(., \"no\")"
           }
         }
       },
@@ -2211,7 +2268,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": false,
           "err": "Please select if you use any tobacco products"
@@ -2229,9 +2285,9 @@
         "toaster_info_title": "Second-hand smoke counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step1:shs_exposure": {
+          "step7:shs_exposure": {
             "type": "string",
-            "ex": "equalTo(., \"Yes\")"
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -2277,9 +2333,9 @@
         "toaster_info_title": "Condom counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step1:condom_use": {
+          "step7:condom_use": {
             "type": "string",
-            "ex": "equalTo(., \"No\")"
+            "ex": "equalTo(., \"no\")"
           }
         }
       },
@@ -2308,7 +2364,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": true,
           "err": "Please select if you use any tobacco products"
@@ -2322,58 +2377,60 @@
         "type": "check_box",
         "label": "Uses alcohol and/or other substances?",
         "label_text_size": "22px",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
-            "key": "None",
+            "key": "none",
             "text": "None",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Alcohol",
+            "key": "alcohol",
             "text": "Alcohol",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Marijuana",
+            "key": "marijuana",
             "text": "Marijuana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Cocaine",
+            "key": "cocaine",
             "text": "Cocaine",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Crack",
+            "key": "crack",
             "text": "Crack",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Injectable drugs",
+            "key": "injectable_drugs",
             "text": "Injectable drugs",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Other (specify)",
+            "key": "other",
             "text": "Other (specify)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": true,
           "err": "Please select one"
@@ -2392,9 +2449,14 @@
           "err": "Please specify other substances abused"
         },
         "relevance": {
-          "step1:alcohol_substance_use": {
-            "type": "string",
-            "ex": "equalTo(., \"Other (specify)\")"
+          "step7:alcohol_substance_use": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
@@ -2410,9 +2472,14 @@
         "toaster_info_title": "Alcohol / substance use counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step1:alcohol_substance_use": {
-            "type": "string",
-            "ex": "notEqualTo(., \"None\")"
+          "step7:alcohol_substance_use": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
@@ -2440,7 +2507,7 @@
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step1:hiv_risk": {
+          "step7:hiv_risk": {
             "type": "numeric",
             "ex": "equalTo(., \"1\")"
           }
@@ -2461,21 +2528,20 @@
         "label_text_size": "22px",
         "options": [
           {
-            "key": "Don't Know",
+            "key": "dont_know",
             "text": "Don't Know",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "Positive",
+            "key": "positive",
             "text": "Positive",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": false,
           "err": "Please select one"
@@ -2505,9 +2571,9 @@
         "toaster_info_title": "Advise woman to bring partner(s) in for HIV testing.",
         "toaster_type": "info",
         "relevance": {
-          "step1:partner_hiv_status": {
+          "step8:partner_hiv_status": {
             "type": "string",
-            "ex": "equalTo(., \"Don't Know\")"
+            "ex": "equalTo(., \"dont_know\")"
           }
         }
       },
@@ -2535,7 +2601,7 @@
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step1:hiv_risk": {
+          "step8:hiv_risk": {
             "type": "numeric",
             "ex": "equalTo(., \"1\")"
           }
