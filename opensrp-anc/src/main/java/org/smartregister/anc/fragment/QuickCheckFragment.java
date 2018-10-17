@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,17 +30,29 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.ContactActivity;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.QuickCheckContract;
+import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.configurableviews.model.Field;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QuickCheckFragment extends DialogFragment implements QuickCheckContract.View {
+
+    private static String TAG = QuickCheckFragment.class.getCanonicalName();
 
     private QuickCheckDialogClickListener actionHandler = new QuickCheckDialogClickListener();
 
@@ -57,6 +70,11 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     private Button refer;
 
+    private Map<String, List<Object>> obsMap = new HashMap<>();
+
+    private static final Type EVENT_TYPE = new TypeToken<Event>() {
+    }.getType();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +82,9 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AncFullScreenDialog);
 
         initializePresenter();
+
+        initializeEvent();
+
     }
 
     @Override
@@ -402,6 +423,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private class ReasonAdapter extends RecyclerView.Adapter<ReasonAdapter.ViewHolder> {
         private List<Field> reasons;
         private CheckedTextView lastChecked;
+        private List<Object> observation;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private CheckedTextView checkedTextView;
@@ -414,6 +436,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         private ReasonAdapter() {
             this.reasons = presenter.getConfig().getReasons();
+            observation = obsMap.get("contact_reason");
         }
 
         @Override
@@ -430,6 +453,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             Field reason = reasons.get(position);
             holder.checkedTextView.setText(reason.getDisplayName());
             holder.checkedTextView.setTag(reason);
+            if (observation != null && false) {
+                for (Object ob : observation) {
+                    if (ob.equals(reason.getDisplayName())) {
+                        holder.checkedTextView.setChecked(true);
+                        break;
+                    }
+                }
+            }
 
             holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -465,6 +496,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private class ComplaintDangerAdapter extends RecyclerView.Adapter<ComplaintDangerAdapter.ViewHolder> {
         private List<Field> list;
         private boolean isDangerSign;
+        private List<Object> observation;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public CheckedTextView checkedTextView;
@@ -478,6 +510,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         private ComplaintDangerAdapter(boolean isDangerSign) {
             this.isDangerSign = isDangerSign;
             this.list = isDangerSign ? presenter.getConfig().getDangerSigns() : presenter.getConfig().getComplaints();
+            observation = obsMap.get("danger_signs");
         }
 
         @Override
@@ -495,6 +528,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             Field field = list.get(position);
             holder.checkedTextView.setText(field.getDisplayName());
             holder.checkedTextView.setTag(field);
+            if (observation != null && false) {
+                for (Object ob : observation) {
+                    if (ob.equals(field.getDisplayName())) {
+                        holder.checkedTextView.setChecked(true);
+                        break;
+                    }
+                }
+            }
 
             if (field.getDisplayName().equals(getString(R.string.central_cyanosis))) {
                 holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
@@ -558,5 +599,27 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             return presenter.getField(list, getString(R.string.complaint_other_specify));
         }
 
+    }
+
+    private void initializeEvent() {
+
+        Bundle args = getArguments();
+        String baseEntityId = args.getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+
+        List<PartialContact> partialContactList = AncApplication.getInstance().getPartialContactRepository().getPartialContacts(baseEntityId, "Quick Check", 1);
+
+        try {
+
+            Gson gson = new Gson();
+            Event event = gson.fromJson(partialContactList.get(0).getFormJson(), EVENT_TYPE);
+            List<Obs> obs = event.getObs();
+            for (Obs ob : obs) {
+                obsMap.put(ob.getFieldCode(), ob.getValues());
+            }
+
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
+        }
     }
 }

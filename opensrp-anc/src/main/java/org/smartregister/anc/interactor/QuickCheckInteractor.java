@@ -8,6 +8,8 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
+import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -45,7 +47,19 @@ public class QuickCheckInteractor implements QuickCheckContract.Interactor {
                 try {
                     Event event = JsonFormUtils.createQuickCheckEvent(getAllSharedPreferences(), quickCheck, baseEntityId);
                     JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-                    getSyncHelper().addEvent(baseEntityId, eventJson);
+
+                    PartialContact partialContact = new PartialContact();
+                    partialContact.setBaseEntityId(event.getBaseEntityId());
+                    partialContact.setContactNo(1);
+                    partialContact.setFinalized(false);
+                    partialContact.setType(event.getEventType());
+                    partialContact.setFormJson(eventJson.toString());
+
+                    AncApplication.getInstance().getPartialContactRepository().savePartialRefactor(partialContact);
+                    PatientRepository patientRepository = new PatientRepository();
+                    patientRepository.updateWomanProfileDetails(event.getBaseEntityId(),event.getEventType());
+
+                    //getSyncHelper().addEvent(baseEntityId, eventJson);
                     isSaved = true;
                 } catch (Exception e) {
                     Log.e(TAG, Log.getStackTraceString(e));
