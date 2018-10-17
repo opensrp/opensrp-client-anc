@@ -127,7 +127,7 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         String alternateContact = "alternate_contact";
 
         String searchString = model.createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
-        Assert.assertEquals("First name: first_name, Last name: last_name, Anc ID: anc_id, Edd: edd, Dob: dob, Mobile phone number: phone_number, Alternate contact name: alternate_contact", searchString);
+        Assert.assertEquals("First name: first_name; Last name: last_name; Anc ID: anc_id; Edd: edd; Dob: dob; Mobile phone number: phone_number; Alternate contact name: alternate_contact", searchString);
     }
 
     @Test
@@ -145,7 +145,7 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         String phoneNumber = "phone_number";
 
         String searchString = model.createSearchString(null, lastName, null, edd, "", phoneNumber, "");
-        Assert.assertEquals("Last name: last_name, Edd: edd, Mobile phone number: phone_number", searchString);
+        Assert.assertEquals("Last name: last_name; Edd: edd; Mobile phone number: phone_number", searchString);
     }
 
     @Test
