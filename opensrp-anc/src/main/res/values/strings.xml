@@ -111,7 +111,7 @@
     <!-- side nav -->
     <string name="anc_clients">ANC clients</string>
     <string name="counseling_resources">Counseling resources</string>
-    <string name="site_characteristics">Site Characteristics</string>
+    <string name="site_characteristics">Site characteristics</string>
     <string name="contact_summary">Contact Summary</string>
     <string name="sync_data">Sync data</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -234,7 +234,7 @@
     <string name="library_placeholder">Library Placeholder</string>
     <string name="me_page_placeholder">Me Page Placeholder</string>
     <string name="action_me">action_me</string>
-    <string name="population_characteristics">Population Characteristics</string>
+    <string name="population_characteristics">Population characteristics</string>
     <string name="continue_">continue</string>
     <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
     <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
@@ -264,8 +264,8 @@
     <string name="right_arrow">Right Arrow</string>
     <string name="section_icon">Section Icon</string>
     <string name="settings">Settings</string>
-    <string name="app_version">App Version: %1$s (built on %2$s)</string>
-    <string name="data_synced">Data Synced: %1$s at %2$s</string>
+    <string name="app_version">App version: %1$s (built on %2$s)</string>
+    <string name="data_synced">Data synced: %1$s at %2$s</string>
     <string name="qr_code_label">QR Code</string>
     <string name="clients_facility">Client\'s facility</string>
     <!-- Form container -->
@@ -275,10 +275,9 @@
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
     <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
     <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>
+    <string name="log_out_text">Log out</string>
     <string name="loading_client_settings">Loading client settings&#8230;</string>
     <string name="allow_phone_call_management">You need to allow the WHO ANC app to manage phone calls to enable calling&#8230;</string>
     <string name="any_changes_you_make">Any changes you make will be lost</string>
     <string name="woman_name">Woman Name</string>
-
-
 </resources>
