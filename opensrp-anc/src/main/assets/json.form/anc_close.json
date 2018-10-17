@@ -190,17 +190,23 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthweight",
         "type": "edit_text",
+
         "hint": "Birth weight (kg)",
         "v_required": {
-          "value": false
+          "value": false,
+          "err": "Please enter the child's weight at birth"
         },
         "v_min": {
-          "value": "1",
-          "err": "Birth weight -  must be equal or greater than 1"
+          "value": "0.1",
+          "err": "Birth weight must be greater than 0"
         },
         "v_max": {
           "value": "10",
-          "err": "Birth weight - must be equal or less than 10"
+          "err": "Birth weight must be less than or equal to 10"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid weight between 1 and 10"
         },
         "relevance": {
           "step1:anc_close_reason": {
