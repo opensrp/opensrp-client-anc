@@ -430,7 +430,7 @@
         "label": "Is she taking her penicillin treatment for syphilis?",
         "label_text_style": "bold",
         "text_color": "#000000",
-        "label_info_text": "A maximum of upto 3 weekly doses may be required.",
+        "label_info_text": "A maximum of up to 3 weekly doses may be required.",
         "label_info_title": "Syphilis Compliance",
         "options": [
           {
@@ -699,7 +699,7 @@
         "v_required": {
           "value": true,
           "err": "Previous persisting physiological symptoms is required"
-        },
+        }/*,
         "relevance": {
           "step4:phys_symptoms": {
             "ex-checkbox": [
@@ -715,7 +715,7 @@
               }
             ]
           }
-        }
+        }*/
       },
       {
         "key": "other_sym_lbpp",
@@ -1125,7 +1125,7 @@
     ]
   },
   "step4": {
-    "title": "Physiologic Symptoms",
+    "title": "Physiological Symptoms",
     "fields": [
       {
         "key": "phys_symptoms",
