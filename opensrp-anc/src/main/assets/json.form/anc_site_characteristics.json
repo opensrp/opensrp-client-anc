@@ -72,7 +72,6 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "label": "1. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \n\n2. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\n\n3. A private setting;\n\n4. A way to ensure confidentiality;\n\n5. Time to allow for appropriate disclosure; and\n\n6. A system for referral in place.",
-        "label_text_size": "18px",
         "type": "native_radio",
         "options": [
           {
@@ -97,7 +96,6 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "label": "2. Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?",
-        "label_text_size": "18px",
         "type": "native_radio",
         "options": [
           {
@@ -123,7 +121,6 @@
         "openmrs_data_type": "select one",
         "type": "native_radio",
         "label": "3. Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?",
-        "label_text_size": "18px",
         "options": [
           {
             "key": "1",
@@ -148,7 +145,6 @@
         "openmrs_data_type": "select one",
         "type": "native_radio",
         "label": "4. Does your facility use an automated blood pressure (BP) measurement tool?",
-        "label_text_size": "18px",
         "options": [
           {
             "key": "1",

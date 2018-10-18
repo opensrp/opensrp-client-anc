@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -61,6 +62,12 @@ public class NoMatchDialogFragment extends DialogFragment {
 		
 		return dialogView;
 	}
+
+	@Override
+	public void onCancel(DialogInterface dialogInterface){
+		super.onCancel(dialogInterface);
+		((HomeRegisterActivity) baseRegisterActivity).setSearchTerm("");
+	}
 	
 	////////////////////////////////////////////////////////////////
 	// Inner classes
@@ -73,9 +80,11 @@ public class NoMatchDialogFragment extends DialogFragment {
 			switch (view.getId()) {
 				case R.id.cancel_no_match_dialog:
 					dismiss();
+					((HomeRegisterActivity) baseRegisterActivity).setSearchTerm("");
 					break;
 				case R.id.go_to_advanced_search:
 					goToAdvancedSearch(whoAncId);
+					(baseRegisterActivity).setSelectedBottomBarMenuItem(R.id.action_search);
 					dismiss();
 					break;
 				default:

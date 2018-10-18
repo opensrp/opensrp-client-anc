@@ -78,4 +78,8 @@ public class HomeRegisterActivity extends BaseRegisterActivity {
 		}
 		
 	}
+
+	public void setSearchTerm(String searchTerm){
+        mBaseFragment.setSearchTerm(searchTerm);
+    }
 }
