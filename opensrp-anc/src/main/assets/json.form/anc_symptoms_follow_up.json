@@ -699,6 +699,22 @@
         "v_required": {
           "value": true,
           "err": "Previous persisting physiological symptoms is required"
+        },
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "nausea_vomiting",
+                  "heartburn",
+                  "leg_cramps",
+                  "constipation",
+                  "back_pelvic_pain",
+                  "varicose_veins"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -746,6 +762,17 @@
         "v_required": {
           "value": true,
           "err": "Please specify any other symptoms related to low back pain or select none"
+        },
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "back_pelvic_pain"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -786,6 +813,17 @@
         "v_required": {
           "value": true,
           "err": "Please specify any other symptoms related varicose vein/oedema or select none"
+        },
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "varicose_veins"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -866,7 +904,25 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "step4:other_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "abnormal_vaginal_discharge",
+                  "breathless",
+                  "cough",
+                  "fever",
+                  "easily_tired",
+                  "headache",
+                  "visual_disturbance",
+                  "vaginal_bleeding"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster5",
@@ -877,7 +933,18 @@
         "text": "Pharmacological treatments for nausea and vomiting counseling",
         "toaster_info_text": "Pharmacological treatments for nausea and vomiting, such as doxylamine and metoclopramide, should be reserved for those pregnant women experiencing distressing symptoms that are not relieved by non-pharmacological options, under the supervision of a medical doctor.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "nausea_vomiting"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster6",
@@ -888,7 +955,18 @@
         "text": "Antacid preparations to relieve heartburn counseling",
         "toaster_info_text": "Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification. Magnesium carbonate and aluminium hydroxide preparations are probably unlikely to cause harm in recommended dosages.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "heartburn"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster7",
@@ -899,7 +977,18 @@
         "text": "Magnesium and calcium to relieve leg cramps counseling",
         "toaster_info_text": "If leg cramps are not relieved with non-pharma measures, then give 300–360 mg magnesium per day in two or three divided doses; give calcium 1 g twice daily for two weeks.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_cramps"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster8",
@@ -910,7 +999,18 @@
         "text": "Wheat bran or other fiber supplements to relieve constipation counseling",
         "toaster_info_text": "Wheat bran or other fiber supplements can be used to relieve constipation, if dietary modifications are not enough, and if they are available and appropriate.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "constipation"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster9",
@@ -921,7 +1021,18 @@
         "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
         "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step3:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "none"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster10",
@@ -931,7 +1042,19 @@
         "type": "toaster_notes",
         "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "contractions",
+                  "pelvic_pains"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster11",
@@ -942,7 +1065,18 @@
         "text": "Urine test required",
         "toaster_info_text": "Woman has dysuria. Please investigate urinary tract infection and treat if positive.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "dysuria"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster12",
@@ -953,7 +1087,18 @@
         "text": "Non-pharmacological options for varicose veins and oedema counseling",
         "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step3:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "none"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster13",
@@ -963,7 +1108,19 @@
         "type": "toaster_notes",
         "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_pain",
+                  "leg_redness"
+                ]
+              }
+            ]
+          }
+        }
       }
     ]
   },
@@ -1083,6 +1240,17 @@
         "v_required": {
           "value": true,
           "err": "Please specify any other symptoms related low back and pelvic pain or select none"
+        },
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "back_pelvic_pain"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -1123,6 +1291,17 @@
         "v_required": {
           "value": true,
           "err": "Please specify any other symptoms related varicose vein/oedema or select none"
+        },
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "varicose_veins"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -1134,7 +1313,18 @@
         "text": "Non-pharma measures to relieve nausea and vomiting counseling",
         "toaster_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "nausea_vomiting"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster15",
@@ -1145,7 +1335,18 @@
         "text": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
         "toaster_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "heartburn"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster16",
@@ -1156,7 +1357,18 @@
         "text": "Non-pharmacological treatment for the relief of leg cramps counseling",
         "toaster_info_text": "Non-pharmacological therapies, including muscle stretching, relaxation, heat therapy, dorsiflexion of the foot, and massage can be used for the relief of leg cramps in pregnancy.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_cramps"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster17",
@@ -1167,7 +1379,18 @@
         "text": "Dietary modifications to relieve constipation counseling",
         "toaster_info_text": "Dietary modifications to relieve constipation include promoting adequate intake of water and dietary fibre (found in vegetables, nuts, fruits and whole grains).",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "constipation"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster18",
@@ -1178,7 +1401,18 @@
         "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
         "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step4:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "none"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster19",
@@ -1188,7 +1422,20 @@
         "type": "toaster_notes",
         "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "contractions",
+                  "pelvic_pains"
+                ]
+              }
+            ]
+          }
+        }
+
       },
       {
         "key": "toaster20",
@@ -1199,7 +1446,18 @@
         "text": "Urine test required",
         "toaster_info_text": "Woman has dysuria. Please investigate urinary tract infection and treat if positive.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "dysuria"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster21",
@@ -1210,7 +1468,18 @@
         "text": "Non-pharmacological options for varicose veins and oedema counseling",
         "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
         "text_color": "#4855B3",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step4:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "none"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster22",
@@ -1220,7 +1489,19 @@
         "type": "toaster_notes",
         "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_pain",
+                  "leg_redness"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "other_symptoms",
