@@ -242,7 +242,7 @@
         "key": "hiv_risk",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -310,7 +310,7 @@
         "key": "lmp_edd",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -323,7 +323,7 @@
         "key": "lmp_gest_age",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -444,7 +444,7 @@
           "err": "Enter a Valid GA from ultrasound - days value"
         },
         "v_min": {
-          "value": "1",
+          "value": "0",
           "err": "GA from ultrasound - weeks must be equal or less than 1"
         },
         "v_max": {
@@ -459,7 +459,7 @@
         "key": "ultrasound_edd",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -478,7 +478,7 @@
         "key": "ultrasound_gest_age",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -521,7 +521,7 @@
         "key": "sfh_edd",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -571,7 +571,7 @@
         "key": "gest_age",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -584,7 +584,7 @@
         "key": "edd",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -622,7 +622,7 @@
         "openmrs_entity_id": "5624",
         "type": "numbers_selector",
         "number_of_selectors": "5",
-        "start_number": "1",
+        "start_number": "0",
         "max_value": "15",
         "text_size": "16px",
         "text_color": "#000000",
@@ -638,19 +638,11 @@
         "key": "previous_pregnancies",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "15dp"
       },
       {
         "key": "enabled_label",
@@ -756,19 +748,11 @@
         "key": "parity",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
         }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "15dp"
       },
       {
         "key": "enabled_label",
@@ -1048,7 +1032,7 @@
         "key": "preeclampsia_risk",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -1079,7 +1063,7 @@
         "key": "gdm_risk",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -1527,7 +1511,7 @@
         "key": "preeclampsia_risk",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -1622,7 +1606,7 @@
         "key": "hiv_positive",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -2560,7 +2544,7 @@
         "openmrs_entity_id": "",
         "key": "hiv_risk",
         "type": "label",
-        "text": "1",
+        "text": "0",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
@@ -2633,7 +2617,7 @@
         "key": "partner_hiv_positive",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -2664,7 +2648,7 @@
         "key": "hiv_risk",
         "type": "label",
         "label_text_style": "bold",
-        "text": "1",
+        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
