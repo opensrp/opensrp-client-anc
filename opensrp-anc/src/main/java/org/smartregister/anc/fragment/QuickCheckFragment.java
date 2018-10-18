@@ -14,6 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -27,6 +29,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -136,6 +139,8 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         setupViews(view);
 
+        setupBackButtonIcon(view);
+
         return view;
     }
 
@@ -178,12 +183,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         complaintAdapter = new ComplaintDangerAdapter(false);
         recyclerView.setAdapter(complaintAdapter);
 
-        EditText specificComplaint = view.findViewById(R.id.specify);
-        if (specificComplaint.getVisibility() == View.VISIBLE && obsMap.containsKey("specific_complaint_other") && obsMap.get("specific_complaint_other").size() > 0) {
-            specificComplaint.setText(obsMap.get("specific_complaint_other").get(0).toString());
-
-        }
-
     }
 
     private void updateDangerList(final View view) {
@@ -225,6 +224,33 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             }
         });
 
+        specifyEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (s.length() > 0) {
+                    Field otherSpecify = complaintAdapter.getSpecifyField();
+                    if (otherSpecify != null) {
+                        presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
+                        try {
+                            complaintAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+                    }
+                }
+            }
+        });
 
         specifyEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -247,6 +273,11 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         refer = view.findViewById(R.id.refer);
         refer.setOnClickListener(actionHandler);
+
+        if (specifyEditText.getVisibility() == View.VISIBLE && obsMap.containsKey("specific_complaint_other") && obsMap.get("specific_complaint_other").size() > 0) {
+            specifyEditText.setText(obsMap.get("specific_complaint_other").get(0).toString());
+
+        }
     }
 
     @Override
@@ -393,24 +424,31 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     }
 
     private void confirmClose() {
-        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AncAlertDialog)
-                .setTitle(com.vijay.jsonwizard.R.string.confirm_form_close)
-                .setMessage(com.vijay.jsonwizard.R.string.confirm_form_close_explanation)
-                .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
-                    }
-                })
-                .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
+        if (!obsMap.isEmpty()) {
 
-        dialog.show();
+            presenter.proceedToNormalContact(getSpecifyText());
+        } else {
+
+
+            AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AncAlertDialog)
+                    .setTitle(com.vijay.jsonwizard.R.string.confirm_form_close)
+                    .setMessage(com.vijay.jsonwizard.R.string.confirm_form_close_explanation)
+                    .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dismiss();
+                        }
+                    })
+                    .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+
+            dialog.show();
+        }
 
     }
 
@@ -653,6 +691,13 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         } catch (Exception e) {
 
             Log.e(TAG, e.getMessage());
+        }
+    }
+
+    private void setupBackButtonIcon(View view) {
+        ImageButton backButton = view.findViewById(R.id.cancel_quick_check);
+        if (backButton != null && !obsMap.isEmpty()) {
+            backButton.setImageResource(R.drawable.ic_contact_menu);
         }
     }
 }

@@ -140,13 +140,12 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
 
     @Override
     public void quickCheckSaved(boolean proceed, boolean saved) {
-        getView().dismiss();
         if (!saved) {
             getView().displayToast(R.string.validation_unable_to_save_quick_check);
         } else if (proceed) {
             getView().proceedToContact(baseEntityId);
         }
-
+        getView().dismiss();
     }
 
     @Override
