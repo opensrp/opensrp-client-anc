@@ -100,7 +100,7 @@ public class PartialContactRepository extends BaseRepository {
         return values;
     }
 
-    private PartialContact getPartialContact(PartialContact partialContact) {
+    public PartialContact getPartialContact(PartialContact partialContact) {
         String selection = null;
         String[] selectionArgs = null;
         PartialContact dbPartialContact = null;
