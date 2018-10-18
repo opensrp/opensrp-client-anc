@@ -7,15 +7,15 @@
         android:bottomLeftRadius="4dp">
     </corners>
     <stroke
-        android:width="2dp"
-        android:color="@color/quick_check_red">
+        android:width="1dp"
+        android:color="#D2D2D2">
     </stroke>
     <solid
-        android:color="#fefefe">
+        android:color="#f4f4f4">
     </solid>
     <padding
-        android:left="5dp"
-        android:top="5dp"
-        android:right="5dp"
-        android:bottom="5dp" />
+        android:left="12dp"
+        android:top="12dp"
+        android:right="12dp"
+        android:bottom="16dp" />
 </shape>
