@@ -39,13 +39,24 @@
                 android:id="@+id/login_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="@dimen/login_text_build_margin"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/antenatal_care_module"
                 android:textColor="@color/white"
                 android:textSize="@dimen/login_title_text_size"
                 android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/login_build_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_horizontal"
+                android:text="@string/app_version"
+                android:textColor="#90c4dc"
+                android:textSize="@dimen/login_build_text_view_textSize" />
+
         </LinearLayout>
 
         <!-- Middle section -->
@@ -110,8 +121,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
                     android:button="@drawable/white_checkbox_bg_selector"
                     android:scaleX="@dimen/checkbox_scale"
                     android:scaleY="@dimen/checkbox_scale" />
@@ -159,8 +170,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="5dp"
                 android:paddingTop="10dp"
+                android:paddingBottom="5dp"
                 android:text="Powered by"
                 android:textAlignment="center"
                 android:textColor="#A6ffffff" />

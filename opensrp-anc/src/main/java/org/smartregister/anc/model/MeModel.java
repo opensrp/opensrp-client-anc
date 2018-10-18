@@ -23,6 +23,6 @@ public class MeModel implements MeContract.Model {
 
     @Override
     public String getBuildDate() {
-        return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
     }
 }
