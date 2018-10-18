@@ -177,6 +177,13 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         complaintAdapter = new ComplaintDangerAdapter(false);
         recyclerView.setAdapter(complaintAdapter);
+
+        EditText specificComplaint = view.findViewById(R.id.specify);
+        if (specificComplaint.getVisibility() == View.VISIBLE && obsMap.containsKey("specific_complaint_other") && obsMap.get("specific_complaint_other").size() > 0) {
+            specificComplaint.setText(obsMap.get("specific_complaint_other").get(0).toString());
+
+        }
+
     }
 
     private void updateDangerList(final View view) {
@@ -208,7 +215,11 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     Field otherSpecify = complaintAdapter.getSpecifyField();
                     if (otherSpecify != null) {
                         presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
-                        complaintAdapter.notifyDataSetChanged();
+                        try {
+                            complaintAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
                     }
                 }
             }
@@ -254,15 +265,23 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void notifyComplaintAdapter() {
-        if (complaintAdapter != null) {
-            complaintAdapter.notifyDataSetChanged();
+        try {
+            if (complaintAdapter != null) {
+                complaintAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
     @Override
     public void notifyDangerSignAdapter() {
-        if (dangerSignAdapter != null) {
-            dangerSignAdapter.notifyDataSetChanged();
+        try {
+            if (dangerSignAdapter != null) {
+                dangerSignAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -423,7 +442,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private class ReasonAdapter extends RecyclerView.Adapter<ReasonAdapter.ViewHolder> {
         private List<Field> reasons;
         private CheckedTextView lastChecked;
-        private List<Object> observation;
+        private Map<String, String> obReasons = new HashMap<>();
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private CheckedTextView checkedTextView;
@@ -436,7 +455,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         private ReasonAdapter() {
             this.reasons = presenter.getConfig().getReasons();
-            observation = obsMap.get("contact_reason");
+
+            List<Object> observation = obsMap.get("contact_reason");
+
+            if (observation != null) {
+                for (Object ob : observation) {
+                    obReasons.put("contact_reason", ob.toString());
+                }
+            }
         }
 
         @Override
@@ -453,14 +479,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             Field reason = reasons.get(position);
             holder.checkedTextView.setText(reason.getDisplayName());
             holder.checkedTextView.setTag(reason);
-            if (observation != null && false) {
-                for (Object ob : observation) {
-                    if (ob.equals(reason.getDisplayName())) {
-                        holder.checkedTextView.setChecked(true);
-                        break;
-                    }
-                }
-            }
 
             holder.checkedTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -484,6 +502,13 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     }
                 }
             });
+
+            if (!obReasons.isEmpty()) {
+                if (obReasons.containsValue(reason.getDisplayName())) {
+                    holder.checkedTextView.callOnClick();
+                }
+
+            }
         }
 
         @Override
@@ -496,7 +521,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private class ComplaintDangerAdapter extends RecyclerView.Adapter<ComplaintDangerAdapter.ViewHolder> {
         private List<Field> list;
         private boolean isDangerSign;
-        private List<Object> observation;
+        private Map<String, String> obReasons = new HashMap<>();
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public CheckedTextView checkedTextView;
@@ -510,7 +535,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         private ComplaintDangerAdapter(boolean isDangerSign) {
             this.isDangerSign = isDangerSign;
             this.list = isDangerSign ? presenter.getConfig().getDangerSigns() : presenter.getConfig().getComplaints();
-            observation = obsMap.get("danger_signs");
+
+            List<Object> observation = isDangerSign ? obsMap.get("danger_signs") : obsMap.get("specific_complaint");
+
+            if (observation != null) {
+                for (Object ob : observation) {
+                    obReasons.put(ob.toString(), ob.toString());
+                }
+            }
         }
 
         @Override
@@ -528,14 +560,6 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             Field field = list.get(position);
             holder.checkedTextView.setText(field.getDisplayName());
             holder.checkedTextView.setTag(field);
-            if (observation != null && false) {
-                for (Object ob : observation) {
-                    if (ob.equals(field.getDisplayName())) {
-                        holder.checkedTextView.setChecked(true);
-                        break;
-                    }
-                }
-            }
 
             if (field.getDisplayName().equals(getString(R.string.central_cyanosis))) {
                 holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
@@ -588,6 +612,15 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             } else if (!presenter.containsComplaintOrDangerSign(field, isDangerSign) && holder.checkedTextView.isChecked()) {
                 holder.checkedTextView.setChecked(false);
             }
+
+            //autoselect
+            if (!obReasons.isEmpty()) {
+                if (obReasons.containsValue(field.getDisplayName())) {
+                    holder.checkedTextView.callOnClick();
+                }
+
+            }
+
         }
 
         @Override

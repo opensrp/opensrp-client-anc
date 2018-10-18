@@ -8,109 +8,106 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/patient_column"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical"
+        android:layout_height="@dimen/register_list_item_height"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp">
 
-        <RelativeLayout
-            android:id="@+id/patient_column"
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/patient_name"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="7dp">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="0dp"
+            android:text="Patient Name"
+            android:textColor="@color/text_black"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/age_ga_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/patient_name"
-                style="@style/CustomFontTextViewStyle.ClientList.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="0dp"
-                android:text="Patient Name"
-                android:textColor="@color/text_black"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:id="@+id/age_ga_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                android:orientation="horizontal"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp">
-
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/age"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="0dp"
-                    android:text="Age: 33"
-                    android:textColor="@color/light_grey_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <org.smartregister.view.customcontrols.CustomFontTextView
-                    android:id="@+id/ga"
-                    style="@style/CustomFontTextViewStyle.ClientList.Light"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="GA: 12 weeks"
-                    android:textColor="@color/light_grey_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/anc_id"
+                android:id="@+id/age"
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:paddingLeft="0dp"
-                android:text="ID: 3034503"
+                android:text="Age: 33"
                 android:textColor="@color/light_grey_text"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/risk_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/register_list_item_height"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/risk"
-                android:layout_width="match_parent"
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/ga"
+                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_border"
-                android:drawableLeft="@drawable/yellowflag"
-                android:drawablePadding="2dp"
-                android:padding="2.5dp"
-                android:text="2"
-                android:textColor="@color/dark_grey_text"
-                android:textSize="16sp" />
-
+                android:paddingLeft="10dp"
+                android:text="GA: 12 weeks"
+                android:textColor="@color/light_grey_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/anc_id"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="0dp"
+            android:text="ID: 3034503"
+            android:textColor="@color/light_grey_text"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/risk_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/register_list_item_height"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/due_button_wrapper">
+
+        <TextView
+            android:id="@+id/risk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_border"
+            android:drawableLeft="@drawable/yellowflag"
+            android:drawablePadding="2dp"
+            android:padding="2.5dp"
+            android:text="2"
+            android:textColor="@color/dark_grey_text"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/due_button_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_alignParentEnd="true"
