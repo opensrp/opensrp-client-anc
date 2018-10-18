@@ -29,7 +29,7 @@
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/contact_small_padding"
                 android:paddingRight="@dimen/contact_small_padding"
-                android:src="@drawable/ic_clear" />
+                android:src="@drawable/ic_contact_menu" />
 
 
             <org.smartregister.view.customcontrols.CustomFontTextView

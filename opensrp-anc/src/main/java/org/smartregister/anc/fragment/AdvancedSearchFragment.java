@@ -42,9 +42,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
 
     private View listViewLayout;
     private View advancedSearchForm;
-
     private ImageButton backButton;
-    private ImageButton cancelButton;
     private Button searchButton;
 
     private RadioButton outsideInside;
@@ -128,6 +126,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         } else if (view.getId() == R.id.cancel_button) {
             ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
             ((HomeRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
+            ((HomeRegisterActivity) getActivity()).setSearchTerm("");
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
         }
@@ -140,12 +139,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
         listViewLayout = view.findViewById(R.id.advanced_search_list);
         listViewLayout.setVisibility(View.GONE);
         advancedSearchForm = view.findViewById(R.id.advanced_search_form);
-
         backButton = view.findViewById(R.id.back_button);
         backButton.setOnClickListener(registerActionHandler);
-
-        cancelButton = view.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(registerActionHandler);
         searchButton = view.findViewById(R.id.search);
         qrCodeButton = view.findViewById(R.id.qrCodeButton);
 
@@ -201,8 +196,8 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             }
         });
 
-        View mycatchmentLayout = view.findViewById(R.id.my_catchment_layout);
-        mycatchmentLayout.setOnClickListener(new View.OnClickListener() {
+        View myCatchmentLayout = view.findViewById(R.id.my_catchment_layout);
+        myCatchmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myCatchment.toggle();
@@ -246,8 +241,6 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             advancedSearchForm.setVisibility(View.GONE);
             listViewLayout.setVisibility(View.VISIBLE);
             clientsView.setVisibility(View.VISIBLE);
-
-            cancelButton.setVisibility(View.GONE);
             backButton.setVisibility(View.VISIBLE);
             searchButton.setVisibility(View.GONE);
 
@@ -264,9 +257,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
             advancedSearchForm.setVisibility(View.VISIBLE);
             listViewLayout.setVisibility(View.GONE);
             clientsView.setVisibility(View.INVISIBLE);
-
             backButton.setVisibility(View.GONE);
-            cancelButton.setVisibility(View.VISIBLE);
             searchButton.setVisibility(View.VISIBLE);
 
             if (titleLabelView != null) {
