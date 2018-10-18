@@ -9,11 +9,11 @@ import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.helper.SyncSettingsServiceHelper;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.event.Listener;
+import org.smartregister.login.contract.LoginContract;
 
 /**
  * Created by ndegwamartin on 22/06/2018.

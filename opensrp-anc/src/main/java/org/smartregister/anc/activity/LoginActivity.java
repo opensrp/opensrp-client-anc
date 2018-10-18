@@ -28,13 +28,13 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.joda.time.DateTime;
 import org.smartregister.anc.R;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.anc.task.SaveTeamLocationsTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.domain.LoginResponse;
+import org.smartregister.login.contract.LoginContract;
 
 import static org.smartregister.util.Log.logInfo;
 

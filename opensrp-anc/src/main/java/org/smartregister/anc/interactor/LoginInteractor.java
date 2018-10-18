@@ -22,7 +22,7 @@ import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.event.Listener;
-import org.smartregister.login.LoginContract;
+import org.smartregister.login.contract.LoginContract;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 
