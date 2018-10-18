@@ -172,7 +172,7 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     }
 
     private void setupCustomToolbar() {
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_contact_menu);
         setUpBackButton();
 
         try {

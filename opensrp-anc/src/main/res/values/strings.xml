@@ -93,15 +93,15 @@
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="anc_id">Anc ID</string>
-    <string name="id_number">Id number</string>
+    <string name="id_number">ANC ID</string>
     <string name="edd">Edd</string>
-    <string name="exp_date_of_delivery">Exp. date of delivery</string>
+    <string name="exp_date_of_delivery">Expected date of delivery</string>
     <string name="dob">Dob</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="mobile_phone_number">Mobile phone number</string>
     <string name="phone_number">Phone number</string>
     <string name="alternate_contact_name">Alternate contact name</string>
-    <string name="alt_contact_name">Alt. contact name</string>
+    <string name="alt_contact_name">Alternate contact name</string>
     <string name="search">Search</string>
     <string name="search_results">Search Results</string>
     <string name="searching_dialog_title">Searching…</string>
@@ -133,7 +133,7 @@
     <string name="close_anc_record">Close ANC Record</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="no_matching_woman_found_on_this_device">No matching woman found on this device.</string>
-    <string name="go_to_advanced_search">Go to Advanced Search</string>
+    <string name="go_to_advanced_search">Go to advanced search</string>
     <string name="cancel">Cancel</string>
     <string name="yellow">YELLOW</string>
     <string name="red">RED</string>
