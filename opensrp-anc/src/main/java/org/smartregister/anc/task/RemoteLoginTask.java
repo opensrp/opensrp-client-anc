@@ -53,9 +53,10 @@ public class RemoteLoginTask extends AsyncTask<Void, Integer, LoginResponse> {
             SyncSettingsServiceHelper syncSettingsServiceHelper = new SyncSettingsServiceHelper(getOpenSRPContext().configuration().dristhiBaseURL(), getOpenSRPContext().getHttpAgent());
             syncSettingsServiceHelper.setUsername(mUsername);
             syncSettingsServiceHelper.setPassword(mPassword);
+            String teamId =  mLoginView.getUserTeamId(loginResponse);
 
             try {
-                JSONArray settings = syncSettingsServiceHelper.pullSettingsFromServer();
+                JSONArray settings = syncSettingsServiceHelper.pullSettingsFromServer(teamId);
 
                 JSONObject data = new JSONObject();
                 data.put(Constants.PREF_KEY.SITE_CHARACTERISTICS, settings);
