@@ -107,7 +107,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     @Override
     public boolean onBackPressed() {
         goBack();
-        return false;
+        return true;
     }
 
     @Override
