@@ -538,21 +538,21 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "",
+            "key": "lmp",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "Yes",
-            "openmrs_entity_id": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "text": "Using LMP"
           },
           {
-            "key": "",
+            "key": "ultrasound",
             "text": "Using ultrasound",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "",
+            "key": "sfh",
             "text": "Using SFH or abdominal palpation",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
