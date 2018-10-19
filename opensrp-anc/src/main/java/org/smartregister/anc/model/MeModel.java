@@ -1,12 +1,7 @@
 package org.smartregister.anc.model;
 
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.util.Utils;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MeModel implements MeContract.Model {
     private Utils utils = new Utils();
@@ -23,6 +18,6 @@ public class MeModel implements MeContract.Model {
 
     @Override
     public String getBuildDate() {
-        return new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        return Utils.getBuildDate(true);
     }
 }
