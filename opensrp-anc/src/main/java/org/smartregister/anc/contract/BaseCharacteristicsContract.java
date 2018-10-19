@@ -1,6 +1,6 @@
 package org.smartregister.anc.contract;
 
-import org.smartregister.anc.domain.Characteristic;
+import org.smartregister.domain.Characteristic;
 
 import java.util.List;
 

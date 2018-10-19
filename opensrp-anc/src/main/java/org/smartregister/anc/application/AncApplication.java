@@ -20,7 +20,6 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
-import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -32,6 +31,7 @@ import org.smartregister.configurableviews.service.PullConfigurableViewsIntentSe
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
+import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.intent.PullUniqueIdsIntentService;

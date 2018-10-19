@@ -2,7 +2,7 @@ package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
-import org.smartregister.anc.domain.Characteristic;
+import org.smartregister.domain.Characteristic;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

@@ -3,9 +3,9 @@ package org.smartregister.anc.task;
 import android.os.AsyncTask;
 
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
-import org.smartregister.anc.domain.Characteristic;
-import org.smartregister.anc.helper.CharacteristicsHelper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.domain.Characteristic;
+import org.smartregister.sync.helper.CharacteristicsHelper;
 
 import java.util.List;
 
