@@ -21,7 +21,6 @@ import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.UniqueIdRepository;
-import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -35,6 +34,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.sync.intent.PullUniqueIdsIntentService;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -125,7 +125,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context);
+        CoreLibrary.init(context, new AncSyncConfiguration());
         ConfigurableViewsLibrary.init(context, getRepository());
 
         SyncStatusBroadcastReceiver.init(this);

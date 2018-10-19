@@ -10,9 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Characteristic;
-import org.smartregister.anc.util.AncPreferenceHelper;
 import org.smartregister.domain.Setting;
 import org.smartregister.domain.SyncStatus;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class CharacteristicsHelper {
             characteristic.setValue(jsonObject.getString("settings"));
             characteristic.setSyncStatus(SyncStatus.SYNCED.name());
 
-            AncApplication.getInstance().getContext().allSettings().put(SyncSettingsServiceHelper.SETTINGS_LAST_SYNC_FROM_SERVER_TIMESTAMP, characteristic.getVersion());
+            AncApplication.getInstance().getContext().allSettings().put(AllSharedPreferences.LAST_SETTINGS_SYNC_TIMESTAMP, characteristic.getVersion());
             AncApplication.getInstance().getContext().allSettings().putSetting(characteristic);
 
         }
@@ -77,8 +77,7 @@ public class CharacteristicsHelper {
 
     public static void updateLastSettingServerSyncTimetamp() {
 
-        AncPreferenceHelper preferenceHelper = AncPreferenceHelper.getInstance(AncApplication.getInstance().getApplicationContext());
-        preferenceHelper.updateLastSettingsSyncFromServerTimeStamp(Calendar.getInstance().getTimeInMillis());
+        AncApplication.getInstance().getContext().allSharedPreferences().updateLastSettingsSyncTimeStamp(Calendar.getInstance().getTimeInMillis());
     }
 
     private static void initializeCharacteristics(String key) {

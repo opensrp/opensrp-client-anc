@@ -7,10 +7,12 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
-import org.smartregister.anc.service.intent.SyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.sync.intent.SyncIntentService;
 
 /**
  * Created by ndegwamartin on 05/09/2018.

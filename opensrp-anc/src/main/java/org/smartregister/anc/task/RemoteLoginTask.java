@@ -10,10 +10,10 @@ import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.LoginContract;
-import org.smartregister.anc.helper.SyncSettingsServiceHelper;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.event.Listener;
+import org.smartregister.sync.helper.SyncSettingsServiceHelper;
 
 /**
  * Created by ndegwamartin on 22/06/2018.
@@ -50,12 +50,9 @@ public class RemoteLoginTask extends AsyncTask<Void, Integer, LoginResponse> {
 
             publishProgress(R.string.loading_client_settings);
 
-            SyncSettingsServiceHelper syncSettingsServiceHelper = new SyncSettingsServiceHelper(getOpenSRPContext().applicationContext(), getOpenSRPContext().configuration().dristhiBaseURL(), getOpenSRPContext().getHttpAgent());
+            SyncSettingsServiceHelper syncSettingsServiceHelper = new SyncSettingsServiceHelper(getOpenSRPContext().configuration().dristhiBaseURL(), getOpenSRPContext().getHttpAgent());
             syncSettingsServiceHelper.setUsername(mUsername);
             syncSettingsServiceHelper.setPassword(mPassword);
-
-           String teamId =  mLoginView.getUserTeamId(loginResponse);
-            syncSettingsServiceHelper.setTeamId(teamId);
 
             try {
                 JSONArray settings = syncSettingsServiceHelper.pullSettingsFromServer();
