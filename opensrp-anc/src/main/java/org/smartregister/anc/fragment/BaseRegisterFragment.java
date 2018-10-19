@@ -309,7 +309,7 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         getSearchCancelView().setVisibility(isEmpty(filterString) ? View.INVISIBLE : View.VISIBLE);
         if (isEmpty(filterString)) {
-            org.smartregister.anc.util.Utils.hideKeyboard(getActivity());
+            Utils.hideKeyboard(getActivity());
         }
 
         this.filters = filterString;

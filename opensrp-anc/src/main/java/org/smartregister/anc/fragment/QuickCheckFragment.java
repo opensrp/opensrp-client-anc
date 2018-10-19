@@ -228,27 +228,29 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
             @Override
             public void afterTextChanged(Editable s) {
+                //Overriden
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
+                //Overriden
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                if (s.length() > 0) {
-                    Field otherSpecify = complaintAdapter.getSpecifyField();
-                    if (otherSpecify != null) {
-                        presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
-                        try {
-                            complaintAdapter.notifyDataSetChanged();
-                        } catch (Exception e) {
-                            Log.e(TAG, e.getMessage());
-                        }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                Field otherSpecify = complaintAdapter.getSpecifyField();
+
+                if (s.length() > 0 && otherSpecify != null) {
+                    presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
+                    try {
+                        complaintAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
                     }
                 }
+
             }
         });
 
@@ -274,6 +276,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         refer = view.findViewById(R.id.refer);
         refer.setOnClickListener(actionHandler);
 
+        setupComplaintOtherEditText();
+    }
+
+    private void setupComplaintOtherEditText() {
         if (specifyEditText.getVisibility() == View.VISIBLE && obsMap.containsKey("specific_complaint_other") && obsMap.get("specific_complaint_other").size() > 0) {
             specifyEditText.setText(obsMap.get("specific_complaint_other").get(0).toString());
 
@@ -541,13 +547,12 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                 }
             });
 
-            if (!obReasons.isEmpty()) {
-                if (obReasons.containsValue(reason.getDisplayName())) {
-                    holder.checkedTextView.callOnClick();
-                }
-
+            if (!obReasons.isEmpty() && obReasons.containsValue(reason.getDisplayName())) {
+                holder.checkedTextView.callOnClick();
             }
+
         }
+
 
         @Override
         public int getItemCount() {
@@ -652,11 +657,8 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             }
 
             //autoselect
-            if (!obReasons.isEmpty()) {
-                if (obReasons.containsValue(field.getDisplayName())) {
-                    holder.checkedTextView.callOnClick();
-                }
-
+            if (!obReasons.isEmpty() && obReasons.containsValue(field.getDisplayName())) {
+                holder.checkedTextView.callOnClick();
             }
 
         }

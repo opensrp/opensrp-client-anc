@@ -48,11 +48,11 @@ public class PartialContactRepository extends BaseRepository {
     private static final String INDEX_TYPE = "CREATE INDEX " + TABLE_NAME + "_" + TYPE +
             "_index ON " + TABLE_NAME + "(" + TYPE + " COLLATE NOCASE);";
 
+    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
+
     public PartialContactRepository(Repository repository) {
         super(repository);
     }
-
-    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
 
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
