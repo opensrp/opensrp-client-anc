@@ -75,17 +75,16 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     protected Fragment[] getOtherFragments() {
-        ADVANCED_SEARCH_POSITION = 0;
-        SORT_FILTER_POSITION = 1;
-        ME_POSITION = 2;
-        LIBRARY_POSITION = 3;
+        ADVANCED_SEARCH_POSITION = 1;
+        SORT_FILTER_POSITION = 2;
+        ME_POSITION = 3;
+        LIBRARY_POSITION = 4;
 
         Fragment[] fragments = new Fragment[4];
-        fragments[ADVANCED_SEARCH_POSITION] = new AdvancedSearchFragment();
-        fragments[SORT_FILTER_POSITION] = new SortFilterFragment();
-        fragments[ME_POSITION] = new MeFragment();
-        fragments[LIBRARY_POSITION] = new LibraryFragment();
-
+        fragments[ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
+        fragments[SORT_FILTER_POSITION - 1] = new SortFilterFragment();
+        fragments[ME_POSITION - 1] = new MeFragment();
+        fragments[LIBRARY_POSITION - 1] = new LibraryFragment();
 
         return fragments;
     }
@@ -110,7 +109,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         try {
             mPager.setCurrentItem(ADVANCED_SEARCH_POSITION, false);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.getMessage(), e);
         }
 
     }
@@ -315,5 +314,8 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         bottomNavigationView.setSelectedItemId(itemId);
     }
 
+    public void setSearchTerm(String searchTerm) {
+        mBaseFragment.setSearchTerm(searchTerm);
+    }
 
 }

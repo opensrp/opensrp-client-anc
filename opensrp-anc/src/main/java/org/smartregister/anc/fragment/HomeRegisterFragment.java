@@ -19,7 +19,6 @@ import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.provider.RegisterProvider;
-import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
@@ -27,6 +26,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 

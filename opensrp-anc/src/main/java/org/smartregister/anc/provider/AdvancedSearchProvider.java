@@ -69,6 +69,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
             populateLastColumn(pc, viewHolder);
+            profileImageClick(client,viewHolder);
 
             return;
         }
@@ -94,6 +95,11 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         mapping.put(NAME, R.id.dose_column);
         ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
         */
+    }
+
+    private void profileImageClick(SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
+        View patientImage = viewHolder.profile;
+        attachPatientOnclickListener(patientImage,client);
     }
 
     @Override

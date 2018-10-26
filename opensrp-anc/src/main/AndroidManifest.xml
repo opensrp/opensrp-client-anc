@@ -117,11 +117,11 @@
                 android:resource="@xml/captured_images_path" />
         </provider>
 
-        <service android:name=".service.intent.PullUniqueIdsIntentService" />
-        <service android:name=".service.intent.SyncIntentService" />
-        <service android:name=".service.intent.ValidateIntentService" />
-        <service android:name=".service.intent.ExtendedSyncIntentService" />
-        <service android:name=".service.intent.SettingsSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService" />
 
     </application>
 

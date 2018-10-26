@@ -11,6 +11,7 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
+import org.smartregister.repository.UniqueIdRepository;
 
 /**
  * Created by ndegwamartin on 09/04/2018.
