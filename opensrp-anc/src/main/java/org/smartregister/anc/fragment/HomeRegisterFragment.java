@@ -112,7 +112,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
-            homeRegisterActivity.switchToFragment(2);
+            homeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }
     }
 
@@ -127,7 +127,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public void setUniqueID(String qrCode) {
         HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
         android.support.v4.app.Fragment currentFragment =
-                homeRegisterActivity.findFragmentByPosition(1);
+                homeRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
         ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
 

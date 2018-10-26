@@ -307,7 +307,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     }
 
     public void switchToBaseFragment() {
-        switchToFragment(0);
+        switchToFragment(BASE_REG_POSITION);
     }
 
     public void setSelectedBottomBarMenuItem(int itemId) {
