@@ -29,7 +29,6 @@ import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.fragment.LibraryFragment;
 import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;

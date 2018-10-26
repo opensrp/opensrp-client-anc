@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
@@ -27,9 +28,8 @@ import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
+import org.smartregister.anc.fragment.AncMeFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.fragment.LibraryFragment;
-import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
@@ -42,6 +42,7 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+import org.smartregister.view.fragment.LibraryFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -83,7 +84,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         Fragment[] fragments = new Fragment[4];
         fragments[ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
         fragments[SORT_FILTER_POSITION - 1] = new SortFilterFragment();
-        fragments[ME_POSITION - 1] = new MeFragment();
+        fragments[ME_POSITION - 1] = new AncMeFragment();
         fragments[LIBRARY_POSITION - 1] = new LibraryFragment();
 
         return fragments;
@@ -182,7 +183,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(Constants.CURRENT_LOCATION_ID);
+                String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {

@@ -2,8 +2,6 @@ package org.smartregister.anc.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -235,11 +233,6 @@ public class Utils {
 
     public static String getBuildDate() {
         return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-    }
-
-    public static String getVersion(Context context) throws PackageManager.NameNotFoundException {
-        PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        return packageInfo.versionName;
     }
 
     public static String getUserDefaultTeamId(LoginResponseData userInfo) {

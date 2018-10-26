@@ -276,7 +276,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         TextView application_version = findViewById(R.id.login_build_text_view);
         if (application_version != null) {
             try {
-                application_version.setText(String.format(getString(R.string.app_version), org.smartregister.anc.util.Utils.getVersion(this), org.smartregister.anc.util.Utils.getBuildDate()));
+                application_version.setText(String.format(getString(R.string.app_version), Utils.getVersion(this), org.smartregister.anc.util.Utils.getBuildDate()));
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }

@@ -23,7 +23,6 @@ import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.LocationHelper;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
@@ -36,6 +35,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
+import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;

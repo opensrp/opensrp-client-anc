@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;

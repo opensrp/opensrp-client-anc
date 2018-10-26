@@ -1,8 +1,8 @@
 package org.smartregister.anc.model;
 
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.view.contract.MeContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
