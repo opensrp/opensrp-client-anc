@@ -9,7 +9,6 @@
     <string name="removing_dialog_title">Removing…</string>
     <string name="please_wait_message">Please wait</string>
     <string name="scan_qr_code">Scan QR code</string>
-    <string name="search_hint">Find name or ID</string>
     <string name="select_language">Select Language</string>
     <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
     <string name="alphabetical_sort">Alphabetical (Name)</string>
@@ -83,7 +82,6 @@
     <string name="last_name_a_to_z">Last name (A to Z)</string>
     <string name="last_name_z_to_a">Last name (Z to A)</string>
     <string name="no_location_picker">No location selected </string>
-    <string name="no_record">No Record</string>
 
     <!-- advanced search -->
     <string name="advanced_search">Advanced Search</string>
@@ -140,9 +138,6 @@
     <string name="record_birth">Record birth</string>
     <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
     <string name="woman_filter">Filter</string>
-    <string name="clients">%1$d Clients</string>
-    <string name="client">%1$d Client</string>
-    <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
@@ -229,7 +224,6 @@
     <string name="contact">CONTACT&#10;22/05/2018</string>
     <string name="library_placeholder">Library Placeholder</string>
     <string name="me_page_placeholder">Me Page Placeholder</string>
-    <string name="action_me">action_me</string>
     <string name="population_characteristics">Population characteristics</string>
     <string name="continue_">continue</string>
     <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>

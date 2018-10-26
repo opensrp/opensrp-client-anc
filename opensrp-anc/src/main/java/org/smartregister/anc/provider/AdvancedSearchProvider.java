@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
-import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
@@ -135,7 +135,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
@@ -158,7 +158,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_SYNC);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_SYNC);
     }
 
     @Override

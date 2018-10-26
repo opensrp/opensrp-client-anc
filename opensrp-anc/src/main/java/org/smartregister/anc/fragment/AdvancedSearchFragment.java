@@ -23,9 +23,9 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.BaseRegisterActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
+import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.listener.DatePickerListener;
@@ -34,11 +34,12 @@ import org.smartregister.anc.provider.AdvancedSearchProvider;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.util.Utils;
+import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 import java.util.Set;
 
-public class AdvancedSearchFragment extends BaseRegisterFragment implements AdvancedSearchContract.View {
+public class AdvancedSearchFragment extends HomeRegisterFragment implements AdvancedSearchContract.View, RegisterFragmentContract.View {
 
     private View listViewLayout;
     private View advancedSearchForm;
@@ -241,7 +242,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
     @Override
     public void switchViews(boolean showList) {
         if (showList) {
-            org.smartregister.anc.util.Utils.hideKeyboard(getActivity());
+            Utils.hideKeyboard(getActivity());
 
             advancedSearchForm.setVisibility(View.GONE);
             listViewLayout.setVisibility(View.VISIBLE);
@@ -438,7 +439,7 @@ public class AdvancedSearchFragment extends BaseRegisterFragment implements Adva
                 return new CursorLoader(getActivity()) {
                     @Override
                     public Cursor loadInBackground() {
-                        AdvancedMatrixCursor matrixCursor = presenter.getMatrixCursor();
+                        AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
                         if (isLocal || matrixCursor == null) {
                             String query = filterandSortQuery();
                             Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);

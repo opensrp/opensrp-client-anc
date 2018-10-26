@@ -33,8 +33,8 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.anc.task.SaveTeamLocationsTask;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.domain.LoginResponse;
+import org.smartregister.util.Utils;
 
 import static org.smartregister.util.Log.logInfo;
 
@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void hideKeyboard() {
         Log.i(getClass().getName(), "Hiding Keyboard " + DateTime.now().toString());
-        org.smartregister.anc.util.Utils.hideKeyboard(this);
+        Utils.hideKeyboard(this);
     }
 
     @Override
@@ -263,7 +263,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public String getUserTeamId(LoginResponse loginResponse) {
-        return Utils.getUserDefaultTeamId(loginResponse.payload());
+        return org.smartregister.anc.util.Utils.getUserDefaultTeamId(loginResponse.payload());
     }
 
     @Override
@@ -276,7 +276,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         TextView application_version = findViewById(R.id.login_build_text_view);
         if (application_version != null) {
             try {
-                application_version.setText(String.format(getString(R.string.app_version), Utils.getVersion(this), Utils.getBuildDate()));
+                application_version.setText(String.format(getString(R.string.app_version), org.smartregister.anc.util.Utils.getVersion(this), org.smartregister.anc.util.Utils.getBuildDate()));
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }

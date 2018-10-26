@@ -18,13 +18,13 @@ import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.sync.AncClientProcessorForJava;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.HTTPAgent;
+import org.smartregister.util.NetworkUtils;
 
 import java.text.MessageFormat;
 import java.util.Date;

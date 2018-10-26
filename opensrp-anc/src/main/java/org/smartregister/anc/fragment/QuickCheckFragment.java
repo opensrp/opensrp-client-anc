@@ -34,8 +34,8 @@ import org.smartregister.anc.activity.ContactActivity;
 import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.configurableviews.model.Field;
+import org.smartregister.util.Utils;
 
 import java.util.List;
 
@@ -497,7 +497,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             holder.checkedTextView.setTag(field);
 
             if (field.getDisplayName().equals(getString(R.string.central_cyanosis))) {
-                holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
+                holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(org.smartregister.anc.util.Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
 
                 holder.checkedTextView.setOnTouchListener(new View.OnTouchListener() {
                     @Override

@@ -6,8 +6,8 @@ import android.util.Log;
 
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.job.ValidateSyncDataServiceJob;
-import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.service.ActionService;
+import org.smartregister.util.NetworkUtils;
 
 
 public class ExtendedSyncIntentService extends IntentService {

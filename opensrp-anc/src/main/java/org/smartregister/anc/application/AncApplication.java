@@ -24,7 +24,6 @@ import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
@@ -35,6 +34,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -71,11 +71,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                 Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
             }
 
-            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+            org.smartregister.anc.util.Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
 
             String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
 
-            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+            org.smartregister.anc.util.Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
 
         }
     };
@@ -134,7 +134,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
-            Utils.saveLanguage("en");
+            org.smartregister.anc.util.Utils.saveLanguage("en");
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

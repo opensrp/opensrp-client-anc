@@ -1,6 +1,5 @@
 package org.smartregister.anc.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -13,9 +12,6 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
@@ -41,9 +37,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
-import static android.content.Context.INPUT_METHOD_SERVICE;
-import static org.smartregister.util.Log.logError;
-
 /**
  * Created by ndegwamartin on 14/03/2018.
  */
@@ -54,16 +47,6 @@ public class Utils {
     private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
     private AllSharedPreferences allSharedPreferences;
-
-    public static void showToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-
-    }
-
-    public static void showShortToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-
-    }
 
     public static void saveLanguage(String language) {
         AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
@@ -164,25 +147,6 @@ public class Utils {
 
     public static boolean isEmptyCollection(Collection collection) {
         return collection == null || collection.isEmpty();
-    }
-
-    public static void hideKeyboard(Context context, View view) {
-        try {
-
-            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        } catch (Exception e) {
-            logError("Error encountered while hiding keyboard " + e);
-        }
-    }
-
-    public static void hideKeyboard(Activity activity) {
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            hideKeyboard(activity, view);
-        }
     }
 
     public static Date dobStringToDate(String dobString) {
