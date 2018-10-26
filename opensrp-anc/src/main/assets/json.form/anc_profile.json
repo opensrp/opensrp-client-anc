@@ -227,7 +227,7 @@
           }
         },
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify your occupation"
         },
         "v_regex": {
@@ -370,7 +370,13 @@
         "text_color": "#1199F9",
         "toaster_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
         "toaster_info_title": "Ultrasound recommended",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
       },
       {
         "key": "facility_in_us_toaster",
@@ -382,7 +388,13 @@
         "text_color": "#1199F9",
         "toaster_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
         "toaster_info_title": "Refer for ultrasound in facility with U/S equipment",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
       },
       {
         "key": "spacer",
@@ -406,7 +418,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please give the GA from ultrasound - weeks"
         },
         "v_numeric_integer": {
@@ -436,7 +448,7 @@
           }
         },
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please give the GA from ultrasound - days"
         },
         "v_numeric_integer": {
@@ -498,11 +510,11 @@
         "type": "edit_text",
         "hint": "GA from SFH or abdominal palpation - weeks *",
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please give the GA from SFH or abdominal palpation - weeks"
         },
         "v_numeric_integer": {
-          "value": "true",
+          "value": true,
           "err": "Enter a Valid GA from SFH or abdominal palpation - weeks value"
         },
         "v_min": {
@@ -920,7 +932,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please specify other past pregnancy problems"
         },
         "v_regex": {
@@ -1017,7 +1029,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please specify other substances abused"
         },
         "v_regex": {
@@ -1228,7 +1240,7 @@
         "hint": "Specify Allergies *",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify the allergies"
         },
         "relevance": {
@@ -1354,7 +1366,7 @@
           }
         },
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify the other gynecological procedures"
         }
       },
@@ -1367,7 +1379,7 @@
         "hint": "Specify Other surgeries *",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify the Other surgeries"
         },
         "relevance": {
@@ -1489,7 +1501,7 @@
         "hint": "Specify other chronic or past health conditions *",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify the chronic or past health conditions"
         },
         "relevance": {
@@ -1559,7 +1571,7 @@
         },
         "max_date": "today",
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please enter the HIV diagnosis date"
         }
       },
@@ -2129,7 +2141,7 @@
         "hint": "Specify Other medications *",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify the Other medications"
         },
         "relevance": {
@@ -2495,7 +2507,7 @@
         "hint": "Specify other substances abused *",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please specify other substances abused"
         },
         "relevance": {
