@@ -71,7 +71,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "5090",
         "type": "normal_edit_text",
-        "edit_text_style":"bordered",
+        "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -106,7 +106,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "5090",
         "type": "normal_edit_text",
-        "edit_text_style":"bordered",
+        "edit_text_style": "bordered",
         "edit_type": "number",
         "relevance": {
           "step1:pregest_weight_unknown": {
@@ -155,7 +155,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "5089",
         "type": "normal_edit_text",
-        "edit_text_style":"bordered",
+        "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -190,7 +190,7 @@
         "type": "toaster_notes",
         "text": "Gestational diabetes mellitus (GDM) risk counseling",
         "text_color": "#D56900",
-        "toaster_info_text":"Please provide appropriate counseling for GDM risk mitigation, including:\n- Reasserting dietary interventions\n- Reasserting physical activity during pregnancy",
+        "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n- Reasserting dietary interventions\n- Reasserting physical activity during pregnancy",
         "toaster_type": "warning"
       },
       {
@@ -202,8 +202,8 @@
         "text": "Healthy eating and keeping physically active counseling",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "toaster_info_text":"Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.",
-        "toaster_info_title":"Nutritional and Exercise Folder"
+        "toaster_info_text": "Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.",
+        "toaster_info_title": "Nutritional and Exercise Folder"
       },
       {
         "key": "toaster5",
@@ -214,8 +214,8 @@
         "text": "Increase daily energy and protein intake counseling",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "toaster_info_text":"Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
-        "toaster_info_title":"Protein and Energy Sources Folder"
+        "toaster_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
+        "toaster_info_title": "Protein and Energy Sources Folder"
       },
       {
         "key": "toaster6",
@@ -226,7 +226,7 @@
         "text": "Balanced energy and protein dietary supplementation counseling",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "toaster_info_text":"Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates."
+        "toaster_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates."
       }
     ]
   },
@@ -235,43 +235,300 @@
     "next": "step3",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "bp_systolic_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Systolic (SBP)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "bp_systolic",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "Systolic blood pressure",
+        "openmrs_entity_id": "5085",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Field systolic is required"
         }
+      },
+      {
+        "key": "bp_diastolic_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Diastolic (DBP)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "bp_diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Diastolic blood pressure",
+        "openmrs_entity_id": "5086",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Field diastolic is required"
+        }
+      },
+      {
+        "key": "toaster7",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Measure BP again after 10-15 minutes rest.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "bp_systolic_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Systolic (SBP) after 10-15 minutes",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "bp_systolic_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Field systolic is required"
+        }
+      },
+      {
+        "key": "bp_diastolic_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Diastolic (DBP) after 10-15 minutes",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "bp_diastolic_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Field diastolic is required"
+        }
+      },
+      {
+        "key": "toaster8",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Do urine dipstick test for protein.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "symp_sev_preeclampsia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any symptoms of severe pre-eclampsia?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "severe_headache",
+            "text": "Severe headache",
+            "value": false,
+            "openmrs_entity": "Headache",
+            "openmrs_entity_id": "139084"
+          },
+          {
+            "key": "blurred_vision",
+            "text": "Blurred vision",
+            "value": false,
+            "openmrs_entity": "Blurred vision",
+            "openmrs_entity_id": "147104"
+          },
+          {
+            "key": "epigastric_pain",
+            "text": "Epigastric pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "141128"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vomiting",
+            "text": "Vomiting",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify any other symptoms or select none"
+        }
+      },
+      {
+        "key": "urine_protein",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "URINE PROTEIN (DIP STICK)",
+        "openmrs_entity_id": "1875",
+        "type": "native_radio",
+        "label": "Urine dipstick result - protein",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "one_plus",
+            "text": "+",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two_plus",
+            "text": "++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three_plus",
+            "text": "+++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four_plus",
+            "text": "++++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the result for the dipstick test."
+        }
+      },
+      {
+        "key": "toaster9",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hypertension diagnosis! Provide counseling.",
+        "toaster_info_text": "Woman has hypertension - SBP of 140 mmHg or higher and/or DBP of 90 mmHg or higher and no proteinuria.\n\nCounseling:\n- Advice to reduce workload and to rest\n- Advise on danger signs\n- Reassess at the next contact or in 1 week if 8 months pregnant\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster10",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Severe hypertension! Refer urgently to hospital!",
+        "toaster_info_text": "Woman has severe hypertension. If SBP is 160 mmHg or higher and/or DBP is 110 mmHg or higher, then refer urgently to the hospital for further investigation and management.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster11",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Symptom(s) of severe pre-eclampsia! Refer urgently to hospital!",
+        "toaster_info_text": "Woman has hypertension. If she is experiencing a symptom of severe pre-eclampsia, then refer urgently to the hospital for further investigation and management.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Symptom(s) of severe pre-eclampsia! Refer urgently to hospital!",
+        "toaster_info_text": "Woman has hypertension. If she is experiencing a symptom of severe pre-eclampsia, then refer urgently to the hospital for further investigation and management.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster13",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Severe pre-eclampsia diagnosis! Provide urgent treatment and refer to hospital!",
+        "toaster_info_text": "Woman has severe pre-eclampsia - SBP of 160 mmHg or above and/or DBP of 110 mmHg or above and proteinuria 3+ OR woman has SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ with at least one symptom of severe pre-eclampsia.\n\nProcedure:\n- Give magnesium sulphate\n- Give appropriate anti-hypertensives\n- Revise the birth plan\n- Refer urgently to hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster14",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia diagnosis! Refer to hospital and revise birth plan.",
+        "toaster_info_text": "Woman has pre-eclampsia - SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ and no symptom of severe pre-eclampsia.\n\nProcedure:\n- Refer to hospital\n- Revise the birth plan",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
       }
     ]
   },
   "step3": {
     "title": "Maternal Exam",
+    "next": "step4",
     "fields": [
       {
         "key": "first_name",
