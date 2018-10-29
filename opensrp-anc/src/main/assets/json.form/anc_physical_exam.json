@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
@@ -52,47 +52,186 @@
     }
   },
   "step1": {
-    "title": "Physical Exam",
+    "title": "Height & Weight",
     "next": "step2",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "height_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Height (cm)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "height",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5090",
+        "type": "normal_edit_text",
+        "edit_text_style":"bordered",
+        "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please enter the height"
         }
+      },
+      {
+        "key": "pregest_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pre-gestational weight (kg)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter pre-gestational weight"
+        },
+        "relevance": {
+          "step1:pregest_weight_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "pregest_weight_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "pregest_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "5090",
+        "type": "normal_edit_text",
+        "edit_text_style":"bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step1:pregest_weight_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "pregest_weight_unknown"
+                ]
+              }
+            ]
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Pre-gestational weight is required"
+        }
+      },
+      {
+        "key": "pregest_weight_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "pregest_weight_unknown",
+            "text": "Pre-gestational weight unknown",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "current_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Current weight (kg)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "current_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5089",
+        "type": "normal_edit_text",
+        "edit_text_style":"bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the current weight"
+        }
+      },
+      {
+        "key": "toaster1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Body mass Index",
+        "openmrs_entity_id": "1432",
+        "type": "toaster_notes",
+        "text": "Body mass index (BMI) = {bmi}\n\nWoman is {weight_cat}. Weight gain during pregnancy should be {exp_weight_gain} kg.",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toaster2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Weight gain finding",
+        "openmrs_entity_id": "122887",
+        "type": "toaster_notes",
+        "text": "Average weight gain per week since last contact: {weight_gain} kg\n\nTotal weight gain in pregnancy so far: {tot_weight_gain} kg",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      },
+      {
+        "key": "toaster3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Gestational diabetes mellitus (GDM) risk counseling",
+        "text_color": "#D56900",
+        "toaster_info_text":"Please provide appropriate counseling for GDM risk mitigation, including:\n- Reasserting dietary interventions\n- Reasserting physical activity during pregnancy",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "toaster4",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Healthy eating and keeping physically active counseling",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "toaster_info_text":"Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.",
+        "toaster_info_title":"Nutritional and Exercise Folder"
+      },
+      {
+        "key": "toaster5",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Weight gain finding",
+        "openmrs_entity_id": "122887",
+        "type": "toaster_notes",
+        "text": "Increase daily energy and protein intake counseling",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "toaster_info_text":"Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
+        "toaster_info_title":"Protein and Energy Sources Folder"
+      },
+      {
+        "key": "toaster6",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Weight gain finding",
+        "openmrs_entity_id": "122887",
+        "type": "toaster_notes",
+        "text": "Balanced energy and protein dietary supplementation counseling",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "toaster_info_text":"Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates."
       }
     ]
   },
   "step2": {
-    "title": "Physical Exam 2",
+    "title": "Blood Pressure",
     "next": "step3",
     "fields": [
       {
@@ -132,7 +271,46 @@
     ]
   },
   "step3": {
-    "title": "Physical Exam 3",
+    "title": "Maternal Exam",
+    "fields": [
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "First name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the first name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "last_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Last name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the last name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter a valid name"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Fetal Assessment",
     "fields": [
       {
         "key": "first_name",
