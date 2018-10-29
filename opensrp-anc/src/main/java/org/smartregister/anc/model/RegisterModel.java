@@ -11,7 +11,7 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.helper.LocationHelper;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public String getLocationId(String locationName) {
-        return AncApplication.getLocationHelper().getOpenMrsLocationId(locationName);
+        return LocationHelper.getInstance().getOpenMrsLocationId(locationName);
     }
 
     @Override

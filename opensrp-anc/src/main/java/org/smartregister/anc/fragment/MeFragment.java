@@ -23,7 +23,7 @@ import org.smartregister.anc.presenter.MePresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.LocationPickerView;
-import org.smartregister.helper.LocationHelper;
+import org.smartregister.location.helper.LocationHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -136,8 +136,8 @@ public class MeFragment extends Fragment implements MeContract.View {
 
     protected void updateLocationText() {
         if (facilitySelection != null) {
-            facilitySelection.setText(AncApplication.getLocationHelper().getOpenMrsReadableName(facilitySelection.getSelectedItem()));
-            String locationId = AncApplication.getLocationHelper().getOpenMrsLocationId(facilitySelection.getSelectedItem());
+            facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(facilitySelection.getSelectedItem()));
+            String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
             AncApplication.getInstance().getContext().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
         }
     }

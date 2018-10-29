@@ -31,7 +31,7 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
-import org.smartregister.helper.LocationHelper;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -80,10 +80,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         }
     };
-
-    public static LocationHelper getLocationHelper() {
-        return LocationHelper.getInstance(Utils.ALLOWED_LEVELS, "Health Facility");
-    }
 
     public static synchronized AncApplication getInstance() {
         return (AncApplication) mInstance;
@@ -136,6 +132,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, "Health Facility");
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {

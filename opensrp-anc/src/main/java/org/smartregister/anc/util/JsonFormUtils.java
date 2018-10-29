@@ -21,7 +21,6 @@ import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.domain.form.FormLocation;
 import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -30,7 +29,9 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
@@ -309,7 +310,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = AncApplication.getLocationHelper().getOpenMrsLocationId(lpv.getSelectedItem());
+                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
 
                 metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
@@ -399,8 +400,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             healthFacilities.add(Utils.HOME_ADDRESS);
 
 
-            List<String> defaultFacility = AncApplication.getLocationHelper().generateDefaultLocationHierarchy(healthFacilities);
-            List<FormLocation> upToFacilities = AncApplication.getLocationHelper().generateLocationHierarchyTree(false, healthFacilities);
+            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
 
             String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
                     new TypeToken<List<String>>() {
