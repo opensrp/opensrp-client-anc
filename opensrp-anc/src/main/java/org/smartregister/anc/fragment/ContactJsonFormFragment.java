@@ -207,7 +207,7 @@ public class ContactJsonFormFragment extends JsonFormFragment {
             return ((ContactJsonFormActivity) getActivity()).getContact();
         }
         return null;
-    }
+    } 
 
     ////////////////////////////////////////////////////////////////
     // Inner classes

@@ -21,7 +21,7 @@
     <item name="checkbox_scale" format="float" type="dimen">1.7</item>
     <dimen name="checkbox_margin_top">10dp</dimen>
 
-    <dimen name="register_search_bar_margin">10dp</dimen>
+    <dimen name="register_search_bar_margin">12dp</dimen>
     <dimen name="register_search_bar_min_margin">5dp</dimen>
     <dimen name="register_search_bar_max_margin">12dp</dimen>
     <dimen name="register_search_bar_padding">10dp</dimen>
