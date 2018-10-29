@@ -125,9 +125,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
     @Override
     public void setUniqueID(String qrCode) {
-        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+        BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         android.support.v4.app.Fragment currentFragment =
-                homeRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
+                baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
         ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
 

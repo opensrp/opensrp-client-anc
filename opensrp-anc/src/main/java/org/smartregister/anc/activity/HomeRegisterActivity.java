@@ -28,8 +28,9 @@ import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
-import org.smartregister.anc.fragment.AncMeFragment;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.fragment.LibraryFragment;
+import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
@@ -42,7 +43,6 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-import org.smartregister.view.fragment.LibraryFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -84,7 +84,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         Fragment[] fragments = new Fragment[4];
         fragments[ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
         fragments[SORT_FILTER_POSITION - 1] = new SortFilterFragment();
-        fragments[ME_POSITION - 1] = new AncMeFragment();
+        fragments[ME_POSITION - 1] = new MeFragment();
         fragments[LIBRARY_POSITION - 1] = new LibraryFragment();
 
         return fragments;
@@ -313,10 +313,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     public void setSelectedBottomBarMenuItem(int itemId) {
         bottomNavigationView.setSelectedItemId(itemId);
-    }
-
-    public void setSearchTerm(String searchTerm) {
-        mBaseFragment.setSearchTerm(searchTerm);
     }
 
 }

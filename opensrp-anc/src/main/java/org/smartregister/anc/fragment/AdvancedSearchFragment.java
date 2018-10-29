@@ -23,7 +23,6 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
@@ -116,7 +115,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         if (listMode) {
             switchViews(false);
         } else {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+            ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
         }
     }
 
@@ -125,9 +124,9 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         if (view.getId() == R.id.search) {
             search();
         } else if (view.getId() == R.id.cancel_button) {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
-            ((HomeRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
-            ((HomeRegisterActivity) getActivity()).setSearchTerm("");
+            ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
+            ((BaseRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
+            ((BaseRegisterActivity) getActivity()).setSearchTerm("");
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
         }
@@ -226,8 +225,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                     return;
                 }
 
-                HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
-                homeRegisterActivity.startQrCodeScanner();
+                BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
+                baseRegisterActivity.startQrCodeScanner();
             }
         });
 
