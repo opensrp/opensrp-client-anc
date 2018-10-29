@@ -57,7 +57,7 @@ public class Utils {
     private AllSharedPreferences allSharedPreferences;
 
     public static final ArrayList<String> ALLOWED_LEVELS;
-    private static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
+    public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
 

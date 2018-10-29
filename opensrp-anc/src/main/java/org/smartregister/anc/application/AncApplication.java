@@ -132,7 +132,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, "Health Facility");
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
