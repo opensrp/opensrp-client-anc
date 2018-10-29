@@ -190,17 +190,23 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthweight",
         "type": "edit_text",
+
         "hint": "Birth weight (kg)",
+        "v_required": {
+          "value": false,
+          "err": "Please enter the child's weight at birth"
+        },
+        "v_min": {
+          "value": "0.1",
+          "err": "Birth weight must be greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Birth weight must be less than or equal to 10"
+        },
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "([1-9]|10)|\s*",
-          "err": "Number must in the range 1 to 10"
-        },
-        "v_required": {
-          "value": false
+          "err": "Please enter a valid weight between 1 and 10"
         },
         "relevance": {
           "step1:anc_close_reason": {
@@ -282,6 +288,7 @@
         "type": "check_box",
         "label": "Any delivery complications?",
         "hint": "Any delivery complications?",
+        "label_text_style": "bold",
         "exclusive": [
           "None"
         ],

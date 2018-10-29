@@ -12,11 +12,14 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.rey.material.widget.TextView;
+
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.application.AncApplication;
+
 import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.view.customcontrols.CustomFontTextView;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +28,7 @@ import java.util.Collections;
  * @author Jason Rogena - jrogena@ona.io
  * @since 03/03/2017
  */
-public class LocationPickerView extends CustomFontTextView implements View.OnClickListener {
+public class LocationPickerView extends TextView implements View.OnClickListener {
 
     private final Context context;
     private Dialog locationPickerDialog;
@@ -46,9 +49,9 @@ public class LocationPickerView extends CustomFontTextView implements View.OnCli
         super(context, attrs, defStyle);
         this.context = context;
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.anc_CustomFontTextView, 0, defStyle);
-        int variant = attributes.getInt(R.styleable.anc_CustomFontTextView_fontVariant, 2);
+        //int variant = attributes.getInt(R.styleable.anc_CustomFontTextView_fontVariant, 0);
         attributes.recycle();
-        setFontVariant(variant);
+        //setFontVariant(variant);
     }
 
     public void init() {

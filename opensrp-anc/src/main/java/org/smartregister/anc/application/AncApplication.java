@@ -21,6 +21,7 @@ import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.anc.repository.AncRepository;
+import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.UniqueIdRepository;
 import org.smartregister.anc.service.intent.PullUniqueIdsIntentService;
 import org.smartregister.anc.util.DBConstants;
@@ -60,6 +61,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private Compressor compressor;
     private ClientProcessorForJava clientProcessorForJava;
     private String password;
+    private PartialContactRepository partialContactRepository;
     // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
     // is broadcast.
     private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
@@ -218,6 +220,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         if (configurableViewsRepository == null)
             configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
         return configurableViewsRepository;
+    }
+
+    public PartialContactRepository getPartialContactRepository() {
+        if (partialContactRepository == null)
+            partialContactRepository = new PartialContactRepository(getRepository());
+        return partialContactRepository;
     }
 
     public EventClientRepository getEventClientRepository() {
