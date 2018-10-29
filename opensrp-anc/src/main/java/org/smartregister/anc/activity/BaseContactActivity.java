@@ -20,8 +20,10 @@ import android.widget.TextView;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.view.activity.SecuredActivity;
@@ -85,8 +87,20 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void startFormActivity(JSONObject form, Contact contact) {
         Intent intent = new Intent(this, ContactJsonFormActivity.class);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
+
+        //partial contact exists?
+
+        PartialContact partialContactRequest = new PartialContact();
+        partialContactRequest.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        partialContactRequest.setContactNo(1);
+        partialContactRequest.setType(contact.getFormName());
+
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null ? partialContact.getFormJson() : form.toString());
+
         intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -100,23 +114,23 @@ public abstract class BaseContactActivity extends SecuredActivity {
         builder.setView(view);
 
         TextView titleLabel = view.findViewById(R.id.title_label);
-        titleLabel.setText(String.format(getString(R.string.exit_contact_with), presenter.getPatientName()));
+        titleLabel.setText(getString(R.string.exit_contact_title));
 
-        String saveChanges = getString(R.string.save_changes);
+        String saveChanges = getString(R.string.save_contact);
         Spannable spannable = new SpannableString(saveChanges);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 13
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 14, saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5, saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
         Button saveButton = view.findViewById(R.id.save_changes);
         saveButton.setText(spannable);
 
-        String closeWithoutSaving = getString(R.string.close_without_saving);
+        String closeWithoutSaving = getString(R.string.discard_contact);
         spannable = new SpannableString(closeWithoutSaving);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 21
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 7
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 22, closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 8, closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         Button closeButton = view.findViewById(R.id.close_without_saving);
         closeButton.setText(spannable);

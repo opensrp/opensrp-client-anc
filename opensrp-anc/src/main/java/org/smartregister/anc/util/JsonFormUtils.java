@@ -338,12 +338,14 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject) throws JSONException {
 
 
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB) && !Boolean.valueOf(womanClient.get(DBConstants.KEY.DOB_UNKNOWN))) {
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
 
             String dobString = womanClient.get(DBConstants.KEY.DOB);
-            Date dob = Utils.dobStringToDate(dobString);
-            if (dob != null) {
-                jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+            if (StringUtils.isNotBlank(dobString)) {
+                Date dob = Utils.dobStringToDate(dobString);
+                if (dob != null) {
+                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+                }
             }
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
@@ -369,7 +371,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
 
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
-            jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
+            if (StringUtils.isNotBlank(womanClient.get(DBConstants.KEY.DOB))) {
+                jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
+            }
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
 

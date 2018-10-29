@@ -26,6 +26,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseRegisterActivity;
+import org.smartregister.anc.activity.ContactActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.contract.RegisterFragmentContract;
@@ -246,12 +247,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             });
         }
 
-        /*// Location
-        facilitySelection = view.findViewById(R.id.facility_selection);
-        if (facilitySelection != null) {m
-            facilitySelection.init();
-        }*/
-
         // Progress bar
         syncProgressBar = view.findViewById(R.id.sync_progress_bar);
         if (syncProgressBar != null) {
@@ -283,7 +278,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         setTotalPatients();
     }
 
-    private void setTotalPatients() {
+    @Override
+    public void setTotalPatients() {
         if (headerTextDisplay != null) {
             headerTextDisplay.setText(clientAdapter.getTotalcount() > 1 ?
                     String.format(getString(R.string.clients), clientAdapter.getTotalcount()) :
@@ -312,6 +308,9 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
 
     public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode) {
         getSearchCancelView().setVisibility(isEmpty(filterString) ? View.INVISIBLE : View.VISIBLE);
+        if (isEmpty(filterString)) {
+            Utils.hideKeyboard(getActivity());
+        }
 
         this.filters = filterString;
         this.joinTable = joinTableString;
@@ -325,6 +324,8 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         } else {
             filterandSortExecute();
         }
+
+        setTotalPatients();
 
     }
 
@@ -386,20 +387,6 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         startActivity(intent);
     }
-
-    /*protected void updateLocationText() {
-        if (facilitySelection != null) {
-            facilitySelection.setText(LocationHelper.getInstance().getOpenMrsReadableName(
-                    facilitySelection.getSelectedItem()));
-            String locationId = LocationHelper.getInstance().getOpenMrsLocationId(facilitySelection.getSelectedItem());
-            context().allSharedPreferences().savePreference(Constants.CURRENT_LOCATION_ID, locationId);
-
-        }
-    }
-
-    public LocationPickerView getFacilitySelection() {
-        return facilitySelection;
-    }*/
 
     protected abstract void onViewClicked(View view);
 
@@ -532,7 +519,14 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
             if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
                 goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-                ((HomeRegisterActivity) getActivity()).showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+                //((HomeRegisterActivity) getActivity()).showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+                String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    proceedToContact(baseEntityId);
+                }
+
 
             } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
                 //Temporary for testing UI , To remove for real dynamic data
@@ -545,6 +539,12 @@ public abstract class BaseRegisterFragment extends RecyclerViewFragment implemen
                 onViewClicked(view);
             }
         }
+    }
+
+    public void proceedToContact(String baseEntityId) {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        getActivity().startActivity(intent);
     }
 }
 
