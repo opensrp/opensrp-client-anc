@@ -19,10 +19,8 @@ import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.domain.FormLocation;
 import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
@@ -30,7 +28,9 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
@@ -393,11 +393,11 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             allLevels.add("District");
             allLevels.add("City/Town");
             allLevels.add("Health Facility");
-            allLevels.add(LocationHelper.HOME_ADDRESS);
+            allLevels.add(Utils.HOME_ADDRESS);
 
 
             ArrayList<String> healthFacilities = new ArrayList<>();
-            healthFacilities.add(LocationHelper.HOME_ADDRESS);
+            healthFacilities.add(Utils.HOME_ADDRESS);
 
 
             List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
@@ -412,7 +412,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     }.getType());
 
             for (int i = 0; i < questions.length(); i++) {
-                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(LocationHelper.HOME_ADDRESS)) {
+                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(Utils.HOME_ADDRESS)) {
                     if (StringUtils.isNotBlank(upToFacilitiesString)) {
                         questions.getJSONObject(i).put(Constants.KEY.TREE, new JSONArray(upToFacilitiesString));
                     }

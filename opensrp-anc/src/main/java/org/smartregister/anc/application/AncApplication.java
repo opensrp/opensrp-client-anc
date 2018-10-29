@@ -27,14 +27,15 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
-import org.smartregister.util.Utils;
 import org.smartregister.sync.intent.PullUniqueIdsIntentService;
+import org.smartregister.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -131,6 +132,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
+        LocationHelper.init(org.smartregister.anc.util.Utils.ALLOWED_LEVELS, "Health Facility");
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
