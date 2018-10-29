@@ -129,7 +129,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Date of birth(DOB) *",
+        "hint": "Date of birth (DOB) *",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -163,6 +163,7 @@
           {
             "key": "dob_unknown",
             "text": "DOB unknown?",
+            "text_size":"18px",
             "value": "false"
           }
         ]
@@ -178,12 +179,13 @@
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
-        "v_regex": {
-          "value": "([1][5-9])|([2-4][0-9])|\s*",
-          "err": "Number must in the range 15 to 49"
+        "v_min": {
+          "value": "15",
+          "err": "Age must be equal or greater than 15"
         },
-        "v_required": {
-          "value": false
+        "v_max": {
+          "value": "49",
+          "err": "Age must be equal or less than 49"
         },
         "relevance": {
           "step1:dob_unknown": {
@@ -197,7 +199,7 @@
           }
         },
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please enter the woman's age"
         }
       },
@@ -245,6 +247,7 @@
         "openmrs_entity_id": "reminders",
         "openmrs_data_type": "select one",
         "type": "spinner",
+        "label_info_text":"Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
         "hint": "Reminders throughout pregnancy? *",
         "values": [
           "Yes",

@@ -16,7 +16,7 @@
     <dimen name="login_view_component_height">40dp</dimen>
     <dimen name="login_build_text_view_textSize">15sp</dimen>
     <dimen name="login_edit_text_textSize">16sp</dimen>
-    <dimen name="login_show_password_dimen">10dp</dimen>
+    <dimen name="login_show_password_dimen">12dp</dimen>
     <dimen name="login_logo_top_padding">0dp</dimen>
     <item name="checkbox_scale" format="float" type="dimen">1.7</item>
     <dimen name="checkbox_margin_top">10dp</dimen>
@@ -79,9 +79,9 @@
     <dimen name="copy_to_clipboard_header_text_size">20sp</dimen>
     <dimen name="copy_to_clipboard_message_text_size">14sp</dimen>
 
-    <dimen name="advanced_search_text_size">15sp</dimen>
-    <dimen name="advanced_search_label_size">15sp</dimen>
-    <dimen name="advanced_search_label_small_size">10sp</dimen>
+    <dimen name="advanced_search_text_size">18sp</dimen>
+    <dimen name="advanced_search_label_size">18sp</dimen>
+    <dimen name="advanced_search_label_small_size">15sp</dimen>
     <dimen name="advanced_search_label_padding">5dp</dimen>
     <dimen name="advanced_search_toolbar_padding">20dp</dimen>
     <dimen name="advanced_search_toolbar_drawable_padding">10dp</dimen>
@@ -118,23 +118,23 @@
     <dimen name="population_characteristics_item_spacing">7dp</dimen>
     <dimen name="population_characteristics_line_spacing">5dp</dimen>
 
-    <dimen name="contact_name_text_size">22sp</dimen>
-    <dimen name="contact_detail_text_size">18sp</dimen>
+    <dimen name="contact_name_text_size">18sp</dimen>
+    <dimen name="contact_detail_text_size">14sp</dimen>
     <dimen name="contact_default_text_size">15sp</dimen>
     <dimen name="contact_default_padding">20dp</dimen>
     <dimen name="contact_medium_padding">15dp</dimen>
     <dimen name="contact_drawable_padding">10dp</dimen>
     <dimen name="contact_small_padding">5dp</dimen>
     <dimen name="contact_default_layout_margin">14dp</dimen>
-    <dimen name="contact_layout_margin">7dp</dimen>
+    <dimen name="contact_layout_margin">4dp</dimen>
     <dimen name="contact_elevation">5dp</dimen>
 
-    <dimen name="contact_save_title_text_size">27sp</dimen>
-    <dimen name="contact_save_detail_text_size">18sp</dimen>
+    <dimen name="contact_save_title_text_size">24sp</dimen>
+    <dimen name="contact_save_detail_text_size">14sp</dimen>
     <dimen name="contact_save_layout_margin">10dp</dimen>
-    <dimen name="contact_save_spacing_margin">15dp</dimen>
-    <dimen name="contact_save_default_padding">20dp</dimen>
-    <dimen name="contact_save_small_padding">10dp</dimen>
+    <dimen name="contact_save_spacing_margin">14dp</dimen>
+    <dimen name="contact_save_default_padding">18dp</dimen>
+    <dimen name="contact_save_small_padding">8dp</dimen>
 
     <dimen name="me_page_initials_background_margin">20dp</dimen>
     <dimen name="me_page_initials_text_size">25sp</dimen>
@@ -151,4 +151,7 @@
     <dimen name="form_container_step_title_text_size">18sp</dimen>
     <dimen name="form_container_navigation_text_size">16sp</dimen>
     <dimen name="form_container_navigation_elevation">3dp</dimen>
+    <dimen name="contact_toolbar_text_size">20sp</dimen>
+    <dimen name="contact_toolbar_image_margin">20dp</dimen>
+    <dimen name="patients_name_margin">2dp</dimen>
 </resources>
