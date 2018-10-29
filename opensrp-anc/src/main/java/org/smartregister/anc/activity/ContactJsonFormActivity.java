@@ -1,13 +1,19 @@
 package org.smartregister.anc.activity;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONException;
+import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
+import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 
 import java.io.Serializable;
@@ -20,6 +26,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     private static final String CONTACT_STATE = "contactState";
     private Contact contact;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,71 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     public Contact getContact() {
         return contact;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+
+                showProgressDialog("Saving contact progress...");
+            }
+
+            @Override
+            protected Void doInBackground(Void... nada) {
+
+                persistPartial();
+
+                return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                hideProgressDialog();
+                ContactJsonFormActivity.this.finish();
+
+            }
+        }.execute();
+
+    }
+
+    public void showProgressDialog(String titleIdentifier) {
+
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle(titleIdentifier);
+            progressDialog.setMessage(getString(R.string.please_wait_message));
+        }
+
+        if (!isFinishing())
+            progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private void persistPartial() {
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+
+        PartialContact partialContact = new PartialContact();
+        partialContact.setBaseEntityId(baseEntityId);
+        partialContact.setContactNo(1);//Hardcoded to remove
+        partialContact.setFinalized(false);
+
+        partialContact.setType(getContact().getFormName());
+        partialContact.setFormJson(currentJsonState());
+
+        AncApplication.getInstance().getPartialContactRepository().savePartialRefactor(partialContact);
+        PatientRepository patientRepository = new PatientRepository();
+        patientRepository.updateWomanProfileDetails(partialContact.getBaseEntityId(), partialContact.getType());
     }
 }
 

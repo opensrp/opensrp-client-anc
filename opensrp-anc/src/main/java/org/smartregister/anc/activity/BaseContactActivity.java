@@ -20,8 +20,10 @@ import android.widget.TextView;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.view.activity.SecuredActivity;
@@ -85,8 +87,20 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void startFormActivity(JSONObject form, Contact contact) {
         Intent intent = new Intent(this, ContactJsonFormActivity.class);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, form.toString());
+
+        //partial contact exists?
+
+        PartialContact partialContactRequest = new PartialContact();
+        partialContactRequest.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        partialContactRequest.setContactNo(1);
+        partialContactRequest.setType(contact.getFormName());
+
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null ? partialContact.getFormJson() : form.toString());
+
         intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
