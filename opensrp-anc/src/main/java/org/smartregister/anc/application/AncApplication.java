@@ -20,6 +20,7 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
+import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -28,6 +29,7 @@ import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
@@ -59,6 +61,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private Compressor compressor;
     private ClientProcessorForJava clientProcessorForJava;
     private String password;
+    private PartialContactRepository partialContactRepository;
     // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
     // is broadcast.
     private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
@@ -131,6 +134,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
@@ -216,6 +220,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         if (configurableViewsRepository == null)
             configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
         return configurableViewsRepository;
+    }
+
+    public PartialContactRepository getPartialContactRepository() {
+        if (partialContactRepository == null)
+            partialContactRepository = new PartialContactRepository(getRepository());
+        return partialContactRepository;
     }
 
     public EventClientRepository getEventClientRepository() {

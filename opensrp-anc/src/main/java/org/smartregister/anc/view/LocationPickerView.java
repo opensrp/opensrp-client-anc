@@ -17,7 +17,9 @@ import com.rey.material.widget.TextView;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.helper.LocationHelper;
+
+import org.smartregister.location.helper.LocationHelper;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -127,5 +129,4 @@ public class LocationPickerView extends TextView implements View.OnClickListener
     public interface OnLocationChangeListener {
         void onLocationChange(String newLocation);
     }
-
 }

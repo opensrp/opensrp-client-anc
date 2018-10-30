@@ -40,6 +40,8 @@ public interface RegisterFragmentContract {
         void hideProgressView();
 
         void showNotFoundPopup(String whoAncId);
+
+        void setTotalPatients();
     }
 
     interface Presenter {

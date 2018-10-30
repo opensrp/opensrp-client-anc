@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.helper.LocationHelper;
 import org.smartregister.anc.presenter.CharacteristicsPresenter;
+import org.smartregister.location.helper.LocationHelper;
 
 /**
  * Created by ndegwamartin on 28/08/2018.
