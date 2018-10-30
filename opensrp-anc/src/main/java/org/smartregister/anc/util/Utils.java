@@ -35,6 +35,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.DateUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -54,6 +55,17 @@ public class Utils {
     private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
     private AllSharedPreferences allSharedPreferences;
+
+    public static final ArrayList<String> ALLOWED_LEVELS;
+    public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
+    public static final String FACILITY = "Facility";
+    public static final String HOME_ADDRESS = "Home Address";
+
+    static {
+        ALLOWED_LEVELS = new ArrayList<>();
+        ALLOWED_LEVELS.add(DEFAULT_LOCATION_LEVEL);
+        ALLOWED_LEVELS.add(FACILITY);
+    }
 
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
