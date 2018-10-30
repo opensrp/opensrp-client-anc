@@ -58,9 +58,9 @@ public class PatientRepository {
     }
 
 
-    public void updateWomanProfileDetails(String baseEntityId, String string) {
+    public void updateWomanProfileDetails(String baseEntityId) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("contact_status", string);
+        contentValues.put(DBConstants.KEY.CONTACT_STATUS, "active");
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});

@@ -142,11 +142,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         partialContact.setFinalized(false);
 
         partialContact.setType(getContact().getFormName());
-        partialContact.setFormJson(currentJsonState());
+        partialContact.setFormJsonDraft(currentJsonState());
 
-        AncApplication.getInstance().getPartialContactRepository().savePartialRefactor(partialContact);
-        PatientRepository patientRepository = new PatientRepository();
-        patientRepository.updateWomanProfileDetails(partialContact.getBaseEntityId(), partialContact.getType());
+        AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 }
 
