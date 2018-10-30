@@ -5,11 +5,11 @@ import android.util.Log;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
-import org.smartregister.anc.domain.Characteristic;
-import org.smartregister.anc.helper.CharacteristicsHelper;
 import org.smartregister.anc.interactor.CharacteristicsInteractor;
 import org.smartregister.anc.model.SiteCharacteristicModel;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.domain.Characteristic;
+import org.smartregister.sync.helper.CharacteristicsHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;

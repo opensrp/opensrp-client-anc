@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import org.smartregister.anc.util.Constants;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.job.BaseJob;
 
 /**
  * Created by ndegwamartin on 06/09/2018.

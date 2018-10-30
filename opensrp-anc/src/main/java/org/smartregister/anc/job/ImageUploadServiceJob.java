@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import org.smartregister.anc.util.Constants;
+import org.smartregister.job.BaseJob;
 import org.smartregister.service.ImageUploadSyncService;
 
 /**
