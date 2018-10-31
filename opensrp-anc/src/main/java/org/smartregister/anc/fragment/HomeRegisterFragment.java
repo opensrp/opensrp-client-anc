@@ -9,7 +9,9 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.ContactActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.contract.RegisterFragmentContract;
@@ -102,7 +104,13 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-            homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+            //homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+            CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+            String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                proceedToContact(baseEntityId);
+            }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
             //Temporary for testing UI , To remove for real dynamic data
@@ -198,6 +206,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                     return null;
             }
         }
+    }
+
+    public void proceedToContact(String baseEntityId) {
+        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        getActivity().startActivity(intent);
     }
 
 

@@ -8,6 +8,7 @@ public class DBConstants {
     public static final String WOMAN_TABLE_NAME = "ec_woman";
 
     public static final class KEY {
+        public static final String ID = "_ID";
         public static final String STEPNAME = "stepName";
         public static final String NUMBER_PICKER = "number_picker";
         public static final String FIRST_NAME = "first_name";
@@ -26,5 +27,8 @@ public class DBConstants {
         public static final String HOME_ADDRESS = "home_address";
         public static final String AGE = "age";
         public static final String REMINDERS = "reminders";
+        public static final String RED_FLAG_COUNT = "red_flag_count";
+        public static final String YELLOW_FLAG_COUNT = "yellow_flag_count";
+        public static final String CONTACT_STATUS = "contact_status";
     }
 }

@@ -71,7 +71,11 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                 tableName + "." + DBConstants.KEY.DOB,
                 tableName + "." + DBConstants.KEY.PHONE_NUMBER,
                 tableName + "." + DBConstants.KEY.ALT_NAME,
-                tableName + "." + DBConstants.KEY.DATE_REMOVED};
+                tableName + "." + DBConstants.KEY.DATE_REMOVED,
+                tableName + "." + DBConstants.KEY.EDD,
+                tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
+                tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT,
+                tableName + "." + DBConstants.KEY.CONTACT_STATUS};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }

@@ -1,6 +1,7 @@
 package org.smartregister.anc.helper;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,7 +10,6 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.configurableviews.helper.PrefsHelper;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +18,6 @@ import java.util.List;
 import static org.smartregister.configurableviews.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.configurableviews.util.Constants.LAST_VIEWS_SYNC_TIMESTAMP;
 import static org.smartregister.configurableviews.util.Constants.VIEW_CONFIGURATION_PREFIX;
-import static org.smartregister.util.Utils.getPreference;
 
 /**
  * Created by ndegwamartin on 15/03/2018.
@@ -86,15 +85,15 @@ public class ECSyncHelper extends org.smartregister.sync.helper.ECSyncHelper imp
 
 
     public long getLastViewsSyncTimeStamp() {
-        return Long.parseLong(getPreference(context, LAST_VIEWS_SYNC_TIMESTAMP, "0"));
+        return PreferenceManager.getDefaultSharedPreferences(context).getLong(LAST_VIEWS_SYNC_TIMESTAMP, 0);
     }
 
     public void updateLastViewsSyncTimeStamp(long lastSyncTimeStamp) {
-        Utils.writePreference(context, LAST_VIEWS_SYNC_TIMESTAMP, lastSyncTimeStamp + "");
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(LAST_VIEWS_SYNC_TIMESTAMP, lastSyncTimeStamp).commit();
     }
 
     public void updateLoginConfigurableViewPreference(String loginJson) {
-        Utils.writePreference(context, VIEW_CONFIGURATION_PREFIX + LOGIN, loginJson);
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, loginJson).commit();
     }
 
     private class SyncException extends Exception {

@@ -20,6 +20,7 @@ import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
+import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -60,6 +61,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private Compressor compressor;
     private ClientProcessorForJava clientProcessorForJava;
     private String password;
+    private PartialContactRepository partialContactRepository;
     // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
     // is broadcast.
     private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
@@ -132,7 +134,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
-        LocationHelper.init(org.smartregister.anc.util.Utils.ALLOWED_LEVELS, "Health Facility");
+        LocationHelper.init(org.smartregister.anc.util.Utils.ALLOWED_LEVELS, org.smartregister.anc.util.Utils.DEFAULT_LOCATION_LEVEL);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
@@ -218,6 +220,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         if (configurableViewsRepository == null)
             configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
         return configurableViewsRepository;
+    }
+
+    public PartialContactRepository getPartialContactRepository() {
+        if (partialContactRepository == null)
+            partialContactRepository = new PartialContactRepository(getRepository());
+        return partialContactRepository;
     }
 
     public EventClientRepository getEventClientRepository() {

@@ -5,9 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.presenter.CharacteristicsPresenter;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 
 /**

@@ -130,7 +130,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.2.15-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.2.16-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -145,7 +145,7 @@ dependencies {
         exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
     }
 
-    implementation('org.smartregister:opensrp-client-configurable-views:1.1.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-configurable-views:1.1.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'

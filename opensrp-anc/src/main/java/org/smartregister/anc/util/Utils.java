@@ -49,7 +49,7 @@ public class Utils {
     private AllSharedPreferences allSharedPreferences;
 
     public static final ArrayList<String> ALLOWED_LEVELS;
-    private static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
+    public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
 
@@ -254,8 +254,14 @@ public class Utils {
         return getPrefferedName();
     }
 
-    public static String getBuildDate() {
-        return new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+    public static String getBuildDate(Boolean isShortMonth) {
+        String simpleDateFormat = "";
+        if (isShortMonth) {
+            simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        } else {
+             simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        }
+     return simpleDateFormat;
     }
 
     public static String getUserDefaultTeamId(LoginResponseData userInfo) {

@@ -93,6 +93,34 @@
           "json_mapping": {
             "field": "attributes.home_address"
           }
+        },
+        {
+          "column_name": "edd",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.edd"
+          }
+        },
+        {
+          "column_name": "red_flag_count",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.red_flag_count"
+          }
+        },
+        {
+          "column_name": "yellow_flag_count",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.yellow_flag_count"
+          }
+        },
+        {
+          "column_name": "contact_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.contact_status"
+          }
         }
       ]
     }
