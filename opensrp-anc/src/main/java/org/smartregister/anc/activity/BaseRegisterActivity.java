@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,9 +34,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.PagerAdapter;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.barcode.Barcode;
 import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
-import org.smartregister.anc.barcode.BarcodeIntentResult;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
@@ -341,9 +340,9 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void startQrCodeScanner() {
-        BarcodeIntentIntegrator barcodeIntentIntegrator = new BarcodeIntentIntegrator(this);
-        barcodeIntentIntegrator.addExtra(Barcode.SCAN_MODE, Barcode.QR_MODE);
-        barcodeIntentIntegrator.initiateScan();
+        Intent intent = new Intent(this, BarcodeScanActivity.class);
+        startActivityForResult(intent, Constants.BARCODE.BARCODE_REQUEST_CODE);
+
     }
 
     @Override
@@ -384,12 +383,12 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 Log.e(TAG, Log.getStackTraceString(e));
             }
 
-        } else if (requestCode == BarcodeIntentIntegrator.REQUEST_CODE && resultCode == RESULT_OK) {
-            BarcodeIntentResult res = BarcodeIntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (StringUtils.isNotBlank(res.getContents())) {
-                Log.d("Scanned QR Code", res.getContents());
-                mBaseFragment.onQRCodeSucessfullyScanned(res.getContents());
-                mBaseFragment.setSearchTerm(res.getContents());
+        } else if (requestCode == Constants.BARCODE.BARCODE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Barcode barcode = data.getParcelableExtra(Constants.BARCODE.BARCODE_KEY);
+                Log.d("Scanned QR Code", barcode.displayValue);
+                mBaseFragment.onQRCodeSucessfullyScanned(barcode.displayValue);
+                mBaseFragment.setSearchTerm(barcode.displayValue);
             } else
                 Log.i("", "NO RESULT FOR QR CODE");
         }

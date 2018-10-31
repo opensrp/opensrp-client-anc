@@ -24,6 +24,13 @@ public abstract class Constants {
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
 
+    public static class BARCODE {
+        public static final String BARCODE_KEY = "barcode";
+        public static final int BARCODE_REQUEST_CODE = 0x0000c0de;
+        public static final int CAMERA_PERMISSION_REQUEST_CODE = 0x0000d0fa;
+    }
+
+
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";

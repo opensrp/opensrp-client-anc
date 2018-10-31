@@ -278,6 +278,8 @@
     <string name="log_out_text">Log out</string>
     <string name="loading_client_settings">Loading client settings&#8230;</string>
     <string name="allow_phone_call_management">You need to allow the WHO ANC app to manage phone calls to enable calling&#8230;</string>
+    <string name="allow_camera_management">You need to allow the WHO ANC app to use the camera to scan QR codes&#8230;</string>
     <string name="any_changes_you_make">Any changes you make will be lost</string>
     <string name="woman_name">Woman Name</string>
+    <string name="scan_qr_code_title">Scan QR Code</string>
 </resources>
