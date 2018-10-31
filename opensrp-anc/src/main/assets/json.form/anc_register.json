@@ -163,7 +163,7 @@
           {
             "key": "dob_unknown",
             "text": "DOB unknown?",
-            "text_size":"18px",
+            "text_size": "18px",
             "value": "false"
           }
         ]
@@ -247,7 +247,7 @@
         "openmrs_entity_id": "reminders",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_text":"Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
+        "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
         "hint": "Reminders throughout pregnancy? *",
         "values": [
           "Yes",
@@ -256,6 +256,23 @@
         "v_required": {
           "value": true,
           "err": "Please select whether the woman has agreed to receiving reminder notifications"
+        }
+      },
+      {
+        "key": "edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "edd",
+        "type": "date_picker",
+        "hint": "Expected Delivery Date (Temporary Testing Schedules *)",
+        "expanded": false,
+        "duration": {
+          "label": "CDwn"
+        },
+        "min_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the expected delivery date"
         }
       },
       {
