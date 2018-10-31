@@ -1,9 +1,11 @@
 package org.smartregister.anc.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -51,6 +53,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.provider.SmartRegisterClientsProvider;
+import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 import org.smartregister.view.viewpager.OpenSRPViewPager;
 
@@ -340,9 +343,36 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     }
 
     public void startQrCodeScanner() {
-        Intent intent = new Intent(this, BarcodeScanActivity.class);
-        startActivityForResult(intent, Constants.BARCODE.BARCODE_REQUEST_CODE);
+        if (PermissionUtils.isPermissionGranted(this, Manifest.permission.CAMERA, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE)) {
+            try {
+                Intent intent = new Intent(this, BarcodeScanActivity.class);
+                startActivityForResult(intent, Constants.BARCODE.BARCODE_REQUEST_CODE);
+            } catch (SecurityException e) {
+                Utils.showToast(this, getString(R.string.allow_camera_management));
+            }
+        }
+    }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    try {
+                        Intent intent = new Intent(this, BarcodeScanActivity.class);
+                        startActivityForResult(intent, Constants.BARCODE.BARCODE_REQUEST_CODE);
+                    } catch (SecurityException e) {
+                        Utils.showToast(this, getString(R.string.allow_camera_management));
+                    }
+                } else {
+                    Utils.showToast(this, getString(R.string.allow_camera_management));
+                }
+            }
+            default:
+                break;
+        }
     }
 
     @Override

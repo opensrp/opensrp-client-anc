@@ -1,12 +1,9 @@
 package org.smartregister.anc.activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
@@ -19,8 +16,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.Utils;
-import org.smartregister.util.PermissionUtils;
 
 import java.io.IOException;
 
@@ -34,45 +29,11 @@ public class BarcodeScanActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
         cameraPreview = findViewById(R.id.cameraPreview);
-        checkPermissions();
+        createCameraSource();
     }
-
-    private void checkPermissions() {
-        if (PermissionUtils.isPermissionGranted(this, Manifest.permission.CAMERA, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE)) {
-            try {
-                createCameraSource();
-            } catch (SecurityException e) {
-                Utils.showToast(this, getString(R.string.allow_camera_management));
-                finish();
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    try {
-                        createCameraSource();
-                    } catch (SecurityException e) {
-                        Utils.showToast(this, getString(R.string.allow_camera_management));
-                        finish();
-                    }
-                } else {
-                    Utils.showToast(this, getString(R.string.allow_camera_management));
-                    finish();
-                }
-            }
-            default:
-                break;
-        }
-    }
-
 
     private void createCameraSource() {
-        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(getApplicationContext()).build();
+        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(getApplicationContext()).setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setAutoFocusEnabled(true)
