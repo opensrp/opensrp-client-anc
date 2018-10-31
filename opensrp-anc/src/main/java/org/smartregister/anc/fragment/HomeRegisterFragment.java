@@ -151,10 +151,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         startActivity(intent);
     }
 
-
-    private boolean globalQrSearch = false;
-
-
     @Override
     protected void startRegistration() {
         ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
