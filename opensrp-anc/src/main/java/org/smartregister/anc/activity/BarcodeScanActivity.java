@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresPermission;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
@@ -34,17 +33,19 @@ public class BarcodeScanActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
-
         cameraPreview = findViewById(R.id.cameraPreview);
+        checkPermissions();
+    }
+
+    private void checkPermissions() {
         if (PermissionUtils.isPermissionGranted(this, Manifest.permission.CAMERA, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE)) {
             try {
                 createCameraSource();
             } catch (SecurityException e) {
-                finish();
                 Utils.showToast(this, getString(R.string.allow_camera_management));
+                finish();
             }
         }
-
     }
 
     @Override
@@ -56,12 +57,12 @@ public class BarcodeScanActivity extends Activity {
                     try {
                         createCameraSource();
                     } catch (SecurityException e) {
-                        finish();
                         Utils.showToast(this, getString(R.string.allow_camera_management));
+                        finish();
                     }
                 } else {
-                    finish();
                     Utils.showToast(this, getString(R.string.allow_camera_management));
+                    finish();
                 }
             }
             default:
@@ -70,7 +71,6 @@ public class BarcodeScanActivity extends Activity {
     }
 
 
-    @RequiresPermission(Manifest.permission.CAMERA)
     private void createCameraSource() {
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(getApplicationContext()).build();
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
@@ -117,18 +117,16 @@ public class BarcodeScanActivity extends Activity {
                     Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
                     assert vibrator != null;
                     vibrator.vibrate(100);
-                    closeBarcodeActivity(barcodeSparseArray, true);
+                    closeBarcodeActivity(barcodeSparseArray);
                 }
             }
         });
     }
 
 
-    private void closeBarcodeActivity(SparseArray<Barcode> sparseArray, boolean isCompleted) {
+    private void closeBarcodeActivity(SparseArray<Barcode> sparseArray) {
         Intent intent = new Intent();
-        if (isCompleted) {
-            intent.putExtra(Constants.BARCODE.BARCODE_KEY, sparseArray.valueAt(0));
-        }
+        intent.putExtra(Constants.BARCODE.BARCODE_KEY, sparseArray.valueAt(0));
         setResult(RESULT_OK, intent);
         finish();
 
