@@ -3,6 +3,7 @@ package org.smartregister.anc.interactor;
 import android.content.Context;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,6 +106,9 @@ public class LoginInteractor implements LoginContract.Interactor {
     private void remoteLogin(final String userName, final String password) {
 
         try {
+            if (getSharedPreferences().fetchBaseURL("").isEmpty() && StringUtils.isNotBlank(getApplicationContext().getString(R.string.opensrp_url))) {
+                getSharedPreferences().savePreference("DRISHTI_BASE_URL", getApplicationContext().getString(R.string.opensrp_url));
+            }
             if (!getSharedPreferences().fetchBaseURL("").isEmpty()) {
                 tryRemoteLogin(userName, password, new Listener<LoginResponse>() {
 
