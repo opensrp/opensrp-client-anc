@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -33,13 +32,11 @@ import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
-import static org.smartregister.configurableviews.util.Constants.LAST_VIEWS_SYNC_TIMESTAMP;
 
 /**
  * Created by ndegwamartin on 22/06/2018.
@@ -241,6 +238,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     protected String getJsonViewFromPreference(String viewKey) {
-        return PreferenceManager.getDefaultSharedPreferences(getLoginView().getActivityContext()).getString(viewKey, null);
+        return getDefaultSharedPreferences(getLoginView().getActivityContext()).getString(viewKey, null);
     }
 }
