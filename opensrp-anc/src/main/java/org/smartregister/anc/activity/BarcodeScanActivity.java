@@ -19,7 +19,7 @@ import org.smartregister.anc.util.Constants;
 
 import java.io.IOException;
 
-public class BarcodeScanActivity extends Activity {
+public class BarcodeScanActivity extends Activity implements SurfaceHolder.Callback, Detector.Processor<Barcode> {
     private CameraSource cameraSource;
     private SurfaceView cameraPreview;
     private String TAG = BarcodeScanActivity.class.getCanonicalName();
@@ -32,7 +32,7 @@ public class BarcodeScanActivity extends Activity {
         createCameraSource();
     }
 
-    private void createCameraSource() {
+    public void createCameraSource() {
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(getApplicationContext()).setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -40,56 +40,55 @@ public class BarcodeScanActivity extends Activity {
                 .setRequestedPreviewSize(640, 400)
                 .setRequestedFps(15.0f)
                 .build();
-
-        cameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                try {
-                    cameraSource.start(cameraPreview.getHolder());
-                } catch (SecurityException se) {
-                    Log.e(TAG, "Do not have permission to start the camera", se);
-                } catch (IOException e) {
-                    Log.e(TAG, "Could not start camera source.", e);
-                }
-
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-                cameraSource.stop();
-            }
-        });
-
-        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-            @Override
-            public void release() {
-
-            }
-
-            @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> barcodeSparseArray = detections.getDetectedItems();
-                if (barcodeSparseArray.size() > 0) {
-                    Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-                    assert vibrator != null;
-                    vibrator.vibrate(100);
-                    closeBarcodeActivity(barcodeSparseArray);
-                }
-            }
-        });
+        cameraPreview.getHolder().addCallback(this);
+        barcodeDetector.setProcessor(this);
     }
 
 
-    private void closeBarcodeActivity(SparseArray<Barcode> sparseArray) {
+    public void closeBarcodeActivity(SparseArray<Barcode> sparseArray) {
         Intent intent = new Intent();
-        intent.putExtra(Constants.BARCODE.BARCODE_KEY, sparseArray.valueAt(0));
+        if (sparseArray != null) {
+            intent.putExtra(Constants.BARCODE.BARCODE_KEY, sparseArray.valueAt(0));
+        }
         setResult(RESULT_OK, intent);
         finish();
 
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        try {
+            cameraSource.start();
+        } catch (SecurityException se) {
+            Log.e(TAG, "Do not have permission to start the camera", se);
+        } catch (IOException e) {
+            Log.e(TAG, "Could not start camera source.", e);
+        }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        cameraSource.stop();
+    }
+
+    @Override
+    public void release() {
+
+    }
+
+    @Override
+    public void receiveDetections(Detector.Detections<Barcode> detections) {
+        final SparseArray<Barcode> barcodeSparseArray = detections.getDetectedItems();
+        if (barcodeSparseArray.size() > 0) {
+            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+            assert vibrator != null;
+            vibrator.vibrate(100);
+            closeBarcodeActivity(barcodeSparseArray);
+        }
     }
 }
