@@ -172,6 +172,17 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
                 }
             }
+//Temporary process EDD
+            if (getFieldJSONObject(fields, DBConstants.KEY.EDD) != null) {
+
+                String edd = getFieldJSONObject(fields, DBConstants.KEY.EDD).get("value").toString();
+                String[] eddArray = edd.split("-");
+                String[] eddArray2 = {eddArray[2], eddArray[1], eddArray[0]};
+                edd = StringUtils.join(eddArray2, "-");
+                JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
+                dobJSONObject.put(VALUE, edd);
+            }
+
 
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();
@@ -373,6 +384,16 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             if (StringUtils.isNotBlank(womanClient.get(DBConstants.KEY.DOB))) {
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
+            }
+
+        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.EDD)) {
+
+            String dobString = womanClient.get(DBConstants.KEY.EDD);
+            if (StringUtils.isNotBlank(dobString)) {
+                Date dob = Utils.dobStringToDate(dobString);
+                if (dob != null) {
+                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+                }
             }
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {

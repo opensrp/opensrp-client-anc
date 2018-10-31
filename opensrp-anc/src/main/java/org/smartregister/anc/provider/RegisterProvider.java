@@ -118,11 +118,11 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
-        String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
+        String edd = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
 
-        if (StringUtils.isNotBlank(ga)) {
+        if (StringUtils.isNotBlank(edd)) {
 
-            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), "4 WEEKS"));
+            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromDate(edd)));
         } else {
 
             fillValue((viewHolder.ga), "");
@@ -154,7 +154,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
-                viewHolder.dueButton.setText("CONTACT 1\n22/05/2018");
 
                 String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
 
@@ -162,6 +161,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                     viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                     viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                } else {
+
+                    viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), "1", "DUE"));
                 }
 
                 //updateDoseButton();
