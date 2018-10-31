@@ -137,8 +137,6 @@
     <string name="record_birth">Record birth</string>
     <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
     <string name="woman_filter">Filter</string>
-<<<<<<< HEAD
-=======
     <string name="clients">%1$d clients</string>
     <string name="client">%1$d client</string>
     <string name="register">Register</string>
@@ -146,7 +144,6 @@
     <string name="me">Me</string>
     <string name="clients_menu">Clients</string>
     <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
->>>>>>> merge-shared-preferences
 
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
@@ -230,12 +227,8 @@
     <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-<<<<<<< HEAD
     <string name="contact">CONTACT&#10;22/05/2018</string>
-=======
-    <string name="contact">CONTACT\n22/05/2018</string>
     <string name="library_placeholder">Library Placeholder</string>
->>>>>>> merge-shared-preferences
     <string name="me_page_placeholder">Me Page Placeholder</string>
     <string name="population_characteristics">Population characteristics</string>
     <string name="continue_">continue</string>

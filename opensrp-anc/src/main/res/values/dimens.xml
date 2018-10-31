@@ -21,8 +21,6 @@
     <item name="checkbox_scale" format="float" type="dimen">1.7</item>
     <dimen name="checkbox_margin_top">10dp</dimen>
 
-<<<<<<< HEAD
-=======
     <dimen name="register_search_bar_margin">12dp</dimen>
     <dimen name="register_search_bar_min_margin">5dp</dimen>
     <dimen name="register_search_bar_max_margin">12dp</dimen>
@@ -49,7 +47,6 @@
     <dimen name="loc_picker_service_location_text_item_margin_left">5dp</dimen>
     <dimen name="loc_picker_title_textview_size">19sp</dimen>
 
->>>>>>> merge-shared-preferences
     <dimen name="activity_horizontal_margin">20dp</dimen>
     <dimen name="activity_vertical_margin">20dp</dimen>
     <dimen name="dialog_list_padding_vertical">8dp</dimen>
