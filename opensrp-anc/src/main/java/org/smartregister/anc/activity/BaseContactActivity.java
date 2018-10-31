@@ -152,7 +152,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             public void onClick(View v) {
                 dialog.dismiss();
 
-                AncApplication.getInstance().getPartialContactRepository().saveFinalJson(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                presenter.saveFinalJson(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
                 finish();
             }
@@ -169,8 +169,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-
-                AncApplication.getInstance().getPartialContactRepository().deleteDraftJson(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                presenter.deleteDraft(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 finish();
             }
         });
