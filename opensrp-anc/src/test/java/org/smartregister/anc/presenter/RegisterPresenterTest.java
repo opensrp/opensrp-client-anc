@@ -16,6 +16,7 @@ import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 import java.util.List;

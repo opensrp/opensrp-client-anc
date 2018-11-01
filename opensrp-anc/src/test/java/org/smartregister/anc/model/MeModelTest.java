@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.contract.MeContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
