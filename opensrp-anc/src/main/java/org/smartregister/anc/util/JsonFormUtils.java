@@ -172,13 +172,20 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
                 }
             }
+
+            //initialize first contact values
+            JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT);
+            nextContactJSONObject.put(VALUE, 1);
+
+            JSONObject nextContactDateJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT_DATE);
+            nextContactDateJSONObject.put(VALUE, Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF));
+
+
 //Temporary process EDD
             if (getFieldJSONObject(fields, DBConstants.KEY.EDD) != null) {
 
                 String edd = getFieldJSONObject(fields, DBConstants.KEY.EDD).get("value").toString();
-                String[] eddArray = edd.split("-");
-                String[] eddArray2 = {eddArray[2], eddArray[1], eddArray[0]};
-                edd = StringUtils.join(eddArray2, "-");
+                edd = Utils.reverseHyphenSeperatedValues(edd);
                 JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
                 dobJSONObject.put(VALUE, edd);
             }

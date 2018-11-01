@@ -305,6 +305,22 @@
           "value": "([0-9]{10})|\s*",
           "err": "Number must be a total of 10 digits in length"
         }
+      },
+      {
+        "key": "next_contact",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "next_contact",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "next_contact_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "next_contact_date",
+        "type": "hidden",
+        "value": ""
       }
     ]
   }

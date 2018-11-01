@@ -6,6 +6,7 @@ import android.util.Log;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.util.DBConstants;
 
@@ -20,6 +21,8 @@ public class PatientRepository {
 
     private static final String TAG = PatientRepository.class.getCanonicalName();
 
+    private static final String[] projection = new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.DOB_UNKNOWN, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME, DBConstants.KEY.ALT_PHONE_NUMBER, DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ANC_ID, DBConstants.KEY.REMINDERS, DBConstants.KEY.HOME_ADDRESS, DBConstants.KEY.EDD, DBConstants.KEY.CONTACT_STATUS, DBConstants.KEY.NEXT_CONTACT, DBConstants.KEY.NEXT_CONTACT_DATE};
+
     public static Map<String, String> getWomanProfileDetails(String baseEntityId) {
         Cursor cursor = null;
 
@@ -27,7 +30,7 @@ public class PatientRepository {
         try {
             SQLiteDatabase db = AncApplication.getInstance().getRepository().getReadableDatabase();
 
-            String query = "SELECT " + DBConstants.KEY.FIRST_NAME + "," + DBConstants.KEY.LAST_NAME + "," + DBConstants.KEY.DOB + "," + DBConstants.KEY.DOB_UNKNOWN + "," + DBConstants.KEY.PHONE_NUMBER + "," + DBConstants.KEY.ALT_NAME + "," + DBConstants.KEY.ALT_PHONE_NUMBER + "," + DBConstants.KEY.BASE_ENTITY_ID + "," + DBConstants.KEY.ANC_ID + "," + DBConstants.KEY.REMINDERS + "," + DBConstants.KEY.HOME_ADDRESS + "," + DBConstants.KEY.EDD + " FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?";
+            String query = "SELECT " + StringUtils.join(projection, ",") + " FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?";
             cursor = db.rawQuery(query, new String[]{baseEntityId});
             if (cursor != null && cursor.moveToFirst()) {
                 detailsMap = new HashMap<>();
@@ -44,6 +47,9 @@ public class PatientRepository {
                 detailsMap.put(DBConstants.KEY.REMINDERS, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.REMINDERS)));
                 detailsMap.put(DBConstants.KEY.HOME_ADDRESS, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.HOME_ADDRESS)));
                 detailsMap.put(DBConstants.KEY.EDD, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.EDD)));
+                detailsMap.put(DBConstants.KEY.CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.CONTACT_STATUS)));
+                detailsMap.put(DBConstants.KEY.NEXT_CONTACT, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT)));
+                detailsMap.put(DBConstants.KEY.NEXT_CONTACT_DATE, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT_DATE)));
 
             }
             return detailsMap;

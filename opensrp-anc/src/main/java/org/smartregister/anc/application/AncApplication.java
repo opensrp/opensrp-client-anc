@@ -30,6 +30,7 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
@@ -57,6 +58,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private EventClientRepository eventClientRepository;
     private ConfigurableViewsHelper configurableViewsHelper;
     private UniqueIdRepository uniqueIdRepository;
+    private DetailsRepository detailsRepository;
     private ECSyncHelper ecSyncHelper;
     private Compressor compressor;
     private ClientProcessorForJava clientProcessorForJava;
@@ -269,6 +271,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
             clientProcessorForJava = ClientProcessorForJava.getInstance(getApplicationContext());
         }
         return clientProcessorForJava;
+    }
+
+    public DetailsRepository getDetailsRepository() {
+        if (detailsRepository == null)
+            detailsRepository = new DetailsRepository();
+        return detailsRepository;
     }
 
     private void setUpEventHandling() {

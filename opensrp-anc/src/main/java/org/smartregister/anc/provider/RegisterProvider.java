@@ -27,6 +27,7 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.Set;
 
 import static org.smartregister.util.Utils.getName;
@@ -155,15 +156,20 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
 
-                String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
+                String contactStatus = getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS);
 
-                if (StringUtils.isNotBlank(ga)) {
+                if (StringUtils.isNotBlank(contactStatus)) {
 
                     viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                     viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 } else {
 
-                    viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), "1", "DUE"));
+                    String nextContact = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
+                    String nextContactDate = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT_DATE);
+                    nextContactDate = nextContactDate != null ? Utils.reverseHyphenSeperatedValues(nextContactDate) : null;
+
+
+                    viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
                 }
 
                 //updateDoseButton();
@@ -332,4 +338,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         }
     }
 
+    private String getColumnMapValue(CommonPersonObjectClient pc, String key) {
+        return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
+    }
 }

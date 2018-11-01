@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
@@ -44,7 +45,8 @@ import java.util.Map;
 public class Utils {
 
     private static final String TAG = Utils.class.getCanonicalName();
-    private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
+    public static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
+    public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(Constants.CONTACT_DATE_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
     private AllSharedPreferences allSharedPreferences;
 
@@ -259,9 +261,9 @@ public class Utils {
         if (isShortMonth) {
             simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
         } else {
-             simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+            simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
         }
-     return simpleDateFormat;
+        return simpleDateFormat;
     }
 
     public static String getUserDefaultTeamId(LoginResponseData userInfo) {
@@ -274,5 +276,14 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static String reverseHyphenSeperatedValues(String rawString) {
+        String resultString = rawString;
+        String[] tokenArray = resultString.split("-");
+        ArrayUtils.reverse(tokenArray);
+        resultString = StringUtils.join(tokenArray, "-");
+
+        return resultString;
     }
 }

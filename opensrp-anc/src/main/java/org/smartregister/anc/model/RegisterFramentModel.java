@@ -1,6 +1,7 @@
 package org.smartregister.anc.model;
 
 import android.util.Log;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,7 @@ import static org.smartregister.anc.util.Constants.GLOBAL_IDENTIFIER;
  * Created by keyman on 12/07/2018.
  */
 public class RegisterFramentModel implements RegisterFragmentContract.Model {
-    
+
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
         return ConfigHelper.defaultRegisterConfiguration(AncApplication.getInstance().getApplicationContext());
@@ -75,7 +76,9 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                 tableName + "." + DBConstants.KEY.EDD,
                 tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
                 tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT,
-                tableName + "." + DBConstants.KEY.CONTACT_STATUS};
+                tableName + "." + DBConstants.KEY.CONTACT_STATUS,
+                tableName + "." + DBConstants.KEY.NEXT_CONTACT,
+                tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }
