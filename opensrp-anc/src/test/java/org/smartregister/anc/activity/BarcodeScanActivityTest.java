@@ -22,6 +22,8 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.smartregister.anc.R;
+import org.smartregister.anc.barcode.CameraSourcePreview;
 
 public class BarcodeScanActivityTest extends BaseActivityUnitTest {
     @Mock
@@ -32,6 +34,9 @@ public class BarcodeScanActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private SurfaceHolder surfaceHolder;
+
+    @Mock
+    private CameraSourcePreview cameraSourcePreview;
 
     @Mock
     private Detector.Detections<Barcode> detections;
@@ -51,6 +56,7 @@ public class BarcodeScanActivityTest extends BaseActivityUnitTest {
         controller = Robolectric.buildActivity(BarcodeScanActivity.class).create().start();
         barcodeScanActivity = controller.get();
         context = RuntimeEnvironment.application;
+        cameraSourcePreview = barcodeScanActivity.findViewById(R.id.preview);
     }
 
     @After
@@ -70,18 +76,6 @@ public class BarcodeScanActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testSurfaceDestroyed() {
-        Assert.assertNotNull(cameraSource);
-        barcodeScanActivity.surfaceDestroyed(surfaceHolder);
-    }
-    
-    @Test
-    public void testSurfaceCreated() {
-        Assert.assertNotNull(cameraSource);
-        barcodeScanActivity.surfaceCreated(surfaceHolder);
-    }
-
-    @Test
     public void testReceiveDetections() {
         Assert.assertNotNull(detections);
         Mockito.doReturn(barcodeSparseArray).when(detections).getDetectedItems();
@@ -91,12 +85,6 @@ public class BarcodeScanActivityTest extends BaseActivityUnitTest {
         Assert.assertEquals(2, barcodeSparseArray.size());
 
         barcodeScanActivity.receiveDetections(detections);
-    }
-
-    @Test
-    public void testSurfaceCreatedWithNullCameraSource() {
-        BarcodeScanActivity barcodeScanActivity = Mockito.mock(BarcodeScanActivity.class);
-        barcodeScanActivity.surfaceCreated(surfaceHolder);
     }
 
     @Override
