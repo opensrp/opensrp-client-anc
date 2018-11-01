@@ -1,14 +1,14 @@
 package org.smartregister.anc.contract;
 
-import android.content.Context;
 import android.util.Pair;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.smartregister.anc.domain.AttentionFlag;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.domain.FetchStatus;
+import org.smartregister.view.LocationPickerView;
+import org.smartregister.view.contract.BaseRegisterContract;
 
 import java.util.List;
 
@@ -16,11 +16,16 @@ import java.util.List;
  * Created by keyamn on 27/06/2018.
  */
 public interface RegisterContract {
-    interface Presenter {
 
-        void registerViewConfigurations(List<String> viewIdentifiers);
+    interface View extends BaseRegisterContract.View {
 
-        void unregisterViewConfiguration(List<String> viewIdentifiers);
+        void showLanguageDialog(List<String> displayValues);
+
+        void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags);
+
+    }
+
+    interface Presenter extends BaseRegisterContract.Presenter {
 
         void saveLanguage(String language);
 
@@ -32,36 +37,6 @@ public interface RegisterContract {
 
         void closeAncRecord(String jsonString);
 
-        void onDestroy(boolean isChangingConfiguration);
-        
-	    void updateInitials();
-    }
-
-    interface View {
-
-        Context getContext();
-
-        void displaySyncNotification();
-
-        void displayToast(int resourceId);
-
-        void displayToast(String message);
-
-        void displayShortToast(int resourceId);
-
-        void showLanguageDialog(List<String> displayValues);
-
-        void startFormActivity(JSONObject form);
-
-        void refreshList(final FetchStatus fetchStatus);
-
-        void showProgressDialog(int messageStringIdentifier);
-
-        void hideProgressDialog();
-
-        void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags);
-        
-	    void updateInitialsText(String initials);
     }
 
     interface Model {
@@ -77,8 +52,8 @@ public interface RegisterContract {
 
         JSONObject getFormAsJson(String formName, String entityId,
                                  String currentLocationId) throws Exception;
-	
-	    String getInitials();
+
+        String getInitials();
     }
 
     interface Interactor {

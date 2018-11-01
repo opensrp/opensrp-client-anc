@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AncAppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/register_toolbar"
@@ -20,9 +20,9 @@
             app:contentInsetStart="10dp"
             app:contentInsetRight="10dp"
             app:contentInsetEnd="10dp"
-            app:popupTheme="@style/AncAppTheme.PopupOverlay">
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <include layout="@layout/top_register_bar" />
+            <include layout="@layout/top_base_register_bar" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

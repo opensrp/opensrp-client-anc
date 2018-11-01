@@ -16,7 +16,6 @@ import org.smartregister.anc.job.ImageUploadServiceJob;
 import org.smartregister.anc.job.ViewConfigurationsServiceJob;
 import org.smartregister.anc.task.RemoteLoginTask;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.event.Listener;
@@ -26,6 +25,7 @@ import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 import org.smartregister.sync.helper.CharacteristicsHelper;
+import org.smartregister.util.NetworkUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.TimeZone;
