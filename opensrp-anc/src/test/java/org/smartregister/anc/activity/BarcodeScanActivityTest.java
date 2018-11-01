@@ -30,19 +30,10 @@ public class BarcodeScanActivityTest extends BaseActivityUnitTest {
     private SparseArray<Barcode> barcodeSparseArray;
 
     @Mock
-    private CameraSource cameraSource;
-
-    @Mock
-    private SurfaceHolder surfaceHolder;
-
-    @Mock
     private CameraSourcePreview cameraSourcePreview;
 
     @Mock
     private Detector.Detections<Barcode> detections;
-
-    @Mock
-    private Vibrator vibrator;
 
     @Mock
     private Context context;
