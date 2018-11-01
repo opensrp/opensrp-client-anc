@@ -68,7 +68,7 @@ public class BarcodeScanActivity extends Activity implements SurfaceHolder.Callb
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+        //Todo
     }
 
     @Override
@@ -78,7 +78,7 @@ public class BarcodeScanActivity extends Activity implements SurfaceHolder.Callb
 
     @Override
     public void release() {
-
+        //Todo
     }
 
     @Override

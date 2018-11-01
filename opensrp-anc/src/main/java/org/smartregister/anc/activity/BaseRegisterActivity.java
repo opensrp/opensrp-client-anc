@@ -28,7 +28,6 @@ import android.widget.TextView;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -36,7 +35,6 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.PagerAdapter;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.barcode.BarcodeIntentIntegrator;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
@@ -358,7 +356,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE: {
+            case PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     try {
                         Intent intent = new Intent(this, BarcodeScanActivity.class);
@@ -369,7 +367,7 @@ public abstract class BaseRegisterActivity extends SecuredNativeSmartRegisterAct
                 } else {
                     Utils.showToast(this, getString(R.string.allow_camera_management));
                 }
-            }
+                break;
             default:
                 break;
         }
