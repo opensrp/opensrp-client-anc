@@ -32,7 +32,6 @@ import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
@@ -239,6 +238,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     protected String getJsonViewFromPreference(String viewKey) {
-        return Utils.getPreference(getLoginView().getActivityContext(), viewKey, null);
+        return getDefaultSharedPreferences(getLoginView().getActivityContext()).getString(viewKey, null);
     }
 }

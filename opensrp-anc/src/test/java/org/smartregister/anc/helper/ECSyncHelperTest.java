@@ -15,6 +15,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.testutils.TestException;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 
 import java.util.List;
@@ -30,12 +31,16 @@ public class ECSyncHelperTest extends BaseUnitTest {
     @Mock
     private EventClientRepository eventClientRepository;
 
+    @Mock
+    private AllSharedPreferences allSharedPreferences;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         syncHelper = ECSyncHelper.getInstance(RuntimeEnvironment.application);
         Whitebox.setInternalState(syncHelper, EVENT_CLIENT_REPOSITORY, eventClientRepository);
+        Whitebox.setInternalState(syncHelper, allSharedPreferences, allSharedPreferences);
     }
 
     @Test
