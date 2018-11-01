@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.repository.Repository;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class PatientRepository {
 
         Map<String, String> detailsMap = null;
         try {
-            SQLiteDatabase db = AncApplication.getInstance().getRepository().getReadableDatabase();
+            SQLiteDatabase db = getMasterRepository().getReadableDatabase();
 
             String query = "SELECT " + DBConstants.KEY.FIRST_NAME + "," + DBConstants.KEY.LAST_NAME + "," + DBConstants.KEY.DOB + "," + DBConstants.KEY.DOB_UNKNOWN + "," + DBConstants.KEY.PHONE_NUMBER + "," + DBConstants.KEY.ALT_NAME + "," + DBConstants.KEY.ALT_PHONE_NUMBER + "," + DBConstants.KEY.BASE_ENTITY_ID + "," + DBConstants.KEY.ANC_ID + "," + DBConstants.KEY.REMINDERS + "," + DBConstants.KEY.HOME_ADDRESS + "," + DBConstants.KEY.EDD + " FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?";
             cursor = db.rawQuery(query, new String[]{baseEntityId});
@@ -58,12 +59,16 @@ public class PatientRepository {
     }
 
 
-    public void updateWomanProfileDetails(String baseEntityId) {
+    public static void updateWomanProfileDetails(String baseEntityId) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstants.KEY.CONTACT_STATUS, "active");
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
-        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+        getMasterRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
+
+    protected static Repository getMasterRepository() {
+        return AncApplication.getInstance().getRepository();
     }
 
 

@@ -56,8 +56,7 @@ public class QuickCheckInteractor implements QuickCheckContract.Interactor {
                     partialContact.setFormJsonDraft(eventJson.toString());
 
                     AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
-                    PatientRepository patientRepository = new PatientRepository();
-                    patientRepository.updateWomanProfileDetails(event.getBaseEntityId());
+                    PatientRepository.updateWomanProfileDetails(event.getBaseEntityId());
 
                     //getSyncHelper().addEvent(baseEntityId, eventJson);
                     isSaved = true;
