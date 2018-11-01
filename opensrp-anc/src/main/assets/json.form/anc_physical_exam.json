@@ -531,39 +531,344 @@
     "next": "step4",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "body_temp_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Temperature (ºC)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "body_temp",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "Temperature (C)",
+        "openmrs_entity_id": "5088",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
-        },
+          "err": "Please enter body temperature"
+        }
+      },
+      {
+        "key": "toaster15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Temperature of 38ºC or above! Measure temperature again.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "body_temp_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second temperature (ºC)",
+        "text_color": "#000000",
+        "label_info_text": "Retake the woman's temperature if the first reading was 38ºC or higher.",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "body_temp_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5088",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please re-enter body temperature"
+        }
+      },
+      {
+        "key": "toaster16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has a fever. Provide treatment and refer urgently to hospital!",
+        "toaster_info_text": "Procedure:\n- Insert an IV line\n- Give fluids slowly\n- Refer urgently to hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "pulse_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pulse rate (bpm)",
+        "text_color": "#000000",
+        "label_info_text": "Retake the woman's pulse rate if the first reading was lower than 60 or higher than 100.",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "pulse_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Pulse",
+        "openmrs_entity_id": "5087",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter pulse rate"
+        }
+      },
+      {
+        "key": "toaster17",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pulse rate. Check again after 10 minutes rest.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "pulse_rate_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second pulse rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "pulse_rate_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter pulse rate"
+        }
+      },
+      {
+        "key": "toaster18",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pulse rate. Refer for further investigation.",
+        "toaster_info_text": "Procedure:\n- Check for fever, infection, respiratory distress, and arrhythmia\n- Refer for further investigation",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "pallor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Pallor",
+        "openmrs_entity_id": "5245",
+        "type": "native_radio",
+        "label": "Pallor present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Yes"
+          },
+          {
+            "key": "0",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "toaster19",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Anaemia diagnosis! Haemoglobin (Hb) test recommended.",
+        "toaster_info_text": "Anaemia - Hb level less than 11 in first or third trimester or Hb level less than 10.5 in second trimester.\n\nOR\n\nNo Hb test result recorded, but woman has pallor.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "repiratory_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Respiratory exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal"
+          }
+        ]
+      },
+      {
+        "key": "repiratory_exam_abnormal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Abnormal (specify)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "dyspnoea",
+            "text": "Dyspnoea",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cough",
+            "text": "Cough",
+            "value": false,
+            "openmrs_entity": " Cough",
+            "openmrs_entity_id": "143264"
+          },
+          {
+            "key": "rapid_breathing",
+            "text": "Rapid breathing",
+            "value": false,
+            "openmrs_entity": "TACHYPNEA",
+            "openmrs_entity_id": "125061"
+          },
+          {
+            "key": "slow_breathing",
+            "text": "Slow breathing",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "wheezing",
+            "text": "Wheezing",
+            "value": false,
+            "openmrs_entity": "WHEEZE",
+            "openmrs_entity_id": "5209"
+          },
+          {
+            "key": "rales",
+            "text": "Rales",
+            "value": false,
+            "openmrs_entity": "Respiratory Crackles",
+            "openmrs_entity_id": "127640"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "repiratory_exam_abnormal_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
         "v_regex": {
           "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step3:repiratory_exam_abnormal": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
         }
-      }
+      },
+      {
+        "key": "toaster20",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has respiratory distress. Refer urgently to the hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "oximetry_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Oximetry (%)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "oximetry",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number"
+      },
+      {
+        "key": "toaster21",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has low oximetry. Refer urgently to the hospital!",
+        "toaster_info_text": "Procedure:\n- Give oxygen\n- Refer urgently to hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "cardiac_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Cardiac exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal"
+          }
+        ]
+      },
     ]
   },
   "step4": {
