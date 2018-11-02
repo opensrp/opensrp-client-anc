@@ -30,9 +30,9 @@ import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
+import org.smartregister.util.Utils;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -205,7 +205,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void displayToast(int stringID) {
-
         Utils.showShortToast(this, this.getString(stringID));
     }
 

@@ -92,7 +92,6 @@
     <dimen name="attention_flag_dialog_title_margin_bottom">12dp</dimen>
     <dimen name="attention_flag_dialog_dot_left_margin">12dp</dimen>
 
-    <dimen name="search_bar_min_margin">1dp</dimen>
     <dimen name="quick_check_padding">20dp</dimen>
     <dimen name="quick_check_drawable_padding">10dp</dimen>
     <dimen name="quick_check_specify_padding">55dp</dimen>

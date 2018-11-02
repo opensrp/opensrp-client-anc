@@ -3,6 +3,7 @@ package org.smartregister.anc.interactor;
 import android.content.Context;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +16,6 @@ import org.smartregister.anc.job.ImageUploadServiceJob;
 import org.smartregister.anc.job.ViewConfigurationsServiceJob;
 import org.smartregister.anc.task.RemoteLoginTask;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.NetworkUtils;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.domain.TimeStatus;
 import org.smartregister.event.Listener;
@@ -25,6 +25,7 @@ import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 import org.smartregister.sync.helper.CharacteristicsHelper;
+import org.smartregister.util.NetworkUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.TimeZone;
@@ -105,6 +106,9 @@ public class LoginInteractor implements LoginContract.Interactor {
     private void remoteLogin(final String userName, final String password) {
 
         try {
+            if (getSharedPreferences().fetchBaseURL("").isEmpty() && StringUtils.isNotBlank(getApplicationContext().getString(R.string.opensrp_url))) {
+                getSharedPreferences().savePreference("DRISHTI_BASE_URL", getApplicationContext().getString(R.string.opensrp_url));
+            }
             if (!getSharedPreferences().fetchBaseURL("").isEmpty()) {
                 tryRemoteLogin(userName, password, new Listener<LoginResponse>() {
 

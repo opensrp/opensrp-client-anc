@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -12,11 +13,11 @@ import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.interactor.RegisterInteractor;
 import org.smartregister.anc.model.RegisterModel;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.view.LocationPickerView;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -131,7 +132,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
         try {
-             startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
+            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             getView().displayToast(R.string.error_unable_to_start_form);
@@ -156,7 +157,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             model = null;
         }
     }
-    
+
     @Override
     public void updateInitials() {
         String initials = model.getInitials();
@@ -164,7 +165,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             getView().updateInitialsText(initials);
         }
     }
-    
+
     private RegisterContract.View getView() {
         if (viewReference != null)
             return viewReference.get();

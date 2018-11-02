@@ -16,20 +16,9 @@ public abstract class Constants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
-    public static final String CURRENT_LOCATION_ID = "CURRENT_LOCATION_ID";
-
-    public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
-    public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
-
-    public static class BARCODE {
-        public static final String BARCODE_KEY = "barcode";
-        public static final int BARCODE_REQUEST_CODE = 0x0000c0de;
-        // intent request code to handle updating play services if needed.
-        public static final int RC_HANDLE_GMS = 9001;
-    }
 
 
     public static class CONFIGURATION {
