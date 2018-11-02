@@ -869,43 +869,344 @@
           }
         ]
       },
+      {
+        "key": "toaster22",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal cardiac exam. Refer urgently to the hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster23",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal breast exam. Refer for further investigation.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "toaster24",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal abdominal exam. Refer for further investigation.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster25",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pelvic exam. Refer for further investigation.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "toaster26",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Cervix is more than 2 cm dilated. Please check for other signs and symptoms of labour (if GA is 37 weeks or later) or pre-term labour and other related complications (if GA is less than 37 weeks).",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      }
     ]
   },
   "step4": {
     "title": "Fetal Assessment",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "sfh_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Symphysis-fundal height (SFH) in centimetres (cm)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": false
         }
       },
       {
-        "key": "last_name",
+        "key": "sfh",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "FUNDAL HEIGHT",
+        "openmrs_entity_id": "1439",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the SFH"
+        }
+      },
+      {
+        "key": "fetal_movement",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal movements present",
+        "openmrs_entity_id": "1875",
+        "type": "native_radio",
+        "label": "Fetal movement felt?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "0",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please this field is required."
+        }
+      },
+      {
+        "key": "fetal_heartbeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Fetal heartbeat present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "0",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify if fetal heartbeat is present."
+        }
+      },
+      {
+        "key": "toaster27",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "No fetal heartbeat observed. Refer to hospital.",
+        "toaster_info_text": "Procedure:\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n- Refer to hospital.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "fetal_heart_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "fetal_heart_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal heart rate",
+        "openmrs_entity_id": "1440",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the fetal heart rate"
+        }
+      },
+      {
+        "key": "toaster28",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Fetal heart rate out of normal range (110-160). Please have the woman lay on her left side for 15 minutes and check again.",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "fetal_heart_rate_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "fetal_heart_rate_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter result for the second fetal heart rate"
+        }
+      },
+      {
+        "key": "toaster29",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal fetal heart rate. Refer to hospital.",
+        "text_color": "#E20000",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "no_of_fetuses_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "No. of fetuses",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step4:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "no_of_fetuses",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "numbers_selector",
+        "number_of_selectors": "2",
+        "start_number": "1",
+        "max_value": "8",
+        "text_size": "16px",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step4:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "no_of_fetuses_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "no_of_fetuses_unknown",
+            "text": "No. of fetuses unknown",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "toaster30",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia risk counseling",
+        "text_color": "#D56900",
+        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "fetal_presentation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal presentation ",
+        "openmrs_entity_id": "1067",
+        "type": "check_box",
+        "label": "Fetal presentation",
+        "label_text_style":"bold",
+        "label_info_text":"If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
+        "options": [
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "value": "false",
+            "openmrs_entity": "Vertex presentation",
+            "openmrs_entity_id": "160091"
+          },
+          {
+            "key": "pelvic",
+            "text": "Pelvic",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "value": "false",
+            "openmrs_entity": "Transverse or Oblique Fetal Presentation",
+            "openmrs_entity_id": "112259"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Fetal representation field is required"
         }
       }
     ]
