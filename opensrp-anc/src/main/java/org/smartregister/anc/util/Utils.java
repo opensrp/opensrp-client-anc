@@ -1,10 +1,7 @@
 package org.smartregister.anc.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -13,8 +10,6 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
@@ -41,9 +36,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
-import static org.smartregister.util.Log.logError;
 
 /**
  * Created by ndegwamartin on 14/03/2018.
@@ -178,25 +170,6 @@ public class Utils {
         return collection == null || collection.isEmpty();
     }
 
-    public static void hideKeyboard(Context context, View view) {
-        try {
-
-            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        } catch (Exception e) {
-            logError("Error encountered while hiding keyboard " + e);
-        }
-    }
-
-    public static void hideKeyboard(Activity activity) {
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            hideKeyboard(activity, view);
-        }
-    }
-
     public static Date dobStringToDate(String dobString) {
         DateTime dateTime = dobStringToDateTime(dobString);
         if (dateTime != null) {
@@ -289,11 +262,6 @@ public class Utils {
              simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
         }
      return simpleDateFormat;
-    }
-
-    public static String getVersion(Context context) throws PackageManager.NameNotFoundException {
-        PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        return packageInfo.versionName;
     }
 
     public static String getUserDefaultTeamId(LoginResponseData userInfo) {

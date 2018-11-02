@@ -1,7 +1,7 @@
 package org.smartregister.anc.presenter;
 
-import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.model.MeModel;
+import org.smartregister.view.contract.MeContract;
 
 import java.lang.ref.WeakReference;
 

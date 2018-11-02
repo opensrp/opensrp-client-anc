@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
-import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -198,19 +198,19 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_SYNC);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_SYNC);
     }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
     private void attachRiskLayoutOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
     }
 
     /*
@@ -228,7 +228,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void attachDosageOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package org.smartregister.anc.model;
 
-import org.smartregister.anc.contract.MeContract;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.view.contract.MeContract;
 
 public class MeModel implements MeContract.Model {
     private Utils utils = new Utils();
