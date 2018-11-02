@@ -9,11 +9,11 @@ import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.event.Listener;
 import org.smartregister.sync.helper.SyncSettingsServiceHelper;
+import org.smartregister.view.contract.BaseLoginContract;
 
 /**
  * Created by ndegwamartin on 22/06/2018.
@@ -22,13 +22,13 @@ public class RemoteLoginTask extends AsyncTask<Void, Integer, LoginResponse> {
 
     private final String TAG = RemoteLoginTask.class.getCanonicalName();
 
-    private LoginContract.View mLoginView;
+    private BaseLoginContract.View mLoginView;
     private final String mUsername;
     private final String mPassword;
 
     private final Listener<LoginResponse> afterLoginCheck;
 
-    public RemoteLoginTask(LoginContract.View loginView, String username, String password, Listener<LoginResponse> afterLoginCheck) {
+    public RemoteLoginTask(BaseLoginContract.View loginView, String username, String password, Listener<LoginResponse> afterLoginCheck) {
         mLoginView = loginView;
         mUsername = username;
         mPassword = password;
