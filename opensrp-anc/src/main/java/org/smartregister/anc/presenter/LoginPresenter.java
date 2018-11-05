@@ -27,6 +27,8 @@ import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
 
+
+
 /**
  * Created by ndegwamartin on 22/06/2018.
  */

@@ -1,13 +1,12 @@
 package org.smartregister.anc.activity;
 
-
 import android.content.Intent;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.smartregister.Task.SaveTeamLocationsTask;
 import org.smartregister.anc.R;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.presenter.LoginPresenter;
-import org.smartregister.anc.task.SaveTeamLocationsTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -77,6 +76,4 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
         }
     }
-
-
 }
