@@ -15,13 +15,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.interactor.LoginInteractor;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
+import org.smartregister.login.interactor.BaseLoginInteractor;
+import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.login.presenter.BaseLoginPresenter;
 import org.smartregister.view.contract.BaseLoginContract;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by ndegwamartin on 22/06/2018.
@@ -31,7 +36,9 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     private static final String TAG = LoginPresenter.class.getCanonicalName();
 
     public LoginPresenter(BaseLoginContract.View loginView) {
-        super(loginView);
+        mLoginView = new WeakReference<>(loginView);
+        mLoginInteractor = new LoginInteractor(this);
+        mLoginModel = new BaseLoginModel();
     }
 
     @Override
