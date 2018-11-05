@@ -188,8 +188,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 edd = Utils.reverseHyphenSeperatedValues(edd);
                 JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
                 dobJSONObject.put(VALUE, edd);
-            }
 
+            }
 
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();

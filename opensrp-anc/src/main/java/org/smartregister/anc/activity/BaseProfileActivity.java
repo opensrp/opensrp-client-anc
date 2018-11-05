@@ -65,6 +65,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     public void onClick(View view) {
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         new FetchProfileDataTask(true).execute(baseEntityId);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

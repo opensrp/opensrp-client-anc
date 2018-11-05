@@ -72,7 +72,7 @@ android {
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"http://10.20.25.214:8080/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -188,6 +188,10 @@ dependencies {
     implementation group: 'com.crashlytics.sdk.android', name: 'crashlytics', version: '2.6.8'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+
+    implementation 'org.jeasy:easy-rules-core:3.2.0'
+    implementation 'org.jeasy:easy-rules-mvel:3.2.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'

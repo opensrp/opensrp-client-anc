@@ -32,9 +32,11 @@ import org.smartregister.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -211,10 +213,10 @@ public class Utils {
         return typedValue.resourceId;
     }
 
-    public static int getGestationAgeFromDate(String expectedDeliveryDate) {
+    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
         Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
-        return weeks.getWeeks();
+        return Constants.DELIVERY_DATE_WEEKS - weeks.getWeeks();
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
@@ -285,5 +287,9 @@ public class Utils {
         resultString = StringUtils.join(tokenArray, "-");
 
         return resultString;
+    }
+
+    public static List<String> getListFromString(String stringArray) {
+        return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(",")));
     }
 }

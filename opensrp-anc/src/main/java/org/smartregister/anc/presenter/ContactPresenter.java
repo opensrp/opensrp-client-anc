@@ -3,14 +3,24 @@ package org.smartregister.anc.presenter;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactInteractor;
 import org.smartregister.anc.model.ContactModel;
+import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.rule.ContactRule;
+import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.lang.ref.WeakReference;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallback {
@@ -97,6 +107,37 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {
             interactor = null;
+        }
+    }
+
+    @Override
+    public void finalizeContactForm(CommonPersonObjectClient pc) {
+        try {
+
+
+            String baseEntityId = pc.getCaseId();
+
+            int ga = pc.getColumnmaps().containsKey(DBConstants.KEY.EDD) && pc.getColumnmaps().get(DBConstants.KEY.EDD) != null ? Utils.getGestationAgeFromEDDate(pc.getColumnmaps().get(DBConstants.KEY.EDD)) : 4;
+            ContactRule contactRule = new ContactRule(ga, pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT) == null, baseEntityId);
+            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().contactRules(contactRule, "contact-rules.yml");
+
+            int nextContactVisitWeeks = integerList.get(0);
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList.toString());
+
+            //convert String to LocalDate ;
+            LocalDate localDate = new LocalDate();
+            String nextContactVisitDate = localDate.minusWeeks(ga).plusWeeks(nextContactVisitWeeks).toString();
+
+            Integer nextContact = pc.getColumnmaps().containsKey(DBConstants.KEY.NEXT_CONTACT) && pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT)) : 0;
+            nextContact += 1;
+
+            PatientRepository.updateContactVisitDetails(baseEntityId, nextContact, nextContactVisitDate);
+
+            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 

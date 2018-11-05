@@ -2,10 +2,11 @@ package org.smartregister.anc.contract;
 
 import org.json.JSONObject;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.Map;
 
-public interface ContactContract  {
+public interface ContactContract {
 
     interface View {
         void displayPatientName(String patientName);
@@ -31,6 +32,8 @@ public interface ContactContract  {
         void startForm(Object tag);
 
         void onDestroy(boolean isChangingConfiguration);
+
+        void finalizeContactForm(CommonPersonObjectClient pc);
     }
 
     interface Model {
@@ -38,7 +41,11 @@ public interface ContactContract  {
 
         JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
     }
-    interface Interactor extends BaseContactContract.Interactor{    }
-    interface InteractorCallback extends BaseContactContract.InteractorCallback {}
+
+    interface Interactor extends BaseContactContract.Interactor {
+    }
+
+    interface InteractorCallback extends BaseContactContract.InteractorCallback {
+    }
 
 }

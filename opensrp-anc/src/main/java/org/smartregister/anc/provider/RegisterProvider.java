@@ -123,7 +123,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         if (StringUtils.isNotBlank(edd)) {
 
-            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromDate(edd)));
+            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
         } else {
 
             fillValue((viewHolder.ga), "");

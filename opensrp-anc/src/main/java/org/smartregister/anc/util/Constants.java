@@ -20,6 +20,7 @@ public abstract class Constants {
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
+    public static final int DELIVERY_DATE_WEEKS = 41;
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -88,7 +89,7 @@ public abstract class Constants {
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
-        public static final String WHO_ANC_ID = "who_anc_id";
+        public static final String CLIENT = "client";
         public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
@@ -111,7 +112,8 @@ public abstract class Constants {
         public static final String FILTER_TEAM_ID = "teamId";
     }
 
-    public static final class DUMMY_DATA {
-        public static final String DUMMY_ENTITY_ID = "3342e64b-cafd-46ea-9fc7-0561acb7c8a1";
+    public static class DETAILS_KEY {
+        public static final String CONTACT_SHEDULE = "contact_schedule";
+
     }
 }

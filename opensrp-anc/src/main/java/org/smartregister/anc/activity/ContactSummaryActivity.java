@@ -75,10 +75,9 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
     public void goToClientProfile() {
         finish();
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, Constants.DUMMY_DATA.DUMMY_ENTITY_ID);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         startActivity(intent);
     }
-
 
     @Override
     public void displayWomansName(String fullName) {

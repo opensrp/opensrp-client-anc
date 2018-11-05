@@ -228,7 +228,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         getIntent()
                 .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
         recordBirthAlertDialog.setMessage(
-                "GA: " + Utils.getGestationAgeFromDate(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " weeks\nEDD: "
+                "GA: " + Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " weeks\nEDD: "
                         + Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
                         dateFormatter) + " (" + Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD))
                         + " to go). \n\n" + client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)

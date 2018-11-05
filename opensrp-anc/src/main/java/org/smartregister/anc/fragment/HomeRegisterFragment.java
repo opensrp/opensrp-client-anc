@@ -109,7 +109,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                proceedToContact(baseEntityId);
+                proceedToContact(baseEntityId, pc);
             }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
@@ -208,9 +208,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
     }
 
-    public void proceedToContact(String baseEntityId) {
+    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient) {
         Intent intent = new Intent(getActivity(), ContactActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
         getActivity().startActivity(intent);
     }
 

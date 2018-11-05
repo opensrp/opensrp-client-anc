@@ -64,9 +64,18 @@ public class PatientRepository {
     }
 
 
-    public void updateWomanProfileDetails(String baseEntityId, String string) {
+    public static void updateWomanProfileDetails(String baseEntityId, String string) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("contact_status", string);
+        contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
+
+        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
+
+    public static void updateContactVisitDetails(String baseEntityId, Integer nextContact, String nextContactDate) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConstants.KEY.NEXT_CONTACT, nextContact);
+        contentValues.put(DBConstants.KEY.NEXT_CONTACT_DATE, nextContactDate);
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});

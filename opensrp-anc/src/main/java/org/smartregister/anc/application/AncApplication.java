@@ -22,6 +22,7 @@ import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.RulesEngineHelper;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
@@ -64,6 +65,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private ClientProcessorForJava clientProcessorForJava;
     private String password;
     private PartialContactRepository partialContactRepository;
+    private RulesEngineHelper rulesEngineHelper;
+
     // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
     // is broadcast.
     private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
@@ -239,7 +242,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     public UniqueIdRepository getUniqueIdRepository() {
         if (uniqueIdRepository == null) {
-            uniqueIdRepository = new UniqueIdRepository((AncRepository) getRepository());
+            uniqueIdRepository = new UniqueIdRepository(getRepository());
         }
         return uniqueIdRepository;
     }
@@ -250,6 +253,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     getJsonSpecHelper(), getApplicationContext());
         }
         return configurableViewsHelper;
+    }
+
+    public RulesEngineHelper getRulesEngineHelper() {
+        if (rulesEngineHelper == null) {
+            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+        }
+        return rulesEngineHelper;
     }
 
     public ECSyncHelper getEcSyncHelper() {
@@ -274,8 +284,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     public DetailsRepository getDetailsRepository() {
-        if (detailsRepository == null)
+        if (detailsRepository == null) {
             detailsRepository = new DetailsRepository();
+            detailsRepository.updateMasterRepository(getRepository());
+        }
         return detailsRepository;
     }
 

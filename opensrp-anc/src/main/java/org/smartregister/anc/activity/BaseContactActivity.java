@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.joda.time.LocalDate;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
@@ -24,11 +27,18 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public abstract class BaseContactActivity extends SecuredActivity {
 
@@ -66,6 +76,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 contactActionHandler.onClick(v);
             }
         });
+        findViewById(R.id.finalize).setEnabled(true);
+        findViewById(R.id.finalize).setOnClickListener(contactActionHandler);
 
     }
 
@@ -173,6 +185,20 @@ public abstract class BaseContactActivity extends SecuredActivity {
         dialog.show();
     }
 
+    private void finalizeForm() {
+        try {
+
+//Fire Rules
+            CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
+
+            presenter.finalizeContactForm(pc);
+
+        } catch (Exception e) {
+            Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
+        }
+
+    }
+
     ////////////////////////////////////////////////////////////////
     // Inner classes
     ////////////////////////////////////////////////////////////////
@@ -187,6 +213,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
                     break;
                 case R.id.card_layout:
                     presenter.startForm(view.getTag());
+                    break;
+                case R.id.finalize:
+                    finalizeForm();
                     break;
                 default:
                     break;
