@@ -21,7 +21,6 @@ import org.smartregister.anc.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
-import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.login.presenter.BaseLoginPresenter;
 import org.smartregister.view.contract.BaseLoginContract;
