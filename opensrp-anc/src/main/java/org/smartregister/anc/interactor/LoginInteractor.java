@@ -11,7 +11,7 @@ import org.smartregister.view.contract.BaseLoginContract;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by manutarus on 05/11/2018.
+ * Created by ndegwamartin on 26/06/2018.
  */
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
 
