@@ -116,4 +116,12 @@ public abstract class Constants {
         public static final String CONTACT_SHEDULE = "contact_schedule";
 
     }
+
+    public static final class ALERT_STATUS {
+        public static final String DUE = "due";
+        public static final String OVERDUE = "overdue";
+        public static final String NOT_DUE = "not_due";
+        public static final String EXPIRED = "expired";
+        public static final String IN_PROGRESS = "in_progress";
+    }
 }

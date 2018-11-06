@@ -10,15 +10,15 @@
     <LinearLayout
         android:id="@+id/patient_column"
         android:layout_width="wrap_content"
+        android:layout_height="@dimen/register_list_item_height"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:orientation="vertical"
-        android:layout_height="@dimen/register_list_item_height"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp">
+        android:layout_marginBottom="7dp"
+        android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/patient_name"
@@ -81,16 +81,15 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/risk_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
+        android:layout_toLeftOf="@+id/due_button_wrapper"
         android:gravity="bottom|center_horizontal"
-        android:orientation="vertical"
-        android:layout_toLeftOf="@+id/due_button_wrapper">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/risk"
@@ -98,12 +97,12 @@
             android:layout_height="32dp"
             android:background="@drawable/grey_border"
             android:drawableLeft="@drawable/ic_red_flag"
-            android:paddingBottom="5dp"
-            android:paddingRight="4dp"
-            android:text="2"
             android:gravity="bottom"
+            android:paddingRight="4dp"
+            android:paddingBottom="5dp"
+            android:text="2"
             android:textColor="@color/dark_grey_text"
-            android:textSize="19sp"/>
+            android:textSize="19sp" />
 
     </LinearLayout>
 
@@ -119,11 +118,11 @@
 
         <Button
             android:id="@+id/due_button"
-            android:layout_width="wrap_content"
+            android:layout_width="124dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:background="@drawable/due_contact"
+            android:background="@drawable/contact_due"
             android:elevation="8dp"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"

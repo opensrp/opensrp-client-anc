@@ -185,7 +185,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (getFieldJSONObject(fields, DBConstants.KEY.EDD) != null) {
 
                 String edd = getFieldJSONObject(fields, DBConstants.KEY.EDD).get("value").toString();
-                edd = Utils.reverseHyphenSeperatedValues(edd);
+                edd = Utils.reverseHyphenSeperatedValues(edd, "-");
                 JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
                 dobJSONObject.put(VALUE, edd);
 

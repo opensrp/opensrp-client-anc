@@ -12,7 +12,10 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.rule.AlertRule;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -158,19 +161,57 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                 String contactStatus = getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS);
 
-                if (StringUtils.isNotBlank(contactStatus)) {
-
-                    viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                    viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                String nextContactDate = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT_DATE);
+                String edd = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
+                String buttonAlertStatus;
+                Integer gestationAge = 0;
+                if (StringUtils.isNotBlank(edd)) {
+                    gestationAge = Utils.getGestationAgeFromEDDate(edd);
+                    AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, "alert-rules.yml");
                 } else {
-
-                    String nextContact = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
-                    String nextContactDate = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT_DATE);
-                    nextContactDate = nextContactDate != null ? Utils.reverseHyphenSeperatedValues(nextContactDate) : null;
-
-
-                    viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
+                    buttonAlertStatus = "DEAD";
                 }
+
+                //Set text first
+                String nextContact = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
+
+                nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
+                viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
+                viewHolder.dueButton.setEnabled(true);
+                viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
+
+                switch (buttonAlertStatus) {
+                    case Constants.ALERT_STATUS.IN_PROGRESS:
+
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        break;
+                    case Constants.ALERT_STATUS.DUE:
+
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        break;
+                    case Constants.ALERT_STATUS.OVERDUE:
+
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        break;
+                    case Constants.ALERT_STATUS.NOT_DUE:
+
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
+                        viewHolder.dueButton.setEnabled(false);
+                        break;
+                    case Constants.ALERT_STATUS.EXPIRED:
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                        break;
+                    default:
+                        break;
+
+                }
+
 
                 //updateDoseButton();
             } else {

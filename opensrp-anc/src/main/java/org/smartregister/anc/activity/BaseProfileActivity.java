@@ -37,6 +37,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
     protected ProfileContract.Presenter mProfilePresenter;
+    public final String TAG = BaseContactActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
                 JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
 
             } catch (Exception e) {
-                Log.e("TAG", e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         }
 

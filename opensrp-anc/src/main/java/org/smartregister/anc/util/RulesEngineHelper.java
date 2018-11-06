@@ -6,8 +6,10 @@ import android.util.Log;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.mvel.MVELRuleFactory;
+import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
 
 import java.io.BufferedReader;
@@ -15,21 +17,50 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 public class RulesEngineHelper {
     private Context context;
-    private RulesEngine rulesEngine;
+    private RulesEngine inferentialRulesEngine;
+    private RulesEngine defaultRulesEngine;
+    private Map<String, Rules> ruleMap;
 
     public RulesEngineHelper(Context context) {
         this.context = context;
-        this.rulesEngine = new InferenceRulesEngine();
+        this.inferentialRulesEngine = new InferenceRulesEngine();
+        this.defaultRulesEngine = new DefaultRulesEngine();
+        this.ruleMap = new HashMap<>();
 
     }
 
-    public List<Integer> contactRules(ContactRule contactRule, String rulesFile) {
+    private Rules getRulesFromAsset(String fileName) {
+        try {
+            if (!ruleMap.containsKey(fileName)) {
+
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
+                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
+            }
+            return ruleMap.get(fileName);
+        } catch (IOException e) {
+            Log.e(ContactRule.class.getName(), e.getMessage(), e);
+            return null;
+        }
+    }
+
+    protected void processInferentialRules(Rules rules, Facts facts) {
+
+        inferentialRulesEngine.fire(rules, facts);
+    }
+
+    protected void processDefaultRules(Rules rules, Facts facts) {
+
+        defaultRulesEngine.fire(rules, facts);
+    }
+
+    public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
 
         Facts facts = new Facts();
         facts.put("contactRule", contactRule);
@@ -39,7 +70,7 @@ public class RulesEngineHelper {
             return null;
         }
 
-        processRules(rules, facts);
+        processInferentialRules(rules, facts);
 
         Set<Integer> contactList = contactRule.set;
         List<Integer> list = new ArrayList<>(contactList);
@@ -48,18 +79,18 @@ public class RulesEngineHelper {
         return list;
     }
 
-    private Rules getRulesFromAsset(String fileName) {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
-            return MVELRuleFactory.createRulesFrom(br);
-        } catch (IOException e) {
-            Log.e(ContactRule.class.getName(), e.getMessage(), e);
+    public String getButtonAlertStatus(AlertRule alertRule, String rulesFile) {
+
+        Facts facts = new Facts();
+        facts.put("alertRule", alertRule);
+
+        Rules rules = getRulesFromAsset("rule/" + rulesFile);
+        if (rules == null) {
             return null;
         }
-    }
 
-    protected void processRules(Rules rules, Facts facts) {
+        processDefaultRules(rules, facts);
 
-        rulesEngine.fire(rules, facts);
+        return alertRule.buttonStatus;
     }
 }

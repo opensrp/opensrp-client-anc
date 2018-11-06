@@ -280,11 +280,11 @@ public class Utils {
         return null;
     }
 
-    public static String reverseHyphenSeperatedValues(String rawString) {
+    public static String reverseHyphenSeperatedValues(String rawString, String outputSeperator) {
         String resultString = rawString;
         String[] tokenArray = resultString.split("-");
         ArrayUtils.reverse(tokenArray);
-        resultString = StringUtils.join(tokenArray, "-");
+        resultString = StringUtils.join(tokenArray, outputSeperator);
 
         return resultString;
     }

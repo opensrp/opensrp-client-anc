@@ -119,7 +119,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
             int ga = pc.getColumnmaps().containsKey(DBConstants.KEY.EDD) && pc.getColumnmaps().get(DBConstants.KEY.EDD) != null ? Utils.getGestationAgeFromEDDate(pc.getColumnmaps().get(DBConstants.KEY.EDD)) : 4;
             ContactRule contactRule = new ContactRule(ga, pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT) == null, baseEntityId);
-            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().contactRules(contactRule, "contact-rules.yml");
+            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().getContactVisitSchedule(contactRule, "contact-rules.yml");
 
             int nextContactVisitWeeks = integerList.get(0);
 
