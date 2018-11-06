@@ -5,6 +5,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactInteractor;
@@ -100,6 +101,18 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         }
     }
 
+    @Override
+    public void deleteDraft(String baseEntityId) {
+
+        getAncApplication().getPartialContactRepository().deleteDraftJson(baseEntityId);
+    }
+
+    @Override
+    public void saveFinalJson(String baseEntityId) {
+
+        getAncApplication().getPartialContactRepository().saveFinalJson(baseEntityId);
+    }
+
     private ContactContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
@@ -132,4 +145,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         this.details = details;
     }
 
+    protected AncApplication getAncApplication() {
+        return AncApplication.getInstance();
+    }
 }

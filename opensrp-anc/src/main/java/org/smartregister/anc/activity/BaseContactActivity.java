@@ -97,7 +97,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
 
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null ? partialContact.getFormJson() : form.toString());
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString());
 
         intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
@@ -151,6 +151,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+
+                presenter.saveFinalJson(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+
                 finish();
             }
         });
@@ -166,6 +169,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                presenter.deleteDraft(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 finish();
             }
         });
@@ -174,7 +178,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     ////////////////////////////////////////////////////////////////
-    // Inner classes
+    // Inner classesC
     ////////////////////////////////////////////////////////////////
 
     private class ContactActionHandler implements View.OnClickListener {
