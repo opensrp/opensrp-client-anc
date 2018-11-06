@@ -32,17 +32,17 @@ import java.util.Map;
 public class PatientRepositoryTest extends BaseUnitTest {
 
     @Mock
-    AncApplication ancApplication;
+    private AncApplication ancApplication;
 
     @Mock
-    Context context;
+    private Context context;
 
     @Mock
-    Repository repository;
+    private Repository repository;
 
 
     @Mock
-    SQLiteDatabase sqLiteDatabase;
+    private SQLiteDatabase sqLiteDatabase;
 
     @Before
     public void setUp() {
@@ -69,7 +69,7 @@ public class PatientRepositoryTest extends BaseUnitTest {
         PowerMockito.when(ancApplication.getContext()).thenReturn(context);
 
 
-        PatientRepository spy =  PowerMockito.spy(new PatientRepository());
+        PatientRepository spy = PowerMockito.spy(new PatientRepository());
 
         PowerMockito.when(spy.getMasterRepository()).thenReturn(repository);
 

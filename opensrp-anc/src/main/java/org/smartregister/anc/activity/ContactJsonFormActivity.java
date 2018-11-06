@@ -13,7 +13,6 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.model.PartialContact;
-import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 
 import java.io.Serializable;

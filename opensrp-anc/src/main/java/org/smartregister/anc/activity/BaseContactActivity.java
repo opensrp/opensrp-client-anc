@@ -178,7 +178,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     ////////////////////////////////////////////////////////////////
-    // Inner classes
+    // Inner classesC
     ////////////////////////////////////////////////////////////////
 
     private class ContactActionHandler implements View.OnClickListener {
