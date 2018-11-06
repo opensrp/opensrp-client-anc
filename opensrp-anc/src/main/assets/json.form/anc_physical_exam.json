@@ -1026,6 +1026,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_min": {
+          "value": "0.1",
+          "err": "SFH must be greater than 0"
+        },
+        "v_max": {
+          "value": "44",
+          "err": "SFH must be less than or equal to 44"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
         "v_required": {
           "value": "false",
           "err": "Please enter the SFH"
@@ -1042,14 +1054,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "value": false,
             "openmrs_entity": "",
@@ -1072,14 +1084,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "value": false,
             "openmrs_entity": "",
@@ -1100,7 +1112,13 @@
         "text": "No fetal heartbeat observed. Refer to hospital.",
         "toaster_info_text": "Procedure:\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n- Refer to hospital.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
       },
       {
         "key": "fetal_heart_rate_label",
@@ -1110,6 +1128,12 @@
         "text_color": "#000000",
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -1123,6 +1147,24 @@
         "v_required": {
           "value": "false",
           "err": "Please enter the fetal heart rate"
+        },
+        "v_min": {
+          "value": "80",
+          "err": "Fetal heartbeat must be equal or greater than 80"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Fetal heartbeat must be less than or equal to 200"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -1133,7 +1175,13 @@
         "type": "toaster_notes",
         "text": "Fetal heart rate out of normal range (110-160). Please have the woman lay on her left side for 15 minutes and check again.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:fetal_heart_rate": {
+            "type": "string",
+            "ex": "regex(.,\"^((1[1-5][0-9]|160))\")"
+          }
+        }
       },
       {
         "key": "fetal_heart_rate_repeat_label",
