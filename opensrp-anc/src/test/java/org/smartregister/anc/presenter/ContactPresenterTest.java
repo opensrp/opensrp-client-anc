@@ -8,7 +8,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
+import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.DBConstants;
 
 import java.util.HashMap;
@@ -25,6 +27,12 @@ public class ContactPresenterTest extends BaseUnitTest {
 
     @Mock
     private ContactContract.Model model;
+
+    @Mock
+    private PartialContactRepository partialContactRepository;
+
+    @Mock
+    private AncApplication ancApplication;
 
     private ContactContract.Presenter presenter;
 
@@ -169,6 +177,38 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         Assert.assertNull(contactPresenter.getViewReference());
         Assert.assertNull(contactPresenter.getInteractor());
+
+    }
+
+    @Test
+    public void testDeleteDraftInvokesDeleteJsonDraftOfPatientRepositoryWithCorrectParamters() {
+
+        ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
+
+        Mockito.doReturn(ancApplication).when(contactPresenter).getAncApplication();
+        Mockito.doReturn(partialContactRepository).when(ancApplication).getPartialContactRepository();
+        Mockito.doNothing().when(partialContactRepository).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
+
+        contactPresenter.deleteDraft(DUMMY_BASE_ENTITY_ID);
+
+        Mockito.verify(partialContactRepository, Mockito.times(1)).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
+
+    }
+
+
+    @Test
+    public void testSaveFinalJsonInvokesSaveFinalJsonOfPatientRepositoryWithCorrectParameters() {
+
+        ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
+
+        Mockito.doReturn(ancApplication).when(contactPresenter).getAncApplication();
+        Mockito.doReturn(partialContactRepository).when(ancApplication).getPartialContactRepository();
+        Mockito.doNothing().when(partialContactRepository).saveFinalJson(DUMMY_BASE_ENTITY_ID);
+
+
+        contactPresenter.saveFinalJson(DUMMY_BASE_ENTITY_ID);
+
+        Mockito.verify(partialContactRepository, Mockito.times(1)).saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
     }
 }
