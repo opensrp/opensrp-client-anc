@@ -76,6 +76,18 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the height"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "100",
+          "err": "Height must be equal or greater than 100"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Height must be equal or less than 200"
         }
       },
       {
@@ -119,6 +131,18 @@
             ]
           }
         },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Weight must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "180",
+          "err": "Weight must be equal or less than 180"
+        },
         "v_required": {
           "value": "true",
           "err": "Pre-gestational weight is required"
@@ -157,6 +181,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Weight must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "180",
+          "err": "Weight must be equal or less than 180"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the current weight"
@@ -238,7 +274,7 @@
         "key": "bp_systolic_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Systolic (SBP)",
+        "text": "Systolic blood pressure (SBP) (mmHg)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -252,6 +288,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "SBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "SBP must be equal or less than 260"
+        },
         "v_required": {
           "value": "true",
           "err": "Field systolic is required"
@@ -261,7 +309,7 @@
         "key": "bp_diastolic_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Diastolic (DBP)",
+        "text": "Diastolic blood pressure (DBP) (mmHg)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -275,6 +323,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "DBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "DBP must be equal or less than 260"
+        },
         "v_required": {
           "value": "true",
           "err": "Field diastolic is required"
@@ -308,6 +368,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "SBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "SBP must be equal or less than 260"
+        },
         "v_required": {
           "value": "true",
           "err": "Field systolic is required"
@@ -331,6 +403,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "DBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "DBP must be equal or less than 260"
+        },
         "v_required": {
           "value": "true",
           "err": "Field diastolic is required"
