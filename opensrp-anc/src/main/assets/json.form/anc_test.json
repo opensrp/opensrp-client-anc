@@ -52,25 +52,181 @@
     }
   },
   "step1": {
-    "title": "Test",
+    "title": "Ultrasound",
     "next": "step2",
     "fields": [
       {
-        "key": "first_name",
+        "key": "ultrasound",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Ultrasound test",
+        "label_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
+        "label_info_title": "Ultrasound test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "MARRIED OR LIVING WITH PARTNER",
+            "openmrs_entity_id": "1055"
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Divorced",
+            "openmrs_entity_id": "1058"
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Not married",
+            "openmrs_entity_id": "5615"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Widowed",
+            "openmrs_entity_id": "1059"
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true,
+          "err": "Please specify Ultrasound test"
         }
+      },
+      {
+        "key": "ultrasound_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Ultrasound not done reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "delayed",
+            "text": "Delayed to next contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "MARRIED OR LIVING WITH PARTNER",
+            "openmrs_entity_id": "1055"
+          },
+          {
+            "key": "not_available",
+            "text": "Not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Divorced",
+            "openmrs_entity_id": "1058"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Not married",
+            "openmrs_entity_id": "5615"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify ultrasound not done"
+        },
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"not_done\")"
+          }
+        }
+      },
+      {
+        "key": "ultrasound_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other ultrasound not done reason *",
+        "edit_type": "edit_text",
+        "relevance": {
+          "step1:ultrasound_notdone": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the other gynecological procedures"
+        }
+      },
+      {
+        "key": "ultrasound_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other ultrasound not done reason *",
+        "edit_type": "edit_text",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the other gynecological procedures"
+        }
+      },{
+        "key": "ultrasound_gest_age_wks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other ultrasound not done reason *",
+        "edit_type": "edit_text",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the other gynecological procedures"
+        }
+      },
+      {
+        "key": "ultrasound_gest_age_days",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify Other ultrasound not done reason *",
+        "edit_type": "edit_text",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the other gynecological procedures"
+        }
+      },
+      {
+        "key": "ultrasound_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
+        "openmrs_entity_id": "2047",
+        "type": "toaster_notes",
+        "text": "Early ultrasound done!",
+        "toaster_info_text": "An early U/S is key to estimate gestational age, improve detection of fetal anomalies and multiple fetuses, reduce induction of labour for post-term pregnancy, and improve a woman’s pregnancy experience.",
+        "toaster_info_title": "Early ultrasound done!",
+        "toaster_type": "positive"
       },
       {
         "key": "last_name",
