@@ -9,6 +9,7 @@ import org.smartregister.anc.BuildConfig;
 public abstract class Constants {
     public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
     public static final String CONTACT_DATE_FORMAT = "dd/MM/yyyy";
+    public static final String CONTACT_SUMMARY_DATE_FORMAT = "dd MMMM yyyy";
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;

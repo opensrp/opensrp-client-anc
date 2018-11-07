@@ -2,7 +2,6 @@ package org.smartregister.anc.rule;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 public class ContactRule {
 
@@ -16,9 +15,9 @@ public class ContactRule {
 
     public Set<Integer> set;
 
-    public ContactRule(int wks, boolean isFirst, String baseEnityId) {
+    public ContactRule(int wks, boolean isFirst, String baseEntityId) {
 
-        this.baseEntityId = baseEnityId;
+        this.baseEntityId = baseEntityId;
 
         this.initialVisit = wks;
         this.currentVisit = wks;

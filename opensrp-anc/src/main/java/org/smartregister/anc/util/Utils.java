@@ -49,6 +49,7 @@ public class Utils {
     private static final String TAG = Utils.class.getCanonicalName();
     public static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(Constants.CONTACT_DATE_FORMAT);
+    public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(Constants.CONTACT_SUMMARY_DATE_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
     private AllSharedPreferences allSharedPreferences;
 
@@ -290,6 +291,6 @@ public class Utils {
     }
 
     public static List<String> getListFromString(String stringArray) {
-        return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(",")));
+        return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
     }
 }

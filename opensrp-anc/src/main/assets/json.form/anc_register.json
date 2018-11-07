@@ -259,22 +259,6 @@
         }
       },
       {
-        "key": "edd",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "edd",
-        "type": "date_picker",
-        "hint": "Expected Delivery Date (Temporary Testing Schedules *)",
-        "expanded": false,
-        "duration": {
-          "label": "CDwn"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the expected delivery date"
-        }
-      },
-      {
         "key": "alt_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",

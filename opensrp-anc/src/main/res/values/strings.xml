@@ -280,4 +280,6 @@
     <string name="contact_weeks">CONTACT %1$s\n%2$s</string>
     <string name="due_delivery">DUE\nDELIVERY</string>
     <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago). \n\n %4$s should come in immediately for delivery.</string>
+    <string name="contact_number">Contact %1$d</string>
+    <string name="contact_recorded">Contact %1$d recorded</string>
 </resources>

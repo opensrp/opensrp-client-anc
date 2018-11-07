@@ -68,8 +68,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 contactActionHandler.onClick(v);
             }
         });
-        findViewById(R.id.finalize).setEnabled(true);
-        findViewById(R.id.finalize).setOnClickListener(contactActionHandler);
+        findViewById(R.id.finalize_contact).setEnabled(true);
+        findViewById(R.id.finalize_contact).setOnClickListener(contactActionHandler);
 
     }
 
@@ -189,6 +189,11 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
             presenter.finalizeContactForm(pc);
 
+            Intent contactSummaryIntent = new Intent(this, ContactSummaryActivity.class);
+            contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
+
+            startActivity(contactSummaryIntent);
+
         } catch (Exception e) {
             Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
         }
@@ -210,7 +215,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 case R.id.card_layout:
                     presenter.startForm(view.getTag());
                     break;
-                case R.id.finalize:
+                case R.id.finalize_contact:
                     finalizeForm();
                     break;
                 default:

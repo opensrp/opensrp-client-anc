@@ -72,28 +72,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
             return;
         }
-
-       /* for (org.smartregister.configurableviews.model.View columnView : visibleColumns) {
-            switch (columnView.getIdentifier()) {
-                case ID:
-                    populatePatientColumn(pc, client, convertView);
-                    break;
-                case NAME:
-                    populateIdentifierColumn(pc, convertView);
-                    break;
-                case DOSE:
-                    populateDoseColumn(pc, convertView);
-                    break;
-                default:
-            }
-        }
-
-        Map<String, Integer> mapping = new HashMap();
-        mapping.put(ID, R.id.patient_column);
-        mapping.put(DOSE, R.id.identifier_column);
-        mapping.put(NAME, R.id.dose_column);
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
-        */
     }
 
     @Override
@@ -215,8 +193,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                 }
 
-
-                //updateDoseButton();
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);
                 viewHolder.sync.setVisibility(View.VISIBLE);
@@ -225,27 +201,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             }
         }
     }
-
-    /*private void updateDoseButton(){
-        DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
-
-        Button patient = (Button) view.findViewById(R.id.dose_button);
-
-        LinearLayout completeView = (LinearLayout) view.findViewById(R.id.completedView);
-
-        if (StringUtils.isNotBlank(doseStatus.getDateDoseTwoGiven())) {
-            patient.setVisibility(View.GONE);
-            completeView.setVisibility(View.VISIBLE);
-        } else {
-
-            patient.setVisibility(View.VISIBLE);
-            completeView.setVisibility(View.GONE);
-            patient.setText(getDoseButtonText(doseStatus));
-            patient.setBackground(Utils.getDoseButtonBackground(context, Utils.getRegisterViewButtonStatus(doseStatus)));
-            patient.setTextColor(Utils.getDoseButtonTextColor(context, Utils.getRegisterViewButtonStatus(doseStatus)));
-            attachDosageOnclickListener(patient, pc);
-        }
-    }*/
 
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
@@ -305,19 +260,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
         View view = inflater.inflate(R.layout.register_home_list_row, parent, false);
-
-        /*
-        ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
-        if (helper.isJsonViewsEnabled()) {
-
-            ViewConfiguration viewConfiguration = helper.getViewConfiguration(Constants.CONFIGURATION.HOME_REGISTER_ROW);
-            ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
-
-            if (viewConfiguration != null) {
-                return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
-            }
-        }*/
-
         return new RegisterViewHolder(view);
     }
 
