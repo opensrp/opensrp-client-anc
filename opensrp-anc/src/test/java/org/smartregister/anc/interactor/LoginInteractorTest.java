@@ -9,10 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.Context;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.contract.BaseLoginContract;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
+import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
 
@@ -72,9 +72,11 @@ public class LoginInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    public void testGetApplicationContextShouldReturnValidInstance() {
+    public void testGetApplicationContextShouldInvokeGetApplicationContextOfLoginView() {
         LoginInteractor interactor = new LoginInteractor(presenter);
-        Assert.assertNotNull(interactor.getApplicationContext());
+        Mockito.doReturn(view).when(presenter).getLoginView();
+        interactor.getApplicationContext();
+        Mockito.verify(view, Mockito.times(1)).getActivityContext();
     }
 
     @Test

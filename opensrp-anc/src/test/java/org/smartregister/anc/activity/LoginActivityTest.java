@@ -26,9 +26,9 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowApplication;
 import org.smartregister.anc.R;
-import org.smartregister.anc.contract.BaseLoginContract;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.view.contract.BaseLoginContract;
 
 
 /**

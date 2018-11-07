@@ -4,7 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.contract.BaseLoginContract;
+import org.smartregister.login.model.BaseLoginModel;
+import org.smartregister.view.contract.BaseLoginContract;
 
 /**
  * Created by ndegwamartin on 28/06/2018.
@@ -15,7 +16,7 @@ public class LoginModelTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-        model = new LoginModel();
+        model = new BaseLoginModel();
     }
 
 
