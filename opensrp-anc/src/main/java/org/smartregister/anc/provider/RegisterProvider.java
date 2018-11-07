@@ -178,7 +178,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                 nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
                 viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
-                viewHolder.dueButton.setEnabled(true);
                 viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
 
                 switch (buttonAlertStatus) {
@@ -200,10 +199,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                     case Constants.ALERT_STATUS.NOT_DUE:
 
                         viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                        viewHolder.dueButton.setEnabled(false);
                         break;
-                    case Constants.ALERT_STATUS.EXPIRED:
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                    case Constants.ALERT_STATUS.EXPIRED_OVERDUE:
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                         viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                         break;

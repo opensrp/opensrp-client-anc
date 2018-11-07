@@ -279,4 +279,5 @@
     <string name="woman_name">Woman Name</string>
     <string name="contact_weeks">CONTACT %1$s\n%2$s</string>
     <string name="due_delivery">DUE\nDELIVERY</string>
+    <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago). \n\n %4$s should come in immediately for delivery.</string>
 </resources>

@@ -20,9 +20,9 @@ condition: "alertRule.gestationAge == 41"
 actions:
   - "alertRule.buttonStatus = 'expired'"
 ---
-name: expired
+name: expired_overdue
 description: past 41 weeks and 7 days
-priority: 3
+priority: 4
 condition: "alertRule.gestationAge > 41 && alertRule.isOverdueWithDays(alertRule.nextContactDate,7)"
 actions:
-  - "alertRule.buttonStatus = 'overdue'"
+  - "alertRule.buttonStatus = 'expired_overdue'"

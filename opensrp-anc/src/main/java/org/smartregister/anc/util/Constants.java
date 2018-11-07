@@ -123,5 +123,6 @@ public abstract class Constants {
         public static final String NOT_DUE = "not_due";
         public static final String EXPIRED = "expired";
         public static final String IN_PROGRESS = "in_progress";
+        public static final String EXPIRED_OVERDUE = "expired_overdue";
     }
 }

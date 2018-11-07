@@ -223,16 +223,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {
 
-        client.getColumnmaps().put(DBConstants.KEY.EDD, "2018-12-25"); //To remove temporary for dev testing
+        //This is required
+        getIntent().putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
 
-        getIntent()
-                .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
-        recordBirthAlertDialog.setMessage(
-                "GA: " + Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstants.KEY.EDD)) + " weeks\nEDD: "
-                        + Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
-                        dateFormatter) + " (" + Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD))
-                        + " to go). \n\n" + client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)
-                        + " should come in immediately for delivery.");
+        recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.record_birth_popup_message),
+                Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
+                Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)), dateFormatter),
+                Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)), client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)));
         recordBirthAlertDialog.show();
     }
 
