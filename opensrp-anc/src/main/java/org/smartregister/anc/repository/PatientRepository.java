@@ -64,7 +64,7 @@ public class PatientRepository {
         return null;
     }
 
-    public static void updateWomanProfileDetails(String baseEntityId, String string) {
+    public static void updateWomanProfileDetails(String baseEntityId) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstants.KEY.CONTACT_STATUS, "active");
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
