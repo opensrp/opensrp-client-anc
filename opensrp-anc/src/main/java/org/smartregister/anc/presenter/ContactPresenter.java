@@ -141,6 +141,17 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         }
     }
 
+    public void deleteDraft(String baseEntityId) {
+
+        getAncApplication().getPartialContactRepository().deleteDraftJson(baseEntityId);
+    }
+
+    @Override
+    public void saveFinalJson(String baseEntityId) {
+
+        getAncApplication().getPartialContactRepository().saveFinalJson(baseEntityId);
+    }
+
     private ContactContract.View getView() {
         if (viewReference != null)
             return viewReference.get();
@@ -173,4 +184,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         this.details = details;
     }
 
+    protected AncApplication getAncApplication() {
+        return AncApplication.getInstance();
+    }
 }

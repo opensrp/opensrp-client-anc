@@ -41,7 +41,7 @@ public class MeModelTest extends BaseUnitTest {
         utils.setAllSharedPreferences(allSharedPreferences);
 
         String foundInitials = meModel.getInitials();
-        Assert.assertEquals(null, foundInitials);
+        Assert.assertNull(foundInitials);
     }
 
     @Test

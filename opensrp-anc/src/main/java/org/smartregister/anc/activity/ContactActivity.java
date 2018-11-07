@@ -10,7 +10,7 @@ import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.util.Utils;
+import org.smartregister.anc.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

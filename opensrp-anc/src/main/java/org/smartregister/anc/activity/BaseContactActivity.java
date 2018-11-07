@@ -18,8 +18,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.joda.time.LocalDate;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
@@ -27,18 +25,12 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
-import org.smartregister.anc.repository.PatientRepository;
-import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public abstract class BaseContactActivity extends SecuredActivity {
 
@@ -109,7 +101,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
 
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null ? partialContact.getFormJson() : form.toString());
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString());
 
         intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
@@ -163,6 +155,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+
+                presenter.saveFinalJson(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+
                 finish();
             }
         });
@@ -178,6 +173,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                presenter.deleteDraft(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 finish();
             }
         });
@@ -200,7 +196,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     ////////////////////////////////////////////////////////////////
-    // Inner classes
+    // Inner classesC
     ////////////////////////////////////////////////////////////////
 
     private class ContactActionHandler implements View.OnClickListener {

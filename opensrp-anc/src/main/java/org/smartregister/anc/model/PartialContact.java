@@ -6,6 +6,7 @@ public class PartialContact {
     private String baseEntityId;
     private String type;
     private String formJson;
+    private String formJsonDraft;
     private Boolean isFinalized;
     private Integer contactNo;
     private Long createdAt;
@@ -42,6 +43,14 @@ public class PartialContact {
 
     public void setFormJson(String formJson) {
         this.formJson = formJson;
+    }
+
+    public String getFormJsonDraft() {
+        return formJsonDraft;
+    }
+
+    public void setFormJsonDraft(String formJson) {
+        this.formJsonDraft = formJson;
     }
 
     public Boolean getFinalized() {
