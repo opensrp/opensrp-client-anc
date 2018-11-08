@@ -124,11 +124,11 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             int nextContactVisitWeeks = integerList.get(0);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList.toString());
+            jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
 
             //convert String to LocalDate ;
-            LocalDate localDate = new LocalDate();
-            String nextContactVisitDate = localDate.minusWeeks(ga).plusWeeks(nextContactVisitWeeks).toString();
+            LocalDate localDate = new LocalDate(pc.getColumnmaps().get(DBConstants.KEY.EDD));
+            String nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
 
             Integer nextContact = pc.getColumnmaps().containsKey(DBConstants.KEY.NEXT_CONTACT) && pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT)) : 0;
             nextContact += 1;

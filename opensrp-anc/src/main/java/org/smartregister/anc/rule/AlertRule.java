@@ -25,7 +25,7 @@ public class AlertRule {
 
         LocalDate todayDate = new LocalDate();
 
-        return todayDate.isAfter(nextContact.plusDays(days));
+        return todayDate.isAfter(nextContact.plusDays(days - 1));
 
     }
 
@@ -35,7 +35,7 @@ public class AlertRule {
 
         LocalDate todayDate = new LocalDate();
 
-        return todayDate.isAfter(nextContact.minusDays(days)) && todayDate.isBefore(nextContact.plusDays(days + 1));
+        return todayDate.isAfter(nextContact.minusDays(1)) && todayDate.isBefore(nextContact.plusDays(days));
 
     }
 }
