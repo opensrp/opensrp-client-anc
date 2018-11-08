@@ -10,19 +10,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.ContactSummaryActivity;
 import org.smartregister.anc.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.activity.SiteCharacteristicsActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.presenter.MePresenter;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.view.contract.MeContract;
 
 public class MeFragment extends org.smartregister.view.fragment.MeFragment implements MeContract.View {
 
     private RelativeLayout me_pop_characteristics_section;
     private RelativeLayout site_characteristics_section;
-    private RelativeLayout contact_summary;
 
     @Nullable
     @Override
@@ -37,15 +34,12 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         me_pop_characteristics_section = view.findViewById(R.id.me_pop_characteristics_section);
         site_characteristics_section = view.findViewById(R.id.site_characteristics_section);
 
-        contact_summary = view.findViewById(R.id.contact_summary);
-
     }
 
     protected void setClickListeners() {
         super.setClickListeners();
         me_pop_characteristics_section.setOnClickListener(meFragmentActionHandler);
         site_characteristics_section.setOnClickListener(meFragmentActionHandler);
-        contact_summary.setOnClickListener(meFragmentActionHandler);
     }
 
     protected void initializePresenter() {
@@ -66,11 +60,6 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 break;
             case R.id.me_pop_characteristics_section:
                 getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
-                break;
-            case R.id.contact_summary:
-                Intent intent = new Intent(getContext(), ContactSummaryActivity.class);
-                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, Constants.DUMMY_DATA.DUMMY_ENTITY_ID);
-                getContext().startActivity(intent);
                 break;
             default:
                 break;
