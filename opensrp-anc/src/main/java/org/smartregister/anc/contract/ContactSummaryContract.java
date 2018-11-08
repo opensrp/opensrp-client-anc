@@ -1,29 +1,36 @@
 package org.smartregister.anc.contract;
 
 import org.smartregister.anc.model.ContactSummaryModel;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.List;
 
 public interface ContactSummaryContract {
     interface View {
         void goToClientProfile();
+
         void displayWomansName(String fullName);
+
         void displayUpcomingContactDates(List<ContactSummaryModel> models);
+
         void setProfileImage(String baseEntityId);
+
         void updateRecordedContact(Integer contactNumber);
     }
 
     interface Presenter {
         void loadWoman(String entityId);
+
         void loadUpcomingContacts(String entityId);
+
         void attachView(ContactSummaryContract.View view);
+
         void showWomanProfileImage(String entityId);
     }
 
-    interface Interactor extends BaseContactContract.Interactor{
+    interface Interactor extends BaseContactContract.Interactor {
         void fetchUpcomingContacts(String baseEntityId, InteractorCallback upcomingContactsCallback);
     }
+
     interface InteractorCallback extends BaseContactContract.InteractorCallback {
         void onUpcomingContactsFetched(List<ContactSummaryModel> upcomingContacts, Integer lastContact);
     }
