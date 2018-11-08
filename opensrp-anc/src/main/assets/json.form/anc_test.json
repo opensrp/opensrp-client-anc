@@ -148,7 +148,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Other ultrasound not done reason *",
+        "hint": "Specify any other reason why the ultrasound test was not done. *",
         "edit_type": "edit_text",
         "relevance": {
           "step1:ultrasound_notdone": {
@@ -158,7 +158,7 @@
         },
         "v_required": {
           "value": false,
-          "err": "Please specify the other gynecological procedures"
+          "err": "Specify any other reason why the ultrasound test was not done."
         }
       },
       {
@@ -166,36 +166,42 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "Specify Other ultrasound not done reason *",
-        "edit_type": "edit_text",
+        "type": "date_picker",
+        "hint": "Date that the ultrasound was done.*",
+        "expanded": "false",
+        "max_date": "today",
         "relevance": {
           "step1:ultrasound": {
             "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex": "equalTo(., \"done_today\")"
           }
         },
         "v_required": {
           "value": false,
-          "err": "Please specify the other gynecological procedures"
+          "err": "Date that the ultrasound was done."
         }
-      },{
+      },
+      {
         "key": "ultrasound_gest_age_wks",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Other ultrasound not done reason *",
+        "hint": "Gestational age in weeks from ultrasound. *",
         "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
         "relevance": {
           "step1:ultrasound": {
             "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex": "equalTo(., \"done_today\")"
           }
         },
         "v_required": {
           "value": false,
-          "err": "Please specify the other gynecological procedures"
+          "err": "Please specify the gestational age in weeks from ultrasound"
         }
       },
       {
@@ -204,17 +210,21 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Other ultrasound not done reason *",
+        "hint": "Gestational age in days from ultrasound. *",
         "edit_type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
         "relevance": {
           "step1:ultrasound": {
             "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex": "equalTo(., \"done_today\")"
           }
         },
         "v_required": {
           "value": false,
-          "err": "Please specify the other gynecological procedures"
+          "err": "Please specify the gestational age in days from ultrasound"
         }
       },
       {
