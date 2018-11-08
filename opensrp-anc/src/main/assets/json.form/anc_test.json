@@ -239,100 +239,1297 @@
         "toaster_type": "positive"
       },
       {
-        "key": "last_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_edd",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": false
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "enabled_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Number of fetuses detected during ultrasound.",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "no_of_fetuses",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "1",
+        "max_value": "15",
+        "text_size": "16px",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "preeclampsia_risk",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "ultrasound_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia risk counseling",
+        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
+        "toaster_info_title": "Pre-eclampsia risk counseling",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "fetal_presentation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Fetal presentation",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pelvic",
+            "text": "Pelvic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "amniotic_fluid",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Amniotic fluid",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "normal",
+            "text": "Normal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "reduced",
+            "text": "Reduced",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "increased",
+            "text": "Increased",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "placenta_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Placenta location",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "praevia",
+            "text": "Praevia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "low",
+            "text": "Low",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "anterior",
+            "text": "Anterior",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "posterior",
+            "text": "Posterior",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "right_side",
+            "text": "Right side",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "left_side",
+            "text": "Left side",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "fundal",
+            "text": "Fundal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "select_gest_age_edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Select preferred gestational age: Using LMP Using ultrasound Using SFH or abdominal palpation",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "use_lmp",
+            "text": "Using LMP",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "use_ultrasound",
+            "text": "Using ultrasound",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "use_sfh_abdominal_palpation",
+            "text": "Using SFH or abdominal palpation",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "gest_age",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "edd",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
         }
       }
     ]
   },
   "step2": {
-    "title": "Test 2",
+    "title": "Blood Type",
     "next": "step3",
     "fields": [
       {
-        "key": "first_name",
+        "key": "blood_type_test_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood type test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "blood_type_test_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Blood type test date*",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
         },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+        "v_required": {
+          "value": false,
+          "err": "Date that the blood test was done."
         }
+      },
+      {
+        "key": "blood_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood type",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "a",
+            "text": "A",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "b",
+            "text": "B",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ab",
+            "text": "AB",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "o",
+            "text": "O",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "rh_factor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Rh factor",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "ultrasound_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Rh factor negative counseling",
+        "toaster_info_text": "- Woman is at risk of alloimmunisation if the baby's father is Rh positive or unknown.\n\n- Proceed with local protocol to investigate sensitization and the need for referral.\n\n- If Rh negative and non-sensitized, woman should receive anti\n\n- D prophylaxis postnatally if the baby is Rh positive.",
+        "toaster_info_title": "Rh factor negative counseling",
+        "toaster_type": "warning"
       }
     ]
   },
   "step3": {
-    "title": "Test 3",
+    "title": "HIV",
+    "next": "step4",
     "fields": [
       {
-        "key": "first_name",
+        "key": "hiv_test_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "HIV test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "hiv_test_notdone",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "expired_stock",
+            "text": "Expired stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "hiv_test_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Last name *",
+        "hint": "Specify*",
         "edit_type": "name",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": false,
+          "err": "Specify any other reason why an HIV test was not done."
         }
+      },
+      {
+        "key": "hiv_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "HIV test date*",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "."
+        }
+      },
+      {
+        "key": "hiv_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Record result",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "inconclusive",
+            "text": "Inconclusive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hiv_positive",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "ultrasound_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV test inconclusive, refer for further testing.",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "ultrasound_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV positive counseling",
+        "toaster_info_text": "- Refer for further testing and confirmation\n\n- Refer for HIV services\n\n- Advise on opportunistic infections and need to seek medical help\n\n- Proceed with systematic screening for active TB",
+        "toaster_info_title": "HIV positive counseling",
+        "toaster_type": "problem"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Partner HIV",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "hiv_test_partner_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Partner HIV test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hiv_test_partner_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Partner HIV test date*",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "."
+        }
+      },
+      {
+        "key": "hiv_test_partner_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Record result",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "inconclusive",
+            "text": "Inconclusive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "partner_hiv_positive",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "partner_hiv_positive_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Partner HIV test inconclusive, refer partner for further testing.",
+        "toaster_type": "warning"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hiv_risk",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "ultrasound_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV risk counseling",
+        "toaster_info_text": "Provide comprehensive HIV prevention options: \n\n- STI screening and treatment (syndromic and syphilis)\n\n- Condom promotion\n\n- Risk reduction counselling\n\n\- PrEP with emphasis on adherence\n\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_title": "HIV risk counseling",
+        "toaster_type": "problem"
+      }
+    ]
+  },
+  "step5": {
+    "title": "Hepatitis B",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "hepb_test_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hepatitis B test",
+        "label_info_text": "In settings where the proportion of HBsAg seroprevalence in the general population is 2% or higher or in settings where there is a national Hep B ANC routine screening program in place, or if the woman is HIV positive, injects drugs, or is a sex worker, then Hep B testing is recommended if the woman is not fully vaccinated against Hep B.",
+        "label_info_title": "Hepatitis B test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hepb_test_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "expired_stock",
+            "text": "Expired stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "hepb_test_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify*",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Specify any other reason why the Hep B test was not done."
+        }
+      },
+      {
+        "key": "hepb_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Hep B test date*",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "."
+        }
+      },
+      {
+        "key": "hepb_test_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep B test type",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "hbsag_lab_based",
+            "text": "HBsAg laboratory-based immunoassay (recommended)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hbsag_rapid",
+            "text": "HBsAg rapid diagnostic test (RDT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dried_blood",
+            "text": "Dried Blood Spot (DBS) HBsAg test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "hbsag_lab_ima",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "HBsAg laboratory-based immunoassay (recommended)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hbsag_rdt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "HBsAg rapid diagnostic test (RDT)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hbsag_dbs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Dried Blood Spot (DBS) HBsAg test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hepb_positive",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hepatitis_b_info_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hep B positive diagnosis!",
+        "toaster_info_text": "Counselling and referral required.",
+        "toaster_info_title": "Hep B positive diagnosis!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "hepatitis_b_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hep B vaccination required.",
+        "toaster_info_text": "Hep B vaccination required anytime after 12 weeks gestation.",
+        "toaster_info_title": "Hep B vaccination required.",
+        "toaster_type": "info"
+      }
+    ]
+  },
+  "step6": {
+    "title": "Hepatitis C",
+    "fields": [
+      {
+        "key": "hepc_test_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hepatitis C test",
+        "label_info_text": "In settings where the proportion of HCV antibody seroprevalence in the general population is 2% or higher, or the woman is HIV positive, injects drugs, or is a sex worker, then a Hep C test is required.",
+        "label_info_title": "Hepatitis C test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hepc_test_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "expired_stock",
+            "text": "Expired stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "hepc_test_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify*",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Specify any other reason why the Hep C test was not done."
+        }
+      },
+      {
+        "key": "hepc_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Hep C test date*",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Select the date of the Hepatitis C test."
+        }
+      },
+      {
+        "key": "hepc_test_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep C test type",
+        "label_info_text": "Anti-HCV laboratory-based immunoassay is the preferred method for testing for Hep C infection in pregnancy. If immunoassay is not available, Anti-HCV rapid diagnostic test (RDT) is recommended over Dried Blood Spot (DBS) Anti-HCV testing.",
+        "label_info_title": "Hep C test type",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "anti_hcv_lab_based",
+            "text": "Anti-HCV laboratory-based immunoassay (recommended)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "anti_hcv_rapid",
+            "text": "Anti-HCV rapid diagnostic test (RDT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dried_blood",
+            "text": "Dried Blood Spot (DBS) anti-HCV test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "hcv_lab_ima",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Anti-HCV laboratory-based immunoassay (recommended)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hcv_rdt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Anti-HCV rapid diagnostic test (RDT)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hcv_dbs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Dried Blood Spot (DBS) anti-HCV test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hepc_positive",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hepatitis_b_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Counselling and referral required.",
+        "toaster_type": "problem"
       }
     ]
   }
