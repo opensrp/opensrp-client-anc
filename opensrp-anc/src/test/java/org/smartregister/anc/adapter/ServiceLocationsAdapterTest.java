@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.activity.BaseUnitTest;
 
 import java.util.ArrayList;

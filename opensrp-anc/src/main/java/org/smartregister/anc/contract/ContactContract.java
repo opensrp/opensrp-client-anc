@@ -31,6 +31,10 @@ public interface ContactContract  {
         void startForm(Object tag);
 
         void onDestroy(boolean isChangingConfiguration);
+
+        void deleteDraft(String baseEntityId);
+
+        void saveFinalJson(String baseEntityId);
     }
 
     interface Model {

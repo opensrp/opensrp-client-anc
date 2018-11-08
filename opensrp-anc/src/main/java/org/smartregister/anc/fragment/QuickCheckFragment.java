@@ -14,6 +14,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,20 +29,33 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.ContactActivity;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.QuickCheckContract;
+import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.configurableviews.model.Field;
+import org.smartregister.util.Utils;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QuickCheckFragment extends DialogFragment implements QuickCheckContract.View {
+
+    private static String TAG = QuickCheckFragment.class.getCanonicalName();
 
     private QuickCheckDialogClickListener actionHandler = new QuickCheckDialogClickListener();
 
@@ -57,6 +73,11 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     private Button refer;
 
+    private Map<String, List<Object>> obsMap = new HashMap<>();
+
+    private static final Type EVENT_TYPE = new TypeToken<Event>() {
+    }.getType();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +85,9 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AncFullScreenDialog);
 
         initializePresenter();
+
+        initializeEvent();
+
     }
 
     @Override
@@ -115,6 +139,8 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         setupViews(view);
 
+        setupBackButtonIcon(view);
+
         return view;
     }
 
@@ -156,6 +182,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         complaintAdapter = new ComplaintDangerAdapter(false);
         recyclerView.setAdapter(complaintAdapter);
+
     }
 
     private void updateDangerList(final View view) {
@@ -187,12 +214,45 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     Field otherSpecify = complaintAdapter.getSpecifyField();
                     if (otherSpecify != null) {
                         presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
-                        complaintAdapter.notifyDataSetChanged();
+                        try {
+                            complaintAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
                     }
                 }
             }
         });
 
+        specifyEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Overriden
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+                //Overriden
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                Field otherSpecify = complaintAdapter.getSpecifyField();
+
+                if (s.length() > 0 && otherSpecify != null) {
+                    presenter.modifyComplaintsOrDangerList(otherSpecify, true, false);
+                    try {
+                        complaintAdapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+
+            }
+        });
 
         specifyEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -215,6 +275,15 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         refer = view.findViewById(R.id.refer);
         refer.setOnClickListener(actionHandler);
+
+        setupComplaintOtherEditText();
+    }
+
+    private void setupComplaintOtherEditText() {
+        if (specifyEditText.getVisibility() == View.VISIBLE && obsMap.containsKey("specific_complaint_other") && obsMap.get("specific_complaint_other").size() > 0) {
+            specifyEditText.setText(obsMap.get("specific_complaint_other").get(0).toString());
+
+        }
     }
 
     @Override
@@ -233,15 +302,23 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void notifyComplaintAdapter() {
-        if (complaintAdapter != null) {
-            complaintAdapter.notifyDataSetChanged();
+        try {
+            if (complaintAdapter != null) {
+                complaintAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
     @Override
     public void notifyDangerSignAdapter() {
-        if (dangerSignAdapter != null) {
-            dangerSignAdapter.notifyDataSetChanged();
+        try {
+            if (dangerSignAdapter != null) {
+                dangerSignAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
@@ -353,24 +430,31 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     }
 
     private void confirmClose() {
-        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AncAlertDialog)
-                .setTitle(com.vijay.jsonwizard.R.string.confirm_form_close)
-                .setMessage(com.vijay.jsonwizard.R.string.confirm_form_close_explanation)
-                .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
-                    }
-                })
-                .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
+        if (!obsMap.isEmpty()) {
 
-        dialog.show();
+            presenter.proceedToNormalContact(getSpecifyText());
+        } else {
+
+
+            AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.AncAlertDialog)
+                    .setTitle(com.vijay.jsonwizard.R.string.confirm_form_close)
+                    .setMessage(com.vijay.jsonwizard.R.string.confirm_form_close_explanation)
+                    .setNegativeButton(com.vijay.jsonwizard.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dismiss();
+                        }
+                    })
+                    .setPositiveButton(com.vijay.jsonwizard.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+
+            dialog.show();
+        }
 
     }
 
@@ -402,6 +486,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private class ReasonAdapter extends RecyclerView.Adapter<ReasonAdapter.ViewHolder> {
         private List<Field> reasons;
         private CheckedTextView lastChecked;
+        private Map<String, String> obReasons = new HashMap<>();
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private CheckedTextView checkedTextView;
@@ -414,6 +499,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         private ReasonAdapter() {
             this.reasons = presenter.getConfig().getReasons();
+
+            List<Object> observation = obsMap.get("contact_reason");
+
+            if (observation != null) {
+                for (Object ob : observation) {
+                    obReasons.put("contact_reason", ob.toString());
+                }
+            }
         }
 
         @Override
@@ -453,7 +546,13 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
                     }
                 }
             });
+
+            if (!obReasons.isEmpty() && obReasons.containsValue(reason.getDisplayName())) {
+                holder.checkedTextView.callOnClick();
+            }
+
         }
+
 
         @Override
         public int getItemCount() {
@@ -465,6 +564,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     private class ComplaintDangerAdapter extends RecyclerView.Adapter<ComplaintDangerAdapter.ViewHolder> {
         private List<Field> list;
         private boolean isDangerSign;
+        private Map<String, String> obReasons = new HashMap<>();
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public CheckedTextView checkedTextView;
@@ -478,6 +578,14 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         private ComplaintDangerAdapter(boolean isDangerSign) {
             this.isDangerSign = isDangerSign;
             this.list = isDangerSign ? presenter.getConfig().getDangerSigns() : presenter.getConfig().getComplaints();
+
+            List<Object> observation = isDangerSign ? obsMap.get("danger_signs") : obsMap.get("specific_complaint");
+
+            if (observation != null) {
+                for (Object ob : observation) {
+                    obReasons.put(ob.toString(), ob.toString());
+                }
+            }
         }
 
         @Override
@@ -497,7 +605,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             holder.checkedTextView.setTag(field);
 
             if (field.getDisplayName().equals(getString(R.string.central_cyanosis))) {
-                holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
+                holder.checkedTextView.setCompoundDrawablesWithIntrinsicBounds(org.smartregister.anc.util.Utils.getAttributeDrawableResource(getActivity(), android.R.attr.listChoiceIndicatorMultiple), 0, R.drawable.ic_info, 0);
 
                 holder.checkedTextView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -547,6 +655,12 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             } else if (!presenter.containsComplaintOrDangerSign(field, isDangerSign) && holder.checkedTextView.isChecked()) {
                 holder.checkedTextView.setChecked(false);
             }
+
+            //autoselect
+            if (!obReasons.isEmpty() && obReasons.containsValue(field.getDisplayName())) {
+                holder.checkedTextView.callOnClick();
+            }
+
         }
 
         @Override
@@ -558,5 +672,34 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
             return presenter.getField(list, getString(R.string.complaint_other_specify));
         }
 
+    }
+
+    private void initializeEvent() {
+
+        Bundle args = getArguments();
+        String baseEntityId = args.getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+
+        List<PartialContact> partialContactList = AncApplication.getInstance().getPartialContactRepository().getPartialContacts(baseEntityId, "Quick Check", 1);
+
+        try {
+
+            Gson gson = new Gson();
+            Event event = gson.fromJson(partialContactList.get(0).getFormJson(), EVENT_TYPE);
+            List<Obs> obs = event.getObs();
+            for (Obs ob : obs) {
+                obsMap.put(ob.getFieldCode(), ob.getValues());
+            }
+
+        } catch (Exception e) {
+
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    private void setupBackButtonIcon(View view) {
+        ImageButton backButton = view.findViewById(R.id.cancel_quick_check);
+        if (backButton != null && !obsMap.isEmpty()) {
+            backButton.setImageResource(R.drawable.ic_contact_menu);
+        }
     }
 }

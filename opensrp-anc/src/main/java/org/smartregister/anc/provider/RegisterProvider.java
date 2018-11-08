@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
-import org.smartregister.anc.fragment.BaseRegisterFragment;
+import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -117,6 +118,16 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
+        String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
+
+        if (StringUtils.isNotBlank(ga)) {
+
+            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), "4 WEEKS"));
+        } else {
+
+            fillValue((viewHolder.ga), "");
+        }
+
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
 
@@ -143,6 +154,15 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
+                viewHolder.dueButton.setText("CONTACT 1\n22/05/2018");
+
+                String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
+
+                if (StringUtils.isNotBlank(ga)) {
+
+                    viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                    viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                }
 
                 //updateDoseButton();
             } else {
@@ -178,19 +198,19 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_SYNC);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_SYNC);
     }
 
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_NORMAL);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
     private void attachRiskLayoutOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
     }
 
     /*
@@ -208,7 +228,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void attachDosageOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, BaseRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
     }
 
     @Override

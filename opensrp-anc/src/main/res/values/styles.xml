@@ -69,11 +69,6 @@
         <item name="android:windowMinWidthMinor">90%</item>
     </style>
 
-    <style name="me_page_location_selector">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/text_black</item>
-    </style>
-
     <style name="ActionBarNoShadow">
         <item name="android:windowContentOverlay">@null</item>
     </style>

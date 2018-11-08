@@ -20,8 +20,8 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.contract.LoginContract;
-import org.smartregister.anc.model.LoginModel;
+import org.smartregister.login.model.BaseLoginModel;
+import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
 
@@ -38,14 +38,14 @@ public class LoginPresenterTest extends BaseUnitTest {
     ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener;
 
     @Mock
-    private LoginContract.View view;
+    private BaseLoginContract.View view;
 
     @Mock
-    private LoginContract.Interactor interactor;
+    private BaseLoginContract.Interactor interactor;
 
     @Mock
-    private LoginContract.Model model;
-    private LoginContract.Presenter presenter;
+    private BaseLoginContract.Model model;
+    private BaseLoginContract.Presenter presenter;
 
     @Before
     public void setUp() {
@@ -119,7 +119,7 @@ public class LoginPresenterTest extends BaseUnitTest {
     public void testAttemptLoginShouldNotCallLoginMethodWithCorrectParametersWhenValidationFails() {
 
         LoginPresenter presenter = new LoginPresenter(view);
-        presenter.setLoginModel(new LoginModel());//create real model
+        presenter.setLoginModel(new BaseLoginModel());//create real model
         presenter.setLoginInteractor(interactor); //set mocked interactor
 
         presenter.attemptLogin(null, DUMMY_PASSWORD);

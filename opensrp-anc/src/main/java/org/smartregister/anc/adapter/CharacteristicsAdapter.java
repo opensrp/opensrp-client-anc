@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.domain.Characteristic;
+import org.smartregister.domain.Characteristic;
 
 import java.util.List;
 

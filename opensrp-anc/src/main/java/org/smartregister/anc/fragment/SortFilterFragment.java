@@ -24,6 +24,7 @@ import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.SortFilterContract;
 import org.smartregister.anc.presenter.SortFilterPresenter;
 import org.smartregister.configurableviews.model.Field;
+import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
 
     private void switchToRegister() {
         if (getActivity() != null) {
-            ((HomeRegisterActivity) getActivity()).switchToBaseFragment();
+            ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
         }
     }
 

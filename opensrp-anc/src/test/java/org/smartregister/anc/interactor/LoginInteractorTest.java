@@ -9,10 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.Context;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
+import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
 
@@ -21,13 +21,13 @@ import java.lang.ref.WeakReference;
  */
 public class LoginInteractorTest extends BaseUnitTest {
 
-    private LoginContract.Interactor interactor;
+    private BaseLoginContract.Interactor interactor;
 
     @Mock
-    private LoginContract.Presenter presenter;
+    private BaseLoginContract.Presenter presenter;
 
     @Mock
-    private LoginContract.View view;
+    private BaseLoginContract.View view;
 
     @Mock
     private Context opensrpContext;
@@ -49,7 +49,7 @@ public class LoginInteractorTest extends BaseUnitTest {
     @Test
     public void testOnDestroyShouldNotResetThePresenterIfIsChangingConfigurationChangeIsTrue() {
 
-        LoginContract.Presenter presenter = Whitebox.getInternalState(interactor, FIELD_LOGIN_PRESENTER);
+        BaseLoginContract.Presenter presenter = Whitebox.getInternalState(interactor, FIELD_LOGIN_PRESENTER);
         Assert.assertNotNull(presenter);
 
         interactor.onDestroy(true);//configuration change
@@ -61,7 +61,7 @@ public class LoginInteractorTest extends BaseUnitTest {
     @Test
     public void testOnDestroyShouldResetThePresenterIfIsChangingConfigurationChangeIsFalse() {
 
-        LoginContract.Presenter presenter = Whitebox.getInternalState(interactor, FIELD_LOGIN_PRESENTER);
+        BaseLoginContract.Presenter presenter = Whitebox.getInternalState(interactor, FIELD_LOGIN_PRESENTER);
         Assert.assertNotNull(presenter);
 
         interactor.onDestroy(false);//Not configuration change
@@ -72,9 +72,11 @@ public class LoginInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    public void testGetApplicationContextShouldReturnValidInstance() {
+    public void testGetApplicationContextShouldInvokeGetApplicationContextOfLoginView() {
         LoginInteractor interactor = new LoginInteractor(presenter);
-        Assert.assertNotNull(interactor.getApplicationContext());
+        Mockito.doReturn(view).when(presenter).getLoginView();
+        interactor.getApplicationContext();
+        Mockito.verify(view, Mockito.times(1)).getActivityContext();
     }
 
     @Test
@@ -109,7 +111,7 @@ public class LoginInteractorTest extends BaseUnitTest {
 
         Mockito.verify(presenterSpy, Mockito.times(1)).getLoginView();
 
-        Assert.assertTrue(presenterSpy.getLoginView() instanceof LoginContract.View);
+        Assert.assertTrue(presenterSpy.getLoginView() instanceof BaseLoginContract.View);
 
     }
 

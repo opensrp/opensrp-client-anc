@@ -8,18 +8,11 @@ import org.smartregister.anc.BuildConfig;
 
 public abstract class Constants {
     public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
-    public static final int OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE;
-    public static final int OPENMRS_UNIQUE_ID_BATCH_SIZE = BuildConfig.OPENMRS_UNIQUE_ID_BATCH_SIZE;
-    public static final int OPENMRS_UNIQUE_ID_SOURCE = BuildConfig.OPENMRS_UNIQUE_ID_SOURCE;
 
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
 
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
-    public static final String CURRENT_LOCATION_ID = "CURRENT_LOCATION_ID";
-
-    public static final String LAST_SYNC_TIMESTAMP = "LAST_SYNC_TIMESTAMP";
-    public static final String LAST_CHECK_TIMESTAMP = "LAST_SYNC_CHECK_TIMESTAMP";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
@@ -72,18 +65,12 @@ public abstract class Constants {
     }
 
     public static final class KEY {
-        public static final String SEX = "Sex";
         public static final String KEY = "key";
         public static final String VALUE = "value";
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String TYPE = "type";
-        public static final String LABEL = "label";
-        public static final String DESCRIPTION = "description";
-        public static final String SETTING_CONFIGURATIONS = "settingConfigurations";
-        public static final String VALIDATED_RECORDS = "validated_records";
-        public static final String STEPNAME = "stepName";
 
 
     }
@@ -91,7 +78,6 @@ public abstract class Constants {
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
-        public static final String WHO_ANC_ID = "who_anc_id";
         public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
