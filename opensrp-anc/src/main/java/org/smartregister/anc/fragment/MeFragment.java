@@ -20,7 +20,6 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
 
     private RelativeLayout me_pop_characteristics_section;
     private RelativeLayout site_characteristics_section;
-    private RelativeLayout contact_summary;
 
     @Nullable
     @Override
@@ -35,15 +34,12 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         me_pop_characteristics_section = view.findViewById(R.id.me_pop_characteristics_section);
         site_characteristics_section = view.findViewById(R.id.site_characteristics_section);
 
-        contact_summary = view.findViewById(R.id.contact_summary);
-
     }
 
     protected void setClickListeners() {
         super.setClickListeners();
         me_pop_characteristics_section.setOnClickListener(meFragmentActionHandler);
         site_characteristics_section.setOnClickListener(meFragmentActionHandler);
-        contact_summary.setOnClickListener(meFragmentActionHandler);
     }
 
     protected void initializePresenter() {
