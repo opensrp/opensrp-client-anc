@@ -102,11 +102,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
 
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
