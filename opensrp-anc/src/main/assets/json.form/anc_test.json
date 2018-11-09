@@ -1536,6 +1536,7 @@
   },
   "step7": {
     "title": "Syphilis",
+    "next": "step8",
     "fields": [
       {
         "key": "syph_test_status",
@@ -1813,6 +1814,1404 @@
         "toaster_info_text": "Provide counselling and treatment according to protocol.",
         "toaster_info_title": "Syphilis test positive",
         "toaster_type": "problem"
+      }
+    ]
+  },
+  "step8": {
+    "title": "Urine",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "urine_test_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Urine test",
+        "label_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
+        "label_info_title": "Urine test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "urine_test_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "expired_stock",
+            "text": "Expired stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "urine_test_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify *",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Specify the other reason the urine test was not done."
+        }
+      },
+      {
+        "key": "urine_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Urine test date *",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Select the date of the urine test.."
+        }
+      },
+      {
+        "key": "urine_test_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Urine test type",
+        "label_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
+        "label_info_title": "Urine test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "midstream_urine_culture",
+            "text": "Midstream urine culture (recommended)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "midstream_urine_gram",
+            "text": "Midstream urine Gram-staining",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "urine_dipstick",
+            "text": "Urine dipstick",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "urine_culture",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Midstream urine culture (recommended)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive_any",
+            "text": "Positive - any agent",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "positive_gbs",
+            "text": "Positive - Group B Streptococcus (GBS)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "urine_gram_stain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Midstream urine Gram-staining ",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "urine_nitrites",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Urine dipstick result - nitrites",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "one",
+            "text": "+",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two",
+            "text": "++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three",
+            "text": "+++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four",
+            "text": "++++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "urine_leukocytes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Urine dipstick result - leukocytes",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "one",
+            "text": "+",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two",
+            "text": "++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three",
+            "text": "+++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four",
+            "text": "++++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "urine_protein",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Urine dipstick result - protein",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "one",
+            "text": "+",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two",
+            "text": "++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three",
+            "text": "+++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four",
+            "text": "++++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "urine_glucose",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Urine dipstick result - glucose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "one",
+            "text": "+",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two",
+            "text": "++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three",
+            "text": "+++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four",
+            "text": "++++",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "gdm_risk",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "gdm_risk_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Gestational diabetes mellitus (GDM) risk counseling",
+        "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n\n - Reasserting dietary interventions\n\n- Reasserting physical activity during pregnancy",
+        "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
+        "toaster_type": "warning"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "asb_positive",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "asb_positive_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
+        "toaster_info_text": "A woman is considered to have ASB if she has one of the following test results:\n\n - Positive culture (> 100,000 bacteria/mL)\n\n- Gram-staining positive\n\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
+        "toaster_info_title": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "gbs_agent_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+        "toaster_info_text": "Pregnant women with Group B Streptococcus (GBS) colonization should receive intrapartum antibiotic administration to prevent early neonatal GBS infection.",
+        "toaster_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+        "toaster_type": "warning"
+      }
+    ]
+  },
+  "step9": {
+    "title": "Blood Glucose",
+    "next": "step10",
+    "fields": [
+      {
+        "key": "glucose_test_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood glucose test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "glucose_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Blood glucose test date. *",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Select the date of the glucose test.."
+        }
+      },
+      {
+        "key": "glucose_test_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood glucose test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "fasting_plasma",
+            "text": "Fasting plasma glucose",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ogtt_75",
+            "text": "75g OGTT",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "random_plasma",
+            "text": "Random plasma glucose",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "fasting_plasma_gluc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Fasting plasma glucose results (mg/dl) *",
+        "edit_type": "number",
+        "v_min": {
+          "value": "30",
+          "err": "Fasting plasma glucose results must be greater than 30"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "Fasting plasma glucose results must be les than 500"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Specify any other reason why the syphilis test was not done"
+        }
+      },
+      {
+        "key": "ogtt_fasting",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "75g OGTT - fasting glucose results (mg/dl) *",
+        "edit_type": "number",
+        "v_min": {
+          "value": "30",
+          "err": "75g OGTT - fasting glucose results must be greater than 30"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "75g OGTT - fasting glucose results must be les than 500"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the result for the initial 75g OGTT - fasting glucose. "
+        }
+      },
+      {
+        "key": "ogtt_1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "75g OGTT - 1 hr results (mg/dl) *",
+        "edit_type": "number",
+        "v_min": {
+          "value": "30",
+          "err": "The result for the 75g OGTT - fasting glucose (1 hr) must be greater than 30"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "the result for the 75g OGTT - fasting glucose (1 hr) must be les than 500"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the result for the 75g OGTT - fasting glucose (1 hr)."
+        }
+      },
+      {
+        "key": "ogtt_2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "75g OGTT - 2 hrs results (mg/dl) *",
+        "edit_type": "number",
+        "v_min": {
+          "value": "30",
+          "err": "The result for the 75g OGTT - fasting glucose (2 hr) must be greater than 30"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "The result for the 75g OGTT - fasting glucose (2 hr) must be les than 500"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the result for the 75g OGTT - fasting glucose (2 hr)."
+        }
+      },
+      {
+        "key": "random_plasma",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Random plasma glucose results (mg/dl) *",
+        "edit_type": "number",
+        "v_min": {
+          "value": "30",
+          "err": "The result for the random plasma glucose test. must be greater than 30"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "The result for the random plasma glucose test must be les than 500"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the result for the random plasma glucose test."
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "gdm",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "dm_in_preg",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "syphilis_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Gestational Diabetes Mellitus (GDM) diagnosis!",
+        "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if her fasting plasma glucose is 92–125 mg/dL. \n\nOR\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n\n- 75g OGTT - 1 hr 180–199 mg/dL\n\n- 75g OGTT - 2 hrs 153–199 mg/dL",
+        "toaster_info_title": "Gestational Diabetes Mellitus (GDM) diagnosis!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "syphilis_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
+        "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if her fasting plasma glucose is 126 mg/dL or higher.\n\nOR\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n\n- 75g OGTT - 1 hr 200 mg/dL or higher\n\n- 75g OGTT - 2 hrs 200 mg/dL or higher\n\n- Random plasma glucose 200 mg/dL or higher",
+        "toaster_info_title": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "syphilis_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Dietary intervention recommended and referral to high level care.",
+        "toaster_info_text": "Woman with hyperglycemia - Recommend dietary intervention and refer to higher level care.",
+        "toaster_info_title": "Dietary intervention recommended and referral to high level care.",
+        "toaster_type": "problem"
+      }
+    ]
+  },
+  "step10": {
+    "title": "Blood Haemoglobin",
+    "next": "step11",
+    "fields": [
+      {
+        "key": "hb_test_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood haemoglobin test",
+        "label_info_text": "Blood haemoglobin testing is necessary for diagnosing anaemia in pregnancy.",
+        "label_info_title": "Blood haemoglobin test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hb_test_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "no_supplies",
+            "text": "No supplies",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "hb_test_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify *",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Specify any other reason why the blood haemoglobin test"
+        }
+      },
+      {
+        "key": "hb_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Blood haemoglobin test date *",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Select the date of the blood haemoglobin test."
+        }
+      },
+      {
+        "key": "hb_test_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Blood haemoglobin test type",
+        "label_info_text": "Complete blood count test is the preferred method for testing for anaemia in pregnancy. If complete blood count test is not available, haemoglobinometer is recommended over haemoglobin colour scale.",
+        "label_info_title": "Blood haemoglobin test type",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "complete_blood_count",
+            "text": "Complete blood count test (recommended)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hb_test_haemoglobinometer",
+            "text": "Hb test (haemoglobinometer)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hb_test_colour_scale",
+            "text": "Hb test (haemoglobin colour scale)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "cbc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Complete blood count test result (g/dl) (recommended) *",
+        "edit_type": "name",
+        "v_min": {
+          "value": "0",
+          "err": "The complete blood count test must be greater than 0"
+        },
+        "v_max": {
+          "value": "25",
+          "err": "The complete blood count test must be les than 500"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Complete blood count test result (g/dl)"
+        }
+      },
+      {
+        "key": "hb_gmeter",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Hb test result - haemoglobinometer (g/dl) *",
+        "edit_type": "name",
+        "v_min": {
+          "value": "0",
+          "err": "The Hb test result - haemoglobinometer (g/dl) must be greater than 0"
+        },
+        "v_max": {
+          "value": "25",
+          "err": "The Hb test result - haemoglobinometer (g/dl) must be les than 25"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter Hb test result - haemoglobinometer (g/dl)"
+        }
+      },
+      {
+        "key": "hb_colour",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Hb test result - haemoglobin colour scale (g/dl) *",
+        "edit_type": "name",
+        "v_min": {
+          "value": "0",
+          "err": "The Hb test result - haemoglobin colour scale (g/dl) must be greater than 0"
+        },
+        "v_max": {
+          "value": "25",
+          "err": "The Hb test result - haemoglobin colour scale (g/dl) must be les than 25"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter Hb test result - haemoglobin colour scale (g/dl)"
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "hb_result",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "anaemic",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "anaemia_diagnosis_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Anaemia diagnosis!",
+        "toaster_info_text": "Anaemia - Hb level of < 11 in first or third trimester or Hb level < 10.5 in second trimester.\n\nOR\n\nNo Hb test results recorded, but woman has pallor.",
+        "toaster_info_title": "Anaemia diagnosis!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "ht",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Hematocrit (Ht)*",
+        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the Hematocrit value"
+        }
+      },
+      {
+        "key": "hematocrit_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hematocrit levels too low!",
+        "toaster_info_text": "Hemotacrit levels less than 10.5.",
+        "toaster_info_title": "Hematocrit levels too low!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "wbc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "White blood cell (WBC) count*",
+        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the White blood cell (WBC) count"
+        }
+      },
+      {
+        "key": "hematocrit_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "White blood cell count too high!",
+        "toaster_info_text": "White blood cell count above 16,000.",
+        "toaster_info_title": "White blood cell count too high!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "platelets",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Platelet count *",
+        "edit_type": "name",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a numeric value"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Enter the Platelet count value"
+        }
+      },
+      {
+        "key": "paltelets_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Platelet count too low! ",
+        "toaster_info_text": "Platelet count under 100,000.",
+        "toaster_info_title": "Platelet count too low!",
+        "toaster_type": "problem"
+      }
+    ]
+  },
+  "step11": {
+    "title": "TB Screening",
+    "next": "step12",
+    "fields": [
+      {
+        "key": "tb_screening_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "TB screening",
+        "label_info_text": "In settings where the tuberculosis (TB) prevalence in the general population is 100/100,000 persons or higher or in settings with sub-populations that have very poor access to health care, or if the woman is HIV positive, TB screening is recommended.",
+        "label_info_title": "TB screening",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "ordered",
+            "text": "Ordered",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "tb_screening_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "sputum_smear",
+            "text": "Sputum smear not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "sputum_culture",
+            "text": "Sputum culture not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "genexpert_machine",
+            "text": "GeneXpert machine not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "xray_machine",
+            "text": "X-ray machine not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no_sputum_supplies",
+            "text": "No sputum supplies available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "machine_not_functioning",
+            "text": "Machine not functioning",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "technician_not_available",
+            "text": "Technician not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "tb_test_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify *",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Specify any other reason why the TB screening was not done."
+        }
+      },
+      {
+        "key": "tb_screening_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "TB screening date *",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Select record the date of the TB screening."
+        }
+      },
+      {
+        "key": "tb_screening_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Record result",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "inconclusive",
+            "text": "Inconclusive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "incomplete",
+            "text": "Incomplete (only symptoms)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "tb_screening_danger_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TB screening positive. ",
+        "toaster_info_text": "Treat according to local protocol and/or refer for treatment.",
+        "toaster_info_title": "TB screening positive. ",
+        "toaster_type": "problem"
+      }
+    ]
+  },
+  "step12": {
+    "title": "Other tests",
+    "fields": [
+      {
+        "key": "other_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Other test",
+        "label_info_text": "If any other test was done that is not included here, add it here.",
+        "label_info_title": "Other test",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "other_test_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Which test?  *",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Input the name of other test(s) that were done."
+        }
+      },
+      {
+        "key": "other_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Test date *",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step1:ultrasound": {
+            "type": "string",
+            "ex": "equalTo(., \"done_today\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Input the date of other test(s) that were done."
+        }
+      },
+      {
+        "key": "other_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Test result?  *",
+        "edit_type": "name",
+        "v_required": {
+          "value": false,
+          "err": "Input the result from the test(s)."
+        }
       }
     ]
   }
