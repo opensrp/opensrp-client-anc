@@ -13,7 +13,6 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.model.PartialContact;
-import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 
 import java.io.Serializable;
@@ -142,11 +141,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         partialContact.setFinalized(false);
 
         partialContact.setType(getContact().getFormName());
-        partialContact.setFormJson(currentJsonState());
+        partialContact.setFormJsonDraft(currentJsonState());
 
-        AncApplication.getInstance().getPartialContactRepository().savePartialRefactor(partialContact);
-        PatientRepository patientRepository = new PatientRepository();
-        patientRepository.updateWomanProfileDetails(partialContact.getBaseEntityId(), partialContact.getType());
+        AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 }
 

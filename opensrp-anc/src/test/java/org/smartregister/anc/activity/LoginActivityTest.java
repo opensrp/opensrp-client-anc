@@ -26,9 +26,9 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowApplication;
 import org.smartregister.anc.R;
-import org.smartregister.anc.contract.LoginContract;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.view.contract.BaseLoginContract;
 
 
 /**
@@ -46,7 +46,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
     private SettingsTestMenuItem menuItem;
 
     @Mock
-    private LoginContract.Presenter presenter;
+    private BaseLoginContract.Presenter presenter;
 
     @Mock
     private ProgressDialog progressDialog;

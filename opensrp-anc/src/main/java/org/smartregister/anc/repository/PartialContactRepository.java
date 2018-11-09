@@ -23,6 +23,7 @@ public class PartialContactRepository extends BaseRepository {
     public static final String BASE_ENTITY_ID = "base_entity_id";
     public static final String TYPE = "type";
     public static final String FORM_JSON = "form_json";
+    public static final String FORM_JSON_DRAFT = "form_json_draft";
     public static final String IS_FINALIZED = "is_finalized";
     public static final String CONTACT_NO = "contact_no";
     public static final String CREATED_AT = "created_at";
@@ -32,7 +33,8 @@ public class PartialContactRepository extends BaseRepository {
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
             TYPE + "  VARCHAR NOT NULL, " +
-            FORM_JSON + "  VARCHAR NOT NULL, " +
+            FORM_JSON + "  VARCHAR, " +
+            FORM_JSON_DRAFT + "  VARCHAR, " +
             IS_FINALIZED + "  INTEGER DEFAULT 0," +
             CONTACT_NO + " INTEGER NOT NULL, " +
             CREATED_AT + " INTEGER NOT NULL, " +
@@ -48,7 +50,7 @@ public class PartialContactRepository extends BaseRepository {
     private static final String INDEX_TYPE = "CREATE INDEX " + TABLE_NAME + "_" + TYPE +
             "_index ON " + TABLE_NAME + "(" + TYPE + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
+    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, FORM_JSON_DRAFT, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
 
     public PartialContactRepository(Repository repository) {
         super(repository);
@@ -61,7 +63,7 @@ public class PartialContactRepository extends BaseRepository {
         database.execSQL(INDEX_TYPE);
     }
 
-    public void savePartialRefactor(PartialContact partialContact) {
+    public void savePartialContact(PartialContact partialContact) {
         if (partialContact == null)
             return;
         else if (partialContact.getUpdatedAt() == null) {
@@ -71,6 +73,9 @@ public class PartialContactRepository extends BaseRepository {
             PartialContact existingContact = getPartialContact(partialContact);
             if (existingContact != null) {
                 partialContact.setId(existingContact.getId());
+                if (partialContact.getFormJson() == null) {
+                    partialContact.setFormJson(existingContact.getFormJson());
+                }
                 partialContact.setCreatedAt(existingContact.getCreatedAt());
                 update(partialContact);
             } else {
@@ -93,6 +98,7 @@ public class PartialContactRepository extends BaseRepository {
         values.put(BASE_ENTITY_ID, PartialContact.getBaseEntityId());
         values.put(TYPE, PartialContact.getType());
         values.put(FORM_JSON, PartialContact.getFormJson());
+        values.put(FORM_JSON_DRAFT, PartialContact.getFormJsonDraft());
         values.put(CONTACT_NO, PartialContact.getContactNo());
         values.put(IS_FINALIZED, PartialContact.getFinalized());
         values.put(CREATED_AT, PartialContact.getCreatedAt());
@@ -173,11 +179,25 @@ public class PartialContactRepository extends BaseRepository {
         partialContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         partialContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));
         partialContact.setFormJson(cursor.getString(cursor.getColumnIndex(FORM_JSON)));
+        partialContact.setFormJsonDraft(cursor.getString(cursor.getColumnIndex(FORM_JSON_DRAFT)));
         partialContact.setFinalized(cursor.getInt(cursor.getColumnIndex(IS_FINALIZED)) != 0);
         partialContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
         partialContact.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
         partialContact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)));
 
         return partialContact;
+    }
+
+    public void deleteDraftJson(String baseEntityId) {
+
+        getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + FORM_JSON_DRAFT + "= NULL WHERE " + BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
+
+    public void saveFinalJson(String baseEntityId) {
+
+        getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + FORM_JSON + "=" + FORM_JSON_DRAFT + ", " + FORM_JSON_DRAFT + "= NULL WHERE " + BASE_ENTITY_ID + " = ? AND " + FORM_JSON_DRAFT + " IS NOT NULL", new String[]{baseEntityId});
+
+        PatientRepository patientRepository = new PatientRepository();
+        patientRepository.updateWomanProfileDetails(baseEntityId);
     }
 }
