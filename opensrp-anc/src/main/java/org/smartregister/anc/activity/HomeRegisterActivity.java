@@ -312,4 +312,24 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         bottomNavigationView.setSelectedItemId(itemId);
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = findFragmentByPosition(currentPage);
+        if (fragment instanceof AdvancedSearchFragment) {
+            ((AdvancedSearchFragment) fragment).onBackPressed();
+            return;
+        } else if (fragment instanceof BaseRegisterFragment) {
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_clients);
+            BaseRegisterFragment registerFragment = (BaseRegisterFragment) fragment;
+            if (registerFragment.onBackPressed()) {
+                return;
+            }
+        }
+        if (currentPage == 0) {
+            super.onBackPressed();
+        } else {
+            switchToBaseFragment();
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_clients);
+        }
+    }
 }
