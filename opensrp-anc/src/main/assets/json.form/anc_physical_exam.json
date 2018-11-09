@@ -826,14 +826,14 @@
             "key": "cough",
             "text": "Cough",
             "value": false,
-            "openmrs_entity": " Cough",
+            "openmrs_entity_parent": " Cough",
             "openmrs_entity_id": "143264"
           },
           {
             "key": "rapid_breathing",
             "text": "Rapid breathing",
             "value": false,
-            "openmrs_entity": "TACHYPNEA",
+            "openmrs_entity_parent": "TACHYPNEA",
             "openmrs_entity_id": "125061"
           },
           {
@@ -847,14 +847,14 @@
             "key": "wheezing",
             "text": "Wheezing",
             "value": false,
-            "openmrs_entity": "WHEEZE",
+            "openmrs_entity_parent": "WHEEZE",
             "openmrs_entity_id": "5209"
           },
           {
             "key": "rales",
             "text": "Rales",
             "value": false,
-            "openmrs_entity": "Respiratory Crackles",
+            "openmrs_entity_parent": "Respiratory Crackles",
             "openmrs_entity_id": "127640"
           },
           {
@@ -954,6 +954,97 @@
         ]
       },
       {
+        "key": "cardiac_exam_abnormal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Abnormal (specify)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "heart_murmur",
+            "text": "Heart murmur",
+            "value": false,
+            "openmrs_entity_parent": "Cardiac examination (text)",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "weak_pulse",
+            "text": "Weak pulse",
+            "value": false,
+            "openmrs_entity_parent": " Weak Pulse",
+            "openmrs_entity_id": "124823"
+          },
+          {
+            "key": "tachycardia",
+            "text": "Tachycardia",
+            "value": false,
+            "openmrs_entity_parent": "Tachycardia",
+            "openmrs_entity_id": "125063"
+          },
+          {
+            "key": "bradycardia",
+            "text": "Bradycardia",
+            "value": false,
+            "openmrs_entity_parent": "Bradycardia",
+            "openmrs_entity_id": "147020"
+          },
+          {
+            "key": "arrhythmia",
+            "text": "Arrhythmia",
+            "value": false,
+            "openmrs_entity_parent": "Arrhythmias (Other cardiac arrhythmias)",
+            "openmrs_entity_id": "665"
+          },
+          {
+            "key": "cyanosis",
+            "text": "Cyanosis",
+            "value": false,
+            "openmrs_entity_parent": "Cyanosis",
+            "openmrs_entity_id": "143050"
+          },
+          {
+            "key": "cold_sweats",
+            "text": "Cold sweats",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "cardiac_exam_abnormal_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step3:cardiac_exam_abnormal": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "toaster22",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -962,6 +1053,114 @@
         "text": "Abnormal cardiac exam. Refer urgently to the hospital!",
         "text_color": "#E20000",
         "toaster_type": "problem"
+      },
+      {
+        "key": "breast_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Breast examination (text) ",
+        "openmrs_entity_id": "162825",
+        "type": "native_radio",
+        "label": "Breast exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal"
+          }
+        ]
+      },
+      {
+        "key": "breast_exam_abnormal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Abnormal (specify)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "nodule",
+            "text": "Nodule",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "discharge",
+            "text": "Discharge",
+            "value": false,
+            "openmrs_entity": "Discharge from Nipple",
+            "openmrs_entity_id": "142248"
+          },
+          {
+            "key": "flushing",
+            "text": "Flushing",
+            "value": false,
+            "openmrs_entity": "Flushing",
+            "openmrs_entity_id": "140039"
+          },
+          {
+            "key": "local_pain",
+            "text": "Local pain",
+            "value": false,
+            "openmrs_entity": "Pain of Breast",
+            "openmrs_entity_id": "131021"
+          },
+          {
+            "key": "bleeding",
+            "text": "Bleeding",
+            "value": false,
+            "openmrs_entity": "Bleeding from Breast",
+            "openmrs_entity_id": "147236"
+          },
+          {
+            "key": "increased_temperature",
+            "text": "Increased temperature",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "breast_exam_abnormal_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step3:breast_exam_abnormal": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster23",
@@ -974,6 +1173,100 @@
         "toaster_type": "warning"
       },
       {
+        "key": "abdominal_exam",
+        "openmrs_entity_parent": "Abdominal Examination",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160947",
+        "type": "native_radio",
+        "label": "Abdominal exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal"
+          }
+        ]
+      },
+      {
+        "key": "abdominal_exam_abnormal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Abnormal (specify)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "mass_tumour",
+            "text": "Mass/tumour",
+            "value": false,
+            "openmrs_entity": "NEOPLASM",
+            "openmrs_entity_id": "115327"
+          },
+          {
+            "key": "superficial_palpation_pain",
+            "text": "Pain on superficial palpation",
+            "value": false,
+            "openmrs_entity": "Discharge from Nipple",
+            "openmrs_entity_id": "142248"
+          },
+          {
+            "key": "deep_palpation_pain",
+            "text": "Pain on deep palpation",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "painful_decompression",
+            "text": "Painful decompression",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "abdominal_exam_abnormal_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step3:abdominal_exam_abnormal": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "toaster24",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -982,6 +1275,163 @@
         "text": "Abnormal abdominal exam. Refer for further investigation.",
         "text_color": "#E20000",
         "toaster_type": "problem"
+      },
+      {
+        "key": "pelvic_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Pelvic exam (visual)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal"
+          }
+        ]
+      },
+      {
+        "key": "pelvic_exam_abnormal",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Abnormal (specify)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "phy_vaginal_discharge",
+            "text": "Physiological vaginal discharge",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "abnormal vaginal discharge",
+            "text": "Abnormal vaginal discharge",
+            "value": false,
+            "openmrs_entity": "Vaginal Discharge Problem",
+            "openmrs_entity_id": "123395"
+          },
+          {
+            "key": "amniotic_fluid_evidence",
+            "text": "Evidence of amniotic fluid",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "smelling_vaginal_discharge",
+            "text": "Foul-smelling vaginal discharge",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "erythematous_papules",
+            "text": "Clusters of erythematous papules",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vesicles",
+            "text": "Vesicles",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "genital_ulcer",
+            "text": "Genital ulcer",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "genital_pain",
+            "text": "Genital pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "femoral_lymphadenopathy",
+            "text": "Tender bilateral inguinal and femoral lymphadenopathy",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cervical_friability",
+            "text": "Cervical friability",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "mucopurulent_ervicitis",
+            "text": "Mucopurulent cervicitis",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "unilateral_lymphadenopathy",
+            "text": "Tender unilateral lymphadenopathy",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vaginal_discharge_curd_like",
+            "text": "Curd-like vaginal discharge",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "pelvic_exam_abnormal_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "v_regex": {
+          "value": "[A-Za-z\\s\.\-]*",
+          "err": "Please enter valid content"
+        },
+        "relevance": {
+          "step3:breast_exam_abnormal": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "toaster25",
@@ -994,6 +1444,61 @@
         "toaster_type": "problem"
       },
       {
+        "key": "cervical_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Uterine cervix examination (text) ",
+        "openmrs_entity_id": "160968",
+        "type": "native_radio",
+        "label": "Cervical exam done?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Done"
+          },
+          {
+            "key": "2",
+            "text": "Not done"
+          }
+        ]
+      },
+      {
+        "key": "dilation_cm_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "How many centimetres (cm) dilated? ",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "dilation_cm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Amount of cervical dilation ",
+        "openmrs_entity_id": "162261",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0.1",
+          "err": "Cervical dilation must be greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Cervical dilation must be equal or less than 10"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Field cervical dilation is required"
+        }
+      },
+      {
         "key": "toaster26",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1002,6 +1507,110 @@
         "text": "Cervix is more than 2 cm dilated. Please check for other signs and symptoms of labour (if GA is 37 weeks or later) or pre-term labour and other related complications (if GA is less than 37 weeks).",
         "text_color": "#E20000",
         "toaster_type": "problem"
+      },
+      {
+        "key": "oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "460",
+        "type": "native_radio",
+        "label": "Oedema present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "1",
+            "text": "Yes"
+          },
+          {
+            "key": "2",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "oedema_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Oedema type",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "ankle_oedema",
+            "text": "Pitting ankle oedema",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hands_feet_oedema",
+            "text": "Oedema of the hands and feet",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "lower_back_oedema",
+            "text": "Pitting lower back oedema",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "leg_swelling",
+            "text": "Leg swelling",
+            "value": false,
+            "openmrs_entity": "Edema, legs",
+            "openmrs_entity_id": "590"
+          }
+        ]
+      },
+      {
+        "key": "oedema_severity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "URINE PROTEIN (DIP STICK)",
+        "openmrs_entity_id": "1875",
+        "type": "native_radio",
+        "label": "Oedema severity",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "one_plus",
+            "text": "+",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two_plus",
+            "text": "++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three_plus",
+            "text": "+++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four_plus",
+            "text": "++++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please enter the result for the dipstick test."
+        }
       }
     ]
   },
