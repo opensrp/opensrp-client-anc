@@ -1,4 +1,4 @@
-package org.smartregister.anc.util;
+package org.smartregister.anc.helper;
 
 import android.content.Context;
 import android.util.Log;
@@ -63,7 +63,7 @@ public class RulesEngineHelper {
     public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
 
         Facts facts = new Facts();
-        facts.put("contactRule", contactRule);
+        facts.put(ContactRule.RULE_KEY, contactRule);
 
         Rules rules = getRulesFromAsset("rule/" + rulesFile);
         if (rules == null) {
@@ -82,7 +82,7 @@ public class RulesEngineHelper {
     public String getButtonAlertStatus(AlertRule alertRule, String rulesFile) {
 
         Facts facts = new Facts();
-        facts.put("alertRule", alertRule);
+        facts.put(AlertRule.RULE_KEY, alertRule);
 
         Rules rules = getRulesFromAsset("rule/" + rulesFile);
         if (rules == null) {

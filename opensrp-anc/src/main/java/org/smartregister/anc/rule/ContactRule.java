@@ -5,6 +5,8 @@ import java.util.Set;
 
 public class ContactRule {
 
+    public static final String RULE_KEY = "contactRule";
+
     public String baseEntityId;
 
     public boolean isFirst;
