@@ -59,7 +59,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     private AlertDialog recordBirthAlertDialog;
     private AlertDialog attentionFlagAlertDialog;
     private View attentionFlagDialogView;
-    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -318,7 +317,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     public void onBackPressed() {
-         fragment = findFragmentByPosition(currentPage);
+        Fragment fragment = findFragmentByPosition(currentPage);
         if (fragment instanceof AdvancedSearchFragment) {
             ((AdvancedSearchFragment) fragment).onBackPressed();
             return;

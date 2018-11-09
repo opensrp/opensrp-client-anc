@@ -249,9 +249,7 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     }
     @Test
     public void testHomeRegisterActivityOnBackPressedCalled(){
-        BaseRegisterFragment searchFragment = Mockito.spy(BaseRegisterFragment.class);
         HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
-        Whitebox.setInternalState(homeRegisterActivity, "fragment", searchFragment);
         spyActivity.onBackPressed();
         Mockito.verify(spyActivity).onBackPressed();
     }
