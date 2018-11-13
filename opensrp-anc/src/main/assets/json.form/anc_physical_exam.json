@@ -635,6 +635,18 @@
         "v_required": {
           "value": "true",
           "err": "Please enter body temperature"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Temperature must be equal to or greater than 35"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "Temperature must be equal to or less than 42"
         }
       },
       {
@@ -645,7 +657,13 @@
         "type": "toaster_notes",
         "text": "Temperature of 38ºC or above! Measure temperature again.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:body_temp": {
+            "type": "string",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        }
       },
       {
         "key": "body_temp_repeat_label",
@@ -656,6 +674,12 @@
         "label_info_text": "Retake the woman's temperature if the first reading was 38ºC or higher.",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "step3:body_temp": {
+            "type": "string",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
         }
       },
       {
@@ -669,6 +693,24 @@
         "v_required": {
           "value": "true",
           "err": "Please re-enter body temperature"
+        },
+        "relevance": {
+          "step3:body_temp": {
+            "type": "string",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Temperature must be equal to or greater than 35"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "Temperature must be equal to or less than 42"
         }
       },
       {
@@ -680,7 +722,13 @@
         "text": "Woman has a fever. Provide treatment and refer urgently to hospital!",
         "toaster_info_text": "Procedure:\n- Insert an IV line\n- Give fluids slowly\n- Refer urgently to hospital!",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:body_temp_repeat": {
+            "type": "string",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        }
       },
       {
         "key": "pulse_rate_label",
@@ -704,6 +752,18 @@
         "v_required": {
           "value": "true",
           "err": "Please enter pulse rate"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Pulse rate must be equal to or greater than 50"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Pulse rate must be equal to or less than 200"
         }
       },
       {
@@ -1827,7 +1887,6 @@
           }
         }
       },
-
       {
         "key": "toaster28",
         "openmrs_entity_parent": "",
@@ -1958,8 +2017,8 @@
         "openmrs_entity_id": "1067",
         "type": "check_box",
         "label": "Fetal presentation",
-        "label_text_style":"bold",
-        "label_info_text":"If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
+        "label_text_style": "bold",
+        "label_info_text": "If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
         "options": [
           {
             "key": "unknown",
