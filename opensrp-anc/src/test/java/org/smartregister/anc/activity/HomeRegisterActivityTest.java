@@ -38,6 +38,7 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -245,6 +246,12 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Assert.assertNotNull(context);
         Assert.assertTrue(context instanceof HomeRegisterActivity);
 
+    }
+    @Test
+    public void testHomeRegisterActivityOnBackPressedCalled(){
+        HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
+        spyActivity.onBackPressed();
+        Mockito.verify(spyActivity).onBackPressed();
     }
 
     @Override
