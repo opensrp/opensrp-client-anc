@@ -212,7 +212,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 @Override
                 public void onClick(View view) {
 
-                    PatientRepository.updateContactVisitDetails(baseEntityId, Integer.valueOf(contactNoText.getText().toString()), edittext.getTag().toString(), eddText.getTag().toString());
+                    PatientRepository.updateContactVisitDetailsTemporary(baseEntityId, Integer.valueOf(contactNoText.getText().toString()), edittext.getTag().toString(), eddText.getTag().toString());
 
 
                     homeRegisterActivity.refreshList(FetchStatus.fetched);

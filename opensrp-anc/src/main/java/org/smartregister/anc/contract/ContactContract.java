@@ -2,7 +2,6 @@ package org.smartregister.anc.contract;
 
 import org.json.JSONObject;
 import org.smartregister.anc.domain.Contact;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public interface ContactContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void finalizeContactForm(CommonPersonObjectClient pc);
+        void finalizeContactForm(Map<String, String> details);
 
         void deleteDraft(String baseEntityId);
 
@@ -47,6 +46,7 @@ public interface ContactContract {
     }
 
     interface Interactor extends BaseContactContract.Interactor {
+        void finalizeContactForm(Map<String, String> details);
     }
 
     interface InteractorCallback extends BaseContactContract.InteractorCallback {

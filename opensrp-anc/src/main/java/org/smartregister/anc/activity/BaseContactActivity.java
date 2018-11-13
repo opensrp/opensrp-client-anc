@@ -187,7 +187,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 //Fire Rules
             CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
 
-            presenter.finalizeContactForm(pc);
+            presenter.finalizeContactForm(pc.getDetails());
 
             Intent contactSummaryIntent = new Intent(this, ContactSummaryActivity.class);
             contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());

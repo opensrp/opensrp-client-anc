@@ -19,6 +19,7 @@ import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.Constants;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -150,6 +151,76 @@ public class RulesEngineHelperTest extends BaseUnitTest {
         Assert.assertNotNull(scheduleWeeksList);
 
         Mockito.verify(rulesEngineHelperSpy).processInferentialRules(ArgumentMatchers.any(Rules.class), ArgumentMatchers.any(Facts.class));
+
+    }
+
+    @Test
+    public void testGetContactVisitScheduleGeneratesCorrectScheduleAt4Weeks() {
+
+        ContactRule contactRule = new ContactRule(4, true, DUMMY_BASE_ENTITY_ID);
+
+        RulesEngineHelper rulesEngineHelperSpy = Mockito.spy(rulesEngineHelper);
+        List<Integer> scheduleWeeksList = rulesEngineHelperSpy.getContactVisitSchedule(contactRule, "contact-rules.yml");
+
+        Assert.assertNotNull(scheduleWeeksList);
+
+        Assert.assertEquals(Arrays.asList(new Integer[]{12, 20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+
+    }
+
+    @Test
+    public void testGetContactVisitScheduleGeneratesCorrectScheduleAt12Weeks() {
+
+        ContactRule contactRule = new ContactRule(12, true, DUMMY_BASE_ENTITY_ID);
+
+        RulesEngineHelper rulesEngineHelperSpy = Mockito.spy(rulesEngineHelper);
+        List<Integer> scheduleWeeksList = rulesEngineHelperSpy.getContactVisitSchedule(contactRule, "contact-rules.yml");
+
+        Assert.assertNotNull(scheduleWeeksList);
+
+        Assert.assertEquals(Arrays.asList(new Integer[]{20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+
+    }
+
+    @Test
+    public void testGetContactVisitScheduleGeneratesCorrectScheduleAt20Weeks() {
+
+        ContactRule contactRule = new ContactRule(20, true, DUMMY_BASE_ENTITY_ID);
+
+        RulesEngineHelper rulesEngineHelperSpy = Mockito.spy(rulesEngineHelper);
+        List<Integer> scheduleWeeksList = rulesEngineHelperSpy.getContactVisitSchedule(contactRule, "contact-rules.yml");
+
+        Assert.assertNotNull(scheduleWeeksList);
+
+        Assert.assertEquals(Arrays.asList(new Integer[]{26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+
+    }
+
+    @Test
+    public void testGetContactVisitScheduleGeneratesCorrectScheduleAt28Weeks() {
+
+        ContactRule contactRule = new ContactRule(28, true, DUMMY_BASE_ENTITY_ID);
+
+        RulesEngineHelper rulesEngineHelperSpy = Mockito.spy(rulesEngineHelper);
+        List<Integer> scheduleWeeksList = rulesEngineHelperSpy.getContactVisitSchedule(contactRule, "contact-rules.yml");
+
+        Assert.assertNotNull(scheduleWeeksList);
+
+        Assert.assertEquals(Arrays.asList(new Integer[]{32, 34, 36, 38, 40, 41}), scheduleWeeksList);
+
+    }
+
+    @Test
+    public void testGetContactVisitScheduleGeneratesCorrectScheduleAt40Weeks() {
+
+        ContactRule contactRule = new ContactRule(40, true, DUMMY_BASE_ENTITY_ID);
+
+        RulesEngineHelper rulesEngineHelperSpy = Mockito.spy(rulesEngineHelper);
+        List<Integer> scheduleWeeksList = rulesEngineHelperSpy.getContactVisitSchedule(contactRule, "contact-rules.yml");
+
+        Assert.assertNotNull(scheduleWeeksList);
+
+        Assert.assertEquals(Arrays.asList(new Integer[]{40, 41}), scheduleWeeksList);
 
     }
 

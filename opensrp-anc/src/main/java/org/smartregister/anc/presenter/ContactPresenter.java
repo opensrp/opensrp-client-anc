@@ -16,7 +16,6 @@ import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
@@ -111,34 +110,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
     @Override
-    public void finalizeContactForm(CommonPersonObjectClient pc) {
-        try {
-
-
-            String baseEntityId = pc.getCaseId();
-
-            int ga = pc.getColumnmaps().containsKey(DBConstants.KEY.EDD) && pc.getColumnmaps().get(DBConstants.KEY.EDD) != null ? Utils.getGestationAgeFromEDDate(pc.getColumnmaps().get(DBConstants.KEY.EDD)) : 4;
-            ContactRule contactRule = new ContactRule(ga, pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT) == null, baseEntityId);
-            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().getContactVisitSchedule(contactRule, "contact-rules.yml");
-
-            int nextContactVisitWeeks = integerList.get(0);
-
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
-
-            //convert String to LocalDate ;
-            LocalDate localDate = new LocalDate(pc.getColumnmaps().get(DBConstants.KEY.EDD));
-            String nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
-
-            Integer nextContact = pc.getColumnmaps().containsKey(DBConstants.KEY.NEXT_CONTACT) && pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(pc.getColumnmaps().get(DBConstants.KEY.NEXT_CONTACT)) : 0;
-            nextContact += 1;
-
-            PatientRepository.updateContactVisitDetails(baseEntityId, nextContact, nextContactVisitDate);
-
-            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
+    public void finalizeContactForm(Map<String, String> details) {
+     interactor.finalizeContactForm(details);
     }
 
     public void deleteDraft(String baseEntityId) {
