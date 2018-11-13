@@ -3,7 +3,6 @@ package org.smartregister.anc.presenter;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
@@ -11,15 +10,8 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactInteractor;
 import org.smartregister.anc.model.ContactModel;
-import org.smartregister.anc.repository.PatientRepository;
-import org.smartregister.anc.rule.ContactRule;
-import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.Utils;
 
 import java.lang.ref.WeakReference;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Map;
 
 public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallback {
@@ -111,7 +103,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     @Override
     public void finalizeContactForm(Map<String, String> details) {
-     interactor.finalizeContactForm(details);
+        interactor.finalizeContactForm(details);
     }
 
     public void deleteDraft(String baseEntityId) {
