@@ -73,7 +73,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
 
-            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditFormString(this, event.getWomanClient());
+            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
 
                 JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);

@@ -40,7 +40,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -226,32 +225,29 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return;
         }
 
-        File file = new File(imageLocation);
+        File file = FileUtil.createFileFromPath(imageLocation);
 
         if (!file.exists()) {
             return;
         }
 
-        Bitmap compressedImageFile = AncApplication.getInstance().getCompressor().compressToBitmap(file);
-        saveStaticImageToDisk(compressedImageFile, providerId, entityId);
+        Bitmap compressedBitmap = AncApplication.getInstance().getCompressor().compressToBitmap(file);
 
-    }
-
-    private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
-        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+        if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             return;
         }
+
         OutputStream os = null;
         try {
 
             if (entityId != null && !entityId.isEmpty()) {
                 final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
 
-                File outputFile = new File(absoluteFileName);
-                os = new FileOutputStream(outputFile);
+                File outputFile = FileUtil.createFileFromPath(absoluteFileName);
+                os = FileUtil.createFileOutputStream(outputFile);
                 Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
                 if (compressFormat != null) {
-                    image.compress(compressFormat, 100, os);
+                    compressedBitmap.compress(compressFormat, 100, os);
                 } else {
                     throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
                             + absoluteFileName);
@@ -262,7 +258,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 profileImage.setAnmId(providerId);
                 profileImage.setEntityID(entityId);
                 profileImage.setFilepath(absoluteFileName);
-                profileImage.setFilecategory("profilepic");
+                profileImage.setFilecategory(Constants.FILE_CATEGORY.PROFILE_PIC);
                 profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                 ImageRepository imageRepo = AncApplication.getInstance().getContext().imageRepository();
                 imageRepo.add(profileImage);
@@ -279,7 +275,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
         }
-
     }
 
     public static String getString(String jsonString, String field) {
@@ -316,11 +311,23 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return null;
     }
 
-    public static String getAutoPopulatedJsonEditFormString(Context context, Map<String, String> womanClient) {
+    private static LocationPickerView createLocationPickerView(Context context) {
+        try {
+            return new LocationPickerView(context);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+    }
+
+    public static String getAutoPopulatedJsonEditRegisterFormString(Context context, Map<String, String> womanClient) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_REGISTER);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
+            LocationPickerView lpv = createLocationPickerView(context);
+            if (lpv != null) {
+                lpv.init();
+            }
             JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
@@ -328,7 +335,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+                String lastLocationId = lpv != null ? LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem()) : "";
 
                 metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 

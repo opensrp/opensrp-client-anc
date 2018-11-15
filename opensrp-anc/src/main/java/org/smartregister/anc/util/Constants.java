@@ -115,4 +115,10 @@ public abstract class Constants {
         public static final String IN_PROGRESS = "in_progress";
         public static final String EXPIRED_OVERDUE = "expired_overdue";
     }
+
+    public static class FILE_CATEGORY {
+        public static final String PROFILE_PIC = "profilepic";
+
+    }
+
 }
