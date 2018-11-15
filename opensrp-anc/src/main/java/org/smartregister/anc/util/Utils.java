@@ -22,10 +22,8 @@ import org.joda.time.Weeks;
 import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
-import org.smartregister.domain.jsonmapping.LoginResponseData;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.DateUtil;
 
@@ -41,12 +39,11 @@ import java.util.Map;
  * Created by ndegwamartin on 14/03/2018.
  */
 
-public class Utils {
+public class Utils extends org.smartregister.util.Utils {
 
     private static final String TAG = Utils.class.getCanonicalName();
     private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
-    private AllSharedPreferences allSharedPreferences;
 
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
@@ -215,64 +212,4 @@ public class Utils {
         return weeks.getWeeks();
     }
 
-    public AllSharedPreferences getAllSharedPreferences() {
-        if (allSharedPreferences == null) {
-            allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        }
-        return allSharedPreferences;
-    }
-
-    public void setAllSharedPreferences(AllSharedPreferences allSharedPreferences) {
-        this.allSharedPreferences = allSharedPreferences;
-    }
-
-    protected String getPrefferedName() {
-        if (getAllSharedPreferences() == null) {
-            return null;
-        }
-
-        return getAllSharedPreferences().getANMPreferredName(getAllSharedPreferences().fetchRegisteredANM());
-    }
-
-    public String getUserInitials() {
-        String initials = null;
-        String preferredName = getPrefferedName();
-
-        if (StringUtils.isNotBlank(preferredName)) {
-            String[] preferredNameArray = preferredName.split(" ");
-            initials = "";
-            if (preferredNameArray.length > 1) {
-                initials = String.valueOf(preferredNameArray[0].charAt(0)) + String.valueOf(preferredNameArray[1].charAt(0));
-            } else if (preferredNameArray.length == 1) {
-                initials = String.valueOf(preferredNameArray[0].charAt(0));
-            }
-        }
-        return initials;
-    }
-
-    public String getName() {
-        return getPrefferedName();
-    }
-
-    public static String getBuildDate(Boolean isShortMonth) {
-        String simpleDateFormat = "";
-        if (isShortMonth) {
-            simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        } else {
-             simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        }
-     return simpleDateFormat;
-    }
-
-    public static String getUserDefaultTeamId(LoginResponseData userInfo) {
-        try {
-            if (userInfo != null && userInfo.team != null && userInfo.team.team != null) {
-                return userInfo.team.team.uuid;
-            }
-        } catch (Exception e) {
-            Log.v("Error : ", e.getMessage());
-        }
-
-        return null;
-    }
 }

@@ -32,7 +32,7 @@ import org.smartregister.anc.presenter.AdvancedSearchPresenter;
 import org.smartregister.anc.provider.AdvancedSearchProvider;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.util.Utils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
