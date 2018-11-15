@@ -8,24 +8,16 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
-import android.widget.Toast;
 
-import com.vijay.jsonwizard.widgets.DatePickerFactory;
-
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
-import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,27 +48,15 @@ public class Utils extends org.smartregister.util.Utils {
         ALLOWED_LEVELS.add(FACILITY);
     }
 
-    public static void showToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-
-    }
-
-    public static void showShortToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-
-    }
-
     public static void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
-                .getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
         allSharedPreferences.saveLanguagePreference(language);
         setLocale(new Locale(language));
     }
 
 
     public static String getLanguage() {
-        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(AncApplication
-                .getInstance().getApplicationContext()));
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
         return allSharedPreferences.fetchLanguagePreference();
     }
 
@@ -123,31 +103,6 @@ public class Utils extends org.smartregister.util.Utils {
         editor.commit();
     }
 
-    public static String getDuration(String date) {
-        DateTime duration;
-        if (StringUtils.isNotBlank(date)) {
-            try {
-                duration = new DateTime(date);
-                return DateUtil.getDuration(duration);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString(), e);
-            }
-        }
-        return "";
-    }
-
-    public static String getDob(int age) {
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -age);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-
-
-        cal.set(Calendar.MONTH, 0);
-
-        return DatePickerFactory.DATE_FORMAT.format(cal.getTime());
-    }
-
     public static int convertDpToPx(Context context, int dp) {
         Resources r = context.getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
@@ -165,32 +120,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static boolean isEmptyCollection(Collection collection) {
         return collection == null || collection.isEmpty();
-    }
-
-    public static Date dobStringToDate(String dobString) {
-        DateTime dateTime = dobStringToDateTime(dobString);
-        if (dateTime != null) {
-            return dateTime.toDate();
-        }
-        return null;
-    }
-
-    public static DateTime dobStringToDateTime(String dobString) {
-        try {
-            if (StringUtils.isBlank(dobString)) {
-                return null;
-            }
-            return new DateTime(dobString);
-
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static int getAgeFromDate(String dateOfBirth) {
-        DateTime date = DateTime.parse(dateOfBirth);
-        Years age = Years.yearsBetween(date.toLocalDate(), LocalDate.now());
-        return age.getYears();
     }
 
     public static String getTodaysDate() {
