@@ -215,9 +215,13 @@ public class Utils {
     }
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
+
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-        Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
-        return Constants.DELIVERY_DATE_WEEKS - weeks.getWeeks();
+
+        LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+
+        Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
+        return weeks.getWeeks();
     }
 
     public AllSharedPreferences getAllSharedPreferences() {
@@ -231,7 +235,7 @@ public class Utils {
         this.allSharedPreferences = allSharedPreferences;
     }
 
-    protected String getPrefferedName() {
+    protected String getPreferredName() {
         if (getAllSharedPreferences() == null) {
             return null;
         }
@@ -241,7 +245,7 @@ public class Utils {
 
     public String getUserInitials() {
         String initials = null;
-        String preferredName = getPrefferedName();
+        String preferredName = getPreferredName();
 
         if (StringUtils.isNotBlank(preferredName)) {
             String[] preferredNameArray = preferredName.split(" ");
@@ -256,7 +260,7 @@ public class Utils {
     }
 
     public String getName() {
-        return getPrefferedName();
+        return getPreferredName();
     }
 
     public static String getBuildDate(Boolean isShortMonth) {

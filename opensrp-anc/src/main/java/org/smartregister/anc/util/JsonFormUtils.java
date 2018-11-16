@@ -451,7 +451,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     }.getType());
 
             for (int i = 0; i < questions.length(); i++) {
-                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(Utils.HOME_ADDRESS)) {
+                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
                     if (StringUtils.isNotBlank(upToFacilitiesString)) {
                         questions.getJSONObject(i).put(Constants.KEY.TREE, new JSONArray(upToFacilitiesString));
                     }

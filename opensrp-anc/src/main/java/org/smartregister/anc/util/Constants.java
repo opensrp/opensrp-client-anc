@@ -16,7 +16,7 @@ public abstract class Constants {
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
-    public static final int DELIVERY_DATE_WEEKS = 41;
+    public static final int DELIVERY_DATE_WEEKS = 40;
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -111,9 +111,9 @@ public abstract class Constants {
         public static final String DUE = "due";
         public static final String OVERDUE = "overdue";
         public static final String NOT_DUE = "not_due";
-        public static final String EXPIRED = "expired";
+        public static final String DELIVERY_DUE = "delivery_due";
         public static final String IN_PROGRESS = "in_progress";
-        public static final String EXPIRED_OVERDUE = "expired_overdue";
+        public static final String EXPIRED = "expired";
     }
 
     public static class FILE_CATEGORY {

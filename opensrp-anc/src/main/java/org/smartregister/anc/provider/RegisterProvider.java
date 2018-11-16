@@ -178,17 +178,19 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                         viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
                         break;
-                    case Constants.ALERT_STATUS.EXPIRED:
+                    case Constants.ALERT_STATUS.DELIVERY_DUE:
                         viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                         viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                         viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                         break;
-                    case Constants.ALERT_STATUS.EXPIRED_OVERDUE:
+                    case Constants.ALERT_STATUS.EXPIRED:
                         viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                         viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                         break;
                     default:
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                         break;
 
                 }

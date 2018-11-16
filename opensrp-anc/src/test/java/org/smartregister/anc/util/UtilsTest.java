@@ -137,7 +137,7 @@ public class UtilsTest extends BaseUnitTest {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
         utils.setAllSharedPreferences(allSharedPreferences);
 
-        String name = utils.getPrefferedName();
+        String name = utils.getPreferredName();
         Assert.assertNull(name);
     }
 

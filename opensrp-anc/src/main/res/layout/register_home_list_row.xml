@@ -130,7 +130,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:stateListAnimator="@drawable/button"
-            android:text="@string/contact"
+            android:text="@string/contact_dummy_text"
             android:textAllCaps="false"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/vaccine_blue_bg_st"

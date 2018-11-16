@@ -74,4 +74,7 @@
     <color name="text_color">#061D24</color>
     <color name="black_text_color">#000000</color>
     <color name="progress_orange">#fca917</color>
+
+    <color name="contact_complete_grey_border">#CDCDCD</color>
+    <color name="contact_complete_grey_text">#777777</color>
 </resources>

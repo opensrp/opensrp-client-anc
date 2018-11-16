@@ -227,7 +227,7 @@
     <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="contact">CONTACT&#10;22/05/2018</string>
+    <string name="contact_dummy_text">CONTACT&#10;22/05/2018</string>
     <string name="library_placeholder">Library Placeholder</string>
     <string name="me_page_placeholder">Me Page Placeholder</string>
     <string name="population_characteristics">Population characteristics</string>
