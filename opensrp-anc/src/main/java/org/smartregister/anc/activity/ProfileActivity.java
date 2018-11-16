@@ -8,8 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -19,20 +17,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
+import org.smartregister.anc.event.ClientDetailsFetchedEvent;
+import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.fragment.ProfileContactsFragment;
 import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
 import org.smartregister.anc.fragment.QuickCheckFragment;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
+import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.view.CopyToClipboardDialog;
-import org.smartregister.util.PermissionUtils;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.anc.view.CopyToClipboardDialog;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.PermissionUtils;
+import org.smartregister.view.activity.BaseProfileActivity;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -44,41 +50,32 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private TextView gestationAgeView;
     private TextView ancIdView;
     private ImageView imageView;
-    private ImageRenderHelper imageRenderHelper;
-    private String womanPhoneNumber;
+    private String phoneNumber;
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
 
     public static final String DIALOG_TAG = "PROFILE_DIALOG_TAG";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setUpViews();
-
-        mProfilePresenter = new ProfilePresenter(this);
-
-        imageRenderHelper = new ImageRenderHelper(this);
-
-
+    protected void initializePresenter() {
+        presenter = new ProfilePresenter(this);
     }
 
-    private void setUpViews() {
+    @Override
+    protected void setupViews() {
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        tabLayout.setupWithViewPager(setupViewPager(viewPager));
+        super.setupViews();
 
-        ageView = findViewById(R.id.textview_age);
-        gestationAgeView = findViewById(R.id.textview_gestation_age);
-        ancIdView = findViewById(R.id.textview_anc_id);
+        ageView = findViewById(R.id.textview_detail_two);
+        gestationAgeView = findViewById(R.id.textview_detail_three);
+        ancIdView = findViewById(R.id.textview_detail_one);
         nameView = findViewById(R.id.textview_name);
         imageView = findViewById(R.id.imageview_profile);
 
     }
 
-
-    private ViewPager setupViewPager(ViewPager viewPager) {
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
@@ -92,6 +89,12 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         viewPager.setAdapter(adapter);
 
         return viewPager;
+    }
+
+    @Override
+    protected void fetchProfileData() {
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        new FetchProfileDataTask(true).execute(baseEntityId);
     }
 
     @Override
@@ -115,7 +118,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                     String textClicked = arrayAdapter.getItem(which);
                     switch (textClicked) {
                         case "Call":
-                            launchPhoneDialer(womanPhoneNumber);
+                            launchPhoneDialer(phoneNumber);
                             break;
                         case "Start Contact":
                             QuickCheckFragment.launchDialog(ProfileActivity.this, DIALOG_TAG);
@@ -144,30 +147,71 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        mProfilePresenter.refreshProfileView(baseEntityId);
+        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
+        registerEventBus();
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mProfilePresenter.onDestroy(isChangingConfigurations());
+        presenter.onDestroy(isChangingConfigurations());
+
     }
 
     @Override
-    protected void onCreation() { //Overriden from Secured Activity
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
+
+        }
     }
 
-    @Override
-    protected void onResumption() {//Overriden from Secured Activity
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void startFormForEdit(ClientDetailsFetchedEvent event) {
+        if (event != null && event.isEditMode()) {
 
+            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditFormString(this, event.getWomanClient());
+            try {
+
+                JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+
+            } catch (Exception e) {
+                Log.e("TAG", e.getMessage());
+            }
+        }
+
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void refreshProfileTopSection(ClientDetailsFetchedEvent event) {
+        if (event != null && !event.isEditMode()) {
+            Utils.removeStickyEvent(event);
+            ((ProfilePresenter) presenter).refreshProfileTopSection(event.getWomanClient());
+        }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void removePatient(PatientRemovedEvent event) {
+        if (event != null) {
+            Utils.removeStickyEvent(event);
+            hideProgressDialog();
+            finish();
+        }
     }
 
     @Override
     public void setProfileName(String fullName) {
-        this.womanName = fullName;
+        this.patientName = fullName;
         nameView.setText(fullName);
     }
 
@@ -189,23 +233,12 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, Utils.getProfileImageResourceIDentifier());
     }
 
     @Override
-    public void setWomanPhoneNumber(String phoneNumber) {
-        womanPhoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String getIntentString(String intentKey) {
-
-        return this.getIntent().getStringExtra(intentKey);
-    }
-
-    @Override
-    public void displayToast(int stringID) {
-        Utils.showShortToast(this, this.getString(stringID));
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -216,7 +249,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    launchPhoneDialer(womanPhoneNumber);
+                    launchPhoneDialer(phoneNumber);
 
                 } else {
                     Utils.showToast(this, getString(R.string.allow_phone_call_management));
@@ -243,6 +276,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 copyToClipboardDialog.show();
             }
         }
+    }
+
+    protected void registerEventBus() {
+        EventBus.getDefault().register(this);
     }
 }
 

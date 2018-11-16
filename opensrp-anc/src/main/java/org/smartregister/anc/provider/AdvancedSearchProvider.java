@@ -12,13 +12,13 @@ import android.widget.TextView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
+import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;
 import org.smartregister.view.dialog.FilterOption;
@@ -69,7 +69,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
             populatePatientColumn(pc, client, viewHolder);
             populateIdentifierColumn(pc, viewHolder);
             populateLastColumn(pc, viewHolder);
-            profileImageClick(client,viewHolder);
+            profileImageClick(client, viewHolder);
 
             return;
         }
@@ -99,7 +99,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
     private void profileImageClick(SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
         View patientImage = viewHolder.profile;
-        attachPatientOnclickListener(patientImage,client);
+        attachPatientOnclickListener(patientImage, client);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         if (commonRepository != null) {
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
-                imageRenderHelper.refreshProfileImage(pc.entityId(), viewHolder.profile);
+                imageRenderHelper.refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIDentifier());
 
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.profile.setVisibility(View.VISIBLE);

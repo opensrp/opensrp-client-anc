@@ -140,7 +140,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.4.8-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.4.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -191,7 +191,6 @@ dependencies {
 
     implementation group: 'com.crashlytics.sdk.android', name: 'crashlytics', version: '2.6.8'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'

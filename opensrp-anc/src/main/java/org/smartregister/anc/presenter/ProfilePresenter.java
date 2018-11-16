@@ -127,6 +127,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         getProfileView().setProfileGestationAge(client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ? String.valueOf(Utils.getGestationAgeFromDate(client.get(DBConstants.KEY.EDD))) : null);
         getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
         getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
-        getProfileView().setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+        getProfileView().setPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
     }
 }

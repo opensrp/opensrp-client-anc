@@ -15,6 +15,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -139,6 +140,10 @@ public class Utils extends org.smartregister.util.Utils {
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
         Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
         return weeks.getWeeks();
+    }
+
+    public static int getProfileImageResourceIDentifier() {
+        return R.drawable.ic_woman_with_baby;
     }
 
 }
