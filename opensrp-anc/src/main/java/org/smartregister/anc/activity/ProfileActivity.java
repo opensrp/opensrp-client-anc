@@ -31,7 +31,6 @@ import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
 import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.presenter.ProfilePresenter;
-import org.smartregister.anc.task.FetchProfileDataTask;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
@@ -94,7 +93,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     protected void fetchProfileData() {
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        new FetchProfileDataTask(true).execute(baseEntityId);
+        ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
     }
 
     @Override

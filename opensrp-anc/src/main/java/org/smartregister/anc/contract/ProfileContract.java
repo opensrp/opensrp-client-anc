@@ -15,6 +15,8 @@ public interface ProfileContract {
     interface Presenter extends BaseProfileContract.Presenter {
         ProfileContract.View getProfileView();
 
+        void fetchProfileData(String baseEntityId);
+
         void refreshProfileView(String baseEntityId);
 
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
@@ -42,7 +44,7 @@ public interface ProfileContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void refreshProfileView(String baseEntityId);
+        void refreshProfileView(String baseEntityId, boolean isForEdit);
 
     }
 }

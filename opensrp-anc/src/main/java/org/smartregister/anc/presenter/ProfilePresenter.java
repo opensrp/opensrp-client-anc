@@ -57,8 +57,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
+    public void fetchProfileData(String baseEntityId) {
+        mProfileInteractor.refreshProfileView(baseEntityId, true);
+    }
+
+    @Override
     public void refreshProfileView(String baseEntityId) {
-        mProfileInteractor.refreshProfileView(baseEntityId);
+        mProfileInteractor.refreshProfileView(baseEntityId, false);
     }
 
     @Override
