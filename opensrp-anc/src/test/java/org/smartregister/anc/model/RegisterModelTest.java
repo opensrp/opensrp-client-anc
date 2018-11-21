@@ -8,30 +8,31 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.Utils;
 
 import java.util.Date;
 
+@RunWith(PowerMockRunner.class)
 public class RegisterModelTest extends BaseUnitTest {
 
-    @Mock
-    private AllSharedPreferences allSharedPreferences1;
 
     private RegisterContract.Model model;
-    private Utils utils;
     private String json = "{\n" +
             "  \"count\": \"1\",\n" +
             "  \"encounter_type\": \"ANC Registration\",\n" +
@@ -301,9 +302,9 @@ public class RegisterModelTest extends BaseUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         model = new RegisterModel();
-        utils = new Utils();
     }
 
+    @PrepareForTest(Utils.class)
     @Test
     public void testProgressRegistration() {
         String jsonString = "{\"count\":\"1\",\"encounter_type\":\"ANC Registration\",\"entity_id\":\"\",\"relational_id\":\"\"," +
@@ -362,25 +363,23 @@ public class RegisterModelTest extends BaseUnitTest {
                 "\"v_regex\":{\"value\":\"([0-9]{10})|s*\",\"err\":\"Number must be a total of 10 digits in length\"},\"value\":\"0700000001\"}]}}";
 
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        Utils utils = Mockito.mock(Utils.class);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(null);
 
         RegisterModel registerModel = (RegisterModel) model;
-        utils.setAllSharedPreferences(allSharedPreferences);
 
         String providerId = "PRoviderID";
         String teamId = "TEAmId";
         String team = "TeAM";
         String locationID = "LocationID";
 
-        Mockito.doReturn(allSharedPreferences1).when(utils).getAllSharedPreferences();
-        Assert.assertNotNull(allSharedPreferences1);
-        Mockito.doReturn(providerId).when(allSharedPreferences1).fetchRegisteredANM();
+        Mockito.doReturn(providerId).when(allSharedPreferences).fetchRegisteredANM();
         Assert.assertNotNull(providerId);
-        Mockito.doReturn(locationID).when(allSharedPreferences1).fetchDefaultLocalityId(providerId);
+        Mockito.doReturn(locationID).when(allSharedPreferences).fetchDefaultLocalityId(providerId);
         Assert.assertNotNull(locationID);
-        Mockito.doReturn(team).when(allSharedPreferences1).fetchDefaultTeam(providerId);
+        Mockito.doReturn(team).when(allSharedPreferences).fetchDefaultTeam(providerId);
         Assert.assertNotNull(team);
-        Mockito.doReturn(teamId).when(allSharedPreferences1).fetchDefaultTeamId(providerId);
+        Mockito.doReturn(teamId).when(allSharedPreferences).fetchDefaultTeamId(providerId);
         Assert.assertNotNull(teamId);
 
         Pair<Client, Event> pair = registerModel.processRegistration(jsonString);
@@ -456,10 +455,12 @@ public class RegisterModelTest extends BaseUnitTest {
         return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
     }
 
+    @PrepareForTest(Utils.class)
     @Test
     public void testGetInitials() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        utils.setAllSharedPreferences(allSharedPreferences);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(null);
 
         // Foo Bar ==> FB
         String username = "OpenSRP_USER_NAME";
@@ -469,7 +470,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
         Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
 
-        String initials = utils.getUserInitials();
+        String initials = Utils.getUserInitials();
         Assert.assertEquals(mockInitials, initials);
 
         Mockito.verify(allSharedPreferences).fetchRegisteredANM();
@@ -477,10 +478,12 @@ public class RegisterModelTest extends BaseUnitTest {
 
     }
 
+    @PrepareForTest(Utils.class)
     @Test
     public void testGetInitialsFromThreeNames() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        utils.setAllSharedPreferences(allSharedPreferences);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(null);
 
         // Test Foo Bar ==> TF
         String username = "OpenSRP_USER_NAME";
@@ -490,17 +493,19 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
         Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
 
-        String modelInitials = utils.getUserInitials();
+        String modelInitials = Utils.getUserInitials();
         Assert.assertEquals(modelInitials, initials);
 
         Mockito.verify(allSharedPreferences).fetchRegisteredANM();
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
     }
 
+    @PrepareForTest(Utils.class)
     @Test
     public void testGetInitialsFromOneNames() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        utils.setAllSharedPreferences(allSharedPreferences);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(null);
 
         // Test ==> T
         String username = "OpenSRP_USER_NAME";
@@ -510,17 +515,19 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
         Mockito.doReturn(preferredName).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
 
-        String mockInitials = utils.getUserInitials();
+        String mockInitials = Utils.getUserInitials();
         Assert.assertEquals(mockInitials, initials);
 
         Mockito.verify(allSharedPreferences).fetchRegisteredANM();
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
     }
 
+    @PrepareForTest(Utils.class)
     @Test
     public void testGetInitialsWhenPreferredNameIsEmpty() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        utils.setAllSharedPreferences(allSharedPreferences);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(null);
 
         // Test Foo Bar ==> TF
         String username = "OpenSRP_USER_NAME";
@@ -529,7 +536,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.doReturn(username).when(allSharedPreferences).fetchRegisteredANM();
         Mockito.doReturn(initials).when(allSharedPreferences).getANMPreferredName(ArgumentMatchers.anyString());
 
-        String mockInitials = utils.getUserInitials();
+        String mockInitials = Utils.getUserInitials();
         Assert.assertNull(mockInitials);
         Assert.assertEquals("", initials);
 
@@ -537,12 +544,14 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
     }
 
+    @PrepareForTest(Utils.class)
     @Test
     public void testGetInitialsWhenAllSharedPreferencesIsNull() {
 
-        Utils utils = Mockito.mock(Utils.class);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(null);
+
         RegisterModel registerModel = (RegisterModel) model;
-        utils.setAllSharedPreferences(null);
 
         String initials = registerModel.getInitials();
         Assert.assertNull(initials);
