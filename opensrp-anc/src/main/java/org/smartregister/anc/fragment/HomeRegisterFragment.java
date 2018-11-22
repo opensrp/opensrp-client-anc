@@ -1,18 +1,13 @@
 package org.smartregister.anc.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.R;
@@ -21,11 +16,11 @@ import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
+import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.provider.RegisterProvider;
-import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
@@ -37,10 +32,8 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -123,116 +116,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-
-            CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-            final String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-
-            Map<String, String> detMap = PatientRepository.getWomanProfileDetails(baseEntityId);
-
-            final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(homeRegisterActivity);
-
-
-            View attentionFlagDialogView = LayoutInflater.from(homeRegisterActivity).inflate(R.layout.alert_dialog_dummy_contact_details, null);
-            dialogBuilder.setView(attentionFlagDialogView);
-
-            final EditText contactNoText = attentionFlagDialogView.findViewById(R.id.next_contact_number);
-            if (detMap.get(DBConstants.KEY.NEXT_CONTACT) != null)
-                contactNoText.setText(detMap.get(DBConstants.KEY.NEXT_CONTACT));
-
-            final EditText edittext = attentionFlagDialogView.findViewById(R.id.next_contact_date);
-            if (detMap.get(DBConstants.KEY.NEXT_CONTACT_DATE) != null) {
-                edittext.setText(Utils.reverseHyphenSeperatedValues(detMap.get(DBConstants.KEY.NEXT_CONTACT_DATE), "/"));
-                edittext.setTag(detMap.get(DBConstants.KEY.NEXT_CONTACT_DATE));
-            }
-
-
-            final Calendar myCalendar = Calendar.getInstance();
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                      int dayOfMonth) {
-                    // TODO Auto-generated method stub
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-
-                    edittext.setText(new SimpleDateFormat("dd/MM/yyyy").format(myCalendar.getTime()));
-                    edittext.setTag(new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT).format(myCalendar.getTime()));
-                }
-
-            };
-
-
-            edittext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new DatePickerDialog(homeRegisterActivity, date, myCalendar
-                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            });
-
-            final EditText eddText = attentionFlagDialogView.findViewById(R.id.edd);
-            if (detMap.get(DBConstants.KEY.EDD) != null) {
-                eddText.setText(Utils.reverseHyphenSeperatedValues(detMap.get(DBConstants.KEY.EDD), "/"));
-                eddText.setTag(detMap.get(DBConstants.KEY.EDD));
-            }
-
-            final DatePickerDialog.OnDateSetListener date2 = new DatePickerDialog.OnDateSetListener() {
-
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                      int dayOfMonth) {
-                    // TODO Auto-generated method stub
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-
-                    eddText.setText(new SimpleDateFormat("dd/MM/yyyy").format(myCalendar.getTime()));
-                    eddText.setTag(new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT).format(myCalendar.getTime()));
-                }
-
-            };
-
-            eddText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new DatePickerDialog(homeRegisterActivity, date2, myCalendar
-                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            });
-
-
-            final AlertDialog alertDialog = dialogBuilder.create();
-            attentionFlagDialogView.findViewById(R.id.ok_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    PatientRepository.updateContactVisitDetailsTemporary(baseEntityId, Integer.valueOf(contactNoText.getText().toString()), edittext.getTag().toString(), eddText.getTag().toString());
-
-
-                    homeRegisterActivity.refreshList(FetchStatus.fetched);
-
-                    alertDialog.dismiss();
-                }
-            });
-
-
-            attentionFlagDialogView.findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    alertDialog.dismiss();
-                }
-            });
-
-            alertDialog.show();
-
-
+            //Temporary for testing UI , To remove for real dynamic data
+            List<AttentionFlag> dummyAttentionFlags =
+                    Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true),
+                            new
+                                    AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
+            homeRegisterActivity.showAttentionFlagsDialog(dummyAttentionFlags);
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
