@@ -117,14 +117,27 @@ public class RulesEngineHelperTest extends BaseUnitTest {
 
 
     @Test
-    public void testGetButtonAlertStatusReturnsExpiredForDueDeliveryDate() {
+    public void testGetButtonAlertStatusReturnsDueDeliveryForDueDeliveryDate() {
 
-        //expired
+        //delivery due
         AlertRule alertRule = new AlertRule(40, "2018-11-11");
+        Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-12"));
 
         String buttonAlertStatus = rulesEngineHelper.getButtonAlertStatus(alertRule, "alert-rules.yml");
 
         Assert.assertEquals(Constants.ALERT_STATUS.DELIVERY_DUE, buttonAlertStatus);
+    }
+
+    @Test
+    public void testGetButtonAlertStatusReturnsExpiredForExpiredDeliveryDate() {
+
+        //expired
+        AlertRule alertRule = new AlertRule(40, "2018-11-04");
+        Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-11"));
+
+        String buttonAlertStatus = rulesEngineHelper.getButtonAlertStatus(alertRule, "alert-rules.yml");
+
+        Assert.assertEquals(Constants.ALERT_STATUS.EXPIRED, buttonAlertStatus);
     }
 
 

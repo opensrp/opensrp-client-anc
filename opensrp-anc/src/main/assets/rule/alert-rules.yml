@@ -1,28 +1,28 @@
 ---
 name: overdue
 description: due plus 7 days
-priority: 2
+priority: 3
 condition: "alertRule.isOverdueWithDays(7)"
 actions:
   - "alertRule.buttonStatus = 'overdue'"
 ---
 name: due
 description: due within 7 days
-priority: 2
+priority: 3
 condition: "alertRule.isDueWithinDays(7)"
 actions:
   - "alertRule.buttonStatus = 'due'"
 ---
 name: delivery_due
 description: at 40 weeks
-priority: 3
-condition: "alertRule.gestationAge == 40"
+priority: 2
+condition: "alertRule.gestationAge >= 40"
 actions:
   - "alertRule.buttonStatus = 'delivery_due'"
 ---
 name: expired
 description: 41 plus weeks
-priority: 4
+priority: 1
 condition: "alertRule.gestationAge >= 40 && alertRule.isOverdueWithDays(7)"
 actions:
   - "alertRule.buttonStatus = 'expired'"

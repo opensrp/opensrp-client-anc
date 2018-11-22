@@ -8,6 +8,7 @@ import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
+import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
@@ -31,7 +32,8 @@ public class RulesEngineHelper {
     public RulesEngineHelper(Context context) {
         this.context = context;
         this.inferentialRulesEngine = new InferenceRulesEngine();
-        this.defaultRulesEngine = new DefaultRulesEngine();
+        RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstAppliedRule(true);
+        this.defaultRulesEngine = new DefaultRulesEngine(parameters);
         this.ruleMap = new HashMap<>();
 
     }
