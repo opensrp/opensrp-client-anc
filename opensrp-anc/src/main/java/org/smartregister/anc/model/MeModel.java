@@ -4,16 +4,15 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.view.contract.MeContract;
 
 public class MeModel implements MeContract.Model {
-    private Utils utils = new Utils();
 
     @Override
     public String getInitials() {
-        return utils.getUserInitials();
+        return Utils.getUserInitials();
     }
 
     @Override
     public String getName() {
-        return utils.getName();
+        return Utils.getPrefferedName();
     }
 
     @Override

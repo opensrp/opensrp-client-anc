@@ -15,10 +15,13 @@ import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+<<<<<<< HEAD
 import org.smartregister.anc.R;
+=======
+import org.smartregister.anc.BuildConfig;
+>>>>>>> master
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,15 +53,13 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static void saveLanguage(String language) {
-        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        allSharedPreferences.saveLanguagePreference(language);
+        getAllSharedPreferences().saveLanguagePreference(language);
         setLocale(new Locale(language));
     }
 
 
     public static String getLanguage() {
-        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        return allSharedPreferences.fetchLanguagePreference();
+        return getAllSharedPreferences().fetchLanguagePreference();
     }
 
     public static void setLocale(Locale locale) {
@@ -144,6 +145,16 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getProfileImageResourceIDentifier() {
         return R.drawable.ic_woman_with_baby;
+    }
+
+    public static String getBuildDate(Boolean isShortMonth) {
+        String simpleDateFormat = "";
+        if (isShortMonth) {
+            simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        } else {
+            simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+        }
+        return simpleDateFormat;
     }
 
 }
