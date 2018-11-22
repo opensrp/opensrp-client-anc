@@ -29,7 +29,7 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import static org.smartregister.util.Utils.getName;
+import static org.smartregister.anc.util.Utils.getName;
 
 /**
  * Created by keyman on 26/06/2018.
@@ -108,17 +108,17 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
-        String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String lastName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
-        String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
-        String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
+        String ga = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
 
         if (StringUtils.isNotBlank(ga)) {
 
@@ -142,7 +142,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String ancId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
+        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 
@@ -156,7 +156,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
                 viewHolder.dueButton.setText("CONTACT 1\n22/05/2018");
 
-                String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
+                String ga = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
 
                 if (StringUtils.isNotBlank(ga)) {
 

@@ -20,12 +20,6 @@ public interface RegisterFragmentContract {
 
         void recalculatePagination(AdvancedMatrixCursor matrixCursor);
 
-        void showProgressView();
-
-        void hideProgressView();
-
-        void showNotFoundPopup(String whoAncId);
-        
     }
 
     interface Presenter extends BaseRegisterFragmentContract.Presenter {

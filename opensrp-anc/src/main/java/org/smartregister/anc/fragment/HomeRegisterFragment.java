@@ -106,7 +106,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
             //homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-            String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+            String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 proceedToContact(baseEntityId);

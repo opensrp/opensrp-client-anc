@@ -264,40 +264,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static String getString(String jsonString, String field) {
-        return getString(toJSONObject(jsonString), field);
-    }
-
-    public static String getFieldValue(String jsonString, String key) {
-        JSONObject jsonForm = toJSONObject(jsonString);
-        if (jsonForm == null) {
-            return null;
-        }
-
-        JSONArray fields = fields(jsonForm);
-        if (fields == null) {
-            return null;
-        }
-
-        return getFieldValue(fields, key);
-
-    }
-
-    public static JSONObject getFieldJSONObject(JSONArray jsonArray, String key) {
-        if (jsonArray == null || jsonArray.length() == 0) {
-            return null;
-        }
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = getJSONObject(jsonArray, i);
-            String keyVal = getString(jsonObject, KEY);
-            if (keyVal != null && keyVal.equals(key)) {
-                return jsonObject;
-            }
-        }
-        return null;
-    }
-
     public static String getAutoPopulatedJsonEditFormString(Context context, Map<String, String> womanClient) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_REGISTER);
