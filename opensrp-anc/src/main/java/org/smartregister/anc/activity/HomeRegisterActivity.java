@@ -96,6 +96,12 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     }
 
     @Override
+    protected void registerBottomNavigation() {
+        super.registerBottomNavigation();
+        // TODO Modify bottom register
+    }
+
+    @Override
     public List<String> getViewIdentifiers() {
         return Arrays.asList(Constants.CONFIGURATION.HOME_REGISTER);
     }

@@ -38,7 +38,7 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.intent.PullUniqueIdsIntentService;
-import org.smartregister.util.Utils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -79,11 +79,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                 Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
             }
 
-            org.smartregister.anc.util.Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
 
             String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
 
-            org.smartregister.anc.util.Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
 
         }
     };
@@ -139,11 +139,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
-        LocationHelper.init(org.smartregister.anc.util.Utils.ALLOWED_LEVELS, org.smartregister.anc.util.Utils.DEFAULT_LOCATION_LEVEL);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
-            org.smartregister.anc.util.Utils.saveLanguage("en");
+            Utils.saveLanguage("en");
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
