@@ -280,5 +280,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     protected void registerEventBus() {
         EventBus.getDefault().register(this);
     }
+
 }
 

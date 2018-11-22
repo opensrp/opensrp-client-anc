@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.TextView;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +18,9 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.contract.ProfileContract;
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
+import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
 
 
@@ -32,7 +36,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Mock
-    private ProfileContract.Presenter presenter;
+    private ProfilePresenter presenter;
 
     @Mock
     private TextView textView;
@@ -42,16 +46,31 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
     @Before
     public void setUp() {
+        Context context = Context.getInstance();
+        CoreLibrary.init(context);
+
+        //Auto login by default
+        String password = "pwd";
+        context.session().start(context.session().lengthInMilliseconds());
+        context.configuration().getDrishtiApplication().setPassword(password);
+        context.session().setPassword(password);
+
         MockitoAnnotations.initMocks(this);
         Intent testIntent = new Intent();
         testIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start();
+
         profileActivity = controller.get();
+        Whitebox.setInternalState(profileActivity, "presenter", presenter);
     }
 
     @After
     public void tearDown() {
         destroyController();
+
+        //logout
+        Context context = Context.getInstance();
+        context.session().expire();
     }
 
 
@@ -94,9 +113,9 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
-        Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
+        Whitebox.setInternalState(spyActivity, "presenter", presenter);
         Mockito.doNothing().when(spyActivity).registerEventBus();
-        spyActivity.onResume();
+        spyActivity.onResumption();
 
         Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
     }
@@ -107,7 +126,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
-        Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
+        Whitebox.setInternalState(spyActivity, "presenter", presenter);
 
         spyActivity.onDestroy();
 
@@ -183,7 +202,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
 
 //When app bar collapsed
-        Whitebox.setInternalState(spyActivity, "womanName", TEST_STRING);
+        Whitebox.setInternalState(spyActivity, "patientName", TEST_STRING);
 
         spyActivity.onOffsetChanged(appBarLayout, 0);
 
@@ -204,17 +223,17 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
-        String womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
+        String phoneNumber = Whitebox.getInternalState(spyActivity, "phoneNumber");
 
-        Assert.assertNull(womanPhoneNumber);
+        Assert.assertNull(phoneNumber);
 
-        spyActivity.setWomanPhoneNumber(TEST_STRING);
+        spyActivity.setPhoneNumber(TEST_STRING);
 
-        womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
+        phoneNumber = Whitebox.getInternalState(spyActivity, "phoneNumber");
 
 
-        Assert.assertNotNull(womanPhoneNumber);
-        Assert.assertEquals(TEST_STRING, womanPhoneNumber);
+        Assert.assertNotNull(phoneNumber);
+        Assert.assertEquals(TEST_STRING, phoneNumber);
     }
 
     @Override

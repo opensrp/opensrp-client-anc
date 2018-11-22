@@ -45,8 +45,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         mProfileView = null;//set to null on destroy
 
         // Inform interactor
-        mProfileInteractor.onDestroy(isChangingConfiguration);
-        mRegisterInteractor.onDestroy(isChangingConfiguration);
+        if (mProfileInteractor != null) {
+            mProfileInteractor.onDestroy(isChangingConfiguration);
+        }
+
+        if (mRegisterInteractor != null) {
+            mRegisterInteractor.onDestroy(isChangingConfiguration);
+        }
 
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {

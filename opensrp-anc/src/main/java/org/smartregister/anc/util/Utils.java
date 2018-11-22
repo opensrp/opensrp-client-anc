@@ -15,11 +15,8 @@ import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-<<<<<<< HEAD
-import org.smartregister.anc.R;
-=======
 import org.smartregister.anc.BuildConfig;
->>>>>>> master
+import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 

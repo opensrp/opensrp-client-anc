@@ -1,7 +1,9 @@
 package org.smartregister.anc.presenter;
 
 import android.util.ArrayMap;
+
 import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -50,7 +52,7 @@ public class ProfilePresenterTest extends BaseUnitTest {
         ProfileContract.Presenter spyPresenter = Mockito.spy(presenter);
         Whitebox.setInternalState(spyPresenter, "mProfileInteractor", interactor);
         spyPresenter.refreshProfileView(TEST_STRING);
-        Mockito.verify(interactor).refreshProfileView(TEST_STRING);
+        Mockito.verify(interactor).refreshProfileView(TEST_STRING, false);
 
     }
 
@@ -136,7 +138,7 @@ public class ProfilePresenterTest extends BaseUnitTest {
         Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
         Mockito.verify(view).setProfileID(client.get(DBConstants.KEY.ANC_ID));
         Mockito.verify(view).setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
-        Mockito.verify(view).setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+        Mockito.verify(view).setPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
 
     }
 
