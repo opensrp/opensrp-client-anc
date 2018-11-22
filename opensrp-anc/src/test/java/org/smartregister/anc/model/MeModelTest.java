@@ -9,9 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.Utils;
 import org.smartregister.view.contract.MeContract;
 
 import java.text.SimpleDateFormat;
@@ -37,26 +38,39 @@ public class MeModelTest extends BaseUnitTest {
         Assert.assertEquals(todaysDate, model.getBuildDate());
     }
 
-    @PrepareForTest({Utils.class})
+    @PrepareForTest({CoreLibrary.class, Context.class})
     @Test
     public void testUpdateInitials() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        PowerMockito.mockStatic(Utils.class);
-        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(allSharedPreferences);
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        Context context = PowerMockito.mock(Context.class);
+
+        PowerMockito.mockStatic(CoreLibrary.class);
+        PowerMockito.mockStatic(Context.class);
+
+        PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
+        PowerMockito.when(coreLibrary.context()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
 
         MeModel meModel = (MeModel) model;
 
-
         String foundInitials = meModel.getInitials();
-        Assert.assertNull(foundInitials);
+        Assert.assertEquals("Me", foundInitials);
     }
 
-    @PrepareForTest({Utils.class})
+    @PrepareForTest({CoreLibrary.class, Context.class})
     @Test
     public void testGetName() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
-        PowerMockito.mockStatic(Utils.class);
-        PowerMockito.when(Utils.getAllSharedPreferences()).thenReturn(allSharedPreferences);
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        Context context = PowerMockito.mock(Context.class);
+
+        PowerMockito.mockStatic(CoreLibrary.class);
+        PowerMockito.mockStatic(Context.class);
+
+        PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
+        PowerMockito.when(coreLibrary.context()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
         PowerMockito.when(allSharedPreferences.getANMPreferredName(Mockito.anyString())).thenReturn("");
 
         MeModel meModel = (MeModel) model;
