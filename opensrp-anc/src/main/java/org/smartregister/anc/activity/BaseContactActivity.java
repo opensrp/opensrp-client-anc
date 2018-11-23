@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
@@ -66,6 +68,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 contactActionHandler.onClick(v);
             }
         });
+        findViewById(R.id.finalize_contact).setEnabled(true);
+        findViewById(R.id.finalize_contact).setOnClickListener(contactActionHandler);
 
     }
 
@@ -177,6 +181,25 @@ public abstract class BaseContactActivity extends SecuredActivity {
         dialog.show();
     }
 
+    private void finalizeForm() {
+        try {
+
+//Fire Rules
+            CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
+
+            presenter.finalizeContactForm(pc.getDetails());
+
+            Intent contactSummaryIntent = new Intent(this, ContactSummaryActivity.class);
+            contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
+
+            startActivity(contactSummaryIntent);
+
+        } catch (Exception e) {
+            Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
+        }
+
+    }
+
     ////////////////////////////////////////////////////////////////
     // Inner classesC
     ////////////////////////////////////////////////////////////////
@@ -191,6 +214,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
                     break;
                 case R.id.card_layout:
                     presenter.startForm(view.getTag());
+                    break;
+                case R.id.finalize_contact:
+                    finalizeForm();
                     break;
                 default:
                     break;

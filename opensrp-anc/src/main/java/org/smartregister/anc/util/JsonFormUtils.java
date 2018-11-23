@@ -40,7 +40,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -173,6 +172,24 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
 
+            //initialize first contact values
+            JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT);
+            nextContactJSONObject.put(VALUE, 1);
+
+            JSONObject nextContactDateJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT_DATE);
+            nextContactDateJSONObject.put(VALUE, Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF));
+
+
+//Temporary process EDD
+            if (getFieldJSONObject(fields, DBConstants.KEY.EDD) != null) {
+
+                String edd = getFieldJSONObject(fields, DBConstants.KEY.EDD).get("value").toString();
+                edd = Utils.reverseHyphenSeperatedValues(edd, "-");
+                JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
+                dobJSONObject.put(VALUE, edd);
+
+            }
+
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();
             formTag.appVersion = BuildConfig.VERSION_CODE;
@@ -208,32 +225,29 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return;
         }
 
-        File file = new File(imageLocation);
+        File file = FileUtil.createFileFromPath(imageLocation);
 
         if (!file.exists()) {
             return;
         }
 
-        Bitmap compressedImageFile = AncApplication.getInstance().getCompressor().compressToBitmap(file);
-        saveStaticImageToDisk(compressedImageFile, providerId, entityId);
+        Bitmap compressedBitmap = AncApplication.getInstance().getCompressor().compressToBitmap(file);
 
-    }
-
-    private static void saveStaticImageToDisk(Bitmap image, String providerId, String entityId) {
-        if (image == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+        if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             return;
         }
+
         OutputStream os = null;
         try {
 
             if (entityId != null && !entityId.isEmpty()) {
                 final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
 
-                File outputFile = new File(absoluteFileName);
-                os = new FileOutputStream(outputFile);
+                File outputFile = FileUtil.createFileFromPath(absoluteFileName);
+                os = FileUtil.createFileOutputStream(outputFile);
                 Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
                 if (compressFormat != null) {
-                    image.compress(compressFormat, 100, os);
+                    compressedBitmap.compress(compressFormat, 100, os);
                 } else {
                     throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
                             + absoluteFileName);
@@ -244,7 +258,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 profileImage.setAnmId(providerId);
                 profileImage.setEntityID(entityId);
                 profileImage.setFilepath(absoluteFileName);
-                profileImage.setFilecategory("profilepic");
+                profileImage.setFilecategory(Constants.FILE_CATEGORY.PROFILE_PIC);
                 profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
                 ImageRepository imageRepo = AncApplication.getInstance().getContext().imageRepository();
                 imageRepo.add(profileImage);
@@ -261,14 +275,59 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
         }
+    }
+
+    public static String getString(String jsonString, String field) {
+        return getString(toJSONObject(jsonString), field);
+    }
+
+    public static String getFieldValue(String jsonString, String key) {
+        JSONObject jsonForm = toJSONObject(jsonString);
+        if (jsonForm == null) {
+            return null;
+        }
+
+        JSONArray fields = fields(jsonForm);
+        if (fields == null) {
+            return null;
+        }
+
+        return getFieldValue(fields, key);
 
     }
 
-    public static String getAutoPopulatedJsonEditFormString(Context context, Map<String, String> womanClient) {
+    public static JSONObject getFieldJSONObject(JSONArray jsonArray, String key) {
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return null;
+        }
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = getJSONObject(jsonArray, i);
+            String keyVal = getString(jsonObject, KEY);
+            if (keyVal != null && keyVal.equals(key)) {
+                return jsonObject;
+            }
+        }
+        return null;
+    }
+
+    private static LocationPickerView createLocationPickerView(Context context) {
+        try {
+            return new LocationPickerView(context);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return null;
+        }
+    }
+
+    public static String getAutoPopulatedJsonEditRegisterFormString(Context context, Map<String, String> womanClient) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_REGISTER);
-            LocationPickerView lpv = new LocationPickerView(context);
-            lpv.init();
+            LocationPickerView lpv = createLocationPickerView(context);
+            if (lpv != null) {
+                lpv.init();
+            }
             JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
@@ -276,7 +335,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem());
+                String lastLocationId = lpv != null ? LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem()) : "";
 
                 metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
@@ -341,6 +400,16 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
             }
 
+        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.EDD)) {
+
+            String dobString = womanClient.get(DBConstants.KEY.EDD);
+            if (StringUtils.isNotBlank(dobString)) {
+                Date dob = Utils.dobStringToDate(dobString);
+                if (dob != null) {
+                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+                }
+            }
+
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
 
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
@@ -382,7 +451,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     }.getType());
 
             for (int i = 0; i < questions.length(); i++) {
-                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(Utils.HOME_ADDRESS)) {
+                if (questions.getJSONObject(i).getString(Constants.KEY.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
                     if (StringUtils.isNotBlank(upToFacilitiesString)) {
                         questions.getJSONObject(i).put(Constants.KEY.TREE, new JSONArray(upToFacilitiesString));
                     }

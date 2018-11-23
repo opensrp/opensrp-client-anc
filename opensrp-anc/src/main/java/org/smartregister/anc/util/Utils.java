@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
@@ -21,9 +23,11 @@ import org.smartregister.anc.event.BaseEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -33,8 +37,9 @@ import java.util.Map;
 
 public class Utils extends org.smartregister.util.Utils {
 
-    private static final String TAG = Utils.class.getCanonicalName();
-    private static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
+    public static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
+    public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(Constants.CONTACT_DATE_FORMAT);
+    public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(Constants.CONTACT_SUMMARY_DATE_FORMAT);
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
 
     public static final ArrayList<String> ALLOWED_LEVELS;
@@ -133,9 +138,13 @@ public class Utils extends org.smartregister.util.Utils {
         return typedValue.resourceId;
     }
 
-    public static int getGestationAgeFromDate(String expectedDeliveryDate) {
+    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
+
         LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-        Weeks weeks = Weeks.weeksBetween(LocalDate.now(), date);
+
+        LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+
+        Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
         return weeks.getWeeks();
     }
 
@@ -149,4 +158,16 @@ public class Utils extends org.smartregister.util.Utils {
         return simpleDateFormat;
     }
 
+    public static String reverseHyphenSeperatedValues(String rawString, String outputSeperator) {
+        String resultString = rawString;
+        String[] tokenArray = resultString.split("-");
+        ArrayUtils.reverse(tokenArray);
+        resultString = StringUtils.join(tokenArray, outputSeperator);
+
+        return resultString;
+    }
+
+    public static List<String> getListFromString(String stringArray) {
+        return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+    }
 }

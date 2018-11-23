@@ -2,6 +2,8 @@
     <item name="VIEW_ID" type="id" />
     <item name="Settings" type="id" />
     <item name="CLIENT_ID" type="id" />
+    <item name="CLIENT" type="id" />
     <item name="CHARACTERISTIC_DESC" type="id" />
+    <item name="GESTATION_AGE" type="id" />
     <item name="NEXT_STATE" type="id" />
 </resources>

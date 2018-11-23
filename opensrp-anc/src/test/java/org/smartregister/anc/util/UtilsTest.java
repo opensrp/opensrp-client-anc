@@ -154,6 +154,7 @@ public class UtilsTest extends BaseUnitTest {
         PowerMockito.when(context.allSharedPreferences()).thenReturn(null);
 
         String name = Utils.getPrefferedName();
+
         Assert.assertNull(name);
     }
 

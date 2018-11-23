@@ -5,7 +5,7 @@ import org.smartregister.anc.domain.Contact;
 
 import java.util.Map;
 
-public interface ContactContract  {
+public interface ContactContract {
 
     interface View {
         void displayPatientName(String patientName);
@@ -32,6 +32,8 @@ public interface ContactContract  {
 
         void onDestroy(boolean isChangingConfiguration);
 
+        void finalizeContactForm(Map<String, String> details);
+
         void deleteDraft(String baseEntityId);
 
         void saveFinalJson(String baseEntityId);
@@ -42,7 +44,12 @@ public interface ContactContract  {
 
         JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
     }
-    interface Interactor extends BaseContactContract.Interactor{    }
-    interface InteractorCallback extends BaseContactContract.InteractorCallback {}
+
+    interface Interactor extends BaseContactContract.Interactor {
+        void finalizeContactForm(Map<String, String> details);
+    }
+
+    interface InteractorCallback extends BaseContactContract.InteractorCallback {
+    }
 
 }

@@ -34,7 +34,7 @@
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/top_patient_name"
                 style="@style/CustomFontTextViewStyle.Anc.ClientList"
-                android:layout_toStartOf="@+id/finalize"
+                android:layout_toStartOf="@+id/finalize_contact"
                 android:layout_marginEnd="@dimen/patients_name_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -50,7 +50,7 @@
 
 
             <Button
-                android:id="@+id/finalize"
+                android:id="@+id/finalize_contact"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
