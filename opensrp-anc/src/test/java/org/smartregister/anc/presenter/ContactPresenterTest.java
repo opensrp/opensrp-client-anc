@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
@@ -209,6 +210,22 @@ public class ContactPresenterTest extends BaseUnitTest {
         contactPresenter.saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
         Mockito.verify(partialContactRepository, Mockito.times(1)).saveFinalJson(DUMMY_BASE_ENTITY_ID);
+
+    }
+
+    @Test
+    public void testFinalizeContactFormInvokesFinalizeContactFormOfInteractorWithCorrectParameters() {
+
+
+        Whitebox.setInternalState(presenter, "interactor", interactor);
+        ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
+
+        Map<String, String> details = new HashMap<>();
+        details.put(DUMMY_USERNAME, DUMMY_PASSWORD);
+
+        contactPresenter.finalizeContactForm(details);
+
+        Mockito.verify(interactor, Mockito.times(1)).finalizeContactForm(details);
 
     }
 }

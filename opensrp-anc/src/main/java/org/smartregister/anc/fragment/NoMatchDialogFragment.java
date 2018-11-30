@@ -84,6 +84,7 @@ public class NoMatchDialogFragment extends DialogFragment {
                     baseRegisterActivity.setSearchTerm("");
                     break;
                 case R.id.go_to_advanced_search:
+                    baseRegisterActivity.setSearchTerm("");
                     goToAdvancedSearch(whoAncId);
                     baseRegisterActivity.setSelectedBottomBarMenuItem(R.id.action_search);
                     dismiss();

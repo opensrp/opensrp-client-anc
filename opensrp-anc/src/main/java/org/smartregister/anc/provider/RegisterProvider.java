@@ -12,7 +12,10 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.fragment.HomeRegisterFragment;
+import org.smartregister.anc.rule.AlertRule;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -27,9 +30,10 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.Set;
 
-import static org.smartregister.util.Utils.getName;
+import static org.smartregister.anc.util.Utils.getName;
 
 /**
  * Created by keyman on 26/06/2018.
@@ -68,28 +72,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
             return;
         }
-
-       /* for (org.smartregister.configurableviews.model.View columnView : visibleColumns) {
-            switch (columnView.getIdentifier()) {
-                case ID:
-                    populatePatientColumn(pc, client, convertView);
-                    break;
-                case NAME:
-                    populateIdentifierColumn(pc, convertView);
-                    break;
-                case DOSE:
-                    populateDoseColumn(pc, convertView);
-                    break;
-                default:
-            }
-        }
-
-        Map<String, Integer> mapping = new HashMap();
-        mapping.put(ID, R.id.patient_column);
-        mapping.put(DOSE, R.id.identifier_column);
-        mapping.put(NAME, R.id.dose_column);
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
-        */
     }
 
     @Override
@@ -108,21 +90,22 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
 
-        String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String lastName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
-        String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
-        String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
 
-        if (StringUtils.isNotBlank(ga)) {
+        String edd = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
 
-            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), "4 WEEKS"));
+        if (StringUtils.isNotBlank(edd)) {
+
+            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
         } else {
 
             fillValue((viewHolder.ga), "");
@@ -142,7 +125,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String ancId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
+        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 
@@ -154,17 +137,65 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
-                viewHolder.dueButton.setText("CONTACT 1\n22/05/2018");
 
-                String ga = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.CONTACT_STATUS, false);
+                String contactStatus = getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS);
 
-                if (StringUtils.isNotBlank(ga)) {
-
-                    viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                    viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                String nextContactDate = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT_DATE);
+                String edd = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
+                String buttonAlertStatus;
+                Integer gestationAge = 0;
+                if (StringUtils.isNotBlank(edd)) {
+                    gestationAge = Utils.getGestationAgeFromEDDate(edd);
+                    AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, "alert-rules.yml");
+                } else {
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
                 }
 
-                //updateDoseButton();
+                //Set text first
+                String nextContact = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
+
+                nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
+                viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
+                viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
+
+                switch (buttonAlertStatus) {
+                    case Constants.ALERT_STATUS.IN_PROGRESS:
+
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        break;
+                    case Constants.ALERT_STATUS.DUE:
+
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        break;
+                    case Constants.ALERT_STATUS.OVERDUE:
+
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        break;
+                    case Constants.ALERT_STATUS.NOT_DUE:
+
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
+                        break;
+                    case Constants.ALERT_STATUS.DELIVERY_DUE:
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                        break;
+                    case Constants.ALERT_STATUS.EXPIRED:
+                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                        break;
+                    default:
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        break;
+
+                }
+
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);
                 viewHolder.sync.setVisibility(View.VISIBLE);
@@ -173,27 +204,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             }
         }
     }
-
-    /*private void updateDoseButton(){
-        DoseStatus doseStatus = Utils.getCurrentDoseStatus(pc);
-
-        Button patient = (Button) view.findViewById(R.id.dose_button);
-
-        LinearLayout completeView = (LinearLayout) view.findViewById(R.id.completedView);
-
-        if (StringUtils.isNotBlank(doseStatus.getDateDoseTwoGiven())) {
-            patient.setVisibility(View.GONE);
-            completeView.setVisibility(View.VISIBLE);
-        } else {
-
-            patient.setVisibility(View.VISIBLE);
-            completeView.setVisibility(View.GONE);
-            patient.setText(getDoseButtonText(doseStatus));
-            patient.setBackground(Utils.getDoseButtonBackground(context, Utils.getRegisterViewButtonStatus(doseStatus)));
-            patient.setTextColor(Utils.getDoseButtonTextColor(context, Utils.getRegisterViewButtonStatus(doseStatus)));
-            attachDosageOnclickListener(patient, pc);
-        }
-    }*/
 
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
@@ -253,19 +263,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     @Override
     public RegisterViewHolder createViewHolder(ViewGroup parent) {
         View view = inflater.inflate(R.layout.register_home_list_row, parent, false);
-
-        /*
-        ConfigurableViewsHelper helper = ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper();
-        if (helper.isJsonViewsEnabled()) {
-
-            ViewConfiguration viewConfiguration = helper.getViewConfiguration(Constants.CONFIGURATION.HOME_REGISTER_ROW);
-            ViewConfiguration commonConfiguration = helper.getViewConfiguration(COMMON_REGISTER_ROW);
-
-            if (viewConfiguration != null) {
-                return helper.inflateDynamicView(viewConfiguration, commonConfiguration, view, R.id.register_columns, false);
-            }
-        }*/
-
         return new RegisterViewHolder(view);
     }
 
@@ -330,4 +327,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         }
     }
 
+    private String getColumnMapValue(CommonPersonObjectClient pc, String key) {
+        return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
+    }
 }

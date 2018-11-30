@@ -17,7 +17,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.Context;
-import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.repository.Repository;
 
@@ -29,7 +28,7 @@ import java.util.Map;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({PatientRepository.class, AncApplication.class, SQLiteDatabase.class})
-public class PatientRepositoryTest extends BaseUnitTest {
+public class PatientRepositoryTest {
 
     @Mock
     private AncApplication ancApplication;
@@ -40,9 +39,10 @@ public class PatientRepositoryTest extends BaseUnitTest {
     @Mock
     private Repository repository;
 
-
     @Mock
     private SQLiteDatabase sqLiteDatabase;
+
+    protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
 
     @Before
     public void setUp() {

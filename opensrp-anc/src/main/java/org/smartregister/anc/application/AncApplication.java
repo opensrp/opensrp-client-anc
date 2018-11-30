@@ -18,6 +18,7 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.event.TriggerSyncEvent;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
+import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -30,13 +31,14 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.intent.PullUniqueIdsIntentService;
-import org.smartregister.util.Utils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -57,11 +59,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private EventClientRepository eventClientRepository;
     private ConfigurableViewsHelper configurableViewsHelper;
     private UniqueIdRepository uniqueIdRepository;
+    private DetailsRepository detailsRepository;
     private ECSyncHelper ecSyncHelper;
     private Compressor compressor;
     private ClientProcessorForJava clientProcessorForJava;
     private String password;
     private PartialContactRepository partialContactRepository;
+    private RulesEngineHelper rulesEngineHelper;
+
     // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
     // is broadcast.
     private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
@@ -74,11 +79,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                 Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
             }
 
-            org.smartregister.anc.util.Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
+            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
 
             String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
 
-            org.smartregister.anc.util.Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
 
         }
     };
@@ -134,11 +139,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
-        LocationHelper.init(org.smartregister.anc.util.Utils.ALLOWED_LEVELS, org.smartregister.anc.util.Utils.DEFAULT_LOCATION_LEVEL);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
         startPullConfigurableViewsIntentService(getApplicationContext());
         try {
-            org.smartregister.anc.util.Utils.saveLanguage("en");
+            Utils.saveLanguage("en");
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -237,7 +242,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     public UniqueIdRepository getUniqueIdRepository() {
         if (uniqueIdRepository == null) {
-            uniqueIdRepository = new UniqueIdRepository((AncRepository) getRepository());
+            uniqueIdRepository = new UniqueIdRepository(getRepository());
         }
         return uniqueIdRepository;
     }
@@ -248,6 +253,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     getJsonSpecHelper(), getApplicationContext());
         }
         return configurableViewsHelper;
+    }
+
+    public RulesEngineHelper getRulesEngineHelper() {
+        if (rulesEngineHelper == null) {
+            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+        }
+        return rulesEngineHelper;
     }
 
     public ECSyncHelper getEcSyncHelper() {
@@ -269,6 +281,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
             clientProcessorForJava = ClientProcessorForJava.getInstance(getApplicationContext());
         }
         return clientProcessorForJava;
+    }
+
+    public DetailsRepository getDetailsRepository() {
+        if (detailsRepository == null) {
+            detailsRepository = new DetailsRepository();
+            detailsRepository.updateMasterRepository(getRepository());
+        }
+        return detailsRepository;
     }
 
     private void setUpEventHandling() {

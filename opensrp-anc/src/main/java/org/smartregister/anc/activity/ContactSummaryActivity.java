@@ -30,6 +30,7 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
     private ContactSummaryAdapter contactSummaryAdapter;
     private ImageView womanProfileImage;
     private ImageRenderHelper imageRenderHelper;
+    private TextView recordedContactTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
         goToClientProfileButton.setOnClickListener(this);
         womanNameTextView = findViewById(R.id.contact_summary_woman_name);
         womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
+        recordedContactTextView = findViewById(R.id.contact_summary_contact_recorded);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
         RecyclerView contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
@@ -75,10 +77,9 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
     public void goToClientProfile() {
         finish();
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, Constants.DUMMY_DATA.DUMMY_ENTITY_ID);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         startActivity(intent);
     }
-
 
     @Override
     public void displayWomansName(String fullName) {
@@ -93,6 +94,11 @@ public class ContactSummaryActivity extends AppCompatActivity implements Contact
     @Override
     public void setProfileImage(String baseEntityId) {
         imageRenderHelper.refreshProfileImage(baseEntityId, womanProfileImage);
+    }
+
+    @Override
+    public void updateRecordedContact(Integer contactNumber) {
+        recordedContactTextView.setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
     }
 
     @Override

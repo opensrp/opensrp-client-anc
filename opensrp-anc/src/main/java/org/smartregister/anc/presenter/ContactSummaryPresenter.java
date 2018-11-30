@@ -76,11 +76,12 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
     }
 
     @Override
-    public void onUpcomingContactsFetched(List<ContactSummaryModel> upcomingContacts) {
+    public void onUpcomingContactsFetched(List<ContactSummaryModel> upcomingContacts, Integer lastContact) {
         if(upcomingContacts == null || upcomingContacts.isEmpty()){
             return;
         }
         this.upcomingContacts.addAll(upcomingContacts);
         addUpcomingContactsToView();
+        getView().updateRecordedContact(lastContact);
     }
 }

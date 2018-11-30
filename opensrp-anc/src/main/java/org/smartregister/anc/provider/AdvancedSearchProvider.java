@@ -31,7 +31,7 @@ import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static org.smartregister.util.Utils.getName;
+import static org.smartregister.anc.util.Utils.getName;
 
 /**
  * Created by keyman on 26/06/2018.
@@ -118,13 +118,13 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
 
-        String firstName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String lastName = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
         String patientName = getName(firstName, lastName);
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
-        String dobString = Utils.getDuration(org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
@@ -134,7 +134,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
-        String ancId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
+        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 

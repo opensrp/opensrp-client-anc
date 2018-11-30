@@ -99,23 +99,28 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             return;
         }
 
-        HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+        final HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-            //homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
-            CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-            String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+            if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= Constants.DELIVERY_DATE_WEEKS) {
+                homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+            } else {
+                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+                String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                proceedToContact(baseEntityId);
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    proceedToContact(baseEntityId, pc);
+                }
             }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
             //Temporary for testing UI , To remove for real dynamic data
-            List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new
-                    AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
+            List<AttentionFlag> dummyAttentionFlags =
+                    Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true),
+                            new
+                                    AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
             homeRegisterActivity.showAttentionFlagsDialog(dummyAttentionFlags);
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
@@ -208,9 +213,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
     }
 
-    public void proceedToContact(String baseEntityId) {
+    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient) {
         Intent intent = new Intent(getActivity(), ContactActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
         getActivity().startActivity(intent);
     }
 

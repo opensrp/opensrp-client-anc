@@ -102,6 +102,10 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
     @Override
+    public void finalizeContactForm(Map<String, String> details) {
+        interactor.finalizeContactForm(details);
+    }
+
     public void deleteDraft(String baseEntityId) {
 
         getAncApplication().getPartialContactRepository().deleteDraftJson(baseEntityId);

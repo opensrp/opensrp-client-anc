@@ -8,14 +8,15 @@ import org.smartregister.anc.BuildConfig;
 
 public abstract class Constants {
     public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
-
+    public static final String CONTACT_DATE_FORMAT = "dd/MM/yyyy";
+    public static final String CONTACT_SUMMARY_DATE_FORMAT = "dd MMMM yyyy";
     public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
-
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
+    public static final int DELIVERY_DATE_WEEKS = 40;
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -78,6 +79,7 @@ public abstract class Constants {
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
+        public static final String CLIENT = "client";
         public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
@@ -100,7 +102,23 @@ public abstract class Constants {
         public static final String FILTER_TEAM_ID = "teamId";
     }
 
-    public static final class DUMMY_DATA {
-        public static final String DUMMY_ENTITY_ID = "3342e64b-cafd-46ea-9fc7-0561acb7c8a1";
+    public static class DETAILS_KEY {
+        public static final String CONTACT_SHEDULE = "contact_schedule";
+
     }
+
+    public static final class ALERT_STATUS {
+        public static final String DUE = "due";
+        public static final String OVERDUE = "overdue";
+        public static final String NOT_DUE = "not_due";
+        public static final String DELIVERY_DUE = "delivery_due";
+        public static final String IN_PROGRESS = "in_progress";
+        public static final String EXPIRED = "expired";
+    }
+
+    public static class FILE_CATEGORY {
+        public static final String PROFILE_PIC = "profilepic";
+
+    }
+
 }
