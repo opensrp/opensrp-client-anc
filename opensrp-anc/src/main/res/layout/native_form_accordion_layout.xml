@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/accordionTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/statusImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/status_icon_display"
+            android:src="@drawable/ic_icon_info_filled" />
+
+        <com.vijay.jsonwizard.views.CustomTextView
+            android:id="@+id/topBarTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@+id/statusImageView"
+            android:layout_toRightOf="@+id/statusImageView"
+            android:gravity="start|center_vertical"
+            android:text="Addig in the text required for the heading" />
+
+        <ImageView
+            android:id="@+id/info_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/info_icon_display"
+            android:src="@drawable/ic_icon_info_filled" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/selectionRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
+</LinearLayout>
