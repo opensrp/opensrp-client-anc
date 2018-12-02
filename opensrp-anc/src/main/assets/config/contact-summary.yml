@@ -1,0 +1,7 @@
+---
+name: overdue
+description: due plus 7 days
+priority: 3
+condition: "alertRule.isOverdueWithDays(7)"
+actions:
+  - "alertRule.buttonStatus = 'overdue'"

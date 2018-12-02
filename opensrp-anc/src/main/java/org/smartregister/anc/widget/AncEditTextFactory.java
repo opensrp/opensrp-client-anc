@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -29,19 +30,21 @@ import java.util.List;
 public class AncEditTextFactory extends EditTextFactory {
 
     @Override
-    public void attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText) throws Exception {
-        super.attachJson(stepName, context, formFragment, jsonObject, editText);
+    public void attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView view) throws Exception {
+        super.attachJson(stepName, context, formFragment, jsonObject, editText, view);
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, Boolean popup) throws Exception {
         if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) && jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
             RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
 
-            attachJson(stepName, context, formFragment, jsonObject, editText);
+            final ImageView button = rootLayout.findViewById(R.id.minusbutton);
+
+            attachJson(stepName, context, formFragment, jsonObject, editText, button);
 
             JSONArray canvasIds = new JSONArray();
             rootLayout.setId(ViewUtil.generateViewId());
@@ -85,7 +88,7 @@ public class AncEditTextFactory extends EditTextFactory {
 
             return views;
         } else {
-            return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener);
+            return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
         }
 
     }

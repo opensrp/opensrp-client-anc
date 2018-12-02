@@ -96,7 +96,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         PartialContact partialContactRequest = new PartialContact();
         partialContactRequest.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        partialContactRequest.setContactNo(1);
+        partialContactRequest.setContactNo(contact.getContactNumber());
         partialContactRequest.setType(contact.getFormName());
 
         PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);

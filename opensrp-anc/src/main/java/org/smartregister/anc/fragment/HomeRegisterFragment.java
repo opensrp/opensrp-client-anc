@@ -217,6 +217,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         Intent intent = new Intent(getActivity(), ContactActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
+        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
         getActivity().startActivity(intent);
     }
 

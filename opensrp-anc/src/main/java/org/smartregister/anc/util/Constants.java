@@ -46,6 +46,7 @@ public abstract class Constants {
         public static final String ENTITY_ID = "entity_id";
         public static final String OPTIONS = "options";
         public static final String ENCOUNTER_LOCATION = "encounter_location";
+        public static final String ENCOUNTER_TYPE = "encounter_type";
         public static final String ATTRIBUTES = "attributes";
         public static final String DEATH_DATE = "deathdate";
         public static final String DEATH_DATE_APPROX = "deathdateApprox";
@@ -82,6 +83,7 @@ public abstract class Constants {
         public static final String CLIENT = "client";
         public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
+        public static final String CONTACT_NO = "contact_number";
     }
 
     public static class OPENMRS {

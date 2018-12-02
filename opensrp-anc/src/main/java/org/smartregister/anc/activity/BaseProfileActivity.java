@@ -37,7 +37,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
     protected ProfileContract.Presenter mProfilePresenter;
-    public final String TAG = BaseContactActivity.class.getCanonicalName();
+    public final String TAG = BaseProfileActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

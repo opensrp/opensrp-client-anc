@@ -5,14 +5,20 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private String name;
-
     private int background;
-
     private int actionBarBackground;
     private int navigationBackground;
-
     private int requiredFields;
     private String formName;
+    private int contactNumber;
+
+    public int getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(int contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
     public void setName(String name) {
         this.name = name;
