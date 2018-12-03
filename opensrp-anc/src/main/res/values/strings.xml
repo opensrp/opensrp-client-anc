@@ -284,4 +284,6 @@
     <string name="contact_recorded">Contact %1$d recorded</string>
     <string name="info_icon_display">the more info icon display</string>
     <string name="status_icon_display">the status icon display</string>
+    <string name="record">Record</string>
+    <string name="undo">Undo</string>
 </resources>

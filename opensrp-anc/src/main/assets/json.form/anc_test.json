@@ -56,38 +56,18 @@
     "next": "step2",
     "fields": [
       {
-        "key": "first_name",
+        "key": "new_native_accordion",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_accordion"
       },
       {
-        "key": "last_name",
+        "key": "new_native_accordion_two",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_accordion"
       }
     ]
   },
