@@ -1,7 +1,21 @@
 ---
+name: step1_first_weight
+description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_pregest_weight_unknown == true ? step1_current_weight : step1_pregest_weight)"
+---
+name: step1_bmi
+description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
+priority: 1
+condition: "(step1_first_weight > 0)"
+actions:
+ - "calculation = (step1_first_weight/((step1_height/100)*(step1_height/100)))"
+---
 name: step1_toaster1
 description: Note displaying the woman's BMI, her weight category, and how much weight she should put on during pregnancy for her weight category.
 priority: 1
-condition: "step1_current_weight > 0"
+condition: "true"
 actions:
- - 'calculation = ["bmi" : step1_current_weight, "weight_cat" : (step1_current_weight * 2),"exp_weight_gain" : (step1_current_weight * 3)]'
+ - "calculation = ['bmi' : step1_bmi]"

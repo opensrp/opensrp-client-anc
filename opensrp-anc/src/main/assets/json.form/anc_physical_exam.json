@@ -199,6 +199,34 @@
         }
       },
       {
+        "key": "first_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "toaster1",
         "openmrs_entity_parent": "",
         "openmrs_entity": "Body mass Index",
@@ -336,11 +364,11 @@
         },
         "v_min": {
           "value": "60",
-          "err": "DBP must be equal or greater than 60"
+          "err": "DBP must be equal to or greater than 60"
         },
         "v_max": {
           "value": "260",
-          "err": "DBP must be equal or less than 260"
+          "err": "DBP must be equal to or less than 260"
         },
         "v_required": {
           "value": "true",
@@ -355,7 +383,14 @@
         "type": "toaster_notes",
         "text": "Measure BP again after 10-15 minutes rest.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "bp_systolic_repeat_label",
