@@ -147,7 +147,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 if (StringUtils.isNotBlank(edd)) {
                     gestationAge = Utils.getGestationAgeFromEDDate(edd);
                     AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, "alert-rules.yml");
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
                 } else {
                     buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
                 }

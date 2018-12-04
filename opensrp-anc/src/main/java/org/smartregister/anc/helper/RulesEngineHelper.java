@@ -12,6 +12,7 @@ import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class RulesEngineHelper {
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
+    private final String RULE_FOLDER_PATH = "rule/";
+    private final String CONFIG_FOLDER_PATH = "config/";
+    private Yaml yaml;
 
     public RulesEngineHelper(Context context) {
         this.context = context;
@@ -35,6 +39,8 @@ public class RulesEngineHelper {
         RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstAppliedRule(true);
         this.defaultRulesEngine = new DefaultRulesEngine(parameters);
         this.ruleMap = new HashMap<>();
+
+        yaml = new Yaml();
 
     }
 
@@ -67,7 +73,7 @@ public class RulesEngineHelper {
         Facts facts = new Facts();
         facts.put(ContactRule.RULE_KEY, contactRule);
 
-        Rules rules = getRulesFromAsset("rule/" + rulesFile);
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
         if (rules == null) {
             return null;
         }
@@ -86,7 +92,7 @@ public class RulesEngineHelper {
         Facts facts = new Facts();
         facts.put(AlertRule.RULE_KEY, alertRule);
 
-        Rules rules = getRulesFromAsset("rule/" + rulesFile);
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
         if (rules == null) {
             return null;
         }
@@ -94,5 +100,11 @@ public class RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return alertRule.buttonStatus;
+    }
+
+
+    public Iterable<Object> readYaml(String filename) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(context.getAssets().open((CONFIG_FOLDER_PATH + filename)));
+        return yaml.loadAll(inputStreamReader);
     }
 }

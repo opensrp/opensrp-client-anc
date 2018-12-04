@@ -26,6 +26,7 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.SecuredActivity;
@@ -184,15 +185,14 @@ public abstract class BaseContactActivity extends SecuredActivity {
     private void finalizeForm() {
         try {
 
-//Fire Rules
             CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
 
-            presenter.finalizeContactForm(pc.getDetails());
+            Intent contactSummaryFinishIntent = new Intent(this, ContactSummaryFinishActivity.class);
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT, pc);
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(pc.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
 
-            Intent contactSummaryIntent = new Intent(this, ContactSummaryActivity.class);
-            contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
-
-            startActivity(contactSummaryIntent);
+            startActivity(contactSummaryFinishIntent);
 
         } catch (Exception e) {
             Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());

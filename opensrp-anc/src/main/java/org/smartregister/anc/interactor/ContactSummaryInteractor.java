@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
-import org.smartregister.anc.contract.ContactSummaryContract;
+import org.smartregister.anc.contract.ContactSummarySendContract;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.AppExecutors;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ContactSummaryInteractor extends BaseContactInteractor implements ContactSummaryContract.Interactor {
+public class ContactSummaryInteractor extends BaseContactInteractor implements ContactSummarySendContract.Interactor {
 
     private static String TAG = ContactSummaryInteractor.class.getCanonicalName();
 
@@ -40,7 +40,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
 
     @Override
-    public void fetchUpcomingContacts(final String entityId, final ContactSummaryContract.InteractorCallback callback) {
+    public void fetchUpcomingContacts(final String entityId, final ContactSummarySendContract.InteractorCallback callback) {
 
         Runnable runnable = new Runnable() {
             @Override

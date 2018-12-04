@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactSummaryAdapter;
-import org.smartregister.anc.contract.ContactSummaryContract;
+import org.smartregister.anc.contract.ContactSummarySendContract;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
@@ -23,10 +23,10 @@ import org.smartregister.anc.util.Constants;
 
 import java.util.List;
 
-public class ContactSummaryActivity extends AppCompatActivity implements ContactSummaryContract.View, View.OnClickListener {
+public class ContactSummarySendActivity extends AppCompatActivity implements ContactSummarySendContract.View, View.OnClickListener {
 
     private TextView womanNameTextView;
-    private ContactSummaryContract.Presenter contactSummaryPresenter;
+    private ContactSummarySendContract.Presenter contactSummaryPresenter;
     private ContactSummaryAdapter contactSummaryAdapter;
     private ImageView womanProfileImage;
     private ImageRenderHelper imageRenderHelper;

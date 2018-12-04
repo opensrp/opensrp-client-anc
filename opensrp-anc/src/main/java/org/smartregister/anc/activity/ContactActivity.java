@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -178,7 +179,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             while (keys.hasNext()) {
                 String key = keys.next();
 
-                if (key.startsWith("step")) {
+                if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
                     for (int i = 0; i < stepArray.length(); i++) {
@@ -197,11 +198,11 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                             }
 
 //Total Count
-                            Integer requiredFieldCount = requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE) + "_total_count");
+                            Integer requiredFieldCount = requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE) + Constants.SUFFIX.TOTAL_COUNT);
 
                             requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
 
-                            requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE) + "_total_count", requiredFieldCount);
+                            requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE) + Constants.SUFFIX.TOTAL_COUNT, requiredFieldCount);
 
                         }
 
@@ -221,7 +222,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
         for (PartialContact partialContact : partialContacts) {
             if (partialContact.getFormJson() != null) {
-                object = new JSONObject(partialContact.getFormJson());
+                object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
                 processRequiredStepsField(object);
                 partialForms.remove(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
             }

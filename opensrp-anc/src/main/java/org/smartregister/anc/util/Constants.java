@@ -123,4 +123,20 @@ public abstract class Constants {
 
     }
 
+    public static class RULES_FILE {
+        public static final String CONTACT_RULES = "contact-rules.yml";
+        public static final String ALERT_RULES = "alert-rules.yml";
+
+    }
+
+    public static class CONFIG_FILE {
+        public static final String CONTACT_SUMMARY = "contact-summary.yml";
+
+    }
+
+    public static class SUFFIX {
+        public static final String TOTAL_COUNT = "_total_count";
+
+    }
+
 }
