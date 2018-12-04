@@ -1,26 +1,16 @@
 package org.smartregister.anc.domain;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import java.io.Serializable;
 
-public class Contact implements Serializable {
-
-    private String name;
+public class Contact extends Form implements Serializable {
 
     private int background;
 
-    private int actionBarBackground;
-    private int navigationBackground;
-
     private int requiredFields;
+
     private String formName;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public int getBackground() {
         return background;
@@ -28,22 +18,6 @@ public class Contact implements Serializable {
 
     public void setBackground(int background) {
         this.background = background;
-    }
-
-    public int getActionBarBackground() {
-        return actionBarBackground;
-    }
-
-    public void setActionBarBackground(int actionBarBackground) {
-        this.actionBarBackground = actionBarBackground;
-    }
-
-    public int getNavigationBackground() {
-        return navigationBackground;
-    }
-
-    public void setNavigationBackground(int navigationBackground) {
-        this.navigationBackground = navigationBackground;
     }
 
     public int getRequiredFields() {

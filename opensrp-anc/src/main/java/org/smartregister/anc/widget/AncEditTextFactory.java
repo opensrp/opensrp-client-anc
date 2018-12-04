@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -29,8 +30,8 @@ import java.util.List;
 public class AncEditTextFactory extends EditTextFactory {
 
     @Override
-    public void attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText) throws Exception {
-        super.attachJson(stepName, context, formFragment, jsonObject, editText);
+    public void attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView editButton) throws Exception {
+        super.attachJson(stepName, context, formFragment, jsonObject, editText, editButton);
     }
 
     @Override
@@ -40,8 +41,9 @@ public class AncEditTextFactory extends EditTextFactory {
 
             RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
+            final ImageView editButton = rootLayout.findViewById(com.vijay.jsonwizard.R.id.material_edit_text_edit_button);
 
-            attachJson(stepName, context, formFragment, jsonObject, editText);
+            attachJson(stepName, context, formFragment, jsonObject, editText, editButton);
 
             JSONArray canvasIds = new JSONArray();
             rootLayout.setId(ViewUtil.generateViewId());
