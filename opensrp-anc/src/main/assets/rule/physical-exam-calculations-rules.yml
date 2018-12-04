@@ -1,0 +1,7 @@
+---
+name: step1_toaster1
+description: Note displaying the woman's BMI, her weight category, and how much weight she should put on during pregnancy for her weight category.
+priority: 1
+condition: "step1_current_weight > 0"
+actions:
+ - 'calculation = ["bmi" : step1_current_weight, "weight_cat" : (step1_current_weight * 2),"exp_weight_gain" : (step1_current_weight * 3)]'

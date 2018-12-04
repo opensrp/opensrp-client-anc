@@ -158,7 +158,6 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
-        "label": "",
         "options": [
           {
             "key": "dob_unknown",
