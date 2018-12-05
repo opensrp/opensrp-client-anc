@@ -19,3 +19,10 @@ priority: 1
 condition: "true"
 actions:
  - "calculation = ['bmi' : step1_bmi]"
+---
+name: step2_hypertension
+description: Hypertension Diognosis
+priority: 1
+condition: "step2_urine_protein.text == 'none' ||  step2_urine_protein.text == 'one_plus'"
+actions:
+ - "calculation = 1"

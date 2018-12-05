@@ -74,7 +74,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please enter the height"
         },
         "v_numeric": {
@@ -144,7 +144,7 @@
           "err": "Weight must be equal or less than 180"
         },
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Pre-gestational weight is required"
         }
       },
@@ -153,7 +153,6 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "label":" ",
         "type": "check_box",
         "options": [
           {
@@ -194,7 +193,7 @@
           "err": "Weight must be equal or less than 180"
         },
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please enter the current weight"
         }
       },
@@ -336,7 +335,7 @@
           "err": "SBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Field systolic is required"
         }
       },
@@ -371,7 +370,7 @@
           "err": "DBP must be equal to or less than 260"
         },
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Field diastolic is required"
         }
       },
@@ -400,6 +399,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -423,8 +429,15 @@
           "err": "SBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Field systolic is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -435,6 +448,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -458,8 +478,15 @@
           "err": "DBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Field diastolic is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -470,7 +497,14 @@
         "type": "toaster_notes",
         "text": "Do urine dipstick test for protein.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "symp_sev_preeclampsia",
@@ -531,6 +565,13 @@
         "v_required": {
           "value": true,
           "err": "Please specify any other symptoms or select none"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -582,6 +623,27 @@
         "v_required": {
           "value": true,
           "err": "Please enter the result for the dipstick test."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hypertension",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
         }
       },
       {
@@ -593,7 +655,14 @@
         "text": "Hypertension diagnosis! Provide counseling.",
         "toaster_info_text": "Woman has hypertension - SBP of 140 mmHg or higher and/or DBP of 90 mmHg or higher and no proteinuria.\n\nCounseling:\n- Advice to reduce workload and to rest\n- Advise on danger signs\n- Reassess at the next contact or in 1 week if 8 months pregnant\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster10",
@@ -675,7 +744,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please enter body temperature"
         },
         "v_numeric": {
@@ -733,7 +802,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please re-enter body temperature"
         },
         "relevance": {
@@ -791,7 +860,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please enter pulse rate"
         },
         "v_numeric": {
@@ -815,7 +884,14 @@
         "type": "toaster_notes",
         "text": "Abnormal pulse rate. Check again after 10 minutes rest.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "pulse_rate_repeat_label",
@@ -826,6 +902,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -837,8 +920,15 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please enter pulse rate"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -850,7 +940,14 @@
         "text": "Abnormal pulse rate. Refer for further investigation.",
         "toaster_info_text": "Procedure:\n- Check for fever, infection, respiratory distress, and arrhythmia\n- Refer for further investigation",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "pallor",

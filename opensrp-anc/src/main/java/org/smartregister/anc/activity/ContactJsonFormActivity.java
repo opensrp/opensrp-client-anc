@@ -49,7 +49,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     }
 
     @Override
-    public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId,Boolean popup) throws JSONException {
+    public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId,boolean popup) throws JSONException {
         callSuperWriteValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId,popup);
     }
 
