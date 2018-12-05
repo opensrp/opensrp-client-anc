@@ -32,20 +32,20 @@ public class AncEditTextFactory extends EditTextFactory {
     private ImageView imageView;
 
     @Override
-    public void attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView imageView) throws Exception {
-        super.attachJson(stepName, context, formFragment, jsonObject, editText, imageView);
+    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView imageView) throws Exception {
+        super.attachLayout(stepName, context, formFragment, jsonObject, editText, imageView);
         this.imageView = imageView;
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, Boolean popup) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
         if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) && jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
             RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
 
-            attachJson(stepName, context, formFragment, jsonObject, editText,this.imageView);
+            attachLayout(stepName, context, formFragment, jsonObject, editText,this.imageView);
 
             JSONArray canvasIds = new JSONArray();
             rootLayout.setId(ViewUtil.generateViewId());

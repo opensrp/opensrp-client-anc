@@ -18,6 +18,10 @@ public abstract class Constants {
     public static final String ANC_ID = "ANC_ID";
     public static final int DELIVERY_DATE_WEEKS = 40;
     public static final String NATIVE_ACCORDION = "native_accordion";
+    public static final String ACCORDION_INFO_TEXT = "accordion_info_text";
+    public static final String ACCORDION_INFO_TITLE = "accordion_info_title";
+    public static final String DISPLAY_BOTTOM_SECTION = "display_bottom_section";
+    public static final String NEXT = "next";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";

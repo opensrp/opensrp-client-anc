@@ -60,7 +60,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_accordion"
+        "type": "native_accordion",
+        "accordion_info_text": "This message is the in the info popup",
+        "accordion_info_title": "Test info display",
+        "display_bottom_section": true,
+        "accordion_popup": [
+          {
+            "key": "display_popup",
+            "display": true,
+            "specify_info_color": "#b5b5b5",
+            "specify_widget": "check_box",
+            "content_form": "child_enrollment_two_sub_form",
+            "content_form_location": ""
+          }
+        ]
       },
       {
         "key": "new_native_accordion_two",
