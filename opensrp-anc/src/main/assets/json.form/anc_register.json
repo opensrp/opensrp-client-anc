@@ -162,7 +162,7 @@
           {
             "key": "dob_unknown",
             "text": "DOB unknown?",
-            "text_size":"18px",
+            "text_size": "18px",
             "value": "false"
           }
         ]
@@ -246,7 +246,7 @@
         "openmrs_entity_id": "reminders",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_text":"Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
+        "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
         "hint": "Reminders throughout pregnancy? *",
         "values": [
           "Yes",
@@ -287,6 +287,22 @@
           "value": "([0-9]{10})|\s*",
           "err": "Number must be a total of 10 digits in length"
         }
+      },
+      {
+        "key": "next_contact",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "next_contact",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "next_contact_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "next_contact_date",
+        "type": "hidden",
+        "value": ""
       }
     ]
   }

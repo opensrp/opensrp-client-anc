@@ -3,6 +3,7 @@ package org.smartregister.anc.activity;
 import android.content.Intent;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.anc.R;
 import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
@@ -32,7 +33,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void goToHome(boolean remote) {
         if (remote) {
-            org.smartregister.util.Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
+            Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
 
         if (mLoginPresenter.isSiteCharacteristicsSet()) {

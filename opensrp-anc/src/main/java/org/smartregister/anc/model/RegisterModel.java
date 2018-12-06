@@ -7,19 +7,18 @@ import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.util.JsonFormUtils;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
+import org.smartregister.anc.util.Utils;
 
 import java.util.List;
 import java.util.Map;
 
 public class RegisterModel implements RegisterContract.Model {
     private FormUtils formUtils;
-    private Utils utils = new Utils();
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
@@ -48,7 +47,7 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public Pair<Client, Event> processRegistration(String jsonString) {
-        return JsonFormUtils.processRegistrationForm(utils.getAllSharedPreferences(), jsonString);
+        return JsonFormUtils.processRegistrationForm(Utils.getAllSharedPreferences(), jsonString);
     }
 
     @Override
@@ -78,6 +77,6 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public String getInitials() {
-        return utils.getUserInitials();
+        return Utils.getUserInitials();
     }
 }

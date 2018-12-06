@@ -41,7 +41,7 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
         MockitoAnnotations.initMocks(this);
         presenter = new ContactSummaryPresenter(interactor);
         presenter.attachView(view);
-        contactSummaryPresenter = (ContactSummaryPresenter)presenter;
+        contactSummaryPresenter = (ContactSummaryPresenter) presenter;
     }
 
     @Test
@@ -49,16 +49,19 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
         presenter.showWomanProfileImage(baseEntityId);
         Mockito.verify(view).setProfileImage(baseEntityId);
     }
+
     @Test
     public void testShowProfileImageWithNullInput() {
         presenter.showWomanProfileImage(null);
         Mockito.verify(view, Mockito.never()).setProfileImage(Mockito.eq(baseEntityId));
     }
+
     @Test
     public void testShowProfileImageWithEmptyInput() {
         presenter.showWomanProfileImage("");
-        Mockito.verify(view,Mockito.never()).setProfileImage(Mockito.anyString());
+        Mockito.verify(view, Mockito.never()).setProfileImage(Mockito.anyString());
     }
+
     @Test
     public void testLoadWomanWithNormalInput() {
         presenter.loadWoman(baseEntityId);
@@ -106,7 +109,7 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
     public void testOnWomanDetailsFetchedWithNullInput() {
         ContactSummaryPresenter contactSummaryPresenter = (ContactSummaryPresenter) presenter;
         contactSummaryPresenter.onWomanDetailsFetched(null);
-        Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(),true);
+        Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(), true);
 
     }
 
@@ -114,13 +117,13 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
     public void testOnWomanDetailsFetchedWitEmptyInput() {
         ContactSummaryPresenter contactSummaryPresenter = (ContactSummaryPresenter) presenter;
         contactSummaryPresenter.onWomanDetailsFetched(new HashMap<String, String>());
-        Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(),true);
+        Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(), true);
 
     }
 
 
     @Test
-    public  void testOnWomanDetailsFetchWithNormalInput(){
+    public void testOnWomanDetailsFetchWithNormalInput() {
 
         String firstName = "Elly";
         String lastName = "Smith";
@@ -129,7 +132,7 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
         details.put(DBConstants.KEY.FIRST_NAME, firstName);
         details.put(DBConstants.KEY.LAST_NAME, lastName);
         contactSummaryPresenter.onWomanDetailsFetched(details);
-        Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(),false);
+        Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(), false);
 
 
     }
@@ -137,33 +140,32 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
     @Test
     public void testOnContactsFetchedWithNullInput() {
         ContactSummaryPresenter contactSummaryPresenter = (ContactSummaryPresenter) presenter;
-        contactSummaryPresenter.onUpcomingContactsFetched(null);
-        Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(),true);
+        contactSummaryPresenter.onUpcomingContactsFetched(null, 0);
+        Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(), true);
 
     }
 
     @Test
     public void testOnContactsFetchedWitEmptyInput() {
         ContactSummaryPresenter contactSummaryPresenter = (ContactSummaryPresenter) presenter;
-        contactSummaryPresenter.onUpcomingContactsFetched(new ArrayList<ContactSummaryModel>());
-        Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(),true);
+        contactSummaryPresenter.onUpcomingContactsFetched(new ArrayList<ContactSummaryModel>(), 1);
+        Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(), true);
 
 
     }
 
     @Test
     public void testOnContactsFetchedWitNormalInput() {
-         final List<ContactSummaryModel> contactDates = new ArrayList<>();
+        final List<ContactSummaryModel> contactDates = new ArrayList<>();
         contactDates.add(new ContactSummaryModel("Contact 2", "12 August 2018"));
         contactDates.add(new ContactSummaryModel("Contact 3", "16 September 2018"));
         contactDates.add(new ContactSummaryModel("Contact 4", "25 October 2018"));
 
         contactSummaryPresenter = (ContactSummaryPresenter) presenter;
-        contactSummaryPresenter.onUpcomingContactsFetched(contactDates);
-        Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(),false);
+        contactSummaryPresenter.onUpcomingContactsFetched(contactDates, 2);
+        Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(), false);
 
     }
-
 
 
 }

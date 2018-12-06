@@ -32,7 +32,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
 import org.smartregister.util.PermissionUtils;
-import org.smartregister.util.Utils;
+import org.smartregister.anc.util.Utils;
 
 /**
  * Created by ndegwamartin on 10/07/2018.

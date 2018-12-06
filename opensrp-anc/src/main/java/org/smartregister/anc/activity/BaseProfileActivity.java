@@ -37,6 +37,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
     protected ProfileContract.Presenter mProfilePresenter;
+    public final String TAG = BaseContactActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +66,20 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     public void onClick(View view) {
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         new FetchProfileDataTask(true).execute(baseEntityId);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
 
-            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditFormString(this, event.getWomanClient());
+            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
 
                 JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
 
             } catch (Exception e) {
-                Log.e("TAG", e.getMessage());
+                Log.e(TAG, e.getMessage());
             }
         }
 
