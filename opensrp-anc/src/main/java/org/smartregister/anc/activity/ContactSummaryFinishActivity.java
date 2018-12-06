@@ -290,8 +290,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         for (Object ruleObject : ruleObjects) {
             Map<String, Object> map = ((Map<String, Object>) ruleObject);
 
-            String group = processUnderscores(map.get("group").toString());
-            List<String> templates = (List<String>) map.get("fields");
+            String group = processUnderscores(map.get(ContactSummary.KEY.GROUP).toString());
+            List<String> templates = (List<String>) map.get(ContactSummary.KEY.FIELDS);
 
             ContactSummary contactSummary = new ContactSummary();
             contactSummary.setGroup(group);
@@ -335,7 +335,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     process(Arrays.asList(new String[]{"profile", "physical_exam", "counselling_treatment", "symptoms_follow_up", "test"}));
                 } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+                    Log.e(TAG, e.getMessage(),e);
                 }
 
                 return null;

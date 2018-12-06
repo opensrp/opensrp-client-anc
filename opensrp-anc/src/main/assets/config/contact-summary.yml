@@ -1,65 +1,140 @@
 ---
 group: hospital_referral
 fields:
-  - "Woman referred to hospital"
-  - "Woman not referred to hospital: {referred_hosp_notdone} {referred_hosp_notdone_other}"
-  - "Danger sign(s): {danger_signs}"
-  - "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
-  - "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
-  - "Woman not referred to hospital: {referred_hosp_notdone} {referred_hosp_notdone_other}"
-  - "Pre-eclampsia diagnosis"
-  - "Severe pre-eclampsia diagnosis"
-  - "Fever: {body_temp_repeat}ºC"
-  - "Abnormal pulse rate: {pulse_rate_repeat}bpm"
-  - "Respiratory distress: {repiratory_exam}, {respiratory_exam_other}"
-  - "Low oximetry: {oximetry}%"
-  - "Abnormal cardiac exam: {cardiac_exam}, {cardiac_exam_other}"
-  - "Abnormal breast exam: {breast_exam}, {breast_exam_other}"
-  - "Abnormal abdominal exam: {abdominal_exam}, {abdominal_exam_other}"
-  - "Abnormal pelvic exam: {pelvic_exam}, {pelvic_exam_other}"
-  - "No fetal heartbeat observed"
-  - "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm"
+  - template: "Woman referred to hospital"
+    relevance: "referred_hosp == 'Yes'"
+
+  - template: "Woman not referred to hospital: {referred_hosp_notdone} {referred_hosp_notdone_other}"
+    relevance: "referred_hosp == 'No'"
+
+  - template: "Danger sign(s): {danger_signs}"
+    relevance: "danger_signs == 'Bleeding vaginally' || danger_signs ==  'Central cyanosis' || danger_signs ==  'Convulsing' || danger_signs ==  'Fever' || danger_signs ==  'Headache and visual disturbance' || danger_signs ==  'Imminent delivery' || danger_signs ==  'Labour' || danger_signs ==  'Looks very ill' || danger_signs ==  'Severe vomiting' || danger_signs ==  'Severe pain' || danger_signs ==  'Severe abdominal pain' || danger_signs ==  'Unconscious'"
+
+  - template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
+    relevance: "severe_hypertension == 1 && contact_no == 1"
+
+  - template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
+    relevance: "{hypertension} = 1 && (symp_sev_preeclampsia.contains('Severe headache') || symp_sev_preeclampsia.contains('Blurred vision') || symp_sev_preeclampsia.contains('Epigastric pain'|| symp_sev_preeclampsia.contains('Dizziness') || symp_sev_preeclampsia.contains('Vomiting')"
+
+  - template: "Pre-eclampsia diagnosis"
+    relevance: "preeclampsia == 1 && contact_no == 1"
+
+  - template: "Severe pre-eclampsia diagnosis"
+    relevance: "severe_preeclampsia = 1 && contact_no == 1"
+
+  - template: "Fever: {body_temp_repeat}ºC"
+    relevance: "body_temp_repeat >= 38"
+
+  - template: "Abnormal pulse rate: {pulse_rate_repeat}bpm"
+    relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
+
+  - template: "Respiratory distress: {repiratory_exam}, {respiratory_exam_other}"
+    relevance: "respiratory_exam.contains('Dyspnoea') || respiratory_exam.contains('Cough') || respiratory_exam.contains('Rapid breathing') || respiratory_exam.contains('Slow breathing') || respiratory_exam.contains('Wheezing') || respiratory_exam.contains('Rales') || respiratory_exam.contains('Other')"
+
+  - template: "Low oximetry: {oximetry}%"
+    relevance: "oximetry < 92"
+
+  - template: "Abnormal cardiac exam: {cardiac_exam}, {cardiac_exam_other}"
+    relevance: "cardiac_exam_other.contains('Heart murmur') || cardiac_exam.contains('Weak pulse') || cardiac_exam.contains('Tachycardia') || cardiac_exam.contains('Bradycardia') || cardiac_exam.contains('Arrhythmia') || cardiac_exam.contains('Cyanosis') || cardiac_exam.contains('Cold sweats') || cardiac_exam.contains('Other')"
+
+  - template: "Abnormal breast exam: {breast_exam}, {breast_exam_other}"
+    relevance: "breast_exam.contains('Nodule') || breast_exam.contains('Discharge') || breast_exam.contains('Flushing') || breast_exam.contains('Local pain') || breast_exam.contains('Bleeding') || breast_exam.contains('Increased temperature') || breast_exam.contains('Other')"
+
+  - template: "Abnormal abdominal exam: {abdominal_exam}, {abdominal_exam_other}"
+    relevance: "abdominal_exam.contains('Mass/tumour') || abdominal_exam.contains('Pain on superficial palpation') || abdominal_exam.contains('Pain on deep palpation') || abdominal_exam.contains('Painful decompression') || abdominal_exam.contains('Other')"
+
+  - template: "Abnormal pelvic exam: {pelvic_exam}, {pelvic_exam_other}"
+    relevance: "pelvic_exam.contains(Physiological vaginal discharge') || pelvic_exam.contains('Abnormal vaginal discharge') || pelvic_exam.contains('Evidence of amniotic fluid') || pelvic_exam.contains('Foul-smelling vaginal discharge') || pelvic_exam.contains('Clusters of erythematous papules') || pelvic_exam.contains('Vesicles') || pelvic_exam.contains('Genital ulcer') || pelvic_exam.contains('Genital pain') || pelvic_exam.contains('Tender bilateral inguinal and femoral lymphadenopathy') || pelvic_exam.contains('Cervical friability') || pelvic_exam.contains('Mucopurulent cervicitis') || pelvic_exam.contains('Tender unilateral lymphadenopathy') || pelvic_exam.contains('Curd-like vaginal discharge') || pelvic_exam.contains('Other')"
+
+  - template: "No fetal heartbeat observed"
+    relevance: "fetal_heartbeat == 'No'"
+
+  - template: "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm"
+    relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
 
 ---
 group: reason_for_visit
 fields:
-  - "Reason for coming to facility: {contact_reason}"
-  - "Specific complaint(s): {specific_complaint}, {specific_complaint_other}"
+  - template: "Reason for coming to facility: {contact_reason}"
+    relevance: "contact_reason != ''"
+
+  - template: "Specific complaint(s): {specific_complaint}, {specific_complaint_other}"
+    relevance: "specific_complaint != ''"
 
 ---
 group: demographic_info
 fields:
-  - "Highest level of school: {educ_level}"
-  - "Marital status: {marital_status}"
-  - "Occupation: {occupation}, {occupation_other}"
+  - template: "Highest level of school: {educ_level}"
+    relevance: "educ_level != ''"
+
+  - template: "Marital status: {marital_status}"
+    relevance: "marital_status != ''"
+
+  - template: "Occupation: {occupation}, {occupation_other}"
+    relevance: "occupation != ''"
 
 ---
 group: current_pregnancy
 fields:
-  - "GA: {gest_age} weeks"
-  - "EDD: {edd}"
-  - "Ultrasound date: {ultrasound_date}"
-  - "No. of fetuses: {no_of_fetuses}"
-  - "Fetal presentation: {fetal_presentation}"
-  - "Amniotic fluid: {amniotic_fluid}"
-  - "Placenta location: {placenta_location}"
+  - template: "GA: {gest_age} weeks"
+    relevance: ""
+
+  - template: "EDD: {edd}"
+    relevance: ""
+
+  - template: "Ultrasound date: {ultrasound_date}"
+    relevance: "ultrasound_date != ''"
+
+  - template: "No. of fetuses: {no_of_fetuses}"
+    relevance: ""
+
+  - template: "Fetal presentation: {fetal_presentation}"
+    relevance: "fetal_presentation != ''"
+
+  - template: "Amniotic fluid: {amniotic_fluid}"
+    relevance: "amniotic_fluid != ''"
+
+  - template: "Placenta location: {placenta_location}"
+    relevance: "placenta_location != ''"
 
 ---
 group: obstetric_history
 fields:
-  - "GP: {gravida}{parity}"
-  - "No. of pregnancies lost/ended: {miscarriages_abortions}"
-  - "No. of live births: {live_births}"
-  - "No. of stillbirths: {stillbirths}"
-  - "No. of C-sections: {c_sections}"
-  - "Past pregnancy problems: {prev_preg_comps}, {prev_preg_comps_other}"
-  - "Past alcohol / substances used: {substances_used}, {substances_used_other}"
+  - template: "GP: {gravida}{parity}"
+    relevance: "alpha"
+
+  - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
+    relevance: "alpha"
+
+  - template: "No. of live births: {live_births}"
+    relevance: "alpha"
+
+  - template: "No. of stillbirths: {stillbirths}"
+    relevance: "alpha"
+
+  - template: "No. of C-sections: {c_sections}"
+    relevance: "alpha"
+
+  - template: "Past pregnancy problems: {prev_preg_comps}, {prev_preg_comps_other}"
+    relevance: "alpha"
+
+  - template: "Past alcohol / substances used: {substances_used}, {substances_used_other}"
+    relevance: "alpha"
 
 ---
 group: medical_history
 fields:
-  - "Allergies: {allergies}, {allergies_other}"
-  - "Surgeries: {surgeries}, {surgeries_other_gyn_proced}, {surgeries_other}"
-  - "Chronic health conditions: {health_conditions}, {health_conditions_other}"
-  - "HIV diagnosis date: {hiv_diagnosis_date}"
-  - "HIV diagnosis date unknown"
+  - template: "Allergies: {allergies}, {allergies_other}"
+    relevance: "alpha"
+
+  - template: "Surgeries: {surgeries}, {surgeries_other_gyn_proced}, {surgeries_other}"
+    relevance: "alpha"
+
+  - template: "Chronic health conditions: {health_conditions}, {health_conditions_other}"
+    relevance: "alpha"
+
+  - template: "HIV diagnosis date: {hiv_diagnosis_date}"
+    relevance: "alpha"
+
+  - template: "HIV diagnosis date unknown"
+    relevance: "alpha"

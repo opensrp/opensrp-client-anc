@@ -6,7 +6,17 @@ import java.util.List;
  * Created by ndegwamartin on 04/12/2018.
  */
 public class ContactSummary {
+
     private String group;
+    private ContactSummaryItem contactSummaryItem;
+
+    public ContactSummaryItem getContactSummaryItem() {
+        return contactSummaryItem;
+    }
+
+    public void setContactSummaryItem(ContactSummaryItem contactSummaryItem) {
+        this.contactSummaryItem = contactSummaryItem;
+    }
 
     public String getGroup() {
         return group;
@@ -25,4 +35,9 @@ public class ContactSummary {
     }
 
     private List<String> fields;
+
+    public static final class KEY {
+        public static final String GROUP = "group";
+        public static final String FIELDS = "fields";
+    }
 }
