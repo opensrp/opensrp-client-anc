@@ -65,27 +65,62 @@ actions:
 name: step3_toaster17
 description: Hypertension diagnosis
 priority: 1
-condition: "step3_pulse_rate < 60 || step3_pulse_rate > 100 "
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_pulse_rate_repeat
 description: Pulse rate measurement
 priority: 1
-condition: "step3_pulse_rate < 60 || step3_pulse_rate > 100 "
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_pulse_rate_repeat_label
 description: Pulse rate measurement
 priority: 1
-condition: "step3_pulse_rate < 60 || step3_pulse_rate > 100 "
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100) "
 actions:
   - "isRelevant = true"
 ---
 name: step3_toaster18
 description: Pulse rate measurement
 priority: 1
-condition: "step3_pulse_rate_repeat < 60 || step3_pulse_rate_repeat > 100 "
+condition: "step3_pulse_rate_repeat > 0 && (step3_pulse_rate_repeat < 60 || step3_pulse_rate_repeat > 100) "
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster21
+description: Oxymetry Entry
+priority: 1
+condition: "step3_oximetry > 0 && step3_oximetry < 92"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster28
+description: Fetal heart beat rate
+priority: 1
+condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heart_rate_repeat_label
+description: Fetal heart beat rate
+priority: 1
+condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heart_rate_repeat
+description: Fetal heart beat rate
+priority: 1
+condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster29
+description: Fetal heart beat rate repeat toaster
+priority: 1
+condition: "step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 110 || step4_fetal_heart_rate_repeat > 160) "
 actions:
   - "isRelevant = true"

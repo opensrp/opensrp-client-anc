@@ -1019,7 +1019,13 @@
         "type": "toaster_notes",
         "text": "Woman has respiratory distress. Refer urgently to the hospital!",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:respiratory_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
       },
       {
         "key": "oximetry_label",
@@ -1029,6 +1035,12 @@
         "text_color": "#000000",
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step3:respiratory_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
         }
       },
       {
@@ -1038,7 +1050,13 @@
         "openmrs_entity_id": "",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
-        "edit_type": "number"
+        "edit_type": "number",
+        "relevance": {
+          "step3:respiratory_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
       },
       {
         "key": "toaster21",
@@ -1049,7 +1067,14 @@
         "text": "Woman has low oximetry. Refer urgently to the hospital!",
         "toaster_info_text": "Procedure:\n- Give oxygen\n- Refer urgently to hospital!",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "cardiac_exam",
@@ -1090,7 +1115,13 @@
         "type": "toaster_notes",
         "text": "Abnormal cardiac exam. Refer urgently to the hospital!",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:cardiac_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
       },
       {
         "key": "breast_exam",
@@ -1131,7 +1162,13 @@
         "type": "toaster_notes",
         "text": "Abnormal breast exam. Refer for further investigation.",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:breast_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
       },
       {
         "key": "abdominal_exam",
@@ -1172,7 +1209,13 @@
         "type": "toaster_notes",
         "text": "Abnormal abdominal exam. Refer for further investigation.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:abdominal_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
       },
       {
         "key": "pelvic_exam",
@@ -1213,7 +1256,13 @@
         "type": "toaster_notes",
         "text": "Abnormal pelvic exam. Refer for further investigation.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:pelvic_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
       },
       {
         "key": "cervical_exam",
@@ -1250,7 +1299,13 @@
         "type": "toaster_notes",
         "text": "Cervix is more than 2 cm dilated. Please check for other signs and symptoms of labour (if GA is 37 weeks or later) or pre-term labour and other related complications (if GA is less than 37 weeks).",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:dilation_cm": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"2\")"
+          }
+        }
       },
       {
         "key": "oedema",
@@ -1409,6 +1464,8 @@
         "label": "Fetal heartbeat present?",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "yes" ,
         "options": [
           {
             "key": "yes",
@@ -1419,55 +1476,8 @@
             "specify_info": "specify fetal heart rate (bpm)...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
-            "specify_content": [
-              {
-                "key": "fetal_heart_rate_label",
-                "type": "label",
-                "label_text_style": "bold",
-                "text": "Fetal heart rate (bpm)",
-                "text_color": "#000000",
-                "v_required": {
-                  "value": false
-                },
-                "relevance": {
-                  "step4:fetal_heartbeat": {
-                    "type": "string",
-                    "ex": "equalTo(., \"yes\")"
-                  }
-                }
-              },
-              {
-                "key": "fetal_heart_rate",
-                "openmrs_entity_parent": "",
-                "openmrs_entity": "Fetal heart rate",
-                "openmrs_entity_id": "1440",
-                "type": "normal_edit_text",
-                "edit_text_style": "bordered",
-                "edit_type": "number",
-                "v_required": {
-                  "value": "false",
-                  "err": "Please enter the fetal heart rate"
-                },
-                "v_min": {
-                  "value": "80",
-                  "err": "Fetal heartbeat must be equal or greater than 80"
-                },
-                "v_max": {
-                  "value": "200",
-                  "err": "Fetal heartbeat must be less than or equal to 200"
-                },
-                "v_numeric_integer": {
-                  "value": "true",
-                  "err": "Enter a valid sfh"
-                },
-                "relevance": {
-                  "step4:fetal_heartbeat": {
-                    "type": "string",
-                    "ex": "equalTo(., \"yes\")"
-                  }
-                }
-              }
-            ]
+            "content_form": "fetal_heartbeat_sub_form",
+            "content_form_location": ""
           },
           {
             "key": "no",
@@ -1509,9 +1519,10 @@
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
-          "step4:fetal_heart_rate": {
-            "type": "string",
-            "ex": "regex(.,\"^((1[1-5][0-9]|160))\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1523,6 +1534,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -1536,6 +1554,13 @@
         "v_required": {
           "value": "false",
           "err": "Please enter result for the second fetal heart rate"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -1546,7 +1571,14 @@
         "type": "toaster_notes",
         "text": "Abnormal fetal heart rate. Refer to hospital.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "no_of_fetuses_label",
@@ -1602,7 +1634,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "",
         "options": [
           {
             "key": "no_of_fetuses_unknown",
