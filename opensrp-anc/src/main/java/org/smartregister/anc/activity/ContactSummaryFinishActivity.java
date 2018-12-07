@@ -15,9 +15,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
+import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
@@ -25,6 +27,7 @@ import org.smartregister.anc.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.domain.ContactSummary;
+import org.smartregister.anc.domain.ContactSummaryItem;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ProfilePresenter;
@@ -40,10 +43,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -57,12 +58,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private TextView ancIdView;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
-    private Map<String, String> valuesMap = new HashMap<>();
+    private Facts facts = new Facts();
     private Random random = new Random();
     private Yaml yaml;
     private static final String CONFIG_FOLDER_PATH = "config/";
     private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
     private List<ContactSummary> contactSummaryList = new ArrayList<>();
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +78,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         Constructor constructor = new Constructor(ContactSummary.class);
         TypeDescription customTypeDescription = new TypeDescription(ContactSummary.class);
-        //customTypeDescription.addPropertyParameters("contactDetails", Contact.class);
-        //constructor.addTypeDescription(customTypeDescription);
+        customTypeDescription.addPropertyParameters(ContactSummaryItem.FIELD_CONTACT_SUMMARY_ITEMS, ContactSummaryItem.class);
+        constructor.addTypeDescription(customTypeDescription);
         yaml = new Yaml(constructor);
         loadContactSummaryData();
+
+
+
+        gson = new Gson();
 
     }
 
@@ -256,7 +262,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                         if (fieldKey != null && fieldValue != null) {
 
-                            valuesMap.put(fieldKey, fieldValue);
+                            facts.put(fieldKey, isList(fieldValue) ?  gson.fromJson(fieldValue, ArrayList.class) : fieldValue);
                         }
 
 
@@ -267,7 +273,12 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    private void process(List<String> partialForms) throws Exception {
+
+    private boolean isList(String value) {
+        return !value.isEmpty() && value.charAt(0) == '[';
+    }
+
+    private void process() throws Exception {
 
 
 //Get actual Data
@@ -284,23 +295,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
 
 
-        Iterable<Object> ruleObjects = AncApplication.getInstance().getRulesEngineHelper().readYaml(Constants.CONFIG_FILE.CONTACT_SUMMARY);
+        Iterable<Object> ruleObjects = readYaml(Constants.CONFIG_FILE.CONTACT_SUMMARY);
 
         contactSummaryList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
-            Map<String, Object> map = ((Map<String, Object>) ruleObject);
-
-            String group = processUnderscores(map.get(ContactSummary.KEY.GROUP).toString());
-            List<String> templates = (List<String>) map.get(ContactSummary.KEY.FIELDS);
-
-            ContactSummary contactSummary = new ContactSummary();
-            contactSummary.setGroup(group);
-            contactSummary.setFields(templates);
+            ContactSummary contactSummary = (ContactSummary) ruleObject;
             contactSummaryList.add(contactSummary);
         }
-
-
-        partialContacts.toString();
     }
 
     private String getKey(JSONObject jsonObject) throws Exception {
@@ -312,10 +313,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         int max = 30;
         int min = 1;
         return jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : String.valueOf(random.nextInt(max - min + 1) + min);
-    }
-
-    private String processUnderscores(String string) {
-        return string.replace("_", " ").toUpperCase();
     }
 
     private void loadContactSummaryData() {
@@ -333,9 +330,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             protected Void doInBackground(Void... nada) {
                 try {
 
-                    process(Arrays.asList(new String[]{"profile", "physical_exam", "counselling_treatment", "symptoms_follow_up", "test"}));
+                    process();
                 } catch (Exception e) {
-                    Log.e(TAG, e.getMessage(),e);
+                    Log.e(TAG, e.getMessage(), e);
                 }
 
                 return null;
@@ -345,14 +342,15 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected void onPostExecute(Void result) {
 
-                String edd = valuesMap.get(DBConstants.KEY.EDD);edd="2018-02-20";
+                String edd = facts.get(DBConstants.KEY.EDD);
+                edd = "2018-02-20";
                 if (edd != null) {
                     setProfileGestationAge(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
 
                 }
 
 
-                ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, contactSummaryList, valuesMap);
+                ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, contactSummaryList, facts);
 
 
                 // set up the RecyclerView
@@ -367,9 +365,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }.execute();
     }
 
-    public Iterator<ContactSummary> readYaml(String filename) throws IOException {
+    public java.lang.Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((CONFIG_FOLDER_PATH + filename)));
-        return (Iterator<ContactSummary>) yaml.loadAll(inputStreamReader);
+        return yaml.loadAll(inputStreamReader);
     }
 }
 

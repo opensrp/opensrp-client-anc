@@ -8,15 +8,8 @@ import java.util.List;
 public class ContactSummary {
 
     private String group;
-    private ContactSummaryItem contactSummaryItem;
 
-    public ContactSummaryItem getContactSummaryItem() {
-        return contactSummaryItem;
-    }
-
-    public void setContactSummaryItem(ContactSummaryItem contactSummaryItem) {
-        this.contactSummaryItem = contactSummaryItem;
-    }
+    private List<ContactSummaryItem> fields;
 
     public String getGroup() {
         return group;
@@ -26,18 +19,16 @@ public class ContactSummary {
         this.group = group;
     }
 
-    public List<String> getFields() {
-        return fields;
-    }
-
-    public void setFields(List<String> fields) {
-        this.fields = fields;
-    }
-
-    private List<String> fields;
-
     public static final class KEY {
         public static final String GROUP = "group";
         public static final String FIELDS = "fields";
+    }
+
+    public List<ContactSummaryItem> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<ContactSummaryItem> fields) {
+        this.fields = fields;
     }
 }
