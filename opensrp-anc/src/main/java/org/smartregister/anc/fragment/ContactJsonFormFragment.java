@@ -7,10 +7,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
-import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
+import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
 
@@ -38,8 +37,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
-    protected JsonFormFragmentPresenter createPresenter() {
-        return new JsonWizardFormFragmentPresenter(this, ContactJsonFormInteractor.getInstance());
+    protected ContactJsonFormFragmentPresenter createPresenter() {
+        return new ContactJsonFormFragmentPresenter(this, ContactJsonFormInteractor.getInstance());
     }
 
     @Override
