@@ -1292,22 +1292,6 @@
         ]
       },
       {
-        "key": "toaster26",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Cervix is more than 2 cm dilated. Please check for other signs and symptoms of labour (if GA is 37 weeks or later) or pre-term labour and other related complications (if GA is less than 37 weeks).",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
-        "relevance": {
-          "step3:dilation_cm": {
-            "type": "numeric",
-            "ex": "greaterThan(., \"2\")"
-          }
-        }
-      },
-      {
         "key": "oedema",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

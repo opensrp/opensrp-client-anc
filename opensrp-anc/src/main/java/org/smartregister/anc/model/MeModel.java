@@ -12,8 +12,9 @@ public class MeModel implements MeContract.Model {
 
     @Override
     public String getName() {
-        return Utils.getPrefferedName();
+        return new Utils().getName();
     }
+
 
     @Override
     public String getBuildDate() {
