@@ -78,6 +78,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         profile.setBackground(R.drawable.profile_bg);
         profile.setActionBarBackground(R.color.contact_profile_actionbar);
         profile.setNavigationBackground(R.color.contact_profile_navigation);
+        profile.setHomeAsUpIndicator(R.drawable.ic_contact_menu);
         profile.setRequiredFields(7);
         profile.setFormName(Constants.JSON_FORM.ANC_PROFILE);
         contacts.add(profile);
@@ -87,6 +88,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
         symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
         symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
+        profile.setHomeAsUpIndicator(R.drawable.ic_contact_menu);
         symptomsAndFollowUp.setRequiredFields(0);
         symptomsAndFollowUp.setFormName(Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP);
         contacts.add(symptomsAndFollowUp);
@@ -96,6 +98,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         physicalExam.setBackground(R.drawable.physical_exam_bg);
         physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
         physicalExam.setNavigationBackground(R.color.contact_exam_navigation);
+        profile.setHomeAsUpIndicator(R.drawable.ic_contact_menu);
         physicalExam.setRequiredFields(18);
         physicalExam.setFormName(Constants.JSON_FORM.ANC_PHYSICAL_EXAM);
         contacts.add(physicalExam);
@@ -105,6 +108,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         tests.setBackground(R.drawable.tests_bg);
         tests.setActionBarBackground(R.color.contact_tests_actionbar);
         tests.setNavigationBackground(R.color.contact_tests_navigation);
+        profile.setHomeAsUpIndicator(R.drawable.ic_contact_menu);
         tests.setRequiredFields(12);
         tests.setFormName(Constants.JSON_FORM.ANC_TEST);
         contacts.add(tests);
@@ -114,6 +118,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
         counsellingAndTreatment.setActionBarBackground(R.color.contact_counselling_actionbar);
         counsellingAndTreatment.setNavigationBackground(R.color.contact_counselling_navigation);
+        profile.setHomeAsUpIndicator(R.drawable.ic_contact_menu);
         counsellingAndTreatment.setRequiredFields(5);
         counsellingAndTreatment.setFormName(Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
         contacts.add(counsellingAndTreatment);
