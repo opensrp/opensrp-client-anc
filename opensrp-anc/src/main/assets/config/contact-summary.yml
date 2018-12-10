@@ -101,40 +101,57 @@ fields:
 group: obstetric_history
 fields:
   - template: "GP: {gravida}{parity}"
-    relevance: "alpha"
+    relevance: ""
 
   - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
-    relevance: "alpha"
+    relevance: "contact_no == 1 || miscarriages_abortions > 0"
 
   - template: "No. of live births: {live_births}"
-    relevance: "alpha"
+    relevance: "contact_no == 1 || live_births > 0"
 
   - template: "No. of stillbirths: {stillbirths}"
-    relevance: "alpha"
+    relevance: "contact_no == 1 || stillbirths > 0"
 
   - template: "No. of C-sections: {c_sections}"
-    relevance: "alpha"
+    relevance: "contact_no == 1 || c_sections > 0"
 
   - template: "Past pregnancy problems: {prev_preg_comps}, {prev_preg_comps_other}"
-    relevance: "alpha"
+    relevance: "contact_no == 1 || (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
 
   - template: "Past alcohol / substances used: {substances_used}, {substances_used_other}"
-    relevance: "alpha"
+    relevance: "contact_no == 1 || (!substances_used.contains('none') && substances_used.size() > 0) "
 
 ---
 group: medical_history
 fields:
   - template: "Allergies: {allergies}, {allergies_other}"
-    relevance: "alpha"
+    relevance: "allergies != '' || contact_no  == 1"
 
   - template: "Surgeries: {surgeries}, {surgeries_other_gyn_proced}, {surgeries_other}"
-    relevance: "alpha"
+    relevance: "surgeries != '' || contact_no  == 1"
 
   - template: "Chronic health conditions: {health_conditions}, {health_conditions_other}"
-    relevance: "alpha"
+    relevance: "health_conditions != '' || contact_no  == 1"
 
   - template: "HIV diagnosis date: {hiv_diagnosis_date}"
-    relevance: "alpha"
+    relevance: "hiv_diagnosis_date != '' || contact_no  == 1"
 
   - template: "HIV diagnosis date unknown"
-    relevance: "alpha"
+    relevance: "hiv_diagnosis_date_unknown.contains('Unknown HIV Date') || contact_no  == 1"
+---
+group: immunisation_status
+fields:
+  - template: "TT immunisation status: "
+    relevance: "allergies != '' || contact_no  == 1"
+
+  - template: "Surgeries: {surgeries}, {surgeries_other_gyn_proced}, {surgeries_other}"
+    relevance: "surgeries != '' || contact_no  == 1"
+
+  - template: "Chronic health conditions: {health_conditions}, {health_conditions_other}"
+    relevance: "health_conditions != '' || contact_no  == 1"
+
+  - template: "HIV diagnosis date: {hiv_diagnosis_date}"
+    relevance: "hiv_diagnosis_date != '' || contact_no  == 1"
+
+  - template: "HIV diagnosis date unknown"
+    relevance: "hiv_diagnosis_date_unknown.contains('Unknown HIV Date') || contact_no  == 1"
