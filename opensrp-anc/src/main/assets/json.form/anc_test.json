@@ -73,14 +73,22 @@
             "label": "Abnormal",
             "type": "check_box",
             "values": [
-              "rapid_breathing:Rapid breathing:true",
+             "rapid_breathing:Rapid breathing:true",
               "other:Other:true"
+            ]
+          },
+          {
+            "key": "respiratory_exam_radio_button",
+            "label": "Respiratory exam",
+            "type": "native_radio",
+            "values": [
+              "3:Abnormal "
             ]
           }
         ]
       },
       {
-        "key": "new_native_accordion",
+        "key": "new_native_accordion_two",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;

@@ -4,13 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -24,8 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ExpandableListAdapter;
-import org.smartregister.anc.helper.ExpandableListDataPump;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.view.ScrollDisabledExpandableListView;
 
 import java.util.ArrayList;
@@ -34,9 +30,7 @@ import java.util.List;
 
 public class AccordionWidgetFactory implements FormWidgetFactory {
     private OkButtonClickListener okButtonClickListener = new OkButtonClickListener();
-    private FormUtils formUtils = new FormUtils();
-    private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject, CommonListener commonListener, boolean popup) throws Exception {
@@ -90,8 +84,8 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
             accordionValues = jsonObject.getJSONArray(JsonFormConstants.VALUE);
         }
         ScrollDisabledExpandableListView expandableListView = rootLayout.findViewById(R.id.expandable_list_view);
-        expandableListDetail = addExpandableListDetails(accordionText,accordionValues);
-        expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
+        HashMap<String, List<String>> expandableListDetail = addExpandableListDetails(accordionText, accordionValues);
+        List<String> expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         ExpandableListAdapter expandableListAdapter = new ExpandableListAdapter(context, expandableListTitle, expandableListDetail);
         expandableListView.setTag(R.id.accordion_info_text, accordionInfoText);
         expandableListView.setTag(R.id.accordion_info_title, accordionInfoTitle);
@@ -99,32 +93,12 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         expandableListView.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
         expandableListView.setTag(com.vijay.jsonwizard.R.id.specify_listener, commonListener);
         expandableListView.setAdapter(expandableListAdapter);
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(context,
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(context,
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
         addBottomSection(stepName, context, jsonFormFragment, jsonObject, commonListener, popup, rootLayout);
     }
 
     private HashMap<String, List<String>> addExpandableListDetails(String text, JSONArray jsonArray) throws JSONException {
         HashMap<String, List<String>> details = new HashMap<>();
-        details.put(text,addExpandableChildren(jsonArray));
+        details.put(text, addExpandableChildren(jsonArray));
         return details;
     }
 
@@ -135,7 +109,7 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
             if (jsonObject.has(JsonFormConstants.VALUES)) {
                 JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < values.length(); k++) {
-                    stringList.add(values.getString(i));
+                    stringList.add(values.getString(k));
                 }
             }
         }
@@ -143,16 +117,17 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         return stringList;
     }
 
+
     private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject, CommonListener commonListener, boolean popup, LinearLayout rootLayout) throws JSONException {
         Boolean displayBottomSection = jsonObject.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, false);
         if (displayBottomSection) {
             RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
             relativeLayout.setVisibility(View.VISIBLE);
 
-            Button okButton = relativeLayout.findViewById(R.id.ok_button);
-            okButton = addOkButtonTags(okButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
-            okButton.setOnClickListener(okButtonClickListener);
-            Button cancelButton = relativeLayout.findViewById(R.id.cancel_button);
+            Button recordButton = relativeLayout.findViewById(R.id.ok_button);
+            recordButton = addOkButtonTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
+            recordButton.setOnClickListener(okButtonClickListener);
+            Button undoButton = relativeLayout.findViewById(R.id.undo_button);
         }
     }
 
@@ -163,7 +138,7 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         okButton.setTag(R.id.specify_step_name, stepName);
         okButton.setTag(R.id.specify_listener, commonListener);
         okButton.setTag(R.id.specify_fragment, jsonFormFragment);
-        okButton.setTag(R.id.secondaryValues, formUtils.getSecondaryValues(jsonObject,jsonObject.getString(JsonFormConstants.TYPE)));
+        okButton.setTag(R.id.secondaryValues, formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
         okButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         okButton.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
 

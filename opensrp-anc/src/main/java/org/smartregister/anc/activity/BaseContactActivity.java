@@ -61,7 +61,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     protected void setupViews() {
         initializeRecyclerView();
 
-        View cancelButton = findViewById(R.id.cancel_button);
+        View cancelButton = findViewById(R.id.undo_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +209,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.cancel_button:
+                case R.id.undo_button:
                     displayContactSaveDialog();
                     break;
                 case R.id.card_layout:

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.views.CustomTextView;
@@ -31,8 +30,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .get(expandedListPosition);
+        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).get(expandedListPosition);
     }
 
     @Override
@@ -57,10 +55,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .size();
+        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).size();
     }
 
     @Override
