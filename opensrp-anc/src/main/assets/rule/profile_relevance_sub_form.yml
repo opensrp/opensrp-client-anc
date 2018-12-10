@@ -1,0 +1,7 @@
+---
+name: step1_hiv_risk_counseling_toaster
+description: Hiv Risk counselling
+priority: 1
+condition: "(step1_hiv_risk == 1)"
+actions:
+  - "isRelevant = true"

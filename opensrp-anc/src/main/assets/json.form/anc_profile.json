@@ -3,6 +3,10 @@
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
+  "global": {
+    "site_anc_hiv": 0,
+    "stock_count": 100
+  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -260,9 +264,10 @@
         "toaster_type": "problem",
         "text_color": "#CF0800",
         "relevance": {
-          "step1:hiv_risk": {
-            "type": "string",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }
