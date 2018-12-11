@@ -2,6 +2,20 @@
 name: step1_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step1_hiv_positive != 1 && (global_site_anc_hiv = 1 || step8_partner_hiv_positive = 1 || step7_alcohol_substance_use.contains('injectable_drugs')) || step1_occupation.contains('informal_employment_sex_worker')) "
+condition: "(step1_hiv_positive != 1 && (global_site_anc_hiv == 1 || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs')) || step1_occupation.contains('informal_employment_sex_worker')) "
 actions:
   - "calculation = 1"
+---
+name: step3_previous_pregnancies
+description: Previous pregnancies
+priority: 1
+condition: "(step3_gravida > 0)"
+actions:
+  - "calculation = step3_gravida - 1 "
+---
+name: step3_parity
+description: Previous pregnancies
+priority: 1
+condition: "(step3_gravida > 1)"
+actions:
+  - "calculation = step3_live_births + step3_stillbirths "

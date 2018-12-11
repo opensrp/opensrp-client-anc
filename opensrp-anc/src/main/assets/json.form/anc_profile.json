@@ -5,7 +5,8 @@
   "relational_id": "",
   "global": {
     "site_anc_hiv": 0,
-    "stock_count": 100
+    "site_ultrasound": 0,
+    "contact_no": 1
   },
   "metadata": {
     "start": {
@@ -294,7 +295,8 @@
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "",
             "text": "Yes",
-            "specify_info": "specify date"
+            "specify_info": "specify date",
+            "specify_widget": "date_picker"
           },
           {
             "key": "no",
@@ -351,7 +353,8 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "specify_info": "ultrasound date"
+            "specify_info": "ultrasound date",
+            "specify_widget": "date_picker"
           },
           {
             "key": "no",
@@ -377,9 +380,10 @@
         "toaster_info_title": "Ultrasound recommended",
         "toaster_type": "info",
         "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -395,9 +399,10 @@
         "toaster_info_title": "Refer for ultrasound in facility with U/S equipment",
         "toaster_type": "info",
         "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -622,7 +627,7 @@
         "spacer_height": "10dp"
       },
       {
-        "key": "enabled_label",
+        "key": "gravida_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "Number of pregnancies",
@@ -659,10 +664,17 @@
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
-        "key": "enabled_label",
+        "key": "miscarriages_abortions_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of pregnancies lost/ended",
@@ -670,7 +682,14 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of miscarriages and abortions."
+        "label_info_text": "Total number of miscarriages and abortions.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
+        }
       },
       {
         "key": "miscarriages_abortions",
@@ -686,6 +705,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -697,7 +723,7 @@
         "spacer_height": "15dp"
       },
       {
-        "key": "enabled_label",
+        "key": "live_births_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of live births",
@@ -705,7 +731,14 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of live births."
+        "label_info_text": "Total number of live births.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
+        }
       },
       {
         "key": "live_births",
@@ -721,6 +754,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -732,7 +772,7 @@
         "spacer_height": "15dp"
       },
       {
-        "key": "enabled_label",
+        "key": "stillbirths_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of still births",
@@ -740,7 +780,14 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of still births."
+        "label_info_text": "Total number of still births.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
+        }
       },
       {
         "key": "stillbirths",
@@ -756,6 +803,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -769,10 +823,17 @@
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
-        "key": "enabled_label",
+        "key": "c_sections_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of C-sections",
@@ -780,7 +841,14 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of C-sections.."
+        "label_info_text": "Total number of C-sections..",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
+        }
       },
       {
         "key": "c_sections",
@@ -796,6 +864,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -916,6 +991,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select at least one past pregnancy problems"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -1643,7 +1725,7 @@
         "type": "native_radio",
         "label": "TT immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
@@ -1734,7 +1816,7 @@
         "type": "native_radio",
         "label": "Hep B immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
@@ -1825,7 +1907,7 @@
         "type": "native_radio",
         "label": "Flu immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "seasonal_flu_dose_given",
@@ -2258,7 +2340,7 @@
         "type": "native_radio",
         "label": "Uses tobacco products?",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "yes",
