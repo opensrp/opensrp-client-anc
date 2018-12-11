@@ -71,7 +71,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "label": "1. A protocol or standard operating procedure for Intimate Partner Violence (IPV);<br> <br>a. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond; <br>b. A private setting; <br>c. A way to ensure confidentiality; <br>d. Time to allow for appropriate disclosure; <br>e. A system for referral in place.",
+        "label": "a. A protocol or standard operating procedure for Intimate Partner Violence (IPV);<br> <br>b. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond; <br>c. A private setting; <br>d. A way to ensure confidentiality; <br>e. Time to allow for appropriate disclosure; <br>f. A system for referral in place.",
         "type": "native_radio",
         "options": [
           {
