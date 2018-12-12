@@ -10,6 +10,7 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
@@ -207,7 +208,8 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testGoToClientButtonClicked() {
+    @Ignore
+    public void testSaveAndFinishButtonClickedOpensContactSummarySendPage() {
         activity.findViewById(R.id.finalize_contact).performClick();
         Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
