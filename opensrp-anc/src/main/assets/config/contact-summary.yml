@@ -14,13 +14,13 @@ fields:
     relevance: "severe_hypertension == 1 && contact_no == 1"
 
   - template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
-    relevance: "{hypertension} = 1 && (symp_sev_preeclampsia.contains('Severe headache') || symp_sev_preeclampsia.contains('Blurred vision') || symp_sev_preeclampsia.contains('Epigastric pain'|| symp_sev_preeclampsia.contains('Dizziness') || symp_sev_preeclampsia.contains('Vomiting')"
+    relevance: "hypertension == 1 && (symp_sev_preeclampsia.contains('Severe headache') || symp_sev_preeclampsia.contains('Blurred vision') || symp_sev_preeclampsia.contains('Epigastric pain') || symp_sev_preeclampsia.contains('Dizziness') || symp_sev_preeclampsia.contains('Vomiting'))"
 
   - template: "Pre-eclampsia diagnosis"
     relevance: "preeclampsia == 1 && contact_no == 1"
 
   - template: "Severe pre-eclampsia diagnosis"
-    relevance: "severe_preeclampsia = 1 && contact_no == 1"
+    relevance: "severe_preeclampsia == 1 && contact_no == 1"
 
   - template: "Fever: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat >= 38"
@@ -44,7 +44,7 @@ fields:
     relevance: "abdominal_exam.contains('Mass/tumour') || abdominal_exam.contains('Pain on superficial palpation') || abdominal_exam.contains('Pain on deep palpation') || abdominal_exam.contains('Painful decompression') || abdominal_exam.contains('Other')"
 
   - template: "Abnormal pelvic exam: {pelvic_exam}, {pelvic_exam_other}"
-    relevance: "pelvic_exam.contains(Physiological vaginal discharge') || pelvic_exam.contains('Abnormal vaginal discharge') || pelvic_exam.contains('Evidence of amniotic fluid') || pelvic_exam.contains('Foul-smelling vaginal discharge') || pelvic_exam.contains('Clusters of erythematous papules') || pelvic_exam.contains('Vesicles') || pelvic_exam.contains('Genital ulcer') || pelvic_exam.contains('Genital pain') || pelvic_exam.contains('Tender bilateral inguinal and femoral lymphadenopathy') || pelvic_exam.contains('Cervical friability') || pelvic_exam.contains('Mucopurulent cervicitis') || pelvic_exam.contains('Tender unilateral lymphadenopathy') || pelvic_exam.contains('Curd-like vaginal discharge') || pelvic_exam.contains('Other')"
+    relevance: "pelvic_exam.contains('Physiological vaginal discharge') || pelvic_exam.contains('Abnormal vaginal discharge') || pelvic_exam.contains('Evidence of amniotic fluid') || pelvic_exam.contains('Foul-smelling vaginal discharge') || pelvic_exam.contains('Clusters of erythematous papules') || pelvic_exam.contains('Vesicles') || pelvic_exam.contains('Genital ulcer') || pelvic_exam.contains('Genital pain') || pelvic_exam.contains('Tender bilateral inguinal and femoral lymphadenopathy') || pelvic_exam.contains('Cervical friability') || pelvic_exam.contains('Mucopurulent cervicitis') || pelvic_exam.contains('Tender unilateral lymphadenopathy') || pelvic_exam.contains('Curd-like vaginal discharge') || pelvic_exam.contains('Other')"
 
   - template: "No fetal heartbeat observed"
     relevance: "fetal_heartbeat == 'No'"

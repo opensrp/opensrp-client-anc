@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,11 +10,11 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -22,16 +23,12 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.util.Constants;
 
-import java.util.UUID;
-
 import static org.robolectric.Shadows.shadowOf;
 
-@Ignore
-public class ContactSummaryFinishActivityTest extends BaseUnitTest {
+public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
     private ContactSummaryFinishActivity activity;
-    private final String baseEntityId = UUID.randomUUID().toString();
     @Mock
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -46,9 +43,12 @@ public class ContactSummaryFinishActivityTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
+
+        MockitoAnnotations.initMocks(this);
+
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummaryFinishActivity.class);
-        contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class,
                 contactSummaryActivityIntent);
         activity = activityController.create().get();
@@ -62,7 +62,6 @@ public class ContactSummaryFinishActivityTest extends BaseUnitTest {
 
     @Test
     public void testActivityStartedWithIntent() {
-        activity = activityController.create().get();
         Intent passedIntent = activity.getIntent();
         Assert.assertNotNull(passedIntent);
 
@@ -163,7 +162,6 @@ public class ContactSummaryFinishActivityTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testSetProfileIDShouldSetAncIdViewWithCorrectContent() {
 
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
@@ -209,38 +207,25 @@ public class ContactSummaryFinishActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testSetWomanPhoneNumberUpdatesFieldCorrectly() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        String womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
-
-        Assert.assertNull(womanPhoneNumber);
-
-        spyActivity.setWomanPhoneNumber(TEST_STRING);
-
-        womanPhoneNumber = Whitebox.getInternalState(spyActivity, "womanPhoneNumber");
-
-
-        Assert.assertNotNull(womanPhoneNumber);
-        Assert.assertEquals(TEST_STRING, womanPhoneNumber);
-    }
-
-    @Test
     public void testGoToClientButtonClicked() {
-        activity = activityController.create().get();
-        activity.findViewById(R.id.button_go_to_client_profile).performClick();
-        Intent expectedIntent = new Intent(activity, ContactSummaryFinishActivity.class);
+        activity.findViewById(R.id.finalize_contact).performClick();
+        Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @After
     public void tearDown() {
-        // Destroy activity after every test
-        activityController
-                .pause()
-                .stop()
-                .destroy();
+        destroyController();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return activity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return activityController;
     }
 }
