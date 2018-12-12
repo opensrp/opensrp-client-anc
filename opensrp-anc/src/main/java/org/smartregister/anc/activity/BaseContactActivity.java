@@ -54,6 +54,12 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        createContacts();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy(isChangingConfigurations());
@@ -84,8 +90,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(contactAdapter);
-
-        createContacts();
     }
 
     protected abstract void createContacts();

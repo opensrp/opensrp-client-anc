@@ -5,17 +5,9 @@ package org.smartregister.anc.domain;
  */
 public class ContactSummaryItem {
 
-    private String name;
     private String template;
     private String relevance;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public static final String FIELD_CONTACT_SUMMARY_ITEMS = "contactSummaryItems";
 
     public String getTemplate() {
         return template;

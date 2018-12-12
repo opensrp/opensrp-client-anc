@@ -31,6 +31,7 @@ import java.util.Map;
 public class ContactActivity extends BaseContactActivity implements ContactContract.View {
 
     public static final String DIALOG_TAG = "CONTACT_DIALOG_TAG";
+    public static final String TAG = ContactActivity.class.getCanonicalName();
 
     private TextView patientNameView;
 
@@ -45,54 +46,17 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         }
+
+        initializeMainContactContainers();
     }
 
-    @Override
-    protected void initializePresenter() {
-        presenter = new ContactPresenter(this);
-    }
+    private void initializeMainContactContainers() {
 
-    @Override
-    protected void setupViews() {
-        super.setupViews();
-        patientNameView = findViewById(R.id.top_patient_name);
-    }
-
-    @Override
-    public void displayPatientName(String patientName) {
-        if (patientNameView != null && StringUtils.isNotBlank(patientName)) {
-            patientNameView.setText(patientName);
-        }
-    }
-
-    @Override
-    public void startFormActivity(JSONObject form, Contact contact) {
-        super.startFormActivity(form, contact);
-    }
-
-    @Override
-    public void displayToast(int resourceId) {
-        Utils.showToast(getApplicationContext(), getString(resourceId));
-    }
-
-    @Override
-    public void startQuickCheck(Contact contact) {
-        QuickCheckFragment.launchDialog(ContactActivity.this, DIALOG_TAG);
-    }
-
-    @Override
-    protected void createContacts() {
         try {
 
+            requiredFieldsMap.clear();
+
             contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
-
-            eventToFileMap.put(getString(R.string.quick_check), "anc_quick_check");
-            eventToFileMap.put(getString(R.string.profile), Constants.JSON_FORM.ANC_PROFILE);
-            eventToFileMap.put(getString(R.string.physical_exam), Constants.JSON_FORM.ANC_PHYSICAL_EXAM);
-            eventToFileMap.put(getString(R.string.tests), Constants.JSON_FORM.ANC_TEST);
-            eventToFileMap.put(getString(R.string.counselling_treatment), Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
-            eventToFileMap.put(getString(R.string.symptoms_follow_up), Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP);
-
             process(new String[]{getString(R.string.quick_check), getString(R.string.symptoms_follow_up), getString(R.string.physical_exam), getString(R.string.tests), getString(R.string.counselling_treatment), getString(R.string.profile)});
 
             List<Contact> contacts = new ArrayList<>();
@@ -159,7 +123,57 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             contactAdapter.notifyDataSetChanged();
 
         } catch (Exception e) {
-            Log.e("$$", e.getMessage());
+            Log.e(TAG, e.getMessage());
+        }
+
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new ContactPresenter(this);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        patientNameView = findViewById(R.id.top_patient_name);
+    }
+
+    @Override
+    public void displayPatientName(String patientName) {
+        if (patientNameView != null && StringUtils.isNotBlank(patientName)) {
+            patientNameView.setText(patientName);
+        }
+    }
+
+    @Override
+    public void startFormActivity(JSONObject form, Contact contact) {
+        super.startFormActivity(form, contact);
+    }
+
+    @Override
+    public void displayToast(int resourceId) {
+        Utils.showToast(getApplicationContext(), getString(resourceId));
+    }
+
+    @Override
+    public void startQuickCheck(Contact contact) {
+        QuickCheckFragment.launchDialog(ContactActivity.this, DIALOG_TAG);
+    }
+
+    @Override
+    protected void createContacts() {
+        try {
+
+            eventToFileMap.put(getString(R.string.quick_check), "anc_quick_check");
+            eventToFileMap.put(getString(R.string.profile), Constants.JSON_FORM.ANC_PROFILE);
+            eventToFileMap.put(getString(R.string.physical_exam), Constants.JSON_FORM.ANC_PHYSICAL_EXAM);
+            eventToFileMap.put(getString(R.string.tests), Constants.JSON_FORM.ANC_TEST);
+            eventToFileMap.put(getString(R.string.counselling_treatment), Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
+            eventToFileMap.put(getString(R.string.symptoms_follow_up), Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP);
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 
