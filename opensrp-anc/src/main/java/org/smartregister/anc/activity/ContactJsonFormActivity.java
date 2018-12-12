@@ -3,10 +3,10 @@ package org.smartregister.anc.activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +17,7 @@ import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     private Contact contact;
     private ProgressDialog progressDialog;
     private AncGenericDialogPopup genericPopupDialog = AncGenericDialogPopup.getInstance();
-    private FormUtils formUtils = new FormUtils();
+    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +156,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     @Override
     protected JSONArray fetchFields(JSONObject parentJson, Boolean popup) {
         JSONArray fields = new JSONArray();
-        if (genericPopupDialog.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (genericPopupDialog.getWidgetType() != null && genericPopupDialog.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             try {
                 if (parentJson.has(JsonFormConstants.SECTIONS) && parentJson.get(JsonFormConstants.SECTIONS) instanceof JSONArray) {
                     JSONArray sections = parentJson.getJSONArray(JsonFormConstants.SECTIONS);
@@ -192,7 +193,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                 e.printStackTrace();
             }
         } else {
-            super.fetchFields(parentJson, popup);
+            return super.fetchFields(parentJson, popup);
         }
 
         return fields;
@@ -201,7 +202,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     @Override
     protected JSONArray specifyFields(JSONObject parentJson) {
         JSONArray fields = new JSONArray();
-        if (genericPopupDialog.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (genericPopupDialog.getWidgetType() != null && genericPopupDialog.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             try {
                 if (parentJson.has(JsonFormConstants.CONTENT_FORM)) {
                     if (getExtraFieldsWithValues() != null) {
@@ -214,9 +215,116 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                 e.printStackTrace();
             }
         } else {
-            super.specifyFields(parentJson);
+            return super.specifyFields(parentJson);
         }
         return fields;
+    }
+
+    @Override
+    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
+        synchronized (getmJSONObject()) {
+            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
+            JSONArray fields = fetchFields(jsonObject, popup);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject item = fields.getJSONObject(i);
+                String keyAtIndex = item.getString(JsonFormConstants.KEY);
+                String itemType = "";
+                if (popup) {
+                    itemType = item.getString(JsonFormConstants.TYPE);
+                    String widgetLabel = getWidgetLabel(item);
+                    if (!TextUtils.isEmpty(widgetLabel)) {
+                        itemType = itemType + "." + widgetLabel;
+                    }
+                }
+                if (key.equals(keyAtIndex)) {
+                    if (item.has(JsonFormConstants.TEXT)) {
+                        item.put(JsonFormConstants.TEXT, value);
+                    } else {
+                        if (popup) {
+                            String itemText = "";
+                            if (itemType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+                                itemText = formUtils.getRadioButtonText(item, value);
+                            }
+
+                            genericPopupDialog.addSelectedValues(formUtils.addValue(keyAtIndex, "", value, itemType, itemText));
+                            setExtraFieldsWithValues(fields);
+                        }
+                        item.put(JsonFormConstants.VALUE, value);
+                    }
+                    item.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openMrsEntityParent);
+                    item.put(JsonFormConstants.OPENMRS_ENTITY, openMrsEntity);
+                    item.put(JsonFormConstants.OPENMRS_ENTITY_ID, openMrsEntityId);
+                    refreshCalculationLogic(key, null, popup);
+                    refreshSkipLogic(key, null, popup);
+                    refreshConstraints(key, null);
+                    refreshMediaLogic(key, value);
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void checkBoxWriteValue(String stepName, String parentKey, String childObjectKey, String childKey, String value, boolean popup) throws JSONException {
+        synchronized (getmJSONObject()) {
+            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
+            JSONArray fields = fetchFields(jsonObject, popup);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject item = fields.getJSONObject(i);
+                String keyAtIndex = item.getString(JsonFormConstants.KEY);
+                StringBuilder itemType = new StringBuilder();
+
+                if (popup) {
+                    itemType = new StringBuilder(item.getString(JsonFormConstants.TYPE));
+                    String widgetLabel = getWidgetLabel(item);
+                    if (!TextUtils.isEmpty(widgetLabel)) {
+                        itemType.append(".").append(widgetLabel);
+                    }
+                }
+                if (parentKey.equals(keyAtIndex)) {
+                    JSONArray jsonArray = item.getJSONArray(childObjectKey);
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        JSONObject innerItem = jsonArray.getJSONObject(j);
+                        String anotherKeyAtIndex = innerItem.getString(JsonFormConstants.KEY);
+                        String itemText = "";
+                        if (itemType.toString().equals(JsonFormConstants.CHECK_BOX)) {
+                            itemText = innerItem.getString(JsonFormConstants.TEXT);
+                        }
+
+                        if (childKey.equals(anotherKeyAtIndex)) {
+                            innerItem.put(JsonFormConstants.VALUE, value);
+                            if (popup) {
+                                genericPopupDialog.addSelectedValues(formUtils.addValue(keyAtIndex, childKey, value, itemType.toString(), itemText));
+                                setExtraFieldsWithValues(fields);
+                            }
+                            refreshCalculationLogic(parentKey, childKey, popup);
+                            refreshSkipLogic(parentKey, childKey, popup);
+                            refreshConstraints(parentKey, childKey);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private String getWidgetLabel(JSONObject jsonObject) throws JSONException {
+        String label = "";
+        String widgetType = jsonObject.getString(JsonFormConstants.TYPE);
+        if (!TextUtils.isEmpty(widgetType)) {
+            switch (widgetType) {
+                case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                    label = jsonObject.getString(JsonFormConstants.LABEL);
+                    break;
+                case JsonFormConstants.CHECK_BOX:
+                    label = jsonObject.getString(JsonFormConstants.LABEL);
+                    break;
+                case JsonFormConstants.EDIT_TEXT:
+                    label = jsonObject.getString(JsonFormConstants.HINT);
+                    break;
+            }
+        }
+        return label;
     }
 }
 

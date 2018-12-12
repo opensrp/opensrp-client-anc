@@ -12,10 +12,9 @@
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
         android:paddingTop="10dp"
-        android:text="Test test etst stest"
         android:textColor="@color/text_black"
         android:paddingBottom="10dp"
-        android:layout_weight="1.2"/>
+        android:layout_weight="0.8"/>
 
     <com.vijay.jsonwizard.views.CustomTextView
         android:id="@+id/item_value"
@@ -24,8 +23,7 @@
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:paddingStart="10dp"
-        android:text="Ordered"
         android:paddingBottom="10dp"
-        android:layout_weight="0.8"/>
+        android:layout_weight="1.2"/>
 
 </LinearLayout>

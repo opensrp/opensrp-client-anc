@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +16,9 @@ import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.json.JSONArray;
 import org.smartregister.anc.view.AncGenericDialogPopup;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ContactJsonFormUtils extends FormUtils {
 
@@ -63,7 +67,30 @@ public class ContactJsonFormUtils extends FormUtils {
         } else {
             Toast.makeText(context, "Please specify the sub form to display ", Toast.LENGTH_LONG).show();
         }
-
-
     }
+
+    public Map<String, String> addValue(String itemKey, String optionKey, String keyValue, String itemType, String itemText) {
+        Map<String, String> value = new HashMap<>();
+        String[] labels = itemType.split(".");
+        String widgetLabel = "";
+        if (labels.length > 1) {
+            widgetLabel = labels[1];
+        }
+        if (!TextUtils.isEmpty(widgetLabel)) {
+            switch (itemType) {
+                case JsonFormConstants.CHECK_BOX:
+                    value.put(itemKey, optionKey + ":" + itemText + ":" + keyValue + ";" + itemType + "." + widgetLabel);
+                    break;
+                case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                    value.put(itemKey, keyValue + ":" + itemText + ";" + itemType + "." + widgetLabel);
+                    break;
+                default:
+                    value.put(itemKey, keyValue + ";" + itemType + "." + widgetLabel);
+                    break;
+            }
+        }
+
+        return value;
+    }
+
 }

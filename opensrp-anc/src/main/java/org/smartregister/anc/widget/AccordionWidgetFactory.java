@@ -102,15 +102,40 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         return details;
     }
 
+    private String getStringValue(JSONObject jsonObject) throws JSONException {
+        StringBuilder value = new StringBuilder();
+        if (jsonObject != null) {
+            JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String stringValue = jsonArray.getString(i);
+                value.append(getValueFromSecondaryValues(stringValue));
+                value.append(", ");
+            }
+        }
+
+        return value.toString().replaceAll(", $", "");
+    }
+
+    private String getValueFromSecondaryValues(String itemString) {
+        String newString;
+        String[] strings = itemString.split(":");
+        if (strings.length > 1) {
+            newString = strings[1];
+        } else {
+            newString = strings[0];
+        }
+
+        return newString;
+    }
+
     private List<String> addExpandableChildren(JSONArray jsonArray) throws JSONException {
         List<String> stringList = new ArrayList<>();
+        String label;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUES)) {
-                JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
-                for (int k = 0; k < values.length(); k++) {
-                    stringList.add(values.getString(k));
-                }
+            if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL)) {
+                label = jsonObject.getString(JsonFormConstants.LABEL);
+                stringList.add(label + ":" + getStringValue(jsonObject));
             }
         }
 

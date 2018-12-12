@@ -2,6 +2,7 @@ package org.smartregister.anc.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.contract.AdvancedSearchContract;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +49,31 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.native_expandable_list_item, null);
         }
+
+        populateChildView(expandedListText,convertView);
+
+        return convertView;
+    }
+
+    private void populateChildView(String expandedListText, View convertView) {
+        String label = "";
+        String value = "";
+
+        if (!TextUtils.isEmpty(expandedListText)) {
+            String[] strings = expandedListText.split(":");
+            label = strings[0];
+            value = strings[1];
+        }
+
         CustomTextView expandedListHeader = convertView.findViewById(R.id.item_header);
-        expandedListHeader.setText(expandedListText);
+        if (!TextUtils.isEmpty(label)) {
+            expandedListHeader.setText(label);
+        }
 
         CustomTextView expandedListValue = convertView.findViewById(R.id.item_value);
-        expandedListValue.setText(expandedListText);
-        return convertView;
+        if (!TextUtils.isEmpty(value)) {
+            expandedListValue.setText(value);
+        }
     }
 
 

@@ -74,7 +74,7 @@
             "type": "check_box",
             "values": [
              "rapid_breathing:Rapid breathing:true",
-              "other:Other:true"
+              "other:Other (Specify):true"
             ]
           },
           {
@@ -83,6 +83,14 @@
             "type": "native_radio",
             "values": [
               "3:Abnormal "
+            ]
+          },
+          {
+            "key": "respiratory_exam_abnormal_other",
+            "label": "Specify",
+            "type": "edit_text",
+            "values": [
+              "other:Respiratory exam answer"
             ]
           }
         ]
