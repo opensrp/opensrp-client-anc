@@ -31,6 +31,7 @@ import org.smartregister.anc.domain.ContactSummaryItem;
 import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ProfilePresenter;
+import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
@@ -211,7 +212,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public String getIntentString(String intentKey) {
 
-        return this.getIntent().getStringExtra(intentKey);
+        return getIntent().getStringExtra(intentKey);
     }
 
     @Override
@@ -284,7 +285,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 //Get actual Data
         JSONObject object;
 
-        List<PartialContact> partialContacts = AncApplication.getInstance().getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
+        List<PartialContact> partialContacts = getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
 
         for (PartialContact partialContact : partialContacts) {
             if (partialContact.getFormJson() != null) {
@@ -315,7 +316,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         return jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : String.valueOf(random.nextInt(max - min + 1) + min);
     }
 
-    private void loadContactSummaryData() {
+    protected void loadContactSummaryData() {
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -368,6 +369,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     public java.lang.Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
+    }
+
+    protected PartialContactRepository getPartialContactRepository(){
+        return AncApplication.getInstance().getPartialContactRepository();
     }
 }
 
