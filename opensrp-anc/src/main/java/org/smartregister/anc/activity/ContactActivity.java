@@ -48,6 +48,10 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         }
 
         initializeMainContactContainers();
+
+        //Enable/Diable FinalizeButton
+        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() > 0 ? true : false); //TO REMOVE (SWITCH BACK BOOLEAN VALUES )
+
     }
 
     private void initializeMainContactContainers() {
@@ -210,14 +214,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                                 requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
                             }
-
-//Total Count
-                            Integer requiredFieldCount = requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE) + Constants.SUFFIX.TOTAL_COUNT);
-
-                            requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
-
-                            requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE) + Constants.SUFFIX.TOTAL_COUNT, requiredFieldCount);
-
                         }
 
                     }
@@ -251,5 +247,15 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             }
 
         }
+    }
+
+    private int getRequiredCountTotal() {
+
+        int count = 0;
+        for (Map.Entry<String, Integer> entry : requiredFieldsMap.entrySet()) {
+            count += entry.getValue();
+        }
+
+        return count;
     }
 }
