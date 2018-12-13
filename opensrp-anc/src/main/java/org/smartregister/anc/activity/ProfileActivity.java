@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -214,8 +215,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
 
@@ -224,7 +224,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                     launchPhoneDialer(womanPhoneNumber);
 
                 } else {
-                    Utils.showToast(this, getString(R.string.allow_phone_call_management));
+                    displayToast(R.string.allow_phone_call_management);
 
                 }
                 return;
@@ -235,10 +235,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     protected void launchPhoneDialer(String phoneNumber) {
-        if (PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE)) {
+        if (isPermissionGranted()) {
             try {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
-                this.startActivity(intent);
+                Intent intent = getTelephoneIntent(phoneNumber);
+                startActivity(intent);
             } catch (Exception e) {
 
                 Log.i(TAG, "No dial application so we launch copy to clipboard...");
@@ -248,6 +248,15 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 copyToClipboardDialog.show();
             }
         }
+    }
+
+    @NonNull
+    protected Intent getTelephoneIntent(String phoneNumber) {
+        return new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
+    }
+
+    protected boolean isPermissionGranted() {
+        return PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
     }
 }
 
