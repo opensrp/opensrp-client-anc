@@ -254,7 +254,8 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 							}
 							
 							genericPopupDialog
-									.addSelectedValues(formUtils.addAssignedValue(keyAtIndex, "", value, itemType, itemText));
+									.addSelectedValues(
+											formUtils.addAssignedValue(keyAtIndex, "", value, itemType, itemText));
 							setExtraFieldsWithValues(fields);
 						}
 						item.put(JsonFormConstants.VALUE, value);
@@ -305,7 +306,8 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 							innerItem.put(JsonFormConstants.VALUE, value);
 							if (popup) {
 								genericPopupDialog.addSelectedValues(
-										formUtils.addAssignedValue(keyAtIndex, childKey, value, itemType.toString(), itemText));
+										formUtils.addAssignedValue(keyAtIndex, childKey, value, itemType.toString(),
+												itemText));
 								setExtraFieldsWithValues(fields);
 							}
 							refreshCalculationLogic(parentKey, childKey, popup);
@@ -332,6 +334,8 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 					break;
 				case JsonFormConstants.EDIT_TEXT:
 					label = jsonObject.getString(JsonFormConstants.HINT);
+					break;
+				default:
 					break;
 			}
 		}
