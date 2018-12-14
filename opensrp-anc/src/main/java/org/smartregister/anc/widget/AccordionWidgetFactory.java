@@ -31,6 +31,7 @@ import java.util.List;
 public class AccordionWidgetFactory implements FormWidgetFactory {
     private OkButtonClickListener okButtonClickListener = new OkButtonClickListener();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
+	private JSONArray accordionValues = new JSONArray();
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject, CommonListener commonListener, boolean popup) throws Exception {
@@ -79,9 +80,8 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         String accordionInfoText = jsonObject.optString(Constants.ACCORDION_INFO_TEXT, null);
         String accordionInfoTitle = jsonObject.optString(Constants.ACCORDION_INFO_TITLE, null);
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
-        JSONArray accordionValues = new JSONArray();
         if (jsonObject.has(JsonFormConstants.VALUE)) {
-            accordionValues = jsonObject.getJSONArray(JsonFormConstants.VALUE);
+           setAccordionValues(jsonObject.getJSONArray(JsonFormConstants.VALUE));
         }
         ScrollDisabledExpandableListView expandableListView = rootLayout.findViewById(R.id.expandable_list_view);
         HashMap<String, List<String>> expandableListDetail = addExpandableListDetails(accordionText, accordionValues);
@@ -93,6 +93,7 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         expandableListView.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
         expandableListView.setTag(com.vijay.jsonwizard.R.id.specify_listener, commonListener);
         expandableListView.setAdapter(expandableListAdapter);
+	    expandableListAdapter.notifyDataSetChanged();
         addBottomSection(stepName, context, jsonFormFragment, jsonObject, commonListener, popup, rootLayout);
     }
 
@@ -174,9 +175,12 @@ public class AccordionWidgetFactory implements FormWidgetFactory {
         return (LinearLayout) LayoutInflater.from(context).inflate(
                 R.layout.native_expandable_list_view, null);
     }
+	
+	public void setAccordionValues(JSONArray accordionValues) {
+		this.accordionValues = accordionValues;
+	}
 
     private class OkButtonClickListener implements View.OnClickListener {
-
         @Override
         public void onClick(View view) {
             formUtils.showGenericDialog(view);

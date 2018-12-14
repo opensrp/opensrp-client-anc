@@ -14,6 +14,7 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class AncGenericDialogPopup extends GenericPopupDialog {
@@ -225,6 +226,29 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
         }
         return jsonObject;
     }
+    
+    @Override
+    public void addSelectedValues(Map<String, String> newValue) {
+        Iterator newValueIterator = newValue.entrySet().iterator();
+        String key = "";
+        String type = "";
+        String iteratorValue = "";
+        String value = "";
+        while (newValueIterator.hasNext()) {
+            Map.Entry pair = (Map.Entry) newValueIterator.next();
+            key = String.valueOf(pair.getKey());
+            iteratorValue = String.valueOf(pair.getValue());
+        }
+        
+        String[] widgetValues = getWidgetType(iteratorValue);
+        if (widgetValues.length > 1) {
+            type = widgetValues[1] + ";" +widgetValues[2];
+            value = widgetValues[0];
+        }
+        
+        createSecondaryValues(key, type, value);
+        
+    }
 
 
     @Override
@@ -236,7 +260,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
             if (string.length > 1) {
                 String type = string[0];
                 String label = string[1];
-                if (type != null && labelType.equals(JsonFormConstants.CHECK_BOX)) {
+                if (type != null && type.equals(JsonFormConstants.CHECK_BOX)) {
                     if (popAssignedValue != null && popAssignedValue.containsKey(key)) {
                         AccordionValuesModel valueModel = popAssignedValue.get(key);
                         if (valueModel != null) {
@@ -305,6 +329,6 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     }
 
     private String[] getWidgetLabel(String type) {
-        return type.split("|");
+        return type.split(";");
     }
 }

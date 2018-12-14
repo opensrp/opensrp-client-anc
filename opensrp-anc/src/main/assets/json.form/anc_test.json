@@ -101,7 +101,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Native Accordion Text Two",
-        "type": "native_accordion"
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "child_enrollment_sub_form",
+        "content_form_location": "json.form/sub_form"
       }
     ]
   },
