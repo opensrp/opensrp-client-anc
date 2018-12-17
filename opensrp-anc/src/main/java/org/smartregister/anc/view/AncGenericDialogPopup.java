@@ -2,6 +2,9 @@ package org.smartregister.anc.view;
 
 import android.util.Log;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.GenericPopupDialog;
 import com.vijay.jsonwizard.utils.SecondaryValueModel;
@@ -9,17 +12,20 @@ import com.vijay.jsonwizard.utils.SecondaryValueModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.model.AccordionValuesModel;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class AncGenericDialogPopup extends GenericPopupDialog {
     private String TAG = this.getClass().getSimpleName();
     private static AncGenericDialogPopup ancGenericDialogPopup = new AncGenericDialogPopup();
+    private static ContactJsonFormInteractor contactJsonFormInteractor =ContactJsonFormInteractor().getInstance();
     private Map<String, AccordionValuesModel> popAssignedValue = new HashMap<>();
     private Map<String, AccordionValuesModel> secondaryValuesMap = new HashMap<>();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
@@ -37,6 +43,18 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     private void destroyVariables() {
         popAssignedValue = new HashMap<>();
         secondaryValuesMap = new HashMap<>();
+    }
+    
+    @Override
+    protected void initiateViews(ViewGroup dialogView) {
+        List<View> listOfViews = new ArrayList<>();
+        jsonFormInteractor.fetchFields(listOfViews, stepName, formFragment, specifyContent, commonListener, true);
+        
+        LinearLayout genericDialogContent = dialogView.findViewById(
+                com.vijay.jsonwizard.R.id.generic_dialog_content);
+        for (View view : listOfViews) {
+            genericDialogContent.addView(view);
+        }
     }
 
     @Override

@@ -1,14 +1,13 @@
 package org.smartregister.anc.widget;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -27,46 +26,43 @@ import java.util.List;
 
 public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 	@Override
-	public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
-			JSONObject jsonObject, CommonListener commonListener, boolean popup) throws Exception {
-		return attachJson(stepName, context, jsonObject, commonListener, popup);
-	}
-	
-	@Override
-	public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
-			JSONObject jsonObject, CommonListener commonListener) throws Exception {
-		return attachJson(stepName, context, jsonObject, commonListener, false);
-	}
-	
-	private List<View> attachJson(String stepName, Context context, JSONObject
+	protected List<View> attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject
 			jsonObject, CommonListener commonListener, boolean popup) throws JSONException {
+		String widgetType = jsonObject.optString(JsonFormConstants.TYPE, "");
 		List<View> views = new ArrayList<>(1);
-		boolean readOnly = false;
-		if (jsonObject.has(JsonFormConstants.READ_ONLY)) {
-			readOnly = jsonObject.getBoolean(JsonFormConstants.READ_ONLY);
+		if (widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
+			boolean readOnly = false;
+			if (jsonObject.has(JsonFormConstants.READ_ONLY)) {
+				readOnly = jsonObject.getBoolean(JsonFormConstants.READ_ONLY);
+			}
+			String openMrsEntityParent = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_PARENT);
+			String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
+			String openMrsEntityId = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
+			String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
+			LinearLayout.LayoutParams layoutParams =
+					FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 2, 1, 2);
+			RadioGroup rootLayout = getRootLayout(context);
+			rootLayout.setLayoutParams(layoutParams);
+			JSONArray canvasIds = new JSONArray();
+			rootLayout.setId(ViewUtil.generateViewId());
+			canvasIds.put(rootLayout.getId());
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.key, jsonObject.getString(JsonFormConstants.KEY));
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity, openMrsEntity);
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_id, openMrsEntityId);
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
+			rootLayout.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+			rootLayout
+					.setTag(com.vijay.jsonwizard.R.id.address, stepName + ":" + jsonObject.getString(JsonFormConstants
+							.KEY));
+			addRadioButtons(stepName, context, jsonObject, commonListener, popup, rootLayout, readOnly);
+			views.add(rootLayout);
+		} else {
+			return super.attachJson(stepName, context, formFragment, jsonObject, commonListener, popup);
 		}
-		String openMrsEntityParent = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_PARENT);
-		String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
-		String openMrsEntityId = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
-		String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
-		LinearLayout.LayoutParams layoutParams =
-				FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 2, 1, 2);
-		RadioGroup rootLayout = getRootLayout(context);
-		rootLayout.setLayoutParams(layoutParams);
-		JSONArray canvasIds = new JSONArray();
-		rootLayout.setId(ViewUtil.generateViewId());
-		canvasIds.put(rootLayout.getId());
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.key, jsonObject.getString(JsonFormConstants.KEY));
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity, openMrsEntity);
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_id, openMrsEntityId);
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
-		rootLayout.setTag(com.vijay.jsonwizard.R.id.address, stepName + ":" + jsonObject.getString(JsonFormConstants.KEY));
-		addRadioButtons(stepName, context, jsonObject, commonListener, popup, rootLayout, readOnly);
-		views.add(rootLayout);
+		
 		return views;
 	}
 	
@@ -125,7 +121,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 					break;
 				case Constants
 						.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ordered));
+					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_yellow_radio_button));
 					break;
 				case Constants
 						.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
