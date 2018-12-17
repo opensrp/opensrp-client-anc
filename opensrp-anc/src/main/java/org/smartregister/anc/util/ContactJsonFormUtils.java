@@ -85,6 +85,9 @@ public class ContactJsonFormUtils extends FormUtils {
 					case JsonFormConstants.NATIVE_RADIO_BUTTON:
 						value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
 						break;
+					case Constants.ANC_RADIO_BUTTON:
+						value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
+						break;
 					default:
 						value.put(itemKey, keyValue + ";" + itemType);
 						break;

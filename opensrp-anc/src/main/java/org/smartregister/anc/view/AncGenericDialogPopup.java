@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.GenericPopupDialog;
+import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.utils.SecondaryValueModel;
 
 import org.json.JSONArray;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class AncGenericDialogPopup extends GenericPopupDialog {
     private String TAG = this.getClass().getSimpleName();
     private static AncGenericDialogPopup ancGenericDialogPopup = new AncGenericDialogPopup();
-    private static ContactJsonFormInteractor contactJsonFormInteractor =ContactJsonFormInteractor().getInstance();
+    private static ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
     private Map<String, AccordionValuesModel> popAssignedValue = new HashMap<>();
     private Map<String, AccordionValuesModel> secondaryValuesMap = new HashMap<>();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
@@ -48,7 +49,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     @Override
     protected void initiateViews(ViewGroup dialogView) {
         List<View> listOfViews = new ArrayList<>();
-        jsonFormInteractor.fetchFields(listOfViews, stepName, formFragment, specifyContent, commonListener, true);
+        jsonFormInteractor.fetchFields(listOfViews, getStepName(), getFormFragment(), getSpecifyContent(), getCommonListener(), true);
         
         LinearLayout genericDialogContent = dialogView.findViewById(
                 com.vijay.jsonwizard.R.id.generic_dialog_content);

@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -53,6 +55,9 @@ public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter 
 				if (!TextUtils.isEmpty(info)) {
 					showInformationDialog(view);
 				}
+				break;
+			case Constants.ANC_RADIO_BUTTON:
+				showInformationDialog(view);
 				break;
 			default:
 				super.onClick(view);

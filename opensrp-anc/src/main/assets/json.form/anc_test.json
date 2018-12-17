@@ -4,219 +4,188 @@
   "entity_id": "",
   "relational_id": "",
   "metadata": {
-	"start": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "concept",
-	  "openmrs_data_type": "start",
-	  "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-	},
-	"end": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "concept",
-	  "openmrs_data_type": "end",
-	  "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-	},
-	"today": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "encounter",
-	  "openmrs_entity_id": "encounter_date"
-	},
-	"deviceid": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "concept",
-	  "openmrs_data_type": "deviceid",
-	  "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-	},
-	"subscriberid": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "concept",
-	  "openmrs_data_type": "subscriberid",
-	  "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-	},
-	"simserial": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "concept",
-	  "openmrs_data_type": "simserial",
-	  "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-	},
-	"phonenumber": {
-	  "openmrs_entity_parent": "",
-	  "openmrs_entity": "concept",
-	  "openmrs_data_type": "phonenumber",
-	  "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-	},
-	"encounter_location": "",
-	"look_up": {
-	  "entity_id": "",
-	  "value": ""
-	}
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
   },
   "step1": {
-	"title": "Test",
-	"next": "step2",
-	"fields": [
-	  {
-		"key": "new_native_accordion",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "",
-		"openmrs_entity_id": "",
-		"text": "Native Accordion Text",
-		"type": "native_accordion",
-		"accordion_info_text": "This message is the in the info popup",
-		"accordion_info_title": "Test info display",
-		"display_bottom_section": true,
-		"content_form": "accordion_popup_sub_form",
-		"content_form_location": "json.form/sub_form",
-		"value": [
-		  {
-			"key": "respiratory_exam_abnormal",
-			"label": "Abnormal",
-			"type": "check_box",
-			"values": [
-			  "rapid_breathing:Rapid breathing:true",
-			  "other:Other (Specify):true"
-			]
-		  },
-		  {
-			"key": "respiratory_exam_radio_button",
-			"label": "Respiratory exam",
-			"type": "native_radio",
-			"values": [
-			  "3:Abnormal "
-			]
-		  },
-		  {
-			"key": "respiratory_exam_abnormal_other",
-			"label": "Specify",
-			"type": "edit_text",
-			"values": [
-			  "other:Respiratory exam answer"
-			]
-		  }
-		]
-	  },
-	  {
-		"key": "new_native_accordion_two",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "",
-		"openmrs_entity_id": "",
-		"text": "Native Accordion Text Two",
-		"type": "native_accordion",
-		"display_bottom_section": true,
-		"content_form": "accordion_popup_sub_form",
-		"content_form_location": "json.form/sub_form"
-	  },
-	  {
-		"key": "new_anc_radio_button",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "",
-		"openmrs_entity_id": "",
-		"label": "Respiratory exam",
-		"label_text_style": "bold",
-		"text_color": "#000000",
-		"type": "anc_radio_button",
-		"options": [
-		  {
-			"key": "option1",
-			"text": "Done Today",
-			"type": "done_today"
-		  },
-		  {
-			"key": "option2",
-			"text": "Done Earlier",
-			"type": "done_earlier"
-		  },
-		  {
-			"key": "option3",
-			"text": "Ordered",
-			"type": "ordered"
-		  },
-		  {
-			"key": "option4",
-			"text": "Not done",
-			"type": "not_done"
-		  }
-		]
-	  }
-	]
-  },
-  "step2": {
-	"title": "Test 2",
-	"next": "step3",
-	"fields": [
-	  {
-		"key": "first_name",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "person",
-		"openmrs_entity_id": "first_name",
-		"type": "edit_text",
-		"hint": "First name *",
-		"edit_type": "name",
-		"v_required": {
-		  "value": "true",
-		  "err": "Please enter the first name"
-		},
-		"v_regex": {
-		  "value": "[A-Za-z\\s\.\-]*",
-		  "err": "Please enter a valid name"
-		}
-	  },
-	  {
-		"key": "last_name",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "person",
-		"openmrs_entity_id": "last_name",
-		"type": "edit_text",
-		"hint": "Last name *",
-		"edit_type": "name",
-		"v_required": {
-		  "value": "true",
-		  "err": "Please enter the last name"
-		},
-		"v_regex": {
-		  "value": "[A-Za-z\\s\.\-]*",
-		  "err": "Please enter a valid name"
-		}
-	  }
-	]
-  },
-  "step3": {
-	"title": "Test 3",
-	"fields": [
-	  {
-		"key": "first_name",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "person",
-		"openmrs_entity_id": "first_name",
-		"type": "edit_text",
-		"hint": "First name *",
-		"edit_type": "name",
-		"v_required": {
-		  "value": "true",
-		  "err": "Please enter the first name"
-		},
-		"v_regex": {
-		  "value": "[A-Za-z\\s\.\-]*",
-		  "err": "Please enter a valid name"
-		}
-	  },
-	  {
-		"key": "last_name",
-		"openmrs_entity_parent": "",
-		"openmrs_entity": "person",
-		"openmrs_entity_id": "last_name",
-		"type": "edit_text",
-		"hint": "Last name *",
-		"edit_type": "name",
-		"v_required": {
-		  "value": "true",
-		  "err": "Please enter the last name"
-		},
-		"v_regex": {
-		  "value": "[A-Za-z\\s\.\-]*",
-		  "err": "Please enter a valid name"
-		}
-	  }
-	]
+    "title": "Test",
+    "fields": [
+      {
+        "key": "accordion_ultrasound",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Ultrasound",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_ultrasound_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_blood_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Blood Type",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_type_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "HIV",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_hiv_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_partner_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Partner HIV",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_partner_hiv_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_hepatitis_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hepatitis B",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_hepatitis_b_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_hepatitis_c",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hepatitis C",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_tb_hepatitis_c_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_syphilis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Syphilis",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_syphilis_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_urine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Urine",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_urine_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_blood_glucose",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Blood Glucose",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_glucose_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_blood_haemoglobin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Blood Haemoglobin",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_haemoglobin_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_tb_screening",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "TB Screening",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_tb_screening_sub_form",
+        "content_form_location": "json.form/sub_form"
+      },
+      {
+        "key": "accordion_other_tests",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Other Tests",
+        "type": "native_accordion",
+        "display_bottom_section": true,
+        "content_form": "tests_other_tests_sub_form",
+        "content_form_location": "json.form/sub_form"
+      }
+    ]
   }
 }

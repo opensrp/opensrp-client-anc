@@ -5,6 +5,7 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,42 +24,57 @@ import org.smartregister.anc.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.vijay.jsonwizard.utils.FormUtils.showEditButton;
 
 public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 	@Override
 	protected List<View> attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject
 			jsonObject, CommonListener commonListener, boolean popup) throws JSONException {
 		String widgetType = jsonObject.optString(JsonFormConstants.TYPE, "");
+        JSONArray canvasIds = new JSONArray();
 		List<View> views = new ArrayList<>(1);
+        ImageView editButton;
 		if (widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
 			boolean readOnly = false;
 			if (jsonObject.has(JsonFormConstants.READ_ONLY)) {
 				readOnly = jsonObject.getBoolean(JsonFormConstants.READ_ONLY);
 			}
+            LinearLayout rootLayout = (LinearLayout) LayoutInflater.from(context).inflate(getLayout(), null);
+            Map<String, View> labelViews = FormUtils.createRadioButtonAndCheckBoxLabel(rootLayout, jsonObject, context, canvasIds,
+                    readOnly, commonListener);
 			String openMrsEntityParent = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_PARENT);
 			String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
 			String openMrsEntityId = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
 			String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
 			LinearLayout.LayoutParams layoutParams =
-					FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 2, 1, 2);
-			RadioGroup rootLayout = getRootLayout(context);
-			rootLayout.setLayoutParams(layoutParams);
-			JSONArray canvasIds = new JSONArray();
-			rootLayout.setId(ViewUtil.generateViewId());
-			canvasIds.put(rootLayout.getId());
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.key, jsonObject.getString(JsonFormConstants.KEY));
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity, openMrsEntity);
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_id, openMrsEntityId);
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
-			rootLayout.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
-			rootLayout
+					FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 3, 1, 3);
+			RadioGroup radioGroup = getRootLayout(context);
+			radioGroup.setLayoutParams(layoutParams);
+			radioGroup.setId(ViewUtil.generateViewId());
+			canvasIds.put(radioGroup.getId());
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.key, jsonObject.getString(JsonFormConstants.KEY));
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.openmrs_entity, openMrsEntity);
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_id, openMrsEntityId);
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+			radioGroup
 					.setTag(com.vijay.jsonwizard.R.id.address, stepName + ":" + jsonObject.getString(JsonFormConstants
 							.KEY));
-			addRadioButtons(stepName, context, jsonObject, commonListener, popup, rootLayout, readOnly);
+			addRadioButtons(stepName, context, jsonObject, commonListener, popup, radioGroup, readOnly);
+			rootLayout.addView(radioGroup);
 			views.add(rootLayout);
+            if (labelViews != null && labelViews.size() > 0) {
+                editButton = (ImageView) labelViews.get(JsonFormConstants.EDIT_BUTTON);
+                if (editButton != null) {
+                    showEditButton(jsonObject, radioGroup, editButton, commonListener);
+                }
+
+            }
 		} else {
 			return super.attachJson(stepName, context, formFragment, jsonObject, commonListener, popup);
 		}
@@ -70,6 +86,10 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 			jsonObject, CommonListener commonListener, boolean popup, RadioGroup rootLayout, boolean readOnly)
 			throws JSONException {
 		JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+		String optionTextSize = String.valueOf(context.getResources().getDimension(com.vijay.jsonwizard.R.dimen.options_default_text_size));
+        if (jsonObject.has(JsonFormConstants.TEXT_SIZE)) {
+            optionTextSize = jsonObject.getString(JsonFormConstants.TEXT_SIZE);
+        }
 		if (jsonArray.length() > 0) {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject item = jsonArray.getJSONObject(i);
@@ -77,11 +97,13 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 				String openMrsEntity = item.optString(JsonFormConstants.OPENMRS_ENTITY);
 				String openMrsEntityId = item.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
 				LinearLayout.LayoutParams layoutParams =
-						FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 2, 1, 2);
+						FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 3, 1, 3);
+				layoutParams.setMargins(0,5,0,5);
 				AppCompatRadioButton radioButton = new AppCompatRadioButton(context);
 				radioButton.setLayoutParams(layoutParams);
 				radioButton.setId(ViewUtil.generateViewId());
 				radioButton.setText(item.getString(JsonFormConstants.TEXT));
+				radioButton.setTextSize(FormUtils.getValueFromSpOrDpOrPx(optionTextSize, context));
 				radioButton.setTag(com.vijay.jsonwizard.R.id.key, jsonObject.getString(JsonFormConstants.KEY));
 				radioButton.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);
 				radioButton.setTag(com.vijay.jsonwizard.R.id.openmrs_entity, openMrsEntity);
@@ -113,19 +135,19 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 			switch (type) {
 				case Constants
 						.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.done_today));
+					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_done_24));
 					break;
 				case Constants
 						.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.done_today));
+					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_done_24));
 					break;
 				case Constants
 						.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_yellow_radio_button));
+					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_ordered_24));
 					break;
 				case Constants
 						.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.not_done));
+					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_not_done_24));
 					break;
 				default:
 					break;

@@ -249,7 +249,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 						if (popup) {
 							String itemText = "";
 							String type = item.getString(JsonFormConstants.TYPE);
-							if (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+							if (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || type.equals(Constants.ANC_RADIO_BUTTON)) {
 								itemText = formUtils.getRadioButtonText(item, value);
 							}
 							
@@ -327,6 +327,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 		if (!TextUtils.isEmpty(widgetType)) {
 			switch (widgetType) {
 				case JsonFormConstants.NATIVE_RADIO_BUTTON:
+					label = jsonObject.getString(JsonFormConstants.LABEL);
+					break;
+				case Constants.ANC_RADIO_BUTTON:
 					label = jsonObject.getString(JsonFormConstants.LABEL);
 					break;
 				case JsonFormConstants.CHECK_BOX:
