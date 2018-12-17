@@ -50,6 +50,14 @@
       }
     },
     {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
       "key": "syphilis_info_one_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",

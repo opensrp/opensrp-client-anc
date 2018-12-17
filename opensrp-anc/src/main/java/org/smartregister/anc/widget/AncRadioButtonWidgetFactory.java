@@ -1,6 +1,8 @@
 package org.smartregister.anc.widget;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -68,7 +70,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 			addRadioButtons(stepName, context, jsonObject, commonListener, popup, radioGroup, readOnly);
 			rootLayout.addView(radioGroup);
 			views.add(rootLayout);
-            if (labelViews != null && labelViews.size() > 0) {
+            if (labelViews.size() > 0) {
                 editButton = (ImageView) labelViews.get(JsonFormConstants.EDIT_BUTTON);
                 if (editButton != null) {
                     showEditButton(jsonObject, radioGroup, editButton, commonListener);
@@ -87,12 +89,15 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 			throws JSONException {
 		JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 		String optionTextSize = String.valueOf(context.getResources().getDimension(com.vijay.jsonwizard.R.dimen.options_default_text_size));
-        if (jsonObject.has(JsonFormConstants.TEXT_SIZE)) {
-            optionTextSize = jsonObject.getString(JsonFormConstants.TEXT_SIZE);
-        }
+        String optionTextColor = JsonFormConstants.DEFAULT_TEXT_COLOR;
 		if (jsonArray.length() > 0) {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject item = jsonArray.getJSONObject(i);
+                if (item.has(JsonFormConstants.TEXT_SIZE)) {
+                    optionTextSize = item.getString(JsonFormConstants.TEXT_SIZE);
+                } if (item.has(JsonFormConstants.TEXT_COLOR)) {
+                    optionTextColor = item.getString(JsonFormConstants.TEXT_COLOR);
+                }
 				String openMrsEntityParent = item.optString(JsonFormConstants.OPENMRS_ENTITY_PARENT);
 				String openMrsEntity = item.optString(JsonFormConstants.OPENMRS_ENTITY);
 				String openMrsEntityId = item.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
@@ -103,6 +108,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 				radioButton.setLayoutParams(layoutParams);
 				radioButton.setId(ViewUtil.generateViewId());
 				radioButton.setText(item.getString(JsonFormConstants.TEXT));
+				radioButton.setTextColor(ContextCompat.getColorStateList(context, R.color.radio_color_selector));
 				radioButton.setTextSize(FormUtils.getValueFromSpOrDpOrPx(optionTextSize, context));
 				radioButton.setTag(com.vijay.jsonwizard.R.id.key, jsonObject.getString(JsonFormConstants.KEY));
 				radioButton.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);

@@ -326,19 +326,11 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 		String widgetType = jsonObject.getString(JsonFormConstants.TYPE);
 		if (!TextUtils.isEmpty(widgetType)) {
 			switch (widgetType) {
-				case JsonFormConstants.NATIVE_RADIO_BUTTON:
-					label = jsonObject.getString(JsonFormConstants.LABEL);
-					break;
-				case Constants.ANC_RADIO_BUTTON:
-					label = jsonObject.getString(JsonFormConstants.LABEL);
-					break;
-				case JsonFormConstants.CHECK_BOX:
-					label = jsonObject.getString(JsonFormConstants.LABEL);
-					break;
 				case JsonFormConstants.EDIT_TEXT:
-					label = jsonObject.getString(JsonFormConstants.HINT);
+					label = jsonObject.optString(JsonFormConstants.HINT,"");
 					break;
 				default:
+					label = jsonObject.optString(JsonFormConstants.LABEL,"");
 					break;
 			}
 		}

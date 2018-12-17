@@ -50,6 +50,14 @@
       }
     },
     {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
       "key": "ultrasound_notdone",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -97,7 +105,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify any other reason why the ultrasound test was not done. *",
+      "hint": "Specify any other reason.*",
       "edit_type": "edit_text",
       "relevance": {
         "step1:ultrasound_notdone": {
@@ -107,7 +115,7 @@
       },
       "v_required": {
         "value": false,
-        "err": "Specify any other reason why the ultrasound test was not done."
+        "err": "Specify any other reason."
       }
     },
     {
@@ -224,6 +232,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "numbers_selector",
+      "label":"No. of fetuses",
       "number_of_selectors": "5",
       "start_number": "1",
       "max_value": "15",

@@ -1,13 +1,12 @@
 package org.smartregister.anc.view;
 
 import android.util.Log;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.GenericPopupDialog;
-import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.utils.SecondaryValueModel;
 
 import org.json.JSONArray;
@@ -15,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.model.AccordionValuesModel;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.util.ArrayList;
@@ -45,12 +45,12 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
         popAssignedValue = new HashMap<>();
         secondaryValuesMap = new HashMap<>();
     }
-    
+
     @Override
     protected void initiateViews(ViewGroup dialogView) {
         List<View> listOfViews = new ArrayList<>();
         jsonFormInteractor.fetchFields(listOfViews, getStepName(), getFormFragment(), getSpecifyContent(), getCommonListener(), true);
-        
+
         LinearLayout genericDialogContent = dialogView.findViewById(
                 com.vijay.jsonwizard.R.id.generic_dialog_content);
         for (View view : listOfViews) {
@@ -131,7 +131,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
                             }
                         } else {
                             JSONArray values = secondaryValueModel.getValues();
-                            if (type != null && type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+                            if (type != null && (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || type.equals(Constants.ANC_RADIO_BUTTON))) {
                                 for (int k = 0; k < values.length(); k++) {
                                     jsonObject.put(JsonFormConstants.VALUE, getValueKey(values.getString(k)));
                                 }
@@ -161,7 +161,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
         JSONObject item = new JSONObject();
         try {
             if (jsonObject != null && jsonObject.has(JsonFormConstants.TYPE)) {
-                if ((jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) && childKey != null) {
+                if ((jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) || jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) && childKey != null) {
                     JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
                     if (options != null) {
                         for (int i = 0; i < options.length(); i++) {
@@ -245,7 +245,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
         }
         return jsonObject;
     }
-    
+
     @Override
     public void addSelectedValues(Map<String, String> newValue) {
         Iterator newValueIterator = newValue.entrySet().iterator();
@@ -258,15 +258,15 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
             key = String.valueOf(pair.getKey());
             iteratorValue = String.valueOf(pair.getValue());
         }
-        
+
         String[] widgetValues = getWidgetType(iteratorValue);
         if (widgetValues.length > 1) {
-            type = widgetValues[1] + ";" +widgetValues[2];
+            type = widgetValues[1] + ";" + widgetValues[2];
             value = widgetValues[0];
         }
-        
+
         createSecondaryValues(key, type, value);
-        
+
     }
 
 
