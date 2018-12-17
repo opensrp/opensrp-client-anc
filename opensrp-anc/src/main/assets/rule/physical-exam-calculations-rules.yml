@@ -72,7 +72,7 @@ actions:
 name: step2_severe_hypertension
 description: Severe hypertension
 priority: 1
-condition: "step2_hypertension == 1 && (step2_bp_systolic_repeat >= 160  || step2_bp_diastolic_repeat >= 110)"
+condition: "(step2_hypertension == 1 && (step2_bp_systolic_repeat >= 160  || step2_bp_diastolic_repeat >= 110))"
 actions:
  - "calculation = 1"
 ---
