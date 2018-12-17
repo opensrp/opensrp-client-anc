@@ -124,3 +124,52 @@ priority: 1
 condition: "step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 110 || step4_fetal_heart_rate_repeat > 160) "
 actions:
   - "isRelevant = true"
+---
+name: step1_toaster3
+description: Note displaying that the woman is at risk of developing pre-eclampsia.
+priority: 1
+condition: "(step1_gdm_risk == 1) || (step1_gdm_risk != 1 && dm_in_preg != 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step1_toaster5
+description: Note displaying that counseling on increasing daily energy and protein intake should be given.
+priority: 1
+condition: "global_pop_undernourish == 1 && step1_weight_cat == 'Underweight'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_toaster6
+description: Note displaying that counseling on balanced energy and protein dietary supplementation should be given.
+priority: 1
+condition: "global_pop_undernourish == 1 && step1_weight_cat == 'Underweight'"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster10
+description: Severe hypertension toaster`
+priority: 1
+condition: "step2_severe_hypertension == 1"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster11
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_hypertension == 1 && !step2_symp_sev_preeclampsia.contains('none'))"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster13
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_severe_preeclampsia == 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster14
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_preeclampsia == 1)"
+actions:
+ - "isRelevant = true"

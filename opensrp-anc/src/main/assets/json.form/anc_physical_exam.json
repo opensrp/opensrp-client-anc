@@ -3,6 +3,14 @@
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
+  "global": {
+    "prev_preg_comps": "['gestational_diabetes','macrosomia']",
+    "urine_glucose":"two_plus",
+    "contact_no": 2,
+    "prev_weight":134,
+    "pop_undernourish": 1,
+    "dm_in_preg":1
+  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -226,6 +234,76 @@
         }
       },
       {
+        "key": "gdm_risk",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight_cat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "exp_weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tot_weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "toaster1",
         "openmrs_entity_parent": "",
         "openmrs_entity": "Body mass Index",
@@ -250,7 +328,14 @@
         "type": "toaster_notes",
         "text": "Average weight gain per week since last contact: {weight_gain} kg\n\nTotal weight gain in pregnancy so far: {tot_weight_gain} kg",
         "text_color": "#1199F9",
-        "toaster_type": "info"
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster3",
@@ -261,7 +346,14 @@
         "text": "Gestational diabetes mellitus (GDM) risk counseling",
         "text_color": "#D56900",
         "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n- Reasserting dietary interventions\n- Reasserting physical activity during pregnancy",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster4",
@@ -285,7 +377,14 @@
         "text_color": "#1199F9",
         "toaster_type": "info",
         "toaster_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
-        "toaster_info_title": "Protein and Energy Sources Folder"
+        "toaster_info_title": "Protein and Energy Sources Folder",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster6",
@@ -296,7 +395,14 @@
         "text": "Balanced energy and protein dietary supplementation counseling",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "toaster_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates."
+        "toaster_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -673,7 +779,14 @@
         "text": "Severe hypertension! Refer urgently to hospital!",
         "toaster_info_text": "Woman has severe hypertension. If SBP is 160 mmHg or higher and/or DBP is 110 mmHg or higher, then refer urgently to the hospital for further investigation and management.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster11",
@@ -684,18 +797,28 @@
         "text": "Symptom(s) of severe pre-eclampsia! Refer urgently to hospital!",
         "toaster_info_text": "Woman has hypertension. If she is experiencing a symptom of severe pre-eclampsia, then refer urgently to the hospital for further investigation and management.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
-        "key": "toaster12",
+        "key": "severe_preeclampsia",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Symptom(s) of severe pre-eclampsia! Refer urgently to hospital!",
-        "toaster_info_text": "Woman has hypertension. If she is experiencing a symptom of severe pre-eclampsia, then refer urgently to the hospital for further investigation and management.",
-        "text_color": "#E20000",
-        "toaster_type": "problem"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster13",
@@ -706,7 +829,28 @@
         "text": "Severe pre-eclampsia diagnosis! Provide urgent treatment and refer to hospital!",
         "toaster_info_text": "Woman has severe pre-eclampsia - SBP of 160 mmHg or above and/or DBP of 110 mmHg or above and proteinuria 3+ OR woman has SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ with at least one symptom of severe pre-eclampsia.\n\nProcedure:\n- Give magnesium sulphate\n- Give appropriate anti-hypertensives\n- Revise the birth plan\n- Refer urgently to hospital!",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preeclampsia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster14",
@@ -717,7 +861,14 @@
         "text": "Pre-eclampsia diagnosis! Refer to hospital and revise birth plan.",
         "toaster_info_text": "Woman has pre-eclampsia - SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ and no symptom of severe pre-eclampsia.\n\nProcedure:\n- Refer to hospital\n- Revise the birth plan",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },
