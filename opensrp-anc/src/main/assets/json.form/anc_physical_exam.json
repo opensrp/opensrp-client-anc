@@ -5,11 +5,14 @@
   "relational_id": "",
   "global": {
     "prev_preg_comps": "['gestational_diabetes','macrosomia']",
+    "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
     "urine_glucose":"two_plus",
     "contact_no": 2,
     "prev_weight":134,
     "pop_undernourish": 1,
-    "dm_in_preg":1
+    "dm_in_preg":1,
+    "hb_results":10,
+    "gest_age":12
   },
   "metadata": {
     "start": {
@@ -1125,14 +1128,28 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No"
           }
         ]
+      },
+      {
+        "key": "anaemic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster19",
@@ -1143,7 +1160,14 @@
         "text": "Anaemia diagnosis! Haemoglobin (Hb) test recommended.",
         "toaster_info_text": "Anaemia - Hb level less than 11 in first or third trimester or Hb level less than 10.5 in second trimester.\n\nOR\n\nNo Hb test result recorded, but woman has pallor.",
         "text_color": "#E20000",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "respiratory_exam",
@@ -1792,6 +1816,20 @@
         ]
       },
       {
+        "key": "preeclampsia_risk",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "toaster30",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1800,7 +1838,14 @@
         "text": "Pre-eclampsia risk counseling",
         "text_color": "#D56900",
         "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "fetal_presentation",

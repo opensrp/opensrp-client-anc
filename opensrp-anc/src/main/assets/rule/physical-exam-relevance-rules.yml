@@ -173,3 +173,17 @@ priority: 1
 condition: "(step2_preeclampsia == 1)"
 actions:
  - "isRelevant = true"
+---
+name: step3_toaster19
+description: Note displaying that anaemic
+priority: 1
+condition: "(step3_anaemic == 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step4_toaster30
+description: Note displaying that preeclampsia risk
+priority: 1
+condition: "(step4_preeclampsia_risk == 1)"
+actions:
+ - "isRelevant = true"
