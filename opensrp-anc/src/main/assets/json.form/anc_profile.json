@@ -1639,7 +1639,7 @@
         "type": "native_radio",
         "label": "TT immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
@@ -1730,7 +1730,7 @@
         "type": "native_radio",
         "label": "Hep B immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
@@ -1821,7 +1821,7 @@
         "type": "native_radio",
         "label": "Flu immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "seasonal_flu_dose_given",
@@ -2254,7 +2254,7 @@
         "type": "native_radio",
         "label": "Uses tobacco products?",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "yes",

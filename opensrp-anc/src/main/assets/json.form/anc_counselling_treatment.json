@@ -49,6 +49,17 @@
     "look_up": {
       "entity_id": "",
       "value": ""
+    },
+    "global": {
+      "danger_signs": "['severe_vomiting']",
+      "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
+      "urine_glucose": "two_plus",
+      "contact_no": 2,
+      "prev_weight": 134,
+      "pop_undernourish": 1,
+      "dm_in_preg": 1,
+      "hb_results": 10,
+      "gest_age": 12
     }
   },
   "step1": {
@@ -63,8 +74,21 @@
         "type": "toaster_notes",
         "text": "Danger sign(s): {danger_signs}",
         "toaster_info_text": "Procedure:\n\n- Manage according to the local protocol for rapid assessment and management\n\n- Refer urgently to hospital!",
-        "toaster_info_title": "Danger sign(s): {danger_signs}",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "c_and_t_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "c_and_t_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "severe_hypertension_toaster",
@@ -285,6 +309,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select a reason why referring wasn't done"
+        },
+        "relevance": {
+          "step1:referred_hosp": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
         }
       },
       {
@@ -293,11 +323,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify *",
+        "hint": "Specify",
         "edit_type": "name",
-        "v_required": {
-          "value": false,
-          "err": "Specify a reason why a referral wasn't done"
+        "relevance": {
+          "step1:referred_hosp_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
         }
       }
     ]
@@ -318,15 +355,15 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes",
+            "key": "done",
+            "text": "Done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "no",
-            "text": "No",
+            "key": "not_done",
+            "text": "Not Done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -362,7 +399,13 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "step2:caffeine_counsel": {
+            "type": "string",
+            "ex": "equalTo(., \"not_done\")"
+          }
+        }
       },
       {
         "key": "caffeine_counsel_notdone_other",
@@ -371,7 +414,18 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Specify",
-        "edit_type": "name"
+        "edit_type": "name",
+        "relevance": {
+          "step2:caffeine_counsel_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "tobacco_counsel",
@@ -4026,7 +4080,8 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
-        "label_info_text": "Give a dose of up to 10,000 IU vitamin A per day, or a weekly dose of up to 25,000 IU.\n\nA single dose of a vitamin A supplement greater than 25,000 IU is not recommended as its safety is uncertain. Furthermore, a single dose of a vitamin A supplement greater than 25,000 IU might be teratogenic if consumed between day 15 and day 60 from conception.\n\n[Vitamin A sources folder]","label_info_title": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+        "label_info_text": "Give a dose of up to 10,000 IU vitamin A per day, or a weekly dose of up to 25,000 IU.\n\nA single dose of a vitamin A supplement greater than 25,000 IU is not recommended as its safety is uncertain. Furthermore, a single dose of a vitamin A supplement greater than 25,000 IU might be teratogenic if consumed between day 15 and day 60 from conception.\n\n[Vitamin A sources folder]",
+        "label_info_title": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
         "label_text_style": "bold",
         "options": [
           {

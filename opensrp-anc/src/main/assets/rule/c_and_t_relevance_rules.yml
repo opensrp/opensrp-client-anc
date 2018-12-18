@@ -1,0 +1,7 @@
+---
+name: step1_danger_signs_toaster
+description: Danger sign problem toaster
+priority: 1
+condition: "!global_danger_signs.contains('danger_none')"
+actions:
+  - "isRelevant = true"
