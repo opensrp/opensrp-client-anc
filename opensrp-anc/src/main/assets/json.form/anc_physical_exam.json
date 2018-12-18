@@ -1195,8 +1195,7 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "respiratory_exam_sub_form",
-            "content_form_location": ""
+            "content_form": "respiratory_exam_sub_form"
           }
         ]
       },
@@ -1291,8 +1290,7 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "cardiac_exam_sub_form",
-            "content_form_location": ""
+            "content_form": "cardiac_exam_sub_form"
           }
         ]
       },
@@ -1338,8 +1336,7 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "breast_exam_sub_form",
-            "content_form_location": ""
+            "content_form": "breast_exam_sub_form"
           }
         ]
       },
@@ -1385,8 +1382,7 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "abdominal_exam_sub_form",
-            "content_form_location": ""
+            "content_form": "abdominal_exam_sub_form"
           }
         ]
       },
@@ -1432,8 +1428,7 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "pelvic_exam_sub_form",
-            "content_form_location": ""
+            "content_form": "pelvic_exam_sub_form"
           }
         ]
       },
@@ -1471,8 +1466,7 @@
             "specify_info": "specify cm cervix dilated...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
-            "content_form": "cervical_exam_sub_form",
-            "content_form_location": ""
+            "content_form": "cervical_exam_sub_form"
           },
           {
             "key": "2",
@@ -1498,8 +1492,7 @@
             "specify_info": "specify severity...",
             "specify_widget": "radio_button",
             "specify_info_color": "#8C8C8C",
-            "content_form": "oedema_present_sub_form",
-            "content_form_location": ""
+            "content_form": "oedema_present_sub_form"
           },
           {
             "key": "no",
@@ -1649,8 +1642,7 @@
             "specify_info": "specify fetal heart rate (bpm)...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
-            "content_form": "fetal_heartbeat_sub_form",
-            "content_form_location": ""
+            "content_form": "fetal_heartbeat_sub_form"
           },
           {
             "key": "no",
