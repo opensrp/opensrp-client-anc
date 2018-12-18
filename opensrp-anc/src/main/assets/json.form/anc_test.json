@@ -62,8 +62,7 @@
         "text": "Ultrasound",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_ultrasound_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_ultrasound_sub_form"
       },
       {
         "key": "accordion_blood_type",
@@ -73,8 +72,7 @@
         "text": "Blood Type",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_blood_type_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_blood_type_sub_form"
       },
       {
         "key": "accordion_hiv",
@@ -84,8 +82,7 @@
         "text": "HIV",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_hiv_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_hiv_sub_form"
       },
       {
         "key": "accordion_partner_hiv",
@@ -95,8 +92,7 @@
         "text": "Partner HIV",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_partner_hiv_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_partner_hiv_sub_form"
       },
       {
         "key": "accordion_hepatitis_b",
@@ -106,8 +102,7 @@
         "text": "Hepatitis B",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_hepatitis_b_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_hepatitis_b_sub_form"
       },
       {
         "key": "accordion_hepatitis_c",
@@ -117,8 +112,7 @@
         "text": "Hepatitis C",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_tb_hepatitis_c_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_tb_hepatitis_c_sub_form"
       },
       {
         "key": "accordion_syphilis",
@@ -128,8 +122,7 @@
         "text": "Syphilis",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_syphilis_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_syphilis_sub_form"
       },
       {
         "key": "accordion_urine",
@@ -139,8 +132,7 @@
         "text": "Urine",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_urine_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_urine_sub_form"
       },
       {
         "key": "accordion_blood_glucose",
@@ -150,8 +142,7 @@
         "text": "Blood Glucose",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_blood_glucose_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_blood_glucose_sub_form"
       },
       {
         "key": "accordion_blood_haemoglobin",
@@ -161,8 +152,7 @@
         "text": "Blood Haemoglobin",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_blood_haemoglobin_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_blood_haemoglobin_sub_form"
       },
       {
         "key": "accordion_tb_screening",
@@ -172,8 +162,7 @@
         "text": "TB Screening",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_tb_screening_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_tb_screening_sub_form"
       },
       {
         "key": "accordion_other_tests",
@@ -183,8 +172,7 @@
         "text": "Other Tests",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_other_tests_sub_form",
-        "content_form_location": "json.form/sub_form"
+        "content_form": "tests_other_tests_sub_form"
       }
     ]
   }
