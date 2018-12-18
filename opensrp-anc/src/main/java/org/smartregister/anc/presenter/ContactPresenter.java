@@ -2,6 +2,8 @@ package org.smartregister.anc.presenter;
 
 import android.util.Log;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
@@ -25,11 +27,13 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     private String baseEntityId;
 
     private Map<String, String> details;
+    private JSONObject defaultGlobals;
 
     public ContactPresenter(ContactContract.View contactView) {
         viewReference = new WeakReference<>(contactView);
         interactor = new ContactInteractor();
         model = new ContactModel();
+        defaultGlobals = getAncApplication().getDefaultContactFormGlobals();
     }
 
     @Override
@@ -82,6 +86,16 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                 getView().startQuickCheck(contact);
             } else {
                 JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+
+                if (contact.getGlobals() != null) {
+
+                    for (Map.Entry<String, String> entry : contact.getGlobals().entrySet()) {
+
+                        defaultGlobals.put(entry.getKey(), entry.getValue());
+                    }
+                }
+
+                form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
                 getView().startFormActivity(form, contact);
             }
 
@@ -152,4 +166,5 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     protected AncApplication getAncApplication() {
         return AncApplication.getInstance();
     }
+
 }

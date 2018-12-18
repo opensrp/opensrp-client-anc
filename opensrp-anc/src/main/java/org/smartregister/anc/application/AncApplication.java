@@ -7,10 +7,14 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.R;
@@ -22,13 +26,16 @@ import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.domain.Setting;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.DetailsRepository;
@@ -38,7 +45,6 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.intent.PullUniqueIdsIntentService;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -66,6 +72,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private String password;
     private PartialContactRepository partialContactRepository;
     private RulesEngineHelper rulesEngineHelper;
+    private JSONObject defaultContactFormGlobals = new JSONObject();
 
     // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
     // is broadcast.
@@ -156,6 +163,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
 
+        populateGlobalSettings();
     }
 
     @Override
@@ -334,7 +342,50 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(R.string.device_timezone_changed));
         context.userService().forceRemoteLogin();
+
         logoutCurrentUser();
+    }
+
+    public void populateGlobalSettings() {
+
+        Setting setting = getCharactersitics(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+        Setting populationSetting = getCharactersitics(Constants.PREF_KEY.POPULATION_CHARACTERISTICS);
+
+        populateGlobalSettingsCore(setting);
+        populateGlobalSettingsCore(populationSetting);
+
+
+    }
+
+    private void populateGlobalSettingsCore(Setting setting) {
+        try {
+            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+
+            if (settingArray != null) {
+
+                for (int i = 0; i < settingArray.length(); i++) {
+
+                    JSONObject jsonObject = settingArray.getJSONObject(i);
+                    Object value = jsonObject.get(JsonFormConstants.VALUE);
+                    JSONObject nullObject = null;
+                    if (value != null && !value.equals(nullObject)) {
+                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
+                    }
+                }
+
+
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public Setting getCharactersitics(String characteristics) {
+        return AncApplication.getInstance().getContext().allSettings().getSetting(characteristics);
+    }
+
+    public JSONObject getDefaultContactFormGlobals() {
+        return defaultContactFormGlobals;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.smartregister.anc.domain;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class Contact implements Serializable {
 
@@ -11,6 +12,15 @@ public class Contact implements Serializable {
     private int requiredFields;
     private String formName;
     private int contactNumber;
+    private Map<String,String> globals;
+
+    public Map<String, String> getGlobals() {
+        return globals;
+    }
+
+    public void setGlobals(Map<String, String> globals) {
+        this.globals = globals;
+    }
 
     public int getContactNumber() {
         return contactNumber;

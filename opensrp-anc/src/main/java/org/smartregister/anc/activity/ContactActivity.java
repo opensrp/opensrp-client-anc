@@ -127,7 +127,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             contactAdapter.notifyDataSetChanged();
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
 
     }
@@ -231,12 +231,11 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         List<PartialContact> partialContacts = AncApplication.getInstance().getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contactNo);
 
         for (PartialContact partialContact : partialContacts) {
-            if (partialContact.getFormJson() != null) {
+            if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
                 object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
                 processRequiredStepsField(object);
                 partialForms.remove(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
             }
-
         }
 
         for (String formEventType : partialForms) {
