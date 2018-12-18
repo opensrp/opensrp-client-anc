@@ -2364,18 +2364,30 @@
     ]
   },
   "step7": {
-    "title": "Physiological Symptoms Counseling",
+    "title": "Counseling",
     "next": "step8",
     "fields": [
       {
-        "key": "alcohol_substance_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "danger_signs_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Danger Signs"
+      },
+      {
+        "key": "danger_signs_counsel",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Alcohol / substance use counseling",
-        "label_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
-        "label_info_title": "Alcohol / substance use counseling",
+        "label": "Seeking care for danger signs counseling",
+        "label_info_text": "Danger signs include:\n\n- Headache\n\n- No fetal movement\n\n- Contractions\n\n- Abnormal vaginal discharge\n\n- Fever\n\n- Abdominal pain\n\n- Feels ill\n\n- Swollen fingers, face or legs",
+        "label_info_title": "Seeking care for danger signs counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -2392,33 +2404,29 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select and option"
-        }
+        ]
       },
       {
-        "key": "alcohol_substance_counsel_notdone",
+        "key": "emergency_hosp_counsel",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "openmrs_data_type": "",
-        "type": "check_box",
-        "label": "Reason",
-        "hint": "Reason",
+        "type": "native_radio",
+        "label": "Counseling on going immediately to the hospital if severe danger signs ",
+        "label_info_text": "Severe danger signs include:\n\n- Vaginal bleeding\n\n- Convulsions/fits\n\n- Severe headaches with blurred vision\n\n- Fever and too weak to get out of bed\n\n- Severe abdominal pain\n\n- Fast or difficult breathing",
+        "label_info_title": "Counseling on going immediately to the hospital if severe danger signs ",
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "Referred instead",
+            "key": "done",
+            "text": "Done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "other",
-            "text": "Other (specify)",
+            "key": "not_done",
+            "text": "Not done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -2426,29 +2434,364 @@
         ]
       },
       {
-        "key": "alcohol_substance_counsel_notdone_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "Specify",
-        "edit_type": "name"
+        "key": "anc_contacts_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "ANC Contacts"
+      },
+      {
+        "key": "anc_contact_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "ANC contact schedule counseling",
+        "label_info_text": "It is recommended that a woman sees a healthcare provider 8 times during pregnancy (this can change if the woman has any complications). This schedule shows when the woman should come in to be able to access all the important care and information.",
+        "label_info_title": "ANC contact schedule counseling",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "birth_plan_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Birth Plan"
+      },
+      {
+        "key": "birth_plan_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman should plan to give birth at a facility due to risk factors",
+        "toaster_info_text": "Risk factors necessitating a facility birth:\n\n- Age 17 or under\n\n- Primigravida\n\n- Parity 6 or higher\n\n- Prior C-section\n\n- Previous pregnancy complications: Heavy bleeding, Forceps or vacuum delivery, Convulsions, or 3rd degree tear\n\n- Vaginal bleeding\n\n - Multiple fetuses\n\n- Abnormal fetal presentation\n\n- HIV+\n\n- Wants IUD or tubal ligation following delivery",
+        "toaster_info_title": "Woman should plan to give birth at a facility due to risk factors",
+        "toaster_type": "info"
+      },
+      {
+        "key": "delivery_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Planned birth place",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "facility",
+            "text": "Facility",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "facility_elective",
+            "text": "Facility (elective C-section)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "home",
+            "text": "Home",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "encourage_facility_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Encourage delivery at a facility!",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "birth_prep_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Birth preparedness and complications readiness counseling",
+        "label_info_text": "This includes:\n\n- Skilled birth attendant\n\n- Labour and birth companion\n\n- Location of the closest facility for birth and in case of complications\n\n- Funds for any expenses related to birth and in case of complications\n\n- Supplies and materials necessary to bring to the facility\n\n- Support to look after the home and other children while she's away\n\n- Transport to a facility for birth or in case of a complication\n\n- Identification of compatible blood donors in case of complications",
+        "label_info_title": "Birth preparedness and complications readiness counseling",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "rh_negative_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Rh factor negative counseling",
+        "label_info_text": "Counseling:\n\n- Woman is at risk of alloimmunisation if the baby's father is Rh positive or unknown\n\n- Proceed with local protocol to investigate sensitization and the need for referral\n\n- If non-sensitized, woman should receive anti-D prophylaxis postnatally if the baby is Rh positive",
+        "label_info_title": "Rh factor negative counseling",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "gbs_agent_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+        "label_info_text": "Pregnant women with GBS colonization should receive intrapartum antibiotic administration to prevent early neonatal GBS infection.",
+        "label_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "family_planning_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Family"
+      },
+      {
+        "key": "family_planning_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Postpartum family planning counseling ",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "family_planning_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "FP method accepted",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "oral_contraceptive",
+            "text": "Oral contraceptive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "injectable",
+            "text": "Injectable",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "implant",
+            "text": "Implant",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "iud",
+            "text": "IUD",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vaginal_ring",
+            "text": "Vaginal ring",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "tubal_ligation",
+            "text": "Tubal ligation",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "sterilization",
+            "text": "Sterilization (partner)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "breastfeeding_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Breastfeeding"
+      },
+      {
+        "key": "breastfeed_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+        "label_info_text": "To enable mothers to establish and sustain exclusive breastfeeding for 6 months, WHO and UNICEF recommend:\n\n- Initiation of breastfeeding within the first hour of life\n\n- Exclusive breastfeeding – that is the infant only receives breast milk without any additional food or drink, not even water\n\n- Breastfeeding on demand – that is as often as the child wants, day and night\n\n- No use of bottles, teats or pacifiers",
+        "label_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
       }
     ]
   },
   "step8": {
-    "title": "Physiological Symptoms Counseling",
+    "title": "Services & Treatments",
     "next": "step9",
     "fields": [
       {
-        "key": "alcohol_substance_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ipv_assessment_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "IPV Assessment"
+      },
+      {
+        "key": "ipv_enquiry",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Alcohol / substance use counseling",
-        "label_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
-        "label_info_title": "Alcohol / substance use counseling",
+        "label": "Clinical enquiry for intimate partner violence (IPV) done?",
         "label_text_style": "bold",
         "options": [
           {
@@ -2472,7 +2815,7 @@
         }
       },
       {
-        "key": "alcohol_substance_counsel_notdone",
+        "key": "ipv_enquiry_notdone",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2499,13 +2842,1261 @@
         ]
       },
       {
-        "key": "alcohol_substance_counsel_notdone_other",
+        "key": "ipv_enquiry_notdone_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Specify",
         "edit_type": "name"
+      },
+      {
+        "key": "ipv_enquiry_results",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "IPV enquiry results",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "treated",
+            "text": "Treated",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "referred",
+            "text": "Referred",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no_action",
+            "text": "No action necessary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "ipv_refer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "If the woman presents with risk of intimate partner violence (IPV), refer for assessment.",
+        "toaster_info_text": "Risk of IPV includes any of the following:\n\n- Traumatic injury, particularly if repeated and with vague or implausible explanations;\n\n- An intrusive partner or husband present at consultations;\n\n- Multiple unintended pregnancies and/or terminations;\n\n- Delay in seeking ANC;\n\n- Adverse birth outcomes;\n\n- Repeated STIs;\n\n- Unexplained or repeated genitourinary symptoms;\n\n- Symptoms of depression and anxiety;\n\n- Alcohol or other substance use; or\n\n- Self-harm or suicidal feelings.",
+        "toaster_info_title": "If the woman presents with risk of intimate partner violence (IPV), refer for assessment.",
+        "toaster_type": "info"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "anaemia_prevention_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Anaemia Prevention"
+      },
+      {
+        "key": "ifa_high_prev",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Prescribe daily dose of 60 mg iron and 0.4 mg folic acid",
+        "label_info_text": "Due to the population's high anaemia prevalence, a daily dose of 60 mg of elemental iron is preferred over a lower dose. A daily dose of 400 mcg (0.4 mg) folic acid is also recommended.\n\nThe equivalent of 60 mg of elemental iron is 300 mg of ferrous sulfate heptahydrate, 180 mg of ferrous fumarate, or 500 mg of ferrous gluconate.\n\n[Iron sources folder]",
+        "label_info_title": "Prescribe daily dose of 60 mg iron and 0.4 mg folic acid",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "ifa_high_prev_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "ifa_high_prev_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "ifa_low_prev",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Prescribe daily dose of 30 to 60 mg iron and 0.4 mg folic acid",
+        "label_info_text": "Daily oral iron and folic acid supplementation with 30 mg to 60 mg of elemental iron and 400 mcg (0.4 mg) of folic acid is recommended to prevent maternal anaemia, puerperal sepsis, low birth weight, and preterm birth.\n\nThe equivalent of 60 mg of elemental iron is 300 mg of ferrous sulfate heptahydrate, 180 mg of ferrous fumarate, or 500 mg of ferrous gluconate.\n\n[Iron sources folder]",
+        "label_info_title": "Prescribe daily dose of 30 to 60 mg iron and 0.4 mg folic acid",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "ifa_low_prev_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "ifa_low_prev_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "ifa_weekly",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Change prescription to weekly dose of 120 mg iron and 2.8 mg folic acid ",
+        "label_info_text": "If daily iron is not acceptable due to side effects, provide intermittent iron and folic acid supplementation instead (120 mg of elemental iron and 2.8 mg of folic acid once weekly).\n\nThe equivalent of 120 mg of elemental iron equals 600 mg of ferrous sulfate heptahydrate, 360 mg of ferrous fumarate, or 1000 mg of ferrous gluconate.\n\n[Iron sources folder]",
+        "label_info_title": "Change prescription to weekly dose of 120 mg iron and 2.8 mg folic acid ",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "ifa_weekly_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "ifa_weekly_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ifa",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "deworming_malaria_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Deworming & Malaria Prophylaxis"
+      },
+      {
+        "key": "deworm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Prescribe single dose albendazole 400 mg or mebendazole 500 mg",
+        "label_info_text": "In areas with a population prevalence of infection with any soil-transmitted helminths 20% or higher OR a population anaemia prevalence 40% or higher, preventive antihelminthic treatment is recommended for pregnant women after the first trimester as part of worm infection reduction programmes.",
+        "label_info_title": "Prescribe single dose albendazole 400 mg or mebendazole 500 mg",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "deworm_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "deworm_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "iptp_sp1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "IPTp-SP dose 1",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "IPTp-SP dose 1",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "iptp_sp2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "IPTp-SP dose 2",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "IPTp-SP dose 2",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "iptp_sp3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "IPTp-SP dose 3",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "IPTp-SP dose 3",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "iptp_sp_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Do not give IPTp-SP, because woman is taking co-trimoxazole.",
+        "toaster_info_text": "Women who are taking co-trimoxazole SHOULD NOT receive IPTp-SP. Taking both co-trimoxazole and IPTp-SP together can enhance side effects, especially hematological side effects such as anaemia.",
+        "toaster_info_title": "Do not give IPTp-SP, because woman is taking co-trimoxazole.",
+        "toaster_type": "info"
+      },
+      {
+        "key": "iptp_sp_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "iptp_sp_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "malaria_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Malaria prevention counseling",
+        "label_info_text": "Sleeping under an insecticide-treated bednet and the importance of seeking care and getting treatment as soon as she has any symptoms.",
+        "label_info_title": "Malaria prevention counseling",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "malaria_counsel_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "malaria_counsel_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "alben_meben",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "sp",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "immunisations_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Immunisations"
+      },
+      {
+        "key": "tt1_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "TT dose #1",
+        "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\n1-4 doses of TTCV in the past:\n\n- 1 dose scheme: Woman should receive one dose of TTCV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+        "label_info_title": "TT dose #1",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "tt2_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "TT dose #2",
+        "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+        "label_info_title": "TT dose #2",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "tt3_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "TT dose #3",
+        "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+        "label_info_title": "TT dose #3",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "tt_dose_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "vaccine_available",
+            "text": "No vaccine available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "woman_is_ill",
+            "text": "Woman is ill",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "woman_refused",
+            "text": "Woman refused",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "allergies",
+            "text": "Allergies",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "tt_dose_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "woman_immunised_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is fully immunised against tetanus!",
+        "toaster_type": "info"
+      },
+      {
+        "key": "hepb_negative_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep B negative counseling and vaccination",
+        "label_info_text": "Counseling:\n\n- Provide post-testing counselling\n\n- Advise retesting and immunisation if ongoing risk or known exposure",
+        "label_info_title": "Hep B negative counseling and vaccination",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "hepb1_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep B dose #1",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "hepb2_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep B dose #2 ",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "hepb3_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Hep B dose #3",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "hepb_dose_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "vaccine_available",
+            "text": "No vaccine available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "woman_is_ill",
+            "text": "Woman is ill",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "woman_refused",
+            "text": "Woman refused",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "allergies",
+            "text": "Allergies",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "hepb_dose_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "woman_immunised_hep_b_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is fully immunised against Hep B!",
+        "toaster_type": "info"
+      },
+      {
+        "key": "flu_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Flu dose",
+        "label_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy. ",
+        "label_info_title": "Flu dose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "flu_dose_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "vaccine_available",
+            "text": "No vaccine available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "woman_is_ill",
+            "text": "Woman is ill",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "woman_refused",
+            "text": "Woman refused",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "allergies",
+            "text": "Allergies",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "flu_dose_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "key": "woman_immunised_flu_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is immunised against flu!",
+        "toaster_type": "info"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "calcium_supplementation_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Calcium Supplementation"
+      },
+      {
+        "key": "calcium_supp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
+        "label_info_text": "Advice:\n\n- Divide the total dose into three doses, preferably taken at meal-time\n\n- Iron and calcium should preferably be administered several hours apart rather than concomitantly\n\n[Calcium sources folder]",
+        "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "calcium_supp_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "calcium_supp_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "calcium",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "vitamin_a_supplementation_section",
+        "type": "section_label",
+        "section_background": "#F6C8C9",
+        "text_color": "#000000",
+        "text_size": "18px",
+        "label_text_style": "bold",
+        "name": "Vitamin A Supplementation"
+      },
+      {
+        "key": "vita_supp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+        "label_info_text": "Give a dose of up to 10,000 IU vitamin A per day, or a weekly dose of up to 25,000 IU.\n\nA single dose of a vitamin A supplement greater than 25,000 IU is not recommended as its safety is uncertain. Furthermore, a single dose of a vitamin A supplement greater than 25,000 IU might be teratogenic if consumed between day 15 and day 60 from conception.\n\n[Vitamin A sources folder]","label_info_title": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "vita_supp_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "vita_supp_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name"
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "vita",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        }
       }
     ]
   },
