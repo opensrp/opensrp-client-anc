@@ -51,7 +51,7 @@
 	  "value": ""
 	},
 	"global": {
-	  "danger_signs": "['severe_vomiting']",
+	  "danger_signs": "severe_vomiting",
 	  "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
 	  "urine_glucose": "two_plus",
 	  "contact_no": 2,
@@ -78,14 +78,14 @@
 		"relevance": {
 		  "rules-engine": {
 			"ex-rules": {
-			  "rules-file": "c_and_t_relevance_rules.yml"
+			  "rules-file": "ct_relevance_rules.yml"
 			}
 		  }
 		},
 		"calculation": {
 		  "rules-engine": {
 			"ex-rules": {
-			  "rules-file": "c_and_t_calculation_rules.yml"
+			  "rules-file": "ct_calculation_rules.yml"
 			}
 		  }
 		}

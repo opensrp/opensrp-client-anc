@@ -11,6 +11,7 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
+      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -129,8 +130,14 @@
       "max_date": "today",
       "relevance": {
         "step1:ultrasound_status": {
-          "type": "string",
-          "ex": "equalTo(., \"done_today\")"
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
@@ -152,8 +159,14 @@
       },
       "relevance": {
         "step1:ultrasound_status": {
-          "type": "string",
-          "ex": "equalTo(., \"done_today\")"
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
@@ -175,8 +188,14 @@
       },
       "relevance": {
         "step1:ultrasound_status": {
-          "type": "string",
-          "ex": "equalTo(., \"done_today\")"
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
@@ -224,6 +243,18 @@
       "text_color": "#000000",
       "v_required": {
         "value": true
+      },
+      "relevance": {
+        "step1:ultrasound_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -232,7 +263,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "numbers_selector",
-      "label":"No. of fetuses",
+      "label": "No. of fetuses",
       "number_of_selectors": "5",
       "start_number": "1",
       "max_value": "15",
@@ -241,6 +272,18 @@
       "selected_text_color": "#ffffff",
       "v_required": {
         "value": true
+      },
+      "relevance": {
+        "step1:ultrasound_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -320,7 +363,19 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "step1:ultrasound_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "key": "amniotic_fluid",
@@ -352,7 +407,19 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "step1:ultrasound_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "key": "placenta_location",
@@ -412,7 +479,19 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "step1:ultrasound_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "key": "select_gest_age_edd",
@@ -447,6 +526,18 @@
       ],
       "v_required": {
         "value": true
+      },
+      "relevance": {
+        "step1:ultrasound_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
     },
     {

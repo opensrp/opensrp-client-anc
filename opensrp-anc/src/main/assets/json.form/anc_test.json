@@ -112,7 +112,7 @@
         "text": "Hepatitis C",
         "type": "native_accordion",
         "display_bottom_section": true,
-        "content_form": "tests_tb_hepatitis_c_sub_form"
+        "content_form": "tests_hepatitis_c_sub_form"
       },
       {
         "key": "accordion_syphilis",

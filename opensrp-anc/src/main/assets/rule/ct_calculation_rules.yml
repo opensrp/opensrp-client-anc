@@ -4,4 +4,4 @@ description: Displays the womans danger signs.
 priority: 1
 condition: "true"
 actions:
- - "calculation = ['danger_signs' : global_danger_signs]"
+ - "calculation = ['danger_signs' : 23]"

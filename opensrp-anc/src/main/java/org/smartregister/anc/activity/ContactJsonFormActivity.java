@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +22,10 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 30/06/2018.
@@ -338,6 +343,89 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             }
         }
         return label;
+    }
+
+    @Override
+    public Map<String, String> getValueFromAddressCore(JSONObject object) throws JSONException {
+        Map<String, String> result = new HashMap<>();
+        if (genericPopupDialog.getWidgetType() != null && genericPopupDialog.getWidgetType()
+                .equals(JsonFormConstants.NATIVE_ACCORDION)) {
+            if (object != null) {
+                switch (object.getString(JsonFormConstants.TYPE)) {
+                    case JsonFormConstants.CHECK_BOX:
+                        JSONArray options = object.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                        for (int j = 0; j < options.length(); j++) {
+                            if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
+                                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK)) {
+                                    if (Boolean.valueOf(options.getJSONObject(j).getString(JsonFormConstants.VALUE))) {//Rules engine useth only true values
+                                        result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
+                                    }
+                                } else {
+                                    result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
+                                }
+                            } else {
+                                //Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
+                            }
+
+                            //Backward compatibility Fix
+                            if (object.has(RuleConstant.IS_RULE_CHECK) && !object.getBoolean(RuleConstant.IS_RULE_CHECK)) {
+                                if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
+                                    result.put(JsonFormConstants.VALUE, options.getJSONObject(j).getString(JsonFormConstants.VALUE));
+                                } else {
+                                    result.put(JsonFormConstants.VALUE, "false");
+                                }
+                            }
+                        }
+                        break;
+
+                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                        Boolean multiRelevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
+                        result = getRadioResults(multiRelevance, object);
+                        break;
+                    case Constants.ANC_RADIO_BUTTON:
+                        Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
+                        result = getRadioResults(relevance, object);
+                        break;
+
+                    default:
+                        result.put(getKey(object), getValue(object));
+                        break;
+                }
+
+                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK) && (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) || (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) && object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
+                    List<String> selectedValues = new ArrayList<>(result.keySet());
+                    result.clear();
+                    result.put(getKey(object), selectedValues.toString());
+                }
+            }
+        } else {
+            return super.getValueFromAddressCore(object);
+        }
+        return result;
+    }
+
+    private Map<String, String> getRadioResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
+        Map<String, String> result = new HashMap<>();
+        if (multiRelevance) {
+            JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            for (int j = 0; j < jsonArray.length(); j++) {
+                if (jsonObject.has(JsonFormConstants.VALUE)) {
+                    if (jsonObject.getString(JsonFormConstants.VALUE).equals(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY))) {
+                        result.put(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY), String.valueOf(true));
+                    } else {
+                        if (!jsonObject.has(RuleConstant.IS_RULE_CHECK) || !jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
+                            result.put(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY), String.valueOf(false));
+                        }
+                    }
+                } else {
+                    //Log.e(TAG, "option for Key " + jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
+                }
+            }
+        } else {
+            result.put(getKey(jsonObject), getValue(jsonObject));
+        }
+
+        return result;
     }
 }
 

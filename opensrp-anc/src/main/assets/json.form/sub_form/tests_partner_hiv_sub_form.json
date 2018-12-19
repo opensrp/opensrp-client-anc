@@ -9,6 +9,7 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
+      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -65,9 +66,15 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:ultrasound": {
-          "type": "string",
-          "ex": "equalTo(., \"done_today\")"
+        "step1:hiv_test_partner_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
@@ -108,6 +115,18 @@
       ],
       "v_required": {
         "value": false
+      },
+      "relevance": {
+        "step1:hiv_test_partner_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -130,7 +149,13 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Partner HIV test inconclusive, refer partner for further testing.",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "step1:hiv_test_partner_result": {
+          "type": "string",
+          "ex": "equalTo(., \"inconclusive\")"
+        }
+      }
     },
     {
       "openmrs_entity_parent": "",

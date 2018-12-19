@@ -11,6 +11,7 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
+      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -84,7 +85,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "Reason",
       "label_text_style": "bold",
       "options": [
@@ -110,8 +111,16 @@
           "openmrs_entity_id": ""
         }
       ],
-      "v_required": {
-        "value": true
+      "relevance": {
+        "step1:syph_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "not_done"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -122,9 +131,16 @@
       "type": "edit_text",
       "hint": "Specify*",
       "edit_type": "name",
-      "v_required": {
-        "value": false,
-        "err": "Specify any other reason why the syphilis test was not done"
+      "relevance": {
+        "step1:syph_test_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -137,9 +153,15 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:ultrasound": {
-          "type": "string",
-          "ex": "equalTo(., \"done_today\")"
+        "step1:syph_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
@@ -178,8 +200,18 @@
           "openmrs_entity_id": ""
         }
       ],
-      "v_required": {
-        "value": true
+      "relevance": {
+        "step1:syph_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier",
+                "ordered"
+              ]
+            }
+          ]
+        }
       }
     },
     {

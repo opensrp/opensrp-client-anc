@@ -1,17 +1,31 @@
 package org.smartregister.anc.view;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.GenericPopupDialog;
+import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.SecondaryValueModel;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.R;
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.model.AccordionValuesModel;
 import org.smartregister.anc.util.Constants;
@@ -23,6 +37,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
+
 public class AncGenericDialogPopup extends GenericPopupDialog {
     private String TAG = this.getClass().getSimpleName();
     private static AncGenericDialogPopup ancGenericDialogPopup = new AncGenericDialogPopup();
@@ -30,9 +46,20 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     private Map<String, AccordionValuesModel> popAssignedValue = new HashMap<>();
     private Map<String, AccordionValuesModel> secondaryValuesMap = new HashMap<>();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
+    private Activity activity;
+    private JsonApi jsonApi;
 
     public static AncGenericDialogPopup getInstance() {
         return ancGenericDialogPopup;
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = (Activity) context;
+        jsonApi = (JsonApi) activity;
+        jsonApi.refreshSkipLogic(null, null, true);
     }
 
     @Override
@@ -51,8 +78,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
         List<View> listOfViews = new ArrayList<>();
         jsonFormInteractor.fetchFields(listOfViews, getStepName(), getFormFragment(), getSpecifyContent(), getCommonListener(), true);
 
-        LinearLayout genericDialogContent = dialogView.findViewById(
-                com.vijay.jsonwizard.R.id.generic_dialog_content);
+        LinearLayout genericDialogContent = dialogView.findViewById(R.id.generic_dialog_content);
         for (View view : listOfViews) {
             genericDialogContent.addView(view);
         }
@@ -66,6 +92,105 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
             onGenericDataPass(getPopAssignedValue(), getParentKey(), getStepName(), getChildKey());
         }
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        jsonApi.refreshSkipLogic(null, null, true);
+        if (getWidgetType().equals(Constants.NATIVE_ACCORDION)) {
+            ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getContext() == null) {
+            throw new IllegalStateException("The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
+        }
+
+
+        activity = (Activity) getContext();
+        jsonApi = (JsonApi) activity;
+
+        createSecondaryValuesMap();
+        JSONObject subForm = getSubFormJson(getFormLocation(), getContext());
+        if (subForm != null) {
+            try {
+                if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
+                    setSpecifyContent(subForm.getJSONArray(JsonFormConstants.CONTENT_FORM));
+                    addFormValues(getSpecifyContent());
+                } else {
+                    Utils.showToast(activity, activity.getApplicationContext().getResources().getString(com.vijay.jsonwizard.R.string.please_specify_content));
+                    AncGenericDialogPopup.this.dismiss();
+                }
+            } catch (JSONException e) {
+                Log.i(TAG, Log.getStackTraceString(e));
+            }
+
+        }
+
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+            ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_generic_dialog, container, false);
+
+            AppCompatImageButton cancelButton;
+            Button okButton;
+
+            new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(((Activity) getContext()).getCurrentFocus().getWindowToken(),
+                            HIDE_NOT_ALWAYS);
+                }
+            };
+
+            initiateViews(dialogView);
+
+            cancelButton = dialogView.findViewById(R.id.generic_dialog_cancel_button);
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    jsonApi.updateGenericPopupSecondaryValues(null);
+                    AncGenericDialogPopup.this.dismiss();
+                }
+            });
+
+            okButton = dialogView.findViewById(R.id.generic_dialog_done_button);
+            okButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    passData();
+                    jsonApi.updateGenericPopupSecondaryValues(null);
+                    AncGenericDialogPopup.this.dismiss();
+                }
+            });
+
+            return dialogView;
+        } else {
+            return super.onCreateView(inflater, container, savedInstanceState);
+        }
     }
 
     /**

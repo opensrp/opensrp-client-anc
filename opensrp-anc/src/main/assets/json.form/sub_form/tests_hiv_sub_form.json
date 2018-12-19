@@ -9,6 +9,7 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
+      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -60,7 +61,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "Reason",
       "label_text_style": "bold",
       "options": [
@@ -88,6 +89,17 @@
       ],
       "v_required": {
         "value": true
+      },
+      "relevance": {
+        "step1:hiv_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "not_done"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -98,9 +110,16 @@
       "type": "edit_text",
       "hint": "Specify*",
       "edit_type": "name",
-      "v_required": {
-        "value": false,
-        "err": "Specify any other reason why an HIV test was not done."
+      "relevance": {
+        "step1:hiv_test_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -113,9 +132,15 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:ultrasound": {
-          "type": "string",
-          "ex": "equalTo(., \"done_today\")"
+        "step1:hiv_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
@@ -156,6 +181,18 @@
       ],
       "v_required": {
         "value": false
+      },
+      "relevance": {
+        "step1:hiv_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
     },
     {
@@ -178,7 +215,13 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "HIV test inconclusive, refer for further testing.",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "step1:hiv_test_result": {
+          "type": "string",
+          "ex": "equalTo(., \"inconclusive\")"
+        }
+      }
     },
     {
       "key": "ultrasound_toaster",
