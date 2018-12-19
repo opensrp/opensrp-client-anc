@@ -8,11 +8,12 @@
     "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
     "urine_glucose":"two_plus",
     "contact_no": 2,
-    "prev_weight":134,
+    "current_weight":134,
     "pop_undernourish": 1,
     "dm_in_preg":1,
     "hb_results":10,
-    "gest_age":12
+    "gest_age":12,
+    "last_contact_date":"14-11-2018"
   },
   "metadata": {
     "start": {
@@ -266,6 +267,20 @@
       },
       {
         "key": "exp_weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight_gain_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

@@ -41,12 +41,19 @@ condition: "true"
 actions:
  - "calculation = ['bmi' : step1_bmi, 'weight_cat' : step1_weight_cat, 'exp_weight_gain' : step1_exp_weight_gain]"
 ---
+name: step1_weight_gain_date
+description: Todays date
+priority: 1
+condition: "global_contact_no > 1 "
+actions:
+ - "calculation = helper.getDifferenceDays(global_last_contact_date)"
+---
 name: step1_weight_gain
 description: Average weight gain per week since last contact (in kg).
 priority: 1
 condition: "global_contact_no > 1 "
 actions:
- - "calculation = (step1_current_weight - step1_first_weight)"
+ - "calculation = ((step1_current_weight - global_current_weight) / (step1_weight_gain_date / 7))"
 ---
 name: step1_tot_weight_gain
 description: Total weight gain in pregnancy so far (in kg).
