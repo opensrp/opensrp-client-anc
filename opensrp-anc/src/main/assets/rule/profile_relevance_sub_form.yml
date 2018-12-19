@@ -20,6 +20,13 @@ condition: "(step2_ultrasound_done == 'no' && global_site_ultrasound == 0)"
 actions:
   - "isRelevant = true"
 ---
+name: step2_sfh_gest_age
+description: sfh_gest_age
+priority: 1
+condition: "(step2_lmp_known == 'no' && (step2_ultrasound_gest_age_wks >= 24 || step2_ultrasound_done == 'no'))"
+actions:
+  - "isRelevant = true"
+---
 name: step3_miscarriages_abortions
 description: Miscarrige abortions
 priority: 1

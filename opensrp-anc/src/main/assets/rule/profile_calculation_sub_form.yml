@@ -2,14 +2,49 @@
 name: step1_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step1_hiv_positive != 1 && (global_site_anc_hiv == 1 || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs')) || step1_occupation.contains('informal_employment_sex_worker')) "
+condition: "(step4_hiv_positive != 1 && (global_site_anc_hiv == 1 || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
+---
+name: step2_lmp_edd
+description: LMP EDD
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getAddDays(step2_lmp, 7d-9m)"
+---
+name: step2_lmp_gest_age
+description: LMP Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (helper.getDifferenceDays(step2_lmp) / 7)"
+---
+name: step2_ultrasound_edd
+description: Ultrasound edd
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_ultrasound_date + (280 - ((step2_ultrasound_gest_age_wks * 7) + step2_ultrasound_gest_age_days))"
+---
+name: step2_ultrasound_gest_age
+description: Ultrasound gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (280 - helper.getDifferenceDays(step2_ultrasound_edd))"
+---
+name: step2_sfh_edd
+description: SFH edd
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getAddDays(280 - (step2_sfh_gest_age * 7))"
 ---
 name: step3_previous_pregnancies
 description: Previous pregnancies
 priority: 1
-condition: "(step3_gravida > 0)"
+condition: "true"
 actions:
   - "calculation = step3_gravida - 1 "
 ---

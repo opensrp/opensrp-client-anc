@@ -1,11 +1,11 @@
 {
-  "count": "3",
+  "count": "8",
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
   "global": {
-    "site_anc_hiv": 0,
-    "site_ultrasound": 0,
+    "site_anc_hiv": 1,
+    "site_ultrasound": 1,
     "contact_no": 1
   },
   "metadata": {
@@ -288,6 +288,7 @@
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, check unknown and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
         "label_info_title": "LMP known?",
         "label_text_style": "bold",
+        "max_date": "today",
         "options": [
           {
             "key": "yes",
@@ -312,28 +313,40 @@
       },
       {
         "openmrs_entity_parent": "",
-        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160581",
         "key": "lmp_edd",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
         "openmrs_entity_parent": "",
-        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160581",
         "key": "lmp_gest_age",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -407,14 +420,6 @@
         }
       },
       {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "20px"
-      },
-      {
         "key": "ultrasound_gest_age_wks",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -475,44 +480,6 @@
         }
       },
       {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "ultrasound_edd",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text": "0",
-        "text_color": "#FF0000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "ultrasound_gest_age",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text": "0",
-        "text_color": "#FF0000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
         "key": "sfh_gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -534,6 +501,51 @@
         "v_max": {
           "value": "43",
           "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_edd",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_gest_age",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -543,10 +555,16 @@
         "key": "sfh_edd",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -593,10 +611,16 @@
         "key": "gest_age",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -606,10 +630,16 @@
         "key": "edd",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       }
     ]
@@ -660,7 +690,6 @@
         "key": "previous_pregnancies",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
@@ -1705,7 +1734,6 @@
         "key": "hiv_positive",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
