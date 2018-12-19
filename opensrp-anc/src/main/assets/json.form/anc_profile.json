@@ -6,7 +6,16 @@
   "global": {
     "site_anc_hiv": 1,
     "site_ultrasound": 1,
-    "contact_no": 1
+    "contact_no": 1,
+    "lmp": "09-04-2018",
+    "no_of_fetuses": 1,
+    "bmi": 28,
+    "urine_glucose":"none",
+    "gdm": 0,
+    "dm_in_preg": 0,
+    "hiv_test_result": "negative",
+    "pop_hepb": 0,
+    "pop_hepb_screening": 0
   },
   "metadata": {
     "start": {
@@ -247,10 +256,16 @@
         "key": "hiv_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -559,6 +574,23 @@
         "v_required": {
           "value": false
         },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "gest_edd_label",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "text": "GA: {gest_age}\nEDD: {edd}",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -1035,7 +1067,7 @@
         "openmrs_entity": "PAST PREGNANCY COMPLICATIONS",
         "openmrs_entity_id": "1430",
         "type": "edit_text",
-        "hint": "Specify Any Past Pregnancy Problems*",
+        "hint": "Specify any past pregnancy problems*",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [
@@ -1065,7 +1097,7 @@
         "type": "check_box",
         "label": "Specify Alcohol or illicit substance use",
         "label_text_style": "bold",
-        "hint": "Specify Alcohol or illicit substance use",
+        "hint": "Specify alcohol or illicit substance use",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [
@@ -1123,7 +1155,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select at least one Alcohol or illicit substance use"
+          "err": "Please select at least one alcohol or illicit substance use"
         }
       },
       {
@@ -1160,10 +1192,16 @@
         "key": "preeclampsia_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -1178,9 +1216,10 @@
         "toaster_info_title": "Pre-eclampsia risk counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step3:preeclampsia_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -1191,10 +1230,16 @@
         "key": "gdm_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -1209,9 +1254,10 @@
         "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step3:gdm_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }
@@ -1657,9 +1703,10 @@
         "toaster_info_title": "Pre-eclampsia risk counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step1:preeclampsia_risk": {
-            "type": "string",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -1671,18 +1718,11 @@
         "type": "date_picker",
         "hint": "HIV diagnosis date *",
         "expanded": false,
-        "duration": {
-          "label": "HIV Diagnosis Date"
-        },
         "relevance": {
-          "step4:health_conditions": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "hiv"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         },
         "max_date": "today",
@@ -1706,7 +1746,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Unknown HIV Date",
+            "key": "hiv_diagnosis_date_unknown",
             "text": "Unknown HIV Date",
             "value": false
           }
@@ -1737,6 +1777,13 @@
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       }
     ]
@@ -1879,6 +1926,13 @@
         "v_required": {
           "value": true,
           "err": "Please select Hep B immunisation status"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2287,7 +2341,7 @@
         "label": "Daily caffeine intake",
         "label_text_style": "bold",
         "hint": "Daily caffeine intake",
-        "label_text_info": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.",
+        "label_info_text": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.\n\nPlease indicate if the woman consumes more than these amounts per day.",
         "exclusive": [
           "none"
         ],
@@ -2671,11 +2725,17 @@
         "openmrs_entity_id": "",
         "key": "hiv_risk",
         "type": "hidden",
-        "text": "0",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2690,9 +2750,10 @@
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step7:hiv_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }
@@ -2744,10 +2805,16 @@
         "key": "partner_hiv_positive",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2775,10 +2842,16 @@
         "key": "hiv_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2793,9 +2866,10 @@
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step8:hiv_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }

@@ -30,7 +30,7 @@ actions:
 name: step3_miscarriages_abortions
 description: Miscarrige abortions
 priority: 1
-condition: "step3_previous_pregnancies > 0  && global_contact_no == 1"
+condition: "step3_previous_pregnancies > 4  && global_contact_no == 1"
 actions:
   - "isRelevant = true"
 ---
@@ -88,5 +88,54 @@ name: step3_c_sections
 description: C-sections label
 priority: 1
 condition: "step3_parity > 0  && global_contact_no == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_pre_eclampsia_toaster
+description: Preeclampsia toeaster
+priority: 1
+condition: "step3_preeclampsia_risk == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_gestational_diabetes_toaster
+description: gestational_diabetes_toaster
+priority: 1
+condition: "((step3_gdm_risk == 1) && (global_gdm != 1 && global_dm_in_preg != 1))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_pre_eclampsia_two_toaster
+description: Preeclampsia toeaster
+priority: 1
+condition: "step3_preeclampsia_risk == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step4_hiv_diagnosis_date
+description: hiv_diagnosis_date
+priority: 1
+condition: "step4_health_conditions.contains('hiv') && !step4_hiv_diagnosis_date_unknown.contains('hiv_diagnosis_date_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hepb_immun_status
+description: hepb_immun_status
+priority: 1
+condition: "global_pop_hepb == 1 || global_pop_hepb_screening == 1 || step4_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')"
+actions:
+  - "isRelevant = true"
+---
+name: step7_hiv_counselling_toaster
+description: Hiv Risk counselling
+priority: 1
+condition: "(step7_hiv_risk == 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step8_hiv_risk_counselling_toaster
+description: Hiv Risk counselling
+priority: 1
+condition: "(step8_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
