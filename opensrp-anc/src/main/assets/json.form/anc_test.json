@@ -1,179 +1,179 @@
 {
-  "count": "3",
+  "count": "1",
   "encounter_type": "Test",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
-    "start": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "start",
-      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "end": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "end",
-      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "today": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "encounter",
-      "openmrs_entity_id": "encounter_date"
-    },
-    "deviceid": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "deviceid",
-      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "subscriberid": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "subscriberid",
-      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "simserial": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "simserial",
-      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "phonenumber": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "phonenumber",
-      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
+	"start": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "concept",
+	  "openmrs_data_type": "start",
+	  "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	},
+	"end": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "concept",
+	  "openmrs_data_type": "end",
+	  "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	},
+	"today": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "encounter",
+	  "openmrs_entity_id": "encounter_date"
+	},
+	"deviceid": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "concept",
+	  "openmrs_data_type": "deviceid",
+	  "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	},
+	"subscriberid": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "concept",
+	  "openmrs_data_type": "subscriberid",
+	  "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	},
+	"simserial": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "concept",
+	  "openmrs_data_type": "simserial",
+	  "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	},
+	"phonenumber": {
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "concept",
+	  "openmrs_data_type": "phonenumber",
+	  "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+	},
+	"encounter_location": "",
+	"look_up": {
+	  "entity_id": "",
+	  "value": ""
+	}
   },
   "step1": {
-    "title": "Test",
-    "fields": [
-      {
-        "key": "accordion_ultrasound",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Ultrasound",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_ultrasound_sub_form"
-      },
-      {
-        "key": "accordion_blood_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Blood Type",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_blood_type_sub_form"
-      },
-      {
-        "key": "accordion_hiv",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "HIV",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_hiv_sub_form"
-      },
-      {
-        "key": "accordion_partner_hiv",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Partner HIV",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_partner_hiv_sub_form"
-      },
-      {
-        "key": "accordion_hepatitis_b",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Hepatitis B",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_hepatitis_b_sub_form"
-      },
-      {
-        "key": "accordion_hepatitis_c",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Hepatitis C",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_hepatitis_c_sub_form"
-      },
-      {
-        "key": "accordion_syphilis",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Syphilis",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_syphilis_sub_form"
-      },
-      {
-        "key": "accordion_urine",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Urine",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_urine_sub_form"
-      },
-      {
-        "key": "accordion_blood_glucose",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Blood Glucose",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_blood_glucose_sub_form"
-      },
-      {
-        "key": "accordion_blood_haemoglobin",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Blood Haemoglobin",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_blood_haemoglobin_sub_form"
-      },
-      {
-        "key": "accordion_tb_screening",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "TB Screening",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_tb_screening_sub_form"
-      },
-      {
-        "key": "accordion_other_tests",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Other Tests",
-        "type": "native_accordion",
-        "display_bottom_section": true,
-        "content_form": "tests_other_tests_sub_form"
-      }
-    ]
+	"title": "Test",
+	"fields": [
+	  {
+		"key": "accordion_ultrasound",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Ultrasound",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_ultrasound_sub_form"
+	  },
+	  {
+		"key": "accordion_blood_type",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Blood Type",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_blood_type_sub_form"
+	  },
+	  {
+		"key": "accordion_hiv",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "HIV",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_hiv_sub_form"
+	  },
+	  {
+		"key": "accordion_partner_hiv",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Partner HIV",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_partner_hiv_sub_form"
+	  },
+	  {
+		"key": "accordion_hepatitis_b",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Hepatitis B",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_hepatitis_b_sub_form"
+	  },
+	  {
+		"key": "accordion_hepatitis_c",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Hepatitis C",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_hepatitis_c_sub_form"
+	  },
+	  {
+		"key": "accordion_syphilis",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Syphilis",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_syphilis_sub_form"
+	  },
+	  {
+		"key": "accordion_urine",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Urine",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_urine_sub_form"
+	  },
+	  {
+		"key": "accordion_blood_glucose",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Blood Glucose",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_blood_glucose_sub_form"
+	  },
+	  {
+		"key": "accordion_blood_haemoglobin",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Blood Haemoglobin",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_blood_haemoglobin_sub_form"
+	  },
+	  {
+		"key": "accordion_tb_screening",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "TB Screening",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_tb_screening_sub_form"
+	  },
+	  {
+		"key": "accordion_other_tests",
+		"openmrs_entity_parent": "",
+		"openmrs_entity": "",
+		"openmrs_entity_id": "",
+		"text": "Other Tests",
+		"type": "native_accordion",
+		"display_bottom_section": true,
+		"content_form": "tests_other_tests_sub_form"
+	  }
+	]
   }
 }
