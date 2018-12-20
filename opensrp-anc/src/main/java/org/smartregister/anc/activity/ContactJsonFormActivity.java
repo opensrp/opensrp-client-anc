@@ -265,7 +265,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
                             genericDialogInterface
                                     .addSelectedValues(
-                                            formUtils.addAssignedValue(keyAtIndex, "", value, itemType, itemText));
+                                            formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, itemType, itemText));
                             setExtraFieldsWithValues(fields);
                         }
                         item.put(JsonFormConstants.VALUE, value);
@@ -316,8 +316,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                             innerItem.put(JsonFormConstants.VALUE, value);
                             if (popup) {
                                 genericDialogInterface.addSelectedValues(
-                                        formUtils.addAssignedValue(keyAtIndex, childKey, value, itemType.toString(),
-                                                itemText));
+                                        formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, childKey, value, itemType.toString(), itemText));
                                 setExtraFieldsWithValues(fields);
                             }
                             refreshCalculationLogic(parentKey, childKey, popup);
@@ -334,7 +333,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private String getWidgetLabel(JSONObject jsonObject) throws JSONException {
         String label = "";
         String widgetType = jsonObject.getString(JsonFormConstants.TYPE);
-        if (!TextUtils.isEmpty(widgetType)) {
+        if (!TextUtils.isEmpty(widgetType) && genericDialogInterface.getWidgetType().equals(Constants.NATIVE_ACCORDION)) {
             switch (widgetType) {
                 case JsonFormConstants.EDIT_TEXT:
                     label = jsonObject.optString(JsonFormConstants.HINT, "");

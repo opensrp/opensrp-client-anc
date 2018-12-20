@@ -16,18 +16,14 @@ import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.json.JSONArray;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
-import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactJsonFormUtils extends FormUtils implements JsonApiInterface {
-    private AncGenericDialogInterface ancGenericDialogInterface;
-    @Override
-    public void setGenericPopup(AncGenericDialogPopup context) {
-        ancGenericDialogInterface = context;
-    }
+public class ContactJsonFormUtils extends FormUtils {
+    private AncGenericDialogInterface genericDialogInterface;
+
     @Override
     public void showGenericDialog(View view) {
         Context context = (Context) view.getTag(com.vijay.jsonwizard.R.id.specify_context);
@@ -74,11 +70,17 @@ public class ContactJsonFormUtils extends FormUtils implements JsonApiInterface 
         }
     }
 
+    public Map<String, String> createAssignedValue(AncGenericDialogInterface genericDialogInterface, String itemKey, String optionKey, String keyValue, String itemType,
+                                                   String itemText) {
+        this.genericDialogInterface = genericDialogInterface;
+        return addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
+    }
+
     @Override
     public Map<String, String> addAssignedValue(String itemKey, String optionKey, String keyValue, String itemType,
                                                 String itemText) {
         Map<String, String> value = new HashMap<>();
-        if (ancGenericDialogInterface != null && !TextUtils.isEmpty(ancGenericDialogInterface.getWidgetType()) && ancGenericDialogInterface.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (genericDialogInterface != null && !TextUtils.isEmpty(genericDialogInterface.getWidgetType()) && genericDialogInterface.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             String[] labels = itemType.split(";");
             String type = "";
             if (labels.length >= 1) {
