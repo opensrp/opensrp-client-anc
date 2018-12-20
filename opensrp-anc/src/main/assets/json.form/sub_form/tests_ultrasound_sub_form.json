@@ -1,570 +1,575 @@
 {
   "content_form": [
-    {
-      "key": "ultrasound_status",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "label": "Ultrasound test",
-      "label_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
-      "label_info_title": "Ultrasound test",
-      "label_text_style": "bold",
-      "text_color": "#000000",
-      "type": "anc_radio_button",
-      "multi_relevance": true,
-      "options": [
-        {
-          "key": "done_today",
-          "text": "Done today",
-          "type": "done_today",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "done_earlier",
-          "text": "Done earlier",
-          "type": "done_earlier",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "ordered",
-          "text": "Ordered",
-          "type": "ordered",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "not_done",
-          "text": "Not done",
-          "type": "not_done",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        }
-      ],
-      "v_required": {
-        "value": false
-      }
-    },
-    {
-      "key": "spacer",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "spacer",
-      "type": "spacer",
-      "spacer_height": "10dp"
-    },
-    {
-      "key": "ultrasound_notdone",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "native_radio",
-      "label": "Ultrasound not done reason",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "delayed",
-          "text": "Delayed to next contact",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "MARRIED OR LIVING WITH PARTNER",
-          "openmrs_entity_id": "1055"
-        },
-        {
-          "key": "not_available",
-          "text": "Not available",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "Divorced",
-          "openmrs_entity_id": "1058"
-        },
-        {
-          "key": "other",
-          "text": "Other (specify)",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "Not married",
-          "openmrs_entity_id": "5615"
-        }
-      ],
-      "v_required": {
-        "value": true,
-        "err": "Please specify ultrasound not done"
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "type": "string",
-          "ex": "equalTo(., \"not_done\")"
-        }
-      }
-    },
-    {
-      "key": "ultrasound_notdone_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "hint": "Specify any other reason.*",
-      "edit_type": "edit_text",
-      "relevance": {
-        "step1:ultrasound_notdone": {
-          "type": "string",
-          "ex": "equalTo(., \"other\")"
-        }
-      },
-      "v_required": {
-        "value": false,
-        "err": "Specify any other reason."
-      }
-    },
-    {
-      "key": "ultrasound_date",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "date_picker",
-      "hint": "Date that the ultrasound was done.*",
-      "expanded": "false",
-      "max_date": "today",
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      },
-      "v_required": {
-        "value": false,
-        "err": "Date that the ultrasound was done."
-      }
-    },
-    {
-      "key": "ultrasound_gest_age_wks",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "hint": "Gestational age in weeks from ultrasound. *",
-      "edit_type": "edit_text",
-      "v_numeric": {
-        "value": "true",
-        "err": ""
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      },
-      "v_required": {
-        "value": false,
-        "err": "Please specify the gestational age in weeks from ultrasound"
-      }
-    },
-    {
-      "key": "ultrasound_gest_age_days",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "hint": "Gestational age in days from ultrasound. *",
-      "edit_type": "edit_text",
-      "v_numeric": {
-        "value": "true",
-        "err": ""
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      },
-      "v_required": {
-        "value": false,
-        "err": "Please specify the gestational age in days from ultrasound"
-      }
-    },
-    {
-      "key": "ultrasound_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
-      "openmrs_entity_id": "2047",
-      "type": "toaster_notes",
-      "text": "Early ultrasound done!",
-      "toaster_info_text": "An early U/S is key to estimate gestational age, improve detection of fetal anomalies and multiple fetuses, reduce induction of labour for post-term pregnancy, and improve a woman’s pregnancy experience.",
-      "toaster_info_title": "Early ultrasound done!",
-      "toaster_type": "positive"
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "ultrasound_edd",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#000000",
-      "v_required": {
-        "value": false
-      }
-    },
-    {
-      "key": "spacer",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "spacer",
-      "type": "spacer",
-      "spacer_height": "10dp"
-    },
-    {
-      "key": "enabled_label",
-      "type": "label",
-      "label_text_style": "bold",
-      "text": "Number of fetuses detected during ultrasound.",
-      "text_color": "#000000",
-      "v_required": {
-        "value": true
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "key": "no_of_fetuses",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "numbers_selector",
-      "label": "No. of fetuses",
-      "number_of_selectors": "5",
-      "start_number": "1",
-      "max_value": "15",
-      "text_size": "16px",
-      "text_color": "#000000",
-      "selected_text_color": "#ffffff",
-      "v_required": {
-        "value": true
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "preeclampsia_risk",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#FF0000",
-      "v_required": {
-        "value": false
-      }
-    },
-    {
-      "key": "spacer",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "spacer",
-      "type": "spacer",
-      "spacer_height": "10dp"
-    },
-    {
-      "key": "ultrasound_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "Pre-eclampsia risk counseling",
-      "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
-      "toaster_info_title": "Pre-eclampsia risk counseling",
-      "toaster_type": "warning"
-    },
-    {
-      "key": "spacer",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "spacer",
-      "type": "spacer",
-      "spacer_height": "10dp"
-    },
-    {
-      "key": "fetal_presentation",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "native_radio",
-      "label": "Fetal presentation",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "cephalic",
-          "text": "Cephalic",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "pelvic",
-          "text": "Pelvic",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "transverse",
-          "text": "Transverse",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "other",
-          "text": "Other (specify)",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        }
-      ],
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "key": "amniotic_fluid",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "native_radio",
-      "label": "Amniotic fluid",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "normal",
-          "text": "Normal",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "reduced",
-          "text": "Reduced",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "increased",
-          "text": "Increased",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        }
-      ],
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "key": "placenta_location",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "native_radio",
-      "label": "Placenta location",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "praevia",
-          "text": "Praevia",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "low",
-          "text": "Low",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "anterior",
-          "text": "Anterior",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "posterior",
-          "text": "Posterior",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "right_side",
-          "text": "Right side",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "left_side",
-          "text": "Left side",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "fundal",
-          "text": "Fundal",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        }
-      ],
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "key": "select_gest_age_edd",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "native_radio",
-      "label": "Select preferred gestational age: Using LMP Using ultrasound Using SFH or abdominal palpation",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "use_lmp",
-          "text": "Using LMP",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "use_ultrasound",
-          "text": "Using ultrasound",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        },
-        {
-          "key": "use_sfh_abdominal_palpation",
-          "text": "Using SFH or abdominal palpation",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
-        }
-      ],
-      "v_required": {
-        "value": true
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "gest_age",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#000000",
-      "v_required": {
-        "value": false
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "edd",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#000000",
-      "v_required": {
-        "value": false
-      }
-    }
+	{
+	  "key": "ultrasound_status",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "label": "Ultrasound test",
+	  "label_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
+	  "label_info_title": "Ultrasound test",
+	  "label_text_style": "bold",
+	  "text_color": "#000000",
+	  "type": "anc_radio_button",
+	  "multi_relevance": true,
+	  "options": [
+		{
+		  "key": "done_today",
+		  "text": "Done today",
+		  "type": "done_today",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "done_earlier",
+		  "text": "Done earlier",
+		  "type": "done_earlier",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "ordered",
+		  "text": "Ordered",
+		  "type": "ordered",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "not_done",
+		  "text": "Not done",
+		  "type": "not_done",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		}
+	  ],
+	  "v_required": {
+		"value": false
+	  }
+	},
+	{
+	  "key": "spacer",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "spacer",
+	  "type": "spacer",
+	  "spacer_height": "10dp"
+	},
+	{
+	  "key": "ultrasound_notdone",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "native_radio",
+	  "label": "Ultrasound not done reason",
+	  "label_text_style": "bold",
+	  "options": [
+		{
+		  "key": "delayed",
+		  "text": "Delayed to next contact",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "MARRIED OR LIVING WITH PARTNER",
+		  "openmrs_entity_id": "1055"
+		},
+		{
+		  "key": "not_available",
+		  "text": "Not available",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "Divorced",
+		  "openmrs_entity_id": "1058"
+		},
+		{
+		  "key": "other",
+		  "text": "Other (specify)",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "Not married",
+		  "openmrs_entity_id": "5615"
+		}
+	  ],
+	  "v_required": {
+		"value": true,
+		"err": "Please specify ultrasound not done"
+	  },
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"not_done"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "key": "ultrasound_notdone_other",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "edit_text",
+	  "hint": "Specify any other reason.*",
+	  "edit_type": "edit_text",
+	  "relevance": {
+		"step1:ultrasound_notdone": {
+		  "type": "string",
+		  "ex": "equalTo(., \"other\")"
+		}
+	  },
+	  "v_required": {
+		"value": false,
+		"err": "Specify any other reason."
+	  }
+	},
+	{
+	  "key": "ultrasound_date",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "date_picker",
+	  "hint": "Date that the ultrasound was done.*",
+	  "expanded": "false",
+	  "max_date": "today",
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  },
+	  "v_required": {
+		"value": false,
+		"err": "Date that the ultrasound was done."
+	  }
+	},
+	{
+	  "key": "ultrasound_gest_age_wks",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "edit_text",
+	  "hint": "Gestational age in weeks from ultrasound. *",
+	  "edit_type": "edit_text",
+	  "v_numeric": {
+		"value": "true",
+		"err": ""
+	  },
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  },
+	  "v_required": {
+		"value": false,
+		"err": "Please specify the gestational age in weeks from ultrasound"
+	  }
+	},
+	{
+	  "key": "ultrasound_gest_age_days",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "edit_text",
+	  "hint": "Gestational age in days from ultrasound. *",
+	  "edit_type": "edit_text",
+	  "v_numeric": {
+		"value": "true",
+		"err": ""
+	  },
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  },
+	  "v_required": {
+		"value": false,
+		"err": "Please specify the gestational age in days from ultrasound"
+	  }
+	},
+	{
+	  "key": "ultrasound_toaster",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
+	  "openmrs_entity_id": "2047",
+	  "type": "toaster_notes",
+	  "text": "Early ultrasound done!",
+	  "toaster_info_text": "An early U/S is key to estimate gestational age, improve detection of fetal anomalies and multiple fetuses, reduce induction of labour for post-term pregnancy, and improve a woman’s pregnancy experience.",
+	  "toaster_info_title": "Early ultrasound done!",
+	  "toaster_type": "positive"
+	},
+	{
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "key": "ultrasound_edd",
+	  "type": "hidden",
+	  "label_text_style": "bold",
+	  "text": "0",
+	  "text_color": "#000000",
+	  "v_required": {
+		"value": false
+	  }
+	},
+	{
+	  "key": "spacer",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "spacer",
+	  "type": "spacer",
+	  "spacer_height": "10dp"
+	},
+	{
+	  "key": "enabled_label",
+	  "type": "label",
+	  "label_text_style": "bold",
+	  "text": "Number of fetuses detected during ultrasound.",
+	  "text_color": "#000000",
+	  "v_required": {
+		"value": true
+	  },
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "key": "no_of_fetuses",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "numbers_selector",
+	  "label": "No. of fetuses",
+	  "number_of_selectors": "5",
+	  "start_number": "1",
+	  "max_value": "15",
+	  "text_size": "16px",
+	  "text_color": "#000000",
+	  "selected_text_color": "#ffffff",
+	  "v_required": {
+		"value": true
+	  },
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "key": "preeclampsia_risk",
+	  "type": "hidden",
+	  "label_text_style": "bold",
+	  "text": "0",
+	  "text_color": "#FF0000",
+	  "v_required": {
+		"value": false
+	  }
+	},
+	{
+	  "key": "spacer",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "spacer",
+	  "type": "spacer",
+	  "spacer_height": "10dp"
+	},
+	{
+	  "key": "ultrasound_toaster",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "toaster_notes",
+	  "text": "Pre-eclampsia risk counseling",
+	  "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
+	  "toaster_info_title": "Pre-eclampsia risk counseling",
+	  "toaster_type": "warning"
+	},
+	{
+	  "key": "spacer",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "spacer",
+	  "type": "spacer",
+	  "spacer_height": "10dp"
+	},
+	{
+	  "key": "fetal_presentation",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "native_radio",
+	  "label": "Fetal presentation",
+	  "label_text_style": "bold",
+	  "options": [
+		{
+		  "key": "cephalic",
+		  "text": "Cephalic",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "pelvic",
+		  "text": "Pelvic",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "transverse",
+		  "text": "Transverse",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "other",
+		  "text": "Other (specify)",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		}
+	  ],
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "key": "amniotic_fluid",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "native_radio",
+	  "label": "Amniotic fluid",
+	  "label_text_style": "bold",
+	  "options": [
+		{
+		  "key": "normal",
+		  "text": "Normal",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "reduced",
+		  "text": "Reduced",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "increased",
+		  "text": "Increased",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		}
+	  ],
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "key": "placenta_location",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "native_radio",
+	  "label": "Placenta location",
+	  "label_text_style": "bold",
+	  "options": [
+		{
+		  "key": "praevia",
+		  "text": "Praevia",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "low",
+		  "text": "Low",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "anterior",
+		  "text": "Anterior",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "posterior",
+		  "text": "Posterior",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "right_side",
+		  "text": "Right side",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "left_side",
+		  "text": "Left side",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "fundal",
+		  "text": "Fundal",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		}
+	  ],
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "key": "select_gest_age_edd",
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "type": "native_radio",
+	  "label": "Select preferred gestational age: Using LMP Using ultrasound Using SFH or abdominal palpation",
+	  "label_text_style": "bold",
+	  "options": [
+		{
+		  "key": "use_lmp",
+		  "text": "Using LMP",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "use_ultrasound",
+		  "text": "Using ultrasound",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		},
+		{
+		  "key": "use_sfh_abdominal_palpation",
+		  "text": "Using SFH or abdominal palpation",
+		  "openmrs_entity_parent": "",
+		  "openmrs_entity": "",
+		  "openmrs_entity_id": ""
+		}
+	  ],
+	  "v_required": {
+		"value": true
+	  },
+	  "relevance": {
+		"step1:ultrasound_status": {
+		  "ex-checkbox": [
+			{
+			  "or": [
+				"done_today",
+				"done_earlier"
+			  ]
+			}
+		  ]
+		}
+	  }
+	},
+	{
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "key": "gest_age",
+	  "type": "hidden",
+	  "label_text_style": "bold",
+	  "text": "0",
+	  "text_color": "#000000",
+	  "v_required": {
+		"value": false
+	  }
+	},
+	{
+	  "openmrs_entity_parent": "",
+	  "openmrs_entity": "",
+	  "openmrs_entity_id": "",
+	  "key": "edd",
+	  "type": "hidden",
+	  "label_text_style": "bold",
+	  "text": "0",
+	  "text_color": "#000000",
+	  "v_required": {
+		"value": false
+	  }
+	}
   ]
 }
