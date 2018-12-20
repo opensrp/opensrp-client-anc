@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.contract.AncGenericDialogInterface;
+import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.model.PartialContact;
@@ -30,12 +32,12 @@ import java.util.Map;
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
-public class ContactJsonFormActivity extends JsonFormActivity {
+public class ContactJsonFormActivity extends JsonFormActivity implements JsonApiInterface {
 
     private static final String CONTACT_STATE = "contactState";
     private Contact contact;
     private ProgressDialog progressDialog;
-    private AncGenericDialogPopup genericPopupDialog = AncGenericDialogPopup.getInstance();
+    private AncGenericDialogInterface genericDialogInterface;
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
 
     @Override
@@ -163,7 +165,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     @Override
     protected JSONArray fetchFields(JSONObject parentJson, Boolean popup) {
         JSONArray fields = new JSONArray();
-        if (genericPopupDialog.getWidgetType() != null && genericPopupDialog.getWidgetType()
+        if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
                 .equals(JsonFormConstants.NATIVE_ACCORDION)) {
             try {
                 if (parentJson.has(JsonFormConstants.SECTIONS) && parentJson
@@ -176,7 +178,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                                 JSONArray jsonArray = sectionJson.getJSONArray(JsonFormConstants.FIELDS);
                                 for (int k = 0; k < jsonArray.length(); k++) {
                                     JSONObject item = jsonArray.getJSONObject(k);
-                                    if (item.getString(JsonFormConstants.KEY).equals(genericPopupDialog.getParentKey())) {
+                                    if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
                                         fields = formUtils.concatArray(fields, specifyFields(item));
                                     }
                                 }
@@ -191,7 +193,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                         JSONArray jsonArray = parentJson.getJSONArray(JsonFormConstants.FIELDS);
                         for (int k = 0; k < jsonArray.length(); k++) {
                             JSONObject item = jsonArray.getJSONObject(k);
-                            if (item.getString(JsonFormConstants.KEY).equals(genericPopupDialog.getParentKey())) {
+                            if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
                                 fields = specifyFields(item);
                             }
                         }
@@ -212,7 +214,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     @Override
     protected JSONArray specifyFields(JSONObject parentJson) {
         JSONArray fields = new JSONArray();
-        if (genericPopupDialog.getWidgetType() != null && genericPopupDialog.getWidgetType()
+        if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
                 .equals(JsonFormConstants.NATIVE_ACCORDION)) {
             try {
                 if (parentJson.has(JsonFormConstants.CONTENT_FORM)) {
@@ -261,7 +263,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                                 itemText = formUtils.getRadioButtonText(item, value);
                             }
 
-                            genericPopupDialog
+                            genericDialogInterface
                                     .addSelectedValues(
                                             formUtils.addAssignedValue(keyAtIndex, "", value, itemType, itemText));
                             setExtraFieldsWithValues(fields);
@@ -313,7 +315,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put(JsonFormConstants.VALUE, value);
                             if (popup) {
-                                genericPopupDialog.addSelectedValues(
+                                genericDialogInterface.addSelectedValues(
                                         formUtils.addAssignedValue(keyAtIndex, childKey, value, itemType.toString(),
                                                 itemText));
                                 setExtraFieldsWithValues(fields);
@@ -337,6 +339,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                 case JsonFormConstants.EDIT_TEXT:
                     label = jsonObject.optString(JsonFormConstants.HINT, "");
                     break;
+                case JsonFormConstants.DATE_PICKER:
+                    label = jsonObject.optString(JsonFormConstants.HINT, "");
+                    break;
                 default:
                     label = jsonObject.optString(JsonFormConstants.LABEL, "");
                     break;
@@ -348,7 +353,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     @Override
     public Map<String, String> getValueFromAddressCore(JSONObject object) throws JSONException {
         Map<String, String> result = new HashMap<>();
-        if (genericPopupDialog.getWidgetType() != null && genericPopupDialog.getWidgetType()
+        if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
                 .equals(JsonFormConstants.NATIVE_ACCORDION)) {
             if (object != null) {
                 switch (object.getString(JsonFormConstants.TYPE)) {
@@ -426,6 +431,11 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         }
 
         return result;
+    }
+
+    @Override
+    public void setGenericPopup(AncGenericDialogPopup context) {
+        genericDialogInterface = context;
     }
 }
 

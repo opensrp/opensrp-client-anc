@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageButton;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
+import org.smartregister.anc.contract.AncGenericDialogInterface;
+import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.model.AccordionValuesModel;
 import org.smartregister.anc.util.Constants;
@@ -39,27 +42,26 @@ import java.util.Map;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 
-public class AncGenericDialogPopup extends GenericPopupDialog {
+public class AncGenericDialogPopup extends GenericPopupDialog implements AncGenericDialogInterface {
     private String TAG = this.getClass().getSimpleName();
-    private static AncGenericDialogPopup ancGenericDialogPopup = new AncGenericDialogPopup();
     private static ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
     private Map<String, AccordionValuesModel> popAssignedValue = new HashMap<>();
     private Map<String, AccordionValuesModel> secondaryValuesMap = new HashMap<>();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private Activity activity;
     private JsonApi jsonApi;
-
-    public static AncGenericDialogPopup getInstance() {
-        return ancGenericDialogPopup;
-    }
+    private JsonApiInterface ancJsonApi;
+    private Context context;
 
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        activity = (Activity) context;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        context = activity;
         jsonApi = (JsonApi) activity;
         jsonApi.refreshSkipLogic(null, null, true);
+        ancJsonApi = (JsonApiInterface) activity;
+        ancJsonApi.setGenericPopup(this);
     }
 
     @Override
@@ -86,7 +88,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
 
     @Override
     protected void passData() {
-        if (getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             onDataPass(popAssignedValue, getParentKey(), getStepName(), getChildKey());
         } else {
             onGenericDataPass(getPopAssignedValue(), getParentKey(), getStepName(), getChildKey());
@@ -109,7 +111,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     public void onResume() {
         super.onResume();
         jsonApi.refreshSkipLogic(null, null, true);
-        if (getWidgetType().equals(Constants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.NATIVE_ACCORDION)) {
             ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -120,29 +122,30 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getContext() == null) {
+        if (context == null) {
             throw new IllegalStateException("The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
         }
 
-
-        activity = (Activity) getContext();
+        activity = (Activity) context;
         jsonApi = (JsonApi) activity;
 
         createSecondaryValuesMap();
-        JSONObject subForm = getSubFormJson(getFormLocation(), getContext());
-        if (subForm != null) {
-            try {
-                if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
-                    setSpecifyContent(subForm.getJSONArray(JsonFormConstants.CONTENT_FORM));
-                    addFormValues(getSpecifyContent());
-                } else {
-                    Utils.showToast(activity, activity.getApplicationContext().getResources().getString(com.vijay.jsonwizard.R.string.please_specify_content));
-                    AncGenericDialogPopup.this.dismiss();
+        if (!TextUtils.isEmpty(getFormIdentity())) {
+            JSONObject subForm = getSubFormJson(getFormIdentity(), getFormLocation(), context);
+            if (subForm != null) {
+                try {
+                    if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
+                        setSpecifyContent(subForm.getJSONArray(JsonFormConstants.CONTENT_FORM));
+                        addFormValues(getSpecifyContent());
+                    } else {
+                        Utils.showToast(activity, activity.getApplicationContext().getResources().getString(com.vijay.jsonwizard.R.string.please_specify_content));
+                        AncGenericDialogPopup.this.dismiss();
+                    }
+                } catch (JSONException e) {
+                    Log.i(TAG, Log.getStackTraceString(e));
                 }
-            } catch (JSONException e) {
-                Log.i(TAG, Log.getStackTraceString(e));
-            }
 
+            }
         }
 
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
@@ -151,7 +154,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_generic_dialog, container, false);
 
             AppCompatImageButton cancelButton;
@@ -160,8 +163,8 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
             new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
-                    InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(((Activity) getContext()).getCurrentFocus().getWindowToken(),
+                    InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(((Activity) context).getCurrentFocus().getWindowToken(),
                             HIDE_NOT_ALWAYS);
                 }
             };
@@ -239,7 +242,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
 
     @Override
     protected void addFormValues(JSONArray jsonArray) {
-        if (getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject;
                 try {
@@ -330,7 +333,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
     @Override
     protected void createSecondaryValuesMap() {
         JSONObject jsonObject;
-        if (getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             if (getSecondaryValues() != null) {
                 for (int i = 0; i < getSecondaryValues().length(); i++) {
                     try {
@@ -373,25 +376,30 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
 
     @Override
     public void addSelectedValues(Map<String, String> newValue) {
-        Iterator newValueIterator = newValue.entrySet().iterator();
-        String key = "";
-        String type = "";
-        String iteratorValue = "";
-        String value = "";
-        while (newValueIterator.hasNext()) {
-            Map.Entry pair = (Map.Entry) newValueIterator.next();
-            key = String.valueOf(pair.getKey());
-            iteratorValue = String.valueOf(pair.getValue());
+        if (newValue != null) {
+            Iterator newValueIterator = newValue.entrySet().iterator();
+            String key = "";
+            String type = "";
+            String iteratorValue = "";
+            String value = "";
+            while (newValueIterator.hasNext()) {
+                Map.Entry pair = (Map.Entry) newValueIterator.next();
+                key = String.valueOf(pair.getKey());
+                iteratorValue = String.valueOf(pair.getValue());
+            }
+
+            String[] widgetValues = getWidgetType(iteratorValue);
+            if (widgetValues != null && widgetValues.length > 2) {
+                type = widgetValues[1] + ";" + widgetValues[2];
+                value = widgetValues[0];
+            } else if (widgetValues != null && widgetValues.length == 2) {
+                type = widgetValues[1];
+                value = widgetValues[0];
+
+            }
+
+            createSecondaryValues(key, type, value);
         }
-
-        String[] widgetValues = getWidgetType(iteratorValue);
-        if (widgetValues.length > 1) {
-            type = widgetValues[1] + ";" + widgetValues[2];
-            value = widgetValues[0];
-        }
-
-        createSecondaryValues(key, type, value);
-
     }
 
 
@@ -400,7 +408,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog {
         JSONArray values = new JSONArray();
         values.put(value);
         String[] string = getWidgetLabel(labelType);
-        if (getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             if (string.length > 1) {
                 String type = string[0];
                 String label = string[1];
