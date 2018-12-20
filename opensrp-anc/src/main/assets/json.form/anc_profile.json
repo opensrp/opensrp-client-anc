@@ -751,14 +751,7 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of miscarriages and abortions.",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
-            }
-          }
-        }
+        "label_info_text": "Total number of miscarriages and abortions."
       },
       {
         "key": "miscarriages_abortions",
@@ -775,10 +768,10 @@
         "v_required": {
           "value": true
         },
-        "relevance": {
+        "constraints": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
+              "rules-file": "profile_constraint_rule.yml"
             }
           }
         }
@@ -800,14 +793,7 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of live births.",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
-            }
-          }
-        }
+        "label_info_text": "Total number of live births."
       },
       {
         "key": "live_births",
@@ -824,10 +810,10 @@
         "v_required": {
           "value": true
         },
-        "relevance": {
+        "constraints": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
+              "rules-file": "profile_constraint_rule.yml"
             }
           }
         }
@@ -849,14 +835,7 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of still births.",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
-            }
-          }
-        }
+        "label_info_text": "Total number of still births."
       },
       {
         "key": "stillbirths",
@@ -873,10 +852,10 @@
         "v_required": {
           "value": true
         },
-        "relevance": {
+        "constraints": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
+              "rules-file": "profile_constraint_rule.yml"
             }
           }
         }
@@ -910,14 +889,7 @@
         "v_required": {
           "value": true
         },
-        "label_info_text": "Total number of C-sections..",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
-            }
-          }
-        }
+        "label_info_text": "Total number of C-sections.."
       },
       {
         "key": "c_sections",
@@ -933,13 +905,6 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
-            }
-          }
         }
       },
       {
