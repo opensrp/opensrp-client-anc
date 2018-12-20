@@ -3,7 +3,6 @@ package org.smartregister.anc.activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -15,7 +14,6 @@ import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.util.FormUtils;
 
 import java.io.Serializable;
 
@@ -28,7 +26,6 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     private static final String CONTACT_STATE = "contactState";
     private Contact contact;
     private ProgressDialog progressDialog;
-    private static final String TAG = ContactJsonFormActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     }
 
     @Override
-    public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
+    public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
         callSuperWriteValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
     }
 
@@ -65,7 +62,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         super.onFormFinish();
     }
 
-    protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
+    protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
     }
 
@@ -136,23 +133,16 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     }
 
     private void persistPartial() {
-        try {
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
 
-                String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        PartialContact partialContact = new PartialContact();
+        partialContact.setBaseEntityId(baseEntityId);
+        partialContact.setContactNo(1);//Hardcoded to remove
+        partialContact.setFinalized(false);
 
-                PartialContact partialContact = new PartialContact();
-                partialContact.setBaseEntityId(baseEntityId);
-                partialContact.setContactNo(this.getContact().getContactNumber());
-                partialContact.setFinalized(false);
+        partialContact.setType(getContact().getFormName());
+        partialContact.setFormJsonDraft(currentJsonState());
 
-                partialContact.setType(getContact().getFormName());
-                partialContact.setFormJsonDraft(currentJsonState());
-
-                AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
+        AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 }
-

@@ -1,7 +1,8 @@
 package org.smartregister.anc.interactor;
 
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.job.ViewConfigurationsServiceJob;
+import org.smartregister.anc.application.AncApplication;
+import org.smartregister.domain.LoginResponse;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
@@ -15,13 +16,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
 
+    public static final String TAG = LoginInteractor.class.getCanonicalName();
+
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
     }
 
     @Override
     protected void scheduleJobs() {
-//        schedule jobs
+       //schedule jobs
+
         SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
                 .DATA_SYNC_DURATION_MINUTES));
 
@@ -31,11 +35,16 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         org.smartregister.anc.job.ImageUploadServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
                 .IMAGE_UPLOAD_MINUTES));
 
-        ViewConfigurationsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES),
-                getFlexValue(BuildConfig.VIEW_SYNC_CONFIGURATIONS_MINUTES));
-
         SyncSettingsServiceJob.scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
                 getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
     }
+
+    @Override
+    protected void processServerSettings(LoginResponse loginResponse) {
+
+        super.processServerSettings(loginResponse);
+        AncApplication.getInstance().populateGlobalSettings();
+    }
+
 
 }

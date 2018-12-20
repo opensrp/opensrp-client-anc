@@ -29,22 +29,23 @@ import java.util.List;
  */
 public class AncEditTextFactory extends EditTextFactory {
 
+    private ImageView editable;
+
     @Override
-    public void attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView view) throws Exception {
-        super.attachJson(stepName, context, formFragment, jsonObject, editText, view);
+    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView editable) throws Exception {
+        super.attachLayout(stepName, context, formFragment, jsonObject, editText,editable);
+        this.editable = editable;
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, Boolean popup) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener,boolean popup) throws Exception {
         if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) && jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
             RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
 
-            final ImageView button = rootLayout.findViewById(R.id.minusbutton);
-
-            attachJson(stepName, context, formFragment, jsonObject, editText, button);
+            attachLayout(stepName, context, formFragment, jsonObject, editText,editable);
 
             JSONArray canvasIds = new JSONArray();
             rootLayout.setId(ViewUtil.generateViewId());
@@ -88,7 +89,7 @@ public class AncEditTextFactory extends EditTextFactory {
 
             return views;
         } else {
-            return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
+            return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener,popup);
         }
 
     }
