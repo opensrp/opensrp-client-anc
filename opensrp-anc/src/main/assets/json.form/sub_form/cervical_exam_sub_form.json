@@ -18,9 +18,9 @@
       "type": "normal_edit_text",
       "edit_text_style": "bordered",
       "edit_type": "number",
-      "v_numeric": {
+      "v_numeric_integer": {
         "value": "true",
-        "err": ""
+        "err": "Enter valid cervical dilation in cm"
       },
       "v_min": {
         "value": "0.1",
@@ -50,6 +50,6 @@
           "ex": "greaterThan(., \"2\")"
         }
       }
-    },
+    }
   ]
 }
