@@ -11,33 +11,26 @@ description: LMP EDD
 priority: 1
 condition: "true"
 actions:
-  - "calculation = helper.addDuration(global_lmp,'7d-9m')"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(global_lmp_known),'7d-9m')"
 ---
 name: step2_lmp_gest_age
 description: LMP Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(global_lmp))"
----
-name: step2_gest_edd_label
-description: EDD label
-priority: 1
-condition: "true"
-actions:
-  - "calculation = step2_sfh_edd"
+  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(global_lmp_known)))"
 ---
 name: step2_ultrasound_edd
 description: Ultrasound edd
 priority: 1
-condition: "true"
+condition: "step2_ultrasound_gest_age_wks > 0"
 actions:
-  - "calculation = helper.addDuration(global_lmp, ( (280 - ( (step2_ultrasound_gest_age_wks * 7) + step2_ultrasound_gest_age_days) ) +'d'))"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(global_ultrasound_done), ( (280 - ( (step2_ultrasound_gest_age_wks * 7) + step2_ultrasound_gest_age_days) ) +'d'))"
 ---
 name: step2_ultrasound_gest_age
 description: Ultrasound gest age
 priority: 1
-condition: "true"
+condition: "step2_ultrasound_gest_age_wks > 0"
 actions:
   - "calculation = helper.getWeeksAndDaysFromDays(280 + (helper.getDifferenceDays(step2_ultrasound_edd)))"
 ---

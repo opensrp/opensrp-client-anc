@@ -7,7 +7,6 @@
     "site_anc_hiv": 1,
     "site_ultrasound": 1,
     "contact_no": 1,
-    "lmp": "09-04-2018",
     "no_of_fetuses": 1,
     "bmi": 28,
     "urine_glucose":"none",
@@ -630,7 +629,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "extra_info": "GA: {sfh_gest_age}\nEDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} weeks\nEDD: {sfh_edd}"
           }
         ],
         "value": "none",
