@@ -587,7 +587,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "edit_text",
+        "type": "hidden",
         "text_color": "#000000",
         "text": "GA: {gest_age}\nEDD: {edd}",
         "calculation": {
@@ -613,26 +613,36 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "text": "Using LMP"
+            "text": "Using LMP",
+            "extra_info": "GA: {lmp_gest_age}\nEDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
             "text": "Using ultrasound",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "",
+            "extra_info": "GA: {ultrasound_gest_age}\nEDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
             "text": "Using SFH or abdominal palpation",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "",
+            "extra_info": "GA: {sfh_gest_age}\nEDD: {sfh_edd}"
           }
         ],
         "value": "none",
         "v_required": {
           "value": true
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
