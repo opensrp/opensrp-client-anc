@@ -44,7 +44,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 				readOnly = jsonObject.getBoolean(JsonFormConstants.READ_ONLY);
 			}
             LinearLayout rootLayout = (LinearLayout) LayoutInflater.from(context).inflate(getLayout(), null);
-            Map<String, View> labelViews = FormUtils.createRadioButtonAndCheckBoxLabel(rootLayout, jsonObject, context, canvasIds,
+            Map<String, View> labelViews = FormUtils.createRadioButtonAndCheckBoxLabel(stepName, rootLayout, jsonObject, context, canvasIds,
                     readOnly, commonListener);
 			String openMrsEntityParent = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_PARENT);
 			String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
@@ -64,10 +64,11 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 			radioGroup.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
 			radioGroup.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
 			radioGroup.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+			radioGroup.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
 			radioGroup
 					.setTag(com.vijay.jsonwizard.R.id.address, stepName + ":" + jsonObject.getString(JsonFormConstants
 							.KEY));
-			addRadioButtons(stepName, context, jsonObject, commonListener, popup, radioGroup, readOnly);
+			addRadioButtons(stepName, context, jsonObject, commonListener, popup, radioGroup, readOnly, canvasIds);
 			rootLayout.addView(radioGroup);
 			views.add(rootLayout);
             if (labelViews.size() > 0) {
@@ -85,7 +86,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 	}
 	
 	private void addRadioButtons(String stepName, Context context, JSONObject
-			jsonObject, CommonListener commonListener, boolean popup, RadioGroup rootLayout, boolean readOnly)
+			jsonObject, CommonListener commonListener, boolean popup, RadioGroup rootLayout, boolean readOnly, JSONArray canvasIds)
 			throws JSONException {
 		JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 		String optionTextSize = String.valueOf(context.getResources().getDimension(com.vijay.jsonwizard.R.dimen.options_default_text_size));
@@ -120,6 +121,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 						stepName + ":" + jsonObject.getString(JsonFormConstants.KEY));
 				radioButton.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
 				radioButton.setOnCheckedChangeListener(commonListener);
+				radioButton.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
 				if (!TextUtils.isEmpty(jsonObject.optString(JsonFormConstants.VALUE))
 						&& jsonObject.optString(JsonFormConstants.VALUE).equals(item.getString(JsonFormConstants.KEY))) {
 					radioButton.setChecked(true);
