@@ -142,7 +142,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.5.9-DEMO-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.5.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
