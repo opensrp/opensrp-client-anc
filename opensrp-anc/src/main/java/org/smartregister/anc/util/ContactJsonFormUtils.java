@@ -15,6 +15,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.json.JSONArray;
+import org.smartregister.anc.R;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
@@ -36,6 +37,10 @@ public class ContactJsonFormUtils extends FormUtils {
         String parentKey = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
         CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
+        String toolbarHeader = "";
+        if (type != null && type.equals(JsonFormConstants.NATIVE_ACCORDION)){
+            toolbarHeader = (String) view.getTag(R.id.header);
+        }
         String childKey;
 
         if (specifyContent != null) {
@@ -47,11 +52,14 @@ public class ContactJsonFormUtils extends FormUtils {
             genericPopupDialog.setStepName(stepName);
             genericPopupDialog.setSecondaryValues(jsonArray);
             genericPopupDialog.setParentKey(parentKey);
+            if (type != null && type.equals(JsonFormConstants.NATIVE_ACCORDION)){
+                genericPopupDialog.setHeader(toolbarHeader);
+            }
             genericPopupDialog.setWidgetType(type);
             if (customTextView != null) {
                 genericPopupDialog.setCustomTextView(customTextView);
             }
-            if (type.equals(JsonFormConstants.CHECK_BOX) || type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+            if (type != null && (type.equals(JsonFormConstants.CHECK_BOX) || type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON))) {
                 childKey = (String) view.getTag(com.vijay.jsonwizard.R.id.childKey);
                 genericPopupDialog.setChildKey(childKey);
             }

@@ -5,4 +5,5 @@
         <item name="android:textColor">#737373</item>
         <item name="android:paddingLeft">0dp</item>
     </style>
+    <item name="header" type="id"/>
 </resources>

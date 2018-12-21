@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.GenericPopupDialog;
@@ -52,6 +54,8 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     private JsonApi jsonApi;
     private JsonApiInterface ancJsonApi;
     private Context context;
+    private String header;
+    protected Toolbar mToolbar;
 
 
     @Override
@@ -156,7 +160,11 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_generic_dialog, container, false);
-
+            mToolbar = dialogView.findViewById(R.id.generic_toolbar);
+            TextView toolBar = mToolbar.findViewById(R.id.txt_title_label);
+            if (!TextUtils.isEmpty(header)) {
+                toolBar.setText(header);
+            }
             AppCompatImageButton cancelButton;
             Button okButton;
 
@@ -407,7 +415,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     protected void createSecondaryValues(String key, String labelType, String value) {
         JSONArray values = new JSONArray();
         values.put(value);
-        String[] string = getWidgetLabel(labelType);
+        String[] string = splitText(labelType, ";");
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
             if (string.length > 1) {
                 String type = string[0];
@@ -466,8 +474,8 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
 
             for (int k = 0; k < list.size(); k++) {
                 String value = list.get(k);
-                String[] splitValues = value.split(":");
-                String[] currentValues = currentValue.split(":");
+                String[] splitValues = splitText(value, ":");
+                String[] currentValues = splitText(currentValue, ":");
                 if (splitValues.length == 3 && currentValues.length == 3 && splitValues[0].equals(currentValues[0]) && splitValues[1].equals(currentValues[1]) && currentValues[2].equals("false")) {
                     list.remove(k);
                 }
@@ -480,7 +488,11 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         return values;
     }
 
-    private String[] getWidgetLabel(String type) {
-        return type.split(";");
+    private String[] splitText(String text, String spliter) {
+        return text.split(spliter);
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 }

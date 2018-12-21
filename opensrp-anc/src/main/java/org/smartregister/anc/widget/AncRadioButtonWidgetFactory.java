@@ -127,39 +127,11 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
 					radioButton.setChecked(true);
 				}
 				radioButton.setEnabled(!readOnly);
-				setRadioButtonIcon(radioButton, item, context);
+				//setRadioButtonIcon(radioButton, item, context);
 				rootLayout.addView(radioButton);
 			}
 		} else {
 			Toast.makeText(context, "Please make sure you have set the radio button options", Toast.LENGTH_SHORT).show();
-		}
-	}
-	
-	private void setRadioButtonIcon(RadioButton radioButtonIcon, JSONObject optionItem, Context context)
-			throws JSONException {
-		if (optionItem != null && optionItem.has(JsonFormConstants.TYPE)) {
-			String type = optionItem.getString(JsonFormConstants.TYPE);
-			radioButtonIcon.setPadding(48, 0, 0, 0);
-			switch (type) {
-				case Constants
-						.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_done_24));
-					break;
-				case Constants
-						.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_done_24));
-					break;
-				case Constants
-						.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_ordered_24));
-					break;
-				case Constants
-						.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
-					radioButtonIcon.setButtonDrawable(context.getResources().getDrawable(R.drawable.ic_not_done_24));
-					break;
-				default:
-					break;
-			}
 		}
 	}
 	

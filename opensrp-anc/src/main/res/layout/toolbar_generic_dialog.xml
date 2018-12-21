@@ -12,7 +12,7 @@
         android:theme="@style/AncAppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/register_toolbar"
+            android:id="@+id/generic_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/customAppThemeBlue"
