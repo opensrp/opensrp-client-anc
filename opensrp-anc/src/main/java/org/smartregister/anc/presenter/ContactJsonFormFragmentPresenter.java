@@ -1,18 +1,14 @@
 package org.smartregister.anc.presenter;
 
-import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
-import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
@@ -55,7 +51,7 @@ public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter 
 		key = (String)view.getTag(com.vijay.jsonwizard.R.id.key);
 		type = (String)view.getTag(com.vijay.jsonwizard.R.id.type);
 		switch (type) {
-			case Constants.NATIVE_ACCORDION:
+			case Constants.EXPANSION_PANEL:
 				String info = (String)view.getTag(com.vijay.jsonwizard.R.id.label_dialog_info);
 				if (!TextUtils.isEmpty(info)) {
 					showInformationDialog(view);

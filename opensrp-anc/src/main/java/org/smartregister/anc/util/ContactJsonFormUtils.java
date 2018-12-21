@@ -38,7 +38,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
         CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
         String toolbarHeader = "";
-        if (type != null && type.equals(JsonFormConstants.NATIVE_ACCORDION)){
+        if (type != null && type.equals(Constants.EXPANSION_PANEL)){
             toolbarHeader = (String) view.getTag(R.id.header);
         }
         String childKey;
@@ -52,7 +52,7 @@ public class ContactJsonFormUtils extends FormUtils {
             genericPopupDialog.setStepName(stepName);
             genericPopupDialog.setSecondaryValues(jsonArray);
             genericPopupDialog.setParentKey(parentKey);
-            if (type != null && type.equals(JsonFormConstants.NATIVE_ACCORDION)){
+            if (type != null && type.equals(Constants.EXPANSION_PANEL)){
                 genericPopupDialog.setHeader(toolbarHeader);
             }
             genericPopupDialog.setWidgetType(type);
@@ -88,7 +88,7 @@ public class ContactJsonFormUtils extends FormUtils {
     public Map<String, String> addAssignedValue(String itemKey, String optionKey, String keyValue, String itemType,
                                                 String itemText) {
         Map<String, String> value = new HashMap<>();
-        if (genericDialogInterface != null && !TextUtils.isEmpty(genericDialogInterface.getWidgetType()) && genericDialogInterface.getWidgetType().equals(JsonFormConstants.NATIVE_ACCORDION)) {
+        if (genericDialogInterface != null && !TextUtils.isEmpty(genericDialogInterface.getWidgetType()) && genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             String[] labels = itemType.split(";");
             String type = "";
             if (labels.length >= 1) {

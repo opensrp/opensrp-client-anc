@@ -61,7 +61,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Ultrasound",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_ultrasound_sub_form"
       },
@@ -71,7 +71,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Blood Type",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_type_sub_form"
       },
@@ -81,7 +81,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "HIV",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_hiv_sub_form"
       },
@@ -91,7 +91,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Partner HIV",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_partner_hiv_sub_form"
       },
@@ -101,7 +101,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Hepatitis B",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_hepatitis_b_sub_form"
       },
@@ -111,7 +111,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Hepatitis C",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_hepatitis_c_sub_form"
       },
@@ -121,7 +121,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Syphilis",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_syphilis_sub_form"
       },
@@ -131,7 +131,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Urine",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_urine_sub_form"
       },
@@ -141,7 +141,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Blood Glucose",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_glucose_sub_form"
       },
@@ -151,7 +151,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Blood Haemoglobin",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_haemoglobin_sub_form"
       },
@@ -161,7 +161,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "TB Screening",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_tb_screening_sub_form"
       },
@@ -171,7 +171,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Other Tests",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_other_tests_sub_form"
       }
@@ -186,7 +186,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Other Tests",
-        "type": "native_accordion",
+        "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_other_tests_sub_form"
       }

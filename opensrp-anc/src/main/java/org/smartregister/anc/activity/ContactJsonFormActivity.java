@@ -9,6 +9,9 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,10 +20,12 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
 import java.io.Serializable;
@@ -39,6 +44,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private ProgressDialog progressDialog;
     private AncGenericDialogInterface genericDialogInterface;
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
+    private Utils utils = new Utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +172,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected JSONArray fetchFields(JSONObject parentJson, Boolean popup) {
         JSONArray fields = new JSONArray();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
-                .equals(JsonFormConstants.NATIVE_ACCORDION)) {
+                .equals(Constants.EXPANSION_PANEL)) {
             try {
                 if (parentJson.has(JsonFormConstants.SECTIONS) && parentJson
                         .get(JsonFormConstants.SECTIONS) instanceof JSONArray) {
@@ -215,7 +221,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected JSONArray specifyFields(JSONObject parentJson) {
         JSONArray fields = new JSONArray();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
-                .equals(JsonFormConstants.NATIVE_ACCORDION)) {
+                .equals(Constants.EXPANSION_PANEL)) {
             try {
                 if (parentJson.has(JsonFormConstants.CONTENT_FORM)) {
                     if (getExtraFieldsWithValues() != null) {
@@ -333,7 +339,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private String getWidgetLabel(JSONObject jsonObject) throws JSONException {
         String label = "";
         String widgetType = jsonObject.getString(JsonFormConstants.TYPE);
-        if (!TextUtils.isEmpty(widgetType) && genericDialogInterface.getWidgetType().equals(Constants.NATIVE_ACCORDION)) {
+        if (!TextUtils.isEmpty(widgetType) && genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             switch (widgetType) {
                 case JsonFormConstants.EDIT_TEXT:
                     label = jsonObject.optString(JsonFormConstants.HINT, "");
@@ -353,7 +359,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public Map<String, String> getValueFromAddressCore(JSONObject object) throws JSONException {
         Map<String, String> result = new HashMap<>();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
-                .equals(JsonFormConstants.NATIVE_ACCORDION)) {
+                .equals(Constants.EXPANSION_PANEL)) {
             if (object != null) {
                 switch (object.getString(JsonFormConstants.TYPE)) {
                     case JsonFormConstants.CHECK_BOX:
@@ -435,6 +441,30 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     @Override
     public void setGenericPopup(AncGenericDialogPopup context) {
         genericDialogInterface = context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
+        if (refreshExpansionPanelEvent != null) {
+            try {
+                List<String> values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
 
