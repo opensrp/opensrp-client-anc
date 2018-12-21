@@ -2,6 +2,7 @@ package org.smartregister.anc.widget;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
@@ -39,6 +40,9 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
 
     @Mock
     private MaterialEditText editText;
+
+    @Mock
+    ImageView imageView;
 
     @Mock
     private CommonListener listener;
@@ -100,7 +104,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testAncEditTextFactorInstantiatesCorrectly() throws Exception {
 
         Assert.assertNotNull(factory);
-        factory.attachJson("RandomStepName", context, formFragment, jsonObject, editText);
+        factory.attachLayout("RandomStepName", context, formFragment, jsonObject, editText, imageView);
 
     }
 
@@ -108,7 +112,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);
-        factory.attachJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText);
+        factory.attachLayout(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText,imageView);
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
 
         jsonObject.put(DBConstants.KEY.NUMBER_PICKER, true);
@@ -119,7 +123,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
         Mockito.doReturn(minusButton).when(relativeLayout).findViewById(R.id.minusbutton);
 
 
-        List<View> views = factorySpy.getViewsFromJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, listener);
+        List<View> views = factorySpy.getViewsFromJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, listener,true);
 
         Assert.assertNotNull(views);
         Assert.assertTrue(views.size() > 0);
