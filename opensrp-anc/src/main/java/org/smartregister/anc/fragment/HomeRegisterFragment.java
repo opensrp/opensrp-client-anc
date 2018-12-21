@@ -214,11 +214,16 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     }
 
     public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient) {
-        Intent intent = new Intent(getActivity(), ContactActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
-        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-        getActivity().startActivity(intent);
+        try {
+            Intent intent = new Intent(getActivity(), ContactActivity.class);
+            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+            intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
+            intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
+            getActivity().startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            Utils.showToast(getActivity(), "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
+        }
     }
 
 

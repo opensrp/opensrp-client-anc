@@ -69,8 +69,10 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             quickCheck.setName(getString(R.string.quick_check));
             quickCheck.setContactNumber(contactNo);
             quickCheck.setBackground(R.drawable.quick_check_bg);
-            Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getName());
-            quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 3);
+            if (requiredFieldsMap.containsKey(quickCheck.getName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getName());
+                quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 3);
+            }
             contacts.add(quickCheck);
 
             Contact profile = new Contact();
@@ -79,7 +81,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             profile.setBackground(R.drawable.profile_bg);
             profile.setActionBarBackground(R.color.contact_profile_actionbar);
             profile.setNavigationBackground(R.color.contact_profile_navigation);
-            profile.setRequiredFields(requiredFieldsMap.get(profile.getName()));
+            if (requiredFieldsMap.containsKey(profile.getName())) {
+                profile.setRequiredFields(requiredFieldsMap.get(profile.getName()));
+            }
             profile.setFormName(Constants.JSON_FORM.ANC_PROFILE);
             contacts.add(profile);
 
@@ -89,7 +93,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
             symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
             symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
-            symptomsAndFollowUp.setRequiredFields(requiredFieldsMap.get(symptomsAndFollowUp.getName()));
+            if (requiredFieldsMap.containsKey(symptomsAndFollowUp.getName())) {
+                symptomsAndFollowUp.setRequiredFields(requiredFieldsMap.get(symptomsAndFollowUp.getName()));
+            }
             symptomsAndFollowUp.setFormName(Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP);
             contacts.add(symptomsAndFollowUp);
 
@@ -99,7 +105,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             physicalExam.setBackground(R.drawable.physical_exam_bg);
             physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
             physicalExam.setNavigationBackground(R.color.contact_exam_navigation);
-            physicalExam.setRequiredFields(requiredFieldsMap.get(physicalExam.getName()));
+            if (requiredFieldsMap.containsKey(physicalExam.getName())) {
+                physicalExam.setRequiredFields(requiredFieldsMap.get(physicalExam.getName()));
+            }
             physicalExam.setFormName(Constants.JSON_FORM.ANC_PHYSICAL_EXAM);
             contacts.add(physicalExam);
 
@@ -109,7 +117,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             tests.setBackground(R.drawable.tests_bg);
             tests.setActionBarBackground(R.color.contact_tests_actionbar);
             tests.setNavigationBackground(R.color.contact_tests_navigation);
-            tests.setRequiredFields(requiredFieldsMap.get(tests.getName()));
+            if (requiredFieldsMap.containsKey(tests.getName())) {
+                tests.setRequiredFields(requiredFieldsMap.get(tests.getName()));
+            }
             tests.setFormName(Constants.JSON_FORM.ANC_TEST);
             contacts.add(tests);
 
@@ -119,7 +129,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
             counsellingAndTreatment.setActionBarBackground(R.color.contact_counselling_actionbar);
             counsellingAndTreatment.setNavigationBackground(R.color.contact_counselling_navigation);
-            counsellingAndTreatment.setRequiredFields(requiredFieldsMap.get(counsellingAndTreatment.getName()));
+            if (requiredFieldsMap.containsKey(counsellingAndTreatment.getName())) {
+                counsellingAndTreatment.setRequiredFields(requiredFieldsMap.get(counsellingAndTreatment.getName()));
+            }
             counsellingAndTreatment.setFormName(Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
             contacts.add(counsellingAndTreatment);
 

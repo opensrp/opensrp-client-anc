@@ -45,7 +45,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -59,7 +58,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
     private Facts facts = new Facts();
-    private Random random = new Random();
     private Yaml yaml;
     private static final String CONFIG_FOLDER_PATH = "config/";
     private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
@@ -307,9 +305,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private String getValue(JSONObject jsonObject) throws Exception {
-        int max = 30;
-        int min = 1;
-        return jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : String.valueOf(random.nextInt(max - min + 1) + min);
+        return jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : "";
     }
 
     protected void loadContactSummaryData() {
