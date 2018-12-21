@@ -51,6 +51,9 @@ public class ExpansionWidgetAdapter extends RecyclerView.Adapter<ExpansionWidget
             listHeader = itemView.findViewById(R.id.item_header);
             listValue = itemView.findViewById(R.id.item_value);
         }
+    }
 
+    public void setExpansionWidgetValues(List<String> expansionWidgetValues) {
+        this.expansionWidgetValues = expansionWidgetValues;
     }
 }

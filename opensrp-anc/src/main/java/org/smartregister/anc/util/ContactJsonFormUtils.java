@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -38,7 +40,8 @@ public class ContactJsonFormUtils extends FormUtils {
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
         CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
         String toolbarHeader = "";
-        if (type != null && type.equals(Constants.EXPANSION_PANEL)){
+        LinearLayout rootLayout = (LinearLayout) view.getTag(R.id.main_layout);
+        if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
             toolbarHeader = (String) view.getTag(R.id.header);
         }
         String childKey;
@@ -52,7 +55,8 @@ public class ContactJsonFormUtils extends FormUtils {
             genericPopupDialog.setStepName(stepName);
             genericPopupDialog.setSecondaryValues(jsonArray);
             genericPopupDialog.setParentKey(parentKey);
-            if (type != null && type.equals(Constants.EXPANSION_PANEL)){
+            genericPopupDialog.setLinearLayout(rootLayout);
+            if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
                 genericPopupDialog.setHeader(toolbarHeader);
             }
             genericPopupDialog.setWidgetType(type);
@@ -116,5 +120,21 @@ public class ContactJsonFormUtils extends FormUtils {
         return value;
     }
 
+    public void changeIcon(ImageView imageView, String type, Context context) {
+        if (!TextUtils.isEmpty(type)) {
+            if (type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
+            } else if (type.contains(Constants
+                    .ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER)) {
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
+            } else if (type.contains(Constants
+                    .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED)) {
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ordered));
+            } else if (type.contains(Constants
+                    .ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.not_done));
+            }
+        }
+    }
 
 }

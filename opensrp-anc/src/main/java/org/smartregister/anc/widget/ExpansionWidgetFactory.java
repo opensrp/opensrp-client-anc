@@ -3,7 +3,6 @@ package org.smartregister.anc.widget;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,30 +119,13 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < jsonArray.length(); k++) {
                     String valueDisplay = jsonArray.getString(k);
-                    changeIcon(imageView, valueDisplay, context);
+                    formUtils.changeIcon(imageView, valueDisplay, context);
                 }
 
             }
         }
     }
 
-    private void changeIcon(ImageView imageView, String type, Context context) {
-        if (!TextUtils.isEmpty(type)) {
-            if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
-            } else if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
-            } else if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ordered));
-            } else if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.not_done));
-            }
-        }
-    }
 
     private void attachContent(LinearLayout rootLayout, Context context, JSONObject jsonObject) throws JSONException {
         JSONArray values = new JSONArray();
@@ -216,6 +198,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     private class RecordButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            LinearLayout linearLayout = (LinearLayout) view.getParent().getParent().getParent().getParent();
+            view.setTag(R.id.main_layout, linearLayout);
             formUtils.showGenericDialog(view);
         }
     }

@@ -27,6 +27,14 @@ public abstract class Constants {
 		public static final String NOT_DONE = "not_done";
 		
 	}
+
+	public static class ANC_RADIO_BUTTON_OPTION_TEXT {
+		public static final String DONE_TODAY = "Done today";
+		public static final String DONE_EARLIER = "Done earlier";
+		public static final String ORDERED = "Ordered";
+		public static final String NOT_DONE = "Not done";
+
+	}
 	
 	public static final String ACCORDION_INFO_TEXT = "accordion_info_text";
 	public static final String ACCORDION_INFO_TITLE = "accordion_info_title";

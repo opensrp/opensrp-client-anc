@@ -164,16 +164,6 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_tb_screening_sub_form"
-      },
-      {
-        "key": "accordion_other_tests",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Other Tests",
-        "type": "expansion_panel",
-        "display_bottom_section": true,
-        "content_form": "tests_other_tests_sub_form"
       }
     ]
   },

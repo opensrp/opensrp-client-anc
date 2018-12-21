@@ -58,6 +58,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     private Context context;
     private String header;
     protected Toolbar mToolbar;
+    private  LinearLayout linearLayout;
 
 
     @Override
@@ -255,6 +256,44 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         }
     }
 
+    protected void addValues(JSONObject item, Map<String, AccordionValuesModel> secondaryValueModel) {
+        JSONObject valueObject;
+        JSONArray secondaryValuesArray = new JSONArray();
+        AccordionValuesModel secondaryValue;
+        for (Object object : secondaryValueModel.entrySet()) {
+            Map.Entry pair = (Map.Entry) object;
+            secondaryValue = (AccordionValuesModel) pair.getValue();
+            valueObject = createSecValues(secondaryValue);
+            secondaryValuesArray.put(valueObject);
+        }
+        try {
+            item.put(JsonFormConstants.VALUE, secondaryValuesArray);
+            setNewSelectedValues(secondaryValuesArray);
+            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(secondaryValuesArray,linearLayout));
+        } catch (Exception e) {
+            Log.i(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    private JSONObject createSecValues(AccordionValuesModel valuesModel) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            String key = valuesModel.getKey();
+            String type = valuesModel.getType();
+            String label = valuesModel.getLabel();
+            JSONArray values = valuesModel.getValues();
+
+            jsonObject.put(JsonFormConstants.KEY, key);
+            jsonObject.put(JsonFormConstants.TYPE, type);
+            jsonObject.put(JsonFormConstants.LABEL, label);
+            jsonObject.put(JsonFormConstants.VALUES, values);
+        } catch (Exception e) {
+            Log.i(TAG, Log.getStackTraceString(e));
+
+        }
+        return jsonObject;
+    }
+
     @Override
     protected void addFormValues(JSONArray jsonArray) {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
@@ -327,24 +366,6 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         return item;
     }
 
-    protected void addValues(JSONObject item, Map<String, AccordionValuesModel> secondaryValueModel) {
-        JSONObject valueObject;
-        JSONArray secondaryValuesArray = new JSONArray();
-        AccordionValuesModel secondaryValue;
-        for (Object object : secondaryValueModel.entrySet()) {
-            Map.Entry pair = (Map.Entry) object;
-            secondaryValue = (AccordionValuesModel) pair.getValue();
-            valueObject = createSecValues(secondaryValue);
-            secondaryValuesArray.put(valueObject);
-        }
-        try {
-            item.put(JsonFormConstants.VALUE, secondaryValuesArray);
-            setNewSelectedValues(secondaryValuesArray);
-            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(getNewSelectedValues()));
-        } catch (Exception e) {
-            Log.i(TAG, Log.getStackTraceString(e));
-        }
-    }
 
     @Override
     protected void createSecondaryValuesMap() {
@@ -371,24 +392,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
 
     }
 
-    private JSONObject createSecValues(AccordionValuesModel valuesModel) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            String key = valuesModel.getKey();
-            String type = valuesModel.getType();
-            String label = valuesModel.getLabel();
-            JSONArray values = valuesModel.getValues();
 
-            jsonObject.put(JsonFormConstants.KEY, key);
-            jsonObject.put(JsonFormConstants.TYPE, type);
-            jsonObject.put(JsonFormConstants.LABEL, label);
-            jsonObject.put(JsonFormConstants.VALUES, values);
-        } catch (Exception e) {
-            Log.i(TAG, Log.getStackTraceString(e));
-
-        }
-        return jsonObject;
-    }
 
     @Override
     public void addSelectedValues(Map<String, String> newValue) {
@@ -502,5 +506,9 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
 
     public void setHeader(String header) {
         this.header = header;
+    }
+
+    public void setLinearLayout(LinearLayout linearLayout) {
+        this.linearLayout = linearLayout;
     }
 }

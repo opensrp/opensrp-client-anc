@@ -6,4 +6,5 @@
         <item name="android:paddingLeft">0dp</item>
     </style>
     <item name="header" type="id"/>
+    <item name="main_layout" type="id"/>
 </resources>

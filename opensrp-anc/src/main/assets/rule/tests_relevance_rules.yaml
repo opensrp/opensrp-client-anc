@@ -1,0 +1,8 @@
+---
+name: step1_danger_signs_toaster
+description: Displays the womans danger signs.
+priority: 1
+condition: "!global_danger_signs.contains('danger_none')"
+actions:
+ - 'calculation = ["danger_signs" : global_danger_signs]'
+---

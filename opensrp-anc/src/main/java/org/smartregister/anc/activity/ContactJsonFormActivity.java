@@ -3,11 +3,18 @@ package org.smartregister.anc.activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.github.florent37.expansionpanel.ExpansionHeader;
+import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -16,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
+import org.smartregister.anc.adapter.ExpansionWidgetAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.contract.JsonApiInterface;
@@ -45,6 +53,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private AncGenericDialogInterface genericDialogInterface;
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private Utils utils = new Utils();
+    private String TAG = this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -374,7 +383,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                                     result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
                                 }
                             } else {
-                                //Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
+                                Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
                             }
 
                             //Backward compatibility Fix
@@ -428,7 +437,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                         }
                     }
                 } else {
-                    //Log.e(TAG, "option for Key " + jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
+                    Log.e(TAG, "option for Key " + jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
                 }
             }
         } else {
@@ -460,11 +469,28 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         if (refreshExpansionPanelEvent != null) {
             try {
                 List<String> values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
+                LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
+                ExpansionHeader layoutHeader = (ExpansionHeader) linearLayout.getChildAt(0);
+                ImageView status = layoutHeader.findViewById(R.id.statusImageView);
+                changeRecycler(values,status);
+                ExpansionLayout contentLayout = (ExpansionLayout) linearLayout.getChildAt(1);
+                RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
+                ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) recyclerView.getAdapter();
+                adapter.setExpansionWidgetValues(values);
+                adapter.notifyDataSetChanged();
+                values.toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
 
+    private void changeRecycler(List<String> values, ImageView status) throws JSONException {
+        JSONArray list = new JSONArray(values);
+        for (int k = 0; k < list.length(); k++) {
+            String valueDisplay = list.getString(k).split(":")[1];
+            formUtils.changeIcon(status, valueDisplay, getApplicationContext());
+        }
     }
 }
 
