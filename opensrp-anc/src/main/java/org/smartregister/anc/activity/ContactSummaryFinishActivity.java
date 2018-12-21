@@ -34,6 +34,7 @@ import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.yaml.snakeyaml.TypeDescription;
@@ -59,7 +60,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private ImageRenderHelper imageRenderHelper;
     private Facts facts = new Facts();
     private Yaml yaml;
-    private static final String CONFIG_FOLDER_PATH = "config/";
     private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
     private List<ContactSummary> contactSummaryList = new ArrayList<>();
     private Gson gson;
@@ -358,8 +358,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }.execute();
     }
 
-    public java.lang.Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((CONFIG_FOLDER_PATH + filename)));
+    public Iterable<Object> readYaml(String filename) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
     }
 

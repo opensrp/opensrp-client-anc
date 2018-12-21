@@ -1,7 +1,5 @@
 package org.smartregister.anc.util;
 
-import org.smartregister.anc.BuildConfig;
-
 /**
  * Created by ndegwamartin on 14/03/2018.
  */
@@ -10,9 +8,8 @@ public abstract class Constants {
     public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
     public static final String CONTACT_DATE_FORMAT = "dd/MM/yyyy";
     public static final String CONTACT_SUMMARY_DATE_FORMAT = "dd MMMM yyyy";
-    public static final long MAX_SERVER_TIME_DIFFERENCE = BuildConfig.MAX_SERVER_TIME_DIFFERENCE;
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
-    public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
+    public static final String FORM = "form";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
@@ -131,11 +128,6 @@ public abstract class Constants {
 
     public static class CONFIG_FILE {
         public static final String CONTACT_SUMMARY = "contact-summary.yml";
-
-    }
-
-    public static class SUFFIX {
-        public static final String TOTAL_COUNT = "_total_count";
 
     }
 

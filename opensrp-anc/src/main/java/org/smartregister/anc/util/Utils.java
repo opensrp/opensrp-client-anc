@@ -7,8 +7,11 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,10 +20,15 @@ import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -169,5 +177,28 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static List<String> getListFromString(String stringArray) {
         return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+    }
+
+    public static JSONObject getSubFormJson(String formIdentity, String subFormsLocation, Context context) throws Exception {
+        String defaultSubFormLocation = JsonFormConstants.DEFAULT_SUB_FORM_LOCATION;
+        if (!TextUtils.isEmpty(subFormsLocation)) {
+            defaultSubFormLocation = subFormsLocation;
+        }
+        return new JSONObject(loadSubForm(formIdentity, defaultSubFormLocation, context));
+    }
+
+    private static String loadSubForm(String formIdentity, String defaultSubFormLocation, Context context) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        InputStream inputStream = context.getAssets().open(defaultSubFormLocation + "/" + formIdentity + ".json");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+        String jsonString;
+        while ((jsonString = reader.readLine()) != null) {
+            stringBuilder.append(jsonString);
+        }
+        inputStream.close();
+
+
+        return stringBuilder.toString();
     }
 }

@@ -290,6 +290,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     JSONObject nullObject = null;
                     if (value != null && !value.equals(nullObject)) {
                         defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
+                    }else{
+
+                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
                     }
                 }
 

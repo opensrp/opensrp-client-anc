@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
@@ -18,15 +19,21 @@ import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.util.FormUtils;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ContactActivity extends BaseContactActivity implements ContactContract.View {
 
@@ -39,6 +46,10 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
     private Map<String, Integer> requiredFieldsMap = new HashMap<>();
     private Map<String, String> eventToFileMap = new HashMap<>();
+    private Yaml yaml = new Yaml();
+    private Map<String, List<String>> formGlobalKeys = new HashMap<>();
+    private Map<String, String> formGlobalValues = new HashMap<>();
+    private Set<String> globalKeys = new HashSet<>();
 
     @Override
     protected void onResume() {
@@ -59,6 +70,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         try {
 
             requiredFieldsMap.clear();
+
+            loadContactGlobalsConfig();
 
             contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
             process(new String[]{getString(R.string.quick_check), getString(R.string.symptoms_follow_up), getString(R.string.physical_exam), getString(R.string.tests), getString(R.string.counselling_treatment), getString(R.string.profile)});
@@ -153,6 +166,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     protected void setupViews() {
         super.setupViews();
         patientNameView = findViewById(R.id.top_patient_name);
+        AncApplication.getInstance().populateGlobalSettings();
     }
 
     @Override
@@ -170,6 +184,20 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     @Override
     public void displayToast(int resourceId) {
         Utils.showToast(getApplicationContext(), getString(resourceId));
+    }
+
+    @Override
+    public void loadGlobals(Contact contact) {
+        List<String> contactGlobals = formGlobalKeys.get(contact.getFormName());
+
+        Map<String, String> map = new HashMap<>();
+        for (String cg : contactGlobals) {
+            if (formGlobalValues.containsKey(cg)) {
+                map.put(cg, formGlobalValues.get(cg));
+            }
+        }
+        contact.setGlobals(map);
+
     }
 
     @Override
@@ -202,7 +230,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
     }
 
-    private void processRequiredStepsField(JSONObject object) throws Exception {
+    private void processRequiredStepsField(JSONObject object) throws JSONException {
         if (object != null) {
             Iterator<String> keys = object.keys();
 
@@ -225,6 +253,21 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                                 requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
 
                                 requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
+                            } else {
+
+                                if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY))) {
+                                    formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
+                                }
+
+                            }
+                        }
+
+                        if (fieldObject.has("content_form")) {
+                            try {
+                                JSONObject subFormJson = Utils.getSubFormJson(fieldObject.getString("content_form"), "", this);
+                                processRequiredStepsField(subFormJson);
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
                             }
                         }
 
@@ -233,6 +276,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                 }
             }
         }
+
     }
 
     private void process(String[] mainContactForms) throws Exception {
@@ -269,4 +313,22 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
         return count;
     }
+
+    private void loadContactGlobalsConfig() throws IOException {
+        Iterable<Object> contactGlobals = readYaml(FilePath.FILE.CONTACT_GLOBALS);
+
+        for (Object ruleObject : contactGlobals) {
+            Map<String, Object> map = ((Map<String, Object>) ruleObject);
+
+            formGlobalKeys.put(map.get(Constants.FORM).toString(), (List<String>) map.get(JsonFormConstants.FIELDS));
+            globalKeys.addAll((List<String>) map.get(JsonFormConstants.FIELDS));
+        }
+    }
+
+    public Iterable<Object> readYaml(String filename) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
+        return yaml.loadAll(inputStreamReader);
+    }
 }
+
+

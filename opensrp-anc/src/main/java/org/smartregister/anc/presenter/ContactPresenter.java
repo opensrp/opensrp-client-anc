@@ -82,6 +82,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             }
 
             Contact contact = (Contact) tag;
+            getView().loadGlobals(contact);
             if (contact.getName().equals(getView().getString(R.string.quick_check))) {
                 getView().startQuickCheck(contact);
             } else {

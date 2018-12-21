@@ -17,6 +17,9 @@ public interface ContactContract {
         void displayToast(int resourceId);
 
         String getString(int resourceId);
+
+        void loadGlobals(Contact contact);
+
     }
 
     interface Presenter {
