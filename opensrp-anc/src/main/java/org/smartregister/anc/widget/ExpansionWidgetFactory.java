@@ -54,7 +54,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, false);
     }
 
-    private List<View> attachJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject
+    public List<View> attachJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject
             jsonObject, CommonListener commonListener, boolean popup) throws JSONException {
         JSONArray canvasIds = new JSONArray();
         List<View> views = new ArrayList<>(1);

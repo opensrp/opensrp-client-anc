@@ -187,33 +187,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     JSONArray sections = parentJson.getJSONArray(JsonFormConstants.SECTIONS);
                     for (int i = 0; i < sections.length(); i++) {
                         JSONObject sectionJson = sections.getJSONObject(i);
-                        if (sectionJson.has(JsonFormConstants.FIELDS)) {
-                            if (popup) {
-                                JSONArray jsonArray = sectionJson.getJSONArray(JsonFormConstants.FIELDS);
-                                for (int k = 0; k < jsonArray.length(); k++) {
-                                    JSONObject item = jsonArray.getJSONObject(k);
-                                    if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
-                                        fields = formUtils.concatArray(fields, specifyFields(item));
-                                    }
-                                }
-                            } else {
-                                fields = formUtils.concatArray(fields, sectionJson.getJSONArray(JsonFormConstants.FIELDS));
-                            }
-                        }
+                        fields = returnFormWithSectionFields(sectionJson, popup);
                     }
                 } else if (parentJson.has(JsonFormConstants.FIELDS) && parentJson
                         .get(JsonFormConstants.FIELDS) instanceof JSONArray) {
-                    if (popup) {
-                        JSONArray jsonArray = parentJson.getJSONArray(JsonFormConstants.FIELDS);
-                        for (int k = 0; k < jsonArray.length(); k++) {
-                            JSONObject item = jsonArray.getJSONObject(k);
-                            if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
-                                fields = specifyFields(item);
-                            }
-                        }
-                    } else {
-                        fields = parentJson.getJSONArray(JsonFormConstants.FIELDS);
-                    }
+                    fields = returnFormFields(parentJson, popup);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -222,6 +200,40 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             return super.fetchFields(parentJson, popup);
         }
 
+        return fields;
+    }
+
+    private JSONArray returnFormWithSectionFields(JSONObject sectionJson, boolean popup) throws JSONException {
+        JSONArray fields = new JSONArray();
+        if (sectionJson.has(JsonFormConstants.FIELDS)) {
+            if (popup) {
+                JSONArray jsonArray = sectionJson.getJSONArray(JsonFormConstants.FIELDS);
+                for (int k = 0; k < jsonArray.length(); k++) {
+                    JSONObject item = jsonArray.getJSONObject(k);
+                    if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
+                        fields = formUtils.concatArray(fields, specifyFields(item));
+                    }
+                }
+            } else {
+                fields = formUtils.concatArray(fields, sectionJson.getJSONArray(JsonFormConstants.FIELDS));
+            }
+        }
+        return fields;
+    }
+
+    private JSONArray returnFormFields(JSONObject parentJson, boolean popup) throws JSONException {
+        JSONArray fields = new JSONArray();
+        if (popup) {
+            JSONArray jsonArray = parentJson.getJSONArray(JsonFormConstants.FIELDS);
+            for (int k = 0; k < jsonArray.length(); k++) {
+                JSONObject item = jsonArray.getJSONObject(k);
+                if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
+                    fields = specifyFields(item);
+                }
+            }
+        } else {
+            fields = parentJson.getJSONArray(JsonFormConstants.FIELDS);
+        }
         return fields;
     }
 
@@ -371,38 +383,15 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             if (object != null) {
                 switch (object.getString(JsonFormConstants.TYPE)) {
                     case JsonFormConstants.CHECK_BOX:
-                        JSONArray options = object.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-                        for (int j = 0; j < options.length(); j++) {
-                            if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
-                                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK)) {
-                                    if (Boolean.valueOf(options.getJSONObject(j).getString(JsonFormConstants.VALUE))) {//Rules engine useth only true values
-                                        result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
-                                    }
-                                } else {
-                                    result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
-                                }
-                            } else {
-                                Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
-                            }
-
-                            //Backward compatibility Fix
-                            if (object.has(RuleConstant.IS_RULE_CHECK) && !object.getBoolean(RuleConstant.IS_RULE_CHECK)) {
-                                if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
-                                    result.put(JsonFormConstants.VALUE, options.getJSONObject(j).getString(JsonFormConstants.VALUE));
-                                } else {
-                                    result.put(JsonFormConstants.VALUE, "false");
-                                }
-                            }
-                        }
+                        result = getCheckBoxResults(object);
                         break;
-
                     case JsonFormConstants.NATIVE_RADIO_BUTTON:
                         Boolean multiRelevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioResults(multiRelevance, object);
+                        result = getRadioButtonResults(multiRelevance, object);
                         break;
                     case Constants.ANC_RADIO_BUTTON:
                         Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioResults(relevance, object);
+                        result = getRadioButtonResults(relevance, object);
                         break;
 
                     default:
@@ -422,7 +411,35 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return result;
     }
 
-    private Map<String, String> getRadioResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
+    private Map<String, String> getCheckBoxResults(JSONObject jsonObject) throws JSONException {
+        Map<String, String> result = new HashMap<>();
+        JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        for (int j = 0; j < options.length(); j++) {
+            if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
+                if (jsonObject.has(RuleConstant.IS_RULE_CHECK) && jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
+                    if (Boolean.valueOf(options.getJSONObject(j).getString(JsonFormConstants.VALUE))) {//Rules engine useth only true values
+                        result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
+                    }
+                } else {
+                    result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString(JsonFormConstants.VALUE));
+                }
+            } else {
+                Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
+            }
+
+            //Backward compatibility Fix
+            if (jsonObject.has(RuleConstant.IS_RULE_CHECK) && !jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
+                if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
+                    result.put(JsonFormConstants.VALUE, options.getJSONObject(j).getString(JsonFormConstants.VALUE));
+                } else {
+                    result.put(JsonFormConstants.VALUE, "false");
+                }
+            }
+        }
+        return result;
+    }
+
+    private Map<String, String> getRadioButtonResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
         Map<String, String> result = new HashMap<>();
         if (multiRelevance) {
             JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
