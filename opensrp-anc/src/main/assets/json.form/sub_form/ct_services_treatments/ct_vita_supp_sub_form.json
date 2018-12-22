@@ -1,0 +1,117 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "vitamin_a_supplementation_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Vitamin A Supplementation"
+    },
+    {
+      "key": "vita_supp",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+      "label_info_text": "Give a dose of up to 10,000 IU vitamin A per day, or a weekly dose of up to 25,000 IU.\n\nA single dose of a vitamin A supplement greater than 25,000 IU is not recommended as its safety is uncertain. Furthermore, a single dose of a vitamin A supplement greater than 25,000 IU might be teratogenic if consumed between day 15 and day 60 from conception.\n\n[Vitamin A sources folder]",
+      "label_info_title": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "vita_supp_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "openmrs_data_type": "",
+      "type": "check_box",
+      "label": "Reason",
+      "hint": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "referred_instead",
+          "text": "Referred instead",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      },
+      "relevance": {
+        "step8:vita_supp": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      }
+    },
+    {
+      "key": "vita_supp_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:vita_supp_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "vita",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text": "0",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      }
+    }
+  ]
+}

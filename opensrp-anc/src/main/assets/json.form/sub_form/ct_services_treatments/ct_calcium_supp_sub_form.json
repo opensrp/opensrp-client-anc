@@ -1,0 +1,117 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "calcium_supplementation_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Calcium Supplementation"
+    },
+    {
+      "key": "calcium_supp",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
+      "label_info_text": "Advice:\n\n- Divide the total dose into three doses, preferably taken at meal-time\n\n- Iron and calcium should preferably be administered several hours apart rather than concomitantly\n\n[Calcium sources folder]",
+      "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "calcium_supp_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "openmrs_data_type": "",
+      "type": "check_box",
+      "label": "Reason",
+      "hint": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "referred_instead",
+          "text": "Referred instead",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "relevance": {
+        "step8:calcium_supp": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "calcium_supp_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:calcium_supp_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "calcium",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text": "0",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      }
+    }
+  ]
+}

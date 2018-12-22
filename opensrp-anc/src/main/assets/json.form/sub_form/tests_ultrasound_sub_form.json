@@ -1,7 +1,7 @@
 {
   "content_form": [
     {
-      "key": "ultrasound_status",
+      "key": "ultrasound",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -11,7 +11,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -94,14 +93,10 @@
         "err": "Please specify ultrasound not done"
       },
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -134,15 +129,10 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
@@ -156,27 +146,29 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Gestational age in weeks from ultrasound. *",
-      "edit_type": "edit_text",
-      "v_numeric": {
-        "value": "true",
-        "err": ""
-      },
-      "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
-        }
-      },
+      "hint": "GA from ultrasound - weeks *",
       "v_required": {
         "value": false,
-        "err": "Please specify the gestational age in weeks from ultrasound"
+        "err": "Please give the GA from ultrasound - weeks"
+      },
+      "v_numeric_integer": {
+        "value": "true",
+        "err": "Enter a Valid GA from ultrasound - weeks value"
+      },
+      "v_min": {
+        "value": "4",
+        "err": "GA from ultrasound - weeks must be equal or greater than 4"
+      },
+      "v_max": {
+        "value": "43",
+        "err": "GA from ultrasound - weeks must be equal or less than 43"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -192,15 +184,10 @@
         "err": ""
       },
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
@@ -209,7 +196,7 @@
       }
     },
     {
-      "key": "ultrasound_toaster",
+      "key": "ultrasound_done_early_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
       "openmrs_entity_id": "2047",
@@ -217,7 +204,14 @@
       "text": "Early ultrasound done!",
       "toaster_info_text": "An early U/S is key to estimate gestational age, improve detection of fetal anomalies and multiple fetuses, reduce induction of labour for post-term pregnancy, and improve a woman’s pregnancy experience.",
       "toaster_info_title": "Early ultrasound done!",
-      "toaster_type": "positive"
+      "toaster_type": "positive",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "openmrs_entity_parent": "",
@@ -241,7 +235,7 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "enabled_label",
+      "key": "no_of_fetuses_label",
       "type": "label",
       "label_text_style": "bold",
       "text": "Number of fetuses detected during ultrasound.",
@@ -250,15 +244,10 @@
         "value": true
       },
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -279,15 +268,10 @@
         "value": true
       },
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -370,15 +354,10 @@
         }
       ],
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -414,15 +393,10 @@
         }
       ],
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -486,15 +460,10 @@
         }
       ],
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -533,15 +502,10 @@
         "value": true
       },
       "relevance": {
-        "step1:ultrasound_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },

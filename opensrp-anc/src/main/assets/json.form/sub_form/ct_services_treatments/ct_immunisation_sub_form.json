@@ -1,0 +1,485 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "immunisations_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Immunisations"
+    },
+    {
+      "key": "tt1_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "TT dose #1",
+      "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\n1-4 doses of TTCV in the past:\n\n- 1 dose scheme: Woman should receive one dose of TTCV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+      "label_info_title": "TT dose #1",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "tt2_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "TT dose #2",
+      "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+      "label_info_title": "TT dose #2",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "tt3_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "TT dose #3",
+      "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+      "label_info_title": "TT dose #3",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "tt_dose_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "vaccine_available",
+          "text": "No vaccine available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_is_ill",
+          "text": "Woman is ill",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_refused",
+          "text": "Woman refused",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "allergies",
+          "text": "Allergies",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "tt_dose_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:tt_dose_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    },
+    {
+      "key": "woman_immunised_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Woman is fully immunised against tetanus!",
+      "toaster_type": "info"
+    },
+    {
+      "key": "hepb_negative_note",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Hep B negative counseling and vaccination",
+      "label_info_text": "Counseling:\n\n- Provide post-testing counselling\n\n- Advise retesting and immunisation if ongoing risk or known exposure",
+      "label_info_title": "Hep B negative counseling and vaccination",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "hepb1_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Hep B dose #1",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "hepb2_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Hep B dose #2 ",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "hepb3_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Hep B dose #3",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "hepb_dose_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "vaccine_available",
+          "text": "No vaccine available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_is_ill",
+          "text": "Woman is ill",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_refused",
+          "text": "Woman refused",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "allergies",
+          "text": "Allergies",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "hepb_dose_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:hepb_dose_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    },
+    {
+      "key": "woman_immunised_hep_b_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Woman is fully immunised against Hep B!",
+      "toaster_type": "info"
+    },
+    {
+      "key": "flu_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Flu dose",
+      "label_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy. ",
+      "label_info_title": "Flu dose",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "flu_dose_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "vaccine_available",
+          "text": "No vaccine available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_is_ill",
+          "text": "Woman is ill",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_refused",
+          "text": "Woman refused",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "allergies",
+          "text": "Allergies",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "flu_dose_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:flu_dose_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    },
+    {
+      "key": "woman_immunised_flu_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Woman is immunised against flu!",
+      "toaster_type": "info"
+    }
+  ]
+}

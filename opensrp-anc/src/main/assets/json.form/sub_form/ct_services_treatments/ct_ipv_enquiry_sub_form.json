@@ -1,0 +1,157 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "ipv_assessment_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "IPV Assessment"
+    },
+    {
+      "key": "ipv_enquiry",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Clinical enquiry for intimate partner violence (IPV) done?",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "ipv_enquiry_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "openmrs_data_type": "",
+      "type": "check_box",
+      "label": "Reason",
+      "hint": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "referred_instead",
+          "text": "Referred instead",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "relevance": {
+        "step8:ipv_enquiry": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "ipv_enquiry_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:ipv_enquiry_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    },
+    {
+      "key": "ipv_enquiry_results",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "IPV enquiry results",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "treated",
+          "text": "Treated",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "referred",
+          "text": "Referred",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "no_action",
+          "text": "No action necessary",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      },
+      "relevance": {
+        "step8:ipv_enquiry": {
+          "type": "string",
+          "ex": "equalTo(., \"done\")"
+        }
+      }
+    },
+    {
+      "key": "ipv_refer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "If the woman presents with risk of intimate partner violence (IPV), refer for assessment.",
+      "toaster_info_text": "Risk of IPV includes any of the following:\n\n- Traumatic injury, particularly if repeated and with vague or implausible explanations;\n\n- An intrusive partner or husband present at consultations;\n\n- Multiple unintended pregnancies and/or terminations;\n\n- Delay in seeking ANC;\n\n- Adverse birth outcomes;\n\n- Repeated STIs;\n\n- Unexplained or repeated genitourinary symptoms;\n\n- Symptoms of depression and anxiety;\n\n- Alcohol or other substance use; or\n\n- Self-harm or suicidal feelings.",
+      "toaster_info_title": "If the woman presents with risk of intimate partner violence (IPV), refer for assessment.",
+      "toaster_type": "info"
+    }
+  ]
+}

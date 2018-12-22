@@ -1,0 +1,43 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "breastfeeding_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Breastfeeding"
+    },
+    {
+      "key": "breastfeed_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "label_info_text": "To enable mothers to establish and sustain exclusive breastfeeding for 6 months, WHO and UNICEF recommend:\n\n- Initiation of breastfeeding within the first hour of life\n\n- Exclusive breastfeeding – that is the infant only receives breast milk without any additional food or drink, not even water\n\n- Breastfeeding on demand – that is as often as the child wants, day and night\n\n- No use of bottles, teats or pacifiers",
+      "label_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    }
+  ]
+}

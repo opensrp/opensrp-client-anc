@@ -1,0 +1,91 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "syphilis_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Syphilis"
+    },
+    {
+      "key": "syphilis_low_prev_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Syphilis counselling and treatment",
+      "label_info_text": "Procedure:\n\n- If primary or secondary stage of syphilis, please give single dose of benzathine penicillin 2.400.000 IU\n\n- If late or unknown stage of syphilis, please give one dose of benzathine penicillin 2.400.000 IU weekly for 3 consecutive weeks\n\n- Advise on treating her partner\n\n- Encourage HIV testing and counselling\n\n- Reinforce use of condoms",
+      "label_info_title": "Syphilis counselling and treatment",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "syphilis_high_prev_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Syphilis counselling and further testing",
+      "label_info_text": "Procedure:\n\n- If primary or secondary stage of syphilis, please give single dose of benzathine penicillin 2.400.000 IU\n\n- If late or unknown stage of syphilis, please give one dose of benzathine penicillin 2.400.000 IU weekly for 3 consecutive weeks\n\n- Advise on treating her partner\n\n- Encourage HIV testing and counselling\n\n- Reinforce use of condoms\n\n- Proceed to further testing with an RPR test",
+      "label_info_title": "Syphilis counselling and further testing",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "penicillin",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text": "0",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      }
+    }
+  ]
+}

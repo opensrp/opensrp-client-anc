@@ -1,0 +1,84 @@
+---
+name: step1_ultrasound_notdone
+description: Ultrasound not done reason
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_ultrasound_date
+description: Date that the ultrasound was done.*
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_ultrasound_gest_age_wks
+description: GA from ultrasound - weeks
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_ultrasound_gest_age_days
+description: Gestational age in days from ultrasound
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_ultrasound_done_early_toaster
+description: Early ultrasound done!
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_no_of_fetuses_label
+description: No. of fetuses
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_no_of_fetuses
+description: No. of fetuses
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_fetal_presentation
+description: Early ultrasound done!
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_amniotic_fluid
+description: Amniotic fluid
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_placenta_location
+description: Placenta location
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_select_gest_age_edd
+description: Select preferred gestational age: Using LMP Using ultrasound Using SFH or abdominal palpation
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_fetal_presentation
+description: Early ultrasound done!
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+ - "isRelevant = true"
