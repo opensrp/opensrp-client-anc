@@ -203,6 +203,21 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return fields;
     }
 
+    /**
+     * Get form fields from JSON forms that have sections in the form steps.
+     * The JSONObject {@link JSONObject} argument is the object after getting the section in the specified step name
+     * The popup {@link boolean} argument is a boolean value to let the function know that the form is being executed
+     * on a popup and not the main android view.
+     * <p>
+     * This function returns a JSONArray {@link JSONArray} of the fields contained in the section
+     * for the given step
+     *
+     * @param sectionJson
+     * @param popup
+     * @return
+     * @throws JSONException
+     * @author dubdabasoduba
+     */
     private JSONArray returnFormWithSectionFields(JSONObject sectionJson, boolean popup) throws JSONException {
         JSONArray fields = new JSONArray();
         if (sectionJson.has(JsonFormConstants.FIELDS)) {
@@ -221,6 +236,20 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return fields;
     }
 
+    /**
+     * Get the form fields for the JSON forms that do not use the sections in the steps
+     * The JSONObject {@link JSONObject} argument is the object after getting the step name
+     * The popup {@link boolean} argument is a boolean value to let the function know that the form is being executed
+     * on a popup and not the main android view.
+     * <p>
+     * This function returns a JSONArray {@link JSONArray} of the fields contained in the step
+     *
+     * @param parentJson
+     * @param popup
+     * @return fields
+     * @throws JSONException
+     * @author dubdabasoduba
+     */
     private JSONArray returnFormFields(JSONObject parentJson, boolean popup) throws JSONException {
         JSONArray fields = new JSONArray();
         if (popup) {
