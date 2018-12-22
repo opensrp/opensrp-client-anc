@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.views.CustomTextView;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
@@ -223,7 +221,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 SpannableStringBuilder ssb = new SpannableStringBuilder(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
                 ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 viewHolder.dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
-                viewHolder.dueButton.setPadding(2,2,2,2);
+                viewHolder.dueButton.setPadding(2, 2, 2, 2);
 
                 break;
             default:

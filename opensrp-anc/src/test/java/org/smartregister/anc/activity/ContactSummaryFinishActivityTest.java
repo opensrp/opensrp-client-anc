@@ -118,19 +118,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testOnResumeShouldInvokeRefreshViewMethodOfPresenter() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
-        Mockito.doNothing().when(spyActivity).registerEventBus();
-        spyActivity.onResume();
-
-        Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
-    }
-
-
-    @Test
     public void testOnDestroyShouldInvokeOnDestroyMethodOfPresenter() {
 
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
@@ -288,7 +275,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         List<ContactSummary> list = Whitebox.getInternalState(spyActivity, "contactSummaryList");
 
         Assert.assertNotNull(list);
-        Assert.assertEquals(7, list.size());
+        Assert.assertEquals(39, list.size());
     }
 
     @Test

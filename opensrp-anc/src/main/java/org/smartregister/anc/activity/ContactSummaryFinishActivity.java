@@ -319,63 +319,67 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected void loadContactSummaryData() {
+        try {
 
-        new AsyncTask<Void, Void, Void>() {
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected void onPreExecute() {
-                showProgressDialog(R.string.please_wait_message);
-                progressDialog.setMessage("Summarizing contact " + String.format(context().applicationContext().getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
-                progressDialog.show();
-            }
-
-            @Override
-            protected Void doInBackground(Void... nada) {
-                try {
-
-                    process();
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage(), e);
+                @Override
+                protected void onPreExecute() {
+                    showProgressDialog(R.string.please_wait_message);
+                    progressDialog.setMessage("Summarizing contact " + String.format(context().applicationContext().getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                    progressDialog.show();
                 }
 
-                return null;
-
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-
-                String edd = facts.get(DBConstants.KEY.EDD);
-
-                if (edd != null) {
+                @Override
+                protected Void doInBackground(Void... nada) {
                     try {
 
-                        PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
-
-                        saveAndFinishButton.setEnabled(true);
-
-                    } catch (IllegalArgumentException e) {
-                        saveAndFinishButton.setEnabled(false);
+                        process();
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage(), e);
                     }
+
+                    return null;
 
                 }
 
-                ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, contactSummaryList, facts);
+                @Override
+                protected void onPostExecute(Void result) {
+
+                    String edd = facts.get(DBConstants.KEY.EDD);
+
+                    if (edd != null) {
+                        try {
+
+                            PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+
+                            saveAndFinishButton.setEnabled(true);
+
+                        } catch (IllegalArgumentException e) {
+                            saveAndFinishButton.setEnabled(false);
+                        }
+
+                    }
+
+                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, contactSummaryList, facts);
 
 
-                // set up the RecyclerView
-                RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);
-                recyclerView.setLayoutManager(new LinearLayoutManager(ContactSummaryFinishActivity.this));
-                recyclerView.setAdapter(adapter);
-                //  ((TextView) findViewById(R.id.section_details)).setText(crazyOutput);
-                hideProgressDialog();
+                    // set up the RecyclerView
+                    RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(ContactSummaryFinishActivity.this));
+                    recyclerView.setAdapter(adapter);
+                    //  ((TextView) findViewById(R.id.section_details)).setText(crazyOutput);
+                    hideProgressDialog();
 
-                //load profile details
+                    //load profile details
 
-                mProfilePresenter.refreshProfileView(baseEntityId);
+                    mProfilePresenter.refreshProfileView(baseEntityId);
 
-            }
-        }.execute();
+                }
+            }.execute();
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     public Iterable<Object> readYaml(String filename) throws IOException {
