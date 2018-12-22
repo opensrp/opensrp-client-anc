@@ -1,6 +1,6 @@
 package org.smartregister.anc.presenter;
 
-import org.smartregister.anc.contract.ContactSummaryContract;
+import org.smartregister.anc.contract.ContactSummarySendContract;
 import org.smartregister.anc.model.ContactSummaryModel;
 
 import java.lang.ref.WeakReference;
@@ -9,17 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ContactSummaryPresenter implements ContactSummaryContract.Presenter,
-        ContactSummaryContract.InteractorCallback {
+public class ContactSummaryPresenter implements ContactSummarySendContract.Presenter,
+        ContactSummarySendContract.InteractorCallback {
 
-    private WeakReference<ContactSummaryContract.View> contactConfirmationView;
-    private ContactSummaryContract.Interactor contactSummaryInteractor;
+    private WeakReference<ContactSummarySendContract.View> contactConfirmationView;
+    private ContactSummarySendContract.Interactor contactSummaryInteractor;
     private ContactSummaryModel contactSummaryModel;
     private Map<String, String> womanDetails = new HashMap<>();
     private List<ContactSummaryModel> upcomingContacts =  new ArrayList<>();
 
 
-    public ContactSummaryPresenter(ContactSummaryContract.Interactor interactor) {
+    public ContactSummaryPresenter(ContactSummarySendContract.Interactor interactor) {
         this.contactSummaryInteractor = interactor;
         this.contactSummaryModel = new ContactSummaryModel();
     }
@@ -39,7 +39,7 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
         return upcomingContacts;
     }
 
-    public ContactSummaryContract.View getView() {
+    public ContactSummarySendContract.View getView() {
         return contactConfirmationView.get();
     }
     @Override
@@ -54,7 +54,7 @@ public class ContactSummaryPresenter implements ContactSummaryContract.Presenter
     }
 
     @Override
-    public void attachView(ContactSummaryContract.View view) {
+    public void attachView(ContactSummarySendContract.View view) {
         this.contactConfirmationView = new WeakReference<>(view);
     }
 

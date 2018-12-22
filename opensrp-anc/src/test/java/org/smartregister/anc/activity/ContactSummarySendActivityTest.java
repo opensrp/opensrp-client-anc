@@ -18,18 +18,18 @@ import java.util.UUID;
 
 import static org.robolectric.Shadows.shadowOf;
 
-public class ContactSummaryActivityTest extends BaseUnitTest {
+public class ContactSummarySendActivityTest extends BaseUnitTest {
 
-    private ActivityController<ContactSummaryActivity> activityController;
-    private ContactSummaryActivity activity;
+    private ActivityController<ContactSummarySendActivity> activityController;
+    private ContactSummarySendActivity activity;
     private final String baseEntityId = UUID.randomUUID().toString();
 
     @Before
     public void setUp() {
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
-                ContactSummaryActivity.class);
+                ContactSummarySendActivity.class);
         contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-        activityController = Robolectric.buildActivity(ContactSummaryActivity.class,
+        activityController = Robolectric.buildActivity(ContactSummarySendActivity.class,
                 contactSummaryActivityIntent);
     }
 

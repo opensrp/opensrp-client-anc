@@ -148,7 +148,7 @@
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
 
-    <string name="reason_for"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
+    <string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
 
     <string name="first_contact">First contact</string>
     <string name="scheduled_contact">Scheduled contact</string>
@@ -282,4 +282,7 @@
     <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago). \n\n %4$s should come in immediately for delivery.</string>
     <string name="contact_number">Contact %1$d</string>
     <string name="contact_recorded">Contact %1$d recorded</string>
+    <string name="save_and_finish">SAVE + FINISH</string>
+    <string name="reason_for_visit">REASON FOR VISIT</string>
+    <string name="contact_recorded_today">. CONTACT %1$d\ndone today</string>
 </resources>

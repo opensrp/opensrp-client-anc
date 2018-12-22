@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".activity.ContactSummaryFinishActivity">
+
+    <LinearLayout
+        android:id="@+id/profile_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_contact" />
+
+        <include layout="@layout/activity_profile_demographics" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contact_summary_finish_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="top"/>
+
+    </LinearLayout>
+</ScrollView>

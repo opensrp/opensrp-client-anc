@@ -21,6 +21,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.UniqueId;
+import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
@@ -73,6 +74,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     public void run() {
                         if (StringUtils.isBlank(entityId)) {
                             callBack.onNoUniqueId();
+                            PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
                         } else {
                             callBack.onUniqueIdFetched(triple, entityId);
                         }

@@ -39,4 +39,9 @@ public class AncSyncConfiguration extends SyncConfiguration {
     public int getUniqueIdInitialBatchSize() {
         return BuildConfig.OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE;
     }
+
+    @Override
+    public boolean isSyncSettings() {
+        return BuildConfig.IS_SYNC_SETTINGS;
+    }
 }

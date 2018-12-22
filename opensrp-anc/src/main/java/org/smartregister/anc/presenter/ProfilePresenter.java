@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.contract.RegisterContract;
+import org.smartregister.anc.interactor.ContactInteractor;
 import org.smartregister.anc.interactor.ProfileInteractor;
 import org.smartregister.anc.interactor.RegisterInteractor;
 import org.smartregister.anc.util.Constants;
@@ -32,11 +33,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private WeakReference<ProfileContract.View> mProfileView;
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
+    private ContactInteractor contactInteractor;
 
     public ProfilePresenter(ProfileContract.View loginView) {
         mProfileView = new WeakReference<>(loginView);
         mProfileInteractor = new ProfileInteractor(this);
         mRegisterInteractor = new RegisterInteractor();
+        contactInteractor = new ContactInteractor();
     }
 
     @Override
@@ -52,6 +55,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         if (!isChangingConfiguration) {
             mProfileInteractor = null;
             mRegisterInteractor = null;
+            contactInteractor = null;
         }
 
     }
@@ -128,5 +132,10 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
         getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
         getProfileView().setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+    }
+
+    @Override
+    public void saveFinishForm(Map<String, String> client) {
+        contactInteractor.finalizeContactForm(client);
     }
 }

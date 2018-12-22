@@ -1,7 +1,9 @@
 package org.smartregister.anc.presenter;
 
 import android.content.Context;
+
 import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -426,6 +428,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         String baseEntityId = UUID.randomUUID().toString();
         quickCheckPresenter.setBaseEntityId(baseEntityId);
+        quickCheckPresenter.setContactNumber(1);
 
         Mockito.doReturn(context.getString(R.string.specific_complaint)).when(view).getString(R.string.specific_complaint);
         Mockito.doReturn(context.getString(R.string.danger_none)).when(view).getString(R.string.danger_none);
@@ -475,6 +478,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         String baseEntityId = UUID.randomUUID().toString();
         quickCheckPresenter.setBaseEntityId(baseEntityId);
+        quickCheckPresenter.setContactNumber(1);
 
         Mockito.doReturn(context.getString(R.string.specific_complaint)).when(view).getString(R.string.specific_complaint);
         Mockito.doReturn(context.getString(R.string.danger_none)).when(view).getString(R.string.danger_none);
@@ -524,6 +528,7 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         String baseEntityId = UUID.randomUUID().toString();
         quickCheckPresenter.setBaseEntityId(baseEntityId);
+        quickCheckPresenter.setContactNumber(1);
 
         Mockito.doReturn(context.getString(R.string.specific_complaint)).when(view).getString(R.string.specific_complaint);
         Mockito.doReturn(context.getString(R.string.danger_none)).when(view).getString(R.string.danger_none);
@@ -628,13 +633,15 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
     public void testProceedQuickCheckSaved() {
 
         String baseEntityId = UUID.randomUUID().toString();
+        Integer contactNo = 1;
 
         presenter.setBaseEntityId(baseEntityId);
+        presenter.setContactNumber(contactNo);
         ((QuickCheckPresenter) presenter).quickCheckSaved(true, true);
 
         Mockito.verify(view).dismiss();
         Mockito.verify(view, Mockito.times(0)).displayToast(R.string.validation_unable_to_save_quick_check);
-        Mockito.verify(view).proceedToContact(baseEntityId);
+        Mockito.verify(view).proceedToContact(baseEntityId, contactNo);
     }
 
     @Test
@@ -642,12 +649,15 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         String baseEntityId = UUID.randomUUID().toString();
 
+        Integer contactNo = 1;
         presenter.setBaseEntityId(baseEntityId);
+        presenter.setContactNumber(contactNo);
+
         ((QuickCheckPresenter) presenter).quickCheckSaved(false, true);
 
         Mockito.verify(view).dismiss();
         Mockito.verify(view, Mockito.times(0)).displayToast(R.string.validation_unable_to_save_quick_check);
-        Mockito.verify(view, Mockito.times(0)).proceedToContact(baseEntityId);
+        Mockito.verify(view, Mockito.times(0)).proceedToContact(baseEntityId, contactNo);
     }
 
 
@@ -656,12 +666,15 @@ public class QuickCheckPresenterTest extends BaseUnitTest {
 
         String baseEntityId = UUID.randomUUID().toString();
 
+        Integer contactNo = 1;
         presenter.setBaseEntityId(baseEntityId);
+        presenter.setContactNumber(contactNo);
+
         ((QuickCheckPresenter) presenter).quickCheckSaved(false, false);
 
         Mockito.verify(view).dismiss();
         Mockito.verify(view).displayToast(R.string.validation_unable_to_save_quick_check);
-        Mockito.verify(view, Mockito.times(0)).proceedToContact(baseEntityId);
+        Mockito.verify(view, Mockito.times(0)).proceedToContact(baseEntityId, contactNo);
     }
 
 }

@@ -22,6 +22,8 @@ public interface ProfileContract {
         void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences);
 
         void refreshProfileTopSection(Map<String, String> client);
+
+        void saveFinishForm(Map<String, String> client);
     }
 
     interface View {

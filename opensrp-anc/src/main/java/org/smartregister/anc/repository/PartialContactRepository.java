@@ -50,7 +50,7 @@ public class PartialContactRepository extends BaseRepository {
     private static final String INDEX_TYPE = "CREATE INDEX " + TABLE_NAME + "_" + TYPE +
             "_index ON " + TABLE_NAME + "(" + TYPE + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, FORM_JSON_DRAFT, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
+    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, FORM_JSON_DRAFT, CONTACT_NO, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
 
     public PartialContactRepository(Repository repository) {
         super(repository);
@@ -135,7 +135,7 @@ public class PartialContactRepository extends BaseRepository {
         return dbPartialContact;
     }
 
-    public List<PartialContact> getPartialContacts(String baseEntityId, String encounterType, Integer contactNumber) {
+    public List<PartialContact> getPartialContacts(String baseEntityId, Integer contactNumber) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
@@ -143,9 +143,9 @@ public class PartialContactRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getWritableDatabase();
 
-            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(encounterType) && contactNumber != null) {
-                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + TYPE + " = ? " + COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{baseEntityId, encounterType, contactNumber.toString()};
+            if (StringUtils.isNotBlank(baseEntityId) && contactNumber != null) {
+                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId, contactNumber.toString()};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
@@ -179,6 +179,7 @@ public class PartialContactRepository extends BaseRepository {
         partialContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         partialContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));
         partialContact.setFormJson(cursor.getString(cursor.getColumnIndex(FORM_JSON)));
+        partialContact.setContactNo(cursor.getInt(cursor.getColumnIndex(CONTACT_NO)));
         partialContact.setFormJsonDraft(cursor.getString(cursor.getColumnIndex(FORM_JSON_DRAFT)));
         partialContact.setFinalized(cursor.getInt(cursor.getColumnIndex(IS_FINALIZED)) != 0);
         partialContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));

@@ -43,10 +43,10 @@ import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.QuickCheckPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.configurableviews.model.Field;
-import org.smartregister.anc.util.Utils;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -132,6 +132,9 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         Bundle args = getArguments();
         String baseEntityId = args.getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
         presenter.setBaseEntityId(baseEntityId);
+
+        Integer contactNo = args.getInt(Constants.INTENT_KEY.CONTACT_NO);
+        presenter.setContactNumber(contactNo);
 
         updateReasonList(view);
         updateComplaintList(view);
@@ -375,9 +378,10 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
     }
 
     @Override
-    public void proceedToContact(String baseEntityId) {
+    public void proceedToContact(String baseEntityId, Integer contactNo) {
         Intent intent = new Intent(getActivity(), ContactActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         getActivity().startActivity(intent);
     }
 
@@ -678,13 +682,19 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
         Bundle args = getArguments();
         String baseEntityId = args.getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        Integer contactNo = args.getInt(Constants.INTENT_KEY.CONTACT_NO);
 
-        List<PartialContact> partialContactList = AncApplication.getInstance().getPartialContactRepository().getPartialContacts(baseEntityId, "Quick Check", 1);
+        PartialContact partialContactRequest = new PartialContact();
+        partialContactRequest.setBaseEntityId(baseEntityId);
+        partialContactRequest.setType("Quick Check");
+        partialContactRequest.setContactNo(contactNo);
+
+        PartialContact partialContactList = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
 
         try {
 
             Gson gson = new Gson();
-            Event event = gson.fromJson(partialContactList.get(0).getFormJson(), EVENT_TYPE);
+            Event event = gson.fromJson(partialContactList.getFormJson(), EVENT_TYPE);
             List<Obs> obs = event.getObs();
             for (Obs ob : obs) {
                 obsMap.put(ob.getFieldCode(), ob.getValues());

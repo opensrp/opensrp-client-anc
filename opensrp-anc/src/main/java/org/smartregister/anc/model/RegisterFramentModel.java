@@ -78,7 +78,8 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                 tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT,
                 tableName + "." + DBConstants.KEY.CONTACT_STATUS,
                 tableName + "." + DBConstants.KEY.NEXT_CONTACT,
-                tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE};
+                tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE,
+                tableName + "." + DBConstants.KEY.LAST_CONTACT_RECORD_DATE};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }

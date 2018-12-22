@@ -2,10 +2,15 @@ package org.smartregister.anc.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +22,9 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.contract.ProfileContract;
+import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.util.PermissionUtils;
 
 
 /**
@@ -39,6 +46,12 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AppBarLayout appBarLayout;
+
+    @Mock
+    private Intent intent;
+
+    @Mock
+    private ImageRenderHelper imageRenderHelper;
 
     @Before
     public void setUp() {
@@ -215,6 +228,77 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         Assert.assertNotNull(womanPhoneNumber);
         Assert.assertEquals(TEST_STRING, womanPhoneNumber);
+    }
+
+    @Test
+    public void testGetIntentStringInvokesGetStringExtraMethodOfIntentWithCorrectParameters() {
+
+        ProfileActivity spyActivity = Mockito.spy(profileActivity);
+
+        Mockito.doReturn(intent).when(spyActivity).getIntent();
+
+        spyActivity.getIntentString(TEST_STRING);
+
+        Mockito.verify(intent).getStringExtra(TEST_STRING);
+
+    }
+
+    @Test
+    public void testOnRequestPermissionsResultInvokesLaunchPhoneDialerWhenCorrectPermissionsAreGranted() {
+
+        profileActivity.setWomanPhoneNumber(DUMMY_PHONE_NUMBER);
+
+        ProfileActivity spyActivity = Mockito.spy(profileActivity);
+
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", DUMMY_PHONE_NUMBER, null));
+
+        Mockito.doNothing().when(spyActivity).startActivity(intent);
+
+        //With Non Existent Request Code
+        spyActivity.onRequestPermissionsResult(3, new String[]{}, new int[]{});
+
+        Mockito.verify(spyActivity, Mockito.times(0)).launchPhoneDialer(DUMMY_PHONE_NUMBER);
+
+        //With No Permissions Granted
+        spyActivity.onRequestPermissionsResult(PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE, new String[]{}, new int[]{});
+
+        Mockito.verify(spyActivity, Mockito.times(0)).launchPhoneDialer(DUMMY_PHONE_NUMBER);
+
+        Mockito.doReturn(true).when(spyActivity).isPermissionGranted();
+
+        //With permissions Granted
+        spyActivity.onRequestPermissionsResult(PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE, new String[]{}, new int[]{PackageManager.PERMISSION_GRANTED});
+
+        Mockito.verify(spyActivity).launchPhoneDialer(DUMMY_PHONE_NUMBER);
+    }
+
+    @Test
+    public void testLaunchPhoneDialerExceptionBlock() {
+
+        ProfileActivity spyActivity = Mockito.spy(profileActivity);
+
+        Mockito.doReturn(true).when(spyActivity).isPermissionGranted();
+        Intent intent = null;
+        Mockito.doReturn(intent).when(spyActivity).getTelephoneIntent(DUMMY_PHONE_NUMBER);
+
+        spyActivity.launchPhoneDialer(DUMMY_PHONE_NUMBER);
+
+        Mockito.verify(spyActivity, Mockito.times(0)).launchPhoneDialer(null);
+    }
+
+    @Test
+    public void testSetProfileImageInvokesImageRenderHelperMethodsWithCorrectParameters() {
+
+        ProfileActivity spyActivity = Mockito.spy(profileActivity);
+
+        Whitebox.setInternalState(spyActivity, "imageRenderHelper", imageRenderHelper);
+
+        spyActivity.setProfileImage(DUMMY_BASE_ENTITY_ID);
+
+        ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
+
+        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView);
+
     }
 
     @Override

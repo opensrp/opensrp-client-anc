@@ -1,34 +1,31 @@
 package org.smartregister.anc.application;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.LoginActivity;
-import org.smartregister.anc.event.TriggerSyncEvent;
-import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
-import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
-import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.domain.Setting;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.DetailsRepository;
@@ -37,8 +34,6 @@ import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
-import org.smartregister.sync.intent.PullUniqueIdsIntentService;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -55,9 +50,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private static final String TAG = AncApplication.class.getCanonicalName();
     private static JsonSpecHelper jsonSpecHelper;
     private static CommonFtsObject commonFtsObject;
-    private ConfigurableViewsRepository configurableViewsRepository;
     private EventClientRepository eventClientRepository;
-    private ConfigurableViewsHelper configurableViewsHelper;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
     private ECSyncHelper ecSyncHelper;
@@ -66,27 +59,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private String password;
     private PartialContactRepository partialContactRepository;
     private RulesEngineHelper rulesEngineHelper;
-
-    // This Broadcast Receiver is the handler called whenever an Intent with an action named PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE
-    // is broadcast.
-    private BroadcastReceiver syncCompleteMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(android.content.Context context, Intent intent) {
-            // Retrieve the extra data included in the Intent
-
-            int recordsRetrievedCount = intent.getIntExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, 0);
-            if (recordsRetrievedCount > 0) {
-                Log.d(TAG, "Total records retrieved " + recordsRetrievedCount);
-            }
-
-            Utils.postEvent(new ViewConfigurationSyncCompleteEvent());
-
-            String lastSyncTime = intent.getStringExtra(org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING);
-
-            Utils.writePrefString(context, org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
-
-        }
-    };
+    private JSONObject defaultContactFormGlobals = new JSONObject();
 
     public static synchronized AncApplication getInstance() {
         return (AncApplication) mInstance;
@@ -141,7 +114,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
-        startPullConfigurableViewsIntentService(getApplicationContext());
         try {
             Utils.saveLanguage("en");
         } catch (Exception e) {
@@ -155,7 +127,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
-
     }
 
     @Override
@@ -163,7 +134,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         try {
             if (repository == null) {
                 repository = new AncRepository(getInstance().getApplicationContext(), context);
-                getConfigurableViewsRepository();
             }
         } catch (UnsatisfiedLinkError e) {
             logError("Error on getRepository: " + e);
@@ -212,21 +182,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         super.onTerminate();
     }
 
-    public void startPullConfigurableViewsIntentService(android.content.Context context) {
-        try {
-            Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
-            context.startService(intent);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
-    public ConfigurableViewsRepository getConfigurableViewsRepository() {
-        if (configurableViewsRepository == null)
-            configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
-        return configurableViewsRepository;
-    }
-
     public PartialContactRepository getPartialContactRepository() {
         if (partialContactRepository == null)
             partialContactRepository = new PartialContactRepository(getRepository());
@@ -245,14 +200,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
             uniqueIdRepository = new UniqueIdRepository(getRepository());
         }
         return uniqueIdRepository;
-    }
-
-    public ConfigurableViewsHelper getConfigurableViewsHelper() {
-        if (configurableViewsHelper == null) {
-            configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(),
-                    getJsonSpecHelper(), getApplicationContext());
-        }
-        return configurableViewsHelper;
     }
 
     public RulesEngineHelper getRulesEngineHelper() {
@@ -296,31 +243,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         try {
 
             EventBus.builder().addIndex(new org.smartregister.anc.ANCEventBusIndex()).installDefaultEventBus();
-            LocalBroadcastManager.getInstance(this).registerReceiver(syncCompleteMessageReceiver, new IntentFilter
-                    (PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE));
 
         } catch
                 (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 
-        EventBus.getDefault().register(this);
-
-
-    }
-
-    @Subscribe(threadMode = ThreadMode.POSTING)
-    public void triggerSync(TriggerSyncEvent event) {
-        if (event != null) {
-            startPullConfigurableViewsIntentService(this);
-            //startSyncService(); call to trigger sync
-        }
-
-    }
-
-    public void startPullUniqueIdsService() {
-        Intent intent = new Intent(getApplicationContext(), PullUniqueIdsIntentService.class);
-        getApplicationContext().startService(intent);
     }
 
     @Override
@@ -334,7 +262,54 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(R.string.device_timezone_changed));
         context.userService().forceRemoteLogin();
+
         logoutCurrentUser();
+    }
+
+    public void populateGlobalSettings() {
+
+        Setting setting = getCharactersitics(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+        Setting populationSetting = getCharactersitics(Constants.PREF_KEY.POPULATION_CHARACTERISTICS);
+
+        populateGlobalSettingsCore(setting);
+        populateGlobalSettingsCore(populationSetting);
+
+
+    }
+
+    private void populateGlobalSettingsCore(Setting setting) {
+        try {
+            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+
+            if (settingArray != null) {
+
+                for (int i = 0; i < settingArray.length(); i++) {
+
+                    JSONObject jsonObject = settingArray.getJSONObject(i);
+                    Object value = jsonObject.get(JsonFormConstants.VALUE);
+                    JSONObject nullObject = null;
+                    if (value != null && !value.equals(nullObject)) {
+                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
+                    }else{
+
+                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                    }
+                }
+
+
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    public Setting getCharactersitics(String characteristics) {
+        return AncApplication.getInstance().getContext().allSettings().getSetting(characteristics);
+    }
+
+
+    public JSONObject getDefaultContactFormGlobals() {
+        return defaultContactFormGlobals;
     }
 
 }

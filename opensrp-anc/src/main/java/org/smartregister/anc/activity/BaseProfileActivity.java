@@ -37,12 +37,12 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
     protected ProfileContract.Presenter mProfilePresenter;
-    public final String TAG = BaseContactActivity.class.getCanonicalName();
+    public final String TAG = BaseProfileActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(getViewLayoutId());
 
         findViewById(R.id.btn_profile_registration_info).setOnClickListener(this);
 
@@ -55,17 +55,26 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         }
 
         appBarLayout = findViewById(R.id.collapsing_toolbar_appbarlayout);
+        if (appBarLayout != null) {
+            // Set collapsing tool bar title.
+            collapsingToolbarLayout = appBarLayout.findViewById(R.id.collapsing_toolbar_layout);
 
-        // Set collapsing tool bar title.
-        collapsingToolbarLayout = appBarLayout.findViewById(R.id.collapsing_toolbar_layout);
-
-        appBarLayout.addOnOffsetChangedListener(this);
+            appBarLayout.addOnOffsetChangedListener(this);
+        }
     }
 
     @Override
     public void onClick(View view) {
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        new FetchProfileDataTask(true).execute(baseEntityId);
+        switch (view.getId()) {
+            case R.id.btn_profile_registration_info:
+
+                String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+                new FetchProfileDataTask(true).execute(baseEntityId);
+
+                break;
+            default:
+                break;
+        }
 
     }
 
@@ -165,4 +174,6 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
 
         EventBus.getDefault().register(this);
     }
+
+    protected abstract int getViewLayoutId();
 }

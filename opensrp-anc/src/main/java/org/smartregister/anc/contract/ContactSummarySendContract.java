@@ -4,7 +4,7 @@ import org.smartregister.anc.model.ContactSummaryModel;
 
 import java.util.List;
 
-public interface ContactSummaryContract {
+public interface ContactSummarySendContract {
     interface View {
         void goToClientProfile();
 
@@ -22,7 +22,7 @@ public interface ContactSummaryContract {
 
         void loadUpcomingContacts(String entityId);
 
-        void attachView(ContactSummaryContract.View view);
+        void attachView(ContactSummarySendContract.View view);
 
         void showWomanProfileImage(String entityId);
     }

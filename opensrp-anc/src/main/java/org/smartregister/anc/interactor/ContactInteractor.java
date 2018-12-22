@@ -51,7 +51,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             boolean isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
             ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
-            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().getContactVisitSchedule(contactRule, "contact-rules.yml");
+            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
             int nextContactVisitWeeks = integerList.get(0);
 
