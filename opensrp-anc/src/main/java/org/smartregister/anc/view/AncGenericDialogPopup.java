@@ -52,9 +52,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     private Map<String, AccordionValuesModel> popAssignedValue = new HashMap<>();
     private Map<String, AccordionValuesModel> secondaryValuesMap = new HashMap<>();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
-    private Activity activity;
     private JsonApi jsonApi;
-    private JsonApiInterface ancJsonApi;
     private Context context;
     private String header;
     protected Toolbar mToolbar;
@@ -67,7 +65,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         context = activity;
         jsonApi = (JsonApi) activity;
         jsonApi.refreshSkipLogic(null, null, true);
-        ancJsonApi = (JsonApiInterface) activity;
+        JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
         ancJsonApi.setGenericPopup(this);
     }
 
@@ -133,7 +131,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
             throw new IllegalStateException("The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
         }
 
-        activity = (Activity) context;
+        Activity activity = (Activity) context;
         jsonApi = (JsonApi) activity;
 
         createSecondaryValuesMap();

@@ -347,7 +347,8 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "specify_info": "ultrasound date"
+            "specify_info": "ultrasound date",
+            "specify_widget": "date_picker"
           },
           {
             "key": "no",
