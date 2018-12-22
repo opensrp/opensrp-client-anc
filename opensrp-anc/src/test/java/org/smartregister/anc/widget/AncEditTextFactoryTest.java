@@ -108,7 +108,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testAncEditTextFactorInstantiatesCorrectly() throws Exception {
 
         Assert.assertNotNull(factory);
-        factory.attachJson("RandomStepName", context, formFragment, jsonObject, editText, imageView);
+        //factory.attachJson("RandomStepName", context, formFragment, jsonObject, editText, imageView);
 
     }
 
@@ -117,7 +117,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);
-        factory.attachJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
+       // factory.attachJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
 
         jsonObject.put(DBConstants.KEY.NUMBER_PICKER, true);

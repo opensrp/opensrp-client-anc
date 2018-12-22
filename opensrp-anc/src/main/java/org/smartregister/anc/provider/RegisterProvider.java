@@ -167,47 +167,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                 buttonAlertStatus = processContactDoneToday(getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
 
-                switch (buttonAlertStatus) {
-                    case Constants.ALERT_STATUS.IN_PROGRESS:
-
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        break;
-                    case Constants.ALERT_STATUS.DUE:
-
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        break;
-                    case Constants.ALERT_STATUS.OVERDUE:
-
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        break;
-                    case Constants.ALERT_STATUS.NOT_DUE:
-
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                        break;
-                    case Constants.ALERT_STATUS.DELIVERY_DUE:
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
-                        break;
-                    case Constants.ALERT_STATUS.EXPIRED:
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
-                        break;
-                    case Constants.ALERT_STATUS.TODAY:
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                        viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
-                        break;
-                    default:
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        break;
-
-                }
+                processButtonAlertStatus(viewHolder, buttonAlertStatus, nextContact);
 
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);
@@ -215,6 +175,51 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                 attachSyncOnclickListener(viewHolder.sync, pc);
             }
+        }
+    }
+
+    private void processButtonAlertStatus(RegisterViewHolder viewHolder, String buttonAlertStatus, String nextContact) {
+
+        switch (buttonAlertStatus) {
+            case Constants.ALERT_STATUS.IN_PROGRESS:
+
+                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                break;
+            case Constants.ALERT_STATUS.DUE:
+
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                break;
+            case Constants.ALERT_STATUS.OVERDUE:
+
+                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                break;
+            case Constants.ALERT_STATUS.NOT_DUE:
+
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
+                break;
+            case Constants.ALERT_STATUS.DELIVERY_DUE:
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                break;
+            case Constants.ALERT_STATUS.EXPIRED:
+                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                break;
+            case Constants.ALERT_STATUS.TODAY:
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                break;
+            default:
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                break;
+
         }
     }
 

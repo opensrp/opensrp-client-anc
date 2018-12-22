@@ -47,6 +47,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -228,9 +229,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private void saveFinishForm() {
         try {
 
-            CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
+            Map<String,String> womanProfileDetails = PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
-            mProfilePresenter.saveFinishForm(pc.getDetails());
+            mProfilePresenter.saveFinishForm(womanProfileDetails);
 
             Intent contactSummaryIntent = new Intent(this, ContactSummarySendActivity.class);
             contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));

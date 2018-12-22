@@ -88,7 +88,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
-        contactSummaryAdapter.setContactDates(models);
+        contactSummaryAdapter.setContactDates(models.size() > 5 ?models.subList(0,4):models);
     }
 
     @Override
