@@ -3,14 +3,20 @@ package org.smartregister.anc.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.text.style.DynamicDrawableSpan;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -213,7 +219,12 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             case Constants.ALERT_STATUS.TODAY:
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+
+                SpannableStringBuilder ssb = new SpannableStringBuilder(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                viewHolder.dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
+                viewHolder.dueButton.setPadding(2,2,2,2);
+
                 break;
             default:
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
