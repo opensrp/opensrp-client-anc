@@ -37,7 +37,6 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -66,7 +65,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private List<ContactSummary> contactSummaryList = new ArrayList<>();
     private Gson gson;
     private Button saveAndFinishButton;
-    String baseEntityId;
+    private String baseEntityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,7 +228,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private void saveFinishForm() {
         try {
 
-            Map<String,String> womanProfileDetails = PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+            Map<String, String> womanProfileDetails = PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
             mProfilePresenter.saveFinishForm(womanProfileDetails);
 
@@ -351,7 +350,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 if (edd != null) {
                     try {
 
-                        PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd,"-"));
+                        PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
                         saveAndFinishButton.setEnabled(true);
 

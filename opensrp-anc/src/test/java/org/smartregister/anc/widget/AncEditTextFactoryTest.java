@@ -2,7 +2,6 @@ package org.smartregister.anc.widget;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -39,9 +38,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     private JsonFormFragment formFragment;
 
     @Mock
-    private JSONObject jsonObject;
-
-    @Mock
     private MaterialEditText editText;
 
     @Mock
@@ -55,9 +51,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
 
     @Mock
     private Button minusButton;
-
-    @Mock
-    private ImageView imageView;
 
     private static final String SAMPLE_CLOSE_REG_FORM = " {\n" +
             "        \"key\": \"anc_close_reason\",\n" +
@@ -117,7 +110,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);
-       // factory.attachJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
+        // factory.attachJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
 
         jsonObject.put(DBConstants.KEY.NUMBER_PICKER, true);
