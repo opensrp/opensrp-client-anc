@@ -178,27 +178,4 @@ public class Utils extends org.smartregister.util.Utils {
     public static List<String> getListFromString(String stringArray) {
         return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
     }
-
-    public static JSONObject getSubFormJson(String formIdentity, String subFormsLocation, Context context) throws Exception {
-        String defaultSubFormLocation = JsonFormConstants.DEFAULT_SUB_FORM_LOCATION;
-        if (!TextUtils.isEmpty(subFormsLocation)) {
-            defaultSubFormLocation = subFormsLocation;
-        }
-        return new JSONObject(loadSubForm(formIdentity, defaultSubFormLocation, context));
-    }
-
-    private static String loadSubForm(String formIdentity, String defaultSubFormLocation, Context context) throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-        InputStream inputStream = context.getAssets().open(defaultSubFormLocation + "/" + formIdentity + ".json");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-
-        String jsonString;
-        while ((jsonString = reader.readLine()) != null) {
-            stringBuilder.append(jsonString);
-        }
-        inputStream.close();
-
-
-        return stringBuilder.toString();
-    }
 }

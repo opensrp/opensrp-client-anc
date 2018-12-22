@@ -64,9 +64,9 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView sectionHeader;
-        TextView sectionDetails;
-        View parent;
+        public TextView sectionHeader;
+        public TextView sectionDetails;
+        public View parent;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -76,15 +76,15 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         }
     }
 
-
-    public String fillTemplate(String str, Facts facts) {
-        while (str.contains("{")) {
-            String key = str.substring(str.indexOf("{") + 1, str.indexOf("}"));
+    public String fillTemplate(String stringValue, Facts facts) {
+        String stringValueResult = stringValue;
+        while (stringValueResult.contains("{")) {
+            String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
             String value = facts.get(key);
-            str = str.replace("{" + key + "}", value != null ? value : "");
+            stringValueResult = stringValueResult.replace("{" + key + "}", value != null ? value : "");
         }
 
-        return str;
+        return stringValueResult;
     }
 
     private String processUnderscores(String string) {

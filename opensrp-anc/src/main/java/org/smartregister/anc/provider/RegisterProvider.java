@@ -3,6 +3,9 @@ package org.smartregister.anc.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +33,11 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Set;
 
+import static org.smartregister.anc.util.Utils.DB_DF;
 import static org.smartregister.anc.util.Utils.getName;
 
 /**
@@ -41,6 +46,7 @@ import static org.smartregister.anc.util.Utils.getName;
 
 public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.RegisterViewHolder> {
 
+    private static final String TAG = RegisterProvider.class.getCanonicalName();
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
@@ -159,6 +165,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
                 viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
 
+                buttonAlertStatus = processContactDoneToday(getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
+
                 switch (buttonAlertStatus) {
                     case Constants.ALERT_STATUS.IN_PROGRESS:
 
@@ -188,6 +196,11 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                         viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                         viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                        break;
+                    case Constants.ALERT_STATUS.TODAY:
+                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
+                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                        viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
                         break;
                     default:
                         viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
@@ -329,5 +342,32 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     private String getColumnMapValue(CommonPersonObjectClient pc, String key) {
         return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
+    }
+
+    private String processContactDoneToday(String lastContactDate, String alertStatus) {
+        String result = alertStatus;
+
+        if (!TextUtils.isEmpty(lastContactDate)) {
+
+            try {
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY : alertStatus;
+            } catch (ParseException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+
+        return result;
+    }
+
+    private Integer getTodayContact(String nextContact) {
+        Integer todayContact = 1;
+        try {
+            todayContact = Integer.valueOf(nextContact) - 1;
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        return todayContact;
     }
 }

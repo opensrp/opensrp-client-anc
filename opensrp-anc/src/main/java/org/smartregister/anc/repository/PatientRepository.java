@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.Repository;
 
 import java.util.Calendar;
@@ -82,6 +83,13 @@ public class PatientRepository {
         contentValues.put(DBConstants.KEY.NEXT_CONTACT_DATE, nextContactDate);
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
+        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
+
+    public static void updateEDD(String baseEntityId, String edd) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConstants.KEY.EDD, edd);
+        contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
     }
 
