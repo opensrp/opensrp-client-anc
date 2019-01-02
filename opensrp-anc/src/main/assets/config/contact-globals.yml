@@ -103,3 +103,17 @@ fields:
   - "hb_results"
   - "gest_age"
   - "last_contact_date"
+---
+form: anc_symptoms_follow_up
+fields:
+  - "calcium_supp"
+  - "vita_supp"
+  - "gest_age"
+  - "syphilis_positive"
+  - "ifa_high_prev"
+  - "shs_exposure"
+  - "ifa_low_prev"
+  - "ifa_weekly"
+  - "ifa_anaemia"
+  - "pe_risk_aspirin_calcium"
+  - "pe_risk_aspirin"
