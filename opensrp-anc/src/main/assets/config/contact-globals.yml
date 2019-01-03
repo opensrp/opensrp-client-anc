@@ -117,3 +117,8 @@ fields:
   - "ifa_anaemia"
   - "pe_risk_aspirin_calcium"
   - "pe_risk_aspirin"
+  - "tobacco_user"
+  - "caffeine_intake"
+  - "shs_exposure"
+  - "condom_use"
+  - "alcohol_substance_use"
