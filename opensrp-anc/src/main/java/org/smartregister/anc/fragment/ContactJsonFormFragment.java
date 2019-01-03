@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,10 +49,12 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     private ImageView nextIcon;
 
     private TextView stepName;
+    private TextView contactTitle;
 
     private Toolbar navigationToolbar;
 
     private static final int MENU_NAVIGATION = 100001;
+    private ImageButton goBackButton;
 
     public static ContactJsonFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
@@ -88,6 +92,8 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
         //menu.add(Menu.NONE, MENU_NAVIGATION, 1, "Menu").setIcon(R.drawable.ic_action_menu).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
@@ -141,12 +147,12 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     public void setActionBarTitle(String title) {
         Contact contact = getContact();
         if (contact != null) {
-            super.setActionBarTitle(contact.getName());
+            contactTitle.setText(contact.getName());
             if (stepName != null) {
                 stepName.setText(title);
             }
         } else {
-            super.setActionBarTitle(title);
+            contactTitle.setText(title);
         }
     }
 
@@ -172,8 +178,14 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     }
 
     private void setupCustomToolbar() {
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_contact_menu);
-        setUpBackButton();
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.contact_form_toolbar);
+        View view = getSupportActionBar().getCustomView();
+        goBackButton = view.findViewById(R.id.contact_menu);
+        contactTitle = view.findViewById(R.id.contact_title);
+        goBackButton.setOnClickListener(navigationListener);
 
         try {
             Contact contact = getContact();
@@ -207,7 +219,7 @@ public class ContactJsonFormFragment extends JsonFormFragment {
             return ((ContactJsonFormActivity) getActivity()).getContact();
         }
         return null;
-    } 
+    }
 
     ////////////////////////////////////////////////////////////////
     // Inner classes
@@ -232,6 +244,8 @@ public class ContactJsonFormFragment extends JsonFormFragment {
             } else if (v.getId() == R.id.previous || v.getId() == R.id.previous_icon) {
                 assert getFragmentManager() != null;
                 getFragmentManager().popBackStack();
+            } else if (v.getId() == R.id.contact_menu) {
+                getActivity().finish();
             }
         }
     }
