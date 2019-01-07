@@ -283,9 +283,9 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
             secondaryValuesArray.put(valueObject);
         }
         try {
-            item.put(JsonFormConstants.VALUE, secondaryValuesArray);
-            setNewSelectedValues(secondaryValuesArray);
-            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(secondaryValuesArray, linearLayout));
+            item.put(JsonFormConstants.VALUE, reverseValues(secondaryValuesArray));
+            setNewSelectedValues(reverseValues(secondaryValuesArray));
+            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(reverseValues(secondaryValuesArray), linearLayout));
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
         }
@@ -308,6 +308,14 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
 
         }
         return jsonObject;
+    }
+
+    private JSONArray reverseValues(JSONArray jsonArray) throws JSONException {
+        JSONArray newJsonArray = new JSONArray();
+        for (int i = jsonArray.length()-1; i>=0; i--) {
+            newJsonArray.put(jsonArray.getJSONObject(i));
+        }
+        return  newJsonArray;
     }
 
     @Override

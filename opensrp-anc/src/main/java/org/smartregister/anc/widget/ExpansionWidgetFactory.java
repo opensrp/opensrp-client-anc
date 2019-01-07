@@ -210,7 +210,12 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     private class RecordButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            LinearLayout linearLayout = (LinearLayout) view.getParent().getParent();
+            LinearLayout linearLayout;
+            if (view instanceof ImageView || view instanceof CustomTextView) {
+                linearLayout = (LinearLayout) view.getParent().getParent();
+            } else {
+                linearLayout = (LinearLayout) view.getParent().getParent().getParent();
+            }
             view.setTag(R.id.main_layout, linearLayout);
             formUtils.showGenericDialog(view);
         }

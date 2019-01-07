@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -505,13 +506,19 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 changeRecycler(values, status);
 
                 LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
-                if (values != null || !values.isEmpty()) {
-                    contentLayout.setVisibility(View.VISIBLE);
-                }
                 RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
                 ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) recyclerView.getAdapter();
                 adapter.setExpansionWidgetValues(values);
                 adapter.notifyDataSetChanged();
+
+                RelativeLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
+                if (values != null || values.size() > 0) {
+                    Button undoButton = buttonLayout.findViewById(R.id.undo_button);
+                    undoButton.setVisibility(View.VISIBLE);
+                    contentLayout.setVisibility(View.VISIBLE);
+                }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -521,8 +528,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private void changeRecycler(List<String> values, ImageView status) throws JSONException {
         JSONArray list = new JSONArray(values);
         for (int k = 0; k < list.length(); k++) {
-            String valueDisplay = list.getString(k).split(":")[1];
-            formUtils.changeIcon(status, valueDisplay, getApplicationContext());
+            String[] stringValues = list.getString(k).split(":");
+            if (stringValues.length >= 2) {
+                String valueDisplay = list.getString(k).split(":")[1];
+                formUtils.changeIcon(status, valueDisplay, getApplicationContext());
+            }
         }
     }
 }
