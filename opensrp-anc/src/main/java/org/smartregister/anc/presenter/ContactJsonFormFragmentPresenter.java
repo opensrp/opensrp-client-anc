@@ -15,7 +15,7 @@ import org.smartregister.anc.fragment.ContactJsonFormFragment;
 public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
 
     public static final String TAG = ContactJsonFormFragmentPresenter.class.getName();
-    
+
     public ContactJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
     }
