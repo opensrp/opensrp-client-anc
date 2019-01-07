@@ -194,6 +194,10 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
         recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+        if (jsonObject.has(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER)) {
+            String container = jsonObject.optString(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER, null);
+            recordView.setTag(R.id.contact_container, container);
+        }
 
         return recordView;
     }

@@ -56,7 +56,8 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     private Context context;
     private String header;
     protected Toolbar mToolbar;
-    private  LinearLayout linearLayout;
+    protected String container;
+    private LinearLayout linearLayout;
 
 
     @Override
@@ -167,6 +168,8 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.fragment_generic_dialog, container, false);
             mToolbar = dialogView.findViewById(R.id.generic_toolbar);
+            changeToolbarColor();
+
             TextView toolBar = mToolbar.findViewById(R.id.txt_title_label);
             if (!TextUtils.isEmpty(header)) {
                 toolBar.setText(header);
@@ -207,6 +210,21 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
             return dialogView;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);
+        }
+    }
+
+    private void changeToolbarColor() {
+        if (!TextUtils.isEmpty(getContainer())) {
+            switch (getContainer()) {
+                case Constants.JSON_FORM.ANC_TEST:
+                    mToolbar.setBackgroundColor(getResources().getColor(R.color.contact_tests_actionbar));
+                    break;
+                case Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT:
+                    mToolbar.setBackgroundColor(getResources().getColor(R.color.contact_counselling_actionbar));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -267,7 +285,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         try {
             item.put(JsonFormConstants.VALUE, secondaryValuesArray);
             setNewSelectedValues(secondaryValuesArray);
-            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(secondaryValuesArray,linearLayout));
+            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(secondaryValuesArray, linearLayout));
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
         }
@@ -391,7 +409,6 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     }
 
 
-
     @Override
     public void addSelectedValues(Map<String, String> newValue) {
         if (newValue != null) {
@@ -509,4 +526,13 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     public void setLinearLayout(LinearLayout linearLayout) {
         this.linearLayout = linearLayout;
     }
+
+    public String getContainer() {
+        return container;
+    }
+
+    public void setContainer(String container) {
+        this.container = container;
+    }
+
 }

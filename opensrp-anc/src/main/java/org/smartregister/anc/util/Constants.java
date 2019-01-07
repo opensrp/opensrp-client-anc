@@ -156,4 +156,8 @@ public abstract class Constants {
 
     }
 
+    public static class JSON_FORM_CONSTANTS {
+        public static final String CONTACT_CONTAINER = "container";
+    }
+
 }
