@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Dietary modifications to relieve constipation counseling",
-      "label_info_text": "Dietary modifications to relieve constipation include promoting adequate intake of water and dietary fibre (found in vegetables, nuts, fruits and whole grains).",
-      "label_info_title": "Dietary modifications to relieve constipation counseling",
       "label_text_style": "bold",
       "options": [
         {

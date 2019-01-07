@@ -6,8 +6,6 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "label": "Hepatitis C test",
-      "label_info_text": "In settings where the proportion of HCV antibody seroprevalence in the general population is 2% or higher, or the woman is HIV positive, injects drugs, or is a sex worker, then a Hep C test is required.",
-      "label_info_title": "Hepatitis C test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",

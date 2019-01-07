@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "HIV positive counseling",
-      "label_info_text": "Counseling:\n\n- Refer to HIV services\n\n- Advise on opportunistic infections and need to seek medical help\n\n- Proceed with systematic screening for active TB",
-      "label_info_title": "HIV positive counseling",
       "label_text_style": "bold",
       "options": [
         {

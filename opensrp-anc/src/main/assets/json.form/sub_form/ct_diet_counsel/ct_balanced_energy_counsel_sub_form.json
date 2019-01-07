@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Balanced energy and protein dietary supplementation counseling",
-      "label_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates.",
-      "label_info_title": "Balanced energy and protein dietary supplementation counseling",
       "label_text_style": "bold",
       "options": [
         {

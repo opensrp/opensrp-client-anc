@@ -25,8 +25,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Healthy eating and keeping physically active counseling",
-      "label_info_text": "Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.\n\n[Nutritional and Exercise Folder]",
-      "label_info_title": "Healthy eating and keeping physically active counseling",
       "label_text_style": "bold",
       "options": [
         {

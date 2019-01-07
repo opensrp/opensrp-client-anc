@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Syphilis counselling and treatment",
-      "label_info_text": "Procedure:\n\n- If primary or secondary stage of syphilis, please give single dose of benzathine penicillin 2.400.000 IU\n\n- If late or unknown stage of syphilis, please give one dose of benzathine penicillin 2.400.000 IU weekly for 3 consecutive weeks\n\n- Advise on treating her partner\n\n- Encourage HIV testing and counselling\n\n- Reinforce use of condoms",
-      "label_info_title": "Syphilis counselling and treatment",
       "label_text_style": "bold",
       "options": [
         {

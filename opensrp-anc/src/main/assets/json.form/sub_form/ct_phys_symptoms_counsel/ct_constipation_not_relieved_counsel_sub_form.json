@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Wheat bran or other fiber supplements to relieve constipation counseling",
-      "label_info_text": "Wheat bran or other fiber supplements can be used to relieve constipation, if dietary modifications are not enough, and if they are available and appropriate.",
-      "label_info_title": "Wheat bran or other fiber supplements to relieve constipation counseling",
       "label_text_style": "bold",
       "options": [
         {

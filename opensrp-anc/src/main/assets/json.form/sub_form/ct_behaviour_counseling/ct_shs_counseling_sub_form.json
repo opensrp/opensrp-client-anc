@@ -8,8 +8,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Second-hand smoke counseling",
-      "label_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
-      "label_info_title": "Second-hand smoke counseling",
       "label_text_style": "bold",
       "options": [
         {

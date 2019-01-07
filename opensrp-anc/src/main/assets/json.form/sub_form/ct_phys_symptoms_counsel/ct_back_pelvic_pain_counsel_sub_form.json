@@ -6,10 +6,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-      "label_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
-      "label_info_title": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-      "label_text_style": "bold",
+      "label": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling","label_text_style": "bold",
       "options": [
         {
           "key": "done",

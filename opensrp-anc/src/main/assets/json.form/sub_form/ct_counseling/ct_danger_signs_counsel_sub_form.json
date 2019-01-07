@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Seeking care for danger signs counseling",
-      "label_info_text": "Danger signs include:\n\n- Headache\n\n- No fetal movement\n\n- Contractions\n\n- Abnormal vaginal discharge\n\n- Fever\n\n- Abdominal pain\n\n- Feels ill\n\n- Swollen fingers, face or legs",
-      "label_info_title": "Seeking care for danger signs counseling",
       "label_text_style": "bold",
       "options": [
         {

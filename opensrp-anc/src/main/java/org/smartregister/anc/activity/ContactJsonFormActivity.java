@@ -5,11 +5,11 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import com.github.florent37.expansionpanel.ExpansionHeader;
-import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -72,6 +72,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected void callSuperFinish() {
         super.onFormFinish();
     }
+
     protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent,
                                        String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
@@ -499,10 +500,14 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             try {
                 List<String> values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
-                ExpansionHeader layoutHeader = (ExpansionHeader) linearLayout.getChildAt(0);
+                RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
                 changeRecycler(values, status);
-                ExpansionLayout contentLayout = (ExpansionLayout) linearLayout.getChildAt(1);
+
+                LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
+                if (values != null || !values.isEmpty()) {
+                    contentLayout.setVisibility(View.VISIBLE);
+                }
                 RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
                 ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) recyclerView.getAdapter();
                 adapter.setExpansionWidgetValues(values);

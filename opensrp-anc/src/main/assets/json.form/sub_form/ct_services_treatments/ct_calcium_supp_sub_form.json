@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
-      "label_info_text": "Advice:\n\n- Divide the total dose into three doses, preferably taken at meal-time\n\n- Iron and calcium should preferably be administered several hours apart rather than concomitantly\n\n[Calcium sources folder]",
-      "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
       "label_text_style": "bold",
       "options": [
         {

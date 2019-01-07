@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
-      "label_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
-      "label_info_title": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
       "label_text_style": "bold",
       "options": [
         {

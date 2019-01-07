@@ -8,8 +8,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Condom counseling",
-      "label_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
-      "label_info_title": "Condom counseling",
       "label_text_style": "bold",
       "options": [
         {

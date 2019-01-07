@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "TB screening positive counseling",
-      "label_info_text": "Treat according to local protocol and/or refer for treatment.",
-      "label_info_title": "TB screening positive counseling",
       "label_text_style": "bold",
       "options": [
         {

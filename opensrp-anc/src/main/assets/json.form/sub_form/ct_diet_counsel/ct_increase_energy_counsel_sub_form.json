@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Increase daily energy and protein intake counseling",
-      "label_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates. \n\n[Protein and Energy Sources Folder]",
-      "label_info_title": "Increase daily energy and protein intake counseling",
       "label_text_style": "bold",
       "options": [
         {

@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Tobacco cessation counseling",
-      "label_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
-      "label_info_title": "Tobacco cessation counseling",
       "label_text_style": "bold",
       "options": [
         {
