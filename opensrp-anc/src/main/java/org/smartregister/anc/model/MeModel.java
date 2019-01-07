@@ -15,6 +15,7 @@ public class MeModel implements MeContract.Model {
         return new Utils().getName();
     }
 
+
     @Override
     public String getBuildDate() {
         return Utils.getBuildDate(true);

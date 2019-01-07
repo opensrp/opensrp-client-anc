@@ -31,6 +31,7 @@ public class ContactJsonFormActivity extends JsonWizardFormActivity {
     @Override
     public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
         callSuperWriteValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+
     }
 
     @Override
@@ -44,6 +45,7 @@ public class ContactJsonFormActivity extends JsonWizardFormActivity {
 
     protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+
     }
 
     protected void initializeFormFragmentCore() {

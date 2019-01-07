@@ -2,6 +2,7 @@ package org.smartregister.anc.widget;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -41,6 +42,9 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     private MaterialEditText editText;
 
     @Mock
+    ImageView imageView;
+
+    @Mock
     private CommonListener listener;
 
     @Mock
@@ -51,6 +55,9 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
 
     @Mock
     private Button minusButton;
+
+    @Mock
+    JSONObject jsonObject;
 
     private static final String SAMPLE_CLOSE_REG_FORM = " {\n" +
             "        \"key\": \"anc_close_reason\",\n" +
@@ -101,7 +108,9 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testAncEditTextFactorInstantiatesCorrectly() throws Exception {
 
         Assert.assertNotNull(factory);
-        //factory.attachJson("RandomStepName", context, formFragment, jsonObject, editText, imageView);
+
+        factory.attachLayout("RandomStepName", context, formFragment, jsonObject, editText, imageView);
+
 
     }
 
@@ -110,7 +119,9 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);
-        // factory.attachJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
+
+        factory.attachLayout(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
+
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
 
         jsonObject.put(DBConstants.KEY.NUMBER_PICKER, true);
@@ -120,8 +131,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
         Mockito.doReturn(addButton).when(relativeLayout).findViewById(R.id.addbutton);
         Mockito.doReturn(minusButton).when(relativeLayout).findViewById(R.id.minusbutton);
 
-
-        List<View> views = factorySpy.getViewsFromJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, listener, false);
+        List<View> views = factorySpy.getViewsFromJson(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, listener, true);
 
         Assert.assertNotNull(views);
         Assert.assertTrue(views.size() > 0);

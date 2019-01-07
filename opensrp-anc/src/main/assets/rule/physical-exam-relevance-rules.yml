@@ -1,0 +1,189 @@
+---
+name: step2_toaster7
+description: BP measurement warning toaster
+priority: 1
+condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_systolic_repeat_label
+description: BP measurement
+priority: 1
+condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+actions:
+    - "isRelevant = true"
+---
+name: step2_bp_systolic_repeat
+description: BP measurement
+priority: 1
+condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_repeat_label
+description: BP measurement
+priority: 1
+condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_repeat
+description: BP measurement
+priority: 1
+condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster8
+description: BP measurement warning toaster8
+priority: 1
+condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_symp_sev_preeclampsia
+description: Check if the woman has any of the following symptoms of severe pre-eclampsia.
+priority: 1
+condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_urine_protein
+description: Enter the result for the dipstick test - protein.
+priority: 1
+condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster9
+description: Hypertension diagnosis
+priority: 1
+condition: "step2_hypertension == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster17
+description: Hypertension diagnosis
+priority: 1
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_pulse_rate_repeat
+description: Pulse rate measurement
+priority: 1
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_pulse_rate_repeat_label
+description: Pulse rate measurement
+priority: 1
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100) "
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster18
+description: Pulse rate measurement
+priority: 1
+condition: "step3_pulse_rate_repeat > 0 && (step3_pulse_rate_repeat < 60 || step3_pulse_rate_repeat > 100) "
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster21
+description: Oxymetry Entry
+priority: 1
+condition: "step3_oximetry > 0 && step3_oximetry < 92"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster28
+description: Fetal heart beat rate
+priority: 1
+condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heart_rate_repeat_label
+description: Fetal heart beat rate
+priority: 1
+condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heart_rate_repeat
+description: Fetal heart beat rate
+priority: 1
+condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster29
+description: Fetal heart beat rate repeat toaster
+priority: 1
+condition: "step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 110 || step4_fetal_heart_rate_repeat > 160) "
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster3
+description: Note displaying that the woman is at risk of developing pre-eclampsia.
+priority: 1
+condition: "(step1_gdm_risk == 1) || (step1_gdm_risk != 1 && dm_in_preg != 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step1_toaster5
+description: Note displaying that counseling on increasing daily energy and protein intake should be given.
+priority: 1
+condition: "global_pop_undernourish == 1 && step1_weight_cat == 'Underweight'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_toaster6
+description: Note displaying that counseling on balanced energy and protein dietary supplementation should be given.
+priority: 1
+condition: "global_pop_undernourish == 1 && step1_weight_cat == 'Underweight'"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster10
+description: Severe hypertension toaster`
+priority: 1
+condition: "step2_severe_hypertension == 1"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster11
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_hypertension == 1 && !step2_symp_sev_preeclampsia.contains('none'))"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster13
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_severe_preeclampsia == 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step2_toaster14
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_preeclampsia == 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step3_toaster19
+description: Note displaying that anaemic
+priority: 1
+condition: "(step3_anaemic == 1)"
+actions:
+ - "isRelevant = true"
+---
+name: step4_toaster30
+description: Note displaying that preeclampsia risk
+priority: 1
+condition: "(step4_preeclampsia_risk == 1)"
+actions:
+ - "isRelevant = true"
