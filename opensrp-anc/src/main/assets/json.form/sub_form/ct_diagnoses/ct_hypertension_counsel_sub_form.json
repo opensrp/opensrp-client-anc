@@ -1,0 +1,47 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "hypertension_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Hypertension"
+    },
+    {
+      "key": "hypertension_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Hypertension counseling",
+      "label_info_text": "Counseling:\n\n- Advice to reduce workload and to rest- Advise on danger signs\n\n- Reassess at the next contact or in 1 week if 8 months pregnant\n\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
+      "label_info_title": "Hypertension counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    }
+  ]
+}

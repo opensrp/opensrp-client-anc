@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -17,6 +19,9 @@ import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
@@ -174,5 +179,48 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static List<String> getListFromString(String stringArray) {
         return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+    }
+
+
+
+    public List<String> createExpansionPanelChildren(JSONArray jsonArray) throws JSONException {
+        List<String> stringList = new ArrayList<>();
+        String label;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL)) {
+                label = jsonObject.getString(JsonFormConstants.LABEL);
+                stringList.add(label + ":" + getStringValue(jsonObject));
+            }
+        }
+
+        return stringList;
+    }
+
+
+    private String getStringValue(JSONObject jsonObject) throws JSONException {
+        StringBuilder value = new StringBuilder();
+        if (jsonObject != null) {
+            JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String stringValue = jsonArray.getString(i);
+                value.append(getValueFromSecondaryValues(stringValue));
+                value.append(", ");
+            }
+        }
+
+        return value.toString().replaceAll(", $", "");
+    }
+
+    private String getValueFromSecondaryValues(String itemString) {
+        String newString;
+        String[] strings = itemString.split(":");
+        if (strings.length > 1) {
+            newString = strings[1];
+        } else {
+            newString = strings[0];
+        }
+
+        return newString;
     }
 }

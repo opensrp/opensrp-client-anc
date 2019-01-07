@@ -47,6 +47,7 @@ public class AncEditTextFactory extends EditTextFactory {
 
             attachLayout(stepName, context, formFragment, jsonObject, editText, this.editable);
 
+
             JSONArray canvasIds = new JSONArray();
             rootLayout.setId(ViewUtil.generateViewId());
             canvasIds.put(rootLayout.getId());
@@ -91,6 +92,7 @@ public class AncEditTextFactory extends EditTextFactory {
         } else {
 
             return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
+
 
         }
 

@@ -1,0 +1,114 @@
+{
+  "content_form": [
+    {
+      "key": "other_test",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "label": "Other test",
+      "label_info_text": "If any other test was done that is not included here, add it here.",
+      "label_info_title": "Other test",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "type": "anc_radio_button",
+      "multi_relevance": true,
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "type": "done_today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "type": "done_earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "key": "other_test_name",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Which test?  *",
+      "edit_type": "name",
+      "relevance": {
+        "step1:other_test": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "other_test_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Test date *",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "step1:tb_screening_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Input the date of other test(s) that were done."
+      }
+    },
+    {
+      "key": "other_test_result",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Test result?  *",
+      "edit_type": "name",
+      "relevance": {
+        "step1:tb_screening_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

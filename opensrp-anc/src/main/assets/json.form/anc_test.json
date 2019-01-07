@@ -1,5 +1,5 @@
 {
-  "count": "1",
+  "count": "2",
   "encounter_type": "Tests",
   "entity_id": "",
   "relational_id": "",
@@ -52,7 +52,14 @@
     }
   },
   "step1": {
+    <<<<<<<
+    HEAD
     "title": "Test",
+    =======
+    "title": "Due",
+    "next": "step2",
+    >>>>>>>
+    feature/issue-153
     "fields": [
       {
         "key": "accordion_ultrasound",
@@ -60,7 +67,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Ultrasound",
+        <<<<<<<
+        HEAD
         "type": "native_accordion",
+        =======
+        "type": "expansion_panel",
+        >>>>>>>
+        feature/issue-153
         "display_bottom_section": true,
         "content_form": "tests_ultrasound_sub_form"
       },
@@ -70,9 +83,122 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Blood Type",
+        <<<<<<<
+        HEAD
         "type": "native_accordion",
         "display_bottom_section": true,
         "content_form": "tests_blood_type_sub_form"
+        =======
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_type_sub_form"
+      },
+      {
+        "key": "accordion_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "HIV",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_hiv_sub_form"
+      },
+      {
+        "key": "accordion_partner_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Partner HIV",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_partner_hiv_sub_form"
+      },
+      {
+        "key": "accordion_hepatitis_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hepatitis B",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_hepatitis_b_sub_form"
+      },
+      {
+        "key": "accordion_hepatitis_c",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hepatitis C",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_hepatitis_c_sub_form"
+      },
+      {
+        "key": "accordion_syphilis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Syphilis",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_syphilis_sub_form"
+      },
+      {
+        "key": "accordion_urine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Urine",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_urine_sub_form"
+      },
+      {
+        "key": "accordion_blood_glucose",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Blood Glucose",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_glucose_sub_form"
+      },
+      {
+        "key": "accordion_blood_haemoglobin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Blood Haemoglobin",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_haemoglobin_sub_form"
+      },
+      {
+        "key": "accordion_tb_screening",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "TB Screening",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_tb_screening_sub_form"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Other",
+    "fields": [
+      {
+        "key": "accordion_other_tests",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Other Tests",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_other_tests_sub_form"
+        >>>>>>>
+        feature/issue-153
       }
     ]
   }

@@ -1,0 +1,378 @@
+---
+name: step1_danger_signs_toaster
+description: Danger sign problem toaster
+priority: 1
+condition: "!global_danger_signs.contains('danger_none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_severe_hypertension_toaster
+description: Severe hypertension toaster
+priority: 1
+condition: "global_severe_hypertension == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hypertension_pre_eclampsia_toaster
+description: Hypertension and symptom of severe
+priority: 1
+condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pre_eclampsia_dialog_toaster
+description: Pre-eclampsia diagnosis
+priority: 1
+condition: "global_preeclampsia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_severe_pre_eclampsia_dialog_toaster
+description: Severe pre-eclampsia diagnosis
+priority: 1
+condition: "global_severe_preeclampsia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever_toaster
+description: Fever temp
+priority: 1
+condition: "global_body_temp_repeat >= 38"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abnormal_pulse_rate_toaster
+description: Abnormal pulse rate
+priority: 1
+condition: "global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100"
+actions:
+  - "isRelevant = true"
+---
+name: step1_resp_distress_toaster
+description: Respiratory distress
+priority: 1
+condition: "global_respiratory_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_low_oximetry_toaster
+description: Low oximetry
+priority: 1
+condition: "global_oximetry < 92"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_cardiac_exam_toaster
+description: Abnormal cardiac exam
+priority: 1
+condition: "global_cardiac_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_breast_exam_toaster
+description: Abnormal breast exam
+priority: 1
+condition: "global_breast_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_abdominal_exam_toaster
+description: Abnormal abdominal exam
+priority: 1
+condition: "global_abdominal_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_pelvic_exam_toaster
+description: Abnormal pelvic exam
+priority: 1
+condition: "global_pelvic_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_fetal_heartbeat_toaster
+description: No fetal heartbeat observed
+priority: 1
+condition: "global_fetal_heartbeat == no"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_feat_heart_rate_toaster
+description: Abnormal fetal heart rate
+priority: 1
+condition: "global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referred_hosp
+description: Referred to hospital
+priority: 1
+condition: "global_severe_hypertension == 1 || !global_danger_signs.contains('danger_none') || (global_hypertension == 1 && !global_symp_sev_preeclampsia.contains('none')) || global_preeclampsia == 1 || global_severe_preeclampsia == 1 ||global_body_temp_repeat >= 38 || (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_oximetry < 92 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || global_fetal_heartbeat == no || (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_caffeine_counsel
+description: Caffeine reduction counseling
+priority: 1
+condition: "global_behaviour_persist.contains('high_caffeine') || !global_caffeine_intake.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_tobacco_counsel
+description: Tobacco cessation counseling
+priority: 1
+condition: "global_behaviour_persist.contains('current_tobacco_use') || global_tobacco_user.contains('yes') || global_tobacco_user.contains('recently_quit')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_shs_counsel
+description: Second-hand smoke counseling
+priority: 1
+condition: "global_behaviour_persist.contains('tobacco_exposure') || global_shs_exposure == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_condom_counsel
+description: Condom counseling
+priority: 1
+condition: "global_behaviour_persist.contains('no_condom_use') || global_condom_use == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_alcohol_substance_counsel
+description: Alcohol / substance use counseling
+priority: 1
+condition: "global_behaviour_persist.contains('alcohol_substance_use') || !global_alcohol_substance_use.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_nausea_counsel
+description: Non-pharma measures to relieve nausea and vomiting counseling
+priority: 1
+condition: "global_phys_symptoms.contains('nausea_vomiting')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_nausea_not_relieved_counsel
+description: Pharmacological treatments for nausea and vomiting counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('nausea_vomiting')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_heartburn_counsel
+description: Diet and lifestyle changes to prevent and relieve heartburn counseling
+priority: 1
+condition: "global_phys_symptoms.contains('heartburn')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_heartburn_not_relieved_counsel
+description: Antacid preparations to relieve heartburn counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('heartburn')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_leg_cramp_counsel
+description: Non-pharmacological treatment for the relief of leg cramps counseling
+priority: 1
+condition: "global_phys_symptoms.contains('leg_cramps')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_leg_cramp_not_relieved_counsel
+description: Magnesium and calcium to relieve leg cramps counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('leg_cramps')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_constipation_counsel
+description: Dietary modifications to relieve constipation counseling
+priority: 1
+condition: "global_phys_symptoms.contains('constipation')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_constipation_not_relieved_counsel
+description: Wheat bran or other fiber supplements to relieve constipation counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('constipation')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_back_pelvic_pain_counsel
+description: Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling
+priority: 1
+condition: "(global_phys_symptoms_persist.contains('back_pelvic_pain') || global_phys_symptoms.contains('back_pelvic_pain')) && global_other_sym_lbpp.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_back_pelvic_pain_toaster
+description: warning
+priority: 1
+condition: "global_other_sym_lbpp.contains('contractions') || global_other_sym_lbpp.contains('pelvic_pains')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_varicose_oedema_counsel
+description: Non-pharmacological options for varicose veins and oedema counseling
+priority: 1
+condition: "(global_phys_symptoms_persist.contains('varicose_veins') || global_phys_symptoms.contains('varicose_veins')) && global_other_sym_vvo.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_varicose_vein_toaster
+description: Warning
+priority: 1
+condition: "global_other_sym_vvo.contains('leg_pain') || global_other_sym_vvo.contains('leg_redness')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_increase_energy_counsel
+description: Increase daily energy and protein intake counseling
+priority: 1
+condition: "global_pop_undernourish == 1 && global_weight_cat == 'Underweight'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_balanced_energy_counsel
+description: Balanced energy and protein dietary supplementation counseling
+priority: 1
+condition: "global_pop_undernourish == 1 && global_weight_cat == 'Underweight'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hypertension_counsel
+description: Hypertension counseling
+priority: 1
+condition: "global_hypertension == 1 && global_health_conditions.contains('hypertension')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hypertension_section
+description: Hypertension counseling
+priority: 1
+condition: "global_hypertension == 1 && global_health_conditions.contains('hypertension')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hiv_positive_counsel
+description: HIV positive counseling
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hiv_positive_section
+description: HIV positive counseling
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hepb_positive_counsel
+description: Hepatitis B positive counseling
+priority: 1
+condition: "global_hepb_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hep_b_section
+description: Hepatitis B positive counseling
+priority: 1
+condition: "global_hepb_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hepc_positive_counsel
+description: Hepatitis C positive counseling
+priority: 1
+condition: "global_hepc_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hep_c_section
+description: Hepatitis C positive counseling
+priority: 1
+condition: "global_hepc_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_section
+description: Syphilis counselling and treatment
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == 0) || (global_syphilis_positive == 1 && global_pop_syphilis == 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_low_prev_counsel
+description: Syphilis counselling and treatment
+priority: 1
+condition: "global_syphilis_positive == 1 && global_pop_syphilis == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_high_prev_counsel
+description: Syphilis counselling and treatment
+priority: 1
+condition: "global_syphilis_positive == 1 && global_pop_syphilis == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_asymptomatic_section
+description: Syphilis counselling and treatment
+priority: 1
+condition: "global_asb_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_asb_positive_counsel
+description: Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)
+priority: 1
+condition: "global_asb_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_diabetes_section
+description: Diabetes counseling
+priority: 1
+condition: "global_gdm == 1 || global_dm_in_preg == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_diabetes_counsel
+description: Diabetes counseling
+priority: 1
+condition: "global_gdm == 1 || global_dm_in_preg == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_anemia_section
+description: Diabetes counseling
+priority: 1
+condition: "global_anaemic == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_ifa_anaemia
+description: Prescribe daily dose of 120 mg iron and 2.8 mg folic acid
+priority: 1
+condition: "global_anaemic == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_tb_screening_positive_section
+description: Diabetes counseling
+priority: 1
+condition: "global_tb_screening_result == 'positive'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_tb_positive_counseling
+description: TB screening positive counseling
+priority: 1
+condition: "global_tb_screening_result == 'positive'"
+actions:
+  - "isRelevant = true"

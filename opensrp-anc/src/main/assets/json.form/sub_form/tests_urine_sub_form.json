@@ -1,0 +1,516 @@
+{
+  "content_form": [
+    {
+      "key": "urine_test_status",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "label": "Urine test",
+      "label_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
+      "label_info_title": "Urine test",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "type": "anc_radio_button",
+      "multi_relevance": true,
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "type": "done_today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "type": "done_earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "ordered",
+          "text": "Ordered",
+          "type": "ordered",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "type": "not_done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "urine_test_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "check_box",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "stock_out",
+          "text": "Stock out",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "expired_stock",
+          "text": "Expired stock",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "relevance": {
+        "step1:urine_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "not_done"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "key": "urine_test_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify *",
+      "edit_type": "name",
+      "relevance": {
+        "step1:urine_test_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "urine_test_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Urine test date *",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "step1:urine_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Select the date of the urine test.."
+      }
+    },
+    {
+      "key": "urine_test_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Urine test type",
+      "label_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
+      "label_info_title": "Urine test",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "midstream_urine_culture",
+          "text": "Midstream urine culture (recommended)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "midstream_urine_gram",
+          "text": "Midstream urine Gram-staining",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "urine_dipstick",
+          "text": "Urine dipstick",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "relevance": {
+        "step1:urine_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier",
+                "ordered"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "urine_culture",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Midstream urine culture (recommended)",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive_any",
+          "text": "Positive - any agent",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "positive_gbs",
+          "text": "Positive - Group B Streptococcus (GBS)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "urine_gram_stain",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Midstream urine Gram-staining ",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive",
+          "text": "Positive",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "urine_nitrites",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Urine dipstick result - nitrites",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "none",
+          "text": "None",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "one",
+          "text": "+",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "two",
+          "text": "++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "three",
+          "text": "+++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "four",
+          "text": "++++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "urine_leukocytes",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Urine dipstick result - leukocytes",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "none",
+          "text": "None",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "one",
+          "text": "+",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "two",
+          "text": "++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "three",
+          "text": "+++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "four",
+          "text": "++++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "urine_protein",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Urine dipstick result - protein",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "none",
+          "text": "None",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "one",
+          "text": "+",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "two",
+          "text": "++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "three",
+          "text": "+++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "four",
+          "text": "++++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "urine_glucose",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Urine dipstick result - glucose",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "none",
+          "text": "None",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "one",
+          "text": "+",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "two",
+          "text": "++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "three",
+          "text": "+++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "four",
+          "text": "++++",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "gdm_risk",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text": "0",
+      "text_color": "#000000",
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "gdm_risk_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Gestational diabetes mellitus (GDM) risk counseling",
+      "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n\n - Reasserting dietary interventions\n\n- Reasserting physical activity during pregnancy",
+      "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
+      "toaster_type": "warning"
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "asb_positive",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text": "0",
+      "text_color": "#000000",
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "asb_positive_note",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
+      "toaster_info_text": "A woman is considered to have ASB if she has one of the following test results:\n\n - Positive culture (> 100,000 bacteria/mL)\n\n- Gram-staining positive\n\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
+      "toaster_info_title": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
+      "toaster_type": "warning"
+    },
+    {
+      "key": "gbs_agent_note",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "toaster_info_text": "Pregnant women with Group B Streptococcus (GBS) colonization should receive intrapartum antibiotic administration to prevent early neonatal GBS infection.",
+      "toaster_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "toaster_type": "warning"
+    }
+  ]
+}

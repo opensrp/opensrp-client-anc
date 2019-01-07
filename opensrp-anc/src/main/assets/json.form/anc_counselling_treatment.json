@@ -1,8 +1,85 @@
 {
-  "count": "3",
-  "encounter_type": "Counselling & Treatment",
+  "count": "9",
+  "encounter_type": "Counselling and Treatment",
   "entity_id": "",
   "relational_id": "",
+  "global": {
+    "danger_signs": "['severe_vomiting']",
+    "bp_systolic_repeat": 45,
+    "bp_diastolic_repeat": 100,
+    "severe_hypertension": 1,
+    "symp_sev_preeclampsia": "['severe_headache','blurred_vision']",
+    "hypertension": 1,
+    "preeclampsia": 0,
+    "severe_preeclampsia": 0,
+    "body_temp_repeat": 38,
+    "pulse_rate_repeat": 54,
+    "respiratory_exam": 3,
+    "respiratory_exam_abnormal": "['']",
+    "respiratory_exam_abnormal_other": "Test",
+    "oximetry": 80,
+    "cardiac_exam": 3,
+    "cardiac_exam_abnormal": "['']",
+    "cardiac_exam_abnormal_other": "Test",
+    "breast_exam": 3,
+    "abdominal_exam": 3,
+    "abdominal_exam_abnormal": "['']",
+    "abdominal_exam_abnormal_other": "Test",
+    "pelvic_exam": 3,
+    "pelvic_exam_abnormal": "['']",
+    "pelvic_exam_abnormal_other": "Test",
+    "fetal_heartbeat": "no",
+    "fetal_heart_rate_repeat": 170,
+    "caffeine_intake": "['test']",
+    "behaviour_persist": "['nothing','no_condom_use']",
+    "tobacco_user": "['yes']",
+    "shs_exposure": "yes",
+    "condom_use": "yes",
+    "alcohol_substance_use": "['nothing']",
+    "phys_symptoms": "['test_symptom','heartburn','leg_cramps']",
+    "phys_symptoms_persist": "['nausea_vomiting']",
+    "other_sym_lbpp": "['dysuria','pelvic_pains']",
+    "other_sym_vvo": "['leg_pain']",
+    "pop_undernourish": 1,
+    "bmi": 130,
+    "weight_cat": "Normal Weight",
+    "exp_weight_gain": 11.5,
+    "weight_gain": 5,
+    "tot_weight_gain": 23,
+    "health_conditions": "['hypertension', 'kidney_disease']",
+    "hiv_positive": 1,
+    "hepb_positive": 1,
+    "syphilis_positive": 1,
+    "pop_syphilis": 0,
+    "asb_positive": 1,
+    "gdm": 1,
+    "gdm_risk": 0,
+    "dm_in_preg": 1,
+    "anaemic": 0,
+    "tb_screening_result": "positive",
+    "preeclampsia_risk": 1,
+    "pop_low_calcium": 0,
+    "hiv_risk": 0,
+    "pop_hiv_incidence": 1,
+    "partner_hiv_status": "",
+    "hiv_test_partner_status": "",
+    "age": 15,
+    "fetal_presentation": "",
+    "c_sections": "",
+    "no_of_fetuses": "",
+    "rh_factor": "",
+    "urine_culture": "",
+    "site_ipv_assess": "",
+    "pop_anaemia_40": "",
+    "pop_anaemia_20": "",
+    "ifa_effects": "",
+    "pop_helminth": "",
+    "pop_malaria": "",
+    "medications": "",
+    "tt_immun_status": "",
+    "flu_immun_status": "",
+    "pop_vita": ""
+  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -52,121 +129,757 @@
     }
   },
   "step1": {
-    "title": "Counselling and Treatment",
+    "title": "Hospital Referral",
     "next": "step2",
     "fields": [
       {
-        "key": "first_name",
+        "key": "danger_signs_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger sign(s): {danger_signs}",
+        "toaster_info_text": "Procedure:\n\n- Manage according to the local protocol for rapid assessment and management\n\n- Refer urgently to hospital!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "severe_hypertension_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg",
+        "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital for further investigation and management!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "hypertension_pre_eclampsia_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}",
+        "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital for further investigation and management!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "pre_eclampsia_dialog_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia diagnosis",
+        "toaster_info_text": "Procedure:\n\n- Refer to hospital\n\n- Revise the birth plan",
+        "toaster_info_title": "Pre-eclampsia diagnosis",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "severe_pre_eclampsia_dialog_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Severe pre-eclampsia diagnosis",
+        "toaster_info_text": "Procedure:\n\n- Give magnesium sulphate\n\n- Give appropriate anti-hypertensives\n\n- Revise the birth plan\n\n- Refer urgently to hospital!",
+        "toaster_info_title": "Severe pre-eclampsia diagnosis",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "fever_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Fever: {body_temp_repeat}ºC",
+        "toaster_info_text": "Procedure:\n\n- Insert an IV line\n\n- Give fluids slowly\n\n- Refer urgently to hospital!",
+        "toaster_info_title": "Fever: {body_temp_repeat}ºC",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "abnormal_pulse_rate_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pulse rate: {pulse_rate_repeat}bpm",
+        "toaster_info_text": "Procedure:\n\n- Check for fever, infection, respiratory distress, and arrhythmia\n\n- Refer for further investigation",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "resp_distress_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Respiratory distress: {respiratory_exam_abnormal}, {respiratory_exam_abnormal_other}",
+        "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "low_oximetry_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Low oximetry: {oximetry}%",
+        "toaster_info_text": "Procedure:\n\n- Give oxygen\n\n- Refer urgently to hospital!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "abn_cardiac_exam_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal cardiac exam: {cardiac_exam_abnormal}, {cardiac_exam_abnormal_other}",
+        "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital!",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "abn_breast_exam_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal breast exam: {abdominal_exam_abnormal}, {abdominal_exam_abnormal_other}",
+        "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
+        "toaster_type": "warning"
+      },
+      {
+        "key": "abn_abdominal_exam_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal abdominal exam: {abdominal_exam_abnormal}, {abdominal_exam_abnormal_other}",
+        "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "abn_pelvic_exam_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pelvic exam: {pelvic_exam_abnormal}, {pelvic_exam_abnormal_other}",
+        "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "no_fetal_heartbeat_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "No fetal heartbeat observed",
+        "toaster_info_text": "Procedure:\n\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n\n- Refer to hospital.",
+        "toaster_info_title": "No fetal heartbeat observed",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "abn_feat_heart_rate_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm",
+        "toaster_info_text": "Procedure:\n\n- Refer to hospital",
+        "toaster_type": "problem"
+      },
+      {
+        "key": "referred_hosp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Referred to hospital?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true,
+          "err": "Please select and option"
         }
       },
       {
-        "key": "last_name",
+        "key": "referred_hosp_notdone",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "woman_refused",
+            "text": "Woman refused",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Student",
+            "openmrs_entity_id": "159465"
+          },
+          {
+            "key": "not_necessary",
+            "text": "Not necessary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "Unemployed",
+            "openmrs_entity_id": "123801"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true,
+          "err": "Please select a reason why referring wasn't done"
+        }
+      },
+      {
+        "key": "referred_hosp_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step1:referred_hosp_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
         }
       }
     ]
   },
   "step2": {
-    "title": "Counselling and Treatment 2",
+    "title": "Behaviour Counseling",
     "next": "step3",
     "fields": [
       {
-        "key": "first_name",
+        "key": "accordion_caffeine_counsel",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Caffeine reduction counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_caffeine_counseling_sub_form",
+        "content_form_location": "json.form/sub_form/ct_behaviour_counseling"
       },
       {
-        "key": "last_name",
+        "key": "accordion_tobacco_counsel",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Tobacco cessation counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_tobacco_counseling_sub_form",
+        "content_form_location": "json.form/sub_form/ct_behaviour_counseling"
+      },
+      {
+        "key": "accordion_shs_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Second-hand smoke counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_shs_counseling_sub_form",
+        "content_form_location": "json.form/sub_form/ct_behaviour_counseling"
+      },
+      {
+        "key": "accordion_condom_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Condom counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_condom_counseling_sub_form",
+        "content_form_location": "json.form/sub_form/ct_behaviour_counseling"
+      },
+      {
+        "key": "accordion_alcohol_substance_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Alcohol / substance use counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_alcohol_and_substance_abuse_counseling_sub_form",
+        "content_form_location": "json.form/sub_form/ct_behaviour_counseling"
       }
     ]
   },
   "step3": {
-    "title": "Counselling and Treatment 3",
+    "title": "Physiological Symptoms Counseling",
+    "next": "step4",
     "fields": [
       {
-        "key": "first_name",
+        "key": "accordion_nausea_counsel",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Non-pharma measures to relieve nausea and vomiting counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_nausea_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
       },
       {
-        "key": "last_name",
+        "key": "accordion_nausea_not_relieved_counsel",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
-        }
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Pharmacological treatments for nausea and vomiting counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_nausea_not_relieved_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_heartburn_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_heartburn_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_heartburn_not_relieved_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Antacid preparations to relieve heartburn counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_heartburn_not_relieved_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_leg_cramp_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Non-pharmacological treatment for the relief of leg cramps counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_leg_cramp_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_leg_cramp_not_relieved_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Magnesium and calcium to relieve leg cramps counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_leg_cramp_not_relieved_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_constipation_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Dietary modifications to relieve constipation counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_constipation_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_constipation_not_relieved_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Wheat bran or other fiber supplements to relieve constipation counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_constipation_not_relieved_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_back_pelvic_pain_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_back_pelvic_pain_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      },
+      {
+        "key": "accordion_varicose_oedema_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Non-pharmacological options for varicose veins and oedema counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_varicose_oedema_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Diet Counseling",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "accordion_eat_exercise_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Healthy eating and keeping physically active counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_eat_exercise_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diet_counsel"
+      },
+      {
+        "key": "accordion_increase_energy_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Increase daily energy and protein intake counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_increase_energy_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diet_counsel"
+      },
+      {
+        "key": "accordion_balanced_energy_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Balanced energy and protein dietary supplementation counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_balanced_energy_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diet_counsel"
+      }
+    ]
+  },
+  "step5": {
+    "title": "Diagnoses",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "accordion_hypertension_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hypertension counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_hypertension_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_hiv_positive_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "HIV positive counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_hiv_positive_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_hepb_positive_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hepatitis B positive counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_hepb_positive_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_hepc_positive_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hepatitis C positive counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_hepc_positive_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_syphilis_low_prev_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Syphilis counselling and treatment",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_syphilis_low_prev_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_asb_positive_counsel_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Asymptomatic Bacteriuria (ASB) positive counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_asb_positive_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_diabetes_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Diabetes counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_diabetes_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_ifa_anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Anaemia & IFA Counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_ifa_anaemia_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      },
+      {
+        "key": "accordion_tb_positive_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "TB screening positive counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_tb_positive_counseling_sub_form",
+        "content_form_location": "json.form/sub_form/ct_diagnoses"
+      }
+    ]
+  },
+  "step6": {
+    "title": "Risks",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "accordion_pe_risk_aspirin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Pre-Eclampsia risk counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_pe_risk_aspirin_sub_form",
+        "content_form_location": "json.form/sub_form/ct_risks"
+      },
+      {
+        "key": "accordion_hiv_risk_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "HIV risk counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_hiv_risk_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_risks"
+      },
+      {
+        "key": "accordion_gdm_risk_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Gestational diabetes mellitus (GDM) risk counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_gdm_risk_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_risks"
+      }
+    ]
+  },
+  "step7": {
+    "title": "Counseling",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "accordion_danger_signs_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Danger signs counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_danger_signs_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_counseling"
+      },
+      {
+        "key": "accordion_anc_contact_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "ANC contact schedule counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_anc_contact_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_counseling"
+      },
+      {
+        "key": "accordion_birth_plan_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Birth preparedness and complications readiness counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_birth_plan_sub_form",
+        "content_form_location": "json.form/sub_form/ct_counseling"
+      },
+      {
+        "key": "accordion_family_planning_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Postpartum family planning counseling ",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_family_planning_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_counseling"
+      },
+      {
+        "key": "accordion_breastfeed_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Breastfeeding counseling",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_breastfeed_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_counseling"
+      }
+    ]
+  },
+  "step8": {
+    "title": "Services & Treatments",
+    "next": "step9",
+    "fields": [
+      {
+        "key": "accordion_ipv_enquiry",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "IPV Assessment",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_ipv_enquiry_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments"
+      },
+      {
+        "key": "accordion_ifa_high_prev",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Anaemia Prevention",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_ifa_high_prev_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments"
+      },
+      {
+        "key": "accordion_deworm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Deworming & Malaria phophylaxis",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_deworm_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments"
+      },
+      {
+        "key": "accordion_immunisation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Immunisations ",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_immunisation_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments"
+      },
+      {
+        "key": "accordion_calcium_supp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Calcium Supplementation",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_calcium_supp_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments"
+      },
+      {
+        "key": "accordion_vite_supp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Vitamin A Supplementation",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "ct_vita_supp_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments"
+      }
+    ]
+  },
+  "step9": {
+    "title": "Not Recommended",
+    "fields": [
+      {
+        "key": "prep_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Dietary supplements NOT recommended:\n\n- High protein supplement\n\n- Zinc supplement\n\n- Multiple micronutrient supplement\n\n- Vitamin B6 supplement\n\n- Vitamin C and E supplement\n\n- Vitamin D supplement",
+        "toaster_info_text": "Vitamin B6: Moderate certainty evidence shows that vitamin B6 (pyridoxine) probably provides some relief for nausea during pregnancy.\n\nVitamin C: Vitamin C is important for improving the bioavailability of oral iron. Low-certainty evidence on vitamin C alone suggests that it may prevent pre-labour rupture of membranes (PROM). However, it is relatively easy to consume sufficient quantities of vitamin C from food sources.\n\n[Vitamin C folder]\n\nVitamin D: Pregnant women should be advised that sunlight is the most important source of vitamin D. For pregnant women with documented vitamin D deficiency, vitamin D supplements may be given at the current recommended nutrient intake (RNI) of 200 IU (5 μg) per day.",
+        "toaster_type": "info"
       }
     ]
   }

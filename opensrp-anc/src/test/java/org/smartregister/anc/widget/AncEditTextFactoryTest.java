@@ -42,10 +42,10 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     private MaterialEditText editText;
 
     @Mock
-    ImageView imageView;
+    private CommonListener listener;
 
     @Mock
-    private CommonListener listener;
+    private ImageView imageView;
 
     @Mock
     private RelativeLayout relativeLayout;
@@ -119,7 +119,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);
-
         factory.attachLayout(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
 
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
