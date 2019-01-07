@@ -95,7 +95,8 @@
                 android:text="@string/undo"
                 android:textAllCaps="true"
                 android:textColor="@color/dialog_button_blue_color"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/ok_button"
