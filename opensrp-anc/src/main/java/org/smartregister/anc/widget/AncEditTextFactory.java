@@ -28,14 +28,14 @@ import java.util.List;
  * Created by ndegwamartin on 30/06/2018.
  */
 public class AncEditTextFactory extends EditTextFactory {
-
-    private ImageView editable;
+    private ImageView imageView;
 
     @Override
-    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView editable) throws Exception {
-        super.attachLayout(stepName, context, formFragment, jsonObject, editText, editable);
-        this.editable = editable;
+    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView imageView) throws Exception {
+        super.attachLayout(stepName, context, formFragment, jsonObject, editText, imageView);
+        this.imageView = imageView;
     }
+
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
@@ -45,7 +45,7 @@ public class AncEditTextFactory extends EditTextFactory {
             RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
 
-            attachLayout(stepName, context, formFragment, jsonObject, editText, editable);
+            attachLayout(stepName, context, formFragment, jsonObject, editText, this.imageView);
 
             JSONArray canvasIds = new JSONArray();
             rootLayout.setId(ViewUtil.generateViewId());
