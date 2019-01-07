@@ -29,10 +29,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     private static final int MENU_NAVIGATION = 100001;
     private TextView contactTitle;
-    private ContactJsonFormFragmentPresenter contactJsonFormFragmentPresenter;
 
     public ContactJsonFormFragment() {
-        contactJsonFormFragmentPresenter = createPresenter();
     }
 
     public static ContactJsonFormFragment getFormFragment(String stepName) {
