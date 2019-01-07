@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Non-pharma measures to relieve nausea and vomiting counseling",
-      "label_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
-      "label_info_title": "Non-pharma measures to relieve nausea and vomiting counseling",
       "label_text_style": "bold",
       "options": [
         {

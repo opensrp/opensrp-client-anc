@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Prescribe single dose albendazole 400 mg or mebendazole 500 mg",
-      "label_info_text": "In areas with a population prevalence of infection with any soil-transmitted helminths 20% or higher OR a population anaemia prevalence 40% or higher, preventive antihelminthic treatment is recommended for pregnant women after the first trimester as part of worm infection reduction programmes.",
-      "label_info_title": "Prescribe single dose albendazole 400 mg or mebendazole 500 mg",
       "label_text_style": "bold",
       "options": [
         {

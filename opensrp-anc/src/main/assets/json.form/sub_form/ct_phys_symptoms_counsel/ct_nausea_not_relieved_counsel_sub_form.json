@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Pharmacological treatments for nausea and vomiting counseling",
-      "label_info_text": "Pharmacological treatments for nausea and vomiting, such as doxylamine and metoclopramide, should be reserved for those pregnant women experiencing distressing symptoms that are not relieved by non-pharmacological options, under the supervision of a medical doctor.",
-      "label_info_title": "Pharmacological treatments for nausea and vomiting counseling",
       "label_text_style": "bold",
       "options": [
         {

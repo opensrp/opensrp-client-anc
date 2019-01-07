@@ -122,3 +122,7 @@ fields:
   - "shs_exposure"
   - "condom_use"
   - "alcohol_substance_use"
+---
+form: anc_test
+fields:
+  - "gdm"

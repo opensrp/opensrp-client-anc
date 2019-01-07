@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Hepatitis B positive counseling",
-      "label_info_text": "Counseling:\n\n- Provide post-testing counselling\n\n- Request confirmatory Nucleic Acid Testing (NAT)\n\n- Refer to hospital",
-      "label_info_title": "Hepatitis B positive counseling",
       "label_text_style": "bold",
       "options": [
         {

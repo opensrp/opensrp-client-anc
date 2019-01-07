@@ -6,8 +6,6 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "label": "Hepatitis B test",
-      "label_info_text": "In settings where the proportion of HBsAg seroprevalence in the general population is 2% or higher or in settings where there is a national Hep B ANC routine screening program in place, or if the woman is HIV positive, injects drugs, or is a sex worker, then Hep B testing is recommended if the woman is not fully vaccinated against Hep B.",
-      "label_info_title": "Hepatitis B test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",

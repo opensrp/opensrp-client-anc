@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Diabetes counseling",
-      "label_info_text": "Reassert dietary intervention and refer to high level care.\n\n[Nutritional and Exercise Folder]",
-      "label_info_title": "Diabetes counseling",
       "label_text_style": "bold",
       "options": [
         {

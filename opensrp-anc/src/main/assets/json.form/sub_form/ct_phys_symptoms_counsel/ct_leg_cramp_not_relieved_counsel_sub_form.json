@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Magnesium and calcium to relieve leg cramps counseling",
-      "label_info_text": "If leg cramps are not relieved with non-pharma measures, then give 300–360 mg magnesium per day in two or three divided doses; give calcium 1 g twice daily for two weeks.",
-      "label_info_title": "Magnesium and calcium to relieve leg cramps counseling",
       "label_text_style": "bold",
       "options": [
         {

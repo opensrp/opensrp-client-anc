@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "HIV risk counseling",
-      "label_info_text": "Provide comprehensive HIV prevention options:\n\n- STI screening and treatment (syndromic and syphilis)\n\n- Condom promotion\n\n- Risk reduction counselling\n\n- PrEP with emphasis on adherence\n\n- Emphasize importance of follow-up ANC contact visits",
-      "label_info_title": "HIV risk counseling",
       "label_text_style": "bold",
       "options": [
         {

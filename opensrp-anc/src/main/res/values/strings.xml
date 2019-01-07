@@ -279,11 +279,11 @@
     <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago). \n\n %4$s should come in immediately for delivery.</string>
     <string name="contact_number">Contact %1$d</string>
     <string name="contact_recorded">Contact %1$d recorded</string>
-    <string name="save_and_finish">SAVE + FINISH</string>
-    <string name="reason_for_visit">REASON FOR VISIT</string>
-    <string name="contact_recorded_today">. CONTACT %1$d\ndone today</string>
     <string name="info_icon_display">the more info icon display</string>
     <string name="status_icon_display">the status icon display</string>
     <string name="record">Record</string>
     <string name="undo">Undo</string>
+    <string name="save_and_finish">SAVE + FINISH</string>
+    <string name="reason_for_visit">REASON FOR VISIT</string>
+    <string name="contact_recorded_today">. CONTACT %1$d\ndone today</string>
 </resources>

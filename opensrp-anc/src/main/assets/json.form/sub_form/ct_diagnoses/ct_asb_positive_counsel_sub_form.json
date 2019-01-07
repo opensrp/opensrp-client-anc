@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
-      "label_info_text": "A seven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight neonates.",
-      "label_info_title": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
       "label_text_style": "bold",
       "options": [
         {

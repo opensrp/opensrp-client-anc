@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Antacid preparations to relieve heartburn counseling",
-      "label_info_text": "Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification. Magnesium carbonate and aluminium hydroxide preparations are probably unlikely to cause harm in recommended dosages.",
-      "label_info_title": "Antacid preparations to relieve heartburn counseling",
       "label_text_style": "bold",
       "options": [
         {

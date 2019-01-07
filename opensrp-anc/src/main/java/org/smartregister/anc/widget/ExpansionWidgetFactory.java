@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.github.florent37.expansionpanel.ExpansionHeader;
-import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
@@ -94,12 +92,19 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                               JSONObject jsonObject, CommonListener commonListener, LinearLayout rootLayout)
             throws JSONException {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
-        ExpansionHeader expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
-        ImageView statusImage = expansionHeader.findViewById(R.id.statusImageView);
-        ImageView infoIcon = expansionHeader.findViewById(R.id.accordion_info_icon);
-        CustomTextView headerText = expansionHeader.findViewById(R.id.topBarTextView);
+        RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
 
+        ImageView statusImage = expansionHeader.findViewById(R.id.statusImageView);
+        statusImage = (ImageView) addRecordViewTags(statusImage, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        statusImage.setOnClickListener(recordButtonClickListener);
+
+        ImageView infoIcon = expansionHeader.findViewById(R.id.accordion_info_icon);
+
+        CustomTextView headerText = expansionHeader.findViewById(R.id.topBarTextView);
         headerText.setText(accordionText);
+        headerText = (CustomTextView) addRecordViewTags(headerText, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        headerText.setOnClickListener(recordButtonClickListener);
+
         displayInfoIcon(jsonObject, commonListener, infoIcon);
         changeStatusIcon(statusImage, jsonObject, context);
         attachContent(rootLayout, context, jsonObject);
@@ -129,11 +134,11 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private void attachContent(LinearLayout rootLayout, Context context, JSONObject jsonObject) throws JSONException {
         JSONArray values = new JSONArray();
+        LinearLayout contentLayout = rootLayout.findViewById(R.id.contentLayout);
         if (jsonObject.has(JsonFormConstants.VALUE)) {
             values = jsonObject.getJSONArray(JsonFormConstants.VALUE);
+            contentLayout.setVisibility(View.VISIBLE);
         }
-        ExpansionLayout expansionLayout = rootLayout.findViewById(R.id.expansionLayout);
-        LinearLayout contentLayout = expansionLayout.findViewById(R.id.contentLayout);
         RecyclerView contentView = contentLayout.findViewById(R.id.contentRecyclerView);
         contentView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         ExpansionWidgetAdapter adapter = new ExpansionWidgetAdapter(utils.createExpansionPanelChildren(values));
@@ -163,9 +168,12 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             relativeLayout.setVisibility(View.VISIBLE);
 
             Button recordButton = relativeLayout.findViewById(R.id.ok_button);
-            recordButton = addOkButtonTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
+            recordButton = (Button) addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
             recordButton.setOnClickListener(recordButtonClickListener);
             Button undoButton = relativeLayout.findViewById(R.id.undo_button);
+            if (jsonObject.has(JsonFormConstants.VALUE)) {
+                undoButton.setVisibility(View.VISIBLE);
+            }
             undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
             undoButton.setTag(R.id.specify_context, context);
             undoButton.setTag(R.id.specify_step_name, stepName);
@@ -173,21 +181,25 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
     }
 
-    private Button addOkButtonTags(Button okButton, JSONObject jsonObject, String stepName, CommonListener commonListener,
+    private View addRecordViewTags(View recordView, JSONObject jsonObject, String stepName, CommonListener commonListener,
                                    JsonFormFragment jsonFormFragment, Context context) throws JSONException {
-        okButton.setTag(R.id.specify_content, jsonObject.optString(JsonFormConstants.CONTENT_FORM, ""));
-        okButton.setTag(R.id.specify_context, context);
-        okButton.setTag(R.id.specify_content_form, jsonObject.optString(JsonFormConstants.CONTENT_FORM_LOCATION, ""));
-        okButton.setTag(R.id.specify_step_name, stepName);
-        okButton.setTag(R.id.specify_listener, commonListener);
-        okButton.setTag(R.id.specify_fragment, jsonFormFragment);
-        okButton.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
-        okButton.setTag(R.id.secondaryValues,
+        recordView.setTag(R.id.specify_content, jsonObject.optString(JsonFormConstants.CONTENT_FORM, ""));
+        recordView.setTag(R.id.specify_context, context);
+        recordView.setTag(R.id.specify_content_form, jsonObject.optString(JsonFormConstants.CONTENT_FORM_LOCATION, ""));
+        recordView.setTag(R.id.specify_step_name, stepName);
+        recordView.setTag(R.id.specify_listener, commonListener);
+        recordView.setTag(R.id.specify_fragment, jsonFormFragment);
+        recordView.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
+        recordView.setTag(R.id.secondaryValues,
                 formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
-        okButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
-        okButton.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+        recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
+        recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+        if (jsonObject.has(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER)) {
+            String container = jsonObject.optString(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER, null);
+            recordView.setTag(R.id.contact_container, container);
+        }
 
-        return okButton;
+        return recordView;
     }
 
     private LinearLayout getRootLayout(Context context) {
@@ -198,7 +210,12 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     private class RecordButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            LinearLayout linearLayout = (LinearLayout) view.getParent().getParent().getParent().getParent();
+            LinearLayout linearLayout;
+            if (view instanceof ImageView || view instanceof CustomTextView) {
+                linearLayout = (LinearLayout) view.getParent().getParent();
+            } else {
+                linearLayout = (LinearLayout) view.getParent().getParent().getParent();
+            }
             view.setTag(R.id.main_layout, linearLayout);
             formUtils.showGenericDialog(view);
         }

@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Non-pharmacological treatment for the relief of leg cramps counseling",
-      "label_info_text": "Non-pharmacological therapies, including muscle stretching, relaxation, heat therapy, dorsiflexion of the foot, and massage can be used for the relief of leg cramps in pregnancy.",
-      "label_info_title": "Non-pharmacological treatment for the relief of leg cramps counseling",
       "label_text_style": "bold",
       "options": [
         {

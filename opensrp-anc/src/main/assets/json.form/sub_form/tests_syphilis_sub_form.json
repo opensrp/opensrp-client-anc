@@ -6,8 +6,6 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "label": "Syphilis test",
-      "label_info_text": "A syphilis test is recommended for all pregnant women at the first contact and again at the first contact of 3rd trimester (28 weeks). Women who are already confirmed positive for syphilis do not need to be tested.",
-      "label_info_title": "Syphilis test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",

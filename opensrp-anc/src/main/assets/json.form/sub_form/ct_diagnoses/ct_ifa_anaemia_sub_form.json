@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Prescribe daily dose of 120 mg iron and 2.8 mg folic acid",
-      "label_info_text": "If a woman is diagnosed with anaemia during pregnancy, her daily elemental iron should be increased to 120 mg until her haemoglobin (Hb) concentration rises to normal (Hb 110 g/L or higher). Thereafter, she can resume the standard daily antenatal iron dose to prevent re-occurrence of anaemia.\n\nThe equivalent of 120 mg of elemental iron equals 600 mg of ferrous sulfate heptahydrate, 360 mg of ferrous fumarate, or 1000 mg of ferrous gluconate.\n\n[Iron sources folder]",
-      "label_info_title": "Prescribe daily dose of 120 mg iron and 2.8 mg folic acid",
       "label_text_style": "bold",
       "options": [
         {

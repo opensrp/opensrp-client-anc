@@ -39,6 +39,9 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     private JsonFormFragment formFragment;
 
     @Mock
+    private JSONObject jsonObject;
+
+    @Mock
     private MaterialEditText editText;
 
     @Mock
@@ -55,9 +58,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
 
     @Mock
     private Button minusButton;
-
-    @Mock
-    JSONObject jsonObject;
 
     private static final String SAMPLE_CLOSE_REG_FORM = " {\n" +
             "        \"key\": \"anc_close_reason\",\n" +
@@ -108,10 +108,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     public void testAncEditTextFactorInstantiatesCorrectly() throws Exception {
 
         Assert.assertNotNull(factory);
-
         factory.attachLayout("RandomStepName", context, formFragment, jsonObject, editText, imageView);
-
-
     }
 
     @Test
@@ -120,7 +117,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
 
         Assert.assertNotNull(factory);
         factory.attachLayout(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
-
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
 
         jsonObject.put(DBConstants.KEY.NUMBER_PICKER, true);

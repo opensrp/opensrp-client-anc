@@ -7,8 +7,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Alcohol / substance use counseling",
-      "label_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
-      "label_info_title": "Alcohol / substance use counseling",
       "label_text_style": "bold",
       "options": [
         {

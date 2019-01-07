@@ -19,8 +19,6 @@
       "openmrs_entity_id": "",
       "type": "native_radio",
       "label": "Gestational diabetes mellitus (GDM) risk counseling",
-      "label_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n\n- Reasserting dietary interventions\n\n- Reasserting physical activity during pregnancy",
-      "label_info_title": "HIV risk counseling",
       "label_text_style": "bold",
       "options": [
         {

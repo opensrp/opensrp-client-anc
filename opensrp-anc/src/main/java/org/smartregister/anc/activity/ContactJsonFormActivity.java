@@ -5,11 +5,12 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import com.github.florent37.expansionpanel.ExpansionHeader;
-import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -58,7 +59,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     @Override
-    public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
+    public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity,
+                           String openMrsEntityId, boolean popup) throws JSONException {
         callSuperWriteValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
 
     }
@@ -72,7 +74,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         super.onFormFinish();
     }
 
-    protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
+    protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent,
+                                       String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
 
 
@@ -498,14 +501,24 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             try {
                 List<String> values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
-                ExpansionHeader layoutHeader = (ExpansionHeader) linearLayout.getChildAt(0);
+                RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
                 changeRecycler(values, status);
-                ExpansionLayout contentLayout = (ExpansionLayout) linearLayout.getChildAt(1);
+
+                LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
                 RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
                 ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) recyclerView.getAdapter();
                 adapter.setExpansionWidgetValues(values);
                 adapter.notifyDataSetChanged();
+
+                RelativeLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
+                if (values != null || values.size() > 0) {
+                    Button undoButton = buttonLayout.findViewById(R.id.undo_button);
+                    undoButton.setVisibility(View.VISIBLE);
+                    contentLayout.setVisibility(View.VISIBLE);
+                }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -515,8 +528,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private void changeRecycler(List<String> values, ImageView status) throws JSONException {
         JSONArray list = new JSONArray(values);
         for (int k = 0; k < list.length(); k++) {
-            String valueDisplay = list.getString(k).split(":")[1];
-            formUtils.changeIcon(status, valueDisplay, getApplicationContext());
+            String[] stringValues = list.getString(k).split(":");
+            if (stringValues.length >= 2) {
+                String valueDisplay = list.getString(k).split(":")[1];
+                formUtils.changeIcon(status, valueDisplay, getApplicationContext());
+            }
         }
     }
 }
