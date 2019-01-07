@@ -267,9 +267,6 @@
     <string name="qr_code_label">QR Code</string>
     <string name="clients_facility">Client\'s facility</string>
     <!-- Form container -->
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
-    <string name="submit">Submit</string>
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
     <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
     <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>

@@ -2,7 +2,6 @@ package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +12,7 @@ import com.github.florent37.expansionpanel.ExpansionHeader;
 import com.github.florent37.expansionpanel.ExpansionLayout;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +35,6 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,31 +43,14 @@ import java.util.Map;
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
+
 public class ContactJsonFormActivity extends JsonFormActivity implements JsonApiInterface {
 
-    private static final String CONTACT_STATE = "contactState";
-    private Contact contact;
     private ProgressDialog progressDialog;
     private AncGenericDialogInterface genericDialogInterface;
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private Utils utils = new Utils();
     private String TAG = this.getClass().getSimpleName();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            this.contact = extractContact(getIntent().getSerializableExtra(Constants.JSON_FORM_EXTRA.CONTACT));
-        } else {
-            this.contact = extractContact(savedInstanceState.getSerializable(CONTACT_STATE));
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(CONTACT_STATE, contact);
-    }
 
     @Override
     public void initializeFormFragment() {
@@ -79,6 +61,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity,
                            String openMrsEntityId, boolean popup) throws JSONException {
         callSuperWriteValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+
     }
 
     @Override
@@ -92,6 +75,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent,
                                        String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+
+
     }
 
     protected void initializeFormFragmentCore() {
@@ -101,15 +86,12 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 .add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment).commit();
     }
 
-    private Contact extractContact(Serializable serializable) {
-        if (serializable != null && serializable instanceof Contact) {
-            return (Contact) serializable;
+    public Contact getContact() {
+        Form form = getForm();
+        if (form instanceof Contact) {
+            return (Contact) form;
         }
         return null;
-    }
-
-    public Contact getContact() {
-        return contact;
     }
 
     @Override
@@ -169,7 +151,10 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         partialContact.setContactNo(1);//Hardcoded to remove
         partialContact.setFinalized(false);
 
-        partialContact.setType(getContact().getFormName());
+        Contact contact = getContact();
+        if (contact != null) {
+            partialContact.setType(getContact().getFormName());
+        }
         partialContact.setFormJsonDraft(currentJsonState());
 
         AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);

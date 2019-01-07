@@ -56,7 +56,7 @@ android {
         release {
             minifyEnabled false
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
             resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
@@ -132,6 +132,7 @@ tasks.withType(Test) {
 
 dependencies {
     implementation('org.smartregister:opensrp-client-native-form:1.3.8-SNAPSHOT@aar') {
+
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -176,15 +177,18 @@ dependencies {
         exclude group: 'com.android.support', module: 'cardview-v7'
 
     }
+
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.github.florent37:expansionpanel:1.1.2'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.6.8'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.23'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'org.jeasy:easy-rules-core:3.2.0'
     implementation 'org.jeasy:easy-rules-mvel:3.2.0'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.23'
+
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }

@@ -11,12 +11,12 @@ public abstract class Constants {
     public static final String CONTACT_DATE_FORMAT = "dd/MM/yyyy";
     public static final String CONTACT_SUMMARY_DATE_FORMAT = "dd MMMM yyyy";
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
+    public static final String FORM = "form";
     public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
     public static final String ACCORDION_INFO_TEXT = "accordion_info_text";
     public static final String ACCORDION_INFO_TITLE = "accordion_info_title";
     public static final String DISPLAY_BOTTOM_SECTION = "display_bottom_section";
     public static final String NEXT = "next";
-    public static final String FORM = "form";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";

@@ -104,4 +104,10 @@ fields:
   - "gest_age"
   - "last_contact_date"
 ---
-form: 
+form: anc_test
+fields:
+  - "gdm"
+---
+form: anc_symptoms_follow_up
+fields:
+  - "gdm"

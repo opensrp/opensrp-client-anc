@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.event.BaseEvent;
 
@@ -151,6 +152,10 @@ public class Utils extends org.smartregister.util.Utils {
 
         Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
         return weeks.getWeeks();
+    }
+
+    public static int getProfileImageResourceIDentifier() {
+        return R.drawable.ic_woman_with_baby;
     }
 
     public static String getBuildDate(Boolean isShortMonth) {

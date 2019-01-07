@@ -15,11 +15,12 @@ import android.widget.Toast;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactSummaryAdapter;
 import org.smartregister.anc.contract.ContactSummarySendContract;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.presenter.ContactSummaryPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
+import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.List;
 
@@ -88,12 +89,12 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
-        contactSummaryAdapter.setContactDates(models.size() > 5 ?models.subList(0,4):models);
+        contactSummaryAdapter.setContactDates(models.size() > 5 ? models.subList(0, 4) : models);
     }
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, womanProfileImage);
+        imageRenderHelper.refreshProfileImage(baseEntityId, womanProfileImage, Utils.getProfileImageResourceIDentifier());
     }
 
     @Override
