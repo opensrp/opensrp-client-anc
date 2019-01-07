@@ -28,7 +28,6 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.domain.ContactSummary;
 import org.smartregister.anc.domain.ContactSummaryItem;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -37,6 +36,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.helper.ImageRenderHelper;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -200,11 +200,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, R.drawable.woman_placeholder);
     }
 
     @Override
-    public void setWomanPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         //Overridden
     }
 

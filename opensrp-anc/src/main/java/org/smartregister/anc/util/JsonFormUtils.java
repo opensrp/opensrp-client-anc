@@ -35,6 +35,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -380,7 +381,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
 
-            Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));
+            Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID), Utils.getProfileImageResourceIDentifier());
 
             if (StringUtils.isNotBlank(photo.getFilePath())) {
 

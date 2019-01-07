@@ -193,7 +193,6 @@ dependencies {
 
     implementation group: 'com.crashlytics.sdk.android', name: 'crashlytics', version: '2.6.8'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
 
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.23'
