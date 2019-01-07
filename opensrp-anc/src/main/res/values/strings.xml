@@ -148,7 +148,7 @@
     <!-- Quick Check -->
     <string name="quick_check">Quick Check</string>
 
-    <string name="reason_for"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
+    <string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
 
     <string name="first_contact">First contact</string>
     <string name="scheduled_contact">Scheduled contact</string>
@@ -286,4 +286,7 @@
     <string name="status_icon_display">the status icon display</string>
     <string name="record">Record</string>
     <string name="undo">Undo</string>
+    <string name="save_and_finish">SAVE + FINISH</string>
+    <string name="reason_for_visit">REASON FOR VISIT</string>
+    <string name="contact_recorded_today">. CONTACT %1$d\ndone today</string>
 </resources>

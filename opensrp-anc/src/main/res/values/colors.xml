@@ -77,4 +77,5 @@
 
     <color name="contact_complete_grey_border">#CDCDCD</color>
     <color name="contact_complete_grey_text">#777777</color>
+    <color name="contact_summary_section_header_bg">#444956</color>
 </resources>

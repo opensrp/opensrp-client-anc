@@ -3,12 +3,16 @@ package org.smartregister.anc.helper;
 import android.content.Context;
 import android.util.Log;
 
+import com.vijay.jsonwizard.rules.RuleConstant;
+
 import org.jeasy.rules.api.Facts;
+import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
+import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
@@ -22,12 +26,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 public class RulesEngineHelper {
     private Context context;
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
+    private final String RULE_FOLDER_PATH = "rule/";
 
     public RulesEngineHelper(Context context) {
         this.context = context;
@@ -67,7 +73,7 @@ public class RulesEngineHelper {
         Facts facts = new Facts();
         facts.put(ContactRule.RULE_KEY, contactRule);
 
-        Rules rules = getRulesFromAsset("rule/" + rulesFile);
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
         if (rules == null) {
             return null;
         }
@@ -86,7 +92,7 @@ public class RulesEngineHelper {
         Facts facts = new Facts();
         facts.put(AlertRule.RULE_KEY, alertRule);
 
-        Rules rules = getRulesFromAsset("rule/" + rulesFile);
+        Rules rules = getRulesFromAsset(RULE_FOLDER_PATH + rulesFile);
         if (rules == null) {
             return null;
         }
@@ -94,5 +100,23 @@ public class RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return alertRule.buttonStatus;
+    }
+
+    public boolean getRelevance(Facts relevanceFacts, String rule) {
+
+        relevanceFacts.put(RuleConstant.IS_RELEVANT, false);
+
+        Rules rules = new Rules();
+
+        Rule mvelRule = new MVELRule()
+                .name(UUID.randomUUID().toString())
+                .when(rule)
+                .then("isRelevant = true;");
+
+        rules.register(mvelRule);
+
+        processDefaultRules(rules, relevanceFacts);
+
+        return relevanceFacts.get(RuleConstant.IS_RELEVANT);
     }
 }

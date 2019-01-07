@@ -89,7 +89,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected void callSuperFinish() {
         super.onFormFinish();
     }
-
     protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent,
                                        String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
@@ -537,4 +536,3 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         }
     }
 }
-

@@ -120,7 +120,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
         List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40,});
 
-        PowerMockito.when(rulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq("contact-rules.yml"))).thenReturn(integerList);
+        PowerMockito.when(rulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(Constants.RULES_FILE.CONTACT_RULES))).thenReturn(integerList);
 
         PowerMockito.mockStatic(PatientRepository.class);
 

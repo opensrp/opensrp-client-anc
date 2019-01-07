@@ -44,6 +44,8 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
 
         getAllSettingsRepo().putSetting(characteristic);
 
+        AncApplication.getInstance().populateGlobalSettings();//Refresh global settings
+
     }
 
     protected AllSettings getAllSettingsRepo() {

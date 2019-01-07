@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.contract.ContactSummaryContract;
+import org.smartregister.anc.contract.ContactSummarySendContract;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.util.DBConstants;
 
@@ -26,13 +26,13 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
 
 
     @Mock
-    private ContactSummaryContract.Presenter presenter;
+    private ContactSummarySendContract.Presenter presenter;
 
     @Mock
-    private ContactSummaryContract.Interactor interactor;
+    private ContactSummarySendContract.Interactor interactor;
 
     @Mock
-    private ContactSummaryContract.View view;
+    private ContactSummarySendContract.View view;
 
     private ContactSummaryPresenter contactSummaryPresenter;
 
@@ -66,42 +66,42 @@ public class ContactSummaryPresenterTest extends BaseUnitTest {
     public void testLoadWomanWithNormalInput() {
         presenter.loadWoman(baseEntityId);
         Mockito.verify(interactor).fetchWomanDetails(Mockito.eq(baseEntityId),
-                Mockito.any(ContactSummaryContract.InteractorCallback.class));
+                Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadWomanWithNullInput() {
         presenter.loadWoman(null);
         Mockito.verify(interactor, Mockito.never()).fetchWomanDetails(Mockito.eq(baseEntityId),
-                Mockito.any(ContactSummaryContract.InteractorCallback.class));
+                Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadWomanWithEmptyInput() {
         presenter.loadWoman("");
         Mockito.verify(interactor, Mockito.never()).fetchWomanDetails(Mockito.eq(baseEntityId),
-                Mockito.any(ContactSummaryContract.InteractorCallback.class));
+                Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadContactsWithNormalInput() {
         presenter.loadUpcomingContacts(baseEntityId);
         Mockito.verify(interactor).fetchUpcomingContacts(Mockito.eq(baseEntityId),
-                Mockito.any(ContactSummaryContract.InteractorCallback.class));
+                Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadContactsWithNullInput() {
         presenter.loadUpcomingContacts(null);
         Mockito.verify(interactor, Mockito.never()).fetchUpcomingContacts(Mockito.eq(baseEntityId),
-                Mockito.any(ContactSummaryContract.InteractorCallback.class));
+                Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadContactsWithEmptyInput() {
         presenter.loadUpcomingContacts("");
         Mockito.verify(interactor, Mockito.never()).fetchUpcomingContacts(Mockito.eq(baseEntityId),
-                Mockito.any(ContactSummaryContract.InteractorCallback.class));
+                Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
 

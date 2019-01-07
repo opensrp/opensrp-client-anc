@@ -23,7 +23,7 @@
                 android:layout_marginLeft="@dimen/quick_check_padding"
                 android:layout_marginRight="@dimen/quick_check_padding"
                 android:gravity="center_vertical"
-                android:text="@string/reason_for"
+                android:text="@string/reason_for_coming_facility"
                 android:textSize="@dimen/quick_check_text_size"
                 android:textStyle="bold" />
 

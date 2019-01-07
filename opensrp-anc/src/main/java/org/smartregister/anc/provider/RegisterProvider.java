@@ -3,6 +3,13 @@ package org.smartregister.anc.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.text.style.DynamicDrawableSpan;
+import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +37,11 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Set;
 
+import static org.smartregister.anc.util.Utils.DB_DF;
 import static org.smartregister.anc.util.Utils.getName;
 
 /**
@@ -41,6 +50,7 @@ import static org.smartregister.anc.util.Utils.getName;
 
 public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.RegisterViewHolder> {
 
+    private static final String TAG = RegisterProvider.class.getCanonicalName();
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
@@ -147,7 +157,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 if (StringUtils.isNotBlank(edd)) {
                     gestationAge = Utils.getGestationAgeFromEDDate(edd);
                     AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, "alert-rules.yml");
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
                 } else {
                     buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
                 }
@@ -159,42 +169,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
                 viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
 
-                switch (buttonAlertStatus) {
-                    case Constants.ALERT_STATUS.IN_PROGRESS:
+                buttonAlertStatus = processContactDoneToday(getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
 
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        break;
-                    case Constants.ALERT_STATUS.DUE:
-
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        break;
-                    case Constants.ALERT_STATUS.OVERDUE:
-
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        break;
-                    case Constants.ALERT_STATUS.NOT_DUE:
-
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                        break;
-                    case Constants.ALERT_STATUS.DELIVERY_DUE:
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
-                        break;
-                    case Constants.ALERT_STATUS.EXPIRED:
-                        viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
-                        break;
-                    default:
-                        viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        break;
-
-                }
+                processButtonAlertStatus(viewHolder, buttonAlertStatus, nextContact);
 
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);
@@ -202,6 +179,56 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
                 attachSyncOnclickListener(viewHolder.sync, pc);
             }
+        }
+    }
+
+    private void processButtonAlertStatus(RegisterViewHolder viewHolder, String buttonAlertStatus, String nextContact) {
+
+        switch (buttonAlertStatus) {
+            case Constants.ALERT_STATUS.IN_PROGRESS:
+
+                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                break;
+            case Constants.ALERT_STATUS.DUE:
+
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                break;
+            case Constants.ALERT_STATUS.OVERDUE:
+
+                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                break;
+            case Constants.ALERT_STATUS.NOT_DUE:
+
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
+                break;
+            case Constants.ALERT_STATUS.DELIVERY_DUE:
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                break;
+            case Constants.ALERT_STATUS.EXPIRED:
+                viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
+                break;
+            case Constants.ALERT_STATUS.TODAY:
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+
+                SpannableStringBuilder ssb = new SpannableStringBuilder(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                viewHolder.dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
+                viewHolder.dueButton.setPadding(2, 2, 2, 2);
+
+                break;
+            default:
+                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                break;
+
         }
     }
 
@@ -329,5 +356,32 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     private String getColumnMapValue(CommonPersonObjectClient pc, String key) {
         return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
+    }
+
+    private String processContactDoneToday(String lastContactDate, String alertStatus) {
+        String result = alertStatus;
+
+        if (!TextUtils.isEmpty(lastContactDate)) {
+
+            try {
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY : alertStatus;
+            } catch (ParseException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+
+        return result;
+    }
+
+    private Integer getTodayContact(String nextContact) {
+        Integer todayContact = 1;
+        try {
+            todayContact = Integer.valueOf(nextContact) - 1;
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        return todayContact;
     }
 }

@@ -26,6 +26,8 @@ public interface QuickCheckContract {
 
         void setBaseEntityId(String baseEntityId);
 
+        void setContactNumber(Integer contactNumber);
+
         Field getField(Collection<Field> set, String displayName);
     }
 
@@ -59,7 +61,7 @@ public interface QuickCheckContract {
 
         void dismiss();
 
-        void proceedToContact(String baseEntityId);
+        void proceedToContact(String baseEntityId, Integer contactNo);
 
     }
 

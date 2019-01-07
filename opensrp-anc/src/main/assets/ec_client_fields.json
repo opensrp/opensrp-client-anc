@@ -135,6 +135,13 @@
           "json_mapping": {
             "field": "attributes.next_contact_date"
           }
+        },
+        {
+          "column_name": "last_contact_record_date",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.last_contact_record_date"
+          }
         }
       ]
     }

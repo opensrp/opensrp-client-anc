@@ -28,7 +28,6 @@ import java.util.List;
  * Created by ndegwamartin on 30/06/2018.
  */
 public class AncEditTextFactory extends EditTextFactory {
-
     private ImageView imageView;
 
     @Override
@@ -44,7 +43,6 @@ public class AncEditTextFactory extends EditTextFactory {
 
             RelativeLayout rootLayout = getRootLayout(context);
             final MaterialEditText editText = rootLayout.findViewById(R.id.edit_text);
-
             attachLayout(stepName, context, formFragment, jsonObject, editText,this.imageView);
 
             JSONArray canvasIds = new JSONArray();

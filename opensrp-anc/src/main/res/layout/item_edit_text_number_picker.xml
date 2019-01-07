@@ -28,7 +28,7 @@
             app:met_primaryColor="?colorAccent"
             app:met_singleLineEllipsis="true" />
 
-        <Button
+        <ImageView
             android:id="@+id/minusbutton"
             android:layout_width="40dp"
             android:layout_height="40dp"

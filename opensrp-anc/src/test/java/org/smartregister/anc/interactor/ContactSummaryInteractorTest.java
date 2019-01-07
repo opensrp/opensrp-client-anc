@@ -19,7 +19,7 @@ import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.ContactSummaryContract;
+import org.smartregister.anc.contract.ContactSummarySendContract;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.AppExecutors;
@@ -38,7 +38,7 @@ import java.util.concurrent.Executors;
 @PrepareForTest({PatientRepository.class, AncApplication.class})
 public class ContactSummaryInteractorTest extends BaseUnitTest {
 
-    private ContactSummaryContract.Interactor summaryInteractor;
+    private ContactSummarySendContract.Interactor summaryInteractor;
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
@@ -78,8 +78,8 @@ public class ContactSummaryInteractorTest extends BaseUnitTest {
     @Test
     public void testFetchWomanDetails() {
 
-        ContactSummaryContract.InteractorCallback callBack = Mockito.mock(
-                ContactSummaryContract.InteractorCallback.class);
+        ContactSummarySendContract.InteractorCallback callBack = Mockito.mock(
+                ContactSummarySendContract.InteractorCallback.class);
 
         String firstName = "Elly";
         String lastName = "Smith";
@@ -103,8 +103,8 @@ public class ContactSummaryInteractorTest extends BaseUnitTest {
     @Test
     public void testFetchUpcomingContacts() {
 
-        ContactSummaryContract.InteractorCallback callBack = PowerMockito.mock(
-                ContactSummaryContract.InteractorCallback.class);
+        ContactSummarySendContract.InteractorCallback callBack = PowerMockito.mock(
+                ContactSummarySendContract.InteractorCallback.class);
 
         final List<String> contactDates = new ArrayList<>();
         contactDates.add("10");
@@ -131,7 +131,7 @@ public class ContactSummaryInteractorTest extends BaseUnitTest {
         PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
 
-        ContactSummaryContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
+        ContactSummarySendContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
         summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, callBack);
 
         Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onUpcomingContactsFetched(upcomingContactsCaptor.capture(), integerArgumentCaptor.capture());

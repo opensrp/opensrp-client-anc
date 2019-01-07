@@ -25,6 +25,7 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
     private Set<Field> selectedDangerSigns = new HashSet<>();
 
     private String baseEntityId;
+    private Integer contactNo;
 
     public QuickCheckPresenter(QuickCheckContract.View view) {
         this.viewReference = new WeakReference<>(view);
@@ -139,11 +140,16 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
     }
 
     @Override
+    public void setContactNumber(Integer contactNumber) {
+        this.contactNo = contactNumber;
+    }
+
+    @Override
     public void quickCheckSaved(boolean proceed, boolean saved) {
         if (!saved) {
             getView().displayToast(R.string.validation_unable_to_save_quick_check);
         } else if (proceed) {
-            getView().proceedToContact(baseEntityId);
+            getView().proceedToContact(baseEntityId, contactNo);
         }
         getView().dismiss();
     }
