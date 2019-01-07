@@ -1,0 +1,98 @@
+---
+name: step1_danger_signs_toaster
+description: Displays the womans danger signs.
+priority: 1
+condition: "!global_danger_signs.contains('danger_none')"
+actions:
+ - 'calculation = ["danger_signs" : global_danger_signs]'
+---
+name: step1_severe_hypertension_toaster
+description: Severe hypertension toaster
+priority: 1
+condition: "global_severe_hypertension == 1"
+actions:
+ - 'calculation = ["bp_systolic_repeat" : global_bp_systolic_repeat, "bp_diastolic_repeat" : global_bp_diastolic_repeat]'
+---
+name: step1_hypertension_pre_eclampsia_toaster
+description: Hypertension and symptom of severe
+priority: 1
+condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.contains('none')"
+actions:
+  - 'calculation = ["symp_sev_preeclampsia" : global_symp_sev_preeclampsia]'
+---
+name: step1_fever_toaster
+description: Fever temp
+priority: 1
+condition: "global_body_temp_repeat >= 38"
+actions:
+  - 'calculation = ["body_temp_repeat" : global_body_temp_repeat]'
+---
+name: step1_abnormal_pulse_rate_toaster
+description: Abnormal pulse rate
+priority: 1
+condition: "global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100"
+actions:
+  - 'calculation = ["pulse_rate_repeat" : global_pulse_rate_repeat]'
+---
+name: step1_resp_distress_toaster
+description: Respiratory distress
+priority: 1
+condition: "global_respiratory_exam == 3"
+actions:
+  - 'calculation = ["respiratory_exam_abnormal" : global_respiratory_exam_abnormal, "respiratory_exam_abnormal_other": global_respiratory_exam_abnormal_other]'
+---
+name: step1_low_oximetry_toaster
+description: Low oximetry
+priority: 1
+condition: "global_oximetry < 92"
+actions:
+  - 'calculation = ["oximetry" : global_oximetry]'
+---
+name: step1_abn_cardiac_exam_toaster
+description: Abnormal cardiac exam
+priority: 1
+condition: "global_cardiac_exam == 3"
+actions:
+  - 'calculation = ["cardiac_exam_abnormal" : global_cardiac_exam_abnormal, "cardiac_exam_abnormal_other": global_cardiac_exam_abnormal_other]'
+---
+name: step1_abn_breast_exam_toaster
+description: Abnormal breast exam
+priority: 1
+condition: "global_breast_exam == 3"
+actions:
+  - 'calculation = ["abdominal_exam_abnormal" : global_abdominal_exam_abnormal, "abdominal_exam_abnormal_other": global_abdominal_exam_abnormal_other]'
+---
+name: step1_abn_abdominal_exam_toaster
+description: Abnormal abdominal exam
+priority: 1
+condition: "global_abdominal_exam == 3"
+actions:
+  - 'calculation = ["abdominal_exam_abnormal" : global_abdominal_exam_abnormal, "abdominal_exam_abnormal_other": global_abdominal_exam_abnormal_other]'
+---
+name: step1_abn_pelvic_exam_toaster
+description: Abnormal pelvic exam
+priority: 1
+condition: "global_pelvic_exam == 3"
+actions:
+  - 'calculation = ["pelvic_exam_abnormal" : global_pelvic_exam_abnormal, "pelvic_exam_abnormal_other": global_pelvic_exam_abnormal_other]'
+---
+name: step1_abn_feat_heart_rate_toaster
+description: Abnormal fetal heart rate
+priority: 1
+condition: "global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160"
+actions:
+  - 'calculation = ["fetal_heart_rate_repeat" : global_fetal_heart_rate_repeat]'
+---
+name: step4_body_mass_toaster
+description: Information
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ["bmi" : global_bmi, "weight_cat" : global_weight_cat, "exp_weight_gain" : global_exp_weight_gain]'
+---
+name: step4_average_weight_toaster
+description: Information
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ["weight_gain" : global_weight_gain, "tot_weight_gain" : global_tot_weight_gain]'

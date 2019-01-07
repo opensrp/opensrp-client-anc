@@ -48,8 +48,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         mProfileView = null;//set to null on destroy
 
         // Inform interactor
-        mProfileInteractor.onDestroy(isChangingConfiguration);
-        mRegisterInteractor.onDestroy(isChangingConfiguration);
+        if (mProfileInteractor != null) {
+            mProfileInteractor.onDestroy(isChangingConfiguration);
+        }
+
+        if (mRegisterInteractor != null) {
+            mRegisterInteractor.onDestroy(isChangingConfiguration);
+        }
 
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {
@@ -61,8 +66,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
+    public void fetchProfileData(String baseEntityId) {
+        mProfileInteractor.refreshProfileView(baseEntityId, true);
+    }
+
+    @Override
     public void refreshProfileView(String baseEntityId) {
-        mProfileInteractor.refreshProfileView(baseEntityId);
+        mProfileInteractor.refreshProfileView(baseEntityId, false);
     }
 
     @Override
@@ -131,7 +141,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         getProfileView().setProfileGestationAge(client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ? String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstants.KEY.EDD))) : null);
         getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
         getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
-        getProfileView().setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+        getProfileView().setPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
     }
 
     @Override

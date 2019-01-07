@@ -123,7 +123,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
     protected void onViewClicked(View view) {
         if (view.getId() == R.id.search) {
             search();
-        } else if (view.getId() == R.id.cancel_button) {
+        } else if (view.getId() == R.id.undo_button) {
             ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
             ((BaseRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
             ((BaseRegisterActivity) getActivity()).setSearchTerm("");

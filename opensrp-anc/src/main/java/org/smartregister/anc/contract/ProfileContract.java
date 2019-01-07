@@ -3,6 +3,7 @@ package org.smartregister.anc.contract;
 import android.content.Intent;
 
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.contract.BaseProfileContract;
 
 import java.util.Map;
 
@@ -11,11 +12,10 @@ import java.util.Map;
  */
 public interface ProfileContract {
 
-    interface Presenter {
-
+    interface Presenter extends BaseProfileContract.Presenter {
         ProfileContract.View getProfileView();
 
-        void onDestroy(boolean isChangingConfiguration);
+        void fetchProfileData(String baseEntityId);
 
         void refreshProfileView(String baseEntityId);
 
@@ -26,7 +26,7 @@ public interface ProfileContract {
         void saveFinishForm(Map<String, String> client);
     }
 
-    interface View {
+    interface View extends BaseProfileContract.View {
 
         void setProfileName(String fullName);
 
@@ -38,15 +38,7 @@ public interface ProfileContract {
 
         void setProfileImage(String baseEntityId);
 
-        void showProgressDialog(int messageStringIdentifier);
-
-        void hideProgressDialog();
-
-        void displayToast(int resourceId);
-
-        String getIntentString(String intentKey);
-
-        void setWomanPhoneNumber(String phoneNumber);
+        void setPhoneNumber(String phoneNumber);
 
     }
 
@@ -54,7 +46,7 @@ public interface ProfileContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void refreshProfileView(String baseEntityId);
+        void refreshProfileView(String baseEntityId, boolean isForEdit);
 
     }
 }

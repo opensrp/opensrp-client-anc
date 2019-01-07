@@ -1,0 +1,326 @@
+{
+  "content_form": [
+    {
+      "key": "syph_test_status",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "label": "Syphilis test",
+      "label_info_text": "A syphilis test is recommended for all pregnant women at the first contact and again at the first contact of 3rd trimester (28 weeks). Women who are already confirmed positive for syphilis do not need to be tested.",
+      "label_info_title": "Syphilis test",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "type": "anc_radio_button",
+      "multi_relevance": true,
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "type": "done_today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "type": "done_earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "ordered",
+          "text": "Ordered",
+          "type": "ordered",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "type": "not_done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "key": "syphilis_info_one_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "This area has a high prevalence of syphilis (5% or greater).",
+      "toaster_info_text": "Use an on-site rapid syphilis test (RST), and, if positive, provide the first dose of treatment. Then refer the woman for a rapid plasma reagin (RPR) test. If the RPR test is positive, provide treatment according to the clinical phase of syphilis.",
+      "toaster_info_title": "This area has a high prevalence of syphilis (5% or greater).",
+      "toaster_type": "info"
+    },
+    {
+      "key": "syphilis_info_two_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "This area has a low prevalence of syphilis (below 5%)",
+      "toaster_info_text": "On-site rapid syphilis test (RST) should be used to test pregnant women for syphilis.",
+      "toaster_info_title": "This area has a low prevalence of syphilis (below 5%)",
+      "toaster_type": "info"
+    },
+    {
+      "key": "syph_test_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "check_box",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "stock_out",
+          "text": "Stock out",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "expired_stock",
+          "text": "Expired stock",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "relevance": {
+        "step1:syph_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "not_done"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "syph_test_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify*",
+      "edit_type": "name",
+      "relevance": {
+        "step1:syph_test_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "syphilis_test_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Syphilis test date *",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "step1:syph_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Select the date of the syphilis test."
+      }
+    },
+    {
+      "key": "syph_test_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Syphilis test type",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "rapid_syphilis",
+          "text": "Rapid syphilis test",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "rapid_plasma",
+          "text": "Rapid plasma reagin test",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "off_site_lab",
+          "text": "Off-site lab test",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "relevance": {
+        "step1:syph_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier",
+                "ordered"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "rapid_syphilis_test",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Rapid syphilis test (RST)",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive",
+          "text": "Positive",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "rpr_syphilis_test",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Rapid plasma reagin (RPR) test",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive",
+          "text": "Positive",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "lab_syphilis_test",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Off-site lab test for syphilis",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive",
+          "text": "Positive",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "syphilis_positive",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text": "0",
+      "text_color": "#000000",
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "syphilis_danger_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Syphilis test positive",
+      "toaster_info_text": "Provide counselling and treatment according to protocol.",
+      "toaster_info_title": "Syphilis test positive",
+      "toaster_type": "problem"
+    }
+  ]
+}

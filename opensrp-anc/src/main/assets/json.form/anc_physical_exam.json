@@ -1,8 +1,20 @@
 {
-  "count": "3",
+  "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
+  "global": {
+    "prev_preg_comps": "['gestational_diabetes','macrosomia']",
+    "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
+    "urine_glucose":"two_plus",
+    "contact_no": 2,
+    "current_weight":134,
+    "pop_undernourish": 1,
+    "dm_in_preg":1,
+    "hb_results":10,
+    "gest_age":12,
+    "last_contact_date":"14-11-2018"
+  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -52,120 +64,1845 @@
     }
   },
   "step1": {
-    "title": "Physical Exam",
+    "title": "Height & Weight",
     "next": "step2",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "height_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Height (cm)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "height",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5090",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the height"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "100",
+          "err": "Height must be equal or greater than 100"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Height must be equal or less than 200"
+        }
+      },
+      {
+        "key": "pregest_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pre-gestational weight (kg)",
+        "text_color": "#000000",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
+          "err": "Please enter pre-gestational weight"
         },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+        "relevance": {
+          "step1:pregest_weight_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "pregest_weight_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "pregest_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "5090",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step1:pregest_weight_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "pregest_weight_unknown"
+                ]
+              }
+            ]
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Weight must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "180",
+          "err": "Weight must be equal or less than 180"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Pre-gestational weight is required"
+        }
+      },
+      {
+        "key": "pregest_weight_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "pregest_weight_unknown",
+            "text": "Pre-gestational weight unknown",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "current_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Current weight (kg)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "current_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5089",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Weight must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "180",
+          "err": "Weight must be equal or less than 180"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the current weight"
+        }
+      },
+      {
+        "key": "first_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "gdm_risk",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight_cat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "exp_weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight_gain_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tot_weight_gain",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Body mass Index",
+        "openmrs_entity_id": "1432",
+        "type": "toaster_notes",
+        "text": "Body mass index (BMI) = {bmi}\n\nWoman is {weight_cat}. Weight gain during pregnancy should be {exp_weight_gain} kg.",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Weight gain finding",
+        "openmrs_entity_id": "122887",
+        "type": "toaster_notes",
+        "text": "Average weight gain per week since last contact: {weight_gain} kg\n\nTotal weight gain in pregnancy so far: {tot_weight_gain} kg",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Gestational diabetes mellitus (GDM) risk counseling",
+        "text_color": "#D56900",
+        "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n- Reasserting dietary interventions\n- Reasserting physical activity during pregnancy",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster4",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Healthy eating and keeping physically active counseling",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "toaster_info_text": "Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.",
+        "toaster_info_title": "Nutritional and Exercise Folder"
+      },
+      {
+        "key": "toaster5",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Weight gain finding",
+        "openmrs_entity_id": "122887",
+        "type": "toaster_notes",
+        "text": "Increase daily energy and protein intake counseling",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "toaster_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
+        "toaster_info_title": "Protein and Energy Sources Folder",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster6",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Weight gain finding",
+        "openmrs_entity_id": "122887",
+        "type": "toaster_notes",
+        "text": "Balanced energy and protein dietary supplementation counseling",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "toaster_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates.",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
   },
   "step2": {
-    "title": "Physical Exam 2",
+    "title": "Blood Pressure",
     "next": "step3",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "bp_systolic_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Systolic blood pressure (SBP) (mmHg)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "bp_systolic",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
-        "v_required": {
+        "openmrs_entity": "Systolic blood pressure",
+        "openmrs_entity_id": "5085",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
           "value": "true",
-          "err": "Please enter the last name"
+          "err": ""
         },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+        "v_min": {
+          "value": "60",
+          "err": "SBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "SBP must be equal or less than 260"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Field systolic is required"
+        }
+      },
+      {
+        "key": "bp_diastolic_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Diastolic blood pressure (DBP) (mmHg)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "bp_diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Diastolic blood pressure",
+        "openmrs_entity_id": "5086",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "DBP must be equal to or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "DBP must be equal to or less than 260"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Field diastolic is required"
+        }
+      },
+      {
+        "key": "toaster7",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Measure BP again after 10-15 minutes rest.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_systolic_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Systolic (SBP) after 10-15 minutes",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_systolic_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "SBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "SBP must be equal or less than 260"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Field systolic is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_diastolic_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Diastolic (DBP) after 10-15 minutes",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_diastolic_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "60",
+          "err": "DBP must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "260",
+          "err": "DBP must be equal or less than 260"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Field diastolic is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster8",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Do urine dipstick test for protein.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "symp_sev_preeclampsia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any symptoms of severe pre-eclampsia?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "severe_headache",
+            "text": "Severe headache",
+            "value": false,
+            "openmrs_entity": "Headache",
+            "openmrs_entity_id": "139084"
+          },
+          {
+            "key": "blurred_vision",
+            "text": "Blurred vision",
+            "value": false,
+            "openmrs_entity": "Blurred vision",
+            "openmrs_entity_id": "147104"
+          },
+          {
+            "key": "epigastric_pain",
+            "text": "Epigastric pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "141128"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vomiting",
+            "text": "Vomiting",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify any other symptoms or select none"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "urine_protein",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "URINE PROTEIN (DIP STICK)",
+        "openmrs_entity_id": "1875",
+        "type": "native_radio",
+        "label": "Urine dipstick result - protein",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "one_plus",
+            "text": "+",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "two_plus",
+            "text": "++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "three_plus",
+            "text": "+++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "four_plus",
+            "text": "++++",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the result for the dipstick test."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hypertension",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_hypertension",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster9",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hypertension diagnosis! Provide counseling.",
+        "toaster_info_text": "Woman has hypertension - SBP of 140 mmHg or higher and/or DBP of 90 mmHg or higher and no proteinuria.\n\nCounseling:\n- Advice to reduce workload and to rest\n- Advise on danger signs\n- Reassess at the next contact or in 1 week if 8 months pregnant\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster10",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Severe hypertension! Refer urgently to hospital!",
+        "toaster_info_text": "Woman has severe hypertension. If SBP is 160 mmHg or higher and/or DBP is 110 mmHg or higher, then refer urgently to the hospital for further investigation and management.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster11",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Symptom(s) of severe pre-eclampsia! Refer urgently to hospital!",
+        "toaster_info_text": "Woman has hypertension. If she is experiencing a symptom of severe pre-eclampsia, then refer urgently to the hospital for further investigation and management.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "severe_preeclampsia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster13",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Severe pre-eclampsia diagnosis! Provide urgent treatment and refer to hospital!",
+        "toaster_info_text": "Woman has severe pre-eclampsia - SBP of 160 mmHg or above and/or DBP of 110 mmHg or above and proteinuria 3+ OR woman has SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ with at least one symptom of severe pre-eclampsia.\n\nProcedure:\n- Give magnesium sulphate\n- Give appropriate anti-hypertensives\n- Revise the birth plan\n- Refer urgently to hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preeclampsia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster14",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia diagnosis! Refer to hospital and revise birth plan.",
+        "toaster_info_text": "Woman has pre-eclampsia - SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ and no symptom of severe pre-eclampsia.\n\nProcedure:\n- Refer to hospital\n- Revise the birth plan",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
   },
   "step3": {
-    "title": "Physical Exam 3",
+    "title": "Maternal Exam",
+    "next": "step4",
     "fields": [
       {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "First name *",
-        "edit_type": "name",
+        "key": "body_temp_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Temperature (ºC)",
+        "text_color": "#000000",
         "v_required": {
-          "value": "true",
-          "err": "Please enter the first name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "value": true
         }
       },
       {
-        "key": "last_name",
+        "key": "body_temp",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "Last name *",
-        "edit_type": "name",
+        "openmrs_entity": "Temperature (C)",
+        "openmrs_entity_id": "5088",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter body temperature"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Temperature must be equal to or greater than 35"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "Temperature must be equal to or less than 42"
+        }
+      },
+      {
+        "key": "toaster15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Temperature of 38ºC or above! Measure temperature again.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:body_temp": {
+            "type": "numeric",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        }
+      },
+      {
+        "key": "body_temp_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second temperature (ºC)",
+        "text_color": "#000000",
+        "label_info_text": "Retake the woman's temperature if the first reading was 38ºC or higher.",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "step3:body_temp": {
+            "type": "numeric",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        }
+      },
+      {
+        "key": "body_temp_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5088",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please re-enter body temperature"
+        },
+        "relevance": {
+          "step3:body_temp": {
+            "type": "numeric",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "35",
+          "err": "Temperature must be equal to or greater than 35"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "Temperature must be equal to or less than 42"
+        }
+      },
+      {
+        "key": "toaster16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has a fever. Provide treatment and refer urgently to hospital!",
+        "toaster_info_text": "Procedure:\n- Insert an IV line\n- Give fluids slowly\n- Refer urgently to hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:body_temp_repeat": {
+            "type": "numeric",
+            "ex": "greaterThanEqualTo(., \"38\")"
+          }
+        }
+      },
+      {
+        "key": "pulse_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pulse rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "pulse_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Pulse",
+        "openmrs_entity_id": "5087",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter pulse rate"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Pulse rate must be equal to or greater than 50"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Pulse rate must be equal to or less than 200"
+        }
+      },
+      {
+        "key": "toaster17",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pulse rate. Check again after 10 minutes rest.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pulse_rate_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second pulse rate (bpm)",
+        "label_info_text": "Retake the woman's pulse rate if the first reading was lower than 60 or higher than 100.",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pulse_rate_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter pulse rate"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster18",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pulse rate. Refer for further investigation.",
+        "toaster_info_text": "Procedure:\n- Check for fever, infection, respiratory distress, and arrhythmia\n- Refer for further investigation",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pallor",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Pallor",
+        "openmrs_entity_id": "5245",
+        "type": "native_radio",
+        "label": "Pallor present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "anaemic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster19",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Anaemia diagnosis! Haemoglobin (Hb) test recommended.",
+        "toaster_info_text": "Anaemia - Hb level less than 11 in first or third trimester or Hb level less than 10.5 in second trimester.\n\nOR\n\nNo Hb test result recorded, but woman has pallor.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "respiratory_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Respiratory exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "3",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal",
+            "specify_info": "specify...",
+            "specify_widget": "check_box",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "respiratory_exam_sub_form"
+          }
+        ]
+      },
+      {
+        "key": "toaster20",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has respiratory distress. Refer urgently to the hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:respiratory_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "oximetry_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Oximetry (%)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step3:respiratory_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "oximetry",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step3:respiratory_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "toaster21",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has low oximetry. Refer urgently to the hospital!",
+        "toaster_info_text": "Procedure:\n- Give oxygen\n- Refer urgently to hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cardiac_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Cardiac exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "3",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal",
+            "specify_info": "specify...",
+            "specify_widget": "check_box",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "cardiac_exam_sub_form"
+          }
+        ]
+      },
+      {
+        "key": "toaster22",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal cardiac exam. Refer urgently to the hospital!",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:cardiac_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "breast_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Breast examination (text) ",
+        "openmrs_entity_id": "162825",
+        "type": "native_radio",
+        "label": "Breast exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "3",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal",
+            "specify_info": "specify...",
+            "specify_widget": "check_box",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "breast_exam_sub_form"
+          }
+        ]
+      },
+      {
+        "key": "toaster23",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal breast exam. Refer for further investigation.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:breast_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "abdominal_exam",
+        "openmrs_entity_parent": "Abdominal Examination",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160947",
+        "type": "native_radio",
+        "label": "Abdominal exam",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "3",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal",
+            "specify_info": "specify...",
+            "specify_widget": "check_box",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "abdominal_exam_sub_form"
+          }
+        ]
+      },
+      {
+        "key": "toaster24",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal abdominal exam. Refer for further investigation.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:abdominal_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "pelvic_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Pelvic exam (visual)",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "3",
+        "options": [
+          {
+            "key": "1",
+            "text": "Not done"
+          },
+          {
+            "key": "2",
+            "text": "Normal"
+          },
+          {
+            "key": "3",
+            "text": "Abnormal",
+            "specify_info": "specify...",
+            "specify_widget": "check_box",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "pelvic_exam_sub_form"
+          }
+        ]
+      },
+      {
+        "key": "toaster25",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal pelvic exam. Refer for further investigation.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:pelvic_exam": {
+            "type": "string",
+            "ex": "equalTo(., \"3\")"
+          }
+        }
+      },
+      {
+        "key": "cervical_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Uterine cervix examination (text) ",
+        "openmrs_entity_id": "160968",
+        "type": "native_radio",
+        "label": "Cervical exam done?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "1",
+        "options": [
+          {
+            "key": "1",
+            "text": "Done",
+            "specify_info": "specify cm cervix dilated...",
+            "specify_widget": "normal_edit_text",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "cervical_exam_sub_form"
+          },
+          {
+            "key": "2",
+            "text": "Not done"
+          }
+        ]
+      },
+      {
+        "key": "oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "460",
+        "type": "native_radio",
+        "label": "Oedema present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "yes",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "specify_info": "specify severity...",
+            "specify_widget": "radio_button",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "oedema_present_sub_form"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "oedema_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Oedema type",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "ankle_oedema",
+            "text": "Pitting ankle oedema",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hands_feet_oedema",
+            "text": "Oedema of the hands and feet",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "lower_back_oedema",
+            "text": "Pitting lower back oedema",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "leg_swelling",
+            "text": "Leg swelling",
+            "value": false,
+            "openmrs_entity": "Edema, legs",
+            "openmrs_entity_id": "590"
+          }
+        ],
+        "relevance": {
+          "step3:oedema": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "yes"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Fetal Assessment",
+    "fields": [
+      {
+        "key": "sfh_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Symphysis-fundal height (SFH) in centimetres (cm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "sfh",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "FUNDAL HEIGHT",
+        "openmrs_entity_id": "1439",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_min": {
+          "value": "0.1",
+          "err": "SFH must be greater than 0"
+        },
+        "v_max": {
+          "value": "44",
+          "err": "SFH must be less than or equal to 44"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the SFH"
+        }
+      },
+      {
+        "key": "fetal_movement",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal movements present",
+        "openmrs_entity_id": "1875",
+        "type": "native_radio",
+        "label": "Fetal movement felt?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "Please this field is required."
+        }
+      },
+      {
+        "key": "fetal_heartbeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Fetal heartbeat present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "yes" ,
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "specify_info": "specify fetal heart rate (bpm)...",
+            "specify_widget": "normal_edit_text",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "fetal_heartbeat_sub_form"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please specify if fetal heartbeat is present."
+        }
+      },
+      {
+        "key": "toaster27",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "No fetal heartbeat observed. Refer to hospital.",
+        "toaster_info_text": "Procedure:\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n- Refer to hospital.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "toaster28",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Fetal heart rate out of normal range (110-160). Please have the woman lay on her left side for 15 minutes and check again.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_heart_rate_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_heart_rate_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter result for the second fetal heart rate"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster29",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal fetal heart rate. Refer to hospital.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "no_of_fetuses_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "No. of fetuses",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step4:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "no_of_fetuses",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "numbers_selector",
+        "number_of_selectors": "2",
+        "start_number": "1",
+        "max_value": "8",
+        "text_size": "16px",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step4:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "no_of_fetuses_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "no_of_fetuses_unknown",
+            "text": "No. of fetuses unknown",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "preeclampsia_risk",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster30",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Pre-eclampsia risk counseling",
+        "text_color": "#D56900",
+        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_presentation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal presentation ",
+        "openmrs_entity_id": "1067",
+        "type": "check_box",
+        "label": "Fetal presentation",
+        "label_text_style": "bold",
+        "label_info_text": "If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
+        "options": [
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "value": "false",
+            "openmrs_entity": "Vertex presentation",
+            "openmrs_entity_id": "160091"
+          },
+          {
+            "key": "pelvic",
+            "text": "Pelvic",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "value": "false",
+            "openmrs_entity": "Transverse or Oblique Fetal Presentation",
+            "openmrs_entity_id": "112259"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
-          "err": "Please enter a valid name"
+          "err": "Fetal representation field is required"
         }
       }
     ]

@@ -450,7 +450,7 @@
     "next": "step3",
     "fields": [
       {
-        "key": "behavior_persist",
+        "key": "behaviour_persist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -526,7 +526,7 @@
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
-          "step2:behavior_persist": {
+          "step2:behaviour_persist": {
             "ex-checkbox": [
               {
                 "or": [
@@ -548,7 +548,7 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step2:behavior_persist": {
+          "step2:behaviour_persist": {
             "ex-checkbox": [
               {
                 "or": [
@@ -570,7 +570,7 @@
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
-          "step2:behavior_persist": {
+          "step2:behaviour_persist": {
             "ex-checkbox": [
               {
                 "or": [
@@ -592,7 +592,7 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step2:behavior_persist": {
+          "step2:behaviour_persist": {
             "ex-checkbox": [
               {
                 "or": [
@@ -614,7 +614,7 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step2:behavior_persist": {
+          "step2:behaviour_persist": {
             "ex-checkbox": [
               {
                 "or": [

@@ -1,0 +1,157 @@
+{
+  "content_form": [
+
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "birth_plan_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Birth Plan"
+    },
+    {
+      "key": "birth_plan_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Woman should plan to give birth at a facility due to risk factors",
+      "toaster_info_text": "Risk factors necessitating a facility birth:\n\n- Age 17 or under\n\n- Primigravida\n\n- Parity 6 or higher\n\n- Prior C-section\n\n- Previous pregnancy complications: Heavy bleeding, Forceps or vacuum delivery, Convulsions, or 3rd degree tear\n\n- Vaginal bleeding\n\n - Multiple fetuses\n\n- Abnormal fetal presentation\n\n- HIV+\n\n- Wants IUD or tubal ligation following delivery",
+      "toaster_info_title": "Woman should plan to give birth at a facility due to risk factors",
+      "toaster_type": "info"
+    },
+    {
+      "key": "delivery_place",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Planned birth place",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "facility",
+          "text": "Facility",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "facility_elective",
+          "text": "Facility (elective C-section)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "home",
+          "text": "Home",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "encourage_facility_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Encourage delivery at a facility!",
+      "toaster_type": "warning"
+    },
+    {
+      "key": "birth_prep_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Birth preparedness and complications readiness counseling",
+      "label_info_text": "This includes:\n\n- Skilled birth attendant\n\n- Labour and birth companion\n\n- Location of the closest facility for birth and in case of complications\n\n- Funds for any expenses related to birth and in case of complications\n\n- Supplies and materials necessary to bring to the facility\n\n- Support to look after the home and other children while she's away\n\n- Transport to a facility for birth or in case of a complication\n\n- Identification of compatible blood donors in case of complications",
+      "label_info_title": "Birth preparedness and complications readiness counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "rh_negative_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Rh factor negative counseling",
+      "label_info_text": "Counseling:\n\n- Woman is at risk of alloimmunisation if the baby's father is Rh positive or unknown\n\n- Proceed with local protocol to investigate sensitization and the need for referral\n\n- If non-sensitized, woman should receive anti-D prophylaxis postnatally if the baby is Rh positive",
+      "label_info_title": "Rh factor negative counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "gbs_agent_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "label_info_text": "Pregnant women with GBS colonization should receive intrapartum antibiotic administration to prevent early neonatal GBS infection.",
+      "label_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    }
+  ]
+}

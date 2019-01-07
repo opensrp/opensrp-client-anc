@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="13dp"
+    android:paddingStart="13dp"
+    android:orientation="horizontal"
+    android:weightSum="2">
+
+    <com.vijay.jsonwizard.views.CustomTextView
+        android:id="@+id/item_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="@color/text_black"
+        android:paddingBottom="5dp"
+        android:layout_weight="0.8"/>
+
+    <com.vijay.jsonwizard.views.CustomTextView
+        android:id="@+id/item_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingBottom="5dp"
+        android:layout_weight="1.2"/>
+
+</LinearLayout>

@@ -1,8 +1,21 @@
 {
-  "count": "3",
+  "count": "8",
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
+  "global": {
+    "site_anc_hiv": 1,
+    "site_ultrasound": 1,
+    "contact_no": 1,
+    "no_of_fetuses": 1,
+    "bmi": 28,
+    "urine_glucose":"none",
+    "gdm": 0,
+    "dm_in_preg": 0,
+    "hiv_test_result": "negative",
+    "pop_hepb": 0,
+    "pop_hepb_screening": 0
+  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -242,10 +255,16 @@
         "key": "hiv_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -260,9 +279,10 @@
         "toaster_type": "problem",
         "text_color": "#CF0800",
         "relevance": {
-          "step1:hiv_risk": {
-            "type": "string",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }
@@ -282,6 +302,7 @@
         "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, check unknown and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
         "label_info_title": "LMP known?",
         "label_text_style": "bold",
+        "max_date": "today",
         "options": [
           {
             "key": "yes",
@@ -289,7 +310,8 @@
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "",
             "text": "Yes",
-            "specify_info": "specify date"
+            "specify_info": "specify date",
+            "specify_widget": "date_picker"
           },
           {
             "key": "no",
@@ -305,28 +327,40 @@
       },
       {
         "openmrs_entity_parent": "",
-        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160581",
         "key": "lmp_edd",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
         "openmrs_entity_parent": "",
-        "openmrs_entity": "HIV Risk factor Exposure",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160581",
         "key": "lmp_gest_age",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -346,7 +380,8 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "specify_info": "ultrasound date"
+            "specify_info": "ultrasound date",
+            "specify_widget": "date_picker"
           },
           {
             "key": "no",
@@ -372,9 +407,10 @@
         "toaster_info_title": "Ultrasound recommended",
         "toaster_type": "info",
         "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -390,19 +426,12 @@
         "toaster_info_title": "Refer for ultrasound in facility with U/S equipment",
         "toaster_type": "info",
         "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "20px"
       },
       {
         "key": "ultrasound_gest_age_wks",
@@ -465,44 +494,6 @@
         }
       },
       {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "ultrasound_edd",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text": "0",
-        "text_color": "#FF0000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "ultrasound_gest_age",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text": "0",
-        "text_color": "#FF0000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
         "key": "sfh_gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -524,6 +515,51 @@
         "v_max": {
           "value": "43",
           "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_edd",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "ultrasound_gest_age",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -533,10 +569,32 @@
         "key": "sfh_edd",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "gest_edd_label",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "text_color": "#000000",
+        "text": "GA: {gest_age}\nEDD: {edd}",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -554,26 +612,36 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "text": "Using LMP"
+            "text": "Using LMP",
+            "extra_info": "GA: {lmp_gest_age}\nEDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
             "text": "Using ultrasound",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "",
+            "extra_info": "GA: {ultrasound_gest_age}\nEDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
             "text": "Using SFH or abdominal palpation",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "",
+            "extra_info": "GA: {sfh_gest_age} weeks\nEDD: {sfh_edd}"
           }
         ],
         "value": "none",
         "v_required": {
           "value": true
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -583,10 +651,16 @@
         "key": "gest_age",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -596,10 +670,16 @@
         "key": "edd",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       }
     ]
@@ -617,7 +697,7 @@
         "spacer_height": "10dp"
       },
       {
-        "key": "enabled_label",
+        "key": "gravida_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "Number of pregnancies",
@@ -650,14 +730,20 @@
         "key": "previous_pregnancies",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
-        "key": "enabled_label",
+        "key": "miscarriages_abortions_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of pregnancies lost/ended",
@@ -681,6 +767,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "constraints": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_constraint_rule.yml"
+            }
+          }
         }
       },
       {
@@ -692,7 +785,7 @@
         "spacer_height": "15dp"
       },
       {
-        "key": "enabled_label",
+        "key": "live_births_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of live births",
@@ -716,6 +809,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "constraints": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_constraint_rule.yml"
+            }
+          }
         }
       },
       {
@@ -727,7 +827,7 @@
         "spacer_height": "15dp"
       },
       {
-        "key": "enabled_label",
+        "key": "stillbirths_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of still births",
@@ -751,6 +851,13 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "constraints": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_constraint_rule.yml"
+            }
+          }
         }
       },
       {
@@ -764,10 +871,17 @@
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
-        "key": "enabled_label",
+        "key": "c_sections_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of C-sections",
@@ -911,6 +1025,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select at least one past pregnancy problems"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -919,7 +1040,7 @@
         "openmrs_entity": "PAST PREGNANCY COMPLICATIONS",
         "openmrs_entity_id": "1430",
         "type": "edit_text",
-        "hint": "Specify Any Past Pregnancy Problems*",
+        "hint": "Specify any past pregnancy problems*",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [
@@ -949,7 +1070,7 @@
         "type": "check_box",
         "label": "Specify Alcohol or illicit substance use",
         "label_text_style": "bold",
-        "hint": "Specify Alcohol or illicit substance use",
+        "hint": "Specify alcohol or illicit substance use",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [
@@ -1007,7 +1128,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select at least one Alcohol or illicit substance use"
+          "err": "Please select at least one alcohol or illicit substance use"
         }
       },
       {
@@ -1044,10 +1165,16 @@
         "key": "preeclampsia_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -1062,9 +1189,10 @@
         "toaster_info_title": "Pre-eclampsia risk counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step3:preeclampsia_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -1075,10 +1203,16 @@
         "key": "gdm_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -1093,9 +1227,10 @@
         "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step3:gdm_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }
@@ -1469,7 +1604,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "Hypertension",
             "openmrs_entity_id": "117399",
-            "key": "Hypertension",
+            "key": "hypertension",
             "text": "Hypertension"
           },
           {
@@ -1541,9 +1676,10 @@
         "toaster_info_title": "Pre-eclampsia risk counseling",
         "toaster_type": "warning",
         "relevance": {
-          "step1:preeclampsia_risk": {
-            "type": "string",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       },
@@ -1555,18 +1691,11 @@
         "type": "date_picker",
         "hint": "HIV diagnosis date *",
         "expanded": false,
-        "duration": {
-          "label": "HIV Diagnosis Date"
-        },
         "relevance": {
-          "step4:health_conditions": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "hiv"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         },
         "max_date": "today",
@@ -1590,7 +1719,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "Unknown HIV Date",
+            "key": "hiv_diagnosis_date_unknown",
             "text": "Unknown HIV Date",
             "value": false
           }
@@ -1618,10 +1747,16 @@
         "key": "hiv_positive",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       }
     ]
@@ -1638,7 +1773,7 @@
         "type": "native_radio",
         "label": "TT immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
@@ -1729,7 +1864,7 @@
         "type": "native_radio",
         "label": "Hep B immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
@@ -1764,6 +1899,13 @@
         "v_required": {
           "value": true,
           "err": "Please select Hep B immunisation status"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -1820,7 +1962,7 @@
         "type": "native_radio",
         "label": "Flu immunisation status",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "seasonal_flu_dose_given",
@@ -2172,7 +2314,7 @@
         "label": "Daily caffeine intake",
         "label_text_style": "bold",
         "hint": "Daily caffeine intake",
-        "label_text_info": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.",
+        "label_info_text": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.\n\nPlease indicate if the woman consumes more than these amounts per day.",
         "exclusive": [
           "none"
         ],
@@ -2253,7 +2395,7 @@
         "type": "native_radio",
         "label": "Uses tobacco products?",
         "label_text_style": "bold",
-        "multi_relevance":true,
+        "multi_relevance": true,
         "options": [
           {
             "key": "yes",
@@ -2556,11 +2698,17 @@
         "openmrs_entity_id": "",
         "key": "hiv_risk",
         "type": "hidden",
-        "text": "0",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2575,9 +2723,10 @@
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step7:hiv_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }
@@ -2629,10 +2778,16 @@
         "key": "partner_hiv_positive",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2660,10 +2815,16 @@
         "key": "hiv_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2678,9 +2839,10 @@
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {
-          "step8:hiv_risk": {
-            "type": "numeric",
-            "ex": "equalTo(., \"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
           }
         }
       }

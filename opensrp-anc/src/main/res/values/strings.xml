@@ -267,9 +267,6 @@
     <string name="qr_code_label">QR Code</string>
     <string name="clients_facility">Client\'s facility</string>
     <!-- Form container -->
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
-    <string name="submit">Submit</string>
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
     <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
     <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>
@@ -285,4 +282,8 @@
     <string name="save_and_finish">SAVE + FINISH</string>
     <string name="reason_for_visit">REASON FOR VISIT</string>
     <string name="contact_recorded_today">. CONTACT %1$d\ndone today</string>
+    <string name="info_icon_display">the more info icon display</string>
+    <string name="status_icon_display">the status icon display</string>
+    <string name="record">Record</string>
+    <string name="undo">Undo</string>
 </resources>

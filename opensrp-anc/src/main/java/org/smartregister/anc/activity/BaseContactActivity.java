@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
@@ -68,7 +70,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     protected void setupViews() {
         initializeRecyclerView();
 
-        View cancelButton = findViewById(R.id.cancel_button);
+        View cancelButton = findViewById(R.id.undo_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +110,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString());
 
-        intent.putExtra(Constants.JSON_FORM_EXTRA.CONTACT, contact);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
@@ -213,7 +215,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.cancel_button:
+                case R.id.undo_button:
                     displayContactSaveDialog();
                     break;
                 case R.id.card_layout:

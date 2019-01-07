@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.smartregister.anc.R;
+import org.smartregister.view.fragment.BaseProfileFragment;
 
 /**
  * Created by ndegwamartin on 12/07/2018.

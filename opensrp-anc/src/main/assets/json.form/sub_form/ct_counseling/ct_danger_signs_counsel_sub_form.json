@@ -1,0 +1,70 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "danger_signs_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "Danger Signs"
+    },
+    {
+      "key": "danger_signs_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Seeking care for danger signs counseling",
+      "label_info_text": "Danger signs include:\n\n- Headache\n\n- No fetal movement\n\n- Contractions\n\n- Abnormal vaginal discharge\n\n- Fever\n\n- Abdominal pain\n\n- Feels ill\n\n- Swollen fingers, face or legs",
+      "label_info_title": "Seeking care for danger signs counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "emergency_hosp_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Counseling on going immediately to the hospital if severe danger signs ",
+      "label_info_text": "Severe danger signs include:\n\n- Vaginal bleeding\n\n- Convulsions/fits\n\n- Severe headaches with blurred vision\n\n- Fever and too weak to get out of bed\n\n- Severe abdominal pain\n\n- Fast or difficult breathing",
+      "label_info_title": "Counseling on going immediately to the hospital if severe danger signs ",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 package org.smartregister.anc.util;
 
+import org.smartregister.anc.BuildConfig;
+
 /**
  * Created by ndegwamartin on 14/03/2018.
  */
@@ -10,10 +12,33 @@ public abstract class Constants {
     public static final String CONTACT_SUMMARY_DATE_FORMAT = "dd MMMM yyyy";
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final String FORM = "form";
+    public static final boolean TIME_CHECK = BuildConfig.TIME_CHECK;
+    public static final String ACCORDION_INFO_TEXT = "accordion_info_text";
+    public static final String ACCORDION_INFO_TITLE = "accordion_info_title";
+    public static final String DISPLAY_BOTTOM_SECTION = "display_bottom_section";
+    public static final String NEXT = "next";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final String ANC_ID = "ANC_ID";
     public static final int DELIVERY_DATE_WEEKS = 40;
+    public static final String EXPANSION_PANEL = "expansion_panel";
+    public static final String ANC_RADIO_BUTTON = "anc_radio_button";
+
+    public static class ANC_RADIO_BUTTON_OPTION_TYPES {
+        public static final String DONE_TODAY = "done_today";
+        public static final String DONE_EARLIER = "done_earlier";
+        public static final String ORDERED = "ordered";
+        public static final String NOT_DONE = "not_done";
+
+    }
+
+    public static class ANC_RADIO_BUTTON_OPTION_TEXT {
+        public static final String DONE_TODAY = "Done today";
+        public static final String DONE_EARLIER = "Done earlier";
+        public static final String ORDERED = "Ordered";
+        public static final String NOT_DONE = "Not done";
+
+    }
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -70,7 +95,6 @@ public abstract class Constants {
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String TYPE = "type";
-
 
     }
 
