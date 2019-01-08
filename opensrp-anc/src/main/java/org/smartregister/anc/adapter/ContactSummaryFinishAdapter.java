@@ -46,7 +46,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         List<ContactSummaryItem> fields = mData.get(position).getFields();
         String output = "";
         for (ContactSummaryItem contactSummaryItem : fields) {
-            if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, contactSummaryItem.getRelevance()) || true) {
+            if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, contactSummaryItem.getRelevance())) {
                 output += fillTemplate(contactSummaryItem.getTemplate(), this.facts) + "\n\n";
             }
         }

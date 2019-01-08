@@ -104,7 +104,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             @Override
             protected void onPreExecute() {
 
-                showProgressDialog("Saving contact progress...");
+              //  showProgressDialog("Saving contact progress...");
             }
 
             @Override
@@ -118,7 +118,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             @Override
             protected void onPostExecute(Void result) {
-                hideProgressDialog();
+               // hideProgressDialog();
                 ContactJsonFormActivity.this.finish();
 
             }
