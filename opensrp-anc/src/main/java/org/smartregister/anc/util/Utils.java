@@ -8,6 +8,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -52,6 +53,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
+    private static final String TAG = "Anc Utils";
 
     static {
         ALLOWED_LEVELS = new ArrayList<>();
@@ -146,12 +148,19 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
 
-        LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+        try {
+            LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
 
-        LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+            LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
 
-        Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
-        return weeks.getWeeks();
+            Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
+            return weeks.getWeeks();
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG,e.getMessage(),e);
+            return 0;
+        }
+
+
     }
 
     public static int getProfileImageResourceIDentifier() {

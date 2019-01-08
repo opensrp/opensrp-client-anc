@@ -101,7 +101,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
-        ImageButton backButton = findViewById(R.id.cancel_button);
+        ImageButton backButton = findViewById(R.id.undo_button);
         backButton.setImageResource(R.drawable.ic_arrow_back_white);
         backButton.setOnClickListener(this);
 
@@ -118,7 +118,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         super.onClick(view);
 
         switch (view.getId()) {
-            case R.id.cancel_button:
+            case R.id.undo_button:
                 super.onBackPressed();
                 break;
 
