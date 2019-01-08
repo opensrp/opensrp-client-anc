@@ -1,6 +1,6 @@
 {
   "count": "9",
-  "encounter_type": "Counselling and Treatment",
+  "encounter_type": "Counselling & Treatment",
   "entity_id": "",
   "relational_id": "",
   "global": {
@@ -140,7 +140,21 @@
         "type": "toaster_notes",
         "text": "Danger sign(s): {danger_signs}",
         "toaster_info_text": "Procedure:\n\n- Manage according to the local protocol for rapid assessment and management\n\n- Refer urgently to hospital!",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "severe_hypertension_toaster",
@@ -150,7 +164,21 @@
         "type": "toaster_notes",
         "text": "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg",
         "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital for further investigation and management!",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "hypertension_pre_eclampsia_toaster",
@@ -160,7 +188,21 @@
         "type": "toaster_notes",
         "text": "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}",
         "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital for further investigation and management!",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "pre_eclampsia_dialog_toaster",
@@ -171,7 +213,21 @@
         "text": "Pre-eclampsia diagnosis",
         "toaster_info_text": "Procedure:\n\n- Refer to hospital\n\n- Revise the birth plan",
         "toaster_info_title": "Pre-eclampsia diagnosis",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "severe_pre_eclampsia_dialog_toaster",
@@ -182,7 +238,21 @@
         "text": "Severe pre-eclampsia diagnosis",
         "toaster_info_text": "Procedure:\n\n- Give magnesium sulphate\n\n- Give appropriate anti-hypertensives\n\n- Revise the birth plan\n\n- Refer urgently to hospital!",
         "toaster_info_title": "Severe pre-eclampsia diagnosis",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "fever_toaster",
@@ -193,7 +263,21 @@
         "text": "Fever: {body_temp_repeat}ºC",
         "toaster_info_text": "Procedure:\n\n- Insert an IV line\n\n- Give fluids slowly\n\n- Refer urgently to hospital!",
         "toaster_info_title": "Fever: {body_temp_repeat}ºC",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "abnormal_pulse_rate_toaster",
@@ -203,7 +287,21 @@
         "type": "toaster_notes",
         "text": "Abnormal pulse rate: {pulse_rate_repeat}bpm",
         "toaster_info_text": "Procedure:\n\n- Check for fever, infection, respiratory distress, and arrhythmia\n\n- Refer for further investigation",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "resp_distress_toaster",
@@ -213,7 +311,21 @@
         "type": "toaster_notes",
         "text": "Respiratory distress: {respiratory_exam_abnormal}, {respiratory_exam_abnormal_other}",
         "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital!",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "low_oximetry_toaster",
@@ -223,7 +335,21 @@
         "type": "toaster_notes",
         "text": "Low oximetry: {oximetry}%",
         "toaster_info_text": "Procedure:\n\n- Give oxygen\n\n- Refer urgently to hospital!",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "abn_cardiac_exam_toaster",
@@ -233,7 +359,21 @@
         "type": "toaster_notes",
         "text": "Abnormal cardiac exam: {cardiac_exam_abnormal}, {cardiac_exam_abnormal_other}",
         "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital!",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "abn_breast_exam_toaster",
@@ -243,7 +383,21 @@
         "type": "toaster_notes",
         "text": "Abnormal breast exam: {abdominal_exam_abnormal}, {abdominal_exam_abnormal_other}",
         "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "abn_abdominal_exam_toaster",
@@ -253,7 +407,21 @@
         "type": "toaster_notes",
         "text": "Abnormal abdominal exam: {abdominal_exam_abnormal}, {abdominal_exam_abnormal_other}",
         "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "abn_pelvic_exam_toaster",
@@ -263,7 +431,21 @@
         "type": "toaster_notes",
         "text": "Abnormal pelvic exam: {pelvic_exam_abnormal}, {pelvic_exam_abnormal_other}",
         "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "no_fetal_heartbeat_toaster",
@@ -274,7 +456,21 @@
         "text": "No fetal heartbeat observed",
         "toaster_info_text": "Procedure:\n\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n\n- Refer to hospital.",
         "toaster_info_title": "No fetal heartbeat observed",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "abn_feat_heart_rate_toaster",
@@ -284,7 +480,21 @@
         "type": "toaster_notes",
         "text": "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm",
         "toaster_info_text": "Procedure:\n\n- Refer to hospital",
-        "toaster_type": "problem"
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "referred_hosp",
@@ -293,6 +503,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Referred to hospital?",
+        "multi_relevance": true,
         "label_text_style": "bold",
         "options": [
           {
@@ -351,6 +562,17 @@
         "v_required": {
           "value": true,
           "err": "Please select a reason why referring wasn't done"
+        },
+        "relevance": {
+          "step1:referred_hosp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "no"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -391,7 +613,7 @@
         "display_bottom_section": true,
         "content_form": "ct_caffeine_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_tobacco_counsel",
@@ -405,7 +627,7 @@
         "display_bottom_section": true,
         "content_form": "ct_tobacco_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_shs_counsel",
@@ -419,7 +641,7 @@
         "display_bottom_section": true,
         "content_form": "ct_shs_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_condom_counsel",
@@ -433,7 +655,7 @@
         "display_bottom_section": true,
         "content_form": "ct_condom_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_alcohol_substance_counsel",
@@ -447,7 +669,7 @@
         "display_bottom_section": true,
         "content_form": "ct_alcohol_and_substance_abuse_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
@@ -467,7 +689,7 @@
         "display_bottom_section": true,
         "content_form": "ct_nausea_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_nausea_not_relieved_counsel",
@@ -481,7 +703,7 @@
         "display_bottom_section": true,
         "content_form": "ct_nausea_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_heartburn_counsel",
@@ -495,7 +717,7 @@
         "display_bottom_section": true,
         "content_form": "ct_heartburn_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_heartburn_not_relieved_counsel",
@@ -509,7 +731,7 @@
         "display_bottom_section": true,
         "content_form": "ct_heartburn_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_leg_cramp_counsel",
@@ -523,7 +745,7 @@
         "display_bottom_section": true,
         "content_form": "ct_leg_cramp_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_leg_cramp_not_relieved_counsel",
@@ -537,7 +759,7 @@
         "display_bottom_section": true,
         "content_form": "ct_leg_cramp_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_constipation_counsel",
@@ -551,7 +773,7 @@
         "display_bottom_section": true,
         "content_form": "ct_constipation_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_constipation_not_relieved_counsel",
@@ -565,7 +787,7 @@
         "display_bottom_section": true,
         "content_form": "ct_constipation_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_back_pelvic_pain_counsel",
@@ -575,12 +797,11 @@
         "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
         "accordion_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
         "accordion_info_title": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "ct_back_pelvic_pain_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_varicose_oedema_counsel",
@@ -594,7 +815,7 @@
         "display_bottom_section": true,
         "content_form": "ct_varicose_oedema_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
@@ -614,7 +835,7 @@
         "display_bottom_section": true,
         "content_form": "ct_eat_exercise_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diet_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_increase_energy_counsel",
@@ -628,7 +849,7 @@
         "display_bottom_section": true,
         "content_form": "ct_increase_energy_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diet_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_balanced_energy_counsel",
@@ -642,7 +863,7 @@
         "display_bottom_section": true,
         "content_form": "ct_balanced_energy_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diet_counsel",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
@@ -662,7 +883,7 @@
         "display_bottom_section": true,
         "content_form": "ct_hypertension_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_hiv_positive_counsel",
@@ -676,7 +897,7 @@
         "display_bottom_section": true,
         "content_form": "ct_hiv_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_hepb_positive_counsel",
@@ -690,7 +911,7 @@
         "display_bottom_section": true,
         "content_form": "ct_hepb_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_hepc_positive_counsel",
@@ -717,7 +938,7 @@
         "display_bottom_section": true,
         "content_form": "ct_syphilis_low_prev_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_asb_positive_counsel_counsel",
@@ -731,7 +952,7 @@
         "display_bottom_section": true,
         "content_form": "ct_asb_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_diabetes_counsel",
@@ -745,7 +966,7 @@
         "display_bottom_section": true,
         "content_form": "ct_diabetes_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_ifa_anaemia",
@@ -759,7 +980,7 @@
         "display_bottom_section": true,
         "content_form": "ct_ifa_anaemia_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_tb_positive_counseling",
@@ -773,7 +994,7 @@
         "display_bottom_section": true,
         "content_form": "ct_tb_positive_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
@@ -791,7 +1012,7 @@
         "display_bottom_section": true,
         "content_form": "ct_pe_risk_aspirin_sub_form",
         "content_form_location": "json.form/sub_form/ct_risks",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_hiv_risk_counsel",
@@ -805,7 +1026,7 @@
         "display_bottom_section": true,
         "content_form": "ct_hiv_risk_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_risks",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_gdm_risk_counsel",
@@ -819,7 +1040,7 @@
         "display_bottom_section": true,
         "content_form": "ct_gdm_risk_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_risks",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
@@ -839,7 +1060,7 @@
         "display_bottom_section": true,
         "content_form": "ct_danger_signs_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_anc_contact_counsel",
@@ -853,7 +1074,7 @@
         "display_bottom_section": true,
         "content_form": "ct_anc_contact_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_birth_plan_counsel",
@@ -867,7 +1088,7 @@
         "display_bottom_section": true,
         "content_form": "ct_birth_plan_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_family_planning_counsel",
@@ -879,7 +1100,7 @@
         "display_bottom_section": true,
         "content_form": "ct_family_planning_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_breastfeed_counsel",
@@ -893,7 +1114,7 @@
         "display_bottom_section": true,
         "content_form": "ct_breastfeed_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
@@ -911,7 +1132,7 @@
         "display_bottom_section": true,
         "content_form": "ct_ipv_enquiry_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_ifa_high_prev",
@@ -925,7 +1146,7 @@
         "display_bottom_section": true,
         "content_form": "ct_ifa_high_prev_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_deworm",
@@ -939,7 +1160,7 @@
         "display_bottom_section": true,
         "content_form": "ct_deworm_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_immunisation",
@@ -953,7 +1174,7 @@
         "display_bottom_section": true,
         "content_form": "ct_immunisation_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_calcium_supp",
@@ -967,7 +1188,7 @@
         "display_bottom_section": true,
         "content_form": "ct_calcium_supp_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_vite_supp",
@@ -981,7 +1202,7 @@
         "display_bottom_section": true,
         "content_form": "ct_vita_supp_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container":"anc_counselling_treatment"
+        "container": "anc_counselling_treatment"
       }
     ]
   },
