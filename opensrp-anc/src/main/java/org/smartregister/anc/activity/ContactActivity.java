@@ -267,7 +267,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                             }
                         }
 
-                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM) && fieldObject.has(JsonFormConstants.VALUE)) {
+                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
                             try {
 
                                 JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION), this);
@@ -322,7 +322,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
         JSONArray fieldsJsonArray = jsonSubForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
 
-        if (!TextUtils.isEmpty(parentObject.getString(JsonFormConstants.VALUE))) {
+        if (parentObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(parentObject.getString(JsonFormConstants.VALUE))) {
             if (parentObject.get(JsonFormConstants.VALUE) instanceof JSONArray) {
                 JSONArray jsonArray = parentObject.getJSONArray(JsonFormConstants.VALUE);
                 for (int j = 0; j < jsonArray.length(); j++) {
