@@ -1,0 +1,63 @@
+---
+name: step1_calcium_comply
+description: Calcium comply
+priority: 1
+condition: "global_calcium_supp == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_calcium_effects
+description: Calcium effects
+priority: 1
+condition: "global_calcium_supp == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_ifa_comply
+description: Ifa comply
+priority: 1
+condition: "global_iga_high_prev == 'done' || global_ifa_low_prev == 'done' || global_ifa_weekly == 'done' || global_ifa_anaemia == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_ifa_effects
+description: ifa effects
+priority: 1
+condition: "global_iga_high_prev == 'done' || global_ifa_low_prev == 'done' || global_ifa_weekly == 'done' || global_ifa_anaemia == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_aspirin_comply
+description: Asprin comply
+priority: 1
+condition: "global_pe_risk_aspirin == 'done' || global_pe_risk_aspirin_calcium"
+actions:
+  - "isRelevant = true"
+---
+name: step1_vita_comply
+description: Vitamin A comply
+priority: 1
+condition: "global_vita_supp == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_penicillin_comply
+description: Penicillin comply
+priority: 1
+condition: "global_syphilis_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_behaviour_persist
+description: Persisting behaviors
+priority: 1
+condition: "global_caffeine_intake.contains('more_than_3_cups_300ml_of_instant_coffee') || global_caffeine_intake.contains('more_than_48_pieces_squares_of_chocolate') || global_caffeine_intake.contains('more_than_2_small_cups_50_ml_of_espresso') || global_caffeine_intake.contains('commercially_brewed_coffee') || global_tobacco_user == 'yes' || global_shs_exposure == 'yes' || global_condom_use == 'no' || !global_alcohol_substance_use.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step4_mat_percept_fetal_move
+description: Felt baby move
+priority: 1
+condition: "global_gest_age > 20"
+actions:
+  - "isRelevant = true"
