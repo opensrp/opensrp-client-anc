@@ -249,6 +249,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                         if (fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
 
+                            processSpecialWidgets(fieldObject);
+
                             if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
                                 Integer requiredFieldCount = requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
@@ -265,10 +267,12 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                             }
                         }
 
-                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
+                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM) && fieldObject.has(JsonFormConstants.VALUE)) {
                             try {
-                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), "", this);
-                                processRequiredStepsField(subFormJson);
+
+                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION), this);
+                                processRequiredStepsField(createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
+
                             } catch (Exception e) {
                                 Log.e(TAG, e.getMessage());
                             }
@@ -280,6 +284,87 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             }
         }
 
+    }
+
+    private void processSpecialWidgets(JSONObject widget) throws JSONException {
+        String widgetType = widget.getString(JsonFormConstants.TYPE);
+        List<String> valueList = new ArrayList<>();
+
+
+        if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
+
+            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.VALUE).equals("true")) {
+
+                    valueList.add(jsonObject.getString(JsonFormConstants.KEY));
+
+                }
+
+            }
+            if (valueList.size() > 0) {
+                widget.put(JsonFormConstants.VALUE, valueList.toString());
+            }
+        }
+    }
+
+    private JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType) throws JSONException {
+
+        Map<String, String> vMap = new HashMap<>();
+
+        JSONObject resultJsonObject = new JSONObject();
+
+        JSONObject stepJsonObject = new JSONObject();
+
+        JSONArray fieldsJsonArray = jsonSubForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
+
+        if (!TextUtils.isEmpty(parentObject.getString(JsonFormConstants.VALUE))) {
+            if (parentObject.get(JsonFormConstants.VALUE) instanceof JSONArray) {
+                JSONArray jsonArray = parentObject.getJSONArray(JsonFormConstants.VALUE);
+                for (int j = 0; j < jsonArray.length(); j++) {
+
+                    populateValueMap(vMap, jsonArray.getJSONObject(j));
+                }
+
+            } else {
+
+                populateValueMap(vMap, parentObject.getJSONObject(JsonFormConstants.VALUE));
+            }
+
+            for (int l = 0; l < fieldsJsonArray.length(); l++) {
+
+                String value = vMap.get(fieldsJsonArray.getJSONObject(l).getString(JsonFormConstants.KEY));
+                if (!TextUtils.isEmpty(value)) {
+                    fieldsJsonArray.getJSONObject(l).put(JsonFormConstants.VALUE, value);
+                }
+            }
+
+        }
+
+        stepJsonObject.put(JsonFormConstants.FIELDS, fieldsJsonArray);
+
+        resultJsonObject.put(JsonFormConstants.FIRST_STEP_NAME, stepJsonObject);
+
+        resultJsonObject.put(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE, encounterType);
+
+        return resultJsonObject;
+
+    }
+
+    private void populateValueMap(Map<String, String> vMap, JSONObject jsonObject) throws JSONException {
+
+        JSONObject valueObject = jsonObject;
+        String key = valueObject.getString(JsonFormConstants.KEY);
+        JSONArray values = valueObject.getJSONArray(JsonFormConstants.VALUES);
+        for (int k = 0; k < values.length(); k++) {
+            String valuesString = values.getString(k);
+
+            vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
+        }
     }
 
     private void process(String[] mainContactForms) throws Exception {
