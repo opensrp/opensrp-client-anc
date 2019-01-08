@@ -270,7 +270,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
                             try {
 
-                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION), this);
+                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ? fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", this);
                                 processRequiredStepsField(createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
 
                             } catch (Exception e) {
