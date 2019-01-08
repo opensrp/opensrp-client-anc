@@ -471,7 +471,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Select preferred gestational age: Using LMP Using ultrasound Using SFH or abdominal palpation",
+      "label": "Select preferred gestational age - Using LMP, Using ultrasound, Using SFH or abdominal palpation",
+      "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
+      "label_info_title": "Select preferred gestational age",
       "label_text_style": "bold",
       "options": [
         {

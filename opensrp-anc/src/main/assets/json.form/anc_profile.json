@@ -9,7 +9,7 @@
     "contact_no": 1,
     "no_of_fetuses": 1,
     "bmi": 28,
-    "urine_glucose":"none",
+    "urine_glucose": "none",
     "gdm": 0,
     "dm_in_preg": 0,
     "hiv_test_result": "negative",
@@ -86,7 +86,7 @@
           },
           {
             "key": "dont_know",
-            "text": "Don't Know",
+            "text": "Don't know",
             "openmrs_entity_parent": "Highest Education Level",
             "openmrs_entity": "Unknown",
             "openmrs_entity_id": "1067"
@@ -226,7 +226,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify *",
+        "hint": "Specify",
         "edit_type": "name",
         "relevance": {
           "step1:occupation": {
@@ -274,7 +274,7 @@
         "openmrs_entity_id": "2047",
         "type": "toaster_notes",
         "text": "HIV risk counseling",
-        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)- Condom promotion- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n\n- STI screening and treatment (syndromic and syphilis)- Condom promotion- Risk reduction counselling\n\n- PrEP with emphasis on adherence\n\n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "text_color": "#CF0800",
@@ -299,7 +299,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "LMP known?",
-        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, check unknown and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
+        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month. If completely unknown, select 'No' and calculate GA from ultrasound (or SFH or abdominal palpation as a last resort).",
         "label_info_title": "LMP known?",
         "label_text_style": "bold",
         "max_date": "today",
@@ -324,6 +324,14 @@
         "v_required": {
           "value": true
         }
+      },{
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160581",
+        "key": "lmp_known_date",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000"
       },
       {
         "openmrs_entity_parent": "",
@@ -394,6 +402,15 @@
         "v_required": {
           "value": true
         }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160581",
+        "key": "ultrasound_done_date",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000"
       },
       {
         "key": "ultrasound_toaster",
@@ -485,43 +502,12 @@
           "err": "Enter a Valid GA from ultrasound - days value"
         },
         "v_min": {
-          "value": "0",
+          "value": "1",
           "err": "GA from ultrasound - weeks must be equal or less than 1"
         },
         "v_max": {
           "value": "6",
           "err": "GA from ultrasound - weeks must be equal or greater than 6"
-        }
-      },
-      {
-        "key": "sfh_gest_age",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "sfh_gest_age",
-        "type": "edit_text",
-        "hint": "GA from SFH or abdominal palpation - weeks *",
-        "v_required": {
-          "value": false,
-          "err": "Please give the GA from SFH or abdominal palpation - weeks"
-        },
-        "v_numeric_integer": {
-          "value": true,
-          "err": "Enter a Valid GA from SFH or abdominal palpation - weeks value"
-        },
-        "v_min": {
-          "value": "4",
-          "err": "GA from SFH or abdominal palpation - weeks must be equal or less than 4"
-        },
-        "v_max": {
-          "value": "43",
-          "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_sub_form.yml"
-            }
-          }
         }
       },
       {
@@ -558,6 +544,39 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "sfh_gest_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "sfh_gest_age",
+        "type": "edit_text",
+        "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
+        "label_info_title": "GA from SFH or abdominal palpation - weeks",
+        "hint": "GA from SFH or abdominal palpation - weeks *",
+        "v_required": {
+          "value": false,
+          "err": "Please give the GA from SFH or abdominal palpation - weeks"
+        },
+        "v_numeric_integer": {
+          "value": true,
+          "err": "Enter a Valid GA from SFH or abdominal palpation - weeks value"
+        },
+        "v_min": {
+          "value": "4",
+          "err": "GA from SFH or abdominal palpation - weeks must be equal or less than 4"
+        },
+        "v_max": {
+          "value": "43",
+          "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
             }
           }
         }
@@ -604,7 +623,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Select preferred gestational age:",
-        "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP.If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominalpalpation, use your best judgment to select GA.",
+        "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
         "label_text_style": "bold",
         "options": [
           {
