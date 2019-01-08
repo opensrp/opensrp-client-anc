@@ -306,10 +306,10 @@
         "options": [
           {
             "key": "yes",
+            "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "",
-            "text": "Yes",
             "specify_info": "specify date",
             "specify_widget": "date_picker"
           },
@@ -324,7 +324,8 @@
         "v_required": {
           "value": true
         }
-      },{
+      },
+      {
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "160581",
@@ -486,7 +487,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "ultrasound_gest_age_days",
         "type": "edit_text",
-        "hint": "GA from ultrasound - days *",
+        "hint": "GA from ultrasound - days",
         "relevance": {
           "step2:ultrasound_done": {
             "type": "string",
@@ -719,12 +720,11 @@
         "key": "gravida_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Number of pregnancies",
+        "text": "No. of pregnancies (including this pregnancy)",
         "text_color": "#000000",
         "v_required": {
           "value": true
-        },
-        "label_info_text": "Total number of times the woman has been pregnant (including this pregnancy)."
+        }
       },
       {
         "key": "gravida",
@@ -765,12 +765,11 @@
         "key": "miscarriages_abortions_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "No. of pregnancies lost/ended",
+        "text": "No. of pregnancies lost/ended (before 22 weeks / 5 months)",
         "text_color": "#000000",
         "v_required": {
           "value": true
-        },
-        "label_info_text": "Total number of miscarriages and abortions."
+        }
       },
       {
         "key": "miscarriages_abortions",
@@ -807,12 +806,11 @@
         "key": "live_births_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "No. of live births",
+        "text": "No. of live births (after 22 weeks)",
         "text_color": "#000000",
         "v_required": {
           "value": true
-        },
-        "label_info_text": "Total number of live births."
+        }
       },
       {
         "key": "live_births",
@@ -849,12 +847,11 @@
         "key": "stillbirths_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "No. of still births",
+        "text": "No. of stillbirths (after 22 weeks)",
         "text_color": "#000000",
         "v_required": {
           "value": true
-        },
-        "label_info_text": "Total number of still births."
+        }
       },
       {
         "key": "stillbirths",
@@ -907,8 +904,7 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
-        },
-        "label_info_text": "Total number of C-sections.."
+        }
       },
       {
         "key": "c_sections",
@@ -943,7 +939,6 @@
         "type": "check_box",
         "label": "Any past pregnancy problems?",
         "label_text_style": "bold",
-        "hint": "Any past pregnancy problems?",
         "exclusive": [
           "none",
           "dont_know"
@@ -1391,7 +1386,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Allergies *",
+        "hint": "Specify Allergies",
         "edit_type": "edit_text",
         "v_required": {
           "value": false,
@@ -1416,9 +1411,9 @@
         "openmrs_entity_id": "160714",
         "openmrs_data_type": "select multiple",
         "type": "check_box",
-        "label": "Any surgeries??",
+        "label": "Any surgeries?",
         "label_text_style": "bold",
-        "hint": "Any surgeries??",
+        "hint": "Any surgeries?",
         "exclusive": [
           "none",
           "dont_know"
@@ -1506,7 +1501,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Other gynecological procedures *",
+        "hint": "Other gynecological procedures",
         "edit_type": "edit_text",
         "relevance": {
           "step4:surgeries": {
@@ -1530,7 +1525,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Other surgeries *",
+        "hint": "Other surgeries",
         "edit_type": "edit_text",
         "v_required": {
           "value": false,
@@ -1652,7 +1647,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify other chronic or past health conditions *",
+        "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
           "value": false,
@@ -1708,7 +1703,7 @@
         "openmrs_entity": "Date of HIV diagnosis ",
         "openmrs_entity_id": "160554",
         "type": "date_picker",
-        "hint": "HIV diagnosis date *",
+        "hint": "HIV diagnosis date",
         "expanded": false,
         "relevance": {
           "rules-engine": {
@@ -1730,16 +1725,14 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "check_box",
-        "label": "Unknown HIV Date",
         "label_text_style": "bold",
-        "hint": "Unknown HIV Date",
         "options": [
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "key": "hiv_diagnosis_date_unknown",
-            "text": "Unknown HIV Date",
+            "text": "HIV diagnosis date unknown?",
             "value": false
           }
         ],
@@ -1837,7 +1830,7 @@
         "type": "toaster_notes",
         "text": "TT immunisation recommended",
         "text_color": "#000000",
-        "toaster_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus..",
+        "toaster_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.",
         "toaster_info_title": "TT immunisation recommended",
         "toaster_type": "info",
         "relevance": {
@@ -2123,13 +2116,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "epilepsy",
-            "text": "Epilepsy"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
             "key": "folic_acid",
             "text": "Folic acid"
           },
@@ -2299,7 +2285,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Other medications *",
+        "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
           "value": false,
@@ -2333,7 +2319,7 @@
         "label": "Daily caffeine intake",
         "label_text_style": "bold",
         "hint": "Daily caffeine intake",
-        "label_info_text": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.\n\nPlease indicate if the woman consumes more than these amounts per day.",
+        "label_info_text": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.\n\nPlease indicate if the woman consumes more than these amounts per day.",
         "exclusive": [
           "none"
         ],
@@ -2343,7 +2329,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "key": "commercially_brewed_coffee",
-            "text": "More than 2 cups (200ml) of filtered or commercially brewed coffee"
+            "text": "More than 2 cups (200 ml) of filtered or commercially brewed coffee"
           },
           {
             "openmrs_entity_parent": "",
@@ -2357,7 +2343,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "key": "more_than_3_cups_300ml_of_instant_coffee",
-            "text": "More than 3 cups (300ml) of instant coffee"
+            "text": "More than 3 cups (300 ml) of instant coffee"
           },
           {
             "openmrs_entity_parent": "",
@@ -2388,7 +2374,7 @@
         "type": "toaster_notes",
         "text": "Caffeine reduction counseling",
         "text_color": "#000000",
-        "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.This includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 mL serving",
+        "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.\n\nThis includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 ml serving.\n\n[Caffeine intake folder]",
         "toaster_info_title": "Caffeine reduction counseling",
         "toaster_type": "warning",
         "relevance": {
@@ -2570,7 +2556,7 @@
         "type": "native_radio",
         "label": "Clinical enquiry for alcohol and other substance use done?",
         "label_text_style": "bold",
-        "label_text_info": "The application of a specific enquiry to assess alcohol or other substance use.",
+        "label_text_info": "This refers to the application of a specific enquiry to assess alcohol or other substance use.",
         "options": [
           {
             "key": "yes",
@@ -2665,7 +2651,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify other substances abused *",
+        "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
           "value": false,
@@ -2765,7 +2751,7 @@
         "options": [
           {
             "key": "dont_know",
-            "text": "Don't Know",
+            "text": "Don't know",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
