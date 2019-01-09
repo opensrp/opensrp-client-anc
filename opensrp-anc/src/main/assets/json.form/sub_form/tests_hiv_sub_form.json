@@ -45,7 +45,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -108,7 +115,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify*",
+      "hint": "Specify",
       "edit_type": "name",
       "relevance": {
         "step1:hiv_test_notdone": {
@@ -202,14 +209,17 @@
       "key": "hiv_positive",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
-      "key": "ultrasound_toaster",
+      "key": "hiv_inconclusive_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -224,7 +234,7 @@
       }
     },
     {
-      "key": "ultrasound_toaster",
+      "key": "hiv_positive_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -232,7 +242,14 @@
       "text": "HIV positive counseling",
       "toaster_info_text": "- Refer for further testing and confirmation\n\n- Refer for HIV services\n\n- Advise on opportunistic infections and need to seek medical help\n\n- Proceed with systematic screening for active TB",
       "toaster_info_title": "HIV positive counseling",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

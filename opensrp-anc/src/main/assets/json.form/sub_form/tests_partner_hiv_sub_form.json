@@ -46,6 +46,13 @@
       ],
       "v_required": {
         "value": false
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -62,11 +69,11 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Partner HIV test date*",
+      "hint": "Partner HIV test date *",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:hiv_test_partner_status": {
+        "step3:hiv_test_partner_status": {
           "ex-checkbox": [
             {
               "or": [
@@ -117,7 +124,7 @@
         "value": false
       },
       "relevance": {
-        "step1:hiv_test_partner_status": {
+        "step3:hiv_test_partner_status": {
           "ex-checkbox": [
             {
               "or": [
@@ -136,10 +143,13 @@
       "key": "partner_hiv_positive",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -151,7 +161,7 @@
       "text": "Partner HIV test inconclusive, refer partner for further testing.",
       "toaster_type": "warning",
       "relevance": {
-        "step1:hiv_test_partner_result": {
+        "step3:hiv_test_partner_result": {
           "type": "string",
           "ex": "equalTo(., \"inconclusive\")"
         }
@@ -164,14 +174,17 @@
       "key": "hiv_risk",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
-      "key": "ultrasound_toaster",
+      "key": "hiv_risk_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -179,7 +192,14 @@
       "text": "HIV risk counseling",
       "toaster_info_text": "Provide comprehensive HIV prevention options: \n\n- STI screening and treatment (syndromic and syphilis)\n\n- Condom promotion\n\n- Risk reduction counselling\n\n- PrEP with emphasis on adherence\n\n- Emphasize importance of follow-up ANC contact visits",
       "toaster_info_title": "HIV risk counseling",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

@@ -125,4 +125,22 @@ fields:
 ---
 form: anc_test
 fields:
-  - "gdm"
+  - "ultrasound_done_date"
+  - "ultrasound_gest_age_wks"
+  - "ultrasound_gest_age_days"
+  - "no_of_fetuses"
+  - "fetal_presentation"
+  - "prev_preg_comps"
+  - "health_conditions"
+  - "rh_factor"
+  - "pop_hiv_prevalence"
+  - "partner_hiv_status"
+  - "site_anc_hiv"
+  - "partner_hiv_positive"
+  - "alcohol_substance_use"
+  - "occupation"
+  - "hepb_immun_status"
+  - "hepb_test_type"
+  - "pop_hepc"
+  - "pop_syphilis"
+  - "bmi"

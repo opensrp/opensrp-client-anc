@@ -9,7 +9,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -45,7 +44,7 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
       }
     },
     {
@@ -66,19 +65,14 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:glucose_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Select the date of the glucose test.."
       }
     },
@@ -112,19 +106,17 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ],"relevance": {
-      "step1:glucose_test_status": {
-        "ex-checkbox": [
-          {
-            "or": [
-              "done_today",
-              "done_earlier",
-              "ordered"
-            ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
           }
-        ]
+        }
+      },
+      "v_required": {
+        "value": true
       }
-    }
     },
     {
       "key": "fasting_plasma_gluc",
@@ -149,6 +141,13 @@
       "v_required": {
         "value": false,
         "err": "Specify any other reason why the syphilis test was not done"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -174,6 +173,13 @@
       "v_required": {
         "value": false,
         "err": "Enter the result for the initial 75g OGTT - fasting glucose. "
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -199,6 +205,13 @@
       "v_required": {
         "value": false,
         "err": "Enter the result for the 75g OGTT - fasting glucose (1 hr)."
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -224,6 +237,13 @@
       "v_required": {
         "value": false,
         "err": "Enter the result for the 75g OGTT - fasting glucose (2 hr)."
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -249,6 +269,13 @@
       "v_required": {
         "value": false,
         "err": "Enter the result for the random plasma glucose test."
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -256,12 +283,15 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "key": "gdm",
-      "type": "hidden",
+      "type": "edit_text",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -269,16 +299,19 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "key": "dm_in_preg",
-      "type": "hidden",
+      "type": "edit_text",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
-      "key": "syphilis_danger_toaster",
+      "key": "gestational_diabetes_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -286,10 +319,17 @@
       "text": "Gestational Diabetes Mellitus (GDM) diagnosis!",
       "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if her fasting plasma glucose is 92–125 mg/dL. \n\nOR\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n\n- 75g OGTT - 1 hr 180–199 mg/dL\n\n- 75g OGTT - 2 hrs 153–199 mg/dL",
       "toaster_info_title": "Gestational Diabetes Mellitus (GDM) diagnosis!",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
-      "key": "syphilis_danger_toaster",
+      "key": "diabetes_mellitus_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -297,10 +337,17 @@
       "text": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
       "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if her fasting plasma glucose is 126 mg/dL or higher.\n\nOR\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n\n- 75g OGTT - 1 hr 200 mg/dL or higher\n\n- 75g OGTT - 2 hrs 200 mg/dL or higher\n\n- Random plasma glucose 200 mg/dL or higher",
       "toaster_info_title": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
-      "key": "syphilis_danger_toaster",
+      "key": "dietary_intervention_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -308,7 +355,14 @@
       "text": "Dietary intervention recommended and referral to high level care.",
       "toaster_info_text": "Woman with hyperglycemia - Recommend dietary intervention and refer to higher level care.",
       "toaster_info_title": "Dietary intervention recommended and referral to high level care.",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

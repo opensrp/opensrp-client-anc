@@ -215,7 +215,7 @@
         "display_bottom_section": true,
         "content_form": "tests_partner_hiv_sub_form",
         "container":"anc_test"
-      },
+      }/*,
       {
         "key": "accordion_blood_glucose",
         "openmrs_entity_parent": "",
@@ -226,7 +226,7 @@
         "display_bottom_section": true,
         "content_form": "tests_blood_glucose_sub_form",
         "container":"anc_test"
-      }
+      }*/
     ]
   }
 }

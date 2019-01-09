@@ -9,7 +9,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -45,7 +44,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -57,7 +63,7 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "syphilis_info_one_toaster",
+      "key": "syphilis_greater_5_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -65,10 +71,17 @@
       "text": "This area has a high prevalence of syphilis (5% or greater).",
       "toaster_info_text": "Use an on-site rapid syphilis test (RST), and, if positive, provide the first dose of treatment. Then refer the woman for a rapid plasma reagin (RPR) test. If the RPR test is positive, provide treatment according to the clinical phase of syphilis.",
       "toaster_info_title": "This area has a high prevalence of syphilis (5% or greater).",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
-      "key": "syphilis_info_two_toaster",
+      "key": "syphilis_below_5_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -76,7 +89,14 @@
       "text": "This area has a low prevalence of syphilis (below 5%)",
       "toaster_info_text": "On-site rapid syphilis test (RST) should be used to test pregnant women for syphilis.",
       "toaster_info_title": "This area has a low prevalence of syphilis (below 5%)",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "syph_test_notdone",
@@ -110,15 +130,14 @@
         }
       ],
       "relevance": {
-        "step1:syph_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
+      },
+      "v_required": {
+        "value": true
       }
     },
     {
@@ -127,17 +146,13 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify*",
+      "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:syph_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -151,19 +166,14 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:syph_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Select the date of the syphilis test."
       }
     },
@@ -199,17 +209,14 @@
         }
       ],
       "relevance": {
-        "step1:syph_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier",
-                "ordered"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
+      },
+      "v_required": {
+        "value": true
       }
     },
     {
@@ -237,7 +244,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -265,7 +279,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -293,7 +314,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -303,10 +331,13 @@
       "key": "syphilis_positive",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -318,7 +349,14 @@
       "text": "Syphilis test positive",
       "toaster_info_text": "Provide counselling and treatment according to protocol.",
       "toaster_info_title": "Syphilis test positive",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }
