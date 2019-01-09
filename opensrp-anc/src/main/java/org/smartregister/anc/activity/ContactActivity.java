@@ -74,7 +74,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             loadContactGlobalsConfig();
 
             contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
-            process(new String[]{ getString(R.string.tests)});
+            process(new String[]{getString(R.string.quick_check), getString(R.string.symptoms_follow_up),
+                    getString(R.string.physical_exam), getString(R.string.tests), getString(R.string.counselling_treatment), getString(R.string.profile)});
 
             List<Contact> contacts = new ArrayList<>();
 
