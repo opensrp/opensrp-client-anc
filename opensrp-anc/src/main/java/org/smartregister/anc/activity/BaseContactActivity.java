@@ -23,7 +23,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactAdapter;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
@@ -106,9 +105,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         partialContactRequest.setContactNo(contact.getContactNumber());
         partialContactRequest.setType(contact.getFormName());
 
-        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
-
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString());
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest,form));
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
@@ -205,6 +202,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
         }
 
     }
+
+    protected abstract String getFormJson(PartialContact partialContactRequest,JSONObject jsonForm);
 
     ////////////////////////////////////////////////////////////////
     // Inner classesC

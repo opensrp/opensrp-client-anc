@@ -108,7 +108,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         ((TextView) findViewById(R.id.top_patient_name)).setText(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
         saveAndFinishButton = findViewById(R.id.finalize_contact);
         saveAndFinishButton.setText(R.string.save_and_finish);
-        saveAndFinishButton.setEnabled(false);
+        saveAndFinishButton.setEnabled(true);
         saveAndFinishButton.setOnClickListener(this);
 
     }

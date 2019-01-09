@@ -4,6 +4,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
@@ -17,6 +19,7 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.FilePath;
@@ -50,6 +53,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     private Map<String, List<String>> formGlobalKeys = new HashMap<>();
     private Map<String, String> formGlobalValues = new HashMap<>();
     private Set<String> globalKeys = new HashSet<>();
+    private Map<String, Map<String, String>> defaultValues = new HashMap<>();
 
     @Override
     protected void onResume() {
@@ -183,6 +187,15 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     }
 
     @Override
+    protected String getFormJson(PartialContact partialContactRequest,JSONObject form) {
+
+        //partial contact exists?
+
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+       return partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
+ }
+
+    @Override
     public void displayToast(int resourceId) {
         Utils.showToast(getApplicationContext(), getString(resourceId));
     }
@@ -191,16 +204,23 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     public void loadGlobals(Contact contact) {
         List<String> contactGlobals = formGlobalKeys.get(contact.getFormName());
 
-        Map<String, String> map = new HashMap<>();
-        for (String cg : contactGlobals) {
-            if (formGlobalValues.containsKey(cg)) {
-                map.put(cg, formGlobalValues.get(cg));
+        if (contactGlobals != null) {
+
+            Map<String, String> map = new HashMap<>();
+            for (String cg : contactGlobals) {
+                if (formGlobalValues.containsKey(cg)) {
+                    map.put(cg, formGlobalValues.get(cg));
+                }
             }
+
+            map.put(Constants.KEY.CONTACT_NO, contactNo.toString());
+
+            if (contactNo > 1) {
+                map.put(Constants.PREVIOUS_CONTACT_NO, String.valueOf(contactNo - 1));
+            }
+
+            contact.setGlobals(map);
         }
-
-        map.put("contact_no", contactNo.toString());
-
-        contact.setGlobals(map);
 
     }
 
@@ -226,7 +246,18 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     }
 
     @Override
-    protected void onCreation() { //Overriden from Secured Activity
+    protected void onCreation() {//Overriden
+    }
+
+    private void populateDefaultValues(JSONObject mJSONObject) throws JSONException {
+
+        if (mJSONObject != null) {
+
+            Map<String, Map<String, String>> valueMap = new Gson().fromJson(mJSONObject.toString(), new TypeToken<HashMap<String, Map<String, String>>>() {
+            }.getType());
+
+            defaultValues.putAll(valueMap);
+        }
     }
 
     @Override
@@ -240,6 +271,17 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
             while (keys.hasNext()) {
                 String key = keys.next();
+
+                if (key.equals(Constants.DEFAULT_VALUES)) {
+
+                    JSONArray defautValues = object.getJSONArray(key);
+
+                    for (int i = 0; i < defautValues.length(); i++) {
+
+                        JSONObject defaultValue = defautValues.getJSONObject(i);
+                        populateDefaultValues(defaultValue);
+                    }
+                }
 
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
@@ -277,6 +319,17 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                             }
                         }
 
+                        if (defaultValues.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
+
+                            Map<String, String> defaultMap = defaultValues.get(fieldObject.getString(JsonFormConstants.KEY));
+
+                            String mapValue = getMapValue(defaultMap);
+                            if (mapValue != null) {
+                                fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                            }
+
+                        }
+
                     }
 
                 }
@@ -305,6 +358,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                 }
 
             }
+
             if (valueList.size() > 0) {
                 widget.put(JsonFormConstants.VALUE, valueList.toString());
             }
@@ -415,6 +469,50 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     public Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
+    }
+
+    private String getMapValue(Map<String, String> valueMap) throws JSONException {
+
+        String value = null;
+        PreviousContact previousContact = AncApplication.getInstance().getPreviousContactRepository().getPreviousContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), Integer.valueOf(valueMap.get(Constants.KEY.CONTACT_NO)), valueMap.get(Constants.KEY.FORM));
+        if (previousContact != null) {
+            String step = valueMap.get(Constants.KEY.STEP);
+            String fieldKey = valueMap.get(Constants.KEY.KEY);
+
+            value = getFormValue(previousContact.getFormJson(), step, fieldKey);
+        }
+
+        return value;
+    }
+
+    private String getFormValue(String formJson, String step, String fieldKey) throws JSONException {
+        JSONObject object = new JSONObject(formJson);
+        String value = "";
+        if (object != null) {
+            Iterator<String> keys = object.keys();
+            boolean broken = false;
+            while (keys.hasNext() && !broken) {
+                String key = keys.next();
+
+                if (key.equals(Constants.KEY.STEP + step)) {
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+                    for (int i = 0; i < stepArray.length(); i++) {
+
+                        JSONObject fieldObject = stepArray.getJSONObject(i);
+                        if (fieldKey.equals(fieldObject.getString(JsonFormConstants.KEY))) {
+                            processSpecialWidgets(fieldObject);
+                            value = fieldObject.has(JsonFormConstants.VALUE) && fieldObject.getString(JsonFormConstants.VALUE) != null ? fieldObject.getString(JsonFormConstants.VALUE) : "";
+
+                            broken = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return value;
     }
 }
 
