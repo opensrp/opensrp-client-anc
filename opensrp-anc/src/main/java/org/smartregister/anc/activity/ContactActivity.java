@@ -61,7 +61,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         initializeMainContactContainers();
 
         //Enable/Diable FinalizeButton
-        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() > 0 ? true : false); //TO REMOVE (SWITCH BACK BOOLEAN VALUES )
+        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() > 0); //TO REMOVE (SWITCH OPERATOR TO ==)
 
     }
 
@@ -74,7 +74,8 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             loadContactGlobalsConfig();
 
             contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
-            process(new String[]{getString(R.string.quick_check), getString(R.string.symptoms_follow_up), getString(R.string.physical_exam), getString(R.string.tests), getString(R.string.counselling_treatment), getString(R.string.profile)});
+            process(new String[]{getString(R.string.quick_check), getString(R.string.symptoms_follow_up),
+                    getString(R.string.physical_exam), getString(R.string.tests), getString(R.string.counselling_treatment), getString(R.string.profile)});
 
             List<Contact> contacts = new ArrayList<>();
 
@@ -258,13 +259,11 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                                 requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
 
                                 requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
-                            } else {
-
-                                if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY))) {
-                                    formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
-                                }
-
                             }
+                        }
+
+                        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE)) {
+                            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
                         }
 
                         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {

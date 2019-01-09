@@ -96,6 +96,7 @@ fields:
   - "prev_preg_comps"
   - "health_conditions"
   - "urine_glucose"
+  - "urine_nitrites"
   - "contact_no"
   - "current_weight"
   - "pop_undernourish"
