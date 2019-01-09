@@ -144,3 +144,5 @@ fields:
   - "pop_hepc"
   - "pop_syphilis"
   - "bmi"
+  - "pallor"
+  - "pop_tb"

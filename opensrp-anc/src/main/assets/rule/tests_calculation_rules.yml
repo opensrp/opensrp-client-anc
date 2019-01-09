@@ -104,16 +104,30 @@ condition: "(step1_urine_culture == 'positive_any') || (step1_urine_culture == '
 actions:
  - "calculation = 1"
 ---
-name: step1_gdm
+name: step1_gdmz
 description: gdm
 priority: 1
-condition: "(step1_fasting_plasma_gluc >= 92 && step1_fasting_plasma_gluc < 126 ) || (step1_ogtt_fasting >= 92 && step1_ogtt_fasting < 126) || (step1_ogtt_1 >= 180 && step1_ogtt_1 < 200)|| (step1_ogtt_2 >= 153|| step1_ogtt_2 < 200)"
+condition: "((step1_fasting_plasma_gluc != '' && step1_fasting_plasma_gluc >= 92 && step1_fasting_plasma_gluc < 126 ) || ( step1_ogtt_fasting != '' && step1_ogtt_fasting >= 92 && step1_ogtt_fasting < 126) || (step1_ogtt_1 != '' && step1_ogtt_1 >= 180 && step1_ogtt_1 < 200 ) || (step1_ogtt_2 >= 153|| step1_ogtt_2 < 200))"
 actions:
  - "calculation = 1"
 ---
 name: step1_dm_in_preg
 description: dm_in_preg
 priority: 1
-condition: "(step1_fasting_plasma_gluc >= 126) || (step1_ogtt_fasting >= 126) || (step1_ogtt_1 >= 200)|| (step1_ogtt_2 >= 200)|| (step1_random_plasma >= 200)"
+condition: "((step1_fasting_plasma_gluc >= 126) || (step1_ogtt_fasting >= 126) || (step1_ogtt_1 >= 200)|| (step1_ogtt_2 >= 200)|| (step1_random_plasma >= 200))"
+actions:
+ - "calculation = 1"
+---
+name: step1_hb_result
+description: hb_result
+priority: 1
+condition: "true"
+actions:
+ - "calculation = 1"
+---
+name: step1_anaemic
+description: anaemic
+priority: 1
+condition: "((step1_hb_result < 11 && (step1_gest_age <= 12 || step1_gest_age >= 28)) || (step1_hb_result < 10.5 && (step1_gest_age > 12 AND step1_gest_age < 28))|| (step1_hb_result == '' AND global_pallor = 'Yes'))"
 actions:
  - "calculation = 1"

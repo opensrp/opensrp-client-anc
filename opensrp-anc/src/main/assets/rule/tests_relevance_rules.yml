@@ -474,3 +474,108 @@ priority: 1
 condition: "step1_gdm == 1 || step1_dm_in_preg"
 actions:
  - "isRelevant = true"
+---
+name: step1_hb_test_notdone
+description: hb_test_notdone
+priority: 1
+condition: "step1_hb_test_status == 'not_done'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_hb_test_notdone_other
+description: hb_test_notdone_other
+priority: 1
+condition: "step1_hb_test_notdone.contains('other')"
+actions:
+ - "isRelevant = true"
+---
+name: step1_hb_test_date
+description: hb_test_date
+priority: 1
+condition: "step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_hb_test_type
+description: hb_test_type
+priority: 1
+condition: "step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier' || step1_hb_test_status == 'ordered'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_cbc
+description: cbc
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_hb_gmeter
+description: hb_gmeter
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'hb_test_haemoglobinometer'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_hb_colour
+description: hb_test_type
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'hb_test_colour_scale'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_anaemia_diagnosis_danger_toaster
+description: anaemia_diagnosis_danger_toaster
+priority: 1
+condition: "step1_anaemic == 1"
+actions:
+ - "isRelevant = true"
+---
+name: step1_ht
+description: ht
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_hematocrit_danger_toaster
+description: hematocrit_danger_toaster
+priority: 1
+condition: "step1_ht < 10.5"
+actions:
+ - "isRelevant = true"
+---
+name: step1_wbc
+description: wbc
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_wbc_danger_toaster
+description: wbc_danger_toaster
+priority: 1
+condition: "step1_wbc > 16000"
+actions:
+ - "isRelevant = true"
+---
+name: step1_platelets
+description: platelets
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+ - "isRelevant = true"
+---
+name: step1_paltelets_danger_toaster
+description: paltelets_danger_toaster
+priority: 1
+condition: "step1_platelets < 100000"
+actions:
+ - "isRelevant = true"
+---
+name: step1_tb_screening_status
+description: tb_screening_status
+priority: 1
+condition: "step1_hiv_positive == 1 || global_pop_tb == 1"
+actions:
+ - "isRelevant = true"

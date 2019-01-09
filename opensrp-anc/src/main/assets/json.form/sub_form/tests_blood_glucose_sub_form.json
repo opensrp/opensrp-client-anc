@@ -283,7 +283,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "key": "gdm",
-      "type": "edit_text",
+      "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
       "calculation": {
@@ -299,7 +299,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "key": "dm_in_preg",
-      "type": "edit_text",
+      "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
       "calculation": {
