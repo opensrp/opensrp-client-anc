@@ -37,6 +37,7 @@ public class AncRepository extends Repository {
         UniqueIdRepository.createTable(database);
         SettingsRepository.onUpgrade(database);
         PartialContactRepository.createTable(database);
+        PreviousContactRepository.createTable(database);
 
         //onUpgrade(database, 1, 2);
     }
