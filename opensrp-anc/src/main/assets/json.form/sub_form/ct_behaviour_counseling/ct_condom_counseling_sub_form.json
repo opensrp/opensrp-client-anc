@@ -1,6 +1,5 @@
 {
   "content_form": [
-
     {
       "key": "condom_counsel",
       "openmrs_entity_parent": "",
@@ -24,7 +23,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "condom_counsel_notdone",

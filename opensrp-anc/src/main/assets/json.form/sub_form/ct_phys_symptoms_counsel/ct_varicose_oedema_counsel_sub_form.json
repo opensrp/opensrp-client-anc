@@ -27,6 +27,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -72,13 +79,8 @@
       "edit_type": "name",
       "relevance": {
         "step3:varicose_oedema_counsel_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
         }
       }
     },
@@ -89,7 +91,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "openmrs_entity_parent": "",
@@ -98,10 +107,13 @@
       "key": "mag_calc",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -111,10 +123,13 @@
       "key": "nausea_pharma",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -124,10 +139,13 @@
       "key": "antacid",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     }
   ]
