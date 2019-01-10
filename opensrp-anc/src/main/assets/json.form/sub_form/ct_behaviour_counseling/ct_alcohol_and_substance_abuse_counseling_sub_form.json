@@ -27,6 +27,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -54,7 +61,13 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "step2:alcohol_substance_counsel": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      }
     },
     {
       "key": "alcohol_substance_counsel_notdone_other",

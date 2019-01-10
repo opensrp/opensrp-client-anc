@@ -9,7 +9,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -45,7 +44,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -91,14 +97,10 @@
         "value": true
       },
       "relevance": {
-        "step1:hepc_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -108,7 +110,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify*",
+      "hint": "Specify",
       "edit_type": "name",
       "relevance": {
         "step1:hepc_test_notdone": {
@@ -128,23 +130,18 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Hep C test date*",
+      "hint": "Hep C test date *",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:hepc_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Select the date of the Hepatitis C test."
       }
     },
@@ -167,31 +164,28 @@
           "openmrs_entity_id": ""
         },
         {
-          "key": "anti_hcv_rapid",
+          "key": "anti_hcv_rdt",
           "text": "Anti-HCV rapid diagnostic test (RDT)",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "dried_blood",
+          "key": "anti_hcv_dbs",
           "text": "Dried Blood Spot (DBS) anti-HCV test",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
       ],
+      "v_required": {
+        "value": true
+      },
       "relevance": {
-        "step1:hepc_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier",
-                "ordered"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -220,7 +214,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -248,7 +249,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -276,7 +284,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -286,20 +301,30 @@
       "key": "hepc_positive",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
-      "key": "hepatitis_b_danger_toaster",
+      "key": "hepatitis_c_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Counselling and referral required.",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

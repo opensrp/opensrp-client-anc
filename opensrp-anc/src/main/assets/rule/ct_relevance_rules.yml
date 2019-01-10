@@ -114,7 +114,7 @@ actions:
 name: step2_caffeine_counsel
 description: Caffeine reduction counseling
 priority: 1
-condition: "global_behaviour_persist.contains('high_caffeine') || !global_caffeine_intake.contains('none')"
+condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('high_caffeine')) || !global_caffeine_intake.contains('none')"
 actions:
   - "isRelevant = true"
 ---
@@ -142,7 +142,7 @@ actions:
 name: step2_alcohol_substance_counsel
 description: Alcohol / substance use counseling
 priority: 1
-condition: "global_behaviour_persist.contains('alcohol_substance_use') || !global_alcohol_substance_use.contains('none')"
+condition: "global_behaviour_persist.contains('alcohol_substance_use') || (!global_alcohol_substance_use.contains('none') && global_alcohol_substance_use.isEmpty())"
 actions:
   - "isRelevant = true"
 ---

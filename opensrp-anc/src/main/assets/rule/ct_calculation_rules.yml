@@ -96,3 +96,45 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = ["weight_gain" : global_weight_gain, "tot_weight_gain" : global_tot_weight_gain]'
+---
+name: step3_mag_calc
+description: mag_calc
+priority: 1
+condition: "step3_leg_cramp_not_relieved_counsel == 'done'"
+actions:
+  - 'calculation = "Magnesium and calcium for persistent leg cramps"'
+---
+name: step3_mag_calc
+description: mag_calc
+priority: 1
+condition: "step3_leg_cramp_not_relieved_counsel == 'not_done'"
+actions:
+  - 'calculation = ""'
+---
+name: step3_nausea_pharma
+description: nausea_pharma
+priority: 1
+condition: "step3_nausea_not_relieved_counsel == 'done'"
+actions:
+  - 'calculation = "Pharmacologicals for persistent nausea and vomiting"'
+---
+name: step3_nausea_pharma
+description: nausea_pharma
+priority: 1
+condition: "step3_nausea_not_relieved_counsel == 'not_done'"
+actions:
+  - 'calculation = ""'
+---
+name: step3_antacid
+description: antacid
+priority: 1
+condition: "step3_heartburn_not_relieved_counsel == 'done'"
+actions:
+  - 'calculation = "Antacids for persistent heartburn"'
+---
+name: step3_antacid
+description: antacid
+priority: 1
+condition: "step3_heartburn_not_relieved_counsel == 'not_done'"
+actions:
+  - 'calculation = ""'

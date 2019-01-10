@@ -2357,8 +2357,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "key": "none",
-            "text": "None of the above",
-            "value": false
+            "text": "None of the above"
           }
         ],
         "v_required": {

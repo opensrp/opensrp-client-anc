@@ -46,10 +46,10 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Which test?  *",
+      "hint": "Which test?",
       "edit_type": "name",
       "relevance": {
-        "step1:other_test": {
+        "step2:other_test": {
           "ex-checkbox": [
             {
               "or": [
@@ -67,11 +67,11 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Test date *",
+      "hint": "Test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:tb_screening_status": {
+        "step2:other_test": {
           "ex-checkbox": [
             {
               "or": [
@@ -93,10 +93,10 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Test result?  *",
+      "hint": "Test result?",
       "edit_type": "name",
       "relevance": {
-        "step1:tb_screening_status": {
+        "step2:other_test": {
           "ex-checkbox": [
             {
               "or": [

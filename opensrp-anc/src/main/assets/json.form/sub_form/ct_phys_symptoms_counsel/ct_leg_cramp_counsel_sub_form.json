@@ -27,6 +27,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -72,13 +79,8 @@
       "edit_type": "name",
       "relevance": {
         "step3:leg_cramp_counsel_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
         }
       }
     }

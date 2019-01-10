@@ -44,7 +44,7 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
       }
     },
     {
@@ -104,7 +104,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify any other reason.*",
+      "hint": "Specify",
       "edit_type": "edit_text",
       "relevance": {
         "step1:ultrasound_notdone": {
@@ -123,7 +123,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Date that the ultrasound was done.*",
+      "hint": "Date that the ultrasound was done. *",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -175,7 +175,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Gestational age in days from ultrasound. *",
+      "hint": "Gestational age in days from ultrasound.",
       "edit_type": "edit_text",
       "v_numeric": {
         "value": "true",
@@ -218,10 +218,16 @@
       "key": "ultrasound_edd",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
       "v_required": {
         "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -280,10 +286,16 @@
       "key": "preeclampsia_risk",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#FF0000",
       "v_required": {
         "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -295,7 +307,7 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "ultrasound_toaster",
+      "key": "pre_eclampsia_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -303,7 +315,14 @@
       "text": "Pre-eclampsia risk counseling",
       "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
       "toaster_info_title": "Pre-eclampsia risk counseling",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "spacer",
@@ -471,7 +490,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Select preferred gestational age - Using LMP, Using ultrasound, Using SFH or abdominal palpation",
+      "label": "Select preferred gestational age: Using LMP, Using ultrasound, Using SFH or abdominal palpation",
       "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
       "label_info_title": "Select preferred gestational age",
       "label_text_style": "bold",

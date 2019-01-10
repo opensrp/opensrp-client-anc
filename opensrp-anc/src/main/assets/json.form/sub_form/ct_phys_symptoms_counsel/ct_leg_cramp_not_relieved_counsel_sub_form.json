@@ -23,7 +23,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "leg_cramp_not_relieved_counsel_notdone",
@@ -68,13 +75,8 @@
       "edit_type": "name",
       "relevance": {
         "step3:leg_cramp_not_relieved_counsel_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
         }
       }
     }

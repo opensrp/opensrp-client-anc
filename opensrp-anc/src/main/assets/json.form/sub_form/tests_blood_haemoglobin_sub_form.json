@@ -9,7 +9,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -45,7 +44,7 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
       }
     },
     {
@@ -87,15 +86,14 @@
           "openmrs_entity_id": ""
         }
       ],
+      "v_required": {
+        "value": true
+      },
       "relevance": {
-        "step1:hb_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -105,21 +103,17 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify *",
+      "hint": "Specify",
       "edit_type": "name",
       "v_required": {
         "value": false,
         "err": "Specify any other reason why the blood haemoglobin test"
       },
       "relevance": {
-        "step1:hb_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -133,19 +127,14 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:hb_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Select the date of the blood haemoglobin test."
       }
     },
@@ -182,17 +171,14 @@
           "openmrs_entity_id": ""
         }
       ],
+      "v_required": {
+        "value": true
+      },
       "relevance": {
-        "step1:hb_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier",
-                "ordered"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -219,6 +205,13 @@
       "v_required": {
         "value": false,
         "err": "Complete blood count test result (g/dl)"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -244,6 +237,13 @@
       "v_required": {
         "value": false,
         "err": "Enter Hb test result - haemoglobinometer (g/dl)"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -269,6 +269,13 @@
       "v_required": {
         "value": false,
         "err": "Enter Hb test result - haemoglobin colour scale (g/dl)"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -278,10 +285,13 @@
       "key": "hb_result",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -291,10 +301,13 @@
       "key": "anaemic",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -306,7 +319,14 @@
       "text": "Anaemia diagnosis!",
       "toaster_info_text": "Anaemia - Hb level of < 11 in first or third trimester or Hb level < 10.5 in second trimester.\n\nOR\n\nNo Hb test results recorded, but woman has pallor.",
       "toaster_info_title": "Anaemia diagnosis!",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "ht",
@@ -314,15 +334,22 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Hematocrit (Ht)*",
+      "hint": "Hematocrit (Ht)",
       "edit_type": "name",
       "v_numeric": {
-        "value": "true",
+        "value": false,
         "err": "Enter a numeric value"
       },
       "v_required": {
         "value": false,
         "err": "Enter the Hematocrit value"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -334,7 +361,14 @@
       "text": "Hematocrit levels too low!",
       "toaster_info_text": "Hemotacrit levels less than 10.5.",
       "toaster_info_title": "Hematocrit levels too low!",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "wbc",
@@ -342,7 +376,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "White blood cell (WBC) count*",
+      "hint": "White blood cell (WBC) count",
       "edit_type": "name",
       "v_numeric": {
         "value": "true",
@@ -351,10 +385,17 @@
       "v_required": {
         "value": false,
         "err": "Enter the White blood cell (WBC) count"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
-      "key": "hematocrit_danger_toaster",
+      "key": "wbc_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -362,7 +403,14 @@
       "text": "White blood cell count too high!",
       "toaster_info_text": "White blood cell count above 16,000.",
       "toaster_info_title": "White blood cell count too high!",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "platelets",
@@ -370,7 +418,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Platelet count *",
+      "hint": "Platelet count",
       "edit_type": "name",
       "v_numeric": {
         "value": "true",
@@ -379,6 +427,13 @@
       "v_required": {
         "value": false,
         "err": "Enter the Platelet count value"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -390,7 +445,14 @@
       "text": "Platelet count too low! ",
       "toaster_info_text": "Platelet count under 100,000.",
       "toaster_info_title": "Platelet count too low!",
-      "toaster_type": "problem"
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

@@ -45,7 +45,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -132,6 +139,9 @@
             }
           ]
         }
+      },
+      "v_required": {
+        "value": true
       }
     },
     {
@@ -140,7 +150,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify *",
+      "hint": "Specify",
       "edit_type": "name",
       "relevance": {
         "step1:tb_screening_notdone": {
@@ -176,7 +186,7 @@
         }
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Select record the date of the TB screening."
       }
     },
@@ -229,6 +239,9 @@
             }
           ]
         }
+      },
+      "v_required": {
+        "value": true
       }
     },
     {

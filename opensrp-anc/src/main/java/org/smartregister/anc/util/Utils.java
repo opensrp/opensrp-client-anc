@@ -222,14 +222,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private String getValueFromSecondaryValues(String itemString) {
-        String newString;
         String[] strings = itemString.split(":");
-        if (strings.length > 1) {
-            newString = strings[1];
-        } else {
-            newString = strings[0];
-        }
-
-        return newString;
+        return strings.length > 1 ? strings[1] : strings[0];
     }
 }

@@ -408,7 +408,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                         Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
                         result = getRadioButtonResults(relevance, object);
                         break;
-
                     default:
                         result.put(getKey(object), getValue(object));
                         break;

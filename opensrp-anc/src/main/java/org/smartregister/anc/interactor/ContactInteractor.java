@@ -8,7 +8,11 @@ import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
 import org.smartregister.anc.contract.ContactContract;
+import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.model.PreviousContact;
+import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
@@ -67,6 +71,26 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             PatientRepository.updateContactVisitDetails(baseEntityId, nextContact, nextContactVisitDate);
 
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
+
+            PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
+
+            PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
+            List<PartialContact> partialContactList = partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
+
+            if (partialContactList != null) {
+
+                for (PartialContact partialContact : partialContactList) {
+                    PreviousContact previousContact = new PreviousContact();
+                    previousContact.setContactNo(partialContact.getContactNo());
+                    previousContact.setBaseEntityId(partialContact.getBaseEntityId());
+                    previousContact.setFormJson(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
+                    previousContact.setType(partialContact.getType());
+
+                    previousContactRepository.savePreviousContact(previousContact);
+
+                   // partialContactRepository.deletePartialContact(partialContact.getId());
+                }
+            }
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

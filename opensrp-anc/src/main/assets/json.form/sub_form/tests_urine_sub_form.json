@@ -9,7 +9,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -45,7 +44,7 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
       }
     },
     {
@@ -80,15 +79,14 @@
         }
       ],
       "relevance": {
-        "step1:urine_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
+      },
+      "v_required": {
+        "value": true
       }
     },
     {
@@ -105,17 +103,13 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Specify *",
+      "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:urine_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -129,19 +123,14 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:urine_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Select the date of the urine test.."
       }
     },
@@ -150,7 +139,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "Urine test type",
       "label_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
       "label_info_title": "Urine test",
@@ -179,17 +168,14 @@
         }
       ],
       "relevance": {
-        "step1:urine_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier",
-                "ordered"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
+      },
+      "v_required": {
+        "value": true
       }
     },
     {
@@ -224,7 +210,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -252,7 +245,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -272,28 +272,28 @@
           "openmrs_entity_id": ""
         },
         {
-          "key": "one",
+          "key": "+",
           "text": "+",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "two",
+          "key": "++",
           "text": "++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "three",
+          "key": "+++",
           "text": "+++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "four",
+          "key": "+++",
           "text": "++++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
@@ -301,7 +301,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -321,28 +328,28 @@
           "openmrs_entity_id": ""
         },
         {
-          "key": "one",
+          "key": "+",
           "text": "+",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "two",
+          "key": "++",
           "text": "++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "three",
+          "key": "+++",
           "text": "+++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "four",
+          "key": "+++",
           "text": "++++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
@@ -350,7 +357,14 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -370,28 +384,28 @@
           "openmrs_entity_id": ""
         },
         {
-          "key": "one",
+          "key": "+",
           "text": "+",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "two",
+          "key": "++",
           "text": "++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "three",
+          "key": "+++",
           "text": "+++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "four",
+          "key": "+++",
           "text": "++++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
@@ -400,6 +414,13 @@
       ],
       "v_required": {
         "value": false
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -419,28 +440,28 @@
           "openmrs_entity_id": ""
         },
         {
-          "key": "one",
+          "key": "+",
           "text": "+",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "two",
+          "key": "++",
           "text": "++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "three",
+          "key": "+++",
           "text": "+++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "four",
+          "key": "+++",
           "text": "++++",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
@@ -449,6 +470,13 @@
       ],
       "v_required": {
         "value": false
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -458,10 +486,13 @@
       "key": "gdm_risk",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -473,7 +504,14 @@
       "text": "Gestational diabetes mellitus (GDM) risk counseling",
       "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n\n - Reasserting dietary interventions\n\n- Reasserting physical activity during pregnancy",
       "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "openmrs_entity_parent": "",
@@ -482,22 +520,32 @@
       "key": "asb_positive",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
-      "key": "asb_positive_note",
+      "key": "asb_positive_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
-      "toaster_info_text": "A woman is considered to have ASB if she has one of the following test results:\n\n - Positive culture (> 100,000 bacteria/mL)\n\n- Gram-staining positive\n\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
+      "toaster_info_text": "A woman is considered to have ASB if she has + of the following test results:\n\n - Positive culture (> 100,000 bacteria/mL)\n\n- Gram-staining positive\n\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
       "toaster_info_title": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "gbs_agent_note",
@@ -508,7 +556,14 @@
       "text": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
       "toaster_info_text": "Pregnant women with Group B Streptococcus (GBS) colonization should receive intrapartum antibiotic administration to prevent early neonatal GBS infection.",
       "toaster_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

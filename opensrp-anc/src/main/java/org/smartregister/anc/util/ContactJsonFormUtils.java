@@ -39,6 +39,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String parentKey = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
         CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
+        CustomTextView reasonsTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.popup_reasons_textview);
         String toolbarHeader = "";
         String container = "";
         LinearLayout rootLayout = (LinearLayout) view.getTag(R.id.main_layout);
@@ -63,8 +64,9 @@ public class ContactJsonFormUtils extends FormUtils {
                 genericPopupDialog.setContainer(container);
             }
             genericPopupDialog.setWidgetType(type);
-            if (customTextView != null) {
+            if (customTextView != null && reasonsTextView != null) {
                 genericPopupDialog.setCustomTextView(customTextView);
+                genericPopupDialog.setPopupReasonsTextView(reasonsTextView);
             }
             if (type != null && (type.equals(JsonFormConstants.CHECK_BOX) || type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON))) {
                 childKey = (String) view.getTag(com.vijay.jsonwizard.R.id.childKey);

@@ -45,7 +45,7 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true
       }
     },
     {
@@ -62,7 +62,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Blood type test date*",
+      "hint": "Blood type test date *",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -122,18 +122,19 @@
       ],
       "v_required": {
         "value": true
-      },"relevance": {
-      "step1:blood_type_test_status": {
-        "ex-checkbox": [
-          {
-            "or": [
-              "done_today",
-              "done_earlier"
-            ]
-          }
-        ]
+      },
+      "relevance": {
+        "step1:blood_type_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
-    }
     },
     {
       "key": "rh_factor",
@@ -143,6 +144,7 @@
       "type": "native_radio",
       "label": "Rh factor",
       "label_text_style": "bold",
+      "multi_relevance": true,
       "options": [
         {
           "key": "positive",
@@ -161,18 +163,19 @@
       ],
       "v_required": {
         "value": true
-      },"relevance": {
-      "step1:blood_type_test_status": {
-        "ex-checkbox": [
-          {
-            "or": [
-              "done_today",
-              "done_earlier"
-            ]
-          }
-        ]
+      },
+      "relevance": {
+        "step1:blood_type_test_status": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "done_today",
+                "done_earlier"
+              ]
+            }
+          ]
+        }
       }
-    }
     },
     {
       "key": "ultrasound_toaster",
@@ -183,7 +186,18 @@
       "text": "Rh factor negative counseling",
       "toaster_info_text": "- Woman is at risk of alloimmunisation if the baby's father is Rh positive or unknown.\n\n- Proceed with local protocol to investigate sensitization and the need for referral.\n\n- If Rh negative and non-sensitized, woman should receive anti\n\n- D prophylaxis postnatally if the baby is Rh positive.",
       "toaster_info_title": "Rh factor negative counseling",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "step1:rh_factor": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "negative"
+              ]
+            }
+          ]
+        }
+      }
     }
   ]
 }

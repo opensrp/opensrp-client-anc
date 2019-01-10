@@ -1,0 +1,147 @@
+---
+name: step1_ultrasound_date
+description: Date that the ultrasound was done..
+priority: 1
+condition: "global_ultrasound_done_date != ''"
+actions:
+  - "calculation = global_ultrasound_done_date"
+---
+name: step1_ultrasound_gest_age_wks
+description: GA from ultrasound - weeks
+priority: 1
+condition: "global_ultrasound_gest_age_wks != ''"
+actions:
+  - "calculation = global_ultrasound_gest_age_wks"
+---
+name: step1_ultrasound_gest_age_days
+description: Gestational age in days from ultrasound
+priority: 1
+condition: "global_ultrasound_gest_age_days != ''"
+actions:
+  - "calculation = global_ultrasound_gest_age_days"
+---
+name: step1_ultrasound_edd
+description: EDD calculated from ultrasound results.
+priority: 1
+condition: "step1_ultrasound_date != '' && step1_ultrasound_gest_age_wks > 0 && step1_ultrasound_gest_age_days > 0"
+actions:
+  - "calculation = helper.addDuration(helper.getSecondaryValue(step1_ultrasound_date), ( (280 - ( (step1_ultrasound_gest_age_wks * 7) + step1_ultrasound_gest_age_days) ) +'d'))"
+---
+name: step1_no_of_fetuses
+description: No. of fetuses
+priority: 1
+condition: "global_no_of_fetuses != ''"
+actions:
+  - "calculation = global_no_of_fetuses"
+---
+name: step1_fetal_presentation
+description: Fetal presentation
+priority: 1
+condition: "global_fetal_presentation != ''"
+actions:
+  - "calculation = global_fetal_presentation"
+---
+name: step1_preeclampsia_risk
+description: preeclampsia_risk
+priority: 1
+condition: "(step1_no_of_fetuses >= 2) || (global_prev_preg_comps.contains('pre_eclampsia_eclampsia') || global_prev_preg_comps.contains('convulsions')) || (global_health_conditions.contains('diabetes') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))"
+actions:
+  - "calculation = 1"
+---
+name: step1_hiv_positive
+description: hiv_positive
+priority: 1
+condition: "(step1_hiv_test_result == 'positive') || global_health_conditions.contains('hiv')"
+actions:
+  - "calculation = 1"
+---
+name: step3_partner_hiv_positive
+description: partner_hiv_positive
+priority: 1
+condition: "(global_partner_hiv_status == 'positive') || step3_hiv_test_partner_result == 'positive'"
+actions:
+  - "calculation = 1"
+---
+name: step3_hiv_risk
+description: hiv_risk
+priority: 1
+condition: "((step1_hiv_positive != 1) && ((global_site_anc_hiv == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
+actions:
+  - "calculation = 1"
+---
+name: step1_hepb_positive
+description: hepb_positive
+priority: 1
+condition: "(step1_hbsag_lab_ima == 'positive') || (step1_hbsag_rdt == 'positive') || (step1_hbsag_dbs == 'positive')"
+actions:
+  - "calculation = 1"
+---
+name: step1_hepc_positive
+description: hepc_positive
+priority: 1
+condition: "(step1_hcv_lab_ima == 'positive') || (step1_hcv_rdt == 'positive') || (step1_hcv_dbs == 'positive')"
+actions:
+  - "calculation = 1"
+---
+name: step1_syphilis_positive
+description: syphilis_positive
+priority: 1
+condition: "(step1_rapid_syphilis_test == 'positive') || (step1_rpr_syphilis_test == 'positive') || (step1_lab_syphilis_test == 'positive')"
+actions:
+ - "calculation = 1"
+---
+name: step1_gdm_risk
+description: gdm_risk
+priority: 1
+condition: "(global_bmi >= 30) || global_prev_preg_comps.contains('macrosomia') || global_prev_preg_comps.contains('gestational_diabetes') || (step1_urine_glucose == 'none' && !step1_urine_glucose.isEmpty())"
+actions:
+ - "calculation = 1"
+---
+name: step1_asb_positive
+description: asb_positive
+priority: 1
+condition: "(step1_urine_culture == 'positive_any') || (step1_urine_culture == 'positive_gbs') || step1_urine_gram_stain == 'positive' || (step1_urine_nitrites == 'none'&& !step1_urine_nitrites.isEmpty())|| (step1_urine_leukocytes == 'none'&& !step1_urine_leukocytes.isEmpty())"
+actions:
+ - "calculation = 1"
+---
+name: step1_gdm
+description: gdm
+priority: 1
+condition: "(step1_fasting_plasma_gluc >= 92 && step1_fasting_plasma_gluc < 126 ) || (step1_ogtt_fasting >= 92 && step1_ogtt_fasting < 126) || (step1_ogtt_1 >= 180 && step1_ogtt_1 < 200 ) || (step1_ogtt_2 >= 153 && step1_ogtt_2 < 200)"
+actions:
+ - "calculation = 1"
+---
+name: step1_dm_in_preg
+description: dm_in_preg
+priority: 1
+condition: "(step1_fasting_plasma_gluc >= 126) || (step1_ogtt_fasting >= 126) || (step1_ogtt_1 >= 200) || (step1_ogtt_2 >= 200) || (step1_random_plasma >= 200)"
+actions:
+ - "calculation = 1"
+---
+name: step1_hb_result
+description: hb_result
+priority: 1
+condition: "((step1_hb_test_type == 'complete_blood_count'))"
+actions:
+ - "calculation = step1_cbc"
+---
+name: step1_hb_result
+description: hb_result
+priority: 1
+condition: "((step1_hb_test_type == 'hb_test_colour_scale'))"
+actions:
+ - "calculation = step1_hb_colour"
+---
+name: step1_hb_result
+description: hb_result
+priority: 1
+condition: "((step1_hb_test_type == 'hb_test_haemoglobinometer'))"
+actions:
+ - "calculation = step1_hhb_gmeter"
+---
+name: step1_anaemic
+description: anaemic
+priority: 1
+condition: "((step1_hb_result < 11 && (step1_gest_age <= 12 || step1_gest_age >= 28)) || (step1_hb_result < 10.5 && (step1_gest_age > 12 && step1_gest_age < 28))|| (step1_hb_result.isEmpty() && global_pallor == 'yes'))"
+actions:
+ - "calculation = 1"
