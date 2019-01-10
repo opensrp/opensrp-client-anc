@@ -111,6 +111,13 @@ condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4
 actions:
   - "isRelevant = true"
 ---
+name: step4_fetal_movement
+description: Fetal movement
+priority: 1
+condition: "global_gest_age >=  20"
+actions:
+  - "isRelevant = true"
+---
 name: step4_fetal_heart_rate_repeat
 description: Fetal heart beat rate
 priority: 1
@@ -135,14 +142,14 @@ actions:
 name: step1_toaster5
 description: Note displaying that counseling on increasing daily energy and protein intake should be given.
 priority: 1
-condition: "global_pop_undernourish == 1 && step1_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
 actions:
  - "isRelevant = true"
 ---
 name: step1_toaster6
 description: Note displaying that counseling on balanced energy and protein dietary supplementation should be given.
 priority: 1
-condition: "global_pop_undernourish == 1 && step1_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
 actions:
  - "isRelevant = true"
 ---
@@ -187,3 +194,10 @@ priority: 1
 condition: "(step4_preeclampsia_risk == 1)"
 actions:
  - "isRelevant = true"
+---
+name: step4_fetal_presentation
+description: Fetal movement
+priority: 1
+condition: "true"
+actions:
+  - "isRelevant = true"

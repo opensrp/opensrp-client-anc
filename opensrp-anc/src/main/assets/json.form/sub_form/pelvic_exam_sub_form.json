@@ -122,7 +122,7 @@
         "err": "Please enter valid content"
       },
       "relevance": {
-        "step3:breast_exam_abnormal": {
+        "step3:pelvic_exam_abnormal": {
           "ex-checkbox": [
             {
               "or": [
