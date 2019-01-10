@@ -52,7 +52,16 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         }
 
         holder.sectionDetails.setText(output);
-        holder.parent.setVisibility(output.trim().isEmpty() ? View.GONE : View.VISIBLE);
+
+        if (output.trim().isEmpty()) {
+            holder.parent.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+            holder.parent.setVisibility(View.GONE);
+        } else {
+            holder.parent.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            holder.parent.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     // total number of rows
@@ -72,7 +81,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
             super(itemView);
             sectionHeader = itemView.findViewById(R.id.contact_summary_section_header);
             sectionDetails = itemView.findViewById(R.id.contact_summary_section_details);
-            parent = itemView.findViewById(R.id.contact_summary_row);
+            parent = itemView;
         }
     }
 

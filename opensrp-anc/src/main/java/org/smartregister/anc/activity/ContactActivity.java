@@ -486,7 +486,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     private String getMapValue(Map<String, String> valueMap) throws JSONException {
 
         String value = null;
-        PreviousContact previousContact = AncApplication.getInstance().getPreviousContactRepository().getPreviousContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), Integer.valueOf(valueMap.get(Constants.KEY.CONTACT_NO)), valueMap.get(Constants.KEY.FORM));
+
+        PreviousContact previousContact = AncApplication.getInstance().getPreviousContactRepository().getPreviousContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), valueMap.get(Constants.KEY.FORM));
+
         if (previousContact != null) {
             String step = valueMap.get(Constants.KEY.STEP);
             String fieldKey = valueMap.get(Constants.KEY.KEY);

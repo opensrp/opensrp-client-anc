@@ -88,7 +88,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                     previousContactRepository.savePreviousContact(previousContact);
 
-                   // partialContactRepository.deletePartialContact(partialContact.getId());
+                    partialContactRepository.deletePartialContact(partialContact.getId());
                 }
             }
 

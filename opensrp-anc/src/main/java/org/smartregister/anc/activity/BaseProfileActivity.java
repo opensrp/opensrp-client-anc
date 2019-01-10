@@ -29,7 +29,8 @@ import org.smartregister.view.activity.SecuredActivity;
  * Created by ndegwamartin on 16/07/2018.
  */
 public abstract class BaseProfileActivity extends SecuredActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
-    private CollapsingToolbarLayout collapsingToolbarLayout;
+    protected CollapsingToolbarLayout collapsingToolbarLayout;
+    protected ActionBar actionBar;
     private boolean appBarTitleIsShown = true;
     private int appBarLayoutScrollRange = -1;
 
@@ -49,7 +50,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -176,4 +177,5 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
     }
 
     protected abstract int getViewLayoutId();
+
 }

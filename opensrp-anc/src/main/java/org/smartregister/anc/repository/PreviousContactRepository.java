@@ -130,7 +130,7 @@ public class PreviousContactRepository extends BaseRepository {
     /**
      * @param type is the file name
      */
-    public PreviousContact getPreviousContacts(String baseEntityId, Integer contactNumber, String type) {
+    public PreviousContact getPreviousContacts(String baseEntityId, String type) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
@@ -138,9 +138,9 @@ public class PreviousContactRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getWritableDatabase();
 
-            if (StringUtils.isNotBlank(baseEntityId) && contactNumber != null) {
-                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + COLLATE_NOCASE + " AND " + TYPE + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{baseEntityId, contactNumber.toString(), type};
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + TYPE + " = ? " + COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId, type};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);

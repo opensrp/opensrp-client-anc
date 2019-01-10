@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -206,7 +207,9 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
                     AncGenericDialogPopup.this.dismiss();
                 }
             });
-
+            if (getDialog().getWindow() != null) {
+                getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            }
             return dialogView;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);
