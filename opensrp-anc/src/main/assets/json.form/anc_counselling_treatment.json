@@ -143,13 +143,6 @@
               "rules-file": "ct_relevance_rules.yml"
             }
           }
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
         }
       },
       {
@@ -166,13 +159,6 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -386,13 +372,6 @@
               "rules-file": "ct_relevance_rules.yml"
             }
           }
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
         }
       },
       {
@@ -447,6 +426,13 @@
         "v_required": {
           "value": true,
           "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
         }
       },
       {

@@ -166,3 +166,17 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = (step8_iptp_sp1 == "done" ? "Sulfadoxine-pyrimethamine (SP) for malaria prevention" : "") '
+---
+name: step8_calcium
+description: calcium
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_calcium_supp == "done" ? "Calcium supplement" : "") '
+---
+name: step8_vita
+description: vita
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_vita_supp == "done" ? "Vitamin A supplement" : "") '

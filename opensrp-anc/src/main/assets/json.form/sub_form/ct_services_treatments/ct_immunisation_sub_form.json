@@ -42,7 +42,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "tt2_date",
@@ -76,7 +83,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "tt3_date",
@@ -110,7 +124,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "tt_dose_notdone",
@@ -156,7 +177,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "tt_dose_notdone_other",
@@ -180,7 +208,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Woman is fully immunised against tetanus!",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "hepb_negative_note",
@@ -207,7 +242,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "hepb1_date",
@@ -239,7 +281,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "hepb2_date",
@@ -349,7 +398,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "hepb_dose_notdone_other",
@@ -373,7 +429,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Woman is fully immunised against Hep B!",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "flu_date",
@@ -407,7 +470,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "flu_dose_notdone",
@@ -453,7 +523,13 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "step8:flu_date": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      }
     },
     {
       "key": "flu_dose_notdone_other",
@@ -477,7 +553,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Woman is immunised against flu!",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }
