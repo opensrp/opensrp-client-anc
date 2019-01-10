@@ -1,48 +1,44 @@
 {
   "content_form": [
     {
-      "key": "oedema_severity",
+      "key": "oedema_type",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "URINE PROTEIN (DIP STICK)",
-      "openmrs_entity_id": "1875",
-      "type": "native_radio",
-      "label": "Oedema severity",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "check_box",
+      "label": "Oedema type",
       "label_text_style": "bold",
       "text_color": "#000000",
       "options": [
         {
-          "key": "one_plus",
-          "text": "+",
+          "key": "ankle_oedema",
+          "text": "Pitting ankle oedema",
           "value": false,
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "two_plus",
-          "text": "++",
+          "key": "hands_feet_oedema",
+          "text": "Oedema of the hands and feet",
           "value": false,
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "three_plus",
-          "text": "+++",
+          "key": "lower_back_oedema",
+          "text": "Pitting lower back oedema",
           "value": false,
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         },
         {
-          "key": "four_plus",
-          "text": "++++",
+          "key": "leg_swelling",
+          "text": "Leg swelling",
           "value": false,
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "Edema, legs",
+          "openmrs_entity_id": "590"
         }
-      ],
-      "v_required": {
-        "value": false,
-        "err": "Please enter the result for the dipstick test."
-      }
+      ]
     }
   ]
 }

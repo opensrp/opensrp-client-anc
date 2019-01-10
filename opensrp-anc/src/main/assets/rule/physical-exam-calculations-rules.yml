@@ -30,7 +30,7 @@ actions:
 name: step1_gdm_risk
 description: gdm risk
 priority: 1
-condition: "step1_bmi >= 30 || (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia')) || (global_urine_glucose != 'one_plus' || global_urine_glucose != 'none')"
+condition: "step1_bmi >= 30 || (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia')) || (global_urine_glucose == 'two' || global_urine_glucose == 'three' ||  global_urine_glucose == 'four')"
 actions:
  - "calculation = 1"
 ---
@@ -86,21 +86,21 @@ actions:
 name: step2_severe_preeclampsia
 description: Severe preeclampsia
 priority: 1
-condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus'))  || ((step2_urine_protein == 'two_plus' || step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus') && !step2_symp_sev_preeclampsia.contains('none'))"
+condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus'))  || ((step2_urine_protein == 'two_plus' || step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus') && (!step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none')))"
 actions:
  - "calculation = 1"
 ---
 name: step2_preeclampsia
 description: Severe preeclampsia
 priority: 1
-condition: "((step2_urine_protein == 'two_plus' || step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus')  && step2_symp_sev_preeclampsia.contains('none'))"
+condition: "((step2_urine_protein == 'two_plus' || step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus')  && (!step2_symp_sev_preeclampsia.isEmpty() && step2_symp_sev_preeclampsia.contains('none')))"
 actions:
  - "calculation = 1"
 ---
 name: step3_anaemic
 description: Anaemic
 priority: 1
-condition: "(global_hb_result < 11 && (global_gest_age <= 12 || global_gest_age >= 28)) || (global_hb_result < 10.5 && (global_gest_age > 12 && global_gest_age < 28)) || (global_hb_results == '' && step3_pallor == 'yes')"
+condition: "(global_hb_result < 11 && (global_gest_age <= 12 || global_gest_age >= 28)) || (global_hb_result < 10.5 && (global_gest_age > 12 && global_gest_age < 28)) || (global_hb_result == 0 && step3_pallor == 'yes')"
 actions:
  - "calculation = 1"
 ---

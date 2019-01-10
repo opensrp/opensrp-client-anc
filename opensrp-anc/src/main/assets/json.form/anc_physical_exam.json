@@ -516,10 +516,18 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20sp"
+      },
+      {
         "key": "bp_systolic_repeat_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Systolic (SBP) after 10-15 minutes",
+        "text": "SBP after 10-15 minutes rest",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -568,7 +576,7 @@
         "key": "bp_diastolic_repeat_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Diastolic (DBP) after 10-15 minutes",
+        "text": "DBP after 10-15 minutes rest",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -1490,6 +1498,22 @@
         ]
       },
       {
+        "key": "toaster26",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Cervix is more than 2 cm dilated. Please check for other signs and symptoms of labour (if GA is 37 weeks or later) or pre-term labour and other related complications (if GA is less than 37 weeks).",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:dilation_cm": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"2\")"
+          }
+        }
+      },
+      {
         "key": "oedema",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1504,7 +1528,7 @@
           {
             "key": "yes",
             "text": "Yes",
-            "specify_info": "specify severity...",
+            "specify_info": "specify type...",
             "specify_widget": "radio_button",
             "specify_info_color": "#8C8C8C",
             "content_form": "oedema_present_sub_form"
@@ -1516,53 +1540,52 @@
         ]
       },
       {
-        "key": "oedema_type",
+        "key": "oedema_severity",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "Oedema type",
+        "openmrs_entity": "URINE PROTEIN (DIP STICK)",
+        "openmrs_entity_id": "1875",
+        "type": "native_radio",
+        "label": "Oedema severity",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
-            "key": "ankle_oedema",
-            "text": "Pitting ankle oedema",
+            "key": "one_plus",
+            "text": "+",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "hands_feet_oedema",
-            "text": "Oedema of the hands and feet",
+            "key": "two_plus",
+            "text": "++",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "lower_back_oedema",
-            "text": "Pitting lower back oedema",
+            "key": "three_plus",
+            "text": "+++",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "leg_swelling",
-            "text": "Leg swelling",
+            "key": "four_plus",
+            "text": "++++",
             "value": false,
-            "openmrs_entity": "Edema, legs",
-            "openmrs_entity_id": "590"
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           }
         ],
+        "v_required": {
+          "value": false,
+          "err": "Please enter the result for the dipstick test."
+        },
         "relevance": {
           "step3:oedema": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "yes"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       }
@@ -1634,6 +1657,13 @@
         "v_required": {
           "value": false,
           "err": "Please this field is required."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -1787,7 +1817,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "numbers_selector",
-        "number_of_selectors": "2",
+        "number_of_selectors": "4",
         "start_number": "1",
         "max_value": "8",
         "text_size": "16px",
@@ -1796,6 +1826,25 @@
         "v_required": {
           "value": false
         },
+        "relevance": {
+          "step4:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "20sp",
         "relevance": {
           "step4:no_of_fetuses_unknown": {
             "ex-checkbox": [
@@ -1859,7 +1908,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "Fetal presentation ",
         "openmrs_entity_id": "1067",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Fetal presentation",
         "label_text_style": "bold",
         "label_info_text": "If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
@@ -1903,6 +1952,13 @@
         "v_required": {
           "value": "true",
           "err": "Fetal representation field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
