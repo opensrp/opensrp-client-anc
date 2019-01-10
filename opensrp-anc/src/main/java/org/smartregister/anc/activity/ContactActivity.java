@@ -54,6 +54,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     private Map<String, String> formGlobalValues = new HashMap<>();
     private Set<String> globalKeys = new HashSet<>();
     private Map<String, Map<String, String>> defaultValues = new HashMap<>();
+    private Map<String, Map<String, String>> globalValuesMap = new HashMap<>();
 
     @Override
     protected void onResume() {
@@ -187,13 +188,24 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     }
 
     @Override
-    protected String getFormJson(PartialContact partialContactRequest,JSONObject form) {
+    protected String getFormJson(PartialContact partialContactRequest, JSONObject form) {
 
-        //partial contact exists?
+        try {
+            //partial contact exists?
 
-        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
-       return partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
- }
+            PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+            String formJsonString = partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
+            JSONObject object = new JSONObject(formJsonString);
+
+            preprocessDefaultValues(object);
+
+            return object.toString();
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+            return "";
+        }
+
+    }
 
     @Override
     public void displayToast(int resourceId) {
@@ -249,7 +261,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     protected void onCreation() {//Overriden
     }
 
-    private void populateDefaultValues(JSONObject mJSONObject) throws JSONException {
+    private void populateDefaultValues(JSONObject mJSONObject) {
 
         if (mJSONObject != null) {
 
@@ -257,6 +269,17 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             }.getType());
 
             defaultValues.putAll(valueMap);
+        }
+    }
+
+    private void populateGlobalValuesMap(JSONObject mJSONObject) {
+
+        if (mJSONObject != null) {
+
+            Map<String, Map<String, String>> valueMap = new Gson().fromJson(mJSONObject.toString(), new TypeToken<HashMap<String, Map<String, String>>>() {
+            }.getType());
+
+            globalValuesMap.putAll(valueMap);
         }
     }
 
@@ -271,17 +294,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
             while (keys.hasNext()) {
                 String key = keys.next();
-
-                if (key.equals(Constants.DEFAULT_VALUES)) {
-
-                    JSONArray defautValues = object.getJSONArray(key);
-
-                    for (int i = 0; i < defautValues.length(); i++) {
-
-                        JSONObject defaultValue = defautValues.getJSONObject(i);
-                        populateDefaultValues(defaultValue);
-                    }
-                }
 
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
@@ -317,17 +329,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                             } catch (Exception e) {
                                 Log.e(TAG, e.getMessage());
                             }
-                        }
-
-                        if (defaultValues.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
-
-                            Map<String, String> defaultMap = defaultValues.get(fieldObject.getString(JsonFormConstants.KEY));
-
-                            String mapValue = getMapValue(defaultMap);
-                            if (mapValue != null) {
-                                fieldObject.put(JsonFormConstants.VALUE, mapValue);
-                            }
-
                         }
 
                     }
@@ -514,6 +515,84 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
         return value;
     }
+
+
+    private void preprocessDefaultValues(JSONObject object) {
+        try {
+            if (object != null) {
+                Iterator<String> keys = object.keys();
+
+                while (keys.hasNext()) {
+                    String key = keys.next();
+
+                    if (key.equals(Constants.DEFAULT_VALUES)) {
+
+                        JSONArray defautValues = object.getJSONArray(key);
+
+                        for (int i = 0; i < defautValues.length(); i++) {
+
+                            JSONObject defaultValue = defautValues.getJSONObject(i);
+                            populateDefaultValues(defaultValue);
+                        }
+                    }
+
+
+                    if (key.equals(Constants.GLOBAL_PREVIOUS)) {
+
+                        JSONArray defautValues = object.getJSONArray(key);
+
+                        for (int i = 0; i < defautValues.length(); i++) {
+
+                            JSONObject defaultValue = defautValues.getJSONObject(i);
+                            populateGlobalValuesMap(defaultValue);
+                        }
+                    }
+
+                    if (key.startsWith(RuleConstant.STEP)) {
+                        JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+
+                        for (int i = 0; i < stepArray.length(); i++) {
+
+                            JSONObject fieldObject = stepArray.getJSONObject(i);
+
+                            if (defaultValues.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
+
+                                Map<String, String> defaultMap = defaultValues.get(fieldObject.getString(JsonFormConstants.KEY));
+
+                                String mapValue = getMapValue(defaultMap);
+                                if (mapValue != null) {
+                                    fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                                }
+
+                            }
+
+                            if (globalValuesMap.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+
+                                Map<String, String> defaultMap = globalValuesMap.get(fieldObject.getString(JsonFormConstants.KEY));
+
+                                String mapValue = getMapValue(defaultMap);
+                                if (mapValue != null) {
+                                    if (object.has("global")) {
+                                        object.getJSONObject("global").put(fieldObject.getString(JsonFormConstants.KEY), mapValue);
+                                    } else {
+
+                                        JSONObject jsonObject = new JSONObject();
+                                        jsonObject.put("previous_" + fieldObject.getString(JsonFormConstants.KEY), mapValue);
+                                        object.put("global", jsonObject);
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage());
+
+        }
+    }
+
 }
 
 

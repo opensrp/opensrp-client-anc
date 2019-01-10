@@ -22,6 +22,7 @@ public abstract class Constants {
     public static final String ANC_RADIO_BUTTON = "anc_radio_button";
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
+    public static final String GLOBAL_PREVIOUS = "global_previous";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
