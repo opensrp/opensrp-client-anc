@@ -201,4 +201,8 @@ public class PartialContactRepository extends BaseRepository {
         PatientRepository patientRepository = new PatientRepository();
         patientRepository.updateWomanProfileDetails(baseEntityId);
     }
+
+    public void deletePartialContact(Long id) {
+        getWritableDatabase().delete(TABLE_NAME, "_id=?", new String[]{id.toString()});
+    }
 }

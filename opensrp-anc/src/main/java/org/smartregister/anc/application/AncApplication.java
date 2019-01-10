@@ -19,6 +19,7 @@ import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
@@ -58,6 +59,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private ClientProcessorForJava clientProcessorForJava;
     private String password;
     private PartialContactRepository partialContactRepository;
+    private PreviousContactRepository previousContactRepository;
     private RulesEngineHelper rulesEngineHelper;
     private JSONObject defaultContactFormGlobals = new JSONObject();
 
@@ -186,6 +188,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         if (partialContactRepository == null)
             partialContactRepository = new PartialContactRepository(getRepository());
         return partialContactRepository;
+    }
+
+    public PreviousContactRepository getPreviousContactRepository() {
+        if (previousContactRepository == null)
+            previousContactRepository = new PreviousContactRepository(getRepository());
+        return previousContactRepository;
     }
 
     public EventClientRepository getEventClientRepository() {
