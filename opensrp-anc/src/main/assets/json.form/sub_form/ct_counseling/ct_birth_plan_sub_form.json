@@ -20,7 +20,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Woman should plan to give birth at a facility due to risk factors",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "delivery_place",
@@ -68,7 +75,13 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Encourage delivery at a facility!",
-      "toaster_type": "warning"
+      "toaster_type": "warning",
+      "relevance": {
+        "step2:caffeine_counsel": {
+          "type": "string",
+          "ex": "equalTo(., \"home\")"
+        }
+      }
     },
     {
       "key": "birth_prep_counsel",
@@ -122,7 +135,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "gbs_agent_counsel",

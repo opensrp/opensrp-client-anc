@@ -76,6 +76,11 @@ fields:
   - "tt_immun_status"
   - "flu_immun_status"
   - "pop_vita"
+  - "prev_preg_comps"
+  - "family_planning_type"
+  - "other_symptoms"
+  - "gravida"
+  - "parity"
 ---
 form: anc_profile
 fields:

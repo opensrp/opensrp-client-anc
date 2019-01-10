@@ -35,7 +35,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "hiv_prep",
@@ -62,14 +69,21 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "hiv_prep_notdone",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "Reason",
       "label_text_style": "bold",
       "options": [
@@ -123,8 +137,13 @@
       "edit_type": "name",
       "relevance": {
         "step6:hiv_prep_notdone": {
-          "type": "string",
-          "ex": "equalTo(., \"other\")"
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
         }
       }
     },
@@ -137,7 +156,14 @@
       "text": "Partner HIV test recommended",
       "toaster_info_text": "Encourage woman to find out the status of her partner(s) or to bring them during the next contact visit to get tested.",
       "toaster_info_title": "Partner HIV test recommended",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "openmrs_entity_parent": "",
@@ -146,10 +172,13 @@
       "key": "prep",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     }
   ]

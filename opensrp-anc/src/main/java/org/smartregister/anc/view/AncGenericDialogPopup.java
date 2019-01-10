@@ -65,7 +65,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         super.onAttach(activity);
         context = activity;
         jsonApi = (JsonApi) activity;
-        jsonApi.refreshSkipLogic(null, null, true);
+        jsonApi.invokeRefreshLogic(null, true,null);
         JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
         ancJsonApi.setGenericPopup(this);
     }
@@ -116,7 +116,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     @Override
     public void onResume() {
         super.onResume();
-        jsonApi.refreshSkipLogic(null, null, true);
+        jsonApi.invokeRefreshLogic(null, true,null);
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;

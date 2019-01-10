@@ -39,6 +39,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -108,10 +115,13 @@
       "key": "ifa_medication",
       "type": "hidden",
       "label_text_style": "bold",
-      "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     }
   ]

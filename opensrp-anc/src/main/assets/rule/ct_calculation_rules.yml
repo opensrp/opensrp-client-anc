@@ -100,41 +100,69 @@ actions:
 name: step3_mag_calc
 description: mag_calc
 priority: 1
-condition: "step3_leg_cramp_not_relieved_counsel == 'done'"
+condition: "true"
 actions:
-  - 'calculation = "Magnesium and calcium for persistent leg cramps"'
----
-name: step3_mag_calc
-description: mag_calc
-priority: 1
-condition: "step3_leg_cramp_not_relieved_counsel == 'not_done'"
-actions:
-  - 'calculation = ""'
+  - 'calculation =   (step3_leg_cramp_not_relieved_counsel == "done" ? "Magnesium and calcium for persistent leg cramps" : "")'
 ---
 name: step3_nausea_pharma
 description: nausea_pharma
 priority: 1
-condition: "step3_nausea_not_relieved_counsel == 'done'"
+condition: "true"
 actions:
-  - 'calculation = "Pharmacologicals for persistent nausea and vomiting"'
----
-name: step3_nausea_pharma
-description: nausea_pharma
-priority: 1
-condition: "step3_nausea_not_relieved_counsel == 'not_done'"
-actions:
-  - 'calculation = ""'
+  - 'calculation = (step3_nausea_not_relieved_counsel == "done" ? "Pharmacologicals for persistent nausea and vomiting" : "")'
 ---
 name: step3_antacid
 description: antacid
 priority: 1
-condition: "step3_heartburn_not_relieved_counsel == 'done'"
+condition: "true"
 actions:
-  - 'calculation = "Antacids for persistent heartburn"'
+  - 'calculation = (step3_heartburn_not_relieved_counsel == "done" ? "Antacids for persistent heartburn" : "")'
 ---
-name: step3_antacid
-description: antacid
+name: step5_penicillin
+description: penicillin
 priority: 1
-condition: "step3_heartburn_not_relieved_counsel == 'not_done'"
+condition: "true"
 actions:
-  - 'calculation = ""'
+  - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done" ? "Penicillin for syphilis" : "") '
+---
+name: step5_antibiotic
+description: antibiotic
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step5_asb_positive_counsel == "done" ? "Seven-day antibiotic for ASB" : "") '
+---
+name: step5_aspirin
+description: aspirin
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step6_pe_risk_aspirin == "done" || step6_pe_risk_aspirin_calcium == "done") ? "Aspirin for pre-eclampsia risk" : "") '
+---
+name: step5_prep
+description: prep
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step6_hiv_prep == "done" ? "HIV Pre-exposure prophylaxis (PrEP)" : "") '
+---
+name: step8_ifa
+description: ifa
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step8_ifa_high_prev == "done" || step8_ifa_low_prev == "done") ? "Iron & folic acid supplement" : "") '
+---
+name: step8_alben_meben
+description: alben_meben
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_deworm == "done" ? "Albendazole/mebendazole for deworming" : "")'
+---
+name: step8_ifa
+description: ifa
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step8_iptp_sp1 == "done" ? "Sulfadoxine-pyrimethamine (SP) for malaria prevention" : "") '

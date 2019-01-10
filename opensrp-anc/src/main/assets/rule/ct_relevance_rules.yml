@@ -251,21 +251,7 @@ condition: "global_hypertension == 1 && global_health_conditions.contains('hyper
 actions:
   - "isRelevant = true"
 ---
-name: step5_hypertension_section
-description: Hypertension counseling
-priority: 1
-condition: "global_hypertension == 1 && global_health_conditions.contains('hypertension')"
-actions:
-  - "isRelevant = true"
----
 name: step5_hiv_positive_counsel
-description: HIV positive counseling
-priority: 1
-condition: "global_hiv_positive == 1"
-actions:
-  - "isRelevant = true"
----
-name: step5_hiv_positive_section
 description: HIV positive counseling
 priority: 1
 condition: "global_hiv_positive == 1"
@@ -279,31 +265,10 @@ condition: "global_hepb_positive == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step5_hep_b_section
-description: Hepatitis B positive counseling
-priority: 1
-condition: "global_hepb_positive == 1"
-actions:
-  - "isRelevant = true"
----
 name: step5_hepc_positive_counsel
 description: Hepatitis C positive counseling
 priority: 1
 condition: "global_hepc_positive == 1"
-actions:
-  - "isRelevant = true"
----
-name: step5_hep_c_section
-description: Hepatitis C positive counseling
-priority: 1
-condition: "global_hepc_positive == 1"
-actions:
-  - "isRelevant = true"
----
-name: step5_syphilis_section
-description: Syphilis counselling and treatment
-priority: 1
-condition: "(global_syphilis_positive == 1 && global_pop_syphilis == 0) || (global_syphilis_positive == 1 && global_pop_syphilis == 1)"
 actions:
   - "isRelevant = true"
 ---
@@ -321,24 +286,10 @@ condition: "global_syphilis_positive == 1 && global_pop_syphilis == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step5_asymptomatic_section
-description: Syphilis counselling and treatment
-priority: 1
-condition: "global_asb_positive == 1"
-actions:
-  - "isRelevant = true"
----
 name: step5_asb_positive_counsel
 description: Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)
 priority: 1
 condition: "global_asb_positive == 1"
-actions:
-  - "isRelevant = true"
----
-name: step5_diabetes_section
-description: Diabetes counseling
-priority: 1
-condition: "global_gdm == 1 || global_dm_in_preg == 1"
 actions:
   - "isRelevant = true"
 ---
@@ -349,13 +300,6 @@ condition: "global_gdm == 1 || global_dm_in_preg == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step5_anemia_section
-description: Diabetes counseling
-priority: 1
-condition: "global_anaemic == 1"
-actions:
-  - "isRelevant = true"
----
 name: step5_ifa_anaemia
 description: Prescribe daily dose of 120 mg iron and 2.8 mg folic acid
 priority: 1
@@ -363,16 +307,142 @@ condition: "global_anaemic == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step5_tb_screening_positive_section
-description: Diabetes counseling
+name: step5_tb_positive_counseling
+description: TB screening positive counseling
 priority: 1
 condition: "global_tb_screening_result == 'positive'"
 actions:
   - "isRelevant = true"
 ---
-name: step5_tb_positive_counseling
-description: TB screening positive counseling
+name: step6_pe_risk_aspirin
+description: pe_risk_aspirin
 priority: 1
-condition: "global_tb_screening_result == 'positive'"
+condition: "global_preeclampsia_risk == 1 && global_pop_low_calcium == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step6_pe_risk_aspirin_calcium
+description: pe_risk_aspirin_calcium
+priority: 1
+condition: "global_preeclampsia_risk == 1 && global_pop_low_calcium == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step6_hiv_risk_counsel
+description: hiv_risk_counsel
+priority: 1
+condition: "global_hiv_risk == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_hiv_prep
+description: hiv_prep
+priority: 1
+condition: "global_pop_hiv_incidence == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_prep_toaster
+description: prep_toaster
+priority: 1
+condition: "global_partner_hiv_status == 'unknown' && global_hiv_test_partner_status == 'not_done'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_gdm_risk_counsel
+description: gdm_risk_counsel
+priority: 1
+condition: "global_gdm_risk == 1 && global_gdm != 1 && global_dm_in_preg != 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_birth_plan_toaster
+description: birth_plan_toaster
+priority: 1
+condition: "global_age <= 17 || (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other')  || (global_c_sections > 0) || (global_no_of_fetuses > 1) || (step7_family_planning_type == 'uid' || step7_family_planning_type == 'tubal_ligation') || (global_prev_preg_comps == '3rd_degree_tear' || global_prev_preg_comps == 'heavy_bleeding' || global_prev_preg_comps == 'vacuum_delivery' || global_prev_preg_comps == 'convulsions') || global_gravida == 1 || global_parity > 5 || global_hiv_positive == 1 "
+actions:
+  - "isRelevant = true"
+---
+name: step7_rh_negative_counsel
+description: rh_negative_counsel
+priority: 1
+condition: "global_rh_factor == 'negative"
+actions:
+  - "isRelevant = true"
+---
+name: step7_gbs_agent_counsel
+description: gbs_agent_counsel
+priority: 1
+condition: "global_urine_culture == 'positive_gbs"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_enquiry
+description: ipv_enquiry
+priority: 1
+condition: "global_site_ipv_assess == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_refer_toaster
+description: ipv_refer_toaster
+priority: 1
+condition: "global_site_ipv_assess == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ifa_high_prev
+description: ifa_high_prev
+priority: 1
+condition: "global_pop_anaemia_40 == 1 && global_anaemic == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ifa_low_prev
+description: ifa_low_prev
+priority: 1
+condition: "global_pop_anaemia_40 == 0 && global_anaemic == 0"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ifa_weekly
+description: ifa_weekly
+priority: 1
+condition: "global_pop_anaemia_40 == 0 && global_anaemic == 0 && global_pop_anaemia_20 == 1 && global_ifa_effects == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_deworm
+description: deworm
+priority: 1
+condition: "global_pop_anaemia_40 == 1 && global_pop_helminth == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_iptp_sp1
+description: iptp_sp1
+priority: 1
+condition: "global_pop_malaria == 1 && !global_medications.contains('cotrimoxazole')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_iptp_sp_toaster
+description: iptp_sp_toaster
+priority: 1
+condition: "global_pop_malaria == 1 && !global_medications.contains('cotrimoxazole')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_iptp_sp_notdone
+description: iptp_sp_notdone
+priority: 1
+condition: "(step8_iptp_sp1 == 'not_done' ||  step8_iptp_sp2 == 'not_done' || step8_iptp_sp3 == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_malaria_counsel
+description: malaria_counsel
+priority: 1
+condition: "global_pop_malaria == 1"
 actions:
   - "isRelevant = true"

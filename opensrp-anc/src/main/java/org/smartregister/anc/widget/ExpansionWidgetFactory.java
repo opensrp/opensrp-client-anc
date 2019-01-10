@@ -93,14 +93,17 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             throws JSONException {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
         RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
+        RelativeLayout expansion_header_layout = expansionHeader.findViewById(R.id.expansion_header_layout);
+        expansion_header_layout = (RelativeLayout) addRecordViewTags(expansion_header_layout, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        expansion_header_layout.setOnClickListener(recordButtonClickListener);
 
-        ImageView statusImage = expansionHeader.findViewById(R.id.statusImageView);
+        ImageView statusImage = expansion_header_layout.findViewById(R.id.statusImageView);
         statusImage = (ImageView) addRecordViewTags(statusImage, jsonObject, stepName, commonListener, jsonFormFragment, context);
         statusImage.setOnClickListener(recordButtonClickListener);
 
         ImageView infoIcon = expansionHeader.findViewById(R.id.accordion_info_icon);
 
-        CustomTextView headerText = expansionHeader.findViewById(R.id.topBarTextView);
+        CustomTextView headerText = expansion_header_layout.findViewById(R.id.topBarTextView);
         headerText.setText(accordionText);
         headerText = (CustomTextView) addRecordViewTags(headerText, jsonObject, stepName, commonListener, jsonFormFragment, context);
         headerText.setOnClickListener(recordButtonClickListener);
@@ -211,8 +214,10 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         @Override
         public void onClick(View view) {
             LinearLayout linearLayout;
-            if (view instanceof ImageView || view instanceof CustomTextView) {
+            if (view instanceof RelativeLayout) {
                 linearLayout = (LinearLayout) view.getParent().getParent();
+            } else if (view instanceof ImageView || view instanceof CustomTextView) { // This caters for the different views that can be clicked to show the popup
+                linearLayout = (LinearLayout) view.getParent().getParent().getParent();
             } else {
                 linearLayout = (LinearLayout) view.getParent().getParent().getParent();
             }

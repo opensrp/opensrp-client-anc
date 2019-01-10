@@ -35,7 +35,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

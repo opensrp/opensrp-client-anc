@@ -39,6 +39,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -122,6 +129,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -195,7 +209,14 @@
       "text": "Do not give IPTp-SP, because woman is taking co-trimoxazole.",
       "toaster_info_text": "Women who are taking co-trimoxazole SHOULD NOT receive IPTp-SP. Taking both co-trimoxazole and IPTp-SP together can enhance side effects, especially hematological side effects such as anaemia.",
       "toaster_info_title": "Do not give IPTp-SP, because woman is taking co-trimoxazole.",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "iptp_sp_notdone",
@@ -236,7 +257,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "iptp_sp_notdone_other",
@@ -283,7 +311,14 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "malaria_counsel_notdone",
@@ -342,8 +377,12 @@
       "label_text_style": "bold",
       "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -355,8 +394,12 @@
       "label_text_style": "bold",
       "text": "0",
       "text_color": "#FF0000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     }
   ]

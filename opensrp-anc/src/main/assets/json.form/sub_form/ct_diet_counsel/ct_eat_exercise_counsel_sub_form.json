@@ -7,7 +7,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Body mass index (BMI) = {bmi}\n\nWoman is {weight_cat}. Weight gain during pregnancy should be {exp_weight_gain}.",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "average_weight_toaster",
@@ -16,7 +23,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Average weight gain per week since last contact: {weight_gain} kg\n\nTotal weight gain in pregnancy so far: {tot_weight_gain} kg",
-      "toaster_type": "info"
+      "toaster_type": "info",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "eat_exercise_counsel",
