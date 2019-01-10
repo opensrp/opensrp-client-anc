@@ -83,11 +83,11 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
             Contact contact = (Contact) tag;
             getView().loadGlobals(contact);
-            if (contact.getName().equals(getView().getString(R.string.quick_check))) {
-                getView().startQuickCheck(contact);
-            } else {
-                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
 
+            JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+            if (contact.getName().equals(getView().getString(R.string.quick_check))) {
+                getView().startQuickCheckActivity(form, contact);
+            } else {
                 if (contact.getGlobals() != null) {
 
                     for (Map.Entry<String, String> entry : contact.getGlobals().entrySet()) {

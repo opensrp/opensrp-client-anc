@@ -145,9 +145,6 @@
     <string name="clients_menu">Clients</string>
     <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
-    <!-- Quick Check -->
-    <string name="quick_check">Quick Check</string>
-
     <string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
 
     <string name="first_contact">First contact</string>
@@ -239,6 +236,7 @@
     <string name="edit"> edit </string>
 
     <!-- contact -->
+    <string name="quick_check">Quick Check</string>
     <string name="profile">Profile</string>
     <string name="symptoms_follow_up">Symptoms &amp; Follow-up</string>
     <string name="physical_exam">Physical Exam</string>

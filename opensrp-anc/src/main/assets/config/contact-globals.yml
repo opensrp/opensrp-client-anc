@@ -152,3 +152,7 @@ fields:
   - "bmi"
   - "pallor"
   - "pop_tb"
+---
+form: anc_quick_check
+fields:
+  - "nothing"
