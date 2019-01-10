@@ -27,6 +27,13 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -35,7 +42,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "openmrs_data_type": "",
-      "type": "check_box",
+      "type": "native_radio",
       "label": "Reason",
       "hint": "Reason",
       "label_text_style": "bold",
@@ -72,13 +79,8 @@
       "edit_type": "name",
       "relevance": {
         "step3:constipation_counsel_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
         }
       }
     }

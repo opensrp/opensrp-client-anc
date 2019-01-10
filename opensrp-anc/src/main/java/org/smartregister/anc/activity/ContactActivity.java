@@ -196,6 +196,11 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
             String formJsonString = partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
             JSONObject object = new JSONObject(formJsonString);
+            JSONObject globals = form.getJSONObject(Constants.GLOBAL);
+
+            if (globals != null) {
+                object.put(Constants.GLOBAL, globals);
+            }
 
             preprocessDefaultValues(object);
 
@@ -221,7 +226,13 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             Map<String, String> map = new HashMap<>();
             for (String cg : contactGlobals) {
                 if (formGlobalValues.containsKey(cg)) {
-                    map.put(cg, formGlobalValues.get(cg));
+                    String some = map.get(cg);
+                    if (some == null || !some.equals(formGlobalValues.get(cg))) {
+
+                        map.put(cg, formGlobalValues.get(cg));
+                    }
+                } else {
+                    map.put(cg, "");
                 }
             }
 
@@ -302,9 +313,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                         JSONObject fieldObject = stepArray.getJSONObject(i);
 
-                        if (fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
+                        processSpecialWidgets(fieldObject);
 
-                            processSpecialWidgets(fieldObject);
+                        if (fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
 
                             if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
@@ -572,13 +583,13 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                                 String mapValue = getMapValue(defaultMap);
                                 if (mapValue != null) {
-                                    if (object.has("global")) {
-                                        object.getJSONObject("global").put(fieldObject.getString(JsonFormConstants.KEY), mapValue);
+                                    if (object.has(Constants.GLOBAL)) {
+                                        object.getJSONObject(Constants.GLOBAL).put(fieldObject.getString(JsonFormConstants.KEY), mapValue);
                                     } else {
 
                                         JSONObject jsonObject = new JSONObject();
                                         jsonObject.put("previous_" + fieldObject.getString(JsonFormConstants.KEY), mapValue);
-                                        object.put("global", jsonObject);
+                                        object.put(Constants.GLOBAL, jsonObject);
                                     }
                                 }
 
