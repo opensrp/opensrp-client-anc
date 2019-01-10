@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -101,16 +100,16 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
-        ImageButton backButton = findViewById(R.id.undo_button);
-        backButton.setImageResource(R.drawable.ic_arrow_back_white);
-        backButton.setOnClickListener(this);
-
-        ((TextView) findViewById(R.id.top_patient_name)).setText(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
         saveAndFinishButton = findViewById(R.id.finalize_contact);
-        saveAndFinishButton.setText(R.string.save_and_finish);
-        saveAndFinishButton.setEnabled(true);
-        saveAndFinishButton.setOnClickListener(this);
 
+        if (saveAndFinishButton != null) {
+            saveAndFinishButton.setText(R.string.save_and_finish);
+            saveAndFinishButton.setEnabled(false);
+            saveAndFinishButton.setOnClickListener(this);
+        }
+
+        collapsingToolbarLayout.setTitleEnabled(false);
+        actionBar.setTitle(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
     }
 
     @Override
@@ -200,7 +199,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, R.drawable.woman_placeholder);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, R.drawable.ic_woman_with_baby);
     }
 
     @Override
