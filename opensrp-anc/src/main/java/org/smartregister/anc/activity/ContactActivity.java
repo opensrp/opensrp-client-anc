@@ -90,7 +90,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             Contact quickCheck = new Contact();
             quickCheck.setName(getString(R.string.quick_check));
             quickCheck.setContactNumber(contactNo);
+            quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackground(R.drawable.quick_check_bg);
+            quickCheck.setWizard(false);
             if (requiredFieldsMap.containsKey(quickCheck.getName())) {
                 Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getName());
                 quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 3);

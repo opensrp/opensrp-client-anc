@@ -444,7 +444,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
                     result.put(JsonFormConstants.VALUE, options.getJSONObject(j).getString(JsonFormConstants.VALUE));
                 } else {
-                    result.put(JsonFormConstants.VALUE, "false");
+                    result.put(JsonFormConstants.VALUE, Constants.FALSE);
                 }
             }
         }
