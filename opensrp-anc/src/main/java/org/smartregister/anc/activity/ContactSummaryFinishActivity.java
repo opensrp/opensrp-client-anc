@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -63,8 +62,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
     private List<ContactSummary> contactSummaryList = new ArrayList<>();
     private Gson gson;
-    private Button saveAndFinishButton;
     private String baseEntityId;
+    private MenuItem saveFinishMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,34 +99,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
-        saveAndFinishButton = findViewById(R.id.finalize_contact);
-
-        if (saveAndFinishButton != null) {
-            saveAndFinishButton.setText(R.string.save_and_finish);
-            saveAndFinishButton.setEnabled(false);
-            saveAndFinishButton.setOnClickListener(this);
-        }
-
         collapsingToolbarLayout.setTitleEnabled(false);
         actionBar.setTitle(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-
-        switch (view.getId()) {
-            case R.id.undo_button:
-                super.onBackPressed();
-                break;
-
-            case R.id.finalize_contact:
-                saveFinishForm();
-                break;
-
-            default:
-                break;
-        }
     }
 
     @Override
@@ -136,7 +109,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            finish();
+            super.onBackPressed();
         } else {
             saveFinishForm();
         }
@@ -147,6 +120,15 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_contact_summary_finish_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        saveFinishMenuItem = menu.findItem(R.id.save_finish_menu_item);
+        saveFinishMenuItem.setEnabled(false);//initially disable
+
         return true;
     }
 
@@ -352,10 +334,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                             PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
-                            saveAndFinishButton.setEnabled(true);
+                            saveFinishMenuItem.setEnabled(true);
 
                         } catch (IllegalArgumentException e) {
-                            saveAndFinishButton.setEnabled(false);
+                            saveFinishMenuItem.setEnabled(false);
                         }
 
                     }

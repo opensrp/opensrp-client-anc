@@ -163,4 +163,7 @@ public abstract class Constants {
         public static final String CONTACT_CONTAINER = "container";
     }
 
+    public static class PREFIX {
+        public static final String PREVIOUS = "previous_";
+    }
 }

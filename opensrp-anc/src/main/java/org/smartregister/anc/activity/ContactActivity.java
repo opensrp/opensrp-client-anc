@@ -590,7 +590,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                                     } else {
 
                                         JSONObject jsonObject = new JSONObject();
-                                        jsonObject.put("previous_" + fieldObject.getString(JsonFormConstants.KEY), mapValue);
+                                        jsonObject.put(Constants.PREFIX.PREVIOUS + fieldObject.getString(JsonFormConstants.KEY), mapValue);
                                         object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
                                     }
                                 }
