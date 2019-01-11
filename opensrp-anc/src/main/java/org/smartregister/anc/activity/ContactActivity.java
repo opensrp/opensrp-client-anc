@@ -326,6 +326,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                         }
 
                         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE)) {
+
+                            processSpecialWidgets(fieldObject);
+
                             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
                         }
 
@@ -350,6 +353,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
     private void processSpecialWidgets(JSONObject widget) throws JSONException {
         String widgetType = widget.getString(JsonFormConstants.TYPE);
+        List<String> keyList = new ArrayList<>();
         List<String> valueList = new ArrayList<>();
 
 
@@ -363,16 +367,96 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                 if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.VALUE).equals("true")) {
 
-                    valueList.add(jsonObject.getString(JsonFormConstants.KEY));
+                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+
+
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+
+
+                        valueList = getRealSecondaryValue(jsonObject);
+
+                    } else {
+
+                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    }
+
+                }
+
+            }
+
+            if (keyList.size() > 0) {
+                String valueListString = valueList.toString();
+
+                widget.put(JsonFormConstants.VALUE, keyList.toString());
+                formGlobalValues.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString.length() - 1));
+            }
+        } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON)) {
+            //Value already good for radio buttons so no keylist
+
+            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
+
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+
+
+                        valueList = getRealSecondaryValue(jsonObject);
+
+                    } else {
+
+                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    }
 
                 }
 
             }
 
             if (valueList.size() > 0) {
-                widget.put(JsonFormConstants.VALUE, valueList.toString());
+                String valueListString = valueList.toString();
+                formGlobalValues.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString.length() - 1));
             }
         }
+    }
+
+    private List<String> getRealSecondaryValue(JSONObject jsonObject) throws JSONException {
+
+        List<String> valueList = new ArrayList<>();
+
+        JSONArray jsonArray2 = jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
+
+
+        String resultString = "";
+
+        for (int j = 0; j < jsonArray2.length(); j++) {
+
+            JSONObject secValue = jsonArray2.getJSONObject(j);
+
+            JSONArray values = secValue.getJSONArray(JsonFormConstants.VALUES);
+
+            boolean containsOther = j == 0 && jsonArray2.length() == 2;
+
+            int valueLength = containsOther ? values.length() - 1 : values.length();
+
+            for (int k = 0; k < valueLength; k++) {
+                String valuesString = values.getString(k);
+                valuesString = valuesString.contains(":") ? valuesString.substring(valuesString.indexOf(":") + 1) : valuesString;
+                valuesString = valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString;
+                resultString += valuesString;
+
+                if (k != valueLength - 1) {
+                    resultString += ", ";
+                }
+            }
+
+        }
+
+        valueList.add(resultString);
+
+        return valueList;
     }
 
     private JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType) throws JSONException {
@@ -540,11 +624,11 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                     if (key.equals(Constants.DEFAULT_VALUES)) {
 
-                        JSONArray defautValues = object.getJSONArray(key);
+                        JSONArray defaultValues = object.getJSONArray(key);
 
-                        for (int i = 0; i < defautValues.length(); i++) {
+                        for (int i = 0; i < defaultValues.length(); i++) {
 
-                            JSONObject defaultValue = defautValues.getJSONObject(i);
+                            JSONObject defaultValue = defaultValues.getJSONObject(i);
                             populateDefaultValues(defaultValue);
                         }
                     }
@@ -552,11 +636,11 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                     if (key.equals(Constants.GLOBAL_PREVIOUS)) {
 
-                        JSONArray defautValues = object.getJSONArray(key);
+                        JSONArray defaultValues = object.getJSONArray(key);
 
-                        for (int i = 0; i < defautValues.length(); i++) {
+                        for (int i = 0; i < defaultValues.length(); i++) {
 
-                            JSONObject defaultValue = defautValues.getJSONObject(i);
+                            JSONObject defaultValue = defaultValues.getJSONObject(i);
                             populateGlobalValuesMap(defaultValue);
                         }
                     }
@@ -586,7 +670,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                                 String mapValue = getMapValue(defaultMap);
                                 if (mapValue != null) {
                                     if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
-                                        object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(fieldObject.getString(JsonFormConstants.KEY), mapValue);
+                                        object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + fieldObject.getString(JsonFormConstants.KEY), mapValue);
                                     } else {
 
                                         JSONObject jsonObject = new JSONObject();

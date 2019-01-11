@@ -166,4 +166,8 @@ public abstract class Constants {
     public static class PREFIX {
         public static final String PREVIOUS = "previous_";
     }
+
+    public static class SUFFIX {
+        public static final String VALUE = "_value";
+    }
 }
