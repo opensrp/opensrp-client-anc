@@ -42,6 +42,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected ContactContract.Presenter presenter;
 
+    protected Integer contactNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,10 +107,11 @@ public abstract class BaseContactActivity extends SecuredActivity {
         partialContactRequest.setContactNo(contact.getContactNumber());
         partialContactRequest.setType(contact.getFormName());
 
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest,form));
+        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest, form));
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -203,7 +206,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     }
 
-    protected abstract String getFormJson(PartialContact partialContactRequest,JSONObject jsonForm);
+    protected abstract String getFormJson(PartialContact partialContactRequest, JSONObject jsonForm);
 
     ////////////////////////////////////////////////////////////////
     // Inner classesC

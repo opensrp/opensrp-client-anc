@@ -694,7 +694,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
         try {
 
             Gson gson = new Gson();
-            Event event = gson.fromJson(partialContactList.getFormJson(), EVENT_TYPE);
+            Event event = gson.fromJson(partialContactList.getFormJsonDraft() != null ? partialContactList.getFormJsonDraft() : partialContactList.getFormJson(), EVENT_TYPE);
             List<Obs> obs = event.getObs();
             for (Obs ob : obs) {
                 obsMap.put(ob.getFieldCode(), ob.getValues());

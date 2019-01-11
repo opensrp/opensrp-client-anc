@@ -147,10 +147,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     private void persistPartial() {
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
 
         PartialContact partialContact = new PartialContact();
         partialContact.setBaseEntityId(baseEntityId);
-        partialContact.setContactNo(1);//Hardcoded to remove
+        partialContact.setContactNo(contactNo);
         partialContact.setFinalized(false);
 
         Contact contact = getContact();

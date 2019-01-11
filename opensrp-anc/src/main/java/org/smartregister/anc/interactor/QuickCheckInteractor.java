@@ -50,7 +50,7 @@ public class QuickCheckInteractor implements QuickCheckContract.Interactor {
 
                     PartialContact partialContact = new PartialContact();
                     partialContact.setBaseEntityId(event.getBaseEntityId());
-                    partialContact.setContactNo(1);
+                    partialContact.setContactNo(quickCheck.getContactNumber());
                     partialContact.setFinalized(false);
                     partialContact.setType(event.getEventType());
                     partialContact.setFormJsonDraft(eventJson.toString());
