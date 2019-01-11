@@ -182,7 +182,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo save the form and continue to the main contact page
+                backClick();
                 dialog.dismiss();
             }
         });
@@ -190,7 +190,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo save the form and continue to the main contact page
+                backClick();
                 dialog.dismiss();
             }
         });

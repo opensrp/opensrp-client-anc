@@ -127,17 +127,30 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public void changeIcon(ImageView imageView, String type, Context context) {
         if (!TextUtils.isEmpty(type)) {
-            if (type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
-            } else if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
-            } else if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ordered));
-            } else if (type.contains(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || type.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
-                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.not_done));
+            switch (type) {
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY:
+                case "done":
+                case "Done":
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
+                    break;
+                case Constants
+                        .ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
+                    break;
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ordered));
+                    break;
+                case Constants
+                        .ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.not_done));
+                    break;
+                default:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.grey_circle));
+                    break;
             }
         }
     }

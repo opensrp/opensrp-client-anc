@@ -123,7 +123,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
         for (int i = 0; i < value.length(); i++) {
             JSONObject item = value.getJSONObject(i);
-            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON)) {
+            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) ||
+                    item.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
                 JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < jsonArray.length(); k++) {
                     String valueDisplay = jsonArray.getString(k);
@@ -235,28 +236,14 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             jsonApi = (JsonApi) context;
             JSONObject mainJson = jsonApi.getmJSONObject();
             if (mainJson != null) {
-                getExpansionPanel(mainJson, stepName, key);
+                getExpansionPanel(mainJson, stepName, key, context);
             }
         }
 
-        private void getExpansionPanel(JSONObject mainJson, String stepName, String parentKey) {
+        private void getExpansionPanel(JSONObject mainJson, String stepName, String parentKey, Context context) {
             if (mainJson != null) {
-                JSONObject parentJson = jsonApi.getStep(stepName);
-                JSONArray fields = new JSONArray();
+                JSONArray fields = formUtils.getFormFields(stepName,context);
                 try {
-                    if (parentJson.has(JsonFormConstants.SECTIONS) && parentJson.get(JsonFormConstants.SECTIONS) instanceof JSONArray) {
-                        JSONArray sections = parentJson.getJSONArray(JsonFormConstants.SECTIONS);
-                        for (int i = 0; i < sections.length(); i++) {
-                            JSONObject sectionJson = sections.getJSONObject(i);
-                            if (sectionJson.has(JsonFormConstants.FIELDS)) {
-                                fields = formUtils.concatArray(fields, sectionJson.getJSONArray(JsonFormConstants.FIELDS));
-                            }
-                        }
-                    } else if (parentJson.has(JsonFormConstants.FIELDS) && parentJson.get(JsonFormConstants.FIELDS) instanceof JSONArray) {
-                        fields = parentJson.getJSONArray(JsonFormConstants.FIELDS);
-
-                    }
-
                     if (fields.length() > 0) {
                         for (int i = 0; i < fields.length(); i++) {
                             JSONObject item = fields.getJSONObject(i);

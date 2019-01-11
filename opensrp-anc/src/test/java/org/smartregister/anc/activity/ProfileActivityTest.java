@@ -21,8 +21,6 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.contract.ProfileContract;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.presenter.ProfilePresenter;

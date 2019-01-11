@@ -18,7 +18,7 @@
         },
         {
           "key": "not_done",
-          "text": "Not Done",
+          "text": "Not done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
