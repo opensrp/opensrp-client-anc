@@ -104,7 +104,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             @Override
             protected void onPreExecute() {
 
-              //  showProgressDialog("Saving contact progress...");
+                //  showProgressDialog("Saving contact progress...");
             }
 
             @Override
@@ -118,7 +118,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             @Override
             protected void onPostExecute(Void result) {
-               // hideProgressDialog();
+                // hideProgressDialog();
                 ContactJsonFormActivity.this.finish();
 
             }
@@ -277,47 +277,44 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     @Override
-    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent,
-                                     String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
+    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
         synchronized (getmJSONObject()) {
             JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
             JSONArray fields = fetchFields(jsonObject, popup);
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
                 String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                String itemType = "";
-                if (popup) {
-                    itemType = item.getString(JsonFormConstants.TYPE);
-                    String widgetLabel = getWidgetLabel(item);
-                    if (!TextUtils.isEmpty(widgetLabel)) {
-                        itemType = itemType + ";" + widgetLabel;
-                    }
-                }
-                if (key.equals(keyAtIndex)) {
+                String itemType = item.has(JsonFormConstants.TYPE) ? item.getString(JsonFormConstants.TYPE) : "";
+                boolean isSpecialWidget = isSpecialWidget(itemType);
+
+                String cleanKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
+
+                if (cleanKey.equals(keyAtIndex)) {
+
                     if (item.has(JsonFormConstants.TEXT)) {
                         item.put(JsonFormConstants.TEXT, value);
                     } else {
                         if (popup) {
                             String itemText = "";
-                            String type = item.getString(JsonFormConstants.TYPE);
-                            if (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || type.equals(Constants.ANC_RADIO_BUTTON)) {
+                            if (itemType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType.equals(Constants.ANC_RADIO_BUTTON)) {
                                 itemText = formUtils.getRadioButtonText(item, value);
                             }
 
-                            genericDialogInterface
-                                    .addSelectedValues(
-                                            formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, itemType, itemText));
+                            String widgetLabel = getWidgetLabel(item);
+                            if (!TextUtils.isEmpty(widgetLabel)) {
+                                itemType = itemType + ";" + widgetLabel;
+                            }
+
+                            genericDialogInterface.addSelectedValues(formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, itemType, itemText));
                             setExtraFieldsWithValues(fields);
                         }
-                        item.put(JsonFormConstants.VALUE, value);
+                        item.put(JsonFormConstants.VALUE, itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ? item.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ? item.getString(JsonFormConstants.VALUE) : value : value);
                     }
                     item.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openMrsEntityParent);
                     item.put(JsonFormConstants.OPENMRS_ENTITY, openMrsEntity);
                     item.put(JsonFormConstants.OPENMRS_ENTITY_ID, openMrsEntityId);
-                    refreshCalculationLogic(key, null, popup);
-                    refreshSkipLogic(key, null, popup);
-                    refreshConstraints(key, null);
-                    refreshMediaLogic(key, value);
+
+                    invokeRefreshLogic(value, popup, cleanKey);
                     return;
                 }
             }
