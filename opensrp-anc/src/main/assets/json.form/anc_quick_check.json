@@ -556,74 +556,12 @@
         ],
         "v_required": {
           "value": true
-        }
-      },
-      {
-        "key": "danger_signs_proceed",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Danger sign! How to proceed? ",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "refer_close",
-            "text": "Refer and close contact",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "proceed_to_normal",
-            "text": "Proceed to normal contact",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "v_required": {
-          "value": true
         },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "quick_check_relevance_rules.yml"
             }
-          }
-        }
-      },
-      {
-        "key": "danger_signs_treat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Any treatment given before referral?",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "step1:danger_signs_proceed": {
-            "type": "string",
-            "ex": "equalTo(., \"refer_close\")"
           }
         }
       }

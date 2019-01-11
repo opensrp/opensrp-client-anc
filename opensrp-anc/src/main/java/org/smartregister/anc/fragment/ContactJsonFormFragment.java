@@ -1,14 +1,24 @@
 package org.smartregister.anc.fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 
 import org.smartregister.anc.R;
@@ -29,6 +39,11 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     private static final int MENU_NAVIGATION = 100001;
     private TextView contactTitle;
+    private BottomNavigationListener navigationListener = new BottomNavigationListener();
+
+    private LinearLayout proceedLayout;
+    private Button referClose;
+    private Button proceed;
 
     public ContactJsonFormFragment() {
     }
@@ -40,12 +55,44 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
     }
+
     private Contact getContact() {
         if (getActivity() != null && getActivity() instanceof ContactJsonFormActivity) {
             return ((ContactJsonFormActivity) getActivity()).getContact();
         }
         return null;
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.contact_json_form_fragment_wizard, null);
+
+        this.mMainView = rootView.findViewById(com.vijay.jsonwizard.R.id.main_layout);
+        this.mScrollView = rootView.findViewById(com.vijay.jsonwizard.R.id.scroll_view);
+
+        setupNavigation(rootView);
+        setupCustomUI();
+
+        return rootView;
+    }
+
+    @Override
+    protected void setupNavigation(View rootView) {
+        super.setupNavigation(rootView);
+        proceedLayout = rootView.findViewById(R.id.navigation_layout);
+
+        referClose = rootView.findViewById(R.id.refer);
+        referClose.setOnClickListener(navigationListener);
+
+        proceed = rootView.findViewById(R.id.proceed);
+        proceed.setOnClickListener(navigationListener);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
+
     @Override
     protected ContactJsonFormFragmentViewState createViewState() {
         return new ContactJsonFormFragmentViewState();
@@ -74,7 +121,12 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         super.onCreateOptionsMenu(menu, inflater);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
-        //menu.add(Menu.NONE, MENU_NAVIGATION, 1, "Menu").setIcon(R.drawable.ic_action_menu).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        Contact form = getContact();
+        if (form != null) {
+            if (form.isHideSaveLabel()) {
+                updateVisibilityOfNextAndSave(false,false);
+            }
+        }
     }
 
     @Override
@@ -108,6 +160,74 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 backClick();
             }
         });
+    }
+
+    private void displayReferralDialog() {
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.alert_referral_dialog, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+
+        Button yes = view.findViewById(R.id.refer_yes);
+        final Button no = view.findViewById(R.id.refer_no);
+
+        final AlertDialog dialog = builder.create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            window.setAttributes(param);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               //Todo save the form and continue to the main contact page
+                dialog.dismiss();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo save the form and continue to the main contact page
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    private class BottomNavigationListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
+                Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
+                if (tag == null) {
+                    next();
+                } else {
+                    boolean next = (boolean) tag;
+                    if (next) {
+                        next();
+                    } else {
+                        save();
+                    }
+                }
+
+            } else if (view.getId() == com.vijay.jsonwizard.R.id.previous || view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
+                assert getFragmentManager() != null;
+                getFragmentManager().popBackStack();
+            } else if (view.getId() == R.id.refer) {
+                displayReferralDialog();
+            } else if (view.getId() == R.id.proceed) {
+                displayReferralDialog(); //Todo remove this and add the save form and go the main contact page
+            }
+        }
     }
 }
 
