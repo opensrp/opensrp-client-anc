@@ -24,13 +24,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ExpansionWidgetAdapter;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
-import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
@@ -110,7 +108,15 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             @Override
             protected Void doInBackground(Void... nada) {
 
-                persistPartial();
+
+                String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+                Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
+
+                Contact contact = getContact();
+                contact.setJsonForm(currentJsonState());
+                contact.setContactNumber(contactNo);
+
+                ContactJsonFormUtils.persistPartial(getContact(), baseEntityId);
 
                 return null;
 
@@ -143,24 +149,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
-    }
-
-    private void persistPartial() {
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
-
-        PartialContact partialContact = new PartialContact();
-        partialContact.setBaseEntityId(baseEntityId);
-        partialContact.setContactNo(contactNo);
-        partialContact.setFinalized(false);
-
-        Contact contact = getContact();
-        if (contact != null) {
-            partialContact.setType(getContact().getFormName());
-        }
-        partialContact.setFormJsonDraft(currentJsonState());
-
-        AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 
     @Override

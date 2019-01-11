@@ -62,6 +62,7 @@ public abstract class Constants {
         public static final String ANC_TEST = "anc_test";
         public static final String ANC_COUNSELLING_TREATMENT = "anc_counselling_treatment";
         public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
+        public static final String ANC_QUICK_CHECK = "anc_quick_check";
     }
 
     public static class JSON_FORM_KEY {

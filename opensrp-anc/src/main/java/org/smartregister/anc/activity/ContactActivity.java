@@ -22,6 +22,7 @@ import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.util.FormUtils;
@@ -88,8 +89,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             quickCheck.setBackground(R.drawable.quick_check_bg);
             if (requiredFieldsMap.containsKey(quickCheck.getName())) {
                 Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getName());
-                quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 3);
+                quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
             }
+
             contacts.add(quickCheck);
 
             Contact profile = new Contact();
@@ -189,24 +191,16 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     protected String getFormJson(PartialContact partialContactRequest, JSONObject form) {
 
         try {
-            //partial contact exists?
-
-            PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
-            String formJsonString = partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
-            JSONObject object = new JSONObject(formJsonString);
-            JSONObject globals = form.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
-
-            if (globals != null) {
-                object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
-            }
+            JSONObject object = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form);
 
             preprocessDefaultValues(object);
 
             return object.toString();
+
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return "";
         }
+        return "";
 
     }
 
@@ -311,9 +305,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                         JSONObject fieldObject = stepArray.getJSONObject(i);
 
-                        processSpecialWidgets(fieldObject);
+                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        if (fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
+                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
 
                             if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
@@ -327,9 +321,13 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE)) {
 
-                            processSpecialWidgets(fieldObject);
-
                             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
+
+                            String secondaryValueKey = fieldObject.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE;
+
+                            if (fieldObject.has(secondaryValueKey)) {
+                                formGlobalValues.put(secondaryValueKey, fieldObject.getString(secondaryValueKey));
+                            }
                         }
 
                         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
@@ -349,114 +347,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             }
         }
 
-    }
-
-    private void processSpecialWidgets(JSONObject widget) throws JSONException {
-        String widgetType = widget.getString(JsonFormConstants.TYPE);
-        List<String> keyList = new ArrayList<>();
-        List<String> valueList = new ArrayList<>();
-
-
-        if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
-
-            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.VALUE).equals("true")) {
-
-                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-
-
-                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
-
-
-                        valueList = getRealSecondaryValue(jsonObject);
-
-                    } else {
-
-                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
-                    }
-
-                }
-
-            }
-
-            if (keyList.size() > 0) {
-                String valueListString = valueList.toString();
-
-                widget.put(JsonFormConstants.VALUE, keyList.toString());
-                formGlobalValues.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString.length() - 1));
-            }
-        } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON)) {
-            //Value already good for radio buttons so no keylist
-
-            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
-
-                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
-
-
-                        valueList = getRealSecondaryValue(jsonObject);
-
-                    } else {
-
-                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
-                    }
-
-                }
-
-            }
-
-            if (valueList.size() > 0) {
-                String valueListString = valueList.toString();
-                formGlobalValues.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString.length() - 1));
-            }
-        }
-    }
-
-    private List<String> getRealSecondaryValue(JSONObject jsonObject) throws JSONException {
-
-        List<String> valueList = new ArrayList<>();
-
-        JSONArray jsonArray2 = jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
-
-
-        String resultString = "";
-
-        for (int j = 0; j < jsonArray2.length(); j++) {
-
-            JSONObject secValue = jsonArray2.getJSONObject(j);
-
-            JSONArray values = secValue.getJSONArray(JsonFormConstants.VALUES);
-
-            boolean containsOther = j == 0 && jsonArray2.length() == 2;
-
-            int valueLength = containsOther ? values.length() - 1 : values.length();
-
-            for (int k = 0; k < valueLength; k++) {
-                String valuesString = values.getString(k);
-                valuesString = valuesString.contains(":") ? valuesString.substring(valuesString.indexOf(":") + 1) : valuesString;
-                valuesString = valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString;
-                resultString += valuesString;
-
-                if (k != valueLength - 1) {
-                    resultString += ", ";
-                }
-            }
-
-        }
-
-        valueList.add(resultString);
-
-        return valueList;
     }
 
     private JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType) throws JSONException {
@@ -598,7 +488,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         if (fieldKey.equals(fieldObject.getString(JsonFormConstants.KEY))) {
-                            processSpecialWidgets(fieldObject);
+                            ContactJsonFormUtils.processSpecialWidgets(fieldObject);
                             value = fieldObject.has(JsonFormConstants.VALUE) && fieldObject.getString(JsonFormConstants.VALUE) != null ? fieldObject.getString(JsonFormConstants.VALUE) : "";
 
                             broken = true;
@@ -612,7 +502,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
         return value;
     }
-
 
     private void preprocessDefaultValues(JSONObject object) {
         try {

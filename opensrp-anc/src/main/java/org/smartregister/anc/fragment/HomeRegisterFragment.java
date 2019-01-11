@@ -6,23 +6,39 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.rules.RuleConstant;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.ContactActivity;
+import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
+import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.DBQueryHelper;
+import org.smartregister.anc.model.BaseContactModel;
+import org.smartregister.anc.model.ContactModel;
+import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
@@ -33,6 +49,7 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -215,17 +232,86 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
     public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient) {
         try {
-            Intent intent = new Intent(getActivity(), ContactActivity.class);
-            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-            intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
-            intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-            getActivity().startActivity(intent);
+
+            Intent intent = new Intent(getActivity(), ContactJsonFormActivity.class);
+
+            Contact quickCheck = new Contact();
+            quickCheck.setName(getString(R.string.quick_check));
+            quickCheck.setFormName(Constants.JSON_FORM.ANC_QUICK_CHECK);
+            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
+            quickCheck.setBackground(R.drawable.quick_check_bg);
+
+            //partial contact exists?
+
+            PartialContact partialContactRequest = new PartialContact();
+            partialContactRequest.setBaseEntityId(baseEntityId);
+            partialContactRequest.setContactNo(quickCheck.getContactNumber());
+            partialContactRequest.setType(quickCheck.getFormName());
+
+            BaseContactModel baseContactModel = new ContactModel();
+
+            String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+
+            JSONObject form = ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
+
+            if (hasPendingRequiredFields(form)) {
+
+                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString());
+                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
+                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
+                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
+
+                startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+
+            } else {
+
+                intent = new Intent(getActivity(), ContactActivity.class);
+                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+                intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
+                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
+
+                getActivity().startActivity(intent);
+            }
+
+
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             Utils.showToast(getActivity(), "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
         }
     }
 
+
+    private boolean hasPendingRequiredFields(JSONObject object) throws JSONException {
+        if (object != null) {
+            Iterator<String> keys = object.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+
+                if (key.startsWith(RuleConstant.STEP)) {
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+
+                    for (int i = 0; i < stepArray.length(); i++) {
+
+                        JSONObject fieldObject = stepArray.getJSONObject(i);
+
+                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+
+                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
+
+                            if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+
+                                return true;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 
 }
 

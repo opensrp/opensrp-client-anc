@@ -17,11 +17,18 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
+import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ContactJsonFormUtils extends FormUtils {
@@ -142,4 +149,150 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
+
+    public static void persistPartial(Contact contact, String baseEntityId) {
+
+        PartialContact partialContact = new PartialContact();
+        partialContact.setBaseEntityId(baseEntityId);
+        partialContact.setContactNo(contact.getContactNumber());
+        partialContact.setFinalized(false);
+
+        if (contact != null) {
+            partialContact.setType(contact.getFormName());
+        }
+        partialContact.setFormJsonDraft(contact.getJsonForm());
+
+        AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
+    }
+
+
+    public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
+
+        JSONObject object;
+
+        //partial contact exists?
+
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+        String formJsonString = partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
+        object = new JSONObject(formJsonString);
+        JSONObject globals = form.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
+
+        if (globals != null) {
+            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
+        }
+
+        return object;
+
+    }
+
+
+    public static void processSpecialWidgets(JSONObject widget) throws JSONException {
+        String widgetType = widget.getString(JsonFormConstants.TYPE);
+        List<String> keyList = new ArrayList<>();
+        List<String> valueList = new ArrayList<>();
+
+
+        if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
+
+            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.VALUE).equals("true")) {
+
+                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+
+
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+
+
+                        valueList = getRealSecondaryValue(jsonObject);
+
+                    } else {
+
+                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    }
+
+                }
+
+            }
+
+            if (keyList.size() > 0) {
+
+                String valueListString = valueList.toString();
+
+                widget.put(JsonFormConstants.VALUE, keyList.toString());
+                widget.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString.length() - 1));
+            }
+        } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON)) {
+            //Value already good for radio buttons so no keylist
+
+            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
+
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+
+
+                        valueList = getRealSecondaryValue(jsonObject);
+
+                    } else {
+
+                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    }
+
+                }
+
+            }
+
+            if (valueList.size() > 0) {
+                String valueListString = valueList.toString();
+                widget.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString.length() - 1));
+            }
+        }
+    }
+
+
+    public static List<String> getRealSecondaryValue(JSONObject jsonObject) throws JSONException {
+
+        List<String> valueList = new ArrayList<>();
+
+        JSONArray jsonArray2 = jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
+
+
+        String resultString = "";
+
+        for (int j = 0; j < jsonArray2.length(); j++) {
+
+            JSONObject secValue = jsonArray2.getJSONObject(j);
+
+            JSONArray values = secValue.getJSONArray(JsonFormConstants.VALUES);
+
+            boolean containsOther = j == 0 && jsonArray2.length() == 2;
+
+            int valueLength = containsOther ? values.length() - 1 : values.length();
+
+            for (int k = 0; k < valueLength; k++) {
+                String valuesString = values.getString(k);
+                valuesString = valuesString.contains(":") ? valuesString.substring(valuesString.indexOf(":") + 1) : valuesString;
+                valuesString = valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString;
+                resultString += valuesString;
+
+                if (k != valueLength - 1) {
+                    resultString += ", ";
+                }
+            }
+
+        }
+
+        valueList.add(resultString);
+
+        return valueList;
+    }
 }
