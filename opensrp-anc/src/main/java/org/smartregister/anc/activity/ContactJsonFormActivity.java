@@ -2,6 +2,8 @@ package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -50,6 +52,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private Utils utils = new Utils();
     private String TAG = this.getClass().getSimpleName();
+    private String formName;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        formName = getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void initializeFormFragment() {
@@ -303,7 +312,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     item.put(JsonFormConstants.OPENMRS_ENTITY, openMrsEntity);
                     item.put(JsonFormConstants.OPENMRS_ENTITY_ID, openMrsEntityId);
 
-                    invokeRefreshLogic(value, popup, cleanKey);
+                    invokeRefreshLogic(value, popup, cleanKey, null);
                     return;
                 }
             }
@@ -316,6 +325,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         synchronized (getmJSONObject()) {
             JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
             JSONArray fields = fetchFields(jsonObject, popup);
+
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
                 String keyAtIndex = item.getString(JsonFormConstants.KEY);
@@ -346,15 +356,60 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                                         formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, childKey, value, itemType.toString(), itemText));
                                 setExtraFieldsWithValues(fields);
                             }
-                            refreshCalculationLogic(parentKey, childKey, popup);
-                            refreshSkipLogic(parentKey, childKey, popup);
-                            refreshConstraints(parentKey, childKey);
+                            if (formName.equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
+                                validateActivateNext(fields);
+                            }
+
+                            invokeRefreshLogic(value, popup, parentKey, childKey);
                             return;
                         }
                     }
                 }
             }
+
         }
+    }
+
+    public void validateActivateNext(JSONArray fields) throws JSONException {
+        boolean none = false;
+        boolean other = false;
+
+        Fragment fragment = getVisibleFragment();
+        if (fragment instanceof ContactJsonFormFragment) {
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject jsonObject = fields.getJSONObject(i);
+                if (jsonObject != null && jsonObject.getString(JsonFormConstants.KEY).equals(Constants.DANGER_SIGNS)) {
+
+                    JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                    for (int k = 0; k < jsonArray.length(); k++) {
+                        JSONObject item = jsonArray.getJSONObject(k);
+                        if (item != null && item.getBoolean(JsonFormConstants.VALUE)) {
+                            if (item.getString(JsonFormConstants.KEY).equals(Constants.DANGER_NONE)) {
+                                none = true;
+                            }
+
+                            if (!item.getString(JsonFormConstants.KEY).equals(Constants.DANGER_NONE)) {
+                                other = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            ((ContactJsonFormFragment) fragment).validateActivateNext(none, other);
+        }
+    }
+
+    public Fragment getVisibleFragment() {
+        List<Fragment> fragments = this.getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment != null && fragment.isVisible())
+                    return fragment;
+            }
+        }
+        return null;
     }
 
     private String getWidgetLabel(JSONObject jsonObject) throws JSONException {
@@ -432,7 +487,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
                     result.put(JsonFormConstants.VALUE, options.getJSONObject(j).getString(JsonFormConstants.VALUE));
                 } else {
-                    result.put(JsonFormConstants.VALUE, "false");
+                    result.put(JsonFormConstants.VALUE, Constants.FALSE);
                 }
             }
         }

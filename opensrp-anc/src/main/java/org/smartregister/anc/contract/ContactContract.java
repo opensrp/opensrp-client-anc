@@ -12,7 +12,7 @@ public interface ContactContract {
 
         void startFormActivity(JSONObject form, Contact contact);
 
-        void startQuickCheck(Contact contact);
+        void startQuickCheckActivity(JSONObject form,Contact contact);
 
         void displayToast(int resourceId);
 

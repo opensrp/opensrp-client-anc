@@ -23,6 +23,9 @@ public abstract class Constants {
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
+    public static final String FALSE = "false";
+    public static final String DANGER_SIGNS = "danger_signs";
+    public static final String DANGER_NONE = "danger_none";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
@@ -109,6 +112,7 @@ public abstract class Constants {
         public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
         public static final String CONTACT_NO = "contact_number";
+        public static final String FORM_NAME = "form_name";
     }
 
     public static class OPENMRS {

@@ -1,12 +1,16 @@
 package org.smartregister.anc.activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +21,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.fragment.QuickCheckFormFragment;
 import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
@@ -86,11 +91,16 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             Contact quickCheck = new Contact();
             quickCheck.setName(getString(R.string.quick_check));
             quickCheck.setContactNumber(contactNo);
+            quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackground(R.drawable.quick_check_bg);
+            quickCheck.setWizard(false);
+            quickCheck.setHideSaveLabel(true);
             if (requiredFieldsMap.containsKey(quickCheck.getName())) {
                 Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getName());
                 quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
             }
+
+            quickCheck.setFormName(Constants.JSON_FORM.ANC_QUICK_CHECK);
 
             contacts.add(quickCheck);
 
@@ -186,6 +196,10 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     public void startFormActivity(JSONObject form, Contact contact) {
         super.startFormActivity(form, contact);
     }
+    @Override
+    public void startQuickCheckActivity(JSONObject form, Contact contact) {
+        super.startQuickCheck(form, contact);
+    }
 
     @Override
     protected String getFormJson(PartialContact partialContactRequest, JSONObject form) {
@@ -240,15 +254,10 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     }
 
     @Override
-    public void startQuickCheck(Contact contact) {
-        QuickCheckFragment.launchDialog(ContactActivity.this, DIALOG_TAG);
-    }
-
-    @Override
     protected void createContacts() {
         try {
 
-            eventToFileMap.put(getString(R.string.quick_check), "anc_quick_check");
+            eventToFileMap.put(getString(R.string.quick_check), Constants.JSON_FORM.ANC_QUICK_CHECK);
             eventToFileMap.put(getString(R.string.profile), Constants.JSON_FORM.ANC_PROFILE);
             eventToFileMap.put(getString(R.string.physical_exam), Constants.JSON_FORM.ANC_PHYSICAL_EXAM);
             eventToFileMap.put(getString(R.string.tests), Constants.JSON_FORM.ANC_TEST);

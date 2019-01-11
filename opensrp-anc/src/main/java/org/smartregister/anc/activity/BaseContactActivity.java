@@ -99,9 +99,14 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void startFormActivity(JSONObject form, Contact contact) {
         Intent intent = new Intent(this, ContactJsonFormActivity.class);
-
+        formStartActions(form, contact, intent);
+    }
+    protected void startQuickCheck(JSONObject form, Contact contact) {
+        Intent intent = new Intent(this, QuickCheckFormActivity.class);
+        formStartActions(form, contact, intent);
+    }
+    private void formStartActions(JSONObject form, Contact contact, Intent intent) {
         //partial contact exists?
-
         PartialContact partialContactRequest = new PartialContact();
         partialContactRequest.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         partialContactRequest.setContactNo(contact.getContactNumber());
@@ -111,6 +116,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, contact.getFormName());
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

@@ -4,7 +4,7 @@ description: Displays the womans danger signs.
 priority: 1
 condition: "!global_danger_signs.contains('danger_none')"
 actions:
- - 'calculation = ["danger_signs" : global_danger_signs]'
+ - 'calculation = ["danger_signs" : global_danger_signs_value]'
 ---
 name: step1_severe_hypertension_toaster
 description: Severe hypertension toaster

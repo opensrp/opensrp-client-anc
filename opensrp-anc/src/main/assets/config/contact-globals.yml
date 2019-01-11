@@ -84,6 +84,7 @@ fields:
   - "other_symptoms"
   - "gravida"
   - "parity"
+  - "danger_signs_value"
 ---
 form: anc_profile
 fields:
@@ -155,3 +156,7 @@ fields:
   - "bmi"
   - "pallor"
   - "pop_tb"
+---
+form: anc_quick_check
+fields:
+  - "nothing"
