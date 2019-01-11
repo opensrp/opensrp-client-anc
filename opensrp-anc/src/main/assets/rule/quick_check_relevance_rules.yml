@@ -1,0 +1,7 @@
+---
+name: step1_danger_signs_proceed
+description: danger_signs_proceed
+priority: 1
+condition: "step1_danger_signs != null && !step1_danger_signs.contains('danger_none') && !step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"

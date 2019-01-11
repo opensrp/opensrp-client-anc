@@ -52,7 +52,7 @@ public class QuickCheckFormFragment extends JsonWizardFormFragment {
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
     @Override
-    protected void setupCustomToolbar() {
+    protected void setupCustomUI() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.contact_form_toolbar);
@@ -73,7 +73,7 @@ public class QuickCheckFormFragment extends JsonWizardFormFragment {
         this.mMainView = rootView.findViewById(com.vijay.jsonwizard.R.id.main_layout);
         this.mScrollView = rootView.findViewById(com.vijay.jsonwizard.R.id.scroll_view);
 
-        setupCustomToolbar();
+        setupCustomUI();
 
         return rootView;
     }

@@ -94,8 +94,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
-    protected void setupCustomToolbar() {
-        super.setupCustomToolbar();
+    protected void setupCustomUI() {
+        super.setupCustomUI();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.contact_form_toolbar);
