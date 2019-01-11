@@ -50,8 +50,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
     private TextView patientNameView;
 
-    private Integer contactNo;
-
     private Map<String, Integer> requiredFieldsMap = new HashMap<>();
     private Map<String, String> eventToFileMap = new HashMap<>();
     private Yaml yaml = new Yaml();
@@ -206,10 +204,10 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
             String formJsonString = partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ? (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson()) : form.toString();
             JSONObject object = new JSONObject(formJsonString);
-            JSONObject globals = form.getJSONObject(Constants.GLOBAL);
+            JSONObject globals = form.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
 
             if (globals != null) {
-                object.put(Constants.GLOBAL, globals);
+                object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
             }
 
             preprocessDefaultValues(object);
@@ -448,7 +446,9 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
             if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
                 object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
                 processRequiredStepsField(object);
-                partialForms.remove(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
+                if (object.has(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)) {
+                    partialForms.remove(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
+                }
             }
         }
 
@@ -590,13 +590,13 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                                 String mapValue = getMapValue(defaultMap);
                                 if (mapValue != null) {
-                                    if (object.has(Constants.GLOBAL)) {
-                                        object.getJSONObject(Constants.GLOBAL).put(fieldObject.getString(JsonFormConstants.KEY), mapValue);
+                                    if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+                                        object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(fieldObject.getString(JsonFormConstants.KEY), mapValue);
                                     } else {
 
                                         JSONObject jsonObject = new JSONObject();
                                         jsonObject.put("previous_" + fieldObject.getString(JsonFormConstants.KEY), mapValue);
-                                        object.put(Constants.GLOBAL, jsonObject);
+                                        object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
                                     }
                                 }
 

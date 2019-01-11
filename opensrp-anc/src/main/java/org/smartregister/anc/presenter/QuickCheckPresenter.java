@@ -94,7 +94,8 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
                 }
 
                 getView().displayNavigationLayout();
-            } else { if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
+            } else {
+                if (field.getDisplayName().equals(getView().getString(R.string.complaint_other_specify))) {
                     getView().enableSpecifyEditText();
                 }
 
@@ -118,7 +119,7 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
             return;
         }
 
-        QuickCheck quickCheck = populate(specify, proceed, null);
+        QuickCheck quickCheck = populate(specify, proceed, null, contactNo);
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, this);
 
     }
@@ -130,7 +131,7 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
             return;
         }
 
-        QuickCheck quickCheck = populate(specify, proceed, referred);
+        QuickCheck quickCheck = populate(specify, proceed, referred, contactNo);
         interactor.saveQuickCheckEvent(quickCheck, baseEntityId, this);
     }
 
@@ -168,7 +169,7 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
         return isDangerSign ? this.selectedDangerSigns : this.specificComplaints;
     }
 
-    private QuickCheck populate(String specify, Boolean proceed, Boolean treat) {
+    private QuickCheck populate(String specify, Boolean proceed, Boolean treat, Integer contactNo) {
         QuickCheck quickCheck = new QuickCheck();
         quickCheck.setSelectedReason(selectedReason);
         quickCheck.setSpecificComplaints(specificComplaints);
@@ -183,6 +184,8 @@ public class QuickCheckPresenter implements QuickCheckContract.Presenter, QuickC
         quickCheck.setHasDangerSigns(hasDangerSigns());
         quickCheck.setProceedRefer(proceed);
         quickCheck.setTreat(treat);
+
+        quickCheck.setContactNumber(contactNo);
 
         return quickCheck;
     }

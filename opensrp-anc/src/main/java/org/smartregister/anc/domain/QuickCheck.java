@@ -19,6 +19,7 @@ public class QuickCheck {
     private Boolean hasDangerSigns;
     private Boolean proceedRefer;
     private Boolean treat;
+    private Integer contactNumber;
 
     public Field getSelectedReason() {
         return selectedReason;
@@ -106,5 +107,13 @@ public class QuickCheck {
 
     public void setTreat(Boolean treat) {
         this.treat = treat;
+    }
+
+    public Integer getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(Integer contactNumber) {
+        this.contactNumber = contactNumber;
     }
 }

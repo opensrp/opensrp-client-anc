@@ -366,14 +366,14 @@ actions:
 name: step7_rh_negative_counsel
 description: rh_negative_counsel
 priority: 1
-condition: "global_rh_factor == 'negative"
+condition: "global_rh_factor == 'negative'"
 actions:
   - "isRelevant = true"
 ---
 name: step7_gbs_agent_counsel
 description: gbs_agent_counsel
 priority: 1
-condition: "global_urine_culture == 'positive_gbs"
+condition: "global_urine_culture == 'positive_gbs'"
 actions:
   - "isRelevant = true"
 ---
@@ -444,5 +444,96 @@ name: step8_malaria_counsel
 description: malaria_counsel
 priority: 1
 condition: "global_pop_malaria == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step8_tt1_date
+description: tt1_date
+priority: 1
+condition: "global_tt_immun_status != '3_doses'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_tt2_date
+description: tt2_date
+priority: 1
+condition: "global_tt_immun_status == 'unknown' || global_tt_immun_status == 'ttcv_not_received'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_tt3_date
+description: tt3_date
+priority: 1
+condition: "global_tt_immun_status == 'unknown' || global_tt_immun_status == 'ttcv_not_received'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_tt_dose_notdone
+description: tt_dose_notdone
+priority: 1
+condition: "step8_tt1_date == 'not_done' || step8_tt2_date == 'not_done' || step8_tt3_date == 'not_done'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_woman_immunised_toaster
+description: woman_immunised_toaster
+priority: 1
+condition: "step8_tt3_date == 'done_earlier' || step8_tt3_date == 'done_today' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_hepb_negative_note
+description: hepb_negative_note
+priority: 1
+condition: "global_hepb_positive == 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step8_hepb1_date
+description: hepb1_date
+priority: 1
+condition: "global_hepb_positive == 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step8_hepb_dose_notdone
+description: hepb_dose_notdone
+priority: 1
+condition: "step8_hepb1_date == 'not_done' || step8_hepb3_date == 'not_done' || step8_hepb3_date == 'not_done'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_woman_immunised_hep_b_toaster
+description: woman_immunised_hep_b_toaster
+priority: 1
+condition: "step8_hepb3_date == 'done_earlier' || step8_hepb3_date == 'done_today' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_flu_date
+description: flu_date
+priority: 1
+condition: "global_flu_immun_status != 'seasonal_flu_dose_given'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_woman_immunised_flu_toaster
+description: woman_immunised_flu_toaster
+priority: 1
+condition: "step8_flu_date == 'done_earlier' || step8_flu_date == 'done_today' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_calcium_supp
+description: calcium_supp
+priority: 1
+condition: "global_pop_low_calcium == 1 "
+actions:
+  - "isRelevant = true"
+---
+name: step8_vita_supp
+description: vita_supp
+priority: 1
+condition: "global_pop_vita == 1 "
 actions:
   - "isRelevant = true"
