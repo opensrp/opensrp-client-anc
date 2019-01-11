@@ -311,7 +311,9 @@
             "openmrs_entity": "Yes",
             "openmrs_entity_id": "",
             "specify_info": "specify date",
-            "specify_widget": "date_picker"
+            "specify_widget": "date_picker",
+            "max_date": "today",
+            "min_date":"today-280d"
           },
           {
             "key": "no",
@@ -390,7 +392,9 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "specify_info": "ultrasound date",
-            "specify_widget": "date_picker"
+            "specify_widget": "date_picker",
+            "max_date": "today",
+            "min_date":"today-9m"
           },
           {
             "key": "no",
@@ -474,11 +478,11 @@
         },
         "v_min": {
           "value": "4",
-          "err": "GA from ultrasound - weeks must be equal or greater than 4"
+          "err": "GA from ultrasound - weeks should be equal to or greater than 4"
         },
         "v_max": {
-          "value": "43",
-          "err": "GA from ultrasound - weeks must be equal or less than 43"
+          "value": "40",
+          "err": "GA from ultrasound - weeks should be less than or equal to 40"
         }
       },
       {
@@ -504,11 +508,11 @@
         },
         "v_min": {
           "value": "1",
-          "err": "GA from ultrasound - weeks must be equal or less than 1"
+          "err": "GA from ultrasound - weeks should be equal to or greater than 1"
         },
         "v_max": {
           "value": "6",
-          "err": "GA from ultrasound - weeks must be equal or greater than 6"
+          "err": "GA from ultrasound - weeks should be equal to or less than 6 "
         }
       },
       {
@@ -568,11 +572,11 @@
         },
         "v_min": {
           "value": "4",
-          "err": "GA from SFH or abdominal palpation - weeks must be equal or less than 4"
+          "err": "GA from SFH or abdominal palpation - weeks should 4 or greater"
         },
         "v_max": {
-          "value": "43",
-          "err": "GA from SFH or abdominal palpation - weeks must be equal or greater than 43"
+          "value": "40",
+          "err": "GA from SFH or abdominal palpation - weeks should be 40 or less"
         },
         "relevance": {
           "rules-engine": {

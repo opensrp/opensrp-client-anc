@@ -9,14 +9,14 @@ actions:
 name: step2_ultrasound_toaster
 description: Ultrasound recommended
 priority: 1
-condition: "(step2_ultrasound_done == 'no' && global_site_ultrasound == 1)"
+condition: "(step2_ultrasound_done == 'no' && global_site_ultrasound == true)"
 actions:
   - "isRelevant = true"
 ---
 name: step2_facility_in_us_toaster
 description: Ultrasound recommended
 priority: 1
-condition: "(step2_ultrasound_done == 'no' && global_site_ultrasound == 0)"
+condition: "(step2_ultrasound_done == 'no' && global_site_ultrasound == false)"
 actions:
   - "isRelevant = true"
 ---
@@ -122,7 +122,7 @@ actions:
 name: step5_hepb_immun_status
 description: hepb_immun_status
 priority: 1
-condition: "global_pop_hepb == 1 || global_pop_hepb_screening == 1 || step4_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')"
+condition: "global_pop_hepb == true || global_pop_hepb_screening == true || step4_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')"
 actions:
   - "isRelevant = true"
 ---
