@@ -116,6 +116,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, contact.getFormName());
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }

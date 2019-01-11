@@ -81,6 +81,7 @@ fields:
   - "other_symptoms"
   - "gravida"
   - "parity"
+  - "danger_signs_value"
 ---
 form: anc_profile
 fields:

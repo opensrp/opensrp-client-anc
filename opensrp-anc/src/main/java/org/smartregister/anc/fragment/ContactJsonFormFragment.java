@@ -89,11 +89,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-    }
-
-    @Override
     protected ContactJsonFormFragmentViewState createViewState() {
         return new ContactJsonFormFragmentViewState();
     }
@@ -121,10 +116,11 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         super.onCreateOptionsMenu(menu, inflater);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
+
         Contact form = getContact();
         if (form != null) {
             if (form.isHideSaveLabel()) {
-                updateVisibilityOfNextAndSave(false,false);
+                updateVisibilityOfNextAndSave(false, false);
             }
         }
     }
@@ -186,7 +182,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //Todo save the form and continue to the main contact page
+                //Todo save the form and continue to the main contact page
                 dialog.dismiss();
             }
         });
@@ -202,6 +198,40 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         dialog.show();
     }
 
+    public void validateActivateNext(boolean none, boolean other) {
+        LinearLayout linearLayout = (LinearLayout) this.getView();
+        LinearLayout buttonLayout = null;
+        if (linearLayout != null) {
+            buttonLayout = linearLayout.findViewById(R.id.navigation_layout);
+        }
+
+        Button referButton = null;
+        Button proceedButton = null;
+        if (buttonLayout != null) {
+            referButton = buttonLayout.findViewById(R.id.refer);
+            proceedButton = buttonLayout.findViewById(R.id.proceed);
+        }
+
+
+        if ((none || other) && buttonLayout != null) {
+            buttonLayout.setVisibility(View.VISIBLE);
+            proceedButton.setVisibility(View.VISIBLE);
+            if (other) {
+                referButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if ((!none && !other) && buttonLayout != null) {
+            buttonLayout.setVisibility(View.GONE);
+            proceedButton.setVisibility(View.GONE);
+            referButton.setVisibility(View.GONE);
+        }
+
+        if ((none && !other) && buttonLayout != null) {
+            referButton.setVisibility(View.GONE);
+        }
+
+    }
 
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
