@@ -88,13 +88,13 @@ fields:
   - template: "No. of fetuses: {no_of_fetuses}"
     relevance: ""
 
-  - template: "Fetal presentation: {fetal_presentation}"
+  - template: "Fetal presentation: {fetal_presentation_value}"
     relevance: "fetal_presentation != ''"
 
-  - template: "Amniotic fluid: {amniotic_fluid}"
+  - template: "Amniotic fluid: {amniotic_fluid_value}"
     relevance: "amniotic_fluid != ''"
 
-  - template: "Placenta location: {placenta_location}"
+  - template: "Placenta location: {placenta_location_value}"
     relevance: "placenta_location != ''"
 
 ---
@@ -235,7 +235,7 @@ fields:
   - template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}"
     relevance: "tobacco_counsel == 'Not done'"
 
-  - template: "Anyone in the household smokes tobacco products: {shs_exposure}"
+  - template: "Anyone in the household smokes tobacco products: {shs_exposure_value}"
     relevance: "shs_exposure != ''"
 
   - template: "Second-hand smoke counseling done"
@@ -244,7 +244,7 @@ fields:
   - template: "Second-hand smoke counseling not done: {shs_counsel_notdone_value}"
     relevance: "shs_counsel == 'Not done'"
 
-  - template: "Uses condoms during sex: {condom_use}"
+  - template: "Uses condoms during sex: {condom_use_value}"
     relevance: "condom_use != ''"
 
   - template: "Condom counseling done"
@@ -253,7 +253,7 @@ fields:
   - template: "Condom counseling not done: {condom_counsel_notdone_value}"
     relevance: "condom_counsel == 'Not done'"
 
-  - template: "Clinical enquiry for alcohol and other substance use done: {alcohol_substance_enquiry}"
+  - template: "Clinical enquiry for alcohol and other substance use done: {alcohol_substance_enquiry_value}"
     relevance: "alcohol_substance_enquiry != ''"
 
   - template: "Alcohol / substances used: {alcohol_substance_use_value}"
@@ -274,10 +274,10 @@ fields:
   - template: "Physiological symptoms: {phys_symptoms_value}"
     relevance: "phys_symptoms != ''"
 
-  - template: "Low back and pelvic pain other symptoms: {other_sym_lbpp}"
+  - template: "Low back and pelvic pain other symptoms: {other_sym_lbpp_value}"
     relevance: "other_sym_lbpp != ''"
 
-  - template: "Varicose veins || oedema other symptoms: {other_sym_vvo}"
+  - template: "Varicose veins || oedema other symptoms: {other_sym_vvo_value}"
     relevance: "other_sym_vvo != ''"
 
   - template: "Non-pharma measures to relieve nausea and vomiting counseling done"
@@ -343,7 +343,7 @@ fields:
   - template: "Other persisting symptoms: {other_symptoms_persist}"
     relevance: "other_symptoms_persist != ''"
 
-  - template: "Other symptoms: {other_symptoms} {other_symptoms_other}"
+  - template: "Other symptoms: {other_symptoms_value}"
     relevance: "other_symptoms != ''"
 
   - template: "Fetal movement felt by woman: {mat_percept_fetal_move}"
@@ -442,55 +442,55 @@ fields:
   - template: "Second pulse rate: {pulse_rate_repeat}bpm"
     relevance: "pulse_rate_repeat != ''"
 
-  - template: "Pallor present: {pallor}"
+  - template: "Pallor present: {pallor_value}"
     relevance: "pallor != ''"
 
-  - template: "Respiratory exam: {respiratory_exam}"
+  - template: "Respiratory exam: {respiratory_exam_value}"
     relevance: "respiratory_exam != ''"
 
-  - template: "Abnormal (specify): {repiratory_exam_abnormal_value"
+  - template: "Abnormal (specify): {repiratory_exam_abnormal_value}"
     relevance: "repiratory_exam_abnormal != ''"
 
   - template: "Oximetry: {oximetry}%"
     relevance: "oximetry != ''"
 
-  - template: "Cardiac exam: {cardiac_exam}"
+  - template: "Cardiac exam: {cardiac_exam_value}"
     relevance: "cardiac_exam != ''"
 
   - template: "Abnormal (specify): {cardiac_exam_abnormal_value}"
     relevance: "cardiac_exam_abnormal != ''"
 
-  - template: "Breast exam: {breast_exam}"
+  - template: "Breast exam: {breast_exam_value}"
     relevance: "breast_exam != ''"
 
   - template: "Abnormal (specify): {breast_exam_abnormal_value}"
     relevance: "breast_exam_abnormal != ''"
 
-  - template: "Abdominal exam: {abdominal_exam}"
+  - template: "Abdominal exam: {abdominal_exam_value}"
     relevance: "abdominal_exam != ''"
 
   - template: "Abnormal (specify): {abdominal_exam_abnormal_value}"
     relevance: "abdominal_exam_abnormal != ''"
 
-  - template: "Pelvic exam: {pelvic_exam}"
+  - template: "Pelvic exam: {pelvic_exam_value}"
     relevance: "pelvic_exam != ''"
 
   - template: "Abnormal (specify): {pelvic_exam_abnormal_value}"
     relevance: "pelvic_exam_abnormal != ''"
 
-  - template: "Cervical exam: {cervical_exam}"
+  - template: "Cervical exam: {cervical_exam_value}"
     relevance: "cervical_exam != ''"
 
   - template: "Cervix dilated: {dilation_cm} cm"
     relevance: "dilation_cm != ''"
 
-  - template: "Oedema present: {oedema}"
+  - template: "Oedema present: {oedema_value}"
     relevance: "oedema != ''"
 
-  - template: "Oedema type: {oedema_type}"
+  - template: "Oedema type: {oedema_type_value}"
     relevance: "oedema_type != ''"
 
-  - template: "Oedema severity: {oedema_severity}"
+  - template: "Oedema severity: {oedema_severity_value}"
     relevance: "oedema_severity != ''"
 ---
 group: fetal_assessment
@@ -556,7 +556,7 @@ fields:
   - template: "HIV test date: {hiv_test_date}"
     relevance: "hiv_test_date != ''"
 
-  - template: "HIV test result: {hiv_test_result}"
+  - template: "HIV test result: {hiv_test_result_value}"
     relevance: "hiv_test_result != ''"
 
   - template: "HIV positive counseling done"
@@ -568,13 +568,13 @@ fields:
 group: partner_hiv_test
 fields:
 
-  - template: "Partner HIV status: {partner_hiv_status}"
+  - template: "Partner HIV status: {partner_hiv_status_value}"
     relevance: "partner_hiv_status != ''"
 
   - template: "Partner HIV test date: {hiv_test_partner_date}"
     relevance: "hiv_test_partner_date != ''"
 
-  - template: "Partner HIV test result: {hiv_test_partner_result}"
+  - template: "Partner HIV test result: {hiv_test_partner_result_value}"
     relevance: "hiv_test_partner_result != ''"
 
   - template: "Partner HIV test ordered"
