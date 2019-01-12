@@ -15,6 +15,9 @@ public class Contact extends Form implements Serializable {
 
     private int contactNumber;
 
+    private String jsonForm;
+
+
     private Map<String, String> globals;
 
     public int getBackground() {
@@ -55,5 +58,13 @@ public class Contact extends Form implements Serializable {
 
     public void setContactNumber(int contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public String getJsonForm() {
+        return jsonForm;
+    }
+
+    public void setJsonForm(String jsonForm) {
+        this.jsonForm = jsonForm;
     }
 }

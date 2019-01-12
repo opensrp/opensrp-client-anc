@@ -25,6 +25,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.domain.AttentionFlag;
+import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
@@ -34,6 +35,7 @@ import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
@@ -218,6 +220,12 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                     ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
                     ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.QUICK_CHECK)) {
+
+                    Contact contact = new Contact();
+                    contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, 0));
+                    ContactJsonFormUtils.persistPartial(contact, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+
                 }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));

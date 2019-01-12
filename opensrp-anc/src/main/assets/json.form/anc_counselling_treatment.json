@@ -218,7 +218,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Respiratory distress: {respiratory_exam_abnormal}, {respiratory_exam_abnormal_other}",
+        "text": "Respiratory distress: {respiratory_exam_abnormal}",
         "toaster_info_text": "Procedure:\n\n- Refer urgently to hospital!",
         "toaster_type": "problem",
         "relevance": {
