@@ -1817,7 +1817,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "numbers_selector",
-        "number_of_selectors": "4",
+        "number_of_selectors": "5",
         "start_number": "1",
         "max_value": "8",
         "text_size": "16px",

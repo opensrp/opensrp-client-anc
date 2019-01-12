@@ -737,7 +737,7 @@
         "openmrs_entity_id": "5624",
         "type": "numbers_selector",
         "number_of_selectors": "5",
-        "start_number": "0",
+        "start_number": "1",
         "max_value": "15",
         "text_size": "16px",
         "text_color": "#000000",
@@ -766,6 +766,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
         "key": "miscarriages_abortions_label",
         "type": "label",
         "label_text_style": "bold",
@@ -773,6 +781,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -796,6 +811,13 @@
               "rules-file": "profile_constraint_rule.yml"
             }
           }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -804,7 +826,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "15dp"
+        "spacer_height": "10dp"
       },
       {
         "key": "live_births_label",
@@ -814,6 +836,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -837,6 +866,13 @@
               "rules-file": "profile_constraint_rule.yml"
             }
           }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -845,7 +881,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "15dp"
+        "spacer_height": "10dp"
       },
       {
         "key": "stillbirths_label",
@@ -855,6 +891,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -876,6 +919,13 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "profile_constraint_rule.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
             }
           }
         }
@@ -901,6 +951,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
         "key": "c_sections_label",
         "type": "label",
         "label_text_style": "bold",
@@ -908,6 +966,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -924,6 +989,20 @@
         "selected_text_color": "#ffffff",
         "v_required": {
           "value": true
+        },
+        "constraints": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_constraint_rule.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -932,7 +1011,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "22dp"
+        "spacer_height": "20dp"
       },
       {
         "key": "prev_preg_comps",
