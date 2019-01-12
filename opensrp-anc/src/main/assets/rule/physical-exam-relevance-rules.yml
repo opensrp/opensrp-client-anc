@@ -164,7 +164,7 @@ actions:
 name: step2_toaster11
 description: Note displaying that the woman has severe pre-eclampsia.
 priority: 1
-condition: "(step2_hypertension == 1 && !step2_symp_sev_preeclampsia.contains('none'))"
+condition: "(step2_hypertension == 1 && !step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none'))"
 actions:
  - "isRelevant = true"
 ---
