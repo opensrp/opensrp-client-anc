@@ -384,7 +384,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             }
 
 
-            ((ContactJsonFormFragment) fragment).validateActivateNext(none, other);
+            ((ContactJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
         }
     }
 

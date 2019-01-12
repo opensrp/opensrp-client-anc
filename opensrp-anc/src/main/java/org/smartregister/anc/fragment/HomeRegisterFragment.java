@@ -252,8 +252,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
             BaseContactModel baseContactModel = new ContactModel();
 
-            String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants
-                    .CURRENT_LOCATION_ID);
+            String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
 
             JSONObject form = ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
 
 
@@ -36,14 +38,11 @@ import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
 public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     public static final String TAG = ContactJsonFormFragment.class.getName();
+    private boolean savePartial = false;
 
     private static final int MENU_NAVIGATION = 100001;
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
-
-    private LinearLayout proceedLayout;
-    private Button referClose;
-    private Button proceed;
 
     public ContactJsonFormFragment() {
     }
@@ -79,12 +78,12 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     @Override
     protected void setupNavigation(View rootView) {
         super.setupNavigation(rootView);
-        proceedLayout = rootView.findViewById(R.id.navigation_layout);
+        LinearLayout proceedLayout = rootView.findViewById(R.id.navigation_layout);
 
-        referClose = rootView.findViewById(R.id.refer);
+        Button referClose = proceedLayout.findViewById(R.id.refer);
         referClose.setOnClickListener(navigationListener);
 
-        proceed = rootView.findViewById(R.id.proceed);
+        Button proceed = proceedLayout.findViewById(R.id.proceed);
         proceed.setOnClickListener(navigationListener);
     }
 
@@ -182,7 +181,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backClick();
+                JsonFormUtils.launchANCCloseForm(getActivity());
                 dialog.dismiss();
             }
         });
@@ -190,7 +189,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backClick();
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
                 dialog.dismiss();
             }
         });
@@ -198,7 +199,16 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         dialog.show();
     }
 
-    public void validateActivateNext(boolean none, boolean other) {
+    /**
+     * Gets the root layout for the currently visible and finds the bottom refer & proceed layout then displays according to the status of
+     * the function parameters
+     *
+     * @param none  {@link Boolean}
+     * @param other {@link Boolean}
+     *
+     * @author dubdabasoduba
+     */
+    public void displayQuickCheckBottomReferralButtons(boolean none, boolean other) {
         LinearLayout linearLayout = (LinearLayout) this.getView();
         LinearLayout buttonLayout = null;
         if (linearLayout != null) {
@@ -233,6 +243,23 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     }
 
+    @Override
+    protected void save() {
+        try {
+            if (savePartial) {
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            } else {
+                super.save();
+            }
+        } catch (Exception var2) {
+            Log.e(TAG, var2.getMessage());
+            this.save(false);
+        }
+
+    }
+
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -245,6 +272,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                     if (next) {
                         next();
                     } else {
+                        savePartial = true;
                         save();
                     }
                 }
@@ -254,8 +282,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 getFragmentManager().popBackStack();
             } else if (view.getId() == R.id.refer) {
                 displayReferralDialog();
-            } else if (view.getId() == R.id.proceed) {
-                displayReferralDialog(); //Todo remove this and add the save form and go the main contact page
+            } else if (view.getId() == R.id.proceed && getActivity() != null) {
+                getActivity().onBackPressed();
             }
         }
     }

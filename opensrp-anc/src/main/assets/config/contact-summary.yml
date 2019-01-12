@@ -55,23 +55,23 @@ fields:
 ---
 group: reason_for_visit
 fields:
-  - template: "Reason for coming to facility: {contact_reason}"
-    relevance: "contact_reason != ''"
+  - template: "Reason for coming to facility: {contact_reason_value}"
+    relevance: "contact_reason_value != ''"
 
-  - template: "Specific complaint(s): {specific_complaint}, {specific_complaint_other}"
-    relevance: "specific_complaint != ''"
+  - template: "Specific complaint(s): {specific_complaint_value}, {specific_complaint_other}"
+    relevance: "specific_complaint_value != ''"
 
 ---
 group: demographic_info
 fields:
-  - template: "Highest level of school: {educ_level}"
-    relevance: "educ_level != ''"
+  - template: "Highest level of school: {educ_level_value}"
+    relevance: "educ_level_value != ''"
 
-  - template: "Marital status: {marital_status}"
-    relevance: "marital_status != ''"
+  - template: "Marital status: {marital_status_value}"
+    relevance: "marital_status_value != ''"
 
-  - template: "Occupation: {occupation}, {occupation_other}"
-    relevance: "occupation != ''"
+  - template: "Occupation: {occupation_value}, {occupation_other}"
+    relevance: "occupation_value != ''"
 
 ---
 group: current_pregnancy
@@ -142,8 +142,8 @@ fields:
 group: immunisation_status
 fields:
 
-  - template: "TT immunisation status: {tt_immun_status}"
-    relevance: "tt_immun_status != ''"
+  - template: "TT immunisation status: {tt_immun_status_value}"
+    relevance: "tt_immun_status_value != ''"
 
   - template: "TT dose #1: {tt1_date}"
     relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
@@ -154,11 +154,11 @@ fields:
   - template: "TT dose #3: {tt3_date}"
     relevance: "tt3_date == 'Done today' || tt3_date == 'Done earlier'"
 
-  - template: "TT dose not given: {tt_dose_notdone}, {tt_dose_notdone_other}"
+  - template: "TT dose not given: {tt_dose_notdone_value}, {tt_dose_notdone_other}"
     relevance: "tt1_date == 'Not done' || tt2_date == 'Not done' || tt3_date == 'Not done'"
 
-  - template: "Hep B immunisation status: {hepb_immun_status}"
-    relevance: "hepb_immun_status != ''"
+  - template: "Hep B immunisation status: {hepb_immun_status_value}"
+    relevance: "hepb_immun_status_value != ''"
 
   - template: "Hep B dose #1: {hepb1_date}"
     relevance: "hepb1_date == 'Done today' || hepb1_date == 'Done earlier'"
@@ -169,25 +169,25 @@ fields:
   - template: "Hep B dose #3: {hepb3_date}"
     relevance: "hepb3_date == 'Done today' || hepb3_date == 'Done earlier'"
 
-  - template: "Hep B dose not given: {hepb_dose_notdone}, {hepb_dose_notdone_other}"
+  - template: "Hep B dose not given: {hepb_dose_notdone_value}, {hepb_dose_notdone_other}"
     relevance: "hepb1_date == 'Not done' || hepb2_date == 'Not done' || hepb3_date == 'Not done'"
 
-  - template: "Flu immunisation status: {flu_immun_status}"
-    relevance: "flu_immun_status != ''"
+  - template: "Flu immunisation status: {flu_immun_status_value}"
+    relevance: "flu_immun_status_value != ''"
 
   - template: "Flu dose: {flu_date}"
     relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
 
-  - template: "Flu dose not given: {flu_dose_notdone}, {flu_dose_notdone_other}"
+  - template: "Flu dose not given: {flu_dose_notdone_value}, {flu_dose_notdone_other}"
     relevance: "flu_date == 'Not done'"
 ---
 group: medications
 fields:
 
-  - template: "Current medications: {medications}, {medications_other}"
-    relevance: "medications != ''"
+  - template: "Current medications: {medications_value}, {medications_other}"
+    relevance: "medications_value != ''"
 
-  - template: "Medications prescribed: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
+  - template: "Medications prescribed: {vita_value}, {alben_meben_value}, {mag_calc_value}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
     relevance: "true"
 
   - template: "Calcium compliance: {calcium_comply}"
@@ -214,25 +214,25 @@ fields:
 group: woman's_behaviour
 fields:
 
-  - template: "Persisting behaviours: {behaviour_persist}"
-    relevance: "behaviour_persist != ''"
+  - template: "Persisting behaviours: {behaviour_persist_value}"
+    relevance: "behaviour_persist_value != ''"
 
-  - template: "Daily caffeine intake: {caffeine_intake}"
-    relevance: "caffeine_intake != ''"
+  - template: "Daily caffeine intake: {caffeine_intake_value}"
+    relevance: "caffeine_intake_value != ''"
 
-  - template: "Caffeine reduction counseling done"
-    relevance: "caffeine_counsel == 'Done'"
+  - template: "Caffeine reduction counseling: {caffeine_counsel_value}"
+    relevance: "caffeine_counsel_value == 'Done'"
 
-  - template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone}, {caffeine_counsel_notdone_other}"
-    relevance: "caffeine_counsel == 'Not done'"
+  - template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone_value}, {caffeine_counsel_notdone_other}"
+    relevance: "caffeine_counsel_value == 'Not done'"
 
-  - template: "Tobacco user: {tobacco_user}"
-    relevance: "tobacco_user != ''"
+  - template: "Tobacco user: {tobacco_user_value}"
+    relevance: "tobacco_user_value != ''"
 
   - template: "Tobacco cessation counseling done"
-    relevance: "tobacco_counsel == 'Done'"
+    relevance: "tobacco_counsel_value == 'Done'"
 
-  - template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone}, {tobacco_counsel_notdone_other}"
+  - template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}, {tobacco_counsel_notdone_other}"
     relevance: "tobacco_counsel == 'Not done'"
 
   - template: "Anyone in the household smokes tobacco products: {shs_exposure}"

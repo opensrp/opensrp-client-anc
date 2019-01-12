@@ -45,6 +45,7 @@ import org.smartregister.view.activity.BaseProfileActivity;
  */
 public class ProfileActivity extends BaseProfileActivity implements ProfileContract.View {
 
+    public static final String CLOSE_ANC_RECORD = "Close ANC Record";
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
@@ -117,13 +118,13 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 public void onClick(DialogInterface dialog, int which) {
                     String textClicked = arrayAdapter.getItem(which);
                     switch (textClicked) {
-                        case "Call":
+                        case Constants.CALL:
                             launchPhoneDialer(phoneNumber);
                             break;
-                        case "Start Contact":
+                        case Constants.START_CONTACT:
                             QuickCheckFragment.launchDialog(ProfileActivity.this, DIALOG_TAG);
                             break;
-                        case "Close ANC Record":
+                        case CLOSE_ANC_RECORD:
                             JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
                             break;
                         default:
