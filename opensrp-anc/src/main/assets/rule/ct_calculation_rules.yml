@@ -16,7 +16,7 @@ actions:
 name: step1_hypertension_pre_eclampsia_toaster
 description: Hypertension and symptom of severe
 priority: 1
-condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() !global_symp_sev_preeclampsia.contains('none')"
+condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')"
 actions:
   - 'calculation = ["symp_sev_preeclampsia" : global_symp_sev_preeclampsia_value]'
 ---
