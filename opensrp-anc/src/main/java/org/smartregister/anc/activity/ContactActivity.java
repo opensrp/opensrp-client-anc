@@ -1,16 +1,12 @@
 package org.smartregister.anc.activity;
 
-import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,8 +17,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.Contact;
-import org.smartregister.anc.fragment.QuickCheckFormFragment;
-import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.presenter.ContactPresenter;
@@ -46,7 +40,6 @@ import java.util.Set;
 
 public class ContactActivity extends BaseContactActivity implements ContactContract.View {
 
-    public static final String DIALOG_TAG = "CONTACT_DIALOG_TAG";
     public static final String TAG = ContactActivity.class.getCanonicalName();
 
     private TextView patientNameView;
@@ -195,6 +188,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
     public void startFormActivity(JSONObject form, Contact contact) {
         super.startFormActivity(form, contact);
     }
+
     @Override
     public void startQuickCheckActivity(JSONObject form, Contact contact) {
         super.startQuickCheck(form, contact);
@@ -315,7 +309,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
 
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean(JsonFormConstants.VALUE)) {
+                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED)) {
 
                             if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
