@@ -653,7 +653,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "extra_info": "GA: {sfh_gest_age} weeks\nEDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age}\nEDD: {sfh_edd}"
           }
         ],
         "value": "none",

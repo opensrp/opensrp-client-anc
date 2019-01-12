@@ -295,7 +295,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
-
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
@@ -304,7 +303,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                                 (JsonFormConstants.VALUE)) {
                             if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants
                                     .VALUE))) {
-
                                 return true;
 
                             }
