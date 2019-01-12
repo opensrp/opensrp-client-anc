@@ -336,7 +336,7 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
                             try {
 
                                 JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ? fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", this);
-                                processRequiredStepsField(createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
+                                processRequiredStepsField(ContactJsonFormUtils.createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
 
                             } catch (Exception e) {
                                 Log.e(TAG, e.getMessage());
@@ -350,62 +350,6 @@ public class ContactActivity extends BaseContactActivity implements ContactContr
         }
 
     }
-
-    private JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType) throws JSONException {
-
-        Map<String, String> vMap = new HashMap<>();
-
-        JSONObject resultJsonObject = new JSONObject();
-
-        JSONObject stepJsonObject = new JSONObject();
-
-        JSONArray fieldsJsonArray = jsonSubForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
-
-        if (parentObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(parentObject.getString(JsonFormConstants.VALUE))) {
-            if (parentObject.get(JsonFormConstants.VALUE) instanceof JSONArray) {
-                JSONArray jsonArray = parentObject.getJSONArray(JsonFormConstants.VALUE);
-                for (int j = 0; j < jsonArray.length(); j++) {
-
-                    populateValueMap(vMap, jsonArray.getJSONObject(j));
-                }
-
-            } else {
-
-                populateValueMap(vMap, parentObject.getJSONObject(JsonFormConstants.VALUE));
-            }
-
-            for (int l = 0; l < fieldsJsonArray.length(); l++) {
-
-                String value = vMap.get(fieldsJsonArray.getJSONObject(l).getString(JsonFormConstants.KEY));
-                if (!TextUtils.isEmpty(value)) {
-                    fieldsJsonArray.getJSONObject(l).put(JsonFormConstants.VALUE, value);
-                }
-            }
-
-        }
-
-        stepJsonObject.put(JsonFormConstants.FIELDS, fieldsJsonArray);
-
-        resultJsonObject.put(JsonFormConstants.FIRST_STEP_NAME, stepJsonObject);
-
-        resultJsonObject.put(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE, encounterType);
-
-        return resultJsonObject;
-
-    }
-
-    private void populateValueMap(Map<String, String> vMap, JSONObject jsonObject) throws JSONException {
-
-        JSONObject valueObject = jsonObject;
-        String key = valueObject.getString(JsonFormConstants.KEY);
-        JSONArray values = valueObject.getJSONArray(JsonFormConstants.VALUES);
-        for (int k = 0; k < values.length(); k++) {
-            String valuesString = values.getString(k);
-
-            vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
-        }
-    }
-
     private void process(String[] mainContactForms) throws Exception {
 
         JSONObject object;

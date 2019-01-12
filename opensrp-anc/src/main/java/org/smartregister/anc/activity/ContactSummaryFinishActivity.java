@@ -256,6 +256,17 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                             }
                         }
 
+                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
+                            try {
+
+                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ? fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", this);
+                                processRequiredStepsField(ContactJsonFormUtils.createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
+
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
+                            }
+                        }
+
 
                     }
 
