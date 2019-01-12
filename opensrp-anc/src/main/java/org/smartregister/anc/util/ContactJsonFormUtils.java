@@ -247,7 +247,7 @@ public class ContactJsonFormUtils extends FormUtils {
                 widget.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1, valueListString
                         .length() - 1));
             }
-        } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON)) {
+        } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
             //Value already good for radio buttons so no keylist
 
             JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
@@ -327,7 +327,6 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param values          {@link List<String>}
      * @param statusImageView {@link ImageView}
-     *
      * @throws JSONException
      * @author dubdabasoduba
      */
@@ -351,4 +350,60 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
     }
+
+    public static JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType) throws JSONException {
+
+        Map<String, String> vMap = new HashMap<>();
+
+        JSONObject resultJsonObject = new JSONObject();
+
+        JSONObject stepJsonObject = new JSONObject();
+
+        JSONArray fieldsJsonArray = jsonSubForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
+
+        if (parentObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(parentObject.getString(JsonFormConstants.VALUE))) {
+            if (parentObject.get(JsonFormConstants.VALUE) instanceof JSONArray) {
+                JSONArray jsonArray = parentObject.getJSONArray(JsonFormConstants.VALUE);
+                for (int j = 0; j < jsonArray.length(); j++) {
+
+                    populateValueMap(vMap, jsonArray.getJSONObject(j));
+                }
+
+            } else {
+
+                populateValueMap(vMap, parentObject.getJSONObject(JsonFormConstants.VALUE));
+            }
+
+            for (int l = 0; l < fieldsJsonArray.length(); l++) {
+
+                String value = vMap.get(fieldsJsonArray.getJSONObject(l).getString(JsonFormConstants.KEY));
+                if (!TextUtils.isEmpty(value)) {
+                    fieldsJsonArray.getJSONObject(l).put(JsonFormConstants.VALUE, value);
+                }
+            }
+
+        }
+
+        stepJsonObject.put(JsonFormConstants.FIELDS, fieldsJsonArray);
+
+        resultJsonObject.put(JsonFormConstants.FIRST_STEP_NAME, stepJsonObject);
+
+        resultJsonObject.put(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE, encounterType);
+
+        return resultJsonObject;
+
+    }
+
+    private static void populateValueMap(Map<String, String> vMap, JSONObject jsonObject) throws JSONException {
+
+        JSONObject valueObject = jsonObject;
+        String key = valueObject.getString(JsonFormConstants.KEY);
+        JSONArray values = valueObject.getJSONArray(JsonFormConstants.VALUES);
+        for (int k = 0; k < values.length(); k++) {
+            String valuesString = values.getString(k);
+
+            vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
+        }
+    }
+
 }

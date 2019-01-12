@@ -51,7 +51,7 @@ actions:
 name: step2_behaviour_persist
 description: Persisting behaviors
 priority: 1
-condition: "global_caffeine_intake.contains('more_than_3_cups_300ml_of_instant_coffee') || global_caffeine_intake.contains('more_than_48_pieces_squares_of_chocolate') || global_caffeine_intake.contains('more_than_2_small_cups_50_ml_of_espresso') || global_caffeine_intake.contains('commercially_brewed_coffee') || global_tobacco_user == 'yes' || global_shs_exposure == 'yes' || global_condom_use == 'no' || !global_alcohol_substance_use.contains('none')"
+condition: "global_caffeine_intake.contains('more_than_3_cups_300ml_of_instant_coffee') || global_caffeine_intake.contains('more_than_48_pieces_squares_of_chocolate') || global_caffeine_intake.contains('more_than_2_small_cups_50_ml_of_espresso') || global_caffeine_intake.contains('commercially_brewed_coffee') || global_tobacco_user == 'yes' || global_shs_exposure == 'yes' || global_condom_use == 'no' || (!global_alcohol_substance_use.isEmpty() && !global_alcohol_substance_use.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
