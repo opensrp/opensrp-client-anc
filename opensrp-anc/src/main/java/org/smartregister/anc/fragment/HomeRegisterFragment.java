@@ -257,9 +257,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
             JSONObject form = ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 
-            if (hasPendingRequiredFields(form)) {
-                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form)
-                        .toString());
+            String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
+
+            if (hasPendingRequiredFields(new JSONObject(processedForm))) {
+                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, processedForm);
                 intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
@@ -295,15 +296,17 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
                         if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has
-                                (JsonFormConstants.V_REQUIRED) && fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED).getBoolean
-                                (JsonFormConstants.VALUE)) {
-                            if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants
-                                    .VALUE))) {
-                                return true;
+                                (JsonFormConstants.V_REQUIRED)) {
+
+                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants
+                                    .VALUE))) {//TO DO Remove/ Alter logical condition
+
+                                return false;
 
                             }
                         }
@@ -311,9 +314,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 }
             }
         }
-
-        return false;
+        return true;
     }
-
 }
 
