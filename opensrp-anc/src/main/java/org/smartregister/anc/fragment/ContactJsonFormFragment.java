@@ -195,9 +195,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getActivity() != null) {
-                    ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
-                }
+                JsonFormUtils.launchANCCloseForm(getActivity());
                 dialog.dismiss();
             }
         });
@@ -254,7 +252,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         try {
             if (savePartial) {
                 if (getActivity() != null) {
-                    getActivity().onBackPressed();
+                    ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
                 }
             } else {
                 super.save();
