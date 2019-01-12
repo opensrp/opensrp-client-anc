@@ -541,7 +541,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
                 RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
-                updateExpansionPanelRecyclerView(values, status);
+                formUtils.updateExpansionPanelRecyclerView(values, status,getApplicationContext());
 
                 LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
                 RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
@@ -562,24 +562,4 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         }
     }
 
-    /**
-     * This updates the expansion panel child values affect the done is selected from the pop up. It also updates the expansion panel status
-     * image. It changes it to green when done, yellow when ordered, grey when not done
-     *
-     * @param values          {@link List<String>}
-     * @param statusImageView {@link ImageView}
-     *
-     * @throws JSONException
-     * @author dubdabasoduba
-     */
-    private void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView) throws JSONException {
-        JSONArray list = new JSONArray(values);
-        for (int k = 0; k < list.length(); k++) {
-            String[] stringValues = list.getString(k).split(":");
-            if (stringValues.length >= 2) {
-                String valueDisplay = list.getString(k).split(":")[1];
-                formUtils.changeIcon(statusImageView, valueDisplay, getApplicationContext());
-            }
-        }
-    }
 }

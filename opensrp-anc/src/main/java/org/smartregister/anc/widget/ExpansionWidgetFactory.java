@@ -41,19 +41,19 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     private String TAG = this.getClass().getSimpleName();
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
-                                       JSONObject jsonObject, CommonListener commonListener, boolean popup) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+                                       CommonListener commonListener, boolean popup) throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, popup);
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
-                                       JSONObject jsonObject, CommonListener commonListener) throws Exception {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+                                       CommonListener commonListener) throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, false);
     }
 
-    public List<View> attachJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject
-            jsonObject, CommonListener commonListener, boolean popup) throws JSONException {
+    public List<View> attachJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+                                 CommonListener commonListener, boolean popup) throws JSONException {
         JSONArray canvasIds = new JSONArray();
         List<View> views = new ArrayList<>(1);
 
@@ -61,8 +61,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
         String openMrsEntityId = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
         String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
-        LinearLayout.LayoutParams layoutParams =
-                FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1, 2);
+        LinearLayout.LayoutParams layoutParams = FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1,
+                2);
         LinearLayout rootLayout = getRootLayout(context);
         rootLayout.setLayoutParams(layoutParams);
         rootLayout.setId(ViewUtil.generateViewId());
@@ -88,13 +88,13 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         return views;
     }
 
-    private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment,
-                              JSONObject jsonObject, CommonListener commonListener, LinearLayout rootLayout)
-            throws JSONException {
+    private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+                              CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
         RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
         RelativeLayout expansion_header_layout = expansionHeader.findViewById(R.id.expansion_header_layout);
-        expansion_header_layout = (RelativeLayout) addRecordViewTags(expansion_header_layout, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        expansion_header_layout = (RelativeLayout) addRecordViewTags(expansion_header_layout, jsonObject, stepName, commonListener,
+                jsonFormFragment, context);
         expansion_header_layout.setOnClickListener(recordButtonClickListener);
 
         ImageView statusImage = expansion_header_layout.findViewById(R.id.statusImageView);
@@ -114,8 +114,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         addBottomSection(stepName, context, jsonFormFragment, jsonObject, commonListener, rootLayout);
     }
 
-    private void changeStatusIcon(ImageView imageView, JSONObject optionItem, Context context)
-            throws JSONException {
+    private void changeStatusIcon(ImageView imageView, JSONObject optionItem, Context context) throws JSONException {
         JSONArray value = new JSONArray();
         if (optionItem.has(JsonFormConstants.VALUE)) {
             value = optionItem.getJSONArray(JsonFormConstants.VALUE);
@@ -123,14 +122,29 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
         for (int i = 0; i < value.length(); i++) {
             JSONObject item = value.getJSONObject(i);
-            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) ||
-                    item.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item.getString(JsonFormConstants.TYPE)
+                    .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
                 JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < jsonArray.length(); k++) {
-                    String valueDisplay = jsonArray.getString(k);
-                    formUtils.changeIcon(imageView, valueDisplay, context);
-                }
+                    String list = jsonArray.getString(k);
+                    String[] stringValues = list.split(":");
+                    if (stringValues.length >= 2) {
+                        String valueDisplay = list.split(":")[1];
 
+                        if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay.equals(Constants
+                                .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
+                                .DONE) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) || valueDisplay.equals
+                                (Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || valueDisplay.equals(Constants
+                                .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || valueDisplay.equals(Constants
+                                .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT
+                                .ORDERED) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals
+                                (Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
+
+                            formUtils.changeIcon(imageView, valueDisplay, context);
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
@@ -164,8 +178,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
     }
 
-    private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject
-            jsonObject, CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
+    private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+                                  CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
         Boolean displayBottomSection = jsonObject.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, false);
         if (displayBottomSection) {
             RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
@@ -194,8 +208,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         recordView.setTag(R.id.specify_listener, commonListener);
         recordView.setTag(R.id.specify_fragment, jsonFormFragment);
         recordView.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
-        recordView.setTag(R.id.secondaryValues,
-                formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
+        recordView.setTag(R.id.secondaryValues, formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
         recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
         if (jsonObject.has(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER)) {
@@ -207,8 +220,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     }
 
     private LinearLayout getRootLayout(Context context) {
-        return (LinearLayout) LayoutInflater.from(context).inflate(
-                R.layout.native_expansion_panel, null);
+        return (LinearLayout) LayoutInflater.from(context).inflate(R.layout.native_expansion_panel, null);
     }
 
     private class RecordButtonClickListener implements View.OnClickListener {
@@ -217,7 +229,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             LinearLayout linearLayout;
             if (view instanceof RelativeLayout) {
                 linearLayout = (LinearLayout) view.getParent().getParent();
-            } else if (view instanceof ImageView || view instanceof CustomTextView) { // This caters for the different views that can be clicked to show the popup
+            } else if (view instanceof ImageView || view instanceof CustomTextView) { // This caters for the different views that can be
+                // clicked to show the popup
                 linearLayout = (LinearLayout) view.getParent().getParent().getParent();
             } else {
                 linearLayout = (LinearLayout) view.getParent().getParent().getParent();
@@ -242,12 +255,13 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
         private void getExpansionPanel(JSONObject mainJson, String stepName, String parentKey, Context context) {
             if (mainJson != null) {
-                JSONArray fields = formUtils.getFormFields(stepName,context);
+                JSONArray fields = formUtils.getFormFields(stepName, context);
                 try {
                     if (fields.length() > 0) {
                         for (int i = 0; i < fields.length(); i++) {
                             JSONObject item = fields.getJSONObject(i);
-                            if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey) && item.has(JsonFormConstants.VALUE)) {
+                            if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey) && item.has(JsonFormConstants
+                                    .VALUE)) {
                                 removeLastAddedExpansionValue(item);
                             }
                         }

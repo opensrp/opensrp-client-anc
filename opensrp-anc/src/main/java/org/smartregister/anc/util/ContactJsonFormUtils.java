@@ -319,4 +319,35 @@ public class ContactJsonFormUtils extends FormUtils {
 
         return valueList;
     }
+
+    /**
+     * This updates the expansion panel child values affect the done is selected from the pop up. It also updates the expansion panel status
+     * image. It changes it to green when done, yellow when ordered, grey when not done
+     *
+     * @param values          {@link List<String>}
+     * @param statusImageView {@link ImageView}
+     *
+     * @throws JSONException
+     * @author dubdabasoduba
+     */
+    public void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView, Context context) throws JSONException {
+        JSONArray list = new JSONArray(values);
+        for (int k = 0; k < list.length(); k++) {
+            String[] stringValues = list.getString(k).split(":");
+            if (stringValues.length >= 2) {
+                String valueDisplay = list.getString(k).split(":")[1];
+                if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay.equals(Constants
+                        .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || valueDisplay.equals(Constants
+                        .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
+                        .ORDERED) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) || valueDisplay.equals(Constants
+                        .ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
+
+                    changeIcon(statusImageView, valueDisplay, context);
+                    break;
+                }
+            }
+        }
+    }
 }

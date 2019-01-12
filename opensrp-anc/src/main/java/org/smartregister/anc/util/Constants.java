@@ -32,6 +32,7 @@ public abstract class Constants {
         public static final String DONE_EARLIER = "done_earlier";
         public static final String ORDERED = "ordered";
         public static final String NOT_DONE = "not_done";
+        public static final String DONE = "done";
 
     }
 
@@ -40,6 +41,7 @@ public abstract class Constants {
         public static final String DONE_EARLIER = "Done earlier";
         public static final String ORDERED = "Ordered";
         public static final String NOT_DONE = "Not done";
+        public static final String DONE = "Done";
 
     }
 
