@@ -16,7 +16,7 @@ actions:
 name: step1_hypertension_pre_eclampsia_toaster
 description: Hypertension and symptom of severe
 priority: 1
-condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.contains('none')"
+condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')"
 actions:
   - "isRelevant = true"
 ---
@@ -107,14 +107,14 @@ actions:
 name: step1_referred_hosp
 description: Referred to hospital
 priority: 1
-condition: "global_severe_hypertension == 1 || !global_danger_signs.contains('danger_none') || (global_hypertension == 1 && !global_symp_sev_preeclampsia.contains('none')) || global_preeclampsia == 1 || global_severe_preeclampsia == 1 ||global_body_temp_repeat >= 38 || (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_oximetry < 92 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || global_fetal_heartbeat == no || (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+condition: "global_severe_hypertension == 1 || !global_danger_signs.contains('danger_none') || (global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || global_preeclampsia == 1 || global_severe_preeclampsia == 1 ||global_body_temp_repeat >= 38 || (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_oximetry < 92 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || global_fetal_heartbeat == no || (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
 actions:
   - "isRelevant = true"
 ---
 name: step2_caffeine_counsel
 description: Caffeine reduction counseling
 priority: 1
-condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('high_caffeine')) || !global_caffeine_intake.contains('none')"
+condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('high_caffeine')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
@@ -205,7 +205,7 @@ actions:
 name: step3_back_pelvic_pain_counsel
 description: Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling
 priority: 1
-condition: "(global_phys_symptoms_persist.contains('back_pelvic_pain') || global_phys_symptoms.contains('back_pelvic_pain')) && global_other_sym_lbpp.contains('none')"
+condition: "(global_phys_symptoms_persist.contains('back_pelvic_pain') || global_phys_symptoms.contains('back_pelvic_pain')) && (global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
@@ -219,7 +219,7 @@ actions:
 name: step3_varicose_oedema_counsel
 description: Non-pharmacological options for varicose veins and oedema counseling
 priority: 1
-condition: "(global_phys_symptoms_persist.contains('varicose_veins') || global_phys_symptoms.contains('varicose_veins')) && global_other_sym_vvo.contains('none')"
+condition: "(global_phys_symptoms_persist.contains('varicose_veins') || global_phys_symptoms.contains('varicose_veins')) && (global_other_sym_vvo.isEmpty() && global_other_sym_vvo.contains('none'))"
 actions:
   - "isRelevant = true"
 ---

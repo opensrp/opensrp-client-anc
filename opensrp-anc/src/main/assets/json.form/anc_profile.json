@@ -2456,8 +2456,8 @@
         "type": "toaster_notes",
         "text": "Caffeine reduction counseling",
         "text_color": "#000000",
-        "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.\n\nThis includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 ml serving.\n\n[Caffeine intake folder]",
-        "toaster_info_title": "Caffeine reduction counseling",
+        "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.\n\nThis includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 ml serving.",
+        "toaster_info_title": "Caffeine intake folder",
         "toaster_type": "warning",
         "relevance": {
           "step7:caffeine_intake": {
