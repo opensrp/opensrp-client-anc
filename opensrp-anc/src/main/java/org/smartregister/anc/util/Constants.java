@@ -175,4 +175,8 @@ public abstract class Constants {
     public static class SUFFIX {
         public static final String VALUE = "_value";
     }
+
+    public static class BOOLEAN {
+        public static final String TRUE = "true";
+    }
 }

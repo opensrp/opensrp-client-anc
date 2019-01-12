@@ -31,6 +31,7 @@ import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
@@ -226,6 +227,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     private void processRequiredStepsField(JSONObject object) throws Exception {
         if (object != null) {
+
             Iterator<String> keys = object.keys();
 
             while (keys.hasNext()) {
@@ -238,12 +240,20 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                         JSONObject fieldObject = stepArray.getJSONObject(i);
 
+                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+
                         String fieldKey = getKey(fieldObject);
-                        String fieldValue = getValue(fieldObject);
 
-                        if (fieldKey != null && fieldValue != null) {
 
-                            facts.put(fieldKey, isList(fieldValue) ? gson.fromJson(fieldValue, ArrayList.class) : fieldValue);
+                        if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
+
+                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+
+                            String secondaryValueKey = getSecondaryKey(fieldObject);
+
+                            if (fieldObject.has(secondaryValueKey)) {
+                                facts.put(secondaryValueKey, fieldObject.getString(secondaryValueKey));
+                            }
                         }
 
 
@@ -254,10 +264,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-
-    private boolean isList(String value) {
-        return !value.isEmpty() && value.charAt(0) == '[';
-    }
 
     private void process() throws Exception {
 
@@ -288,15 +294,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
     }
 
-    private String getValue(JSONObject jsonObject) throws Exception {
-        String result = jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : "";
+    private String getSecondaryKey(JSONObject jsonObject) throws Exception {
 
-        if (!result.isEmpty() && result.charAt(0) == '[') {
-            result = result.replace("[", "").replace("]", "").replaceAll("'", "").replaceAll(",", ", ");
-        }
+        return getKey(jsonObject) + Constants.SUFFIX.VALUE;
 
-
-        return result;
     }
 
     protected void loadContactSummaryData() {
