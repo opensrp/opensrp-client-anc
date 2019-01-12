@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.ContactActivity"
+    tools:context=".activity.MainContactActivity"
     tools:showIn="@layout/activity_contact">
 
     <android.support.constraint.ConstraintLayout

@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.ContactActivity;
+import org.smartregister.anc.activity.MainContactActivity;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
@@ -240,6 +240,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             quickCheck.setContactNumber(Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
             quickCheck.setBackground(R.drawable.quick_check_bg);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
+            quickCheck.setBackIcon(R.drawable.ic_clear);
             quickCheck.setWizard(false);
             quickCheck.setHideSaveLabel(true);
 
@@ -267,7 +268,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
 
             } else {
-                intent = new Intent(getActivity(), ContactActivity.class);
+                intent = new Intent(getActivity(), MainContactActivity.class);
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
                 intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
@@ -283,6 +284,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             Utils.showToast(getActivity(), "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants
                     .KEY.FIRST_NAME));
         }
+    }
+
+    private void changeBackIconInitialQuickCheck() {
+
     }
 
 

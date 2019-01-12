@@ -37,7 +37,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.ContactActivity;
+import org.smartregister.anc.activity.MainContactActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.QuickCheckContract;
 import org.smartregister.anc.model.PartialContact;
@@ -379,7 +379,7 @@ public class QuickCheckFragment extends DialogFragment implements QuickCheckCont
 
     @Override
     public void proceedToContact(String baseEntityId, Integer contactNo) {
-        Intent intent = new Intent(getActivity(), ContactActivity.class);
+        Intent intent = new Intent(getActivity(), MainContactActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         getActivity().startActivity(intent);

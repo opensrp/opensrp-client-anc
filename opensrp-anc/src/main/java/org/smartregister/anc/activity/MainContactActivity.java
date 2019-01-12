@@ -38,9 +38,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ContactActivity extends BaseContactActivity implements ContactContract.View {
+public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
 
-    public static final String TAG = ContactActivity.class.getCanonicalName();
+    public static final String TAG = MainContactActivity.class.getCanonicalName();
 
     private TextView patientNameView;
 

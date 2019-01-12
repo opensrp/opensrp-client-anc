@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -541,7 +542,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
                 RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
-                formUtils.updateExpansionPanelRecyclerView(values, status,getApplicationContext());
+                formUtils.updateExpansionPanelRecyclerView(values, status, getApplicationContext());
 
                 LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
                 RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
@@ -560,6 +561,29 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Partially saves the Quick Check forms details then proceeds to the main contact page
+     *
+     * @author dubdabasoduba
+     */
+    public void proceedToMainContactPage() {
+        Intent intent = new Intent(this, MainContactActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getStringExtra(Constants.INTENT_KEY.CLIENT));
+        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
+        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, getIntent().getStringExtra(Constants.INTENT_KEY.CONTACT_NO));
+
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
+        Contact contact = getContact();
+        contact.setJsonForm(currentJsonState());
+        contact.setContactNumber(contactNo);
+
+        ContactJsonFormUtils.persistPartial(getContact(), baseEntityId);
+
+        this.startActivity(intent);
     }
 
 }

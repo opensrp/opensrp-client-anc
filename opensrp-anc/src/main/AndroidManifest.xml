@@ -75,7 +75,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ContactActivity"
+            android:name=".activity.MainContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

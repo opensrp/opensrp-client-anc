@@ -227,7 +227,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     @Ignore
     public void testBackButtonClickedOpensMainContactPage() {
         activity.findViewById(R.id.cancel_button).performClick();
-        Intent expectedIntent = new Intent(activity, ContactActivity.class);
+        Intent expectedIntent = new Intent(activity, MainContactActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }

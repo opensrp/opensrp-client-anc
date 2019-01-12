@@ -27,6 +27,7 @@ import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
@@ -155,6 +156,11 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 backClick();
             }
         });
+
+        if (getContact() != null && getContact().getBackIcon() > 0 && getContact().getFormName().equals(Constants.JSON_FORM
+                .ANC_QUICK_CHECK)) {
+            goBackButton.setImageResource(R.drawable.ic_clear);
+        }
     }
 
     private void displayReferralDialog() {
@@ -190,7 +196,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-                    getActivity().onBackPressed();
+                    ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
                 }
                 dialog.dismiss();
             }
@@ -283,7 +289,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             } else if (view.getId() == R.id.refer) {
                 displayReferralDialog();
             } else if (view.getId() == R.id.proceed && getActivity() != null) {
-                getActivity().onBackPressed();
+                ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
             }
         }
     }
