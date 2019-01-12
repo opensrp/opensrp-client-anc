@@ -274,7 +274,7 @@
         "openmrs_entity_id": "2047",
         "type": "toaster_notes",
         "text": "HIV risk counseling",
-        "toaster_info_text": "Provide comprehensive HIV prevention options:\n\n- STI screening and treatment (syndromic and syphilis)- Condom promotion- Risk reduction counselling\n\n- PrEP with emphasis on adherence\n\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "text_color": "#CF0800",
@@ -2806,7 +2806,7 @@
         "type": "toaster_notes",
         "text": "HIV risk counseling",
         "text_color": "#000000",
-        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion\n- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion \n- Risk reduction counselling \n- PrEP with emphasis on adherence \n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "relevance": {

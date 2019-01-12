@@ -219,7 +219,7 @@ public class ContactJsonFormUtils extends FormUtils {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) &&
-                        jsonObject.getString(JsonFormConstants.VALUE).equals("true")) {
+                        jsonObject.getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
 
                     keyList.add(jsonObject.getString(JsonFormConstants.KEY));
 
@@ -306,11 +306,12 @@ public class ContactJsonFormUtils extends FormUtils {
                 String valuesString = values.getString(k);
                 valuesString = valuesString.contains(":") ? valuesString.substring(valuesString.indexOf(":") + 1) : valuesString;
                 valuesString = valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString;
-                resultString += valuesString;
 
-                if (k != valueLength - 1) {
+                resultString += valuesString;
+                if (k != valueLength - 1 || containsOther) {
                     resultString += ", ";
                 }
+
             }
 
         }
