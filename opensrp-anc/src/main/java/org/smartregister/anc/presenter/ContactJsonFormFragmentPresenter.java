@@ -72,11 +72,9 @@ public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter 
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_type);
         String specifyWidget = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_widget);
         Log.i(TAG, "The dialog content widget is this: " + specifyWidget);
-        if (JsonFormConstants.CONTENT_INFO.equals(type) &&
-                specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
+        if (JsonFormConstants.CONTENT_INFO.equals(type) && specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
             NativeRadioButtonFactory.showDateDialog(view);
-        } else if (JsonFormConstants.CONTENT_INFO.equals(type) &&
-                !specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
+        } else if (JsonFormConstants.CONTENT_INFO.equals(type) && !specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
             ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
             formUtils.showGenericDialog(view);
         } else if (view.getId() == com.vijay.jsonwizard.R.id.label_edit_button) {
