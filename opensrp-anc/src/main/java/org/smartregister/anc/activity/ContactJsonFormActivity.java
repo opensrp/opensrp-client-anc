@@ -564,8 +564,10 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      */
     public void proceedToMainContactPage() {
         Intent intent = new Intent(this, MainContactActivity.class);
+        
         Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
