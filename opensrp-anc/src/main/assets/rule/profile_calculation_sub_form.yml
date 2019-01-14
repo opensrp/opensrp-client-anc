@@ -72,7 +72,7 @@ actions:
 name: step3_parity
 description: Parity calculation
 priority: 1
-condition: "(step3_gravida > 1)"
+condition: "true"
 actions:
   - "calculation = step3_live_births + step3_stillbirths"
 ---

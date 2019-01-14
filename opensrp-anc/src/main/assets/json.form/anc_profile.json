@@ -937,7 +937,6 @@
         "key": "parity",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false

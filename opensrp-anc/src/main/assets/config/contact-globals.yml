@@ -137,6 +137,7 @@ fields:
   - "shs_exposure"
   - "condom_use"
   - "alcohol_substance_use"
+  - "medications"
 ---
 form: anc_test
 fields:

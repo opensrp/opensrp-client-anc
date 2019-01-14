@@ -1,4 +1,11 @@
 ---
+name: step1_medications
+description: Medications
+priority: 1
+condition: "global_contact_no > 1"
+actions:
+  - "isRelevant = true"
+---
 name: step1_calcium_comply
 description: Calcium comply
 priority: 1

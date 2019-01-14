@@ -3,6 +3,15 @@
   "encounter_type": "Symptoms & Follow-up",
   "entity_id": "",
   "relational_id": "",
+  "default_values": [
+    {
+      "medications": {
+        "key": "medications",
+        "form": "anc_profile",
+        "step": 6
+      }
+    }
+  ],
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -276,6 +285,13 @@
         "v_required": {
           "value": true,
           "err": "Please specify the medication(s) that the woman is still taking"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
         }
       },
       {
