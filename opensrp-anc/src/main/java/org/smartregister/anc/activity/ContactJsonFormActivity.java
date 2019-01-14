@@ -167,7 +167,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @param sectionJson
      * @param popup
-     *
      * @return
      * @throws JSONException
      * @author dubdabasoduba
@@ -200,7 +199,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @param parentJson {@link JSONObject}
      * @param popup      {@link Boolean}
-     *
      * @return fields {@link JSONArray}
      * @throws JSONException
      * @author dubdabasoduba
@@ -354,7 +352,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      * This fix is a bit hacky but feel free to use it
      *
      * @param fields {@link JSONArray}
-     *
      * @throws JSONException
      * @author dubdabasoduba
      */
@@ -571,9 +568,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void proceedToMainContactPage() {
         Intent intent = new Intent(this, MainContactActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getStringExtra(Constants.INTENT_KEY.CLIENT));
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
-        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, getIntent().getStringExtra(Constants.INTENT_KEY.CONTACT_NO));
+        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0));
 
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);

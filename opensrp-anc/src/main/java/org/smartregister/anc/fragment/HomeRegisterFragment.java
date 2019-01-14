@@ -19,9 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.MainContactActivity;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
+import org.smartregister.anc.activity.MainContactActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterFragmentContract;
@@ -265,6 +265,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
+                intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
                 startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
 
             } else {
@@ -272,8 +273,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
                 intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY
-                        .NEXT_CONTACT)));
+                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, quickCheck.getContactNumber());
 
                 getActivity().startActivity(intent);
             }
