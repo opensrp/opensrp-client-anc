@@ -7,8 +7,8 @@ fields:
   - template: "Woman not referred to hospital: {referred_hosp_notdone_value}"
     relevance: "referred_hosp == 'No'"
 
-  - template: "Danger sign(s): {danger_signs}"
-    relevance: "danger_signs == 'Bleeding vaginally' || danger_signs ==  'Central cyanosis' || danger_signs ==  'Convulsing' || danger_signs ==  'Fever' || danger_signs ==  'Headache and visual disturbance' || danger_signs ==  'Imminent delivery' || danger_signs ==  'Labour' || danger_signs ==  'Looks very ill' || danger_signs ==  'Severe vomiting' || danger_signs ==  'Severe pain' || danger_signs ==  'Severe abdominal pain' || danger_signs ==  'Unconscious'"
+  - template: "Danger sign(s): {danger_signs_value}"
+    relevance: "danger_signs != ''"
 
   - template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
     relevance: "severe_hypertension == 1 && global_contact_no == 1"

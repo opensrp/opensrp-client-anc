@@ -285,7 +285,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         List<PartialContact> partialContacts = getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
 
         for (PartialContact partialContact : partialContacts) {
-            if (partialContact.getFormJson() != null) {
+            if (partialContact.getFormJsonDraft() != null  || partialContact.getFormJson() != null) {
                 object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
                 processRequiredStepsField(object);
             }

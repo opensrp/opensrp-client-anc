@@ -13,7 +13,7 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class LibraryFragment extends org.smartregister.view.fragment.LibraryFragment {
     protected Toolbar mToolbar;
-
+    
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -22,12 +22,12 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
         setUpViews(view);
         return view;
     }
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    
     private void setUpViews(View views) {
         mToolbar = views.findViewById(R.id.library_toolbar);
         mToolbar.findViewById(R.id.close_library).setOnClickListener(new View.OnClickListener() {
@@ -37,7 +37,7 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
             }
         });
     }
-
+    
     public void onBackPressed() {
         ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
     }
