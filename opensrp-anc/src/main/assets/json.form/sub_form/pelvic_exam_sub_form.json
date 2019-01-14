@@ -18,7 +18,7 @@
           "openmrs_entity_id": ""
         },
         {
-          "key": "abnormal vaginal discharge",
+          "key": "abnormal_vaginal_discharge",
           "text": "Abnormal vaginal discharge",
           "value": false,
           "openmrs_entity": "Vaginal Discharge Problem",

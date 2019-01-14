@@ -1,0 +1,38 @@
+---
+group: yellow_attention_flags
+fields:
+  - template: "Age: {age}"
+    relevance: "age <= 17 || age >= 35"
+
+  - template: "Gravida: {gravida}"
+    relevance: "gravida >= 5"
+
+  - template: "Parity: {parity}"
+    relevance: "parity >= 5"
+
+---
+group: red_attention_flags
+fields:
+  - template: "Danger sign(s): {danger_signs_value}"
+    relevance: "danger_signs != ''"
+
+  - template: "Occupation: Informal employment (sex worker)"
+    relevance: "{occupation} == 'informal_employment_sex_worker'"
+
+  - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
+    relevance: "miscarriages_abortions >= 2"
+
+  - template: "No. of stillbirths: {stillbirths}"
+    relevance: "{stillbirths} >= 1"
+
+  - template: "No. of C-sections: {c_sections}"
+    relevance: "{c_sections} >= 1"
+
+  - template: "Allergies: {allergies_value}"
+    relevance: "allergies != ''"
+
+  - template: "Tobacco user or recently quit"
+    relevance: "tobacco_user.contains('yes') ||  tobacco_user.contains('recently_quit')"
+
+  - template: "Woman and her partner(s) do not use condoms"
+    relevance: "condom_use.contains('no')"

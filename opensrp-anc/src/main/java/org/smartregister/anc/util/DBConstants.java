@@ -29,6 +29,8 @@ public class DBConstants {
         public static final String REMINDERS = "reminders";
         public static final String RED_FLAG_COUNT = "red_flag_count";
         public static final String YELLOW_FLAG_COUNT = "yellow_flag_count";
+        public static final String RED_FLAGS = "red_flags";
+        public static final String YELLOW_FLAGS = "yellow_flags";
         public static final String CONTACT_STATUS = "contact_status";
         public static final String NEXT_CONTACT = "next_contact";
         public static final String NEXT_CONTACT_DATE = "next_contact_date";

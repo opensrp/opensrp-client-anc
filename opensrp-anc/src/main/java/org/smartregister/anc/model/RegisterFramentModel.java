@@ -76,6 +76,8 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                 tableName + "." + DBConstants.KEY.EDD,
                 tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
                 tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT,
+                tableName + "." + DBConstants.KEY.RED_FLAGS,
+                tableName + "." + DBConstants.KEY.YELLOW_FLAGS,
                 tableName + "." + DBConstants.KEY.CONTACT_STATUS,
                 tableName + "." + DBConstants.KEY.NEXT_CONTACT,
                 tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE,
@@ -124,7 +126,7 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
     @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
-        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME};
+        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME, DBConstants.KEY.ALT_NAME, DBConstants.KEY.ALT_NAME};
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
 
         if (response == null || response.isFailure() || StringUtils.isBlank(response.payload())) {

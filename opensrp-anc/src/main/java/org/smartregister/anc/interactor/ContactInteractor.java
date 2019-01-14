@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
 import org.smartregister.anc.contract.ContactContract;
+import org.smartregister.anc.domain.UpdatePatientDetail;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -68,7 +69,12 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             Integer nextContact = getNextContact(details);
 
-            PatientRepository.updateContactVisitDetails(baseEntityId, nextContact, nextContactVisitDate);
+            UpdatePatientDetail patientDetail = new UpdatePatientDetail();
+            patientDetail.setBaseEntityId(baseEntityId);
+            patientDetail.setNextContact(nextContact);
+            patientDetail.setNextContactDate(nextContactVisitDate);
+
+            PatientRepository.updateContactVisitDetails(patientDetail);
 
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
 
