@@ -89,7 +89,7 @@
     <string name="my_catchment_area">My health facility only</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
-    <string name="anc_id">Anc ID</string>
+    <string name="anc_id">ANC ID</string>
     <string name="id_number">ANC ID</string>
     <string name="edd">Edd</string>
     <string name="exp_date_of_delivery">Expected date of delivery</string>

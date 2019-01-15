@@ -250,7 +250,7 @@ public class Utils extends org.smartregister.util.Utils {
      * @param context            {@link Context}
      * @author martinndegwa
      */
-    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
+    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Activity context) {
         try {
             
             Intent intent = new Intent(context.getApplicationContext(), ContactJsonFormActivity.class);
@@ -286,7 +286,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
-                ((BaseRegisterActivity) context).startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+                context.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
                 
             } else {
                 intent = new Intent(context, MainContactActivity.class);

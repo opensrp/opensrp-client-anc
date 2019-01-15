@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
@@ -69,6 +71,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
     
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
+    private final String TAG = this.getClass().getSimpleName();
     
     @Override
     protected void initializePresenter() {
@@ -234,7 +237,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                     return;
                 }
                 
-                BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
+                HomeRegisterActivity baseRegisterActivity = (HomeRegisterActivity) getActivity();
                 baseRegisterActivity.startQrCodeScanner();
             }
         });

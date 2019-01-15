@@ -114,7 +114,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
                 
                 if (StringUtils.isNotBlank(baseEntityId)) {
-                    utils.proceedToContact(baseEntityId, pc, getContext());
+                    utils.proceedToContact(baseEntityId, pc, getActivity());
                 }
             }
             

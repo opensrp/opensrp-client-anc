@@ -32,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/register_search_bar_max_margin"
                     android:textColor="@color/black_text_color"
+                    android:textSize="@dimen/advanced_search_label_size"
                     android:text="@string/clients_facility" />
 
                 <RelativeLayout
@@ -189,6 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/register_search_bar_max_margin"
                     android:textColor="@color/black_text_color"
+                    android:textSize="@dimen/advanced_search_label_size"
                     android:text="@string/qr_code_label" />
 
                 <Button
