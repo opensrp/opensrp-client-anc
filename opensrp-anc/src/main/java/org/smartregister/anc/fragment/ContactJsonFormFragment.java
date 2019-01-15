@@ -35,7 +35,6 @@ import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
 
@@ -280,7 +279,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
                 Contact contact = getContact();
                 contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
-                ContactJsonFormUtils.persistPartialCore(contact,baseEntityId);
+                ContactJsonFormUtils.persistPartial(contact,baseEntityId);
                 
                 Utils.finalizeForm(getActivity());
                 dialog.dismiss();

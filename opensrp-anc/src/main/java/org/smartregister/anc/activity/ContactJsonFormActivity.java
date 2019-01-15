@@ -121,7 +121,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 contact.setJsonForm(currentJsonState());
                 contact.setContactNumber(contactNo);
                 
-                ContactJsonFormUtils.persistPartialCore(contact,getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                ContactJsonFormUtils.persistPartial(contact,getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 
                 return null;
                 
@@ -577,7 +577,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         contact.setJsonForm(currentJsonState());
         contact.setContactNumber(contactNo);
         
-        ContactJsonFormUtils.persistPartialCore(getContact(), baseEntityId);
+        ContactJsonFormUtils.persistPartial(getContact(), baseEntityId);
         
         this.startActivity(intent);
     }

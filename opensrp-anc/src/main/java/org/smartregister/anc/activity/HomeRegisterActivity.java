@@ -224,7 +224,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
                     Contact contact = new Contact();
                     contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, 0));
-                    ContactJsonFormUtils.persistPartialCore(contact, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    ContactJsonFormUtils.persistPartial(contact, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
                 }
             } catch (Exception e) {
