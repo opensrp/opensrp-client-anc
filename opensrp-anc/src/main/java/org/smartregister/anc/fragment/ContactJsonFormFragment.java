@@ -280,7 +280,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
                 Contact contact = getContact();
                 contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
-                ContactJsonFormUtils.persistPartial(baseEntityId,contact);
+                ContactJsonFormUtils.persistPartialCore(contact,baseEntityId);
                 
                 Utils.finalizeForm(getActivity());
                 dialog.dismiss();

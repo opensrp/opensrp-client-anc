@@ -405,8 +405,4 @@ public class ContactJsonFormUtils extends FormUtils {
             vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
         }
     }
-    
-    public static void persistPartial(String baseEntityId, Contact contact) {
-        persistPartialCore(contact, baseEntityId);
-    }
 }
