@@ -24,10 +24,10 @@ import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.domain.ContactSummary;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -289,7 +289,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
         ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
 
-        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView);
+        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView,R.drawable.woman_placeholder);
 
     }
 

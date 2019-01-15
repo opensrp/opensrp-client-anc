@@ -27,7 +27,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.2"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -142,7 +142,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.5.12-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.5.13-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

@@ -161,7 +161,7 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
 
-    public static void persistPartial(Contact contact, String baseEntityId) {
+    public static void persistPartialCore(Contact contact, String baseEntityId) {
 
         PartialContact partialContact = new PartialContact();
         partialContact.setBaseEntityId(baseEntityId);
@@ -405,5 +405,8 @@ public class ContactJsonFormUtils extends FormUtils {
             vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
         }
     }
-
+    
+    public static void persistPartial(String baseEntityId, Contact contact) {
+        persistPartialCore(contact, baseEntityId);
+    }
 }
