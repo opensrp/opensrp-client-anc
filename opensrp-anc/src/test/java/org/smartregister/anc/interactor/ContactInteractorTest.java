@@ -18,7 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
-import org.smartregister.anc.domain.UpdatePatientDetail;
+import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.rule.ContactRule;
@@ -132,7 +132,7 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.verifyStatic(PatientRepository.class);
 
 
-        UpdatePatientDetail patientDetail = new UpdatePatientDetail();
+        WomanDetail patientDetail = new WomanDetail();
 
         patientDetail.setBaseEntityId(details.get(DBConstants.KEY.BASE_ENTITY_ID));
         patientDetail.setNextContact(2);

@@ -8,7 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.domain.UpdatePatientDetail;
+import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.Repository;
@@ -78,14 +78,12 @@ public class PatientRepository {
         return AncApplication.getInstance().getRepository();
     }
 
-    public static void updateContactVisitDetails(UpdatePatientDetail patientDetail) {
+    public static void updateContactVisitDetails(WomanDetail patientDetail) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstants.KEY.NEXT_CONTACT, patientDetail.getNextContact());
         contentValues.put(DBConstants.KEY.NEXT_CONTACT_DATE, patientDetail.getNextContactDate());
-        contentValues.put(DBConstants.KEY.YELLOW_FLAGS, patientDetail.getYellowFlags());
         contentValues.put(DBConstants.KEY.YELLOW_FLAG_COUNT, patientDetail.getYellowFlagCount());
-        contentValues.put(DBConstants.KEY.RED_FLAGS, patientDetail.getRedFlags());
         contentValues.put(DBConstants.KEY.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 

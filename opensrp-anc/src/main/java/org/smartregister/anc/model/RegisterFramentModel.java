@@ -76,8 +76,6 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                 tableName + "." + DBConstants.KEY.EDD,
                 tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
                 tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT,
-                tableName + "." + DBConstants.KEY.RED_FLAGS,
-                tableName + "." + DBConstants.KEY.YELLOW_FLAGS,
                 tableName + "." + DBConstants.KEY.CONTACT_STATUS,
                 tableName + "." + DBConstants.KEY.NEXT_CONTACT,
                 tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE,

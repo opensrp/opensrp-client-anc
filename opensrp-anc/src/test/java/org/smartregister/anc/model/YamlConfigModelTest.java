@@ -8,7 +8,7 @@ import org.smartregister.anc.util.DBConstants;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactSummaryModelTest {
+public class YamlConfigModelTest {
 
     private ContactSummaryModel model;
 

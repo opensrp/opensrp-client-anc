@@ -10,14 +10,26 @@ fields:
   - template: "Parity: {parity}"
     relevance: "parity >= 5"
 
+  - template: "Past pregnancy problems: {prev_preg_comps_value}"
+    relevance: "prev_preg_comps != '' && !prev_preg_comps.contains('none')"
+
+  - template: "Past alcohol / substances used: {substances_used_value}"
+    relevance: "substances_used != '' && !substances_used.contains('none')"
+
+  - template: "Pre-eclampsia risk"
+    relevance: "preeclampsia_risk == 1"
+
+  - template: "Diabetes risk"
+    relevance: "gdm_risk == 1"
+
 ---
 group: red_attention_flags
 fields:
   - template: "Danger sign(s): {danger_signs_value}"
-    relevance: "danger_signs != ''"
+    relevance: "danger_signs != '' && !danger_signs.contains('danger_none')"
 
   - template: "Occupation: Informal employment (sex worker)"
-    relevance: "{occupation} == 'informal_employment_sex_worker'"
+    relevance: "occupation.contains('informal_employment_sex_worker')"
 
   - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
     relevance: "miscarriages_abortions >= 2"
@@ -29,7 +41,7 @@ fields:
     relevance: "{c_sections} >= 1"
 
   - template: "Allergies: {allergies_value}"
-    relevance: "allergies != ''"
+    relevance: "allergies != '' && !allergies.contains('none')"
 
   - template: "Tobacco user or recently quit"
     relevance: "tobacco_user.contains('yes') ||  tobacco_user.contains('recently_quit')"

@@ -3,7 +3,7 @@ package org.smartregister.anc.domain;
 /**
  * Created by ndegwamartin on 14/01/2019.
  */
-public class UpdatePatientDetail {
+public class WomanDetail {
     Integer nextContact;
 
     String baseEntityId;

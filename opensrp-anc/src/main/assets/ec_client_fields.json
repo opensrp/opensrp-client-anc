@@ -116,20 +116,6 @@
           }
         },
         {
-          "column_name": "red_flags",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.red_flags"
-          }
-        },
-        {
-          "column_name": "yellow_flags",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.yellow_flags"
-          }
-        },
-        {
           "column_name": "contact_status",
           "type": "Client",
           "json_mapping": {

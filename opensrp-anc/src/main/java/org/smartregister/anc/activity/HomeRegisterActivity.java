@@ -224,7 +224,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
                     Contact contact = new Contact();
                     contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, 0));
-                    ContactJsonFormUtils.persistPartialCore(contact, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
 
                 }
             } catch (Exception e) {
@@ -270,26 +270,34 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     public void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags) {
-        ViewGroup red_flags_container = attentionFlagDialogView.findViewById(R.id.red_flags_container);
-        ViewGroup yellow_flags_container = attentionFlagDialogView.findViewById(R.id.yellow_flags_container);
+        ViewGroup redFlagsContainer = attentionFlagDialogView.findViewById(R.id.red_flags_container);
+        ViewGroup yellowFlagsContainer = attentionFlagDialogView.findViewById(R.id.yellow_flags_container);
 
-        red_flags_container.removeAllViews();
-        yellow_flags_container.removeAllViews();
+        redFlagsContainer.removeAllViews();
+        yellowFlagsContainer.removeAllViews();
+
+        int yellowFlagCount = 0;
+        int redFlagCount = 0;
 
         for (AttentionFlag flag : attentionFlags) {
             if (flag.isRedFlag()) {
                 LinearLayout redRow = (LinearLayout) LayoutInflater.from(this)
-                        .inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
+                        .inflate(R.layout.alert_dialog_attention_flag_row_red, redFlagsContainer, false);
                 ((TextView) redRow.getChildAt(1)).setText(flag.getTitle());
-                red_flags_container.addView(redRow);
+                redFlagsContainer.addView(redRow);
+                redFlagCount += 1;
             } else {
 
                 LinearLayout yellowRow = (LinearLayout) LayoutInflater.from(this)
-                        .inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
+                        .inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellowFlagsContainer, false);
                 ((TextView) yellowRow.getChildAt(1)).setText(flag.getTitle());
-                yellow_flags_container.addView(yellowRow);
+                yellowFlagsContainer.addView(yellowRow);
+                yellowFlagCount += 1;
             }
         }
+
+        ((View) redFlagsContainer.getParent()).setVisibility(redFlagCount > 0 ? View.VISIBLE : View.GONE);
+        ((View) yellowFlagsContainer.getParent()).setVisibility(yellowFlagCount > 0 ? View.VISIBLE : View.GONE);
 
         attentionFlagAlertDialog.show();
     }

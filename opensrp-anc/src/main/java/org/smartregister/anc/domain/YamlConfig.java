@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 04/12/2018.
  */
-public class ContactSummary {
+public class YamlConfig {
 
     private String group;
 
-    private List<ContactSummaryItem> fields;
+    private List<YamlConfigItem> fields;
 
     public String getGroup() {
         return group;
@@ -24,11 +24,11 @@ public class ContactSummary {
         public static final String FIELDS = "fields";
     }
 
-    public List<ContactSummaryItem> getFields() {
+    public List<YamlConfigItem> getFields() {
         return fields;
     }
 
-    public void setFields(List<ContactSummaryItem> fields) {
+    public void setFields(List<YamlConfigItem> fields) {
         this.fields = fields;
     }
 }

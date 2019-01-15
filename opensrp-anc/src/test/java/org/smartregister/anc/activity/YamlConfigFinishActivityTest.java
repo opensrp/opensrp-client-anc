@@ -23,7 +23,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ProfileContract;
-import org.smartregister.anc.domain.ContactSummary;
+import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.Constants;
@@ -34,7 +34,7 @@ import java.util.List;
 
 import static org.robolectric.Shadows.shadowOf;
 
-public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
+public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
     private ContactSummaryFinishActivity activity;
@@ -272,7 +272,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
         spyActivity.loadContactSummaryData();
 
-        List<ContactSummary> list = Whitebox.getInternalState(spyActivity, "contactSummaryList");
+        List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "contactSummaryList");
 
         Assert.assertNotNull(list);
         Assert.assertEquals(39, list.size());

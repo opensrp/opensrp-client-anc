@@ -3,12 +3,15 @@ package org.smartregister.anc.interactor;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
+import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
 import org.smartregister.anc.contract.ContactContract;
-import org.smartregister.anc.domain.UpdatePatientDetail;
+import org.smartregister.anc.domain.WomanDetail;
+import org.smartregister.anc.domain.YamlConfig;
+import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -17,10 +20,14 @@ import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +37,7 @@ import java.util.Map;
 public class ContactInteractor extends BaseContactInteractor implements ContactContract.Interactor {
 
     public static final String TAG = ContactInteractor.class.getName();
+    private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
 
     @VisibleForTesting
     ContactInteractor(AppExecutors appExecutors) {
@@ -69,19 +77,16 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             Integer nextContact = getNextContact(details);
 
-            UpdatePatientDetail patientDetail = new UpdatePatientDetail();
-            patientDetail.setBaseEntityId(baseEntityId);
-            patientDetail.setNextContact(nextContact);
-            patientDetail.setNextContactDate(nextContactVisitDate);
-
-            PatientRepository.updateContactVisitDetails(patientDetail);
 
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
 
             PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
 
             PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
+
             List<PartialContact> partialContactList = partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
+
+            Facts facts = new Facts();
 
             if (partialContactList != null) {
 
@@ -92,11 +97,36 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     previousContact.setFormJson(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
                     previousContact.setType(partialContact.getType());
 
+
+                    //Save previous contact repository
                     previousContactRepository.savePreviousContact(previousContact);
 
+                    if (previousContact.getFormJson() != null) {
+                        //process attention flags
+                        ContactJsonFormUtils.processRequiredStepsField(facts, new JSONObject(previousContact.getFormJson()), AncApplication.getInstance().getApplicationContext());
+                    }
+
+                    //Remove partial contact
                     partialContactRepository.deletePartialContact(partialContact.getId());
                 }
             }
+
+
+            WomanDetail womanDetail = new WomanDetail();
+            womanDetail.setBaseEntityId(baseEntityId);
+            womanDetail.setNextContact(nextContact);
+            womanDetail.setNextContactDate(nextContactVisitDate);
+
+
+            processAttentionFlags(womanDetail, facts);
+
+            PatientRepository.updateContactVisitDetails(womanDetail);
+
+            //Attention Flags
+
+
+            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
+
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
@@ -113,4 +143,30 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         return nextContact;
     }
 
+    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
+
+        Iterable<Object> ruleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+
+        for (Object ruleObject : ruleObjects) {
+            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
+
+            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
+
+                if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+
+                    Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
+
+                    requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
+
+                    attentionFlagCountMap.put(attentionFlagConfig.getGroup(), requiredFieldCount);
+
+                }
+
+
+            }
+        }
+
+        patientDetail.setRedFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAGS.RED));
+        patientDetail.setYellowFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAGS.YELLOW));
+    }
 }

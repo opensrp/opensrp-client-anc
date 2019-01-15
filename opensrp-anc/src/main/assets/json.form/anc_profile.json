@@ -313,7 +313,7 @@
             "specify_info": "specify date",
             "specify_widget": "date_picker",
             "max_date": "today",
-            "min_date":"today-280d"
+            "min_date": "today-280d"
           },
           {
             "key": "no",
@@ -394,7 +394,7 @@
             "specify_info": "ultrasound date",
             "specify_widget": "date_picker",
             "max_date": "today",
-            "min_date":"today-9m"
+            "min_date": "today-9m"
           },
           {
             "key": "no",
@@ -2606,7 +2606,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "value": "none",
         "v_required": {
           "value": false,
           "err": "Please select if you use any tobacco products"

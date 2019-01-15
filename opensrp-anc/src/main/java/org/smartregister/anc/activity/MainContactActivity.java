@@ -270,7 +270,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         if (mJSONObject != null) {
 
-            Map<String, Map<String, String>> valueMap = new Gson().fromJson(mJSONObject.toString(), new TypeToken<HashMap<String, Map<String, String>>>() {
+            Map<String, Map<String, String>> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(mJSONObject.toString(), new TypeToken<HashMap<String, Map<String, String>>>() {
             }.getType());
 
             defaultValues.putAll(valueMap);
@@ -281,7 +281,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         if (mJSONObject != null) {
 
-            Map<String, Map<String, String>> valueMap = new Gson().fromJson(mJSONObject.toString(), new TypeToken<HashMap<String, Map<String, String>>>() {
+            Map<String, Map<String, String>> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(mJSONObject.toString(), new TypeToken<HashMap<String, Map<String, String>>>() {
             }.getType());
 
             globalValuesMap.putAll(valueMap);
@@ -350,6 +350,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
 
     }
+
     private void process(String[] mainContactForms) throws Exception {
 
         JSONObject object;

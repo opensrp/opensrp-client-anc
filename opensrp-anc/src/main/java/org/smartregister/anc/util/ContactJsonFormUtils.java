@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
+import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +31,13 @@ import org.smartregister.anc.view.AncGenericDialogPopup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class ContactJsonFormUtils extends FormUtils {
     private AncGenericDialogInterface genericDialogInterface;
+    public static final String TAG = ContactJsonFormUtils.class.getCanonicalName();
 
     @Override
     public void showGenericDialog(View view) {
@@ -161,7 +166,7 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
 
-    public static void persistPartialCore(Contact contact, String baseEntityId) {
+    public static void persistPartial(String baseEntityId, Contact contact) {
 
         PartialContact partialContact = new PartialContact();
         partialContact.setBaseEntityId(baseEntityId);
@@ -171,6 +176,7 @@ public class ContactJsonFormUtils extends FormUtils {
         if (contact != null) {
             partialContact.setType(contact.getFormName());
         }
+
         partialContact.setFormJsonDraft(contact.getJsonForm());
 
         AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
@@ -405,8 +411,66 @@ public class ContactJsonFormUtils extends FormUtils {
             vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
         }
     }
-    
-    public static void persistPartial(String baseEntityId, Contact contact) {
-        persistPartialCore(contact, baseEntityId);
+
+    public static void processRequiredStepsField(Facts facts, JSONObject object, Context context) throws Exception {
+        if (object != null) {
+
+            Iterator<String> keys = object.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+
+                if (key.startsWith(RuleConstant.STEP)) {
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+
+                    for (int i = 0; i < stepArray.length(); i++) {
+
+                        JSONObject fieldObject = stepArray.getJSONObject(i);
+
+                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+
+                        String fieldKey = getKey(fieldObject);
+
+
+                        if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
+
+                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+
+                            String secondaryValueKey = getSecondaryKey(fieldObject);
+
+                            if (fieldObject.has(secondaryValueKey)) {
+                                facts.put(secondaryValueKey, fieldObject.getString(secondaryValueKey));
+                            }
+                        }
+
+                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
+                            try {
+
+                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ? fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", context);
+                                processRequiredStepsField(facts, ContactJsonFormUtils.createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)), context);
+
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getMessage(), e);
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    public static String getKey(JSONObject jsonObject) throws Exception {
+
+        return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
+    }
+
+    public static String getSecondaryKey(JSONObject jsonObject) throws Exception {
+
+        return getKey(jsonObject) + Constants.SUFFIX.VALUE;
+
     }
 }
