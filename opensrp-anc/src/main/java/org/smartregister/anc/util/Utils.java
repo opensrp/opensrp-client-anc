@@ -241,8 +241,17 @@ public class Utils extends org.smartregister.util.Utils {
         String[] strings = itemString.split(":");
         return strings.length > 1 ? strings[1] : strings[0];
     }
-
+    /**
+     * Check for the quick check form then finds whether it still has pending required fields, If it has pending fields if
+     * so it redirects to the quick check page. If not pending required fields then it redirects to the main contact page
+     *
+     * @param baseEntityId       {@link String}
+     * @param personObjectClient {@link CommonPersonObjectClient}
+     * @param context            {@link Context}
+     * @author martinndegwa
+     */
     public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
+
         try {
 
             Intent intent = new Intent(context.getApplicationContext(), ContactJsonFormActivity.class);
@@ -279,7 +288,6 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
                 ((BaseRegisterActivity) context).startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-
             } else {
                 intent = new Intent(context, MainContactActivity.class);
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
@@ -299,6 +307,14 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
+    /**
+     * Checks the pending required fields on the json forms and returns true|false
+     *
+     * @param object {@link JSONObject}
+     * @return true|false {@link Boolean}
+     * @throws JSONException
+     * @author martinndegwa
+     */
     private boolean hasPendingRequiredFields(JSONObject object) throws JSONException {
         if (object != null) {
             Iterator<String> keys = object.keys();
@@ -328,7 +344,13 @@ public class Utils extends org.smartregister.util.Utils {
         }
         return true;
     }
-
+    
+    /**
+     * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
+     *
+     * @param context {@link Activity}
+     * @author martinndegwa
+     */
     public static void finalizeForm(Activity context) {
         try {
 
@@ -338,9 +360,7 @@ public class Utils extends org.smartregister.util.Utils {
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT, pc);
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(pc.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-
             context.startActivity(contactSummaryFinishIntent);
-
         } catch (Exception e) {
             Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
         }

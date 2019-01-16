@@ -6,14 +6,14 @@
   "global": {
     "prev_preg_comps": "['gestational_diabetes','macrosomia']",
     "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
-    "urine_glucose":"two_plus",
+    "urine_glucose": "two_plus",
     "contact_no": 2,
-    "current_weight":134,
+    "current_weight": 134,
     "pop_undernourish": 1,
-    "dm_in_preg":1,
-    "hb_results":10,
-    "gest_age":12,
-    "last_contact_date":"14-11-2018"
+    "dm_in_preg": 1,
+    "hb_results": 10,
+    "gest_age": 12,
+    "last_contact_date": "14-11-2018"
   },
   "metadata": {
     "start": {
@@ -1676,7 +1676,7 @@
         "label_text_style": "bold",
         "text_color": "#000000",
         "extra_rel": true,
-        "has_extra_rel": "yes" ,
+        "has_extra_rel": "yes",
         "options": [
           {
             "key": "yes",
@@ -1687,6 +1687,7 @@
             "specify_info": "specify fetal heart rate (bpm)...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
+            "secondary_suffix": "bpm",
             "content_form": "fetal_heartbeat_sub_form"
           },
           {
@@ -1700,6 +1701,31 @@
         "v_required": {
           "value": true,
           "err": "Please specify if fetal heartbeat is present."
+        }
+      },
+      {
+        "key": "fetal_heart_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal heart rate",
+        "openmrs_entity_id": "1440",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the fetal heart rate"
+        },
+        "v_min": {
+          "value": "80",
+          "err": "Fetal heartbeat must be equal or greater than 80"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Fetal heartbeat must be less than or equal to 200"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
         }
       },
       {

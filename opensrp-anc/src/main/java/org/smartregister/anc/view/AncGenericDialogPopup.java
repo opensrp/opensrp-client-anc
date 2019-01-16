@@ -534,7 +534,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
                 String[] splitValues = splitText(value, ":");
                 String[] currentValues = splitText(currentValue, ":");
                 if (splitValues.length == 3 && currentValues.length == 3 && splitValues[0].equals(currentValues[0]) && splitValues[1]
-                        .equals(currentValues[1]) && currentValues[2].equals("false")) {
+                        .equals(currentValues[1]) && currentValues[2].equals(Constants.FALSE)) {
                     list.remove(k);
                 }
             }

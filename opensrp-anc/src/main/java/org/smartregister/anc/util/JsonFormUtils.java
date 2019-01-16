@@ -664,7 +664,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static void launchANCCloseForm(Activity activity) {
         try {
             Intent intent = new Intent(activity, JsonFormActivity.class);
-
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
             if (form != null) {
                 form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
@@ -679,7 +678,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static void launchSiteCharacteristicsForm(Activity activity) {
         try {
             Intent intent = new Intent(activity, JsonFormActivity.class);
-
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
             if (form != null) {
                 form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
@@ -693,9 +691,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static Map<String, String> processSiteCharacteristics(String jsonString) {
         try {
-
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
-
             if (!registrationFormParams.getLeft()) {
                 return null;
             }
@@ -722,7 +718,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static String getAutoPopulatedSiteCharacteristicsEditFormString(Context context, Map<String, String> characteristics) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
-
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.SITE_CHARACTERISTICS);
