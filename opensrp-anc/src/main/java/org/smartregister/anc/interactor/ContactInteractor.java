@@ -84,7 +84,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
 
-            List<PartialContact> partialContactList = partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
+            List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
 
             Facts facts = new Facts();
 
@@ -124,9 +124,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             //Attention Flags
 
-
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
-
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

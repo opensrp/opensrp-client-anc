@@ -21,6 +21,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
@@ -28,6 +29,7 @@ import org.smartregister.domain.form.FormLocation;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -270,7 +272,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(locationHelper.getOpenMrsLocationId(ArgumentMatchers.anyString())).thenReturn(DUMMY_LOCATION_ID);
 
         PowerMockito.mockStatic(ImageUtils.class);
-        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID)).thenReturn(photo);
+        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier())).thenReturn(photo);
         PowerMockito.when(photo.getFilePath()).thenReturn("/images/" + DUMMY_BASE_ENTITY_ID);
 
         JSONObject registerForm = new JSONObject(registerFormJsonString);
