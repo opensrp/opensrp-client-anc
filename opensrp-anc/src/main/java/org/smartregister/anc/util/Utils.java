@@ -105,7 +105,8 @@ public class Utils extends org.smartregister.util.Utils {
         EventBus.getDefault().post(event);
     }
 
-    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent after
+    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent
+        // after
         // handling
         EventBus.getDefault().postSticky(event);
     }
@@ -155,9 +156,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     @Nullable
-    public static int getAttributeDrawableResource(
-            Context context,
-            int attributeId) {
+    public static int getAttributeDrawableResource(Context context, int attributeId) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(attributeId, typedValue, true);
         return typedValue.resourceId;
@@ -242,6 +241,16 @@ public class Utils extends org.smartregister.util.Utils {
         return strings.length > 1 ? strings[1] : strings[0];
     }
 
+    /**
+     * Check for the quick check form then finds whether it still has pending required fields, If it has pending fields if so it redirects
+     * to the quick check page. If not pending required fields then it redirects to the main contact page
+     *
+     * @param baseEntityId       {@link String}
+     * @param personObjectClient {@link CommonPersonObjectClient}
+     * @param context            {@link Context}
+     *
+     * @author martinndegwa
+     */
     public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
         try {
 
@@ -265,7 +274,8 @@ public class Utils extends org.smartregister.util.Utils {
             partialContactRequest.setType(quickCheck.getFormName());
             BaseContactModel baseContactModel = new ContactModel();
 
-            String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            String locationId =
+                    AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
 
             JSONObject form = ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 
@@ -285,8 +295,8 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
                 intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY
-                        .NEXT_CONTACT)));
+                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                        Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
 
                 context.startActivity(intent);
             }
@@ -294,11 +304,20 @@ public class Utils extends org.smartregister.util.Utils {
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
-            Utils.showToast(context, "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants
-                    .KEY.FIRST_NAME));
+            Utils.showToast(context,
+                    "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
         }
     }
 
+    /**
+     * Checks the pending required fields on the json forms and returns true|false
+     *
+     * @param object {@link JSONObject}
+     *
+     * @return true|false {@link Boolean}
+     * @throws JSONException
+     * @author martinndegwa
+     */
     private boolean hasPendingRequiredFields(JSONObject object) throws JSONException {
         if (object != null) {
             Iterator<String> keys = object.keys();
@@ -312,11 +331,9 @@ public class Utils extends org.smartregister.util.Utils {
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
-                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has
-                                (JsonFormConstants.V_REQUIRED)) {
+                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED)) {
 
-                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants
-                                    .VALUE))) {//TO DO Remove/ Alter logical condition
+                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
 
                                 return false;
 
@@ -329,18 +346,24 @@ public class Utils extends org.smartregister.util.Utils {
         return true;
     }
 
+    /**
+     * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
+     *
+     * @param context {@link Activity}
+     *
+     * @author martinndegwa
+     */
     public static void finalizeForm(Activity context) {
         try {
-
-            CommonPersonObjectClient pc = (CommonPersonObjectClient) context.getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT);
+            CommonPersonObjectClient pc =
+                    (CommonPersonObjectClient) context.getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
 
             Intent contactSummaryFinishIntent = new Intent(context, ContactSummaryFinishActivity.class);
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT, pc);
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(pc.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                    Integer.valueOf(pc.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
             context.startActivity(contactSummaryFinishIntent);
-
         } catch (Exception e) {
             Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
         }
