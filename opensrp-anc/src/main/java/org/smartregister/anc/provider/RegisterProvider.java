@@ -126,11 +126,27 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
 
         View dueButton = viewHolder.dueButton;
-        attachDosageOnclickListener(dueButton, client);
+        attachAlertButtonOnclickListener(dueButton, client);
 
 
-        View riskLayout = viewHolder.risk;
-        attachRiskLayoutOnclickListener(riskLayout, client);
+        String redFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.RED_FLAG_COUNT, false);
+        String yellowFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.YELLOW_FLAG_COUNT, false);
+
+        int redFlagCount = !TextUtils.isEmpty(redFlagCountRaw) ? Integer.valueOf(redFlagCountRaw) : 0;
+        int yellowFlagCount = !TextUtils.isEmpty(yellowFlagCountRaw) ? Integer.valueOf(yellowFlagCountRaw) : 0;
+        int totalFlagCount = yellowFlagCount + redFlagCount;
+
+        TextView riskLayout = viewHolder.risk;
+
+        if (totalFlagCount > 0) {
+            riskLayout.setCompoundDrawablesWithIntrinsicBounds(redFlagCount > 0 ? R.drawable.ic_red_flag : R.drawable.ic_yellow_flag, 0, 0, 0);
+            riskLayout.setText(String.valueOf(totalFlagCount));
+            riskLayout.setVisibility(View.VISIBLE);
+
+            attachRiskLayoutOnclickListener(riskLayout, client);
+        } else {
+            riskLayout.setVisibility(View.GONE);
+        }
     }
 
 
@@ -262,10 +278,10 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 */
 
-    private void attachDosageOnclickListener(View view, SmartRegisterClient client) {
+    private void attachAlertButtonOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
-        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_ALERT_STATUS);
     }
 
     @Override

@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -27,15 +28,18 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.event.PatientRemovedEvent;
+import org.smartregister.anc.fragment.HomeRegisterFragment;
 import org.smartregister.anc.fragment.ProfileContactsFragment;
 import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
 import org.smartregister.anc.fragment.QuickCheckFragment;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
@@ -54,6 +58,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private String phoneNumber;
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
+    private  Utils utils = new Utils();
 
     public static final String DIALOG_TAG = "PROFILE_DIALOG_TAG";
 
@@ -99,7 +104,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
 
         // When user click home menu item then quit this activity.
@@ -122,7 +127,13 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                             launchPhoneDialer(phoneNumber);
                             break;
                         case Constants.START_CONTACT:
-                            QuickCheckFragment.launchDialog(ProfileActivity.this, DIALOG_TAG);
+                           
+                            CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT);
+                            String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+    
+                            if (StringUtils.isNotBlank(baseEntityId)) {
+                                utils.proceedToContact(baseEntityId, pc,getApplicationContext());
+                            }
                             break;
                         case CLOSE_ANC_RECORD:
                             JsonFormUtils.launchANCCloseForm(ProfileActivity.this);

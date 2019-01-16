@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.Repository;
@@ -77,13 +78,16 @@ public class PatientRepository {
         return AncApplication.getInstance().getRepository();
     }
 
-    public static void updateContactVisitDetails(String baseEntityId, Integer nextContact, String nextContactDate) {
+    public static void updateContactVisitDetails(WomanDetail patientDetail) {
+
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBConstants.KEY.NEXT_CONTACT, nextContact);
-        contentValues.put(DBConstants.KEY.NEXT_CONTACT_DATE, nextContactDate);
+        contentValues.put(DBConstants.KEY.NEXT_CONTACT, patientDetail.getNextContact());
+        contentValues.put(DBConstants.KEY.NEXT_CONTACT_DATE, patientDetail.getNextContactDate());
+        contentValues.put(DBConstants.KEY.YELLOW_FLAG_COUNT, patientDetail.getYellowFlagCount());
+        contentValues.put(DBConstants.KEY.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
-        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{patientDetail.getBaseEntityId()});
     }
 
     public static void updateEDD(String baseEntityId, String edd) {

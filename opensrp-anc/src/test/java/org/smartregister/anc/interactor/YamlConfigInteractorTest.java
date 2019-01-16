@@ -36,7 +36,7 @@ import java.util.concurrent.Executors;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({PatientRepository.class, AncApplication.class})
-public class ContactSummaryInteractorTest extends BaseUnitTest {
+public class YamlConfigInteractorTest extends BaseUnitTest {
 
     private ContactSummarySendContract.Interactor summaryInteractor;
 

@@ -139,6 +139,7 @@ public abstract class Constants {
 
     public static class DETAILS_KEY {
         public static final String CONTACT_SHEDULE = "contact_schedule";
+        public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
 
     }
 
@@ -163,11 +164,6 @@ public abstract class Constants {
 
     }
 
-    public static class CONFIG_FILE {
-        public static final String CONTACT_SUMMARY = "contact-summary.yml";
-
-    }
-
     public static class JSON_FORM_CONSTANTS {
         public static final String CONTACT_CONTAINER = "container";
     }
@@ -182,5 +178,10 @@ public abstract class Constants {
 
     public static class BOOLEAN {
         public static final String TRUE = "true";
+    }
+
+    public static class ATTENTION_FLAGS {
+        public static final String RED = "red_attention_flags";
+        public static final String YELLOW = "yellow_attention_flags";
     }
 }

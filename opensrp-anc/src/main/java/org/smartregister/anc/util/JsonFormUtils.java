@@ -383,7 +383,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID), Utils.getProfileImageResourceIDentifier());
 
-            if (StringUtils.isNotBlank(photo.getFilePath())) {
+            if (photo != null && StringUtils.isNotBlank(photo.getFilePath())) {
 
                 jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
 

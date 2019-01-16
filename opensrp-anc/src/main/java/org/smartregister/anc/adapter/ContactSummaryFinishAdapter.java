@@ -10,8 +10,9 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.domain.ContactSummary;
-import org.smartregister.anc.domain.ContactSummaryItem;
+import org.smartregister.anc.domain.YamlConfig;
+import org.smartregister.anc.domain.YamlConfigItem;
+import org.smartregister.anc.util.Utils;
 
 import java.util.List;
 
@@ -20,12 +21,12 @@ import java.util.List;
  */
 public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSummaryFinishAdapter.ViewHolder> {
 
-    private List<ContactSummary> mData;
+    private List<YamlConfig> mData;
     private LayoutInflater mInflater;
     private Facts facts;
 
     // data is passed into the constructor
-    public ContactSummaryFinishAdapter(Context context, List<ContactSummary> data, Facts facts) {
+    public ContactSummaryFinishAdapter(Context context, List<YamlConfig> data, Facts facts) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
@@ -43,11 +44,11 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
 
-        List<ContactSummaryItem> fields = mData.get(position).getFields();
+        List<YamlConfigItem> fields = mData.get(position).getFields();
         String output = "";
-        for (ContactSummaryItem contactSummaryItem : fields) {
-            if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, contactSummaryItem.getRelevance())) {
-                output += fillTemplate(contactSummaryItem.getTemplate(), this.facts) + "\n\n";
+        for (YamlConfigItem yamlConfigItem : fields) {
+            if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                output += Utils.fillTemplate(yamlConfigItem.getTemplate(), this.facts) + "\n\n";
             }
         }
 
@@ -83,17 +84,6 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
             sectionDetails = itemView.findViewById(R.id.contact_summary_section_details);
             parent = itemView;
         }
-    }
-
-    public String fillTemplate(String stringValue, Facts facts) {
-        String stringValueResult = stringValue;
-        while (stringValueResult.contains("{")) {
-            String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
-            String value = facts.get(key);
-            stringValueResult = stringValueResult.replace("{" + key + "}", value != null ? value : "");
-        }
-
-        return stringValueResult;
     }
 
     private String processUnderscores(String string) {

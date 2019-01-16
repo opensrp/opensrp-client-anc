@@ -466,7 +466,7 @@
           {
             "key": "central_cyanosis",
             "text": "Central cyanosis",
-            "label_info_text": "Cyanosis info icon: Bluish discolouration around the mucous membranes in the mouth, lips and tongue",
+            "label_info_text": "Bluish discolouration around the mucous membranes in the mouth, lips and tongue",
             "label_info_title": "Central cyanosis",
             "value": false,
             "openmrs_entity_parent": "",

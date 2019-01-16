@@ -3,42 +3,32 @@ package org.smartregister.anc.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.rules.RuleConstant;
-
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
+import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.MainContactActivity;
-import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
-import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.domain.YamlConfig;
+import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.DBQueryHelper;
-import org.smartregister.anc.model.BaseContactModel;
-import org.smartregister.anc.model.ContactModel;
-import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
@@ -48,7 +38,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -64,9 +54,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
 
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
-    public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
+    public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
+    private Utils utils = new Utils();
 
     @Override
     protected void initializePresenter() {
@@ -119,26 +110,86 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
         final HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
 
+        final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
-        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+            goToPatientDetailActivity(pc, false);
+        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
             if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= Constants.DELIVERY_DATE_WEEKS) {
                 homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
-                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+                getActivity().getIntent()
+                        .getSerializableExtra(Constants.INTENT_KEY.CLIENT);
                 String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
-                    proceedToContact(baseEntityId, pc);
+                    utils.proceedToContact(baseEntityId, pc, getContext());
                 }
             }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-            //Temporary for testing UI , To remove for real dynamic data
-            List<AttentionFlag> dummyAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new
-                    AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2",
-                    false)});
-            homeRegisterActivity.showAttentionFlagsDialog(dummyAttentionFlags);
+
+
+            new AsyncTask<Void, Void, Void>() {
+                private List<AttentionFlag> attentionFlagList = new ArrayList<>();
+
+                @Override
+                protected void onPreExecute() {
+
+                    //  showProgressDialog("Saving contact progress...");
+                }
+
+                @Override
+                protected Void doInBackground(Void... nada) {
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+
+                        Facts facts = new Facts();
+
+
+                        Iterator<String> keys = jsonObject.keys();
+
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            facts.put(key, jsonObject.get(key));
+                        }
+
+                        Iterable<Object> ruleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+
+                        for (Object ruleObject : ruleObjects) {
+                            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
+
+                            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
+
+                                if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+
+                                    attentionFlagList.add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts), attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAGS.RED)));
+
+                                }
+
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+
+
+                    return null;
+
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    // hideProgressDialog();
+
+                    homeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
+
+                }
+            }.execute();
+
+
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
@@ -177,6 +228,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
         Intent intent = new Intent(getActivity(), ProfileActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, patient);
         startActivity(intent);
     }
 
@@ -227,98 +279,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                     return null;
             }
         }
-    }
-
-    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient) {
-        try {
-
-            Intent intent = new Intent(getActivity(), ContactJsonFormActivity.class);
-
-            Contact quickCheck = new Contact();
-            quickCheck.setName(getString(R.string.quick_check));
-            quickCheck.setFormName(Constants.JSON_FORM.ANC_QUICK_CHECK);
-            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-            quickCheck.setBackground(R.drawable.quick_check_bg);
-            quickCheck.setActionBarBackground(R.color.quick_check_red);
-            quickCheck.setBackIcon(R.drawable.ic_clear);
-            quickCheck.setWizard(false);
-            quickCheck.setHideSaveLabel(true);
-
-            //partial contact exists?
-
-            PartialContact partialContactRequest = new PartialContact();
-            partialContactRequest.setBaseEntityId(baseEntityId);
-            partialContactRequest.setContactNo(quickCheck.getContactNumber());
-            partialContactRequest.setType(quickCheck.getFormName());
-
-            BaseContactModel baseContactModel = new ContactModel();
-
-            String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-
-            JSONObject form = ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
-
-            String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
-
-            if (hasPendingRequiredFields(new JSONObject(processedForm))) {
-                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, processedForm);
-                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
-                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
-                intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
-                startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
-
-            } else {
-                intent = new Intent(getActivity(), MainContactActivity.class);
-                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-                intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
-                intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY
-                        .NEXT_CONTACT)));
-
-                getActivity().startActivity(intent);
-            }
-
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
-            Utils.showToast(getActivity(), "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants
-                    .KEY.FIRST_NAME));
-        }
-    }
-
-    private void changeBackIconInitialQuickCheck() {
-
-    }
-
-
-    private boolean hasPendingRequiredFields(JSONObject object) throws JSONException {
-        if (object != null) {
-            Iterator<String> keys = object.keys();
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-
-                if (key.startsWith(RuleConstant.STEP)) {
-                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
-
-                    for (int i = 0; i < stepArray.length(); i++) {
-                        JSONObject fieldObject = stepArray.getJSONObject(i);
-                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
-                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has
-                                (JsonFormConstants.V_REQUIRED)) {
-
-                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants
-                                    .VALUE))) {//TO DO Remove/ Alter logical condition
-
-                                return false;
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return true;
     }
 }
 

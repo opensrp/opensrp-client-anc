@@ -13,19 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.rules.RuleConstant;
-
 import org.jeasy.rules.api.Facts;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
-import org.smartregister.anc.domain.ContactSummary;
-import org.smartregister.anc.domain.ContactSummaryItem;
+import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -36,14 +30,8 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
-import org.yaml.snakeyaml.TypeDescription;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,10 +47,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
     private Facts facts = new Facts();
-    private Yaml yaml;
     private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
-    private List<ContactSummary> contactSummaryList = new ArrayList<>();
-    private Gson gson;
+    private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
     private MenuItem saveFinishMenuItem;
 
@@ -78,15 +64,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         imageRenderHelper = new ImageRenderHelper(this);
 
-        Constructor constructor = new Constructor(ContactSummary.class);
-        TypeDescription customTypeDescription = new TypeDescription(ContactSummary.class);
-        customTypeDescription.addPropertyParameters(ContactSummaryItem.FIELD_CONTACT_SUMMARY_ITEMS, ContactSummaryItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
         loadContactSummaryData();
-
-
-        gson = new Gson();
 
     }
 
@@ -225,56 +203,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     }
 
-    private void processRequiredStepsField(JSONObject object) throws Exception {
-        if (object != null) {
-
-            Iterator<String> keys = object.keys();
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-
-                if (key.startsWith(RuleConstant.STEP)) {
-                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
-
-                    for (int i = 0; i < stepArray.length(); i++) {
-
-                        JSONObject fieldObject = stepArray.getJSONObject(i);
-
-                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
-
-                        String fieldKey = getKey(fieldObject);
-
-
-                        if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
-
-                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
-
-                            String secondaryValueKey = getSecondaryKey(fieldObject);
-
-                            if (fieldObject.has(secondaryValueKey)) {
-                                facts.put(secondaryValueKey, fieldObject.getString(secondaryValueKey));
-                            }
-                        }
-
-                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
-                            try {
-
-                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils.getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM), fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ? fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", this);
-                                processRequiredStepsField(ContactJsonFormUtils.createSecondaryFormObject(fieldObject, subFormJson, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
-
-                            } catch (Exception e) {
-                                Log.e(TAG, e.getMessage());
-                            }
-                        }
-
-
-                    }
-
-                }
-            }
-        }
-    }
-
 
     private void process() throws Exception {
 
@@ -285,30 +213,19 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         List<PartialContact> partialContacts = getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
 
         for (PartialContact partialContact : partialContacts) {
-            if (partialContact.getFormJson() != null) {
+            if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
                 object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
-                processRequiredStepsField(object);
+                ContactJsonFormUtils.processRequiredStepsField(facts, object, this);
             }
         }
 
-        Iterable<Object> ruleObjects = readYaml(Constants.CONFIG_FILE.CONTACT_SUMMARY);
+        Iterable<Object> ruleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.CONTACT_SUMMARY);
 
-        contactSummaryList = new ArrayList<>();
+        yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
-            ContactSummary contactSummary = (ContactSummary) ruleObject;
-            contactSummaryList.add(contactSummary);
+            YamlConfig yamlConfig = (YamlConfig) ruleObject;
+            yamlConfigList.add(yamlConfig);
         }
-    }
-
-    private String getKey(JSONObject jsonObject) throws Exception {
-
-        return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
-    }
-
-    private String getSecondaryKey(JSONObject jsonObject) throws Exception {
-
-        return getKey(jsonObject) + Constants.SUFFIX.VALUE;
-
     }
 
     protected void loadContactSummaryData() {
@@ -354,7 +271,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     }
 
-                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, contactSummaryList, facts);
+                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, yamlConfigList, facts);
 
 
                     // set up the RecyclerView
@@ -373,11 +290,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
-    }
-
-    public Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
-        return yaml.loadAll(inputStreamReader);
     }
 
     protected PartialContactRepository getPartialContactRepository() {

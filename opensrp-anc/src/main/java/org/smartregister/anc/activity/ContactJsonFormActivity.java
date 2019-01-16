@@ -115,16 +115,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             @Override
             protected Void doInBackground(Void... nada) {
-
-
-                String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
                 Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
 
                 Contact contact = getContact();
                 contact.setJsonForm(currentJsonState());
                 contact.setContactNumber(contactNo);
 
-                ContactJsonFormUtils.persistPartial(getContact(), baseEntityId);
+                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
 
                 return null;
 
@@ -167,7 +164,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @param sectionJson
      * @param popup
-     *
      * @return
      * @throws JSONException
      * @author dubdabasoduba
@@ -200,7 +196,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @param parentJson {@link JSONObject}
      * @param popup      {@link Boolean}
-     *
      * @return fields {@link JSONArray}
      * @throws JSONException
      * @author dubdabasoduba
@@ -354,7 +349,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      * This fix is a bit hacky but feel free to use it
      *
      * @param fields {@link JSONArray}
-     *
      * @throws JSONException
      * @author dubdabasoduba
      */
@@ -570,20 +564,21 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      */
     public void proceedToMainContactPage() {
         Intent intent = new Intent(this, MainContactActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getStringExtra(Constants.INTENT_KEY.CLIENT));
-        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
-        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, getIntent().getStringExtra(Constants.INTENT_KEY.CONTACT_NO));
 
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT));
+        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
+        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
+
         Contact contact = getContact();
         contact.setJsonForm(currentJsonState());
         contact.setContactNumber(contactNo);
 
-        ContactJsonFormUtils.persistPartial(getContact(), baseEntityId);
+        ContactJsonFormUtils.persistPartial(baseEntityId, getContact());
 
         this.startActivity(intent);
     }
-
 }
