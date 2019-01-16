@@ -69,9 +69,7 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         matrixCursor = model.createMatrixCursor(response);
 
         getView().recalculatePagination(matrixCursor);
-
         getView().filterandSortInInitializeQueries();
-
         getView().hideProgressView();
     }
 
