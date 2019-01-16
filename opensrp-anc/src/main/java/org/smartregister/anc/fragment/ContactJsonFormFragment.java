@@ -278,7 +278,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
                 Contact contact = getContact();
                 contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());

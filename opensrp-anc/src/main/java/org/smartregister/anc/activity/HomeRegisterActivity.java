@@ -218,16 +218,18 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                 Log.d("JSONResult", jsonString);
                 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.REGISTRATION)) {
-                    ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
-                    ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.QUICK_CHECK)) {
-                    
-                    Contact contact = new Contact();
-                    contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, 0));
-                    ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
-
+                switch (form.getString(JsonFormUtils.ENCOUNTER_TYPE)) {
+                    case Constants.EventType.REGISTRATION:
+                        ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
+                        break;
+                    case Constants.EventType.CLOSE:
+                        ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
+                        break;
+                    case Constants.EventType.QUICK_CHECK:
+                        Contact contact = new Contact();
+                        contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, 0));
+                        ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                        break;
                 }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
