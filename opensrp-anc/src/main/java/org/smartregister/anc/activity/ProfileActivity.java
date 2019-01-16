@@ -104,7 +104,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
-        
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
             finish();
@@ -125,7 +124,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                             launchPhoneDialer(phoneNumber);
                             break;
                         case Constants.START_CONTACT:
-                            
                             CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT);
                             String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
                             
@@ -257,12 +255,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
                 
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    
                     launchPhoneDialer(phoneNumber);
-                    
                 } else {
                     displayToast(R.string.allow_phone_call_management);
-                    
                 }
                 return;
             }

@@ -1,15 +1,17 @@
 package org.smartregister.anc.fragment;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
+import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
@@ -38,6 +41,8 @@ import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
+import org.smartregister.util.PermissionUtils;
+import org.smartregister.view.activity.BarcodeScanActivity;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
@@ -237,7 +242,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                     return;
                 }
                 
-                HomeRegisterActivity baseRegisterActivity = (HomeRegisterActivity) getActivity();
+                BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
                 baseRegisterActivity.startQrCodeScanner();
             }
         });
@@ -403,7 +408,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
     
     @Override
     public void countExecute() {
-        Cursor c = null;
+        Cursor cursor = null;
         
         try {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
@@ -414,9 +419,9 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
             query = sqb.Endquery(query);
             
             Log.i(getClass().getName(), query);
-            c = commonRepository().rawCustomQueryForAdapter(query);
-            c.moveToFirst();
-            clientAdapter.setTotalcount(c.getInt(0));
+            cursor = commonRepository().rawCustomQueryForAdapter(query);
+            cursor.moveToFirst();
+            clientAdapter.setTotalcount(cursor.getInt(0));
             Log.v("total count here", "" + clientAdapter.getTotalcount());
             
             clientAdapter.setCurrentlimit(20);
@@ -425,8 +430,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
         } finally {
-            if (c != null) {
-                c.close();
+            if (cursor != null) {
+                cursor.close();
             }
         }
         
@@ -443,7 +448,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                     public Cursor loadInBackground() {
                         AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
                         if (isLocal || matrixCursor == null) {
-                            String query = filterandSortQuery();
+                            String query = filterAndSortQuery();
                             Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -464,7 +469,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         }
     }
     
-    private String filterandSortQuery() {
+    private String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
         
         String query = "";
