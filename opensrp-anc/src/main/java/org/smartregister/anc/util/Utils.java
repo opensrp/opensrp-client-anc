@@ -248,7 +248,6 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
-     *
      * @author martinndegwa
      */
     public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
@@ -313,12 +312,11 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
-     *
      * @return true|false {@link Boolean}
-     * @throws JSONException
+     * @throws Exception
      * @author martinndegwa
      */
-    private boolean hasPendingRequiredFields(JSONObject object) throws JSONException {
+    private boolean hasPendingRequiredFields(JSONObject object) throws Exception {
         if (object != null) {
             Iterator<String> keys = object.keys();
 
@@ -345,11 +343,11 @@ public class Utils extends org.smartregister.util.Utils {
         }
         return true;
     }
+
     /**
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
-     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context) {
