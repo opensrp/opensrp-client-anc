@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -293,7 +292,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     }
 
-    private void processRequiredStepsField(JSONObject object) throws JSONException {
+    private void processRequiredStepsField(JSONObject object) throws Exception {
         if (object != null) {
             Iterator<String> keys = object.keys();
 
@@ -324,11 +323,22 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE)) {
 
                             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
+                            String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
+                            if (fieldObject.has(secKey)) {
+                                formGlobalValues.put(secKey, fieldObject.getString(secKey));
+                            }
 
-                            String secondaryValueKey = fieldObject.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE;
+                            if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
 
-                            if (fieldObject.has(secondaryValueKey)) {
-                                formGlobalValues.put(secondaryValueKey, fieldObject.getString(secondaryValueKey));
+                                JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
+
+                                for (int j = 0; j < secondaryValues.length(); j++) {
+                                    JSONObject jsonObject = secondaryValues.getJSONObject(j);
+
+                                    formGlobalValues.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
+
+
+                                }
                             }
                         }
 
@@ -404,7 +414,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         return yaml.loadAll(inputStreamReader);
     }
 
-    private String getMapValue(Map<String, String> valueMap) throws JSONException {
+    private String getMapValue(Map<String, String> valueMap) throws Exception {
 
         String value = null;
 
@@ -420,7 +430,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         return value;
     }
 
-    private String getFormValue(String formJson, String step, String fieldKey) throws JSONException {
+    private String getFormValue(String formJson, String step, String fieldKey) throws Exception {
         JSONObject object = new JSONObject(formJson);
         String value = "";
         if (object != null) {
@@ -450,7 +460,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         return value;
     }
 
-    private void preprocessDefaultValues(JSONObject object) {
+    private void preprocessDefaultValues(JSONObject object) throws Exception {
         try {
             if (object != null) {
                 Iterator<String> keys = object.keys();
