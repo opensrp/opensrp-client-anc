@@ -23,8 +23,10 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.R;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 
@@ -262,7 +264,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
     @Test
     public void testOnRequestPermissionsResultInvokesLaunchPhoneDialerWhenCorrectPermissionsAreGranted() {
 
-        profileActivity.setWomanPhoneNumber(DUMMY_PHONE_NUMBER);
+        profileActivity.setPhoneNumber(DUMMY_PHONE_NUMBER);
 
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
 
@@ -313,7 +315,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
 
-        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView);
+        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.ic_woman_with_baby);
 
     }
 

@@ -31,7 +31,9 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     private JSONObject defaultGlobals;
 
     public ContactPresenter(ContactContract.View contactView) {
-        viewReference = new WeakReference<>(contactView); interactor = new ContactInteractor(); model = new ContactModel();
+        viewReference = new WeakReference<>(contactView);
+        interactor = new ContactInteractor();
+        model = new ContactModel();
         defaultGlobals = getAncApplication().getDefaultContactFormGlobals();
     }
 
@@ -58,7 +60,9 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             return;
         }
 
-        this.details = womanDetails; String patientName = model.extractPatientName(womanDetails); getView().displayPatientName(patientName);
+        this.details = womanDetails;
+        String patientName = model.extractPatientName(womanDetails);
+        getView().displayPatientName(patientName);
 
     }
 
@@ -66,7 +70,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     public String getPatientName() {
         if (details == null || details.isEmpty()) {
             return "";
-        } return model.extractPatientName(details);
+        }
+        return model.extractPatientName(details);
     }
 
     @Override
@@ -77,19 +82,24 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                 return;
             }
 
-            Contact contact = (Contact) tag; getView().loadGlobals(contact); try {
-                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null); if (contact.getGlobals() != null) {
+            Contact contact = (Contact) tag;
+            getView().loadGlobals(contact);
+            try {
+                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+                if (contact.getGlobals() != null) {
                     for (Map.Entry<String, String> entry : contact.getGlobals().entrySet()) {
                         defaultGlobals.put(entry.getKey(), entry.getValue());
                     }
                 }
 
-                form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals); getView().startFormActivity(form, contact);
+                form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
+                getView().startFormActivity(form, contact);
             } catch (JSONException e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e)); getView().displayToast(R.string.error_unable_to_start_form);
+            Log.e(TAG, Log.getStackTraceString(e));
+            getView().displayToast(R.string.error_unable_to_start_form);
         }
     }
 

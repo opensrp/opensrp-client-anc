@@ -18,6 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
+import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.rule.ContactRule;
@@ -99,6 +100,7 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstants.KEY.EDD, "2018-10-19");
         details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2018-08-09");
         details.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstants.KEY.NEXT_CONTACT, "1");
 
         final List<String> contactDates = new ArrayList<>();
         contactDates.add("10");
@@ -118,19 +120,17 @@ public class ContactInteractorTest extends BaseUnitTest {
 
         Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
-        List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40,});
+        List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40});
 
         PowerMockito.when(rulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(Constants.RULES_FILE.CONTACT_RULES))).thenReturn(integerList);
 
         PowerMockito.mockStatic(PatientRepository.class);
 
-        PowerMockito.doNothing().when(PatientRepository.class, "updateContactVisitDetails", ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.anyInt(), ArgumentMatchers.anyString());
-
         interactor.finalizeContactForm(details);
 
         PowerMockito.verifyStatic(PatientRepository.class);
-        PatientRepository.updateContactVisitDetails(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.anyInt(), ArgumentMatchers.anyString());
 
+        PatientRepository.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class));
         Assert.assertNotNull(interactor);
     }
 

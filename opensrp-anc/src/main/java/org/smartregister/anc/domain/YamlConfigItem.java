@@ -3,7 +3,7 @@ package org.smartregister.anc.domain;
 /**
  * Created by ndegwamartin on 04/12/2018.
  */
-public class ContactSummaryItem {
+public class YamlConfigItem {
 
     private String template;
     private String relevance;

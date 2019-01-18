@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,10 +24,11 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.ProfileContract;
-import org.smartregister.anc.domain.ContactSummary;
+import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ import java.util.List;
 
 import static org.robolectric.Shadows.shadowOf;
 
-public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
+public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
     private ContactSummaryFinishActivity activity;
@@ -60,6 +62,9 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     private Intent intent;
 
     private static final int DUMMY_CONTACT_NO = 1;
+
+    @Mock
+    MenuItem saveFinishMenuItem;
 
     @Before
     public void setUp() {
@@ -215,9 +220,11 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    @Ignore
     public void testSaveAndFinishButtonClickedOpensContactSummarySendPage() {
-        activity.findViewById(R.id.finalize_contact).performClick();
+
+        Mockito.doReturn(R.id.save_finish_menu_item).when(saveFinishMenuItem).getItemId();
+        activity.onOptionsItemSelected(saveFinishMenuItem);
+
         Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
@@ -226,7 +233,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     @Test
     @Ignore
     public void testBackButtonClickedOpensMainContactPage() {
-        activity.findViewById(R.id.cancel_button).performClick();
+        activity.onBackPressed();
         Intent expectedIntent = new Intent(activity, MainContactActivity.class);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
@@ -272,7 +279,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
         spyActivity.loadContactSummaryData();
 
-        List<ContactSummary> list = Whitebox.getInternalState(spyActivity, "contactSummaryList");
+        List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
 
         Assert.assertNotNull(list);
         Assert.assertEquals(39, list.size());
@@ -289,7 +296,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
         ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
 
-        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView,R.drawable.woman_placeholder);
+        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, Utils.getProfileImageResourceIDentifier());
 
     }
 

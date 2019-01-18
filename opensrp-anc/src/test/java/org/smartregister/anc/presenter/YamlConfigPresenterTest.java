@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ContactSummaryPresenterTest extends BaseUnitTest {
+public class YamlConfigPresenterTest extends BaseUnitTest {
 
     private final String baseEntityId = UUID.randomUUID().toString();
 

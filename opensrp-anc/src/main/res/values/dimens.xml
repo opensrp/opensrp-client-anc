@@ -74,7 +74,7 @@
     <dimen name="copy_to_clipboard_message_text_size">14sp</dimen>
 
     <dimen name="advanced_search_text_size">18sp</dimen>
-    <dimen name="advanced_search_label_size">18sp</dimen>
+    <dimen name="advanced_search_label_size">20sp</dimen>
     <dimen name="advanced_search_label_small_size">15sp</dimen>
     <dimen name="advanced_search_label_padding">5dp</dimen>
     <dimen name="advanced_search_toolbar_padding">20dp</dimen>
