@@ -37,9 +37,9 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -50,35 +50,35 @@ import java.util.Set;
 
 public class HomeRegisterFragment extends BaseRegisterFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver
         .SyncStatusListener {
-    
+
     private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
-    
+
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
     private Utils utils = new Utils();
-    
+
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
         }
-        
+
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         presenter = new RegisterFragmentPresenter(this, viewConfigurationIdentifier);
     }
-    
+
     @Override
     protected String getMainCondition() {
         return DBQueryHelper.getHomePatientRegisterCondition();
     }
-    
+
     @Override
     protected String getDefaultSortQuery() {
         return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC";
     }
-    
+
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
@@ -86,28 +86,28 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         if (filterText != null) {
             filterText.setOnClickListener(registerActionHandler);
         }
-        
+
         // Due Button
         View contactButton = view.findViewById(R.id.due_button);
         if (contactButton != null) {
             contactButton.setOnClickListener(registerActionHandler);
         }
-        
+
         //Risk view
         View attentionFlag = view.findViewById(R.id.risk_layout);
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
         }
     }
-    
+
     @Override
     protected void onViewClicked(View view) {
-        
-        
+
+
         if (getActivity() == null) {
             return;
         }
-        
+
         final HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
         final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
 
@@ -120,12 +120,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 getActivity().getIntent()
                         .getSerializableExtra(Constants.INTENT_KEY.CLIENT);
                 String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-                
+
                 if (StringUtils.isNotBlank(baseEntityId)) {
                     utils.proceedToContact(baseEntityId, pc, getActivity());
                 }
             }
-            
+
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
 
 
@@ -195,14 +195,14 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             homeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }
     }
-    
-    
-    @SuppressLint ("NewApi")
+
+
+    @SuppressLint("NewApi")
     @Override
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment.launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
-    
+
     @Override
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
@@ -210,7 +210,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 .ADVANCED_SEARCH_POSITION);
         ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
     }
-    
+
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns,
@@ -219,33 +219,33 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }
-    
+
     public void goToPatientDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
         if (launchDialog) {
             Log.i(HomeRegisterFragment.TAG, patient.name);
         }
-        
+
         Intent intent = new Intent(getActivity(), ProfileActivity.class);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(Constants.INTENT_KEY.CLIENT, patient);
         startActivity(intent);
     }
-    
+
     @Override
     protected void startRegistration() {
         ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
-    
-    
+
+
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         ((RegisterFragmentPresenter) presenter).updateSortAndFilter(filterList, sortField);
     }
-    
+
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
         Utils.postEvent(new SyncEvent(fetchStatus));
     }
-    
+
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
         clientAdapter.setTotalcount(matrixCursor.getCount());
@@ -256,7 +256,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
         clientAdapter.setCurrentoffset(0);
     }
-    
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         final AdvancedMatrixCursor matrixCursor = ((RegisterFragmentPresenter) presenter).getMatrixCursor();

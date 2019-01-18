@@ -329,13 +329,14 @@ public class Utils extends org.smartregister.util.Utils {
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
-                        if (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED)) {
 
-                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
+                        boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED);
 
-                                return false;
+                        if (isRequiredField && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
 
-                            }
+                            return false;
+
+
                         }
                     }
                 }

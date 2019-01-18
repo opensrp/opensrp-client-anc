@@ -60,7 +60,7 @@ description: Abnormal breast exam
 priority: 1
 condition: "global_breast_exam == 3"
 actions:
-  - 'calculation = ["abdominal_exam_abnormal" : global_abdominal_exam_abnormal_value, "abdominal_exam_abnormal_other": global_abdominal_exam_abnormal_other]'
+  - 'calculation = ["breast_exam_abnormal" : global_breast_exam_abnormal_value, "breast_exam_abnormal_other": global_breast_exam_abnormal_other]'
 ---
 name: step1_abn_abdominal_exam_toaster
 description: Abnormal abdominal exam

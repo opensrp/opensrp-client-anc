@@ -4,15 +4,15 @@ package org.smartregister.anc.domain;
  * Created by ndegwamartin on 14/01/2019.
  */
 public class WomanDetail {
-    Integer nextContact;
+    private Integer nextContact;
 
-    String baseEntityId;
-    String nextContactDate;
-    String yellowFlags;
-    String redFlags;
+    private String baseEntityId;
+    private String nextContactDate;
+    private String yellowFlags;
+    private String redFlags;
 
-    Integer yellowFlagCount;
-    Integer redFlagCount;
+    private Integer yellowFlagCount;
+    private Integer redFlagCount;
 
     public Integer getNextContact() {
         return nextContact;

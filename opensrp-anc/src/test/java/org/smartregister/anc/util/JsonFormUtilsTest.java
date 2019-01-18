@@ -21,7 +21,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;

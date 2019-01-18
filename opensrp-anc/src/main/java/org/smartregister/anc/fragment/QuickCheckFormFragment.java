@@ -19,22 +19,24 @@ import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.util.DBConstants;
 
 public class QuickCheckFormFragment extends JsonWizardFormFragment {
-    private static final int MENU_NAVIGATION = 100002;
     private TextView contactTitle;
-    public static QuickCheckFormFragment getFormFragment(){
-        QuickCheckFormFragment quickCheckFormFragment =new QuickCheckFormFragment();
+
+    public static QuickCheckFormFragment getFormFragment() {
+        QuickCheckFormFragment quickCheckFormFragment = new QuickCheckFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString(DBConstants.KEY.STEPNAME, "step1");
         quickCheckFormFragment.setArguments(bundle);
         return quickCheckFormFragment;
 
     }
+
     private Contact getContact() {
         if (getActivity() != null && getActivity() instanceof QuickCheckFormActivity) {
             return ((QuickCheckFormActivity) getActivity()).getContact();
         }
         return null;
     }
+
     @Override
     public void setActionBarTitle(String title) {
         Contact contact = getContact();
@@ -45,12 +47,14 @@ public class QuickCheckFormFragment extends JsonWizardFormFragment {
             contactTitle.setText(title);
         }
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
+
     @Override
     protected void setupCustomUI() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -66,6 +70,7 @@ public class QuickCheckFormFragment extends JsonWizardFormFragment {
             }
         });
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(com.vijay.jsonwizard.R.layout.native_json_form_fragment_wizard, null);
