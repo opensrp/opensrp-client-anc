@@ -28,7 +28,7 @@ public abstract class Constants {
     public static final String DANGER_NONE = "danger_none";
     public static final String CALL = "Call";
     public static final String START_CONTACT = "Start Contact";
-    
+
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
         public static final String DONE_EARLIER = "done_earlier";
@@ -107,6 +107,7 @@ public abstract class Constants {
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";
         public static final String SECONDARY_VALUES = "secondary_values";
+        public static final String PARENT_SECONDARY_KEY = "parent_secondary_key";
 
     }
 
@@ -175,6 +176,7 @@ public abstract class Constants {
 
     public static class SUFFIX {
         public static final String VALUE = "_value";
+        public static final String OTHER = "_other";
     }
 
     public static class BOOLEAN {

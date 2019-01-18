@@ -64,7 +64,7 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
     private static final int DUMMY_CONTACT_NO = 1;
 
     @Mock
-    MenuItem saveFinishMenuItem;
+    private MenuItem saveFinishMenuItem;
 
     @Before
     public void setUp() {

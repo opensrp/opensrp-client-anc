@@ -51,10 +51,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     private static final int MENU_NAVIGATION = 100001;
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
-    private Utils utils = new Utils();
-
-    public ContactJsonFormFragment() {
-    }
 
     public static ContactJsonFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
@@ -126,10 +122,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         Contact form = getContact();
-        if (form != null) {
-            if (form.isHideSaveLabel()) {
-                updateVisibilityOfNextAndSave(false, false);
-            }
+        if (form != null && form.isHideSaveLabel()) {
+            updateVisibilityOfNextAndSave(false, false);
         }
     }
 

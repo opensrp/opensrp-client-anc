@@ -19,6 +19,7 @@ import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericDialogPopup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -237,26 +239,23 @@ public class ContactJsonFormUtils extends FormUtils {
             }
 
             if (keyList.size() > 0) {
-                String valueListString = valueList.toString();
-                widget.put(JsonFormConstants.VALUE, keyList.toString());
-                widget.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1,
-                        valueListString.length() - 1));
+                widget.put(JsonFormConstants.VALUE, keyList);
+                widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
             }
         } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
             //Value already good for radio buttons so no keylist
             JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) && jsonObject
                         .getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
 
-                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants
-                            .SECONDARY_VALUE))) {
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
 
-                        jsonObject.put("parent_secondary_key", widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE);
+                        jsonObject.put(Constants.KEY.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
 
                         getRealSecondaryValue(jsonObject);
 
@@ -276,9 +275,7 @@ public class ContactJsonFormUtils extends FormUtils {
             }
 
             if (valueList.size() > 0) {
-                String valueListString = valueList.toString();
-                widget.put(widget.getString(JsonFormConstants.KEY) + Constants.SUFFIX.VALUE, valueListString.substring(1,
-                        valueListString.length() - 1));
+                widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
             }
         }
     }
@@ -297,9 +294,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
             JSONArray values = secValue.getJSONArray(JsonFormConstants.VALUES);
 
-            boolean containsOther = j == 0 && jsonArray2.length() == 2;
-
-            int valueLength = containsOther ? values.length() - 1 : values.length();
+            int valueLength = values.length();
 
             List<String> keyList = new ArrayList<>();
             List<String> valueList = new ArrayList<>();
@@ -320,12 +315,13 @@ public class ContactJsonFormUtils extends FormUtils {
 
             }
 
-            secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList.toString() : "");
+            secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : "");
             jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(secValue);
-            jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(new JSONObject(ImmutableMap.of(JsonFormConstants.KEY, ContactJsonFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE, valueList.toString())));
+            JSONObject secValueJsonObject = new JSONObject(ImmutableMap.of(JsonFormConstants.KEY, ContactJsonFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE, ContactJsonFormUtils.getListValuesAsString(valueList)));
+            jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(secValueJsonObject);
 
         }
-        String keystone = jsonObject.has("parent_secondary_key") ? jsonObject.getString("parent_secondary_key") : ContactJsonFormUtils.getSecondaryKey(jsonObject);
+        String keystone = jsonObject.has(Constants.KEY.PARENT_SECONDARY_KEY) ? jsonObject.getString(Constants.KEY.PARENT_SECONDARY_KEY) : ContactJsonFormUtils.getSecondaryKey(jsonObject);
         jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(new JSONObject(ImmutableMap.of(JsonFormConstants.KEY, keystone, JsonFormConstants.VALUE, jsonObject.getString(JsonFormConstants.TEXT))));
 
     }
@@ -423,9 +419,20 @@ public class ContactJsonFormUtils extends FormUtils {
 
                             facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
 
+                            if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && facts.get(fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE) != null) {
+
+                                List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE).toString().split("\\s*,\\s*")));
+                                tempList.remove(tempList.size() - 1);
+                                tempList.add(StringUtils.capitalize(facts.get(fieldKey).toString()));
+                                facts.put(fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE, ContactJsonFormUtils.getListValuesAsString(tempList));
+
+                            }
+
                             String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
                             if (fieldObject.has(secKey)) {
+
                                 facts.put(secKey, fieldObject.getString(secKey));
+
                             }
 
                             if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
@@ -470,5 +477,9 @@ public class ContactJsonFormUtils extends FormUtils {
 
         return getKey(jsonObject) + Constants.SUFFIX.VALUE;
 
+    }
+
+    public static String getListValuesAsString(List<String> list) {
+        return list.toString().substring(1, list.toString().length() - 1);
     }
 }

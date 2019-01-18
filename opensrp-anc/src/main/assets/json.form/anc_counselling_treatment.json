@@ -290,7 +290,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Abnormal breast exam: {breast_exam}",
+        "text": "Abnormal breast exam: {breast_exam_abnormal}",
         "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
         "toaster_type": "warning",
         "relevance": {

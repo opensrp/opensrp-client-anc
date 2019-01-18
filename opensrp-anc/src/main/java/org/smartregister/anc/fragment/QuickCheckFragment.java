@@ -33,7 +33,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.smartregister.anc.R;
