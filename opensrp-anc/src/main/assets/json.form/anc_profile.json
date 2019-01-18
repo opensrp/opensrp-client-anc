@@ -3,19 +3,6 @@
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
-  "global": {
-    "site_anc_hiv": 1,
-    "site_ultrasound": 1,
-    "contact_no": 1,
-    "no_of_fetuses": 1,
-    "bmi": 28,
-    "urine_glucose": "none",
-    "gdm": 0,
-    "dm_in_preg": 0,
-    "hiv_test_result": "negative",
-    "pop_hepb": 0,
-    "pop_hepb_screening": 0
-  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -274,7 +261,7 @@
         "openmrs_entity_id": "2047",
         "type": "toaster_notes",
         "text": "HIV risk counseling",
-        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
+        "toaster_info_text": "Provide comprehensive HIV prevention options:\n- STI screening and treatment (syndromic and syphilis)\n- Condom promotion\n- Risk reduction counselling\n- PrEP with emphasis on adherence\n- Emphasize importance of follow-up ANC contact visits",
         "toaster_info_title": "HIV risk counseling",
         "toaster_type": "problem",
         "text_color": "#CF0800",
@@ -561,7 +548,7 @@
         "type": "edit_text",
         "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
         "label_info_title": "GA from SFH or abdominal palpation - weeks",
-        "hint": "GA from SFH or abdominal palpation - weeks *",
+        "hint": "GA from SFH or palpation - wks*",
         "v_required": {
           "value": false,
           "err": "Please give the GA from SFH or abdominal palpation - weeks"
@@ -606,13 +593,12 @@
         }
       },
       {
-        "key": "gest_edd_label",
+        "key": "sfh_ga_hidden",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "text_color": "#000000",
-        "text": "GA: {gest_age}\nEDD: {edd}",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -718,7 +704,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10dp"
+        "spacer_height": "20dp"
       },
       {
         "key": "gravida_label",
@@ -771,7 +757,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10dp"
+        "spacer_height": "24dp"
       },
       {
         "key": "miscarriages_abortions_label",
@@ -826,7 +812,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10dp"
+        "spacer_height": "24dp"
       },
       {
         "key": "live_births_label",
@@ -881,7 +867,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10dp"
+        "spacer_height": "24dp"
       },
       {
         "key": "stillbirths_label",
@@ -955,7 +941,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10dp"
+        "spacer_height": "24dp"
       },
       {
         "key": "c_sections_label",
@@ -1010,7 +996,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "20dp"
+        "spacer_height": "24dp"
       },
       {
         "key": "prev_preg_comps",
@@ -1044,8 +1030,15 @@
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "pre_eclampsia_eclampsia",
-            "text": "Pre-eclampsia or eclampsia"
+            "key": "pre_eclampsia",
+            "text": "Pre-eclampsia"
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "eclampsia",
+            "text": "Eclampsia"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
@@ -1164,7 +1157,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select multiple",
         "type": "check_box",
-        "label": "Specify Alcohol or illicit substance use",
+        "label": "Specify alcohol or illicit substance use",
         "label_text_style": "bold",
         "hint": "Specify alcohol or illicit substance use",
         "relevance": {
@@ -1198,14 +1191,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "key": "cocaine",
-            "text": "Cocaine"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": " crack cocaine use",
-            "openmrs_entity_id": "155793",
-            "key": "crack",
-            "text": "Crack"
+            "text": "Cocaine / Crack"
           },
           {
             "openmrs_entity_parent": "",
@@ -1233,7 +1219,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "1430",
         "type": "edit_text",
-        "hint": "Specify Other Substances Abused *",
+        "hint": "Specify",
         "relevance": {
           "step3:substances_used": {
             "ex-checkbox": [
@@ -1468,7 +1454,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Specify Allergies",
+        "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
           "value": false,
@@ -1754,10 +1740,16 @@
         "key": "preeclampsia_risk",
         "type": "hidden",
         "label_text_style": "bold",
-        "text": "0",
         "text_color": "#FF0000",
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
         }
       },
       {
@@ -2254,13 +2246,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "anti_heartburn",
-            "text": "Anti-heartburn"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
             "key": "anthelmintic",
             "text": "Anthelmintic"
           },
@@ -2401,7 +2386,7 @@
         "label": "Daily caffeine intake",
         "label_text_style": "bold",
         "hint": "Daily caffeine intake",
-        "label_info_text": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n\n- 2 cups (200ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml)of espresso\n- 3 cups (300ml) of instant coffee\n- 48 pieces (squares) of chocolate.\n\nPlease indicate if the woman consumes more than these amounts per day.",
+        "label_info_text": "Pregnant women should not consume more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine.\n\n- 2 cups (200 ml) of filtered or commercially brewed coffee\n- 2 small cups (50 ml) of espresso\n- 3 cups (300 ml) of instant coffee\n- 48 pieces (squares) of chocolate\n\nPlease indicate if the woman consumes more than these amounts per day.",
         "exclusive": [
           "none"
         ],
@@ -2456,7 +2441,7 @@
         "text": "Caffeine reduction counseling",
         "text_color": "#000000",
         "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.\n\nThis includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 ml serving.",
-        "toaster_info_title": "Caffeine intake folder",
+        "toaster_info_title": "Caffeine reduction counseling",
         "toaster_type": "warning",
         "relevance": {
           "step7:caffeine_intake": {
@@ -2694,14 +2679,7 @@
           },
           {
             "key": "cocaine",
-            "text": "Cocaine",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "crack",
-            "text": "Crack",
+            "text": "Cocaine / Crack",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -2769,7 +2747,6 @@
                   "alcohol",
                   "marijuana",
                   "cocaine",
-                  "crack",
                   "injectable_drugs",
                   "other"
                 ]

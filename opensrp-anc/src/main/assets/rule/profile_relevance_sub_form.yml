@@ -101,14 +101,14 @@ actions:
 name: step3_gestational_diabetes_toaster
 description: gestational_diabetes_toaster
 priority: 1
-condition: "((step3_gdm_risk == 1) && (global_gdm != 1 && global_dm_in_preg != 1))"
+condition: "(step3_gdm_risk == 1) && ((!global_gdm.isEmpty() && global_gdm != 1) && (!global_dm_in_preg.isEmpty() && global_dm_in_preg != 1))"
 actions:
   - "isRelevant = true"
 ---
 name: step4_pre_eclampsia_two_toaster
 description: Preeclampsia toeaster
 priority: 1
-condition: "step3_preeclampsia_risk == 1"
+condition: "step4_preeclampsia_risk == 1"
 actions:
   - "isRelevant = true"
 ---
