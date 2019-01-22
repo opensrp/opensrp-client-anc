@@ -63,7 +63,6 @@
         android:gravity="end|center_vertical"
         android:paddingStart="@dimen/referral_dialog_padding"
         android:text="@string/cancel"
-        android:textStyle="bold"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="@color/contact_save_blue"

@@ -93,19 +93,18 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
         RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
         RelativeLayout expansion_header_layout = expansionHeader.findViewById(R.id.expansion_header_layout);
-        expansion_header_layout = (RelativeLayout) addRecordViewTags(expansion_header_layout, jsonObject, stepName, commonListener,
-                jsonFormFragment, context);
+        addRecordViewTags(expansion_header_layout, jsonObject, stepName, commonListener, jsonFormFragment, context);
         expansion_header_layout.setOnClickListener(recordButtonClickListener);
 
         ImageView statusImage = expansion_header_layout.findViewById(R.id.statusImageView);
-        statusImage = (ImageView) addRecordViewTags(statusImage, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        addRecordViewTags(statusImage, jsonObject, stepName, commonListener, jsonFormFragment, context);
         statusImage.setOnClickListener(recordButtonClickListener);
 
         ImageView infoIcon = expansionHeader.findViewById(R.id.accordion_info_icon);
 
         CustomTextView headerText = expansion_header_layout.findViewById(R.id.topBarTextView);
         headerText.setText(accordionText);
-        headerText = (CustomTextView) addRecordViewTags(headerText, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        addRecordViewTags(headerText, jsonObject, stepName, commonListener, jsonFormFragment, context);
         headerText.setOnClickListener(recordButtonClickListener);
 
         displayInfoIcon(jsonObject, commonListener, infoIcon);
@@ -180,13 +179,13 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
                                   CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
-        Boolean displayBottomSection = jsonObject.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, false);
+        boolean displayBottomSection = jsonObject.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, false);
         if (displayBottomSection) {
             RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
             relativeLayout.setVisibility(View.VISIBLE);
 
             Button recordButton = relativeLayout.findViewById(R.id.ok_button);
-            recordButton = (Button) addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
+            addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
             recordButton.setOnClickListener(recordButtonClickListener);
             Button undoButton = relativeLayout.findViewById(R.id.undo_button);
             if (jsonObject.has(JsonFormConstants.VALUE)) {

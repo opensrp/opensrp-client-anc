@@ -105,7 +105,8 @@ public class Utils extends org.smartregister.util.Utils {
         EventBus.getDefault().post(event);
     }
 
-    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent
+    public static void postStickyEvent(
+            BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent
         // after
         // handling
         EventBus.getDefault().postSticky(event);
@@ -179,16 +180,18 @@ public class Utils extends org.smartregister.util.Utils {
 
     }
 
-    public static int getProfileImageResourceIDentifier() {
-        return R.drawable.ic_woman_with_baby;
+    public static int getProfileImageResourceIdentifier() {
+        return R.drawable.avatar_woman;
     }
 
     public static String getBuildDate(Boolean isShortMonth) {
         String simpleDateFormat;
         if (isShortMonth) {
-            simpleDateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
         } else {
-            simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
+            simpleDateFormat =
+                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
         }
         return simpleDateFormat;
     }
@@ -203,7 +206,8 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static List<String> getListFromString(String stringArray) {
-        return new ArrayList<>(Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+        return new ArrayList<>(
+                Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
     }
 
 
@@ -242,12 +246,13 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     /**
-     * Check for the quick check form then finds whether it still has pending required fields, If it has pending fields if so it redirects
-     * to the quick check page. If not pending required fields then it redirects to the main contact page
+     * Check for the quick check form then finds whether it still has pending required fields, If it has pending fields if so
+     * it redirects to the quick check page. If not pending required fields then it redirects to the main contact page
      *
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
+     *
      * @author martinndegwa
      */
     public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
@@ -274,10 +279,11 @@ public class Utils extends org.smartregister.util.Utils {
             partialContactRequest.setType(quickCheck.getFormName());
             BaseContactModel baseContactModel = new ContactModel();
 
-            String locationId =
-                    AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            String locationId = AncApplication.getInstance().getContext().allSharedPreferences()
+                    .getPreference(AllConstants.CURRENT_LOCATION_ID);
 
-            JSONObject form = ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
+            JSONObject form =
+                    ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 
             String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 
@@ -296,15 +302,14 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
                         Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-
                 context.startActivity(intent);
             }
 
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
-            Utils.showToast(context,
-                    "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
+            Utils.showToast(context, "Error proceeding to contact for client " +
+                    personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
         }
     }
 
@@ -312,6 +317,7 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
+     *
      * @return true|false {@link Boolean}
      * @throws Exception
      * @author martinndegwa
@@ -330,9 +336,12 @@ public class Utils extends org.smartregister.util.Utils {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED);
+                        boolean isRequiredField =
+                                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
+                                        fieldObject.has(JsonFormConstants.V_REQUIRED);
 
-                        if (isRequiredField && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
+                        if (isRequiredField && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(
+                                fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
 
                             return false;
 
@@ -349,6 +358,7 @@ public class Utils extends org.smartregister.util.Utils {
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
+     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context) {

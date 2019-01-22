@@ -149,7 +149,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         if (commonRepository != null) {
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
-                imageRenderHelper.refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIDentifier());
+                imageRenderHelper.refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIdentifier());
 
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.profile.setVisibility(View.VISIBLE);

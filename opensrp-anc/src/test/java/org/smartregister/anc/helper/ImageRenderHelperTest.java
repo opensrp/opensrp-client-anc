@@ -74,7 +74,7 @@ public class ImageRenderHelperTest extends BaseUnitTest {
         photo.setFilePath(TEST_STRING);
 
         PowerMockito.mockStatic(ImageUtils.class);
-        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier())).thenReturn(photo);
+        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier())).thenReturn(photo);
 
         PowerMockito.mockStatic(DrishtiApplication.class);
         PowerMockito.when(DrishtiApplication.getCachedImageLoaderInstance()).thenReturn(openSRPImageLoader);
@@ -82,7 +82,7 @@ public class ImageRenderHelperTest extends BaseUnitTest {
         PowerMockito.mockStatic(BitmapFactory.class);
         PowerMockito.when(BitmapFactory.decodeFile(TEST_STRING)).thenReturn(bitmap);
 
-        spyRenderHelper.refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, Utils.getProfileImageResourceIDentifier());
+        spyRenderHelper.refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, Utils.getProfileImageResourceIdentifier());
 
         Mockito.verify(imageView).setImageBitmap(ArgumentMatchers.any(Bitmap.class));
 
@@ -95,14 +95,14 @@ public class ImageRenderHelperTest extends BaseUnitTest {
         photo.setFilePath(TEST_STRING);
 
         PowerMockito.mockStatic(ImageUtils.class);
-        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier())).thenReturn(photo);
+        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier())).thenReturn(photo);
 
         PowerMockito.doReturn(drawable).when(context).getDrawable(ArgumentMatchers.anyInt());
 
         PowerMockito.mockStatic(ContextCompat.class);
         PowerMockito.when(ContextCompat.getDrawable(context, DEFAULT_PROFILE_IMAGE_RESOURCE_ID)).thenReturn(drawable);
 
-        spyRenderHelper.refreshProfileImage(DUMMY_BASE_ENTITY_ID, null, Utils.getProfileImageResourceIDentifier());
+        spyRenderHelper.refreshProfileImage(DUMMY_BASE_ENTITY_ID, null, Utils.getProfileImageResourceIdentifier());
 
         Mockito.verify(imageView).setImageDrawable(ArgumentMatchers.any(Drawable.class));
 
@@ -115,7 +115,7 @@ public class ImageRenderHelperTest extends BaseUnitTest {
         photo.setFilePath("");
 
         PowerMockito.mockStatic(ImageUtils.class);
-        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier())).thenReturn(photo);
+        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier())).thenReturn(photo);
 
         PowerMockito.mockStatic(DrishtiApplication.class);
         PowerMockito.when(DrishtiApplication.getCachedImageLoaderInstance()).thenReturn(openSRPImageLoader);
@@ -126,7 +126,7 @@ public class ImageRenderHelperTest extends BaseUnitTest {
         PowerMockito.when(ContextCompat.getDrawable(context, DEFAULT_PROFILE_IMAGE_RESOURCE_ID)).thenReturn(drawable);
 
 
-        imageRenderHelperSpy.refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, Utils.getProfileImageResourceIDentifier());
+        imageRenderHelperSpy.refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, Utils.getProfileImageResourceIdentifier());
 
         Mockito.verify(imageView).setImageDrawable(ArgumentMatchers.any(Drawable.class));
 

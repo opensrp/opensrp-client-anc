@@ -155,19 +155,19 @@ public class ContactJsonFormUtils extends FormUtils {
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
                     break;
                 case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.done_today));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
                     break;
                 case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ordered));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_ordered_256));
                     break;
                 case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.not_done));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
                     break;
                 default:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.grey_circle));

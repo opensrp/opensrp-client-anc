@@ -52,7 +52,7 @@ public class ImageUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetProfileImageResourceIDentifierShouldReturnCorrectResourceId() {
-        Assert.assertEquals(DEFAULT_PROFILE_IMAGE_RESOURCE_ID, Utils.getProfileImageResourceIDentifier());
+        Assert.assertEquals(DEFAULT_PROFILE_IMAGE_RESOURCE_ID, Utils.getProfileImageResourceIdentifier());
     }
 
 
@@ -64,7 +64,7 @@ public class ImageUtilsTest extends BaseUnitTest {
         PowerMockito.when(coreLibrary.context()).thenReturn(context);
         PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
         PowerMockito.when(imageRepository.findByEntityId(DUMMY_BASE_ENTITY_ID)).thenReturn(null);
-        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier());
+        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier());
 
         Assert.assertNotNull(photo);
         Assert.assertNotNull(photo.getResourceId());
@@ -83,7 +83,7 @@ public class ImageUtilsTest extends BaseUnitTest {
         ProfileImage profileImage = new ProfileImage();
         profileImage.setFilepath(TEST_STRING);
         PowerMockito.when(imageRepository.findByEntityId(DUMMY_BASE_ENTITY_ID)).thenReturn(profileImage);
-        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier());
+        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier());
 
         Assert.assertNotNull(photo);
         Assert.assertEquals(0, photo.getResourceId());
