@@ -159,7 +159,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
                                 if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
 
-                                    attentionFlagList.add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts), attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAGS.RED)));
+                                    attentionFlagList.add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts), attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAG.RED)));
 
                                 }
 

@@ -323,36 +323,35 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE)) {
 
-                            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));
+                            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));//Normal value
+                            processAbnormalValues(formGlobalValues, fieldObject);
 
 
                             String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
                             if (fieldObject.has(secKey)) {
-                                formGlobalValues.put(secKey, fieldObject.getString(secKey));
+                                formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
                             }
 
                             if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
+
+                                fieldObject.put(Constants.KEY.SECONDARY_VALUES, ContactJsonFormUtils.sortSecondaryValues(fieldObject));//sort and reset
 
                                 JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
 
                                 for (int j = 0; j < secondaryValues.length(); j++) {
                                     JSONObject jsonObject = secondaryValues.getJSONObject(j);
-
-                                    formGlobalValues.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
-
-                                    String fieldKey = ContactJsonFormUtils.getKey(jsonObject);
-
-                                    if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && formGlobalValues.get(fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE) != null) {
-
-                                        List<String> tempList = new ArrayList<>(Arrays.asList(formGlobalValues.get(fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE).split("\\s*,\\s*")));
-                                        tempList.remove(tempList.size() - 1);
-                                        tempList.add(StringUtils.capitalize(formGlobalValues.get(fieldKey)));
-                                        formGlobalValues.put(fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE, ContactJsonFormUtils.getListValuesAsString(tempList));
-
-                                    }
+                                    processAbnormalValues(formGlobalValues, jsonObject);
 
 
                                 }
+                            }
+
+                            //Other field for check boxes
+                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) && fieldObject.getString(Constants.KEY.KEY).endsWith(Constants.SUFFIX.OTHER) && formGlobalValues.get(fieldObject.getString(Constants.KEY.KEY).replace(Constants.SUFFIX.OTHER, Constants.SUFFIX.VALUE)) != null) {
+
+                                formGlobalValues.put(ContactJsonFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
+                                processAbnormalValues(formGlobalValues, fieldObject);
+
                             }
                         }
 
@@ -550,6 +549,25 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
+    public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
+
+        String fieldKey = ContactJsonFormUtils.getKey(jsonObject);
+        Object fieldValue = ContactJsonFormUtils.getValue(jsonObject);
+        String fieldKeySecondary = fieldKey.contains(Constants.SUFFIX.OTHER) ? fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE : "";
+        String fieldKeyOtherValue = fieldKey + Constants.SUFFIX.VALUE;
+
+        if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && !fieldKeySecondary.isEmpty() && facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
+
+            List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).split("\\s*,\\s*")));
+            tempList.remove(tempList.size() - 1);
+            tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue)));
+            facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
+
+        } else {
+            facts.put(fieldKey, fieldValue.toString());
+        }
+
+    }
 }
 
 
