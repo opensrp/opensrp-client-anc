@@ -164,7 +164,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
-        patientDetail.setRedFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAGS.RED));
-        patientDetail.setYellowFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAGS.YELLOW));
+        patientDetail.setRedFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAG.RED));
+        patientDetail.setYellowFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW));
     }
 }

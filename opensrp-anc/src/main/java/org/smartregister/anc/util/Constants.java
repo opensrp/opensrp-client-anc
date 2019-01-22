@@ -177,14 +177,17 @@ public abstract class Constants {
     public static class SUFFIX {
         public static final String VALUE = "_value";
         public static final String OTHER = "_other";
+        public static final String ABNORMAL = "_abnormal";
+        public static final String ABNORMAL_OTHER = ABNORMAL + OTHER;
+
     }
 
     public static class BOOLEAN {
         public static final String TRUE = "true";
     }
 
-    public static class ATTENTION_FLAGS {
-        public static final String RED = "red_attention_flags";
-        public static final String YELLOW = "yellow_attention_flags";
+    public static class ATTENTION_FLAG {
+        public static final String RED = "red_attention_flag";
+        public static final String YELLOW = "yellow_attention_flag";
     }
 }

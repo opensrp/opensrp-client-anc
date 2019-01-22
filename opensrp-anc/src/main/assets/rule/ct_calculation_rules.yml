@@ -39,7 +39,7 @@ description: Respiratory distress
 priority: 1
 condition: "global_respiratory_exam == 3"
 actions:
-  - 'calculation = ["respiratory_exam_abnormal" : global_respiratory_exam_value]'
+  - 'calculation = ["respiratory_exam_abnormal" : global_respiratory_exam_abnormal_value]'
 ---
 name: step1_low_oximetry_toaster
 description: Low oximetry
