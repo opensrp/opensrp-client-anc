@@ -102,8 +102,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
     @Override
     protected void onViewClicked(View view) {
-
-
         if (getActivity() == null) {
             return;
         }
@@ -127,8 +125,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-
-
             new AsyncTask<Void, Void, Void>() {
                 private List<AttentionFlag> attentionFlagList = new ArrayList<>();
 
@@ -167,28 +163,23 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
                                 }
 
-
                             }
                         }
                     } catch (Exception e) {
                         Log.e(TAG, e.getMessage());
                     }
-
-
+                    
                     return null;
-
                 }
 
                 @Override
                 protected void onPostExecute(Void result) {
                     // hideProgressDialog();
-
                     homeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
 
                 }
             }.execute();
-
-
+            
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {

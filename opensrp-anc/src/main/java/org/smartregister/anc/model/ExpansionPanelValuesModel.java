@@ -4,10 +4,10 @@ import com.vijay.jsonwizard.utils.SecondaryValueModel;
 
 import org.json.JSONArray;
 
-public class AccordionValuesModel extends SecondaryValueModel {
+public class ExpansionPanelValuesModel extends SecondaryValueModel {
     private String label;
 
-    public AccordionValuesModel(String key, String type, String label, JSONArray values) {
+    public ExpansionPanelValuesModel(String key, String type, String label, JSONArray values) {
         super(key, type, values);
         this.label = label;
     }
