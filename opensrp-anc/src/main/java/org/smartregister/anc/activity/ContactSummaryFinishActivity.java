@@ -61,9 +61,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         setUpViews();
 
         mProfilePresenter = new ProfilePresenter(this);
-
         imageRenderHelper = new ImageRenderHelper(this);
-
         loadContactSummaryData();
 
     }
