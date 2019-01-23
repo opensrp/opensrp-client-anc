@@ -140,7 +140,7 @@ fields:
   relevance: "hiv_diagnosis_date != '' || global_contact_no  == 1"
 
 - template: "HIV diagnosis date unknown"
-  relevance: "hiv_diagnosis_date_unknown.contains('Unknown HIV Date') || global_contact_no  == 1"
+  relevance: "hiv_diagnosis_date_unknown.contains('yes') || global_contact_no  == 1"
 ---
 group: immunisation_status
 fields:

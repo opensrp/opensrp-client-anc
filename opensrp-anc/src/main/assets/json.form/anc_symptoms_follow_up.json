@@ -302,7 +302,7 @@
         "type": "edit_text",
         "hint": "Specify",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter valid content"
         },
         "relevance": {
@@ -1671,7 +1671,7 @@
         "type": "edit_text",
         "hint": "Specify",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter valid content"
         },
         "relevance": {
