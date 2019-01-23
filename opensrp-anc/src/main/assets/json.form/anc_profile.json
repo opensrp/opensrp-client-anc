@@ -473,36 +473,6 @@
         }
       },
       {
-        "key": "ultrasound_gest_age_days",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "ultrasound_gest_age_days",
-        "type": "edit_text",
-        "hint": "GA from ultrasound - days",
-        "relevance": {
-          "step2:ultrasound_done": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        },
-        "v_required": {
-          "value": false,
-          "err": "Please give the GA from ultrasound - days"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Enter a Valid GA from ultrasound - days value"
-        },
-        "v_min": {
-          "value": "1",
-          "err": "GA from ultrasound - weeks should be equal to or greater than 1"
-        },
-        "v_max": {
-          "value": "6",
-          "err": "GA from ultrasound - weeks should be equal to or less than 6 "
-        }
-      },
-      {
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -513,6 +483,21 @@
         "v_required": {
           "value": false
         },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_sub_form.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ultrasound_ga_hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "text_color": "#000000",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -1065,8 +1050,15 @@
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
+            "key": "alcohol_use",
+            "text": "Alcohol use"
+          },
+          {
+            "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "key": "illicit_substance",
-            "text": "Alcohol or illicit substance use"
+            "text": "Substance use"
           },
           {
             "openmrs_entity_parent": "PAST PREGNANCY COMPLICATIONS",
@@ -1172,13 +1164,6 @@
           }
         },
         "options": [
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "key": "alcohol",
-            "text": "Alcohol"
-          },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
