@@ -231,7 +231,7 @@
           "err": "Please specify your occupation"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please specify your occupation"
         }
       },
@@ -1146,7 +1146,7 @@
           "err": "Please specify other past pregnancy problems"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please specify other past pregnancy problems"
         }
       },
@@ -1236,7 +1236,7 @@
           "err": "Please specify other substances abused"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please specify other specify other substances abused"
         }
       },
@@ -1805,7 +1805,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "key": "hiv_diagnosis_date_unknown",
+            "key": "yes",
             "text": "HIV diagnosis date unknown?",
             "value": false
           }

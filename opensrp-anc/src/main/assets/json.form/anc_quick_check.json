@@ -419,7 +419,7 @@
         "edit_text_style": "bordered",
         "hint": "Specify",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter valid content"
         },
         "relevance": {
