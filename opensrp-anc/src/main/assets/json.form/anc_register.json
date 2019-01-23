@@ -55,7 +55,7 @@
     "title": "ANC Registration",
     "fields": [
       {
-        "key": "photo",
+        "key": "wom_image",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -94,7 +94,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -111,7 +111,7 @@
           "err": "Please enter the last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -128,6 +128,36 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "date_picker",
         "hint": "Date of birth (DOB) *",
         "expanded": false,
@@ -156,7 +186,7 @@
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
+        "openmrs_entity_id": "birthdate_estimated",
         "type": "check_box",
         "options": [
           {
@@ -170,8 +200,38 @@
       {
         "key": "age",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "person",
         "openmrs_entity_id": "age",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Age *",
         "v_numeric": {
@@ -268,7 +328,7 @@
         "look_up": "true",
         "entity_id": "",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter a valid VHT name"
         }
       },
