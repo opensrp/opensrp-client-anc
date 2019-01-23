@@ -215,30 +215,32 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         switch (buttonAlertStatus) {
             case Constants.ALERT_STATUS.IN_PROGRESS:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 break;
             case Constants.ALERT_STATUS.DUE:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                 break;
             case Constants.ALERT_STATUS.OVERDUE:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 break;
             case Constants.ALERT_STATUS.NOT_DUE:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
                 break;
             case Constants.ALERT_STATUS.DELIVERY_DUE:
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                 viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                 break;
             case Constants.ALERT_STATUS.EXPIRED:
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
@@ -248,10 +250,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.contact_today_text.setVisibility(View.VISIBLE);
                 viewHolder.contact_today_text.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
                 viewHolder.contact_today_text.setPadding(2, 2, 2, 2);
-                
-                
-                
-                
+
                 /*viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
