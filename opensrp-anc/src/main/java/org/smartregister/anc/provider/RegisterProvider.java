@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -242,7 +244,15 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                 break;
             case Constants.ALERT_STATUS.TODAY:
-                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
+                viewHolder.dueButton.setVisibility(View.GONE);
+                viewHolder.contact_today_text.setVisibility(View.VISIBLE);
+                viewHolder.contact_today_text.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                viewHolder.contact_today_text.setPadding(2, 2, 2, 2);
+                
+                
+                
+                
+                /*viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
                 SpannableStringBuilder ssb = new SpannableStringBuilder(
@@ -250,7 +260,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1,
                         Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 viewHolder.dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
-                viewHolder.dueButton.setPadding(2, 2, 2, 2);
+                viewHolder.dueButton.setPadding(2, 2, 2, 2);*/
 
                 break;
             default:
@@ -354,6 +364,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         public Button dueButton;
         public Button sync;
         public View patientColumn;
+        TextView contact_today_text;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
@@ -368,6 +379,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
+            
+            contact_today_text = itemView.findViewById(R.id.contact_today_text);
         }
     }
 
