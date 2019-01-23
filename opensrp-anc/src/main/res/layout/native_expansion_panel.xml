@@ -35,7 +35,7 @@
                 android:contentDescription="@string/status_icon_display"
                 android:gravity="start|center_vertical"
                 android:padding="1dp"
-                android:src="@drawable/grey_circle" />
+                android:src="@drawable/icon_task_256" />
 
             <com.vijay.jsonwizard.views.CustomTextView
                 android:id="@+id/topBarTextView"
