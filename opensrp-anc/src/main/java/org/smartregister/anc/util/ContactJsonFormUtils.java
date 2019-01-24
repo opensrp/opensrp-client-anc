@@ -170,7 +170,7 @@ public class ContactJsonFormUtils extends FormUtils {
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
                     break;
                 default:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.grey_circle));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_task_256));
                     break;
             }
         }
