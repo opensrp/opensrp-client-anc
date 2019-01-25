@@ -1831,15 +1831,6 @@
         }
       },
       {
-        "key": "fetal_heart_beat_rate_value",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#FF0000"
-      },
-      {
         "key": "toaster27",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
