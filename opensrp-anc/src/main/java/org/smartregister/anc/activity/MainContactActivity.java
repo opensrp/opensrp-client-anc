@@ -511,13 +511,26 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                             JSONObject fieldObject = stepArray.getJSONObject(i);
 
-                            if (defaultValues.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
+                            if (defaultValues.containsKey(fieldObject.getString(JsonFormConstants.KEY))) {
 
-                                Map<String, String> defaultMap = defaultValues.get(fieldObject.getString(JsonFormConstants.KEY));
+                                if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
-                                String mapValue = getMapValue(defaultMap);
-                                if (mapValue != null) {
-                                    fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                                    Map<String, String> defaultMap = defaultValues.get(fieldObject.getString(JsonFormConstants.KEY));
+
+                                    String mapValue = getMapValue(defaultMap);
+                                    if (mapValue != null) {
+                                        fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                                    }
+                                } else if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
+                                    List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
+
+                                    for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
+
+                                        if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
+                                            stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                        }
+
+                                    }
                                 }
 
                             }
