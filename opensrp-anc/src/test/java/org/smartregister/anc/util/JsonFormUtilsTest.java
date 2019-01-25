@@ -271,7 +271,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(locationHelper.getOpenMrsLocationId(ArgumentMatchers.anyString())).thenReturn(DUMMY_LOCATION_ID);
 
         PowerMockito.mockStatic(ImageUtils.class);
-        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIDentifier())).thenReturn(photo);
+        PowerMockito.when(ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier())).thenReturn(photo);
         PowerMockito.when(photo.getFilePath()).thenReturn("/images/" + DUMMY_BASE_ENTITY_ID);
 
         JSONObject registerForm = new JSONObject(registerFormJsonString);

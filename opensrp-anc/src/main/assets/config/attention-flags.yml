@@ -1,6 +1,6 @@
 ---
 group: yellow_attention_flag
-  fields:
+fields:
 
   - template: "Age: {age}"
     relevance: "age <= 17 || age >= 35"
@@ -42,7 +42,7 @@ group: yellow_attention_flag
     relevance: "mat_percept_fetal_move != '' && !mat_percept_fetal_move.contains('normal_fetal_move')"
 
   - template: "Weight category: {weight_cat_value}"
-    relevance: "weight_cat != ''&& (weight_cat.contains('underweight') || weight_cat.contains('overweight')  || weight_cat.contains('obese') "
+    relevance: "weight_cat != ''&& (weight_cat.contains('underweight') || weight_cat.contains('overweight')  || weight_cat.contains('obese'))"
 
   - template: "Abnormal breast exam: {breast_exam_abnormal_value}"
     relevance: "breast_exam_abnormal != ''"
@@ -54,7 +54,7 @@ group: yellow_attention_flag
     relevance: "rh_factor.contains('negative')"
 ---
 group: red_attention_flag
-  fields:
+fields:
 
   - template: "Danger sign(s): {danger_signs_value}"
     relevance: "danger_signs != '' && !danger_signs.contains('danger_none')"
@@ -80,7 +80,7 @@ group: red_attention_flag
   - template: "Woman and her partner(s) do not use condoms"
     relevance: "condom_use.contains('no')"
 
-  - template: "Alcohol / substances currently using: {alcohol_substance_use} {other_substance_use}"
+  - template: "Alcohol / substances currently using: {alcohol_substance_use_value}"
     relevance: "alcohol_substance_use != '' && !alcohol_substance_use.contains('none')"
 
   - template: "Hypertension diagnosis"

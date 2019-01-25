@@ -94,7 +94,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, womanProfileImage, Utils.getProfileImageResourceIDentifier());
+        imageRenderHelper.refreshProfileImage(baseEntityId, womanProfileImage, Utils.getProfileImageResourceIdentifier());
     }
 
     @Override

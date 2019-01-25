@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,21 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     protected void setupNavigation(View rootView) {
         super.setupNavigation(rootView);
         LinearLayout proceedLayout = rootView.findViewById(R.id.navigation_layout);
+
+        Button previousButton = rootView.findViewById(com.vijay.jsonwizard.R.id.previous);
+        ImageView previousIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.previous_icon);
+
+        previousButton.setVisibility(View.INVISIBLE);
+        previousIcon.setVisibility(View.INVISIBLE);
+
+        previousButton.setOnClickListener(navigationListener);
+        previousIcon.setOnClickListener(navigationListener);
+
+        Button nextButton = rootView.findViewById(com.vijay.jsonwizard.R.id.next);
+        ImageView nextIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.next_icon);
+
+        nextButton.setOnClickListener(navigationListener);
+        nextIcon.setOnClickListener(navigationListener);
 
         Button referClose = proceedLayout.findViewById(R.id.refer);
         referClose.setOnClickListener(navigationListener);
@@ -154,8 +170,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             ImageButton goBackButton = view.findViewById(R.id.contact_menu);
             contactTitle = view.findViewById(R.id.contact_title);
 
-            if (getContact() != null && getContact().getBackIcon() > 0 && getContact().getFormName().equals(Constants.JSON_FORM
-                    .ANC_QUICK_CHECK)) {
+            if (getContact() != null && getContact().getBackIcon() > 0 && getContact().getFormName()
+                    .equals(Constants.JSON_FORM
+                            .ANC_QUICK_CHECK)) {
                 goBackButton.setImageResource(R.drawable.ic_clear);
                 goBackButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -195,7 +212,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         Spannable spannable = new SpannableString(saveChanges);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5, saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
+                saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
         Button saveButton = view.findViewById(R.id.save_changes);
@@ -205,7 +223,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         spannable = new SpannableString(closeWithoutSaving);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 7
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 8, closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 8,
+                closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         Button closeButton = view.findViewById(R.id.close_without_saving);
         closeButton.setText(spannable);
@@ -369,7 +388,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                     }
                 }
 
-            } else if (view.getId() == com.vijay.jsonwizard.R.id.previous || view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
+            } else if (view.getId() == com.vijay.jsonwizard.R.id.previous || view
+                    .getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
                 getFragmentManager().popBackStack();
             } else if (view.getId() == R.id.refer) {

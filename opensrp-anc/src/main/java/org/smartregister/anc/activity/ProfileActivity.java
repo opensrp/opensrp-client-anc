@@ -241,7 +241,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, Utils.getProfileImageResourceIDentifier());
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, Utils.getProfileImageResourceIdentifier());
     }
     
     @Override

@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -60,7 +62,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private Context context;
     private CommonRepository commonRepository;
 
-    public RegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
+    public RegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns,
+                            View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
@@ -85,11 +88,11 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     @Override
-    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
+    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext,
+                              boolean hasPrevious) {
         FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
-        footerViewHolder.pageInfoView.setText(
-                MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount,
-                        totalPageCount));
+        footerViewHolder.pageInfoView
+                .setText(MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount, totalPageCount));
 
         footerViewHolder.nextPageView.setVisibility(hasNext ? View.VISIBLE : View.INVISIBLE);
         footerViewHolder.previousPageView.setVisibility(hasPrevious ? View.VISIBLE : View.INVISIBLE);
@@ -98,7 +101,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
+                                       RegisterViewHolder viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -114,8 +118,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         String edd = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
 
         if (StringUtils.isNotBlank(edd)) {
-
-            fillValue((viewHolder.ga), String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+            fillValue((viewHolder.ga),
+                    String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+            viewHolder.period.setVisibility(View.VISIBLE);
         } else {
 
             fillValue((viewHolder.ga), "");
@@ -139,7 +144,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         TextView riskLayout = viewHolder.risk;
 
         if (totalFlagCount > 0) {
-            riskLayout.setCompoundDrawablesWithIntrinsicBounds(redFlagCount > 0 ? R.drawable.ic_red_flag : R.drawable.ic_yellow_flag, 0, 0, 0);
+            riskLayout.setCompoundDrawablesWithIntrinsicBounds(
+                    redFlagCount > 0 ? R.drawable.ic_red_flag : R.drawable.ic_yellow_flag, 0, 0, 0);
             riskLayout.setText(String.valueOf(totalFlagCount));
             riskLayout.setVisibility(View.VISIBLE);
 
@@ -173,7 +179,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 if (StringUtils.isNotBlank(edd)) {
                     gestationAge = Utils.getGestationAgeFromEDDate(edd);
                     AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS :
+                            AncApplication.getInstance().getRulesEngineHelper()
+                                    .getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
                 } else {
                     buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
                 }
@@ -181,11 +189,16 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 //Set text first
                 String nextContact = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
 
-                nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
-                viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks), StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate : Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
+                nextContactDate =
+                        StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") :
+                                null;
+                viewHolder.dueButton.setText(String.format(context.getString(R.string.contact_weeks),
+                        StringUtils.isNotBlank(nextContact) ? nextContact : "1", nextContactDate != null ? nextContactDate :
+                                Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
                 viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
 
-                buttonAlertStatus = processContactDoneToday(getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
+                buttonAlertStatus = processContactDoneToday(getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
+                        buttonAlertStatus);
 
                 processButtonAlertStatus(viewHolder, buttonAlertStatus, nextContact);
 
@@ -202,42 +215,51 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         switch (buttonAlertStatus) {
             case Constants.ALERT_STATUS.IN_PROGRESS:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 break;
             case Constants.ALERT_STATUS.DUE:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                 break;
             case Constants.ALERT_STATUS.OVERDUE:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 break;
             case Constants.ALERT_STATUS.NOT_DUE:
-
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
                 break;
             case Constants.ALERT_STATUS.DELIVERY_DUE:
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                 viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                 break;
             case Constants.ALERT_STATUS.EXPIRED:
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 viewHolder.dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.white));
                 viewHolder.dueButton.setText(context.getString(R.string.due_delivery));
                 break;
             case Constants.ALERT_STATUS.TODAY:
-                viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
+                viewHolder.dueButton.setVisibility(View.GONE);
+                viewHolder.contact_today_text.setVisibility(View.VISIBLE);
+                viewHolder.contact_today_text.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                viewHolder.contact_today_text.setPadding(2, 2, 2, 2);
+
+                /*viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
-                SpannableStringBuilder ssb = new SpannableStringBuilder(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
-                ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                SpannableStringBuilder ssb = new SpannableStringBuilder(
+                        String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1,
+                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                 viewHolder.dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
-                viewHolder.dueButton.setPadding(2, 2, 2, 2);
+                viewHolder.dueButton.setPadding(2, 2, 2, 2);*/
 
                 break;
             default:
@@ -285,7 +307,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     @Override
-    public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption, FilterOption searchFilter, SortOption sortOption) {
+    public SmartRegisterClients updateClients(FilterOption villageFilter, ServiceModeOption serviceModeOption,
+                                              FilterOption searchFilter, SortOption sortOption) {
         return null;
     }
 
@@ -322,8 +345,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
 
     public static void fillValue(TextView v, String value) {
-        if (v != null)
-            v.setText(value);
+        if (v != null) v.setText(value);
 
     }
 
@@ -334,12 +356,14 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
         public TextView patientName;
         public TextView age;
+        public TextView period;
         public TextView ga;
         public TextView ancId;
         public TextView risk;
         public Button dueButton;
         public Button sync;
         public View patientColumn;
+        TextView contact_today_text;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
@@ -347,12 +371,15 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             patientName = itemView.findViewById(R.id.patient_name);
             age = itemView.findViewById(R.id.age);
             ga = itemView.findViewById(R.id.ga);
+            period = itemView.findViewById(R.id.period);
             ancId = itemView.findViewById(R.id.anc_id);
             risk = itemView.findViewById(R.id.risk);
             dueButton = itemView.findViewById(R.id.due_button);
             sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
+            
+            contact_today_text = itemView.findViewById(R.id.contact_today_text);
         }
     }
 
@@ -380,7 +407,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         if (!TextUtils.isEmpty(lastContactDate)) {
 
             try {
-                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY : alertStatus;
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY :
+                        alertStatus;
             } catch (ParseException e) {
                 Log.e(TAG, e.getMessage());
             }

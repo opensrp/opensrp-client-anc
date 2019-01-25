@@ -89,9 +89,5 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             }
         }
 
-
-        ((TextView) findViewById(org.smartregister.R.id.login_user_name_edit_text)).setText("demo");
-        ((TextView) findViewById(org.smartregister.R.id.login_password_edit_text)).setText("Amani123");
-        findViewById(org.smartregister.R.id.login_login_btn).performClick();
     }
 }

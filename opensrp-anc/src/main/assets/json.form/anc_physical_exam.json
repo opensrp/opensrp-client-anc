@@ -3,18 +3,6 @@
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
-  "global": {
-    "prev_preg_comps": "['gestational_diabetes','macrosomia']",
-    "health_conditions": "['Hypertension','kidney_disease','autoimmune_disease']",
-    "urine_glucose": "two_plus",
-    "contact_no": 2,
-    "current_weight": 134,
-    "pop_undernourish": 1,
-    "dm_in_preg": 1,
-    "hb_results": 10,
-    "gest_age": 12,
-    "last_contact_date": "14-11-2018"
-  },
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -103,6 +91,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "pregest_weight_label",
         "type": "label",
         "label_text_style": "bold",
@@ -173,6 +169,14 @@
             "value": "false"
           }
         ]
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "current_weight_label",
@@ -395,7 +399,7 @@
         "text_color": "#1199F9",
         "toaster_type": "info",
         "toaster_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
-        "toaster_info_title": "Protein and Energy Sources Folder",
+        "toaster_info_title": "Increase daily energy and protein intake counseling",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -414,6 +418,7 @@
         "text_color": "#1199F9",
         "toaster_type": "info",
         "toaster_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates.",
+        "toaster_info_title": "Balanced energy and protein dietary supplementation counseling",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -464,6 +469,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "bp_diastolic_label",
         "type": "label",
         "label_text_style": "bold",
@@ -499,6 +512,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "toaster7",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -521,7 +542,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "20sp"
+        "spacer_height": "10sp"
       },
       {
         "key": "bp_systolic_repeat_label",
@@ -571,6 +592,14 @@
             }
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "bp_diastolic_repeat_label",
@@ -637,6 +666,14 @@
             }
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "symp_sev_preeclampsia",
@@ -900,6 +937,7 @@
         "type": "toaster_notes",
         "text": "Pre-eclampsia diagnosis! Refer to hospital and revise birth plan.",
         "toaster_info_text": "Woman has pre-eclampsia - SBP of 140 mmHg or above and/or DBP of 90 mmHg or above and proteinuria 2+ and no symptom of severe pre-eclampsia.\n\nProcedure:\n- Refer to hospital\n- Revise the birth plan",
+        "toaster_info_title": "Pre-eclampsia diagnosis! Refer to hospital and revise birth plan.",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -968,6 +1006,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "body_temp_repeat_label",
         "type": "label",
         "label_text_style": "bold",
@@ -1033,6 +1079,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "pulse_rate_label",
         "type": "label",
         "label_text_style": "bold",
@@ -1083,6 +1137,14 @@
             }
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "pulse_rate_repeat_label",
@@ -1139,6 +1201,14 @@
             }
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "pallor",
@@ -1288,6 +1358,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "cardiac_exam",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1332,6 +1410,14 @@
             "ex": "equalTo(., \"3\")"
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "breast_exam",
@@ -1380,6 +1466,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "abdominal_exam",
         "openmrs_entity_parent": "Abdominal Examination",
         "openmrs_entity": "",
@@ -1424,6 +1518,14 @@
             "ex": "equalTo(., \"3\")"
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "pelvic_exam",
@@ -1472,6 +1574,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "cervical_exam",
         "openmrs_entity_parent": "",
         "openmrs_entity": "Uterine cervix examination (text) ",
@@ -1489,6 +1599,7 @@
             "specify_info": "specify cm cervix dilated...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
+            "secondary_suffix": "cm",
             "content_form": "cervical_exam_sub_form"
           },
           {
@@ -1512,6 +1623,14 @@
             "ex": "greaterThan(., \"2\")"
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "oedema",
@@ -1630,6 +1749,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "fetal_movement",
         "openmrs_entity_parent": "",
         "openmrs_entity": "Fetal movements present",
@@ -1704,31 +1831,6 @@
         }
       },
       {
-        "key": "fetal_heart_rate",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Fetal heart rate",
-        "openmrs_entity_id": "1440",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_required": {
-          "value": "false",
-          "err": "Please enter the fetal heart rate"
-        },
-        "v_min": {
-          "value": "80",
-          "err": "Fetal heartbeat must be equal or greater than 80"
-        },
-        "v_max": {
-          "value": "200",
-          "err": "Fetal heartbeat must be less than or equal to 200"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Enter a valid sfh"
-        }
-      },
-      {
         "key": "toaster27",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1761,6 +1863,14 @@
             }
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "fetal_heart_rate_repeat_label",
@@ -1817,6 +1927,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "no_of_fetuses_label",
         "type": "label",
         "label_text_style": "bold",
@@ -1870,7 +1988,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "20sp",
+        "spacer_height": "10sp",
         "relevance": {
           "step4:no_of_fetuses_unknown": {
             "ex-checkbox": [
@@ -1882,6 +2000,14 @@
             ]
           }
         }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
       {
         "key": "no_of_fetuses_unknown",

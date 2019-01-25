@@ -114,9 +114,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
         partialContactRequest.setType(contact.getFormName());
 
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest, form));
-
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, contact.getFormName());
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -135,9 +135,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         String saveChanges = getString(R.string.save_contact);
         Spannable spannable = new SpannableString(saveChanges);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4
-                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5, saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
+                saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 
         Button saveButton = view.findViewById(R.id.save_changes);
@@ -145,9 +145,10 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         String closeWithoutSaving = getString(R.string.discard_contact);
         spannable = new SpannableString(closeWithoutSaving);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 7
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 6
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 8, closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 7,
+                closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         Button closeButton = view.findViewById(R.id.close_without_saving);
         closeButton.setText(spannable);

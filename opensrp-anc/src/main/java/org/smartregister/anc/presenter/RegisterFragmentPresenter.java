@@ -104,11 +104,9 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
             getView().showNotFoundPopup(ancId);
         } else {
             matrixCursor = model.createMatrixCursor(response);
-
+            
             getView().recalculatePagination(matrixCursor);
-
             getView().filterandSortInInitializeQueries();
-
             getView().hideProgressView();
         }
     }

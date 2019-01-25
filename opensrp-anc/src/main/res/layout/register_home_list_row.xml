@@ -22,14 +22,15 @@
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/patient_name"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:paddingLeft="0dp"
             android:text="Patient Name"
-            android:textColor="@color/text_black"
-            android:textSize="18sp" />
+            android:textColor="@color/black_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/age_ga_layout"
@@ -44,23 +45,36 @@
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/age"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="0dp"
                 android:text="Age: 33"
-                android:textColor="@color/light_grey_text"
+                android:textColor="@color/dark_grey_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/ga"
-                style="@style/CustomFontTextViewStyle.ClientList.Light"
+                android:id="@+id/period"
+                style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/bullet"
+                android:textColor="@color/dark_grey_text"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/ga"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="0dp"
                 android:text="GA: 12 weeks"
-                android:textColor="@color/light_grey_text"
+                android:textColor="@color/dark_grey_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -68,14 +82,14 @@
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/anc_id"
-            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:paddingStart="0dp"
             android:paddingLeft="0dp"
             android:text="ID: 3034503"
-            android:textColor="@color/light_grey_text"
-            android:textSize="17sp"
+            android:textColor="@color/dark_grey_text"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -85,6 +99,8 @@
         android:id="@+id/risk_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
+        android:layout_alignTop="@+id/patient_column"
+        android:layout_alignBottom="@+id/patient_column"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:layout_toLeftOf="@+id/due_button_wrapper"
@@ -94,16 +110,16 @@
         <TextView
             android:id="@+id/risk"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="28dp"
             android:background="@drawable/grey_border"
             android:drawableLeft="@drawable/ic_red_flag"
             android:gravity="bottom"
+            android:paddingTop="5dp"
             android:paddingRight="4dp"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp"
             android:text="2"
             android:textColor="@color/dark_grey_text"
-            android:textSize="19sp" />
+            android:textSize="17sp" />
 
     </LinearLayout>
 
@@ -111,11 +127,35 @@
         android:id="@+id/due_button_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
+        android:layout_alignTop="@+id/patient_column"
+        android:layout_alignBottom="@+id/patient_column"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="7dp">
+
+        <TextView
+            android:id="@+id/contact_today_text"
+            android:layout_width="124dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:drawableStart="@drawable/ic_checked_green"
+            android:drawableLeft="@drawable/ic_checked_green"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:hapticFeedbackEnabled="true"
+            android:background="@drawable/contact_completed_today"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:text="@string/contact_recorded_today"
+            android:textAllCaps="false"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/dark_grey"
+            android:textSize="15sp"
+            android:typeface="normal"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/due_button"
@@ -123,7 +163,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:background="@drawable/contact_due"
+            android:background="@drawable/contact_completed_today"
             android:elevation="8dp"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
@@ -135,7 +175,8 @@
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/vaccine_blue_bg_st"
             android:textSize="15sp"
-            android:typeface="normal" />
+            android:typeface="normal"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/sync"

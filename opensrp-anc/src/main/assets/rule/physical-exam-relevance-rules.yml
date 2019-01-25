@@ -100,7 +100,7 @@ actions:
 name: step4_toaster28
 description: Fetal heart beat rate
 priority: 1
-condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160) "
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
 actions:
   - "isRelevant = true"
 

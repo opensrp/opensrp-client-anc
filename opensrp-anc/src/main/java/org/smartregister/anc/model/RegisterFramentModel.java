@@ -136,13 +136,13 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject client = getJsonObject(jsonArray, i);
-                String entityId = "";
-                String firstName = "";
-                String lastName = "";
-                String dob = "";
-                String ancId = "";
-                String phoneNumber = "";
-                String altContactName = "";
+                String entityId;
+                String firstName;
+                String lastName;
+                String dob;
+                String ancId;
+                String phoneNumber;
+                String altContactName;
                 if (client == null) {
                     continue;
                 }

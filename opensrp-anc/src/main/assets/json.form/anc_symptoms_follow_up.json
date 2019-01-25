@@ -177,13 +177,6 @@
             "openmrs_entity_id": "159460"
           },
           {
-            "key": "anti_heartburn",
-            "text": "Anti-heartburn",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
             "key": "anthelmintic",
             "text": "Anthelmintic",
             "value": false,
@@ -302,7 +295,7 @@
         "type": "edit_text",
         "hint": "Specify",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter valid content"
         },
         "relevance": {
@@ -567,8 +560,15 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "alcohol_substance_use",
-            "text": "Alcohol or substance use",
+            "key": "alcohol_use",
+            "text": "Alcohol use",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "substance_use",
+            "text": "Substance use",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -690,7 +690,8 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "alcohol_substance_use"
+                  "alcohol_use",
+                  "substance_use"
                 ]
               }
             ]
@@ -754,15 +755,29 @@
             "openmrs_entity_id": "996"
           },
           {
-            "key": "back_pelvic_pain",
-            "text": "Low back and pelvic pain",
+            "key": "low_back_pain",
+            "text": "Low back pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pelvic_pain",
+            "text": "Pelvic pain",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "varicose_veins",
-            "text": "Varicose veins or oedema",
+            "text": "Varicose veins",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "oedema",
+            "text": "Oedema",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -781,8 +796,10 @@
                   "heartburn",
                   "leg_cramps",
                   "constipation",
-                  "back_pelvic_pain",
-                  "varicose_veins"
+                  "low_back_pain",
+                  "pelvic_pain",
+                  "varicose_veins",
+                  "oedema"
                 ]
               }
             ]
@@ -840,7 +857,8 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "back_pelvic_pain"
+                  "low_back_pain",
+                  "pelvic_pain"
                 ]
               }
             ]
@@ -887,112 +905,10 @@
           "err": "Please specify any other symptoms related varicose vein/oedema or select none"
         },
         "relevance": {
-          "step3:phys_symptoms_persist": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "varicose_veins"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "other_symptoms_persist",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "Which of the following other symptoms persist?",
-        "label_text_style": "bold",
-        "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
-        "label_info_title": "Previous Symptoms",
-        "text_color": "#000000",
-        "exclusive": [
-          "none"
-        ],
-        "options": [
-          {
-            "key": "none",
-            "text": "None",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "headache",
-            "text": "Headache",
-            "value": false,
-            "openmrs_entity": "Headache",
-            "openmrs_entity_id": "139084"
-          },
-          {
-            "key": "visual_disturbance",
-            "text": "Visual disturbance",
-            "value": false,
-            "openmrs_entity": "Visual disturbance",
-            "openmrs_entity_id": "123074"
-          },
-          {
-            "key": "abnormal_vaginal_discharge",
-            "text": "Abnormal vaginal discharge",
-            "value": false,
-            "openmrs_entity": "Abnormal vaginal discharge",
-            "openmrs_entity_id": "123395"
-          },
-          {
-            "key": "fever",
-            "text": "Fever",
-            "value": false,
-            "openmrs_entity": "Fever",
-            "openmrs_entity_id": "140238"
-          },
-          {
-            "key": "cough",
-            "text": "Cough or breathing difficulty",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "vaginal_discharge",
-            "text": "Vaginal discharge",
-            "value": false,
-            "openmrs_entity": "Vaginal discharge",
-            "openmrs_entity_id": "123396"
-          },
-          {
-            "key": "easily_tired",
-            "text": "Gets tired easily",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "breathless",
-            "text": "Breathless during routine activities",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "relevance": {
-          "step4:other_symptoms": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "abnormal_vaginal_discharge",
-                  "breathless",
-                  "cough",
-                  "fever",
-                  "easily_tired",
-                  "headache",
-                  "visual_disturbance",
-                  "vaginal_bleeding"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1095,14 +1011,10 @@
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
-          "step3:other_sym_lbpp": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1161,14 +1073,10 @@
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
-          "step3:other_sym_vvo": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1193,6 +1101,86 @@
             ]
           }
         }
+      },
+      {
+        "key": "other_symptoms_persist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Which of the following other symptoms persist?",
+        "label_text_style": "bold",
+        "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
+        "label_info_title": "Previous Symptoms",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "headache",
+            "text": "Headache",
+            "value": false,
+            "openmrs_entity": "Headache",
+            "openmrs_entity_id": "139084"
+          },
+          {
+            "key": "visual_disturbance",
+            "text": "Visual disturbance",
+            "value": false,
+            "openmrs_entity": "Visual disturbance",
+            "openmrs_entity_id": "123074"
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "Abnormal vaginal discharge",
+            "value": false,
+            "openmrs_entity": "Abnormal vaginal discharge",
+            "openmrs_entity_id": "123395"
+          },
+          {
+            "key": "fever",
+            "text": "Fever",
+            "value": false,
+            "openmrs_entity": "Fever",
+            "openmrs_entity_id": "140238"
+          },
+          {
+            "key": "cough",
+            "text": "Cough or breathing difficulty",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "vaginal_discharge",
+            "text": "Vaginal discharge",
+            "value": false,
+            "openmrs_entity": "Vaginal discharge",
+            "openmrs_entity_id": "123396"
+          },
+          {
+            "key": "easily_tired",
+            "text": "Gets tired easily",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "breathless",
+            "text": "Breathless during routine activities",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
       }
     ]
   },
@@ -1248,15 +1236,29 @@
             "openmrs_entity_id": "996"
           },
           {
-            "key": "back_pelvic_pain",
-            "text": "Low back and pelvic pain",
+            "key": "low_back_pain",
+            "text": "Low back pain",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pelvic_pain",
+            "text": "Pelvic pain",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "varicose_veins",
-            "text": "Varicose veins or oedema",
+            "text": "Varicose veins",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "oedema",
+            "text": "Oedema",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -1318,7 +1320,8 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "back_pelvic_pain"
+                  "low_back_pain",
+                  "pelvic_pain"
                 ]
               }
             ]
@@ -1369,7 +1372,8 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "varicose_veins"
+                  "varicose_veins",
+                  "oedema"
                 ]
               }
             ]
@@ -1475,14 +1479,10 @@
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
-          "step4:other_sym_lbpp": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1541,14 +1541,10 @@
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
-          "step4:other_sym_vvo": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "none"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1602,6 +1598,13 @@
             "openmrs_entity_id": "123395"
           },
           {
+            "key": "breathing_difficulty",
+            "text": "Breathing difficulty",
+            "value": false,
+            "openmrs_entity": "Breathing difficulty",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "breathless",
             "text": "Breathless during routine activities",
             "value": false,
@@ -1610,7 +1613,7 @@
           },
           {
             "key": "cough",
-            "text": "Cough or breathing difficulty",
+            "text": "Cough lasting more than 3 weeks",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -1644,6 +1647,13 @@
             "openmrs_entity_id": "147232"
           },
           {
+            "key": "vaginal_discharge",
+            "text": "Vaginal discharge",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "visual_disturbance",
             "text": "Visual disturbance",
             "value": false,
@@ -1671,7 +1681,7 @@
         "type": "edit_text",
         "hint": "Specify",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
           "err": "Please enter valid content"
         },
         "relevance": {

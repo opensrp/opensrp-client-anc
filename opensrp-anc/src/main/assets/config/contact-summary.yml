@@ -14,7 +14,7 @@ fields:
   relevance: "severe_hypertension == 1 && global_contact_no == 1"
 
 - template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
-  relevance: "hypertension == 1 && (symp_sev_preeclampsia.contains('Severe headache') || symp_sev_preeclampsia.contains('Blurred vision') || symp_sev_preeclampsia.contains('Epigastric pain') || symp_sev_preeclampsia.contains('Dizziness') || symp_sev_preeclampsia.contains('Vomiting'))"
+  relevance: "hypertension == 1 && symp_sev_preeclampsia!=''"
 
 - template: "Pre-eclampsia diagnosis"
   relevance: "preeclampsia == 1 && global_contact_no == 1"
@@ -28,8 +28,8 @@ fields:
 - template: "Abnormal pulse rate: {pulse_rate_repeat}bpm"
   relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
-- template: "Respiratory distress: {repiratory_exam_value}"
-  relevance: "respiratory_exam.contains('Dyspnoea') || respiratory_exam.contains('Cough') || respiratory_exam.contains('Rapid breathing') || respiratory_exam.contains('Slow breathing') || respiratory_exam.contains('Wheezing') || respiratory_exam.contains('Rales') || respiratory_exam.contains('Other')"
+- template: "Respiratory distress: {respiratory_exam_abnormal_value}"
+  relevance: "respiratory_exam_abnormal != ''"
 
 - template: "Low oximetry: {oximetry}%"
   relevance: "oximetry < 92"
@@ -37,7 +37,7 @@ fields:
 - template: "Abnormal cardiac exam: {cardiac_exam_abnormal_value}"
   relevance: "!cardiac_exam_abnormal.contains('none')"
 
-- template: "Abnormal breast exam: {breast_exam_value}"
+- template: "Abnormal breast exam: {breast_exam_abnormal_value}"
   relevance: "!breast_exam_abnormal.contains('none')"
 
 - template: "Abnormal abdominal exam: {abdominal_exam_abnormal_value}"
@@ -45,18 +45,6 @@ fields:
 
 - template: "Abnormal pelvic exam: {pelvic_exam_abnormal_value}"
   relevance: "!pelvic_exam_abnormal.contains('none')"
-
-- template: "Abnormal cardiac exam: {cardiac_exam_value}"
-  relevance: "!cardiac_exam.contains('heart_murmur') || cardiac_exam.contains('weak_pulse') || cardiac_exam.contains('tachycardia') || cardiac_exam.contains('bradycardia') || cardiac_exam.contains('Arrhythmia') || cardiac_exam.contains('Cyanosis') || cardiac_exam.contains('Cold sweats') || cardiac_exam.contains('Other')"
-
-- template: "Abnormal breast exam: {breast_exam_value}"
-  relevance: "breast_exam.contains('Nodule') || breast_exam.contains('Discharge') || breast_exam.contains('Flushing') || breast_exam.contains('Local pain') || breast_exam.contains('Bleeding') || breast_exam.contains('Increased temperature') || breast_exam.contains('Other')"
-
-- template: "Abnormal abdominal exam: {abdominal_exam_value}"
-  relevance: "abdominal_exam.contains('Mass/tumour') || abdominal_exam.contains('Pain on superficial palpation') || abdominal_exam.contains('Pain on deep palpation') || abdominal_exam.contains('Painful decompression') || abdominal_exam.contains('Other')"
-
-- template: "Abnormal pelvic exam: {pelvic_exam_value}"
-  relevance: "pelvic_exam.contains('Physiological vaginal discharge') || pelvic_exam.contains('Abnormal vaginal discharge') || pelvic_exam.contains('Evidence of amniotic fluid') || pelvic_exam.contains('Foul-smelling vaginal discharge') || pelvic_exam.contains('Clusters of erythematous papules') || pelvic_exam.contains('Vesicles') || pelvic_exam.contains('Genital ulcer') || pelvic_exam.contains('Genital pain') || pelvic_exam.contains('Tender bilateral inguinal and femoral lymphadenopathy') || pelvic_exam.contains('Cervical friability') || pelvic_exam.contains('Mucopurulent cervicitis') || pelvic_exam.contains('Tender unilateral lymphadenopathy') || pelvic_exam.contains('Curd-like vaginal discharge') || pelvic_exam.contains('Other')"
 
 - template: "No fetal heartbeat observed"
   relevance: "fetal_heartbeat == 'No'"
@@ -130,7 +118,10 @@ fields:
 - template: "Past pregnancy problems: {prev_preg_comps_value}"
   relevance: "global_contact_no == 1 || (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
 
-- template: "Past alcohol / substances used: {substances_used_value}"
+- template: "Past alcohol used: {alcohol_substance_use_value}"
+  relevance: "global_contact_no == 1 || (!alcohol_substance_use.contains('none') && alcohol_substance_use.size() > 0) "
+
+- template: "Past substances used: {substances_used_value}"
   relevance: "global_contact_no == 1 || (!substances_used.contains('none') && substances_used.size() > 0) "
 
 ---
@@ -149,7 +140,7 @@ fields:
   relevance: "hiv_diagnosis_date != '' || global_contact_no  == 1"
 
 - template: "HIV diagnosis date unknown"
-  relevance: "hiv_diagnosis_date_unknown.contains('Unknown HIV Date') || global_contact_no  == 1"
+  relevance: "hiv_diagnosis_date_unknown.contains('yes') || global_contact_no  == 1"
 ---
 group: immunisation_status
 fields:
@@ -460,8 +451,8 @@ fields:
 - template: "Respiratory exam: {respiratory_exam_value}"
   relevance: "respiratory_exam != ''"
 
-- template: "Abnormal (specify): {repiratory_exam_abnormal_value}"
-  relevance: "repiratory_exam_abnormal != ''"
+- template: "Abnormal (specify): {respiratory_exam_abnormal_value}"
+  relevance: "respiratory_exam_abnormal != ''"
 
 - template: "Oximetry: {oximetry}%"
   relevance: "oximetry != ''"
