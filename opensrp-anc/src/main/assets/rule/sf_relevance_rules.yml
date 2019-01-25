@@ -9,21 +9,21 @@ actions:
 name: step1_calcium_comply
 description: Calcium comply
 priority: 1
-condition: "global_calcium_supp == 'done'"
+condition: "(!global_calcium_supp.isEmpty() && global_calcium_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_calcium_effects
 description: Calcium effects
 priority: 1
-condition: "global_calcium_supp == 'done'"
+condition: "(!global_calcium_supp.isEmpty() &&  global_calcium_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_ifa_comply
 description: Ifa comply
 priority: 1
-condition: "global_iga_high_prev == 'done' || global_ifa_low_prev == 'done' || global_ifa_weekly == 'done' || global_ifa_anaemia == 'done'"
+condition: "(!global_iga_high_prev.isEmpty() && global_iga_high_prev == 'done') || (!global_ifa_low_prev.isEmpty() && global_ifa_low_prev == 'done') || (!global_ifa_weekly.isEmpty() && global_ifa_weekly == 'done') || (!global_ifa_anaemia.isEmpty() && global_ifa_anaemia == 'done')"
 actions:
   - "isRelevant = true"
 ---
@@ -86,7 +86,7 @@ actions:
 name: step4_mat_percept_fetal_move
 description: Felt baby move
 priority: 1
-condition: "global_gest_age > 20"
+condition: "(!global_gest_age.isEmpty() && global_gest_age > 20)"
 actions:
   - "isRelevant = true"
 ---
