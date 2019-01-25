@@ -8,6 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
@@ -199,7 +200,7 @@ public class PartialContactRepository extends BaseRepository {
         getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + FORM_JSON + "=" + FORM_JSON_DRAFT + ", " + FORM_JSON_DRAFT + "= NULL WHERE " + BASE_ENTITY_ID + " = ? AND " + FORM_JSON_DRAFT + " IS NOT NULL", new String[]{baseEntityId});
 
         PatientRepository patientRepository = new PatientRepository();
-        patientRepository.updateWomanProfileDetails(baseEntityId);
+        patientRepository.updateWomanProfileDetails(baseEntityId, Constants.ALERT_STATUS.ACTIVE);
     }
 
     public void deletePartialContact(Long id) {

@@ -153,6 +153,7 @@ public abstract class Constants {
         public static final String IN_PROGRESS = "in_progress";
         public static final String EXPIRED = "expired";
         public static final String TODAY = "today";
+        public static final String ACTIVE = "active";
     }
 
     public static class FILE_CATEGORY {

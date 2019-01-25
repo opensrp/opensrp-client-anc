@@ -116,6 +116,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             womanDetail.setBaseEntityId(baseEntityId);
             womanDetail.setNextContact(nextContact);
             womanDetail.setNextContactDate(nextContactVisitDate);
+            womanDetail.setContactStatus(Constants.ALERT_STATUS.TODAY);
 
 
             processAttentionFlags(womanDetail, facts);

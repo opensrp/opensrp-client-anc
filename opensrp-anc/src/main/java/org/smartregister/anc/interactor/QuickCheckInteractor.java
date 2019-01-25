@@ -11,6 +11,7 @@ import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.AppExecutors;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
@@ -56,7 +57,7 @@ public class QuickCheckInteractor implements QuickCheckContract.Interactor {
                     partialContact.setFormJsonDraft(eventJson.toString());
 
                     AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
-                    PatientRepository.updateWomanProfileDetails(event.getBaseEntityId());
+                    PatientRepository.updateWomanProfileDetails(event.getBaseEntityId(), Constants.ALERT_STATUS.ACTIVE);
 
                     //getSyncHelper().addEvent(baseEntityId, eventJson);
                     isSaved = true;

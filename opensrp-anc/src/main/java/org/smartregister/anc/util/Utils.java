@@ -272,18 +272,17 @@ public class Utils extends org.smartregister.util.Utils {
             quickCheck.setHideSaveLabel(true);
 
             //partial contact exists?
-
             PartialContact partialContactRequest = new PartialContact();
             partialContactRequest.setBaseEntityId(baseEntityId);
             partialContactRequest.setContactNo(quickCheck.getContactNumber());
             partialContactRequest.setType(quickCheck.getFormName());
-            BaseContactModel baseContactModel = new ContactModel();
 
             String locationId = AncApplication.getInstance().getContext().allSharedPreferences()
                     .getPreference(AllConstants.CURRENT_LOCATION_ID);
 
+            ContactModel baseContactModel = new ContactModel();
             JSONObject form =
-                    ((ContactModel) baseContactModel).getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
+                    baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 
             String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 

@@ -3,19 +3,13 @@ package org.smartregister.anc.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.text.style.DynamicDrawableSpan;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -179,7 +173,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 if (StringUtils.isNotBlank(edd)) {
                     gestationAge = Utils.getGestationAgeFromEDDate(edd);
                     AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS :
+                    buttonAlertStatus = StringUtils.isNotBlank(contactStatus) && Constants.ALERT_STATUS.ACTIVE
+                            .equals(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS :
                             AncApplication.getInstance().getRulesEngineHelper()
                                     .getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
                 } else {
@@ -248,7 +243,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             case Constants.ALERT_STATUS.TODAY:
                 viewHolder.dueButton.setVisibility(View.GONE);
                 viewHolder.contact_today_text.setVisibility(View.VISIBLE);
-                viewHolder.contact_today_text.setText(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                viewHolder.contact_today_text.setText(
+                        String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
                 viewHolder.contact_today_text.setPadding(2, 2, 2, 2);
 
                 /*viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
@@ -378,7 +374,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             sync = itemView.findViewById(R.id.sync);
 
             patientColumn = itemView.findViewById(R.id.patient_column);
-            
+
             contact_today_text = itemView.findViewById(R.id.contact_today_text);
         }
     }

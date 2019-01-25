@@ -119,25 +119,27 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String textClicked = arrayAdapter.getItem(which);
-                    switch (textClicked) {
-                        case Constants.CALL:
-                            launchPhoneDialer(phoneNumber);
-                            break;
-                        case Constants.START_CONTACT:
-                            CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT);
-                            String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-                            
-                            if (StringUtils.isNotBlank(baseEntityId)) {
-                                utils.proceedToContact(baseEntityId, pc, ProfileActivity.this);
-                            }
-                            break;
-                        case CLOSE_ANC_RECORD:
-                            JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
-                            break;
-                        default:
-                            break;
+                    if (textClicked != null) {
+                        switch (textClicked) {
+                            case Constants.CALL:
+                                launchPhoneDialer(phoneNumber);
+                                break;
+                            case Constants.START_CONTACT:
+                                CommonPersonObjectClient pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT);
+                                String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+
+                                if (StringUtils.isNotBlank(baseEntityId)) {
+                                    utils.proceedToContact(baseEntityId, pc, ProfileActivity.this);
+                                }
+                                break;
+                            case CLOSE_ANC_RECORD:
+                                JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
+                                break;
+                            default:
+                                break;
+                        }
                     }
-                    
+
                     dialog.dismiss();
                 }
                 

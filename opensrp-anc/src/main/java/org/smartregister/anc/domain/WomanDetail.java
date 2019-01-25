@@ -10,6 +10,7 @@ public class WomanDetail {
     private String nextContactDate;
     private String yellowFlags;
     private String redFlags;
+    private String contactStatus;
 
     private Integer yellowFlagCount;
     private Integer redFlagCount;
@@ -68,5 +69,13 @@ public class WomanDetail {
 
     public void setRedFlagCount(Integer redFlagCount) {
         this.redFlagCount = redFlagCount;
+    }
+
+    public String getContactStatus() {
+        return contactStatus;
+    }
+
+    public void setContactStatus(String contactStatus) {
+        this.contactStatus = contactStatus;
     }
 }

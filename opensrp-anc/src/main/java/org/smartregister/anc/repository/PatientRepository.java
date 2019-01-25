@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.WomanDetail;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.Repository;
@@ -66,9 +67,9 @@ public class PatientRepository {
         return null;
     }
 
-    public static void updateWomanProfileDetails(String baseEntityId) {
+    public static void updateWomanProfileDetails(String baseEntityId, String alertStatus) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBConstants.KEY.CONTACT_STATUS, "active");
+        contentValues.put(DBConstants.KEY.CONTACT_STATUS, alertStatus);
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
         getMasterRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
@@ -86,6 +87,7 @@ public class PatientRepository {
         contentValues.put(DBConstants.KEY.YELLOW_FLAG_COUNT, patientDetail.getYellowFlagCount());
         contentValues.put(DBConstants.KEY.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
+        contentValues.put(DBConstants.KEY.CONTACT_STATUS, patientDetail.getContactStatus());
 
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{patientDetail.getBaseEntityId()});
     }
