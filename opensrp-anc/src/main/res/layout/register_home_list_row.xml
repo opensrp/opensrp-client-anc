@@ -146,7 +146,7 @@
             android:elevation="8dp"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
-            android:background="@drawable/contact_due"
+            android:background="@drawable/contact_completed_today"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
             android:text="@string/contact_recorded_today"

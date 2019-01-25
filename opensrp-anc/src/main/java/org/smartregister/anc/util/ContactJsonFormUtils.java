@@ -181,10 +181,7 @@ public class ContactJsonFormUtils extends FormUtils {
         partialContact.setBaseEntityId(baseEntityId);
         partialContact.setContactNo(contact.getContactNumber());
         partialContact.setFinalized(false);
-
-        if (contact != null) {
-            partialContact.setType(contact.getFormName());
-        }
+        partialContact.setType(contact.getFormName());
 
         partialContact.setFormJsonDraft(contact.getJsonForm());
         AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
@@ -223,18 +220,12 @@ public class ContactJsonFormUtils extends FormUtils {
 
         } else if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
             JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-
                 if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
                     keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-
-
                     if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants
                             .SECONDARY_VALUE))) {
-
-
                         getRealSecondaryValue(jsonObject);
                     } else {
                         valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
@@ -396,10 +387,8 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     private static void populateValueMap(Map<String, String> vMap, JSONObject jsonObject) throws JSONException {
-
-        JSONObject valueObject = jsonObject;
-        String key = valueObject.getString(JsonFormConstants.KEY);
-        JSONArray values = valueObject.getJSONArray(JsonFormConstants.VALUES);
+        String key = jsonObject.getString(JsonFormConstants.KEY);
+        JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
         for (int k = 0; k < values.length(); k++) {
             String valuesString = values.getString(k);
             vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);

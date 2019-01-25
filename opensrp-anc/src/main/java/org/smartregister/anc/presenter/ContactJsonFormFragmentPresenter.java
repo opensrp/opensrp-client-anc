@@ -80,7 +80,6 @@ public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter 
             formUtils.showGenericDialog(view);
         } else if (view.getId() == com.vijay.jsonwizard.R.id.label_edit_button) {
             setRadioViewsEditable(view);
-
         } else {
             showInformationDialog(view);
         }
