@@ -9,6 +9,11 @@
         "key": "medications",
         "form": "anc_profile",
         "step": 6
+      },
+      "medications_other": {
+        "key": "medications_other",
+        "form": "anc_profile",
+        "step": 6
       }
     }
   ],
