@@ -54,7 +54,6 @@ public class PatientRepository {
                 detailsMap.put(DBConstants.KEY.CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.CONTACT_STATUS)));
                 detailsMap.put(DBConstants.KEY.NEXT_CONTACT, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT)));
                 detailsMap.put(DBConstants.KEY.NEXT_CONTACT_DATE, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT_DATE)));
-
             }
             return detailsMap;
         } catch (Exception e) {
