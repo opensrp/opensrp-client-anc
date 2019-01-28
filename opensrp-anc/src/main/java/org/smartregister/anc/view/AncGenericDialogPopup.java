@@ -85,6 +85,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
 
     @Override
     protected List<View> initiateViews() {
+        this.jsonApi.clearSkipLogicViews();
         List<View> listOfViews = new ArrayList<>();
         jsonFormInteractor
                 .fetchFields(listOfViews, getStepName(), getFormFragment(), getSpecifyContent(), getCommonListener(), true);
