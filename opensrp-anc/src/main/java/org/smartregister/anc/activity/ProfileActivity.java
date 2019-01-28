@@ -58,9 +58,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
 
-    private boolean isContactDoneToday;
-
-    public static final String DIALOG_TAG = "PROFILE_DIALOG_TAG";
+    private String buttonAlertStatus;
 
     @Override
     protected void initializePresenter() {
@@ -78,18 +76,16 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         nameView = findViewById(R.id.textview_name);
         imageView = findViewById(R.id.imageview_profile);
 
-        isContactDoneToday = getIsContactDoneTodayFlag();
-
+        getButtonAlertStatus();
     }
 
-    private boolean getIsContactDoneTodayFlag() {
+    private void getButtonAlertStatus() {
 
         pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT);
 
-        String buttonAlertStatus = Utils.processContactDoneToday(Utils.getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
-                "");
+        buttonAlertStatus = Utils.processContactDoneToday(Utils.getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
+                Utils.getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS).equals(Constants.ALERT_STATUS.ACTIVE) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
 
-        return buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY);
     }
 
     @Override
@@ -122,12 +118,24 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         if (itemId == android.R.id.home) {
             Utils.navigateToHomeRegister(this, false);
         } else {
+
+            String contactButtonText = getString(R.string.start_contact);
+
+            if (buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
+
+                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(Utils.getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT)));
+
+            } else if (buttonAlertStatus.equals(Constants.ALERT_STATUS.IN_PROGRESS)) {
+
+                contactButtonText = getString(R.string.continue_contact);
+            }
+
+
             AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
             arrayAdapter.add(getString(R.string.call));
-            arrayAdapter.add(isContactDoneToday ?
-                    String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(Utils.getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT))) : getString(R.string.start_contact));
+            arrayAdapter.add(contactButtonText);
             arrayAdapter.add(getString(R.string.close_anc_record));
 
             builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
@@ -140,7 +148,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                                 launchPhoneDialer(phoneNumber);
                                 break;
                             case Constants.START_CONTACT:
-                                if (!isContactDoneToday) {
+                            case Constants.CONTINUE_CONTACT:
+                                if (!buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
+
                                     String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
                                     if (StringUtils.isNotBlank(baseEntityId)) {

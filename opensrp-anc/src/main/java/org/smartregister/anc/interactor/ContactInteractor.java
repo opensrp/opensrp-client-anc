@@ -24,7 +24,6 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
-import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 
@@ -60,104 +59,91 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     @Override
     public void finalizeContactForm(final Map<String, String> details) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    String baseEntityId = details.get(DBConstants.KEY.BASE_ENTITY_ID);
-
-                    int gestationAge = getGestationAge(details);
-
-                    boolean isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
-                    ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
-
-                    List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
-
-                    int nextContactVisitWeeks = integerList.get(0);
-
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
-
-                    //convert String to LocalDate ;
-                    LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
-                    String nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
-
-                    Integer nextContact = getNextContact(details);
-
-
-                    AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
-
-                    PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
-
-                    PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
-
-                    List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
-
-                    Facts facts = new Facts();
-                    List<Event> eventList = new ArrayList<>();
-
-                    if (partialContactList != null) {
-
-                        for (PartialContact partialContact : partialContactList) {
-                            PreviousContact previousContact = new PreviousContact();
-                            previousContact.setContactNo(partialContact.getContactNo());
-                            previousContact.setBaseEntityId(partialContact.getBaseEntityId());
-                            previousContact.setFormJson(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
-                            previousContact.setType(partialContact.getType());
-
-
-                            //Save previous contact repository
-                            previousContactRepository.savePreviousContact(previousContact);
-
-                            if (previousContact.getFormJson() != null) {
-                                //process attention flags
-                                ContactJsonFormUtils.processRequiredStepsField(facts, new JSONObject(previousContact.getFormJson()), AncApplication.getInstance().getApplicationContext());
-                            }
-
-                            //Remove partial contact
-                            partialContactRepository.deletePartialContact(partialContact.getId());
-                        }
-                    }
-
-
-                    WomanDetail womanDetail = new WomanDetail();
-                    womanDetail.setBaseEntityId(baseEntityId);
-                    womanDetail.setNextContact(nextContact);
-                    womanDetail.setNextContactDate(nextContactVisitDate);
-                    womanDetail.setContactStatus(Constants.ALERT_STATUS.TODAY);
-
-
-                    processAttentionFlags(womanDetail, facts);
-
-                    PatientRepository.updateContactVisitDetails(womanDetail);
-
-                    //Attention Flags
-
-                    AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
-
-
-                    Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
-                    JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-
-                    //    getSyncHelper().addEvent(baseEntityId, eventJson);
-
-                } catch (Exception e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
-                }
-            }
-        };
-
-        appExecutors.diskIO().execute(runnable);
-
 
         try {
 
+            String baseEntityId = details.get(DBConstants.KEY.BASE_ENTITY_ID);
+
+            int gestationAge = getGestationAge(details);
+
+            boolean isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
+            ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
+
+            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper().getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+
+            int nextContactVisitWeeks = integerList.get(0);
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
+
+            //convert String to LocalDate ;
+            LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
+            String nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
+
+            Integer nextContact = getNextContact(details);
+
+
+            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
+
+            PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
+
+            PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
+
+            List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
+
+            Facts facts = new Facts();
+            List<Event> eventList = new ArrayList<>();
+
+            if (partialContactList != null) {
+
+                for (PartialContact partialContact : partialContactList) {
+                    PreviousContact previousContact = new PreviousContact();
+                    previousContact.setContactNo(partialContact.getContactNo());
+                    previousContact.setBaseEntityId(partialContact.getBaseEntityId());
+                    previousContact.setFormJson(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
+                    previousContact.setType(partialContact.getType());
+
+
+                    //Save previous contact repository
+                    previousContactRepository.savePreviousContact(previousContact);
+
+                    if (previousContact.getFormJson() != null) {
+                        //process attention flags
+                        ContactJsonFormUtils.processRequiredStepsField(facts, new JSONObject(previousContact.getFormJson()), AncApplication.getInstance().getApplicationContext());
+                    }
+
+                    //Remove partial contact
+                    partialContactRepository.deletePartialContact(partialContact.getId());
+                }
+            }
+
+
+            WomanDetail womanDetail = new WomanDetail();
+            womanDetail.setBaseEntityId(baseEntityId);
+            womanDetail.setNextContact(nextContact);
+            womanDetail.setNextContactDate(nextContactVisitDate);
+            womanDetail.setContactStatus(Constants.ALERT_STATUS.TODAY);
+
+
+            processAttentionFlags(womanDetail, facts);
+
+            PatientRepository.updateContactVisitDetails(womanDetail);
+
+            //Attention Flags
+
+            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
+
+
+            // Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
+            //JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+
+            //    getSyncHelper().addEvent(baseEntityId, eventJson);
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
     }
+
 
     public ECSyncHelper getSyncHelper() {
         if (syncHelper == null) {
@@ -199,7 +185,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
-        patientDetail.setRedFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAG.RED));
-        patientDetail.setYellowFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW));
+        Integer redCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.RED);
+        Integer yellowCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW);
+        patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
+        patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
     }
 }

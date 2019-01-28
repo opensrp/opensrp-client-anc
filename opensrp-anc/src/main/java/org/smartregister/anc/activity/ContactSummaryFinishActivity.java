@@ -86,6 +86,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
+            PatientRepository.updateEDDDateTemporary(baseEntityId, null); //Reset EDD
             super.onBackPressed();
         } else {
             saveFinishForm();
@@ -257,20 +258,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                     String edd = facts.get(DBConstants.KEY.EDD);
 
                     if (edd != null) {
-                        try {
 
-                            PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+                        PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
-                            saveFinishMenuItem.setEnabled(true);
-
-                        } catch (IllegalArgumentException e) {
-                            saveFinishMenuItem.setEnabled(false);
-                        }
+                        saveFinishMenuItem.setEnabled(true);
 
                     }
 
                     ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, yamlConfigList, facts);
-
 
                     // set up the RecyclerView
                     RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);

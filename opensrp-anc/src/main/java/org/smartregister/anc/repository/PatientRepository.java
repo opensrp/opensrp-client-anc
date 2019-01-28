@@ -9,7 +9,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.WomanDetail;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.Repository;
@@ -95,6 +94,17 @@ public class PatientRepository {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstants.KEY.EDD, edd);
         contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
+
+    public static void updateEDDDateTemporary(String baseEntityId, String edd) {
+
+        ContentValues contentValues = new ContentValues();
+        if (edd != null) {
+            contentValues.put(DBConstants.KEY.EDD, edd);
+        } else {
+            contentValues.putNull(DBConstants.KEY.EDD);
+        }
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
     }
 

@@ -28,6 +28,7 @@ public abstract class Constants {
     public static final String DANGER_NONE = "danger_none";
     public static final String CALL = "Call";
     public static final String START_CONTACT = "Start Contact";
+    public static final String CONTINUE_CONTACT = "Continue Contact";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
