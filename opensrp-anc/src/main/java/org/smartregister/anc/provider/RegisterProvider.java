@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +31,9 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Set;
 
-import static org.smartregister.anc.util.Utils.DB_DF;
 import static org.smartregister.anc.util.Utils.getName;
 
 /**
@@ -164,9 +160,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.dueButton.setVisibility(View.VISIBLE);
 
-                String contactStatus = getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS);
+                String contactStatus = Utils.getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS);
 
-                String nextContactDate = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT_DATE);
+                String nextContactDate = Utils.getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT_DATE);
                 String edd = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.EDD, false);
                 String buttonAlertStatus;
                 Integer gestationAge = 0;
@@ -182,7 +178,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 }
 
                 //Set text first
-                String nextContact = getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
+                String nextContact = Utils.getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT);
 
                 nextContactDate =
                         StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") :
@@ -192,7 +188,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                                 Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
                 viewHolder.dueButton.setTag(R.id.GESTATION_AGE, gestationAge);
 
-                buttonAlertStatus = processContactDoneToday(getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
+                buttonAlertStatus = Utils.processContactDoneToday(Utils.getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
                         buttonAlertStatus);
 
                 processButtonAlertStatus(viewHolder, buttonAlertStatus, nextContact);
@@ -244,7 +240,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
                 viewHolder.dueButton.setVisibility(View.GONE);
                 viewHolder.contact_today_text.setVisibility(View.VISIBLE);
                 viewHolder.contact_today_text.setText(
-                        String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
+                        String.format(context.getString(R.string.contact_recorded_today), Utils.getTodayContact(nextContact)));
                 viewHolder.contact_today_text.setPadding(2, 2, 2, 2);
 
                 /*viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
@@ -391,37 +387,5 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             previousPageView = view.findViewById(org.smartregister.R.id.btn_previous_page);
             pageInfoView = view.findViewById(org.smartregister.R.id.txt_page_info);
         }
-    }
-
-    private String getColumnMapValue(CommonPersonObjectClient pc, String key) {
-        return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
-    }
-
-    private String processContactDoneToday(String lastContactDate, String alertStatus) {
-        String result = alertStatus;
-
-        if (!TextUtils.isEmpty(lastContactDate)) {
-
-            try {
-                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY :
-                        alertStatus;
-            } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-
-        return result;
-    }
-
-    private Integer getTodayContact(String nextContact) {
-        Integer todayContact = 1;
-        try {
-            todayContact = Integer.valueOf(nextContact) - 1;
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-        return todayContact;
     }
 }

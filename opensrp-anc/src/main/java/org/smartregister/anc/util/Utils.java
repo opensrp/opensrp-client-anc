@@ -10,6 +10,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -34,16 +35,16 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseContactActivity;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.activity.ContactSummaryFinishActivity;
+import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.MainContactActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.BaseEvent;
-import org.smartregister.anc.model.BaseContactModel;
 import org.smartregister.anc.model.ContactModel;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.view.activity.BaseRegisterActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -252,10 +253,9 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
-     *
      * @author martinndegwa
      */
-    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
+    public static void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
 
         try {
 
@@ -317,12 +317,11 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
-     *
      * @return true|false {@link Boolean}
      * @throws Exception
      * @author martinndegwa
      */
-    private boolean hasPendingRequiredFields(JSONObject object) throws Exception {
+    public static boolean hasPendingRequiredFields(JSONObject object) throws Exception {
         if (object != null) {
             Iterator<String> keys = object.keys();
 
@@ -358,7 +357,6 @@ public class Utils extends org.smartregister.util.Utils {
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
-     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context) {
@@ -387,5 +385,44 @@ public class Utils extends org.smartregister.util.Utils {
         }
 
         return stringValueResult;
+    }
+
+    public static void navigateToHomeRegister(Context context, boolean isRemote) {
+        Intent intent = new Intent(context, HomeRegisterActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, isRemote);
+        context.startActivity(intent);
+    }
+
+    public static String getColumnMapValue(CommonPersonObjectClient pc, String key) {
+        return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
+    }
+
+    public static String processContactDoneToday(String lastContactDate, String alertStatus) {
+        String result = alertStatus;
+
+        if (!TextUtils.isEmpty(lastContactDate)) {
+
+            try {
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY :
+                        alertStatus;
+            } catch (ParseException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+
+        return result;
+    }
+
+    public static Integer getTodayContact(String nextContact) {
+        Integer todayContact = 1;
+        try {
+            todayContact = Integer.valueOf(nextContact) - 1;
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        return todayContact;
     }
 }

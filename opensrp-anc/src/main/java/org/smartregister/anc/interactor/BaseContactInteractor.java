@@ -7,7 +7,7 @@ import org.smartregister.anc.util.AppExecutors;
 import java.util.Map;
 
 public abstract class BaseContactInteractor {
-    private AppExecutors appExecutors;
+    protected AppExecutors appExecutors;
 
     BaseContactInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;

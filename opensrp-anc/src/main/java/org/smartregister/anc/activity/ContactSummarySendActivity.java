@@ -114,4 +114,8 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Utils.navigateToHomeRegister(this, false);
+    }
 }

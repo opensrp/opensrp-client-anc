@@ -713,4 +713,31 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         return "";
     }
+
+
+    public static Event createContactVisitEvent(List<Event> events, String baseEntityId) {
+
+        try {
+
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(baseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType(Constants.EventType.CONTACT_VISIT)
+                    .withEntityType(Constants.EventType.CONTACT_VISIT)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+                    //.withEvents(events);
+
+            JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(), event);
+
+            return event;
+
+        } catch (
+                Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            return null;
+        }
+
+    }
 }
