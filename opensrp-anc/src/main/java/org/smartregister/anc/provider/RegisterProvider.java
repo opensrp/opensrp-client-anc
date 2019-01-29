@@ -257,6 +257,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             default:
                 viewHolder.dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                 viewHolder.dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                viewHolder.contact_today_text.setVisibility(View.GONE);
                 break;
 
         }
