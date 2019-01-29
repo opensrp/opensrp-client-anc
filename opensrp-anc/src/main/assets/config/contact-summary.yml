@@ -895,7 +895,7 @@ fields:
 group: birth_plan_counseling
 fields:
 
-- template: "Planned birth place: {delivery_place}"
+- template: "Planned birth place: {delivery_place_value}"
   relevance: "delivery_place != ''"
 
 - template: "Birth preparedness and complications readiness counseling done"

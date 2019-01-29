@@ -832,7 +832,8 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "ct_hepc_positive_counsel_sub_form",
-        "content_form_location": "json.form/sub_form/ct_diagnoses"
+        "content_form_location": "json.form/sub_form/ct_diagnoses",
+        "container": "anc_counselling_treatment"
       },
       {
         "key": "accordion_syphilis_low_prev_counsel",
