@@ -17,6 +17,22 @@
       }
     }
   ],
+  "global_previous": [
+    {
+      "medications": {
+        "key": "medications",
+        "form": "anc_symptoms_follow_up",
+        "step": 1
+      }
+    },
+    {
+      "medications_other": {
+        "key": "medications_other",
+        "form": "anc_symptoms_follow_up",
+        "step": 1
+      }
+    }
+  ],
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",

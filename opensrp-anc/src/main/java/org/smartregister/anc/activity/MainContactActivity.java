@@ -521,18 +521,18 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                     if (mapValue != null) {
                                         fieldObject.put(JsonFormConstants.VALUE, mapValue);
                                     }
-                                } else if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
-                                    List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
+                                    if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
+                                        List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
 
-                                    for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
+                                        for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
 
-                                        if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
-                                            stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                            if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
+                                                stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                            }
+
                                         }
-
                                     }
                                 }
-
                             }
 
                             if (globalValuesMap.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {

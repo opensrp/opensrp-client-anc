@@ -13,7 +13,7 @@ fields:
 - template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1 && global_contact_no == 1"
 
-- template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
+- template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia_value}"
   relevance: "hypertension == 1 && symp_sev_preeclampsia!=''"
 
 - template: "Pre-eclampsia diagnosis"
