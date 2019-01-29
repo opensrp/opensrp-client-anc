@@ -32,8 +32,8 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -187,12 +187,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private void saveFinishForm() {
         try {
 
-            Map<String, String> womanProfileDetails = PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
             mProfilePresenter.saveFinishForm(womanProfileDetails);
 
             Intent contactSummaryIntent = new Intent(this, ContactSummarySendActivity.class);
             contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+            contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanProfileDetails);
 
             startActivity(contactSummaryIntent);
 
@@ -259,7 +260,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     if (edd != null) {
 
-                        PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+                        PatientRepository.updateEDDDateTemporary(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
                         saveFinishMenuItem.setEnabled(true);
 

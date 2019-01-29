@@ -117,11 +117,11 @@ public abstract class Constants {
     public static final class INTENT_KEY {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
-        public static final String CLIENT = "client";
         public static final String TO_RESCHEDULE = "to_reschedule";
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
         public static final String CONTACT_NO = "contact_number";
         public static final String FORM_NAME = "form_name";
+        public static final String CLIENT_MAP = "client_map";
     }
 
     public static class OPENMRS {

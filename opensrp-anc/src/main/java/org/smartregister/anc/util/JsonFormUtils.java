@@ -719,7 +719,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         try {
 
-
             Event event = (Event) new Event()
                     .withBaseEntityId(baseEntityId)
                     .withEventDate(new Date())
@@ -727,7 +726,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .withEntityType(Constants.EventType.CONTACT_VISIT)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(new Date());
-                    //.withEvents(events);
+            //.withEvents(events);
 
             JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(), event);
 

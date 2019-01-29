@@ -37,10 +37,12 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -54,7 +56,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private TextView ancIdView;
     private ImageView imageView;
     private String phoneNumber;
-    private CommonPersonObjectClient pc;
+    private HashMap<String, String> detailMap;
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
 
@@ -81,10 +83,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     private void getButtonAlertStatus() {
 
-        pc = (CommonPersonObjectClient) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT);
+        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
 
-        buttonAlertStatus = Utils.processContactDoneToday(Utils.getColumnMapValue(pc, DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
-                Utils.getColumnMapValue(pc, DBConstants.KEY.CONTACT_STATUS).equals(Constants.ALERT_STATUS.ACTIVE) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
+        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
+                detailMap.get(DBConstants.KEY.CONTACT_STATUS).equals(Constants.ALERT_STATUS.ACTIVE) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
 
     }
 
@@ -123,7 +125,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             if (buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
 
-                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(Utils.getColumnMapValue(pc, DBConstants.KEY.NEXT_CONTACT)));
+                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
 
             } else if (buttonAlertStatus.equals(Constants.ALERT_STATUS.IN_PROGRESS)) {
 
@@ -151,10 +153,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                             case Constants.CONTINUE_CONTACT:
                                 if (!buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
 
-                                    String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+                                    String baseEntityId = detailMap.get(DBConstants.KEY.BASE_ENTITY_ID);
 
                                     if (StringUtils.isNotBlank(baseEntityId)) {
-                                        Utils.proceedToContact(baseEntityId, pc, ProfileActivity.this);
+                                        Utils.proceedToContact(baseEntityId, detailMap, ProfileActivity.this);
                                     }
                                 }
                                 break;

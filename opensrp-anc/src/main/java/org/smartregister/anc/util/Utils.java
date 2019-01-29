@@ -37,6 +37,7 @@ import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.activity.MainContactActivity;
+import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.BaseEvent;
@@ -51,6 +52,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -255,7 +257,7 @@ public class Utils extends org.smartregister.util.Utils {
      * @param context            {@link Context}
      * @author martinndegwa
      */
-    public static void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient, Context context) {
+    public static void proceedToContact(String baseEntityId, HashMap<String, String> personObjectClient, Context context) {
 
         try {
 
@@ -264,7 +266,7 @@ public class Utils extends org.smartregister.util.Utils {
             Contact quickCheck = new Contact();
             quickCheck.setName(context.getResources().getString(R.string.quick_check));
             quickCheck.setFormName(Constants.JSON_FORM.ANC_QUICK_CHECK);
-            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
+            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.get(DBConstants.KEY.NEXT_CONTACT)));
             quickCheck.setBackground(R.drawable.quick_check_bg);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackIcon(R.drawable.ic_clear);
@@ -290,7 +292,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, processedForm);
                 intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
-                intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
+                intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
                 Activity activity = (Activity) context;
@@ -298,10 +300,9 @@ public class Utils extends org.smartregister.util.Utils {
             } else {
                 intent = new Intent(context, MainContactActivity.class);
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-                intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
+                intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                        Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
+                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.get(DBConstants.KEY.NEXT_CONTACT)));
                 context.startActivity(intent);
             }
 
@@ -309,7 +310,7 @@ public class Utils extends org.smartregister.util.Utils {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             Utils.showToast(context, "Error proceeding to contact for client " +
-                    personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
+                    personObjectClient.get(DBConstants.KEY.FIRST_NAME));
         }
     }
 
@@ -359,16 +360,14 @@ public class Utils extends org.smartregister.util.Utils {
      * @param context {@link Activity}
      * @author martinndegwa
      */
-    public static void finalizeForm(Activity context) {
+    public static void finalizeForm(Activity context, HashMap<String, String> womanDetails) {
         try {
-            CommonPersonObjectClient pc =
-                    (CommonPersonObjectClient) context.getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT);
 
             Intent contactSummaryFinishIntent = new Intent(context, ContactSummaryFinishActivity.class);
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, pc.getCaseId());
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT, pc);
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID));
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanDetails);
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                    Integer.valueOf(pc.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
+                    Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             context.startActivity(contactSummaryFinishIntent);
         } catch (Exception e) {
             Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
@@ -391,6 +390,15 @@ public class Utils extends org.smartregister.util.Utils {
         Intent intent = new Intent(context, HomeRegisterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, isRemote);
+        context.startActivity(intent);
+    }
+
+
+    public static void navigateToProfile(Context context, HashMap<String, String> patient) {
+
+        Intent intent = new Intent(context, ProfileActivity.class);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.get(DBConstants.KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, patient);
         context.startActivity(intent);
     }
 

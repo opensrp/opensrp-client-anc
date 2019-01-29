@@ -77,7 +77,7 @@ public class PatientRepository {
         return AncApplication.getInstance().getRepository();
     }
 
-    public static void updateContactVisitDetails(WomanDetail patientDetail) {
+    public static void updateContactVisitDetails(WomanDetail patientDetail, boolean isFinalize) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstants.KEY.NEXT_CONTACT, patientDetail.getNextContact());
@@ -86,15 +86,10 @@ public class PatientRepository {
         contentValues.put(DBConstants.KEY.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
         contentValues.put(DBConstants.KEY.CONTACT_STATUS, patientDetail.getContactStatus());
-
+        if (isFinalize) {
+            contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+        }
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{patientDetail.getBaseEntityId()});
-    }
-
-    public static void updateEDD(String baseEntityId, String edd) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBConstants.KEY.EDD, edd);
-        contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
-        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
     }
 
     public static void updateEDDDateTemporary(String baseEntityId, String edd) {
@@ -102,6 +97,7 @@ public class PatientRepository {
         ContentValues contentValues = new ContentValues();
         if (edd != null) {
             contentValues.put(DBConstants.KEY.EDD, edd);
+            contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
         } else {
             contentValues.putNull(DBConstants.KEY.EDD);
         }

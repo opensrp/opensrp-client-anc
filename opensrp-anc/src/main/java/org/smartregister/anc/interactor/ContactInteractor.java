@@ -24,6 +24,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 
@@ -127,17 +128,17 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             processAttentionFlags(womanDetail, facts);
 
-            PatientRepository.updateContactVisitDetails(womanDetail);
+            PatientRepository.updateContactVisitDetails(womanDetail, true);
 
             //Attention Flags
 
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
 
 
-            // Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
-            //JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
-            //    getSyncHelper().addEvent(baseEntityId, eventJson);
+            //getSyncHelper().addEvent(baseEntityId, eventJson);
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);

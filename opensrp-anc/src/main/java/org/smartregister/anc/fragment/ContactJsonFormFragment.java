@@ -40,6 +40,8 @@ import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
 
+import java.util.HashMap;
+
 
 /**
  * Created by ndegwamartin on 30/06/2018.
@@ -295,7 +297,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 Contact contact = getContact();
                 contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
                 ContactJsonFormUtils.persistPartial(baseEntityId, contact);
-                Utils.finalizeForm(getActivity());
+
+                Utils.finalizeForm(getActivity(), ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)));
+
                 dialog.dismiss();
             }
         });
