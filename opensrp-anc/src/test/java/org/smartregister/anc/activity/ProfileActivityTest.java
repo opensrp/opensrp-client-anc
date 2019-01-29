@@ -26,8 +26,11 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.R;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
+
+import java.util.HashMap;
 
 
 /**
@@ -70,6 +73,10 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         MockitoAnnotations.initMocks(this);
         Intent testIntent = new Intent();
         testIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        HashMap<String, String> map = new HashMap<>();
+        map.put(DBConstants.KEY.CONTACT_STATUS, Constants.ALERT_STATUS.ACTIVE);
+        map.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, "10-12-2018");
+        testIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, map);
         controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start();
 
         profileActivity = controller.get();
@@ -315,7 +322,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
 
-        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.ic_woman_with_baby);
+        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.avatar_woman);
 
     }
 

@@ -200,7 +200,7 @@ public class PartialContactRepository extends BaseRepository {
         getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET " + FORM_JSON + "=" + FORM_JSON_DRAFT + ", " + FORM_JSON_DRAFT + "= NULL WHERE " + BASE_ENTITY_ID + " = ? AND " + FORM_JSON_DRAFT + " IS NOT NULL", new String[]{baseEntityId});
 
         PatientRepository patientRepository = new PatientRepository();
-        patientRepository.updateWomanProfileDetails(baseEntityId, Constants.ALERT_STATUS.ACTIVE);
+        patientRepository.updateWomanAlertStatus(baseEntityId, Constants.ALERT_STATUS.ACTIVE);
     }
 
     public void deletePartialContact(Long id) {

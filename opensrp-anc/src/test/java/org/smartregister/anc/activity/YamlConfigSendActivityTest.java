@@ -14,6 +14,7 @@ import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.util.Constants;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import static org.robolectric.Shadows.shadowOf;
@@ -29,6 +30,7 @@ public class YamlConfigSendActivityTest extends BaseUnitTest {
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummarySendActivity.class);
         contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, new HashMap<>());
         activityController = Robolectric.buildActivity(ContactSummarySendActivity.class,
                 contactSummaryActivityIntent);
     }
