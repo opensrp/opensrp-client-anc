@@ -285,4 +285,6 @@
     <string name="save_and_finish">SAVE + FINISH</string>
     <string name="reason_for_visit">REASON FOR VISIT</string>
     <string name="contact_recorded_today">CONTACT %1$d\ndone today</string>
+    <string name="contact_recorded_today_no_break">CONTACT %1$d done today</string>
+    <string name="continue_contact">Continue Contact</string>
 </resources>

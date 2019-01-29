@@ -61,13 +61,13 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     protected String container;
     private LinearLayout linearLayout;
 
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        context = activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+        activity = (Activity) context;
         jsonApi = (JsonApi) activity;
-        jsonApi.invokeRefreshLogic(null, true, null, null);
+        jsonApi.invokeRefreshLogic(null, false, null, null);
         JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
         ancJsonApi.setGenericPopup(this);
     }
@@ -84,15 +84,12 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     }
 
     @Override
-    protected void initiateViews(ViewGroup dialogView) {
+    protected List<View> initiateViews() {
+        this.jsonApi.clearSkipLogicViews();
         List<View> listOfViews = new ArrayList<>();
         jsonFormInteractor
                 .fetchFields(listOfViews, getStepName(), getFormFragment(), getSpecifyContent(), getCommonListener(), true);
-
-        LinearLayout genericDialogContent = dialogView.findViewById(R.id.generic_dialog_content);
-        for (View view : listOfViews) {
-            genericDialogContent.addView(view);
-        }
+        return listOfViews;
     }
 
     @Override
@@ -119,7 +116,6 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     @Override
     public void onResume() {
         super.onResume();
-        jsonApi.invokeRefreshLogic(null, true, null, null);
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -222,7 +218,11 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
                 }
             };
 
-            initiateViews(dialogView);
+            List<View> viewList = initiateViews();
+            LinearLayout genericDialogContent = dialogView.findViewById(R.id.generic_dialog_content);
+            for (View view : viewList) {
+                genericDialogContent.addView(view);
+            }
 
             cancelButton = dialogView.findViewById(R.id.generic_dialog_cancel_button);
             cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -245,6 +245,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
             if (getDialog().getWindow() != null) {
                 getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             }
+            jsonApi.invokeRefreshLogic(null, true, null, null);
             return dialogView;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);

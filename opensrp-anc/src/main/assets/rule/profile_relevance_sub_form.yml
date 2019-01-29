@@ -115,7 +115,7 @@ actions:
 name: step4_hiv_diagnosis_date
 description: hiv_diagnosis_date
 priority: 1
-condition: "step4_health_conditions.contains('hiv') && !step4_hiv_diagnosis_date_unknown.contains('hiv_diagnosis_date_unknown')"
+condition: "step4_health_conditions.contains('hiv') && !step4_hiv_diagnosis_date_unknown.contains('yes')"
 actions:
   - "isRelevant = true"
 ---

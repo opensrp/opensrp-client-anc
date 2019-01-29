@@ -11,7 +11,6 @@ import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,23 +153,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONArray options = getJSONArray(dobUnknownObject, Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
-            if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
 
-                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-                    int age = Integer.valueOf(ageString);
-                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-                    dobJSONObject.put(VALUE, Utils.getDob(age));
-
-                    //Mark the birth date as an approximation
-                    JSONObject isBirthdateApproximate = new JSONObject();
-                    isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-                    isBirthdateApproximate.put(Constants.KEY.VALUE, Constants.BOOLEAN_INT.TRUE);
-                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
-                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-                    fields.put(isBirthdateApproximate);
-
-                }
+            if (StringUtils.isNotBlank(dobUnKnownString)) {
+                dobUnknownObject.put(VALUE, Boolean.valueOf(dobUnKnownString) ? 1 : 0);
             }
 
             //initialize first contact values
@@ -179,17 +164,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             JSONObject nextContactDateJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT_DATE);
             nextContactDateJSONObject.put(VALUE, Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF));
-
-
-//Temporary process EDD
-            if (getFieldJSONObject(fields, DBConstants.KEY.EDD) != null) {
-
-                String edd = getFieldJSONObject(fields, DBConstants.KEY.EDD).get("value").toString();
-                edd = Utils.reverseHyphenSeperatedValues(edd, "-");
-                JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
-                dobJSONObject.put(VALUE, edd);
-
-            }
 
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();
@@ -394,7 +368,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
             optionsObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.DOB_UNKNOWN));
 
-        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
+        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.AGE_ENTERED)) {
 
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             if (StringUtils.isNotBlank(womanClient.get(DBConstants.KEY.DOB))) {
@@ -627,9 +601,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return event;
 
         } catch (
-                Exception e)
-
-        {
+                Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
@@ -740,5 +712,32 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
 
         return "";
+    }
+
+
+    public static Event createContactVisitEvent(List<Event> events, String baseEntityId) {
+
+        try {
+
+
+            Event event = (Event) new Event()
+                    .withBaseEntityId(baseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType(Constants.EventType.CONTACT_VISIT)
+                    .withEntityType(Constants.EventType.CONTACT_VISIT)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(new Date());
+                    //.withEvents(events);
+
+            JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(), event);
+
+            return event;
+
+        } catch (
+                Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            return null;
+        }
+
     }
 }

@@ -28,6 +28,7 @@ public abstract class Constants {
     public static final String DANGER_NONE = "danger_none";
     public static final String CALL = "Call";
     public static final String START_CONTACT = "Start Contact";
+    public static final String CONTINUE_CONTACT = "Continue Contact";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
@@ -58,6 +59,7 @@ public abstract class Constants {
         public static final String QUICK_CHECK = "Quick Check";
         public static final String CLOSE = "ANC Close";
         public static final String SITE_CHARACTERISTICS = "Site Characteristics";
+        public static final String CONTACT_VISIT = "Contact Visit";
     }
 
     public static class JSON_FORM {
@@ -102,6 +104,7 @@ public abstract class Constants {
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
+        public static final String AGE_ENTERED = "age_entered";
         public static final String STEP = "step";
         public static final String TYPE = "type";
         public static final String FORM = "form";
@@ -153,6 +156,7 @@ public abstract class Constants {
         public static final String IN_PROGRESS = "in_progress";
         public static final String EXPIRED = "expired";
         public static final String TODAY = "today";
+        public static final String ACTIVE = "active";
     }
 
     public static class FILE_CATEGORY {

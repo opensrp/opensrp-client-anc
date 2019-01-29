@@ -103,7 +103,6 @@ priority: 1
 condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
 actions:
   - "isRelevant = true"
-
 ---
 name: step4_fetal_movement
 description: Fetal movement
@@ -202,3 +201,45 @@ priority: 1
 condition: "true"
 actions:
   - "isRelevant = true"
+---
+name: step3_toaster22
+description: toaster22
+priority: 1
+condition: "step3_cardiac_exam == 3"
+actions:
+- "isRelevant = true"
+---
+name: step3_toaster23
+description: toaster23
+priority: 1
+condition: "step3_breast_exam == 3"
+actions:
+- "isRelevant = true"
+---
+name: step3_toaster24
+description: toaster24
+priority: 1
+condition: "step3_abdominal_exam == 3"
+actions:
+- "isRelevant = true"
+---
+name: step3_toaster25
+description: toaster25
+priority: 1
+condition: "step3_pelvic_exam == 3"
+actions:
+- "isRelevant = true"
+---
+name: step3_toaster26
+description: toaster26
+priority: 1
+condition: "step3_cervical_exam == 3"
+actions:
+- "isRelevant = true"
+---
+name: step4_no_of_fetuses_unknown
+description: no_of_fetuses_unknown
+priority: 1
+condition: "step4_no_of_fetuses.isEmpty()"
+actions:
+- "isRelevant = true"

@@ -1405,9 +1405,10 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step3:cardiac_exam": {
-            "type": "string",
-            "ex": "equalTo(., \"3\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1459,9 +1460,10 @@
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
-          "step3:breast_exam": {
-            "type": "string",
-            "ex": "equalTo(., \"3\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1513,9 +1515,10 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step3:abdominal_exam": {
-            "type": "string",
-            "ex": "equalTo(., \"3\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1567,9 +1570,10 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step3:pelvic_exam": {
-            "type": "string",
-            "ex": "equalTo(., \"3\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1618,9 +1622,10 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step3:dilation_cm": {
-            "type": "numeric",
-            "ex": "greaterThan(., \"2\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -2021,7 +2026,14 @@
             "text": "No. of fetuses unknown",
             "value": "false"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "preeclampsia_risk",

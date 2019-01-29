@@ -12,6 +12,7 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
+import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -24,8 +25,10 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +41,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     public static final String TAG = ContactInteractor.class.getName();
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
+    private ECSyncHelper syncHelper;
 
     @VisibleForTesting
     ContactInteractor(AppExecutors appExecutors) {
@@ -54,7 +58,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     @Override
-    public void finalizeContactForm(Map<String, String> details) {
+    public void finalizeContactForm(final Map<String, String> details) {
+
         try {
 
             String baseEntityId = details.get(DBConstants.KEY.BASE_ENTITY_ID);
@@ -87,6 +92,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
 
             Facts facts = new Facts();
+            List<Event> eventList = new ArrayList<>();
 
             if (partialContactList != null) {
 
@@ -116,6 +122,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             womanDetail.setBaseEntityId(baseEntityId);
             womanDetail.setNextContact(nextContact);
             womanDetail.setNextContactDate(nextContactVisitDate);
+            womanDetail.setContactStatus(Constants.ALERT_STATUS.TODAY);
 
 
             processAttentionFlags(womanDetail, facts);
@@ -126,9 +133,23 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
 
+
+            // Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
+            //JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+
+            //    getSyncHelper().addEvent(baseEntityId, eventJson);
+
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage(), e);
         }
+    }
+
+
+    public ECSyncHelper getSyncHelper() {
+        if (syncHelper == null) {
+            syncHelper = ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext());
+        }
+        return syncHelper;
     }
 
     private int getGestationAge(Map<String, String> details) {
@@ -164,7 +185,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
-        patientDetail.setRedFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAG.RED));
-        patientDetail.setYellowFlagCount(attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW));
+        Integer redCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.RED);
+        Integer yellowCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW);
+        patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
+        patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
     }
 }

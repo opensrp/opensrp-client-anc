@@ -53,7 +53,6 @@ public class PatientRepository {
                 detailsMap.put(DBConstants.KEY.CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.CONTACT_STATUS)));
                 detailsMap.put(DBConstants.KEY.NEXT_CONTACT, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT)));
                 detailsMap.put(DBConstants.KEY.NEXT_CONTACT_DATE, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT_DATE)));
-
             }
             return detailsMap;
         } catch (Exception e) {
@@ -66,9 +65,9 @@ public class PatientRepository {
         return null;
     }
 
-    public static void updateWomanProfileDetails(String baseEntityId) {
+    public static void updateWomanProfileDetails(String baseEntityId, String alertStatus) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBConstants.KEY.CONTACT_STATUS, "active");
+        contentValues.put(DBConstants.KEY.CONTACT_STATUS, alertStatus);
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
         getMasterRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
@@ -86,6 +85,7 @@ public class PatientRepository {
         contentValues.put(DBConstants.KEY.YELLOW_FLAG_COUNT, patientDetail.getYellowFlagCount());
         contentValues.put(DBConstants.KEY.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
+        contentValues.put(DBConstants.KEY.CONTACT_STATUS, patientDetail.getContactStatus());
 
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{patientDetail.getBaseEntityId()});
     }
@@ -94,6 +94,17 @@ public class PatientRepository {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstants.KEY.EDD, edd);
         contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
+
+    public static void updateEDDDateTemporary(String baseEntityId, String edd) {
+
+        ContentValues contentValues = new ContentValues();
+        if (edd != null) {
+            contentValues.put(DBConstants.KEY.EDD, edd);
+        } else {
+            contentValues.putNull(DBConstants.KEY.EDD);
+        }
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
     }
 

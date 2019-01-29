@@ -55,7 +55,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String parentKey = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
         CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
-        CustomTextView reasonsTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.popup_reasons_textview);
+        CustomTextView reasonsTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_reasons_textview);
         String toolbarHeader = "";
         String container = "";
         LinearLayout rootLayout = (LinearLayout) view.getTag(R.id.main_layout);

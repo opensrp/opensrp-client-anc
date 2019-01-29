@@ -343,7 +343,7 @@ fields:
 - template: "Non-pharmacological options for varicose veins and oedema counseling not done: {varicose_oedema_counsel_notdone_value}"
   relevance: "varicose_oedema_counsel == 'Not done'"
 
-- template: "Other persisting symptoms: {other_symptoms_persist}"
+- template: "Other persisting symptoms: {other_symptoms_persist_value}"
   relevance: "other_symptoms_persist != ''"
 
 - template: "Other symptoms: {other_symptoms_value}"
