@@ -35,7 +35,7 @@ import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.anc.view.AncGenericDialogPopup;
+import org.smartregister.anc.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -271,7 +271,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
                             genericDialogInterface.addSelectedValues(formUtils.createAssignedValue(genericDialogInterface, keyAtIndex,
                                     "", value, itemType, itemText));
-                            setExtraFieldsWithValues(fields);
                         }
                         item.put(JsonFormConstants.VALUE, itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ? item
                                 .has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ? item
@@ -323,7 +322,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                             if (popup) {
                                 genericDialogInterface.addSelectedValues(formUtils.createAssignedValue(genericDialogInterface,
                                         keyAtIndex, childKey, value, itemType.toString(), itemText));
-                                setExtraFieldsWithValues(fields);
 
                             }
                             if (!TextUtils.isEmpty(formName) && formName.equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
@@ -509,7 +507,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     @Override
-    public void setGenericPopup(AncGenericDialogPopup context) {
+    public void setGenericPopup(AncGenericPopupDialog context) {
         genericDialogInterface = context;
     }
 

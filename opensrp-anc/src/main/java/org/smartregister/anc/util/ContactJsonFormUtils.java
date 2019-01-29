@@ -29,7 +29,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
-import org.smartregister.anc.view.AncGenericDialogPopup;
+import org.smartregister.anc.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +66,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String childKey;
 
         if (specifyContent != null) {
-            AncGenericDialogPopup genericPopupDialog = new AncGenericDialogPopup();
+            AncGenericPopupDialog genericPopupDialog = new AncGenericPopupDialog();
             genericPopupDialog.setCommonListener(listener);
             genericPopupDialog.setFormFragment(formFragment);
             genericPopupDialog.setFormIdentity(specifyContent);

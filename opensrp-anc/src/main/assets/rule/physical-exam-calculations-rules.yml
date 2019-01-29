@@ -44,7 +44,7 @@ actions:
 name: step1_weight_gain_date
 description: Todays date
 priority: 1
-condition: "global_contact_no > 1 "
+condition: "global_contact_no > 1 && !global_last_contact_date.isEmpty"
 actions:
 - "calculation = helper.getDifferenceDays(global_last_contact_date)"
 ---

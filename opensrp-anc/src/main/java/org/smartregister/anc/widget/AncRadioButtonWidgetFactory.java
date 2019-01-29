@@ -15,6 +15,7 @@ import com.rey.material.util.ViewUtil;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
@@ -50,6 +51,8 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
             String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
             String openMrsEntityId = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
             String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
+            String constraints = jsonObject.optString(JsonFormConstants.CONSTRAINTS);
+            String calculation = jsonObject.optString(JsonFormConstants.CALCULATION);
             LinearLayout.LayoutParams layoutParams =
                     FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.WRAP_CONTENT, 1, 3, 1, 3);
             RadioGroup radioGroup = getRootLayout(context);
@@ -61,13 +64,27 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
             radioGroup.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_parent, openMrsEntityParent);
             radioGroup.setTag(com.vijay.jsonwizard.R.id.openmrs_entity, openMrsEntity);
             radioGroup.setTag(com.vijay.jsonwizard.R.id.openmrs_entity_id, openMrsEntityId);
-            radioGroup.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
             radioGroup.setTag(com.vijay.jsonwizard.R.id.extraPopup, popup);
             radioGroup.setTag(com.vijay.jsonwizard.R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
             radioGroup.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
             radioGroup
                     .setTag(com.vijay.jsonwizard.R.id.address, stepName + ":" + jsonObject.getString(JsonFormConstants
                             .KEY));
+
+            if (!TextUtils.isEmpty(relevance) && context instanceof JsonApi) {
+                radioGroup.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
+                ((JsonApi)context).addSkipLogicView(radioGroup);
+            }
+
+            if (!TextUtils.isEmpty(constraints) && context instanceof JsonApi) {
+                radioGroup.setTag(com.vijay.jsonwizard.R.id.constraints, constraints);
+                ((JsonApi)context).addConstrainedView(radioGroup);
+            }
+
+            if (!TextUtils.isEmpty(calculation) && context instanceof JsonApi) {
+                radioGroup.setTag(com.vijay.jsonwizard.R.id.calculation, calculation);
+                ((JsonApi)context).addCalculationLogicView(radioGroup);
+            }
             addRadioButtons(stepName, context, jsonObject, commonListener, popup, radioGroup, readOnly, canvasIds);
             rootLayout.addView(radioGroup);
             views.add(rootLayout);
@@ -91,6 +108,9 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
         JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         String optionTextSize = String.valueOf(context.getResources().getDimension(com.vijay.jsonwizard.R.dimen.options_default_text_size));
         String optionTextColor = JsonFormConstants.DEFAULT_TEXT_COLOR;
+        String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
+        String constraints = jsonObject.optString(JsonFormConstants.CONSTRAINTS);
+        String calculation = jsonObject.optString(JsonFormConstants.CALCULATION);
         if (jsonArray.length() > 0) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject item = jsonArray.getJSONObject(i);
@@ -127,6 +147,9 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
                         && jsonObject.optString(JsonFormConstants.VALUE).equals(item.getString(JsonFormConstants.KEY))) {
                     radioButton.setChecked(true);
                 }
+                radioButton.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
+                radioButton.setTag(com.vijay.jsonwizard.R.id.constraints, constraints);
+                radioButton.setTag(com.vijay.jsonwizard.R.id.calculation, calculation);
                 radioButton.setEnabled(!readOnly);
                 //setRadioButtonIcon(radioButton, item, context);
                 rootLayout.addView(radioButton);

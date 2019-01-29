@@ -47,7 +47,7 @@ import java.util.Map;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 
-public class AncGenericDialogPopup extends GenericPopupDialog implements AncGenericDialogInterface {
+public class AncGenericPopupDialog extends GenericPopupDialog implements AncGenericDialogInterface {
     private String TAG = this.getClass().getSimpleName();
     private static ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
     private Map<String, ExpansionPanelValuesModel> popAssignedValue = new HashMap<>();
@@ -67,7 +67,6 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
         this.context = context;
         activity = (Activity) context;
         jsonApi = (JsonApi) activity;
-        jsonApi.invokeRefreshLogic(null, false, null, null);
         JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
         ancJsonApi.setGenericPopup(this);
     }
@@ -85,7 +84,6 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
 
     @Override
     protected List<View> initiateViews() {
-        this.jsonApi.clearSkipLogicViews();
         List<View> listOfViews = new ArrayList<>();
         jsonFormInteractor
                 .fetchFields(listOfViews, getStepName(), getFormFragment(), getSpecifyContent(), getCommonListener(), true);
@@ -139,6 +137,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
             loadPartialSecondaryValues();
             createSecondaryValuesMap();
             loadSubForms();
+            jsonApi.updateGenericPopupSecondaryValues(getSpecifyContent());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -164,7 +163,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
                     } else {
                         Utils.showToast(activity, activity.getApplicationContext().getResources()
                                 .getString(com.vijay.jsonwizard.R.string.please_specify_content));
-                        AncGenericDialogPopup.this.dismiss();
+                        AncGenericPopupDialog.this.dismiss();
                     }
                 } catch (JSONException e) {
                     Log.i(TAG, Log.getStackTraceString(e));
@@ -229,7 +228,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
                 @Override
                 public void onClick(View v) {
                     jsonApi.updateGenericPopupSecondaryValues(null);
-                    AncGenericDialogPopup.this.dismiss();
+                    AncGenericPopupDialog.this.dismiss();
                 }
             });
 
@@ -239,7 +238,7 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
                 public void onClick(View v) {
                     passData();
                     jsonApi.updateGenericPopupSecondaryValues(null);
-                    AncGenericDialogPopup.this.dismiss();
+                    AncGenericPopupDialog.this.dismiss();
                 }
             });
             if (getDialog().getWindow() != null) {
@@ -387,9 +386,9 @@ public class AncGenericDialogPopup extends GenericPopupDialog implements AncGene
     /**
      * Finds the actual widget to be updated and secondary values added on
      *
-     * @param jsonObject
-     * @param childKey
-     * @return
+     * @param jsonObject {@link JSONObject}
+     * @param childKey   {@link String}
+     * @return item {@link JSONObject}
      */
     @Override
     protected JSONObject getJsonObjectToUpdate(JSONObject jsonObject, String childKey) {

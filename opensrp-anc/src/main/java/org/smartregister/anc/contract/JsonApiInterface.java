@@ -1,7 +1,7 @@
 package org.smartregister.anc.contract;
 
-import org.smartregister.anc.view.AncGenericDialogPopup;
+import org.smartregister.anc.view.AncGenericPopupDialog;
 
 public interface JsonApiInterface {
-    void setGenericPopup(AncGenericDialogPopup context);
+    void setGenericPopup(AncGenericPopupDialog context);
 }
