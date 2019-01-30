@@ -135,24 +135,29 @@ public abstract class BaseContactActivity extends SecuredActivity {
         titleLabel.setText(getString(R.string.exit_contact_title));
 
         String saveChanges = getString(R.string.save_contact);
+        //For future usage
+        /*
         Spannable spannable = new SpannableString(saveChanges);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
                 saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+*/
 
         Button saveButton = view.findViewById(R.id.save_changes);
-        saveButton.setText(spannable);
+        saveButton.setText(saveChanges);
 
         String closeWithoutSaving = getString(R.string.discard_contact);
+
+        //For future usage
+      /*
         spannable = new SpannableString(closeWithoutSaving);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 6
-                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 7,
                 closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                */
 
         Button closeButton = view.findViewById(R.id.close_without_saving);
-        closeButton.setText(spannable);
+        closeButton.setText(closeWithoutSaving);
 
         Button cancel = view.findViewById(R.id.cancel);
 
