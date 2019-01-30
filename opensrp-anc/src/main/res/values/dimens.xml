@@ -123,7 +123,7 @@
     <dimen name="contact_elevation">5dp</dimen>
 
     <dimen name="contact_save_title_text_size">24sp</dimen>
-    <dimen name="contact_save_detail_text_size">14sp</dimen>
+    <dimen name="contact_save_detail_text_size">20sp</dimen>
     <dimen name="contact_save_layout_margin">10dp</dimen>
     <dimen name="contact_save_spacing_margin">14dp</dimen>
     <dimen name="contact_save_default_padding">18dp</dimen>

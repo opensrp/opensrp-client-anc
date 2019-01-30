@@ -42,7 +42,6 @@ import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -86,7 +85,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
 
         buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
-                detailMap.get(DBConstants.KEY.CONTACT_STATUS).equals(Constants.ALERT_STATUS.ACTIVE) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
+                Constants.ALERT_STATUS.ACTIVE.equals(detailMap.get(DBConstants.KEY.CONTACT_STATUS)) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
 
     }
 
