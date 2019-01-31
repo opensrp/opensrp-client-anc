@@ -287,4 +287,6 @@
     <string name="contact_recorded_today">CONTACT %1$d\ndone today</string>
     <string name="contact_recorded_today_no_break">CONTACT %1$d done today</string>
     <string name="continue_contact">Continue Contact</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
