@@ -22,6 +22,7 @@ import com.vijay.jsonwizard.rules.RuleConstant;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -415,8 +416,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     @Override
-    public Map<String, String> getValueFromAddressCore(JSONObject object) throws JSONException {
-        Map<String, String> result = new HashMap<>();
+    public Facts getValueFromAddressCore(JSONObject object) throws JSONException {
+        Facts result = new Facts();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
                 .equals(Constants.EXPANSION_PANEL)) {
             if (object != null) {
@@ -441,8 +442,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                         (JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) || (object.getString(JsonFormConstants.TYPE).equals
                         (JsonFormConstants.NATIVE_RADIO_BUTTON) && object.optBoolean(JsonFormConstants
                         .NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
-                    List<String> selectedValues = new ArrayList<>(result.keySet());
-                    result.clear();
+                    List<String> selectedValues = new ArrayList<>(result.asMap().keySet());
+                    result = new Facts();
                     result.put(getKey(object), selectedValues.toString());
                 }
             }
@@ -452,13 +453,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return result;
     }
 
-    private Map<String, String> getCheckBoxResults(JSONObject jsonObject) throws JSONException {
-        Map<String, String> result = new HashMap<>();
+    private Facts getCheckBoxResults(JSONObject jsonObject) throws JSONException {
+       Facts result = new Facts();
         JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int j = 0; j < options.length(); j++) {
             if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
                 if (jsonObject.has(RuleConstant.IS_RULE_CHECK) && jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
-                    if (Boolean.valueOf(options.getJSONObject(j).getString(JsonFormConstants.VALUE))) {//Rules engine useth only true values
+                    if (Boolean.valueOf(options.getJSONObject(j).getString(JsonFormConstants.VALUE))) {//Rules engine use only true values
                         result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY), options.getJSONObject(j).getString
                                 (JsonFormConstants.VALUE));
                     }
@@ -482,8 +483,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return result;
     }
 
-    private Map<String, String> getRadioButtonResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
-        Map<String, String> result = new HashMap<>();
+    private Facts getRadioButtonResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
+        Facts result = new Facts();
         if (multiRelevance) {
             JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             for (int j = 0; j < jsonArray.length(); j++) {

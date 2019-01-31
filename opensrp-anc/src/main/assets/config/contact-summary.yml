@@ -889,7 +889,7 @@ fields:
 - template: "Postpartum family planning counseling not done"
   relevance: "family_planning_counsel == 'Not done'"
 
-- template: "FP method accepted: {family_planning_type}"
+- template: "FP method accepted: {family_planning_type_value}"
   relevance: "family_planning_type != ''"
 ---
 group: birth_plan_counseling

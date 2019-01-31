@@ -20,13 +20,6 @@ condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earli
 actions:
  - "isRelevant = true"
 ---
-name: step1_ultrasound_gest_age_days
-description: Gestational age in days from ultrasound
-priority: 1
-condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
-actions:
- - "isRelevant = true"
----
 name: step1_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1

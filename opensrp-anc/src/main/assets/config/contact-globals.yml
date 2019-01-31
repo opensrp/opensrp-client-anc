@@ -155,7 +155,12 @@ form: anc_test
 fields:
   - "ultrasound_done_date"
   - "ultrasound_gest_age_wks"
-  - "ultrasound_gest_age_days"
+  - "lmp_gest_age"
+  - "lmp_edd"
+  - "ultrasound_gest_age"
+  - "ultrasound_edd"
+  - "sfh_gest_age"
+  - "sfh_edd"
   - "no_of_fetuses"
   - "fetal_presentation"
   - "prev_preg_comps"

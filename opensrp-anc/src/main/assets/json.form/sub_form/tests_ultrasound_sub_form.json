@@ -170,30 +170,6 @@
       }
     },
     {
-      "key": "ultrasound_gest_age_days",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "edit_text",
-      "hint": "Gestational age in days from ultrasound.",
-      "edit_type": "edit_text",
-      "v_numeric": {
-        "value": "true",
-        "err": ""
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      },
-      "v_required": {
-        "value": false,
-        "err": "Please specify the gestational age in days from ultrasound"
-      }
-    },
-    {
       "key": "ultrasound_done_early_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
@@ -500,21 +476,24 @@
           "text": "Using LMP",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity_id": "",
+          "extra_info": "GA: {lmp_gest_age}\nEDD: {lmp_edd}"
         },
         {
           "key": "use_ultrasound",
           "text": "Using ultrasound",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity_id": "",
+          "extra_info": "GA: {ultrasound_gest_age}\nEDD: {ultrasound_edd}"
         },
         {
           "key": "use_sfh_abdominal_palpation",
           "text": "Using SFH or abdominal palpation",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity_id": "",
+          "extra_info": "GA: {sfh_gest_age}\nEDD: {sfh_edd}"
         }
       ],
       "v_required": {
@@ -524,6 +503,13 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }

@@ -77,6 +77,13 @@
           ]
         }
       },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      },
       "v_required": {
         "value": false,
         "err": "Date that the blood test was done."
