@@ -1836,6 +1836,20 @@
         }
       },
       {
+        "key": "fetal_heart_beat_rate_value",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "toaster27",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -2026,14 +2040,7 @@
             "text": "No. of fetuses unknown",
             "value": "false"
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "preeclampsia_risk",

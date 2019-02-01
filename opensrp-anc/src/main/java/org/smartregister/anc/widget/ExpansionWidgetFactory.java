@@ -204,6 +204,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             if (jsonObject.has(JsonFormConstants.VALUE)) {
                 undoButton.setVisibility(View.VISIBLE);
             }
+
             undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
             undoButton.setTag(R.id.specify_context, context);
             undoButton.setTag(R.id.specify_step_name, stepName);

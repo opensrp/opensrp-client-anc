@@ -233,7 +233,7 @@ actions:
 name: step1_syph_test_status
 description: syph_test_status
 priority: 1
-condition: "step1_syphilis_positive != 1"
+condition: "step1_syphilis_positive == 0"
 actions:
  - "isRelevant = true"
 ---
