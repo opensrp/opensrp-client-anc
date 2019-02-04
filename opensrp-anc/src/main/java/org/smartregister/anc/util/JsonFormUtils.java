@@ -739,4 +739,34 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
 
     }
+
+
+    public static Pair<Client, Event> processContactFormEvent(String jsonString, String baseEntityId) {
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        JSONObject jsonForm = toJSONObject(jsonString);
+        JSONArray fields = fields(jsonForm);
+
+
+        String entityId = getString(jsonForm, ENTITY_ID);
+        if (StringUtils.isBlank(entityId)) {
+            entityId = baseEntityId;
+        }
+
+        String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+        JSONObject metadata = getJSONObject(jsonForm, METADATA);
+
+        FormTag formTag = new FormTag();
+        formTag.providerId = allSharedPreferences.fetchRegisteredANM();
+        formTag.appVersion = BuildConfig.VERSION_CODE;
+        formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+
+        Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
+        Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
+
+        JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
+
+
+        return new Pair<>(baseClient, baseEvent);
+
+    }
 }

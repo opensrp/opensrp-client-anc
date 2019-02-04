@@ -111,13 +111,18 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     if (previousContact.getFormJson() != null) {
                         //process attention flags
                         ContactJsonFormUtils.processRequiredStepsField(facts, new JSONObject(previousContact.getFormJson()), AncApplication.getInstance().getApplicationContext());
+
+
+                        //process details
+
+                        //process events
+                        ContactJsonFormUtils.processEvents(baseEntityId, previousContact.getFormJson());
                     }
 
                     //Remove partial contact
                     partialContactRepository.deletePartialContact(partialContact.getId());
                 }
             }
-
 
             WomanDetail womanDetail = new WomanDetail();
             womanDetail.setBaseEntityId(baseEntityId);
@@ -131,26 +136,17 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             PatientRepository.updateContactVisitDetails(womanDetail, true);
 
             //Attention Flags
-
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
-
 
             Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
             //getSyncHelper().addEvent(baseEntityId, eventJson);
 
+
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
-    }
-
-
-    public ECSyncHelper getSyncHelper() {
-        if (syncHelper == null) {
-            syncHelper = ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext());
-        }
-        return syncHelper;
     }
 
     private int getGestationAge(Map<String, String> details) {
