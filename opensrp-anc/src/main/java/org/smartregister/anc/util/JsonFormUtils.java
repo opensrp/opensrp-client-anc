@@ -714,7 +714,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return "";
     }
 
-
     public static Event createContactVisitEvent(List<Event> events, String baseEntityId) {
 
         try {
@@ -739,7 +738,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
 
     }
-
 
     public static Pair<Client, Event> processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
         AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();

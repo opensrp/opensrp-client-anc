@@ -3,6 +3,12 @@
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
+  "default_values": [
+    "height",
+    "pregest_weight",
+    "current_weight",
+    "first_weight"
+  ],
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",

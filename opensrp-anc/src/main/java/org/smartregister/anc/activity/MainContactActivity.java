@@ -510,26 +510,28 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                 }
 
-                                boolean addDefaults = true;
-
-                                for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
-                                    if (Constants.BOOLEAN.TRUE.equals(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE))) {
-                                        addDefaults = false;
-                                        break;
-                                    }
-                                }
-
-                                if (addDefaults && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
-                                    List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
+                                if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+                                    boolean addDefaults = true;
 
                                     for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
+                                        if (Constants.BOOLEAN.TRUE.equals(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE))) {
+                                            addDefaults = false;
+                                            break;
+                                        }
+                                    }
 
-                                        if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
-                                            stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                    if (addDefaults && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
+                                        List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
+
+                                        for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
+
+                                            if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
+                                                stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                            }
+
                                         }
 
                                     }
-
                                 }
 
                             }
