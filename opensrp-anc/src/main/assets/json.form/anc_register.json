@@ -94,7 +94,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -111,7 +111,7 @@
           "err": "Please enter the last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -278,7 +278,7 @@
           "err": "Please enter the woman's home address"
         },
         "v_regex": {
-          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -331,13 +331,13 @@
         "look_up": "true",
         "entity_id": "",
         "v_regex": {
-          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid VHT name"
         }
       },
       {
         "key": "alt_phone_number",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
