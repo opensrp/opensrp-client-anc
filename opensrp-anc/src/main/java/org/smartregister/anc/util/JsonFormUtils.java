@@ -741,9 +741,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
 
-    public static Pair<Client, Event> processContactFormEvent(String jsonString, String baseEntityId) {
+    public static Pair<Client, Event> processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
         AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
-        JSONObject jsonForm = toJSONObject(jsonString);
+
         JSONArray fields = fields(jsonForm);
 
 

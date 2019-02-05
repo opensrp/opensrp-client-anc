@@ -536,8 +536,8 @@ public class ContactJsonFormUtils extends FormUtils {
         return list.toString().substring(1, list.toString().length() - 1);
     }
 
-    public static void processEvents(String baseEntityId, String formJsonString) throws Exception {
-        Pair<Client, Event> clientEventPair = JsonFormUtils.processContactFormEvent(formJsonString, baseEntityId);
+    public static void processEvents(String baseEntityId, JSONObject jsonForm) throws Exception {
+        Pair<Client, Event> clientEventPair = JsonFormUtils.processContactFormEvent(jsonForm, baseEntityId);
 
         Client baseClient = clientEventPair.first;
         Event baseEvent = clientEventPair.second;
