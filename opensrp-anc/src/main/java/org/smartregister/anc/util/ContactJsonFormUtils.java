@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,8 +29,11 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PartialContact;
-import org.smartregister.anc.view.AncGenericDialogPopup;
+import org.smartregister.anc.view.AncGenericPopupDialog;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +70,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String childKey;
 
         if (specifyContent != null) {
-            AncGenericDialogPopup genericPopupDialog = new AncGenericDialogPopup();
+            AncGenericPopupDialog genericPopupDialog = new AncGenericPopupDialog();
             genericPopupDialog.setCommonListener(listener);
             genericPopupDialog.setFormFragment(formFragment);
             genericPopupDialog.setFormIdentity(specifyContent);
@@ -215,17 +219,13 @@ public class ContactJsonFormUtils extends FormUtils {
         List<String> keyList = new ArrayList<>();
         List<String> valueList = new ArrayList<>();
 
-        if (widgetType.equals(JsonFormConstants.EDIT_TEXT)) {
-
-
-        } else if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
+        if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
             JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject.getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
                     keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants
-                            .SECONDARY_VALUE))) {
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
                         getRealSecondaryValue(jsonObject);
                     } else {
                         valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
@@ -237,6 +237,7 @@ public class ContactJsonFormUtils extends FormUtils {
                 widget.put(JsonFormConstants.VALUE, keyList);
                 widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
             }
+
         } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType.equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
             //Value already good for radio buttons so no keylist
             JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
@@ -251,11 +252,9 @@ public class ContactJsonFormUtils extends FormUtils {
                     if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
 
                         jsonObject.put(Constants.KEY.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
-
                         getRealSecondaryValue(jsonObject);
 
                         if (jsonObject.has(Constants.KEY.SECONDARY_VALUES)) {
-
                             widget.put(Constants.KEY.SECONDARY_VALUES, jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES));
                         }
 
@@ -536,4 +535,23 @@ public class ContactJsonFormUtils extends FormUtils {
     public static String getListValuesAsString(List<String> list) {
         return list.toString().substring(1, list.toString().length() - 1);
     }
+
+    public static void processEvents(String baseEntityId, JSONObject jsonForm) throws Exception {
+        Pair<Client, Event> clientEventPair = JsonFormUtils.processContactFormEvent(jsonForm, baseEntityId);
+
+        Client baseClient = clientEventPair.first;
+        Event baseEvent = clientEventPair.second;
+
+        if (baseClient != null) {
+
+            JsonFormUtils.mergeAndSaveClient(ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext()), baseClient);
+
+        }
+
+        if (baseEvent != null) {
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext()).addEvent(baseEvent.getBaseEntityId(), eventJson);
+        }
+    }
+
 }

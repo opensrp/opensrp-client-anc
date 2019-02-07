@@ -71,6 +71,13 @@
           }
         }
       },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      },
       "v_required": {
         "value": false,
         "err": "Select the date of the glucose test.."

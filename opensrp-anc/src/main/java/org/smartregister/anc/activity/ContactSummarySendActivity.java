@@ -1,6 +1,5 @@
 package org.smartregister.anc.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +21,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ContactSummarySendActivity extends AppCompatActivity implements ContactSummarySendContract.View, View.OnClickListener {
@@ -77,9 +77,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     @Override
     public void goToClientProfile() {
         finish();
-        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        startActivity(intent);
+        Utils.navigateToProfile(this, (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
     }
 
     @Override

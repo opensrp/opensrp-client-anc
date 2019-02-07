@@ -3,6 +3,7 @@ package org.smartregister.anc.widget;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         String openMrsEntity = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY);
         String openMrsEntityId = jsonObject.optString(JsonFormConstants.OPENMRS_ENTITY_ID);
         String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
+        String constraints = jsonObject.optString(JsonFormConstants.CONSTRAINTS);
+        String calculation = jsonObject.optString(JsonFormConstants.CALCULATION);
         LinearLayout.LayoutParams layoutParams = FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1,
                 2);
         LinearLayout rootLayout = getRootLayout(context);
@@ -77,9 +80,19 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         rootLayout.setTag(com.vijay.jsonwizard.R.id.address, stepName + ":" + jsonObject.getString(JsonFormConstants.KEY));
         rootLayout.setTag(com.vijay.jsonwizard.R.id.canvas_ids, canvasIds.toString());
 
-        if (relevance != null && context instanceof JsonApi) {
+        if (!TextUtils.isEmpty(relevance) && context instanceof JsonApi) {
             rootLayout.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
-            ((JsonApi) context).addSkipLogicView(rootLayout);
+            ((JsonApi)context).addSkipLogicView(rootLayout);
+        }
+
+        if (!TextUtils.isEmpty(constraints) && context instanceof JsonApi) {
+            rootLayout.setTag(com.vijay.jsonwizard.R.id.constraints, constraints);
+            ((JsonApi)context).addConstrainedView(rootLayout);
+        }
+
+        if (!TextUtils.isEmpty(calculation) && context instanceof JsonApi) {
+            rootLayout.setTag(com.vijay.jsonwizard.R.id.calculation, calculation);
+            ((JsonApi)context).addCalculationLogicView(rootLayout);
         }
 
         attachLayout(stepName, context, jsonFormFragment, jsonObject, commonListener, rootLayout);
@@ -191,6 +204,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             if (jsonObject.has(JsonFormConstants.VALUE)) {
                 undoButton.setVisibility(View.VISIBLE);
             }
+
             undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
             undoButton.setTag(R.id.specify_context, context);
             undoButton.setTag(R.id.specify_step_name, stepName);

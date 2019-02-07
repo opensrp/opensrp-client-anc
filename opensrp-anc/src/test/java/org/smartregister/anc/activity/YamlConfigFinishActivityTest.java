@@ -296,7 +296,7 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
 
         ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
 
-        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, Utils.getProfileImageResourceIdentifier());
+        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.ic_woman_with_baby);
 
     }
 

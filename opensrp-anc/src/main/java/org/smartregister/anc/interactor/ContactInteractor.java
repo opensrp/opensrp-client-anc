@@ -1,10 +1,15 @@
 package org.smartregister.anc.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
@@ -12,7 +17,6 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
-import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -24,13 +28,16 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +48,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     public static final String TAG = ContactInteractor.class.getName();
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
-    private ECSyncHelper syncHelper;
+    private PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
+    private List<String> parsableFormsList = Arrays.asList(new String[]{Constants.JSON_FORM.ANC_PROFILE, Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM});
 
     @VisibleForTesting
     ContactInteractor(AppExecutors appExecutors) {
@@ -85,7 +93,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(), Calendar.getInstance().getTimeInMillis());
 
-            PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
 
             PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
 
@@ -97,26 +104,33 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             if (partialContactList != null) {
 
                 for (PartialContact partialContact : partialContactList) {
-                    PreviousContact previousContact = new PreviousContact();
-                    previousContact.setContactNo(partialContact.getContactNo());
-                    previousContact.setBaseEntityId(partialContact.getBaseEntityId());
-                    previousContact.setFormJson(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
-                    previousContact.setType(partialContact.getType());
 
 
-                    //Save previous contact repository
-                    previousContactRepository.savePreviousContact(previousContact);
+                    JSONObject formObject = JsonFormUtils.toJSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
 
-                    if (previousContact.getFormJson() != null) {
+
+                    if (formObject != null) {
+
+
+                        //process form details
+                        if (parsableFormsList.contains(partialContact.getType())) {
+
+                            processFormFieldKeyValues(baseEntityId, formObject);
+
+                        }
+
                         //process attention flags
-                        ContactJsonFormUtils.processRequiredStepsField(facts, new JSONObject(previousContact.getFormJson()), AncApplication.getInstance().getApplicationContext());
+                        ContactJsonFormUtils.processRequiredStepsField(facts, formObject, AncApplication.getInstance().getApplicationContext());
+
+
+                        //process events
+                        ContactJsonFormUtils.processEvents(baseEntityId, formObject);
                     }
 
                     //Remove partial contact
                     partialContactRepository.deletePartialContact(partialContact.getId());
                 }
             }
-
 
             WomanDetail womanDetail = new WomanDetail();
             womanDetail.setBaseEntityId(baseEntityId);
@@ -127,29 +141,20 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             processAttentionFlags(womanDetail, facts);
 
-            PatientRepository.updateContactVisitDetails(womanDetail);
+            PatientRepository.updateContactVisitDetails(womanDetail, true);
 
             //Attention Flags
-
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
 
+            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
-            // Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
-            //JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            //getSyncHelper().addEvent(baseEntityId, eventJson);
 
-            //    getSyncHelper().addEvent(baseEntityId, eventJson);
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
-    }
-
-
-    public ECSyncHelper getSyncHelper() {
-        if (syncHelper == null) {
-            syncHelper = ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext());
-        }
-        return syncHelper;
     }
 
     private int getGestationAge(Map<String, String> details) {
@@ -189,5 +194,42 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         Integer yellowCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW);
         patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
         patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
+    }
+
+
+    private void processFormFieldKeyValues(String baseEntityId, JSONObject object) throws Exception {
+
+        if (object != null) {
+            Iterator<String> keys = object.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+
+                if (key.startsWith(RuleConstant.STEP)) {
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+
+                    for (int i = 0; i < stepArray.length(); i++) {
+
+                        JSONObject fieldObject = stepArray.getJSONObject(i);
+
+                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+
+                        if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+
+                            PreviousContact previousContact = new PreviousContact();
+
+                            previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
+                            previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
+                            previousContact.setBaseEntityId(baseEntityId);
+                            previousContactRepository.savePreviousContact(previousContact);
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
     }
 }

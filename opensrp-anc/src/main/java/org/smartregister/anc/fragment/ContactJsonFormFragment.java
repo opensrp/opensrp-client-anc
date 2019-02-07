@@ -5,10 +5,6 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,6 +35,8 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
+
+import java.util.HashMap;
 
 
 /**
@@ -209,25 +207,25 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         titleLabel.setText(getString(R.string.exit_contact_title));
 
         String saveChanges = getString(R.string.save_contact);
-        Spannable spannable = new SpannableString(saveChanges);
+       /* Spannable spannable = new SpannableString(saveChanges);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
-                saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
 
         Button saveButton = view.findViewById(R.id.save_changes);
-        saveButton.setText(spannable);
+        saveButton.setText(saveChanges);
 
         String closeWithoutSaving = getString(R.string.discard_contact);
-        spannable = new SpannableString(closeWithoutSaving);
+     /*   spannable = new SpannableString(closeWithoutSaving);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 7
                 , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 8,
-                closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
         Button closeButton = view.findViewById(R.id.close_without_saving);
-        closeButton.setText(spannable);
+        closeButton.setText(closeWithoutSaving);
 
         Button cancel = view.findViewById(R.id.cancel);
 
@@ -295,7 +293,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 Contact contact = getContact();
                 contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
                 ContactJsonFormUtils.persistPartial(baseEntityId, contact);
-                Utils.finalizeForm(getActivity());
+
+                Utils.finalizeForm(getActivity(), ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)));
+
                 dialog.dismiss();
             }
         });

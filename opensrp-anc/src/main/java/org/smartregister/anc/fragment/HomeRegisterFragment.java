@@ -1,7 +1,6 @@
 package org.smartregister.anc.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.HomeRegisterActivity;
-import org.smartregister.anc.activity.ProfileActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
@@ -39,6 +37,7 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -110,17 +109,15 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
 
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            goToPatientDetailActivity(pc, false);
+            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
             if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= Constants.DELIVERY_DATE_WEEKS) {
                 homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
-                getActivity().getIntent()
-                        .getSerializableExtra(Constants.INTENT_KEY.CLIENT);
-                String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
-                    utils.proceedToContact(baseEntityId, pc, getActivity());
+                    utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
                 }
             }
 
@@ -168,7 +165,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                     } catch (Exception e) {
                         Log.e(TAG, e.getMessage());
                     }
-                    
+
                     return null;
                 }
 
@@ -179,7 +176,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
                 }
             }.execute();
-            
+
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
@@ -209,17 +206,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
-    }
-
-    public void goToPatientDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
-        if (launchDialog) {
-            Log.i(HomeRegisterFragment.TAG, patient.name);
-        }
-
-        Intent intent = new Intent(getActivity(), ProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        intent.putExtra(Constants.INTENT_KEY.CLIENT, patient);
-        startActivity(intent);
     }
 
     @Override

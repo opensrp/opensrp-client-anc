@@ -31,7 +31,8 @@ public class AncEditTextFactory extends EditTextFactory {
     private ImageView editable;
 
     @Override
-    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, MaterialEditText editText, ImageView editable) throws Exception {
+    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject,
+                             MaterialEditText editText, ImageView editable) throws Exception {
         super.attachLayout(stepName, context, formFragment, jsonObject, editText, editable);
         this.editable = editable;
     }

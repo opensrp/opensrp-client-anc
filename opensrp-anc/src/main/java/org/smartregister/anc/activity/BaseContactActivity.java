@@ -32,6 +32,7 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class BaseContactActivity extends SecuredActivity {
 
@@ -116,7 +117,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest, form));
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        intent.putExtra(Constants.INTENT_KEY.CLIENT, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT));
+        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, contact.getFormName());
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -134,24 +135,29 @@ public abstract class BaseContactActivity extends SecuredActivity {
         titleLabel.setText(getString(R.string.exit_contact_title));
 
         String saveChanges = getString(R.string.save_contact);
+        //For future usage
+        /*
         Spannable spannable = new SpannableString(saveChanges);
         spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
                 saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+*/
 
         Button saveButton = view.findViewById(R.id.save_changes);
-        saveButton.setText(spannable);
+        saveButton.setText(saveChanges);
 
         String closeWithoutSaving = getString(R.string.discard_contact);
+
+        //For future usage
+      /*
         spannable = new SpannableString(closeWithoutSaving);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 6
-                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 7,
                 closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                */
 
         Button closeButton = view.findViewById(R.id.close_without_saving);
-        closeButton.setText(spannable);
+        closeButton.setText(closeWithoutSaving);
 
         Button cancel = view.findViewById(R.id.cancel);
 
@@ -220,7 +226,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                     presenter.startForm(view.getTag());
                     break;
                 case R.id.finalize_contact:
-                    Utils.finalizeForm(getActivity());
+                    Utils.finalizeForm(getActivity(), (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
                     break;
                 default:
                     break;

@@ -130,7 +130,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
         PowerMockito.verifyStatic(PatientRepository.class);
 
-        PatientRepository.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class));
+        PatientRepository.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class), ArgumentMatchers.anyBoolean());
         Assert.assertNotNull(interactor);
     }
 

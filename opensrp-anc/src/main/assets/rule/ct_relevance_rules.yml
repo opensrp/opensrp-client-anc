@@ -142,7 +142,7 @@ actions:
 name: step2_alcohol_substance_counsel
 description: Alcohol / substance use counseling
 priority: 1
-condition: "global_behaviour_persist.contains('alcohol_substance_use') || (!global_alcohol_substance_use.contains('none') && global_alcohol_substance_use.isEmpty())"
+condition: "global_behaviour_persist.contains('alcohol_substance_use') || (!global_alcohol_substance_use.contains('none') && !global_alcohol_substance_use.isEmpty())"
 actions:
   - "isRelevant = true"
 ---
