@@ -338,7 +338,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject) throws JSONException {
 
 
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_ENTERED)) {
 
             String dobString = womanClient.get(DBConstants.KEY.DOB);
             if (StringUtils.isNotBlank(dobString)) {

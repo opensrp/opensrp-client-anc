@@ -83,6 +83,8 @@ public abstract class Constants {
         public static final String DEATH_DATE = "deathdate";
         public static final String DEATH_DATE_APPROX = "deathdateApprox";
         public static final String ANC_CLOSE_REASON = "anc_close_reason";
+        public static final String DOB_ENTERED = "dob_entered";
+        public static final String AGE_ENTERED = "age_entered";
 
     }
 
