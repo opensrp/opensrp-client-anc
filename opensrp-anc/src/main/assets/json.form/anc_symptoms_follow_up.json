@@ -4,18 +4,8 @@
   "entity_id": "",
   "relational_id": "",
   "default_values": [
-    {
-      "medications": {
-        "key": "medications",
-        "form": "anc_profile",
-        "step": 6
-      },
-      "medications_other": {
-        "key": "medications_other",
-        "form": "anc_profile",
-        "step": 6
-      }
-    }
+    "medications",
+    "medications_other"
   ],
   "metadata": {
     "start": {
