@@ -8,10 +8,11 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.model.PreviousContact;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
-import java.util.Calendar;
+import java.util.List;
 
 public class PreviousContactRepository extends BaseRepository {
     private static final String TAG = PreviousContactRepository.class.getCanonicalName();
@@ -19,21 +20,17 @@ public class PreviousContactRepository extends BaseRepository {
     public static final String TABLE_NAME = "previous_contact";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
-    public static final String TYPE = "type";
-    public static final String FORM_JSON = "form_json";
-    public static final String CONTACT_NO = "contact_no";
+    public static final String KEY = "key";
+    public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
-    public static final String UPDATED_AT_COLUMN = "updated_at";
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
-            TYPE + "  VARCHAR NOT NULL, " +
-            FORM_JSON + "  VARCHAR, " +
-            CONTACT_NO + " INTEGER NOT NULL, " +
+            KEY + "  VARCHAR, " +
+            VALUE + "  VARCHAR NOT NULL, " +
             CREATED_AT + " INTEGER NOT NULL, " +
-            UPDATED_AT_COLUMN + " INTEGER NOT NULL, " +
-            "UNIQUE(" + BASE_ENTITY_ID + ", " + TYPE + ") ON CONFLICT REPLACE )";
+            "UNIQUE(" + BASE_ENTITY_ID + ", " + KEY + ") ON CONFLICT REPLACE )";
 
     private static final String INDEX_ID = "CREATE INDEX " + TABLE_NAME + "_" + ID +
             "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
@@ -41,10 +38,10 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID +
             "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
 
-    private static final String INDEX_TYPE = "CREATE INDEX " + TABLE_NAME + "_" + TYPE +
-            "_index ON " + TABLE_NAME + "(" + TYPE + " COLLATE NOCASE);";
+    private static final String INDEX_KEY = "CREATE INDEX " + TABLE_NAME + "_" + KEY +
+            "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, TYPE, FORM_JSON, CONTACT_NO, BASE_ENTITY_ID, CREATED_AT, UPDATED_AT_COLUMN};
+    private String[] projectionArgs = new String[]{ID, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public PreviousContactRepository(Repository repository) {
         super(repository);
@@ -54,59 +51,44 @@ public class PreviousContactRepository extends BaseRepository {
         database.execSQL(CREATE_TABLE_SQL);
         database.execSQL(INDEX_ID);
         database.execSQL(INDEX_BASE_ENTITY_ID);
-        database.execSQL(INDEX_TYPE);
+        database.execSQL(INDEX_KEY);
     }
 
     public void savePreviousContact(PreviousContact previousContact) {
         if (previousContact == null)
             return;
-        else if (previousContact.getUpdatedAt() == null) {
-            previousContact.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
-        }
-        if (previousContact.getId() == null) {
-            PreviousContact existingContact = getPreviousContact(previousContact);
-            if (existingContact != null) {
-                previousContact.setId(existingContact.getId());
-                if (previousContact.getFormJson() == null) {
-                    previousContact.setFormJson(existingContact.getFormJson());
-                }
-                previousContact.setCreatedAt(existingContact.getCreatedAt());
-                update(previousContact);
-            } else {
-                previousContact.setCreatedAt(Calendar.getInstance().getTimeInMillis());
-                getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(previousContact));
-            }
-        } else {
-            update(previousContact);
-        }
-    }
+        previousContact.setVisitDate(Utils.getDBDateToday());
+        getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(previousContact));
 
-    private void update(PreviousContact PreviousContact) {
-        ContentValues contentValues = createValuesFor(PreviousContact);
-        getWritableDatabase().update(TABLE_NAME, contentValues, ID + " = ?", new String[]{PreviousContact.getId().toString()});
+
     }
 
     private ContentValues createValuesFor(PreviousContact PreviousContact) {
         ContentValues values = new ContentValues();
         values.put(ID, PreviousContact.getId());
         values.put(BASE_ENTITY_ID, PreviousContact.getBaseEntityId());
-        values.put(TYPE, PreviousContact.getType());
-        values.put(FORM_JSON, PreviousContact.getFormJson());
-        values.put(CONTACT_NO, PreviousContact.getContactNo());
-        values.put(CREATED_AT, PreviousContact.getCreatedAt());
-        values.put(UPDATED_AT_COLUMN, PreviousContact.getUpdatedAt());
+        values.put(VALUE, PreviousContact.getValue());
+        values.put(KEY, PreviousContact.getKey());
+        values.put(CREATED_AT, PreviousContact.getVisitDate());
         return values;
     }
 
-    public PreviousContact getPreviousContact(PreviousContact previousContact) {
+    /**
+     * @param previousContactRequest object holding contact request params
+     *                               it MUST contain NON NULL values for
+     *                               key
+     *                               baseEntityId
+     *                               contactNo
+     */
+    public PreviousContact getPreviousContact(PreviousContact previousContactRequest) {
         String selection = null;
         String[] selectionArgs = null;
         PreviousContact dbPreviousContact = null;
         Cursor mCursor = null;
         try {
-            if (StringUtils.isNotBlank(previousContact.getBaseEntityId()) && StringUtils.isNotBlank(previousContact.getType()) && previousContact.getContactNo() != null) {
-                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + TYPE + " = ? " + COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{previousContact.getBaseEntityId(), previousContact.getType(), previousContact.getContactNo().toString()};
+            if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) && StringUtils.isNotBlank(previousContactRequest.getKey())) {
+                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " = ? " + COLLATE_NOCASE;
+                selectionArgs = new String[]{previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
             }
 
             mCursor = getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
@@ -128,19 +110,19 @@ public class PreviousContactRepository extends BaseRepository {
     }
 
     /**
-     * @param type is the file name
+     * @param baseEntityId is the Base entity Id No to filter by
      */
-    public PreviousContact getPreviousContacts(String baseEntityId, String type) {
+    public List<PreviousContact> getPreviousContacts(String baseEntityId) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
-        PreviousContact previousContact = null;
+        List<PreviousContact> previousContacts = null;
         try {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + TYPE + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{baseEntityId, type};
+                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
@@ -149,10 +131,10 @@ public class PreviousContactRepository extends BaseRepository {
 
                 while (mCursor.moveToNext()) {
 
-                    previousContact = getContactResult(mCursor);
+                    previousContacts.add(getContactResult(mCursor));
 
                 }
-                return previousContact;
+                return previousContacts;
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
@@ -161,19 +143,18 @@ public class PreviousContactRepository extends BaseRepository {
                 mCursor.close();
             }
         }
-        return previousContact;
+
+        return previousContacts;
     }
 
     private PreviousContact getContactResult(Cursor cursor) {
 
         PreviousContact previousContact = new PreviousContact();
         previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
-        previousContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));
-        previousContact.setFormJson(cursor.getString(cursor.getColumnIndex(FORM_JSON)));
-        previousContact.setContactNo(cursor.getInt(cursor.getColumnIndex(CONTACT_NO)));
+        previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
+        previousContact.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
         previousContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
-        previousContact.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
-        previousContact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)));
+        previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));
 
         return previousContact;
     }

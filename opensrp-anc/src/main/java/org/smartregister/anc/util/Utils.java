@@ -433,4 +433,8 @@ public class Utils extends org.smartregister.util.Utils {
 
         return todayContact;
     }
+
+    public static String getDBDateToday() {
+        return (new LocalDate()).toString(SQLITE_DATE_DF);
+    }
 }
