@@ -131,7 +131,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.4.4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.4.5038-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -141,7 +141,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
-
     implementation('org.smartregister:opensrp-client-core:1.6.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'

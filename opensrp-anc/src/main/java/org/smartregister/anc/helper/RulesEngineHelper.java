@@ -48,7 +48,8 @@ public class RulesEngineHelper {
         try {
             if (!ruleMap.containsKey(fileName)) {
 
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(context.getAssets().open(fileName)));
                 ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
             }
             return ruleMap.get(fileName);
@@ -107,12 +108,7 @@ public class RulesEngineHelper {
         relevanceFacts.put(RuleConstant.IS_RELEVANT, false);
 
         Rules rules = new Rules();
-
-        Rule mvelRule = new MVELRule()
-                .name(UUID.randomUUID().toString())
-                .when(rule)
-                .then("isRelevant = true;");
-
+        Rule mvelRule = new MVELRule().name(UUID.randomUUID().toString()).when(rule).then("isRelevant = true;");
         rules.register(mvelRule);
 
         processDefaultRules(rules, relevanceFacts);

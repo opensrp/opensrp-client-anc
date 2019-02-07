@@ -30,7 +30,7 @@ actions:
 name: step1_gdm_risk
 description: gdm risk
 priority: 1
-condition: "step1_bmi >= 30 || (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia')) || (global_urine_glucose == 'two' || global_urine_glucose == 'three' ||  global_urine_glucose == 'four')"
+condition: "step1_bmi >= 30 || (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia')) || (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++')"
 actions:
 - "calculation = 1"
 ---
