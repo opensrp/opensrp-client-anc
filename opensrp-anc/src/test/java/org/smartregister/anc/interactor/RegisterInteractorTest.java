@@ -1,6 +1,7 @@
 package org.smartregister.anc.interactor;
 
 import android.util.Pair;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -222,7 +223,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject clientObject = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(org.smartregister.anc.util.JsonFormUtils.gson.toJson(event));
 
-        String jsonString = "{\"" + JsonFormUtils.CURRENT_OPENSRP_ID + "\":\"" + originalAncId + "\"}";
+        String jsonString = "{\"" + DBConstants.KEY.ANC_ID + "\":\"" + originalAncId + "\"}";
 
         long timestamp = new Date().getTime();
 
