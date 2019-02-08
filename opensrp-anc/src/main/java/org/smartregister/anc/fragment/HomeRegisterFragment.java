@@ -200,6 +200,11 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     }
 
     @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
+        //Overrides from parent
+    }
+
+    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns,
                 registerActionHandler, paginationViewHandler);

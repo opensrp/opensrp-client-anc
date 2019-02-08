@@ -16,7 +16,6 @@ public abstract class Constants {
     public static final String NEXT = "next";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
-    public static final String ANC_ID = "ANC_ID";
     public static final int DELIVERY_DATE_WEEKS = 40;
     public static final String EXPANSION_PANEL = "expansion_panel";
     public static final String ANC_RADIO_BUTTON = "anc_radio_button";
@@ -51,6 +50,11 @@ public abstract class Constants {
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
+    }
+
+
+    public static class IDENTIFIER {
+        public static final String ANC_ID = "ANC_ID";
     }
 
     public static final class EventType {

@@ -536,7 +536,7 @@ public class ContactJsonFormUtils extends FormUtils {
         return list.toString().substring(1, list.toString().length() - 1);
     }
 
-    public static void processEvents(String baseEntityId, JSONObject jsonForm) throws Exception {
+    public static Event processFormEvent(String baseEntityId, JSONObject jsonForm) throws Exception {
         Pair<Client, Event> clientEventPair = JsonFormUtils.processContactFormEvent(jsonForm, baseEntityId);
 
         Client baseClient = clientEventPair.first;
@@ -548,10 +548,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
         }
 
-        if (baseEvent != null) {
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-            ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext()).addEvent(baseEvent.getBaseEntityId(), eventJson);
-        }
+        return baseEvent;
     }
 
 }

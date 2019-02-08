@@ -50,7 +50,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private Map<String, String> formGlobalValues = new HashMap<>();
     private Set<String> globalKeys = new HashSet<>();
     private List<String> defaultValues = new ArrayList<>();
-    private Map<String, String> globalValuesMap = new HashMap<>();
+    private List<String> globalValuesMap = new ArrayList<>();
     private String baseEntityId;
 
     @Override
@@ -273,10 +273,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         if (mJSONObject != null) {
 
-            Map<String, String> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(mJSONObject.toString(), new TypeToken<Map<String, String>>() {
+            List<String> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(mJSONObject.toString(), new TypeToken<List<String>>() {
             }.getType());
 
-            globalValuesMap.putAll(valueMap);
+            globalValuesMap.addAll(valueMap);
         }
     }
 
@@ -536,9 +536,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                             }
 
-                            if (globalValuesMap.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+                            if (globalValuesMap.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
-                                String defaultKey = globalValuesMap.get(fieldObject.getString(JsonFormConstants.KEY));
+                                String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
 
                                 String mapValue = getMapValue(defaultKey);
                                 if (mapValue != null) {
