@@ -506,6 +506,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                     if (mapValue != null) {
                                         fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                                        fieldObject.put(JsonFormConstants.EDITABLE, true);
                                     }
 
                                 }
@@ -527,6 +528,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                             if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
                                                 stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                                fieldObject.put(JsonFormConstants.EDITABLE, true);
                                             }
 
                                         }
