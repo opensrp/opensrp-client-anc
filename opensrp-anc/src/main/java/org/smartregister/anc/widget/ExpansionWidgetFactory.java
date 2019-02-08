@@ -42,13 +42,15 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     private String TAG = this.getClass().getSimpleName();
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
+                                       JSONObject jsonObject,
                                        CommonListener commonListener, boolean popup) throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, popup);
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
+                                       JSONObject jsonObject,
                                        CommonListener commonListener) throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, false);
     }
@@ -64,8 +66,9 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
         String constraints = jsonObject.optString(JsonFormConstants.CONSTRAINTS);
         String calculation = jsonObject.optString(JsonFormConstants.CALCULATION);
-        LinearLayout.LayoutParams layoutParams = FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1,
-                2);
+        LinearLayout.LayoutParams layoutParams = FormUtils
+                .getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1,
+                        2);
         LinearLayout rootLayout = getRootLayout(context);
         rootLayout.setLayoutParams(layoutParams);
         rootLayout.setId(ViewUtil.generateViewId());
@@ -82,17 +85,17 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
         if (!TextUtils.isEmpty(relevance) && context instanceof JsonApi) {
             rootLayout.setTag(com.vijay.jsonwizard.R.id.relevance, relevance);
-            ((JsonApi)context).addSkipLogicView(rootLayout);
+            ((JsonApi) context).addSkipLogicView(rootLayout);
         }
 
         if (!TextUtils.isEmpty(constraints) && context instanceof JsonApi) {
             rootLayout.setTag(com.vijay.jsonwizard.R.id.constraints, constraints);
-            ((JsonApi)context).addConstrainedView(rootLayout);
+            ((JsonApi) context).addConstrainedView(rootLayout);
         }
 
         if (!TextUtils.isEmpty(calculation) && context instanceof JsonApi) {
             rootLayout.setTag(com.vijay.jsonwizard.R.id.calculation, calculation);
-            ((JsonApi)context).addCalculationLogicView(rootLayout);
+            ((JsonApi) context).addCalculationLogicView(rootLayout);
         }
 
         attachLayout(stepName, context, jsonFormFragment, jsonObject, commonListener, rootLayout);
@@ -101,7 +104,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         return views;
     }
 
-    private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
+    private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment,
+                              JSONObject jsonObject,
                               CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
         RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
@@ -134,7 +138,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
         for (int i = 0; i < value.length(); i++) {
             JSONObject item = value.getJSONObject(i);
-            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item.getString(JsonFormConstants.TYPE)
+            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item
+                    .getString(JsonFormConstants.TYPE)
                     .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
                 JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < jsonArray.length(); k++) {
@@ -143,13 +148,18 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     if (stringValues.length >= 2) {
                         String valueDisplay = list.split(":")[1];
 
-                        if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay.equals(Constants
-                                .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
-                                .DONE) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) || valueDisplay.equals
+                        if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay
+                                .equals(Constants
+                                        .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay
+                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
+                                        .DONE) || valueDisplay
+                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) || valueDisplay.equals
                                 (Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || valueDisplay.equals(Constants
                                 .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || valueDisplay.equals(Constants
-                                .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT
-                                .ORDERED) || valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals
+                                .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || valueDisplay
+                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT
+                                        .ORDERED) || valueDisplay
+                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals
                                 (Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
 
                             formUtils.changeIcon(imageView, valueDisplay, context);
@@ -167,7 +177,9 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         LinearLayout contentLayout = rootLayout.findViewById(R.id.contentLayout);
         if (jsonObject.has(JsonFormConstants.VALUE)) {
             values = jsonObject.getJSONArray(JsonFormConstants.VALUE);
-            contentLayout.setVisibility(View.VISIBLE);
+            if (checkValuesContent(values)) {
+                contentLayout.setVisibility(View.VISIBLE);
+            }
         }
         RecyclerView contentView = contentLayout.findViewById(R.id.contentRecyclerView);
         contentView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
@@ -175,7 +187,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         contentView.setAdapter(adapter);
     }
 
-    private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget) throws JSONException {
+    private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget)
+            throws JSONException {
         String accordionInfoText = jsonObject.optString(Constants.ACCORDION_INFO_TEXT, null);
         String accordionInfoTitle = jsonObject.optString(Constants.ACCORDION_INFO_TITLE, null);
         String accordionKey = jsonObject.getString(JsonFormConstants.KEY);
@@ -192,27 +205,29 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
                                   CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
-        boolean displayBottomSection = jsonObject.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, false);
-        if (displayBottomSection) {
-            RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
-            relativeLayout.setVisibility(View.VISIBLE);
+        if (jsonObject.has(JsonFormConstants.VALUE)) {
+            JSONArray value = jsonObject.optJSONArray(JsonFormConstants.VALUE);
+            if (checkValuesContent(value)) {
+                RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
+                relativeLayout.setVisibility(View.VISIBLE);
 
-            Button recordButton = relativeLayout.findViewById(R.id.ok_button);
-            addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
-            recordButton.setOnClickListener(recordButtonClickListener);
-            Button undoButton = relativeLayout.findViewById(R.id.undo_button);
-            if (jsonObject.has(JsonFormConstants.VALUE)) {
-                undoButton.setVisibility(View.VISIBLE);
+                Button recordButton = relativeLayout.findViewById(R.id.ok_button);
+                addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
+                recordButton.setOnClickListener(recordButtonClickListener);
+                Button undoButton = relativeLayout.findViewById(R.id.undo_button);
+                if (jsonObject.has(JsonFormConstants.VALUE)) {
+                    undoButton.setVisibility(View.VISIBLE);
+                }
+
+                undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
+                undoButton.setTag(R.id.specify_context, context);
+                undoButton.setTag(R.id.specify_step_name, stepName);
+                undoButton.setOnClickListener(undoButtonClickListener);
             }
-
-            undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
-            undoButton.setTag(R.id.specify_context, context);
-            undoButton.setTag(R.id.specify_step_name, stepName);
-            undoButton.setOnClickListener(undoButtonClickListener);
         }
     }
 
-    private View addRecordViewTags(View recordView, JSONObject jsonObject, String stepName, CommonListener commonListener,
+    private void addRecordViewTags(View recordView, JSONObject jsonObject, String stepName, CommonListener commonListener,
                                    JsonFormFragment jsonFormFragment, Context context) throws JSONException {
         recordView.setTag(R.id.specify_content, jsonObject.optString(JsonFormConstants.CONTENT_FORM, ""));
         recordView.setTag(R.id.specify_context, context);
@@ -221,7 +236,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         recordView.setTag(R.id.specify_listener, commonListener);
         recordView.setTag(R.id.specify_fragment, jsonFormFragment);
         recordView.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
-        recordView.setTag(R.id.secondaryValues, formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
+        recordView.setTag(R.id.secondaryValues,
+                formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
         recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
         if (jsonObject.has(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER)) {
@@ -229,7 +245,6 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             recordView.setTag(R.id.contact_container, container);
         }
 
-        return recordView;
     }
 
     private LinearLayout getRootLayout(Context context) {
@@ -253,6 +268,25 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
     }
 
+    private boolean checkValuesContent(JSONArray value) throws JSONException {
+        boolean showHiddenViews = true;
+        if (value.length() == 0) {
+            JSONObject jsonObject = value.getJSONObject(0);
+            if (jsonObject.has(JsonFormConstants.TYPE) && Constants.ANC_RADIO_BUTTON
+                    .equals(jsonObject.getString(JsonFormConstants.TYPE))) {
+                JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+                if (values.length() == 0) {
+                    String object = values.getString(0);
+                    if (object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || object
+                            .contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
+                        showHiddenViews = false;
+                    }
+                }
+            }
+        }
+        return showHiddenViews;
+    }
+
     private class UndoButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -273,8 +307,9 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     if (fields.length() > 0) {
                         for (int i = 0; i < fields.length(); i++) {
                             JSONObject item = fields.getJSONObject(i);
-                            if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey) && item.has(JsonFormConstants
-                                    .VALUE)) {
+                            if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey) && item
+                                    .has(JsonFormConstants
+                                            .VALUE)) {
                                 removeLastAddedExpansionValue(item);
                             }
                         }
