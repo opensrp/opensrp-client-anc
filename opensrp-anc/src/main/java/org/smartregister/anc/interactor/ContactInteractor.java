@@ -17,7 +17,6 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
-import org.smartregister.anc.event.AncEvent;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -51,7 +50,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     public static final String TAG = ContactInteractor.class.getName();
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
-    private PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
     private List<String> parsableFormsList = Arrays.asList(new String[]{Constants.JSON_FORM.ANC_PROFILE, Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM});
 
     @VisibleForTesting
@@ -104,15 +102,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             Facts facts = new Facts();
             List<Event> eventList = new ArrayList<>();
 
-
-            Collections.sort(partialContactList, new Comparator<PartialContact>() {
-                @Override
-                public int compare(PartialContact o1, PartialContact o2) {
-                    return o1.getSortOrder().compareTo(o2.getSortOrder());
-                }
-            });
-
             if (partialContactList != null) {
+
+                Collections.sort(partialContactList, new Comparator<PartialContact>() {
+                    @Override
+                    public int compare(PartialContact o1, PartialContact o2) {
+                        return o1.getSortOrder().compareTo(o2.getSortOrder());
+                    }
+                });
 
                 for (PartialContact partialContact : partialContactList) {
 
@@ -155,9 +152,13 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             PatientRepository.updateContactVisitDetails(womanDetail, true);
 
             //Attention Flags
-            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
+            String attentionFlagsString = new JSONObject(facts.asMap()).toString();
+            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString, Calendar.getInstance().getTimeInMillis());
 
-            AncEvent event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId, details.get(DBConstants.KEY.NEXT_CONTACT));
+            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId, details.get(DBConstants.KEY.NEXT_CONTACT));
+
+            event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);
+            
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
             AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
@@ -232,7 +233,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
                             previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
                             previousContact.setBaseEntityId(baseEntityId);
-                            previousContactRepository.savePreviousContact(previousContact);
+                            getPreviousContactRepository().savePreviousContact(previousContact);
 
                         }
 
@@ -242,5 +243,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
+    }
+
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncApplication.getInstance().getPreviousContactRepository();
     }
 }

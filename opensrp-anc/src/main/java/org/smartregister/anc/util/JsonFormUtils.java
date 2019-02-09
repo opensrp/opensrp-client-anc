@@ -19,7 +19,6 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.QuickCheck;
-import org.smartregister.anc.event.AncEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -714,22 +713,21 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return "";
     }
 
-    public static AncEvent createContactVisitEvent(List<Event> events, String baseEntityId, String contactNo) {
+    public static Event createContactVisitEvent(List<Event> events, String baseEntityId, String contactNo) {
         if (events.size() < 1) {
             return null;
         }
 
         try {
 
-            AncEvent event = (AncEvent) new AncEvent()
+            Event event = (Event) new Event()
                     .withBaseEntityId(baseEntityId)
                     .withEventDate(new Date())
                     .withEventType(Constants.EventType.CONTACT_VISIT)
-                    .withEntityType(Constants.EventType.CONTACT_VISIT + "_" + contactNo)
+                    .withEntityType(Constants.EventType.CONTACT_VISIT + " " + contactNo)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withEvents(events)
                     .withDateCreated(new Date());
-
-            event.setEvents(events);
 
             JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(), event);
 

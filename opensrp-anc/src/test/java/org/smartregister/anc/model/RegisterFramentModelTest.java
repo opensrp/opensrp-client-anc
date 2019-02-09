@@ -127,7 +127,7 @@ public class RegisterFramentModelTest extends BaseUnitTest {
         Assert.assertEquals(1, editMap.size());
 
         //TODO Change to OpenSRP_ID
-        Assert.assertEquals("OpenSRP_ID:" + ancId, editMap.get(Constants.GLOBAL_IDENTIFIER));
+        Assert.assertEquals(Constants.IDENTIFIER.ANC_ID + ":" + ancId, editMap.get(Constants.GLOBAL_IDENTIFIER));
 
     }
 }
