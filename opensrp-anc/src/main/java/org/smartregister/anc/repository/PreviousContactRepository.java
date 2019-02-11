@@ -111,8 +111,9 @@ public class PreviousContactRepository extends BaseRepository {
 
     /**
      * @param baseEntityId is the Base entity Id No to filter by
+     * @param keysList an optional list of keys to query null otherwise
      */
-    public List<PreviousContact> getPreviousContacts(String baseEntityId) {
+    public List<PreviousContact> getPreviousContacts(String baseEntityId, List<String> keysList) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
@@ -121,8 +122,17 @@ public class PreviousContactRepository extends BaseRepository {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{baseEntityId};
+                if (keysList != null) {
+
+                    String keys = keysList.toString();
+
+                    selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " IN (?) " + COLLATE_NOCASE;
+                    selectionArgs = new String[]{baseEntityId, keys.substring(1, keys.length() - 1)};
+
+                } else {
+                    selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
+                    selectionArgs = new String[]{baseEntityId};
+                }
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
