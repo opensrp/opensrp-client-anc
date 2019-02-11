@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
-import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
