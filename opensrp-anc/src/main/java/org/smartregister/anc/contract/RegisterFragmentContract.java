@@ -1,5 +1,7 @@
 package org.smartregister.anc.contract;
 
+import android.database.MergeCursor;
+
 import org.json.JSONArray;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
@@ -18,7 +20,7 @@ public interface RegisterFragmentContract {
 
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
 
-        void recalculatePagination(AdvancedMatrixCursor matrixCursor);
+        void recalculatePagination(MergeCursor matrixCursor);
 
     }
 

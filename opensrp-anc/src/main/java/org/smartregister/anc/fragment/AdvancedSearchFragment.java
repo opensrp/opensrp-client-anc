@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.database.CursorJoiner;
+import android.database.MergeCursor;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
@@ -453,7 +455,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
     }
 
     @Override
-    public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
+    public void recalculatePagination(MergeCursor matrixCursor) {
         super.recalculatePagination(matrixCursor);
         updateMatchingResults(clientAdapter.getTotalcount());
     }
@@ -526,7 +528,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         }
     }
 
-    private String filterAndSortQuery() {
+    @Override
+    public String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
@@ -540,6 +543,11 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         }
 
         return query;
+    }
+
+    @Override
+    public Cursor getRawCustomQueryForAdapter(String query){
+        return  commonRepository().rawCustomQueryForAdapter(query);
     }
 
     public EditText getAncId() {

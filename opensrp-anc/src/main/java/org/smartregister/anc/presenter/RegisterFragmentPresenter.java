@@ -1,5 +1,8 @@
 package org.smartregister.anc.presenter;
 
+import android.database.Cursor;
+import android.database.MergeCursor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartregister.anc.R;
@@ -20,7 +23,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class RegisterFragmentPresenter implements RegisterFragmentContract.Presenter, AdvancedSearchContract.InteractorCallBack {
+public class RegisterFragmentPresenter
+        implements RegisterFragmentContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
     private WeakReference<RegisterFragmentContract.View> viewReference;
 
@@ -104,8 +108,9 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
             getView().showNotFoundPopup(ancId);
         } else {
             matrixCursor = model.createMatrixCursor(response);
-            
-            getView().recalculatePagination(matrixCursor);
+            MergeCursor cursor = new MergeCursor(new Cursor[]{matrixCursor});
+
+            getView().recalculatePagination(cursor);
             getView().filterandSortInInitializeQueries();
             getView().hideProgressView();
         }

@@ -1,5 +1,8 @@
 package org.smartregister.anc.presenter;
 
+import android.database.Cursor;
+import android.database.MergeCursor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
@@ -10,7 +13,8 @@ import org.smartregister.domain.Response;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-public class AdvancedSearchPresenter extends RegisterFragmentPresenter implements AdvancedSearchContract.Presenter, AdvancedSearchContract.InteractorCallBack {
+public class AdvancedSearchPresenter extends RegisterFragmentPresenter
+        implements AdvancedSearchContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
     private WeakReference<AdvancedSearchContract.View> viewReference;
 
@@ -25,15 +29,18 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         interactor = new AdvancedSearchInteractor();
     }
 
-    public void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal) {
-        String searchCriteria = model.createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+    public void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber,
+                       String alternateContact, boolean isLocal) {
+        String searchCriteria = model
+                .createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
         if (StringUtils.isBlank(searchCriteria)) {
             return;
         }
 
         getView().updateSearchCriteria(searchCriteria);
 
-        Map<String, String> editMap = model.createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
+        Map<String, String> editMap = model
+                .createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         if (editMap == null || editMap.isEmpty()) {
             return;
         }
@@ -41,36 +48,48 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter implement
         if (isLocal) {
             getView().showProgressView();
             getView().switchViews(true);
-
-            String mainCondition = model.getMainConditionString(editMap);
-
-            String countSelect = model.countSelect(TABLE_NAME, mainCondition);
-            String mainSelect = model.mainSelect(TABLE_NAME, mainCondition);
-
-            getView().initializeQueryParams(TABLE_NAME, countSelect, mainSelect);
-            getView().initializeAdapter(visibleColumns);
+            localQueryInitialize(editMap);
 
             getView().countExecute();
             getView().filterandSortInInitializeQueries();
-
             getView().hideProgressView();
 
         } else {
             getView().showProgressView();
             getView().switchViews(true);
-
+            if (editMap.size() > 0) {
+                Map<String, String> localMap = model
+                        .createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, true);
+                if (localMap != null && !localMap.isEmpty()) {
+                    localQueryInitialize(localMap);
+                }
+            }
             interactor.search(editMap, this, ancId);
 
         }
+    }
+
+    private void localQueryInitialize(Map<String, String> editMap) {
+        String mainCondition = model.getMainConditionString(editMap);
+
+        String countSelect = model.countSelect(TABLE_NAME, mainCondition);
+        String mainSelect = model.mainSelect(TABLE_NAME, mainCondition);
+
+        getView().initializeQueryParams(TABLE_NAME, countSelect, mainSelect);
+        getView().initializeAdapter(visibleColumns);
     }
 
     @Override
     public void onResultsFound(Response<String> response, String ancId) {
         matrixCursor = model.createMatrixCursor(response);
 
-        getView().recalculatePagination(matrixCursor);
-        
-        
+        String query = getView().filterAndSortQuery();
+        Cursor cursor = getView().getRawCustomQueryForAdapter(query);
+
+        MergeCursor mergeCursor = new MergeCursor(new Cursor[]{matrixCursor, cursor});
+
+        getView().recalculatePagination(mergeCursor);
+
         getView().filterandSortInInitializeQueries();
         getView().hideProgressView();
     }

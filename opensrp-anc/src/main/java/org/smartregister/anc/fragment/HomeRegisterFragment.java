@@ -2,6 +2,7 @@ package org.smartregister.anc.fragment;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
@@ -239,7 +240,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     }
 
     @Override
-    public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
+    public void recalculatePagination(MergeCursor matrixCursor) {
         clientAdapter.setTotalcount(matrixCursor.getCount());
         Log.v("total count here", "" + clientAdapter.getTotalcount());
         clientAdapter.setCurrentlimit(20);
