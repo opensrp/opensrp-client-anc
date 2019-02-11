@@ -50,7 +50,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private Map<String, String> formGlobalValues = new HashMap<>();
     private Set<String> globalKeys = new HashSet<>();
     private List<String> defaultValues = new ArrayList<>();
-    private Map<String, Map<String,String>> globalValuesMap = new HashMap<>();
+    private List<String> globalValuesMap = new ArrayList<>();
     private String baseEntityId;
 
     @Override
@@ -272,11 +272,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private void populateGlobalValuesMap(JSONObject mJSONObject) {
 
         if (mJSONObject != null) {
-
-            Map<String, Map<String, String>> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(mJSONObject.toString(), new TypeToken<Map<String, Map<String, String>>>() {
+            List<String> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(mJSONObject.toString(), new TypeToken<List<String>>() {
             }.getType());
 
-            globalValuesMap.putAll(valueMap);
+            globalValuesMap.addAll(valueMap);
         }
     }
 
@@ -506,6 +505,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                     if (mapValue != null) {
                                         fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                                        fieldObject.put(JsonFormConstants.EDITABLE, true);
                                     }
 
                                 }
@@ -527,6 +527,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                             if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
                                                 stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                                                fieldObject.put(JsonFormConstants.EDITABLE, true);
                                             }
 
                                         }
@@ -536,9 +537,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                             }
 
-                            if (globalValuesMap.containsKey(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
-                                Map<String,String> object1= globalValuesMap.get(fieldObject.getString(JsonFormConstants.KEY));
-                                String defaultKey  = object1.get(JsonFormConstants.KEY);
+
+                            if (globalValuesMap.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+
+                                String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
 
                                 String mapValue = getMapValue(defaultKey);
                                 if (mapValue != null) {

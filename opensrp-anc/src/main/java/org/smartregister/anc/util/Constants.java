@@ -16,7 +16,6 @@ public abstract class Constants {
     public static final String NEXT = "next";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
-    public static final String ANC_ID = "ANC_ID";
     public static final int DELIVERY_DATE_WEEKS = 40;
     public static final String EXPANSION_PANEL = "expansion_panel";
     public static final String ANC_RADIO_BUTTON = "anc_radio_button";
@@ -53,6 +52,11 @@ public abstract class Constants {
         public static final String HOME_REGISTER = "home_register";
     }
 
+
+    public static class IDENTIFIER {
+        public static final String ANC_ID = "ANC_ID";
+    }
+
     public static final class EventType {
         public static final String REGISTRATION = "ANC Registration";
         public static final String UPDATE_REGISTRATION = "Update ANC Registration";
@@ -83,6 +87,8 @@ public abstract class Constants {
         public static final String DEATH_DATE = "deathdate";
         public static final String DEATH_DATE_APPROX = "deathdateApprox";
         public static final String ANC_CLOSE_REASON = "anc_close_reason";
+        public static final String DOB_ENTERED = "dob_entered";
+        public static final String AGE_ENTERED = "age_entered";
 
     }
 

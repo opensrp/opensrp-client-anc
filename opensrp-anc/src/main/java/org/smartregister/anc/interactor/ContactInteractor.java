@@ -17,6 +17,7 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
+import org.smartregister.anc.event.AncEvent;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -36,6 +37,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -101,6 +104,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             Facts facts = new Facts();
             List<Event> eventList = new ArrayList<>();
 
+
+            Collections.sort(partialContactList, new Comparator<PartialContact>() {
+                @Override
+                public int compare(PartialContact o1, PartialContact o2) {
+                    return o1.getSortOrder().compareTo(o2.getSortOrder());
+                }
+            });
+
             if (partialContactList != null) {
 
                 for (PartialContact partialContact : partialContactList) {
@@ -124,7 +135,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
 
                         //process events
-                        ContactJsonFormUtils.processEvents(baseEntityId, formObject);
+                        eventList.add(ContactJsonFormUtils.processFormEvent(baseEntityId, formObject));
                     }
 
                     //Remove partial contact
@@ -146,10 +157,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             //Attention Flags
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
 
-            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
+            AncEvent event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId, details.get(DBConstants.KEY.NEXT_CONTACT));
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
-            //getSyncHelper().addEvent(baseEntityId, eventJson);
+            AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
 
 
         } catch (Exception e) {
