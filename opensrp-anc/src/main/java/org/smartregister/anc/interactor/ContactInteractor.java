@@ -3,6 +3,7 @@ package org.smartregister.anc.interactor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -132,7 +133,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
 
                         //process events
-                        eventList.add(ContactJsonFormUtils.processFormEvent(baseEntityId, formObject));
+                        eventList.add(JsonFormUtils.processContactFormEvent(formObject, baseEntityId));
                     }
 
                     //Remove partial contact
@@ -155,13 +156,26 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             String attentionFlagsString = new JSONObject(facts.asMap()).toString();
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString, Calendar.getInstance().getTimeInMillis());
 
-            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId, details.get(DBConstants.KEY.NEXT_CONTACT));
+            //update woman profile details
+            details.put(DBConstants.KEY.CONTACT_STATUS, womanDetail.getContactStatus());
+            details.put(DBConstants.KEY.NEXT_CONTACT, womanDetail.getNextContact().toString());
+            details.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
+            details.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
+            details.put(DBConstants.KEY.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
+            details.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
 
+
+            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventList, details);
+
+            Event event = eventPair.first;
             event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);
-            
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
 
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+
+
+            JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
+            AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
 
 
         } catch (Exception e) {
@@ -174,7 +188,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 0;
+        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }

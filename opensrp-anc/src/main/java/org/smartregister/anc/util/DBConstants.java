@@ -33,5 +33,6 @@ public class DBConstants {
         public static final String NEXT_CONTACT = "next_contact";
         public static final String NEXT_CONTACT_DATE = "next_contact_date";
         public static final String LAST_CONTACT_RECORD_DATE = "last_contact_record_date";
+        public static final String VISIT_START_DATE = "visit_start_date";
     }
 }

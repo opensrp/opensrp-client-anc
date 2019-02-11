@@ -289,4 +289,6 @@
     <string name="continue_contact">Continue Contact</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="finalizing_contact">Summarizing Contact %1$d&#8230;</string>
+    <string name="summarizing_contact_number"> Summarizing Contact %1$d&#8230;</string>
 </resources>
