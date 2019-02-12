@@ -13,7 +13,7 @@ public class AgeValueMatcher implements ValueMatcher {
     @Override
     public boolean equal(Object o1, Object o2) {
         try {
-            return ((JSONObject) o1).getString(JsonFormConstants.VALUE).equals(((JSONObject) o2).getString(JsonFormConstants.VALUE));
+            return ((JSONObject) o1).get(JsonFormConstants.VALUE).toString().equals(((JSONObject) o2).get(JsonFormConstants.VALUE).toString());
         } catch (JSONException e) {
             return false;
         }
