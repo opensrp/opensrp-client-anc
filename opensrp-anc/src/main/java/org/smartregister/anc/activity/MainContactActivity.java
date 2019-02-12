@@ -272,7 +272,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     private List<String> getListValues(JSONArray jsonArray) {
 
-
         if (jsonArray != null) {
 
             List<String> valueMap = AncApplication.getInstance().getGsonInstance().fromJson(jsonArray.toString(), new TypeToken<List<String>>() {
@@ -510,7 +509,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                 }
 
                             }
-
 
                             if (globalValueFields.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 

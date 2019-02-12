@@ -8,20 +8,11 @@
     "medications_other"
   ],
   "global_previous": [
-    {
-      "medications": {
-        "key": "medications",
-        "form": "anc_symptoms_follow_up",
-        "step": 1
-      }
-    },
-    {
-      "medications_other": {
-        "key": "medications_other",
-        "form": "anc_symptoms_follow_up",
-        "step": 1
-      }
-    }
+    "caffeine_intake",
+    "tobacco_user",
+    "shs_exposure",
+    "condom_use",
+    "alcohol_substance_use"
   ],
   "metadata": {
     "start": {
