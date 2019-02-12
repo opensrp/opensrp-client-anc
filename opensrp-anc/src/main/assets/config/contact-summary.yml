@@ -77,16 +77,16 @@ fields:
 group: current_pregnancy
 fields:
 - template: "GA: {gest_age} weeks"
-  relevance: ""
+  relevance: "gest_age !='' "
 
 - template: "EDD: {edd}"
-  relevance: ""
+  relevance: "edd != '' "
 
 - template: "Ultrasound date: {ultrasound_date}"
   relevance: "ultrasound_date != ''"
 
 - template: "No. of fetuses: {no_of_fetuses}"
-  relevance: ""
+  relevance: "no_of_fetuses != ''"
 
 - template: "Fetal presentation: {fetal_presentation_value}"
   relevance: "fetal_presentation != ''"
@@ -101,7 +101,7 @@ fields:
 group: obstetric_history
 fields:
 - template: "GP: {gravida}{parity}"
-  relevance: ""
+  relevance: "gravida !='' || parity != ''"
 
 - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
   relevance: "global_contact_no == 1 || miscarriages_abortions > 0"
@@ -355,13 +355,10 @@ fields:
 group: height_and_weight
 fields:
 
-- template: "Height: {height} m"
-  relevance: "height != ''"
-
 - template: "Pre-gestational weight: {first_weight} kg"
   relevance: "first_weight != ''"
 
-- template: "Body mass index (BMI) == {bmi}"
+- template: "Body mass index (BMI) = {bmi}"
   relevance: "bmi != ''"
 
 - template: "Weight category: {weight_cat}"
