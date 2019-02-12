@@ -143,17 +143,17 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
-        exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'support-media-compat'
         exclude group: 'com.android.support', module: 'cardview-v7'
         exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
     }
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.2-SNAPSHOT@aar') {
         transitive = true

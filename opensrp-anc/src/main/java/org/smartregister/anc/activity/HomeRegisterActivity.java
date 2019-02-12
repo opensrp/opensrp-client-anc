@@ -2,12 +2,15 @@ package org.smartregister.anc.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -44,6 +47,8 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -102,8 +107,19 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-        // TODO Modify bottom register
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.getMenu().add(
+                    Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me)
+                    .setIcon(bottomNavigationHelper
+                            .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, userInitials,
+                                    getResources()));
+            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+            BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
+        }
     }
 
     @Override
