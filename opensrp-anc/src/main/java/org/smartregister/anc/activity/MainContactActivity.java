@@ -436,7 +436,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     private void preprocessDefaultValues(JSONObject object) {
         try {
-            if (object != null) {
+            if (contactNo > 1 && object != null) {
                 Iterator<String> keys = object.keys();
 
                 while (keys.hasNext()) {
