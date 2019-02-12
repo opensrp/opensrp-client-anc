@@ -12,7 +12,9 @@
     "tobacco_user",
     "shs_exposure",
     "condom_use",
-    "alcohol_substance_use"
+    "alcohol_substance_use",
+    "phys_symptoms",
+    "other_symptoms"
   ],
   "metadata": {
     "start": {
@@ -878,21 +880,10 @@
           "err": "Previous persisting physiological symptoms is required"
         },
         "relevance": {
-          "step4:phys_symptoms": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "nausea_vomiting",
-                  "heartburn",
-                  "leg_cramps",
-                  "constipation",
-                  "low_back_pain",
-                  "pelvic_pain",
-                  "varicose_veins",
-                  "oedema"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1302,7 +1293,14 @@
             "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -1506,15 +1504,10 @@
           "err": "Please specify any other symptoms related varicose vein/oedema or select none"
         },
         "relevance": {
-          "step4:phys_symptoms": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "varicose_veins",
-                  "oedema"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
