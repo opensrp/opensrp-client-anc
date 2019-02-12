@@ -49,9 +49,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private Map<String, List<String>> formGlobalKeys = new HashMap<>();
     private Map<String, String> formGlobalValues = new HashMap<>();
     private Set<String> globalKeys = new HashSet<>();
-    private List<String> defaultValueFields;
-    private List<String> globalValueFields;
-    private List<String> editableFields;
+    private List<String> defaultValueFields = new ArrayList<>();
+    private List<String> globalValueFields = new ArrayList<>();
+    private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
 
     @Override
@@ -436,7 +436,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     private void preprocessDefaultValues(JSONObject object) {
         try {
-            if (contactNo > 1 && object != null) {
+            if (object != null) {
                 Iterator<String> keys = object.keys();
 
                 while (keys.hasNext()) {
