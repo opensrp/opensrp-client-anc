@@ -149,6 +149,8 @@ fields:
   - "shs_exposure"
   - "condom_use"
   - "alcohol_substance_use"
+  - "health_conditions"
+  - "hypertension"
 ---
 form: anc_test
 fields:

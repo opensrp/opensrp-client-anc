@@ -530,6 +530,20 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         }
                     }
                 }
+                for (int i = 0; i < globalValueFields.size(); i++) {
+                    String mapValue = getMapValue(globalValueFields.get(i));
+                    if (mapValue != null) {
+                        if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+                            object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
+                        } else {
+
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
+                            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
+                        }
+                    }
+
+                }
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
