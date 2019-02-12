@@ -24,7 +24,7 @@ public class PatientRepository {
 
     private static final String TAG = PatientRepository.class.getCanonicalName();
 
-    private static final String[] projection = new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.DOB_UNKNOWN, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME, DBConstants.KEY.ALT_PHONE_NUMBER, DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ANC_ID, DBConstants.KEY.REMINDERS, DBConstants.KEY.HOME_ADDRESS, DBConstants.KEY.EDD, DBConstants.KEY.CONTACT_STATUS, DBConstants.KEY.NEXT_CONTACT, DBConstants.KEY.NEXT_CONTACT_DATE};
+    private static final String[] projection = new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.DOB_UNKNOWN, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME, DBConstants.KEY.ALT_PHONE_NUMBER, DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ANC_ID, DBConstants.KEY.REMINDERS, DBConstants.KEY.HOME_ADDRESS, DBConstants.KEY.EDD, DBConstants.KEY.CONTACT_STATUS, DBConstants.KEY.NEXT_CONTACT, DBConstants.KEY.NEXT_CONTACT_DATE, DBConstants.KEY.VISIT_START_DATE};
 
     public static Map<String, String> getWomanProfileDetails(String baseEntityId) {
         Cursor cursor = null;
@@ -53,6 +53,7 @@ public class PatientRepository {
                 detailsMap.put(DBConstants.KEY.CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.CONTACT_STATUS)));
                 detailsMap.put(DBConstants.KEY.NEXT_CONTACT, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT)));
                 detailsMap.put(DBConstants.KEY.NEXT_CONTACT_DATE, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.NEXT_CONTACT_DATE)));
+                detailsMap.put(DBConstants.KEY.VISIT_START_DATE, cursor.getString(cursor.getColumnIndex(DBConstants.KEY.VISIT_START_DATE)));
             }
             return detailsMap;
         } catch (Exception e) {
@@ -92,7 +93,7 @@ public class PatientRepository {
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{patientDetail.getBaseEntityId()});
     }
 
-    public static void updateEDDDateTemporary(String baseEntityId, String edd) {
+    public static void updateEDDDate(String baseEntityId, String edd) {
 
         ContentValues contentValues = new ContentValues();
         if (edd != null) {
@@ -103,6 +104,15 @@ public class PatientRepository {
         }
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
     }
+    public static void updateContactVisitStartDate(String baseEntityId, String contactVisitStartDate) {
 
+        ContentValues contentValues = new ContentValues();
+        if (contactVisitStartDate != null) {
+            contentValues.put(DBConstants.KEY.VISIT_START_DATE, contactVisitStartDate);
+        } else {
+            contentValues.putNull(DBConstants.KEY.VISIT_START_DATE);
+        }
+        AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
+    }
 
 }

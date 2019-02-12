@@ -22,6 +22,7 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -76,6 +77,10 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
                         processEvent(event, client, clientClassification);
 
                     }
+                } else if (eventType.equals(Constants.EventType.VISIT)) {
+
+                    //event.getEvents();
+                    AncApplication.getInstance().getDetailsRepository().add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS), Calendar.getInstance().getTimeInMillis());
                 }
             }
 

@@ -22,12 +22,15 @@ public abstract class Constants {
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
+    public static final String EDITABLE_FIELDS = "editable_fields";
     public static final String FALSE = "false";
     public static final String DANGER_SIGNS = "danger_signs";
     public static final String DANGER_NONE = "danger_none";
     public static final String CALL = "Call";
     public static final String START_CONTACT = "Start Contact";
     public static final String CONTINUE_CONTACT = "Continue Contact";
+    public static final String CONTACT = "Contact";
+    public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
@@ -63,7 +66,7 @@ public abstract class Constants {
         public static final String QUICK_CHECK = "Quick Check";
         public static final String CLOSE = "ANC Close";
         public static final String SITE_CHARACTERISTICS = "Site Characteristics";
-        public static final String CONTACT_VISIT = "Contact Visit";
+        public static final String VISIT = "Visit";
     }
 
     public static class JSON_FORM {

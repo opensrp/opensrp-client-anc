@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,11 +28,8 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
-import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericPopupDialog;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -534,21 +530,6 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public static String getListValuesAsString(List<String> list) {
         return list.toString().substring(1, list.toString().length() - 1);
-    }
-
-    public static Event processFormEvent(String baseEntityId, JSONObject jsonForm) throws Exception {
-        Pair<Client, Event> clientEventPair = JsonFormUtils.processContactFormEvent(jsonForm, baseEntityId);
-
-        Client baseClient = clientEventPair.first;
-        Event baseEvent = clientEventPair.second;
-
-        if (baseClient != null) {
-
-            JsonFormUtils.mergeAndSaveClient(ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext()), baseClient);
-
-        }
-
-        return baseEvent;
     }
 
 }

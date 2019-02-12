@@ -25,6 +25,13 @@
             "creates_case": [
               "ec_woman"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Visit",
+            "creates_case": [
+              "ec_woman"
+            ]
           }
         ]
       }
