@@ -240,7 +240,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     }
 
     @Override
-    public void recalculatePagination(MergeCursor matrixCursor) {
+    public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
         clientAdapter.setTotalcount(matrixCursor.getCount());
         Log.v("total count here", "" + clientAdapter.getTotalcount());
         clientAdapter.setCurrentlimit(20);

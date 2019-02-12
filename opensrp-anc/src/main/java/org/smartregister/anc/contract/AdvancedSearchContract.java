@@ -17,10 +17,6 @@ public interface AdvancedSearchContract {
         void switchViews(boolean showList);
 
         void updateSearchCriteria(String searchCriteriaString);
-
-        String filterAndSortQuery();
-
-        Cursor getRawCustomQueryForAdapter(String query);
     }
 
     interface Model extends RegisterFragmentContract.Model {

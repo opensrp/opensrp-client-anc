@@ -82,13 +82,7 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
     @Override
     public void onResultsFound(Response<String> response, String ancId) {
         matrixCursor = model.createMatrixCursor(response);
-
-        String query = getView().filterAndSortQuery();
-        Cursor cursor = getView().getRawCustomQueryForAdapter(query);
-
-        MergeCursor mergeCursor = new MergeCursor(new Cursor[]{matrixCursor, cursor});
-
-        getView().recalculatePagination(mergeCursor);
+        getView().recalculatePagination(matrixCursor);
 
         getView().filterandSortInInitializeQueries();
         getView().hideProgressView();

@@ -20,7 +20,7 @@ public interface RegisterFragmentContract {
 
         void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns);
 
-        void recalculatePagination(MergeCursor matrixCursor);
+        void recalculatePagination(AdvancedMatrixCursor matrixCursor);
 
     }
 

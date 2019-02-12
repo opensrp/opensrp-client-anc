@@ -108,9 +108,7 @@ public class RegisterFragmentPresenter
             getView().showNotFoundPopup(ancId);
         } else {
             matrixCursor = model.createMatrixCursor(response);
-            MergeCursor cursor = new MergeCursor(new Cursor[]{matrixCursor});
-
-            getView().recalculatePagination(cursor);
+            getView().recalculatePagination(matrixCursor);
             getView().filterandSortInInitializeQueries();
             getView().hideProgressView();
         }
