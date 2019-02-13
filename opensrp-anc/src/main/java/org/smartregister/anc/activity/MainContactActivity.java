@@ -474,7 +474,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                     if (mapValue != null) {
                                         fieldObject.put(JsonFormConstants.VALUE, mapValue);
                                         fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
-                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
+                                        fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
                                     }
 
                                 }
@@ -500,15 +500,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                             if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
                                                 stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
-                                                fieldObject.put(JsonFormConstants.EDITABLE, true);
-                                                fieldObject.put(JsonFormConstants.READ_ONLY, true);
+                                                fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
+                                                fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
                                             }
 
                                         }
 
-                                        //Here we must be in some type of radio button with editable already set
-                                    } else if (fieldObject.has(JsonFormConstants.EDITABLE) && fieldObject.getBoolean(JsonFormConstants.EDITABLE)) {
-                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                     }
                                 }
 
