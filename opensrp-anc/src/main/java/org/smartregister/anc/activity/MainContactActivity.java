@@ -500,35 +500,35 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                             if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
                                                 stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
-                                                fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
+                                                fieldObject.put(JsonFormConstants.EDITABLE, true);
+                                                fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                             }
 
                                         }
 
-                                    }
-                                }
-
-                            }
-
-                            if (globalValueFields.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
-
-                                String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
-
-                                String mapValue = getMapValue(defaultKey);
-                                if (mapValue != null) {
-                                    if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
-                                        object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + fieldObject.getString(JsonFormConstants.KEY), mapValue);
-                                    } else {
-
-                                        JSONObject jsonObject = new JSONObject();
-                                        jsonObject.put(Constants.PREFIX.PREVIOUS + fieldObject.getString(JsonFormConstants.KEY), mapValue);
-                                        object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
+                                        //Here we must be in some type of radio button with editable already set
+                                    } else if (fieldObject.has(JsonFormConstants.EDITABLE) && fieldObject.getBoolean(JsonFormConstants.EDITABLE)) {
+                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                     }
                                 }
 
                             }
                         }
                     }
+                }
+                for (int i = 0; i < globalValueFields.size(); i++) {
+                    String mapValue = getMapValue(globalValueFields.get(i));
+                    if (mapValue != null) {
+                        if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+                            object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
+                        } else {
+
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
+                            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
+                        }
+                    }
+
                 }
             }
         } catch (JSONException e) {
@@ -557,5 +557,3 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     }
 }
-
-

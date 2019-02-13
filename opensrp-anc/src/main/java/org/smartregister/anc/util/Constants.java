@@ -154,6 +154,7 @@ public abstract class Constants {
     public static class DETAILS_KEY {
         public static final String CONTACT_SHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
+        public static final String PREVIOUS_CONTACTS = "previous_contacts";
 
     }
 
@@ -176,6 +177,12 @@ public abstract class Constants {
     public static class RULES_FILE {
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String ALERT_RULES = "alert-rules.yml";
+
+    }
+
+    public static class EC_FILE {
+        public static final String CLIENT_CLASSIFICATION = "ec_client_classification.json";
+        public static final String CLIENT_FIELDS = "ec_client_fields.json";
 
     }
 

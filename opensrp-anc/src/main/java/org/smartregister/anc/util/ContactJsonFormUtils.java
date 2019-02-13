@@ -20,6 +20,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -408,7 +409,6 @@ public class ContactJsonFormUtils extends FormUtils {
 
                         String fieldKey = getKey(fieldObject);
 
-
                         if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
 
                             facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE)); //Normal Value
@@ -528,8 +528,26 @@ public class ContactJsonFormUtils extends FormUtils {
 
     }
 
+    /**
+     * @return comma separated string of list values
+     */
     public static String getListValuesAsString(List<String> list) {
         return list.toString().substring(1, list.toString().length() - 1);
+    }
+
+    public static String cleanValue(String raw) {
+        return raw.charAt(0) == '[' ? raw.substring(1, raw.length() - 1) : raw;
+    }
+
+    public static String keyToValueConverter(String keys) {
+        if (!TextUtils.isEmpty(keys) && keys.charAt(0) == '[') {
+
+            return WordUtils.capitalize(cleanValue(keys)).replaceAll("_", " ");
+
+        } else {
+            return keys;
+        }
+
     }
 
 }
