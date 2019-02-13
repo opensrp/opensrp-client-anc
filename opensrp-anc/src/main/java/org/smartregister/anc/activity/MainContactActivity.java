@@ -483,13 +483,17 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                 }
 
-                                if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+                                if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME) && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
                                     boolean addDefaults = true;
 
                                     for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
-                                        if (Constants.BOOLEAN.TRUE.equals(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE))) {
-                                            addDefaults = false;
-                                            break;
+                                        String optionValue;
+                                        if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).has(JsonFormConstants.VALUE)) {
+                                            optionValue = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE);
+                                            if (Constants.BOOLEAN.TRUE.equals(optionValue)) {
+                                                addDefaults = false;
+                                                break;
+                                            }
                                         }
                                     }
 
