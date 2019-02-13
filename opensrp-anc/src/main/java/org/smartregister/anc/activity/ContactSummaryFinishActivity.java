@@ -86,7 +86,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            PatientRepository.updateEDDDateTemporary(baseEntityId, null); //Reset EDD
+            PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
             super.onBackPressed();
         } else {
             saveFinishForm();
@@ -185,21 +185,48 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        try {
 
-            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
-            mProfilePresenter.saveFinishForm(womanProfileDetails);
+        new AsyncTask<Void, Void, Void>() {
+            private HashMap<String, String> womanProfileDetails;
 
-            Intent contactSummaryIntent = new Intent(this, ContactSummarySendActivity.class);
-            contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-            contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanProfileDetails);
+            @Override
+            protected void onPreExecute() {
+                showProgressDialog(R.string.please_wait_message);
+                progressDialog.setMessage(String.format(context().applicationContext().getString(R.string.finalizing_contact), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                progressDialog.show();
+            }
 
-            startActivity(contactSummaryIntent);
+            @Override
+            protected Void doInBackground(Void... nada) {
+                try {
+                    womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
+                    mProfilePresenter.saveFinishForm(womanProfileDetails);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage(), e);
+                }
+
+                return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+
+
+                hideProgressDialog();
+
+                Intent contactSummaryIntent = new Intent(ContactSummaryFinishActivity.this, ContactSummarySendActivity.class);
+                contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanProfileDetails);
+
+                startActivity(contactSummaryIntent);
+
+            }
+        }.execute();
+
 
     }
 
@@ -236,7 +263,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 @Override
                 protected void onPreExecute() {
                     showProgressDialog(R.string.please_wait_message);
-                    progressDialog.setMessage("Summarizing contact " + String.format(context().applicationContext().getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                    progressDialog.setMessage(String.format(context().applicationContext().getString(R.string.summarizing_contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
                     progressDialog.show();
                 }
 
@@ -260,7 +287,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     if (edd != null) {
 
-                        PatientRepository.updateEDDDateTemporary(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+                        PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
                         saveFinishMenuItem.setEnabled(true);
 

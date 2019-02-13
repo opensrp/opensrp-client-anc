@@ -12,6 +12,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.helper.ECSyncHelper;
+import org.smartregister.anc.sync.AncClientProcessorForJava;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
@@ -25,7 +26,6 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
-import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
 
@@ -48,7 +48,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     private AllSharedPreferences allSharedPreferences;
 
-    private ClientProcessorForJava clientProcessorForJava;
+    private AncClientProcessorForJava clientProcessorForJava;
 
     private AllCommonsRepository allCommonsRepository;
 
@@ -173,7 +173,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             if (baseClient != null) {
                 JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
                 if (isEditMode) {
-                    JsonFormUtils.mergeAndSaveClient(getSyncHelper(), baseClient);
+                    JsonFormUtils.mergeAndSaveClient(baseClient);
                 } else {
                     getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
                 }
@@ -188,7 +188,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
                     String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID).replace("-", "");
-                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, Constants.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
@@ -256,14 +256,14 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         this.allSharedPreferences = allSharedPreferences;
     }
 
-    public ClientProcessorForJava getClientProcessorForJava() {
+    public AncClientProcessorForJava getClientProcessorForJava() {
         if (clientProcessorForJava == null) {
             clientProcessorForJava = AncApplication.getInstance().getClientProcessorForJava();
         }
         return clientProcessorForJava;
     }
 
-    public void setClientProcessorForJava(ClientProcessorForJava clientProcessorForJava) {
+    public void setClientProcessorForJava(AncClientProcessorForJava clientProcessorForJava) {
         this.clientProcessorForJava = clientProcessorForJava;
     }
 

@@ -3,6 +3,7 @@ package org.smartregister.anc.interactor;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -36,6 +37,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +51,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     public static final String TAG = ContactInteractor.class.getName();
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
-    private PreviousContactRepository previousContactRepository = AncApplication.getInstance().getPreviousContactRepository();
     private List<String> parsableFormsList = Arrays.asList(new String[]{Constants.JSON_FORM.ANC_PROFILE, Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM});
 
     @VisibleForTesting
@@ -103,6 +105,13 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             if (partialContactList != null) {
 
+                Collections.sort(partialContactList, new Comparator<PartialContact>() {
+                    @Override
+                    public int compare(PartialContact o1, PartialContact o2) {
+                        return o1.getSortOrder().compareTo(o2.getSortOrder());
+                    }
+                });
+
                 for (PartialContact partialContact : partialContactList) {
 
 
@@ -124,7 +133,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
 
                         //process events
-                        ContactJsonFormUtils.processEvents(baseEntityId, formObject);
+                        eventList.add(JsonFormUtils.processContactFormEvent(formObject, baseEntityId));
                     }
 
                     //Remove partial contact
@@ -144,12 +153,29 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             PatientRepository.updateContactVisitDetails(womanDetail, true);
 
             //Attention Flags
-            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
+            String attentionFlagsString = new JSONObject(facts.asMap()).toString();
+            AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString, Calendar.getInstance().getTimeInMillis());
 
-            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
+            //update woman profile details
+            details.put(DBConstants.KEY.CONTACT_STATUS, womanDetail.getContactStatus());
+            details.put(DBConstants.KEY.NEXT_CONTACT, womanDetail.getNextContact().toString());
+            details.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
+            details.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
+            details.put(DBConstants.KEY.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
+            details.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
+
+
+            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventList, details);
+
+            Event event = eventPair.first;
+            event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);
+
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+            AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
 
-            //getSyncHelper().addEvent(baseEntityId, eventJson);
+
+            JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
+            AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
 
 
         } catch (Exception e) {
@@ -162,7 +188,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 0;
+        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }
@@ -221,7 +247,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
                             previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
                             previousContact.setBaseEntityId(baseEntityId);
-                            previousContactRepository.savePreviousContact(previousContact);
+                            getPreviousContactRepository().savePreviousContact(previousContact);
 
                         }
 
@@ -231,5 +257,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
+    }
+
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncApplication.getInstance().getPreviousContactRepository();
     }
 }
