@@ -8,8 +8,8 @@ fields:
 ---
 sub_group: current_pregnancy
 fields:
-- template: "GA: {gest_age} weeks"
-  relevance: "gest_ge != ''"
+- template: "GA: {gest_age}"
+  relevance: "gest_age != ''"
   isRedFont: "gest_age > 40"
 
 - template: "EDD: {edd}"
@@ -35,9 +35,13 @@ fields:
 ---
 sub_group: obstetric_history
 fields:
-- template: "G={gravida}, P={parity}"
-  relevance: "gravida!='' || parity !=''"
-  isRedFont: "gravida >= 5 || parity >= 5"
+- template: "Gravida: {gravida}"
+  relevance: "gravida != ''"
+  isRedFont: "gravida >= 5"
+
+- template: "Parity: {parity}"
+  relevance: "parity != ''"
+  isRedFont: "parity >= 5"
 
 - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
   relevance: "miscarriages_abortions != ''"
