@@ -474,7 +474,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                     if (mapValue != null) {
                                         fieldObject.put(JsonFormConstants.VALUE, mapValue);
                                         fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
-                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
+                                        fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
                                     }
 
                                 }
@@ -506,9 +506,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                         }
 
-                                        //Here we must be in some type of radio button with editable already set
-                                    } else if (fieldObject.has(JsonFormConstants.EDITABLE) && fieldObject.getBoolean(JsonFormConstants.EDITABLE)) {
-                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                     }
                                 }
 
