@@ -1,8 +1,8 @@
 package org.smartregister.anc.application;
 
 import org.smartregister.SyncConfiguration;
+import org.smartregister.SyncFilter;
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.util.Constants;
 import org.smartregister.repository.AllSharedPreferences;
 
 /**
@@ -15,8 +15,8 @@ public class AncSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
-    public String getSyncFilterParam() {
-        return Constants.SyncFilters.FILTER_TEAM_ID;
+    public SyncFilter getSyncFilterParam() {
+        return SyncFilter.TEAM_ID;
     }
 
     @Override
@@ -43,5 +43,15 @@ public class AncSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean isSyncSettings() {
         return BuildConfig.IS_SYNC_SETTINGS;
+    }
+
+    @Override
+    public SyncFilter getEncryptionParam() {
+        return SyncFilter.TEAM;
+    }
+
+    @Override
+    public boolean updateClientDetailsTable() {
+        return false;
     }
 }
