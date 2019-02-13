@@ -126,6 +126,7 @@ fields:
   - "contact_no"
   - "current_weight"
   - "pop_undernourish"
+  - "gdm"
   - "dm_in_preg"
   - "hb_results"
   - "gest_age"

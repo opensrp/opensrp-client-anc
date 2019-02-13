@@ -6,8 +6,21 @@
   "default_values": [
     "height",
     "pregest_weight",
-    "current_weight",
-    "first_weight"
+    "pregest_weight_unknown",
+    "first_weight",
+    "no_of_fetuses_unknown",
+    "no_of_fetuses"
+  ],
+  "global_previous": [
+    "current_weight"
+  ],
+  "editable_fields": [
+    "height",
+    "pregest_weight",
+    "pregest_weight_unknown",
+    "first_weight",
+    "no_of_fetuses_unknown",
+    "no_of_fetuses"
   ],
   "metadata": {
     "start": {
@@ -290,7 +303,7 @@
         }
       },
       {
-        "key": "weight_gain_date",
+        "key": "weight_gain_duration",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
