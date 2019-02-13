@@ -23,6 +23,7 @@ import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PreviousContactRepository;
+import org.smartregister.anc.sync.AncClientProcessorForJava;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
@@ -37,7 +38,6 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
-import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -66,7 +66,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private DetailsRepository detailsRepository;
     private ECSyncHelper ecSyncHelper;
     private Compressor compressor;
-    private ClientProcessorForJava clientProcessorForJava;
+    private AncClientProcessorForJava clientProcessorForJava;
     private String password;
     private PartialContactRepository partialContactRepository;
     private PreviousContactRepository previousContactRepository;
@@ -244,9 +244,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return compressor;
     }
 
-    public ClientProcessorForJava getClientProcessorForJava() {
+    public AncClientProcessorForJava getClientProcessorForJava() {
         if (clientProcessorForJava == null) {
-            clientProcessorForJava = ClientProcessorForJava.getInstance(getApplicationContext());
+            clientProcessorForJava = AncClientProcessorForJava.getInstance(getApplicationContext());
         }
         return clientProcessorForJava;
     }

@@ -8,6 +8,15 @@ import java.util.List;
 public class YamlConfig {
 
     private String group;
+    private String sub_group;
+
+    public String getSub_group() {
+        return sub_group;
+    }
+
+    public void setSub_group(String sub_group) {
+        this.sub_group = sub_group;
+    }
 
     private List<YamlConfigItem> fields;
 
@@ -19,11 +28,6 @@ public class YamlConfig {
         this.group = group;
     }
 
-    public static final class KEY {
-        public static final String GROUP = "group";
-        public static final String FIELDS = "fields";
-    }
-
     public List<YamlConfigItem> getFields() {
         return fields;
     }
@@ -31,4 +35,10 @@ public class YamlConfig {
     public void setFields(List<YamlConfigItem> fields) {
         this.fields = fields;
     }
+
+    public static final class KEY {
+        public static final String GROUP = "group";
+        public static final String FIELDS = "fields";
+    }
+
 }
