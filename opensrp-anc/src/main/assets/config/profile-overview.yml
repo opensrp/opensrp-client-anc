@@ -97,7 +97,7 @@ fields:
   relevance: "weight_cat !=''"
   isRedFont: "weight_cat.contains('Underweight') || weight_cat.contains('Overweight') || weight_cat.contains('Obese')"
 
-- template: "Expected weight gain during pregnancy: {exp_weight_gain}"
+- template: "Expected weight gain during pregnancy: {exp_weight_gain} kg"
   relevance: "exp_weight_gain != ''"
 
 - template: "Total weight gain in pregnancy so far: {tot_weight_gain} kg"
