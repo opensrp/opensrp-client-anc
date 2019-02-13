@@ -21,6 +21,7 @@ import org.smartregister.anc.model.PreviousContact;
 import org.smartregister.anc.presenter.ContactPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.util.FormUtils;
@@ -238,6 +239,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             if (contactNo > 1) {
                 map.put(Constants.PREVIOUS_CONTACT_NO, String.valueOf(contactNo - 1));
+                String lastContactDate = ((HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)).get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
+                map.put(Constants.KEY.LAST_CONTACT_DATE, Utils.reverseHyphenSeperatedValues(lastContactDate, "-"));
             }
 
             contact.setGlobals(map);
