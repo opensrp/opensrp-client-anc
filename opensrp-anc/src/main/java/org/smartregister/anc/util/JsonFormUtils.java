@@ -19,13 +19,10 @@ import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.domain.QuickCheck;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
-import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
@@ -52,7 +49,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -65,11 +61,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     public static final String READ_ONLY = "read_only";
-
-    private static final String FORM_SUBMISSION_FIELD = "formsubmissionField";
-    private static final String TEXT_DATA_TYPE = "text";
-    private static final String SELECT_ONE_DATA_TYPE = "select one";
-    private static final String SELECT_MULTIPLE_DATA_TYPE = "select multiple";
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
 
@@ -551,78 +542,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return null;
     }
 
-    public static Event createQuickCheckEvent(AllSharedPreferences allSharedPreferences, QuickCheck quickCheck, String baseEntityId) {
-
-        try {
-
-            Field selectedReason = quickCheck.getSelectedReason();
-            Set<Field> selectedComplaints = quickCheck.getSpecificComplaints();
-            Set<Field> selectedDangerSigns = quickCheck.getSelectedDangerSigns();
-            String specify = quickCheck.getOtherSpecify();
-
-
-            Event event = (Event) new Event()
-                    .withBaseEntityId(baseEntityId)
-                    .withEventDate(new Date())
-                    .withEventType(Constants.EventType.QUICK_CHECK)
-                    .withEntityType(DBConstants.WOMAN_TABLE_NAME)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-
-            if (selectedReason != null) {
-                event.addObs(createObs("contact_reason", SELECT_ONE_DATA_TYPE, selectedReason.getDisplayName()));
-            }
-
-            if (selectedComplaints != null && !selectedComplaints.isEmpty()) {
-                event.addObs(createObs("specific_complaint", SELECT_MULTIPLE_DATA_TYPE, selectedComplaints));
-            }
-
-            if (StringUtils.isNotBlank(specify)) {
-                event.addObs(createObs("specific_complaint_other", TEXT_DATA_TYPE, specify));
-            }
-
-            if (selectedDangerSigns != null && !selectedDangerSigns.isEmpty()) {
-                event.addObs(createObs("danger_signs", SELECT_MULTIPLE_DATA_TYPE, selectedDangerSigns));
-            }
-
-            if (quickCheck.getHasDangerSigns()) {
-                String value = quickCheck.getProceedRefer() ? quickCheck.getProceedToContact() : quickCheck.getReferAndCloseContact();
-                event.addObs(createObs("danger_signs_proceed", SELECT_ONE_DATA_TYPE, value));
-
-                if (!quickCheck.getProceedRefer()) {
-                    value = quickCheck.getTreat() ? quickCheck.getYes() : quickCheck.getNo();
-                    event.addObs(createObs("danger_signs_treat", SELECT_ONE_DATA_TYPE, value));
-                }
-            }
-
-            JsonFormUtils.tagSyncMetadata(allSharedPreferences, event);
-
-            return event;
-
-        } catch (
-                Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-            return null;
-        }
-
-    }
-
-    private static Obs createObs(String formSubmissionField, String dataType, Set<Field> fieldList) {
-        List<Object> vall = new ArrayList<>();
-        for (Field field : fieldList) {
-            vall.add(field.getDisplayName());
-        }
-        return new Obs(FORM_SUBMISSION_FIELD, dataType, formSubmissionField,
-                "", vall, new ArrayList<>(), null, formSubmissionField);
-    }
-
-    private static Obs createObs(String formSubmissionField, String dataType, String value) {
-        List<Object> vall = new ArrayList<>();
-        vall.add(value);
-        return new Obs(FORM_SUBMISSION_FIELD, dataType, formSubmissionField,
-                "", vall, new ArrayList<>(), null, formSubmissionField);
-    }
-
     private static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
@@ -730,11 +649,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Event contactVisitEvent = (Event) new Event()
                     .withBaseEntityId(baseEntityId)
                     .withEventDate(new Date())
-                    .withEventType(Constants.EventType.VISIT)
-                    .withEntityType(Constants.CONTACT + " " + contactNo)
+                    .withEventType(Constants.EventType.CONTACT_VISIT)
+                    .withEntityType(DBConstants.CONTACT_ENTITY_TYPE)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withEvents(events)
                     .withDateCreated(getContactStartDate(contactStartDate));
+
+            contactVisitEvent.addDetails(DBConstants.CONTACT_ENTITY_TYPE, Constants.CONTACT + " " + contactNo);
 
             JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(), contactVisitEvent);
 
