@@ -7,12 +7,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.utils.Utils;
 
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PreviousContact;
-import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -222,10 +220,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         if (previousContactMap != null) {
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
                 AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue()));
-                //TO Remove Pass EDD as personal attribute
-                if(DBConstants.KEY.EDD.equals(entry.getKey())){
-                    PatientRepository.updateEDDDate(event.getBaseEntityId(), Utils.reverseDateString(entry.getValue(),"-"));
-                }
             }
         }
 
