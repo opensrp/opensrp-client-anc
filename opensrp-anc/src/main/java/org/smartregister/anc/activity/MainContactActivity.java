@@ -482,7 +482,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                                 }
 
-                                if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+                                if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME) && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
                                     boolean addDefaults = true;
 
                                     for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
