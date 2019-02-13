@@ -71,9 +71,15 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             for (Object ruleObject : ruleObjects) {
                 List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
                 int valueCount = 0;
+
                 YamlConfig yamlConfig = (YamlConfig) ruleObject;
-                yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
-                yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSub_group(), null));
+                if (yamlConfig.getGroup() != null) {
+                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
+                }
+
+                if (yamlConfig.getSub_group() != null) {
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSub_group(), null));
+                }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();
 
