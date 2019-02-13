@@ -1,12 +1,14 @@
 package org.smartregister.anc.presenter;
 
 import android.database.Cursor;
-import android.database.MergeCursor;
+import android.database.CursorJoiner;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.contract.AdvancedSearchContract;
+import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.model.AdvancedSearchModel;
+import org.smartregister.anc.util.CreateRemoteLocalCursor;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.domain.Response;
 
@@ -82,11 +84,63 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
     @Override
     public void onResultsFound(Response<String> response, String ancId) {
         matrixCursor = model.createMatrixCursor(response);
-        getView().recalculatePagination(matrixCursor);
+        AdvancedMatrixCursor advancedMatrixCursor = getRemoteLocalMatrixCursor(matrixCursor);
+        advancedMatrixCursor.moveToFirst();
+        getView().recalculatePagination(advancedMatrixCursor);
 
         getView().filterandSortInInitializeQueries();
         getView().hideProgressView();
     }
+
+    private AdvancedMatrixCursor getRemoteLocalMatrixCursor(AdvancedMatrixCursor matrixCursor) {
+        String query = getView().filterAndSortQuery();
+        Cursor cursor = getView().getRawCustomQueryForAdapter(query);
+        if (cursor != null && cursor.getCount() > 0) {
+            AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(new String[]{DBConstants.KEY.ID_LOWER_CASE,
+                    DBConstants.KEY.RELATIONAL_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB,
+                    DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME});
+
+            CursorJoiner joiner = new CursorJoiner(matrixCursor, new String[]{DBConstants.KEY.ANC_ID,
+                    DBConstants.KEY.ID_LOWER_CASE}, cursor,
+                    new String[]{DBConstants.KEY.ANC_ID, DBConstants.KEY.ID_LOWER_CASE});
+            for (CursorJoiner.Result joinerResult : joiner) {
+                switch (joinerResult) {
+                    case BOTH:
+                        CreateRemoteLocalCursor createRemoteLocalCursor = new CreateRemoteLocalCursor(matrixCursor, true);
+                        remoteLocalCursor
+                                .addRow(new Object[]{createRemoteLocalCursor.getId(), createRemoteLocalCursor.getRelationalId(),
+                                        createRemoteLocalCursor.getFirstName(), createRemoteLocalCursor.getLastName(),
+                                        createRemoteLocalCursor.getDob(), createRemoteLocalCursor.getAncId(),
+                                        createRemoteLocalCursor.getPhoneNumber(), createRemoteLocalCursor.getAltName()});
+                        break;
+                    case RIGHT:
+                        CreateRemoteLocalCursor localCreateRemoteLocalCursor = new CreateRemoteLocalCursor(cursor, false);
+                        remoteLocalCursor
+                                .addRow(new Object[]{localCreateRemoteLocalCursor.getId(), localCreateRemoteLocalCursor.getRelationalId(),
+                                        localCreateRemoteLocalCursor.getFirstName(), localCreateRemoteLocalCursor.getLastName(),
+                                        localCreateRemoteLocalCursor.getDob(), localCreateRemoteLocalCursor.getAncId(),
+                                        localCreateRemoteLocalCursor.getPhoneNumber(), localCreateRemoteLocalCursor.getAltName()});
+
+                        break;
+                    case LEFT:
+                        createRemoteLocalCursor = new CreateRemoteLocalCursor(matrixCursor, true);
+                        remoteLocalCursor
+                                .addRow(new Object[]{createRemoteLocalCursor.getId(), createRemoteLocalCursor.getRelationalId(),
+                                        createRemoteLocalCursor.getFirstName(), createRemoteLocalCursor.getLastName(),
+                                        createRemoteLocalCursor.getDob(), createRemoteLocalCursor.getAncId(),
+                                        createRemoteLocalCursor.getPhoneNumber(), createRemoteLocalCursor.getAltName()});
+                        break;
+                }
+            }
+
+            cursor.close();
+            matrixCursor.close();
+            return remoteLocalCursor;
+        } else {
+            return matrixCursor;
+        }
+    }
+
 
     protected AdvancedSearchContract.View getView() {
         if (viewReference != null)

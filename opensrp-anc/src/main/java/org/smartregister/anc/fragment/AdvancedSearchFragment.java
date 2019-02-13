@@ -145,8 +145,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
         } else if ((view.getId() == R.id.patient_column || view.getId() == R.id.profile) && view.getTag() != null) {
-            Utils.navigateToProfile(getActivity(),
-                    (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
+            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
         } else if (view.getId() == R.id.sync) {
             SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
             SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
@@ -518,11 +517,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
                             return cursor;
                         } else {
-                            AdvancedMatrixCursor mergeCursor = getMergeCursor(matrixCursor);
-                            mergeCursor.moveToFirst();
-                            recalculatePagination(mergeCursor);
-
-                            return mergeCursor;
+                            return matrixCursor;
                         }
                     }
                 };
@@ -532,95 +527,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         }
     }
 
-    private AdvancedMatrixCursor getMergeCursor(AdvancedMatrixCursor matrixCursor) {
-        String query = filterAndSortQuery();
-        Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
-        if (cursor.getCount() > 0) {
-            AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(new String[]{DBConstants.KEY.ID_LOWER_CASE,
-                    DBConstants.KEY.RELATIONAL_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB,
-                    DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME});
 
-            CursorJoiner joiner = new CursorJoiner(matrixCursor, new String[]{DBConstants.KEY.ANC_ID,
-                    DBConstants.KEY.ID_LOWER_CASE}, cursor,
-                    new String[]{DBConstants.KEY.ANC_ID, DBConstants.KEY.ID_LOWER_CASE});
-            for (CursorJoiner.Result joinerResult : joiner) {
-                switch (joinerResult) {
-                    case BOTH:
-                        String id = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.ID_LOWER_CASE));
-                        String relationalId = matrixCursor
-                                .getString(matrixCursor.getColumnIndex(DBConstants.KEY.RELATIONAL_ID));
-                        String firstName = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.FIRST_NAME));
-                        String lastName = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.LAST_NAME));
-                        String dob = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.DOB));
-                        String ancId = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.ANC_ID));
-                        String phoneNumber = matrixCursor
-                                .getString(matrixCursor.getColumnIndex(DBConstants.KEY.PHONE_NUMBER));
-                        String altName = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.ALT_NAME));
-                        remoteLocalCursor
-                                .addRow(new Object[]{id, relationalId, firstName, lastName, dob, ancId, phoneNumber, altName});
-                        Log.d("AdvancedSearch",
-                                matrixCursor
-                                        .getString(matrixCursor.getColumnIndex(DBConstants.KEY.ANC_ID)) + " Matrix Cursor");
-                        Log.d("AdvancedSearch", cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ANC_ID)) + " Local " +
-                                "Cursor");
-                        Log.d("AdvancedSearch",
-                                " =================================================================================== ");
-                        break;
-                    case RIGHT:
-                        id = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ID_LOWER_CASE));
-                        relationalId = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.RELATIONAL_ID));
-                        firstName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.FIRST_NAME));
-                        lastName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.LAST_NAME));
-                        dob = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.DOB));
-                        ancId = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ANC_ID));
-                        phoneNumber = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.PHONE_NUMBER));
-                        altName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ALT_NAME));
-                        if (!TextUtils.isEmpty(id)) {
-                            remoteLocalCursor
-                                    .addRow(new Object[]{id, relationalId, firstName, lastName, dob, ancId, phoneNumber,
-                                            altName});
-
-                            Log.d("Right -- AdvancedSearch",
-                                    matrixCursor.getString(
-                                            matrixCursor.getColumnIndex(DBConstants.KEY.ANC_ID)) + " Matrix Cursor");
-                            Log.d("Right -- AdvancedSearch",
-                                    cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ANC_ID)) + " Local " +
-                                            "Cursor");
-                            Log.d("Right -- AdvancedSearch",
-                                    " =================================================================================== ");
-                        }
-                        break;
-                    case LEFT:
-                        id = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.ID_LOWER_CASE));
-                        relationalId = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.RELATIONAL_ID));
-                        firstName = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.FIRST_NAME));
-                        lastName = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.LAST_NAME));
-                        dob = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.DOB));
-                        ancId = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.ANC_ID));
-                        phoneNumber = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.PHONE_NUMBER));
-                        altName = matrixCursor.getString(matrixCursor.getColumnIndex(DBConstants.KEY.ALT_NAME));
-                        remoteLocalCursor
-                                .addRow(new Object[]{id, relationalId, firstName, lastName, dob, ancId, phoneNumber, altName});
-                        Log.d("Left -- AdvancedSearch",
-                                matrixCursor
-                                        .getString(matrixCursor.getColumnIndex(DBConstants.KEY.ANC_ID)) + " Matrix Cursor");
-                        Log.d("Left -- AdvancedSearch",
-                                cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ANC_ID)) + " Local " +
-                                        "Cursor");
-                        Log.d("Left -- AdvancedSearch",
-                                " =================================================================================== ");
-                        break;
-                }
-            }
-
-            cursor.close();
-            matrixCursor.close();
-            return remoteLocalCursor;
-        } else {
-            return matrixCursor;
-        }
-    }
-
+    @Override
     public String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -635,6 +543,11 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         }
 
         return query;
+    }
+
+    @Override
+    public Cursor getRawCustomQueryForAdapter(String query){
+      return commonRepository().rawCustomQueryForAdapter(query);
     }
 
 
