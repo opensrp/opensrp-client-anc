@@ -118,6 +118,7 @@ public abstract class Constants {
         public static final String TYPE = "type";
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";
+        public static final String LAST_CONTACT_DATE = "last_contact_date";
         public static final String SECONDARY_VALUES = "secondary_values";
         public static final String PARENT_SECONDARY_KEY = "parent_secondary_key";
 
