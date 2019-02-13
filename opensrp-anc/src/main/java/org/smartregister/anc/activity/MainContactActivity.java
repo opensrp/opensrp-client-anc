@@ -235,13 +235,13 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
 
+            //Inject some form defaults from client details
             map.put(Constants.KEY.CONTACT_NO, contactNo.toString());
+            map.put(Constants.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
 
-            if (contactNo > 1) {
-                map.put(Constants.PREVIOUS_CONTACT_NO, String.valueOf(contactNo - 1));
-                String lastContactDate = ((HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)).get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
-                map.put(Constants.KEY.LAST_CONTACT_DATE, Utils.reverseHyphenSeperatedValues(lastContactDate, "-"));
-            }
+            String lastContactDate = ((HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)).get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
+            map.put(Constants.KEY.LAST_CONTACT_DATE, !TextUtils.isEmpty(lastContactDate) ? Utils.reverseHyphenSeperatedValues(lastContactDate, "-") : "");
+
 
             contact.setGlobals(map);
         }

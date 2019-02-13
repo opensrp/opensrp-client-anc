@@ -5,6 +5,9 @@ package org.smartregister.anc.util;
  */
 public class DBConstants {
 
+
+    public static final String CONTACT_ENTITY_TYPE = "contact";
+
     public static final String WOMAN_TABLE_NAME = "ec_woman";
 
     public static final class KEY {
