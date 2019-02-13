@@ -4,7 +4,7 @@ description: This is a calculated field for purposes of making weight calculatio
 priority: 1
 condition: "true"
 actions:
-- "calculation = (step1_pregest_weight_unknown.contains('pregest_weight_unknown') ? step1_current_weight : step1_pregest_weight)"
+- "calculation = ((!step1_pregest_weight_unknown.isEmpty() && step1_pregest_weight_unknown.contains('pregest_weight_unknown')) ? step1_current_weight : step1_pregest_weight)"
 ---
 name: step1_bmi
 description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
@@ -30,7 +30,7 @@ actions:
 name: step1_gdm_risk
 description: gdm risk
 priority: 1
-condition: "step1_bmi >= 30 || (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia')) || (global_urine_glucose == 'two' || global_urine_glucose == 'three' ||  global_urine_glucose == 'four')"
+condition: "step1_bmi >= 30 || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
 actions:
 - "calculation = 1"
 ---
@@ -41,19 +41,19 @@ condition: "true"
 actions:
 - "calculation = ['bmi' : step1_bmi, 'weight_cat' : step1_weight_cat, 'exp_weight_gain' : step1_exp_weight_gain]"
 ---
-name: step1_weight_gain_date
+name: step1_weight_gain_duration
 description: Todays date
 priority: 1
-condition: "global_contact_no > 1 && !global_last_contact_date.isEmpty"
+condition: "global_contact_no > 1 && global_last_contact_date != ''"
 actions:
 - "calculation = helper.getDifferenceDays(global_last_contact_date)"
 ---
 name: step1_weight_gain
 description: Average weight gain per week since last contact (in kg).
 priority: 1
-condition: "global_contact_no > 1 "
+condition: "global_contact_no > 1 && step1_weight_gain_duration >= 7 "
 actions:
-- "calculation = ((step1_current_weight - global_current_weight) / (step1_weight_gain_date / 7))"
+- "calculation = ((step1_current_weight - global_previous_current_weight) / (step1_weight_gain_duration / 7))"
 ---
 name: step1_tot_weight_gain
 description: Total weight gain in pregnancy so far (in kg).
