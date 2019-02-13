@@ -7,6 +7,15 @@ public class PreviousContact {
     private String key;
     private String value;
 
+    public PreviousContact() {
+    }
+
+    public PreviousContact(String baseEntityId, String key, String value) {
+        this.baseEntityId = baseEntityId;
+        this.key = key;
+        this.value = value;
+    }
+
     public String getKey() {
         return key;
     }

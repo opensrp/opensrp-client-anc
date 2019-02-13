@@ -7,11 +7,14 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.model.PreviousContact;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PreviousContactRepository extends BaseRepository {
@@ -111,23 +114,21 @@ public class PreviousContactRepository extends BaseRepository {
 
     /**
      * @param baseEntityId is the Base entity Id No to filter by
-     * @param keysList an optional list of keys to query null otherwise
+     * @param keysList     an optional list of keys to query null otherwise to get all keys for that base entity id
      */
     public List<PreviousContact> getPreviousContacts(String baseEntityId, List<String> keysList) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
-        List<PreviousContact> previousContacts = null;
+        List<PreviousContact> previousContacts = new ArrayList<>();
         try {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysList != null) {
 
-                    String keys = keysList.toString();
-
                     selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " IN (?) " + COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId, keys.substring(1, keys.length() - 1)};
+                    selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
 
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
@@ -167,5 +168,40 @@ public class PreviousContactRepository extends BaseRepository {
         previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));
 
         return previousContact;
+    }
+
+    public Facts getPreviousContacts(String baseEntityId) {
+        Cursor mCursor = null;
+        String selection = "";
+        String[] selectionArgs = null;
+        Facts previousContacts = new Facts();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId};
+            }
+
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
+
+            if (mCursor != null) {
+
+                while (mCursor.moveToNext()) {
+
+                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
+
+                }
+                return previousContacts;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (mCursor != null) {
+                mCursor.close();
+            }
+        }
+
+        return previousContacts;
     }
 }

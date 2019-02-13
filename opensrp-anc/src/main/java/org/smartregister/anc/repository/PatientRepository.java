@@ -98,12 +98,13 @@ public class PatientRepository {
         ContentValues contentValues = new ContentValues();
         if (edd != null) {
             contentValues.put(DBConstants.KEY.EDD, edd);
-            contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
+            //contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
         } else {
             contentValues.putNull(DBConstants.KEY.EDD);
         }
         AncApplication.getInstance().getRepository().getWritableDatabase().update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?", new String[]{baseEntityId});
     }
+
     public static void updateContactVisitStartDate(String baseEntityId, String contactVisitStartDate) {
 
         ContentValues contentValues = new ContentValues();

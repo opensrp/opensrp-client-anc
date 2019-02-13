@@ -6,8 +6,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+import com.vijay.jsonwizard.utils.Utils;
+
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.helper.ECSyncHelper;
+import org.smartregister.anc.model.PreviousContact;
+import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -24,6 +29,7 @@ import org.smartregister.sync.ClientProcessorForJava;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 15/03/2018.
@@ -49,7 +55,7 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
 
-        ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
+        ClientClassification clientClassification = assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION, ClientClassification.class);
 
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
@@ -79,8 +85,7 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
                     }
                 } else if (eventType.equals(Constants.EventType.VISIT)) {
 
-                    //event.getEvents();
-                    AncApplication.getInstance().getDetailsRepository().add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS), Calendar.getInstance().getTimeInMillis());
+                    processVisit(event);
                 }
             }
 
@@ -180,7 +185,7 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
             String registeredAnm = allSharedPreferences.fetchRegisteredANM();
 
-            ClientField clientField = assetJsonToJava("ec_client_fields.json", ClientField.class);
+            ClientField clientField = assetJsonToJava(Constants.EC_FILE.CLIENT_FIELDS, ClientField.class);
             if (clientField == null) {
                 return false;
             }
@@ -202,6 +207,30 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         return false;
     }
 
+    private void processVisit(Event event) {
+
+        //event.getEvents();
+
+        //Attention flags
+        AncApplication.getInstance().getDetailsRepository().add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS), Calendar.getInstance().getTimeInMillis());
+
+        //Previous contact state
+        String previousContactsRaw = event.getDetails().get(Constants.DETAILS_KEY.PREVIOUS_CONTACTS);
+        Map<String, String> previousContactMap = AncApplication.getInstance().getGsonInstance().fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
+        }.getType());
+
+        if (previousContactMap != null) {
+            for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
+                AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue()));
+                //TO Remove Pass EDD as personal attribute
+                if(DBConstants.KEY.EDD.equals(entry.getKey())){
+                    PatientRepository.updateEDDDate(event.getBaseEntityId(), Utils.reverseDateString(entry.getValue(),"-"));
+                }
+            }
+        }
+
+    }
+
     @Override
     public String[] getOpenmrsGenIds() {
         return new String[]{DBConstants.KEY.ANC_ID};
@@ -210,7 +239,7 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
 
-        Log.i(TAG, "Starting updateFTSsearch table: " + tableName);
+        Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
 
         AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
                 allCommonsRepositoryobjects(tableName);
@@ -219,6 +248,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        Log.i(TAG, "Finished updateFTSsearch table: " + tableName);
+        Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
     }
 }

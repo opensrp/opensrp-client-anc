@@ -194,11 +194,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     @Override
-    public void startQuickCheckActivity(JSONObject form, Contact contact) {
-        super.startQuickCheck(form, contact);
-    }
-
-    @Override
     protected String getFormJson(PartialContact partialContactRequest, JSONObject form) {
 
         try {
@@ -479,6 +474,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                     if (mapValue != null) {
                                         fieldObject.put(JsonFormConstants.VALUE, mapValue);
                                         fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
+                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                     }
 
                                 }
@@ -487,42 +483,32 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                     boolean addDefaults = true;
 
                                     for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
-                                        if (Constants.BOOLEAN.TRUE.equals(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE))) {
-                                            addDefaults = false;
-                                            break;
+                                        String optionValue;
+                                        if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).has(JsonFormConstants.VALUE)) {
+                                            optionValue = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE);
+                                            if (Constants.BOOLEAN.TRUE.equals(optionValue)) {
+                                                addDefaults = false;
+                                                break;
+                                            }
                                         }
                                     }
 
-                                    if (addDefaults && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
+                                    if (addDefaults && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) && fieldObject.has(JsonFormConstants.VALUE)) {
                                         List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
 
                                         for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
 
                                             if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
                                                 stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
-                                                fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
+                                                fieldObject.put(JsonFormConstants.EDITABLE, true);
+                                                fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                             }
 
                                         }
 
-                                    }
-                                }
-
-                            }
-
-                            if (globalValueFields.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
-
-                                String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
-
-                                String mapValue = getMapValue(defaultKey);
-                                if (mapValue != null) {
-                                    if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
-                                        object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + fieldObject.getString(JsonFormConstants.KEY), mapValue);
-                                    } else {
-
-                                        JSONObject jsonObject = new JSONObject();
-                                        jsonObject.put(Constants.PREFIX.PREVIOUS + fieldObject.getString(JsonFormConstants.KEY), mapValue);
-                                        object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
+                                        //Here we must be in some type of radio button with editable already set
+                                    } else if (fieldObject.has(JsonFormConstants.EDITABLE) && fieldObject.getBoolean(JsonFormConstants.EDITABLE)) {
+                                        fieldObject.put(JsonFormConstants.READ_ONLY, true);
                                     }
                                 }
 
@@ -571,5 +557,3 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     }
 }
-
-

@@ -11,6 +11,7 @@ import com.vijay.jsonwizard.rules.RuleConstant;
 import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
@@ -168,7 +169,12 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventList, details);
 
             Event event = eventPair.first;
+            //Here we save state
             event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);
+            String currentContactState = getCurrentContactState(baseEntityId);
+            if (currentContactState != null) {
+                event.addDetails(Constants.DETAILS_KEY.PREVIOUS_CONTACTS, currentContactState);
+            }
 
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
             AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
@@ -261,5 +267,21 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     protected PreviousContactRepository getPreviousContactRepository() {
         return AncApplication.getInstance().getPreviousContactRepository();
+    }
+
+    private String getCurrentContactState(String baseEntityId) throws JSONException {
+        List<PreviousContact> previousContactList = getPreviousContactRepository().getPreviousContacts(baseEntityId, null);
+        JSONObject stateObject = null;
+        if (previousContactList != null) {
+            stateObject = new JSONObject();
+
+            for (PreviousContact previousContact : previousContactList) {
+                stateObject.put(previousContact.getKey(), previousContact.getValue());
+
+            }
+
+        }
+
+        return stateObject != null ? stateObject.toString() : null;
     }
 }

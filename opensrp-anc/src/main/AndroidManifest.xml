@@ -44,12 +44,6 @@
             android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.QuickCheckFormActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AncAppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
-        <activity
             android:name=".activity.EditJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
