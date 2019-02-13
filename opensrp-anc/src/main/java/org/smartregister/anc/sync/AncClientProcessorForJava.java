@@ -220,10 +220,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         if (previousContactMap != null) {
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
                 AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue()));
-               /* //TO Remove Pass EDD as personal attribute
-                if(DBConstants.KEY.EDD.equals(entry.getKey())){
-                    PatientRepository.updateEDDDate(event.getBaseEntityId(), Utils.reverseDateString(entry.getValue(),"-"));
-                }*/
             }
         }
 
