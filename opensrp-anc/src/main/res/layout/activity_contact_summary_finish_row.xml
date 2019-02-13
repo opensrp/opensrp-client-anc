@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/contact_summary_section_header_bg"
-        android:gravity="center"
+        android:gravity="left"
         android:paddingTop="@dimen/contact_drawable_padding"
         android:paddingBottom="@dimen/contact_drawable_padding"
         android:singleLine="true"
@@ -26,7 +26,7 @@
         android:gravity="left"
         android:paddingTop="@dimen/contact_drawable_padding"
         android:paddingBottom="@dimen/contact_drawable_padding"
-        android:text=" Smoking hot : yellow"
+        android:text="Chillin"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/black_text_color"
         android:paddingLeft="@dimen/contact_drawable_padding"/>

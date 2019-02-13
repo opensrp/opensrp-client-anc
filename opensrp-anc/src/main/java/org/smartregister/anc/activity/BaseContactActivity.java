@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,11 +95,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void startFormActivity(JSONObject form, Contact contact) {
         Intent intent = new Intent(this, ContactJsonFormActivity.class);
-        formStartActions(form, contact, intent);
-    }
-
-    protected void startQuickCheck(JSONObject form, Contact contact) {
-        Intent intent = new Intent(this, QuickCheckFormActivity.class);
         formStartActions(form, contact, intent);
     }
 

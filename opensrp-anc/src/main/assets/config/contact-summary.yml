@@ -100,7 +100,7 @@ fields:
 ---
 group: obstetric_history
 fields:
-- template: "GP: {gravida}{parity}"
+- template: "G = {gravida} P = {parity}"
   relevance: "gravida !='' || parity != ''"
 
 - template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
@@ -481,7 +481,7 @@ fields:
 - template: "Cervical exam: {cervical_exam_value}"
   relevance: "cervical_exam != ''"
 
-- template: "Cervix dilated: {dilation_cm} cm"
+- template: "Cervix dilated: {dilation_cm_value} cm"
   relevance: "dilation_cm != ''"
 
 - template: "Oedema present: {oedema_value}"
@@ -505,10 +505,10 @@ fields:
 - template: "Fetal heartbeat present: {fetal_heartbeat}"
   relevance: "fetal_heartbeat != ''"
 
-- template: "Fetal heart rate: {fetal_heart_rate}bpm"
+- template: "Fetal heart rate: {fetal_heart_rate_value}bpm"
   relevance: "fetal_heart_rate != ''"
 
-- template: "Second fetal heart rate: {fetal_heart_rate_repeat}bpm"
+- template: "Second fetal heart rate: {fetal_heart_rate_repeat_value}bpm"
   relevance: "fetal_heart_rate_repeat != ''"
 ---
 group: ultrasound_test
