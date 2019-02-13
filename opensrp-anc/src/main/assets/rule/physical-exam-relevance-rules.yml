@@ -135,7 +135,7 @@ actions:
 name: step1_toaster3
 description: Note displaying that the woman is at risk of developing pre-eclampsia.
 priority: 1
-condition: "(step1_gdm_risk == 1) || (step1_gdm_risk != 1 && dm_in_preg != 1)"
+condition: "(step1_gdm_risk == 1) && (global_gdm != 1 && global_dm_in_preg != 1)"
 actions:
 - "isRelevant = true"
 ---
