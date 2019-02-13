@@ -146,11 +146,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             //Attention Flags
             AncApplication.getInstance().getDetailsRepository().add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, new JSONObject(facts.asMap()).toString(), Calendar.getInstance().getTimeInMillis());
 
-            Event event = JsonFormUtils.createContactVisitEvent(eventList, baseEntityId);
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-
-            //getSyncHelper().addEvent(baseEntityId, eventJson);
-
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);

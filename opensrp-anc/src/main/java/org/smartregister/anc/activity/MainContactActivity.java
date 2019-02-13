@@ -432,7 +432,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         return previousContact != null ? previousContact.getValue() : null;
     }
 
-    private String getFormValue(String formJson, String step, String fieldKey) throws Exception {
+    /*private String getFormValue(String formJson, String step, String fieldKey) throws Exception {
         JSONObject object = new JSONObject(formJson);
         String value = "";
         if (object != null) {
@@ -460,7 +460,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
 
         return value;
-    }
+    }*/
 
     private void preprocessDefaultValues(JSONObject object) throws Exception {
         try {
