@@ -286,7 +286,10 @@
     <string name="reason_for_visit">REASON FOR VISIT</string>
     <string name="contact_recorded_today">CONTACT %1$d\ndone today</string>
     <string name="contact_recorded_today_no_break">CONTACT %1$d done today</string>
-    <string name="continue_contact">Continue Contact</string>
+    <string name="continue_contact">Continue Contact %1$d</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="finalizing_contact">Summarizing Contact %1$d</string>
+    <string name="summarizing_contact_number">Summarizing Contact %1$d</string>
+    <string name="contact_number_due">Contact %1$d &#183; due %2$s</string>
 </resources>

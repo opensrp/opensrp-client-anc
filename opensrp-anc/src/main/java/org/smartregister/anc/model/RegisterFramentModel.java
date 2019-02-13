@@ -115,9 +115,8 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
     public Map<String, String> createEditMap(String ancId) {
         Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(ancId)) {
-            //TODO replace with ANC_ID
-            editMap.put(GLOBAL_IDENTIFIER, Constants.ANC_ID + ":" + ancId);
-            editMap.put(GLOBAL_IDENTIFIER, "OpenSRP_ID:" + ancId);
+
+            editMap.put(GLOBAL_IDENTIFIER, Constants.IDENTIFIER.ANC_ID + ":" + ancId);
         }
         return editMap;
     }
@@ -167,7 +166,7 @@ public class RegisterFramentModel implements RegisterFragmentContract.Model {
                     }
                 }
 
-                ancId = getJsonString(getJsonObject(client, "identifiers"), JsonFormUtils.ANC_ID);
+                ancId = getJsonString(getJsonObject(client, "identifiers"), Constants.IDENTIFIER.ANC_ID);
                 if (StringUtils.isNotBlank(ancId)) {
                     ancId = ancId.replace("-", "");
                 }
