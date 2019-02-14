@@ -221,8 +221,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected JSONArray specifyFields(JSONObject parentJson) {
         JSONArray fields = new JSONArray();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface
-                .getWidgetType()
-                .equals(Constants.EXPANSION_PANEL)) {
+                .getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             try {
                 if (parentJson.has(JsonFormConstants.CONTENT_FORM)) {
                     if (getExtraFieldsWithValues() != null) {
