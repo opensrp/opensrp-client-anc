@@ -104,7 +104,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testAncEditTextFactorInstantiatesCorrectly() throws Exception {
 
         Assert.assertNotNull(factory);
@@ -112,7 +111,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);
