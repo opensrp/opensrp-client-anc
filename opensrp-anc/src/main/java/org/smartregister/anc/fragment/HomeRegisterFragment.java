@@ -2,7 +2,6 @@ package org.smartregister.anc.fragment;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
-import android.database.MergeCursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
@@ -201,17 +200,23 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     @Override
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
-        android.support.v4.app.Fragment currentFragment = baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity
-                .ADVANCED_SEARCH_POSITION);
-        ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+        if (baseRegisterActivity != null) {
+            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
+                    .findFragmentByPosition(BaseRegisterActivity
+                            .ADVANCED_SEARCH_POSITION);
+            ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+        }
     }
 
     @Override
     public void setAdvancedSearchFormData(HashMap<String, String> formData) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
-        android.support.v4.app.Fragment currentFragment = baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity
-                .ADVANCED_SEARCH_POSITION);
-        ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
+        if (baseRegisterActivity != null) {
+            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
+                    .findFragmentByPosition(BaseRegisterActivity
+                            .ADVANCED_SEARCH_POSITION);
+            ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
+        }
     }
 
     @Override
