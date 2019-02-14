@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +20,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,11 +29,8 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
-import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericPopupDialog;
-import org.smartregister.clientandeventmodel.Client;
-import org.smartregister.clientandeventmodel.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -448,7 +445,6 @@ public class ContactJsonFormUtils extends FormUtils {
 
                         String fieldKey = getKey(fieldObject);
 
-
                         if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
 
                             facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE)); //Normal Value
@@ -582,27 +578,22 @@ public class ContactJsonFormUtils extends FormUtils {
 
     }
 
+    /**
+     * @return comma separated string of list values
+     */
     public static String getListValuesAsString(List<String> list) {
         return list.toString().substring(1, list.toString().length() - 1);
     }
 
-    public static void processEvents(String baseEntityId, JSONObject jsonForm) throws Exception {
-        Pair<Client, Event> clientEventPair = JsonFormUtils.processContactFormEvent(jsonForm, baseEntityId);
+    public static String cleanValue(String raw) {
+        return raw.charAt(0) == '[' ? raw.substring(1, raw.length() - 1) : raw;
+    }
 
-        Client baseClient = clientEventPair.first;
-        Event baseEvent = clientEventPair.second;
-
-        if (baseClient != null) {
-
-            JsonFormUtils.mergeAndSaveClient(ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext()),
-                    baseClient);
-
-        }
-
-        if (baseEvent != null) {
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
-            ECSyncHelper.getInstance(AncApplication.getInstance().getApplicationContext())
-                    .addEvent(baseEvent.getBaseEntityId(), eventJson);
+    public static String keyToValueConverter(String keys) {
+        if (!TextUtils.isEmpty(keys) && keys.charAt(0) == '[') {
+            return WordUtils.capitalize(cleanValue(keys)).replaceAll("_", " ");
+        } else {
+            return keys;
         }
     }
 

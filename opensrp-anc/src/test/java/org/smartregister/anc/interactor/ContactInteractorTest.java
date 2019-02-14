@@ -21,6 +21,7 @@ import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.WomanDetail;
 import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
@@ -54,6 +55,9 @@ public class ContactInteractorTest extends BaseUnitTest {
 
     @Mock
     private DetailsRepository detailsRepository;
+
+    @Mock
+    private PreviousContactRepository previousContactRepository;
 
     @Before
     public void setUp() {
@@ -117,6 +121,7 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
         PowerMockito.when(ancApplication.getRulesEngineHelper()).thenReturn(rulesEngineHelper);
         PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
+        PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
         Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 

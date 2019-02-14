@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -128,7 +130,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             } else if (buttonAlertStatus.equals(Constants.ALERT_STATUS.IN_PROGRESS)) {
 
-                contactButtonText = getString(R.string.continue_contact);
+                contactButtonText = String.format(getString(R.string.continue_contact), Integer.valueOf(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
             }
 
 
@@ -150,19 +152,16 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                                 break;
                             case Constants.START_CONTACT:
                             case Constants.CONTINUE_CONTACT:
-                                if (!buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
-
-                                    String baseEntityId = detailMap.get(DBConstants.KEY.BASE_ENTITY_ID);
-
-                                    if (StringUtils.isNotBlank(baseEntityId)) {
-                                        Utils.proceedToContact(baseEntityId, detailMap, ProfileActivity.this);
-                                    }
-                                }
+                                continueToContact();
                                 break;
                             case CLOSE_ANC_RECORD:
                                 JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
                                 break;
                             default:
+                                if (textClicked.startsWith("Continue")) {
+                                    continueToContact();
+                                }
+
                                 break;
                         }
                     }
@@ -174,6 +173,17 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             builderSingle.show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void continueToContact() {
+        if (!buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
+
+            String baseEntityId = detailMap.get(DBConstants.KEY.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, ProfileActivity.this);
+            }
+        }
     }
 
     @Override
@@ -324,5 +334,25 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.profile_overview_due_button) {
+
+            String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+            }
+
+        } else {
+            super.onClick(view);
+        }
+
+    }
+
+    private Activity getActivity() {
+        return this;
+
+    }
 }
 

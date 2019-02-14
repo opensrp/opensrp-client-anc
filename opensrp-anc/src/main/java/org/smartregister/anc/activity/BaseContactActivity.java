@@ -98,11 +98,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
         formStartActions(form, contact, intent);
     }
 
-    protected void startQuickCheck(JSONObject form, Contact contact) {
-        Intent intent = new Intent(this, QuickCheckFormActivity.class);
-        formStartActions(form, contact, intent);
-    }
-
     private void formStartActions(JSONObject form, Contact contact, Intent intent) {
         //partial contact exists?
         PartialContact partialContactRequest = new PartialContact();
