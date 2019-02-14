@@ -12,5 +12,6 @@ public class FilePath {
         public static final String CONTACT_GLOBALS = "contact-globals.yml";
         public static final String CONTACT_SUMMARY = "contact-summary.yml";
         public static final String ATTENTION_FLAGS = "attention-flags.yml";
+        public static final String PROFILE_OVERVIEW = "profile-overview.yml";
     }
 }
