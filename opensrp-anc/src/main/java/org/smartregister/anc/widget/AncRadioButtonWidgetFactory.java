@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.vijay.jsonwizard.utils.FormUtils.showEditButton;
 
 public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
     @Override
@@ -91,7 +90,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
             if (labelViews.size() > 0) {
                 editButton = (ImageView) labelViews.get(JsonFormConstants.EDIT_BUTTON);
                 if (editButton != null) {
-                    showEditButton(jsonObject, radioGroup, editButton, commonListener);
+                   FormUtils.setEditButtonAttributes(jsonObject, radioGroup, editButton, commonListener);
                 }
 
             }
