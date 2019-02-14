@@ -58,7 +58,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
-    private Utils utils = new Utils();
 
     @Override
     protected void initializePresenter() {
@@ -119,7 +118,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                 String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
-                    utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
+                    Utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
                 }
             }
 

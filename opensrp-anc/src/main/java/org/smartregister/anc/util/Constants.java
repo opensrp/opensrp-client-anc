@@ -16,13 +16,13 @@ public abstract class Constants {
     public static final String NEXT = "next";
 
     public static final String GLOBAL_IDENTIFIER = "identifier";
-    public static final String ANC_ID = "ANC_ID";
     public static final int DELIVERY_DATE_WEEKS = 40;
     public static final String EXPANSION_PANEL = "expansion_panel";
     public static final String ANC_RADIO_BUTTON = "anc_radio_button";
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
+    public static final String EDITABLE_FIELDS = "editable_fields";
     public static final String FALSE = "false";
     public static final String DANGER_SIGNS = "danger_signs";
     public static final String DANGER_NONE = "danger_none";
@@ -37,6 +37,8 @@ public abstract class Constants {
     public static final String DOB = "dob";
     public static final String PHONE_NUMBER = "phoneNumber";
     public static final String ALT_CONTACT_NAME = "altContactName";
+    public static final String CONTACT = "Contact";
+    public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
@@ -59,6 +61,11 @@ public abstract class Constants {
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
+    }
+
+
+    public static class IDENTIFIER {
+        public static final String ANC_ID = "ANC_ID";
     }
 
     public static final class EventType {
@@ -91,6 +98,8 @@ public abstract class Constants {
         public static final String DEATH_DATE = "deathdate";
         public static final String DEATH_DATE_APPROX = "deathdateApprox";
         public static final String ANC_CLOSE_REASON = "anc_close_reason";
+        public static final String DOB_ENTERED = "dob_entered";
+        public static final String AGE_ENTERED = "age_entered";
 
     }
 
@@ -117,6 +126,7 @@ public abstract class Constants {
         public static final String TYPE = "type";
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";
+        public static final String LAST_CONTACT_DATE = "last_contact_date";
         public static final String SECONDARY_VALUES = "secondary_values";
         public static final String PARENT_SECONDARY_KEY = "parent_secondary_key";
 
@@ -153,6 +163,7 @@ public abstract class Constants {
     public static class DETAILS_KEY {
         public static final String CONTACT_SHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
+        public static final String PREVIOUS_CONTACTS = "previous_contacts";
 
     }
 
@@ -175,6 +186,12 @@ public abstract class Constants {
     public static class RULES_FILE {
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String ALERT_RULES = "alert-rules.yml";
+
+    }
+
+    public static class EC_FILE {
+        public static final String CLIENT_CLASSIFICATION = "ec_client_classification.json";
+        public static final String CLIENT_FIELDS = "ec_client_fields.json";
 
     }
 

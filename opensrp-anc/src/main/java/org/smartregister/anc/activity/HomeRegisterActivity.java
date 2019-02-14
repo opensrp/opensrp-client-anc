@@ -38,6 +38,7 @@ import org.smartregister.anc.fragment.LibraryFragment;
 import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
+import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
@@ -263,9 +264,9 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                         break;
                     case Constants.EventType.QUICK_CHECK:
                         Contact contact = new Contact();
-                        contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, 0));
-                        ContactJsonFormUtils
-                                .persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                        contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0));
+                        ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                        PatientRepository.updateContactVisitStartDate(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),Utils.getDBDateToday());
                         break;
                 }
             } catch (Exception e) {

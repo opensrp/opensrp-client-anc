@@ -3,6 +3,8 @@ package org.smartregister.anc.repository;
 import android.content.ContentValues;
 import android.util.Log;
 
+import com.google.common.collect.ImmutableMap;
+
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -15,6 +17,7 @@ import org.smartregister.repository.Repository;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class PartialContactRepository extends BaseRepository {
     private static final String TAG = PartialContactRepository.class.getCanonicalName();
@@ -29,6 +32,7 @@ public class PartialContactRepository extends BaseRepository {
     public static final String CONTACT_NO = "contact_no";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
+    private Map<String, Integer> formProcessingOrderMap;
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
@@ -55,6 +59,15 @@ public class PartialContactRepository extends BaseRepository {
 
     public PartialContactRepository(Repository repository) {
         super(repository);
+
+        formProcessingOrderMap = ImmutableMap.<String, Integer>builder()
+                .put(Constants.JSON_FORM.ANC_QUICK_CHECK, 1)
+                .put(Constants.JSON_FORM.ANC_PROFILE, 2)
+                .put(Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, 3)
+                .put(Constants.JSON_FORM.ANC_PHYSICAL_EXAM, 4)
+                .put(Constants.JSON_FORM.ANC_TEST, 5)
+                .put(Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT, 6)
+                .build();
     }
 
     protected static void createTable(SQLiteDatabase database) {
@@ -186,6 +199,8 @@ public class PartialContactRepository extends BaseRepository {
         partialContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
         partialContact.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
         partialContact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)));
+        partialContact.setSortOrder(formProcessingOrderMap.get(partialContact.getType()));
+
 
         return partialContact;
     }
@@ -207,7 +222,7 @@ public class PartialContactRepository extends BaseRepository {
         getWritableDatabase().delete(TABLE_NAME, "_id=?", new String[]{id.toString()});
     }
 
-    public void clearPartialRepository(){
+    public void clearPartialRepository() {
 
         getWritableDatabase().delete(TABLE_NAME, "_id IS NOT NULL", null);
     }

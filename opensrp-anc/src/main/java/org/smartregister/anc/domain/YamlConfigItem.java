@@ -5,9 +5,19 @@ package org.smartregister.anc.domain;
  */
 public class YamlConfigItem {
 
+    public static final String FIELD_CONTACT_SUMMARY_ITEMS = "contactSummaryItems";
+
     private String template;
     private String relevance;
-    public static final String FIELD_CONTACT_SUMMARY_ITEMS = "contactSummaryItems";
+    private String isRedFont;
+
+    public String getIsRedFont() {
+        return isRedFont;
+    }
+
+    public void setIsRedFont(String isRedFont) {
+        this.isRedFont = isRedFont;
+    }
 
     public String getTemplate() {
         return template;
