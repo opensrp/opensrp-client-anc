@@ -2860,7 +2860,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "key": "hiv_risk",
-        "type": "edit_text",
+        "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {

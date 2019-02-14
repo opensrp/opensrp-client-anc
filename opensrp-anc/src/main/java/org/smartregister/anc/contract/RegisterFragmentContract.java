@@ -1,5 +1,7 @@
 package org.smartregister.anc.contract;
 
+import android.database.MergeCursor;
+
 import org.json.JSONArray;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
