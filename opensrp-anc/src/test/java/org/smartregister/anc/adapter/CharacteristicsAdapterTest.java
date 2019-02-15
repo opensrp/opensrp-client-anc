@@ -1,7 +1,9 @@
 package org.smartregister.anc.adapter;
 
 import android.widget.LinearLayout;
+
 import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
