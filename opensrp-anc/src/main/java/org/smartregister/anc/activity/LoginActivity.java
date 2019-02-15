@@ -77,17 +77,4 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
         }
     }
-
-    @Override
-    protected void renderBuildInfo() {
-        TextView application_version = findViewById(org.smartregister.R.id.login_build_text_view);
-        if (application_version != null) {
-            try {
-                application_version.setText(String.format(getString(org.smartregister.R.string.app_version), Utils.getVersion(this), Utils.getBuildDate(true)));
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 }

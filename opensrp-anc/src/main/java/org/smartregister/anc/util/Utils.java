@@ -192,18 +192,6 @@ public class Utils extends org.smartregister.util.Utils {
         return R.drawable.avatar_woman;
     }
 
-    public static String getBuildDate(Boolean isShortMonth) {
-        String simpleDateFormat;
-        if (isShortMonth) {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        } else {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        }
-        return simpleDateFormat;
-    }
-
     public static String reverseHyphenSeperatedValues(String rawString, String outputSeperator) {
         String resultString = rawString;
         String[] tokenArray = resultString.split("-");

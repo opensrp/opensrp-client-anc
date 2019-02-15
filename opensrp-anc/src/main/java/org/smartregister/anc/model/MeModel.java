@@ -1,6 +1,6 @@
 package org.smartregister.anc.model;
 
-import org.smartregister.anc.util.Utils;
+import org.smartregister.util.Utils;
 import org.smartregister.view.contract.MeContract;
 
 public class MeModel implements MeContract.Model {
