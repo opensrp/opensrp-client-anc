@@ -229,8 +229,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                     case Constants.EventType.QUICK_CHECK:
                         Contact contact = new Contact();
                         contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0));
-                        ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
-                        PatientRepository.updateContactVisitStartDate(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),Utils.getDBDateToday());
+                        ContactJsonFormUtils
+                                .persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                        PatientRepository
+                                .updateContactVisitStartDate(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),
+                                        Utils.getDBDateToday());
+                        break;
+                    default:
                         break;
                 }
             } catch (Exception e) {

@@ -467,72 +467,81 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                             JSONObject fieldObject = stepArray.getJSONObject(i);
 
-                            if (defaultValueFields.contains(fieldObject.getString(JsonFormConstants.KEY))) {
-
-                                if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
-
-                                    String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
-                                    String mapValue = getMapValue(defaultKey);
-
-                                    if (mapValue != null) {
-                                        fieldObject.put(JsonFormConstants.VALUE, mapValue);
-                                        fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
-                                        fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
-                                    }
-
-                                }
-
-                                if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
-                                    boolean addDefaults = true;
-
-                                    for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
-                                        String optionValue;
-                                        if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).has(JsonFormConstants.VALUE)) {
-                                            optionValue = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE);
-                                            if (Constants.BOOLEAN.TRUE.equals(optionValue)) {
-                                                addDefaults = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    if (addDefaults && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) && fieldObject.has(JsonFormConstants.VALUE)) {
-                                        List<String> values = Arrays.asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
-
-                                        for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
-
-                                            if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
-                                                stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
-                                                fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
-                                                fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
-                                            }
-
-                                        }
-
-                                    }
-                                }
-
-                            }
+                            updateDefaultValues(stepArray, i, fieldObject);
                         }
                     }
                 }
-                for (int i = 0; i < globalValueFields.size(); i++) {
-                    String mapValue = getMapValue(globalValueFields.get(i));
-                    if (mapValue != null) {
-                        if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
-                            object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
-                        } else {
+                getValueMap(object);
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage());
 
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
-                            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
+        }
+    }
+
+    private void updateDefaultValues(JSONArray stepArray, int i, JSONObject fieldObject) throws JSONException {
+        if (defaultValueFields.contains(fieldObject.getString(JsonFormConstants.KEY))) {
+
+            if (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+
+                String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
+                String mapValue = getMapValue(defaultKey);
+
+                if (mapValue != null) {
+                    fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                    fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
+                    fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
+                }
+
+            }
+
+            if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+                boolean addDefaults = true;
+
+                for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
+                    String optionValue;
+                    if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).has(JsonFormConstants.VALUE)) {
+                        optionValue = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.VALUE);
+                        if (Constants.BOOLEAN.TRUE.equals(optionValue)) {
+                            addDefaults = false;
+                            break;
                         }
+                    }
+                }
+
+                if (addDefaults && fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) && fieldObject.has(JsonFormConstants.VALUE)) {
+                    List<String> values = Arrays
+                            .asList(fieldObject.getString(JsonFormConstants.VALUE).substring(1, fieldObject.getString(JsonFormConstants.VALUE).length() - 1).split(", "));
+
+                    for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
+
+                        if (values.contains(fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).getString(JsonFormConstants.KEY))) {
+                            stepArray.getJSONObject(i).getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m).put(JsonFormConstants.VALUE, true);
+                            fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
+                            fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(fieldObject.getString(JsonFormConstants.KEY)));
+                        }
+
                     }
 
                 }
             }
-        } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
+
+        }
+    }
+
+    private void getValueMap(JSONObject object) throws JSONException {
+        for (int i = 0; i < globalValueFields.size(); i++) {
+            String mapValue = getMapValue(globalValueFields.get(i));
+            if (mapValue != null) {
+                if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+                    object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
+                } else {
+
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put(Constants.PREFIX.PREVIOUS + globalValueFields.get(i), mapValue);
+                    object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, jsonObject);
+                }
+            }
 
         }
     }

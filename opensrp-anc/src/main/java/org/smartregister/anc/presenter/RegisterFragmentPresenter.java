@@ -7,7 +7,7 @@ import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
-import org.smartregister.anc.model.RegisterFramentModel;
+import org.smartregister.anc.model.RegisterFragmentModel;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -37,7 +37,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     public RegisterFragmentPresenter(RegisterFragmentContract.View view, String viewConfigurationIdentifier) {
         this.viewReference = new WeakReference<>(view);
-        this.model = new RegisterFramentModel();
+        this.model = new RegisterFragmentModel();
         this.viewConfigurationIdentifier = viewConfigurationIdentifier;
         this.config = model.defaultRegisterConfiguration();
 
