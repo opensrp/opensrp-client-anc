@@ -150,8 +150,9 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView view = (TextView) super.getView(position, convertView, parent);
+                ConfigurableViewsLibrary.getInstance();
                 view.setTextColor(
-                        ConfigurableViewsLibrary.getInstance().getContext().getColorResource(R.color.customAppThemeBlue));
+                        ConfigurableViewsLibrary.getContext().getColorResource(R.color.customAppThemeBlue));
 
                 return view;
             }

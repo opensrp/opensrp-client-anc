@@ -239,10 +239,10 @@
     <!-- contact -->
     <string name="quick_check">Quick Check</string>
     <string name="profile">Profile</string>
-    <string name="symptoms_follow_up">Symptoms &amp; Follow-up</string>
+    <string name="symptoms_follow_up">Symptoms and Follow-up</string>
     <string name="physical_exam">Physical Exam</string>
     <string name="tests">Tests</string>
-    <string name="counselling_treatment">Counselling &amp; Treatment</string>
+    <string name="counselling_treatment">Counselling and Treatment</string>
 
     <string name="finalize">Finalize</string>
     <string name="required_fields">%1$d required fields</string>
