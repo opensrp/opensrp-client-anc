@@ -635,7 +635,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return "";
     }
 
-    public static Pair<Event, Event> createContactVisitEvent(List<Event> events, Map<String, String> womanDetails) {
+    public static Pair<Event, Event> createContactVisitEvent(List<String> events, Map<String, String> womanDetails) {
         if (events.size() < 1) {
             return null;
         }
@@ -652,10 +652,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .withEventType(Constants.EventType.CONTACT_VISIT)
                     .withEntityType(DBConstants.CONTACT_ENTITY_TYPE)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withEvents(events)
                     .withDateCreated(getContactStartDate(contactStartDate));
 
-            contactVisitEvent.addDetails(DBConstants.CONTACT_ENTITY_TYPE, Constants.CONTACT + " " + contactNo);
+            contactVisitEvent.addDetails(Constants.CONTACT, Constants.CONTACT + " " + contactNo);
+            contactVisitEvent.addDetails(Constants.EVENT_IDS, events.toString());
 
             JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(), contactVisitEvent);
 
