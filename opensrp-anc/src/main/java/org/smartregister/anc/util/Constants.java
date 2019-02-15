@@ -29,6 +29,14 @@ public abstract class Constants {
     public static final String CALL = "Call";
     public static final String START_CONTACT = "Start Contact";
     public static final String CONTINUE_CONTACT = "Continue Contact";
+    public static final String ORIGIN = "origin";
+    public static final String ADVANCED_SEARCH = "AdvancedSearch";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String EDD = "edd";
+    public static final String DOB = "dob";
+    public static final String PHONE_NUMBER = "phoneNumber";
+    public static final String ALT_CONTACT_NAME = "altContactName";
     public static final String CONTACT = "Contact";
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
 

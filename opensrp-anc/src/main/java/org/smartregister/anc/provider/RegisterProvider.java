@@ -154,10 +154,10 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
-
-                ButtonAlertStatus buttonAlertStatus = Utils.getButtonAlertStatus(pc.getColumnmaps(), context.getString(R.string.contact_weeks));
-
-                Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contact_today_text, buttonAlertStatus);
+                ButtonAlertStatus buttonAlertStatus = Utils
+                        .getButtonAlertStatus(pc.getColumnmaps(), context.getString(R.string.contact_weeks));
+                Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contact_today_text,
+                        buttonAlertStatus);
 
             } else {
                 viewHolder.dueButton.setVisibility(View.GONE);

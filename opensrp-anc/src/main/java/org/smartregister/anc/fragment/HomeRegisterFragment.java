@@ -47,7 +47,8 @@ import java.util.Set;
  * Created by keyman on 26/06/2018.
  */
 
-public class HomeRegisterFragment extends BaseRegisterFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver
+public class HomeRegisterFragment extends BaseRegisterFragment
+        implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver
         .SyncStatusListener {
 
     private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
@@ -134,7 +135,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 protected Void doInBackground(Void... nada) {
                     try {
 
-                        JSONObject jsonObject = new JSONObject(AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+                        JSONObject jsonObject = new JSONObject(
+                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
+                                        .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
 
                         Facts facts = new Facts();
 
@@ -153,9 +156,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
                             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                                if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                                if (AncApplication.getInstance().getRulesEngineHelper()
+                                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
-                                    attentionFlagList.add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts), attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAG.RED)));
+                                    attentionFlagList
+                                            .add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts),
+                                                    attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAG.RED)));
 
                                 }
 
@@ -184,23 +190,34 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     }
 
 
-    @SuppressLint("NewApi")
+    @SuppressLint ("NewApi")
     @Override
     public void showNotFoundPopup(String whoAncId) {
-        NoMatchDialogFragment.launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
+        NoMatchDialogFragment
+                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
 
     @Override
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
-        android.support.v4.app.Fragment currentFragment = baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity
-                .ADVANCED_SEARCH_POSITION);
-        ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+        if (baseRegisterActivity != null) {
+            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
+                    .findFragmentByPosition(BaseRegisterActivity
+                            .ADVANCED_SEARCH_POSITION);
+            ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+        }
     }
 
     @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> hashMap) {
-        //Todo override from the base class
+
+    public void setAdvancedSearchFormData(HashMap<String, String> formData) {
+        BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
+        if (baseRegisterActivity != null) {
+            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
+                    .findFragmentByPosition(BaseRegisterActivity
+                            .ADVANCED_SEARCH_POSITION);
+            ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
+        }
     }
 
     @Override
