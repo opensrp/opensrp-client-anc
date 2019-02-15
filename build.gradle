@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.2.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -35,11 +35,11 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '27.0.3'
-    ext.androidBuildToolsVersion = '27.0.3'
+    ext.androidToolsBuildGradle = '28.0.3'
+    ext.androidBuildToolsVersion = '28.0.3'
     ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 27
-    ext.androidTargetSdkVersion = 27
+    ext.androidCompileSdkVersion = 28
+    ext.androidTargetSdkVersion = 28
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'

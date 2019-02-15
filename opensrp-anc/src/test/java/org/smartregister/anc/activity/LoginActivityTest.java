@@ -125,6 +125,30 @@ public class LoginActivityTest extends BaseActivityUnitTest {
         assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
+    @Test
+    public void testGoToHomeRegisterWithRemoteTrue() {
+
+        try {
+            Whitebox.invokeMethod(loginActivity, LoginActivity.class, "gotToHomeRegister", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+    }
+
+    @Test
+    public void testGoToHomeRegisterWithRemote() {
+
+        try {
+            Whitebox.invokeMethod(loginActivity, LoginActivity.class, "gotToHomeRegister", false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+    }
+
     private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
 
         Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
@@ -277,7 +301,8 @@ public class LoginActivityTest extends BaseActivityUnitTest {
 
         Whitebox.setInternalState(spyActivity, "passwordEditText", passwordEditText);
 
-        Mockito.doNothing().when(spyActivity).showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
+        Mockito.doNothing().when(spyActivity)
+                .showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
 
         spyActivity.setUsernameError(R.string.unauthorized);
 
@@ -295,7 +320,8 @@ public class LoginActivityTest extends BaseActivityUnitTest {
 
         Whitebox.setInternalState(spyActivity, "userNameEditText", userNameEditText);
 
-        Mockito.doNothing().when(spyActivity).showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
+        Mockito.doNothing().when(spyActivity)
+                .showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
 
         spyActivity.setPasswordError(R.string.unauthorized);
 
