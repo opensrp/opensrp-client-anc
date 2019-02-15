@@ -2,7 +2,9 @@ package org.smartregister.anc.activity;
 
 import android.app.Activity;
 import android.widget.LinearLayout;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

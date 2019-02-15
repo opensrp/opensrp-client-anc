@@ -28,7 +28,6 @@ import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
