@@ -75,7 +75,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             String output = Utils.fillTemplate(template.detail, this.facts);
 
             holder.sectionDetailTitle.setText(template.title);
-            holder.sectionDetails.setText(ContactJsonFormUtils.keyToValueConverter(output));//Perhaps refactor to use Json Form Parser Implementation
+            holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
 
             if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
                 holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
