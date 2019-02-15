@@ -328,7 +328,7 @@
         "look_up": "true",
         "entity_id": "",
         "v_regex": {
-          "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid VHT name"
         }
       },
@@ -344,7 +344,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\s*",
+          "value": "([0-9]{10})|\\s*",
           "err": "Number must be a total of 10 digits in length"
         }
       },
