@@ -12,6 +12,7 @@ public class DBConstants {
 
     public static final class KEY {
         public static final String ID = "_ID";
+        public static final String ID_LOWER_CASE = "_id";
         public static final String STEPNAME = "stepName";
         public static final String NUMBER_PICKER = "number_picker";
         public static final String FIRST_NAME = "first_name";
@@ -36,6 +37,7 @@ public class DBConstants {
         public static final String NEXT_CONTACT = "next_contact";
         public static final String NEXT_CONTACT_DATE = "next_contact_date";
         public static final String LAST_CONTACT_RECORD_DATE = "last_contact_record_date";
+        public static final String RELATIONAL_ID = "relationalid";
         public static final String VISIT_START_DATE = "visit_start_date";
     }
 }
