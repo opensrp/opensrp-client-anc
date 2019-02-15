@@ -2,7 +2,6 @@ package org.smartregister.anc.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
@@ -68,6 +67,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     private AlertDialog recordBirthAlertDialog;
     private AlertDialog attentionFlagAlertDialog;
+    private AlertDialog languageDialog;
     private View attentionFlagDialogView;
     private boolean isAdvancedSearch = false;
     private String advancedSearchQrText = "";
@@ -146,8 +146,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     @Override
     public void showLanguageDialog(final List<String> displayValues) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout
-                .simple_list_item_1,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,
                 displayValues.toArray(new String[displayValues.size()])) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -158,6 +157,12 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                 return view;
             }
         };
+
+        languageDialog = createLanguageDialog(adapter, displayValues);
+        languageDialog.show();
+    }
+
+    public AlertDialog createLanguageDialog(ArrayAdapter<String> adapter, final List<String> displayValues) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(this.getString(R.string.select_language));
         builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
@@ -169,8 +174,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             }
         });
 
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+        return builder.create();
     }
 
 
@@ -265,8 +269,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                     case Constants.EventType.QUICK_CHECK:
                         Contact contact = new Contact();
                         contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0));
-                        ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
-                        PatientRepository.updateContactVisitStartDate(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),Utils.getDBDateToday());
+                        ContactJsonFormUtils
+                                .persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                        PatientRepository
+                                .updateContactVisitStartDate(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),
+                                        Utils.getDBDateToday());
+                        break;
+                    default:
                         break;
                 }
             } catch (Exception e) {
@@ -303,7 +312,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         mBaseFragment.setUniqueID(searchTerm);
     }
 
-    private void setFormData(HashMap<String,String> formData){
+    private void setFormData(HashMap<String, String> formData) {
         mBaseFragment.setAdvancedSearchFormData(formData);
     }
 
