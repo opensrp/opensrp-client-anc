@@ -673,6 +673,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             attributes.put(DBConstants.KEY.CONTACT_STATUS, womanDetails.get(DBConstants.KEY.CONTACT_STATUS));
             attributes.put(DBConstants.KEY.YELLOW_FLAG_COUNT, womanDetails.get(DBConstants.KEY.YELLOW_FLAG_COUNT));
             attributes.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetails.get(DBConstants.KEY.RED_FLAG_COUNT));
+            attributes.put(DBConstants.KEY.EDD, womanDetails.get(DBConstants.KEY.EDD));
             clientForm.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
 
             FormTag formTag = new FormTag();
