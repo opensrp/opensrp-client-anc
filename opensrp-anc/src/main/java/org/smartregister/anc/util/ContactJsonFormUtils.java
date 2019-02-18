@@ -540,12 +540,14 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     public static String keyToValueConverter(String keys) {
+        String cleanKey = WordUtils.capitalize(cleanValue(keys));
+
         if (!TextUtils.isEmpty(keys) && keys.charAt(0) == '[') {
 
-            return WordUtils.capitalize(cleanValue(keys)).replaceAll("_", " ");
+            return cleanKey.replaceAll("_", " ");
 
         } else {
-            return keys;
+            return cleanKey;
         }
 
     }

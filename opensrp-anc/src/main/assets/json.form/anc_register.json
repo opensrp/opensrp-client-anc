@@ -185,8 +185,8 @@
       {
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "--",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
         "options": [
           {
@@ -196,15 +196,15 @@
             "value": "false",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
-            "openmrs_entity_id": "--"
+            "openmrs_entity_id": ""
           }
         ]
       },
       {
         "key": "age",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "--",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
         "type": "hidden",
         "value": "",
         "calculation": {
