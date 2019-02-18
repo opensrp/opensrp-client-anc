@@ -289,7 +289,7 @@
     <string name="continue_contact">Continue Contact %1$d</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="finalizing_contact">Summarizing Contact %1$d</string>
+    <string name="finalizing_contact">Finalizing Contact %1$d</string>
     <string name="summarizing_contact_number">Summarizing Contact %1$d</string>
     <string name="contact_number_due">Contact %1$d &#183; due %2$s</string>
 </resources>
