@@ -10,11 +10,11 @@ public class YamlConfig {
     private String group;
     private String sub_group;
 
-    public String getSub_group() {
+    public String getSubGroup() {
         return sub_group;
     }
 
-    public void setSub_group(String sub_group) {
+    public void setSubGroup(String sub_group) {
         this.sub_group = sub_group;
     }
 

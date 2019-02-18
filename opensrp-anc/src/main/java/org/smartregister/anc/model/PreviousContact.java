@@ -6,6 +6,7 @@ public class PreviousContact {
     private String baseEntityId;
     private String key;
     private String value;
+    private String visitDate;
 
     public PreviousContact() {
     }
@@ -39,9 +40,6 @@ public class PreviousContact {
     public void setVisitDate(String visitDate) {
         this.visitDate = visitDate;
     }
-
-    private String visitDate;
-
 
     public Long getId() {
         return id;

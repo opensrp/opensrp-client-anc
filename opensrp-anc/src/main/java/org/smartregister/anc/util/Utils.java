@@ -33,7 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseContactActivity;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
@@ -79,6 +78,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
     private static final String TAG = "Anc Utils";
+    private static final String OTHER_SUFFIX = ", other]";
 
     static {
         ALLOWED_LEVELS = new ArrayList<>();
@@ -190,18 +190,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getProfileImageResourceIdentifier() {
         return R.drawable.avatar_woman;
-    }
-
-    public static String getBuildDate(Boolean isShortMonth) {
-        String simpleDateFormat;
-        if (isShortMonth) {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        } else {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        }
-        return simpleDateFormat;
     }
 
     public static String reverseHyphenSeperatedValues(String rawString, String outputSeperator) {
@@ -384,11 +372,23 @@ public class Utils extends org.smartregister.util.Utils {
         String stringValueResult = stringValue;
         while (stringValueResult.contains("{")) {
             String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
-            String value = facts.get(key);
+            String value = processValue(key, facts);
             stringValueResult = stringValueResult.replace("{" + key + "}", value != null ? value : "");
         }
 
         return stringValueResult;
+    }
+
+    private static String processValue(String key, Facts facts) {
+
+        String value = facts.get(key);
+        if (value.endsWith(OTHER_SUFFIX)) {
+            Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
+            value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" : value.substring(0, value.lastIndexOf(",")) + "]";
+
+        }
+
+        return ContactJsonFormUtils.keyToValueConverter(value);
     }
 
     public static void navigateToHomeRegister(Context context, boolean isRemote) {
@@ -530,6 +530,8 @@ public class Utils extends org.smartregister.util.Utils {
                         String.format(context.getString(R.string.contact_recorded_today), Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
                 contactTextView.setPadding(2, 2, 2, 2);
 
+                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
+
                 /*dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
                 dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
 
@@ -540,7 +542,7 @@ public class Utils extends org.smartregister.util.Utils {
                 dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
                 dueButton.setPadding(2, 2, 2, 2);*/
 
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
+                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
                 dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
                 dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
 

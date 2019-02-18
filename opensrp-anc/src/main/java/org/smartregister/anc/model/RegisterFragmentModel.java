@@ -12,7 +12,6 @@ import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.util.ConfigHelper;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
@@ -35,7 +34,7 @@ import static org.smartregister.anc.util.Constants.GLOBAL_IDENTIFIER;
 /**
  * Created by keyman on 12/07/2018.
  */
-public class RegisterFramentModel implements RegisterFragmentContract.Model {
+public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {

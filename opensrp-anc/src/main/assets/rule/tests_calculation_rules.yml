@@ -86,7 +86,7 @@ actions:
 name: step1_syphilis_positive
 description: syphilis_positive
 priority: 1
-condition: "(step1_rapid_syphilis_test == 'positive') || (step1_rpr_syphilis_test == 'positive') || (step1_lab_syphilis_test == 'positive')"
+condition: "(step1_rapid_syphilis_test == 'positive' && step1_rapid_syphilis_test != '' ) || (step1_rpr_syphilis_test == 'positive' && step1_rpr_syphilis_test != '') || (step1_lab_syphilis_test == 'positive' && step1_lab_syphilis_test != '')"
 actions:
 - "calculation = 1"
 ---

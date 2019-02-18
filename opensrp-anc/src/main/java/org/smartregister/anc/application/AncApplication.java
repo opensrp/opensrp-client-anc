@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.domain.YamlConfig;
@@ -118,7 +119,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context, new AncSyncConfiguration());
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
         ConfigurableViewsLibrary.init(context, getRepository());
 
         SyncStatusBroadcastReceiver.init(this);

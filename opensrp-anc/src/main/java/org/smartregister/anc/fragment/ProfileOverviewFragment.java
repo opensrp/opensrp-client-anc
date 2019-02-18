@@ -34,7 +34,6 @@ import java.util.Map;
 public class ProfileOverviewFragment extends BaseProfileFragment {
     public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
     private List<YamlConfigWrapper> yamlConfigListGlobal;
-    private Facts facts;
 
     private Button dueButton;
     private ButtonAlertStatus buttonAlertStatus;
@@ -64,7 +63,8 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     protected void onResumption() {
         try {
 
-            facts = AncApplication.getInstance().getPreviousContactRepository().getPreviousContacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+            Facts facts = AncApplication.getInstance().getPreviousContactRepository()
+                    .getPreviousContacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 
@@ -77,8 +77,8 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
                     yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
                 }
 
-                if (yamlConfig.getSub_group() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSub_group(), null));
+                if (yamlConfig.getSubGroup() != null) {
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null));
                 }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();
