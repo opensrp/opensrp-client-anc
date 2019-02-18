@@ -102,7 +102,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository.getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
 
             Facts facts = new Facts();
-            List<Event> eventList = new ArrayList<>();
+            List<String> eventIds = new ArrayList<>();
 
             if (partialContactList != null) {
 
@@ -134,7 +134,12 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
 
                         //process events
-                        eventList.add(JsonFormUtils.processContactFormEvent(formObject, baseEntityId));
+                        Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
+                        eventIds.add(event.getEventId());
+
+                        JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                        AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+
                     }
 
                     //Remove partial contact
@@ -166,7 +171,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             details.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
 
 
-            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventList, details);
+            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventIds, details);
 
             Event event = eventPair.first;
             //Here we save state
