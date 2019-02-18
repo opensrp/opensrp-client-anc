@@ -39,6 +39,7 @@ public abstract class Constants {
     public static final String ALT_CONTACT_NAME = "altContactName";
     public static final String CONTACT = "Contact";
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
+    public static final String EVENT_IDS = "event_ids";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
