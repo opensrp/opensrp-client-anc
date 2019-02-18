@@ -56,9 +56,9 @@
     "fields": [
       {
         "key": "wom_image",
-        "openmrs_entity_parent": "The image of the woman, if taken, should sync to her OpenMRS patient medical record.",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "--",
+        "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "Take a picture of the woman"
       },
@@ -127,7 +127,7 @@
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "--",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "value": "",
         "calculation": {
@@ -142,7 +142,7 @@
         "key": "dob_calculated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "--",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "value": "",
         "calculation": {
@@ -219,7 +219,7 @@
         "key": "age_calculated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "--",
+        "openmrs_entity_id": "",
         "type": "hidden",
         "value": "",
         "calculation": {
@@ -294,7 +294,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\\\\s*",
+          "value": "([0-9]{10})|\\s*",
           "err": "Number must be a total of 10 digits in length"
         },
         "v_required": {
