@@ -11,6 +11,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.MeContract;
@@ -19,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-@RunWith(PowerMockRunner.class)
+@RunWith (PowerMockRunner.class)
 public class MeModelTest extends BaseUnitTest {
 
 
@@ -31,14 +32,24 @@ public class MeModelTest extends BaseUnitTest {
         model = new MeModel();
     }
 
+    @PrepareForTest({CoreLibrary.class})
     @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMM yyyy";
-        String todaysDate = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
-        Assert.assertEquals(todaysDate, model.getBuildDate());
+        String dateToday = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
+        long buildTimestamp = BuildConfig.BUILD_TIMESTAMP;
+        Assert.assertNotNull(dateToday);
+
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        PowerMockito.mockStatic(CoreLibrary.class);
+        PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
+        Assert.assertNotNull(coreLibrary);
+
+        PowerMockito.when(CoreLibrary.getBuildTimeStamp()).thenReturn(buildTimestamp);
+        Assert.assertEquals(dateToday, model.getBuildDate());
     }
 
-    @PrepareForTest({CoreLibrary.class, Context.class})
+    @PrepareForTest ({CoreLibrary.class, Context.class})
     @Test
     public void testUpdateInitials() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
@@ -58,7 +69,7 @@ public class MeModelTest extends BaseUnitTest {
         Assert.assertEquals("Me", foundInitials);
     }
 
-    @PrepareForTest({CoreLibrary.class, Context.class})
+    @PrepareForTest ({CoreLibrary.class, Context.class})
     @Test
     public void testGetName() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);

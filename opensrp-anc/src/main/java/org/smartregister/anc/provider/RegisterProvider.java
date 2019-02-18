@@ -39,7 +39,6 @@ import static org.smartregister.anc.util.Utils.getName;
 
 public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.RegisterViewHolder> {
 
-    private static final String TAG = RegisterProvider.class.getCanonicalName();
     private final LayoutInflater inflater;
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
 
@@ -263,7 +262,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         public Button dueButton;
         public Button sync;
         public View patientColumn;
-        TextView contact_today_text;
+        public TextView contact_today_text;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);

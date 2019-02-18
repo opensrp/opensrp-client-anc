@@ -33,7 +33,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseContactActivity;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
@@ -191,18 +190,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getProfileImageResourceIdentifier() {
         return R.drawable.avatar_woman;
-    }
-
-    public static String getBuildDate(Boolean isShortMonth) {
-        String simpleDateFormat;
-        if (isShortMonth) {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        } else {
-            simpleDateFormat =
-                    new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date(BuildConfig.BUILD_TIMESTAMP));
-        }
-        return simpleDateFormat;
     }
 
     public static String reverseHyphenSeperatedValues(String rawString, String outputSeperator) {

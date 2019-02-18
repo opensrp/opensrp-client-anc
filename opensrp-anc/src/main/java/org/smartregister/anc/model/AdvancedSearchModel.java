@@ -7,7 +7,7 @@ import org.smartregister.anc.util.DBConstants;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AdvancedSearchModel extends RegisterFramentModel implements AdvancedSearchContract.Model {
+public class AdvancedSearchModel extends RegisterFragmentModel implements AdvancedSearchContract.Model {
 
 
     public static final String GLOBAL_FIRST_NAME = "firstName";

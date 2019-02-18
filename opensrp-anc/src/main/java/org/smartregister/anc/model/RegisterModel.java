@@ -7,12 +7,12 @@ import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
-import org.smartregister.anc.util.Utils;
 
 import java.util.List;
 import java.util.Map;
