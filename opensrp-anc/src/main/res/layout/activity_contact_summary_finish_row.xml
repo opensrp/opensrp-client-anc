@@ -13,6 +13,7 @@
         android:gravity="left"
         android:paddingTop="@dimen/contact_drawable_padding"
         android:paddingBottom="@dimen/contact_drawable_padding"
+        android:paddingLeft="@dimen/contact_drawable_padding"
         android:singleLine="true"
         android:text="@string/reason_for_visit"
         android:textAllCaps="true"
