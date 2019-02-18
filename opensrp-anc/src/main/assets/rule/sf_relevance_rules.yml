@@ -9,97 +9,118 @@ actions:
 name: step1_calcium_comply
 description: Calcium comply
 priority: 1
-condition: "(!global_calcium_supp.isEmpty() && global_calcium_supp == 'done')"
+condition: "(global_calcium_supp != '' && global_calcium_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_calcium_effects
 description: Calcium effects
 priority: 1
-condition: "(!global_calcium_supp.isEmpty() &&  global_calcium_supp == 'done')"
+condition: "(global_calcium_supp != '' &&  global_calcium_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_ifa_comply
 description: Ifa comply
 priority: 1
-condition: "(!global_iga_high_prev.isEmpty() && global_iga_high_prev == 'done') || (!global_ifa_low_prev.isEmpty() && global_ifa_low_prev == 'done') || (!global_ifa_weekly.isEmpty() && global_ifa_weekly == 'done') || (!global_ifa_anaemia.isEmpty() && global_ifa_anaemia == 'done')"
+condition: "(global_iga_high_prev != '' && global_iga_high_prev == 'done') || (global_ifa_low_prev != '' && global_ifa_low_prev == 'done') || (global_ifa_weekly != '' && global_ifa_weekly == 'done') || (global_ifa_anaemia != '' && global_ifa_anaemia == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_ifa_effects
 description: ifa effects
 priority: 1
-condition: "global_iga_high_prev == 'done' || global_ifa_low_prev == 'done' || global_ifa_weekly == 'done' || global_ifa_anaemia == 'done'"
+condition: "(global_iga_high_prev != '' && global_iga_high_prev == 'done') || (global_ifa_low_prev != ''  && global_ifa_low_prev == 'done') || ( global_ifa_weekly != '' && global_ifa_weekly == 'done') || (global_ifa_anaemia != '' && global_ifa_anaemia == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_aspirin_comply
 description: Asprin comply
 priority: 1
-condition: "global_pe_risk_aspirin == 'done' || global_pe_risk_aspirin_calcium"
+condition: "(global_pe_risk_aspirin != '' && global_pe_risk_aspirin == 'done') || (global_pe_risk_aspirin_calcium != '' && global_pe_risk_aspirin_calcium == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_vita_comply
 description: Vitamin A comply
 priority: 1
-condition: "global_vita_supp == 'done'"
+condition: "global_vita_supp != '' && global_vita_supp == 'done'"
 actions:
   - "isRelevant = true"
 ---
 name: step1_penicillin_comply
 description: Penicillin comply
 priority: 1
-condition: "global_syphilis_positive == 1"
+condition: "global_syphilis_positive != '' && global_syphilis_positive == 1"
 actions:
   - "isRelevant = true"
 ---
 name: step2_behaviour_persist
 description: Persisting behaviors
 priority: 1
-condition: "global_caffeine_intake.contains('more_than_3_cups_300ml_of_instant_coffee') || global_caffeine_intake.contains('more_than_48_pieces_squares_of_chocolate') || global_caffeine_intake.contains('more_than_2_small_cups_50_ml_of_espresso') || global_caffeine_intake.contains('commercially_brewed_coffee') || global_tobacco_user == 'yes' || global_shs_exposure == 'yes' || global_condom_use == 'no' || (!global_alcohol_substance_use.isEmpty() && !global_alcohol_substance_use.contains('none'))"
+condition: "(!global_previous_caffeine_intake.isEmpty() && !global_previous_caffeine_intake.contains('none'))  || (global_previous_tobacco_user != '' && (global_previous_tobacco_user == 'yes' || global_previous_tobacco_user == 'recently_quit')) || (global_previous_shs_exposure != '' &&  global_previous_shs_exposure == 'yes') || (global_previous_condom_use != '' && global_previous_condom_use == 'no') || (!global_previous_alcohol_substance_use.isEmpty() && !global_previous_alcohol_substance_use.contains('none'))"
 actions:
   - "isRelevant = true"
+---
+name: step3_phys_symptoms_persist
+description: Physical symptoms persist
+priority: 1
+condition: "(!global_previous_phys_symptoms.isEmpty() && !global_previous_phys_symptoms.contains('none'))"
+actions:
+- "isRelevant = true"
 ---
 name: step3_other_sym_vvo
 description: Oedema symptoms
 priority: 1
-condition: "(step3_phys_symptoms_persist.contains('varicose_veins') || step3_phys_symptoms_persist.contains('oedema')) && ((!global_health_conditions.isEmpty() && global_health_conditions.contains('hypertension')) || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hypertension')))"
+condition: "(!step3_phys_symptoms_persist.isEmpty() && (step3_phys_symptoms_persist.contains('varicose_veins') || step3_phys_symptoms_persist.contains('oedema')) ) && ((!global_health_conditions.isEmpty() && global_health_conditions.contains('hypertension')) || (global_hypertension == 1))"
+actions:
+- "isRelevant = true"
+---
+name: step3_other_symptoms_persist
+description: Other symptoms persist
+priority: 1
+condition: "(!global_previous_other_symptoms.isEmpty() && !global_previous_other_symptoms.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
 name: step3_toaster9
 description: Physiotherapy toaster
 priority: 1
-condition: "(step3_phys_symptoms_persist.contains('low_back_pain') || step3_phys_symptoms_persist.contains('pelvic_pain')) && (step3_other_sym_lbpp.contains('none'))"
+condition: "(!step3_phys_symptoms_persist.isEmpty() && (step3_phys_symptoms_persist.contains('low_back_pain') || step3_phys_symptoms_persist.contains('pelvic_pain'))) && (!step3_other_sym_lbpp.isEmpty() && step3_other_sym_lbpp.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
 name: step3_toaster12
 description: Non-pharmacological toaster
 priority: 1
-condition: "(step3_phys_symptoms_persist.contains('varicose_veins') || step3_phys_symptoms_persist.contains('oedema')) && (step3_other_sym_vvo.contains('none'))"
+condition: "(!step3_phys_symptoms_persist.isEmpty() && (step3_phys_symptoms_persist.contains('varicose_veins') || step3_phys_symptoms_persist.contains('oedema'))) && (!step3_other_sym_vvo.isEmpty() && step3_other_sym_vvo.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
-name: step4_mat_percept_fetal_move
-description: Felt baby move
+name: step4_other_sym_vvo
+description: Oedema symptoms
 priority: 1
-condition: "(!global_gest_age.isEmpty() && global_gest_age > 20)"
+condition: "(step4_phys_symptoms.isEmpty() && (step4_phys_symptoms.contains('varicose_veins') || step4_phys_symptoms.contains('oedema'))) && ((!global_health_conditions.isEmpty() && global_health_conditions.contains('hypertension')) || (global_hypertension != '' && global_hypertension == 1))"
 actions:
-  - "isRelevant = true"
+- "isRelevant = true"
 ---
 name: step4_toaster18
 description: Physiotherapy toaster
 priority: 1
-condition: "(step4_phys_symptoms.contains('low_back_pain') || step4_phys_symptoms.contains('pelvic_pain')) && (step4_other_sym_lbpp.contains('none'))"
+condition: "((!step4_phys_symptoms.isEmpty() && step4_phys_symptoms.contains('low_back_pain')) || (!step4_phys_symptoms.isEmpty() && step4_phys_symptoms.contains('pelvic_pain'))) && (!step4_other_sym_lbpp.isEmpty() && step4_other_sym_lbpp.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
 name: step4_toaster21
 description: Non-pharmacological toaster
 priority: 1
-condition: "(step4_phys_symptoms_persist.contains('varicose_veins') || step4_phys_symptoms_persist.contains('oedema')) && (step4_other_sym_vvo.contains('none'))"
+condition: "((!step4_phys_symptoms_persist.isEmpty() && step4_phys_symptoms_persist.contains('varicose_veins')) || (!step4_phys_symptoms_persist.isEmpty() && step4_phys_symptoms_persist.contains('oedema'))) && (!step4_other_sym_vvo.isEmpty() && step4_other_sym_vvo.contains('none'))"
+actions:
+- "isRelevant = true"
+---
+name: step4_mat_percept_fetal_move
+description: Felt baby move
+priority: 1
+condition: "(global_gest_age != '' && global_gest_age > 20)"
 actions:
 - "isRelevant = true"
