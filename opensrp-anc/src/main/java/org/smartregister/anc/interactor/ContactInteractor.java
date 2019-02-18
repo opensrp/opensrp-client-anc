@@ -292,7 +292,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private String getCurrentContactState(String baseEntityId) throws JSONException {
-        List<PreviousContact> previousContactList = getPreviousContactRepository().getPreviousContacts(baseEntityId, null);
+        List<PreviousContact> previousContactList = getPreviousContactRepository().getPreviousContactsFacts(baseEntityId, null);
         JSONObject stateObject = null;
         if (previousContactList != null) {
             stateObject = new JSONObject();

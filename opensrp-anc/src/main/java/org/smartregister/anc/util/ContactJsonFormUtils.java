@@ -403,43 +403,23 @@ public class ContactJsonFormUtils extends FormUtils {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
                     for (int i = 0; i < stepArray.length(); i++) {
-
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
                         String fieldKey = getKey(fieldObject);
 
                         if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
-
                             facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE)); //Normal Value
                             ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
 
                             String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
                             if (fieldObject.has(secKey)) {
-
                                 facts.put(secKey, fieldObject.getString(secKey)); //Normal value secondary key
-
                             }
 
-                            if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
+                            processRequiredStepsFieldsSecondaryValues(facts, fieldObject);
+                            processOtherCheckBoxField(facts, fieldObject);
 
-                                fieldObject.put(Constants.KEY.SECONDARY_VALUES, sortSecondaryValues(fieldObject));//sort and reset
-
-                                JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
-
-                                for (int j = 0; j < secondaryValues.length(); j++) {
-                                    JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                                    ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);//secondary values
-                                }
-                            }
-
-                            //Other field for check boxes
-                            if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) && fieldObject.getString(Constants.KEY.KEY).endsWith(Constants.SUFFIX.OTHER) && facts.get(fieldObject.getString(Constants.KEY.KEY).replace(Constants.SUFFIX.OTHER, Constants.SUFFIX.VALUE)) != null) {
-
-                                facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
-                                ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
-
-                            }
                         }
 
                         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
@@ -459,6 +439,36 @@ public class ContactJsonFormUtils extends FormUtils {
                     }
 
                 }
+            }
+        }
+    }
+
+    private static void processOtherCheckBoxField(Facts facts, JSONObject fieldObject) throws Exception {
+        //Other field for check boxes
+        if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) && fieldObject.getString(
+                Constants.KEY.KEY).endsWith(Constants.SUFFIX.OTHER) && facts.get(fieldObject.getString(Constants.KEY.KEY).replace(Constants.SUFFIX.OTHER, Constants.SUFFIX.VALUE)) != null) {
+
+            facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
+            ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
+
+        }
+    }
+
+    /**
+     * Processes the number of Required fields for the specific field with secondary values
+     * @param facts {@link Facts}
+     * @param fieldObject {@link JSONObject}
+     * @throws Exception {@link JSONException}
+     */
+    private static void processRequiredStepsFieldsSecondaryValues(Facts facts, JSONObject fieldObject) throws Exception {
+        if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
+            fieldObject.put(Constants.KEY.SECONDARY_VALUES, sortSecondaryValues(fieldObject));//sort and reset
+
+            JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
+
+            for (int j = 0; j < secondaryValues.length(); j++) {
+                JSONObject jsonObject = secondaryValues.getJSONObject(j);
+                ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);//secondary values
             }
         }
     }

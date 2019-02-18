@@ -131,16 +131,13 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     }
 
     private void changeStatusIcon(ImageView imageView, JSONObject optionItem, Context context) throws JSONException {
-        JSONArray value = new JSONArray();
-        if (optionItem.has(JsonFormConstants.VALUE)) {
-            value = optionItem.getJSONArray(JsonFormConstants.VALUE);
-        }
-
+        JSONArray value = getExpansionPanelValue(optionItem);
         for (int i = 0; i < value.length(); i++) {
             JSONObject item = value.getJSONObject(i);
             if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item
                     .getString(JsonFormConstants.TYPE)
                     .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+
                 JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < jsonArray.length(); k++) {
                     String list = jsonArray.getString(k);
@@ -169,6 +166,20 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 }
             }
         }
+    }
+
+    /**
+     * Return the Expansion Panel value
+     * @param optionItem {@link JSONObject}
+     * @return value {@link JSONArray}
+     * @throws JSONException
+     */
+    private JSONArray getExpansionPanelValue(JSONObject optionItem) throws JSONException {
+        JSONArray value = new JSONArray();
+        if (optionItem.has(JsonFormConstants.VALUE)) {
+            value = optionItem.getJSONArray(JsonFormConstants.VALUE);
+        }
+        return value;
     }
 
 
