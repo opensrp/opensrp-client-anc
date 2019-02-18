@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class RegisterFramentModelTest extends BaseUnitTest {
+public class RegisterFragmentModelTest extends BaseUnitTest {
 
     private RegisterFragmentContract.Model model;
 
     @Before
     public void setUp() {
-        model = new RegisterFramentModel();
+        model = new RegisterFragmentModel();
     }
 
     @Test

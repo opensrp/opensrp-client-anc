@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.util.Constants;
 
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class ExpansionWidgetAdapter extends RecyclerView.Adapter<ExpansionWidget
     @Override
     public void onBindViewHolder(@NonNull ExpansionWidgetAdapter.ViewHolder holder, int position) {
         String[] valueObject = expansionWidgetValues.get(position).split(":");
-        if (valueObject.length >= 2) {
+        if (valueObject.length >= 2 && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER
+                .equals(valueObject[1]) && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY.equals(valueObject[1])) {
             holder.listHeader.setText(valueObject[0]);
             holder.listValue.setText(valueObject[1]);
         }

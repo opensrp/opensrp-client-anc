@@ -1,6 +1,7 @@
 package org.smartregister.anc.interactor;
 
 import android.support.annotation.VisibleForTesting;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.DristhiConfiguration;
 import org.smartregister.anc.application.AncApplication;
