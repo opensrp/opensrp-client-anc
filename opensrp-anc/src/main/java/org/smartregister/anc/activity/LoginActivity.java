@@ -1,8 +1,6 @@
 package org.smartregister.anc.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
