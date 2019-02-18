@@ -109,7 +109,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
 
             Facts facts = new Facts();
-            List<Event> eventList = new ArrayList<>();
+            List<String> eventIds = new ArrayList<>();
 
             if (partialContactList != null) {
 
@@ -136,7 +136,12 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                                 AncApplication.getInstance().getApplicationContext());
 
                         //process events
-                        eventList.add(JsonFormUtils.processContactFormEvent(formObject, baseEntityId));
+                        Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
+                        eventIds.add(event.getEventId());
+
+                        JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                        AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+
                     }
 
                     //Remove partial contact
@@ -157,7 +162,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             updateWomanDetails(details, womanDetail);
 
 
-            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventList, details);
+            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventIds, details);
 
             if (eventPair != null) {
                 createEvent(baseEntityId, attentionFlagsString, eventPair);

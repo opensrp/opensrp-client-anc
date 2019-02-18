@@ -186,21 +186,24 @@
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate_estimated",
+        "openmrs_entity_id": "birthdateApprox",
         "type": "check_box",
         "options": [
           {
             "key": "dob_unknown",
             "text": "DOB unknown?",
             "text_size": "18px",
-            "value": "false"
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           }
         ]
       },
       {
         "key": "age",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "hidden",
         "value": "",

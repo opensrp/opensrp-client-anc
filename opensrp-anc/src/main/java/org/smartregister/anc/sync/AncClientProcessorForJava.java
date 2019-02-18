@@ -151,17 +151,17 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             if (providerId.equals(registeredAnm)) {
                 boolean eventDeleted = ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
                 boolean clientDeleted = ecSyncHelper.deleteClient(baseEntityId);
-                Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
-                Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
+              //  Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
+               // Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
 
                 boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
-                Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
+               // Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
 
                 for (Table bindObject : bindObjects) {
                     String tableName = bindObject.name;
 
                     boolean caseDeleted = deleteCase(tableName, baseEntityId);
-                    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
+                //    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
                 }
 
                 return true;
@@ -233,7 +233,7 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
 
-        Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
+       // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
 
         AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
                 allCommonsRepositoryobjects(tableName);
@@ -242,6 +242,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
+      //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
     }
 }
