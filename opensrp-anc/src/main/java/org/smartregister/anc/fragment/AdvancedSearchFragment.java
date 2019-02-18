@@ -569,7 +569,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            //Todo later
         }
 
         @Override

@@ -145,14 +145,14 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     public void showLanguageDialog(final List<String> displayValues) {
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,
                 displayValues.toArray(new String[displayValues.size()])) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView view = (TextView) super.getView(position, convertView, parent);
+                ConfigurableViewsLibrary.getInstance();
                 view.setTextColor(
-                        ConfigurableViewsLibrary.getInstance().getContext().getColorResource(R.color.customAppThemeBlue));
+                        ConfigurableViewsLibrary.getContext().getColorResource(R.color.customAppThemeBlue));
 
                 return view;
             }
@@ -200,7 +200,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             advancedSearchFormData = new HashMap<>();
         }
     }
-
 
     @Override
     public void onPause() {
@@ -315,7 +314,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     private void setFormData(HashMap<String, String> formData) {
         mBaseFragment.setAdvancedSearchFormData(formData);
     }
-
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {
         //This is required

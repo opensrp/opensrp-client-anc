@@ -4,6 +4,7 @@ public class PartialContact extends Contact {
 
     private String formJsonDraft;
     private Boolean isFinalized;
+    private int sortOrder;
 
     public Integer getSortOrder() {
         return sortOrder;
@@ -12,8 +13,6 @@ public class PartialContact extends Contact {
     public void setSortOrder(Integer sortOrder) {
         this.sortOrder = sortOrder;
     }
-
-    private int sortOrder;
 
     public String getFormJsonDraft() {
         return formJsonDraft;

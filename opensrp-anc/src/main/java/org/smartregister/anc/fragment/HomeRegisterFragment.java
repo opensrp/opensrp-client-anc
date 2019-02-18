@@ -209,6 +209,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     }
 
     @Override
+
     public void setAdvancedSearchFormData(HashMap<String, String> formData) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
