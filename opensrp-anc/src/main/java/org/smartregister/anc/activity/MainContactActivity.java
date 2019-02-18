@@ -494,6 +494,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                             JSONObject fieldObject = stepArray.getJSONObject(i);
 
+
                             updateDefaultValues(stepArray, i, fieldObject);
                         }
                     }
@@ -502,7 +503,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
-
         }
     }
 
