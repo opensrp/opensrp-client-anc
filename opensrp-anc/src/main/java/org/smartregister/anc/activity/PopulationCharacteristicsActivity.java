@@ -1,7 +1,5 @@
 package org.smartregister.anc.activity;
 
-import android.view.View;
-
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.presenter.PopulationCharacteristicsPresenter;
