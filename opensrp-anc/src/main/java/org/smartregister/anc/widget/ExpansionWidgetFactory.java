@@ -131,16 +131,13 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     }
 
     private void changeStatusIcon(ImageView imageView, JSONObject optionItem, Context context) throws JSONException {
-        JSONArray value = new JSONArray();
-        if (optionItem.has(JsonFormConstants.VALUE)) {
-            value = optionItem.getJSONArray(JsonFormConstants.VALUE);
-        }
-
+        JSONArray value = getExpansionPanelValue(optionItem);
         for (int i = 0; i < value.length(); i++) {
             JSONObject item = value.getJSONObject(i);
             if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item
                     .getString(JsonFormConstants.TYPE)
                     .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+
                 JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                 for (int k = 0; k < jsonArray.length(); k++) {
                     String list = jsonArray.getString(k);
@@ -169,6 +166,20 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 }
             }
         }
+    }
+
+    /**
+     * Return the Expansion Panel value
+     * @param optionItem {@link JSONObject}
+     * @return value {@link JSONArray}
+     * @throws JSONException
+     */
+    private JSONArray getExpansionPanelValue(JSONObject optionItem) throws JSONException {
+        JSONArray value = new JSONArray();
+        if (optionItem.has(JsonFormConstants.VALUE)) {
+            value = optionItem.getJSONArray(JsonFormConstants.VALUE);
+        }
+        return value;
     }
 
 
@@ -227,6 +238,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
     }
 
+
     private void addRecordViewTags(View recordView, JSONObject jsonObject, String stepName, CommonListener commonListener,
                                    JsonFormFragment jsonFormFragment, Context context) throws JSONException {
         recordView.setTag(R.id.specify_content, jsonObject.optString(JsonFormConstants.CONTENT_FORM, ""));
@@ -236,8 +248,10 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         recordView.setTag(R.id.specify_listener, commonListener);
         recordView.setTag(R.id.specify_fragment, jsonFormFragment);
         recordView.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
-        recordView.setTag(R.id.secondaryValues,
-                formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
+        if (jsonObject.getString(JsonFormConstants.TYPE) != null) {
+            recordView.setTag(R.id.secondaryValues,
+                    formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
+        }
         recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
         if (jsonObject.has(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER)) {
@@ -247,7 +261,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     }
 
-    private LinearLayout getRootLayout(Context context) {
+    protected LinearLayout getRootLayout(Context context) {
         return (LinearLayout) LayoutInflater.from(context).inflate(R.layout.native_expansion_panel, null);
     }
 

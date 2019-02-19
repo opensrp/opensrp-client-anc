@@ -14,7 +14,6 @@ import com.vijay.jsonwizard.interfaces.CommonListener;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -104,7 +103,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testAncEditTextFactorInstantiatesCorrectly() throws Exception {
 
         Assert.assertNotNull(factory);
@@ -112,7 +110,6 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testGetViewsFromJsonCreatesAndReturnsCorrectViews() throws Exception {
 
         Assert.assertNotNull(factory);

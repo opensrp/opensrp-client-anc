@@ -116,7 +116,7 @@ public class PreviousContactRepository extends BaseRepository {
      * @param baseEntityId is the Base entity Id No to filter by
      * @param keysList     an optional list of keys to query null otherwise to get all keys for that base entity id
      */
-    public List<PreviousContact> getPreviousContacts(String baseEntityId, List<String> keysList) {
+    public List<PreviousContact> getPreviousContactsFacts(String baseEntityId, List<String> keysList) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
@@ -170,7 +170,7 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContact;
     }
 
-    public Facts getPreviousContacts(String baseEntityId) {
+    public Facts getPreviousContactsFacts(String baseEntityId) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;

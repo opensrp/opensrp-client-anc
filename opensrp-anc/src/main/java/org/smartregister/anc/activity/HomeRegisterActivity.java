@@ -67,7 +67,6 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     private AlertDialog recordBirthAlertDialog;
     private AlertDialog attentionFlagAlertDialog;
-    private AlertDialog languageDialog;
     private View attentionFlagDialogView;
     private boolean isAdvancedSearch = false;
     private String advancedSearchQrText = "";
@@ -158,7 +157,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             }
         };
 
-        languageDialog = createLanguageDialog(adapter, displayValues);
+        AlertDialog languageDialog = createLanguageDialog(adapter, displayValues);
         languageDialog.show();
     }
 
