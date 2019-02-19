@@ -170,7 +170,7 @@ actions:
 name: step1_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step1_hepb_positive == 0"
+condition: "step1_hepb_positive == 0 && (global_gest_age != '' && global_gest_age >= 12)"
 actions:
 - "isRelevant = true"
 ---
