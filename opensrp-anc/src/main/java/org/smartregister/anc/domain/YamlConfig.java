@@ -9,6 +9,7 @@ public class YamlConfig {
 
     private String group;
     private String sub_group;
+    private List<YamlConfigItem> fields;
 
     public String getSubGroup() {
         return sub_group;
@@ -17,8 +18,6 @@ public class YamlConfig {
     public void setSubGroup(String sub_group) {
         this.sub_group = sub_group;
     }
-
-    private List<YamlConfigItem> fields;
 
     public String getGroup() {
         return group;

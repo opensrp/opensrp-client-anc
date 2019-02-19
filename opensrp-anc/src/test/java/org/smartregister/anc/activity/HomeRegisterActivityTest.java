@@ -56,9 +56,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     private HomeRegisterFragment homeRegisterFragment;
 
     @Mock
-    private SettingsTestMenuItem menuItem;
-
-    @Mock
     private List<Field> filterList;
     @Mock
     private Field sortField;
@@ -68,9 +65,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AlertDialog recordBirthAlertDialog;
-
-    @Mock
-    private AlertDialog languageDialog;
 
     @Mock
     private RegisterPresenter registerPresenter;

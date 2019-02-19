@@ -130,6 +130,8 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
                                         createRemoteLocalCursor.getDob(), createRemoteLocalCursor.getAncId(),
                                         createRemoteLocalCursor.getPhoneNumber(), createRemoteLocalCursor.getAltName()});
                         break;
+                        default:
+                            break;
                 }
             }
 
