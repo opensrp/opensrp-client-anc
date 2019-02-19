@@ -158,8 +158,8 @@ form: anc_test
 fields:
   - "urine_protein"
   - "gest_age"
-  - "ultrasound_done_date",
-  - "no_of_fetuses",
+  - "ultrasound_done_date"
+  - "no_of_fetuses"
   - "fetal_presentation"
   - "ultrasound_done_date"
   - "ultrasound_gest_age_wks"
