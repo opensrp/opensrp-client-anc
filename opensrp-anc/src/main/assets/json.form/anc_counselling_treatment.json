@@ -51,6 +51,12 @@
       "value": ""
     }
   },
+  "default_values": [
+    "flu_date"
+  ],
+  "editable_fields": [
+    "flu_date"
+  ],
   "step1": {
     "title": "Hospital Referral",
     "next": "step2",
