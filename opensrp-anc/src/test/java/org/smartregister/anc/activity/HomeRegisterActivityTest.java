@@ -22,7 +22,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
