@@ -270,15 +270,15 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
-        "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Home address *",
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please enter the woman's home address"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z0-9\\s\.\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -294,7 +294,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\\s*",
+          "value": "([0-9]{10})|\s*",
           "err": "Number must be a total of 10 digits in length"
         },
         "v_required": {
@@ -315,6 +315,10 @@
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": true,
           "err": "Please select whether the woman has agreed to receiving reminder notifications"
@@ -337,7 +341,7 @@
       },
       {
         "key": "alt_phone_number",
-        "openmrs_entity_parent": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
@@ -347,7 +351,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\\s*",
+          "value": "([0-9]{10})|\s*",
           "err": "Number must be a total of 10 digits in length"
         }
       },
@@ -364,6 +368,38 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "next_contact_date",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "contact_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "contact_status",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "red_flag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "red_flag_count",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "yellow_flag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "yellow_flag_count",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "last_contact_record_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "last_contact_record_date",
         "type": "hidden",
         "value": ""
       }
