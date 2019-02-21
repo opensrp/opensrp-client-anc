@@ -14,7 +14,6 @@ import com.vijay.jsonwizard.interfaces.CommonListener;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;

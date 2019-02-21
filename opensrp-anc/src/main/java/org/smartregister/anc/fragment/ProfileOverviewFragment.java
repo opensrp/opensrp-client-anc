@@ -64,7 +64,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         try {
 
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    .getPreviousContactsFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 
