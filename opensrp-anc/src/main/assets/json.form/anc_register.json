@@ -121,13 +121,13 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "hidden",
-        "value": "female"
+        "value": "F"
       },
       {
         "key": "dob",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
         "type": "hidden",
         "value": "",
         "calculation": {
@@ -156,8 +156,8 @@
       {
         "key": "dob_entered",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "date_picker",
         "hint": "Date of birth (DOB) *",
         "expanded": false,
@@ -186,7 +186,7 @@
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
+        "openmrs_entity_id": "birthdate_estimated",
         "type": "check_box",
         "options": [
           {
@@ -341,7 +341,7 @@
       },
       {
         "key": "alt_phone_number",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
