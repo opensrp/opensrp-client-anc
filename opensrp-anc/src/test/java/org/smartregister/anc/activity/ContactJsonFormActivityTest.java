@@ -1,7 +1,6 @@
 package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;

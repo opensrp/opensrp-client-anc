@@ -32,10 +32,10 @@ import java.lang.ref.WeakReference;
 public class LoginPresenterTest extends BaseUnitTest {
 
     @Mock
-    ViewTreeObserver viewTreeObserver;
+    private ViewTreeObserver viewTreeObserver;
 
     @Mock
-    ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener;
+    private ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener;
 
     @Mock
     private BaseLoginContract.View view;
