@@ -314,7 +314,15 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                             Integer requiredFieldCount = requiredFieldsMap
                                     .get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
 
-                            requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
+                            if (requiredFieldCount == null) {
+                                requiredFieldCount = 1;
+                            } else {
+                                ++requiredFieldCount;
+                                if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                                    --requiredFieldCount;
+                                }
+
+                            }
 
                             requiredFieldsMap
                                     .put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
