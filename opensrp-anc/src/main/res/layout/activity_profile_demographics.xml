@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:paddingLeft="0dp"
-        android:text="Charity Otala"
+        android:text=""
         android:textColor="@android:color/white"
         android:textSize="@dimen/activity_title_size" />
 
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingLeft="0dp"
-            android:text="ID: 07564131"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/white" />
 
@@ -66,7 +66,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:paddingLeft="0dp"
-            android:text="AGE 24"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/white" />
 
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingLeft="0dp"
-            android:text="GA: 31 WEEKS"
+            android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/white" />
     </LinearLayout>
