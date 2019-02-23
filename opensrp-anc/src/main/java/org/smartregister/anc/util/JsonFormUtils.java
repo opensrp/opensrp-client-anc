@@ -340,65 +340,58 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
             throws JSONException {
 
-
         if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_ENTERED)) {
-
-            String dobString = womanClient.get(DBConstants.KEY.DOB);
-            if (StringUtils.isNotBlank(dobString)) {
-                Date dob = Utils.dobStringToDate(dobString);
-                if (dob != null) {
-                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
-                }
-            }
+            getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.DOB);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
-
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
-
-            Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID),
-                    Utils.getProfileImageResourceIdentifier());
-
-            if (photo != null && StringUtils.isNotBlank(photo.getFilePath())) {
-
-                jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
-
-            }
+            getPhotoFieldValue(womanClient, jsonObject);
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB_UNKNOWN)) {
-
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
             optionsObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.DOB_UNKNOWN));
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.AGE_ENTERED)) {
-
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             if (StringUtils.isNotBlank(womanClient.get(DBConstants.KEY.DOB))) {
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
             }
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.EDD)) {
-
-            String dobString = womanClient.get(DBConstants.KEY.EDD);
-            if (StringUtils.isNotBlank(dobString)) {
-                Date dob = Utils.dobStringToDate(dobString);
-                if (dob != null) {
-                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
-                }
-            }
+            getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.EDD);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
-
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
 
         } else if (womanClient.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {
-
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(jsonObject.getString(JsonFormUtils.KEY)));
         } else {
             Log.e(TAG, "ERROR:: Unprocessed Form Object Key " + jsonObject.getString(JsonFormUtils.KEY));
+        }
+    }
+
+    private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String edd)
+    throws JSONException {
+        String dobString = womanClient.get(edd);
+        if (StringUtils.isNotBlank(dobString)) {
+            Date dob = Utils.dobStringToDate(dobString);
+            if (dob != null) {
+                jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+            }
+        }
+    }
+
+    private static void getPhotoFieldValue(Map<String, String> womanClient, JSONObject jsonObject) throws JSONException {
+        Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID),
+                Utils.getProfileImageResourceIdentifier());
+
+        if (photo != null && StringUtils.isNotBlank(photo.getFilePath())) {
+            jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
+
         }
     }
 

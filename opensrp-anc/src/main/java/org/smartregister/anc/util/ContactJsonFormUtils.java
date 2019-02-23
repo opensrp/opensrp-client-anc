@@ -225,66 +225,75 @@ public class ContactJsonFormUtils extends FormUtils {
         List<String> valueList = new ArrayList<>();
 
         if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
-            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils
-                        .isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject
-                        .getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
-                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils
-                            .isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
-                        getRealSecondaryValue(jsonObject);
-                    } else {
-                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
-                    }
-                }
-            }
-
-            if (keyList.size() > 0) {
-                widget.put(JsonFormConstants.VALUE, keyList);
-                widget.put(ContactJsonFormUtils.getSecondaryKey(widget),
-                        ContactJsonFormUtils.getListValuesAsString(valueList));
-            }
+            processCheckBoxSpecialWidget(widget, keyList, valueList);
 
         } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || widgetType
                 .equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
-            //Value already good for radio buttons so no keylist
-            JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            processRadioButtonsSpecialWidget(widget, valueList);
+        }
+    }
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+    private static void processRadioButtonsSpecialWidget(JSONObject widget, List<String> valueList) throws Exception {
+        //Value already good for radio buttons so no keylist
+        JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+        for (int i = 0; i < jsonArray.length(); i++) {
 
-                if (widget.has(JsonFormConstants.VALUE) && !TextUtils
-                        .isEmpty(widget.getString(JsonFormConstants.VALUE)) && jsonObject
-                        .getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils
-                            .isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+            if (widget.has(JsonFormConstants.VALUE) && !TextUtils
+                    .isEmpty(widget.getString(JsonFormConstants.VALUE)) && jsonObject
+                    .getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
 
-                        jsonObject.put(Constants.KEY.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
-                        getRealSecondaryValue(jsonObject);
+                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils
+                        .isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
 
-                        if (jsonObject.has(Constants.KEY.SECONDARY_VALUES)) {
-                            widget.put(Constants.KEY.SECONDARY_VALUES,
-                                    jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES));
-                        }
+                    jsonObject.put(Constants.KEY.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
+                    getRealSecondaryValue(jsonObject);
 
-                        break;
-
-                    } else {
-                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    if (jsonObject.has(Constants.KEY.SECONDARY_VALUES)) {
+                        widget.put(Constants.KEY.SECONDARY_VALUES,
+                                jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES));
                     }
 
+                    break;
+
+                } else {
+                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
                 }
 
             }
 
-            if (valueList.size() > 0) {
-                widget.put(ContactJsonFormUtils.getSecondaryKey(widget),
-                        ContactJsonFormUtils.getListValuesAsString(valueList));
+        }
+
+        if (valueList.size() > 0) {
+            widget.put(ContactJsonFormUtils.getSecondaryKey(widget),
+                    ContactJsonFormUtils.getListValuesAsString(valueList));
+        }
+    }
+
+    private static void processCheckBoxSpecialWidget(JSONObject widget, List<String> keyList, List<String> valueList)
+    throws Exception {
+        JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.has(JsonFormConstants.VALUE) && !TextUtils
+                    .isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) && jsonObject
+                    .getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
+                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && !TextUtils
+                        .isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+                    getRealSecondaryValue(jsonObject);
+                } else {
+                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                }
             }
+        }
+
+        if (keyList.size() > 0) {
+            widget.put(JsonFormConstants.VALUE, keyList);
+            widget.put(ContactJsonFormUtils.getSecondaryKey(widget),
+                    ContactJsonFormUtils.getListValuesAsString(valueList));
         }
     }
 
