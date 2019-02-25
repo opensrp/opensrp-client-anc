@@ -142,30 +142,35 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 for (int k = 0; k < jsonArray.length(); k++) {
                     String list = jsonArray.getString(k);
                     String[] stringValues = list.split(":");
-                    if (stringValues.length >= 2) {
-                        String valueDisplay = list.split(":")[1];
-
-                        if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay
-                                .equals(Constants
-                                        .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay
-                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
-                                        .DONE) || valueDisplay
-                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) || valueDisplay.equals
-                                (Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || valueDisplay.equals(Constants
-                                .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || valueDisplay.equals(Constants
-                                .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || valueDisplay
-                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT
-                                        .ORDERED) || valueDisplay
-                                .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals
-                                (Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
-
-                            formUtils.changeIcon(imageView, valueDisplay, context);
-                            break;
-                        }
-                    }
+                    if (getWidgetValueAndChangeIcon(imageView, context, list, stringValues)) break;
                 }
             }
         }
+    }
+
+    private boolean getWidgetValueAndChangeIcon(ImageView imageView, Context context, String list, String[] stringValues) {
+        if (stringValues.length >= 2) {
+            String valueDisplay = list.split(":")[1];
+
+            if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay
+                    .equals(Constants
+                            .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay
+                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
+                            .DONE) || valueDisplay
+                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) || valueDisplay.equals
+                    (Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || valueDisplay.equals(Constants
+                    .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || valueDisplay.equals(Constants
+                    .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || valueDisplay
+                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT
+                            .ORDERED) || valueDisplay
+                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals
+                    (Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
+
+                formUtils.changeIcon(imageView, valueDisplay, context);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
