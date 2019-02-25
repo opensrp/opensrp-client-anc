@@ -1,5 +1,5 @@
 {
-  "count": "3",
+  "count": "2",
   "encounter_type": "Tests",
   "entity_id": "",
   "relational_id": "",
@@ -90,7 +90,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_hiv_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hepatitis_b",
@@ -103,7 +110,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_hepatitis_b_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hepatitis_c",
@@ -116,7 +130,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_hepatitis_c_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_syphilis",
@@ -129,7 +150,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_syphilis_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_urine",
@@ -179,13 +207,19 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_tb_screening_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step2": {
     "title": "Other",
-    "next": "step3",
     "fields": [
       {
         "key": "accordion_other_tests",
@@ -199,12 +233,7 @@
         "display_bottom_section": true,
         "content_form": "tests_other_tests_sub_form",
         "container": "anc_test"
-      }
-    ]
-  },
-  "step3": {
-    "title": "Due Later",
-    "fields": [
+      },
       {
         "key": "accordion_partner_hiv",
         "openmrs_entity_parent": "",
@@ -214,20 +243,15 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_partner_hiv_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       }
-      /*,
-            {
-              "key": "accordion_blood_glucose",
-              "openmrs_entity_parent": "",
-              "openmrs_entity": "",
-              "openmrs_entity_id": "",
-              "text": "Blood Glucose test",
-              "type": "expansion_panel",
-              "display_bottom_section": true,
-              "content_form": "tests_blood_glucose_sub_form",
-              "container":"anc_test"
-            }*/
     ]
   }
 }
