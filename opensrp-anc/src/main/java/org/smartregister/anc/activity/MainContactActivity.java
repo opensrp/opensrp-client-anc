@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -37,6 +38,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static com.vijay.jsonwizard.utils.FormUtils.*;
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
 
@@ -305,8 +308,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
+                        boolean isValueRequired = false;
+
+                        if (fieldObject.has(JsonFormConstants.V_REQUIRED)) {
+                            JSONObject valueRequired = fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED);
+                            String value = valueRequired.getString(JsonFormConstants.VALUE);
+                            isValueRequired = Boolean.parseBoolean(value);
+                        }
+
                         boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE)
-                                .equals(JsonFormConstants.LABEL) && fieldObject.has(JsonFormConstants.V_REQUIRED);
+                                .equals(JsonFormConstants.LABEL) && isValueRequired;
 
                         if (isRequiredField && (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils
                                 .isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
@@ -314,14 +325,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                             Integer requiredFieldCount = requiredFieldsMap
                                     .get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
 
-                            if (requiredFieldCount == null) {
-                                requiredFieldCount = 1;
-                            } else {
-                                ++requiredFieldCount;
-                                if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
-                                    --requiredFieldCount;
-                                }
+                            requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
 
+                            if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                                --requiredFieldCount;
                             }
 
                             requiredFieldsMap
@@ -375,8 +382,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
                             try {
 
-                                JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils
-                                        .getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM),
+                                JSONObject subFormJson = getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM),
                                                 fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ? fieldObject
                                                         .getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", this);
                                 processRequiredStepsField(ContactJsonFormUtils
