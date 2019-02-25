@@ -38,7 +38,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.activity_profile_overview_row, parent, false);
+        View view = mInflater.inflate(R.layout.profile_overview_row, parent, false);
         return new ViewHolder(view);
     }
 
