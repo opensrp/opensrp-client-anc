@@ -1,8 +1,8 @@
 package org.smartregister.anc.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -10,19 +10,23 @@ import android.util.Log;
 import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Facts;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.ContactActivity;
 import org.smartregister.anc.activity.HomeRegisterActivity;
-import org.smartregister.anc.activity.ProfileActivity;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.domain.AttentionFlag;
+import org.smartregister.anc.domain.YamlConfig;
+import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.event.SyncEvent;
 import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.provider.RegisterProvider;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
@@ -32,7 +36,9 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -41,12 +47,14 @@ import java.util.Set;
  * Created by keyman on 26/06/2018.
  */
 
-public class HomeRegisterFragment extends BaseRegisterFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
+public class HomeRegisterFragment extends BaseRegisterFragment
+        implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver
+        .SyncStatusListener {
 
     private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
 
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
-    public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
+    public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
 
@@ -93,35 +101,87 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
     @Override
     protected void onViewClicked(View view) {
-
-
         if (getActivity() == null) {
             return;
         }
 
         final HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+        final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
 
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            goToPatientDetailActivity((CommonPersonObjectClient) view.getTag(), false);
-        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
+            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
+        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
             if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= Constants.DELIVERY_DATE_WEEKS) {
                 homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
-                CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-                String baseEntityId = org.smartregister.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
-                    proceedToContact(baseEntityId, pc);
+                    Utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
                 }
             }
 
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-            //Temporary for testing UI , To remove for real dynamic data
-            List<AttentionFlag> dummyAttentionFlags =
-                    Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true),
-                            new
-                                    AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
-            homeRegisterActivity.showAttentionFlagsDialog(dummyAttentionFlags);
+            new AsyncTask<Void, Void, Void>() {
+                private List<AttentionFlag> attentionFlagList = new ArrayList<>();
+
+                @Override
+                protected void onPreExecute() {
+
+                    //  showProgressDialog("Saving contact progress...");
+                }
+
+                @Override
+                protected Void doInBackground(Void... nada) {
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(
+                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
+                                        .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+
+                        Facts facts = new Facts();
+
+
+                        Iterator<String> keys = jsonObject.keys();
+
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            facts.put(key, jsonObject.get(key));
+                        }
+
+                        Iterable<Object> ruleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+
+                        for (Object ruleObject : ruleObjects) {
+                            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
+
+                            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
+
+                                if (AncApplication.getInstance().getRulesEngineHelper()
+                                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
+
+                                    attentionFlagList
+                                            .add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts),
+                                                    attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAG.RED)));
+
+                                }
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    // hideProgressDialog();
+                    homeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
+
+                }
+            }.execute();
+
         } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
@@ -130,38 +190,43 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     }
 
 
-    @SuppressLint("NewApi")
+    @SuppressLint ("NewApi")
     @Override
     public void showNotFoundPopup(String whoAncId) {
-        NoMatchDialogFragment.launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
+        NoMatchDialogFragment
+                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), DIALOG_TAG, whoAncId);
     }
 
     @Override
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
-        android.support.v4.app.Fragment currentFragment =
-                baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
-        ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+        if (baseRegisterActivity != null) {
+            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
+                    .findFragmentByPosition(BaseRegisterActivity
+                            .ADVANCED_SEARCH_POSITION);
+            ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+        }
     }
 
     @Override
-    public void initializeAdapter
-            (Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+
+    public void setAdvancedSearchFormData(HashMap<String, String> formData) {
+        BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
+        if (baseRegisterActivity != null) {
+            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
+                    .findFragmentByPosition(BaseRegisterActivity
+                            .ADVANCED_SEARCH_POSITION);
+            ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
+        }
+    }
+
+    @Override
+    public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns,
+                registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
-    }
-
-    private void goToPatientDetailActivity(CommonPersonObjectClient patient,
-                                           boolean launchDialog) {
-        if (launchDialog) {
-            Log.i(HomeRegisterFragment.TAG, patient.name);
-        }
-
-        Intent intent = new Intent(getActivity(), ProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
-        startActivity(intent);
     }
 
     @Override
@@ -212,20 +277,5 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             }
         }
     }
-
-    public void proceedToContact(String baseEntityId, CommonPersonObjectClient personObjectClient) {
-        try {
-            Intent intent = new Intent(getActivity(), ContactActivity.class);
-            intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-            intent.putExtra(Constants.INTENT_KEY.CLIENT, personObjectClient);
-            intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.getDetails().get(DBConstants.KEY.NEXT_CONTACT)));
-            getActivity().startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            Utils.showToast(getActivity(), "Error proceeding to contact for client " + personObjectClient.getColumnmaps().get(DBConstants.KEY.FIRST_NAME));
-        }
-    }
-
-
 }
 

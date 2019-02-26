@@ -10,17 +10,18 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.repository.ImageRepository;
+import org.smartregister.util.ImageUtils;
 
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
 
-@PrepareForTest(AncApplication.class)
+@PrepareForTest(CoreLibrary.class)
 public class ImageUtilsTest extends BaseUnitTest {
 
     private ImageUtils imageUtils;
@@ -29,7 +30,7 @@ public class ImageUtilsTest extends BaseUnitTest {
     private ImageRepository imageRepository;
 
     @Mock
-    private AncApplication ancApplication;
+    private CoreLibrary coreLibrary;
 
     @Mock
     private Context context;
@@ -51,19 +52,19 @@ public class ImageUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetProfileImageResourceIDentifierShouldReturnCorrectResourceId() {
-        Assert.assertEquals(DEFAULT_PROFILE_IMAGE_RESOURCE_ID, imageUtils.getProfileImageResourceIDentifier());
+        Assert.assertEquals(DEFAULT_PROFILE_IMAGE_RESOURCE_ID, Utils.getProfileImageResourceIdentifier());
     }
 
 
     @Test
     public void testProfilePhotoByClientIdReturnsCorrectDefaultResourceIdForNonExistentBaseEntityId() {
 
-        PowerMockito.mockStatic(AncApplication.class);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getContext()).thenReturn(context);
+        PowerMockito.mockStatic(CoreLibrary.class);
+        PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
+        PowerMockito.when(coreLibrary.context()).thenReturn(context);
         PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
         PowerMockito.when(imageRepository.findByEntityId(DUMMY_BASE_ENTITY_ID)).thenReturn(null);
-        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID);
+        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier());
 
         Assert.assertNotNull(photo);
         Assert.assertNotNull(photo.getResourceId());
@@ -75,14 +76,14 @@ public class ImageUtilsTest extends BaseUnitTest {
     @Test
     public void testProfilePhotoByClientIdReturnsCorrectPhotoObjectFilePathForValidProfileImage() {
 
-        PowerMockito.mockStatic(AncApplication.class);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getContext()).thenReturn(context);
+        PowerMockito.mockStatic(CoreLibrary.class);
+        PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
+        PowerMockito.when(coreLibrary.context()).thenReturn(context);
         PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
         ProfileImage profileImage = new ProfileImage();
         profileImage.setFilepath(TEST_STRING);
         PowerMockito.when(imageRepository.findByEntityId(DUMMY_BASE_ENTITY_ID)).thenReturn(profileImage);
-        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID);
+        Photo photo = ImageUtils.profilePhotoByClientID(DUMMY_BASE_ENTITY_ID, Utils.getProfileImageResourceIdentifier());
 
         Assert.assertNotNull(photo);
         Assert.assertEquals(0, photo.getResourceId());

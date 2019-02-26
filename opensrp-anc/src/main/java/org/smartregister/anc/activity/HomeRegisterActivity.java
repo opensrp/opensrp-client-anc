@@ -4,16 +4,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,6 +28,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.RegisterContract;
 import org.smartregister.anc.domain.AttentionFlag;
+import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
 import org.smartregister.anc.fragment.AdvancedSearchFragment;
@@ -33,7 +37,9 @@ import org.smartregister.anc.fragment.LibraryFragment;
 import org.smartregister.anc.fragment.MeFragment;
 import org.smartregister.anc.fragment.SortFilterFragment;
 import org.smartregister.anc.presenter.RegisterPresenter;
+import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
@@ -41,11 +47,14 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -59,13 +68,14 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     private AlertDialog recordBirthAlertDialog;
     private AlertDialog attentionFlagAlertDialog;
     private View attentionFlagDialogView;
+    private boolean isAdvancedSearch = false;
+    private String advancedSearchQrText = "";
+    private HashMap<String, String> advancedSearchFormData = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         recordBirthAlertDialog = createAlertDialog();
-
         createAttentionFlagsAlertDialog();
     }
 
@@ -97,8 +107,19 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-        // TODO Modify bottom register
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            bottomNavigationView.getMenu().add(
+                    Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me)
+                    .setIcon(bottomNavigationHelper
+                            .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, userInitials,
+                                    getResources()));
+            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+            BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
+            bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
+        }
     }
 
     @Override
@@ -123,19 +144,24 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     public void showLanguageDialog(final List<String> displayValues) {
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout
-                .simple_list_item_1,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,
                 displayValues.toArray(new String[displayValues.size()])) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView view = (TextView) super.getView(position, convertView, parent);
+                ConfigurableViewsLibrary.getInstance();
                 view.setTextColor(
-                        ConfigurableViewsLibrary.getInstance().getContext().getColorResource(R.color.customAppThemeBlue));
+                        ConfigurableViewsLibrary.getContext().getColorResource(R.color.customAppThemeBlue));
 
                 return view;
             }
         };
+
+        AlertDialog languageDialog = createLanguageDialog(adapter, displayValues);
+        languageDialog.show();
+    }
+
+    public AlertDialog createLanguageDialog(ArrayAdapter<String> adapter, final List<String> displayValues) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(this.getString(R.string.select_language));
         builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
@@ -147,8 +173,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             }
         });
 
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+        return builder.create();
     }
 
 
@@ -156,6 +181,23 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        switchToAdvancedSearchFromBarcode();
+    }
+
+    /**
+     * Forces the Home register activity to open the the Advanced search fragment after the barcode activity is closed (as
+     * long as it was opened from the advanced search page)
+     */
+    private void switchToAdvancedSearchFromBarcode() {
+        if (isAdvancedSearch) {
+            switchToFragment(ADVANCED_SEARCH_POSITION);
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_search);
+            setAdvancedFragmentSearchTerm(advancedSearchQrText);
+            setFormData(advancedSearchFormData);
+            advancedSearchQrText = "";
+            isAdvancedSearch = false;
+            advancedSearchFormData = new HashMap<>();
+        }
     }
 
     @Override
@@ -164,14 +206,14 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         super.onPause();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe (threadMode = ThreadMode.MAIN)
     public void showProgressDialogHandler(ShowProgressDialogEvent showProgressDialogEvent) {
         if (showProgressDialogEvent != null) {
             showProgressDialog(R.string.saving_dialog_title);
         }
     }
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe (sticky = true, threadMode = ThreadMode.MAIN)
     public void removePatientHandler(PatientRemovedEvent event) {
         if (event != null) {
             Utils.removeStickyEvent(event);
@@ -189,7 +231,8 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                String locationId = AncApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+                String locationId = AncApplication.getInstance().getContext().allSharedPreferences()
+                        .getPreference(AllConstants.CURRENT_LOCATION_ID);
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
@@ -214,10 +257,24 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.REGISTRATION)) {
-                    ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
-                    ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
+                switch (form.getString(JsonFormUtils.ENCOUNTER_TYPE)) {
+                    case Constants.EventType.REGISTRATION:
+                        ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
+                        break;
+                    case Constants.EventType.CLOSE:
+                        ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
+                        break;
+                    case Constants.EventType.QUICK_CHECK:
+                        Contact contact = new Contact();
+                        contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0));
+                        ContactJsonFormUtils
+                                .persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                        PatientRepository
+                                .updateContactVisitStartDate(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),
+                                        Utils.getDBDateToday());
+                        break;
+                    default:
+                        break;
                 }
             } catch (Exception e) {
                 Log.e(TAG, Log.getStackTraceString(e));
@@ -226,16 +283,48 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
+                Log.d("Scanned QR Code", barcode.displayValue);
+
+                Fragment fragment = findFragmentByPosition(currentPage);
+                if (fragment instanceof AdvancedSearchFragment) {
+                    advancedSearchQrText = barcode.displayValue;
+                } else {
+                    mBaseFragment.onQRCodeSucessfullyScanned(barcode.displayValue);
+                    mBaseFragment.setSearchTerm(barcode.displayValue);
+                }
+
+            } else {
+                Log.i("", "NO RESULT FOR QR CODE");
+            }
+        } else {
+            onActivityResultExtended(requestCode, resultCode, data);
+        }
+    }
+
+    private void setAdvancedFragmentSearchTerm(String searchTerm) {
+        mBaseFragment.setUniqueID(searchTerm);
+    }
+
+    private void setFormData(HashMap<String, String> formData) {
+        mBaseFragment.setAdvancedSearchFormData(formData);
+    }
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {
-
         //This is required
-        getIntent().putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
+        getIntent()
+                .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstants.KEY.BASE_ENTITY_ID));
 
         recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.record_birth_popup_message),
                 Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
-                Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)), dateFormatter),
-                Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)), client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)));
+                Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
+                        dateFormatter),
+                Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)),
+                client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)));
         recordBirthAlertDialog.show();
     }
 
@@ -262,26 +351,34 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     public void showAttentionFlagsDialog(List<AttentionFlag> attentionFlags) {
-        ViewGroup red_flags_container = attentionFlagDialogView.findViewById(R.id.red_flags_container);
-        ViewGroup yellow_flags_container = attentionFlagDialogView.findViewById(R.id.yellow_flags_container);
+        ViewGroup redFlagsContainer = attentionFlagDialogView.findViewById(R.id.red_flags_container);
+        ViewGroup yellowFlagsContainer = attentionFlagDialogView.findViewById(R.id.yellow_flags_container);
 
-        red_flags_container.removeAllViews();
-        yellow_flags_container.removeAllViews();
+        redFlagsContainer.removeAllViews();
+        yellowFlagsContainer.removeAllViews();
+
+        int yellowFlagCount = 0;
+        int redFlagCount = 0;
 
         for (AttentionFlag flag : attentionFlags) {
             if (flag.isRedFlag()) {
                 LinearLayout redRow = (LinearLayout) LayoutInflater.from(this)
-                        .inflate(R.layout.alert_dialog_attention_flag_row_red, red_flags_container, false);
+                        .inflate(R.layout.alert_dialog_attention_flag_row_red, redFlagsContainer, false);
                 ((TextView) redRow.getChildAt(1)).setText(flag.getTitle());
-                red_flags_container.addView(redRow);
+                redFlagsContainer.addView(redRow);
+                redFlagCount += 1;
             } else {
 
                 LinearLayout yellowRow = (LinearLayout) LayoutInflater.from(this)
-                        .inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellow_flags_container, false);
+                        .inflate(R.layout.alert_dialog_attention_flag_row_yellow, yellowFlagsContainer, false);
                 ((TextView) yellowRow.getChildAt(1)).setText(flag.getTitle());
-                yellow_flags_container.addView(yellowRow);
+                yellowFlagsContainer.addView(yellowRow);
+                yellowFlagCount += 1;
             }
         }
+
+        ((View) redFlagsContainer.getParent()).setVisibility(redFlagCount > 0 ? View.VISIBLE : View.GONE);
+        ((View) yellowFlagsContainer.getParent()).setVisibility(yellowFlagCount > 0 ? View.VISIBLE : View.GONE);
 
         attentionFlagAlertDialog.show();
     }
@@ -337,5 +434,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             switchToBaseFragment();
             setSelectedBottomBarMenuItem(org.smartregister.R.id.action_clients);
         }
+    }
+
+    public void setAdvancedSearch(boolean advancedSearch) {
+        isAdvancedSearch = advancedSearch;
+    }
+
+    public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
+        this.advancedSearchFormData = advancedSearchFormData;
     }
 }

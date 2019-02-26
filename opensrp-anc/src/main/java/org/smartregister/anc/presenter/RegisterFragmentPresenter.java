@@ -7,7 +7,7 @@ import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.interactor.AdvancedSearchInteractor;
-import org.smartregister.anc.model.RegisterFramentModel;
+import org.smartregister.anc.model.RegisterFragmentModel;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -20,7 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class RegisterFragmentPresenter implements RegisterFragmentContract.Presenter, AdvancedSearchContract.InteractorCallBack {
+public class RegisterFragmentPresenter
+        implements RegisterFragmentContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
     private WeakReference<RegisterFragmentContract.View> viewReference;
 
@@ -37,7 +38,7 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
 
     public RegisterFragmentPresenter(RegisterFragmentContract.View view, String viewConfigurationIdentifier) {
         this.viewReference = new WeakReference<>(view);
-        this.model = new RegisterFramentModel();
+        this.model = new RegisterFragmentModel();
         this.viewConfigurationIdentifier = viewConfigurationIdentifier;
         this.config = model.defaultRegisterConfiguration();
 
@@ -104,11 +105,8 @@ public class RegisterFragmentPresenter implements RegisterFragmentContract.Prese
             getView().showNotFoundPopup(ancId);
         } else {
             matrixCursor = model.createMatrixCursor(response);
-
             getView().recalculatePagination(matrixCursor);
-
             getView().filterandSortInInitializeQueries();
-
             getView().hideProgressView();
         }
     }

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
@@ -83,23 +84,19 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
             Contact contact = (Contact) tag;
             getView().loadGlobals(contact);
-            if (contact.getName().equals(getView().getString(R.string.quick_check))) {
-                getView().startQuickCheck(contact);
-            } else {
+            try {
                 JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
-
                 if (contact.getGlobals() != null) {
-
                     for (Map.Entry<String, String> entry : contact.getGlobals().entrySet()) {
-
                         defaultGlobals.put(entry.getKey(), entry.getValue());
                     }
                 }
 
                 form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
                 getView().startFormActivity(form, contact);
+            } catch (JSONException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
             }
-
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             getView().displayToast(R.string.error_unable_to_start_form);
@@ -133,10 +130,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
     private ContactContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
+        if (viewReference != null) return viewReference.get();
+        else return null;
     }
 
     // Test methods

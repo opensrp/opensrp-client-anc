@@ -162,7 +162,7 @@ public class LoginInteractorTest extends BaseUnitTest {
 
         spyInteractor.login(new WeakReference<>(view), DUMMY_USERNAME, DUMMY_PASSWORD);
 
-        Mockito.verify(spyInteractor, Mockito.times(1)).loginWithLocalFlag(Mockito.any(WeakReference.class), Mockito.eq(true), Mockito.eq(DUMMY_USERNAME), Mockito.eq(DUMMY_PASSWORD));
+        Mockito.verify(spyInteractor, Mockito.times(1)).loginWithLocalFlag(Mockito.any(WeakReference.class), Mockito.eq(false), Mockito.eq(DUMMY_USERNAME), Mockito.eq(DUMMY_PASSWORD));
 
     }
 }

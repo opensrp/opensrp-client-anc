@@ -71,7 +71,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "label": "a. A protocol or standard operating procedure for Intimate Partner Violence (IPV);<br> <br>b. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond; <br>c. A private setting; <br>d. A way to ensure confidentiality; <br>e. Time to allow for appropriate disclosure; <br>f. A system for referral in place.",
+        "label": "a. A protocol or standard operating procedure for Intimate Partner Violence (IPV)<br><br>b. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond <br><br>c. A private setting<br> <br>d. A way to ensure confidentiality<br><br>e. Time to allow for appropriate disclosure<br> <br>f. A system for referral in place.",
         "type": "native_radio",
         "options": [
           {
@@ -85,7 +85,7 @@
         ],
         "value": "",
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please select where stock was issued"
         }
       },
@@ -95,7 +95,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "label": "2. Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?",
+        "label": "2. Is the HIV prevalence consistently greater than 1% in pregnant women attending antenatal clinics at your facility?",
         "type": "native_radio",
         "options": [
           {

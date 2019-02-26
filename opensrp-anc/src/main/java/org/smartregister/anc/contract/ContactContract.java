@@ -12,8 +12,6 @@ public interface ContactContract {
 
         void startFormActivity(JSONObject form, Contact contact);
 
-        void startQuickCheck(Contact contact);
-
         void displayToast(int resourceId);
 
         String getString(int resourceId);

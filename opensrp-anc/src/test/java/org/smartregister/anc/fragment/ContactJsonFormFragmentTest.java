@@ -64,6 +64,9 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
     @Mock
     private ActionBar actionBar;
 
+    @Mock
+    private LinearLayout navigationLayout;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -78,13 +81,17 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
         formFragment.onOptionsItemSelected(menuItem);
 
         ViewGroup nullViewGroup = null;
-        Mockito.doReturn(view).when(layoutInflater).inflate(ArgumentMatchers.eq(R.layout.contact_form_fragment_json_wizard), ArgumentMatchers.eq(nullViewGroup));
+
+        Mockito.doReturn(view).when(layoutInflater).inflate(ArgumentMatchers.eq(R.layout.contact_json_form_fragment_wizard), ArgumentMatchers.eq(nullViewGroup));
         Mockito.doReturn(scrollView).when(view).findViewById(R.id.scroll_view);
         Mockito.doReturn(linearLayout).when(view).findViewById(R.id.main_layout);
         Mockito.doReturn(button).when(view).findViewById(R.id.previous);
         Mockito.doReturn(button).when(view).findViewById(R.id.next);
         Mockito.doReturn(imageView).when(view).findViewById(R.id.previous_icon);
         Mockito.doReturn(imageView).when(view).findViewById(R.id.next_icon);
+        Mockito.doReturn(navigationLayout).when(view).findViewById(R.id.navigation_layout);
+        Mockito.doReturn(button).when(navigationLayout).findViewById(R.id.refer);
+        Mockito.doReturn(button).when(navigationLayout).findViewById(R.id.proceed);
 
         ContactJsonFormFragment formFragmentSpy = Mockito.spy(formFragment);
 

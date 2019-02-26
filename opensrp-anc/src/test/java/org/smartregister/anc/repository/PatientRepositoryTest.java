@@ -18,6 +18,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.Context;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.repository.Repository;
 
 import java.util.Map;
@@ -79,7 +80,7 @@ public class PatientRepositoryTest {
         PowerMockito.when(spy.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
 
 
-        spy.updateWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
+        spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, Constants.ALERT_STATUS.IN_PROGRESS);
 
         Mockito.verify(sqLiteDatabase, Mockito.times(1)).update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}));
     }

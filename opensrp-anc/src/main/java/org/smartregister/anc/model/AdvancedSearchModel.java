@@ -7,7 +7,7 @@ import org.smartregister.anc.util.DBConstants;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AdvancedSearchModel extends RegisterFramentModel implements AdvancedSearchContract.Model {
+public class AdvancedSearchModel extends RegisterFragmentModel implements AdvancedSearchContract.Model {
 
 
     public static final String GLOBAL_FIRST_NAME = "firstName";
@@ -19,8 +19,17 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
     public static final String EDD_ATTR = "edd";
     public static final String PHONE_NUMBER = "phone_number";
     public static final String ALT_CONTACT_NAME = "alt_name";
-
-
+    public static final String FIRST_NAME = "First name:";
+    public static final String LAST_NAME = "Last name:";
+    public static final String SEARCH_TERM_ANC_ID = "ANC ID:";
+    public static final String EDD = "Edd:";
+    public static final String DOB = "Dob:";
+    public static final String MOBILE_PHONE_NUMBER = "Mobile phone number:";
+    public static final String ALTERNATE_CONTACT_NAME = "Alternate contact name:";
+    public static final String LIKE = "Like";
+    public static final String AND = "AND";
+    
+    
     @Override
     public Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal) {
         Map<String, String> editMap = new LinkedHashMap<>();
@@ -53,25 +62,25 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
         String searchCriteria = "";
 
         if (StringUtils.isNotBlank(firstName)) {
-            searchCriteria += " First name: " + firstName + ";";
+            searchCriteria += " " + FIRST_NAME + " " + firstName + ";";
         }
         if (StringUtils.isNotBlank(lastName)) {
-            searchCriteria += " Last name: " + lastName + ";";
+            searchCriteria += " " + LAST_NAME + " " + lastName + ";";
         }
         if (StringUtils.isNotBlank(ancId)) {
-            searchCriteria += " Anc ID: " + ancId + ";";
+            searchCriteria += " " + SEARCH_TERM_ANC_ID + " " + ancId + ";";
         }
         if (StringUtils.isNotBlank(edd)) {
-            searchCriteria += " Edd: " + edd + ";";
+            searchCriteria += " " + EDD + " " + edd + ";";
         }
         if (StringUtils.isNotBlank(dob)) {
-            searchCriteria += " Dob: " + dob + ";";
+            searchCriteria += " " + DOB + " " + dob + ";";
         }
         if (StringUtils.isNotBlank(phoneNumber)) {
-            searchCriteria += " Mobile phone number: " + phoneNumber + ";";
+            searchCriteria += " " + MOBILE_PHONE_NUMBER + " " + phoneNumber + ";";
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            searchCriteria += " Alternate contact name: " + alternateContact + ";";
+            searchCriteria += " " + ALTERNATE_CONTACT_NAME + " " + alternateContact + ";";
         }
         return removeLastSemiColon(searchCriteria);
     }
@@ -88,9 +97,9 @@ public class AdvancedSearchModel extends RegisterFramentModel implements Advance
             String key = entry.getKey();
             String value = entry.getValue();
             if (StringUtils.isBlank(mainConditionString)) {
-                mainConditionString += " " + key + " Like '%" + value + "%'";
+                mainConditionString += " " + key + " " + LIKE + " '%" + value + "%'";
             } else {
-                mainConditionString += " AND " + key + " Like '%" + value + "%'";
+                mainConditionString += " " + AND + " " + key + " " + LIKE + " '%" + value + "%'";
             }
         }
 

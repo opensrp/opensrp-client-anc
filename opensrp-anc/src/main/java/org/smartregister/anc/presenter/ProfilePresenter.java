@@ -48,8 +48,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         mProfileView = null;//set to null on destroy
 
         // Inform interactor
-        mProfileInteractor.onDestroy(isChangingConfiguration);
-        mRegisterInteractor.onDestroy(isChangingConfiguration);
+        if (mProfileInteractor != null) {
+            mProfileInteractor.onDestroy(isChangingConfiguration);
+        }
+
+        if (mRegisterInteractor != null) {
+            mRegisterInteractor.onDestroy(isChangingConfiguration);
+        }
 
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {
@@ -61,8 +66,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
+    public void fetchProfileData(String baseEntityId) {
+        mProfileInteractor.refreshProfileView(baseEntityId, true);
+    }
+
+    @Override
     public void refreshProfileView(String baseEntityId) {
-        mProfileInteractor.refreshProfileView(baseEntityId);
+        mProfileInteractor.refreshProfileView(baseEntityId, false);
     }
 
     @Override
@@ -82,7 +92,8 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
             JSONObject form = new JSONObject(jsonString);
 
-            getProfileView().showProgressDialog(form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
+            getProfileView().showProgressDialog(form.getString(JsonFormUtils.ENCOUNTER_TYPE)
+                    .equals(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
 
             if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
 
@@ -125,13 +136,21 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
     @Override
     public void refreshProfileTopSection(Map<String, String> client) {
-
-        getProfileView().setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
-        getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
-        getProfileView().setProfileGestationAge(client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ? String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstants.KEY.EDD))) : null);
-        getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
-        getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
-        getProfileView().setWomanPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+        if (client != null) {
+            getProfileView()
+                    .setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
+            getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
+            try {
+                getProfileView().setProfileGestationAge(
+                        client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ? String
+                                .valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstants.KEY.EDD))) : null);
+            } catch (Exception e) {
+                getProfileView().setProfileGestationAge("0");
+            }
+            getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
+            getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
+            getProfileView().setPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+        }
     }
 
     @Override

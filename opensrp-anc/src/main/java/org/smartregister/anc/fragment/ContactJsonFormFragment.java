@@ -1,56 +1,55 @@
 package org.smartregister.anc.fragment;
 
-import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
+import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
+import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
+
+import java.util.HashMap;
 
 
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
-public class ContactJsonFormFragment extends JsonFormFragment {
+public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     public static final String TAG = ContactJsonFormFragment.class.getName();
-
-    private BottomNavigationListener navigationListener = new BottomNavigationListener();
-
-    private Button previousButton;
-    private Button nextButton;
-
-    private ImageView previousIcon;
-    private ImageView nextIcon;
-
-    private TextView stepName;
-
-    private Toolbar navigationToolbar;
+    private boolean savePartial = false;
 
     private static final int MENU_NAVIGATION = 100001;
+    private TextView contactTitle;
+    private BottomNavigationListener navigationListener = new BottomNavigationListener();
 
     public static ContactJsonFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
@@ -60,18 +59,51 @@ public class ContactJsonFormFragment extends JsonFormFragment {
         return jsonFormFragment;
     }
 
+    private Contact getContact() {
+        if (getActivity() != null && getActivity() instanceof ContactJsonFormActivity) {
+            return ((ContactJsonFormActivity) getActivity()).getContact();
+        }
+        return null;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.contact_form_fragment_json_wizard, null);
+        View rootView = inflater.inflate(R.layout.contact_json_form_fragment_wizard, null);
 
-        this.mMainView = rootView.findViewById(R.id.main_layout);
-        this.mScrollView = rootView.findViewById(R.id.scroll_view);
+        this.mMainView = rootView.findViewById(com.vijay.jsonwizard.R.id.main_layout);
+        this.mScrollView = rootView.findViewById(com.vijay.jsonwizard.R.id.scroll_view);
 
         setupNavigation(rootView);
-
-        setupCustomToolbar();
+        setupCustomUI();
 
         return rootView;
+    }
+
+    @Override
+    protected void setupNavigation(View rootView) {
+        super.setupNavigation(rootView);
+        LinearLayout proceedLayout = rootView.findViewById(R.id.navigation_layout);
+
+        Button previousButton = rootView.findViewById(com.vijay.jsonwizard.R.id.previous);
+        ImageView previousIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.previous_icon);
+
+        previousButton.setVisibility(View.INVISIBLE);
+        previousIcon.setVisibility(View.INVISIBLE);
+
+        previousButton.setOnClickListener(navigationListener);
+        previousIcon.setOnClickListener(navigationListener);
+
+        Button nextButton = rootView.findViewById(com.vijay.jsonwizard.R.id.next);
+        ImageView nextIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.next_icon);
+
+        nextButton.setOnClickListener(navigationListener);
+        nextIcon.setOnClickListener(navigationListener);
+
+        Button referClose = proceedLayout.findViewById(R.id.refer);
+        referClose.setOnClickListener(navigationListener);
+
+        Button proceed = proceedLayout.findViewById(R.id.proceed);
+        proceed.setOnClickListener(navigationListener);
     }
 
     @Override
@@ -80,15 +112,33 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     }
 
     @Override
-    protected JsonFormFragmentPresenter createPresenter() {
-        return new ContactJsonFormFragmentPresenter(this, ContactJsonFormInteractor.getInstance());
+    public void setActionBarTitle(String title) {
+        Contact contact = getContact();
+        if (contact != null) {
+            contactTitle.setText(contact.getName());
+            if (getStepName() != null) {
+                getStepName().setText(title);
+            }
+        } else {
+            contactTitle.setText(title);
+        }
     }
 
+    @Override
+    protected ContactJsonFormFragmentPresenter createPresenter() {
+        return new ContactJsonFormFragmentPresenter(this, ContactJsonFormInteractor.getInstance());
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //menu.add(Menu.NONE, MENU_NAVIGATION, 1, "Menu").setIcon(R.drawable.ic_action_menu).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+        Contact form = getContact();
+        if (form != null && form.isHideSaveLabel()) {
+            updateVisibilityOfNextAndSave(false, false);
+        }
     }
 
     @Override
@@ -108,116 +158,224 @@ public class ContactJsonFormFragment extends JsonFormFragment {
     }
 
     @Override
-    public void updateVisibilityOfNextAndSave(boolean next, boolean save) {
-        getMenu().findItem(com.vijay.jsonwizard.R.id.action_next).setVisible(false);
-        getMenu().findItem(com.vijay.jsonwizard.R.id.action_save).setVisible(false);
+    protected void setupCustomUI() {
+        super.setupCustomUI();
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.contact_form_toolbar);
+        View view = getSupportActionBar().getCustomView();
+        if (view != null) {
+            ImageButton goBackButton = view.findViewById(R.id.contact_menu);
+            contactTitle = view.findViewById(R.id.contact_title);
 
-        if (next || !save) {
-            nextButton.setTag(R.id.NEXT_STATE, true);
-            nextButton.setText(getString(R.string.next));
-
-            nextIcon.setVisibility(View.VISIBLE);
-        }
-
-        if (save || !next) {
-            nextButton.setTag(R.id.NEXT_STATE, false);
-            nextButton.setText(getString(R.string.submit));
-
-            nextIcon.setVisibility(View.INVISIBLE);
-        }
-
-        if (getFragmentManager() != null) {
-            if (getFragmentManager().getBackStackEntryCount() == 0) {
-                previousButton.setVisibility(View.INVISIBLE);
-                previousIcon.setVisibility(View.INVISIBLE);
+            if (getContact() != null && getContact().getBackIcon() > 0 && getContact().getFormName()
+                    .equals(Constants.JSON_FORM
+                            .ANC_QUICK_CHECK)) {
+                goBackButton.setImageResource(R.drawable.ic_clear);
+                goBackButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        displayContactSaveDialog();
+                    }
+                });
             } else {
-                previousButton.setVisibility(View.VISIBLE);
-                previousIcon.setVisibility(View.VISIBLE);
+                goBackButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        backClick();
+                    }
+                });
             }
         }
+    }
+
+    /**
+     * Displays the saves contact pop up then saves quick check in draft and proceeds to main contact when the
+     * save is clicked. On Discard click it just closes or finishes the activity
+     *
+     * @author dubdabasoduba
+     */
+    private void displayContactSaveDialog() {
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.alert_contact_save_dialog, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(view);
+
+        TextView titleLabel = view.findViewById(R.id.title_label);
+        titleLabel.setText(getString(R.string.exit_contact_title));
+
+        String saveChanges = getString(R.string.save_contact);
+       /* Spannable spannable = new SpannableString(saveChanges);
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4
+                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
+                saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+
+
+        Button saveButton = view.findViewById(R.id.save_changes);
+        saveButton.setText(saveChanges);
+
+        String closeWithoutSaving = getString(R.string.discard_contact);
+     /*   spannable = new SpannableString(closeWithoutSaving);
+        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 7
+                , Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 8,
+                closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
+
+        Button closeButton = view.findViewById(R.id.close_without_saving);
+        closeButton.setText(closeWithoutSaving);
+
+        Button cancel = view.findViewById(R.id.cancel);
+
+        final AlertDialog dialog = builder.create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            window.setAttributes(param);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                backClick();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                ((Activity) getContext()).finish();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void displayReferralDialog() {
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.alert_referral_dialog, null);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+
+        Button yes = view.findViewById(R.id.refer_yes);
+        final Button no = view.findViewById(R.id.refer_no);
+
+        final AlertDialog dialog = builder.create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            window.setAttributes(param);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+                Contact contact = getContact();
+                contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
+                ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+
+                Utils.finalizeForm(getActivity(), ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)));
+
+                dialog.dismiss();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JsonFormUtils.launchANCCloseForm(getActivity());
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    /**
+     * Gets the root layout for the currently visible and finds the bottom refer & proceed layout then displays according to the status of
+     * the function parameters
+     *
+     * @param none  {@link Boolean}
+     * @param other {@link Boolean}
+     * @author dubdabasoduba
+     */
+    public void displayQuickCheckBottomReferralButtons(boolean none, boolean other) {
+        LinearLayout linearLayout = (LinearLayout) this.getView();
+        LinearLayout buttonLayout = null;
+        if (linearLayout != null) {
+            buttonLayout = linearLayout.findViewById(R.id.navigation_layout);
+        }
+
+        Button referButton = null;
+        Button proceedButton = null;
+        if (buttonLayout != null) {
+            referButton = buttonLayout.findViewById(R.id.refer);
+            proceedButton = buttonLayout.findViewById(R.id.proceed);
+        }
+
+
+        if ((none || other) && buttonLayout != null) {
+            buttonLayout.setVisibility(View.VISIBLE);
+            proceedButton.setVisibility(View.VISIBLE);
+            if (other) {
+                referButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if ((!none && !other) && buttonLayout != null) {
+            buttonLayout.setVisibility(View.GONE);
+            proceedButton.setVisibility(View.GONE);
+            referButton.setVisibility(View.GONE);
+        }
+
+        if ((none && !other) && buttonLayout != null) {
+            referButton.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
-    public void setActionBarTitle(String title) {
-        Contact contact = getContact();
-        if (contact != null) {
-            super.setActionBarTitle(contact.getName());
-            if (stepName != null) {
-                stepName.setText(title);
-            }
-        } else {
-            super.setActionBarTitle(title);
-        }
-    }
-
-    private void setupNavigation(View rootView) {
-        previousButton = rootView.findViewById(R.id.previous);
-        previousIcon = rootView.findViewById(R.id.previous_icon);
-
-        previousButton.setVisibility(View.INVISIBLE);
-        previousIcon.setVisibility(View.INVISIBLE);
-
-        previousButton.setOnClickListener(navigationListener);
-        previousIcon.setOnClickListener(navigationListener);
-
-        nextButton = rootView.findViewById(R.id.next);
-        nextIcon = rootView.findViewById(R.id.next_icon);
-
-        nextButton.setOnClickListener(navigationListener);
-        nextIcon.setOnClickListener(navigationListener);
-
-        stepName = rootView.findViewById(R.id.step_title);
-
-        navigationToolbar = rootView.findViewById(R.id.navigation_toolbar);
-    }
-
-    private void setupCustomToolbar() {
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_contact_menu);
-        setUpBackButton();
-
+    protected void save() {
         try {
-            Contact contact = getContact();
-            if (contact != null) {
-                int actionBarColor = getResources().getColor(contact.getActionBarBackground());
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(actionBarColor));
-
-                int navigationColor = getResources().getColor(contact.getNavigationBackground());
-                if (navigationToolbar != null) {
-                    navigationToolbar.setBackgroundColor(navigationColor);
+            if (savePartial) {
+                if (getActivity() != null) {
+                    ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
                 }
+            } else {
+                super.save();
             }
-        } catch (Resources.NotFoundException e) {
-            Log.e(TAG, e.getMessage(), e);
+        } catch (Exception var2) {
+            Log.e(TAG, var2.getMessage());
+            this.save(false);
         }
 
     }
-
-    private void save() {
-        try {
-            Boolean skipValidation = ((JsonFormActivity) mMainView.getContext()).getIntent().getBooleanExtra(JsonFormConstants.SKIP_VALIDATION, false);
-            save(skipValidation);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            save(false);
-        }
-    }
-
-    private Contact getContact() {
-        if (getActivity() != null && getActivity() instanceof ContactJsonFormActivity) {
-            return ((ContactJsonFormActivity) getActivity()).getContact();
-        }
-        return null;
-    } 
-
-    ////////////////////////////////////////////////////////////////
-    // Inner classes
-    ////////////////////////////////////////////////////////////////
 
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
-        public void onClick(View v) {
-            if (v.getId() == R.id.next || v.getId() == R.id.next_icon) {
-                Object tag = v.getTag(R.id.NEXT_STATE);
+        public void onClick(View view) {
+            if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
+                Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
                     next();
                 } else {
@@ -225,17 +383,22 @@ public class ContactJsonFormFragment extends JsonFormFragment {
                     if (next) {
                         next();
                     } else {
+                        savePartial = true;
                         save();
                     }
                 }
 
-            } else if (v.getId() == R.id.previous || v.getId() == R.id.previous_icon) {
+            } else if (view.getId() == com.vijay.jsonwizard.R.id.previous || view
+                    .getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
                 getFragmentManager().popBackStack();
+            } else if (view.getId() == R.id.refer) {
+                displayReferralDialog();
+            } else if (view.getId() == R.id.proceed && getActivity() != null) {
+                ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
             }
         }
     }
-
 }
 
 

@@ -9,32 +9,32 @@ import android.util.Pair;
 
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.domain.QuickCheck;
-import org.smartregister.anc.helper.ECSyncHelper;
+import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
-import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -50,7 +50,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -62,15 +61,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-
-    public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
-    public static final String ANC_ID = "ANC_ID";
     public static final String READ_ONLY = "read_only";
-
-    private static final String FORM_SUBMISSION_FIELD = "formsubmissionField";
-    private static final String TEXT_DATA_TYPE = "text";
-    private static final String SELECT_ONE_DATA_TYPE = "select one";
-    private static final String SELECT_MULTIPLE_DATA_TYPE = "select multiple";
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
 
@@ -110,13 +101,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return form;
     }
 
-    protected static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
+    public static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
 
         JSONObject jsonForm = toJSONObject(jsonString);
         JSONArray fields = fields(jsonForm);
 
-        Triple<Boolean, JSONObject, JSONArray> registrationFormParams = Triple.of(jsonForm != null && fields != null, jsonForm, fields);
-        return registrationFormParams;
+        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
     }
 
     public static Pair<Client, Event> processRegistrationForm(AllSharedPreferences allSharedPreferences, String jsonString) {
@@ -153,41 +143,22 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONArray options = getJSONArray(dobUnknownObject, Constants.JSON_FORM_KEY.OPTIONS);
             JSONObject option = getJSONObject(options, 0);
             String dobUnKnownString = option != null ? option.getString(VALUE) : null;
-            if (StringUtils.isNotBlank(dobUnKnownString) && Boolean.valueOf(dobUnKnownString)) {
 
-                String ageString = getFieldValue(fields, DBConstants.KEY.AGE);
-                if (StringUtils.isNotBlank(ageString) && NumberUtils.isNumber(ageString)) {
-                    int age = Integer.valueOf(ageString);
-                    JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.DOB);
-                    dobJSONObject.put(VALUE, Utils.getDob(age));
-
-                    //Mark the birth date as an approximation
-                    JSONObject isBirthdateApproximate = new JSONObject();
-                    isBirthdateApproximate.put(Constants.KEY.KEY, FormEntityConstants.Person.birthdate_estimated);
-                    isBirthdateApproximate.put(Constants.KEY.VALUE, Constants.BOOLEAN_INT.TRUE);
-                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY, Constants.ENTITY.PERSON);//Required for value to be processed
-                    isBirthdateApproximate.put(Constants.OPENMRS.ENTITY_ID, FormEntityConstants.Person.birthdate_estimated);
-                    fields.put(isBirthdateApproximate);
-
-                }
+            if (StringUtils.isNotBlank(dobUnKnownString)) {
+                dobUnknownObject.put(VALUE, Boolean.valueOf(dobUnKnownString) ? 1 : 0);
             }
 
             //initialize first contact values
             JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT);
-            nextContactJSONObject.put(VALUE, 1);
+            if (nextContactJSONObject.has(JsonFormConstants.VALUE) && ""
+                    .equals(nextContactJSONObject.getString(JsonFormConstants.VALUE))) {
+                nextContactJSONObject.put(VALUE, 1);
+            }
 
             JSONObject nextContactDateJSONObject = getFieldJSONObject(fields, DBConstants.KEY.NEXT_CONTACT_DATE);
-            nextContactDateJSONObject.put(VALUE, Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF));
-
-
-//Temporary process EDD
-            if (getFieldJSONObject(fields, DBConstants.KEY.EDD) != null) {
-
-                String edd = getFieldJSONObject(fields, DBConstants.KEY.EDD).get("value").toString();
-                edd = Utils.reverseHyphenSeperatedValues(edd, "-");
-                JSONObject dobJSONObject = getFieldJSONObject(fields, DBConstants.KEY.EDD);
-                dobJSONObject.put(VALUE, edd);
-
+            if (nextContactDateJSONObject.has(JsonFormConstants.VALUE) && ""
+                    .equals(nextContactDateJSONObject.getString(JsonFormConstants.VALUE))) {
+                nextContactDateJSONObject.put(VALUE, Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF));
             }
 
             FormTag formTag = new FormTag();
@@ -197,7 +168,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
-            Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
+            Event baseEvent = org.smartregister.util.JsonFormUtils
+                    .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
 
             JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
@@ -208,16 +180,17 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    public static void mergeAndSaveClient(ECSyncHelper ecUpdater, Client baseClient) throws Exception {
+    public static void mergeAndSaveClient(Client baseClient) throws Exception {
         JSONObject updatedClientJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseClient));
 
-        JSONObject originalClientJsonObject = ecUpdater.getClient(baseClient.getBaseEntityId());
+        JSONObject originalClientJsonObject = AncApplication.getInstance().getEcSyncHelper()
+                .getClient(baseClient.getBaseEntityId());
 
         JSONObject mergedJson = org.smartregister.util.JsonFormUtils.merge(originalClientJsonObject, updatedClientJson);
 
         //TODO Save edit log ?
 
-        ecUpdater.addClient(baseClient.getBaseEntityId(), mergedJson);
+        AncApplication.getInstance().getEcSyncHelper().addClient(baseClient.getBaseEntityId(), mergedJson);
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
@@ -249,8 +222,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 if (compressFormat != null) {
                     compressedBitmap.compress(compressFormat, 100, os);
                 } else {
-                    throw new IllegalArgumentException("Failed to save static image, could not retrieve image compression format from name "
-                            + absoluteFileName);
+                    throw new IllegalArgumentException(
+                            "Failed to save static image, could not retrieve image compression format from name "
+                                    + absoluteFileName);
                 }
                 // insert into the db
                 ProfileImage profileImage = new ProfileImage();
@@ -335,11 +309,12 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_REGISTRATION);
 
                 JSONObject metadata = form.getJSONObject(JsonFormUtils.METADATA);
-                String lastLocationId = lpv != null ? LocationHelper.getInstance().getOpenMrsLocationId(lpv.getSelectedItem()) : "";
+                String lastLocationId = lpv != null ? LocationHelper.getInstance()
+                        .getOpenMrsLocationId(lpv.getSelectedItem()) : "";
 
                 metadata.put(JsonFormUtils.ENCOUNTER_LOCATION, lastLocationId);
 
-                form.put(JsonFormUtils.CURRENT_OPENSRP_ID, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
+                form.put(Constants.CURRENT_OPENSRP_ID, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
 
                 //inject opensrp id into the form
                 JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
@@ -360,66 +335,61 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return "";
     }
 
-    protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject) throws JSONException {
+    protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
+            throws JSONException {
 
-
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
-
-            String dobString = womanClient.get(DBConstants.KEY.DOB);
-            if (StringUtils.isNotBlank(dobString)) {
-                Date dob = Utils.dobStringToDate(dobString);
-                if (dob != null) {
-                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
-                }
-            }
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_ENTERED)) {
+            getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.DOB);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
-
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
-
-            Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID));
-
-            if (StringUtils.isNotBlank(photo.getFilePath())) {
-
-                jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
-
-            }
+            getPhotoFieldValue(womanClient, jsonObject);
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB_UNKNOWN)) {
-
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
             optionsObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.DOB_UNKNOWN));
 
-        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.AGE)) {
-
+        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.AGE_ENTERED)) {
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             if (StringUtils.isNotBlank(womanClient.get(DBConstants.KEY.DOB))) {
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstants.KEY.DOB)));
             }
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.EDD)) {
-
-            String dobString = womanClient.get(DBConstants.KEY.EDD);
-            if (StringUtils.isNotBlank(dobString)) {
-                Date dob = Utils.dobStringToDate(dobString);
-                if (dob != null) {
-                    jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
-                }
-            }
+            getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.EDD);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
-
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
 
         } else if (womanClient.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {
-
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(jsonObject.getString(JsonFormUtils.KEY)));
         } else {
             Log.e(TAG, "ERROR:: Unprocessed Form Object Key " + jsonObject.getString(JsonFormUtils.KEY));
+        }
+    }
+
+    private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String edd)
+    throws JSONException {
+        String dobString = womanClient.get(edd);
+        if (StringUtils.isNotBlank(dobString)) {
+            Date dob = Utils.dobStringToDate(dobString);
+            if (dob != null) {
+                jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+            }
+        }
+    }
+
+    private static void getPhotoFieldValue(Map<String, String> womanClient, JSONObject jsonObject) throws JSONException {
+        Photo photo = ImageUtils.profilePhotoByClientID(womanClient.get(DBConstants.KEY.BASE_ENTITY_ID),
+                Utils.getProfileImageResourceIdentifier());
+
+        if (photo != null && StringUtils.isNotBlank(photo.getFilePath())) {
+            jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
+
         }
     }
 
@@ -440,7 +410,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
 
             List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
-            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance()
+                    .generateLocationHierarchyTree(false, healthFacilities);
 
             String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility,
                     new TypeToken<List<String>>() {
@@ -577,96 +548,25 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return null;
     }
 
-    public static Event createQuickCheckEvent(AllSharedPreferences allSharedPreferences, QuickCheck quickCheck, String baseEntityId) {
-
-        try {
-
-            Field selectedReason = quickCheck.getSelectedReason();
-            Set<Field> selectedComplaints = quickCheck.getSpecificComplaints();
-            Set<Field> selectedDangerSigns = quickCheck.getSelectedDangerSigns();
-            String specify = quickCheck.getOtherSpecify();
-
-
-            Event event = (Event) new Event()
-                    .withBaseEntityId(baseEntityId)
-                    .withEventDate(new Date())
-                    .withEventType(Constants.EventType.QUICK_CHECK)
-                    .withEntityType(DBConstants.WOMAN_TABLE_NAME)
-                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(new Date());
-
-            if (selectedReason != null) {
-                event.addObs(createObs("contact_reason", SELECT_ONE_DATA_TYPE, selectedReason.getDisplayName()));
-            }
-
-            if (selectedComplaints != null && !selectedComplaints.isEmpty()) {
-                event.addObs(createObs("specific_complaint", SELECT_MULTIPLE_DATA_TYPE, selectedComplaints));
-            }
-
-            if (StringUtils.isNotBlank(specify)) {
-                event.addObs(createObs("specific_complaint_other", TEXT_DATA_TYPE, specify));
-            }
-
-            if (selectedDangerSigns != null && !selectedDangerSigns.isEmpty()) {
-                event.addObs(createObs("danger_signs", SELECT_MULTIPLE_DATA_TYPE, selectedDangerSigns));
-            }
-
-            if (quickCheck.getHasDangerSigns()) {
-                String value = quickCheck.getProceedRefer() ? quickCheck.getProceedToContact() : quickCheck.getReferAndCloseContact();
-                event.addObs(createObs("danger_signs_proceed", SELECT_ONE_DATA_TYPE, value));
-
-                if (!quickCheck.getProceedRefer()) {
-                    value = quickCheck.getTreat() ? quickCheck.getYes() : quickCheck.getNo();
-                    event.addObs(createObs("danger_signs_treat", SELECT_ONE_DATA_TYPE, value));
-                }
-            }
-
-            JsonFormUtils.tagSyncMetadata(allSharedPreferences, event);
-
-            return event;
-
-        } catch (
-                Exception e)
-
-        {
-            Log.e(TAG, Log.getStackTraceString(e));
-            return null;
-        }
-
-    }
-
-    private static Obs createObs(String formSubmissionField, String dataType, Set<Field> fieldList) {
-        List<Object> vall = new ArrayList<>();
-        for (Field field : fieldList) {
-            vall.add(field.getDisplayName());
-        }
-        return new Obs(FORM_SUBMISSION_FIELD, dataType, formSubmissionField,
-                "", vall, new ArrayList<>(), null, formSubmissionField);
-    }
-
-    private static Obs createObs(String formSubmissionField, String dataType, String value) {
-        List<Object> vall = new ArrayList<>();
-        vall.add(value);
-        return new Obs(FORM_SUBMISSION_FIELD, dataType, formSubmissionField,
-                "", vall, new ArrayList<>(), null, formSubmissionField);
-    }
-
     private static Event tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
         event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(providerId));
+        event.setChildLocationId(LocationHelper.getInstance().getChildLocationId());
         event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
         event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
+        event.setVersion(BuildConfig.VERSION_CODE);
+        event.setClientDatabaseVersion(BuildConfig.DATABASE_VERSION);
         return event;
     }
 
     public static void launchANCCloseForm(Activity activity) {
         try {
             Intent intent = new Intent(activity, JsonFormActivity.class);
-
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_CLOSE);
             if (form != null) {
-                form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                form.put(Constants.JSON_FORM_KEY.ENTITY_ID,
+                        activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
                 activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
             }
@@ -678,10 +578,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static void launchSiteCharacteristicsForm(Activity activity) {
         try {
             Intent intent = new Intent(activity, JsonFormActivity.class);
-
             JSONObject form = FormUtils.getInstance(activity).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
             if (form != null) {
-                form.put(Constants.JSON_FORM_KEY.ENTITY_ID, activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                form.put(Constants.JSON_FORM_KEY.ENTITY_ID,
+                        activity.getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 intent.putExtra(Constants.INTENT_KEY.JSON, form.toString());
                 activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
             }
@@ -692,19 +592,20 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static Map<String, String> processSiteCharacteristics(String jsonString) {
         try {
-
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
-
             if (!registrationFormParams.getLeft()) {
                 return null;
             }
 
             Map<String, String> settings = new HashMap<>();
-            JSONArray fields = registrationFormParams.getMiddle().getJSONObject(JsonFormUtils.STEP1).getJSONArray(JsonFormUtils.FIELDS);
+            JSONArray fields = registrationFormParams.getMiddle().getJSONObject(JsonFormUtils.STEP1)
+                    .getJSONArray(JsonFormUtils.FIELDS);
 
             for (int i = 0; i < fields.length(); i++) {
                 if (!"label".equals(fields.getJSONObject(i).getString(Constants.KEY.TYPE))) {
-                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY),
+                            StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields
+                                    .getJSONObject(i).getString(Constants.KEY.VALUE));
                 }
 
             }
@@ -718,10 +619,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    public static String getAutoPopulatedSiteCharacteristicsEditFormString(Context context, Map<String, String> characteristics) {
+    public static String getAutoPopulatedSiteCharacteristicsEditFormString(Context context,
+                                                                           Map<String, String> characteristics) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(Constants.JSON_FORM.ANC_SITE_CHARACTERISTICS);
-
             Log.d(TAG, "Form is " + form.toString());
             if (form != null) {
                 form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.SITE_CHARACTERISTICS);
@@ -732,7 +633,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (characteristics.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {
                         jsonObject.put(JsonFormUtils.READ_ONLY, false);
-                        jsonObject.put(JsonFormUtils.VALUE, "true".equals(characteristics.get(jsonObject.getString(JsonFormUtils.KEY))) ? "1" : "0");
+                        jsonObject.put(JsonFormUtils.VALUE,
+                                "true".equals(characteristics.get(jsonObject.getString(JsonFormUtils.KEY))) ? "1" : "0");
                     }
 
                 }
@@ -744,5 +646,121 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
 
         return "";
+    }
+
+    public static Pair<Event, Event> createContactVisitEvent(List<String> formSubmissionIDs, Map<String, String> womanDetails) {
+        if (formSubmissionIDs.size() < 1) {
+            return null;
+        }
+
+        try {
+
+            String contactNo = womanDetails.get(DBConstants.KEY.NEXT_CONTACT);
+            String contactStartDate = womanDetails.get(DBConstants.KEY.VISIT_START_DATE);
+            String baseEntityId = womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID);
+
+            Event contactVisitEvent = (Event) new Event()
+                    .withBaseEntityId(baseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType(Constants.EventType.CONTACT_VISIT)
+                    .withEntityType(DBConstants.CONTACT_ENTITY_TYPE)
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(getContactStartDate(contactStartDate));
+
+            contactVisitEvent.addDetails(Constants.CONTACT, Constants.CONTACT + " " + contactNo);
+            contactVisitEvent.addDetails(Constants.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
+
+            JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(),
+                    contactVisitEvent);
+
+            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
+
+
+            //Update client
+            EventClientRepository db = AncApplication.getInstance().getEventClientRepository();
+            JSONObject clientForm = db.getClientByBaseEntityId(baseEntityId);
+
+            JSONObject attributes = clientForm.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
+            attributes.put(DBConstants.KEY.NEXT_CONTACT, contactNo);
+            attributes.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetails.get(DBConstants.KEY.NEXT_CONTACT_DATE));
+            attributes.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE,
+                    womanDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            attributes.put(DBConstants.KEY.CONTACT_STATUS, womanDetails.get(DBConstants.KEY.CONTACT_STATUS));
+            attributes.put(DBConstants.KEY.YELLOW_FLAG_COUNT, womanDetails.get(DBConstants.KEY.YELLOW_FLAG_COUNT));
+            attributes.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetails.get(DBConstants.KEY.RED_FLAG_COUNT));
+            attributes.put(DBConstants.KEY.EDD, womanDetails.get(DBConstants.KEY.EDD));
+            clientForm.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
+
+            FormTag formTag = new FormTag();
+            formTag.providerId = AncApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+            formTag.appVersion = BuildConfig.VERSION_CODE;
+            formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+            formTag.childLocationId = LocationHelper.getInstance().getChildLocationId();
+            formTag.locationId = LocationHelper.getInstance().getParentLocationId();
+
+            db.addorUpdateClient(baseEntityId, clientForm);
+
+            Event updateClientEvent = createUpdateClientDetailsEvent(baseEntityId);
+            return Pair.create(contactVisitEvent, updateClientEvent);
+
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+            return null;
+        }
+
+    }
+
+    protected static Event createUpdateClientDetailsEvent(String baseEntityId) {
+
+        Event updateChildDetailsEvent = (Event) new Event()
+                .withBaseEntityId(baseEntityId)
+                .withEventDate(new Date())
+                .withEventType(Constants.EventType.UPDATE_REGISTRATION)
+                .withEntityType(DBConstants.WOMAN_TABLE_NAME)
+                .withFormSubmissionId(generateRandomUUIDString())
+                .withDateCreated(new Date());
+
+        JsonFormUtils
+                .tagSyncMetadata(AncApplication.getInstance().getContext().allSharedPreferences(), updateChildDetailsEvent);
+
+        return updateChildDetailsEvent;
+    }
+
+    public static Event processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+
+        JSONArray fields = fields(jsonForm);
+
+
+        String entityId = getString(jsonForm, ENTITY_ID);
+        if (StringUtils.isBlank(entityId)) {
+            entityId = baseEntityId;
+        }
+
+        String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+        JSONObject metadata = getJSONObject(jsonForm, METADATA);
+
+        FormTag formTag = new FormTag();
+        formTag.providerId = allSharedPreferences.fetchRegisteredANM();
+        formTag.appVersion = BuildConfig.VERSION_CODE;
+        formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+
+        Event baseEvent = org.smartregister.util.JsonFormUtils
+                .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
+
+        JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
+
+        return baseEvent;
+
+    }
+
+    private static Date getContactStartDate(String contactStartDate) {
+        try {
+
+            return new LocalDate(contactStartDate).toDate();
+
+        } catch (Exception e) {
+            return new LocalDate().toDate();
+        }
     }
 }

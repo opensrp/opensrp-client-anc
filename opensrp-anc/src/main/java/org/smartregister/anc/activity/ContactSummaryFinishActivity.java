@@ -10,43 +10,30 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.rules.RuleConstant;
-
 import org.jeasy.rules.api.Facts;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
-import org.smartregister.anc.domain.ContactSummary;
-import org.smartregister.anc.domain.ContactSummaryItem;
-import org.smartregister.anc.helper.ImageRenderHelper;
+import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
-import org.yaml.snakeyaml.TypeDescription;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
+import org.smartregister.helper.ImageRenderHelper;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -60,12 +47,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
     private Facts facts = new Facts();
-    private Yaml yaml;
     private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
-    private List<ContactSummary> contactSummaryList = new ArrayList<>();
-    private Gson gson;
-    private Button saveAndFinishButton;
+    private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
+    private MenuItem saveFinishMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +61,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         setUpViews();
 
         mProfilePresenter = new ProfilePresenter(this);
-
         imageRenderHelper = new ImageRenderHelper(this);
-
-        Constructor constructor = new Constructor(ContactSummary.class);
-        TypeDescription customTypeDescription = new TypeDescription(ContactSummary.class);
-        customTypeDescription.addPropertyParameters(ContactSummaryItem.FIELD_CONTACT_SUMMARY_ITEMS, ContactSummaryItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
         loadContactSummaryData();
-
-
-        gson = new Gson();
 
     }
 
@@ -101,34 +76,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
-        ImageButton backButton = findViewById(R.id.cancel_button);
-        backButton.setImageResource(R.drawable.ic_arrow_back_white);
-        backButton.setOnClickListener(this);
-
-        ((TextView) findViewById(R.id.top_patient_name)).setText(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
-        saveAndFinishButton = findViewById(R.id.finalize_contact);
-        saveAndFinishButton.setText(R.string.save_and_finish);
-        saveAndFinishButton.setEnabled(false);
-        saveAndFinishButton.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        super.onClick(view);
-
-        switch (view.getId()) {
-            case R.id.cancel_button:
-                super.onBackPressed();
-                break;
-
-            case R.id.finalize_contact:
-                saveFinishForm();
-                break;
-
-            default:
-                break;
-        }
+        collapsingToolbarLayout.setTitleEnabled(false);
+        actionBar.setTitle(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
     }
 
     @Override
@@ -137,7 +86,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            finish();
+            PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
+            super.onBackPressed();
         } else {
             saveFinishForm();
         }
@@ -148,6 +98,15 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_contact_summary_finish_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        saveFinishMenuItem = menu.findItem(R.id.save_finish_menu_item);
+        saveFinishMenuItem.setEnabled(false);//initially disable
+
         return true;
     }
 
@@ -200,11 +159,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, R.drawable.ic_woman_with_baby);
     }
 
     @Override
-    public void setWomanPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         //Overridden
     }
 
@@ -226,57 +185,51 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        try {
-
-            Map<String, String> womanProfileDetails = PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
-            mProfilePresenter.saveFinishForm(womanProfileDetails);
-
-            Intent contactSummaryIntent = new Intent(this, ContactSummarySendActivity.class);
-            contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
-            startActivity(contactSummaryIntent);
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-    }
-
-    private void processRequiredStepsField(JSONObject object) throws Exception {
-        if (object != null) {
-            Iterator<String> keys = object.keys();
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-
-                if (key.startsWith(RuleConstant.STEP)) {
-                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
-
-                    for (int i = 0; i < stepArray.length(); i++) {
-
-                        JSONObject fieldObject = stepArray.getJSONObject(i);
-
-                        String fieldKey = getKey(fieldObject);
-                        String fieldValue = getValue(fieldObject);
-
-                        if (fieldKey != null && fieldValue != null) {
-
-                            facts.put(fieldKey, isList(fieldValue) ? gson.fromJson(fieldValue, ArrayList.class) : fieldValue);
-                        }
 
 
-                    }
+        new AsyncTask<Void, Void, Void>() {
+            private HashMap<String, String> womanProfileDetails;
 
-                }
+            @Override
+            protected void onPreExecute() {
+                showProgressDialog(R.string.please_wait_message);
+                progressDialog.setMessage(String.format(context().applicationContext().getString(R.string.finalizing_contact), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                progressDialog.show();
             }
-        }
-    }
+
+            @Override
+            protected Void doInBackground(Void... nada) {
+                try {
+                    womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+
+                    mProfilePresenter.saveFinishForm(womanProfileDetails);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage(), e);
+                }
+
+                return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
 
 
-    private boolean isList(String value) {
-        return !value.isEmpty() && value.charAt(0) == '[';
+                hideProgressDialog();
+
+                Intent contactSummaryIntent = new Intent(ContactSummaryFinishActivity.this, ContactSummarySendActivity.class);
+                contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanProfileDetails);
+
+                startActivity(contactSummaryIntent);
+
+            }
+        }.execute();
+
+
     }
+
 
     private void process() throws Exception {
 
@@ -287,35 +240,19 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         List<PartialContact> partialContacts = getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
 
         for (PartialContact partialContact : partialContacts) {
-            if (partialContact.getFormJson() != null) {
+            if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
                 object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
-                processRequiredStepsField(object);
+                ContactJsonFormUtils.processRequiredStepsField(facts, object, this);
             }
         }
 
-        Iterable<Object> ruleObjects = readYaml(Constants.CONFIG_FILE.CONTACT_SUMMARY);
+        Iterable<Object> ruleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.CONTACT_SUMMARY);
 
-        contactSummaryList = new ArrayList<>();
+        yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
-            ContactSummary contactSummary = (ContactSummary) ruleObject;
-            contactSummaryList.add(contactSummary);
+            YamlConfig yamlConfig = (YamlConfig) ruleObject;
+            yamlConfigList.add(yamlConfig);
         }
-    }
-
-    private String getKey(JSONObject jsonObject) throws Exception {
-
-        return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
-    }
-
-    private String getValue(JSONObject jsonObject) throws Exception {
-        String result = jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : "";
-
-        if (!result.isEmpty() && result.charAt(0) == '[') {
-            result = result.replace("[", "").replace("]", "").replaceAll("'", "").replaceAll(",", ", ");
-        }
-
-
-        return result;
     }
 
     protected void loadContactSummaryData() {
@@ -326,7 +263,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 @Override
                 protected void onPreExecute() {
                     showProgressDialog(R.string.please_wait_message);
-                    progressDialog.setMessage("Summarizing contact " + String.format(context().applicationContext().getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                    progressDialog.setMessage(String.format(context().applicationContext().getString(R.string.summarizing_contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
                     progressDialog.show();
                 }
 
@@ -349,20 +286,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                     String edd = facts.get(DBConstants.KEY.EDD);
 
                     if (edd != null) {
-                        try {
 
-                            PatientRepository.updateEDD(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+                        PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
-                            saveAndFinishButton.setEnabled(true);
-
-                        } catch (IllegalArgumentException e) {
-                            saveAndFinishButton.setEnabled(false);
-                        }
+                        saveFinishMenuItem.setEnabled(true);
 
                     }
 
-                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, contactSummaryList, facts);
-
+                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, yamlConfigList, facts);
 
                     // set up the RecyclerView
                     RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);
@@ -380,11 +311,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
-    }
-
-    public Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(this.getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
-        return yaml.loadAll(inputStreamReader);
     }
 
     protected PartialContactRepository getPartialContactRepository() {

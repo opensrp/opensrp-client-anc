@@ -9,6 +9,9 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.HomeRegisterActivity;
 import org.smartregister.anc.contract.AdvancedSearchContract;
 import org.smartregister.anc.contract.RegisterFragmentContract;
 import org.smartregister.anc.cursor.AdvancedMatrixCursor;
@@ -30,20 +34,27 @@ import org.smartregister.anc.helper.DBQueryHelper;
 import org.smartregister.anc.listener.DatePickerListener;
 import org.smartregister.anc.presenter.AdvancedSearchPresenter;
 import org.smartregister.anc.provider.AdvancedSearchProvider;
+import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.anc.util.Utils;
+import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
+import java.util.HashMap;
 import java.util.Set;
 
-public class AdvancedSearchFragment extends HomeRegisterFragment implements AdvancedSearchContract.View, RegisterFragmentContract.View {
+public class AdvancedSearchFragment extends HomeRegisterFragment
+        implements AdvancedSearchContract.View, RegisterFragmentContract.View {
 
     private View listViewLayout;
     private View advancedSearchForm;
     private ImageButton backButton;
     private Button searchButton;
+    private Button search;
 
     private RadioButton outsideInside;
     private RadioButton myCatchment;
@@ -66,6 +77,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
 
     private BroadcastReceiver connectionChangeReciever;
     private boolean registeredConnectionChangeReceiver = false;
+    private AdvancedSearchTextWatcher advancedSearchTextwatcher = new AdvancedSearchTextWatcher();
+    private HashMap<String, String> searchFormData = new HashMap<>();
 
     @Override
     protected void initializePresenter() {
@@ -123,12 +136,18 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
     protected void onViewClicked(View view) {
         if (view.getId() == R.id.search) {
             search();
-        } else if (view.getId() == R.id.cancel_button) {
+        } else if (view.getId() == R.id.undo_button) {
             ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
             ((BaseRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(R.id.action_clients);
             ((BaseRegisterActivity) getActivity()).setSearchTerm("");
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
+        } else if ((view.getId() == R.id.patient_column || view.getId() == R.id.profile) && view.getTag() != null) {
+            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
+        } else if (view.getId() == R.id.sync) {
+            SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+            SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+            //Todo add the move to catchment area
         }
     }
 
@@ -153,13 +172,17 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
+        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(),
+                visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider,
+                context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 
     private void populateFormViews(View view) {
-        Button search = view.findViewById(R.id.search);
+        search = view.findViewById(R.id.search);
+        search.setEnabled(false);
+        search.setTextColor(getResources().getColor(R.color.contact_complete_grey_border));
 
         outsideInside = view.findViewById(R.id.out_and_inside);
         myCatchment = view.findViewById(R.id.my_catchment);
@@ -206,17 +229,28 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
 
 
         ancId = view.findViewById(R.id.anc_id);
+        ancId.addTextChangedListener(advancedSearchTextwatcher);
+
         firstName = view.findViewById(R.id.first_name);
+        firstName.addTextChangedListener(advancedSearchTextwatcher);
+
         lastName = view.findViewById(R.id.last_name);
+        lastName.addTextChangedListener(advancedSearchTextwatcher);
+
         edd = view.findViewById(R.id.edd);
+        edd.addTextChangedListener(advancedSearchTextwatcher);
+
         dob = view.findViewById(R.id.dob);
+        dob.addTextChangedListener(advancedSearchTextwatcher);
+
         phoneNumber = view.findViewById(R.id.phone_number);
+        phoneNumber.addTextChangedListener(advancedSearchTextwatcher);
+
         altContactName = view.findViewById(R.id.alternate_contact_name);
+        altContactName.addTextChangedListener(advancedSearchTextwatcher);
 
         setDatePicker(edd);
         setDatePicker(dob);
-
-        search.setOnClickListener(registerActionHandler);
 
         qrCodeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,13 +258,52 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                 if (getActivity() == null) {
                     return;
                 }
-
                 BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
                 baseRegisterActivity.startQrCodeScanner();
+
+                ((HomeRegisterActivity) getActivity()).setAdvancedSearch(true);
+                ((HomeRegisterActivity) getActivity()).setAdvancedSearchFormData(createSelectedFieldMap());
             }
         });
 
         resetForm();
+    }
+
+    private void assignedValuesBeforeBarcode() {
+        if (searchFormData.size() > 0) {
+            firstName.setText(searchFormData.get(Constants.FIRST_NAME));
+            lastName.setText(searchFormData.get(Constants.LAST_NAME));
+            edd.setText(searchFormData.get(Constants.EDD));
+            dob.setText(searchFormData.get(Constants.DOB));
+            phoneNumber.setText(searchFormData.get(Constants.PHONE_NUMBER));
+            altContactName.setText(searchFormData.get(Constants.ALT_CONTACT_NAME));
+        }
+    }
+
+    private HashMap<String, String> createSelectedFieldMap() {
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put(Constants.FIRST_NAME, firstName.getText().toString());
+        fields.put(Constants.LAST_NAME, lastName.getText().toString());
+        fields.put(Constants.EDD, edd.getText().toString());
+        fields.put(Constants.DOB, dob.getText().toString());
+        fields.put(Constants.PHONE_NUMBER, phoneNumber.getText().toString());
+        fields.put(Constants.ALT_CONTACT_NAME, altContactName.getText().toString());
+        return fields;
+    }
+
+
+    private void checkTextFields() {
+        if (!TextUtils.isEmpty(ancId.getText()) || !TextUtils.isEmpty(firstName.getText()) || !TextUtils
+                .isEmpty(lastName.getText()) || !TextUtils.isEmpty(edd.getText()) || !TextUtils
+                .isEmpty(dob.getText()) || !TextUtils.isEmpty(phoneNumber.getText()) || !TextUtils
+                .isEmpty(altContactName.getText())) {
+            search.setEnabled(true);
+            search.setTextColor(getResources().getColor(R.color.white));
+            search.setOnClickListener(registerActionHandler);
+        } else {
+            search.setEnabled(false);
+            search.setTextColor(getResources().getColor(R.color.contact_complete_grey_border));
+        }
     }
 
     @Override
@@ -248,12 +321,11 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                 titleLabelView.setText(getString(R.string.search_results));
             }
 
-
-            //updateMatchingResults(0);
+            updateMatchingResults(0);
             showProgressView();
             listMode = true;
         } else {
-            //clearSearchCriteria();
+            clearSearchCriteria();
             advancedSearchForm.setVisibility(View.VISIBLE);
             listViewLayout.setVisibility(View.GONE);
             clientsView.setVisibility(View.INVISIBLE);
@@ -361,6 +433,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
     }
 
     private void search() {
+
         String fn = firstName.getText().toString();
         String ln = lastName.getText().toString();
         String id = ancId.getText().toString();
@@ -391,7 +464,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
 
     @Override
     public void countExecute() {
-        Cursor c = null;
+        Cursor cursor = null;
 
         try {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
@@ -402,9 +475,9 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
             query = sqb.Endquery(query);
 
             Log.i(getClass().getName(), query);
-            c = commonRepository().rawCustomQueryForAdapter(query);
-            c.moveToFirst();
-            clientAdapter.setTotalcount(c.getInt(0));
+            cursor = commonRepository().rawCustomQueryForAdapter(query);
+            cursor.moveToFirst();
+            clientAdapter.setTotalcount(cursor.getInt(0));
             Log.v("total count here", "" + clientAdapter.getTotalcount());
 
             clientAdapter.setCurrentlimit(20);
@@ -413,8 +486,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
         } finally {
-            if (c != null) {
-                c.close();
+            if (cursor != null) {
+                cursor.close();
             }
         }
 
@@ -431,7 +504,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
                     public Cursor loadInBackground() {
                         AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
                         if (isLocal || matrixCursor == null) {
-                            String query = filterandSortQuery();
+                            String query = filterAndSortQuery();
                             Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -452,14 +525,17 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         }
     }
 
-    private String filterandSortQuery() {
+
+    @Override
+    public String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
         try {
             sqb.addCondition(filters);
             query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
+            query = sqb.Endquery(
+                    sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString(), e);
         }
@@ -467,7 +543,41 @@ public class AdvancedSearchFragment extends HomeRegisterFragment implements Adva
         return query;
     }
 
+    @Override
+    public Cursor getRawCustomQueryForAdapter(String query){
+      return commonRepository().rawCustomQueryForAdapter(query);
+    }
+
+
     public EditText getAncId() {
         return this.ancId;
+    }
+
+    public void setSearchFormData(HashMap<String, String> searchFormData) {
+        this.searchFormData = searchFormData;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        assignedValuesBeforeBarcode();
+    }
+
+    private class AdvancedSearchTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //Todo later
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            checkTextFields();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            checkTextFields();
+        }
     }
 }

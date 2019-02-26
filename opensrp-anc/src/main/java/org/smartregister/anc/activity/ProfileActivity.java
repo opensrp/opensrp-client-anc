@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,78 +9,90 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ViewPagerAdapter;
+import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
+import org.smartregister.anc.event.ClientDetailsFetchedEvent;
+import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.fragment.ProfileContactsFragment;
 import org.smartregister.anc.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.fragment.ProfileTasksFragment;
-import org.smartregister.anc.fragment.QuickCheckFragment;
-import org.smartregister.anc.helper.ImageRenderHelper;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.CopyToClipboardDialog;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.PermissionUtils;
+import org.smartregister.view.activity.BaseProfileActivity;
+
+import java.util.HashMap;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
 public class ProfileActivity extends BaseProfileActivity implements ProfileContract.View {
 
+    public static final String CLOSE_ANC_RECORD = "Close ANC Record";
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
     private TextView ancIdView;
     private ImageView imageView;
-    private ImageRenderHelper imageRenderHelper;
-    private String womanPhoneNumber;
+    private String phoneNumber;
+    private HashMap<String, String> detailMap;
 
     private static final String TAG = ProfileActivity.class.getCanonicalName();
 
-    public static final String DIALOG_TAG = "PROFILE_DIALOG_TAG";
+    private String buttonAlertStatus;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setUpViews();
-
-        mProfilePresenter = new ProfilePresenter(this);
-
-        imageRenderHelper = new ImageRenderHelper(this);
-
-
+    protected void initializePresenter() {
+        presenter = new ProfilePresenter(this);
     }
 
-    private void setUpViews() {
+    @Override
+    protected void setupViews() {
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        tabLayout.setupWithViewPager(setupViewPager(viewPager));
+        super.setupViews();
 
-        ageView = findViewById(R.id.textview_age);
-        gestationAgeView = findViewById(R.id.textview_gestation_age);
-        ancIdView = findViewById(R.id.textview_anc_id);
+        ageView = findViewById(R.id.textview_detail_two);
+        gestationAgeView = findViewById(R.id.textview_detail_three);
+        ancIdView = findViewById(R.id.textview_detail_one);
         nameView = findViewById(R.id.textview_name);
         imageView = findViewById(R.id.imageview_profile);
 
+        getButtonAlertStatus();
     }
 
+    private void getButtonAlertStatus() {
 
-    private ViewPager setupViewPager(ViewPager viewPager) {
+        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+
+        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
+                Constants.ALERT_STATUS.ACTIVE.equals(detailMap.get(DBConstants.KEY.CONTACT_STATUS)) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
+
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
@@ -96,36 +109,61 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
+    protected void fetchProfileData() {
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        int itemId = item.getItemId();
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            finish();
+            Utils.navigateToHomeRegister(this, false);
         } else {
+
+            String contactButtonText = getString(R.string.start_contact);
+
+            if (buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
+
+                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
+
+            } else if (buttonAlertStatus.equals(Constants.ALERT_STATUS.IN_PROGRESS)) {
+
+                contactButtonText = String.format(getString(R.string.continue_contact), Integer.valueOf(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
+            }
+
+
             AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
             arrayAdapter.add(getString(R.string.call));
-            arrayAdapter.add(getString(R.string.start_contact));
+            arrayAdapter.add(contactButtonText);
             arrayAdapter.add(getString(R.string.close_anc_record));
 
             builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String textClicked = arrayAdapter.getItem(which);
-                    switch (textClicked) {
-                        case "Call":
-                            launchPhoneDialer(womanPhoneNumber);
-                            break;
-                        case "Start Contact":
-                            QuickCheckFragment.launchDialog(ProfileActivity.this, DIALOG_TAG);
-                            break;
-                        case "Close ANC Record":
-                            JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
-                            break;
-                        default:
-                            break;
+                    if (textClicked != null) {
+                        switch (textClicked) {
+                            case Constants.CALL:
+                                launchPhoneDialer(phoneNumber);
+                                break;
+                            case Constants.START_CONTACT:
+                            case Constants.CONTINUE_CONTACT:
+                                continueToContact();
+                                break;
+                            case CLOSE_ANC_RECORD:
+                                JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
+                                break;
+                            default:
+                                if (textClicked.startsWith("Continue")) {
+                                    continueToContact();
+                                }
+
+                                break;
+                        }
                     }
 
                     dialog.dismiss();
@@ -137,6 +175,17 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         return super.onOptionsItemSelected(item);
     }
 
+    private void continueToContact() {
+        if (!buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
+
+            String baseEntityId = detailMap.get(DBConstants.KEY.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, ProfileActivity.this);
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -145,35 +194,71 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void onResumption() {
+        super.onResumption();
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        mProfilePresenter.refreshProfileView(baseEntityId);
+        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
+        registerEventBus();
     }
 
     @Override
-    protected int getViewLayoutId() {
-        return R.layout.activity_profile;
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mProfilePresenter.onDestroy(isChangingConfigurations());
+        presenter.onDestroy(isChangingConfigurations());
+
     }
 
     @Override
-    protected void onCreation() { //Overriden from Secured Activity
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+            ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
+
+        }
     }
 
-    @Override
-    protected void onResumption() {//Overriden from Secured Activity
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void startFormForEdit(ClientDetailsFetchedEvent event) {
+        if (event != null && event.isEditMode()) {
 
+            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
+            try {
+
+                JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+
+            } catch (Exception e) {
+                Log.e("TAG", e.getMessage());
+            }
+        }
+
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void refreshProfileTopSection(ClientDetailsFetchedEvent event) {
+        if (event != null && !event.isEditMode()) {
+            Utils.removeStickyEvent(event);
+            ((ProfilePresenter) presenter).refreshProfileTopSection(event.getWomanClient());
+        }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void removePatient(PatientRemovedEvent event) {
+        if (event != null) {
+            Utils.removeStickyEvent(event);
+            hideProgressDialog();
+            finish();
+        }
     }
 
     @Override
     public void setProfileName(String fullName) {
-        this.womanName = fullName;
+        this.patientName = fullName;
         nameView.setText(fullName);
     }
 
@@ -195,23 +280,12 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void setProfileImage(String baseEntityId) {
-        imageRenderHelper.refreshProfileImage(baseEntityId, imageView);
+        imageRenderHelper.refreshProfileImage(baseEntityId, imageView, Utils.getProfileImageResourceIdentifier());
     }
 
     @Override
-    public void setWomanPhoneNumber(String phoneNumber) {
-        womanPhoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String getIntentString(String intentKey) {
-
-        return this.getIntent().getStringExtra(intentKey);
-    }
-
-    @Override
-    public void displayToast(int stringID) {
-        Utils.showShortToast(this, this.getString(stringID));
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -220,12 +294,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             case PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE: {
 
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    launchPhoneDialer(womanPhoneNumber);
-
+                    launchPhoneDialer(phoneNumber);
                 } else {
                     displayToast(R.string.allow_phone_call_management);
-
                 }
                 return;
             }
@@ -257,6 +328,31 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     protected boolean isPermissionGranted() {
         return PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
+    }
+
+    protected void registerEventBus() {
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.profile_overview_due_button) {
+
+            String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+            }
+
+        } else {
+            super.onClick(view);
+        }
+
+    }
+
+    private Activity getActivity() {
+        return this;
+
     }
 }
 

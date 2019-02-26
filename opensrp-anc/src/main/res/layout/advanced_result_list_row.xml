@@ -10,11 +10,15 @@
 
     <LinearLayout
         android:id="@+id/patient_column"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_margin="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_toStartOf="@+id/action_buttons_layout"
+        android:layout_toLeftOf="@+id/action_buttons_layout"
         android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -23,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="0dp"
-            android:text="Patient Name"
+            android:text="Patient Name Patient Name Patient Name Patient Name Patient Name"
             android:textColor="@color/text_black"
             android:textSize="18sp" />
 
@@ -68,10 +72,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/action_buttons_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"

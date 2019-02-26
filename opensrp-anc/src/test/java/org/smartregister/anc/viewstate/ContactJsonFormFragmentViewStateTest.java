@@ -2,7 +2,9 @@ package org.smartregister.anc.viewstate;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

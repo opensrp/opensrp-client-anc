@@ -81,5 +81,4 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
         };
         getAppExecutors().diskIO().execute(runnable);
     }
-
 }

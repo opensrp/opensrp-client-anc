@@ -55,7 +55,7 @@
     "title": "ANC Registration",
     "fields": [
       {
-        "key": "photo",
+        "key": "wom_image",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -94,7 +94,7 @@
           "err": "Please enter the first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -111,7 +111,7 @@
           "err": "Please enter the last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -121,13 +121,43 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "hidden",
-        "value": "female"
+        "value": "F"
       },
       {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "date_picker",
         "hint": "Date of birth (DOB) *",
         "expanded": false,
@@ -156,15 +186,17 @@
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
+        "openmrs_entity_id": "birthdate_estimated",
         "type": "check_box",
-        "label": "",
         "options": [
           {
             "key": "dob_unknown",
             "text": "DOB unknown?",
             "text_size": "18px",
-            "value": "false"
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           }
         ]
       },
@@ -172,6 +204,36 @@
         "key": "age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
         "openmrs_entity_id": "age",
         "type": "edit_text",
         "hint": "Age *",
@@ -206,25 +268,25 @@
       {
         "key": "home_address",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "home_address",
-        "openmrs_data_type": "text",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
         "type": "edit_text",
         "hint": "Home address *",
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please enter the woman's home address"
         },
         "v_regex": {
-          "value": "[A-Za-z0-9\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
       {
         "key": "phone_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "phone_number",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Mobile phone number *",
         "v_numeric": {
@@ -232,7 +294,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\s*",
+          "value": "([0-9]{10})|\\s*",
           "err": "Number must be a total of 10 digits in length"
         },
         "v_required": {
@@ -243,8 +305,8 @@
       {
         "key": "reminders",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "reminders",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
@@ -253,6 +315,10 @@
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": true,
           "err": "Please select whether the woman has agreed to receiving reminder notifications"
@@ -261,23 +327,23 @@
       {
         "key": "alt_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "alt_name",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Alternate contact name",
         "edit_type": "name",
         "look_up": "true",
         "entity_id": "",
         "v_regex": {
-          "value": "[A-Za-z\\s\.\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid VHT name"
         }
       },
       {
         "key": "alt_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "alt_phone_number",
+        "openmrs_entity_parent": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Alternate contact phone number",
         "v_numeric": {
@@ -285,7 +351,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "([0-9]{10})|\s*",
+          "value": "([0-9]{10})|\\s*",
           "err": "Number must be a total of 10 digits in length"
         }
       },
@@ -298,10 +364,50 @@
         "value": ""
       },
       {
+        "key": "edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "edd",
+        "type": "hidden",
+        "value": ""
+      },
+      {
         "key": "next_contact_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "next_contact_date",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "contact_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "contact_status",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "red_flag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "red_flag_count",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "yellow_flag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "yellow_flag_count",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "last_contact_record_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "last_contact_record_date",
         "type": "hidden",
         "value": ""
       }

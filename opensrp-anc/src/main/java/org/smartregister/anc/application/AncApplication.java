@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.greenrobot.eventbus.EventBus;
@@ -12,15 +13,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.LoginActivity;
+import org.smartregister.anc.domain.YamlConfig;
+import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.helper.ECSyncHelper;
 import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
+import org.smartregister.anc.sync.AncClientProcessorForJava;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -32,10 +39,15 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
-import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import id.zelory.compressor.Compressor;
 
@@ -55,11 +67,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private DetailsRepository detailsRepository;
     private ECSyncHelper ecSyncHelper;
     private Compressor compressor;
-    private ClientProcessorForJava clientProcessorForJava;
+    private AncClientProcessorForJava clientProcessorForJava;
     private String password;
     private PartialContactRepository partialContactRepository;
+    private PreviousContactRepository previousContactRepository;
     private RulesEngineHelper rulesEngineHelper;
     private JSONObject defaultContactFormGlobals = new JSONObject();
+    private Yaml yaml;
+    private Gson gson;
 
     public static synchronized AncApplication getInstance() {
         return (AncApplication) mInstance;
@@ -85,14 +100,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID,
-                DBConstants.KEY.DATE_REMOVED, DBConstants.KEY.PHONE_NUMBER};
+        return new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID};
 
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY
-                .LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
     }
 
     @Override
@@ -106,7 +119,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context, new AncSyncConfiguration());
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
         ConfigurableViewsLibrary.init(context, getRepository());
 
         SyncStatusBroadcastReceiver.init(this);
@@ -127,6 +140,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
+
+        //initialize configs processor
+        initializeYamlConfigs();
     }
 
     @Override
@@ -188,6 +204,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return partialContactRepository;
     }
 
+    public PreviousContactRepository getPreviousContactRepository() {
+        if (previousContactRepository == null)
+            previousContactRepository = new PreviousContactRepository(getRepository());
+        return previousContactRepository;
+    }
+
     public EventClientRepository getEventClientRepository() {
         if (eventClientRepository == null) {
             eventClientRepository = new EventClientRepository(getRepository());
@@ -223,9 +245,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return compressor;
     }
 
-    public ClientProcessorForJava getClientProcessorForJava() {
+    public AncClientProcessorForJava getClientProcessorForJava() {
         if (clientProcessorForJava == null) {
-            clientProcessorForJava = ClientProcessorForJava.getInstance(getApplicationContext());
+            clientProcessorForJava = AncClientProcessorForJava.getInstance(getApplicationContext());
         }
         return clientProcessorForJava;
     }
@@ -238,6 +260,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return detailsRepository;
     }
 
+    public Gson getGsonInstance() {
+        if (gson == null) {
+            gson = new Gson();
+        }
+        return gson;
+    }
+
     private void setUpEventHandling() {
 
         try {
@@ -245,7 +274,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
             EventBus.builder().addIndex(new org.smartregister.anc.ANCEventBusIndex()).installDefaultEventBus();
 
         } catch
-                (Exception e) {
+        (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 
@@ -290,7 +319,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     JSONObject nullObject = null;
                     if (value != null && !value.equals(nullObject)) {
                         defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
-                    }else{
+                    } else {
 
                         defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
                     }
@@ -310,6 +339,20 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     public JSONObject getDefaultContactFormGlobals() {
         return defaultContactFormGlobals;
+    }
+
+
+    public Iterable<Object> readYaml(String filename) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
+        return yaml.loadAll(inputStreamReader);
+    }
+
+    private void initializeYamlConfigs() {
+        Constructor constructor = new Constructor(YamlConfig.class);
+        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
+        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
+        constructor.addTypeDescription(customTypeDescription);
+        yaml = new Yaml(constructor);
     }
 
 }

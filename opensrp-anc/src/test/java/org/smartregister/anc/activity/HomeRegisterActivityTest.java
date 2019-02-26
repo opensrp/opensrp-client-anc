@@ -11,7 +11,6 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
@@ -23,7 +22,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
@@ -38,7 +36,6 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,9 +53,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private HomeRegisterFragment homeRegisterFragment;
-
-    @Mock
-    private SettingsTestMenuItem menuItem;
 
     @Mock
     private List<Field> filterList;
@@ -113,16 +107,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Assert.assertTrue(fragments[3] instanceof LibraryFragment);
     }
 
-    @Ignore
-    @Test
-    public void testOnOptionsItemSelectedInvokesSuperWithCorrectParams() {
-        HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
-
-        spyActivity.onOptionsItemSelected(menuItem);
-
-        // Mockito.verify(spyActivity).superOnOptionsItemsSelected(menuItem);
-
-    }
 
     @Test
     public void testInitializePresenterInstantiatesPresenterCorrectly() {
@@ -195,7 +179,9 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
         Whitebox.setInternalState(homeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
 
-        CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID, ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"), DUMMY_USERNAME);
+        CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID,
+                ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"),
+                DUMMY_USERNAME);
         Map<String, String> details = new HashMap<>();
         details.putAll(client.getDetails());
         client.setColumnmaps(details);
@@ -208,7 +194,9 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
         Whitebox.setInternalState(homeRegisterActivitySpy, "attentionFlagAlertDialog", attentionFlagsAlertDialog);
 
-        List<AttentionFlag> testAttentionFlags = Arrays.asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2", true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
+        List<AttentionFlag> testAttentionFlags = Arrays
+                .asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2",
+                        true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
 
         homeRegisterActivitySpy.showAttentionFlagsDialog(testAttentionFlags);
         Mockito.verify(attentionFlagsAlertDialog).show();
@@ -228,14 +216,25 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
                 ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(""));
     }
 
-    @Test()
+    @Test
+    public void testStartRegistrationFormActivityInvokesPresenterStartFormMethodWithCorrectParameters() throws Exception {
+        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", registerPresenter);
+
+        homeRegisterActivitySpy.startRegistration();
+        Mockito.verify(registerPresenter).startForm("anc_register", null,
+                null, "");
+    }
+
+    @Test ()
     public void testStartFormActivityDisplaysErrorMessageToastWhenExceptionThrown() {
         HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
         RegisterContract.Presenter presenter = null;
         Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", presenter);
 
         homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
-        Mockito.verify(homeRegisterActivitySpy).displayToast(RuntimeEnvironment.application.getString(R.string.error_unable_to_start_form));
+        Mockito.verify(homeRegisterActivitySpy)
+                .displayToast(RuntimeEnvironment.application.getString(R.string.error_unable_to_start_form));
     }
 
     @Test
@@ -247,11 +246,27 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Assert.assertTrue(context instanceof HomeRegisterActivity);
 
     }
+
     @Test
-    public void testHomeRegisterActivityOnBackPressedCalled(){
+    public void testHomeRegisterActivityOnBackPressedCalled() {
         HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
         spyActivity.onBackPressed();
         Mockito.verify(spyActivity).onBackPressed();
+    }
+
+    @Test
+    public void testSwitchToAdvancedSearchFromBarcode() {
+        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        Whitebox.setInternalState(homeRegisterActivitySpy, "isAdvancedSearch", true);
+        try {
+            Whitebox.invokeMethod(homeRegisterActivitySpy, HomeRegisterActivity.class, "switchToAdvancedSearchFromBarcode");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(Whitebox.getInternalState(homeRegisterActivitySpy, "advancedSearchQrText"), "");
+        Assert.assertEquals(Whitebox.getInternalState(homeRegisterActivitySpy, "isAdvancedSearch"), false);
+        Assert.assertEquals(Whitebox.getInternalState(homeRegisterActivitySpy, "advancedSearchFormData"), new HashMap<>());
     }
 
     @Override

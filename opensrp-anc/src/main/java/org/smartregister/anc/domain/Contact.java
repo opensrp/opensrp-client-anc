@@ -1,18 +1,48 @@
 package org.smartregister.anc.domain;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import java.io.Serializable;
 import java.util.Map;
 
-public class Contact implements Serializable {
+public class Contact extends Form implements Serializable {
 
-    private String name;
     private int background;
-    private int actionBarBackground;
-    private int navigationBackground;
+
     private int requiredFields;
+
     private String formName;
+
     private int contactNumber;
-    private Map<String,String> globals;
+
+    private String jsonForm;
+
+
+    private Map<String, String> globals;
+
+    public int getBackground() {
+        return background;
+    }
+
+    public void setBackground(int background) {
+        this.background = background;
+    }
+
+    public int getRequiredFields() {
+        return requiredFields;
+    }
+
+    public void setRequiredFields(int requiredFields) {
+        this.requiredFields = requiredFields;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
+    }
 
     public Map<String, String> getGlobals() {
         return globals;
@@ -30,51 +60,11 @@ public class Contact implements Serializable {
         this.contactNumber = contactNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getJsonForm() {
+        return jsonForm;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getBackground() {
-        return background;
-    }
-
-    public void setBackground(int background) {
-        this.background = background;
-    }
-
-    public int getActionBarBackground() {
-        return actionBarBackground;
-    }
-
-    public void setActionBarBackground(int actionBarBackground) {
-        this.actionBarBackground = actionBarBackground;
-    }
-
-    public int getNavigationBackground() {
-        return navigationBackground;
-    }
-
-    public void setNavigationBackground(int navigationBackground) {
-        this.navigationBackground = navigationBackground;
-    }
-
-    public int getRequiredFields() {
-        return requiredFields;
-    }
-
-    public void setRequiredFields(int requiredFields) {
-        this.requiredFields = requiredFields;
-    }
-
-    public String getFormName() {
-        return formName;
-    }
-
-    public void setFormName(String formName) {
-        this.formName = formName;
+    public void setJsonForm(String jsonForm) {
+        this.jsonForm = jsonForm;
     }
 }

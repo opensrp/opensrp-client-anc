@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Base application theme. -->
     <style name="AncAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -49,12 +49,6 @@
         <!-- item size in menu-->
     </style>
 
-    <style name="CustomFontTextViewStyle.tabIndicator.anc" parent="CustomFontTextViewStyle.tabIndicator">
-        <item name="fontVariant">medium</item>
-        <item name="android:textSize">@dimen/activity_sub_title_size</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
     <style name="Material.Drawable.RadioButton.AdvancedSearch" parent="Material.Drawable.RadioButton">
         <item name="rbd_width">18dp</item>
         <item name="rbd_height">18dp</item>
@@ -71,5 +65,23 @@
 
     <style name="ActionBarNoShadow">
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorPrimary">@color/primary</item>
+
+        <!-- Set this to true if you want Full Screen without status bar -->
+        <item name="android:windowFullscreen">false</item>
+
+        <item name="android:windowIsFloating">false</item>
+
+        <!-- This is important! Don't forget to set window background -->
+        <item name="android:windowBackground">@color/white</item>
+
+        <!-- Additionally if you want animations when dialog opening -->
+     <!--   <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>-->
     </style>
 </resources>

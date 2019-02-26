@@ -1,6 +1,6 @@
 package org.smartregister.anc.model;
 
-import org.smartregister.anc.util.Utils;
+import org.smartregister.util.Utils;
 import org.smartregister.view.contract.MeContract;
 
 public class MeModel implements MeContract.Model {
@@ -14,6 +14,7 @@ public class MeModel implements MeContract.Model {
     public String getName() {
         return new Utils().getName();
     }
+
 
     @Override
     public String getBuildDate() {

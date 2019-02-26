@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activity.ContactActivity">
+    tools:context=".activity.MainContactActivity">
 
     <include layout="@layout/toolbar_contact" />
 
