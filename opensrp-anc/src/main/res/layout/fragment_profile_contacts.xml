@@ -37,11 +37,24 @@
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <include android:id="@+id/initial_last_contact" layout="@layout/last_contact_row"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/last_contact_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="top"
+                android:paddingStart="@dimen/contact_drawable_padding"
+                android:paddingTop="@dimen/contact_drawable_padding"
+                android:paddingEnd="@dimen/contact_drawable_padding"
+                android:paddingBottom="@dimen/contact_drawable_padding"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintTop_toBottomOf="@+id/last_contact_header"
+                app:layout_constraintBottom_toTopOf="@+id/contact_divider" />
 
             <View
+                android:id="@+id/contact_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@+id/last_contact_header"
                 android:background="@color/light_grey"/>
             <TextView
                 android:id="@+id/last_contact_bottom"

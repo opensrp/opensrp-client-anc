@@ -3,17 +3,19 @@ package org.smartregister.anc.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
-import org.smartregister.anc.adapter.ProfileOverviewAdapter;
+import org.smartregister.anc.adapter.LastContactAdapter;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
@@ -24,11 +26,11 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,11 +39,9 @@ import java.util.Locale;
  */
 public class ProfileContactsFragment extends BaseProfileFragment {
     public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
-    private List<YamlConfigWrapper> yamlConfigListGlobal;
-    private TextView contactTextView;
-    private TextView referral;
-    private TextView contactDate;
+    private List<YamlConfigWrapper> lastContactDetails;
     private TextView tests_header;
+    private LinearLayout last_contact_layout;
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -60,7 +60,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     @Override
     protected void onCreation() {
-        yamlConfigListGlobal = new ArrayList<>();
+        lastContactDetails = new ArrayList<>();
     }
 
     @Override
@@ -73,53 +73,89 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {
         try {
+            List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
+
+            JSONObject jsonObject = new JSONObject(
+                    AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(
+                            getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID))
+                            .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+
+            Iterator<String> keys = jsonObject.keys();
 
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
                     .getPreviousContactsFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
+            while (keys.hasNext()) {
+                String key = keys.next();
+                facts.put(key, jsonObject.get(key));
+            }
+
+            addOtherRuleObjects(facts);
+
+            addAttentionFlagsRuleObjects(facts);
+
             String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             Date lastContactDate =
-                    new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+                    new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                            .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            lastContactDetailsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM yyyy",
+                    Locale.getDefault()).format(lastContactDate), lastContactDetails, facts));
 
-            Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_LAST_CONTACT);
-
-            for (Object ruleObject : ruleObjects) {
-                List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
-                int valueCount = 0;
-
-                YamlConfig yamlConfig = (YamlConfig) ruleObject;
-
-                List<YamlConfigItem> configItems = yamlConfig.getFields();
-
-                for (YamlConfigItem configItem : configItems) {
-                    if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
-                        valueCount += 1;
-                    }
-                }
-
-                if (valueCount > 0) {
-                    yamlConfigListGlobal.addAll(yamlConfigList);
-                }
-            }
-
-            String gestAge = facts.get(Constants.GEST_AGE);
-            if (TextUtils.isEmpty(gestAge)) {
-                gestAge = "";
-            }
-
-            contactTextView.setText(String.format(getActivity().getString(R.string.contact_details), gestAge, contactNo));
-            contactDate.setText(new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(lastContactDate));
-            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(getActivity(), yamlConfigListGlobal, facts);
-
-            // set up the RecyclerView
-            RecyclerView recyclerView = getActivity().findViewById(R.id.last_contact_details_recycler);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(adapter);
+            setUpContactDetailsRecycler(lastContactDetailsWrapperList);
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
+    }
+
+    private void addOtherRuleObjects(Facts facts) throws IOException {
+        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_LAST_CONTACT);
+
+        for (Object ruleObject : ruleObjects) {
+            List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
+            int valueCount = 0;
+            YamlConfig yamlConfig = (YamlConfig) ruleObject;
+
+            List<YamlConfigItem> configItems = yamlConfig.getFields();
+
+            for (YamlConfigItem configItem : configItems) {
+                if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
+                    valueCount += 1;
+                }
+            }
+
+            if (valueCount > 0) {
+                lastContactDetails.addAll(yamlConfigList);
+            }
+        }
+    }
+
+    private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
+        Iterable<Object> attentionFlagsRuleObjects = AncApplication.getInstance()
+                .readYaml(FilePath.FILE.ATTENTION_FLAGS);
+
+        for (Object ruleObject : attentionFlagsRuleObjects) {
+            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
+            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
+
+                if (AncApplication.getInstance().getRulesEngineHelper()
+                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
+
+                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
+
+                }
+
+            }
+        }
+    }
+
+    private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
+        LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
+
+        RecyclerView recyclerView = last_contact_layout.findViewById(R.id.last_contact_information);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
     }
 
     private void initializeTestDetails(HashMap<String, String> clientDetails) {
@@ -137,10 +173,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
-        contactTextView = fragmentView.findViewById(R.id.contact);
-        referral = fragmentView.findViewById(R.id.referral);
-        contactDate = fragmentView.findViewById(R.id.contact_date);
         tests_header = fragmentView.findViewById(R.id.tests_header);
+        last_contact_layout = fragmentView.findViewById(R.id.last_contact_layout);
         return fragmentView;
     }
 
