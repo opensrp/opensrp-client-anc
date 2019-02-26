@@ -40,6 +40,7 @@ public abstract class Constants {
     public static final String CONTACT = "Contact";
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String FORM_SUBMISSION_IDS = "form_submission_ids";
+    public static final String GEST_AGE = "gest_age";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";

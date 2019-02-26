@@ -39,6 +39,10 @@
 
             <include android:id="@+id/initial_last_contact" layout="@layout/last_contact_row"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"/>
             <TextView
                 android:id="@+id/last_contact_bottom"
                 android:layout_width="match_parent"
@@ -109,7 +113,10 @@
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey"/>
             <TextView
                 android:id="@+id/tests_bottom"
                 android:layout_width="match_parent"

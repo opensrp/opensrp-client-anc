@@ -108,6 +108,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.PreviousContactsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

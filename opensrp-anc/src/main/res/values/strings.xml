@@ -297,4 +297,5 @@
     <string name="recent_test">RECENT TEST: %1$s</string>
     <string name="previous_contacts">PREVIOUS CONTACTS</string>
     <string name="all_tests_results">All Tests Results</string>
+    <string name="contact_details">%1$s &#183; Contact %2$s</string>
 </resources>

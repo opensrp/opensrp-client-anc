@@ -23,7 +23,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textAppearance="?android:textAppearanceMedium"
-            android:text="22 weeks &#183; Contact 2"
+            android:text="@string/contact_details"
             android:textColor="@color/primary"
             android:singleLine="true" />
 
@@ -44,6 +44,7 @@
             android:paddingBottom="3dp"
             android:layout_alignBottom="@+id/contact"
             android:text="Hospital referral"
+            android:visibility="gone"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/white" />
 
@@ -58,7 +59,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textAppearance="?android:textAppearanceSmall"
-            android:text="12 JUL 2019"
+            android:text=""
             android:textAllCaps="true"
             android:textColor="@color/text_color_primary"
             android:singleLine="true"
@@ -67,10 +68,10 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/last_contact_details"
+        android:id="@+id/last_contact_details_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:foregroundGravity="top"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintLeft_toLeftOf="parent"
