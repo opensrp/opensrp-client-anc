@@ -47,7 +47,10 @@ public class LastContactDetailsAdapter extends RecyclerView.Adapter<LastContactD
             YamlConfigItem yamlConfigItem = mData.get(position).getYamlConfigItem();
 
             Template template = getTemplate(yamlConfigItem.getTemplate());
-            String output = Utils.fillTemplate(template.detail, this.facts);
+            String output = "";
+            if (!TextUtils.isEmpty(template.detail)) {
+                output = Utils.fillTemplate(template.detail, this.facts);
+            }
 
             holder.sectionDetailTitle.setText(template.title);
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
@@ -98,10 +101,15 @@ public class LastContactDetailsAdapter extends RecyclerView.Adapter<LastContactD
 
         if (rawTemplate.contains(":")) {
             String[] templateArray = rawTemplate.split(":");
-            if (templateArray.length > 1) {
+            if (templateArray.length == 1) {
+                template.title = templateArray[0].trim();
+            } else if (templateArray.length > 1) {
                 template.title = templateArray[0].trim();
                 template.detail = templateArray[1].trim();
             }
+        } else {
+            template.title = rawTemplate;
+            template.detail = "true";
         }
 
         return template;

@@ -134,6 +134,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
                 template.title = templateArray[0].trim();
                 template.detail = templateArray[1].trim();
             }
+        } else {
+            template.title = rawTemplate;
         }
 
         return template;
