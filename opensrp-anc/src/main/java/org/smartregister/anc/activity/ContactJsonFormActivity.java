@@ -39,6 +39,7 @@ import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -262,22 +263,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     if (item.has(JsonFormConstants.TEXT)) {
                         item.put(JsonFormConstants.TEXT, value);
                     } else {
-                        if (popup) {
-                            String itemText = "";
-                            if (itemType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType
-                                    .equals(Constants.ANC_RADIO_BUTTON)) {
-                                itemText = formUtils.getRadioButtonText(item, value);
-                            }
-
-                            String widgetLabel = getWidgetLabel(item);
-                            if (!TextUtils.isEmpty(widgetLabel)) {
-                                itemType = itemType + ";" + widgetLabel;
-                            }
-
-                            genericDialogInterface
-                                    .addSelectedValues(formUtils.createAssignedValue(genericDialogInterface, keyAtIndex,
-                                            "", value, itemType, itemText));
-                        }
+                        itemType = performPopUpFunctions(key, value, popup, item, keyAtIndex, itemType);
                         item.put(JsonFormConstants.VALUE,
                                 itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ? item
                                         .has(JsonFormConstants.VALUE) && !TextUtils
@@ -293,6 +279,53 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 }
             }
         }
+    }
+
+    private String performPopUpFunctions(String key, String value, boolean popup, JSONObject item, String keyAtIndex,
+                                         String itemType) throws JSONException {
+        if (popup) {
+            String itemText = "";
+            if (itemType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType
+                    .equals(Constants.ANC_RADIO_BUTTON)) {
+                itemText = formUtils.getRadioButtonText(item, value);
+            }
+
+            String widgetLabel = getWidgetLabel(item);
+            if (!TextUtils.isEmpty(widgetLabel)) {
+                itemType = itemType + ";" + widgetLabel;
+            }
+            JSONArray valueOpenMRSAttributes = new JSONArray();
+            if (itemType.contains(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType.contains(Constants.ANC_RADIO_BUTTON)) {
+                getOptionsOpenMRSAttributes(value, item, valueOpenMRSAttributes);
+            }
+
+            if (itemType.contains(JsonFormConstants.SPINNER) && item.has(JsonFormConstants.OPENMRS_CHOICE_IDS)) {
+                JSONObject openmrsChoiceIds = item.getJSONObject(JsonFormConstants.OPENMRS_CHOICE_IDS);
+                Iterator<String> keys = openmrsChoiceIds.keys();
+                while (keys.hasNext()) {
+                    String spinnerKey = keys.next();
+                    if (value.equals(key)) {
+                        JSONObject concepts = new JSONObject();
+                        String optionOpenMRSConceptId = openmrsChoiceIds.get(spinnerKey).toString();
+                        concepts.put(JsonFormConstants.KEY, value);
+                        concepts.put(JsonFormConstants.OPENMRS_ENTITY_PARENT,
+                                item.getString(JsonFormConstants.OPENMRS_ENTITY_PARENT));
+                        concepts.put(JsonFormConstants.OPENMRS_ENTITY, item.getString(JsonFormConstants.OPENMRS_ENTITY));
+                        concepts.put(JsonFormConstants.OPENMRS_ENTITY_ID, optionOpenMRSConceptId);
+
+                        valueOpenMRSAttributes.put(concepts);
+                    }
+
+                }
+            }
+
+            JSONObject openmrsAttributes = formUtils.getOpenMRSAttributes(item);
+
+            genericDialogInterface
+                    .addSelectedValues(openmrsAttributes, valueOpenMRSAttributes,formUtils.createAssignedValue(genericDialogInterface, keyAtIndex,
+                            "", value, itemType, itemText));
+        }
+        return itemType;
     }
 
     @Override
@@ -329,8 +362,15 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put(JsonFormConstants.VALUE, value);
                             if (popup) {
+                                JSONArray valueOpenMRSAttributes = new JSONArray();
+                                if (innerItem.has(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES)) {
+                                    valueOpenMRSAttributes =
+                                            innerItem.getJSONArray(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES);
+                                }
+                                getOptionsOpenMRSAttributes(value, item, valueOpenMRSAttributes);
+                                JSONObject openMRSAttributes = formUtils.getOpenMRSAttributes(item);
                                 genericDialogInterface
-                                        .addSelectedValues(formUtils.createAssignedValue(genericDialogInterface,
+                                        .addSelectedValues(openMRSAttributes, valueOpenMRSAttributes,formUtils.createAssignedValue(genericDialogInterface,
                                                 keyAtIndex, childKey, value, itemType.toString(), itemText));
 
                             }
