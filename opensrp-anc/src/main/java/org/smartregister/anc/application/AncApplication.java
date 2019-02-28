@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.BuildConfig;
@@ -308,17 +309,17 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void populateGlobalSettingsCore(Setting setting) {
         try {
-            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
-
+            JSONObject settingObject = setting != null ? new JSONObject(setting.getValue()) : null;
+            JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
             if (settingArray != null) {
 
                 for (int i = 0; i < settingArray.length(); i++) {
 
                     JSONObject jsonObject = settingArray.getJSONObject(i);
-                    Object value = jsonObject.get(JsonFormConstants.VALUE);
+                    Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
                     JSONObject nullObject = null;
                     if (value != null && !value.equals(nullObject)) {
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
+                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
                     } else {
 
                         defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);

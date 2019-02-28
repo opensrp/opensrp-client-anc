@@ -1,6 +1,6 @@
 package org.smartregister.anc.contract;
 
-import org.smartregister.domain.Characteristic;
+import org.smartregister.domain.ServerSetting;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface BaseCharacteristicsContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void renderView(List<Characteristic> data);
+        void renderView(List<ServerSetting> data);
 
         void getCharacteristics();
 
@@ -24,7 +24,7 @@ public interface BaseCharacteristicsContract {
 
     interface View {
 
-        void renderSettings(List<Characteristic> settings);
+        void renderSettings(List<ServerSetting> settings);
 
     }
 

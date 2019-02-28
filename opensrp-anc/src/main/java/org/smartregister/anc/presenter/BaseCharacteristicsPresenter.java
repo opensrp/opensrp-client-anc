@@ -2,7 +2,7 @@ package org.smartregister.anc.presenter;
 
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
-import org.smartregister.domain.Characteristic;
+import org.smartregister.domain.ServerSetting;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -53,7 +53,7 @@ public abstract class BaseCharacteristicsPresenter implements PopulationCharacte
     public abstract BaseCharacteristicsContract.Interactor getInteractor();
 
     @Override
-    public void renderView(List<Characteristic> data) {
+    public void renderView(List<ServerSetting> data) {
         getView().renderSettings(data);
     }
 }

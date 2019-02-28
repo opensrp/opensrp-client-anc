@@ -3,6 +3,7 @@ package org.smartregister.anc.interactor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.util.Constants;
@@ -23,8 +24,9 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
         JSONArray localSettings;
         Setting characteristic = getAllSettingsRepo().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
 
-        localSettings = new JSONArray(characteristic.getValue());
 
+        JSONObject settingObject = characteristic != null ? new JSONObject(characteristic.getValue()) : null;
+        localSettings = settingObject.getJSONArray(AllConstants.SETTINGS);
 
         if (localSettings != null) {
 
@@ -38,7 +40,8 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
 
         }
 
-        characteristic.setValue(localSettings.toString());
+        settingObject.put(AllConstants.SETTINGS, localSettings);
+        characteristic.setValue(settingObject.toString());
         characteristic.setKey(Constants.PREF_KEY.SITE_CHARACTERISTICS); //We know only site characteristics are being saved at this time
         characteristic.setSyncStatus(SyncStatus.PENDING.name());
 
