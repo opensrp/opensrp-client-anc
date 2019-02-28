@@ -73,7 +73,7 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step3:hiv_test_partner_status": {
+        "step2:hiv_test_partner_status": {
           "ex-checkbox": [
             {
               "or": [
@@ -131,7 +131,7 @@
         "value": false
       },
       "relevance": {
-        "step3:hiv_test_partner_status": {
+        "step2:hiv_test_partner_status": {
           "ex-checkbox": [
             {
               "or": [
@@ -168,7 +168,7 @@
       "text": "Partner HIV test inconclusive, refer partner for further testing.",
       "toaster_type": "warning",
       "relevance": {
-        "step3:hiv_test_partner_result": {
+        "step2:hiv_test_partner_result": {
           "type": "string",
           "ex": "equalTo(., \"inconclusive\")"
         }

@@ -207,3 +207,51 @@ fields:
 
 - template: "FP method accepted: {family_planning_type}"
   relevance: "family_planning_type != ''"
+
+---
+group: malaria_prophylaxis
+fields:
+- template: "IPTp-SP dose 1: {date}"
+  relevance: "iptp_sp1 == 'Done'"
+
+- template: "IPTp-SP dose 2: {date}"
+  relevance: "iptp_sp2 == 'Done'"
+
+- template: "IPTp-SP dose 3: {date}"
+  relevance: "iptp_sp3 == 'Done'"
+
+---
+group: immunisation_status
+fields:
+- template: "TT immunisation status: {tt_immun_status}"
+  relevance: "tt_immun_status != ''"
+  isRedFont: "tt_immun_status == 'TTCV not received' || tt_immun_status == 'Unknown'"
+
+- template: "TT dose #1: {tt1_date}"
+  relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
+
+- template: "TT dose #1: {tt2_date}"
+  relevance: "tt2_date == 'Done today' || tt2_date == 'Done earlier'"
+
+- template: "TT dose #1: {tt3_date}"
+  relevance: "tt3_date == 'Done today' || tt3_date == 'Done earlier'"
+
+- template: "Hep B immunisation status: {hepb_immun_status}"
+  relevance: "hepb_immun_status != ''"
+  isRedFont: "hepb_immun_status == 'TTCV not received' || hepb_immun_status == 'Unknown' ||  hepb_immun_status == 'Incomplete'"
+
+- template: "Hep B dose #1: {hepb1_date}"
+  relevance: "hepb1_date == 'Done today' || hepb1_date == 'Done earlier'"
+
+- template: "Hep B dose #2: {hepb2_date}"
+  relevance: "hepb2_date == 'Done today' || hepb2_date == 'Done earlier'"
+
+- template: "Hep B dose #3: {hepb3_date}"
+  relevance: "hepb3_date == 'Done today' || hepb3_date == 'Done earlier'"
+
+- template: "Flu immunisation status: {flu_immun_status}"
+  relevance: "flu_immun_status != ''"
+  isRedFont: "flu_immun_status == 'Seasonal flu dose missing' || flu_immun_status == 'Unknown'"
+
+- template: "Flu dose: {flu_date}"
+  relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"

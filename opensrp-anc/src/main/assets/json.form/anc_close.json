@@ -254,7 +254,8 @@
           "Exclusive breastfeeding",
           "OCP",
           "Condom",
-          "Sterlization",
+          "Female sterlization",
+          "Male sterlization",
           "IUD",
           "Abstinence",
           "Other"
@@ -264,7 +265,8 @@
           "Exclusive breastfeeding": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "OCP": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Condom": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Sterlization": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Female sterlization": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Male sterlization": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "IUD": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Abstinence": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Forceps or Vacuum": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -465,10 +467,6 @@
           "Antepartum haemorrhage": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Infection": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option *"
         }
       }
     ]

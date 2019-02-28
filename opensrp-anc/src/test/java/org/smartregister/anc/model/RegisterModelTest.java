@@ -393,6 +393,11 @@ public class RegisterModelTest extends BaseUnitTest {
         Client client = pair.first;
         Event event = pair.second;
 
+        assertRegistrations(client, event);
+
+    }
+
+    private void assertRegistrations(Client client, Event event) {
         Assert.assertNotNull(client);
         Assert.assertNotNull(event);
 
@@ -421,7 +426,6 @@ public class RegisterModelTest extends BaseUnitTest {
         Assert.assertEquals("ANC Registration", event.getEventType());
         Assert.assertEquals("ec_woman", event.getEntityType());
         Assert.assertEquals(JsonFormUtils.formatDate("25-07-2018", true), event.getEventDate());
-
     }
 
     @Test
