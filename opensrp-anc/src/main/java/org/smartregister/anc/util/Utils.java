@@ -295,7 +295,8 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
                 intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, personObjectClient);
                 intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(personObjectClient.get(DBConstants.KEY.NEXT_CONTACT)));
+                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                        Integer.valueOf(personObjectClient.get(DBConstants.KEY.NEXT_CONTACT)));
                 context.startActivity(intent);
             }
 
@@ -353,14 +354,22 @@ public class Utils extends org.smartregister.util.Utils {
      * @param context {@link Activity}
      * @author martinndegwa
      */
-    public static void finalizeForm(Activity context, HashMap<String, String> womanDetails) {
+    public static void finalizeForm(Activity context, HashMap<String, String> womanDetails, boolean isRefferal) {
         try {
 
             Intent contactSummaryFinishIntent = new Intent(context, ContactSummaryFinishActivity.class);
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID));
+            contactSummaryFinishIntent
+                    .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID));
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanDetails);
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
                     Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+            if (isRefferal) {
+                contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                        Integer.valueOf("-" + womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+            } else {
+                contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                        Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+            }
             context.startActivity(contactSummaryFinishIntent);
         } catch (Exception e) {
             Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
@@ -384,7 +393,8 @@ public class Utils extends org.smartregister.util.Utils {
         String value = facts.get(key);
         if (value.endsWith(OTHER_SUFFIX)) {
             Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
-            value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" : value.substring(0, value.lastIndexOf(",")) + "]";
+            value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue
+                    .toString() + "]" : value.substring(0, value.lastIndexOf(",")) + "]";
 
         }
 
@@ -454,8 +464,10 @@ public class Utils extends org.smartregister.util.Utils {
         if (StringUtils.isNotBlank(edd)) {
             gestationAge = Utils.getGestationAgeFromEDDate(edd);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) && Constants.ALERT_STATUS.ACTIVE.equals(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS :
-                    AncApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
+            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) && Constants.ALERT_STATUS.ACTIVE
+                    .equals(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS :
+                    AncApplication.getInstance().getRulesEngineHelper()
+                            .getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
         } else {
             buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
         }
@@ -466,14 +478,16 @@ public class Utils extends org.smartregister.util.Utils {
         String nextContactRaw = details.get(DBConstants.KEY.NEXT_CONTACT);
         Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.valueOf(nextContactRaw) : 1;
 
-        nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
+        nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils
+                .reverseHyphenSeperatedValues(nextContactDate, "/") : null;
 
         buttonAlertStatus1.buttonText = String.format(textTemplate,
                 nextContact, (nextContactDate != null ? nextContactDate :
                         Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
 
 
-        buttonAlertStatus = Utils.processContactDoneToday(details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
+        buttonAlertStatus = Utils
+                .processContactDoneToday(details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
 
         buttonAlertStatus1.buttonAlertStatus = buttonAlertStatus;
         buttonAlertStatus1.gestationAge = gestationAge;
@@ -484,7 +498,8 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView, ButtonAlertStatus buttonAlertStatus) {
+    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
+                                                ButtonAlertStatus buttonAlertStatus) {
 
         dueButton.setVisibility(View.VISIBLE);
         dueButton.setText(buttonAlertStatus.buttonText);
@@ -527,7 +542,8 @@ public class Utils extends org.smartregister.util.Utils {
                 dueButton.setVisibility(View.GONE);
                 contactTextView.setVisibility(View.VISIBLE);
                 contactTextView.setText(
-                        String.format(context.getString(R.string.contact_recorded_today), Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                        String.format(context.getString(R.string.contact_recorded_today),
+                                Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
                 contactTextView.setPadding(2, 2, 2, 2);
 
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
@@ -544,7 +560,8 @@ public class Utils extends org.smartregister.util.Utils {
 
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
                 dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
+                        Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
 
                 break;
             default:
