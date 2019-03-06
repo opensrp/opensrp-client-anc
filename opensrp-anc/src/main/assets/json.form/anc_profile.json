@@ -185,7 +185,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify your education level"
         }
       },
@@ -228,7 +228,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify your marital status"
         }
       },
@@ -311,7 +311,7 @@
           }
         },
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify your occupation"
         },
         "v_regex": {
@@ -395,7 +395,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Lmp unknown is required"
         }
       },
       {
@@ -476,7 +477,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Ultrasound done is required"
         }
       },
       {
@@ -540,7 +542,7 @@
           }
         },
         "v_required": {
-          "value": false,
+          "value": "true",
           "err": "Please give the GA from ultrasound - weeks"
         },
         "v_numeric_integer": {
@@ -619,7 +621,7 @@
         "label_info_title": "GA from SFH or abdominal palpation - weeks",
         "hint": "GA from SFH or palpation - wks*",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please give the GA from SFH or abdominal palpation - weeks"
         },
         "v_numeric_integer": {
@@ -713,7 +715,8 @@
         ],
         "value": "none",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Please select preferred gestational age"
         },
         "calculation": {
           "rules-engine": {
@@ -782,7 +785,8 @@
         "text": "No. of pregnancies (including this pregnancy)",
         "text_color": "#000000",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "No of pregnancies is required"
         }
       },
       {
@@ -798,7 +802,8 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "No of pregnancies is required"
         }
       },
       {
@@ -810,7 +815,8 @@
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
-          "value": false
+          "value": "true",
+          "err": "Previous pregnancies is required"
         },
         "calculation": {
           "rules-engine": {
@@ -858,7 +864,8 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Miscarriage abortions is required"
         },
         "constraints": {
           "rules-engine": {
@@ -913,7 +920,8 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Live births is required"
         },
         "constraints": {
           "rules-engine": {
@@ -945,7 +953,8 @@
         "text": "No. of stillbirths (after 22 weeks)",
         "text_color": "#000000",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Still births is required"
         },
         "relevance": {
           "rules-engine": {
@@ -968,7 +977,8 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Still births is required"
         },
         "constraints": {
           "rules-engine": {
@@ -1042,7 +1052,8 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "C-sections is required"
         },
         "constraints": {
           "rules-engine": {
@@ -1218,7 +1229,7 @@
           }
         },
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify other past pregnancy problems"
         },
         "v_regex": {
@@ -1301,7 +1312,7 @@
           }
         },
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify other substances abused"
         },
         "v_regex": {
@@ -1513,7 +1524,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select at least one allergy"
         }
       },
@@ -1525,10 +1536,6 @@
         "type": "edit_text",
         "hint": "Specify",
         "edit_type": "edit_text",
-        "v_required": {
-          "value": false,
-          "err": "Please specify the allergies"
-        },
         "relevance": {
           "step4:allergies": {
             "ex-checkbox": [
@@ -1628,7 +1635,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select at least one surgeries"
         }
       },
@@ -1652,7 +1659,7 @@
           }
         },
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify the other gynecological procedures"
         }
       },
@@ -1665,7 +1672,7 @@
         "hint": "Other surgeries",
         "edit_type": "edit_text",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify the Other surgeries"
         },
         "relevance": {
@@ -1774,7 +1781,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select at least one chronic or past health conditions"
         }
       },
@@ -1787,7 +1794,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify the chronic or past health conditions"
         },
         "relevance": {
@@ -1857,7 +1864,7 @@
         },
         "max_date": "today",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please enter the HIV diagnosis date"
         }
       },
@@ -1880,7 +1887,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select the unknown HIV Date"
         },
         "relevance": {
@@ -1961,7 +1968,7 @@
         ],
         "value": "none",
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select TT Immunisation status"
         }
       },
@@ -2052,7 +2059,7 @@
         ],
         "value": "none",
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select Hep B immunisation status"
         },
         "relevance": {
@@ -2143,7 +2150,7 @@
         ],
         "value": "none",
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select Hep B immunisation status"
         }
       },
@@ -2438,7 +2445,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select at least one medication"
         }
       },
@@ -2451,7 +2458,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify the Other medications"
         },
         "relevance": {
@@ -2524,8 +2531,8 @@
           }
         ],
         "v_required": {
-          "value": false,
-          "err": "Please select at least one medication"
+          "value": "true",
+          "err": "Daily caffeine intake is required"
         }
       },
       {
@@ -2587,8 +2594,8 @@
           }
         ],
         "v_required": {
-          "value": true,
-          "err": "Please select if you use any tobacco products"
+          "value": "true",
+          "err": "Please select if woman uses any tobacco products"
         }
       },
       {
@@ -2640,7 +2647,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select if you use any tobacco products"
         }
       },
@@ -2687,7 +2694,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select if you use any tobacco products"
         }
       },
@@ -2735,7 +2742,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select if you use any tobacco products"
         }
       },
@@ -2795,8 +2802,8 @@
           }
         ],
         "v_required": {
-          "value": true,
-          "err": "Please select one"
+          "value": "true",
+          "err": "Please specify if woman uses alcohol/abuses substances"
         }
       },
       {
@@ -2808,7 +2815,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please specify other substances abused"
         },
         "relevance": {
@@ -2925,7 +2932,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select one"
         }
       },

@@ -1,0 +1,7 @@
+---
+name: preterm
+description: Preterm
+priority: 2
+condition: "global_gest_age >= 37"
+actions:
+- 'calculation = 1'

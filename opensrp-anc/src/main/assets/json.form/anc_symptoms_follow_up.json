@@ -310,7 +310,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify the medication(s) that the woman is still taking"
         },
         "relevance": {

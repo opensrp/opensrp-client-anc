@@ -126,7 +126,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option *"
+          "err": "Place of delivery is required"
         },
         "relevance": {
           "step1:anc_close_reason": {
@@ -140,19 +140,22 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "preterm",
-        "type": "edit_text",
-        "hidden": true,
+        "type": "hidden",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a number"
-        },
-        "v_required": {
-          "value": false
         },
         "relevance": {
           "step1:anc_close_reason": {
             "type": "string",
             "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_calculations_rules.yml"
+            }
           }
         }
       },
@@ -254,8 +257,8 @@
           "Exclusive breastfeeding",
           "OCP",
           "Condom",
-          "Female sterlization",
-          "Male sterlization",
+          "Female sterilization",
+          "Male sterilization",
           "IUD",
           "Abstinence",
           "Other"
@@ -344,8 +347,14 @@
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Pre-eclampsia/eclampsia",
-            "text": "Pre-eclampsia/eclampsia",
+            "key": "pre-eclampsia",
+            "text": "Pre-eclampsia",
+            "value": false,
+            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "eclampsia",
+            "text": "Eclampsia",
             "value": false,
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -442,9 +451,11 @@
           "Unknown",
           "Abortion-related complications",
           "Obstructed labour",
-          "Pre-eclampsia/eclampsia",
+          "Pre-eclampsia",
+          "Eclampsia",
           "Postpartum haemorrhage",
-          "Antepartum haemorrhage \n\t(abruption or praevia)",
+          "Antepartum haemorrhage ",
+          "Placental abruption",
           "Infection",
           "Other"
         ],
