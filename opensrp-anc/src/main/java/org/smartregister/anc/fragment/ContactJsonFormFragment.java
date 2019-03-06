@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.ContactJsonFormActivity;
@@ -51,7 +52,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
 
-    public static ContactJsonFormFragment getFormFragment(String stepName) {
+    public static JsonWizardFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString(DBConstants.KEY.STEPNAME, stepName);

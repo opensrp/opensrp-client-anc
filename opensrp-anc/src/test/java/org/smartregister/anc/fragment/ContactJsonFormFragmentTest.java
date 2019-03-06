@@ -12,9 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.mvp.MvpBasePresenter;
 import com.vijay.jsonwizard.mvp.ViewState;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
+import com.vijay.jsonwizard.utils.ValidationStatus;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,10 +25,15 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ndegwamartin on 04/07/2018.
@@ -75,7 +82,7 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
     @Test
     public void testGetFormFragmentShouldCreateAValidFragmentInstance() {
 
-        ContactJsonFormFragment formFragment = ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        JsonWizardFormFragment formFragment = ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
 
         formFragment.onOptionsItemSelected(menuItem);
@@ -93,7 +100,7 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
         Mockito.doReturn(button).when(navigationLayout).findViewById(R.id.refer);
         Mockito.doReturn(button).when(navigationLayout).findViewById(R.id.proceed);
 
-        ContactJsonFormFragment formFragmentSpy = Mockito.spy(formFragment);
+        JsonWizardFormFragment formFragmentSpy = Mockito.spy(formFragment);
 
         Mockito.doReturn(actionBar).when(formFragmentSpy).getSupportActionBar();
 
@@ -106,12 +113,12 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
     @Test
     public void testCreateViewStateShouldCreateAValidViewState() {
 
-        ContactJsonFormFragment formFragment = ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        JsonWizardFormFragment formFragment = ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
 
-        ContactJsonFormFragment fragmentSpy = Mockito.spy(formFragment);
+        JsonWizardFormFragment fragmentSpy = Mockito.spy(formFragment);
 
-        ViewState viewState = fragmentSpy.createViewState();
+        ViewState viewState = ((ContactJsonFormFragment) fragmentSpy).createViewState();
         Assert.assertNotNull(viewState);
         Assert.assertTrue(viewState instanceof ContactJsonFormFragmentViewState);
     }
@@ -120,14 +127,13 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
     @Test
     public void testCreatePresenterShouldCreateAValidPresenter() {
 
-        ContactJsonFormFragment formFragment = ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        ContactJsonFormFragment formFragment = (ContactJsonFormFragment) ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
-
+        Map<String, ValidationStatus> invalidFields = new HashMap<>();
         ContactJsonFormFragment fragmentSpy = Mockito.spy(formFragment);
-
+        Whitebox.setInternalState(JsonFormFragmentPresenter.class, "invalidFields", invalidFields);
         MvpBasePresenter presenter = fragmentSpy.createPresenter();
         Assert.assertNotNull(presenter);
-        Assert.assertTrue(presenter instanceof JsonFormFragmentPresenter);
     }
 
 }

@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -38,8 +37,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static com.vijay.jsonwizard.utils.FormUtils.*;
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
 
@@ -317,23 +314,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE)
                                 .equals(JsonFormConstants.LABEL) && isValueRequired;
 
-                        if (isRequiredField && (!fieldObject.has(JsonFormConstants.VALUE) || TextUtils
-                                .isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
-
-                            Integer requiredFieldCount = requiredFieldsMap
-                                    .get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
-
-
                         setRequiredCount(object, fieldObject, isRequiredField);
-
-                            if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
-                                --requiredFieldCount;
-                            }
-
-                            requiredFieldsMap
-                                    .put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
-
-                        }
 
                         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                                 fieldObject.has(JsonFormConstants.VALUE)) {
@@ -385,6 +366,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
 
             requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
+
+            if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                --requiredFieldCount;
+            }
 
             requiredFieldsMap
                     .put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
