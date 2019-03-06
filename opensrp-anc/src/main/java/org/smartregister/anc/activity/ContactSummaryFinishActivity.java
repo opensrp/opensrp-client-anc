@@ -203,9 +203,12 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected Void doInBackground(Void... nada) {
                 try {
-                    womanProfileDetails = (HashMap<String, String>) PatientRepository
-                            .getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
+                    womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    int contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
+                    if (contactNo < 0) {
+                        womanProfileDetails.put(DBConstants.KEY.CONTACT_STATUS, Constants.ALERT_STATUS.DUE);
+                        womanProfileDetails.put("referral", String.valueOf(contactNo));
+                    }
                     mProfilePresenter.saveFinishForm(womanProfileDetails);
 
                 } catch (Exception e) {

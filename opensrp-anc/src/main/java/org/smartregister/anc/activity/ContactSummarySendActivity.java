@@ -48,7 +48,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     protected void onResume() {
         super.onResume();
         contactSummaryPresenter.loadWoman(getEntityId());
-        contactSummaryPresenter.loadUpcomingContacts(getEntityId());
+        contactSummaryPresenter.loadUpcomingContacts(getEntityId(),getReferredContactNo());
         contactSummaryPresenter.showWomanProfileImage(getEntityId());
     }
 
@@ -70,6 +70,16 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         String entityId = getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
         if (entityId != null) {
             return entityId;
+        }
+        return null;
+    }
+
+    public String getReferredContactNo(){
+        HashMap<String, String> client = (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
+        if (client != null ) {
+            String contactNo = client.get(Constants.REFERRAL);
+            if (contactNo != null) {
+            return contactNo;}
         }
         return null;
     }

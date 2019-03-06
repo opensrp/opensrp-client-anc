@@ -361,11 +361,16 @@ public class Utils extends org.smartregister.util.Utils {
             contactSummaryFinishIntent
                     .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID));
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanDetails);
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                    Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             if (isRefferal) {
-                contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                        Integer.valueOf("-" + womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+                int contactNo = Integer.parseInt(womanDetails.get(DBConstants.KEY.NEXT_CONTACT));
+                if (contactNo < 0){
+                    contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                            Integer.valueOf(contactNo));
+                } else {
+                    contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                            Integer.valueOf("-" + contactNo));
+                }
             } else {
                 contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
                         Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));

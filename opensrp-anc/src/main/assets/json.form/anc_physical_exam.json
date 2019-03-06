@@ -1,4 +1,5 @@
 {
+  "validate_on_submit": true,
   "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
@@ -93,7 +94,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter the height"
         },
         "v_numeric": {
@@ -228,7 +229,7 @@
           "err": "Weight must be equal or less than 180"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter the current weight"
         }
       },
