@@ -14,7 +14,7 @@ public class AllResultsAdapter extends RecyclerView.Adapter<AllResultsAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AllResultsAdapter.ViewHolder viewHolder, int i) {
-
+        // todo
     }
 
     @Override
@@ -23,7 +23,6 @@ public class AllResultsAdapter extends RecyclerView.Adapter<AllResultsAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         ViewHolder(View itemView) {
             super(itemView);
         }

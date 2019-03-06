@@ -305,7 +305,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         for (Object object : secondaryValueModel.entrySet()) {
             Map.Entry pair = (Map.Entry) object;
             secondaryValue = (ExpansionPanelValuesModel) pair.getValue();
-            valueObject = createSecValues(secondaryValue);
+            valueObject = formUtils.createSecValues(secondaryValue);
             secondaryValuesArray.put(valueObject);
         }
         try {
@@ -318,30 +318,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         }
     }
 
-    private JSONObject createSecValues(ExpansionPanelValuesModel valuesModel) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            String key = valuesModel.getKey();
-            String type = valuesModel.getType();
-            String label = valuesModel.getLabel();
-            JSONArray values = valuesModel.getValues();
-            JSONObject openMRSAttributes = valuesModel.getOpenmrsAttributes();
-            JSONArray valueOpenMRSAttributes = valuesModel.getValuesOpenMRSAttributes();
 
-            jsonObject.put(JsonFormConstants.KEY, key);
-            jsonObject.put(JsonFormConstants.TYPE, type);
-            jsonObject.put(JsonFormConstants.LABEL, label);
-            jsonObject.put(JsonFormConstants.VALUES, values);
-            jsonObject.put(JsonFormConstants.OPENMRS_ATTRIBUTES, openMRSAttributes);
-            if (valueOpenMRSAttributes.length() > 0) {
-                jsonObject.put(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES, valueOpenMRSAttributes);
-            }
-        } catch (Exception e) {
-            Log.i(TAG, Log.getStackTraceString(e));
-
-        }
-        return jsonObject;
-    }
 
     private JSONArray reverseValues(JSONArray jsonArray) throws JSONException {
         JSONArray newJsonArray = new JSONArray();
@@ -508,17 +485,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 String label = string[1];
                 if (type != null && type.equals(JsonFormConstants.CHECK_BOX)) {
                     if (popAssignedValue != null && popAssignedValue.containsKey(key)) {
-                        ExpansionPanelValuesModel valueModel = popAssignedValue.get(key);
-                        if (valueModel != null) {
-                            JSONArray jsonArray = valueModel.getValues();
-                            if (!checkSimilarity(jsonArray, value)) {
-                                jsonArray.put(value);
-                            }
-
-                            valueModel.setValues(removeUnselectedItems(jsonArray, value));
-                            valueModel.setValuesOpenMRSAttributes(valueOpenMRSAttributes);
-                            valueModel.setOpenmrsAttributes(openMRSAttributes);
-                        }
+                        setValueModelAttributes(key, value, openMRSAttributes, valueOpenMRSAttributes);
                     } else {
                         if (popAssignedValue != null) {
                             popAssignedValue.put(key,
@@ -533,6 +500,21 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             }
         } else {
             super.createSecondaryValues(key, labelType, value, openMRSAttributes, valueOpenMRSAttributes);
+        }
+    }
+
+    private void setValueModelAttributes(String key, String value, JSONObject openMRSAttributes,
+                                         JSONArray valueOpenMRSAttributes) {
+        ExpansionPanelValuesModel valueModel = popAssignedValue.get(key);
+        if (valueModel != null) {
+            JSONArray jsonArray = valueModel.getValues();
+            if (!checkSimilarity(jsonArray, value)) {
+                jsonArray.put(value);
+            }
+
+            valueModel.setValues(removeUnselectedItems(jsonArray, value));
+            valueModel.setValuesOpenMRSAttributes(valueOpenMRSAttributes);
+            valueModel.setOpenmrsAttributes(openMRSAttributes);
         }
     }
 
