@@ -318,7 +318,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             JSONObject openmrsAttributes = formUtils.getOpenMRSAttributes(item);
 
             genericDialogInterface.addSelectedValues(openmrsAttributes, valueOpenMRSAttributes,
-                    formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, itemType, itemText));
+                    formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, optionType, itemText));
         }
         return optionType;
     }
