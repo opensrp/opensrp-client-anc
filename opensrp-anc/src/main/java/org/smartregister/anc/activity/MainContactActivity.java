@@ -430,15 +430,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         }
 
-        for (String formEventType : partialForms) {
-
-            if (eventToFileMap.containsKey(formEventType)) {
-                object = FormUtils.getInstance(AncApplication.getInstance().getApplicationContext())
-                        .getFormJson(eventToFileMap.get(formEventType));
-                processRequiredStepsField(object);
-            }
-
-        }
     }
 
     private int getRequiredCountTotal() {

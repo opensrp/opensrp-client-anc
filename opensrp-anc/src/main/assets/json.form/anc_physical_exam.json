@@ -993,7 +993,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter body temperature"
         },
         "v_numeric": {
