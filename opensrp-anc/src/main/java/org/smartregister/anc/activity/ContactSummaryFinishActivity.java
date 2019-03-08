@@ -285,7 +285,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     String edd = facts.get(DBConstants.KEY.EDD);
 
-                    if (edd != null) {
+                    if (edd != null && saveFinishMenuItem != null) {
 
                         PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 

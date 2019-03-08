@@ -729,7 +729,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static Event processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
         AllSharedPreferences allSharedPreferences = AncApplication.getInstance().getContext().allSharedPreferences();
 
-        JSONArray fields = fields(jsonForm);
+        JSONArray fields = getMultiStepFormFields(jsonForm);
 
 
         String entityId = getString(jsonForm, ENTITY_ID);
