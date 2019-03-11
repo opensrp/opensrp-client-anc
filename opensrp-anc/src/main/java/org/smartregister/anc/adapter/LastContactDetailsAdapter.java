@@ -17,10 +17,7 @@ import org.smartregister.anc.util.Utils;
 
 import java.util.List;
 
-/**
- * Created by ndegwamartin on 04/12/2018.
- */
-public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverviewAdapter.ViewHolder> {
+public class LastContactDetailsAdapter extends RecyclerView.Adapter<LastContactDetailsAdapter.ViewHolder> {
 
     private List<YamlConfigWrapper> mData;
     private LayoutInflater mInflater;
@@ -28,7 +25,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private Context context;
 
     // data is passed into the constructor
-    public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
+    public LastContactDetailsAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
@@ -38,40 +35,22 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.profile_overview_row, parent, false);
+        View view = mInflater.inflate(R.layout.previous_contacts_preview_row, parent, false);
         return new ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-        if (!TextUtils.isEmpty(mData.get(position).getGroup())) {
-
-            holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
-            holder.sectionHeader.setVisibility(View.VISIBLE);
-
-        } else {
-            holder.sectionHeader.setVisibility(View.GONE);
-
-        }
-
-        if (!TextUtils.isEmpty(mData.get(position).getSubGroup())) {
-
-            holder.subSectionHeader.setText(processUnderscores(mData.get(position).getSubGroup()));
-            holder.subSectionHeader.setVisibility(View.VISIBLE);
-
-        } else {
-            holder.subSectionHeader.setVisibility(View.GONE);
-
-        }
-
         if (mData.get(position).getYamlConfigItem() != null) {
 
             YamlConfigItem yamlConfigItem = mData.get(position).getYamlConfigItem();
 
             Template template = getTemplate(yamlConfigItem.getTemplate());
-            String output = Utils.fillTemplate(template.detail, this.facts);
+            String output = "";
+            if (!TextUtils.isEmpty(template.detail)) {
+                output = Utils.fillTemplate(template.detail, this.facts);
+            }
 
             holder.sectionDetailTitle.setText(template.title);
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
@@ -105,24 +84,16 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView sectionHeader;
-        public TextView subSectionHeader;
         public TextView sectionDetails;
         public TextView sectionDetailTitle;
         public View parent;
 
         ViewHolder(View itemView) {
             super(itemView);
-            sectionHeader = itemView.findViewById(R.id.overview_section_header);
-            subSectionHeader = itemView.findViewById(R.id.overview_subsection_header);
             sectionDetailTitle = itemView.findViewById(R.id.overview_section_details_left);
             sectionDetails = itemView.findViewById(R.id.overview_section_details_right);
             parent = itemView;
         }
-    }
-
-    private String processUnderscores(String string) {
-        return string.replace("_", " ").toUpperCase();
     }
 
     private Template getTemplate(String rawTemplate) {
@@ -130,12 +101,15 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
         if (rawTemplate.contains(":")) {
             String[] templateArray = rawTemplate.split(":");
-            if (templateArray.length > 1) {
+            if (templateArray.length == 1) {
+                template.title = templateArray[0].trim();
+            } else if (templateArray.length > 1) {
                 template.title = templateArray[0].trim();
                 template.detail = templateArray[1].trim();
             }
         } else {
             template.title = rawTemplate;
+            template.detail = "true";
         }
 
         return template;
