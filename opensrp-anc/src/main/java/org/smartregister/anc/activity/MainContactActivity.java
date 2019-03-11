@@ -24,7 +24,6 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.util.FormUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -312,7 +311,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         }
 
                         boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE)
-                                .equals(JsonFormConstants.LABEL) && isValueRequired;
+                                .equals(JsonFormConstants.LABEL) && !fieldObject.getString(JsonFormConstants.TYPE)
+                                .equals(JsonFormConstants.HIDDEN) && isValueRequired;
 
                         setRequiredCount(object, fieldObject, isRequiredField);
 
@@ -346,7 +346,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                             checkRequiredForCheckBoxOther(fieldObject);
 
                         }
-
 
                         checkRequiredForSubForms(object, fieldObject);
 
@@ -392,8 +391,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
-    private void checkRequiredForSubForms(JSONObject object, JSONObject fieldObject) {
+    private void checkRequiredForSubForms(JSONObject object, JSONObject fieldObject) throws JSONException {
         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
+
+            if ((fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE))) {
+                return;
+            }
             try {
 
                 JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils
