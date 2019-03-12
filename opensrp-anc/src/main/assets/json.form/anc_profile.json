@@ -1216,7 +1216,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Specify any past pregnancy problems*",
+        "hint": "Specify",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [
@@ -1244,9 +1244,8 @@
         "openmrs_entity_id": "165222AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select multiple",
         "type": "check_box",
-        "label": "Specify alcohol or illicit substance use",
+        "label": "Specify illicit substance use",
         "label_text_style": "bold",
-        "hint": "Specify alcohol or illicit substance use",
         "relevance": {
           "step3:prev_preg_comps": {
             "ex-checkbox": [

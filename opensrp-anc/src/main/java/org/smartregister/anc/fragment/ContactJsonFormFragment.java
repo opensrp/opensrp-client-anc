@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.ContactJsonFormActivity;

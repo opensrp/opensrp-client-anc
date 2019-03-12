@@ -15,8 +15,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.mvp.MvpBasePresenter;
 import com.vijay.jsonwizard.mvp.ViewState;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
-import com.vijay.jsonwizard.utils.ValidationStatus;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,15 +24,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 04/07/2018.
