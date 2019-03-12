@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.activity.BaseUnitTest;
-import org.smartregister.domain.Characteristic;
+import org.smartregister.domain.ServerSetting;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class CharacteristicsAdapterTest extends BaseUnitTest {
     private CharacteristicsAdapter adapter;
 
     @Mock
-    private List<Characteristic> data;
+    private List<ServerSetting> data;
 
     @Before
     public void setUp() {
@@ -50,7 +50,7 @@ public class CharacteristicsAdapterTest extends BaseUnitTest {
     @Test
     public void testGetItemCountInvokesGetSizeMethodOfDataList() {
 
-        List<Characteristic> dataSpy = Whitebox.getInternalState(adapter, "mData");
+        List<ServerSetting> dataSpy = Whitebox.getInternalState(adapter, "mData");
         Assert.assertNotNull(dataSpy);
         adapter.getItemCount();
         Mockito.verify(dataSpy).size();
