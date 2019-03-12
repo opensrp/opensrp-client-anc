@@ -1288,7 +1288,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "Please select at least one alcohol or illicit substance use"
         }
       },

@@ -100,7 +100,7 @@ actions:
 name: step3_anaemic
 description: Anaemic
 priority: 1
-condition: "(global_hb_result < 11 && (global_gest_age <= 12 || global_gest_age >= 28)) || (global_hb_result < 10.5 && (global_gest_age > 12 && global_gest_age < 28)) || (global_hb_result == 0 && step3_pallor == 'yes')"
+condition: "((global_hb_result != '' && global_hb_result < 11) && (global_gest_age <= 12 || global_gest_age >= 28))"
 actions:
 - "calculation = 1"
 ---
