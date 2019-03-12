@@ -310,23 +310,25 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private void populateGlobalSettingsCore(Setting setting) {
         try {
             JSONObject settingObject = setting != null ? new JSONObject(setting.getValue()) : null;
-            JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
-            if (settingArray != null) {
+            if (settingObject != null) {
+                JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
+                if (settingArray != null) {
 
-                for (int i = 0; i < settingArray.length(); i++) {
+                    for (int i = 0; i < settingArray.length(); i++) {
 
-                    JSONObject jsonObject = settingArray.getJSONObject(i);
-                    Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
-                    JSONObject nullObject = null;
-                    if (value != null && !value.equals(nullObject)) {
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
-                    } else {
+                        JSONObject jsonObject = settingArray.getJSONObject(i);
+                        Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
+                        JSONObject nullObject = null;
+                        if (value != null && !value.equals(nullObject)) {
+                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
+                        } else {
 
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                        }
                     }
+
+
                 }
-
-
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
@@ -344,7 +346,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
 
     public Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
+        InputStreamReader inputStreamReader = new InputStreamReader(
+                getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
     }
 
