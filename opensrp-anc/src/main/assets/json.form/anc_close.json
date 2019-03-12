@@ -100,9 +100,10 @@
           "err": "Please enter the date of delivery"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -129,9 +130,10 @@
           "err": "Place of delivery is required"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -144,12 +146,6 @@
         "v_numeric": {
           "value": "true",
           "err": "Number must be a number"
-        },
-        "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
-          }
         },
         "calculation": {
           "rules-engine": {
@@ -181,9 +177,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -193,7 +190,6 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthweight",
         "type": "edit_text",
-
         "hint": "Birth weight (kg)",
         "v_required": {
           "value": false,
@@ -212,9 +208,10 @@
           "err": "Please enter a valid weight between 1 and 10"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Live birth\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -238,9 +235,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Live birth\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -278,9 +276,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -375,9 +374,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -395,9 +395,10 @@
           "err": "Please enter the date of miscarriage/abortion"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Miscarriage|Abortion)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -406,14 +407,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "miscarriage_abortion_ga",
-        "type": "edit_text",
-        "hidden": true,
+        "type": "hidden",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a number"
         },
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_calculations_rules.yml"
+            }
+          }
         }
       },
       {
@@ -433,9 +440,10 @@
           "err": "Please enter the date of death"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Woman died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -464,9 +472,10 @@
           "err": "Please enter the date of death"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Woman died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         },
         "openmrs_choice_ids": {

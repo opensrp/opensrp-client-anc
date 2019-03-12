@@ -37,7 +37,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
 
-        if (mLoginPresenter.isSiteCharacteristicsSet()) {
+        if (mLoginPresenter.isServerSettingsSet()) {
             gotToHomeRegister(remote);
         } else {
             goToSiteCharacteristics(remote);
