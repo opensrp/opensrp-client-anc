@@ -38,7 +38,44 @@ public class CharacteristicsInteractorTest extends BaseUnitTest {
 
         Map<String, String> testSettings = ImmutableMap.of(TEST_STRING, TEST_STRING);
         Setting setting = new Setting();
-        setting.setValue(DUMMY_JSON);
+        String SETTING_DUMP_JSON = "{\n" +
+                "  \"_id\": \"1\",\n" +
+                "  \"_rev\": \"v1\",\n" +
+                "  \"type\": \"SettingConfiguration\",\n" +
+                "  \"identifier\": \"site_characteristics\",\n" +
+                "  \"locationId\": \"\",\n" +
+                "  \"providerId\": \"\",\n" +
+                "  \"teamId\": \"\",\n" +
+                "  \"dateCreated\": \"1970-10-04T10:17:09.993+03:00\",\n" +
+                "  \"serverVersion\": 1,\n" +
+                "  \"settings\": [\n" +
+                "    {\n" +
+                "      \"key\": \"site_ipv_assess\",\n" +
+                "      \"label\": \"Minimum requirements for IPV assessment\",\n" +
+                "      \"value\": null,\n" +
+                "      \"description\": \"Are all of the following in place at your facility: \\r\\n\\ta. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \\r\\n\\tb. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\\r\\n\\tc. A private setting; \\r\\n\\td. A way to ensure confidentiality; \\r\\n\\te. Time to allow for appropriate disclosure; and\\r\\n\\tf. A system for referral in place. \"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"key\": \"site_anc_hiv\",\n" +
+                "      \"label\": \"Generalized HIV epidemic\",\n" +
+                "      \"value\": null,\n" +
+                "      \"description\": \"Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"key\": \"site_ultrasound\",\n" +
+                "      \"label\": \"Ultrasound available\",\n" +
+                "      \"value\": null,\n" +
+                "      \"description\": \"Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"key\": \"site_bp_tool\",\n" +
+                "      \"label\": \"Automated BP measurement tool\",\n" +
+                "      \"value\": null,\n" +
+                "      \"description\": \"Does your facility use an automated blood pressure (BP) measurement tool?\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+        setting.setValue(SETTING_DUMP_JSON);
 
         Mockito.doReturn(setting).when(allSettings).getSetting(ArgumentMatchers.anyString());
 

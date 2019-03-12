@@ -13,6 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.interactor.LoginInteractor;
@@ -26,7 +27,6 @@ import org.smartregister.login.presenter.BaseLoginPresenter;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
-
 
 
 /**
@@ -88,12 +88,13 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     }
 
     @Override
-    public boolean isSiteCharacteristicsSet() {
+    public boolean isServerSettingsSet() {
 
         try {
             Setting setting = AncApplication.getInstance().getContext().allSettings().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
 
-            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+            JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
+            JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ? jsonObject.getJSONArray(AllConstants.SETTINGS) : null;
 
             if (settingArray != null && settingArray.length() > 0) {
 
