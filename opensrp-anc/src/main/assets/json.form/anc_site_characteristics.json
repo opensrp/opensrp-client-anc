@@ -85,7 +85,7 @@
         ],
         "value": "",
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please select where stock was issued"
         }
       },
@@ -109,7 +109,7 @@
         ],
         "value": "",
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select where stock was issued"
         }
       },
@@ -133,7 +133,7 @@
         ],
         "value": "",
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select where stock was issued"
         }
       },
@@ -157,7 +157,7 @@
         ],
         "value": "",
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please select where stock was issued"
         }
       }

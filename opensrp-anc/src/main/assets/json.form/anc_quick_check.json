@@ -86,7 +86,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Reason for coming to facility is required"
         }
       },
       {
@@ -417,7 +418,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": "true",
+          "err":"Specific complain is required"
         },
         "relevance": {
           "step1:contact_reason": {
@@ -579,7 +581,8 @@
           }
         ],
         "v_required": {
-          "value": true
+          "value": "true",
+          "err": "Danger signs is required"
         },
         "relevance": {
           "rules-engine": {

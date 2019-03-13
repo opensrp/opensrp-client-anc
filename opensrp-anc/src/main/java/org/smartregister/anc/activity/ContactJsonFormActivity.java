@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.greenrobot.eventbus.EventBus;
@@ -90,8 +91,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     protected void initializeFormFragmentCore() {
-        ContactJsonFormFragment contactJsonFormFragment =
-                ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        JsonWizardFormFragment contactJsonFormFragment = ContactJsonFormFragment
+                .getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+
         getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
                 .commit();
     }
