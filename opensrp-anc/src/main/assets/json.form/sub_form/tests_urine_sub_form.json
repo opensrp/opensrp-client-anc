@@ -44,7 +44,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Urine test status is required"
       }
     },
     {
@@ -86,7 +87,8 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Reason for urine test not done is required"
       }
     },
     {
@@ -182,7 +184,8 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Urine test type is required"
       }
     },
     {
@@ -217,7 +220,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Urine culture is required"
       },
       "relevance": {
         "rules-engine": {
@@ -252,7 +256,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Midstream urine Gram-staining is required"
       },
       "relevance": {
         "rules-engine": {
@@ -308,7 +313,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Urine dipstick results is required"
       },
       "relevance": {
         "rules-engine": {
@@ -364,7 +370,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Urine dipstick results - leukocytes is required"
       },
       "relevance": {
         "rules-engine": {

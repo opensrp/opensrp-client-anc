@@ -86,14 +86,14 @@ actions:
 name: step3_preeclampsia_risk
 description: preeclampsia_risk
 priority: 1
-condition: "(!global_no_of_fetuses.isEmpty() && global_no_of_fetuses >= 2) || step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions') || step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease')"
+condition: "(global_no_of_fetuses != ''  && global_no_of_fetuses >= 2) || step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions') || step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease')"
 actions:
 - "calculation = 1"
 ---
 name: step3_gdm_risk
 description: gdm_risk
 priority: 1
-condition: "(!global_bmi.isEmpty() && global_bmi >= 30) || step3_prev_preg_comps.contains('gestational_diabetes') || step3_prev_preg_comps.contains('macrosomia') || (!global_urine_glucose.isEmpty() && (global_urine_glucose == '++' || global_urine_glucose == '+++' || global_urine_glucose == '++++'))"
+condition: "(global_bmi != '' && global_bmi >= 30)  || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('gestational_diabetes') || step3_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
 actions:
 - "calculation = 1"
 ---

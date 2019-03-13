@@ -51,7 +51,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
 
-    public static ContactJsonFormFragment getFormFragment(String stepName) {
+    public static JsonWizardFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString(DBConstants.KEY.STEPNAME, stepName);

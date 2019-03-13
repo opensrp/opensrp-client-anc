@@ -172,7 +172,7 @@
           "err": "Weight must be equal or less than 180"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Pre-gestational weight is required"
         }
       },
@@ -484,7 +484,7 @@
           "err": "SBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Field systolic is required"
         }
       },
@@ -527,7 +527,7 @@
           "err": "DBP must be equal to or less than 260"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Field diastolic is required"
         }
       },
@@ -602,8 +602,8 @@
           "err": "SBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "false",
-          "err": "Field systolic is required"
+          "value": "true",
+          "err": "Field systolic repeat is required"
         },
         "relevance": {
           "rules-engine": {
@@ -659,8 +659,8 @@
           "err": "DBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "false",
-          "err": "Field diastolic is required"
+          "value": "true",
+          "err": "Field diastolic repeat is required"
         },
         "relevance": {
           "rules-engine": {
@@ -752,7 +752,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms or select none"
         },
         "relevance": {
@@ -810,7 +810,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please enter the result for the dipstick test."
         },
         "relevance": {
@@ -993,7 +993,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
+          "value": "true",
           "err": "Please enter body temperature"
         },
         "v_numeric": {
@@ -1059,8 +1059,8 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
-          "err": "Please re-enter body temperature"
+          "value": "true",
+          "err": "Please enter second body temperature"
         },
         "relevance": {
           "step3:body_temp": {
@@ -1125,7 +1125,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
+          "value": "true",
           "err": "Please enter pulse rate"
         },
         "v_numeric": {
@@ -1193,8 +1193,8 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
-          "err": "Please enter pulse rate"
+          "value": "true",
+          "err": "Please enter repeated pulse rate"
         },
         "relevance": {
           "rules-engine": {
@@ -1334,9 +1334,6 @@
         "label_text_style": "bold",
         "text": "Oximetry (%)",
         "text_color": "#000000",
-        "v_required": {
-          "value": false
-        },
         "relevance": {
           "step3:respiratory_exam": {
             "type": "string",
@@ -1723,7 +1720,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please enter the result for the dipstick test."
         },
         "relevance": {
@@ -1807,7 +1804,7 @@
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please this field is required."
         },
         "relevance": {
@@ -1851,7 +1848,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify if fetal heartbeat is present."
         }
       },
@@ -1937,7 +1934,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter result for the second fetal heart rate"
         },
         "relevance": {

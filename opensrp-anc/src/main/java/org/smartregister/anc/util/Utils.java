@@ -394,9 +394,8 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private static String processValue(String key, Facts facts) {
-
         String value = facts.get(key);
-        if (value.endsWith(OTHER_SUFFIX)) {
+        if (value != null && value.endsWith(OTHER_SUFFIX)) {
             Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
             value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue
                     .toString() + "]" : value.substring(0, value.lastIndexOf(",")) + "]";
