@@ -16,7 +16,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.CharacteristicsAdapter;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
-import org.smartregister.domain.Characteristic;
+import org.smartregister.domain.ServerSetting;
 
 import java.util.List;
 
@@ -89,7 +89,7 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity implement
     }
 
     @Override
-    public void renderSettings(List<Characteristic> characteristics) {
+    public void renderSettings(List<ServerSetting> characteristics) {
 
         CharacteristicsAdapter adapter = new CharacteristicsAdapter(this, characteristics);
         adapter.setClickListener(this);

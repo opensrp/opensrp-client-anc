@@ -9,7 +9,7 @@ public class Contact extends Form implements Serializable {
 
     private int background;
 
-    private int requiredFields;
+    private Integer requiredFields;
 
     private String formName;
 
@@ -28,7 +28,7 @@ public class Contact extends Form implements Serializable {
         this.background = background;
     }
 
-    public int getRequiredFields() {
+    public Integer getRequiredFields() {
         return requiredFields;
     }
 

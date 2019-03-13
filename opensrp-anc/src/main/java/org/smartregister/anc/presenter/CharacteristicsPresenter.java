@@ -8,8 +8,8 @@ import org.smartregister.anc.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.interactor.CharacteristicsInteractor;
 import org.smartregister.anc.model.SiteCharacteristicModel;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.domain.Characteristic;
-import org.smartregister.sync.helper.CharacteristicsHelper;
+import org.smartregister.domain.ServerSetting;
+import org.smartregister.sync.helper.ServerSettingsHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -50,10 +50,10 @@ public class CharacteristicsPresenter implements SiteCharacteristicsContract.Pre
     }
 
     protected Map<String, String> getSettingsMapByType(String characteristicType) {
-        List<Characteristic> characteristicList = CharacteristicsHelper.fetchCharacteristicsByTypeKey(characteristicType);
+        List<ServerSetting> characteristicList = ServerSettingsHelper.fetchServerSettingsByTypeKey(characteristicType);
 
         Map<String, String> settingsMap = new HashMap<>();
-        for (Characteristic characteristic : characteristicList) {
+        for (ServerSetting characteristic : characteristicList) {
             settingsMap.put(characteristic.getKey(), String.valueOf(characteristic.getValue()));
         }
         return settingsMap;

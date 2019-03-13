@@ -310,7 +310,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify the medication(s) that the woman is still taking"
         },
         "relevance": {
@@ -658,7 +658,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Previous persisting behaviour is required"
         },
         "relevance": {
@@ -876,7 +876,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Previous persisting physiological symptoms is required"
         },
         "relevance": {
@@ -934,7 +934,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms related to low back pain or select none"
         },
         "relevance": {
@@ -989,7 +989,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms related varicose vein/oedema or select none"
         },
         "relevance": {
@@ -1394,7 +1394,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other physiological symptoms or select none"
         }
       },
@@ -1445,7 +1445,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms related low back and pelvic pain or select none"
         },
         "relevance": {
@@ -1500,7 +1500,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms related varicose vein/oedema or select none"
         },
         "relevance": {
@@ -1812,7 +1812,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms or select none"
         }
       },
@@ -1882,7 +1882,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Field has the woman felt the baby move is required"
         }
       }
