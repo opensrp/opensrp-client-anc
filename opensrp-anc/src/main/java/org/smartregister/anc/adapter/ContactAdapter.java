@@ -63,7 +63,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         holder.name.setText(contact.getName());
 
-        if (contact.getRequiredFields() > 0) {
+        if (contact.getRequiredFields() == null) {
+            holder.requiredFields.setVisibility(View.GONE);
+            holder.completeLayout.setVisibility(View.GONE);
+        } else if (contact.getRequiredFields() > 0) {
             holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
 
             holder.requiredFields.setVisibility(View.VISIBLE);

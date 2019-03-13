@@ -100,9 +100,10 @@
           "err": "Please enter the date of delivery"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -126,12 +127,13 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option *"
+          "err": "Place of delivery is required"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -140,19 +142,16 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "preterm",
-        "type": "edit_text",
-        "hidden": true,
+        "type": "hidden",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a number"
         },
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_calculations_rules.yml"
+            }
           }
         }
       },
@@ -178,9 +177,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -190,7 +190,6 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "birthweight",
         "type": "edit_text",
-
         "hint": "Birth weight (kg)",
         "v_required": {
           "value": false,
@@ -209,9 +208,10 @@
           "err": "Please enter a valid weight between 1 and 10"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Live birth\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -235,9 +235,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Live birth\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -254,7 +255,8 @@
           "Exclusive breastfeeding",
           "OCP",
           "Condom",
-          "Sterlization",
+          "Female sterilization",
+          "Male sterilization",
           "IUD",
           "Abstinence",
           "Other"
@@ -264,7 +266,8 @@
           "Exclusive breastfeeding": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "OCP": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Condom": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Sterlization": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Female sterlization": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Male sterlization": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "IUD": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Abstinence": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Forceps or Vacuum": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -273,9 +276,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -342,8 +346,14 @@
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Pre-eclampsia/eclampsia",
-            "text": "Pre-eclampsia/eclampsia",
+            "key": "pre-eclampsia",
+            "text": "Pre-eclampsia",
+            "value": false,
+            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "eclampsia",
+            "text": "Eclampsia",
             "value": false,
             "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -364,9 +374,10 @@
           "value": "false"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Live birth|Stillbirth)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -384,9 +395,10 @@
           "err": "Please enter the date of miscarriage/abortion"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "regex(., \"(Miscarriage|Abortion)\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -395,14 +407,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "miscarriage_abortion_ga",
-        "type": "edit_text",
-        "hidden": true,
+        "type": "hidden",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a number"
         },
         "v_required": {
           "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_calculations_rules.yml"
+            }
+          }
         }
       },
       {
@@ -422,9 +440,10 @@
           "err": "Please enter the date of death"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Woman died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         }
       },
@@ -440,9 +459,11 @@
           "Unknown",
           "Abortion-related complications",
           "Obstructed labour",
-          "Pre-eclampsia/eclampsia",
+          "Pre-eclampsia",
+          "Eclampsia",
           "Postpartum haemorrhage",
-          "Antepartum haemorrhage \n\t(abruption or praevia)",
+          "Antepartum haemorrhage ",
+          "Placental abruption",
           "Infection",
           "Other"
         ],
@@ -451,9 +472,10 @@
           "err": "Please enter the date of death"
         },
         "relevance": {
-          "step1:anc_close_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Woman died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
           }
         },
         "openmrs_choice_ids": {
@@ -465,10 +487,6 @@
           "Antepartum haemorrhage": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Infection": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option *"
         }
       }
     ]

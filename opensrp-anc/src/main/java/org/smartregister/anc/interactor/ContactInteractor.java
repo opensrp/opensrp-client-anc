@@ -109,45 +109,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
 
             Facts facts = new Facts();
-            List<String> eventIds = new ArrayList<>();
+            List<String> formSubmissionIDs = new ArrayList<>();
 
-            if (partialContactList != null) {
-
-                Collections.sort(partialContactList, new Comparator<PartialContact>() {
-                    @Override
-                    public int compare(PartialContact o1, PartialContact o2) {
-                        return o1.getSortOrder().compareTo(o2.getSortOrder());
-                    }
-                });
-
-                for (PartialContact partialContact : partialContactList) {
-                    JSONObject formObject = JsonFormUtils.toJSONObject(
-                            partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact
-                                    .getFormJson());
-
-                    if (formObject != null) {
-                        //process form details
-                        if (parsableFormsList.contains(partialContact.getType())) {
-                            processFormFieldKeyValues(baseEntityId, formObject);
-                        }
-
-                        //process attention flags
-                        ContactJsonFormUtils.processRequiredStepsField(facts, formObject,
-                                AncApplication.getInstance().getApplicationContext());
-
-                        //process events
-                        Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
-                        eventIds.add(event.getEventId());
-
-                        JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-                        AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
-
-                    }
-
-                    //Remove partial contact
-                    partialContactRepository.deletePartialContact(partialContact.getId());
-                }
-            }
+            updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts, formSubmissionIDs);
 
             WomanDetail womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
             processAttentionFlags(womanDetail, facts);
@@ -162,7 +126,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             updateWomanDetails(details, womanDetail);
 
 
-            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(eventIds, details);
+            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
 
             if (eventPair != null) {
                 createEvent(baseEntityId, attentionFlagsString, eventPair);
@@ -173,6 +137,48 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
+        }
+    }
+
+    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepository partialContactRepository,
+                                                  List<PartialContact> partialContactList, Facts facts,
+                                                  List<String> formSubmissionIDs) throws Exception {
+        if (partialContactList != null) {
+
+            Collections.sort(partialContactList, new Comparator<PartialContact>() {
+                @Override
+                public int compare(PartialContact o1, PartialContact o2) {
+                    return o1.getSortOrder().compareTo(o2.getSortOrder());
+                }
+            });
+
+            for (PartialContact partialContact : partialContactList) {
+                JSONObject formObject = JsonFormUtils.toJSONObject(
+                        partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact
+                                .getFormJson());
+
+                if (formObject != null) {
+                    //process form details
+                    if (parsableFormsList.contains(partialContact.getType())) {
+                        processFormFieldKeyValues(baseEntityId, formObject);
+                    }
+
+                    //process attention flags
+                    ContactJsonFormUtils.processRequiredStepsField(facts, formObject,
+                            AncApplication.getInstance().getApplicationContext());
+
+                    //process events
+                    Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
+                    formSubmissionIDs.add(event.getFormSubmissionId());
+
+                    JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                    AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+
+                }
+
+                //Remove partial contact
+                partialContactRepository.deletePartialContact(partialContact.getId());
+            }
         }
     }
 

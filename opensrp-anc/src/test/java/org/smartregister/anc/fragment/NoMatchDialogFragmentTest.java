@@ -12,12 +12,12 @@ import org.smartregister.anc.activity.HomeRegisterActivity;
 
 public class NoMatchDialogFragmentTest extends BaseUnitTest {
     private HomeRegisterActivity activity;
-    private ActivityController<HomeRegisterActivity> controller;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(HomeRegisterActivity.class).create().start();
+        ActivityController<HomeRegisterActivity> controller = Robolectric.buildActivity(HomeRegisterActivity.class).create()
+                .start();
         activity = controller.get();
     }
 

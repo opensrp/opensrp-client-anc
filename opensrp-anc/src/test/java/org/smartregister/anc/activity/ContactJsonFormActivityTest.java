@@ -1,7 +1,6 @@
 package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -22,8 +21,6 @@ import org.smartregister.anc.view.AncGenericPopupDialog;
  * Created by ndegwamartin on 04/07/2018.
  */
 public class ContactJsonFormActivityTest extends BaseUnitTest {
-    @Mock
-    private Context context;
 
     @Mock
     private ProgressDialog progressDialog;
@@ -187,7 +184,6 @@ public class ContactJsonFormActivityTest extends BaseUnitTest {
         ContactJsonFormActivity activity = new ContactJsonFormActivity();
         ContactJsonFormActivity formActivity = Mockito.spy(activity);
         Assert.assertNotNull(formActivity);
-        context = Mockito.mock(Context.class);
 
         progressDialog = Mockito.mock(ProgressDialog.class);
         Whitebox.setInternalState(formActivity, "progressDialog", progressDialog);
@@ -203,7 +199,6 @@ public class ContactJsonFormActivityTest extends BaseUnitTest {
         ContactJsonFormActivity activity = new ContactJsonFormActivity();
         ContactJsonFormActivity formActivity = Mockito.spy(activity);
         Assert.assertNotNull(formActivity);
-        context = Mockito.mock(Context.class);
 
         progressDialog = null;
         Whitebox.setInternalState(formActivity, "progressDialog", progressDialog);

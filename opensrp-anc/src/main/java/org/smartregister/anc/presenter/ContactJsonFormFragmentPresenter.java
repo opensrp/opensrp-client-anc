@@ -9,9 +9,9 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
-import com.vijay.jsonwizard.utils.ValidationStatus;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
+import org.smartregister.anc.R;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
@@ -35,15 +35,22 @@ public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter 
 
     @Override
     public void onNextClick(LinearLayout mainView) {
-        ValidationStatus validationStatus = this.writeValuesAndValidate(mainView);
-        if (validationStatus.isValid()) {
-            JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(Constants.NEXT));
-            getView().hideKeyBoard();
-            getView().transactThis(next);
+        validateAndWriteValues();
+        boolean validateOnSubmit = validateOnSubmit();
+        if (validateOnSubmit && getIncorrectlyFormattedFields().isEmpty()) {
+            moveToNextWizardStep();
+        } else if (isFormValid()) {
+            moveToNextWizardStep();
         } else {
-            validationStatus.requestAttention();
-            getView().showToast(validationStatus.getErrorMessage());
+            getView().showSnackBar(getView().getContext().getResources()
+                    .getString(R.string.json_form_error_msg, getInvalidFields().size()));
         }
+    }
+
+    private void moveToNextWizardStep() {
+        JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(Constants.NEXT));
+        getView().hideKeyBoard();
+        getView().transactThis(next);
     }
 
     @Override

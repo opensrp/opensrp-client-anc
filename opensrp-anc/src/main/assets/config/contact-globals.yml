@@ -129,7 +129,7 @@ fields:
   - "pop_undernourish"
   - "gdm"
   - "dm_in_preg"
-  - "hb_results"
+  - "hb_result"
   - "gest_age"
   - "last_contact_date"
 ---

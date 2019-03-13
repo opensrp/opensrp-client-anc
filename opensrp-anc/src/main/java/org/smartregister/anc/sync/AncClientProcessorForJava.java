@@ -149,18 +149,18 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             String providerId = event.getProviderId();
 
             if (providerId.equals(registeredAnm)) {
-                boolean eventDeleted = ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
-                boolean clientDeleted = ecSyncHelper.deleteClient(baseEntityId);
+                ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
+                ecSyncHelper.deleteClient(baseEntityId);
               //  Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
                // Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
 
-                boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
+                detailsRepository.deleteDetails(baseEntityId);
                // Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
 
                 for (Table bindObject : bindObjects) {
                     String tableName = bindObject.name;
 
-                    boolean caseDeleted = deleteCase(tableName, baseEntityId);
+                    deleteCase(tableName, baseEntityId);
                 //    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
                 }
 

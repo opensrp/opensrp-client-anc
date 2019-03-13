@@ -3,12 +3,14 @@ package org.smartregister.anc.model;
 import com.vijay.jsonwizard.utils.SecondaryValueModel;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ExpansionPanelValuesModel extends SecondaryValueModel {
     private String label;
 
-    public ExpansionPanelValuesModel(String key, String type, String label, JSONArray values) {
-        super(key, type, values);
+    public ExpansionPanelValuesModel(String key, String type, String label, JSONArray values, JSONObject openmrsAttributes,
+                                     JSONArray valuesOpenMRSAttributes) {
+        super(key, type, values, openmrsAttributes, valuesOpenMRSAttributes);
         this.label = label;
     }
 

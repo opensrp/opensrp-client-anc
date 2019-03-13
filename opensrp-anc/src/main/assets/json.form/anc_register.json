@@ -121,13 +121,13 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "hidden",
-        "value": "female"
+        "value": "F"
       },
       {
         "key": "dob",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
         "type": "hidden",
         "value": "",
         "calculation": {
@@ -156,8 +156,8 @@
       {
         "key": "dob_entered",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "date_picker",
         "hint": "Date of birth (DOB) *",
         "expanded": false,
@@ -186,7 +186,7 @@
         "key": "dob_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
+        "openmrs_entity_id": "birthdate_estimated",
         "type": "check_box",
         "options": [
           {
@@ -261,7 +261,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please enter the woman's age"
         }
       },
@@ -270,9 +270,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
-        "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Home address *",
+        "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please enter the woman's home address"
@@ -298,7 +298,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify the woman's phone number"
         }
       },
@@ -315,6 +315,10 @@
           "Yes",
           "No"
         ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": true,
           "err": "Please select whether the woman has agreed to receiving reminder notifications"
@@ -360,10 +364,50 @@
         "value": ""
       },
       {
+        "key": "edd",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "edd",
+        "type": "hidden",
+        "value": ""
+      },
+      {
         "key": "next_contact_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "next_contact_date",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "contact_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "contact_status",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "red_flag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "red_flag_count",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "yellow_flag_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "yellow_flag_count",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "last_contact_record_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "last_contact_record_date",
         "type": "hidden",
         "value": ""
       }

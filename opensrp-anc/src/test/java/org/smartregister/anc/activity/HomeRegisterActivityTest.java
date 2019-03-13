@@ -22,7 +22,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.RegisterContract;
-import org.smartregister.anc.custom.SettingsTestMenuItem;
 import org.smartregister.anc.domain.AttentionFlag;
 import org.smartregister.anc.event.PatientRemovedEvent;
 import org.smartregister.anc.event.ShowProgressDialogEvent;
@@ -56,9 +55,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     private HomeRegisterFragment homeRegisterFragment;
 
     @Mock
-    private SettingsTestMenuItem menuItem;
-
-    @Mock
     private List<Field> filterList;
     @Mock
     private Field sortField;
@@ -68,9 +64,6 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private AlertDialog recordBirthAlertDialog;
-
-    @Mock
-    private AlertDialog languageDialog;
 
     @Mock
     private RegisterPresenter registerPresenter;

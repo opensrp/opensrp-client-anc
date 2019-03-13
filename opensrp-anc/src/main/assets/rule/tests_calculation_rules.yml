@@ -55,14 +55,14 @@ condition: "(step1_hiv_test_result == 'positive') || global_health_conditions.co
 actions:
 - "calculation = 1"
 ---
-name: step3_partner_hiv_positive
+name: step2_partner_hiv_positive
 description: partner_hiv_positive
 priority: 1
-condition: "(global_partner_hiv_status == 'positive') || step3_hiv_test_partner_result == 'positive'"
+condition: "(global_partner_hiv_status == 'positive') || step2_hiv_test_partner_result == 'positive'"
 actions:
 - "calculation = 1"
 ---
-name: step3_hiv_risk
+name: step2_hiv_risk
 description: hiv_risk
 priority: 1
 condition: "((step1_hiv_positive != 1) && ((global_site_anc_hiv == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
@@ -167,10 +167,10 @@ condition: "step1_syph_test_status == 'done_today'"
 actions:
 - "calculation = helper.getDateToday()"
 ---
-name: step3_hiv_test_partner_date
+name: step2_hiv_test_partner_date
 description: hiv_test_partner_date
 priority: 1
-condition: "step3_hiv_test_partner_status == 'done_today'"
+condition: "step2_hiv_test_partner_status == 'done_today'"
 actions:
 - "calculation = helper.getDateToday()"
 ---

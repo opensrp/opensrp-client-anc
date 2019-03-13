@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.BuildConfig;
@@ -308,24 +309,26 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void populateGlobalSettingsCore(Setting setting) {
         try {
-            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+            JSONObject settingObject = setting != null ? new JSONObject(setting.getValue()) : null;
+            if (settingObject != null) {
+                JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
+                if (settingArray != null) {
 
-            if (settingArray != null) {
+                    for (int i = 0; i < settingArray.length(); i++) {
 
-                for (int i = 0; i < settingArray.length(); i++) {
+                        JSONObject jsonObject = settingArray.getJSONObject(i);
+                        Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
+                        JSONObject nullObject = null;
+                        if (value != null && !value.equals(nullObject)) {
+                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
+                        } else {
 
-                    JSONObject jsonObject = settingArray.getJSONObject(i);
-                    Object value = jsonObject.get(JsonFormConstants.VALUE);
-                    JSONObject nullObject = null;
-                    if (value != null && !value.equals(nullObject)) {
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
-                    } else {
-
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                        }
                     }
+
+
                 }
-
-
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
@@ -343,7 +346,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
 
     public Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
+        InputStreamReader inputStreamReader = new InputStreamReader(
+                getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
     }
 

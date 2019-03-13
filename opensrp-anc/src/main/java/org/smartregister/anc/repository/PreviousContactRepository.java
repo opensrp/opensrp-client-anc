@@ -158,19 +158,7 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContacts;
     }
 
-    private PreviousContact getContactResult(Cursor cursor) {
-
-        PreviousContact previousContact = new PreviousContact();
-        previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
-        previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
-        previousContact.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
-        previousContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
-        previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));
-
-        return previousContact;
-    }
-
-    public Facts getPreviousContacts(String baseEntityId) {
+    public Facts getPreviousContactsFacts(String baseEntityId) {
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
@@ -203,5 +191,17 @@ public class PreviousContactRepository extends BaseRepository {
         }
 
         return previousContacts;
+    }
+
+    private PreviousContact getContactResult(Cursor cursor) {
+
+        PreviousContact previousContact = new PreviousContact();
+        previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
+        previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
+        previousContact.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
+        previousContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+        previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));
+
+        return previousContact;
     }
 }

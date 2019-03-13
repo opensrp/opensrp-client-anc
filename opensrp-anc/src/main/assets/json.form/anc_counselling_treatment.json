@@ -527,7 +527,14 @@
         "display_bottom_section": true,
         "content_form": "ct_caffeine_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_tobacco_counsel",
@@ -541,7 +548,14 @@
         "display_bottom_section": true,
         "content_form": "ct_tobacco_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_shs_counsel",
@@ -555,7 +569,14 @@
         "display_bottom_section": true,
         "content_form": "ct_shs_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_condom_counsel",
@@ -569,7 +590,14 @@
         "display_bottom_section": true,
         "content_form": "ct_condom_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_alcohol_substance_counsel",
@@ -603,7 +631,14 @@
         "display_bottom_section": true,
         "content_form": "ct_nausea_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_nausea_not_relieved_counsel",
@@ -617,7 +652,14 @@
         "display_bottom_section": true,
         "content_form": "ct_nausea_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_heartburn_counsel",
@@ -631,7 +673,14 @@
         "display_bottom_section": true,
         "content_form": "ct_heartburn_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_heartburn_not_relieved_counsel",
@@ -645,7 +694,14 @@
         "display_bottom_section": true,
         "content_form": "ct_heartburn_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_leg_cramp_counsel",
@@ -659,7 +715,14 @@
         "display_bottom_section": true,
         "content_form": "ct_leg_cramp_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_leg_cramp_not_relieved_counsel",
@@ -673,7 +736,14 @@
         "display_bottom_section": true,
         "content_form": "ct_leg_cramp_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_constipation_counsel",
@@ -687,7 +757,14 @@
         "display_bottom_section": true,
         "content_form": "ct_constipation_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_constipation_not_relieved_counsel",
@@ -701,7 +778,14 @@
         "display_bottom_section": true,
         "content_form": "ct_constipation_not_relieved_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_back_pelvic_pain_counsel",
@@ -715,7 +799,14 @@
         "display_bottom_section": true,
         "content_form": "ct_back_pelvic_pain_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_varicose_oedema_counsel",
@@ -729,7 +820,14 @@
         "display_bottom_section": true,
         "content_form": "ct_varicose_oedema_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_phys_symptoms_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -763,7 +861,14 @@
         "display_bottom_section": true,
         "content_form": "ct_increase_energy_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diet_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_balanced_energy_counsel",
@@ -777,7 +882,14 @@
         "display_bottom_section": true,
         "content_form": "ct_balanced_energy_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diet_counsel",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -797,7 +909,14 @@
         "display_bottom_section": true,
         "content_form": "ct_hypertension_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hiv_positive_counsel",
@@ -811,7 +930,14 @@
         "display_bottom_section": true,
         "content_form": "ct_hiv_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hepb_positive_counsel",
@@ -825,7 +951,14 @@
         "display_bottom_section": true,
         "content_form": "ct_hepb_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hepc_positive_counsel",
@@ -839,7 +972,14 @@
         "display_bottom_section": true,
         "content_form": "ct_hepc_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_syphilis_low_prev_counsel",
@@ -853,7 +993,14 @@
         "display_bottom_section": true,
         "content_form": "ct_syphilis_low_prev_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_asb_positive_counsel_counsel",
@@ -867,7 +1014,14 @@
         "display_bottom_section": true,
         "content_form": "ct_asb_positive_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_diabetes_counsel",
@@ -881,7 +1035,14 @@
         "display_bottom_section": true,
         "content_form": "ct_diabetes_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_ifa_anaemia",
@@ -895,7 +1056,14 @@
         "display_bottom_section": true,
         "content_form": "ct_ifa_anaemia_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_tb_positive_counseling",
@@ -909,7 +1077,14 @@
         "display_bottom_section": true,
         "content_form": "ct_tb_positive_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_diagnoses",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -927,7 +1102,14 @@
         "display_bottom_section": true,
         "content_form": "ct_pe_risk_aspirin_sub_form",
         "content_form_location": "json.form/sub_form/ct_risks",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hiv_risk_counsel",
@@ -941,7 +1123,14 @@
         "display_bottom_section": true,
         "content_form": "ct_hiv_risk_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_risks",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_gdm_risk_counsel",
@@ -955,7 +1144,14 @@
         "display_bottom_section": true,
         "content_form": "ct_gdm_risk_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_risks",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -1047,7 +1243,14 @@
         "display_bottom_section": true,
         "content_form": "ct_ipv_enquiry_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_ifa_high_prev",
@@ -1061,7 +1264,14 @@
         "display_bottom_section": true,
         "content_form": "ct_ifa_high_prev_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_deworm",
@@ -1075,7 +1285,14 @@
         "display_bottom_section": true,
         "content_form": "ct_deworm_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_immunisation",
@@ -1089,7 +1306,14 @@
         "display_bottom_section": true,
         "content_form": "ct_immunisation_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_calcium_supp",
@@ -1103,10 +1327,17 @@
         "display_bottom_section": true,
         "content_form": "ct_calcium_supp_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
-        "key": "accordion_vite_supp",
+        "key": "accordion_vita_supp",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1117,7 +1348,14 @@
         "display_bottom_section": true,
         "content_form": "ct_vita_supp_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
