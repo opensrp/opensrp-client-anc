@@ -24,7 +24,6 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.util.FormUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -303,13 +302,19 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+                        boolean isValueRequired = false;
 
-                        boolean isRequiredField =
-                                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
-                                        fieldObject.has(JsonFormConstants.V_REQUIRED);
+                        if (fieldObject.has(JsonFormConstants.V_REQUIRED)) {
+                            JSONObject valueRequired = fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED);
+                            String value = valueRequired.getString(JsonFormConstants.VALUE);
+                            isValueRequired = Boolean.parseBoolean(value);
+                        }
+
+                        boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE)
+                                .equals(JsonFormConstants.LABEL) && !fieldObject.getString(JsonFormConstants.TYPE)
+                                .equals(JsonFormConstants.HIDDEN) && isValueRequired;
 
                         setRequiredCount(object, fieldObject, isRequiredField);
-
 
                         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                                 fieldObject.has(JsonFormConstants.VALUE)) {
@@ -361,6 +366,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
 
+            if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                --requiredFieldCount;
+            }
+
             requiredFieldsMap
                     .put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
 
@@ -382,8 +391,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
-    private void checkRequiredForSubForms(JSONObject object, JSONObject fieldObject) {
+    private void checkRequiredForSubForms(JSONObject object, JSONObject fieldObject) throws JSONException {
         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
+
+            if ((fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE))) {
+                return;
+            }
             try {
 
                 JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils
@@ -420,15 +433,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         }
 
-        for (String formEventType : partialForms) {
-
-            if (eventToFileMap.containsKey(formEventType)) {
-                object = FormUtils.getInstance(AncApplication.getInstance().getApplicationContext())
-                        .getFormJson(eventToFileMap.get(formEventType));
-                processRequiredStepsField(object);
-            }
-
-        }
     }
 
     private int getRequiredCountTotal() {

@@ -261,7 +261,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please enter the woman's age"
         }
       },
@@ -298,7 +298,7 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify the woman's phone number"
         }
       },
