@@ -132,7 +132,7 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
 
         ContactSummarySendContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
-        summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, callBack);
+        summaryInteractorSpy.fetchUpcomingContacts(baseEntityId,"1", callBack);
 
         Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onUpcomingContactsFetched(upcomingContactsCaptor.capture(), integerArgumentCaptor.capture());
 

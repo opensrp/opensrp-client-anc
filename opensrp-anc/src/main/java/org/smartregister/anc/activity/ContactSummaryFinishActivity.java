@@ -77,7 +77,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
         collapsingToolbarLayout.setTitleEnabled(false);
-        actionBar.setTitle(String.format(this.getString(R.string.contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
+        actionBar.setTitle(String.format(this.getString(R.string.contact_number),
+                getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
     }
 
     @Override
@@ -193,7 +194,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected void onPreExecute() {
                 showProgressDialog(R.string.please_wait_message);
-                progressDialog.setMessage(String.format(context().applicationContext().getString(R.string.finalizing_contact), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                progressDialog.setMessage(
+                        String.format(context().applicationContext().getString(R.string.finalizing_contact),
+                                getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
                 progressDialog.show();
             }
 
@@ -201,7 +204,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             protected Void doInBackground(Void... nada) {
                 try {
                     womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
+                    int contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
+                    if (contactNo < 0) {
+                        womanProfileDetails.put(DBConstants.KEY.CONTACT_STATUS, Constants.ALERT_STATUS.DUE);
+                        womanProfileDetails.put("referral", String.valueOf(contactNo));
+                    }
                     mProfilePresenter.saveFinishForm(womanProfileDetails);
 
                 } catch (Exception e) {
@@ -218,8 +225,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                 hideProgressDialog();
 
-                Intent contactSummaryIntent = new Intent(ContactSummaryFinishActivity.this, ContactSummarySendActivity.class);
-                contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                Intent contactSummaryIntent = new Intent(ContactSummaryFinishActivity.this,
+                        ContactSummarySendActivity.class);
+                contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,
+                        getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanProfileDetails);
 
                 startActivity(contactSummaryIntent);
@@ -232,16 +241,18 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
 
     private void process() throws Exception {
-
-
-//Get actual Data
+        //Get actual Data
         JSONObject object;
 
-        List<PartialContact> partialContacts = getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
+        List<PartialContact> partialContacts = getPartialContactRepository()
+                .getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),
+                        getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1));
 
         for (PartialContact partialContact : partialContacts) {
             if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
-                object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
+                object = new JSONObject(
+                        partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact
+                                .getFormJson());
                 ContactJsonFormUtils.processRequiredStepsField(facts, object, this);
             }
         }
@@ -263,7 +274,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 @Override
                 protected void onPreExecute() {
                     showProgressDialog(R.string.please_wait_message);
-                    progressDialog.setMessage(String.format(context().applicationContext().getString(R.string.summarizing_contact_number), getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
+                    progressDialog.setMessage(
+                            String.format(context().applicationContext().getString(R.string.summarizing_contact_number),
+                                    getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)) + " data");
                     progressDialog.show();
                 }
 
@@ -284,6 +297,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 protected void onPostExecute(Void result) {
 
                     String edd = facts.get(DBConstants.KEY.EDD);
+                    String contactNo = String.valueOf(getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO));
 
                     if (edd != null && saveFinishMenuItem != null) {
 
@@ -291,9 +305,12 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                         saveFinishMenuItem.setEnabled(true);
 
+                    } else if (edd == null && contactNo.contains("-")) {
+                        saveFinishMenuItem.setEnabled(true);
                     }
 
-                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, yamlConfigList, facts);
+                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this,
+                            yamlConfigList, facts);
 
                     // set up the RecyclerView
                     RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);

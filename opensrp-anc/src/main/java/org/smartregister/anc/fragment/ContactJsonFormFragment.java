@@ -2,6 +2,7 @@ package org.smartregister.anc.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -32,7 +33,6 @@ import org.smartregister.anc.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
-import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.viewstate.ContactJsonFormFragmentViewState;
 
@@ -289,26 +289,45 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-                Contact contact = getContact();
-                contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
-                ContactJsonFormUtils.persistPartial(baseEntityId, contact);
-
-                Utils.finalizeForm(getActivity(), ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)));
-
-                dialog.dismiss();
+                goToContactFinalize(dialog);
             }
         });
 
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonFormUtils.launchANCCloseForm(getActivity());
-                dialog.dismiss();
+                goToContactFinalize(dialog);
             }
         });
 
         dialog.show();
+    }
+
+    /**
+     * Re-directs to the contact finalize page which when refer and close in the quick check container is clicked
+     *
+     * @param dialog {@link Dialog}
+     * @author dubdabasoduba
+     */
+    private void goToContactFinalize(Dialog dialog) {
+        String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        Contact contact = getContact();
+        if (contact != null) {
+            int contactNo = contact.getContactNumber();
+            if (contactNo < 0) {
+                contact.setContactNumber(contactNo);
+            } else {
+                contact.setContactNumber(Integer.parseInt("-" + contact.getContactNumber()));
+            }
+            contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
+            ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+        }
+
+        Utils.finalizeForm(getActivity(),
+                ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)),
+                true);
+
+        dialog.dismiss();
     }
 
     /**
