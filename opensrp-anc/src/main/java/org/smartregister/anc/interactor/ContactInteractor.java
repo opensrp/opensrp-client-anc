@@ -93,9 +93,13 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
             String nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS)
                     .plusWeeks(nextContactVisitWeeks).toString();
-
-            Integer nextContact = getNextContact(details);
-
+            int nextContact;
+            String referral = details.get(Constants.REFERRAL);
+            if (referral != null && details.get(Constants.REFERRAL).contains("-")){
+              nextContact  = Integer.valueOf(referral.replace("-",""));
+            } else {
+                nextContact  = getNextContact(details);
+            }
 
             AncApplication.getInstance().getDetailsRepository()
                     .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
@@ -105,8 +109,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
 
             List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository
-                    .getPartialContacts(baseEntityId,
-                            isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
+                    .getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
 
             Facts facts = new Facts();
             List<String> formSubmissionIDs = new ArrayList<>();
@@ -114,6 +117,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts, formSubmissionIDs);
 
             WomanDetail womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
+            if (referral != null){
+                womanDetail.setContactStatus(Constants.ALERT_STATUS.DUE);
+            }
             processAttentionFlags(womanDetail, facts);
 
             PatientRepository.updateContactVisitDetails(womanDetail, true);
@@ -197,7 +203,11 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
         //update woman profile details
-        details.put(DBConstants.KEY.CONTACT_STATUS, womanDetail.getContactStatus());
+        if (details != null && details.get(Constants.REFERRAL) != null){
+            details.put(DBConstants.KEY.CONTACT_STATUS, details.get(DBConstants.KEY.CONTACT_STATUS));
+        }else {
+            details.put(DBConstants.KEY.CONTACT_STATUS, womanDetail.getContactStatus());
+        }
         details.put(DBConstants.KEY.NEXT_CONTACT, womanDetail.getNextContact().toString());
         details.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
         details.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
@@ -220,8 +230,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details
-                .get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
+        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }

@@ -1,4 +1,5 @@
 {
+  "validate_on_submit": true,
   "count": "9",
   "encounter_type": "Counselling and Treatment",
   "entity_id": "",
@@ -611,7 +612,14 @@
         "display_bottom_section": true,
         "content_form": "ct_alcohol_and_substance_abuse_counseling_sub_form",
         "content_form_location": "json.form/sub_form/ct_behaviour_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
