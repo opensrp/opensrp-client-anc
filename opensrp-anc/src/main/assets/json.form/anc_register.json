@@ -69,7 +69,7 @@
         "openmrs_entity_id": "ANC_ID",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "ANC ID *",
+        "hint": "ANC ID",
         "value": "0",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
@@ -87,7 +87,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "First name *",
+        "hint": "First name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -104,7 +104,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "hint": "Last name *",
+        "hint": "Last name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -159,7 +159,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "Date of birth (DOB) *",
+        "hint": "Date of birth (DOB)",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -236,7 +236,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age *",
+        "hint": "Age",
         "v_numeric": {
           "value": "true",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
@@ -271,7 +271,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
         "type": "edit_text",
-        "hint": "Home address *",
+        "hint": "Home address",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -288,7 +288,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Mobile phone number *",
+        "hint": "Mobile phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -310,7 +310,7 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
-        "hint": "Reminders throughout pregnancy? *",
+        "hint": "Reminders throughout pregnancy?",
         "values": [
           "Yes",
           "No"
