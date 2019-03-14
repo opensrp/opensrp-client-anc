@@ -2,8 +2,8 @@ package org.smartregister.anc.interactor;
 
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.job.ImageUploadServiceJob;
 import org.smartregister.domain.LoginResponse;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
@@ -24,23 +24,28 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     }
 
     @Override
-    protected void scheduleJobs() {
-       //schedule jobs
+    protected void scheduleJobsPeriodically() {
+        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES),
+                getFlexValue(BuildConfig
+                        .DATA_SYNC_DURATION_MINUTES));
 
-        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //need these asap!
+        PullUniqueIdsServiceJob
+                .scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
+                        (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
-        SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
-                .DATA_SYNC_DURATION_MINUTES));
-
-        PullUniqueIdsServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
-                (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
-
-        org.smartregister.anc.job.ImageUploadServiceJob.scheduleJob(org.smartregister.job.ImageUploadServiceJob.TAG,
+        ImageUploadServiceJob.scheduleJob(org.smartregister.job.ImageUploadServiceJob.TAG,
                 TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
-                .IMAGE_UPLOAD_MINUTES));
+                        .IMAGE_UPLOAD_MINUTES));
 
-        SyncSettingsServiceJob.scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
-                getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+        SyncSettingsServiceJob
+                .scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
+                        getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+    }
+
+    @Override
+    protected void scheduleJobsImmediately() {
+        //schedule jobs
+        PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //need these asap!
     }
 
     @Override

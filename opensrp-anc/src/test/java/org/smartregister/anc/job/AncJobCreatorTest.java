@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
