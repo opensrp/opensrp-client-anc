@@ -535,7 +535,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "GA from ultrasound - weeks *",
+        "hint": "GA from ultrasound - weeks",
         "relevance": {
           "step2:ultrasound_done": {
             "type": "string",
@@ -695,7 +695,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "Using LMP",
-            "extra_info": "GA: {lmp_gest_age}\nEDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
@@ -703,7 +703,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age}\nEDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
@@ -711,10 +711,9 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age}\nEDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
           }
         ],
-        "value": "none",
         "v_required": {
           "value": "true",
           "err": "Please select preferred gestational age"
@@ -1966,7 +1965,6 @@
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
-        "value": "none",
         "v_required": {
           "value": "true",
           "err": "Please select TT Immunisation status"
@@ -2057,7 +2055,6 @@
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
-        "value": "none",
         "v_required": {
           "value": "true",
           "err": "Please select Hep B immunisation status"
@@ -2148,7 +2145,6 @@
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
-        "value": "none",
         "v_required": {
           "value": "true",
           "err": "Please select Hep B immunisation status"
@@ -2724,7 +2720,7 @@
         "type": "native_radio",
         "label": "Clinical enquiry for alcohol and other substance use done?",
         "label_text_style": "bold",
-        "label_text_info": "This refers to the application of a specific enquiry to assess alcohol or other substance use.",
+        "label_info_text": "This refers to the application of a specific enquiry to assess alcohol or other substance use.",
         "options": [
           {
             "key": "yes",

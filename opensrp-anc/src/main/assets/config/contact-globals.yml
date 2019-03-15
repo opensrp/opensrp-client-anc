@@ -165,6 +165,7 @@ fields:
   - "ultrasound_gest_age_wks"
   - "lmp_gest_age"
   - "lmp_edd"
+  - "select_gest_age_edd"
   - "ultrasound_ga_hidden"
   - "ultrasound_gest_age"
   - "ultrasound_edd"

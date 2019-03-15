@@ -95,7 +95,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "HIV not done reason is required!"
       },
       "relevance": {
         "step1:hiv_test_status": {
@@ -159,7 +160,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "."
+        "err": "Test date is required"
       }
     },
     {

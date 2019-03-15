@@ -139,6 +139,26 @@
       }
     },
     {
+      "key": "iptp_sp1_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date IPTp-SP dose 1 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "step8:iptp_sp1": {
+          "type": "string",
+          "ex": "equalTo(., \"done\")"
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Enter date that IPTp-SP dose 1 was given."
+      }
+    },
+    {
       "key": "iptp_sp2",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -170,6 +190,26 @@
       }
     },
     {
+      "key": "iptp_sp2_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date IPTp-SP dose 2 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "step8:iptp_sp2": {
+          "type": "string",
+          "ex": "equalTo(., \"done\")"
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Enter date that IPTp-SP dose 2 was given."
+      }
+    },
+    {
       "key": "iptp_sp3",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -198,6 +238,26 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      }
+    },
+    {
+      "key": "iptp_sp3_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date IPTp-SP dose 3 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "step8:iptp_sp3": {
+          "type": "string",
+          "ex": "equalTo(., \"done\")"
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Enter date that IPTp-SP dose 3 was given."
       }
     },
     {

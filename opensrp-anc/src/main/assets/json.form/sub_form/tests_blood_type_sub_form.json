@@ -61,7 +61,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Blood type test date *",
+      "hint": "Blood type test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -79,7 +79,7 @@
         }
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Date that the blood test was done."
       }
     },
