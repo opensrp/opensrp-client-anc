@@ -678,6 +678,27 @@ condition: "global_tt_immun_status != '3_doses'"
 actions:
 - "isRelevant = true"
 ---
+name: step8_tt1_date_done
+description: Date tt1 dose given
+priority: 1
+condition: "(step8_tt1_date != '') && (step8_tt1_date != 'not_done')"
+actions:
+- "isRelevant = true"
+---
+name: step8_tt2_date_done
+description: Date tt2 dose given
+priority: 1
+condition: "(step8_tt2_date != '') && (step8_tt2_date != 'not_done')"
+actions:
+- "isRelevant = true"
+---
+name: step8_tt3_date_done
+description: Date tt3 dose given
+priority: 1
+condition: "(step8_tt3_date != '') && (step8_tt3_date != 'not_done')"
+actions:
+- "isRelevant = true"
+---
 name: step8_accordion_immunisation
 description: tt1_date
 priority: 1
@@ -724,6 +745,27 @@ name: step8_hepb1_date
 description: hepb1_date
 priority: 1
 condition: "global_hepb_positive == 0 "
+actions:
+- "isRelevant = true"
+---
+name: step8_hepb1_date_done
+description: Date hepb1 dose given
+priority: 1
+condition: "(step8_hepb1_date!= '') && (step8_hepb1_date != 'not_done')"
+actions:
+- "isRelevant = true"
+---
+name: step8_hepb2_date_done
+description: Date hepb2 dose given
+priority: 1
+condition: "(step8_hepb2_date != '') && (step8_hepb2_date != 'not_done')"
+actions:
+- "isRelevant = true"
+---
+name: step8_hepb3_date_done
+description: Date hepb3 dose given
+priority: 1
+condition: "(step8_hepb3_date != '') && (step8_hepb3_date != 'not_done')"
 actions:
 - "isRelevant = true"
 ---
