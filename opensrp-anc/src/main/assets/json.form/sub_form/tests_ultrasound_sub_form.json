@@ -123,7 +123,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Date that the ultrasound was done. *",
+      "hint": "Date that the ultrasound was done.",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -134,7 +134,7 @@
         }
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Date that the ultrasound was done."
       }
     },
@@ -144,7 +144,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "GA from ultrasound - weeks *",
+      "hint": "GA from ultrasound - weeks",
       "v_required": {
         "value": false,
         "err": "Please give the GA from ultrasound - weeks"

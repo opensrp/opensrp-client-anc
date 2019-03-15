@@ -130,7 +130,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Hep C test date *",
+      "hint": "Hep C test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -148,7 +148,7 @@
         }
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Select the date of the Hepatitis C test."
       }
     },

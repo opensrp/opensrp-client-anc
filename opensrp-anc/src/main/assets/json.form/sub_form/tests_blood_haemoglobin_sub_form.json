@@ -123,7 +123,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Blood haemoglobin test date *",
+      "hint": "Blood haemoglobin test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -195,7 +195,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Complete blood count test result (g/dl) (recommended) *",
+      "hint": "Complete blood count test result (g/dl) (recommended)",
       "edit_type": "name",
       "v_min": {
         "value": "0",
@@ -210,7 +210,7 @@
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Complete blood count test result (g/dl)"
       },
       "relevance": {
@@ -227,7 +227,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Hb test result - haemoglobinometer (g/dl) *",
+      "hint": "Hb test result - haemoglobinometer (g/dl)",
       "edit_type": "name",
       "v_min": {
         "value": "0",
@@ -242,7 +242,7 @@
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Enter Hb test result - haemoglobinometer (g/dl)"
       },
       "relevance": {
@@ -259,7 +259,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "edit_text",
-      "hint": "Hb test result - haemoglobin colour scale (g/dl) *",
+      "hint": "Hb test result - haemoglobin colour scale (g/dl)",
       "edit_type": "name",
       "v_min": {
         "value": "0",
@@ -274,7 +274,7 @@
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Enter Hb test result - haemoglobin colour scale (g/dl)"
       },
       "relevance": {
