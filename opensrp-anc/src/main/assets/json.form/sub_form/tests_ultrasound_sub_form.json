@@ -477,7 +477,7 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": "",
-          "extra_info": "GA: {lmp_gest_age}\nEDD: {lmp_edd}"
+          "extra_info": "GA: {lmp_gest_age} <br/> EDD: {lmp_edd}"
         },
         {
           "key": "use_ultrasound",
@@ -485,7 +485,7 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": "",
-          "extra_info": "GA: {ultrasound_gest_age}\nEDD: {ultrasound_edd}"
+          "extra_info": "GA: {ultrasound_gest_age} <br> EDD: {ultrasound_edd}"
         },
         {
           "key": "use_sfh_abdominal_palpation",
@@ -493,11 +493,12 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": "",
-          "extra_info": "GA: {sfh_gest_age}\nEDD: {sfh_edd}"
+          "extra_info": "GA: {sfh_gest_age}<br>EDD: {sfh_edd}"
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Please select preferred gestational age"
       },
       "relevance": {
         "rules-engine": {
