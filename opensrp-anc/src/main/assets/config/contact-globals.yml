@@ -103,6 +103,7 @@ fields:
   - "parity"
   - "danger_signs_value"
   - "gest_age"
+  - "gest_age_openmrs"
 ---
 form: anc_profile
 fields:
@@ -158,6 +159,7 @@ form: anc_test
 fields:
   - "urine_protein"
   - "gest_age"
+  - "gest_age_openmrs"
   - "ultrasound_done_date"
   - "no_of_fetuses"
   - "fetal_presentation"
