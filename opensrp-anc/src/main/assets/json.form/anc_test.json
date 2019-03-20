@@ -52,6 +52,18 @@
       "value": ""
     }
   },
+  "editable_fields": [
+    "hepb_test_status",
+    "hiv_test_status",
+    "syph_test_status",
+    "tb_screening_status"
+  ],
+  "default_values": [
+    "hepb_test_status",
+    "hiv_test_status",
+    "syph_test_status",
+    "tb_screening_status"
+  ],
   "step1": {
     "title": "Due",
     "next": "step2",
@@ -67,7 +79,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_ultrasound_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_blood_type",
