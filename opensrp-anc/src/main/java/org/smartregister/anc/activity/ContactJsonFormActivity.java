@@ -566,6 +566,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     Button undoButton = buttonLayout.findViewById(R.id.undo_button);
                     undoButton.setVisibility(View.VISIBLE);
                     contentLayout.setVisibility(View.VISIBLE);
+                    buttonLayout.setVisibility(View.VISIBLE);
                 }
 
             } catch (JSONException e) {
