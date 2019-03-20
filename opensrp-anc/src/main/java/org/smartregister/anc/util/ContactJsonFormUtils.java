@@ -595,7 +595,11 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     public static String cleanValue(String raw) {
-        if (raw.length() > 0 && raw.charAt(0) == '[') { return raw.substring(1, raw.length() - 1);} else { return raw;}
+        if (raw.length() > 0 && raw.charAt(0) == '[') {
+            return raw.substring(1, raw.length() - 1);
+        } else {
+            return raw;
+        }
     }
 
     public static String keyToValueConverter(String keys) {
