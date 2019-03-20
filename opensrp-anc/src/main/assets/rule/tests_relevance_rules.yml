@@ -604,7 +604,7 @@ actions:
 name: step1_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
-condition: "(global_hepb_immun_status != '3_doses')"
+condition: "(global_hepb_immun_status != '' && global_hepb_immun_status != '3_doses') && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -625,7 +625,7 @@ actions:
 name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "step1_hiv_positive == 1 || global_pop_tb == 1"
+condition: "(step1_hiv_positive == 1 || global_pop_tb == 1) && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -640,5 +640,47 @@ name: step2_accordion_partner_hiv
 description: Partner HIV test
 priority: 1
 condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_ultrasound
+description: tb_screening_status
+priority: 1
+condition: "(global_contact_no == 1 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 24) || (global_contact_no > 1 && global_gest_age_openmrs >= 24)"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_hiv
+description: HIV test
+priority: 1
+condition: "(global_pop_hiv_prevalence == 1 && global_hiv_positive != 1)"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_hepatitis_b
+description: Hepatitis B test
+priority: 1
+condition: "global_contact_no > 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_hepatitis_c
+description: Hepatitis C test
+priority: 1
+condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_syphilis
+description: syph_test_status
+priority: 1
+condition: "step1_syphilis_positive == 0"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_tb_screening
+description: tb_screening_status
+priority: 1
+condition: "(step1_hiv_positive == 1 || global_pop_tb == 1) && global_contact_no > 1"
 actions:
 - "isRelevant = true"
