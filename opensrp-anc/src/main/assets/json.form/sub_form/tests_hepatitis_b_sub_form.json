@@ -130,7 +130,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "13011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Hep B test date *",
+      "hint": "Hep B test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -148,7 +148,8 @@
         }
       },
       "v_required": {
-        "value": false
+        "value": true,
+        "err": "Hep B test date is required"
       }
     },
     {

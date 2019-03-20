@@ -170,7 +170,7 @@ actions:
 name: step1_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step1_hepb_positive == 0"
+condition: "step1_hepb_positive == 0 && (global_gest_age != '' && global_gest_age >= 12)"
 actions:
 - "isRelevant = true"
 ---
@@ -626,6 +626,13 @@ name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
 condition: "step1_hiv_positive == 1 || global_pop_tb == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_accordion_ultrasound
+description: tb_screening_status
+priority: 1
+condition: "(global_contact_no == 1 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 24) || (global_contact_no > 1 && global_gest_age_openmrs >= 24)"
 actions:
 - "isRelevant = true"
 ---

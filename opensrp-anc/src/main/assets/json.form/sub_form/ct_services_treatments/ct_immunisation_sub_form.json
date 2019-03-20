@@ -52,6 +52,27 @@
       }
     },
     {
+      "key": "tt1_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date TT dose #1 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for TT dose #1 is required"
+      }
+    },
+    {
       "key": "tt2_date",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -93,6 +114,27 @@
       }
     },
     {
+      "key": "tt2_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date TT dose #2 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for TT dose #2 is required"
+      }
+    },
+    {
       "key": "tt3_date",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -131,6 +173,27 @@
             "rules-file": "ct_relevance_rules.yml"
           }
         }
+      }
+    },
+    {
+      "key": "tt3_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date TT dose #3 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for TT dose #3 is required"
       }
     },
     {
@@ -282,12 +345,37 @@
           "openmrs_entity_id": ""
         }
       ],
+      "v_required": {
+        "value": true,
+        "err": "Hep B dose #1 is required"
+      },
       "relevance": {
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
           }
         }
+      }
+    },
+    {
+      "key": "hepb1_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date Hep B dose #1 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for Hep B dose #1 is required"
       }
     },
     {
@@ -320,7 +408,39 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Hep B dose #2 is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "hepb2_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date Hep B dose #2 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for Hep B dose #2 is required"
+      }
     },
     {
       "key": "hepb3_date",
@@ -352,7 +472,39 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ]
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Hep B dose #3 is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "hepb3_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date Hep B dose #3 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for Hep B dose #3 is required"
+      }
     },
     {
       "key": "hepb_dose_notdone",

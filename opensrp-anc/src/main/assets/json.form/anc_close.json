@@ -56,7 +56,7 @@
         "openmrs_entity_id": "165245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason? *",
+        "hint": "Reason?",
         "values": [
           "Live birth",
           "Stillbirth",
@@ -83,7 +83,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option *"
+          "err": "Please select one option"
         }
       },
       {
@@ -92,7 +92,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Delivery date *",
+        "hint": "Delivery date",
         "expanded": false,
         "max_date": "today",
         "v_required": {
@@ -114,7 +114,7 @@
         "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Place of delivery? *",
+        "hint": "Place of delivery?",
         "values": [
           "Health facility",
           "Home",
@@ -388,7 +388,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of miscarriage/abortion *",
+        "hint": "Date of miscarriage/abortion",
         "expanded": false,
         "max_date": "today",
         "v_required": {
@@ -430,7 +430,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date of death *",
+        "hint": "Date of death",
         "expanded": false,
         "duration": {
           "label": "Yrs"
@@ -455,7 +455,7 @@
         "openmrs_entity_id": "1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Cause of death? *",
+        "hint": "Cause of death?",
         "values": [
           "Unknown",
           "Abortion-related complications",
