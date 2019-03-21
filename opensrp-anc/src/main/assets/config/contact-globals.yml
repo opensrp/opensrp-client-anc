@@ -201,6 +201,7 @@ fields:
   - "syph_test_status"
   - "tb_screening_status"
   - "hiv_positive"
+  - "syphilis_positive"
 ---
 form: anc_quick_check
 fields:

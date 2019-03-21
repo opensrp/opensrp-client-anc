@@ -69,6 +69,13 @@ condition: "step2_select_gest_age_edd != ''"
 actions:
   - "calculation = step2_select_gest_age_edd == 'lmp' ? step2_lmp_gest_age : step2_select_gest_age_edd == 'ultrasound' ? step2_ultrasound_gest_age : step2_sfh_gest_age"
 ---
+name: step2_gest_age_openmrs
+description: Ga to send to openmrs
+priority: 1
+condition: "step2_select_gest_age_edd != ''"
+actions:
+- "calculation = step2_select_gest_age_edd == 'lmp' ? helper.stripGaNumber(step2_lmp_gest_age) : step2_select_gest_age_edd == 'ultrasound' ? helper.stripGaNumber(step2_ultrasound_gest_age) : helper.stripGaNumber(step2_sfh_gest_age)"
+---
 name: step3_previous_pregnancies
 description: Previous pregnancies
 priority: 1

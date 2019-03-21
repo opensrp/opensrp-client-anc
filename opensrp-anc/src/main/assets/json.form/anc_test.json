@@ -52,6 +52,18 @@
       "value": ""
     }
   },
+  "global_previous": [
+    "blood_type_test_status",
+    "hiv_test_partner_result",
+    "hiv_test_status",
+    "hiv_test_partner_status",
+    "hepb_test_status",
+    "hepc_test_status",
+    "syph_test_status",
+    "tb_screening_status",
+    "hiv_positive",
+    "syphilis_positive"
+  ],
   "editable_fields": [
     "hepb_test_status",
     "hiv_test_status",
