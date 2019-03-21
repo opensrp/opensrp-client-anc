@@ -1,4 +1,5 @@
 {
+  "validate_on_submit": true,
   "count": "1",
   "encounter_type": "Quick Check",
   "entity_id": "",

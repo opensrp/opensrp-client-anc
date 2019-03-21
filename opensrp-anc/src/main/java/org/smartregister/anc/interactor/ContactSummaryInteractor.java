@@ -1,6 +1,7 @@
 package org.smartregister.anc.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.joda.time.LocalDate;
@@ -40,7 +41,9 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
 
     @Override
-    public void fetchUpcomingContacts(final String entityId, final ContactSummarySendContract.InteractorCallback callback) {
+    public void fetchUpcomingContacts(final String entityId,
+                                      final String referralContactNo,
+                                      final ContactSummarySendContract.InteractorCallback callback) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -71,7 +74,11 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     getAppExecutors().mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
-                            callback.onUpcomingContactsFetched(contactDates, lastContact - 1);
+                            int contact = lastContact -1;
+                            if (!TextUtils.isEmpty(referralContactNo)){
+                                contact = Integer.parseInt(referralContactNo);
+                            }
+                            callback.onUpcomingContactsFetched(contactDates, contact);
                         }
                     });
                 } catch (Exception e) {

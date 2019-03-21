@@ -102,6 +102,8 @@ fields:
   - "gravida"
   - "parity"
   - "danger_signs_value"
+  - "gest_age"
+  - "gest_age_openmrs"
 ---
 form: anc_profile
 fields:
@@ -155,10 +157,17 @@ fields:
 ---
 form: anc_test
 fields:
+  - "urine_protein"
+  - "gest_age"
+  - "gest_age_openmrs"
+  - "ultrasound_done_date"
+  - "no_of_fetuses"
+  - "fetal_presentation"
   - "ultrasound_done_date"
   - "ultrasound_gest_age_wks"
   - "lmp_gest_age"
   - "lmp_edd"
+  - "select_gest_age_edd"
   - "ultrasound_ga_hidden"
   - "ultrasound_gest_age"
   - "ultrasound_edd"

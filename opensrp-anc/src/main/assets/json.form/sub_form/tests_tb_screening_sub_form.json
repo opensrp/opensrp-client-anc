@@ -170,7 +170,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "TB screening date *",
+      "hint": "TB screening date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -193,7 +193,7 @@
         }
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Select record the date of the TB screening."
       }
     },

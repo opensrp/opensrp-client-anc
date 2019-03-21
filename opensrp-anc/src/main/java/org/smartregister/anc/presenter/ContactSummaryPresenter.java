@@ -48,8 +48,8 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
     }
 
     @Override
-    public void loadUpcomingContacts(String entityId) {
-        contactSummaryInteractor.fetchUpcomingContacts(entityId,this);
+    public void loadUpcomingContacts(String entityId,String referralContactNo) {
+        contactSummaryInteractor.fetchUpcomingContacts(entityId,referralContactNo,this);
 
     }
 

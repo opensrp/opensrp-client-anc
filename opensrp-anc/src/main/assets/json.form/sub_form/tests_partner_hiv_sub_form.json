@@ -69,7 +69,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Partner HIV test date *",
+      "hint": "Partner HIV test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -93,7 +93,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "."
+        "err": "Partner HIV test date required"
       }
     },
     {

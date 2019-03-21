@@ -23,9 +23,9 @@ actions:
 name: step1_select_gest_age_edd
 description: Gest age
 priority: 1
-condition: "!global_lmp_gest_age.isEmpty() || !global_lmp_edd.isEmpty() || !global_ultrasound_ga_hidden.isEmpty() || !global_ultrasound_edd.isEmpty() || !global_sfh_ga_hidden.isEmpty() || !global_sfh_edd.isEmpty()"
+condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
 actions:
-- "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':global_ultrasound_ga_hidden,'ultrasound_edd':global_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+- "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':global_ultrasound_gest_age,'ultrasound_edd':global_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
 ---
 name: step1_no_of_fetuses
 description: No. of fetuses
