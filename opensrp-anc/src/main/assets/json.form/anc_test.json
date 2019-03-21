@@ -97,7 +97,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_type_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hiv",
@@ -301,7 +308,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_type_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_hiv",
