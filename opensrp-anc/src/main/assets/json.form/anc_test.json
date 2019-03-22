@@ -62,7 +62,8 @@
     "syph_test_status",
     "tb_screening_status",
     "hiv_positive",
-    "syphilis_positive"
+    "syphilis_positive",
+    "urine_test_status"
   ],
   "editable_fields": [
     "hepb_test_status",
@@ -420,7 +421,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_urine_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_blood_haemoglobin",
@@ -433,7 +441,14 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_haemoglobin_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_tb_screening",

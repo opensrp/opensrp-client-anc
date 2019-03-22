@@ -622,6 +622,20 @@ condition: "step1_syphilis_positive == 0 && (global_contact_no == 1 || global_ge
 actions:
 - "isRelevant = true"
 ---
+name: step1_accordion_urine
+description: urine accordion
+priority: 1
+condition: "(global_contact_no == 1 && !global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_urine
+description: urine accordion
+priority: 1
+condition: "(global_contact_no > 1 && global_previous_urine_test_status == '')"
+actions:
+- "isRelevant = true"
+---
 name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
@@ -639,7 +653,7 @@ actions:
 name: step2_accordion_partner_hiv
 description: Partner HIV test
 priority: 1
-condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
+condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '') && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -696,13 +710,6 @@ name: step2_accordion_blood_type
 description: step2 blood type accordion
 priority: 1
 condition: "global_previous_blood_type_test_status == '' && global_contact_no > 1"
-actions:
-- "isRelevant = true"
----
-name: step1_accordion_partner_hiv
-description: step1 partner HIV
-priority: 1
-condition: "global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
