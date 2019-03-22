@@ -283,7 +283,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     private String performPopUpFunctions(String key, String value, boolean popup, JSONObject item, String keyAtIndex,
                                          String itemType) throws JSONException {
-        String optionType = "";
+        String optionType = itemType;
         if (popup) {
             String itemText = "";
             if (itemType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType.equals(Constants.ANC_RADIO_BUTTON)) {
@@ -320,9 +320,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             genericDialogInterface.addSelectedValues(openmrsAttributes, valueOpenMRSAttributes,
                     formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, optionType, itemText));
-        } else {
-            optionType = itemType;
         }
+
         return optionType;
     }
 
