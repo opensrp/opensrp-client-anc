@@ -44,7 +44,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     protected void scheduleJobsImmediately() {
-        //schedule jobs
         super.scheduleJobsImmediately();
     }
 
