@@ -33,7 +33,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 .scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES), getFlexValue
                         (BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
-        ImageUploadServiceJob.scheduleJob(org.smartregister.job.ImageUploadServiceJob.TAG,
+        ImageUploadServiceJob.scheduleJob(ImageUploadServiceJob.TAG,
                 TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES), getFlexValue(BuildConfig
                         .IMAGE_UPLOAD_MINUTES));
 
