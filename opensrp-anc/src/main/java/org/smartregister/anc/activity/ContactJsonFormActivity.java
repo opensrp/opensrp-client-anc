@@ -561,11 +561,16 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 adapter.notifyDataSetChanged();
 
                 RelativeLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
+                Button undoButton = buttonLayout.findViewById(R.id.undo_button);
                 if (values != null && values.size() > 0) {
-                    Button undoButton = buttonLayout.findViewById(R.id.undo_button);
                     undoButton.setVisibility(View.VISIBLE);
                     contentLayout.setVisibility(View.VISIBLE);
                     buttonLayout.setVisibility(View.VISIBLE);
+                } else {
+                    undoButton.setVisibility(View.GONE);
+                    contentLayout.setVisibility(View.GONE);
+                    buttonLayout.setVisibility(View.GONE);
+                    status.setImageDrawable(this.getResources().getDrawable(R.drawable.icon_task_256));
                 }
 
             } catch (JSONException e) {
