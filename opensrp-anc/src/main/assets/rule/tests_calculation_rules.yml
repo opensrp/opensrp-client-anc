@@ -212,13 +212,13 @@ actions:
 name: step1_glucose_test_date
 description: glucose_test_date
 priority: 1
-condition: "step1_hb_test_status == 'done_today'"
+condition: "step1_glucose_test_status != '' && step1_glucose_test_status == 'done_today'"
 actions:
 - "calculation = helper.getDateToday()"
 ---
 name: step1_hb_test_date
 description: hb_test_date
 priority: 1
-condition: "step1_glucose_test_status.isEmpty() && step1_glucose_test_status == 'done_today'"
+condition: "step1_hb_test_status != '' && step1_hb_test_status == 'done_today'"
 actions:
 - "calculation = helper.getDateToday()"
