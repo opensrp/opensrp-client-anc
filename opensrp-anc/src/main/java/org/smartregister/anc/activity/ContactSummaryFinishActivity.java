@@ -299,7 +299,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                     String edd = facts.get(DBConstants.KEY.EDD);
                     String contactNo = String.valueOf(getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO));
 
-                    if (edd != null) {
+                    if (edd != null && saveFinishMenuItem != null) {
 
                         PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 

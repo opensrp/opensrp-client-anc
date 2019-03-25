@@ -13,7 +13,9 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.job.ImageUploadServiceJob;
 
 /**
  * Created by ndegwamartin on 10/09/2018.
@@ -33,7 +35,7 @@ public class ImageUploadServiceJobTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnRunJobStartsCorrectService() {
+    public void testOnRunJobStartsCorrectService() throws Exception {
 
         ImageUploadServiceJob imageUploadServiceJob = new ImageUploadServiceJob();
         ImageUploadServiceJob imageSyncServiceJobSpy = Mockito.spy(imageUploadServiceJob);
@@ -43,7 +45,7 @@ public class ImageUploadServiceJobTest extends BaseUnitTest {
         Mockito.doReturn(context).when(imageSyncServiceJobSpy).getApplicationContext();
         Mockito.doReturn(componentName).when(context).startService(ArgumentMatchers.any(Intent.class));
 
-        imageSyncServiceJobSpy.onRunJob(null);
+        Whitebox.invokeMethod(imageSyncServiceJobSpy,"onRunJob", null);
 
         Mockito.verify(context).startService(intent.capture());
 

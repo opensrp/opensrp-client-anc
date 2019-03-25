@@ -237,4 +237,12 @@ public class RulesEngineHelperTest extends BaseUnitTest {
 
     }
 
+    @Test
+    public void testStripGaNumber() {
+        RulesEngineHelper rulesEngineHelperSpy = Mockito.spy(rulesEngineHelper);
+        Assert.assertEquals("12", rulesEngineHelperSpy.stripGaNumber("12 Weeks 7 Days"));
+        Assert.assertEquals("12", rulesEngineHelperSpy.stripGaNumber("12"));
+        Assert.assertEquals("12", rulesEngineHelperSpy.stripGaNumber("12 Weeks"));
+        Assert.assertEquals("12", rulesEngineHelperSpy.stripGaNumber("12 Weeks 7"));
+    }
 }
