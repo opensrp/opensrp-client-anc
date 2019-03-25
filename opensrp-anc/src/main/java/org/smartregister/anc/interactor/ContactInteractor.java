@@ -95,7 +95,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     .plusWeeks(nextContactVisitWeeks).toString();
             int nextContact;
             String referral = details.get(Constants.REFERRAL);
-            if (referral != null && details.get(Constants.REFERRAL).contains("-")){
+            if (referral != null && "-".contains(referral)){
               nextContact  = Integer.valueOf(referral.replace("-",""));
             } else {
                 nextContact  = getNextContact(details);
