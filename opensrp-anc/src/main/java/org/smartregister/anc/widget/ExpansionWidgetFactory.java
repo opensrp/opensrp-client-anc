@@ -292,12 +292,12 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private boolean checkValuesContent(JSONArray value) throws JSONException {
         boolean showHiddenViews = true;
-        if (value.length() == 0) {
+        if (value.length() == 1) {
             JSONObject jsonObject = value.getJSONObject(0);
             if (jsonObject.has(JsonFormConstants.TYPE) && Constants.ANC_RADIO_BUTTON
                     .equals(jsonObject.getString(JsonFormConstants.TYPE))) {
                 JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
-                if (values.length() == 0) {
+                if (values.length() == 1) {
                     String object = values.getString(0);
                     if (object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || object
                             .contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
