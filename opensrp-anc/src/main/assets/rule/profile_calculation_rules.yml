@@ -9,7 +9,7 @@ actions:
 name: step2_lmp_edd
 description: LMP EDD
 priority: 1
-condition: "step2_lmp_known == 'yes'"
+condition: "step2_lmp_known == 'yes' && !step2_lmp_known_date.isEmpty()"
 actions:
   - "calculation = helper.addDuration(helper.getSecondaryValue(step2_lmp_known_date),'7d-9m')"
 ---
@@ -23,7 +23,7 @@ actions:
 name: step2_ultrasound_edd
 description: Ultrasound edd
 priority: 1
-condition: "step2_ultrasound_gest_age_wks > 0"
+condition: "step2_ultrasound_gest_age_wks > 0 && !step2_ultrasound_done_date.isEmpty()"
 actions:
   - "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_done_date), ( (280 - (step2_ultrasound_gest_age_wks * 7) ) +'d'))"
 ---

@@ -9,6 +9,7 @@ import com.evernote.android.job.JobCreator;
 
 import org.smartregister.anc.service.AncSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;

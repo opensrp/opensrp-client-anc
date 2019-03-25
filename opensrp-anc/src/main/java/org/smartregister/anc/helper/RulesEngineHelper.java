@@ -1,6 +1,7 @@
 package org.smartregister.anc.helper;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -114,5 +115,23 @@ public class RulesEngineHelper {
         processDefaultRules(rules, relevanceFacts);
 
         return relevanceFacts.get(RuleConstant.IS_RELEVANT);
+    }
+
+    /**
+     * Strips the ANC Gestation age to just get me the weeks age
+     *
+     * @param gestAge {@link String}
+     * @return ga {@link String}
+     */
+    public String stripGaNumber(String gestAge) {
+        String ga = "";
+        if (!TextUtils.isEmpty(gestAge)) {
+            String[] gestAgeSplit = gestAge.split(" ");
+            if (gestAgeSplit.length >= 1) {
+                int gaWeeks = Integer.parseInt(gestAgeSplit[0]);
+                ga = String.valueOf(gaWeeks);
+            }
+        }
+        return ga;
     }
 }
