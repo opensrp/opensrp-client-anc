@@ -151,7 +151,6 @@ public class ContactJsonFormUtils extends FormUtils {
      * @param imageView {@link ImageView}
      * @param type      {@link String}
      * @param context   {@link Context}
-     *
      * @author dubdabasoduba
      */
     public void changeIcon(ImageView imageView, String type, Context context) {
@@ -270,7 +269,7 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     private static void processCheckBoxSpecialWidget(JSONObject widget, List<String> keyList, List<String> valueList)
-    throws Exception {
+            throws Exception {
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -359,12 +358,11 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param values          {@link List<String>}
      * @param statusImageView {@link ImageView}
-     *
      * @throws JSONException
      * @author dubdabasoduba
      */
     public void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView, Context context)
-    throws JSONException {
+            throws JSONException {
         JSONArray list = new JSONArray(values);
         for (int k = 0; k < list.length(); k++) {
             String[] stringValues = list.getString(k).split(":");
@@ -389,7 +387,7 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     public static JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType)
-    throws JSONException {
+            throws JSONException {
         Map<String, String> vMap = new HashMap<>();
         JSONObject resultJsonObject = new JSONObject();
         JSONObject stepJsonObject = new JSONObject();
@@ -506,7 +504,6 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param facts       {@link Facts}
      * @param fieldObject {@link JSONObject}
-     *
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsFieldsSecondaryValues(Facts facts, JSONObject fieldObject) throws Exception {
@@ -598,7 +595,11 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     public static String cleanValue(String raw) {
-        return raw.charAt(0) == '[' ? raw.substring(1, raw.length() - 1) : raw;
+        if (raw.length() > 0 && raw.charAt(0) == '[') {
+            return raw.substring(1, raw.length() - 1);
+        } else {
+            return raw;
+        }
     }
 
     public static String keyToValueConverter(String keys) {
@@ -622,7 +623,6 @@ public class ContactJsonFormUtils extends FormUtils {
      * values are saved as values for the expansion panel widget.
      *
      * @param valuesModel {@link ExpansionPanelValuesModel}
-     *
      * @return valueItem {@link JSONObject}
      */
     public JSONObject createSecValues(ExpansionPanelValuesModel valuesModel) {
@@ -657,11 +657,10 @@ public class ContactJsonFormUtils extends FormUtils {
      * @param openMrsEntity       {@link String}
      * @param openMrsEntityId     {@link String}
      * @param item                {@link JSONObject}
-     *
      * @throws JSONException
      */
     public void addOpenmrsAttributes(String openMrsEntityParent, String openMrsEntity, String openMrsEntityId,
-                                      JSONObject item) throws JSONException {
+                                     JSONObject item) throws JSONException {
         item.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openMrsEntityParent);
         item.put(JsonFormConstants.OPENMRS_ENTITY, openMrsEntity);
         item.put(JsonFormConstants.OPENMRS_ENTITY_ID, openMrsEntityId);
