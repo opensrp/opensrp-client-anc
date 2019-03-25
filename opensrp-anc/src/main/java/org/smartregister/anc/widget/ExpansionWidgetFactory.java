@@ -341,7 +341,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     }
                     jsonApi.setmJSONObject(mainJson);
 
-                    org.smartregister.anc.util.Utils.postEvent(
+                    Utils.postEvent(
                             new RefreshExpansionPanelEvent(itemValues, (LinearLayout) view.getTag(R.id.linearLayout)));
                 } catch (JSONException e) {
                     Log.i(TAG, Log.getStackTraceString(e));
