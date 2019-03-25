@@ -120,6 +120,7 @@ fields:
   - "dm_in_preg"
   - "hb_result"
   - "gest_age"
+  - "gest_age_openmrs"
   - "last_contact_date"
 ---
 form: anc_symptoms_follow_up
@@ -127,6 +128,7 @@ fields:
   - "calcium_supp"
   - "vita_supp"
   - "gest_age"
+  - "gest_age_openmrs"
   - "syphilis_positive"
   - "ifa_high_prev"
   - "shs_exposure"
@@ -176,6 +178,17 @@ fields:
   - "hepb_test_type"
   - "bmi"
   - "pallor"
+  - "blood_type_test_status"
+  - "hiv_test_partner_result"
+  - "hiv_test_status"
+  - "hiv_test_partner_status"
+  - "hepb_test_status"
+  - "hepc_test_status"
+  - "syph_test_status"
+  - "tb_screening_status"
+  - "hiv_positive"
+  - "syphilis_positive"
+  - "urine_test_status"
 ---
 form: anc_quick_check
 fields:

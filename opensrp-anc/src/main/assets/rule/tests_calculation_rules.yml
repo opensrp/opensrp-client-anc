@@ -121,23 +121,9 @@ actions:
 name: step1_hb_result
 description: hb_result
 priority: 1
-condition: "((step1_hb_test_type == 'complete_blood_count'))"
+condition: ""
 actions:
-- "calculation = step1_cbc"
----
-name: step1_hb_result
-description: hb_result
-priority: 1
-condition: "((step1_hb_test_type == 'hb_test_colour_scale'))"
-actions:
-- "calculation = step1_hb_colour"
----
-name: step1_hb_result
-description: hb_result
-priority: 1
-condition: "((step1_hb_test_type == 'hb_test_haemoglobinometer'))"
-actions:
-- "calculation = step1_hhb_gmeter"
+- "calculation = (step1_hb_test_type != '' && (step1_hb_test_type == 'complete_blood_count')) ? step1_cbc : (step1_hb_test_type != '' &&  (step1_hb_test_type == 'hb_test_colour_scale')) ? step1_hb_colour :  step1_hb_gmeter"
 ---
 name: step1_anaemic
 description: anaemic
