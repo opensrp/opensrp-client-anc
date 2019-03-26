@@ -223,25 +223,28 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
                                   CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
+        RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
+
+        Button recordButton = relativeLayout.findViewById(R.id.ok_button);
+        addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
+        recordButton.setOnClickListener(recordButtonClickListener);
+
+        Button undoButton = relativeLayout.findViewById(R.id.undo_button);
+        undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
+        undoButton.setTag(R.id.specify_context, context);
+        undoButton.setTag(R.id.specify_step_name, stepName);
+        undoButton.setTag(R.id.linearLayout, rootLayout);
+        undoButton.setOnClickListener(undoButtonClickListener);
+
         if (jsonObject.has(JsonFormConstants.VALUE)) {
             JSONArray value = jsonObject.optJSONArray(JsonFormConstants.VALUE);
             if (checkValuesContent(value)) {
-                RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
                 relativeLayout.setVisibility(View.VISIBLE);
 
-                Button recordButton = relativeLayout.findViewById(R.id.ok_button);
-                addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
-                recordButton.setOnClickListener(recordButtonClickListener);
-                Button undoButton = relativeLayout.findViewById(R.id.undo_button);
                 if (jsonObject.has(JsonFormConstants.VALUE)) {
                     undoButton.setVisibility(View.VISIBLE);
                 }
 
-                undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
-                undoButton.setTag(R.id.specify_context, context);
-                undoButton.setTag(R.id.specify_step_name, stepName);
-                undoButton.setTag(R.id.linearLayout, rootLayout);
-                undoButton.setOnClickListener(undoButtonClickListener);
             }
         }
     }
