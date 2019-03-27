@@ -174,7 +174,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
 
         try {
-            LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+            LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate );
 
             LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
 
@@ -471,7 +471,7 @@ public class Utils extends org.smartregister.util.Utils {
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
             buttonAlertStatus = StringUtils.isNotBlank(contactStatus) && Constants.ALERT_STATUS.ACTIVE
                     .equals(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS :
-                    AncApplication.getInstance().getRulesEngineHelper()
+                    AncApplication.getInstance().getAncRulesEngineHelper()
                             .getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
         } else {
             buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
