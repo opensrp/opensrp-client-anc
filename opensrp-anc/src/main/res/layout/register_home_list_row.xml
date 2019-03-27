@@ -85,6 +85,7 @@
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="bottom"
             android:paddingStart="0dp"
             android:paddingLeft="0dp"
             android:text="ID: 3034503"
@@ -100,6 +101,7 @@
         android:layout_height="@dimen/register_list_item_height"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
+        android:paddingBottom="5dp"
         android:layout_toLeftOf="@+id/due_button_wrapper"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical">
@@ -107,13 +109,14 @@
         <TextView
             android:id="@+id/risk"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:background="@drawable/grey_border"
             android:drawableLeft="@drawable/ic_red_flag"
             android:gravity="bottom"
+            android:paddingTop="5dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="5dp"
             android:text="2"
-            android:paddingStart="0dp"
-            android:paddingLeft="0dp"
             android:textColor="@color/dark_grey_text"
             android:textSize="16sp" />
 
@@ -124,6 +127,8 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_alignParentEnd="true"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="10dp"
