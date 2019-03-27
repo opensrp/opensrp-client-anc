@@ -212,7 +212,8 @@ public class Utils extends org.smartregister.util.Utils {
         String label;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL)) {
+            if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
+                    !" ".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
                 label = jsonObject.getString(JsonFormConstants.LABEL);
                 stringList.add(label + ":" + getStringValue(jsonObject));
             }
@@ -364,7 +365,7 @@ public class Utils extends org.smartregister.util.Utils {
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             if (isRefferal) {
                 int contactNo = Integer.parseInt(womanDetails.get(DBConstants.KEY.NEXT_CONTACT));
-                if (contactNo < 0){
+                if (contactNo < 0) {
                     contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
                             Integer.valueOf(contactNo));
                 } else {

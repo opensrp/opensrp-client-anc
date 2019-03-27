@@ -40,6 +40,7 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -460,12 +461,13 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             }
 
             String[] widgetValues = getWidgetType(iteratorValue);
-            if (widgetValues != null && widgetValues.length > 2) {
-                type = widgetValues[1] + ";" + widgetValues[2];
-                value = widgetValues[0];
-            } else if (widgetValues != null && widgetValues.length == 2) {
-                type = widgetValues[1];
-                value = widgetValues[0];
+            ArrayList<String> widgetValuesList = new ArrayList<>(Arrays.asList(widgetValues));
+            if (widgetValuesList.size() < 3){
+                widgetValuesList.add(" ");
+            }
+            if (widgetValuesList.size() > 2) {
+                type = widgetValuesList.get(1) + ";" + widgetValuesList.get(2);
+                value = widgetValuesList.get(0);
             }
 
             createSecondaryValues(key, type, value, openMRSAttributes, valueOpenMRSAttributes);
