@@ -1,7 +1,7 @@
 name: step1_preterm
 description: Preterm
 priority: 2
-condition: "(global_gest_age >= 37 && (step1_anc_close_reason == 'Live birth' || step1_anc_close_reason == 'Stillbirth'))"
+condition: "(global_gest_age_openmrs >= 37 && (step1_anc_close_reason == 'Live birth' || step1_anc_close_reason == 'Stillbirth'))"
 actions:
 - 'calculation = 1'
 ---
