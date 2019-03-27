@@ -94,13 +94,10 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/risk_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
-        android:layout_alignTop="@+id/patient_column"
-        android:layout_alignBottom="@+id/patient_column"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:layout_toLeftOf="@+id/due_button_wrapper"
@@ -110,16 +107,15 @@
         <TextView
             android:id="@+id/risk"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/grey_border"
             android:drawableLeft="@drawable/ic_red_flag"
             android:gravity="bottom"
-            android:paddingTop="5dp"
-            android:paddingRight="4dp"
-            android:paddingBottom="5dp"
             android:text="2"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
             android:textColor="@color/dark_grey_text"
-            android:textSize="17sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -127,8 +123,6 @@
         android:id="@+id/due_button_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
-        android:layout_alignTop="@+id/patient_column"
-        android:layout_alignBottom="@+id/patient_column"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
@@ -185,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:elevation="8dp"
+            android:elevation="8dp"  
             android:padding="@dimen/advanced_search_button_padding"
             android:stateListAnimator="@drawable/button"
             android:text="@string/sync"
