@@ -22,7 +22,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.rules.RuleConstant;
-import com.vijay.jsonwizard.rules.RulesEngineFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -81,6 +80,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             }
 
             rulesEngineFactory = new AncRulesEngineFactory(this, globalValues);
+            setRulesEngineFactory(rulesEngineFactory);
 
             confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
             confirmCloseMessage = getString(com.vijay.jsonwizard.R.string.confirm_form_close_explanation);
