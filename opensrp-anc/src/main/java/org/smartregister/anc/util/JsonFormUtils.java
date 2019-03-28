@@ -544,7 +544,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         event.setChildLocationId(LocationHelper.getInstance().getChildLocationId());
         event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
         event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
-        event.setVersion(BuildConfig.VERSION_CODE);
+        //event.setVersion(BuildConfig.EVENT_VERSION);
+        event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
         event.setClientDatabaseVersion(BuildConfig.DATABASE_VERSION);
         return event;
     }
