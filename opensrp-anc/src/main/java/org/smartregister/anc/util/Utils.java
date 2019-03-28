@@ -213,7 +213,7 @@ public class Utils extends org.smartregister.util.Utils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
-                    !" ".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
+                    !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
                 label = jsonObject.getString(JsonFormConstants.LABEL);
                 stringList.add(label + ":" + getStringValue(jsonObject));
             }
