@@ -338,28 +338,28 @@ actions:
 name: step4_increase_energy_counsel
 description: Increase daily energy and protein intake counseling
 priority: 1
-condition: "global_pop_undernourish == 1 && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
 actions:
 - "isRelevant = true"
 ---
 name: step4_accordion_increase_energy_counsel
 description: Increase daily energy and protein intake counseling
 priority: 1
-condition: "global_pop_undernourish == 1 && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
 actions:
 - "isRelevant = true"
 ---
 name: step4_balanced_energy_counsel
 description: Balanced energy and protein dietary supplementation counseling
 priority: 1
-condition: "global_pop_undernourish == 1 && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
 actions:
 - "isRelevant = true"
 ---
 name: step4_accordion_balanced_energy_counsel
 description: Balanced energy and protein dietary supplementation counseling
 priority: 1
-condition: "global_pop_undernourish == 1 && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
 actions:
 - "isRelevant = true"
 ---
@@ -422,21 +422,21 @@ actions:
 name: step5_syphilis_low_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
-condition: "global_syphilis_positive == 1 && global_pop_syphilis == 0"
+condition: "global_syphilis_positive == 1 && global_pop_syphilis == false"
 actions:
 - "isRelevant = true"
 ---
 name: step5_accordion_syphilis_low_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
-condition: "(global_syphilis_positive == 1 && global_pop_syphilis == 0) || (global_syphilis_positive == 1 && global_pop_syphilis == 1)"
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false) || (global_syphilis_positive == 1 && global_pop_syphilis == true)"
 actions:
 - "isRelevant = true"
 ---
 name: step5_syphilis_high_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
-condition: "global_syphilis_positive == 1 && global_pop_syphilis == 1"
+condition: "global_syphilis_positive == 1 && global_pop_syphilis == true"
 actions:
 - "isRelevant = true"
 ---
@@ -499,21 +499,21 @@ actions:
 name: step6_pe_risk_aspirin
 description: pe_risk_aspirin
 priority: 1
-condition: "(global_preeclampsia_risk == 1 && global_pop_low_calcium == 0) && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12)"
+condition: "(global_preeclampsia_risk == 1 && global_pop_low_calcium == false) && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12)"
 actions:
 - "isRelevant = true"
 ---
 name: step6_accordion_pe_risk_aspirin
 description: pe_risk_aspirin
 priority: 1
-condition: "(global_preeclampsia_risk == 1 && global_pop_low_calcium == 0) || (global_preeclampsia_risk == 1 && global_pop_low_calcium == 0)"
+condition: "(global_preeclampsia_risk == 1 && global_pop_low_calcium == false) || (global_preeclampsia_risk == 1 && global_pop_low_calcium == false)"
 actions:
 - "isRelevant = true"
 ---
 name: step6_pe_risk_aspirin_calcium
 description: pe_risk_aspirin_calcium
 priority: 1
-condition: "(global_preeclampsia_risk == 1 && global_pop_low_calcium == 0) && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12)"
+condition: "(global_preeclampsia_risk == 1 && global_pop_low_calcium == false) && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12)"
 actions:
 - "isRelevant = true"
 ---
@@ -527,14 +527,14 @@ actions:
 name: step6_accordion_hiv_risk_counsel
 description: hiv_risk_counsel
 priority: 1
-condition: "(global_hiv_risk == 1) || (global_pop_hiv_incidence == 1)"
+condition: "(global_hiv_risk == 1) || (global_pop_hiv_incidence == true)"
 actions:
 - "isRelevant = true"
 ---
 name: step6_hiv_prep
 description: hiv_prep
 priority: 1
-condition: "global_pop_hiv_incidence == 1"
+condition: "global_pop_hiv_incidence == true"
 actions:
 - "isRelevant = true"
 ---
@@ -611,49 +611,49 @@ actions:
 name: step8_ifa_high_prev
 description: ifa_high_prev
 priority: 1
-condition: "global_pop_anaemia_40 == 1 && global_anaemic == 0"
+condition: "global_pop_anaemia_40 == true && global_anaemic == 0"
 actions:
 - "isRelevant = true"
 ---
 name: step8_accordion_ifa_high_prev
 description: ifa_high_prev
 priority: 1
-condition: "(global_pop_anaemia_40 == 1 && global_anaemic == 0) || (global_pop_anaemia_40 == 0 && global_anaemic == 0) || (global_pop_anaemia_40 == 0 && global_anaemic == 0 && global_pop_anaemia_20 == 1 && global_ifa_effects == 'yes')"
+condition: "(global_pop_anaemia_40 == true && global_anaemic == 0) || (global_pop_anaemia_40 == false && global_anaemic == 0) || (global_pop_anaemia_40 == false && global_anaemic == 0 && global_pop_anaemia_20 == true && global_ifa_effects == 'yes')"
 actions:
 - "isRelevant = true"
 ---
 name: step8_ifa_low_prev
 description: ifa_low_prev
 priority: 1
-condition: "global_pop_anaemia_40 == 0 && global_anaemic == 0"
+condition: "global_pop_anaemia_40 == false && global_anaemic == 0"
 actions:
 - "isRelevant = true"
 ---
 name: step8_ifa_weekly
 description: ifa_weekly
 priority: 1
-condition: "global_pop_anaemia_40 == 0 && global_anaemic == 0 && global_pop_anaemia_20 == 1 && global_ifa_effects == 'yes'"
+condition: "global_pop_anaemia_40 == false && global_anaemic == 0 && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
 actions:
 - "isRelevant = true"
 ---
 name: step8_deworm
 description: deworm
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && global_pop_anaemia_40 == 1 && global_pop_helminth == 1"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && global_pop_anaemia_40 == true && global_pop_helminth == true"
 actions:
 - "isRelevant = true"
 ---
 name: step8_accordion_deworm
 description: deworm
 priority: 1
-condition: "(global_pop_anaemia_40 == 1 && global_pop_helminth == 1) || (global_pop_malaria == 1 && !global_medications.contains('cotrimoxazole')) || (global_pop_malaria == 1)"
+condition: "(global_pop_anaemia_40 == true && global_pop_helminth == true) || (global_pop_malaria == true && !global_medications.contains('cotrimoxazole')) || (global_pop_malaria == true)"
 actions:
 - "isRelevant = true"
 ---
 name: step8_iptp_sp1
 description: iptp_sp1
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_malaria == 1 && !global_medications.contains('cotrimoxazole'))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_malaria == true && !global_medications.contains('cotrimoxazole'))"
 actions:
 - "isRelevant = true"
 ---
@@ -674,7 +674,7 @@ actions:
 name: step8_iptp_sp_toaster
 description: iptp_sp_toaster
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && global_pop_malaria == 1 && !global_medications.contains('cotrimoxazole')"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && global_pop_malaria == true && !global_medications.contains('cotrimoxazole')"
 actions:
 - "isRelevant = true"
 ---
@@ -688,7 +688,7 @@ actions:
 name: step8_malaria_counsel
 description: malaria_counsel
 priority: 1
-condition: "global_pop_malaria == 1"
+condition: "global_pop_malaria == true"
 actions:
 - "isRelevant = true"
 ---
@@ -849,27 +849,27 @@ actions:
 name: step8_calcium_supp
 description: calcium_supp
 priority: 1
-condition: "global_pop_low_calcium == 1 "
+condition: "global_pop_low_calcium == true "
 actions:
 - "isRelevant = true"
 ---
 name: step8_accordion_calcium_supp
 description: calcium_supp
 priority: 1
-condition: "global_pop_low_calcium == 1 "
+condition: "global_pop_low_calcium == true "
 actions:
 - "isRelevant = true"
 ---
 name: step8_vita_supp
 description: vita_supp
 priority: 1
-condition: "global_pop_vita == 1 "
+condition: "global_pop_vita == true "
 actions:
 - "isRelevant = true"
 ---
 name: step8_accordion_vita_supp
 description: vita_supp
 priority: 1
-condition: "global_pop_vita == 1 "
+condition: "global_pop_vita == true "
 actions:
 - "isRelevant = true"
