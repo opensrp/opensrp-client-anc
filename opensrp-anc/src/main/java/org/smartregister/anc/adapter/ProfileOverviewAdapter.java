@@ -76,7 +76,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             holder.sectionDetailTitle.setText(template.title);
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
 
-            if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
+            if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
                 holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
                 holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_red));
             } else {

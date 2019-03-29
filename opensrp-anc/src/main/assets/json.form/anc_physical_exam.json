@@ -1824,20 +1824,13 @@
         "label": "Fetal heartbeat present?",
         "label_text_style": "bold",
         "text_color": "#000000",
-        "extra_rel": true,
-        "has_extra_rel": "yes",
         "options": [
           {
             "key": "yes",
             "text": "Yes",
             "value": false,
             "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "specify_info": "specify fetal heart rate (bpm)...",
-            "specify_widget": "normal_edit_text",
-            "specify_info_color": "#8C8C8C",
-            "secondary_suffix": "bpm",
-            "content_form": "fetal_heartbeat_sub_form"
+            "openmrs_entity_id": ""
           },
           {
             "key": "no",
@@ -1853,17 +1846,51 @@
         }
       },
       {
-        "key": "fetal_heart_beat_rate_value",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
+        "key": "fetal_heart_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify if fetal heartbeat is present."
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
+        }
+      },
+      {
+        "key": "fetal_heart_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Fetal heart rate",
+        "openmrs_entity_id": "1440",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_min": {
+          "value": "80",
+          "err": "Fetal heartbeat must be equal or greater than 80"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Fetal heartbeat must be less than or equal to 200"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify if fetal heartbeat is present."
         }
       },
       {

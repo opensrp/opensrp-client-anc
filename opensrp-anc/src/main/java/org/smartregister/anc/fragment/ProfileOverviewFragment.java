@@ -85,7 +85,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 for (YamlConfigItem configItem : configItems) {
 
-                    if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                    if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
                         yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                         valueCount += 1;
                     }
