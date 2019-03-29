@@ -175,7 +175,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 goBackButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        displayContactSaveDialog();
+                        quickCheckClose();
                     }
                 });
             } else {
@@ -195,14 +195,14 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      *
      * @author dubdabasoduba
      */
-    private void displayContactSaveDialog() {
+    private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle())
                 .setMessage(getJsonApi().getConfirmCloseMessage())
                 .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        backClick();
+                        ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck();
                     }
                 }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
