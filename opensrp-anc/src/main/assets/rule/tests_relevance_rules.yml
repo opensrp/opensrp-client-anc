@@ -9,7 +9,7 @@ actions:
 name: step1_ultrasound_date
 description: Date that the ultrasound was done.
 priority: 1
-condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+condition: "(step1_ultrasound == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -128,7 +128,7 @@ actions:
 name: step1_hepb_test_date
 description: Hep B test date
 priority: 1
-condition: "(step1_hepb_test_status == 'done_today' || step1_hepb_test_status == 'done_earlier')"
+condition: "(step1_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -191,7 +191,7 @@ actions:
 name: step1_hepc_test_date
 description: Hep C test date
 priority: 1
-condition: "(step1_hepc_test_status == 'done_today' || step1_hepc_test_status == 'done_earlier')"
+condition: "(step1_hepc_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -268,7 +268,7 @@ actions:
 name: step1_syphilis_test_date
 description: Syphilis test date
 priority: 1
-condition: "step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier'"
+condition: "step1_syph_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
@@ -324,7 +324,7 @@ actions:
 name: step1_urine_test_date
 description: Urine test date
 priority: 1
-condition: "step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier'"
+condition: "step1_urine_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
@@ -401,7 +401,7 @@ actions:
 name: step1_glucose_test_date
 description: Blood glucose test date.
 priority: 1
-condition: "step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier'"
+condition: "step1_glucose_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
@@ -485,7 +485,7 @@ actions:
 name: step1_hb_test_date
 description: hb_test_date
 priority: 1
-condition: "step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier'"
+condition: "step1_hb_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
@@ -576,7 +576,7 @@ actions:
 name: step1_blood_type_test_date
 description: blood_type_test_date
 priority: 1
-condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_test_status == 'done_earlier')"
+condition: "(step1_blood_type_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---

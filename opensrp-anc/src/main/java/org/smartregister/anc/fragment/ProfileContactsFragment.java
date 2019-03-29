@@ -119,7 +119,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             List<YamlConfigItem> configItems = yamlConfig.getFields();
 
             for (YamlConfigItem configItem : configItems) {
-                if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
                     yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                     valueCount += 1;
                 }
@@ -139,7 +139,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                if (AncApplication.getInstance().getRulesEngineHelper()
+                if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
