@@ -52,6 +52,20 @@
       }
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "tt1_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "tt1_date_done",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -114,6 +128,20 @@
       }
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "tt2_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "tt2_date_done",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -171,6 +199,20 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "tt3_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
           }
         }
       }
@@ -358,6 +400,20 @@
       }
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "hepb1_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "hepb1_date_done",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -422,6 +478,20 @@
       }
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "hepb2_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "hepb2_date_done",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -481,6 +551,20 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "hepb3_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
           }
         }
       }
@@ -627,6 +711,30 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "flu_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date that gets recorded for flu dose.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
           }
         }
       }
