@@ -41,6 +41,7 @@ public abstract class Constants {
     public static final String FORM_SUBMISSION_IDS = "form_submission_ids";
     public static final String REFERRAL = "referral";
     public static final String GEST_AGE = "gest_age";
+    public static final String WOM_IMAGE = "wom_image";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";

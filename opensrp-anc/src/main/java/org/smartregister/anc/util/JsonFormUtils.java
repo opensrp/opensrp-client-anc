@@ -62,6 +62,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    public static final SimpleDateFormat EDD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final String READ_ONLY = "read_only";
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
@@ -345,7 +346,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String homeAddress = womanClient.get(DBConstants.KEY.HOME_ADDRESS);
             jsonObject.put(JsonFormUtils.VALUE, homeAddress);
 
-        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
+        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.WOM_IMAGE)) {
             getPhotoFieldValue(womanClient, jsonObject);
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB_UNKNOWN)) {
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
@@ -359,7 +360,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.EDD)) {
-            getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.EDD);
+            formatEdd(womanClient, jsonObject, DBConstants.KEY.EDD);
 
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
@@ -372,13 +373,23 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String edd)
+    private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String birthDate)
     throws JSONException {
-        String dobString = womanClient.get(edd);
+        String dobString = womanClient.get(birthDate);
         if (StringUtils.isNotBlank(dobString)) {
             Date dob = Utils.dobStringToDate(dobString);
             if (dob != null) {
                 jsonObject.put(JsonFormUtils.VALUE, DATE_FORMAT.format(dob));
+            }
+        }
+    }
+
+    private static void formatEdd(Map<String, String> womanClient, JSONObject jsonObject, String eddDate) throws JSONException {
+        String eddString = womanClient.get(eddDate);
+        if (StringUtils.isNotBlank(eddString)) {
+            Date edd = Utils.dobStringToDate(eddString);
+            if (edd != null) {
+                jsonObject.put(JsonFormUtils.VALUE, EDD_DATE_FORMAT.format(edd));
             }
         }
     }

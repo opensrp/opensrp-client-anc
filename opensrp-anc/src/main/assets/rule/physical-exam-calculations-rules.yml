@@ -110,10 +110,3 @@ priority: 1
 condition: "(step4_no_of_fetuses >= 2) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('convulsions') || global_prev_preg_comps.contains('pre_eclampsia_eclampsia'))) || (!global_health_conditions.isEmpty() && (global_health_conditions.contains('autoimmune_disease') || global_health_conditions.contains('diabetes') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease')))"
 actions:
 - "calculation = 1"
----
-name: step4_fetal_heart_beat_rate_value
-description: fetal_heart_beat_rate_value
-priority: 1
-condition: "step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160)"
-actions:
-- "calculation = step4_fetal_heart_rate"
