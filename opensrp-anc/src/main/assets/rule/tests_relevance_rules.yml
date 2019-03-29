@@ -660,7 +660,91 @@ actions:
 name: step2_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_previous_ultrasound == '' && global_contact_no > 1)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1)"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_notdone
+description: Ultrasound not done reason
+priority: 1
+condition: "step2_ultrasound == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_date
+description: Date that the ultrasound was done.
+priority: 1
+condition: "(step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_gest_age_wks
+description: GA from ultrasound - weeks
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_done_early_toaster
+description: Early ultrasound done!
+priority: 1
+condition: "((step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && step2_ultrasound_gest_age_wks < 24)"
+actions:
+- "isRelevant = true"
+---
+name: step2_no_of_fetuses_label
+description: No. of fetuses
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_no_of_fetuses
+description: No. of fetuses
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_pre_eclampsia_toaster
+description: Pre-eclampsia risk counseling
+priority: 1
+condition: "step2_preeclampsia_risk == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_fetal_presentation
+description: Fetal presentation
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_amniotic_fluid
+description: Amniotic fluid
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_placenta_location
+description: Placenta location
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_select_gest_age_edd
+description: Select preferred gestational age
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_fetal_presentation
+description: Early ultrasound done!
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
