@@ -40,7 +40,6 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -320,7 +319,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     }
 
 
-
     private JSONArray reverseValues(JSONArray jsonArray) throws JSONException {
         JSONArray newJsonArray = new JSONArray();
         for (int i = jsonArray.length() - 1; i >= 0; i--) {
@@ -461,13 +459,12 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             }
 
             String[] widgetValues = getWidgetType(iteratorValue);
-            ArrayList<String> widgetValuesList = new ArrayList<>(Arrays.asList(widgetValues));
-            if (widgetValuesList.size() < 3){
-                widgetValuesList.add(" ");
-            }
-            if (widgetValuesList.size() > 2) {
-                type = widgetValuesList.get(1) + ";" + widgetValuesList.get(2);
-                value = widgetValuesList.get(0);
+            if (widgetValues != null && widgetValues.length > 2) {
+                type = widgetValues[1] + ";" + widgetValues[2];
+                value = widgetValues[0];
+            } else if (widgetValues != null && widgetValues.length == 2) {
+                type = widgetValues[1];
+                value = widgetValues[0];
             }
 
             createSecondaryValues(key, type, value, openMRSAttributes, valueOpenMRSAttributes);
@@ -482,9 +479,12 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         values.put(value);
         String[] string = splitText(labelType, ";");
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            if (string.length > 1) {
+            if (string.length >= 1) {
                 String type = string[0];
-                String label = string[1];
+                String label;
+                if (JsonFormConstants.HIDDEN.equals(type)){
+                    label= "";
+                } else { label = string[1];}
                 if (type != null && type.equals(JsonFormConstants.CHECK_BOX)) {
                     if (popAssignedValue != null && popAssignedValue.containsKey(key)) {
                         setValueModelAttributes(key, value, openMRSAttributes, valueOpenMRSAttributes);

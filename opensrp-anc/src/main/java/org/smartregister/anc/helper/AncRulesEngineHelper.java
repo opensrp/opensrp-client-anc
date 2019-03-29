@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.rules.RulesEngineHelper;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
@@ -29,14 +30,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class RulesEngineHelper {
+public class AncRulesEngineHelper extends RulesEngineHelper {
     private Context context;
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
     private final String RULE_FOLDER_PATH = "rule/";
 
-    public RulesEngineHelper(Context context) {
+    public AncRulesEngineHelper(Context context) {
         this.context = context;
         this.inferentialRulesEngine = new InferenceRulesEngine();
         RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstAppliedRule(true);

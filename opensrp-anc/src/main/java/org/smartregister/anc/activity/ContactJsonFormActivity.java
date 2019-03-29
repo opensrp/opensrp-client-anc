@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -34,12 +37,14 @@ import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
+import org.smartregister.anc.helper.AncRulesEngineFactory;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.anc.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,7 +59,39 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private Utils utils = new Utils();
     private String TAG = this.getClass().getSimpleName();
-    private String formName;
+    protected AncRulesEngineFactory rulesEngineFactory = null;
+
+    private String formName;public void init(String json) {
+        try {
+            mJSONObject = new JSONObject(json);
+            if (!mJSONObject.has("encounter_type")) {
+                mJSONObject = new JSONObject();
+                throw new JSONException("Form encounter_type not set");
+            }
+
+            //populate them global values
+            if (mJSONObject.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+                globalValues = new Gson()
+                        .fromJson(mJSONObject.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
+                                new TypeToken<HashMap<String, String>>() {
+                                }.getType());
+            } else {
+                globalValues = new HashMap<>();
+            }
+
+            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues);
+            setRulesEngineFactory(rulesEngineFactory);
+
+            confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
+            confirmCloseMessage = getString(com.vijay.jsonwizard.R.string.confirm_form_close_explanation);
+            localBroadcastManager = LocalBroadcastManager.getInstance(this);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Initialization error. Json passed is invalid : " + e.getMessage(), e);
+        }
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
