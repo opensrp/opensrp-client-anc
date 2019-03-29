@@ -81,7 +81,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             boolean isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
             ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
-            List<Integer> integerList = AncApplication.getInstance().getRulesEngineHelper()
+            List<Integer> integerList = AncApplication.getInstance().getAncRulesEngineHelper()
                     .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
             int nextContactVisitWeeks = integerList.get(0);
@@ -244,7 +244,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                if (AncApplication.getInstance().getRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                     Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
 

@@ -20,7 +20,7 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.helper.RulesEngineHelper;
+import org.smartregister.anc.helper.AncRulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -72,7 +72,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private String password;
     private PartialContactRepository partialContactRepository;
     private PreviousContactRepository previousContactRepository;
-    private RulesEngineHelper rulesEngineHelper;
+    private AncRulesEngineHelper ancRulesEngineHelper;
     private JSONObject defaultContactFormGlobals = new JSONObject();
     private Yaml yaml;
     private Gson gson;
@@ -225,11 +225,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return uniqueIdRepository;
     }
 
-    public RulesEngineHelper getRulesEngineHelper() {
-        if (rulesEngineHelper == null) {
-            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+    public AncRulesEngineHelper getAncRulesEngineHelper() {
+        if (ancRulesEngineHelper == null) {
+            ancRulesEngineHelper = new AncRulesEngineHelper(getApplicationContext());
         }
-        return rulesEngineHelper;
+        return ancRulesEngineHelper;
     }
 
     public ECSyncHelper getEcSyncHelper() {
