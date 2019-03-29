@@ -156,7 +156,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
 
                             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                                if (AncApplication.getInstance().getRulesEngineHelper()
+                                if (AncApplication.getInstance().getAncRulesEngineHelper()
                                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                                     attentionFlagList
