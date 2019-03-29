@@ -85,6 +85,7 @@
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="bottom"
             android:paddingStart="0dp"
             android:paddingLeft="0dp"
             android:text="ID: 3034503"
@@ -94,15 +95,13 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/risk_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
-        android:layout_alignTop="@+id/patient_column"
-        android:layout_alignBottom="@+id/patient_column"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
+        android:paddingBottom="5dp"
         android:layout_toLeftOf="@+id/due_button_wrapper"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical">
@@ -115,11 +114,11 @@
             android:drawableLeft="@drawable/ic_red_flag"
             android:gravity="bottom"
             android:paddingTop="5dp"
-            android:paddingRight="4dp"
+            android:paddingEnd="4dp"
             android:paddingBottom="5dp"
             android:text="2"
             android:textColor="@color/dark_grey_text"
-            android:textSize="17sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -127,9 +126,9 @@
         android:id="@+id/due_button_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
-        android:layout_alignTop="@+id/patient_column"
-        android:layout_alignBottom="@+id/patient_column"
         android:layout_alignParentEnd="true"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="10dp"
@@ -185,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:elevation="8dp"
+            android:elevation="8dp"  
             android:padding="@dimen/advanced_search_button_padding"
             android:stateListAnimator="@drawable/button"
             android:text="@string/sync"

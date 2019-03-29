@@ -638,4 +638,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         ContactJsonFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
     }
+
+    /**
+     * Stops the ContactJsonForm activity and move to the main register page
+     *
+     * @author dubdabasoduba
+     */
+    public void finishInitialQuickCheck(){
+        ContactJsonFormActivity.this.finish();
+    }
 }
