@@ -721,7 +721,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Date that gets recorded for flu dose.",
+      "hint": "Date flu dose was given",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
