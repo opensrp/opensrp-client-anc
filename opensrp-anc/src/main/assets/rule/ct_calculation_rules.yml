@@ -180,3 +180,73 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = (step8_vita_supp == "done" ? "Vitamin A supplement" : "") '
+---
+name: step8_iptp_sp1_dose_number
+description: iptp_sp1_dose_number
+priority: 1
+condition: "step8_iptp_sp1 == '' && step8_iptp_sp1 == 'done'"
+actions:
+- "calculation = 1"
+---
+name: step8_iptp_sp2_dose_number
+description: iptp_sp2_dose_number
+priority: 1
+condition: "step8_iptp_sp2 == '' && step8_iptp_sp2 == 'done'"
+actions:
+- "calculation = 2"
+---
+name: step8_iptp_sp3_dose_number
+description: iptp_sp3_dose_number
+priority: 1
+condition: "step8_iptp_sp3 == '' && step8_iptp_sp3 == 'done'"
+actions:
+- "calculation = 3"
+---
+name: step8_tt1_dose_number
+description: tt1_dose_number
+priority: 1
+condition: "step8_tt1_date != '' && step8_tt1_date != 'not_done'"
+actions:
+- "calculation = 1"
+---
+name: step8_tt2_dose_number
+description: tt2_dose_number
+priority: 1
+condition: "step8_tt2_date != '' && step8_tt2_date != 'not_done'"
+actions:
+- "calculation = 2"
+---
+name: step8_tt3_dose_number
+description: tt3_dose_number
+priority: 1
+condition: "step8_tt3_date != '' && step8_tt3_date != 'not_done'"
+actions:
+- "calculation = 3"
+---
+name: step8_hepb1_dose_number
+description: hepb1_dose_number
+priority: 1
+condition: "step8_hepb1_date != '' && step8_hepb1_date != 'not_done'"
+actions:
+- "calculation = 1"
+---
+name: step8_hepb2_dose_number
+description: hepb2_dose_number
+priority: 1
+condition: "step8_hepb2_date != '' && step8_hepb2_date != 'not_done'"
+actions:
+- "calculation = 2"
+---
+name: step8_hepb3_dose_number
+description: hepb3_dose_number
+priority: 1
+condition: "step8_hepb3_date != '' && step8_hepb3_date != 'not_done'"
+actions:
+- "calculation = 3"
+---
+name: step8_flu_date_done
+description: Date flu dose was given
+priority: 1
+condition: "step8_flu_date != '' && (step8_flu_date == 'done_today' || step8_flu_date == 'done_earlier')"
+actions:
+- "calculation = helper.getDateToday()"

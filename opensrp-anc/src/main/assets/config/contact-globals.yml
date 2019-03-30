@@ -150,7 +150,6 @@ fields:
   - "urine_protein"
   - "gest_age"
   - "gest_age_openmrs"
-  - "ultrasound_done_date"
   - "no_of_fetuses"
   - "fetal_presentation"
   - "ultrasound_done_date"
