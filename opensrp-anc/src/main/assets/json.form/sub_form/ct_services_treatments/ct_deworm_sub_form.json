@@ -139,6 +139,20 @@
       }
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "iptp_sp1_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "iptp_sp1_date",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -190,6 +204,20 @@
       }
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "iptp_sp2_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "iptp_sp2_date",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -238,6 +266,20 @@
       "v_required": {
         "value": true,
         "err": "Please select and option"
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "iptp_sp3_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -434,9 +476,6 @@
       "openmrs_entity_id": "",
       "key": "alben_meben",
       "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#FF0000",
       "calculation": {
         "rules-engine": {
           "ex-rules": {
@@ -451,9 +490,6 @@
       "openmrs_entity_id": "",
       "key": "sp",
       "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#FF0000",
       "calculation": {
         "rules-engine": {
           "ex-rules": {

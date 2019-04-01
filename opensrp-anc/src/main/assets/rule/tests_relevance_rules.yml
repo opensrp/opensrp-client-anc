@@ -86,7 +86,7 @@ actions:
 name: step1_hiv_test_status
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == 1 && global_hiv_positive != 1)"
+condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1)"
 actions:
 - "isRelevant = true"
 ---
@@ -177,7 +177,7 @@ actions:
 name: step1_hepc_test_status
 description: Hepatitis C test
 priority: 1
-condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
+condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == true) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
 actions:
 - "isRelevant = true"
 ---
@@ -240,14 +240,14 @@ actions:
 name: step1_syphilis_greater_5_toaster
 description: syphilis_greater_5_toaster
 priority: 1
-condition: "global_pop_syphilis == 1 && global_pop_syphilis != ''"
+condition: "global_pop_syphilis == true && global_pop_syphilis != ''"
 actions:
 - "isRelevant = true"
 ---
 name: step1_syphilis_below_5_toaster
 description: syphilis_below_5_toaster
 priority: 1
-condition: "global_pop_syphilis == 0 && global_pop_syphilis != ''"
+condition: "global_pop_syphilis == false && global_pop_syphilis != ''"
 actions:
 - "isRelevant = true"
 ---
@@ -569,7 +569,7 @@ actions:
 name: step1_tb_screening_status
 description: tb_screening_status
 priority: 1
-condition: "step1_hiv_positive == 1 || global_pop_tb == 1"
+condition: "step1_hiv_positive == 1 || global_pop_tb == true"
 actions:
 - "isRelevant = true"
 ---
@@ -597,7 +597,7 @@ actions:
 name: step1_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == 1 && global_hiv_positive != 1) && (global_gest_age_openmrs >= 28 || global_contact_no == 1)"
+condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_gest_age_openmrs >= 28 || global_contact_no == 1)"
 actions:
 - "isRelevant = true"
 ---
@@ -611,7 +611,7 @@ actions:
 name: step1_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker')))) && global_contact_no == 1"
+condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == true) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker')))) && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -639,7 +639,7 @@ actions:
 name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(step1_hiv_positive == 1 || global_pop_tb == 1) && global_contact_no == 1"
+condition: "(step1_hiv_positive == 1 || global_pop_tb == true) && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -660,14 +660,98 @@ actions:
 name: step2_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_previous_ultrasound == '' && global_contact_no > 1)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1)"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_notdone
+description: Ultrasound not done reason
+priority: 1
+condition: "step2_ultrasound == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_date
+description: Date that the ultrasound was done.
+priority: 1
+condition: "(step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_gest_age_wks
+description: GA from ultrasound - weeks
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_ultrasound_done_early_toaster
+description: Early ultrasound done!
+priority: 1
+condition: "((step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && step2_ultrasound_gest_age_wks < 24)"
+actions:
+- "isRelevant = true"
+---
+name: step2_no_of_fetuses_label
+description: No. of fetuses
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_no_of_fetuses
+description: No. of fetuses
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_pre_eclampsia_toaster
+description: Pre-eclampsia risk counseling
+priority: 1
+condition: "step2_preeclampsia_risk == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_fetal_presentation
+description: Fetal presentation
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_amniotic_fluid
+description: Amniotic fluid
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_placenta_location
+description: Placenta location
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_select_gest_age_edd
+description: Select preferred gestational age
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_fetal_presentation
+description: Early ultrasound done!
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == 1 && global_hiv_positive != 1) && (global_previous_hiv_test_status == '' && global_contact_no > 1)"
+condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_previous_hiv_test_status == '' && global_contact_no > 1)"
 actions:
 - "isRelevant = true"
 ---
@@ -681,7 +765,7 @@ actions:
 name: step2_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))  && global_contact_no > 1 && global_previous_hepc_test_status == '' "
+condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == true) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))  && global_contact_no > 1 && global_previous_hepc_test_status == '' "
 actions:
 - "isRelevant = true"
 ---
@@ -695,7 +779,7 @@ actions:
 name: step2_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(global_hiv_positive == 1 || global_pop_tb == 1) && global_contact_no > 1 && global_previous_tb_screening_status == ''"
+condition: "(global_hiv_positive == 1 || global_pop_tb == true) && global_contact_no > 1 && global_previous_tb_screening_status == ''"
 actions:
 - "isRelevant = true"
 ---
