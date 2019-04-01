@@ -309,7 +309,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                                                 item.getString(JsonFormConstants.VALUE) : value : value);
                     }
 
-                    formUtils.addOpenmrsAttributes(openMrsEntityParent, openMrsEntity, openMrsEntityId, item);
+                    formUtils.addOpenMRSAttributes(openMrsEntityParent, openMrsEntity, openMrsEntityId, item);
 
                     invokeRefreshLogic(value, popup, parentKey, null);
                     return;
@@ -345,7 +345,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                         JSONObject concepts = new JSONObject();
                         String optionOpenMRSConceptId = openmrsChoiceIds.get(spinnerKey).toString();
                         concepts.put(JsonFormConstants.KEY, value);
-                        formUtils.addOpenmrsAttributes(item.getString(JsonFormConstants.OPENMRS_ENTITY_PARENT),
+                        formUtils.addOpenMRSAttributes(item.getString(JsonFormConstants.OPENMRS_ENTITY_PARENT),
                                 item.getString(JsonFormConstants.OPENMRS_ENTITY), optionOpenMRSConceptId, concepts);
                         valueOpenMRSAttributes.put(concepts);
                     }
@@ -456,7 +456,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     }
                 }
             }
-
 
             ((ContactJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
         }

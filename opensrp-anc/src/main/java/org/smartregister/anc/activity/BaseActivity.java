@@ -63,7 +63,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     @Override
     public void launchSiteCharacteristicsSettingsForm() {
-
         JsonFormUtils.launchSiteCharacteristicsForm(this);
     }
 

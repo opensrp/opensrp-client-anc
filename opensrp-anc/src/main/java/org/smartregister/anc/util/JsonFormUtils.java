@@ -604,9 +604,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             for (int i = 0; i < fields.length(); i++) {
                 if (!"label".equals(fields.getJSONObject(i).getString(Constants.KEY.TYPE))) {
-                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY),
-                            StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" :
-                                    fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields.getJSONObject(i).getString(Constants.KEY.VALUE));
                 }
 
             }
