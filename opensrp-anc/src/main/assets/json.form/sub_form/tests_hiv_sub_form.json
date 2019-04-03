@@ -45,7 +45,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "HIV test status is required."
       },
       "relevance": {
         "rules-engine": {
@@ -136,19 +137,14 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "HIV test date*",
+      "hint": "HIV test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:hiv_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "calculation": {
@@ -195,7 +191,8 @@
         }
       ],
       "v_required": {
-        "value": false
+        "value": true,
+        "err": "Please record the result"
       },
       "relevance": {
         "step1:hiv_test_status": {
@@ -248,7 +245,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "HIV positive counseling",
-      "toaster_info_text": "- Refer for further testing and confirmation\n\n- Refer for HIV services\n\n- Advise on opportunistic infections and need to seek medical help\n\n- Proceed with systematic screening for active TB",
+      "toaster_info_text": "- Refer for further testing and confirmation\n- Refer for HIV services\n- Advise on opportunistic infections and need to seek medical help\n- Proceed with systematic screening for active TB",
       "toaster_info_title": "HIV positive counseling",
       "toaster_type": "problem",
       "relevance": {

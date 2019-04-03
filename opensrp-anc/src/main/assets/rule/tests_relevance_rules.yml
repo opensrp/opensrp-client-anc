@@ -13,6 +13,13 @@ condition: "(step1_ultrasound == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
+name: step1_hiv_test_date
+description: Date that the ultrasound was done.
+priority: 1
+condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'done_earlier' "
+actions:
+- "isRelevant = true"
+---
 name: step1_ultrasound_gest_age_wks
 description: GA from ultrasound - weeks
 priority: 1
@@ -86,14 +93,14 @@ actions:
 name: step1_hiv_test_status
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1)"
+condition: "(global_pop_hiv_prevalence == true && (global_hiv_positive != '' && global_hiv_positive != 1))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(global_hiv_positive == 1)"
+condition: "(step1_hiv_positive == 1)"
 actions:
 - "isRelevant = true"
 ---

@@ -2,42 +2,49 @@
 name: step1_ultrasound_date
 description: Date that the ultrasound was done..
 priority: 1
-condition: "global_ultrasound_done_date != ''"
+condition: "(global_ultrasound_done_date != '') && (step1_ultrasound_date == '') && (step1_ultrasound == 'done_earlier')"
 actions:
 - "calculation = global_ultrasound_done_date"
 ---
 name: step1_ultrasound_gest_age_wks
 description: GA from ultrasound - weeks
 priority: 1
-condition: "global_ultrasound_gest_age_wks != ''"
+condition: "global_ultrasound_gest_age_wks != '' && step1_ultrasound_gest_age_wks == ''"
 actions:
 - "calculation = global_ultrasound_gest_age_wks"
+---
+name: step1_ultrasound_gest_age
+description: GA from ultrasound - weeks
+priority: 2
+condition: "step1_ultrasound_edd != '' "
+actions:
+- "calculation = helper.getWeeksAndDaysFromDays( 280 - helper.getDifferenceDays(helper.getSecondaryValue(step1_ultrasound_edd)) - 1 )"
 ---
 name: step1_ultrasound_edd
 description: EDD calculated from ultrasound results.
 priority: 1
 condition: "step1_ultrasound_date != '' && step1_ultrasound_gest_age_wks > 0"
 actions:
-- "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_done_date), ( (280 - (step2_ultrasound_gest_age_wks * 7) ) +'d'))"
+- "calculation = helper.addDuration(helper.getSecondaryValue(step1_ultrasound_date), ( (280 - (step1_ultrasound_gest_age_wks * 7) ) +'d'))"
 ---
 name: step1_select_gest_age_edd
 description: Gest age
 priority: 1
 condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
 actions:
-- "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':global_ultrasound_gest_age,'ultrasound_edd':global_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+- "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
 ---
 name: step1_no_of_fetuses
 description: No. of fetuses
 priority: 1
-condition: "global_no_of_fetuses != ''"
+condition: "global_no_of_fetuses != '' && step1_no_of_fetuses == ''"
 actions:
 - "calculation = global_no_of_fetuses"
 ---
 name: step1_fetal_presentation
 description: Fetal presentation
 priority: 1
-condition: "global_fetal_presentation != ''"
+condition: "global_fetal_presentation != '' && step1_fetal_presentation == ''"
 actions:
 - "calculation = global_fetal_presentation"
 ---
@@ -51,7 +58,7 @@ actions:
 name: step1_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step1_hiv_test_result == 'positive') || global_health_conditions.contains('hiv')"
+condition: "(step1_hiv_test_result == 'positive') || global_health_conditions.contains('hiv') || (global_hiv_positive != '' && global_hiv_positive == 1)"
 actions:
 - "calculation = 1"
 ---
@@ -228,7 +235,7 @@ description: EDD calculated from ultrasound results.
 priority: 1
 condition: "step2_ultrasound_date != '' && step2_ultrasound_gest_age_wks > 0"
 actions:
-- "calculation = helper.addDuration(helper.getSecondaryValue(global_ultrasound_done_date), ( (280 - (global_ultrasound_gest_age_wks * 7) ) +'d'))"
+- "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_date), ( (280 - (step2_ultrasound_gest_age_wks * 7) ) +'d'))"
 ---
 name: step2_select_gest_age_edd
 description: Gest age
