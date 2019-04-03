@@ -72,77 +72,102 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     @Override
     public void finalizeContactForm(final Map<String, String> details) {
 
-        try {
+        if (details != null) {
+            try {
 
-            String baseEntityId = details.get(DBConstants.KEY.BASE_ENTITY_ID);
+                String referral = details.get(Constants.REFERRAL);
+                String baseEntityId = details.get(DBConstants.KEY.BASE_ENTITY_ID);
 
-            int gestationAge = getGestationAge(details);
+                int gestationAge = getGestationAge(details);
+                int nextContact;
+                JSONObject jsonObject = new JSONObject();
+                boolean isFirst = false;
+                String nextContactVisitDate;
+                if (referral == null) {
+                    isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
+                    ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
-            boolean isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
-            ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
+                    List<Integer> integerList = AncApplication.getInstance().getAncRulesEngineHelper()
+                            .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
-            List<Integer> integerList = AncApplication.getInstance().getAncRulesEngineHelper()
-                    .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+                    int nextContactVisitWeeks = integerList.get(0);
 
-            int nextContactVisitWeeks = integerList.get(0);
+                    jsonObject = new JSONObject();
+                    jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
+                    //convert String to LocalDate ;
+                    LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
+                    nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS)
+                            .plusWeeks(nextContactVisitWeeks)
+                            .toString();
+                    nextContact = getNextContact(details);
+                } else {
+                    nextContact = Integer.parseInt(details.get(DBConstants.KEY.NEXT_CONTACT));
+                    nextContactVisitDate = details.get(DBConstants.KEY.NEXT_CONTACT_DATE);
+                }
 
-            //convert String to LocalDate ;
-            LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
-            String nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS)
-                    .plusWeeks(nextContactVisitWeeks).toString();
-            int nextContact;
-            String referral = details.get(Constants.REFERRAL);
-            if (referral != null && "-".contains(referral)){
-              nextContact  = Integer.valueOf(referral.replace("-",""));
-            } else {
-                nextContact  = getNextContact(details);
+                AncApplication.getInstance().getDetailsRepository()
+                        .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
+                                Calendar.getInstance().getTimeInMillis());
+
+
+                PartialContactRepository partialContactRepository = AncApplication.getInstance()
+                        .getPartialContactRepository();
+
+                List<PartialContact> partialContactList;
+                if (partialContactRepository != null) {
+                    if (isFirst) {
+                        partialContactList = partialContactRepository.getPartialContacts(baseEntityId, 1);
+                    } else {
+                        if (referral != null) {
+                            partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
+                                    Integer.valueOf(details.get(Constants.REFERRAL)));
+                        } else {
+                            partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
+                                    Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
+                        }
+                    }
+                } else { partialContactList = null;}
+
+                Facts facts = new Facts();
+                List<String> formSubmissionIDs = new ArrayList<>();
+
+                updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts,
+                        formSubmissionIDs);
+
+                WomanDetail womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
+
+                processAttentionFlags(womanDetail, facts);
+
+                PatientRepository.updateContactVisitDetails(womanDetail, true);
+
+                //Attention Flags
+                String attentionFlagsString;
+                if (referral == null) {
+                    attentionFlagsString = new JSONObject(facts.asMap()).toString();
+                } else {
+                    attentionFlagsString =
+                            AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
+                                    .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
+                }
+                AncApplication.getInstance().getDetailsRepository()
+                        .add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString,
+                                Calendar.getInstance().getTimeInMillis());
+                updateWomanDetails(details, womanDetail);
+
+
+                Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
+
+                if (eventPair != null) {
+                    createEvent(baseEntityId, new JSONObject(facts.asMap()).toString(), eventPair, referral);
+                    JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
+                    AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
+                }
+
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
             }
-
-            AncApplication.getInstance().getDetailsRepository()
-                    .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
-                            Calendar.getInstance().getTimeInMillis());
-
-
-            PartialContactRepository partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
-
-            List<PartialContact> partialContactList = partialContactRepository != null ? partialContactRepository
-                    .getPartialContacts(baseEntityId, isFirst ? 1 : Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT))) : null;
-
-            Facts facts = new Facts();
-            List<String> formSubmissionIDs = new ArrayList<>();
-
-            updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts, formSubmissionIDs);
-
-            WomanDetail womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
-            if (referral != null){
-                womanDetail.setContactStatus(Constants.ALERT_STATUS.DUE);
-            }
-            processAttentionFlags(womanDetail, facts);
-
-            PatientRepository.updateContactVisitDetails(womanDetail, true);
-
-            //Attention Flags
-            String attentionFlagsString = new JSONObject(facts.asMap()).toString();
-            AncApplication.getInstance().getDetailsRepository()
-                    .add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString,
-                            Calendar.getInstance().getTimeInMillis());
-            updateWomanDetails(details, womanDetail);
-
-
-            Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
-
-            if (eventPair != null) {
-                createEvent(baseEntityId, attentionFlagsString, eventPair);
-                JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
-                AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
-            }
-
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
         }
     }
 
@@ -188,7 +213,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         }
     }
 
-    private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair)
+    private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair, String referral)
             throws JSONException {
         Event event = eventPair.first;
         //Here we save state
@@ -203,16 +228,20 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
         //update woman profile details
-        if (details != null && details.get(Constants.REFERRAL) != null){
-            details.put(DBConstants.KEY.CONTACT_STATUS, details.get(DBConstants.KEY.CONTACT_STATUS));
-        }else {
+        if (details != null && details.get(Constants.REFERRAL) != null) {
+            details.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            details.put(DBConstants.KEY.YELLOW_FLAG_COUNT, details.get(DBConstants.KEY.YELLOW_FLAG_COUNT));
+            details.put(DBConstants.KEY.RED_FLAG_COUNT, details.get(DBConstants.KEY.RED_FLAG_COUNT));
+        } else {
             details.put(DBConstants.KEY.CONTACT_STATUS, womanDetail.getContactStatus());
+            details.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
+            details.put(DBConstants.KEY.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
+            details.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
+
         }
+        details.put(DBConstants.KEY.CONTACT_STATUS, womanDetail.getContactStatus());
         details.put(DBConstants.KEY.NEXT_CONTACT, womanDetail.getNextContact().toString());
         details.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
-        details.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
-        details.put(DBConstants.KEY.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
-        details.put(DBConstants.KEY.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
     }
 
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {
@@ -230,7 +259,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
+        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details
+                .get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }
@@ -244,7 +274,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                if (AncApplication.getInstance().getAncRulesEngineHelper()
+                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                     Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
 

@@ -68,7 +68,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final int REQUEST_CODE_GET_JSON = 3432;
 
     public static JSONObject getFormAsJson(JSONObject form, String formName, String id, String currentLocationId)
-    throws Exception {
+            throws Exception {
         if (form == null) {
             return null;
         }
@@ -337,7 +337,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
-    throws JSONException {
+            throws JSONException {
 
         if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_ENTERED)) {
             getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.DOB);
@@ -374,7 +374,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String birthDate)
-    throws JSONException {
+            throws JSONException {
         String dobString = womanClient.get(birthDate);
         if (StringUtils.isNotBlank(dobString)) {
             Date dob = Utils.dobStringToDate(dobString);
@@ -384,7 +384,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    private static void formatEdd(Map<String, String> womanClient, JSONObject jsonObject, String eddDate) throws JSONException {
+    private static void formatEdd(Map<String, String> womanClient, JSONObject jsonObject, String eddDate)
+            throws JSONException {
         String eddString = womanClient.get(eddDate);
         if (StringUtils.isNotBlank(eddString)) {
             Date edd = Utils.dobStringToDate(eddString);
@@ -604,7 +605,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             for (int i = 0; i < fields.length(); i++) {
                 if (!"label".equals(fields.getJSONObject(i).getString(Constants.KEY.TYPE))) {
-                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY), StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields.getJSONObject(i).getString(Constants.KEY.VALUE));
+                    settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY),
+                            StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields
+                                    .getJSONObject(i).getString(Constants.KEY.VALUE));
                 }
 
             }
@@ -649,7 +652,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static Pair<Event, Event> createContactVisitEvent(List<String> formSubmissionIDs,
                                                              Map<String, String> womanDetails) {
-        if (formSubmissionIDs.size() < 1) {
+        if (formSubmissionIDs.size() < 1 && womanDetails.get(Constants.REFERRAL) == null) {
             return null;
         }
 
@@ -664,7 +667,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                     .withDateCreated(getContactStartDate(contactStartDate));
 
-            contactVisitEvent.addDetails(Constants.CONTACT, Constants.CONTACT + " " + contactNo);
+            String currentContactNo;
+            if (womanDetails.get(Constants.REFERRAL) == null) {
+                currentContactNo = Constants.CONTACT + " " + contactNo;
+            } else {
+                currentContactNo = Constants.CONTACT + " " + womanDetails.get(Constants.REFERRAL);
+            }
+            contactVisitEvent.addDetails(Constants.CONTACT, currentContactNo);
             contactVisitEvent.addDetails(Constants.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
 
             JsonFormUtils.tagSyncMetadata(AncApplication.getInstance().getContext().userService().getAllSharedPreferences(),

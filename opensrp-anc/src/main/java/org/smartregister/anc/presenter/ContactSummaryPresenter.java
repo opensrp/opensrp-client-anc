@@ -16,7 +16,7 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
     private ContactSummarySendContract.Interactor contactSummaryInteractor;
     private ContactSummaryModel contactSummaryModel;
     private Map<String, String> womanDetails = new HashMap<>();
-    private List<ContactSummaryModel> upcomingContacts =  new ArrayList<>();
+    private List<ContactSummaryModel> upcomingContacts = new ArrayList<>();
 
 
     public ContactSummaryPresenter(ContactSummarySendContract.Interactor interactor) {
@@ -25,9 +25,10 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
     }
 
     private void setWomansName() {
-        getView().displayWomansName(contactSummaryModel.extractPatientName(this.womanDetails));
+        getView().displayPatientName(contactSummaryModel.extractPatientName(this.womanDetails));
     }
-    private void addUpcomingContactsToView(){
+
+    private void addUpcomingContactsToView() {
         getView().displayUpcomingContactDates(this.upcomingContacts);
     }
 
@@ -42,14 +43,15 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
     public ContactSummarySendContract.View getView() {
         return contactConfirmationView.get();
     }
+
     @Override
     public void loadWoman(String entityId) {
         contactSummaryInteractor.fetchWomanDetails(entityId, this);
     }
 
     @Override
-    public void loadUpcomingContacts(String entityId,String referralContactNo) {
-        contactSummaryInteractor.fetchUpcomingContacts(entityId,referralContactNo,this);
+    public void loadUpcomingContacts(String entityId, String referralContactNo) {
+        contactSummaryInteractor.fetchUpcomingContacts(entityId, referralContactNo, this);
 
     }
 
@@ -60,7 +62,7 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
 
     @Override
     public void showWomanProfileImage(String clientEntityId) {
-        if (clientEntityId == null || clientEntityId.isEmpty()){
+        if (clientEntityId == null || clientEntityId.isEmpty()) {
             return;
         }
         getView().setProfileImage(clientEntityId);
@@ -77,7 +79,7 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
 
     @Override
     public void onUpcomingContactsFetched(List<ContactSummaryModel> upcomingContacts, Integer lastContact) {
-        if(upcomingContacts == null || upcomingContacts.isEmpty()){
+        if ((upcomingContacts == null || upcomingContacts.isEmpty()) && lastContact > 0) {
             return;
         }
         this.upcomingContacts.addAll(upcomingContacts);

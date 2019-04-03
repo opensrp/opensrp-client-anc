@@ -91,7 +91,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     }
 
     @Override
-    public void displayWomansName(String fullName) {
+    public void displayPatientName(String fullName) {
         womanNameTextView.setText(fullName);
     }
 

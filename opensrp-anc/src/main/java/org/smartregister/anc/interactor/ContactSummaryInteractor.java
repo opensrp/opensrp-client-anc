@@ -54,8 +54,11 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     Map<String, String> details = PatientRepository.getWomanProfileDetails(entityId);
 
                     JSONObject rawContactSchedule = new JSONObject(AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId).get(Constants.DETAILS_KEY.CONTACT_SHEDULE));
-                    List<String> contactSchedule = Utils.getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
-
+                    List<String> contactSchedule = new ArrayList<>();
+                    if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
+                        contactSchedule = Utils
+                                .getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                    }
                     final List<ContactSummaryModel> contactDates = new ArrayList<>();
 
 
