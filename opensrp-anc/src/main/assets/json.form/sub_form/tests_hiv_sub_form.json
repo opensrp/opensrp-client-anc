@@ -7,9 +7,9 @@
       "openmrs_entity_id": "",
       "label": "HIV test",
       "label_text_style": "bold",
+      "label_info_text": "An HIV test is required for all pregnant women at the first contact in pregnancy and again at the first contact of the 3rd trimester (28 weeks), if the HIV prevalence in the pregnant woman population is 5% or higher. A test isn't required if the woman is already confirmed HIV+.",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -46,14 +46,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "HIV test status is required."
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
+        "err": "HIV test status is required"
       }
     },
     {
@@ -101,13 +94,8 @@
       },
       "relevance": {
         "step1:hiv_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
         }
       }
     },
@@ -147,16 +135,16 @@
           }
         }
       },
+      "v_required": {
+        "value": true,
+        "err": "HIV test date is required."
+      },
       "calculation": {
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_calculation_rules.yml"
           }
         }
-      },
-      "v_required": {
-        "value": true,
-        "err": "Test date is required"
       }
     },
     {
@@ -192,26 +180,21 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Please record the result"
+        "err": "Please record the HIV test result"
       },
       "relevance": {
-        "step1:hiv_test_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
     {
+      "key": "hiv_positive",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "hiv_positive",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
