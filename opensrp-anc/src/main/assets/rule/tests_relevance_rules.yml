@@ -118,6 +118,13 @@ condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_stat
 actions:
 - "isRelevant = true"
 ---
+name: step2_hiv_test_partner_date
+description: Partner HIV test date
+priority: 1
+condition: "(step2_hiv_test_partner_status != '' && step2_hiv_test_partner_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
 name: step2_hiv_risk_toaster
 description: hiv_risk_toaster
 priority: 1
@@ -667,7 +674,7 @@ actions:
 name: step2_accordion_partner_hiv
 description: Partner HIV test
 priority: 1
-condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '') && global_contact_no == 1"
+condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
 actions:
 - "isRelevant = true"
 ---
@@ -811,9 +818,9 @@ condition: "global_previous_blood_type_test_status == '' && global_contact_no > 
 actions:
 - "isRelevant = true"
 ---
-name: step2_accordion_partner_hiv
-description: step2 partner HIV
+name: step2_hiv_test_partner_result
+description:  partner HIV result
 priority: 1
-condition: "(global_previous_hiv_test_partner_status == ''  || global_previous_hiv_test_partner_result == '' || global_previous_hiv_test_partner_result == 'inconclusive') && global_contact_no > 1"
+condition: "step2_hiv_test_partner_status != '' && (step2_hiv_test_partner_status == 'done_earlier'  || step2_hiv_test_partner_status == 'done_earlier')"
 actions:
 - "isRelevant = true"

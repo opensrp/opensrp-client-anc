@@ -170,7 +170,6 @@ fields:
   - "rh_factor"
   - "partner_hiv_status"
   - "site_anc_hiv"
-  - "partner_hiv_positive"
   - "alcohol_substance_use"
   - "occupation"
   - "hepb_immun_status"

@@ -65,14 +65,14 @@ actions:
 name: step2_partner_hiv_positive
 description: partner_hiv_positive
 priority: 1
-condition: "(global_partner_hiv_status == 'positive') || step2_hiv_test_partner_result == 'positive'"
+condition: "global_partner_hiv_status == 'positive' || step2_hiv_test_partner_result == 'positive'"
 actions:
 - "calculation = 1"
 ---
 name: step2_hiv_risk
 description: hiv_risk
 priority: 1
-condition: "((step1_hiv_positive != 1) && ((global_site_anc_hiv == 1) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
+condition: "(step1_hiv_positive != 1 && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true) )"
 actions:
 - "calculation = 1"
 ---

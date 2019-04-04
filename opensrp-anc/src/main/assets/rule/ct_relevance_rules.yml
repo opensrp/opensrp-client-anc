@@ -590,21 +590,21 @@ actions:
 name: step8_ipv_enquiry
 description: ipv_enquiry
 priority: 1
-condition: "global_site_ipv_assess == 1"
+condition: "global_site_ipv_assess == true"
 actions:
 - "isRelevant = true"
 ---
 name: step8_accordion_ipv_enquiry
 description: ipv_enquiry
 priority: 1
-condition: "global_site_ipv_assess == 1"
+condition: "global_site_ipv_assess == true"
 actions:
 - "isRelevant = true"
 ---
 name: step8_ipv_refer_toaster
 description: ipv_refer_toaster
 priority: 1
-condition: "global_site_ipv_assess == 0"
+condition: "global_site_ipv_assess == false"
 actions:
 - "isRelevant = true"
 ---
