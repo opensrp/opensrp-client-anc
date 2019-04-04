@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,9 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     private ImageView womanProfileImage;
     private ImageRenderHelper imageRenderHelper;
     private TextView recordedContactTextView;
+    private TextView contactScheduleHeadingTextView;
+    private TextView referralContactTextTextView;
+    private RecyclerView contactDatesRecyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,9 +62,11 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         womanNameTextView = findViewById(R.id.contact_summary_woman_name);
         womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
         recordedContactTextView = findViewById(R.id.contact_summary_contact_recorded);
+        contactScheduleHeadingTextView = findViewById(R.id.contact_schedule_heading);
+        referralContactTextTextView = findViewById(R.id.referral_contact_text);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
-        RecyclerView contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
+        contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
         contactDatesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactDatesRecyclerView.setAdapter(contactSummaryAdapter);
 
@@ -97,6 +103,11 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
+        if (models.size() <= 0){
+            contactDatesRecyclerView.setVisibility(View.GONE);
+            contactScheduleHeadingTextView.setVisibility(View.GONE);
+            referralContactTextTextView.setVisibility(View.VISIBLE);
+        }
         contactSummaryAdapter.setContactDates(models.size() > 5 ? models.subList(0, 4) : models);
     }
 
@@ -108,6 +119,9 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     @Override
     public void updateRecordedContact(Integer contactNumber) {
         recordedContactTextView.setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
+        if(getReferredContactNo() != null){
+            recordedContactTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+        }
     }
 
     @Override

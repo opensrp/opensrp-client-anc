@@ -142,7 +142,6 @@ public class YamlConfigPresenterTest extends BaseUnitTest {
         ContactSummaryPresenter contactSummaryPresenter = (ContactSummaryPresenter) presenter;
         contactSummaryPresenter.onUpcomingContactsFetched(null, 0);
         Assert.assertEquals(contactSummaryPresenter.getUpcomingContacts().isEmpty(), true);
-
     }
 
     @Test

@@ -79,7 +79,7 @@ public class ContactSummaryPresenter implements ContactSummarySendContract.Prese
 
     @Override
     public void onUpcomingContactsFetched(List<ContactSummaryModel> upcomingContacts, Integer lastContact) {
-        if ((upcomingContacts == null || upcomingContacts.isEmpty()) && lastContact > 0) {
+        if ((upcomingContacts == null || upcomingContacts.isEmpty()) && lastContact >= 0) {
             return;
         }
         this.upcomingContacts.addAll(upcomingContacts);

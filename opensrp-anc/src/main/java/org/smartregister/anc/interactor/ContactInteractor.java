@@ -70,7 +70,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     @Override
-    public void finalizeContactForm(final Map<String, String> details) {
+    public HashMap<String, String> finalizeContactForm(final Map<String, String> details) {
 
         if (details != null) {
             try {
@@ -80,7 +80,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 int gestationAge = getGestationAge(details);
                 int nextContact;
-                JSONObject jsonObject = new JSONObject();
                 boolean isFirst = false;
                 String nextContactVisitDate;
                 if (referral == null) {
@@ -92,9 +91,11 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                     int nextContactVisitWeeks = integerList.get(0);
 
-                    jsonObject = new JSONObject();
+                    JSONObject jsonObject = new JSONObject();
                     jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
-
+                    AncApplication.getInstance().getDetailsRepository()
+                            .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
+                                    Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
                     LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
                     nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS)
@@ -105,10 +106,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     nextContact = Integer.parseInt(details.get(DBConstants.KEY.NEXT_CONTACT));
                     nextContactVisitDate = details.get(DBConstants.KEY.NEXT_CONTACT_DATE);
                 }
-
-                AncApplication.getInstance().getDetailsRepository()
-                        .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
-                                Calendar.getInstance().getTimeInMillis());
 
 
                 PartialContactRepository partialContactRepository = AncApplication.getInstance()
@@ -139,6 +136,13 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 processAttentionFlags(womanDetail, facts);
 
+                if (referral != null) {
+                    womanDetail.setYellowFlagCount(Integer.valueOf(details.get(DBConstants.KEY.YELLOW_FLAG_COUNT)));
+                    womanDetail.setRedFlagCount(Integer.valueOf(details.get(DBConstants.KEY.RED_FLAG_COUNT)));
+                    womanDetail.setContactStatus(details.get(DBConstants.KEY.CONTACT_STATUS));
+                    womanDetail.setReferral(true);
+                    womanDetail.setLastContactRecordDate(details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+                }
                 PatientRepository.updateContactVisitDetails(womanDetail, true);
 
                 //Attention Flags
@@ -159,16 +163,16 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
 
                 if (eventPair != null) {
-                    createEvent(baseEntityId, new JSONObject(facts.asMap()).toString(), eventPair, referral);
+                    createEvent(baseEntityId, attentionFlagsString, eventPair, referral);
                     JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
                     AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
-
 
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
             }
         }
+        return (HashMap<String, String>) details;
     }
 
     private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepository partialContactRepository,
