@@ -486,8 +486,7 @@ public class Utils extends org.smartregister.util.Utils {
         nextContactDate = StringUtils.isNotBlank(nextContactDate) ? Utils
                 .reverseHyphenSeperatedValues(nextContactDate, "/") : null;
 
-        buttonAlertStatus1.buttonText = String.format(textTemplate,
-                nextContact, (nextContactDate != null ? nextContactDate :
+        buttonAlertStatus1.buttonText = String.format(textTemplate, nextContact, (nextContactDate != null ? nextContactDate :
                         Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
 
 

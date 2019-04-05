@@ -298,4 +298,5 @@
     <string name="previous_contacts">PREVIOUS CONTACTS</string>
     <string name="all_tests_results">All Tests Results</string>
     <string name="contact_details">%1$s &#183; Contact %2$s</string>
+    <string name="undo_test_result">Undo the %1$s result?</string>
 </resources>

@@ -228,7 +228,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 @Override
                 public void onClick(View v) {
                     jsonApi.updateGenericPopupSecondaryValues(null);
-                    AncGenericPopupDialog.this.dismiss();
+                    AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
 
@@ -238,7 +238,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 public void onClick(View v) {
                     passData();
                     jsonApi.updateGenericPopupSecondaryValues(null);
-                    AncGenericPopupDialog.this.dismiss();
+                    AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
             if (getDialog().getWindow() != null) {
