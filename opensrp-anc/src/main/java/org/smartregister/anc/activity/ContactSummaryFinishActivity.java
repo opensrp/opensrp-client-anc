@@ -189,7 +189,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
 
         new AsyncTask<Void, Void, Void>() {
-            private HashMap<String, String> womanProfileDetails;
             private HashMap<String, String> newWomanProfileDetails;
 
             @Override
@@ -204,7 +203,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected Void doInBackground(Void... nada) {
                 try {
-                    womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    HashMap<String, String> womanProfileDetails =
+                            (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
                     int contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
                     if (contactNo < 0) {
                         womanProfileDetails.put(Constants.REFERRAL, String.valueOf(contactNo));
