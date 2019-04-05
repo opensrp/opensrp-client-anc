@@ -419,30 +419,32 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             if (getSecondaryValues() != null) {
                 for (int i = 0; i < getSecondaryValues().length(); i++) {
-                    try {
-                        jsonObject = getSecondaryValues().getJSONObject(i);
-                        String key = jsonObject.getString(JsonFormConstants.KEY);
-                        String type = jsonObject.getString(JsonFormConstants.TYPE);
-                        String label = jsonObject.getString(JsonFormConstants.LABEL);
-                        JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
-                        int index = jsonObject.optInt(Constants.INDEX);
+                    if (!getSecondaryValues().isNull(i)) {
+                        try {
+                            jsonObject = getSecondaryValues().getJSONObject(i);
+                            String key = jsonObject.getString(JsonFormConstants.KEY);
+                            String type = jsonObject.getString(JsonFormConstants.TYPE);
+                            String label = jsonObject.getString(JsonFormConstants.LABEL);
+                            JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+                            int index = jsonObject.optInt(Constants.INDEX);
 
-                        JSONObject openmrsAttributes = new JSONObject();
-                        if (jsonObject.has(JsonFormConstants.OPENMRS_ATTRIBUTES)) {
-                            openmrsAttributes =
-                                    jsonObject.getJSONObject(JsonFormConstants.OPENMRS_ATTRIBUTES);
-                        }
-                        JSONArray valueOpenMRSAttributes = new JSONArray();
-                        if (jsonObject.has(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES)) {
-                            valueOpenMRSAttributes = jsonObject
-                                    .getJSONArray(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES);
-                        }
+                            JSONObject openmrsAttributes = new JSONObject();
+                            if (jsonObject.has(JsonFormConstants.OPENMRS_ATTRIBUTES)) {
+                                openmrsAttributes =
+                                        jsonObject.getJSONObject(JsonFormConstants.OPENMRS_ATTRIBUTES);
+                            }
+                            JSONArray valueOpenMRSAttributes = new JSONArray();
+                            if (jsonObject.has(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES)) {
+                                valueOpenMRSAttributes = jsonObject
+                                        .getJSONArray(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES);
+                            }
 
-                        secondaryValuesMap.put(key, new ExpansionPanelValuesModel(key, type, label, index, values,
-                                openmrsAttributes, valueOpenMRSAttributes));
-                        popAssignedValue = secondaryValuesMap;
-                    } catch (JSONException e) {
-                        Log.i(TAG, Log.getStackTraceString(e));
+                            secondaryValuesMap.put(key, new ExpansionPanelValuesModel(key, type, label, index, values,
+                                    openmrsAttributes, valueOpenMRSAttributes));
+                            popAssignedValue = secondaryValuesMap;
+                        } catch (JSONException e) {
+                            Log.i(TAG, Log.getStackTraceString(e));
+                        }
                     }
                 }
             }

@@ -140,16 +140,18 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     private void changeStatusIcon(ImageView imageView, JSONObject optionItem, Context context) throws JSONException {
         JSONArray value = getExpansionPanelValue(optionItem);
         for (int i = 0; i < value.length(); i++) {
-            JSONObject item = value.getJSONObject(i);
-            if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item
-                    .getString(JsonFormConstants.TYPE)
-                    .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+            if (!value.isNull(i)) {
+                JSONObject item = value.getJSONObject(i);
+                if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item
+                        .getString(JsonFormConstants.TYPE)
+                        .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
 
-                JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
-                for (int k = 0; k < jsonArray.length(); k++) {
-                    String list = jsonArray.getString(k);
-                    String[] stringValues = list.split(":");
-                    if (getWidgetValueAndChangeIcon(imageView, context, list, stringValues)) break;
+                    JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
+                    for (int k = 0; k < jsonArray.length(); k++) {
+                        String list = jsonArray.getString(k);
+                        String[] stringValues = list.split(":");
+                        if (getWidgetValueAndChangeIcon(imageView, context, list, stringValues)) break;
+                    }
                 }
             }
         }
