@@ -631,6 +631,7 @@ public class ContactJsonFormUtils extends FormUtils {
             String key = valuesModel.getKey();
             String type = valuesModel.getType();
             String label = valuesModel.getLabel();
+            int index = valuesModel.getIndex();
             JSONArray values = valuesModel.getValues();
             JSONObject openMRSAttributes = valuesModel.getOpenmrsAttributes();
             JSONArray valueOpenMRSAttributes = valuesModel.getValuesOpenMRSAttributes();
@@ -638,6 +639,7 @@ public class ContactJsonFormUtils extends FormUtils {
             valueItem.put(JsonFormConstants.KEY, key);
             valueItem.put(JsonFormConstants.TYPE, type);
             valueItem.put(JsonFormConstants.LABEL, label);
+            valueItem.put(Constants.INDEX, index);
             valueItem.put(JsonFormConstants.VALUES, values);
             valueItem.put(JsonFormConstants.OPENMRS_ATTRIBUTES, openMRSAttributes);
             if (valueOpenMRSAttributes.length() > 0) {

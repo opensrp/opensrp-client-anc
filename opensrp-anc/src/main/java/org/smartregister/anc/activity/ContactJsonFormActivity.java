@@ -328,6 +328,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             }
 
             String widgetLabel = getWidgetLabel(item);
+            if (item.has(Constants.INDEX) && !TextUtils.isEmpty(item.getString(Constants.INDEX))) {
+                widgetLabel = widgetLabel + ";" + item.getString(Constants.INDEX);
+            }
             if (!TextUtils.isEmpty(widgetLabel)) {
                 optionType = itemType + ";" + widgetLabel;
             }
@@ -353,9 +356,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 }
             }
 
-            JSONObject openmrsAttributes = formUtils.getOpenMRSAttributes(item);
+            JSONObject openMRSAttributes = formUtils.getOpenMRSAttributes(item);
 
-            genericDialogInterface.addSelectedValues(openmrsAttributes, valueOpenMRSAttributes,
+            genericDialogInterface.addSelectedValues(openMRSAttributes, valueOpenMRSAttributes,
                     formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, optionType, itemText));
         }
 
@@ -377,6 +380,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 if (popup) {
                     itemType = new StringBuilder(item.getString(JsonFormConstants.TYPE));
                     String widgetLabel = getWidgetLabel(item);
+                    if (item.has(Constants.INDEX) && !TextUtils.isEmpty(item.getString(Constants.INDEX))) {
+                        widgetLabel = widgetLabel + ";" + item.getString(Constants.INDEX);
+                    }
                     if (!TextUtils.isEmpty(widgetLabel)) {
                         itemType.append(";").append(widgetLabel);
                     }

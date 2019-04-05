@@ -174,7 +174,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
 
         try {
-            LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate );
+            LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
 
             LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
 
@@ -211,11 +211,13 @@ public class Utils extends org.smartregister.util.Utils {
         List<String> stringList = new ArrayList<>();
         String label;
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
-                    !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
-                label = jsonObject.getString(JsonFormConstants.LABEL);
-                stringList.add(label + ":" + getStringValue(jsonObject));
+            if (!jsonArray.isNull(i)) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
+                        !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
+                    label = jsonObject.getString(JsonFormConstants.LABEL);
+                    stringList.add(label + ":" + getStringValue(jsonObject));
+                }
             }
         }
 
@@ -362,7 +364,8 @@ public class Utils extends org.smartregister.util.Utils {
             contactSummaryFinishIntent
                     .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID));
             contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanDetails);
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
+                    Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             if (isRefferal) {
                 int contactNo = Integer.parseInt(womanDetails.get(DBConstants.KEY.NEXT_CONTACT));
                 if (contactNo < 0) {
@@ -487,7 +490,7 @@ public class Utils extends org.smartregister.util.Utils {
                 .reverseHyphenSeperatedValues(nextContactDate, "/") : null;
 
         buttonAlertStatus1.buttonText = String.format(textTemplate, nextContact, (nextContactDate != null ? nextContactDate :
-                        Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
+                Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
 
 
         buttonAlertStatus = Utils

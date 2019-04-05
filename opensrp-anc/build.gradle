@@ -28,7 +28,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1
-        versionName "0.0.9"
+        versionName "0.1.0"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
