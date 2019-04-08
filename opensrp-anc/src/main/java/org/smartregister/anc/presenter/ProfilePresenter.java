@@ -21,6 +21,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -154,7 +155,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
-    public void saveFinishForm(Map<String, String> client) {
-        contactInteractor.finalizeContactForm(client);
+    public HashMap<String,String> saveFinishForm(Map<String, String> client) {
+       return contactInteractor.finalizeContactForm(client);
     }
 }

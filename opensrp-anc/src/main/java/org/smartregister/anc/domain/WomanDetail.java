@@ -11,9 +11,12 @@ public class WomanDetail {
     private String yellowFlags;
     private String redFlags;
     private String contactStatus;
+    private String lastContactRecordDate;
 
     private Integer yellowFlagCount;
     private Integer redFlagCount;
+
+    private boolean referral;
 
     public Integer getNextContact() {
         return nextContact;
@@ -77,5 +80,21 @@ public class WomanDetail {
 
     public void setContactStatus(String contactStatus) {
         this.contactStatus = contactStatus;
+    }
+
+    public boolean isReferral() {
+        return referral;
+    }
+
+    public void setReferral(boolean referral) {
+        this.referral = referral;
+    }
+
+    public String getLastContactRecordDate() {
+        return lastContactRecordDate;
+    }
+
+    public void setLastContactRecordDate(String lastContactRecordDate) {
+        this.lastContactRecordDate = lastContactRecordDate;
     }
 }
