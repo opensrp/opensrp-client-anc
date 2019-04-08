@@ -622,6 +622,13 @@ condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (
 actions:
 - "isRelevant = true"
 ---
+name: step2_accordion_hiv
+description: HIV test
+priority: 1
+condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_previous_hiv_test_status == '' && global_contact_no > 1)"
+actions:
+- "isRelevant = true"
+---
 name: step1_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
@@ -766,13 +773,6 @@ name: step2_fetal_presentation
 description: Early ultrasound done!
 priority: 1
 condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
-actions:
-- "isRelevant = true"
----
-name: step2_accordion_hiv
-description: HIV test
-priority: 1
-condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_previous_hiv_test_status == '' && global_contact_no > 1)"
 actions:
 - "isRelevant = true"
 ---

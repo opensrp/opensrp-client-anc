@@ -72,7 +72,7 @@ actions:
 name: step2_hiv_risk
 description: hiv_risk
 priority: 1
-condition: "(step1_hiv_positive != 1 && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true) )"
+condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') != '1' && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true) )"
 actions:
 - "calculation = 1"
 ---
@@ -243,10 +243,4 @@ priority: 1
 condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
 actions:
 - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':global_ultrasound_gest_age,'ultrasound_edd':global_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
----
-name: step1_elly_test
-description: Ga to send to openmrs
-priority: 1
-condition: "true"
-actions:
-- "calculation = helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive')"
+
