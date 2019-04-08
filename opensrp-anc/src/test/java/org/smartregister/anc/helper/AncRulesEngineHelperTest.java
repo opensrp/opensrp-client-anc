@@ -6,6 +6,8 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.joda.time.LocalDate;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -30,6 +32,209 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     private static final String ALERT_RULE_FIELD_TODAY_DATE = "todayDate";
 
     private AncRulesEngineHelper ancRulesEngineHelper;
+    private String jsonObject = "{\n" +
+            "   \"validate_on_submit\": true,\n" +
+            "   \"count\": \"2\",\n" +
+            "   \"encounter_type\": \"Tests\",\n" +
+            "   \"step1\": {\n" +
+            "      \"title\": \"Due\",\n" +
+            "      \"next\": \"step2\",\n" +
+            "      \"fields\": [\n" +
+            "         {\n" +
+            "            \"key\": \"accordion_ultrasound\",\n" +
+            "            \"openmrs_entity_parent\": \"\",\n" +
+            "            \"openmrs_entity\": \"\",\n" +
+            "            \"openmrs_entity_id\": \"\",\n" +
+            "            \"text\": \"Ultrasound test\",\n" +
+            "            \"accordion_info_text\": \"An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).\",\n" +
+            "            \"accordion_info_title\": \"Ultrasound test\",\n" +
+            "            \"type\": \"expansion_panel\",\n" +
+            "            \"display_bottom_section\": true,\n" +
+            "            \"content_form\": \"tests_ultrasound_sub_form\",\n" +
+            "            \"container\": \"anc_test\",\n" +
+            "            \"relevance\": {\n" +
+            "               \"rules-engine\": {\n" +
+            "                  \"ex-rules\": {\n" +
+            "                     \"rules-file\": \"tests_relevance_rules.yml\"\n" +
+            "                  }\n" +
+            "               }\n" +
+            "            },\n" +
+            "            \"is_visible\": true,\n" +
+            "            \"value\": [\n" +
+            "               {\n" +
+            "                  \"key\": \"ultrasound\",\n" +
+            "                  \"type\": \"anc_radio_button\",\n" +
+            "                  \"label\": \"Ultrasound test\",\n" +
+            "                  \"values\": [\n" +
+            "                     \"done_today:Done today\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"\",\n" +
+            "                     \"openmrs_entity_id\": \"\"\n" +
+            "                  },\n" +
+            "                  \"value_openmrs_attributes\": [\n" +
+            "                     {\n" +
+            "                        \"key\": \"ultrasound\",\n" +
+            "                        \"openmrs_entity_parent\": \"\",\n" +
+            "                        \"openmrs_entity\": \"\",\n" +
+            "                        \"openmrs_entity_id\": \"\"\n" +
+            "                     }\n" +
+            "                  ]\n" +
+            "               },\n" +
+            "               {\n" +
+            "                  \"key\": \"blood_type_test_date\",\n" +
+            "                  \"type\": \"date_picker\",\n" +
+            "                  \"label\": \"Blood type test date\",\n" +
+            "                  \"index\": 2,\n" +
+            "                  \"values\": [\n" +
+            "                     \"08-04-2019\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"concept\",\n" +
+            "                     \"openmrs_entity_id\": \"12005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+            "                  }\n" +
+            "               },\n" +
+            "               {\n" +
+            "                  \"key\": \"blood_type\",\n" +
+            "                  \"type\": \"native_radio\",\n" +
+            "                  \"label\": \"Blood type\",\n" +
+            "                  \"index\": 3,\n" +
+            "                  \"values\": [\n" +
+            "                     \"ab:AB\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"concept\",\n" +
+            "                     \"openmrs_entity_id\": \"12006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+            "                  },\n" +
+            "                  \"value_openmrs_attributes\": [\n" +
+            "                     {\n" +
+            "                        \"key\": \"blood_type\",\n" +
+            "                        \"openmrs_entity_parent\": \"\",\n" +
+            "                        \"openmrs_entity\": \"concept\",\n" +
+            "                        \"openmrs_entity_id\": \"12009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+            "                     }\n" +
+            "                  ]\n" +
+            "               },\n" +
+            "               {\n" +
+            "                  \"key\": \"urine_test_notdone\",\n" +
+            "                  \"type\": \"check_box\",\n" +
+            "                  \"label\": \"Reason\",\n" +
+            "                  \"index\": 1,\n" +
+            "                  \"values\": [\n" +
+            "                     \"stock_out:Stock out:true\",\n" +
+            "                     \"expired_stock:Expired stock:true\",\n" +
+            "                     \"other:Other (specify):true\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"\",\n" +
+            "                     \"openmrs_entity_id\": \"\"\n" +
+            "                  },\n" +
+            "                  \"value_openmrs_attributes\": [\n" +
+            "                     {\n" +
+            "                        \"key\": \"urine_test_notdone\",\n" +
+            "                        \"openmrs_entity_parent\": \"\",\n" +
+            "                        \"openmrs_entity\": \"\",\n" +
+            "                        \"openmrs_entity_id\": \"\"\n" +
+            "                     },\n" +
+            "                     {\n" +
+            "                        \"key\": \"urine_test_notdone\",\n" +
+            "                        \"openmrs_entity_parent\": \"\",\n" +
+            "                        \"openmrs_entity\": \"\",\n" +
+            "                        \"openmrs_entity_id\": \"\"\n" +
+            "                     },\n" +
+            "                     {\n" +
+            "                        \"key\": \"urine_test_notdone\",\n" +
+            "                        \"openmrs_entity_parent\": \"\",\n" +
+            "                        \"openmrs_entity\": \"\",\n" +
+            "                        \"openmrs_entity_id\": \"\"\n" +
+            "                     }\n" +
+            "                  ]\n" +
+            "               },\n" +
+            "               {\n" +
+            "                  \"key\": \"no_of_fetuses\",\n" +
+            "                  \"type\": \"numbers_selector\",\n" +
+            "                  \"label\": \"No. of fetuses\",\n" +
+            "                  \"values\": [\n" +
+            "                     \"1\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"\",\n" +
+            "                     \"openmrs_entity_id\": \"\"\n" +
+            "                  }\n" +
+            "               },\n" +
+            "               {\n" +
+            "                  \"key\": \"ultrasound_gest_age\",\n" +
+            "                  \"type\": \"hidden\",\n" +
+            "                  \"label\": \"\",\n" +
+            "                  \"values\": [\n" +
+            "                     \"39 weeks 6 days\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"\",\n" +
+            "                     \"openmrs_entity_id\": \"\"\n" +
+            "                  }\n" +
+            "               },\n" +
+            "               {\n" +
+            "                  \"key\": \"elly_test\",\n" +
+            "                  \"type\": \"edit_text\",\n" +
+            "                  \"label\": \"Testing my own rules\",\n" +
+            "                  \"values\": [\n" +
+            "                     \"12\"\n" +
+            "                  ],\n" +
+            "                  \"openmrs_attributes\": {\n" +
+            "                     \"openmrs_entity_parent\": \"\",\n" +
+            "                     \"openmrs_entity\": \"\",\n" +
+            "                     \"openmrs_entity_id\": \"\"\n" +
+            "                  }\n" +
+            "               }\n" +
+            "            ]\n" +
+            "         },\n" +
+            "         {\n" +
+            "            \"key\": \"accordion_blood_type\",\n" +
+            "            \"openmrs_entity_parent\": \"\",\n" +
+            "            \"openmrs_entity\": \"\",\n" +
+            "            \"openmrs_entity_id\": \"\",\n" +
+            "            \"text\": \"Blood Type test\",\n" +
+            "            \"type\": \"expansion_panel\",\n" +
+            "            \"display_bottom_section\": true,\n" +
+            "            \"content_form\": \"tests_blood_type_sub_form\",\n" +
+            "            \"container\": \"anc_test\",\n" +
+            "            \"relevance\": {\n" +
+            "               \"rules-engine\": {\n" +
+            "                  \"ex-rules\": {\n" +
+            "                     \"rules-file\": \"tests_relevance_rules.yml\"\n" +
+            "                  }\n" +
+            "               }\n" +
+            "            },\n" +
+            "            \"is_visible\": true\n" +
+            "         }\n" +
+            "      ]\n" +
+            "   },\n" +
+            "   \"step2\": {\n" +
+            "      \"title\": \"Other\",\n" +
+            "      \"fields\": [\n" +
+            "         {\n" +
+            "            \"key\": \"accordion_other_tests\",\n" +
+            "            \"openmrs_entity_parent\": \"\",\n" +
+            "            \"openmrs_entity\": \"\",\n" +
+            "            \"openmrs_entity_id\": \"\",\n" +
+            "            \"text\": \"Other Tests\",\n" +
+            "            \"accordion_info_text\": \"If any other test was done that is not included here, add it here.\",\n" +
+            "            \"accordion_info_title\": \"Other test\",\n" +
+            "            \"type\": \"expansion_panel\",\n" +
+            "            \"display_bottom_section\": true,\n" +
+            "            \"content_form\": \"tests_other_tests_sub_form\",\n" +
+            "            \"container\": \"anc_test\"\n" +
+            "         }\n" +
+            "      ]\n" +
+            "   }\n" +
+            "}";
 
     @Mock
     private Rules rules;
@@ -244,5 +449,51 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         Assert.assertEquals("12", ancRulesEngineHelperSpy.stripGaNumber("12"));
         Assert.assertEquals("12", ancRulesEngineHelperSpy.stripGaNumber("12 Weeks"));
         Assert.assertEquals("12", ancRulesEngineHelperSpy.stripGaNumber("12 Weeks 7"));
+    }
+    @Test
+    public void testGetValueFromCommonInputsFieldInAccordion() throws JSONException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
+        //Test obtaining value for edit_text field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_elly_test"),"12");
+        //Test obtaining value for hidden field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_ultrasound_gest_age"),"39 weeks 6 days");
+        //Test obtaining value for number_selector field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_no_of_fetuses"),"1");
+        //Test obtaining value for date_picker field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_blood_type_test_date"),"08-04-2019");
+    }
+    @Test
+    public void testGetValueFromRadioButtonsFieldInAccordion() throws JSONException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
+        //Test obtaining value for anc_radio_button field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_ultrasound"),"done_today");
+        //Test obtaining value for native_radio field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_blood_type"),"ab");
+
+    }
+    @Test
+    public void testGetValueFromCheckobxFieldInAccordion() throws JSONException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
+        //Test obtaining value for check_box field
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_urine_test_notdone"),"['stock_out', 'expired_stock', 'other']");
+
+    }
+    @Test
+    public void testGetValueFromAccordionWithEmptyJson() throws JSONException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_blood_type_test_date"),"");
+    }
+    @Test
+    public void testGetValueFromAccordionWithMissingStep() throws JSONException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step3_blood_type_test_date"),"");
+    }
+    @Test
+    public void testGetValueFromAccordionWithNoValues() throws JSONException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_other_tests","step2_blood_type_test_date"),"");
     }
 }

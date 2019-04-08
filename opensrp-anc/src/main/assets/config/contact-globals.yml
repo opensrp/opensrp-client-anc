@@ -82,7 +82,6 @@ fields:
   - "no_of_fetuses"
   - "rh_factor"
   - "urine_culture"
-  - "site_ipv_assess"
   - "ifa_effects"
   - "medications"
   - "tt_immun_status"
@@ -98,8 +97,6 @@ fields:
 ---
 form: anc_profile
 fields:
-  - "site_anc_hiv"
-  - "site_ultrasound"
   - "contact_no"
   - "no_of_fetuses"
   - "bmi"
@@ -169,7 +166,6 @@ fields:
   - "health_conditions"
   - "rh_factor"
   - "partner_hiv_status"
-  - "site_anc_hiv"
   - "alcohol_substance_use"
   - "occupation"
   - "hepb_immun_status"

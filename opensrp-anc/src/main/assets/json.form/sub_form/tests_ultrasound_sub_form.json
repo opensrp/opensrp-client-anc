@@ -1,6 +1,25 @@
 {
   "content_form": [
     {
+      "key": "elly_test",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Testing my own rules",
+      "v_required": {
+        "value": true,
+        "err": "Please give the GA from ultrasound - weeks"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "ultrasound",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
