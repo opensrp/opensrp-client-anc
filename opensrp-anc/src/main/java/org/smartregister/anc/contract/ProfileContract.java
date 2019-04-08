@@ -5,6 +5,7 @@ import android.content.Intent;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,7 +24,7 @@ public interface ProfileContract {
 
         void refreshProfileTopSection(Map<String, String> client);
 
-        void saveFinishForm(Map<String, String> client);
+        HashMap<String, String> saveFinishForm(Map<String, String> client);
     }
 
     interface View extends BaseProfileContract.View {

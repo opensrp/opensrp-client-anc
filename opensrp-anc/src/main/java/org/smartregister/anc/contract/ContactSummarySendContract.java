@@ -8,7 +8,7 @@ public interface ContactSummarySendContract {
     interface View {
         void goToClientProfile();
 
-        void displayWomansName(String fullName);
+        void displayPatientName(String fullName);
 
         void displayUpcomingContactDates(List<ContactSummaryModel> models);
 

@@ -115,8 +115,13 @@ public class PatientRepository {
         contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
         contentValues.put(DBConstants.KEY.CONTACT_STATUS, patientDetail.getContactStatus());
         if (isFinalize) {
-            contentValues
-                    .put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+            if (!patientDetail.isReferral()) {
+                contentValues
+                        .put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+            } else {
+                contentValues
+                        .put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
+            }
         }
         AncApplication.getInstance().getRepository().getWritableDatabase()
                 .update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?",

@@ -25,7 +25,6 @@ public class SiteCharacteristicsEnterActivity extends BaseActivity implements Vi
 
     @Override
     public void onClick(View view) {
-
         presenter.launchSiteCharacteristicsForm();
     }
 }

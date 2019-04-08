@@ -29,9 +29,11 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/go_back_to_site_characteristics"
+            android:clickable="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#0F95D6"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:focusable="true" />
 
 
     </LinearLayout>

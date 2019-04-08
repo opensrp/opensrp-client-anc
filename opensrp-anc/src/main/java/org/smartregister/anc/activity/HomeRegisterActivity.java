@@ -264,6 +264,8 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
                     case Constants.EventType.CLOSE:
                         ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
                         break;
+                    case Constants.EventType.SITE_CHARACTERISTICS:
+                        break;
                     case Constants.EventType.QUICK_CHECK:
                         Contact contact = new Contact();
                         contact.setContactNumber(getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0));

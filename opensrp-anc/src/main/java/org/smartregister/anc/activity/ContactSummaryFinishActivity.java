@@ -189,7 +189,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
 
         new AsyncTask<Void, Void, Void>() {
-            private HashMap<String, String> womanProfileDetails;
+            private HashMap<String, String> newWomanProfileDetails;
 
             @Override
             protected void onPreExecute() {
@@ -203,13 +203,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected Void doInBackground(Void... nada) {
                 try {
-                    womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    HashMap<String, String> womanProfileDetails =
+                            (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
                     int contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
                     if (contactNo < 0) {
-                        womanProfileDetails.put(DBConstants.KEY.CONTACT_STATUS, Constants.ALERT_STATUS.DUE);
-                        womanProfileDetails.put("referral", String.valueOf(contactNo));
+                        womanProfileDetails.put(Constants.REFERRAL, String.valueOf(contactNo));
                     }
-                    mProfilePresenter.saveFinishForm(womanProfileDetails);
+                   newWomanProfileDetails =  mProfilePresenter.saveFinishForm(womanProfileDetails);
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage(), e);
@@ -229,7 +229,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                         ContactSummarySendActivity.class);
                 contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,
                         getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-                contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanProfileDetails);
+                contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, newWomanProfileDetails);
 
                 startActivity(contactSummaryIntent);
 
