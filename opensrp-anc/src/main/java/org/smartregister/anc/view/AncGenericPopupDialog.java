@@ -324,14 +324,22 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     private JSONArray orderExpansionPanelValues(JSONArray expansionPanelValues) throws JSONException {
         JSONArray formattedArray = new JSONArray();
         if (expansionPanelValues != null && expansionPanelValues.length() > 0) {
+            JSONArray sortedItemsWithNulls = new JSONArray();
             for (int i = 0; i < expansionPanelValues.length(); i++) {
                 JSONObject valueItem = expansionPanelValues.getJSONObject(i);
                 if (valueItem.has(Constants.INDEX)) {
                     int itemIndex = valueItem.getInt(Constants.INDEX);
-                    formattedArray.put(itemIndex, valueItem);
+                    sortedItemsWithNulls.put(itemIndex, valueItem);
+                }
+            }
+
+            for (int k = 0; k < sortedItemsWithNulls.length(); k++) {
+                if (!sortedItemsWithNulls.isNull(k)) {
+                    formattedArray.put(sortedItemsWithNulls.getJSONObject(k));
                 }
             }
         }
+
         return formattedArray;
     }
 
