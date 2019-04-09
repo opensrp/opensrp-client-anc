@@ -282,41 +282,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     @Override
-    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent,
-                                     String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
-        synchronized (getmJSONObject()) {
-            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
-            JSONArray fields = fetchFields(jsonObject, popup);
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject item = fields.getJSONObject(i);
-                String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                String itemType = item.optString(JsonFormConstants.TYPE,"");
-                boolean isSpecialWidget = isSpecialWidget(itemType);
-
-                String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
-
-                if (parentKey.equals(keyAtIndex)) {
-
-                    if (item.has(JsonFormConstants.TEXT)) {
-                        item.put(JsonFormConstants.TEXT, value);
-                    } else {
-                        item.put(JsonFormConstants.VALUE,
-                                itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ?
-                                        item.has(JsonFormConstants.VALUE) &&
-                                                !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ?
-                                                item.getString(JsonFormConstants.VALUE) : value : value);
-                    }
-
-                    formUtils.addOpenMRSAttributes(openMrsEntityParent, openMrsEntity, openMrsEntityId, item);
-
-                    invokeRefreshLogic(value, popup, parentKey, null);
-                    return;
-                }
-            }
-        }
-    }
-
-    @Override
     protected void checkBoxWriteValue(String stepName, String parentKey, String childObjectKey, String childKey,
                                       String value, boolean popup) throws JSONException {
         synchronized (getmJSONObject()) {
