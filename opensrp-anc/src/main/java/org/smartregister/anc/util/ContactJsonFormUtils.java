@@ -661,7 +661,7 @@ public class ContactJsonFormUtils extends FormUtils {
      * @param item                {@link JSONObject}
      * @throws JSONException
      */
-    public void addOpenmrsAttributes(String openMrsEntityParent, String openMrsEntity, String openMrsEntityId,
+    public void addOpenMRSAttributes(String openMrsEntityParent, String openMrsEntity, String openMrsEntityId,
                                      JSONObject item) throws JSONException {
         item.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openMrsEntityParent);
         item.put(JsonFormConstants.OPENMRS_ENTITY, openMrsEntity);

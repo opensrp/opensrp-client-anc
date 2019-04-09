@@ -3,6 +3,7 @@ package org.smartregister.anc.contract;
 import org.json.JSONObject;
 import org.smartregister.anc.domain.Contact;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public interface ContactContract {
@@ -47,7 +48,7 @@ public interface ContactContract {
     }
 
     interface Interactor extends BaseContactContract.Interactor {
-        void finalizeContactForm(Map<String, String> details);
+        HashMap<String, String> finalizeContactForm(Map<String, String> details);
     }
 
     interface InteractorCallback extends BaseContactContract.InteractorCallback {

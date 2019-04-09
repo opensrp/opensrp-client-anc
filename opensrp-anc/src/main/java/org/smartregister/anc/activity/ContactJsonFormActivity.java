@@ -45,7 +45,6 @@ import org.smartregister.anc.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -301,7 +300,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     if (item.has(JsonFormConstants.TEXT)) {
                         item.put(JsonFormConstants.TEXT, value);
                     } else {
-                        itemType = performPopUpFunctions(key, value, popup, item, keyAtIndex, itemType);
                         item.put(JsonFormConstants.VALUE,
                                 itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ?
                                         item.has(JsonFormConstants.VALUE) &&
@@ -309,60 +307,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                                                 item.getString(JsonFormConstants.VALUE) : value : value);
                     }
 
-                    formUtils.addOpenmrsAttributes(openMrsEntityParent, openMrsEntity, openMrsEntityId, item);
+                    formUtils.addOpenMRSAttributes(openMrsEntityParent, openMrsEntity, openMrsEntityId, item);
 
                     invokeRefreshLogic(value, popup, parentKey, null);
                     return;
                 }
             }
         }
-    }
-
-    private String performPopUpFunctions(String key, String value, boolean popup, JSONObject item, String keyAtIndex,
-                                         String itemType) throws JSONException {
-        String optionType = itemType;
-        if (popup) {
-            String itemText = "";
-            if (itemType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType.equals(Constants.ANC_RADIO_BUTTON)) {
-                itemText = formUtils.getRadioButtonText(item, value);
-            }
-
-            String widgetLabel = getWidgetLabel(item);
-            if (item.has(Constants.INDEX) && !TextUtils.isEmpty(item.getString(Constants.INDEX))) {
-                widgetLabel = widgetLabel + ";" + item.getString(Constants.INDEX);
-            }
-            if (!TextUtils.isEmpty(widgetLabel)) {
-                optionType = itemType + ";" + widgetLabel;
-            }
-            JSONArray valueOpenMRSAttributes = new JSONArray();
-            if (itemType.contains(JsonFormConstants.NATIVE_RADIO_BUTTON) || itemType.contains(Constants.ANC_RADIO_BUTTON)) {
-                getOptionsOpenMRSAttributes(value, item, valueOpenMRSAttributes);
-            }
-
-            if (itemType.contains(JsonFormConstants.SPINNER) && item.has(JsonFormConstants.OPENMRS_CHOICE_IDS)) {
-                JSONObject openmrsChoiceIds = item.getJSONObject(JsonFormConstants.OPENMRS_CHOICE_IDS);
-                Iterator<String> keys = openmrsChoiceIds.keys();
-                while (keys.hasNext()) {
-                    String spinnerKey = keys.next();
-                    if (value.equals(key)) {
-                        JSONObject concepts = new JSONObject();
-                        String optionOpenMRSConceptId = openmrsChoiceIds.get(spinnerKey).toString();
-                        concepts.put(JsonFormConstants.KEY, value);
-                        formUtils.addOpenmrsAttributes(item.getString(JsonFormConstants.OPENMRS_ENTITY_PARENT),
-                                item.getString(JsonFormConstants.OPENMRS_ENTITY), optionOpenMRSConceptId, concepts);
-                        valueOpenMRSAttributes.put(concepts);
-                    }
-
-                }
-            }
-
-            JSONObject openMRSAttributes = formUtils.getOpenMRSAttributes(item);
-
-            genericDialogInterface.addSelectedValues(openMRSAttributes, valueOpenMRSAttributes,
-                    formUtils.createAssignedValue(genericDialogInterface, keyAtIndex, "", value, optionType, itemText));
-        }
-
-        return optionType;
     }
 
     @Override
@@ -375,44 +326,14 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
                 String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                StringBuilder itemType = new StringBuilder();
-
-                if (popup) {
-                    itemType = new StringBuilder(item.getString(JsonFormConstants.TYPE));
-                    String widgetLabel = getWidgetLabel(item);
-                    if (item.has(Constants.INDEX) && !TextUtils.isEmpty(item.getString(Constants.INDEX))) {
-                        widgetLabel = widgetLabel + ";" + item.getString(Constants.INDEX);
-                    }
-                    if (!TextUtils.isEmpty(widgetLabel)) {
-                        itemType.append(";").append(widgetLabel);
-                    }
-                }
                 if (parentKey.equals(keyAtIndex)) {
                     JSONArray jsonArray = item.getJSONArray(childObjectKey);
                     for (int j = 0; j < jsonArray.length(); j++) {
                         JSONObject innerItem = jsonArray.getJSONObject(j);
                         String anotherKeyAtIndex = innerItem.getString(JsonFormConstants.KEY);
-                        String itemText = "";
-                        String type = item.getString(JsonFormConstants.TYPE);
-                        if (type.equals(JsonFormConstants.CHECK_BOX)) {
-                            itemText = innerItem.getString(JsonFormConstants.TEXT);
-                        }
 
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put(JsonFormConstants.VALUE, value);
-                            if (popup) {
-                                JSONArray valueOpenMRSAttributes = new JSONArray();
-                                if (innerItem.has(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES)) {
-                                    valueOpenMRSAttributes =
-                                            innerItem.getJSONArray(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES);
-                                }
-                                getOptionsOpenMRSAttributes(value, item, valueOpenMRSAttributes);
-                                JSONObject openMRSAttributes = formUtils.getOpenMRSAttributes(item);
-                                genericDialogInterface.addSelectedValues(openMRSAttributes, valueOpenMRSAttributes, formUtils
-                                        .createAssignedValue(genericDialogInterface, keyAtIndex, childKey, value,
-                                                itemType.toString(), itemText));
-
-                            }
                             if (!TextUtils.isEmpty(formName) && formName.equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
                                 quickCheckDangerSignsSelectionHandler(fields);
                             }
@@ -463,7 +384,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 }
             }
 
-
             ((ContactJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
         }
     }
@@ -484,24 +404,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return null;
     }
 
-    private String getWidgetLabel(JSONObject jsonObject) throws JSONException {
-        String label = "";
-        String widgetType = jsonObject.getString(JsonFormConstants.TYPE);
-        if (!TextUtils.isEmpty(widgetType) && genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            switch (widgetType) {
-                case JsonFormConstants.EDIT_TEXT:
-                    label = jsonObject.optString(JsonFormConstants.HINT, "");
-                    break;
-                case JsonFormConstants.DATE_PICKER:
-                    label = jsonObject.optString(JsonFormConstants.HINT, "");
-                    break;
-                default:
-                    label = jsonObject.optString(JsonFormConstants.LABEL, "");
-                    break;
-            }
-        }
-        return label;
-    }
+
 
     @Override
     public Facts getValueFromAddressCore(JSONObject object) throws JSONException {

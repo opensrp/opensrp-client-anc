@@ -53,9 +53,23 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
                     Map<String, String> details = PatientRepository.getWomanProfileDetails(entityId);
 
-                    JSONObject rawContactSchedule = new JSONObject(AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId).get(Constants.DETAILS_KEY.CONTACT_SHEDULE));
-                    List<String> contactSchedule = Utils.getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                    Map<String, String> clientDetails =
+                            AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
+                    JSONObject rawContactSchedule;
+                    if (clientDetails.containsKey(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
+                        rawContactSchedule =
+                                new JSONObject(
+                                        AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
+                                                .get(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                    } else {
+                        rawContactSchedule = new JSONObject();
+                    }
 
+                    List<String> contactSchedule = new ArrayList<>();
+                    if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
+                        contactSchedule = Utils
+                                .getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                    }
                     final List<ContactSummaryModel> contactDates = new ArrayList<>();
 
 
@@ -68,14 +82,18 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
                     for (String contact : contactSchedule) {
 
-                        contactDates.add(new ContactSummaryModel(String.format(AncApplication.getInstance().getApplicationContext().getString(R.string.contact_number), lastContactSequence++), Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contact)).toDate(), Utils.CONTACT_SUMMARY_DF)));
+                        contactDates.add(new ContactSummaryModel(String.format(
+                                AncApplication.getInstance().getApplicationContext().getString(R.string.contact_number),
+                                lastContactSequence++),
+                                Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contact)).toDate(),
+                                        Utils.CONTACT_SUMMARY_DF)));
                     }
 
                     getAppExecutors().mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
-                            int contact = lastContact -1;
-                            if (!TextUtils.isEmpty(referralContactNo)){
+                            int contact = lastContact - 1;
+                            if (!TextUtils.isEmpty(referralContactNo)) {
                                 contact = Integer.parseInt(referralContactNo);
                             }
                             callback.onUpcomingContactsFetched(contactDates, contact);
