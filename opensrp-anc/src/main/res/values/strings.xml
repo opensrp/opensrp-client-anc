@@ -232,7 +232,7 @@
     <string name="continue_">continue</string>
     <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
     <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
-    <string name="site_characteristics_are_shared_for_all">Site charactersitics ares shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
+    <string name="site_characteristics_are_shared_for_all">Site characteristics are shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
     <string name="go_back_to_site_characteristics">Go back to site characteristics</string>
     <string name="edit"> edit </string>
 
@@ -298,4 +298,5 @@
     <string name="previous_contacts">PREVIOUS CONTACTS</string>
     <string name="all_tests_results">All Tests Results</string>
     <string name="contact_details">%1$s &#183; Contact %2$s</string>
+    <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
 </resources>

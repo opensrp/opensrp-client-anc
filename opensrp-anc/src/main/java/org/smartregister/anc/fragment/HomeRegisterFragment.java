@@ -136,8 +136,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                     try {
 
                         JSONObject jsonObject = new JSONObject(
-                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
-                                        .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
 
                         Facts facts = new Facts();
 
