@@ -254,7 +254,7 @@ actions:
 name: step1_syph_test_status
 description: syph_test_status
 priority: 1
-condition: "step1_syphilis_positive == 0"
+condition: "(global_contact_no == 1 || global_gest_age_openmrs >= 29)"
 actions:
 - "isRelevant = true"
 ---
@@ -419,73 +419,73 @@ condition: "step1_urine_culture == 'positive_gbs'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_glucose_test_date
+name: step2_glucose_test_date
 description: Blood glucose test date.
 priority: 1
-condition: "step1_glucose_test_status == 'done_earlier'"
+condition: "step2_glucose_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_glucose_test_type
+name: step2_glucose_test_type
 description: Blood glucose test.
 priority: 1
-condition: "step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier' || step1_glucose_test_status == 'ordered'"
+condition: "step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier' || step2_glucose_test_status == 'ordered'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_fasting_plasma_gluc
+name: step2_fasting_plasma_gluc
 description: Fasting plasma glucose results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'fasting_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_ogtt_fasting
+name: step2_ogtt_fasting
 description: 75g OGTT - fasting glucose results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_ogtt_1
+name: step2_ogtt_1
 description: 75g OGTT - 1 hr results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_ogtt_2
+name: step2_ogtt_2
 description: 75g OGTT - 2 hrs results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_random_plasma
+name: step2_random_plasma
 description: Random plasma glucose results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'random_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_gestational_diabetes_danger_toaster
+name: step2_gestational_diabetes_danger_toaster
 description: gestational_diabetes_danger_toaster
 priority: 1
-condition: "step1_gdm == 1"
+condition: "step2_gdm == 1"
 actions:
 - "isRelevant = true"
 ---
-name: step1_diabetes_mellitus_danger_toaster
+name: step2_diabetes_mellitus_danger_toaster
 description: diabetes_mellitus_danger_toaster
 priority: 1
-condition: "step1_dm_in_preg == 1"
+condition: "step2_dm_in_preg == 1"
 actions:
 - "isRelevant = true"
 ---
-name: step1_dietary_intervention_danger_toaster
+name: step2_dietary_intervention_danger_toaster
 description: dietary_intervention_danger_toaster
 priority: 1
-condition: "step1_gdm == 1 || step1_dm_in_preg"
+condition: "step2_gdm == 1 || step2_dm_in_preg == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -646,7 +646,7 @@ actions:
 name: step1_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "step1_syphilis_positive == 0 && (global_contact_no == 1 || global_gest_age_openmrs >= 28)"
+condition: "(global_contact_no == 1 || global_gest_age_openmrs >= 29)"
 actions:
 - "isRelevant = true"
 ---
