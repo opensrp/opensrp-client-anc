@@ -9,7 +9,6 @@
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
@@ -131,17 +130,13 @@
       ],
       "relevance": {
         "step1:tb_screening_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "not_done"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err":"Reason is required"
       }
     },
     {
@@ -175,14 +170,8 @@
       "max_date": "today",
       "relevance": {
         "step1:tb_screening_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"done_earlier\")"
         }
       },
       "calculation": {
@@ -194,7 +183,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Select record the date of the TB screening."
+        "err": "Please record the date TB screening was done"
       }
     },
     {
@@ -236,19 +225,15 @@
         }
       ],
       "relevance": {
-        "step1:tb_screening_status": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Tb screen result is required"
       }
     },
     {
