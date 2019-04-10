@@ -141,8 +141,8 @@
         }
       },
       "v_required": {
-        "value": false,
-        "err": "Select the date of the blood haemoglobin test."
+        "value": true,
+        "err": "Blood haemoglobin test date is required"
       }
     },
     {
@@ -199,11 +199,11 @@
       "edit_type": "name",
       "v_min": {
         "value": "0",
-        "err": "The complete blood count test must be greater than 0"
+        "err": "The complete blood count test must be greater than or equal to 0"
       },
       "v_max": {
         "value": "25",
-        "err": "The complete blood count test must be les than 500"
+        "err": "The complete blood count test must be less than or equal to 25"
       },
       "v_numeric": {
         "value": "true",
@@ -231,11 +231,11 @@
       "edit_type": "name",
       "v_min": {
         "value": "0",
-        "err": "The Hb test result - haemoglobinometer (g/dl) must be greater than 0"
+        "err": "The Hb test result - haemoglobinometer (g/dl) must be greater than or equal to 0"
       },
       "v_max": {
         "value": "25",
-        "err": "The Hb test result - haemoglobinometer (g/dl) must be les than 25"
+        "err": "The Hb test result - haemoglobinometer (g/dl) must be less than or equal to 25"
       },
       "v_numeric": {
         "value": "true",
@@ -263,11 +263,11 @@
       "edit_type": "name",
       "v_min": {
         "value": "0",
-        "err": "The Hb test result - haemoglobin colour scale (g/dl) must be greater than 0"
+        "err": "The Hb test result - haemoglobin colour scale (g/dl) must be greater than or equal to 0"
       },
       "v_max": {
         "value": "25",
-        "err": "The Hb test result - haemoglobin colour scale (g/dl) must be les than 25"
+        "err": "The Hb test result - haemoglobin colour scale (g/dl) must be less than or equal to 25"
       },
       "v_numeric": {
         "value": "true",
