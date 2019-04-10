@@ -781,28 +781,28 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "one_plus",
+            "key": "+",
             "text": "+",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "two_plus",
+            "key": "++",
             "text": "++",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "three_plus",
+            "key": "+++",
             "text": "+++",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "four_plus",
+            "key": "++++",
             "text": "++++",
             "value": false,
             "openmrs_entity": "",
@@ -1691,28 +1691,28 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "one_plus",
+            "key": "+",
             "text": "+",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "two_plus",
+            "key": "++",
             "text": "++",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "three_plus",
+            "key": "+++",
             "text": "+++",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
-            "key": "four_plus",
+            "key": "++++",
             "text": "++++",
             "value": false,
             "openmrs_entity": "",

@@ -34,6 +34,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import static org.smartregister.anc.util.ContactJsonFormUtils.obtainValue;
+
 public class AncRulesEngineHelper extends RulesEngineHelper {
     private Context context;
     private RulesEngine inferentialRulesEngine;
@@ -172,37 +174,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
                         break;
                     }
                 }
-            }
-        }
-        return result;
-    }
-
-    private String obtainValue(String key, JSONArray value) throws JSONException {
-        String result = "";
-        for (int j = 0; j < value.length(); j++) {
-            JSONObject valueItem = value.getJSONObject(j);
-            if (valueItem.getString(JsonFormConstants.KEY).equals(key)) {
-                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
-                switch (valueItem.getString(JsonFormConstants.TYPE)) {
-                    case JsonFormConstants.ANC_RADIO_BUTTON:
-                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                        result = valueItemJSONArray.getString(0).split(":")[0];
-                        break;
-                    case JsonFormConstants.CHECK_BOX:
-                        StringBuilder sb = new StringBuilder("[");
-                        for (int index = 0; index < valueItemJSONArray.length(); index++) {
-                            sb.append("'");
-                            sb.append(valueItemJSONArray.getString(index).split(":")[0]);
-                            sb.append("'");
-                            sb.append(", ");
-                        }
-                        result = sb.toString().replaceAll(", $", "") + "]";
-                        break;
-                    default:
-                        result = valueItemJSONArray.getString(0);
-                        break;
-                }
-                break;
             }
         }
         return result;

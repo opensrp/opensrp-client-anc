@@ -478,7 +478,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
         //Test obtaining value for check_box field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_urine_test_notdone"),"['stock_out', 'expired_stock', 'other']");
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_urine_test_notdone"),"[stock_out, expired_stock, other]");
 
     }
     @Test
