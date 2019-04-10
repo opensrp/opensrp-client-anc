@@ -320,13 +320,14 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                     field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                 values = getOptionsValueCheckBox(field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME));
                 getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
-            } else if (JsonFormConstants.ANC_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) ||
-                    JsonFormConstants.NATIVE_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) &&
-                            field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+            } else if ((JsonFormConstants.ANC_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) ||
+                    JsonFormConstants.NATIVE_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) && field
+                    .has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
                 values.put(getOptionsValueRadioButton(field.optString(JsonFormConstants.VALUE),
                         field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME)));
                 getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
-            } else if (JsonFormConstants.SPINNER.equals(field.getString(JsonFormConstants.TYPE))) {
+            } else if (JsonFormConstants.SPINNER.equals(field.getString(JsonFormConstants.TYPE)) && field
+                    .has(JsonFormConstants.VALUE)) {
                 values.put(field.optString(JsonFormConstants.VALUE));
                 getSpinnerValueOpenMRSAttributes(field, valueOpenMRSAttributes);
             } else {
@@ -456,7 +457,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
      *
      * @param jsonObject {@link JSONObject}
      * @param childKey   {@link String}
-     *
      * @return item {@link JSONObject}
      */
     @Override
