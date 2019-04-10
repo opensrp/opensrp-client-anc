@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,7 +91,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             Log.e(TAG, "Initialization error. Json passed is invalid : " + e.getMessage(), e);
         }
     }
-
 
 
     @Override
@@ -293,7 +291,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
                 String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                String itemType = item.optString(JsonFormConstants.TYPE,"");
+                String itemType = item.optString(JsonFormConstants.TYPE, "");
                 boolean isSpecialWidget = isSpecialWidget(itemType);
 
                 String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
@@ -316,6 +314,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             }
         }
     }
+
     @Override
     protected void checkBoxWriteValue(String stepName, String parentKey, String childObjectKey, String childKey,
                                       String value, boolean popup) throws JSONException {
@@ -403,7 +402,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         }
         return null;
     }
-
 
 
     @Override
@@ -497,7 +495,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 List<String> values;
 
                 if (refreshExpansionPanelEvent.getValues() != null) {
-                   values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
+                    values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
                 } else {
                     values = new ArrayList<>();
                 }
@@ -559,7 +557,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @author dubdabasoduba
      */
-    public void finishInitialQuickCheck(){
+    public void finishInitialQuickCheck() {
         ContactJsonFormActivity.this.finish();
     }
 }

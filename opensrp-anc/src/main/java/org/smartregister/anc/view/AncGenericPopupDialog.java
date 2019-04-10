@@ -530,10 +530,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
 
     }
 
-    private String[] splitText(String text, String spliter) {
-        return text.split(spliter);
-    }
-
     public void setHeader(String header) {
         this.header = header;
     }
