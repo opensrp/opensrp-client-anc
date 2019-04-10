@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,7 +61,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private String TAG = this.getClass().getSimpleName();
     protected AncRulesEngineFactory rulesEngineFactory = null;
 
-    private String formName;public void init(String json) {
+    private String formName;
+
+    public void init(String json) {
         try {
             mJSONObject = new JSONObject(json);
             if (!mJSONObject.has("encounter_type")) {
@@ -282,6 +285,38 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     @Override
+    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent,
+                                     String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
+        synchronized (getmJSONObject()) {
+            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
+            JSONArray fields = fetchFields(jsonObject, popup);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject item = fields.getJSONObject(i);
+                String keyAtIndex = item.getString(JsonFormConstants.KEY);
+                String itemType = item.optString(JsonFormConstants.TYPE,"");
+                boolean isSpecialWidget = isSpecialWidget(itemType);
+
+                String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
+
+                if (parentKey.equals(keyAtIndex)) {
+
+                    if (item.has(JsonFormConstants.TEXT)) {
+                        item.put(JsonFormConstants.TEXT, value);
+                    } else {
+                        item.put(JsonFormConstants.VALUE,
+                                itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ?
+                                        item.has(JsonFormConstants.VALUE) &&
+                                                !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ?
+                                                item.getString(JsonFormConstants.VALUE) : value : value);
+                    }
+
+                    invokeRefreshLogic(value, popup, parentKey, null);
+                    return;
+                }
+            }
+        }
+    }
+    @Override
     protected void checkBoxWriteValue(String stepName, String parentKey, String childObjectKey, String childKey,
                                       String value, boolean popup) throws JSONException {
         synchronized (getmJSONObject()) {
@@ -459,7 +494,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
         if (refreshExpansionPanelEvent != null) {
             try {
-                List<String> values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
+                List<String> values;
+
+                if (refreshExpansionPanelEvent.getValues() != null) {
+                   values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
+                } else {
+                    values = new ArrayList<>();
+                }
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
                 RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
@@ -471,7 +512,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 adapter.setExpansionWidgetValues(values);
                 adapter.notifyDataSetChanged();
 
-                RelativeLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
+                LinearLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
                 Button undoButton = buttonLayout.findViewById(R.id.undo_button);
                 if (values != null && values.size() > 0) {
                     undoButton.setVisibility(View.VISIBLE);

@@ -231,13 +231,23 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
                                   CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
-        RelativeLayout relativeLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
+        LinearLayout buttonSectionLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
+        JSONObject showBottomSection = jsonObject.optJSONObject(Constants.BOTTOM_SECTION);
+        boolean showButtons = true;
+        boolean showRecordButton = true;
+        if (showBottomSection != null) {
+            showButtons = showBottomSection.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, true);
+            showRecordButton = showBottomSection.optBoolean(Constants.DISPLAY_RECORD_BUTTON, true);
+        }
 
-        Button recordButton = relativeLayout.findViewById(R.id.ok_button);
+        Button recordButton = buttonSectionLayout.findViewById(R.id.ok_button);
         addRecordViewTags(recordButton, jsonObject, stepName, commonListener, jsonFormFragment, context);
         recordButton.setOnClickListener(recordButtonClickListener);
+        if (showRecordButton) {
+            recordButton.setVisibility(View.VISIBLE);
+        }
 
-        Button undoButton = relativeLayout.findViewById(R.id.undo_button);
+        Button undoButton = buttonSectionLayout.findViewById(R.id.undo_button);
         undoButton.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         undoButton.setTag(R.id.specify_context, context);
         undoButton.setTag(R.id.specify_step_name, stepName);
@@ -247,7 +257,9 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getJSONArray(JsonFormConstants.VALUE).length() > 0) {
             JSONArray value = jsonObject.optJSONArray(JsonFormConstants.VALUE);
             if (checkValuesContent(value)) {
-                relativeLayout.setVisibility(View.VISIBLE);
+                if (showButtons) {
+                    buttonSectionLayout.setVisibility(View.VISIBLE);
+                }
 
                 if (jsonObject.has(JsonFormConstants.VALUE)) {
                     undoButton.setVisibility(View.VISIBLE);
@@ -365,8 +377,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             final Button cancel = dialogLayout.findViewById(R.id.cancel_button);
             CustomFontTextView headerTextView = dialogLayout.findViewById(R.id.txt_title_label);
             String testHeader = item.getString(JsonFormConstants.TEXT);
-            headerTextView.setText(String.format(context.getResources().getString(R.string.undo_test_result),
-                    testHeader.toLowerCase()));
+            headerTextView.setText(
+                    String.format(context.getResources().getString(R.string.undo_test_result), testHeader.toLowerCase()));
 
             final AlertDialog dialog = builder.create();
 
@@ -381,12 +393,11 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             undo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    JSONArray newValues = new JSONArray();
                     item.remove(JsonFormConstants.VALUE);
                     jsonApi.setmJSONObject(mainJson);
 
                     Utils.postEvent(
-                            new RefreshExpansionPanelEvent(newValues, (LinearLayout) view.getTag(R.id.linearLayout)));
+                            new RefreshExpansionPanelEvent(null, (LinearLayout) view.getTag(R.id.linearLayout)));
                     dialog.dismiss();
                 }
             });

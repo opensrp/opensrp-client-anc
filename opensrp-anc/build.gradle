@@ -75,7 +75,8 @@ android {
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
+            //resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"http://10.20.25.209:8081/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
