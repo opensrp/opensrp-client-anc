@@ -80,7 +80,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 globalValues = new HashMap<>();
             }
 
-            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues);
+            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues,mJSONObject);
             setRulesEngineFactory(rulesEngineFactory);
 
             confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
@@ -488,7 +488,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
         if (refreshExpansionPanelEvent != null) {
             try {

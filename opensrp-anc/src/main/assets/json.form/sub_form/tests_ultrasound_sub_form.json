@@ -61,7 +61,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Ultrasound not done reason",
+      "label": "Reason",
       "label_text_style": "bold",
       "options": [
         {
@@ -123,9 +123,10 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "date_picker",
-      "hint": "Date that the ultrasound was done.",
+      "hint": "Ultrasound date",
       "expanded": "false",
       "max_date": "today",
+      "min_date": "today-9m",
       "relevance": {
         "rules-engine": {
           "ex-rules": {
@@ -136,6 +137,13 @@
       "v_required": {
         "value": true,
         "err": "Date that the ultrasound was done."
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
@@ -146,7 +154,7 @@
       "type": "edit_text",
       "hint": "GA from ultrasound - weeks",
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Please give the GA from ultrasound - weeks"
       },
       "v_numeric_integer": {
@@ -155,16 +163,37 @@
       },
       "v_min": {
         "value": "4",
-        "err": "GA from ultrasound - weeks must be equal or greater than 4"
+        "err": "GA from ultrasound - weeks must be equal to or greater than 4"
       },
       "v_max": {
-        "value": "43",
-        "err": "GA from ultrasound - weeks must be equal or less than 43"
+        "value": "40",
+        "err": "GA from ultrasound - weeks must be equal to or less than 40"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       },
       "relevance": {
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_gest_age",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }
@@ -218,7 +247,7 @@
       "key": "no_of_fetuses_label",
       "type": "label",
       "label_text_style": "bold",
-      "text": "Number of fetuses detected during ultrasound.",
+      "text": "No. of fetuses",
       "text_color": "#000000",
       "v_required": {
         "value": true
@@ -251,6 +280,13 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }
@@ -316,6 +352,7 @@
       "type": "native_radio",
       "label": "Fetal presentation",
       "label_text_style": "bold",
+      "label_info_text": "If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
       "options": [
         {
           "key": "cephalic",
@@ -350,6 +387,13 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }
@@ -466,7 +510,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Select preferred gestational age: Using LMP, Using ultrasound, Using SFH or abdominal palpation",
+      "label": "Select preferred gestational age:",
       "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
       "label_info_title": "Select preferred gestational age",
       "label_text_style": "bold",

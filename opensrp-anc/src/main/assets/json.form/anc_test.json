@@ -412,6 +412,17 @@
         }
       },
       {
+        "key": "accordion_blood_glucose",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Blood Glucose test",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_blood_glucose_sub_form",
+        "container": "anc_test"
+      },
+      {
         "key": "accordion_blood_haemoglobin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
