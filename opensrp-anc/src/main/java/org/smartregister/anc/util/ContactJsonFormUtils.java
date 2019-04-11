@@ -180,6 +180,40 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
     }
+    public static String obtainValue(String key, JSONArray value) throws JSONException {
+        String result = "";
+        for (int j = 0; j < value.length(); j++) {
+            JSONObject valueItem = value.getJSONObject(j);
+            if (valueItem.getString(JsonFormConstants.KEY).equals(key)) {
+                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
+                result = extractItemValue(valueItem, valueItemJSONArray);
+                break;
+            }
+        }
+        return result;
+    }
+
+    public static String extractItemValue(JSONObject valueItem, JSONArray valueItemJSONArray) throws JSONException {
+        String result;
+        switch (valueItem.getString(JsonFormConstants.TYPE)) {
+            case JsonFormConstants.ANC_RADIO_BUTTON:
+            case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                result = valueItemJSONArray.getString(0).split(":")[0];
+                break;
+            case JsonFormConstants.CHECK_BOX:
+                StringBuilder sb = new StringBuilder("[");
+                for (int index = 0; index < valueItemJSONArray.length(); index++) {
+                    sb.append(valueItemJSONArray.getString(index).split(":")[0]);
+                    sb.append(", ");
+                }
+                result = sb.toString().replaceAll(", $", "") + "]";
+                break;
+            default:
+                result = valueItemJSONArray.getString(0);
+                break;
+        }
+        return result;
+    }
 
     public static void persistPartial(String baseEntityId, Contact contact) {
         PartialContact partialContact = new PartialContact();

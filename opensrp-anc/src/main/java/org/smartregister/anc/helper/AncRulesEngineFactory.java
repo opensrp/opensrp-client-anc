@@ -7,6 +7,7 @@ import com.vijay.jsonwizard.rules.RulesEngineFactory;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -17,9 +18,10 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
     private String selectedRuleName;
 
 
-    public AncRulesEngineFactory(Context context, Map<String, String> globalValues) {
+    public AncRulesEngineFactory(Context context, Map<String, String> globalValues, JSONObject mJSONObject) {
         super(context, globalValues);
         this.ancRulesEngineHelper = new AncRulesEngineHelper(context);
+        this.ancRulesEngineHelper.setJsonObject(mJSONObject);
         this.globalValues = globalValues;
 
     }

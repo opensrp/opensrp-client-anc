@@ -13,6 +13,20 @@ condition: "(step1_ultrasound == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
+name: step1_hiv_test_date
+description: Date that the ultrasound was done.
+priority: 1
+condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'done_earlier' "
+actions:
+- "isRelevant = true"
+---
+name: step1_hiv_test_result
+description: HIV test resupt
+priority: 1
+condition: "step1_hiv_test_status != '' && (step1_hiv_test_status == 'done_today' || step1_hiv_test_status == 'done_earlier') "
+actions:
+- "isRelevant = true"
+---
 name: step1_ultrasound_gest_age_wks
 description: GA from ultrasound - weeks
 priority: 1
@@ -86,14 +100,14 @@ actions:
 name: step1_hiv_test_status
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1)"
+condition: "(global_pop_hiv_prevalence == true && (global_hiv_positive != '' && global_hiv_positive != 1))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(global_hiv_positive == 1)"
+condition: "(step1_hiv_positive == 1)"
 actions:
 - "isRelevant = true"
 ---
@@ -101,6 +115,13 @@ name: step2_hiv_test_partner_status
 description: Partner HIV test
 priority: 1
 condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_partner_date
+description: Partner HIV test date
+priority: 1
+condition: "(step2_hiv_test_partner_status != '' && step2_hiv_test_partner_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -177,7 +198,7 @@ actions:
 name: step1_hepc_test_status
 description: Hepatitis C test
 priority: 1
-condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == true) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker'))))"
+condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -233,7 +254,7 @@ actions:
 name: step1_syph_test_status
 description: syph_test_status
 priority: 1
-condition: "step1_syphilis_positive == 0"
+condition: "(global_contact_no == 1 || global_gest_age_openmrs >= 29)"
 actions:
 - "isRelevant = true"
 ---
@@ -398,73 +419,80 @@ condition: "step1_urine_culture == 'positive_gbs'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_glucose_test_date
+name: step2_glucose_test_date
 description: Blood glucose test date.
 priority: 1
-condition: "step1_glucose_test_status == 'done_earlier'"
+condition: "step2_glucose_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_glucose_test_type
+name: step2_glucose_test_type
 description: Blood glucose test.
 priority: 1
-condition: "step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier' || step1_glucose_test_status == 'ordered'"
+condition: "step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier' || step2_glucose_test_status == 'ordered'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_fasting_plasma_gluc
+name: step2_fasting_plasma_gluc
 description: Fasting plasma glucose results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'fasting_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_ogtt_fasting
+name: step2_ogtt_fasting
 description: 75g OGTT - fasting glucose results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_ogtt_1
+name: step2_ogtt_1
 description: 75g OGTT - 1 hr results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_ogtt_2
+name: step2_ogtt_2
 description: 75g OGTT - 2 hrs results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_random_plasma
+name: step2_random_plasma
 description: Random plasma glucose results (mg/dl)
 priority: 1
-condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'random_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
 actions:
 - "isRelevant = true"
 ---
-name: step1_gestational_diabetes_danger_toaster
+name: step2_gestational_diabetes_danger_toaster
 description: gestational_diabetes_danger_toaster
 priority: 1
-condition: "step1_gdm == 1"
+condition: "step2_gdm == 1"
 actions:
 - "isRelevant = true"
 ---
-name: step1_diabetes_mellitus_danger_toaster
+name: step2_diabetes_mellitus_danger_toaster
 description: diabetes_mellitus_danger_toaster
 priority: 1
-condition: "step1_dm_in_preg == 1"
+condition: "step2_dm_in_preg == 1"
 actions:
 - "isRelevant = true"
 ---
-name: step1_dietary_intervention_danger_toaster
+name: step2_dietary_intervention_danger_toaster
 description: dietary_intervention_danger_toaster
 priority: 1
-condition: "step1_gdm == 1 || step1_dm_in_preg"
+condition: "step2_gdm == 1 || step2_dm_in_preg == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_accordion_blood_haemoglobin
+description: hb_test_status
+priority: 1
+condition: "contact_no == 1  || global_gest_age_openmrs >= 26 "
 actions:
 - "isRelevant = true"
 ---
@@ -569,7 +597,14 @@ actions:
 name: step1_tb_screening_status
 description: tb_screening_status
 priority: 1
-condition: "step1_hiv_positive == 1 || global_pop_tb == true"
+condition: "helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_tb == true"
+actions:
+- "isRelevant = true"
+---
+name: step1_tb_screening_result
+description: tb_screening_result
+priority: 1
+condition: "step1_tb_screening_status != '' && (step1_tb_screening_status == 'done_today' || step1_tb_screening_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -597,7 +632,14 @@ actions:
 name: step1_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_gest_age_openmrs >= 28 || global_contact_no == 1)"
+condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_gest_age_openmrs >= 29 || global_contact_no == 1)"
+actions:
+- "isRelevant = true"
+---
+name: step2_accordion_hiv
+description: HIV test
+priority: 1
+condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_previous_hiv_test_status == '' && global_contact_no > 1)"
 actions:
 - "isRelevant = true"
 ---
@@ -611,14 +653,14 @@ actions:
 name: step1_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "((step1_hiv_positive != 1) && ((global_pop_hepc == true) || (global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation.contains('informal_employment_sex_worker')))) && global_contact_no == 1"
+condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "step1_syphilis_positive == 0 && (global_contact_no == 1 || global_gest_age_openmrs >= 28)"
+condition: "(global_contact_no == 1 || global_gest_age_openmrs >= 29)"
 actions:
 - "isRelevant = true"
 ---
@@ -639,12 +681,12 @@ actions:
 name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(step1_hiv_positive == 1 || global_pop_tb == true) && global_contact_no == 1"
+condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_tb == true) && global_contact_no == 1"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_ultrasound
-description: tb_screening_status
+description: ultrasound accordion
 priority: 1
 condition: "(global_contact_no == 1 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 24)"
 actions:
@@ -653,7 +695,7 @@ actions:
 name: step2_accordion_partner_hiv
 description: Partner HIV test
 priority: 1
-condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '') && global_contact_no == 1"
+condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
 actions:
 - "isRelevant = true"
 ---
@@ -748,13 +790,6 @@ condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earli
 actions:
 - "isRelevant = true"
 ---
-name: step2_accordion_hiv
-description: HIV test
-priority: 1
-condition: "(global_pop_hiv_prevalence == true && global_hiv_positive != 1) && (global_previous_hiv_test_status == '' && global_contact_no > 1)"
-actions:
-- "isRelevant = true"
----
 name: step2_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
@@ -797,9 +832,23 @@ condition: "global_previous_blood_type_test_status == '' && global_contact_no > 
 actions:
 - "isRelevant = true"
 ---
-name: step2_accordion_partner_hiv
-description: step2 partner HIV
+name: step2_hiv_test_partner_result
+description:  partner HIV result
 priority: 1
-condition: "(global_previous_hiv_test_partner_status == ''  || global_previous_hiv_test_partner_result == '' || global_previous_hiv_test_partner_result == 'inconclusive') && global_contact_no > 1"
+condition: "step2_hiv_test_partner_status != '' && (step2_hiv_test_partner_status == 'done_earlier'  || step2_hiv_test_partner_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_other_test_name
+description: other_test_name
+priority: 1
+condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
+actions:
+- "isRelevant = true"
+---
+name: step2_other_test_result
+description: other_test_result
+priority: 1
+condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
 actions:
 - "isRelevant = true"

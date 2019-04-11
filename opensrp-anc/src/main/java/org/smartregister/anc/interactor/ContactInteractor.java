@@ -45,6 +45,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static org.smartregister.anc.util.ContactJsonFormUtils.extractItemValue;
+
 /**
  * Created by keyman 30/07/2018.
  */
@@ -53,7 +55,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     public static final String TAG = ContactInteractor.class.getName();
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
     private List<String> parsableFormsList = Arrays
-            .asList(new String[]{Constants.JSON_FORM.ANC_PROFILE, Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM});
+            .asList(Constants.JSON_FORM.ANC_QUICK_CHECK, Constants.JSON_FORM.ANC_PROFILE,
+                    Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM,
+                    Constants.JSON_FORM.ANC_TEST, Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
 
     @VisibleForTesting
     ContactInteractor(AppExecutors appExecutors) {
@@ -211,15 +215,15 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
+                        if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.EXPANSION_PANEL)) {
+                            saveExpansionPanelPreviousValues(baseEntityId, fieldObject);
+                            continue;
+                        }
+
                         if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils
                                 .isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
-                            PreviousContact previousContact = new PreviousContact();
-
-                            previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
-                            previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
-                            previousContact.setBaseEntityId(baseEntityId);
-                            getPreviousContactRepository().savePreviousContact(previousContact);
+                            savePreviousContactItem(baseEntityId, fieldObject);
 
                         }
 
@@ -229,6 +233,32 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
+    }
+
+    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject) throws JSONException {
+        if (fieldObject != null) {
+            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
+            if (value == null) {
+                return;
+            }
+            for (int j = 0; j < value.length(); j++) {
+                JSONObject valueItem = value.getJSONObject(j);
+                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
+                String result = extractItemValue(valueItem, valueItemJSONArray);
+                JSONObject itemToSave = new JSONObject();
+                itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
+                itemToSave.put(JsonFormConstants.VALUE, result);
+                savePreviousContactItem(baseEntityId, itemToSave);
+            }
+        }
+    }
+
+    private void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws JSONException {
+        PreviousContact previousContact = new PreviousContact();
+        previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
+        previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
+        previousContact.setBaseEntityId(baseEntityId);
+        getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     protected PreviousContactRepository getPreviousContactRepository() {
@@ -290,7 +320,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                                 Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
                     }
                 }
-            } else { partialContactList = null;}
+            } else {
+                partialContactList = null;
+            }
             return this;
         }
     }
@@ -354,8 +386,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         }
 
         private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepository partialContactRepository,
-                                                          List<PartialContact> partialContactList, Facts facts,
-                                                          List<String> formSubmissionIDs) throws Exception {
+                                                      List<PartialContact> partialContactList, Facts facts,
+                                                      List<String> formSubmissionIDs) throws Exception {
             if (partialContactList != null) {
 
                 Collections.sort(partialContactList, new Comparator<PartialContact>() {

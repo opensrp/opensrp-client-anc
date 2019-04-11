@@ -61,7 +61,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private String TAG = this.getClass().getSimpleName();
     protected AncRulesEngineFactory rulesEngineFactory = null;
 
-    private String formName;public void init(String json) {
+    private String formName;
+
+    public void init(String json) {
         try {
             mJSONObject = new JSONObject(json);
             if (!mJSONObject.has("encounter_type")) {
@@ -79,7 +81,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 globalValues = new HashMap<>();
             }
 
-            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues);
+            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues,mJSONObject);
             setRulesEngineFactory(rulesEngineFactory);
 
             confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
@@ -90,7 +92,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             Log.e(TAG, "Initialization error. Json passed is invalid : " + e.getMessage(), e);
         }
     }
-
 
 
     @Override
@@ -291,7 +292,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
                 String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                String itemType = item.optString(JsonFormConstants.TYPE,"");
+                String itemType = item.optString(JsonFormConstants.TYPE, "");
                 boolean isSpecialWidget = isSpecialWidget(itemType);
 
                 String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
@@ -580,7 +581,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
         if (refreshExpansionPanelEvent != null) {
             try {
@@ -643,7 +644,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @author dubdabasoduba
      */
-    public void finishInitialQuickCheck(){
+    public void finishInitialQuickCheck() {
         ContactJsonFormActivity.this.finish();
     }
 }
