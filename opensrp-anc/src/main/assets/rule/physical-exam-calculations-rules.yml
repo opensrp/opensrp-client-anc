@@ -72,7 +72,7 @@ actions:
 name: step2_hypertension
 description: Hypertension Diognosis
 priority: 1
-condition: "step2_urine_protein == 'none' ||  step2_urine_protein == 'one_plus'"
+condition: "step2_urine_protein == 'none' ||  step2_urine_protein == '+'"
 actions:
 - "calculation = 1"
 ---
@@ -86,14 +86,14 @@ actions:
 name: step2_severe_preeclampsia
 description: Severe preeclampsia
 priority: 1
-condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus'))  || ((step2_urine_protein == 'two_plus' || step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus') && (!step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none')))"
+condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == '+++' || step2_urine_protein == '++++'))  || ((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++') && (!step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none')))"
 actions:
 - "calculation = 1"
 ---
 name: step2_preeclampsia
 description: preeclampsia
 priority: 1
-condition: "((step2_urine_protein == 'two_plus' || step2_urine_protein == 'three_plus' || step2_urine_protein == 'four_plus')  && (!step2_symp_sev_preeclampsia.isEmpty() && step2_symp_sev_preeclampsia.contains('none')) && (step2_bp_systolic_repeat < 160 && step2_bp_diastolic_repeat < 110))"
+condition: "((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++')  && (!step2_symp_sev_preeclampsia.isEmpty() && step2_symp_sev_preeclampsia.contains('none')) && (step2_bp_systolic_repeat < 160 && step2_bp_diastolic_repeat < 110))"
 actions:
 - "calculation = 1"
 ---

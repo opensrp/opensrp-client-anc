@@ -275,10 +275,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         if (jsonArray != null) {
 
-            List<String> valueMap = AncApplication.getInstance().getGsonInstance()
+            return AncApplication.getInstance().getGsonInstance()
                     .fromJson(jsonArray.toString(), new TypeToken<List<String>>() {
                     }.getType());
-            return valueMap;
         } else {
             return new ArrayList<>();
         }
