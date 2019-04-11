@@ -1,5 +1,6 @@
 package org.smartregister.anc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.PreviousContactsActivity;
 import org.smartregister.anc.adapter.LastContactAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
@@ -42,6 +44,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     private List<YamlConfigWrapper> lastContactDetails;
     private TextView tests_header;
     private LinearLayout last_contact_layout;
+    private TextView last_contact_bottom;
+    private ProfileContactsActionHandler profileContactsActionHandler = new ProfileContactsActionHandler();
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -65,8 +69,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     @Override
     protected void onResumption() {
-        HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent()
-                .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         initializeLastContactDetails(clientDetails);
         initializeTestDetails(clientDetails);
     }
@@ -175,6 +178,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
         tests_header = fragmentView.findViewById(R.id.tests_header);
         last_contact_layout = fragmentView.findViewById(R.id.last_contact_layout);
+        last_contact_bottom = last_contact_layout.findViewById(R.id.last_contact_bottom);
+        last_contact_bottom.setOnClickListener(profileContactsActionHandler);
         return fragmentView;
     }
 
@@ -182,5 +187,26 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         return AncApplication.getInstance().readYaml(filename);
     }
 
+    /**
+     * Handles the Click actions on any of the section in the page.
+     */
+    private class ProfileContactsActionHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.last_contact_bottom) {
+                goToPreviousContacts();
+            }
+        }
 
+    }
+
+    private void goToPreviousContacts() {
+        Intent intent = new Intent(getActivity(), PreviousContactsActivity.class);
+        String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP,
+                getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
+
+        this.startActivity(intent);
+    }
 }

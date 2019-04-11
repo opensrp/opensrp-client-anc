@@ -111,8 +111,7 @@
         <activity
             android:name=".activity.PreviousContactsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AncAppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

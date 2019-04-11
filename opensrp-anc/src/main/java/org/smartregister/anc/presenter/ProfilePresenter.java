@@ -36,8 +36,8 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private RegisterContract.Interactor mRegisterInteractor;
     private ContactInteractor contactInteractor;
 
-    public ProfilePresenter(ProfileContract.View loginView) {
-        mProfileView = new WeakReference<>(loginView);
+    public ProfilePresenter(ProfileContract.View profileView) {
+        mProfileView = new WeakReference<>(profileView);
         mProfileInteractor = new ProfileInteractor(this);
         mRegisterInteractor = new RegisterInteractor();
         contactInteractor = new ContactInteractor();

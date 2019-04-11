@@ -1285,8 +1285,8 @@
       {
         "key": "respiratory_exam",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Respiratory exam",
         "label_text_style": "bold",
@@ -1296,11 +1296,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1308,7 +1314,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "respiratory_exam_sub_form"
+            "content_form": "respiratory_exam_sub_form",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1829,6 +1838,7 @@
             "key": "yes",
             "text": "Yes",
             "value": false,
+            "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
