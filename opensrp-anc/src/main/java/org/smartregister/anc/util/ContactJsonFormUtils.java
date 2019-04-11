@@ -180,6 +180,7 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
     }
+
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
         for (int j = 0; j < value.length(); j++) {
@@ -228,29 +229,22 @@ public class ContactJsonFormUtils extends FormUtils {
 
 
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
-        JSONObject object;
         //partial contact exists?
 
-        PartialContact partialContact =
-                AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
-        String formJsonString = partialContact != null &&
-                (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ?
-                (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
-                        partialContact.getFormJson()) : form.toString();
-        object = new JSONObject(formJsonString);
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
 
-        JSONObject globals = null;
-        if (form.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
-            globals = form.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
-        }
+        String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
 
-        if (globals != null) {
-            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
-        }
-
-        return object;
+        return new JSONObject(formJsonString);
     }
 
+    private static String getPartialContactForm(PartialContact partialContact) {
+        return partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson();
+    }
+
+    private static boolean isValidPartialForm(PartialContact partialContact) {
+        return partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null);
+    }
 
     public static void processSpecialWidgets(JSONObject widget) throws Exception {
         String widgetType = widget.getString(JsonFormConstants.TYPE);

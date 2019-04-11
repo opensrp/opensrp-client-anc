@@ -65,18 +65,6 @@
     "syphilis_positive",
     "urine_test_status"
   ],
-  "editable_fields": [
-    "hepb_test_status",
-    "hiv_test_status",
-    "syph_test_status",
-    "tb_screening_status"
-  ],
-  "default_values": [
-    "hepb_test_status",
-    "hiv_test_status",
-    "syph_test_status",
-    "tb_screening_status"
-  ],
   "step1": {
     "title": "Due",
     "next": "step2",
