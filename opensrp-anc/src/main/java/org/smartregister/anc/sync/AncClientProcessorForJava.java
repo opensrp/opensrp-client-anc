@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
@@ -53,7 +54,8 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
 
-        ClientClassification clientClassification = assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION, ClientClassification.class);
+        ClientClassification clientClassification = assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION,
+                ClientClassification.class);
 
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
@@ -70,7 +72,8 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
 
                 if (eventType.equals(Constants.EventType.CLOSE)) {
                     unsyncEvents.add(event);
-                } else if (eventType.equals(Constants.EventType.REGISTRATION) || eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
+                } else if (eventType.equals(Constants.EventType.REGISTRATION) || eventType
+                        .equals(Constants.EventType.UPDATE_REGISTRATION)) {
                     if (clientClassification == null) {
                         continue;
                     }
@@ -143,7 +146,8 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         }
 
     */
-    private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects, Event event, String registeredAnm) {
+    private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
+                           Event event, String registeredAnm) {
         try {
             String baseEntityId = event.getBaseEntityId();
             String providerId = event.getProviderId();
@@ -151,17 +155,17 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             if (providerId.equals(registeredAnm)) {
                 ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
                 ecSyncHelper.deleteClient(baseEntityId);
-              //  Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
-               // Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
+                //  Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
+                // Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
 
                 detailsRepository.deleteDetails(baseEntityId);
-               // Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
+                // Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
 
                 for (Table bindObject : bindObjects) {
                     String tableName = bindObject.name;
 
                     deleteCase(tableName, baseEntityId);
-                //    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
+                    //    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
                 }
 
                 return true;
@@ -210,16 +214,35 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
         //event.getEvents();
 
         //Attention flags
-        AncApplication.getInstance().getDetailsRepository().add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS), Calendar.getInstance().getTimeInMillis());
+        AncApplication.getInstance().getDetailsRepository()
+                .add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS,
+                        event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS),
+                        Calendar.getInstance().getTimeInMillis());
 
         //Previous contact state
         String previousContactsRaw = event.getDetails().get(Constants.DETAILS_KEY.PREVIOUS_CONTACTS);
-        Map<String, String> previousContactMap = AncApplication.getInstance().getGsonInstance().fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
-        }.getType());
+        Map<String, String> previousContactMap = AncApplication.getInstance().getGsonInstance()
+                .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
+                }.getType());
 
         if (previousContactMap != null) {
+            String contactNo = "";
+            if (!TextUtils.isEmpty(event.getDetails().get(Constants.CONTACT))) {
+                String[] contacts = event.getDetails().get(Constants.CONTACT).split(" ");
+                if (contacts.length >= 2) {
+                    int nextContact;
+                    if (Integer.parseInt(contacts[1]) > 0) {
+                        nextContact = Integer.parseInt(contacts[1]) - 1;
+                    } else {
+                        nextContact = Integer.parseInt(contacts[1]) + 1;
+                    }
+                    contactNo = String.valueOf(nextContact);
+                }
+            }
+
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
-                AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue()));
+                AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(
+                        new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
             }
         }
 
@@ -233,7 +256,7 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
 
-       // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
+        // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
 
         AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
                 allCommonsRepositoryobjects(tableName);
@@ -242,6 +265,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-      //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
+        //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
     }
 }

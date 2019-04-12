@@ -23,12 +23,14 @@ public class PreviousContactRepository extends BaseRepository {
     public static final String TABLE_NAME = "previous_contact";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
+    public static final String CONTACT_NO = "contact_no";
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
             ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+            CONTACT_NO + "  VARCHAR NOT NULL, " +
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
             KEY + "  VARCHAR, " +
             VALUE + "  VARCHAR NOT NULL, " +
@@ -69,6 +71,7 @@ public class PreviousContactRepository extends BaseRepository {
     private ContentValues createValuesFor(PreviousContact PreviousContact) {
         ContentValues values = new ContentValues();
         values.put(ID, PreviousContact.getId());
+        values.put(CONTACT_NO, PreviousContact.getContactNo());
         values.put(BASE_ENTITY_ID, PreviousContact.getBaseEntityId());
         values.put(VALUE, PreviousContact.getValue());
         values.put(KEY, PreviousContact.getKey());
@@ -89,12 +92,14 @@ public class PreviousContactRepository extends BaseRepository {
         PreviousContact dbPreviousContact = null;
         Cursor mCursor = null;
         try {
-            if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) && StringUtils.isNotBlank(previousContactRequest.getKey())) {
+            if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) && StringUtils
+                    .isNotBlank(previousContactRequest.getKey())) {
                 selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " = ? " + COLLATE_NOCASE;
                 selectionArgs = new String[]{previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
             }
 
-            mCursor = getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
+            mCursor = getReadableDatabase()
+                    .query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
             if (mCursor.getCount() > 0) {
 
                 mCursor.moveToFirst();
@@ -177,7 +182,8 @@ public class PreviousContactRepository extends BaseRepository {
 
                 while (mCursor.moveToNext()) {
 
-                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
 
                 }
                 return previousContacts;

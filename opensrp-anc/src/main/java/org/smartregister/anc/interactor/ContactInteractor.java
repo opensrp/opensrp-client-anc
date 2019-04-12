@@ -198,7 +198,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
 
-    private void processFormFieldKeyValues(String baseEntityId, JSONObject object) throws Exception {
+    private void processFormFieldKeyValues(String baseEntityId, JSONObject object, String contactNo) throws Exception {
 
         if (object != null) {
             Iterator<String> keys = object.keys();
@@ -216,13 +216,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
                         if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.EXPANSION_PANEL)) {
-                            saveExpansionPanelPreviousValues(baseEntityId, fieldObject);
+                            saveExpansionPanelPreviousValues(baseEntityId, fieldObject, contactNo);
                             continue;
                         }
 
                         if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils
                                 .isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
+                            fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
                             savePreviousContactItem(baseEntityId, fieldObject);
 
                         }
@@ -235,7 +236,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     }
 
-    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject) throws JSONException {
+    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo)
+            throws JSONException {
         if (fieldObject != null) {
             JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
             if (value == null) {
@@ -248,6 +250,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 JSONObject itemToSave = new JSONObject();
                 itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
                 itemToSave.put(JsonFormConstants.VALUE, result);
+                itemToSave.put(PreviousContactRepository.CONTACT_NO, contactNo);
                 savePreviousContactItem(baseEntityId, itemToSave);
             }
         }
@@ -405,7 +408,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     if (formObject != null) {
                         //process form details
                         if (parsableFormsList.contains(partialContact.getType())) {
-                            processFormFieldKeyValues(baseEntityId, formObject);
+                            processFormFieldKeyValues(baseEntityId, formObject,
+                                    String.valueOf(partialContact.getContactNo()));
                         }
 
                         //process attention flags
