@@ -179,6 +179,7 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
     }
+
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
         for (int j = 0; j < value.length(); j++) {
@@ -227,16 +228,12 @@ public class ContactJsonFormUtils extends FormUtils {
 
 
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
-        JSONObject object;
         //partial contact exists?
 
-        PartialContact partialContact =
-                AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
-        String formJsonString = partialContact != null &&
-                (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null) ?
-                (partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
-                        partialContact.getFormJson()) : form.toString();
-        object = new JSONObject(formJsonString);
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+
+        String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
+        JSONObject object = new JSONObject(formJsonString);
 
         JSONObject globals = null;
         if (form.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
@@ -250,6 +247,13 @@ public class ContactJsonFormUtils extends FormUtils {
         return object;
     }
 
+    private static String getPartialContactForm(PartialContact partialContact) {
+        return partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson();
+    }
+
+    private static boolean isValidPartialForm(PartialContact partialContact) {
+        return partialContact != null && (partialContact.getFormJson() != null || partialContact.getFormJsonDraft() != null);
+    }
 
     public static void processSpecialWidgets(JSONObject widget) throws Exception {
         String widgetType = widget.getString(JsonFormConstants.TYPE);
@@ -666,8 +670,6 @@ public class ContactJsonFormUtils extends FormUtils {
                     result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY),
                             options.getJSONObject(j).getString(JsonFormConstants.VALUE));
                 }
-            } else {
-                Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
             }
 
             //Backward compatibility Fix

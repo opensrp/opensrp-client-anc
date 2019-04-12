@@ -63,19 +63,8 @@
     "tb_screening_status",
     "hiv_positive",
     "syphilis_positive",
-    "urine_test_status"
-  ],
-  "editable_fields": [
-    "hepb_test_status",
-    "hiv_test_status",
-    "syph_test_status",
-    "tb_screening_status"
-  ],
-  "default_values": [
-    "hepb_test_status",
-    "hiv_test_status",
-    "syph_test_status",
-    "tb_screening_status"
+    "urine_test_status",
+    "hb_test_status"
   ],
   "step1": {
     "title": "Due",
@@ -203,7 +192,14 @@
         "accordion_info_title": "Urine test",
         "type": "expansion_panel",
         "content_form": "tests_urine_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_blood_glucose",
@@ -225,7 +221,14 @@
         "accordion_info_title": "Blood haemoglobin test",
         "type": "expansion_panel",
         "content_form": "tests_blood_haemoglobin_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "accordion_tb_screening",

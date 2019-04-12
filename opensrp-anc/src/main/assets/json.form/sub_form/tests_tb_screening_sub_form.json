@@ -129,9 +129,10 @@
         }
       ],
       "relevance": {
-        "step1:tb_screening_status": {
-          "type": "string",
-          "ex": "equalTo(., \"not_done\")"
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {
@@ -148,14 +149,10 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:tb_screening_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -169,9 +166,10 @@
       "expanded": "false",
       "max_date": "today",
       "relevance": {
-        "step1:tb_screening_status": {
-          "type": "string",
-          "ex": "equalTo(., \"done_earlier\")"
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "calculation": {
@@ -247,9 +245,10 @@
       "toaster_info_title": "TB screening positive. ",
       "toaster_type": "problem",
       "relevance": {
-        "step1:tb_screening_result": {
-          "type": "string",
-          "ex": "equalTo(., \"positive\")"
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     }
