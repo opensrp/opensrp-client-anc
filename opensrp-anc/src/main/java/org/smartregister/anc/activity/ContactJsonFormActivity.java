@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +30,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
-import org.smartregister.anc.adapter.ExpansionWidgetAdapter;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.contract.JsonApiInterface;
 import org.smartregister.anc.domain.Contact;
@@ -592,10 +590,12 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 formUtils.updateExpansionPanelRecyclerView(values, status, getApplicationContext());
 
                 LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
-                RecyclerView recyclerView = contentLayout.findViewById(R.id.contentRecyclerView);
-                ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) recyclerView.getAdapter();
+                LinearLayout mainContentView = contentLayout.findViewById(R.id.contentView);
+                formUtils.addValuesDisplay(values,mainContentView,getApplicationContext());
+
+                /*ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) mainContentView.getAdapter();
                 adapter.setExpansionWidgetValues(values);
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();*/
 
                 RelativeLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
                 Button undoButton = buttonLayout.findViewById(R.id.undo_button);

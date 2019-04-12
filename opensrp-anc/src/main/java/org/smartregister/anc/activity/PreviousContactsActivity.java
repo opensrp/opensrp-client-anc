@@ -1,11 +1,12 @@
 package org.smartregister.anc.activity;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.contract.PreviousContacts;
@@ -17,6 +18,12 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
     private String baseEntityId;
     protected PreviousContacts.Presenter mProfilePresenter;
     protected ActionBar actionBar;
+    private ConstraintLayout bottomSection;
+    private ConstraintLayout topSection;
+    private ConstraintLayout middleSection;
+    private TextView deliveryDate;
+    private RecyclerView previousContacts;
+    private RecyclerView contactSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +44,12 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
     }
 
     private void setUpViews() {
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_profile_activity, menu);
-        return true;
+        topSection = findViewById(R.id.layout_top);
+        middleSection = findViewById(R.id.layout_middle);
+        bottomSection = findViewById(R.id.layout_bottom);
+        deliveryDate = findViewById(R.id.delivery_date);
+        previousContacts = findViewById(R.id.last_contact_information);
+        contactSchedule = findViewById(R.id.upcoming_contacts);
     }
 
     @Override

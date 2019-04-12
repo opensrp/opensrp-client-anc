@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
@@ -42,9 +44,10 @@ import java.util.Locale;
 public class ProfileContactsFragment extends BaseProfileFragment {
     public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
     private List<YamlConfigWrapper> lastContactDetails;
+    private List<YamlConfigWrapper> lastContactTests;
     private TextView tests_header;
     private LinearLayout last_contact_layout;
-    private TextView last_contact_bottom;
+    private LinearLayout test_layout;
     private ProfileContactsActionHandler profileContactsActionHandler = new ProfileContactsActionHandler();
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
@@ -65,6 +68,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     @Override
     protected void onCreation() {
         lastContactDetails = new ArrayList<>();
+        lastContactTests = new ArrayList<>();
     }
 
     @Override
@@ -161,6 +165,13 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         recyclerView.setAdapter(adapter);
     }
 
+    private void setUpContactTestsDetailsRecycler() {
+        /*LastContactDetailsAdapter adapter = new LastContactDetailsAdapter(getActivity(), , );*/
+        RecyclerView recyclerView = test_layout.findViewById(R.id.test_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        /*recyclerView.setAdapter(adapter);*/
+    }
+
     private void initializeTestDetails(HashMap<String, String> clientDetails) {
         try {
             Date lastContactDate =
@@ -168,6 +179,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
                             .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
             tests_header.setText(String.format(getActivity().getString(R.string.recent_test),
                     new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(lastContactDate)));
+
+
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
@@ -176,10 +189,16 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
-        tests_header = fragmentView.findViewById(R.id.tests_header);
         last_contact_layout = fragmentView.findViewById(R.id.last_contact_layout);
-        last_contact_bottom = last_contact_layout.findViewById(R.id.last_contact_bottom);
+        TextView last_contact_bottom = last_contact_layout.findViewById(R.id.last_contact_bottom);
         last_contact_bottom.setOnClickListener(profileContactsActionHandler);
+
+        test_layout = fragmentView.findViewById(R.id.test_layout);
+        tests_header = test_layout.findViewById(R.id.tests_header);
+        TextView tests_bottom = test_layout.findViewById(R.id.tests_bottom);
+        tests_bottom.setOnClickListener(profileContactsActionHandler);
+
+
         return fragmentView;
     }
 

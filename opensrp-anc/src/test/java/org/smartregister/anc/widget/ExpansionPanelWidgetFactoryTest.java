@@ -111,7 +111,7 @@ public class ExpansionPanelWidgetFactoryTest extends BaseUnitTest {
         Mockito.doReturn(contentLayout).when(rootLayout).findViewById(R.id.contentLayout);
         Assert.assertNotNull(contentLayout);
 
-        Mockito.doReturn(contentView).when(contentLayout).findViewById(R.id.contentRecyclerView);
+        Mockito.doReturn(contentView).when(contentLayout).findViewById(R.id.contentView);
         Assert.assertNotNull(contentView);
 
         Mockito.doReturn(bottomButtonsLayout).when(rootLayout).findViewById(R.id.accordion_bottom_navigation);

@@ -52,6 +52,6 @@ public class AncSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean updateClientDetailsTable() {
-        return false;
+        return true;
     }
 }

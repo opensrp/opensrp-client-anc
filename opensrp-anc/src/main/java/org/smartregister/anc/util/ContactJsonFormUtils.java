@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -729,5 +730,25 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
         return result;
+    }
+
+    public void addValuesDisplay(List<String> expansionWidgetValues, LinearLayout contentView, Context context) {
+        if (expansionWidgetValues.size() > 0) {
+            for (int i = 0; i < expansionWidgetValues.size(); i++) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LinearLayout valuesLayout = (LinearLayout) inflater.inflate(R.layout.native_expansion_panel_list_item, null);
+                CustomTextView listHeader = valuesLayout.findViewById(R.id.item_header);
+                CustomTextView listValue = valuesLayout.findViewById(R.id.item_value);
+                String[] valueObject = expansionWidgetValues.get(i).split(":");
+                if (valueObject.length >= 2 && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER
+                        .equals(valueObject[1]) && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY
+                        .equals(valueObject[1])) {
+                    listHeader.setText(valueObject[0]);
+                    listValue.setText(valueObject[1]);
+                }
+
+                contentView.addView(valuesLayout);
+            }
+        }
     }
 }

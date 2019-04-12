@@ -1,8 +1,6 @@
 package org.smartregister.anc.widget;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
-import org.smartregister.anc.adapter.ExpansionWidgetAdapter;
 import org.smartregister.anc.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
@@ -199,10 +196,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 contentLayout.setVisibility(View.VISIBLE);
             }
         }
-        RecyclerView contentView = contentLayout.findViewById(R.id.contentRecyclerView);
-        contentView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        ExpansionWidgetAdapter adapter = new ExpansionWidgetAdapter(utils.createExpansionPanelChildren(values));
-        contentView.setAdapter(adapter);
+        LinearLayout contentView = contentLayout.findViewById(R.id.contentView);
+        formUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), contentView, context);
     }
 
     private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget)

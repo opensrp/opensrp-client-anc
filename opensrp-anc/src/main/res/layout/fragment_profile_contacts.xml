@@ -75,39 +75,40 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/charts_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/last_contact_layout">
+        <!-- <LinearLayout
+             android:id="@+id/charts_layout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             app:layout_constraintTop_toBottomOf="@+id/last_contact_layout">
 
 
-            <TextView
-                android:id="@+id/charts_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/profile_contact_section_bg"
-                android:gravity="start"
-                android:paddingStart="@dimen/contact_drawable_padding"
-                android:paddingTop="@dimen/contact_drawable_padding"
-                android:paddingEnd="@dimen/contact_drawable_padding"
-                android:paddingBottom="@dimen/contact_drawable_padding"
-                android:singleLine="true"
-                android:text="@string/key_figure"
-                android:textAllCaps="true"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@color/white"
-                app:layout_constraintTop_toTopOf="parent" />
+             <TextView
+                 android:id="@+id/charts_header"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@color/profile_contact_section_bg"
+                 android:gravity="start"
+                 android:paddingStart="@dimen/contact_drawable_padding"
+                 android:paddingTop="@dimen/contact_drawable_padding"
+                 android:paddingEnd="@dimen/contact_drawable_padding"
+                 android:paddingBottom="@dimen/contact_drawable_padding"
+                 android:singleLine="true"
+                 android:text="@string/key_figure"
+                 android:textAllCaps="true"
+                 android:textAppearance="?android:textAppearanceMedium"
+                 android:textColor="@color/white"
+                 app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+         </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/test_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/charts_layout">
+            app:layout_constraintTop_toBottomOf="@+id/last_contact_layout"
+            app:layout_constraintBottom_toBottomOf="parent">
 
 
             <TextView
@@ -126,10 +127,26 @@
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/test_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foregroundGravity="top"
+                android:paddingStart="@dimen/contact_drawable_padding"
+                android:paddingTop="@dimen/contact_drawable_padding"
+                android:paddingEnd="@dimen/contact_drawable_padding"
+                android:paddingBottom="@dimen/contact_drawable_padding"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toTopOf="@+id/test_divider"
+                app:layout_constraintTop_toBottomOf="@+id/tests_header" />
+
             <View
+                android:id="@+id/test_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/light_grey"/>
+                android:background="@color/light_grey" />
+
             <TextView
                 android:id="@+id/tests_bottom"
                 android:layout_width="match_parent"
