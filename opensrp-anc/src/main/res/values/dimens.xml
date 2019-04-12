@@ -143,4 +143,6 @@
     <dimen name="contact_toolbar_image_margin">20dp</dimen>
     <dimen name="patients_name_margin">2dp</dimen>
     <dimen name="accordion_content_margin">10dp</dimen>
+
+    <dimen name="expansion_panel_dialog_padding">20dp</dimen>
 </resources>
