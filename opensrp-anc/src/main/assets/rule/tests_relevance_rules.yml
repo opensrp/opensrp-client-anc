@@ -492,7 +492,7 @@ actions:
 name: step1_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "global_contact_no == 1  || global_gest_age_openmrs >= 26 "
+condition: "global_contact_no == 1  || (global_contact_no > 1  && (global_previous_hb_test_status == '' || global_previous_hb_test_status == 'ordered' || global_previous_hb_test_status == 'note_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 26  || global_gest_age_openmrs >= 36))"
 actions:
 - "isRelevant = true"
 ---
@@ -562,7 +562,7 @@ actions:
 name: step1_hematocrit_danger_toaster
 description: hematocrit_danger_toaster
 priority: 1
-condition: "step1_ht < 10.5"
+condition: "step1_ht > 0 && step1_ht < 10.5"
 actions:
 - "isRelevant = true"
 ---
@@ -590,7 +590,7 @@ actions:
 name: step1_paltelets_danger_toaster
 description: paltelets_danger_toaster
 priority: 1
-condition: "step1_platelets < 100000"
+condition: "step1_platelets > 0 && step1_platelets < 100000"
 actions:
 - "isRelevant = true"
 ---

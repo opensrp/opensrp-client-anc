@@ -184,6 +184,7 @@ fields:
   - "hiv_positive"
   - "syphilis_positive"
   - "urine_test_status"
+  - "hb_test_status"
 ---
 form: anc_quick_check
 fields:

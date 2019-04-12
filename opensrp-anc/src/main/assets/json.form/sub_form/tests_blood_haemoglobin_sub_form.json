@@ -196,7 +196,7 @@
       "openmrs_entity_id": "",
       "type": "edit_text",
       "hint": "Complete blood count test result (g/dl) (recommended)",
-      "edit_type": "name",
+      "edit_type": "number",
       "v_min": {
         "value": "0",
         "err": "The complete blood count test must be greater than or equal to 0"
@@ -228,7 +228,7 @@
       "openmrs_entity_id": "",
       "type": "edit_text",
       "hint": "Hb test result - haemoglobinometer (g/dl)",
-      "edit_type": "name",
+      "edit_type": "number",
       "v_min": {
         "value": "0",
         "err": "The Hb test result - haemoglobinometer (g/dl) must be greater than or equal to 0"
@@ -260,7 +260,7 @@
       "openmrs_entity_id": "",
       "type": "edit_text",
       "hint": "Hb test result - haemoglobin colour scale (g/dl)",
-      "edit_type": "name",
+      "edit_type": "number",
       "v_min": {
         "value": "0",
         "err": "The Hb test result - haemoglobin colour scale (g/dl) must be greater than or equal to 0"
@@ -342,7 +342,7 @@
       "openmrs_entity_id": "",
       "type": "edit_text",
       "hint": "Hematocrit (Ht)",
-      "edit_type": "name",
+      "edit_type": "number",
       "v_numeric": {
         "value": false,
         "err": "Enter a numeric value"
@@ -384,7 +384,7 @@
       "openmrs_entity_id": "",
       "type": "edit_text",
       "hint": "White blood cell (WBC) count",
-      "edit_type": "name",
+      "edit_type": "number",
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
@@ -426,7 +426,7 @@
       "openmrs_entity_id": "",
       "type": "edit_text",
       "hint": "Platelet count",
-      "edit_type": "name",
+      "edit_type": "number",
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
