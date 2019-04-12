@@ -10,13 +10,15 @@
     <RelativeLayout
         android:id="@+id/expansionHeader"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:color/white">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <RelativeLayout
             android:id="@+id/expansion_header_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/accordion_info_icon"
             android:layout_toLeftOf="@+id/accordion_info_icon">
 
@@ -46,6 +48,8 @@
                 android:layout_toEndOf="@+id/statusImageView"
                 android:layout_toRightOf="@+id/statusImageView"
                 android:gravity="start|center_vertical"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 android:text="Adding in the text required for the heading"
                 android:textColor="@color/text_black"
                 android:textSize="16sp" />
@@ -67,7 +71,7 @@
     <LinearLayout
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -79,25 +83,24 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/accordion_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_gravity="end"
             android:layout_marginLeft="@dimen/accordion_content_margin"
             android:layout_marginRight="@dimen/accordion_content_margin"
             android:layout_marginBottom="5dp"
+            android:gravity="end"
+            android:orientation="horizontal"
             android:visibility="gone">
 
             <Button
                 android:id="@+id/undo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_toStartOf="@id/ok_button"
-                android:layout_toLeftOf="@id/ok_button"
                 android:background="@null"
                 android:text="@string/undo"
                 android:textAllCaps="true"
@@ -108,13 +111,12 @@
                 android:id="@+id/ok_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:background="@null"
                 android:text="@string/record"
                 android:textAllCaps="true"
-                android:textColor="@color/dialog_button_blue_color" />
-        </RelativeLayout>
+                android:textColor="@color/dialog_button_blue_color"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -30,7 +30,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
-import org.smartregister.anc.model.ExpansionPanelValuesModel;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericPopupDialog;
 
@@ -181,6 +180,7 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
     }
+
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
         for (int j = 0; j < value.length(); j++) {
@@ -653,54 +653,6 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
-    /**
-     * Creates secondary values for the generice popups in cases where they are called from other widgets. This secondary
-     * values are saved as values for the expansion panel widget.
-     *
-     * @param valuesModel {@link ExpansionPanelValuesModel}
-     * @return valueItem {@link JSONObject}
-     */
-    public JSONObject createSecValues(ExpansionPanelValuesModel valuesModel) {
-        JSONObject valueItem = new JSONObject();
-        try {
-            String key = valuesModel.getKey();
-            String type = valuesModel.getType();
-            String label = valuesModel.getLabel();
-            JSONArray values = valuesModel.getValues();
-            JSONObject openMRSAttributes = valuesModel.getOpenmrsAttributes();
-            JSONArray valueOpenMRSAttributes = valuesModel.getValuesOpenMRSAttributes();
-
-            valueItem.put(JsonFormConstants.KEY, key);
-            valueItem.put(JsonFormConstants.TYPE, type);
-            valueItem.put(JsonFormConstants.LABEL, label);
-            valueItem.put(JsonFormConstants.VALUES, values);
-            valueItem.put(JsonFormConstants.OPENMRS_ATTRIBUTES, openMRSAttributes);
-            if (valueOpenMRSAttributes.length() > 0) {
-                valueItem.put(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES, valueOpenMRSAttributes);
-            }
-        } catch (Exception e) {
-            Log.i(TAG, Log.getStackTraceString(e));
-
-        }
-        return valueItem;
-    }
-
-    /**
-     * Add the OpenMRS attributes in any json object that is required for saving in OpenMRS
-     *
-     * @param openMrsEntityParent {@link String}
-     * @param openMrsEntity       {@link String}
-     * @param openMrsEntityId     {@link String}
-     * @param item                {@link JSONObject}
-     * @throws JSONException
-     */
-    public void addOpenMRSAttributes(String openMrsEntityParent, String openMrsEntity, String openMrsEntityId,
-                                     JSONObject item) throws JSONException {
-        item.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, openMrsEntityParent);
-        item.put(JsonFormConstants.OPENMRS_ENTITY, openMrsEntity);
-        item.put(JsonFormConstants.OPENMRS_ENTITY_ID, openMrsEntityId);
-    }
-
     public Facts getCheckBoxResults(JSONObject jsonObject) throws JSONException {
         Facts result = new Facts();
         JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
@@ -734,6 +686,9 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public void addValuesDisplay(List<String> expansionWidgetValues, LinearLayout contentView, Context context) {
         if (expansionWidgetValues.size() > 0) {
+            if (contentView.getChildCount() > 0) {
+                contentView.removeAllViews();
+            }
             for (int i = 0; i < expansionWidgetValues.size(); i++) {
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 LinearLayout valuesLayout = (LinearLayout) inflater.inflate(R.layout.native_expansion_panel_list_item, null);
