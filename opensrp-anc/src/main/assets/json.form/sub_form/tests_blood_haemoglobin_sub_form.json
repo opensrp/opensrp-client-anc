@@ -87,7 +87,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err":"HB test not done reason is required"
       },
       "relevance": {
         "rules-engine": {
@@ -179,7 +180,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Hb test type is required"
       },
       "relevance": {
         "rules-engine": {

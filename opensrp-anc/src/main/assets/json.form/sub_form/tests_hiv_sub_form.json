@@ -93,9 +93,10 @@
         "err": "HIV not done reason is required!"
       },
       "relevance": {
-        "step1:hiv_test_status": {
-          "type": "string",
-          "ex": "equalTo(., \"not_done\")"
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -108,14 +109,10 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:hiv_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -215,9 +212,10 @@
       "text": "HIV test inconclusive, refer for further testing.",
       "toaster_type": "warning",
       "relevance": {
-        "step1:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"inconclusive\")"
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
