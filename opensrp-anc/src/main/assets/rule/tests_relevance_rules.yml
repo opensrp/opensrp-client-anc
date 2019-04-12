@@ -401,7 +401,7 @@ actions:
 name: step1_gdm_risk_toaster
 description: Gestational diabetes mellitus (GDM) risk counseling
 priority: 1
-condition: "step1_gdm_risk == 1 && step1_gdm != 1 && step1_dm_in_preg != 1"
+condition: "step1_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
 actions:
 - "isRelevant = true"
 ---
@@ -492,7 +492,7 @@ actions:
 name: step1_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "contact_no == 1  || global_gest_age_openmrs >= 26 "
+condition: "global_contact_no == 1  || global_gest_age_openmrs >= 26 "
 actions:
 - "isRelevant = true"
 ---
@@ -667,7 +667,7 @@ actions:
 name: step1_accordion_urine
 description: urine accordion
 priority: 1
-condition: "(global_contact_no == 1 && !global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
+condition: "global_contact_no == 1  || (global_contact_no > 1  && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'note_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 26  || global_gest_age_openmrs >= 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
 actions:
 - "isRelevant = true"
 ---

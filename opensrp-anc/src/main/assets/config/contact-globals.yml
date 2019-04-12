@@ -144,6 +144,7 @@ fields:
 ---
 form: anc_test
 fields:
+  - "other_sym_lbpp"
   - "urine_protein"
   - "gest_age"
   - "gest_age_openmrs"

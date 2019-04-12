@@ -234,8 +234,18 @@ public class ContactJsonFormUtils extends FormUtils {
         PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
 
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
+        JSONObject object = new JSONObject(formJsonString);
 
-        return new JSONObject(formJsonString);
+        JSONObject globals = null;
+        if (form.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+            globals = form.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
+        }
+
+        if (globals != null) {
+            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
+        }
+
+        return object;
     }
 
     private static String getPartialContactForm(PartialContact partialContact) {
@@ -709,8 +719,6 @@ public class ContactJsonFormUtils extends FormUtils {
                     result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY),
                             options.getJSONObject(j).getString(JsonFormConstants.VALUE));
                 }
-            } else {
-                Log.e(TAG, "option for Key " + options.getJSONObject(j).getString(JsonFormConstants.KEY) + " has NO value");
             }
 
             //Backward compatibility Fix

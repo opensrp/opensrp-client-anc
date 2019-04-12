@@ -100,14 +100,14 @@ actions:
 name: step1_gdm_risk
 description: gdm_risk
 priority: 1
-condition: "(global_bmi >= 30) || global_prev_preg_comps.contains('macrosomia') || global_prev_preg_comps.contains('gestational_diabetes') || (step1_urine_glucose == 'none' && !step1_urine_glucose.isEmpty())"
+condition: "(global_bmi != '' && global_bmi >= 30) || !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('macrosomia') || global_prev_preg_comps.contains('gestational_diabetes')) || (step1_urine_glucose == '++' || step1_urine_glucose == '+++' || step1_urine_glucose == '++++')"
 actions:
 - "calculation = 1"
 ---
 name: step1_asb_positive
 description: asb_positive
 priority: 1
-condition: "(step1_urine_culture == 'positive_any') || (step1_urine_culture == 'positive_gbs') || step1_urine_gram_stain == 'positive' || (step1_urine_nitrites == 'none'&& !step1_urine_nitrites.isEmpty())|| (step1_urine_leukocytes == 'none'&& !step1_urine_leukocytes.isEmpty())"
+condition: "(step1_urine_culture == 'positive_any') || (step1_urine_culture == 'positive_gbs') || step1_urine_gram_stain == 'positive' || (step1_urine_nitrites != 'none' && step1_urine_nitrites != '') || (step1_urine_leukocytes != 'none' && step1_urine_leukocytes  != '')"
 actions:
 - "calculation = 1"
 ---
