@@ -69,7 +69,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     @Override
     protected void onResumption() {
-        HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent()
+                .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         initializeLastContactDetails(clientDetails);
         initializeTestDetails(clientDetails);
     }
@@ -98,9 +99,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             addAttentionFlagsRuleObjects(facts);
 
             String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-            Date lastContactDate =
-                    new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                            .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
             lastContactDetailsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM yyyy",
                     Locale.getDefault()).format(lastContactDate), lastContactDetails, facts));
 

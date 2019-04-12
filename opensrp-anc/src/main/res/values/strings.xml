@@ -301,4 +301,6 @@
     <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
     <string name="previous_contacts_header">Previous Contacts</string>
     <string name="expected_date_of_delivery">Expected Date of Delivery</string>
+    <string name="ga_weeks">%1$s Weeks</string>
+    <string name="timeline_away">%1$sw away</string>
 </resources>
