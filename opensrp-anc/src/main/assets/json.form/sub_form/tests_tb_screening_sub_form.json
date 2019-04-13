@@ -44,14 +44,8 @@
         }
       ],
       "v_required": {
-        "value": true
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
+        "value": true,
+        "err": "TB screening status is required"
       }
     },
     {

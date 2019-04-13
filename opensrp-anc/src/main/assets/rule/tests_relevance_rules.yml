@@ -265,13 +265,6 @@ condition: "(step2_hiv_positive == 1)"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_test_partner_status
-description: Partner HIV test
-priority: 1
-condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
-actions:
-- "isRelevant = true"
----
 name: step2_hiv_test_partner_date
 description: Partner HIV test date
 priority: 1
@@ -290,20 +283,6 @@ name: step2_hiv_risk_toaster
 description: hiv_risk_toaster
 priority: 1
 condition: "step2_hiv_risk == 1"
-actions:
-- "isRelevant = true"
----
-name: step1_hepb_test_status
-description: Hepatitis B test
-priority: 1
-condition: "(global_hepb_immun_status != '3_doses')"
-actions:
-- "isRelevant = true"
----
-name: step2_hepb_test_status
-description: Hepatitis B test
-priority: 1
-condition: "(global_hepb_immun_status != '3_doses')"
 actions:
 - "isRelevant = true"
 ---
@@ -433,20 +412,6 @@ condition: "step2_hepb_positive == 0 && (global_gest_age_openmrs != '' && global
 actions:
 - "isRelevant = true"
 ---
-name: step1_hepc_test_status
-description: Hepatitis C test
-priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1"
-actions:
-- "isRelevant = true"
----
-name: step2_hepc_test_status
-description: Hepatitis C test
-priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step2_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1"
-actions:
-- "isRelevant = true"
----
 name: step1_hepc_test_notdone
 description: Reason
 priority: 1
@@ -556,20 +521,6 @@ name: step2_hepatitis_c_danger_toaster
 description: Counselling and referral required.
 priority: 1
 condition: "step2_hepc_positive == 1"
-actions:
-- "isRelevant = true"
----
-name: step1_syph_test_status
-description: syph_test_status
-priority: 1
-condition: "(global_contact_no == 1 || global_gest_age_openmrs >= 29)"
-actions:
-- "isRelevant = true"
----
-name: step2_syph_test_status
-description: syph_test_status
-priority: 1
-condition: "(global_contact_no == 1 || global_gest_age_openmrs >= 29)"
 actions:
 - "isRelevant = true"
 ---
@@ -968,14 +919,14 @@ actions:
 name: step1_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "global_contact_no == 1  || (global_contact_no > 1  && (global_previous_hb_test_status == '' || global_previous_hb_test_status == 'ordered' || global_previous_hb_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 26  || global_gest_age_openmrs >= 36))"
+condition: "global_contact_no == 1  || ((global_contact_no > 1 || (global_gest_age_openmrs != '' && (global_gest_age_openmrs > 26  || global_gest_age_openmrs > 36)) )  && (global_previous_hb_test_status == '' || global_previous_hb_test_status == 'ordered' || global_previous_hb_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 26  || global_gest_age_openmrs == 36))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "global_contact_no == 1  || (global_contact_no > 1  && (global_previous_hb_test_status == '' || global_previous_hb_test_status == 'ordered' || global_previous_hb_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 26  || global_gest_age_openmrs >= 36))"
+condition: "(global_contact_no > 1  && (global_previous_hb_test_status != '' || global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today'))"
 actions:
 - "isRelevant = true"
 ---
@@ -1175,20 +1126,6 @@ condition: "step2_platelets > 0 && step2_platelets < 100000"
 actions:
 - "isRelevant = true"
 ---
-name: step1_tb_screening_status
-description: tb_screening_status
-priority: 1
-condition: "helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_tb == true"
-actions:
-- "isRelevant = true"
----
-name: step2_tb_screening_status
-description: tb_screening_status
-priority: 1
-condition: "helper.getValueFromAccordion('accordion_hiv', 'step2_hiv_positive') == '1' || global_pop_tb == true"
-actions:
-- "isRelevant = true"
----
 name: step1_tb_screening_notdone
 description: tb_screening_status
 priority: 1
@@ -1318,119 +1255,119 @@ actions:
 name: step1_accordion_hiv
 description: HIV test
 priority: 1
-condition: "((global_gest_age_openmrs != '' && global_gest_age_openmrs >= 29) || global_contact_no == 1) && (global_pop_hiv_prevalence == true && (global_hiv_positive != '' && global_hiv_positive != 1))"
+condition: "(global_contact_no == 1 && (global_pop_hiv_prevalence == true && (global_hiv_positive == '' || global_hiv_positive == 0))) || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 29) && (((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_previous_hiv_test_result == '') || ((global_previous_hiv_test_status == 'done_earlier' || global_previous_hiv_test_status == 'done_today') && global_previous_hiv_test_result == 'inconclusive')))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && (global_hiv_positive != '' && global_hiv_positive != 1)) && ((global_gest_age_openmrs != '' && global_gest_age_openmrs >= 29) || global_contact_no == 1)"
+condition: "global_contact_no > 1 && global_previous_hiv_test_result != '' && global_previous_hiv_test_result == 'negative'"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
-condition: "(global_hepb_immun_status != '' && global_hepb_immun_status != '3_doses') && global_contact_no == 1"
+condition: "(global_hepb_immun_status != '' && global_hepb_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepb_test_status == '' || global_previous_hepb_test_status == 'ordered' || global_previous_hepb_test_status == 'not_done')))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
-condition: "(global_hepb_immun_status != '' && global_hepb_immun_status != '3_doses') && global_contact_no == 1"
+condition: "global_contact_no > 1 && (global_previous_hepb_test_status != '' || global_previous_hepb_test_status == 'done_earlier' || global_previous_hepb_test_status == 'done_today') && global_previous_hepb_positive == '0'"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1"
+condition: "((helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1) || (global_contact_no > 1 && (global_previous_hepc_test_status == '' || global_previous_hepc_test_status == 'not_done' || global_previous_hepc_test_status == 'done_earlier'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step2_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker'))) && global_contact_no == 1"
+condition: "(global_contact_no > 1 && (global_previous_hepc_test_status == 'done_today' || global_previous_hepc_test_status == 'done_earlier') && global_previous_hepc_positive == '0')"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "(global_contact_no == 1 || (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 29))"
+condition: "(global_contact_no == 1 || ((global_gest_age_openmrs != '' && global_gest_age_openmrs >= 29) && global_contact_no  > 1 && (global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_previous_syphilis_positive == ''))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "(global_contact_no == 1 || (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 29))"
+condition: "(global_contact_no > 1 && (global_previous_syph_test_status != '' && global_previous_syphilis_positive != '' && global_previous_syphilis_positive == '0'))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_urine
 description: urine accordion
 priority: 1
-condition: "global_contact_no == 1  || (global_contact_no > 1  && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 26  || global_gest_age_openmrs >= 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
+condition: "global_contact_no == 1  || ((global_contact_no > 1 || (global_gest_age_openmrs != '' && (global_gest_age_openmrs > 26  || global_gest_age_openmrs > 34))  )  && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 26  || global_gest_age_openmrs == 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_urine
 description: urine accordion
 priority: 1
-condition: "global_contact_no == 1  || (global_contact_no > 1  && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 26  || global_gest_age_openmrs >= 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
+condition: "global_contact_no > 1  && (global_previous_urine_test_status != '' || global_previous_urine_test_status == 'done_earlier' || global_previous_urine_test_status == 'done_today')"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_tb == true) && global_contact_no == 1"
+condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_tb == true) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tb_screening_status == '' || global_previous_tb_screening_status == 'ordered' || global_previous_tb_screening_status == 'not_done')))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step2_hiv_positive') == '1' || global_pop_tb == true) && global_contact_no == 1"
+condition: "(global_contact_no > 1 && (global_previous_tb_screening_status != '' || global_previous_tb_screening_status == 'done_earlier' || global_previous_tb_screening_status == 'done_today'))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "(global_contact_no == 1 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 24)"
+condition: "((global_contact_no == 1 ) || (global_contact_no > 1 && (global_previous_ultrasound == '' || global_previous_ultrasound == 'not_done' || global_previous_ultrasound == 'ordered'))) && global_gest_age_openmrs != '' && global_gest_age_openmrs < 24"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1 && (global_previous_ultrasound != '' || global_previous_ultrasound == 'ordered' || global_previous_ultrasound == 'not_done')) "
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_partner_hiv
 description: Partner HIV test
 priority: 1
-condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '')"
+condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '') && global_contact_no == 1 || (global_contact_no > 1 && ((global_previous_hiv_test_partner_status == 'done_earlier' || global_previous_hiv_test_partner_status == 'done_today') && global_previous_hiv_test_partner_result == 'inconclusive') || global_previous_hiv_test_partner_status == '')"
 actions:
 - "isRelevant = true"
 ---
 name: step1_accordion_blood_type
 description: step1 blood type accordion
 priority: 1
-condition: "global_contact_no == 1"
+condition: "global_contact_no == 1 || (global_contact_no > 1 && (global_previous_blood_type_test_status == '' || global_previous_blood_type_test_status == 'ordered' || global_previous_blood_type_test_status == 'not_done'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_blood_type
 description: step2 blood type accordion
 priority: 1
-condition: "global_contact_no == 1"
+condition: "(global_contact_no > 1 && (global_previous_blood_type_test_status == 'done_earlier' || global_previous_blood_type_test_status == 'done_today'))"
 actions:
 - "isRelevant = true"
 ---
