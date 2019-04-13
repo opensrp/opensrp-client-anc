@@ -35,6 +35,9 @@ public class ExpansionWidgetAdapter extends RecyclerView.Adapter<ExpansionWidget
                 .equals(valueObject[1]) && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY.equals(valueObject[1])) {
             holder.listHeader.setText(valueObject[0]);
             holder.listValue.setText(valueObject[1]);
+        } else {
+            holder.listHeader.setVisibility(View.GONE);
+            holder.listValue.setVisibility(View.GONE);
         }
     }
 

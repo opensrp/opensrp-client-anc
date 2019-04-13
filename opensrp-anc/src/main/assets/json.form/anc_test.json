@@ -85,7 +85,6 @@
         "accordion_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
         "accordion_info_title": "Ultrasound test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_ultrasound_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -103,7 +102,6 @@
         "openmrs_entity_id": "",
         "text": "Blood Type test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_blood_type_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -123,7 +121,6 @@
         "accordion_info_text": "An HIV test is required for all pregnant women at the first contact in pregnancy and again at the first contact of the 3rd trimester (28 weeks), if the HIV prevalence in the pregnant woman population is 5% or higher. A test isn't required if the woman is already confirmed HIV+.",
         "accordion_info_title": "HIV test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_hiv_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -143,7 +140,6 @@
         "accordion_info_text": "In settings where the proportion of HBsAg seroprevalence in the general population is 2% or higher or in settings where there is a national Hep B ANC routine screening program in place, or if the woman is HIV positive, injects drugs, or is a sex worker, then Hep B testing is recommended if the woman is not fully vaccinated against Hep B.",
         "accordion_info_title": "Hepatitis B test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_hepatitis_b_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -163,7 +159,6 @@
         "accordion_info_text": "In settings where the proportion of HCV antibody seroprevalence in the general population is 2% or higher, or the woman is HIV positive, injects drugs, or is a sex worker, then a Hep C test is required.",
         "accordion_info_title": "Hepatitis C test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_hepatitis_c_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -183,7 +178,6 @@
         "accordion_info_text": "A syphilis test is recommended for all pregnant women at the first contact and again at the first contact of 3rd trimester (28 weeks). Women who are already confirmed positive for syphilis do not need to be tested.",
         "accordion_info_title": "Syphilis test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_syphilis_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -203,7 +197,6 @@
         "accordion_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
         "accordion_info_title": "Urine test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_urine_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -223,7 +216,6 @@
         "accordion_info_text": "Blood haemoglobin testing is necessary for diagnosing anaemia in pregnancy.",
         "accordion_info_title": "Blood haemoglobin test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_blood_haemoglobin_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -243,7 +235,6 @@
         "accordion_info_text": "In settings where the tuberculosis (TB) prevalence in the general population is 100/100,000 persons or higher or in settings with sub-populations that have very poor access to health care, or if the woman is HIV positive, TB screening is recommended.",
         "accordion_info_title": "TB screening",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_tb_screening_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -268,7 +259,6 @@
         "accordion_info_text": "An ultrasound is recommended for all women before 24 weeks gestation or even after if deemed necessary (e.g. to identify the number of fetuses, fetal presentation, or placenta location).",
         "accordion_info_title": "Ultrasound test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_ultrasound_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -286,7 +276,6 @@
         "openmrs_entity_id": "",
         "text": "Blood Type test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_blood_type_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -306,7 +295,6 @@
         "accordion_info_text": "An HIV test is required for all pregnant women at the first contact in pregnancy and again at the first contact of the 3rd trimester (28 weeks), if the HIV prevalence in the pregnant woman population is 5% or higher. A test isn't required if the woman is already confirmed HIV+.",
         "accordion_info_title": "HIV test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_hiv_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -324,7 +312,6 @@
         "openmrs_entity_id": "",
         "text": "Partner HIV test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_partner_hiv_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -344,7 +331,6 @@
         "accordion_info_text": "In settings where the proportion of HBsAg seroprevalence in the general population is 2% or higher or in settings where there is a national Hep B ANC routine screening program in place, or if the woman is HIV positive, injects drugs, or is a sex worker, then Hep B testing is recommended if the woman is not fully vaccinated against Hep B.",
         "accordion_info_title": "Hepatitis B test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_hepatitis_b_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -364,7 +350,6 @@
         "accordion_info_text": "In settings where the proportion of HCV antibody seroprevalence in the general population is 2% or higher, or the woman is HIV positive, injects drugs, or is a sex worker, then a Hep C test is required.",
         "accordion_info_title": "Hepatitis C test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_hepatitis_c_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -384,7 +369,6 @@
         "accordion_info_text": "A syphilis test is recommended for all pregnant women at the first contact and again at the first contact of 3rd trimester (28 weeks). Women who are already confirmed positive for syphilis do not need to be tested.",
         "accordion_info_title": "Syphilis test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_syphilis_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -404,7 +388,6 @@
         "accordion_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
         "accordion_info_title": "Urine test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_urine_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -435,7 +418,6 @@
         "accordion_info_text": "Blood haemoglobin testing is necessary for diagnosing anaemia in pregnancy.",
         "accordion_info_title": "Blood haemoglobin test",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_blood_haemoglobin_sub_form",
         "container": "anc_test",
         "relevance": {
@@ -455,7 +437,6 @@
         "accordion_info_text": "In settings where the tuberculosis (TB) prevalence in the general population is 100/100,000 persons or higher or in settings with sub-populations that have very poor access to health care, or if the woman is HIV positive, TB screening is recommended.",
         "accordion_info_title": "TB screening",
         "type": "expansion_panel",
-        "display_bottom_section": true,
         "content_form": "tests_tb_screening_sub_form",
         "container": "anc_test",
         "relevance": {

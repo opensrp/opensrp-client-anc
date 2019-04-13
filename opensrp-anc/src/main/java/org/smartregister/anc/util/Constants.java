@@ -42,6 +42,9 @@ public abstract class Constants {
     public static final String REFERRAL = "referral";
     public static final String GEST_AGE = "gest_age";
     public static final String WOM_IMAGE = "wom_image";
+    public static final String INDEX = "index";
+    public static final String BOTTOM_SECTION = "bottom_section";
+    public static final String DISPLAY_RECORD_BUTTON = "display_record_button";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
