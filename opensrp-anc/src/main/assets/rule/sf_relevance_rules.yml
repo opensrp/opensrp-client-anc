@@ -121,6 +121,6 @@ actions:
 name: step4_mat_percept_fetal_move
 description: Felt baby move
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs > 20)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
 - "isRelevant = true"

@@ -45,13 +45,6 @@
       ],
       "v_required": {
         "value": true
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
       }
     },
     {
@@ -113,14 +106,10 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:hepc_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },

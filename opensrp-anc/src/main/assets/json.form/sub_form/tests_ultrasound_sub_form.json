@@ -107,9 +107,10 @@
       "hint": "Specify",
       "edit_type": "edit_text",
       "relevance": {
-        "step1:ultrasound_notdone": {
-          "type": "string",
-          "ex": "equalTo(., \"other\")"
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       },
       "v_required": {

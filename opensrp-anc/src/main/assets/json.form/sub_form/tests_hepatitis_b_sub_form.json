@@ -44,14 +44,8 @@
         }
       ],
       "v_required": {
-        "value": true
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
+        "value": true,
+        "err": "Hepatitis B test is required"
       }
     },
     {
@@ -94,7 +88,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Hepatitis B test not done reason is required"
       },
       "relevance": {
         "rules-engine": {
@@ -113,14 +108,10 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:hepb_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     },
@@ -191,7 +182,8 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Hep B test type is required"
       }
     },
     {
@@ -219,7 +211,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "BsAg laboratory-based immunoassay is required"
       },
       "relevance": {
         "rules-engine": {
@@ -254,7 +247,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err":"HBsAg rapid diagnostic test is required"
       },
       "relevance": {
         "rules-engine": {
@@ -289,7 +283,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": " (DBS) HBsAg test is required"
       },
       "relevance": {
         "rules-engine": {
