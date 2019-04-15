@@ -521,6 +521,23 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
+    /***
+     * This method initializes all global_previous values with empty strings
+     * @param object Form Json object
+     * @throws JSONException
+     */
+    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException{
+        if (object.has(Constants.GLOBAL_PREVIOUS)) {
+            JSONArray globalPreviousArray = object.getJSONArray(Constants.GLOBAL_PREVIOUS);
+            for(int i = 0; i <globalPreviousArray.length(); i++){
+                if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+                    object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL)
+                            .put(Constants.PREFIX.PREVIOUS + globalPreviousArray.getString(i), "");
+                }
+            }
+        }
+    }
+
     private void updateDefaultValues(JSONArray stepArray, int i, JSONObject fieldObject) throws JSONException {
         if (defaultValueFields.contains(fieldObject.getString(JsonFormConstants.KEY))) {
 
@@ -580,6 +597,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void getValueMap(JSONObject object) throws JSONException {
+        initializeGlobalPreviousValues(object);
         for (int i = 0; i < globalValueFields.size(); i++) {
             String mapValue = getMapValue(globalValueFields.get(i));
             if (mapValue != null) {

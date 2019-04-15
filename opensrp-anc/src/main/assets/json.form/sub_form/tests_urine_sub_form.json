@@ -150,7 +150,7 @@
       "openmrs_entity_id": "",
       "type": "check_box",
       "label": "Urine test type",
-      "label_info_text": "A urine test is required at the first contact, last contact in 2nd trimester, and 2nd contact in 3rd trimester OR anytime the woman reports pain during urination (dysuria). A dipstick test is required if the woman has a repeat high BP reading (140/90 or higher). Otherwise, a urine test is optional. The urine test checks for bacterial or other infections that can lead to adverse outcomes for the neonate. The urine dipstick test can check for proteins in the urine, which can be a sign of pre-eclampsia.",
+      "label_info_text": "Midstream urine culture is the preferred method for testing for asymptomatic bacteriuria (ASB) in pregnancy. If culture is not available, midstream urine Gram-staining is recommended over dipstick.",
       "label_info_title": "Urine test",
       "label_text_style": "bold",
       "options": [
@@ -494,13 +494,11 @@
       }
     },
     {
+      "key": "gdm_risk",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "gdm_risk",
       "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#000000",
       "calculation": {
         "rules-engine": {
           "ex-rules": {
@@ -550,7 +548,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
-      "toaster_info_text": "A woman is considered to have ASB if she has + of the following test results:\n\n - Positive culture (> 100,000 bacteria/mL)\n\n- Gram-staining positive\n\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
+      "toaster_info_text": "A woman is considered to have ASB if she has one of the following test results:\n\n- Positive culture (> 100,000 bacteria/mL)\n- Gram-staining positive\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
       "toaster_info_title": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
       "toaster_type": "warning",
       "relevance": {

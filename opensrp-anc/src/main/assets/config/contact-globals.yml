@@ -144,6 +144,7 @@ fields:
 ---
 form: anc_test
 fields:
+  - "other_sym_lbpp"
   - "urine_protein"
   - "gest_age"
   - "gest_age_openmrs"
@@ -175,6 +176,7 @@ fields:
   - "blood_type_test_status"
   - "hiv_test_partner_result"
   - "hiv_test_status"
+  - "hiv_test_result"
   - "hiv_test_partner_status"
   - "hepb_test_status"
   - "hepc_test_status"
@@ -183,6 +185,12 @@ fields:
   - "hiv_positive"
   - "syphilis_positive"
   - "urine_test_status"
+  - "hb_test_status"
+  - "syphilis_positive"
+  - "hepc_positive"
+  - "syph_test_status"
+  - "ultrasound"
+  - "hepb_positive"
 ---
 form: anc_quick_check
 fields:
