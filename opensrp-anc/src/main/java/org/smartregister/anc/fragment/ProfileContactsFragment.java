@@ -8,9 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
@@ -18,6 +16,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.PreviousContactsActivity;
 import org.smartregister.anc.adapter.LastContactAdapter;
+import org.smartregister.anc.adapter.LastContactDetailsAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.domain.YamlConfig;
@@ -82,6 +81,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {
         try {
             List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
+            List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
 
             JSONObject jsonObject = new JSONObject(
                     AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(
@@ -102,13 +102,21 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
             addAttentionFlagsRuleObjects(facts);
 
+            addTestsRuleObjects(facts);
+
             String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+
             lastContactDetailsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM yyyy",
                     Locale.getDefault()).format(lastContactDate), lastContactDetails, facts));
 
             setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+
+            lastContactDetailsTestsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM " +
+                    "yyyy", Locale.getDefault()).format(lastContactDate), lastContactTests, facts));
+
+            setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -157,6 +165,22 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         }
     }
 
+    private void addTestsRuleObjects(Facts facts) throws IOException {
+        Iterable<Object> testsRuleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
+
+        for (Object ruleObject : testsRuleObjects) {
+            YamlConfig testsConfig = (YamlConfig) ruleObject;
+            for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
+
+                if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem));
+
+                }
+
+            }
+        }
+    }
+
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
         LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
 
@@ -165,11 +189,11 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void setUpContactTestsDetailsRecycler() {
-        /*LastContactDetailsAdapter adapter = new LastContactDetailsAdapter(getActivity(), , );*/
+    private void setUpContactTestsDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList) {
+        LastContactDetailsAdapter adapter = new LastContactDetailsAdapter(getActivity(), lastContactDetailsTestsWrapperList);
         RecyclerView recyclerView = test_layout.findViewById(R.id.test_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        /*recyclerView.setAdapter(adapter);*/
+        recyclerView.setAdapter(adapter);
     }
 
     private void initializeTestDetails(HashMap<String, String> clientDetails) {

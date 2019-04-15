@@ -14,5 +14,6 @@ public class FilePath {
         public static final String ATTENTION_FLAGS = "attention-flags.yml";
         public static final String PROFILE_OVERVIEW = "profile-overview.yml";
         public static final String PROFILE_LAST_CONTACT = "profile-last-contact.yml";
+        public static final String PROFILE_LAST_CONTACT_TEST = "profile-last-contact-tests.yml";
     }
 }
