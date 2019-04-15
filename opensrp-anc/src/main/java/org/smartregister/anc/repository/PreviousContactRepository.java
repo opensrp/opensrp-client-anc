@@ -34,17 +34,16 @@ public class PreviousContactRepository extends BaseRepository {
             BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
             KEY + "  VARCHAR, " +
             VALUE + "  VARCHAR NOT NULL, " +
-            CREATED_AT + " INTEGER NOT NULL, " +
-            "UNIQUE(" + BASE_ENTITY_ID + ", " + KEY + ") ON CONFLICT REPLACE )";
+            CREATED_AT + " INTEGER NOT NULL)";
 
     private static final String INDEX_ID = "CREATE INDEX " + TABLE_NAME + "_" + ID +
-            "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
+            "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";/*
 
     private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID +
             "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
 
     private static final String INDEX_KEY = "CREATE INDEX " + TABLE_NAME + "_" + KEY +
-            "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";
+            "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";*/
 
     private String[] projectionArgs = new String[]{ID, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
@@ -54,9 +53,9 @@ public class PreviousContactRepository extends BaseRepository {
 
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
-        database.execSQL(INDEX_ID);
+        database.execSQL(INDEX_ID);/*
         database.execSQL(INDEX_BASE_ENTITY_ID);
-        database.execSQL(INDEX_KEY);
+        database.execSQL(INDEX_KEY);*/
     }
 
     public void savePreviousContact(PreviousContact previousContact) {

@@ -145,7 +145,7 @@ fields:
 group: immunisation_status
 fields:
 
-- template: "TT immunisation status: {tt_immun_status_value}"
+- template: "TT immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status_value != ''"
 
 - template: "TT dose #1: {tt1_date}"
@@ -160,7 +160,7 @@ fields:
 - template: "TT dose not given: {tt_dose_notdone_value}"
   relevance: "tt1_date == 'Not done' || tt2_date == 'Not done' || tt3_date == 'Not done'"
 
-- template: "Hep B immunisation status: {hepb_immun_status_value}"
+- template: "Hep B immunisation status: {hepb_immun_status}"
   relevance: "hepb_immun_status_value != ''"
 
 - template: "Hep B dose #1: {hepb1_date}"
@@ -175,7 +175,7 @@ fields:
 - template: "Hep B dose not given: {hepb_dose_notdone_value}"
   relevance: "hepb1_date == 'Not done' || hepb2_date == 'Not done' || hepb3_date == 'Not done'"
 
-- template: "Flu immunisation status: {flu_immun_status_value}"
+- template: "Flu immunisation status: {flu_immun_status}"
   relevance: "flu_immun_status_value != ''"
 
 - template: "Flu dose: {flu_date}"

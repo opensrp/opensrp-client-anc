@@ -286,6 +286,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
         previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
         previousContact.setBaseEntityId(baseEntityId);
+        previousContact.setContactNo(fieldObject.getString(PreviousContactRepository.CONTACT_NO));
         getPreviousContactRepository().savePreviousContact(previousContact);
     }
 

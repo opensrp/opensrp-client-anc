@@ -63,7 +63,7 @@ public class ExpansionPanelWidgetFactoryTest extends BaseUnitTest {
     private LinearLayout contentLayout;
 
     @Mock
-    private RecyclerView contentView;
+    private LinearLayout contentView;
 
     @Mock
     private LinearLayout bottomButtonsLayout;
