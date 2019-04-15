@@ -312,8 +312,8 @@ public class ContactJsonFormUtils extends FormUtils {
                     !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) &&
                     jsonObject.getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
                 keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
-                        !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && jsonObject
+                        .getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
                     valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
@@ -345,7 +345,10 @@ public class ContactJsonFormUtils extends FormUtils {
 
             JSONObject secValue = jsonArray2.getJSONObject(j);
 
-            JSONArray values = secValue.getJSONArray(JsonFormConstants.VALUES);
+            JSONArray values = new JSONArray();
+            if (secValue.has(JsonFormConstants.VALUES)) {
+                values = secValue.getJSONArray(JsonFormConstants.VALUES);
+            }
 
             int valueLength = values.length();
 

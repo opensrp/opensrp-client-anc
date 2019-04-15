@@ -1242,11 +1242,17 @@
         "options": [
           {
             "key": "yes",
-            "text": "Yes"
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1405,11 +1411,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1417,7 +1429,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "cardiac_exam_sub_form"
+            "content_form": "cardiac_exam_sub_form",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1460,11 +1475,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1472,7 +1493,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "breast_exam_sub_form"
+            "content_form": "breast_exam_sub_form",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1515,11 +1539,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1527,7 +1557,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "abdominal_exam_sub_form"
+            "content_form": "abdominal_exam_sub_form",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1570,11 +1603,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1582,7 +1621,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "pelvic_exam_sub_form"
+            "content_form": "pelvic_exam_sub_form",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1626,6 +1668,9 @@
           {
             "key": "1",
             "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer",
             "specify_info": "specify cm cervix dilated...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
@@ -1634,7 +1679,10 @@
           },
           {
             "key": "2",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer"
           }
         ]
       },
@@ -1681,11 +1729,17 @@
             "specify_info": "specify type...",
             "specify_widget": "radio_button",
             "specify_info_color": "#8C8C8C",
-            "content_form": "oedema_present_sub_form"
+            "content_form": "oedema_present_sub_form",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
