@@ -97,6 +97,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
+                    addThePreviousContactSchedule(baseEntityId, details, integerList);
                     AncApplication.getInstance().getDetailsRepository()
                             .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
                                     Calendar.getInstance().getTimeInMillis());
@@ -133,6 +134,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
                                     .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
                 }
+                addThePreviousAttentionFlags(baseEntityId, details, attentionFlagsString);
                 AncApplication.getInstance().getDetailsRepository()
                         .add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString,
                                 Calendar.getInstance().getTimeInMillis());
@@ -152,6 +154,29 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
         return (HashMap<String, String>) details;
+    }
+
+    private void addThePreviousContactSchedule(String baseEntityId, Map<String, String> details, List<Integer> integerList) {
+        PreviousContact previousContact = new PreviousContact();
+        previousContact.setBaseEntityId(baseEntityId);
+        String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) : details
+                .get(DBConstants.KEY.NEXT_CONTACT);
+        previousContact.setContactNo(contactNo);
+        previousContact.setKey(Constants.DETAILS_KEY.CONTACT_SHEDULE);
+        previousContact.setValue(String.valueOf(integerList));
+        AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+    }
+
+    private void addThePreviousAttentionFlags(String baseEntityId, Map<String, String> details,
+                                              String attentionFlagsString) {
+        PreviousContact previousContact = new PreviousContact();
+        previousContact.setBaseEntityId(baseEntityId);
+        String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) : details
+                .get(DBConstants.KEY.NEXT_CONTACT);
+        previousContact.setContactNo(contactNo);
+        previousContact.setKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
+        previousContact.setValue(attentionFlagsString);
+        AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair)
