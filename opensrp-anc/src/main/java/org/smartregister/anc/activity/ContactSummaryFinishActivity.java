@@ -311,6 +311,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this,
                             yamlConfigList, facts);
+                    adapter.notifyDataSetChanged();
 
                     // set up the RecyclerView
                     RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);

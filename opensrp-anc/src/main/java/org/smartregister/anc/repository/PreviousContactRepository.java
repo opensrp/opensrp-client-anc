@@ -15,6 +15,7 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PreviousContactRepository extends BaseRepository {
@@ -45,7 +46,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_KEY = "CREATE INDEX " + TABLE_NAME + "_" + KEY +
             "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";*/
 
-    private String[] projectionArgs = new String[]{ID, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public PreviousContactRepository(Repository repository) {
         super(repository);
@@ -162,20 +163,102 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContacts;
     }
 
-    public Facts getPreviousContactsFacts(String baseEntityId) {
+    public HashMap<String, Facts> getPreviousContactsFacts(String baseEntityId, String contactNo) {
+        HashMap<String, Facts> previousContactFacts = new HashMap<>();
+        Cursor positiveContact = null;
+        Cursor negativeContact = null;
+        try {
+            for (int i = Integer.parseInt(contactNo); i >= 1; i--) {
+                SQLiteDatabase db = getWritableDatabase();
+
+                positiveContact = getPositiveContacts(baseEntityId, db, String.valueOf(i));
+                negativeContact = getNegativeContacts(baseEntityId, db, String.valueOf(i));
+
+
+                if (positiveContact != null) {
+                    Facts facts = new Facts();
+                    while (positiveContact.moveToNext()) {
+                        facts.put(positiveContact.getString(positiveContact.getColumnIndex(KEY)),
+                                positiveContact.getString(positiveContact.getColumnIndex(VALUE)));
+
+                    }
+
+                    if (facts.asMap().size() > 0) {
+                        previousContactFacts.put(String.valueOf(i), facts);
+                    }
+                }
+
+                if (negativeContact != null) {
+                    Facts facts = new Facts();
+                    while (negativeContact.moveToNext()) {
+                        facts.put(negativeContact.getString(negativeContact.getColumnIndex(KEY)),
+                                negativeContact.getString(negativeContact.getColumnIndex(VALUE)));
+
+                    }
+
+                    if (facts.asMap().size() > 0) {
+                        previousContactFacts.put("- " + String.valueOf(i), facts);
+                    }
+                }
+            }
+
+            return previousContactFacts;
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (positiveContact != null) {
+                positiveContact.close();
+            }
+
+            if (negativeContact != null) {
+                negativeContact.close();
+            }
+        }
+
+        return previousContactFacts;
+    }
+
+    private Cursor getPositiveContacts(String baseEntityId, SQLiteDatabase database, String contactNo) {
+        String selection = "";
+        String orderBy = "created_at,contact_no DESC";
+        String[] selectionArgs = null;
+
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
+            selectionArgs = new String[]{baseEntityId, String.valueOf(contactNo)};
+        }
+
+        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+    }
+
+    private Cursor getNegativeContacts(String baseEntityId, SQLiteDatabase database, String contactNo) {
+        String selection = "";
+        String orderBy = "created_at,contact_no DESC";
+        String[] selectionArgs = null;
+
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
+            selectionArgs = new String[]{baseEntityId, "- " + String.valueOf(contactNo)};
+        }
+
+        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+    }
+
+    public Facts getPreviousContactFacts(String baseEntityId) {
         Cursor mCursor = null;
         String selection = "";
+        String orderBy = "created_at,contact_no DESC";
         String[] selectionArgs = null;
         Facts previousContacts = new Facts();
         try {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
+                selection = BASE_ENTITY_ID + " = ? ";
                 selectionArgs = new String[]{baseEntityId};
             }
 
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
             if (mCursor != null) {
 

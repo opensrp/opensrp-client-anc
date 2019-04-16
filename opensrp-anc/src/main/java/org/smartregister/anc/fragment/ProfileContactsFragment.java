@@ -15,6 +15,7 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.PreviousContactsActivity;
+import org.smartregister.anc.activity.PreviousContactsTestsActivity;
 import org.smartregister.anc.adapter.LastContactAdapter;
 import org.smartregister.anc.adapter.LastContactDetailsAdapter;
 import org.smartregister.anc.application.AncApplication;
@@ -72,6 +73,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     @Override
     protected void onResumption() {
+        lastContactDetails = new ArrayList<>();
+        lastContactTests = new ArrayList<>();
         HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent()
                 .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         initializeLastContactDetails(clientDetails);
@@ -91,7 +94,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             Iterator<String> keys = jsonObject.keys();
 
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactsFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
             while (keys.hasNext()) {
                 String key = keys.next();
@@ -172,7 +175,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             YamlConfig testsConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
 
-                if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                if (AncApplication.getInstance().getAncRulesEngineHelper()
+                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
                 }
@@ -183,14 +187,24 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
         LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
-
+        adapter.notifyDataSetChanged();
         RecyclerView recyclerView = last_contact_layout.findViewById(R.id.last_contact_information);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
     }
 
     private void setUpContactTestsDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList) {
-        LastContactDetailsAdapter adapter = new LastContactDetailsAdapter(getActivity(), lastContactDetailsTestsWrapperList);
+        List<YamlConfigWrapper> data = new ArrayList<>();
+        Facts facts = new Facts();
+        if (lastContactDetailsTestsWrapperList.size() > 0) {
+            for (int i = 0; i < lastContactDetailsTestsWrapperList.size(); i++) {
+                LastContactDetailsWrapper lastContactDetailsTest = lastContactDetailsTestsWrapperList.get(i);
+                data = lastContactDetailsTest.getExtraInformation();
+                facts = lastContactDetailsTest.getFacts();
+            }
+        }
+        LastContactDetailsAdapter adapter = new LastContactDetailsAdapter(getActivity(), data, facts);
+        adapter.notifyDataSetChanged();
         RecyclerView recyclerView = test_layout.findViewById(R.id.test_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -238,6 +252,8 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         public void onClick(View view) {
             if (view.getId() == R.id.last_contact_bottom) {
                 goToPreviousContacts();
+            } else if (view.getId() == R.id.tests_bottom) {
+                goToPreviousContactsTests();
             }
         }
 
@@ -245,6 +261,16 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
     private void goToPreviousContacts() {
         Intent intent = new Intent(getActivity(), PreviousContactsActivity.class);
+        String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP,
+                getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
+
+        this.startActivity(intent);
+    }
+
+    private void goToPreviousContactsTests() {
+        Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
         String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP,

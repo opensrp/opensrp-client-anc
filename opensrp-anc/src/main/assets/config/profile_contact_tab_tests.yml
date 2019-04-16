@@ -1,0 +1,57 @@
+---
+sub_group: ultrasound_tests_results
+fields:
+-   template: "Ultrasound test: {ultrasound}"
+    relevance: "ultrasound != ''"
+
+-   template: "Ultrasound not done reason: {ultrasound_notdone}"
+    relevance: "ultrasound_notdone != ''"
+
+-   template: "Ultrasound not done other reason: {ultrasound_notdone_other}"
+    relevance: "ultrasound_notdone_other != ''"
+
+-   template: "Ultrasound done date: {ultrasound_date}"
+    relevance: "ultrasound_date != ''"
+
+---
+sub_group: hiv_tests_results
+fields:
+-   template: "Hiv test status: {hiv_test_status}"
+    relevance: "hiv_test_status != ''"
+
+-   template: "Hiv test done date: {hiv_test_date}"
+    relevance: "hiv_test_date != ''"
+
+-   template: "Hiv test not done reason: {hiv_test_notdone}"
+    relevance: "hiv_test_notdone != ''"
+
+-   template: "Hiv test not done other reason: {hiv_test_notdone_other}"
+    relevance: "hiv_test_notdone_other != ''"
+
+-   template: "Hiv test result: {hiv_test_result}"
+    relevance: "hiv_test_result != ''"
+
+---
+sub_group: urine_tests_results
+fields:
+-   template: "Urine test status: {urine_test_status}"
+    relevance: "urine_test_status != ''"
+
+-   template: "Urine test type: {urine_test_type}"
+    relevance: "urine_test_type != ''"
+
+-   template: "Urine culture: {urine_culture}"
+    relevance: "urine_culture != ''"
+
+-   template: "Urine gram stain: {urine_gram_stain}"
+    relevance: "urine_gram_stain != ''"
+
+-   template: "Urine nitrites: {urine_nitrites}"
+    relevance: "urine_nitrites != ''"
+
+-   template: "Urine leukocytes: {urine_leukocytes}"
+    relevance: "urine_leukocytes != ''"
+
+-   template: "Urine glucose: {urine_glucose}"
+    relevance: "urine_glucose != ''"
+

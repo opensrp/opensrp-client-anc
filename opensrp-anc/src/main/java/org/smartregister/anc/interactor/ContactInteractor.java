@@ -439,8 +439,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                         }
 
                         //process attention flags
-                        ContactJsonFormUtils.processRequiredStepsField(facts, formObject,
-                                AncApplication.getInstance().getApplicationContext());
+                        ContactJsonFormUtils.processRequiredStepsField(facts, formObject, AncApplication.getInstance().getApplicationContext());
 
                         //process events
                         Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);

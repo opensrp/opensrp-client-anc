@@ -55,16 +55,19 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
     @Override
     protected void onCreation() {
-        buttonAlertStatus = Utils.getButtonAlertStatus((Map<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP), getString(R.string.contact_number_due));
+        buttonAlertStatus = Utils.getButtonAlertStatus(
+                (Map<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP),
+                getString(R.string.contact_number_due));
         yamlConfigListGlobal = new ArrayList<>();
     }
 
     @Override
     protected void onResumption() {
         try {
+            yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
 
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactsFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 
@@ -85,14 +88,14 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 for (YamlConfigItem configItem : configItems) {
 
-                    if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                    if (AncApplication.getInstance().getAncRulesEngineHelper()
+                            .getRelevance(facts, configItem.getRelevance())) {
                         yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                         valueCount += 1;
                     }
                 }
 
                 if (valueCount > 0) {
-
                     yamlConfigListGlobal.addAll(yamlConfigList);
 
                 }
@@ -102,7 +105,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             dueButton.setVisibility(View.VISIBLE);
 
             ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(getActivity(), yamlConfigListGlobal, facts);
-
+            adapter.notifyDataSetChanged();
             // set up the RecyclerView
             RecyclerView recyclerView = getActivity().findViewById(R.id.profile_overview_recycler);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

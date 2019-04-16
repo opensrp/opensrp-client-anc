@@ -231,7 +231,8 @@ public class ContactJsonFormUtils extends FormUtils {
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
         //partial contact exists?
 
-        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository()
+                .getPartialContact(partialContactRequest);
 
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
         JSONObject object = new JSONObject(formJsonString);
@@ -499,6 +500,7 @@ public class ContactJsonFormUtils extends FormUtils {
                             }
 
                             processRequiredStepsFieldsSecondaryValues(facts, fieldObject);
+                            processRequiredStepsExpansionPanelValues(facts, fieldObject);
                             processOtherCheckBoxField(facts, fieldObject);
 
                         }
@@ -555,6 +557,25 @@ public class ContactJsonFormUtils extends FormUtils {
 
             for (int j = 0; j < secondaryValues.length(); j++) {
                 JSONObject jsonObject = secondaryValues.getJSONObject(j);
+                ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);//secondary values
+            }
+        }
+    }
+
+    /**
+     * Processes the number of Required fields for the specific field with secondary values
+     *
+     * @param facts       {@link Facts}
+     * @param fieldObject {@link JSONObject}
+     * @throws Exception {@link JSONException}
+     */
+    private static void processRequiredStepsExpansionPanelValues(Facts facts, JSONObject fieldObject) throws Exception {
+        if (fieldObject.has(JsonFormConstants.TYPE) && JsonFormConstants.EXPANSION_PANEL
+                .equals(fieldObject.getString(JsonFormConstants.TYPE))) {
+            JSONArray expansionPanelValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
+
+            for (int j = 0; j < expansionPanelValue.length(); j++) {
+                JSONObject jsonObject = expansionPanelValue.getJSONObject(j);
                 ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);//secondary values
             }
         }

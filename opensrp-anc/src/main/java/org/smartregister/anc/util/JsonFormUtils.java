@@ -770,4 +770,29 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return new LocalDate().toDate();
         }
     }
+
+    public Template getTemplate(String rawTemplate) {
+        Template template = new Template();
+
+        if (rawTemplate.contains(":")) {
+            String[] templateArray = rawTemplate.split(":");
+            if (templateArray.length == 1) {
+                template.title = templateArray[0].trim();
+            } else if (templateArray.length > 1) {
+                template.title = templateArray[0].trim();
+                template.detail = templateArray[1].trim();
+            }
+        } else {
+            template.title = rawTemplate;
+            template.detail = "true";
+        }
+
+        return template;
+
+    }
+
+    public class Template {
+        public String title = "";
+        public String detail = "";
+    }
 }
