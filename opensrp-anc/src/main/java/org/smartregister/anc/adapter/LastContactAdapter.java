@@ -18,6 +18,8 @@ import org.smartregister.anc.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.ContactJsonFormUtils;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
 import java.util.List;
@@ -25,6 +27,7 @@ import java.util.List;
 public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.ViewHolder> {
     private List<LastContactDetailsWrapper> lastContactDetailsList;
     private LayoutInflater inflater;
+    private JsonFormUtils formUtils  = new JsonFormUtils();
     private Context context;
 
     public LastContactAdapter(List<LastContactDetailsWrapper> lastContactDetailsList,
@@ -65,7 +68,7 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
 
                     YamlConfigItem yamlConfigItem = data.get(i).getYamlConfigItem();
 
-                    Template template = getTemplate(yamlConfigItem.getTemplate());
+                    JsonFormUtils.Template template = formUtils.getTemplate(yamlConfigItem.getTemplate());
                     String output = "";
                     if (!TextUtils.isEmpty(template.detail)) {
                         output = Utils.fillTemplate(template.detail, facts);
@@ -102,31 +105,6 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
         }
 
 
-    }
-
-    private Template getTemplate(String rawTemplate) {
-        Template template = new Template();
-
-        if (rawTemplate.contains(":")) {
-            String[] templateArray = rawTemplate.split(":");
-            if (templateArray.length == 1) {
-                template.title = templateArray[0].trim();
-            } else if (templateArray.length > 1) {
-                template.title = templateArray[0].trim();
-                template.detail = templateArray[1].trim();
-            }
-        } else {
-            template.title = rawTemplate;
-            template.detail = "true";
-        }
-
-        return template;
-
-    }
-
-    private class Template {
-        public String title = "";
-        public String detail = "";
     }
 
     @Override

@@ -106,8 +106,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             addAttentionFlagsRuleObjects(facts);
             addTestsRuleObjects(facts);
 
-            Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
 
             String displayContactDate =
                     new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
