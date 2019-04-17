@@ -42,10 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foregroundGravity="top"
-                android:paddingStart="@dimen/contact_drawable_padding"
-                android:paddingTop="@dimen/contact_drawable_padding"
-                android:paddingEnd="@dimen/contact_drawable_padding"
-                android:paddingBottom="@dimen/contact_drawable_padding"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toTopOf="@+id/contact_divider"
                 app:layout_constraintTop_toBottomOf="@+id/last_contact_header" />

@@ -78,7 +78,6 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent()
                 .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         initializeLastContactDetails(clientDetails);
-        initializeTestDetails(clientDetails);
     }
 
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {
@@ -93,8 +92,10 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
             Iterator<String> keys = jsonObject.keys();
 
+            String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID)
+                            , contactNo);
 
             while (keys.hasNext()) {
                 String key = keys.next();
@@ -102,23 +103,23 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             }
 
             addOtherRuleObjects(facts);
-
             addAttentionFlagsRuleObjects(facts);
-
             addTestsRuleObjects(facts);
 
-            String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                     .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
 
-            lastContactDetailsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM yyyy",
-                    Locale.getDefault()).format(lastContactDate), lastContactDetails, facts));
+            String displayContactDate =
+                    new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
+            lastContactDetailsWrapperList
+                    .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
             setUpContactDetailsRecycler(lastContactDetailsWrapperList);
 
-            lastContactDetailsTestsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM " +
-                    "yyyy", Locale.getDefault()).format(lastContactDate), lastContactTests, facts));
-
+            lastContactDetailsTestsWrapperList
+                    .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactTests, facts));
+            tests_header.setText(
+                    String.format(getActivity().getResources().getString(R.string.recent_test), displayContactDate));
             setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
 
         } catch (Exception e) {
@@ -138,7 +139,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
             for (YamlConfigItem configItem : configItems) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem,false));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
                     valueCount += 1;
                 }
             }
@@ -160,7 +161,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
-                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem,false));
+                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
 
                 }
 
@@ -177,7 +178,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem,false));
+                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
 
                 }
 
@@ -208,20 +209,6 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         RecyclerView recyclerView = test_layout.findViewById(R.id.test_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-    }
-
-    private void initializeTestDetails(HashMap<String, String> clientDetails) {
-        try {
-            Date lastContactDate =
-                    new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                            .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
-            tests_header.setText(String.format(getActivity().getString(R.string.recent_test),
-                    new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(lastContactDate)));
-
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
     }
 
     @Override

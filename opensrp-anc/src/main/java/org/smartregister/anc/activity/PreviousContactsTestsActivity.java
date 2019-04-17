@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.R;
@@ -38,6 +40,7 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
     protected PreviousContacts.Presenter mProfilePresenter;
     protected ActionBar actionBar;
     private RecyclerView lastContactsTestsRecyclerView;
+    private LinearLayout notTestShown;
 
     private List<YamlConfigWrapper> lastContactTests;
 
@@ -93,9 +96,14 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
                 facts = lastContactDetailsTest.getFacts();
             }
         }
-        ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts);
-        lastContactsTestsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        lastContactsTestsRecyclerView.setAdapter(adapter);
+        if (data.size() > 0) {
+            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts);
+            lastContactsTestsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            lastContactsTestsRecyclerView.setAdapter(adapter);
+        } else {
+            notTestShown.setVisibility(View.VISIBLE);
+            lastContactsTestsRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     private void addTestsRuleObjects(Facts facts) throws IOException {
@@ -134,6 +142,7 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
 
     private void setUpViews() {
         lastContactsTestsRecyclerView = findViewById(R.id.last_contacts_tests);
+        notTestShown = findViewById(R.id.show_no_tests);
     }
 
     @Override

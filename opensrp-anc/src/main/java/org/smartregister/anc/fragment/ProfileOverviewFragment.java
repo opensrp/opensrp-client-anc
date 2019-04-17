@@ -19,12 +19,14 @@ import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,8 +68,14 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
 
+
+            HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent()
+                    .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+
+            String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID)
+                            , contactNo);
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 
@@ -77,11 +85,11 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 YamlConfig yamlConfig = (YamlConfig) ruleObject;
                 if (yamlConfig.getGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null,false));
+                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null, false));
                 }
 
                 if (yamlConfig.getSubGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null,false));
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null, false));
                 }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();
@@ -90,7 +98,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                     if (AncApplication.getInstance().getAncRulesEngineHelper()
                             .getRelevance(facts, configItem.getRelevance())) {
-                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem,false));
+                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
                         valueCount += 1;
                     }
                 }

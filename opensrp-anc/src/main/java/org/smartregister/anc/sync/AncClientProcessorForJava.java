@@ -232,9 +232,9 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
                 if (contacts.length >= 2) {
                     int nextContact;
                     if (Integer.parseInt(contacts[1]) > 0) {
-                        nextContact = Integer.parseInt(contacts[1]) - 1;
+                        nextContact = Integer.parseInt(contacts[1]);
                     } else {
-                        nextContact = Integer.parseInt(contacts[1]) + 1;
+                        nextContact = Integer.parseInt(contacts[1]);
                     }
                     contactNo = String.valueOf(nextContact);
                 }

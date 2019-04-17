@@ -159,6 +159,34 @@ fields:
 all_tests: true
 
 ---
+sub_group: blood_glucose_tests_results
+fields:
+-   template: "Blood glucose test status: {glucose_test_status}"
+    relevance: "glucose_test_status != ''"
+
+-   template: "Blood glucose test date: {glucose_test_date}"
+    relevance: "glucose_test_date != ''"
+
+-   template: "Blood glucose test type: {glucose_test_type}"
+    relevance: "glucose_test_type != ''"
+
+-   template: "Fasting plasma glucose results (mg/dl): {fasting_plasma_gluc}"
+    relevance: "fasting_plasma_gluc != ''"
+
+-   template: "75g OGTT - fasting glucose results (mg/dl): {ogtt_fasting}"
+    relevance: "ogtt_fasting != ''"
+
+-   template: "75g OGTT - 1 hr results (mg/dl): {ogtt_1}"
+    relevance: "ogtt_1 != ''"
+
+-   template: "75g OGTT - 2 hrs results (mg/dl): {ogtt_2}"
+    relevance: "ogtt_2 != ''"
+
+-   template: "Random plasma glucose results (mg/dl): {random_plasma}"
+    relevance: "random_plasma != ''"
+all_tests: true
+
+---
 sub_group: blood_haemoglobin_test_results
 fields:
 -   template: "Blood haemoglobin test status: {hb_test_status}"

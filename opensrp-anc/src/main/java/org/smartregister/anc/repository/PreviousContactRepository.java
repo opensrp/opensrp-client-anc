@@ -289,35 +289,32 @@ public class PreviousContactRepository extends BaseRepository {
         String[] selectionArgs = null;
 
         if (StringUtils.isNotBlank(baseEntityId)) {
-            selection = BASE_ENTITY_ID + " = ? AND (" + KEY + "= ? OR " + KEY + "= 'gest_age')";
+            selection = BASE_ENTITY_ID + " = ? AND (" + KEY + "= ? OR " + KEY + " = 'gest_age')";
             selectionArgs = new String[]{baseEntityId, testStatus};
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
     }
 
-    public Facts getPreviousContactFacts(String baseEntityId) {
+    public Facts getPreviousContactFacts(String baseEntityId, String contactNo) {
         Cursor mCursor = null;
         String selection = "";
-        String orderBy = "created_at,contact_no DESC";
+        String orderBy = "created_at DESC";
         String[] selectionArgs = null;
         Facts previousContacts = new Facts();
         try {
             SQLiteDatabase db = getWritableDatabase();
 
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                selection = BASE_ENTITY_ID + " = ? ";
-                selectionArgs = new String[]{baseEntityId};
+            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
+                selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
+                selectionArgs = new String[]{baseEntityId, contactNo};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
             if (mCursor != null) {
-
                 while (mCursor.moveToNext()) {
-
-                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
 
                 }
                 return previousContacts;
