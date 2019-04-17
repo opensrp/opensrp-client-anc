@@ -305,4 +305,5 @@
     <string name="expected_date_of_delivery">Expected Date of Delivery</string>
     <string name="ga_weeks">%1$s Weeks</string>
     <string name="timeline_away">%1$sw away</string>
+    <string name="all_results">All results</string>
 </resources>

@@ -57,10 +57,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         if (!TextUtils.isEmpty(mData.get(position).getSubGroup())) {
-
             holder.subSectionHeader.setText(processUnderscores(mData.get(position).getSubGroup()));
             holder.subSectionHeader.setVisibility(View.VISIBLE);
-
         } else {
             holder.subSectionHeader.setVisibility(View.GONE);
 
@@ -94,6 +92,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             holder.sectionDetails.setVisibility(View.GONE);
         }
 
+        holder.allTestResultsButton.setVisibility(mData.get(position).isAllTests() ? View.VISIBLE : View.GONE);
+
     }
 
     // total number of rows
@@ -105,10 +105,11 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView sectionHeader;
-        public TextView subSectionHeader;
-        public TextView sectionDetails;
-        public TextView sectionDetailTitle;
+        TextView sectionHeader;
+        TextView subSectionHeader;
+        TextView sectionDetails;
+        TextView sectionDetailTitle;
+        TextView allTestResultsButton;
         public View parent;
 
         ViewHolder(View itemView) {
@@ -117,6 +118,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             subSectionHeader = itemView.findViewById(R.id.overview_subsection_header);
             sectionDetailTitle = itemView.findViewById(R.id.overview_section_details_left);
             sectionDetails = itemView.findViewById(R.id.overview_section_details_right);
+            allTestResultsButton = itemView.findViewById(R.id.all_test_results_button);
             parent = itemView;
         }
     }

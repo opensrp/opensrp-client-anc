@@ -667,11 +667,8 @@ public class ContactJsonFormUtils extends FormUtils {
     public static String keyToValueConverter(String keys) {
         if (keys != null) {
             String cleanKey = WordUtils.capitalize(cleanValue(keys));
-
-            if (!TextUtils.isEmpty(keys) && keys.charAt(0) == '[') {
-
+            if (!TextUtils.isEmpty(keys)) {
                 return cleanKey.replaceAll("_", " ");
-
             } else {
                 return cleanKey;
             }

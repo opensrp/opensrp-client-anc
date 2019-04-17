@@ -244,6 +244,58 @@ public class PreviousContactRepository extends BaseRepository {
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
     }
 
+    public Facts getPreviousContactTestsFacts(String baseEntityId) {
+        Cursor mCursor = null;
+        Facts previousContactsTestsFacts = new Facts();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            mCursor = getAllTests(baseEntityId, db);
+
+            if (mCursor != null) {
+                while (mCursor.moveToNext()) {
+                    previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+
+                }
+                return previousContactsTestsFacts;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (mCursor != null) {
+                mCursor.close();
+            }
+        }
+
+        return previousContactsTestsFacts;
+    }
+
+    private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
+        String selection = "";
+        String orderBy = ID + " DESC";
+        String[] selectionArgs = null;
+
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            selection = BASE_ENTITY_ID + " = ?";
+            selectionArgs = new String[]{baseEntityId};
+        }
+
+        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
+    }
+
+    private Cursor getTestInformation(String baseEntityId, String testStatus, SQLiteDatabase database) {
+        String selection = "";
+        String orderBy = "created_at DESC";
+        String[] selectionArgs = null;
+
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            selection = BASE_ENTITY_ID + " = ? AND (" + KEY + "= ? OR " + KEY + "= 'gest_age')";
+            selectionArgs = new String[]{baseEntityId, testStatus};
+        }
+
+        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+    }
+
     public Facts getPreviousContactFacts(String baseEntityId) {
         Cursor mCursor = null;
         String selection = "";

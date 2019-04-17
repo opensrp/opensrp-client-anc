@@ -68,20 +68,19 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
 
     private void loadPreviousContactsTest() throws ParseException, IOException {
         List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
+        Facts previousContactsFacts = AncApplication.getInstance().getPreviousContactRepository()
+                .getPreviousContactTestsFacts(baseEntityId);
+
+        addTestsRuleObjects(previousContactsFacts);
 
         String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-        HashMap<String, Facts> previousContactsFacts = AncApplication.getInstance().getPreviousContactRepository()
-                .getPreviousContactsFacts(baseEntityId, contactNo);
-
-       /* addTestsRuleObjects(facts);
-
         Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
 
         lastContactDetailsTestsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM " +
-                "yyyy", Locale.getDefault()).format(lastContactDate), lastContactTests, facts));
+                "yyyy", Locale.getDefault()).format(lastContactDate), lastContactTests, previousContactsFacts));
 
-        setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);*/
+        setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
     }
 
     private void setUpContactTestsDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList) {
@@ -95,7 +94,6 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             }
         }
         ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts);
-        adapter.notifyDataSetChanged();
         lastContactsTestsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         lastContactsTestsRecyclerView.setAdapter(adapter);
     }
@@ -110,18 +108,22 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             YamlConfig testsConfig = (YamlConfig) ruleObject;
 
             if (testsConfig.getSubGroup() != null) {
-                yamlConfigList.add(new YamlConfigWrapper(null, testsConfig.getSubGroup(), null));
+                yamlConfigList.add(new YamlConfigWrapper(null, testsConfig.getSubGroup(), null, false));
             }
 
             for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
 
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
                     valueCount = +1;
 
                 }
 
+            }
+
+            if (testsConfig.isAllTests()) {
+                yamlConfigList.add(new YamlConfigWrapper(null, null, null, true));
             }
 
             if (valueCount > 0) {

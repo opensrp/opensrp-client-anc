@@ -138,7 +138,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
             for (YamlConfigItem configItem : configItems) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem,false));
                     valueCount += 1;
                 }
             }
@@ -160,7 +160,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
-                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
+                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem,false));
 
                 }
 
@@ -177,7 +177,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
 
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem));
+                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem,false));
 
                 }
 

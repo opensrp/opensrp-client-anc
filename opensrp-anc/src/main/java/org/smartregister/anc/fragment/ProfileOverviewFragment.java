@@ -77,11 +77,11 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 YamlConfig yamlConfig = (YamlConfig) ruleObject;
                 if (yamlConfig.getGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
+                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null,false));
                 }
 
                 if (yamlConfig.getSubGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null));
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null,false));
                 }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();
@@ -90,7 +90,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                     if (AncApplication.getInstance().getAncRulesEngineHelper()
                             .getRelevance(facts, configItem.getRelevance())) {
-                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
+                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem,false));
                         valueCount += 1;
                     }
                 }

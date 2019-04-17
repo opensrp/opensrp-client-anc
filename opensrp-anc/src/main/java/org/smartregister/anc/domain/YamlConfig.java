@@ -10,6 +10,7 @@ public class YamlConfig {
     private String group;
     private String sub_group;
     private List<YamlConfigItem> fields;
+    private boolean all_tests;
 
     public String getSubGroup() {
         return sub_group;
@@ -33,6 +34,14 @@ public class YamlConfig {
 
     public void setFields(List<YamlConfigItem> fields) {
         this.fields = fields;
+    }
+
+    public boolean isAllTests() {
+        return all_tests;
+    }
+
+    public void setAllTests(boolean all_tests) {
+        this.all_tests = all_tests;
     }
 
     public static final class KEY {
