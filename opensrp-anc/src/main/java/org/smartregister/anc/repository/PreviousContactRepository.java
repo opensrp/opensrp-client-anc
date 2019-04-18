@@ -166,24 +166,32 @@ public class PreviousContactRepository extends BaseRepository {
 
     public HashMap<String, Facts> getPreviousContactsFacts(String baseEntityId, String contactNo) {
         HashMap<String, Facts> previousContactFacts = new HashMap<>();
-        Cursor positiveContactCursor = null;
-        Cursor negativeContactCursor = null;
+        Cursor previousContactsCursor = null;
         try {
             for (int i = Integer.parseInt(contactNo); i >= 1; i--) {
-                SQLiteDatabase db = getWritableDatabase();
+                SQLiteDatabase database = getWritableDatabase();
 
-                positiveContactCursor = getPositiveContacts(baseEntityId, db, String.valueOf(i));
-                negativeContactCursor = getNegativeContacts(baseEntityId, db, String.valueOf(i));
+                String selection = "";
+                String orderBy = "order by abs_contact_no, contact_no,_id DESC";
+                String[] selectionArgs = null;
+
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " + BASE_ENTITY_ID +
+                            " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
+                    selectionArgs = new String[]{baseEntityId, "attention_flag_facts", "weight_gain", "phys_symptoms"};
+                }
+
+                previousContactsCursor = database.rawQuery(selection, selectionArgs);
 
 
-                if (positiveContactCursor != null) {
+                if (previousContactsCursor != null) {
                     Facts facts = new Facts();
-                    while (positiveContactCursor.moveToNext()) {
-                        facts.put(positiveContactCursor.getString(positiveContactCursor.getColumnIndex(KEY)),
-                                positiveContactCursor.getString(positiveContactCursor.getColumnIndex(VALUE)));
-                        if (positiveContactCursor.getPosition() == 1) {
+                    while (previousContactsCursor.moveToNext()) {
+                        facts.put(previousContactsCursor.getString(previousContactsCursor.getColumnIndex(KEY)),
+                                previousContactsCursor.getString(previousContactsCursor.getColumnIndex(VALUE)));
+                        if (previousContactsCursor.getPosition() == 1) {
                             facts.put(Constants.CONTACT_DATE,
-                                    positiveContactCursor.getString(positiveContactCursor.getColumnIndex(CREATED_AT)));
+                                    previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CREATED_AT)));
                         }
 
                     }
@@ -193,63 +201,18 @@ public class PreviousContactRepository extends BaseRepository {
                     }
                 }
 
-                if (negativeContactCursor != null) {
-                    Facts facts = new Facts();
-                    while (negativeContactCursor.moveToNext()) {
-                        facts.put(negativeContactCursor.getString(negativeContactCursor.getColumnIndex(KEY)),
-                                negativeContactCursor.getString(negativeContactCursor.getColumnIndex(VALUE)));
-                        if (negativeContactCursor.getPosition() == 1) {
-                            facts.put(Constants.CONTACT_DATE,
-                                    negativeContactCursor.getString(negativeContactCursor.getColumnIndex(CREATED_AT)));
-                        }
-                    }
-
-                    if (facts.asMap().size() > 0) {
-                        previousContactFacts.put("- " + String.valueOf(i), facts);
-                    }
-                }
             }
 
             return previousContactFacts;
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         } finally {
-            if (positiveContactCursor != null) {
-                positiveContactCursor.close();
-            }
-
-            if (negativeContactCursor != null) {
-                negativeContactCursor.close();
+            if (previousContactsCursor != null) {
+                previousContactsCursor.close();
             }
         }
 
         return previousContactFacts;
-    }
-
-    private Cursor getPositiveContacts(String baseEntityId, SQLiteDatabase database, String contactNo) {
-        String selection = "";
-        String orderBy = "created_at,contact_no DESC";
-        String[] selectionArgs = null;
-
-        if (StringUtils.isNotBlank(baseEntityId)) {
-            selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-            selectionArgs = new String[]{baseEntityId, String.valueOf(contactNo)};
-        }
-
-        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-    }
-
-    private Cursor getNegativeContacts(String baseEntityId, SQLiteDatabase database, String contactNo) {
-        String selection = "";
-        String orderBy = "created_at,contact_no DESC";
-        String[] selectionArgs = null;
-
-        if (StringUtils.isNotBlank(baseEntityId)) {
-            selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-            selectionArgs = new String[]{baseEntityId, "- " + String.valueOf(contactNo)};
-        }
-
-        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
     }
 
     public Facts getPreviousContactTestsFacts(String baseEntityId) {

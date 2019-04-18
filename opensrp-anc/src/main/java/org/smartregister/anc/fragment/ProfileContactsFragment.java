@@ -106,20 +106,29 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             addAttentionFlagsRuleObjects(facts);
             addTestsRuleObjects(facts);
 
-            Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
 
             String displayContactDate =
                     new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
-            lastContactDetailsWrapperList
-                    .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
-            setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+            if (lastContactDetails.isEmpty()) {
+                last_contact_layout.setVisibility(View.GONE);
+            } else {
+                lastContactDetailsWrapperList
+                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
+                setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+            }
 
-            lastContactDetailsTestsWrapperList
-                    .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactTests, facts));
-            tests_header.setText(
-                    String.format(getActivity().getResources().getString(R.string.recent_test), displayContactDate));
-            setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
+            if (lastContactTests.isEmpty()) {
+                test_layout.setVisibility(View.GONE);
+            } else {
+                lastContactDetailsTestsWrapperList
+                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactTests, facts));
+                tests_header.setText(
+                        String.format(getActivity().getResources().getString(R.string.recent_test), displayContactDate));
+                setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
+            }
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -237,9 +246,13 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.last_contact_bottom) {
-                goToPreviousContacts();
+                if (!lastContactDetails.isEmpty()) {
+                    goToPreviousContacts();
+                }
             } else if (view.getId() == R.id.tests_bottom) {
-                goToPreviousContactsTests();
+                if (!lastContactTests.isEmpty()) {
+                    goToPreviousContactsTests();
+                }
             }
         }
 

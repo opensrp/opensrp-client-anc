@@ -4,11 +4,15 @@ import android.widget.LinearLayout;
 
 import junit.framework.Assert;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.model.ContactSummaryModel;
+import org.smartregister.anc.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +26,16 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-        List<String> data = new ArrayList<>();
-        data.add("33:2019-04-14");
-        data.add("23:2018-12-23");
-        data.add("34:2019-04-15");
+        List<ContactSummaryModel> data = new ArrayList<>();
+        ContactSummaryModel newModel = new ContactSummaryModel();
+        newModel.setContactDate("2019-04-30");
+        newModel.setContactName("Contact 1");
+        newModel.setContactWeeks("20");
+
+        LocalDate localDate = new LocalDate("2019-07-23");
+        LocalDate lmpDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+        newModel.setLocalDate(lmpDate.plusWeeks(Integer.valueOf("20")).toDate());
+        data.add(newModel);
         MockitoAnnotations.initMocks(this);
         adapter = new ContactScheduleAdapter(RuntimeEnvironment.application, data);
     }
@@ -45,12 +55,6 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
 
     @Test
     public void testGetItemCountInvokesGetSizeMethodOfDataList() {
-        Assert.assertEquals(3, adapter.getItemCount());
-    }
-
-    @Test
-    public void testGenerateWeeksAway() {
-        int weeks = adapter.generateTimeAway("2019-04-30");
-        Assert.assertEquals(2, weeks);
+        Assert.assertEquals(1, adapter.getItemCount());
     }
 }
