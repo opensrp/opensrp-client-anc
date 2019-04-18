@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.model.PreviousContact;
+import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.BaseRepository;
@@ -165,21 +166,25 @@ public class PreviousContactRepository extends BaseRepository {
 
     public HashMap<String, Facts> getPreviousContactsFacts(String baseEntityId, String contactNo) {
         HashMap<String, Facts> previousContactFacts = new HashMap<>();
-        Cursor positiveContact = null;
-        Cursor negativeContact = null;
+        Cursor positiveContactCursor = null;
+        Cursor negativeContactCursor = null;
         try {
             for (int i = Integer.parseInt(contactNo); i >= 1; i--) {
                 SQLiteDatabase db = getWritableDatabase();
 
-                positiveContact = getPositiveContacts(baseEntityId, db, String.valueOf(i));
-                negativeContact = getNegativeContacts(baseEntityId, db, String.valueOf(i));
+                positiveContactCursor = getPositiveContacts(baseEntityId, db, String.valueOf(i));
+                negativeContactCursor = getNegativeContacts(baseEntityId, db, String.valueOf(i));
 
 
-                if (positiveContact != null) {
+                if (positiveContactCursor != null) {
                     Facts facts = new Facts();
-                    while (positiveContact.moveToNext()) {
-                        facts.put(positiveContact.getString(positiveContact.getColumnIndex(KEY)),
-                                positiveContact.getString(positiveContact.getColumnIndex(VALUE)));
+                    while (positiveContactCursor.moveToNext()) {
+                        facts.put(positiveContactCursor.getString(positiveContactCursor.getColumnIndex(KEY)),
+                                positiveContactCursor.getString(positiveContactCursor.getColumnIndex(VALUE)));
+                        if (positiveContactCursor.getPosition() == 1) {
+                            facts.put(Constants.CONTACT_DATE,
+                                    positiveContactCursor.getString(positiveContactCursor.getColumnIndex(CREATED_AT)));
+                        }
 
                     }
 
@@ -188,12 +193,15 @@ public class PreviousContactRepository extends BaseRepository {
                     }
                 }
 
-                if (negativeContact != null) {
+                if (negativeContactCursor != null) {
                     Facts facts = new Facts();
-                    while (negativeContact.moveToNext()) {
-                        facts.put(negativeContact.getString(negativeContact.getColumnIndex(KEY)),
-                                negativeContact.getString(negativeContact.getColumnIndex(VALUE)));
-
+                    while (negativeContactCursor.moveToNext()) {
+                        facts.put(negativeContactCursor.getString(negativeContactCursor.getColumnIndex(KEY)),
+                                negativeContactCursor.getString(negativeContactCursor.getColumnIndex(VALUE)));
+                        if (negativeContactCursor.getPosition() == 1) {
+                            facts.put(Constants.CONTACT_DATE,
+                                    negativeContactCursor.getString(negativeContactCursor.getColumnIndex(CREATED_AT)));
+                        }
                     }
 
                     if (facts.asMap().size() > 0) {
@@ -206,12 +214,12 @@ public class PreviousContactRepository extends BaseRepository {
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         } finally {
-            if (positiveContact != null) {
-                positiveContact.close();
+            if (positiveContactCursor != null) {
+                positiveContactCursor.close();
             }
 
-            if (negativeContact != null) {
-                negativeContact.close();
+            if (negativeContactCursor != null) {
+                negativeContactCursor.close();
             }
         }
 
@@ -314,7 +322,8 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
 
                 }
                 return previousContacts;
@@ -328,6 +337,42 @@ public class PreviousContactRepository extends BaseRepository {
         }
 
         return previousContacts;
+    }
+
+    public Facts getImmediatePreviousSchedule(String baseEntityId, String contactNo) {
+        Cursor scheduleCursor = null;
+        String selection = "";
+        String orderBy = "created_at DESC";
+        String[] selectionArgs = null;
+        Facts schedule = new Facts();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+
+            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
+                selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
+                selectionArgs = new String[]{baseEntityId, contactNo};
+            }
+
+            scheduleCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+
+            if (scheduleCursor != null) {
+                while (scheduleCursor.moveToNext()) {
+                    if (Constants.CONTACT_SCHEDULE.equals(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)))) {
+                        schedule.put(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)),
+                                scheduleCursor.getString(scheduleCursor.getColumnIndex(VALUE)));
+                    }
+                }
+                return schedule;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString(), e);
+        } finally {
+            if (scheduleCursor != null) {
+                scheduleCursor.close();
+            }
+        }
+
+        return schedule;
     }
 
     private PreviousContact getContactResult(Cursor cursor) {

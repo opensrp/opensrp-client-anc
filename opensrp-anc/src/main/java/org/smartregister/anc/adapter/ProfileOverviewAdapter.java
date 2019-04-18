@@ -80,8 +80,6 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             } else {
                 holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_left));
                 holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_right));
-
-
             }
 
             holder.sectionDetailTitle.setVisibility(View.VISIBLE);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
@@ -18,8 +19,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.R;
 import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -794,5 +797,24 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public class Template {
         public String title = "";
         public String detail = "";
+    }
+
+    public List<ContactSummaryModel> generateNextContactSchedule(String edd, List<String> contactSchedule,
+                                                                 Integer lastContactSequence) {
+        List<ContactSummaryModel> contactDates = new ArrayList<>();
+        if (!TextUtils.isEmpty(edd)) {
+            LocalDate localDate = new LocalDate(edd);
+            LocalDate lmpDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+
+            for (String contactWeeks : contactSchedule) {
+                contactDates.add(new ContactSummaryModel(String.format(
+                        AncApplication.getInstance().getApplicationContext().getString(R.string.contact_number),
+                        lastContactSequence++),
+                        Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                                Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                        contactWeeks));
+            }
+        }
+        return contactDates;
     }
 }

@@ -4,24 +4,31 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.anc.R;
+import org.smartregister.anc.adapter.ContactScheduleAdapter;
+import org.smartregister.anc.adapter.PreviousContactsAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContacts;
-import org.smartregister.anc.domain.YamlConfigWrapper;
+import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.presenter.PreviousContactsPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,17 +37,13 @@ import java.util.Map;
 
 public class PreviousContactsActivity extends AppCompatActivity implements PreviousContacts.View {
 
-    private String baseEntityId;
     private HashMap<String, String> clientDetails;
-    private List<YamlConfigWrapper> lastContactDetails;
     protected PreviousContacts.Presenter mProfilePresenter;
     protected ActionBar actionBar;
-    private ConstraintLayout bottomSection;
-    private ConstraintLayout topSection;
-    private ConstraintLayout middleSection;
     private TextView deliveryDate;
     private RecyclerView previousContacts;
-    private RecyclerView contactSchedule;
+    RecyclerView contactSchedule;
+    private JsonFormUtils formUtils = new JsonFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +57,9 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
             actionBar.setTitle(getResources().getString(R.string.previous_contacts_header));
         }
 
-        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         clientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
         mProfilePresenter = new PreviousContactsPresenter(this);
         setUpViews();
 
@@ -67,127 +71,70 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
             if (!TextUtils.isEmpty(displayContactDate)) {
                 deliveryDate.setText(displayContactDate);
             }
-        } catch (ParseException e) {
+
+
+            loadPreviousContacts(baseEntityId);
+            loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstants.KEY.EDD));
+        } catch (ParseException | JSONException e) {
             e.printStackTrace();
         }
 
-        loadPreviousContacts();
-
     }
 
-    private void loadPreviousContacts() {
+    private void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd) throws JSONException,
+            ParseException {
+        Facts immediatePreviousSchedule = AncApplication.getInstance().getPreviousContactRepository()
+                .getImmediatePreviousSchedule(baseEntityId, contactNo);
+        String contactScheduleString = "";
+        if (immediatePreviousSchedule != null) {
+            Map<String, Object> scheduleMap = immediatePreviousSchedule.asMap();
+            for (Map.Entry<String, Object> entry : scheduleMap.entrySet()) {
+                if (Constants.CONTACT_SCHEDULE.equals(entry.getKey())) {
+                    contactScheduleString = entry.getValue().toString();
+                }
+            }
+        }
+        List<String> scheduleList = Utils.getListFromString(contactScheduleString);
+        Date lastContactEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
+        String formattedEdd =
+                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
+        List<ContactSummaryModel> schedule = formUtils
+                .generateNextContactSchedule(formattedEdd, scheduleList, Integer.valueOf(contactNo));
+
+        ContactScheduleAdapter adapter = new ContactScheduleAdapter(this, schedule);
+        adapter.notifyDataSetChanged();
+        contactSchedule.setLayoutManager(new LinearLayoutManager(this));
+        contactSchedule.setAdapter(adapter);
+    }
+
+    private void loadPreviousContacts(String baseEntityId) {
         String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
         HashMap<String, Facts> previousContactsFacts = AncApplication.getInstance().getPreviousContactRepository()
-                .getPreviousContactsFacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contactNo);
+                .getPreviousContactsFacts(baseEntityId, contactNo);
 
         List<Facts> contactFactsList = new ArrayList<>();
 
         for (Map.Entry<String, Facts> entry : previousContactsFacts.entrySet()) {
             if (Integer.parseInt(entry.getKey()) > 0) {
-                int index = Integer.parseInt(entry.getKey())-1;
                 Facts facts = entry.getValue();
-                contactFactsList.add(index, facts);
+                contactFactsList.add(facts);
             }
         }
-    }
 
-
-
-    /*private void loadPreviousContactsTest() throws ParseException, IOException, JSONException {
-        List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
-        List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
-
-        JSONObject jsonObject = new JSONObject(
-                AncApplication.getInstance().getDetailsRepository()
-                        .getAllDetailsForClient(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID))
-                        .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
-
-        Iterator<String> keys = jsonObject.keys();
-
-        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-        Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                .getPreviousContactFacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID)
-                        , contactNo);
-
-        while (keys.hasNext()) {
-            String key = keys.next();
-            facts.put(key, jsonObject.get(key));
-        }
-
-        addOtherRuleObjects(facts);
-        addAttentionFlagsRuleObjects(facts);
-
-        Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
-
-        String displayContactDate =
-                new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
-
-        lastContactDetailsWrapperList
-                .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
-        setUpContactDetailsRecycler(lastContactDetailsWrapperList);
-
-    }
-
-    private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_LAST_CONTACT);
-
-        for (Object ruleObject : ruleObjects) {
-            List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
-            int valueCount = 0;
-            YamlConfig yamlConfig = (YamlConfig) ruleObject;
-
-            List<YamlConfigItem> configItems = yamlConfig.getFields();
-
-            for (YamlConfigItem configItem : configItems) {
-                if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
-                    valueCount += 1;
-                }
-            }
-
-            if (valueCount > 0) {
-                lastContactDetails.addAll(yamlConfigList);
-            }
-        }
-    }
-
-    private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = AncApplication.getInstance()
-                .readYaml(FilePath.FILE.ATTENTION_FLAGS);
-
-        for (Object ruleObject : attentionFlagsRuleObjects) {
-            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
-            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
-                if (AncApplication.getInstance().getAncRulesEngineHelper()
-                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
-
-                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
-
-                }
-
-            }
-        }
-    }
-
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncApplication.getInstance().readYaml(filename);
-    }
-
-    private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
-        LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, this);
+        PreviousContactsAdapter adapter = new PreviousContactsAdapter(reverseList(contactFactsList), this);
         adapter.notifyDataSetChanged();
-        RecyclerView recyclerView = last_contact_layout.findViewById(R.id.last_contact_information);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        previousContacts.setLayoutManager(new LinearLayoutManager(this));
+        previousContacts.setAdapter(adapter);
     }
-*/
+
+
+    private static List<Facts> reverseList(List<Facts> list) {
+        List<Facts> reverse = new ArrayList<>(list);
+        Collections.reverse(reverse);
+        return reverse;
+    }
 
     private void setUpViews() {
-        topSection = findViewById(R.id.layout_top);
-        middleSection = findViewById(R.id.layout_middle);
-        bottomSection = findViewById(R.id.layout_bottom);
         deliveryDate = findViewById(R.id.delivery_date);
         previousContacts = findViewById(R.id.previous_contacts);
         contactSchedule = findViewById(R.id.upcoming_contacts);

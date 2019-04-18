@@ -18,7 +18,6 @@ import org.smartregister.anc.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
@@ -27,8 +26,9 @@ import java.util.List;
 public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.ViewHolder> {
     private List<LastContactDetailsWrapper> lastContactDetailsList;
     private LayoutInflater inflater;
-    private JsonFormUtils formUtils  = new JsonFormUtils();
+    private JsonFormUtils formUtils = new JsonFormUtils();
     private Context context;
+    private LastContactAdapterClickHandler lastContactAdapterClickHandler = new LastContactAdapterClickHandler();
 
     public LastContactAdapter(List<LastContactDetailsWrapper> lastContactDetailsList,
                               Context context) {
@@ -55,7 +55,9 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 gestAge = "";
             }
 
-            viewHolder.contactTextView.setText(String.format(context.getResources().getString(R.string.contact_details), gestAge, lastContactDetails.getContactNo()));
+            viewHolder.contactTextView.setText(
+                    String.format(context.getResources().getString(R.string.contact_details), gestAge,
+                            lastContactDetails.getContactNo()));
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
             createContactDetailsView(lastContactDetails.getExtraInformation(), facts, viewHolder);
         }
@@ -121,9 +123,22 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
         ViewHolder(View itemView) {
             super(itemView);
             contactTextView = itemView.findViewById(R.id.contact);
+            contactTextView.setOnClickListener(lastContactAdapterClickHandler);
             referral = itemView.findViewById(R.id.referral);
             contactDate = itemView.findViewById(R.id.contact_date);
             lastContactDetails = itemView.findViewById(R.id.last_contact_details);
         }
+    }
+
+    /**
+     * Handles the Click actions on any of the section in the page.
+     */
+    private class LastContactAdapterClickHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.contact) {
+            }
+        }
+
     }
 }

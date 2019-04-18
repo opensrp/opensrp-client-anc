@@ -121,7 +121,7 @@
     <dimen name="contact_default_layout_margin">14dp</dimen>
     <dimen name="contact_layout_margin">4dp</dimen>
     <dimen name="contact_elevation">5dp</dimen>
-    <dimen name="contact_border_radius">15dp</dimen>
+    <dimen name="contact_border_radius">10dp</dimen>
 
     <dimen name="contact_save_title_text_size">24sp</dimen>
     <dimen name="contact_save_detail_text_size">20sp</dimen>

@@ -4,9 +4,7 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.joda.time.LocalDate;
 import org.json.JSONObject;
-import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.BaseContactContract;
 import org.smartregister.anc.contract.ContactSummarySendContract;
@@ -15,6 +13,7 @@ import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import java.util.Map;
 public class ContactSummaryInteractor extends BaseContactInteractor implements ContactSummarySendContract.Interactor {
 
     private static String TAG = ContactSummaryInteractor.class.getCanonicalName();
+    private JsonFormUtils formUtils = new JsonFormUtils();
 
     @VisibleForTesting
     ContactSummaryInteractor(AppExecutors appExecutors) {
@@ -70,24 +70,13 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                         contactSchedule = Utils
                                 .getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
                     }
-                    final List<ContactSummaryModel> contactDates = new ArrayList<>();
-
+                    final List<ContactSummaryModel> contactDates;
 
                     final Integer lastContact = Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT));
                     Integer lastContactSequence = Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT));
 
                     String edd = details.get(DBConstants.KEY.EDD);
-                    LocalDate localDate = new LocalDate(edd);
-                    LocalDate lmpDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
-
-                    for (String contact : contactSchedule) {
-
-                        contactDates.add(new ContactSummaryModel(String.format(
-                                AncApplication.getInstance().getApplicationContext().getString(R.string.contact_number),
-                                lastContactSequence++),
-                                Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contact)).toDate(),
-                                        Utils.CONTACT_SUMMARY_DF)));
-                    }
+                    contactDates= formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
 
                     getAppExecutors().mainThread().execute(new Runnable() {
                         @Override
@@ -106,4 +95,6 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
         };
         getAppExecutors().diskIO().execute(runnable);
     }
+
+
 }
