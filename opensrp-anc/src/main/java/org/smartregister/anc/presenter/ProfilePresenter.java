@@ -93,8 +93,9 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
             JSONObject form = new JSONObject(jsonString);
 
-            getProfileView().showProgressDialog(form.getString(JsonFormUtils.ENCOUNTER_TYPE)
-                    .equals(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
+            getProfileView().showProgressDialog(
+                    form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE) ?
+                            R.string.removing_dialog_title : R.string.saving_dialog_title);
 
             if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
 
@@ -143,8 +144,8 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
             getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
             try {
                 getProfileView().setProfileGestationAge(
-                        client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ? String
-                                .valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstants.KEY.EDD))) : null);
+                        client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ?
+                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstants.KEY.EDD))) : null);
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
             }
@@ -155,7 +156,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
-    public HashMap<String,String> saveFinishForm(Map<String, String> client) {
-       return contactInteractor.finalizeContactForm(client);
+    public HashMap<String, String> saveFinishForm(Map<String, String> client) {
+        return contactInteractor.finalizeContactForm(client);
     }
 }

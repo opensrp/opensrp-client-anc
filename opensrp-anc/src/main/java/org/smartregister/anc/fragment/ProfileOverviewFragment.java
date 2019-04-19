@@ -74,8 +74,8 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
             String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID)
-                            , contactNo);
+                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),
+                            contactNo);
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 

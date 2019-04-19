@@ -86,9 +86,9 @@ public class LastContactDetailsAdapter extends RecyclerView.Adapter<LastContactD
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public View parent;
         TextView sectionDetails;
         TextView sectionDetailTitle;
-        public View parent;
 
         ViewHolder(View itemView) {
             super(itemView);

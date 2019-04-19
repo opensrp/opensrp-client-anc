@@ -54,8 +54,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     public static final String TAG = ContactInteractor.class.getName();
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
-    private List<String> parsableFormsList = Arrays
-            .asList(Constants.JSON_FORM.ANC_QUICK_CHECK, Constants.JSON_FORM.ANC_PROFILE,
+    private List<String> parsableFormsList =
+            Arrays.asList(Constants.JSON_FORM.ANC_QUICK_CHECK, Constants.JSON_FORM.ANC_PROFILE,
                     Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM,
                     Constants.JSON_FORM.ANC_TEST, Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
 
@@ -103,9 +103,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                                     Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
                     LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
-                    nextContactVisitDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS)
-                            .plusWeeks(nextContactVisitWeeks)
-                            .toString();
+                    nextContactVisitDate =
+                            localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
                     nextContact = getNextContact(details);
                 } else {
                     nextContact = Integer.parseInt(details.get(DBConstants.KEY.NEXT_CONTACT));
@@ -113,14 +112,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 }
 
 
-                GetPartialContacts getPartialContacts = new GetPartialContacts(details, referral, baseEntityId, isFirst)
-                        .invoke();
+                GetPartialContacts getPartialContacts =
+                        new GetPartialContacts(details, referral, baseEntityId, isFirst).invoke();
                 PartialContactRepository partialContactRepository = getPartialContacts.getPartialContactRepository();
                 List<PartialContact> partialContactList = getPartialContacts.getPartialContactList();
 
-                UpdateContactVisit updateContactVisit = new UpdateContactVisit(details, referral, baseEntityId, nextContact,
-                        nextContactVisitDate, partialContactRepository,
-                        partialContactList).invoke();
+                UpdateContactVisit updateContactVisit =
+                        new UpdateContactVisit(details, referral, baseEntityId, nextContact, nextContactVisitDate,
+                                partialContactRepository, partialContactList).invoke();
                 Facts facts = updateContactVisit.getFacts();
                 List<String> formSubmissionIDs = updateContactVisit.getFormSubmissionIDs();
                 WomanDetail womanDetail = updateContactVisit.getWomanDetail();
@@ -159,8 +158,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     private void addThePreviousContactSchedule(String baseEntityId, Map<String, String> details, List<Integer> integerList) {
         PreviousContact previousContact = new PreviousContact();
         previousContact.setBaseEntityId(baseEntityId);
-        String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) : details
-                .get(DBConstants.KEY.NEXT_CONTACT);
+        String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) :
+                details.get(DBConstants.KEY.NEXT_CONTACT);
         previousContact.setContactNo(contactNo);
         previousContact.setKey(Constants.DETAILS_KEY.CONTACT_SHEDULE);
         previousContact.setValue(String.valueOf(integerList));
@@ -171,8 +170,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                                               String attentionFlagsString) {
         PreviousContact previousContact = new PreviousContact();
         previousContact.setBaseEntityId(baseEntityId);
-        String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) : details
-                .get(DBConstants.KEY.NEXT_CONTACT);
+        String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) :
+                details.get(DBConstants.KEY.NEXT_CONTACT);
         previousContact.setContactNo(contactNo);
         previousContact.setKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
         previousContact.setValue(attentionFlagsString);
@@ -180,7 +179,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair)
-            throws JSONException {
+    throws JSONException {
         Event event = eventPair.first;
         //Here we save state
         event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -211,13 +210,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getGestationAge(Map<String, String> details) {
-        return details.containsKey(DBConstants.KEY.EDD) && details.get(DBConstants.KEY.EDD) != null ? Utils
-                .getGestationAgeFromEDDate(details.get(DBConstants.KEY.EDD)) : 4;
+        return details.containsKey(DBConstants.KEY.EDD) && details.get(DBConstants.KEY.EDD) != null ?
+                Utils.getGestationAgeFromEDDate(details.get(DBConstants.KEY.EDD)) : 4;
     }
 
     private int getNextContact(Map<String, String> details) {
-        Integer nextContact = details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details
-                .get(DBConstants.KEY.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
+        Integer nextContact =
+                details.containsKey(DBConstants.KEY.NEXT_CONTACT) && details.get(DBConstants.KEY.NEXT_CONTACT) != null ?
+                        Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }
@@ -245,8 +245,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             continue;
                         }
 
-                        if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils
-                                .isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+                        if (fieldObject.has(JsonFormConstants.VALUE) &&
+                                !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
                             savePreviousContactItem(baseEntityId, fieldObject);
@@ -262,7 +262,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo)
-            throws JSONException {
+    throws JSONException {
         if (fieldObject != null) {
             JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
             if (value == null) {
@@ -334,16 +334,15 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         }
 
         public GetPartialContacts invoke() {
-            partialContactRepository = AncApplication.getInstance()
-                    .getPartialContactRepository();
+            partialContactRepository = AncApplication.getInstance().getPartialContactRepository();
 
             if (partialContactRepository != null) {
                 if (isFirst) {
                     partialContactList = partialContactRepository.getPartialContacts(baseEntityId, 1);
                 } else {
                     if (referral != null) {
-                        partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
-                                Integer.valueOf(details.get(Constants.REFERRAL)));
+                        partialContactList = partialContactRepository
+                                .getPartialContacts(baseEntityId, Integer.valueOf(details.get(Constants.REFERRAL)));
                     } else {
                         partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
                                 Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
@@ -428,8 +427,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 for (PartialContact partialContact : partialContactList) {
                     JSONObject formObject = JsonFormUtils.toJSONObject(
-                            partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact
-                                    .getFormJson());
+                            partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
+                                    partialContact.getFormJson());
 
                     if (formObject != null) {
                         //process form details
@@ -439,7 +438,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                         }
 
                         //process attention flags
-                        ContactJsonFormUtils.processRequiredStepsField(facts, formObject, AncApplication.getInstance().getApplicationContext());
+                        ContactJsonFormUtils.processRequiredStepsField(facts, formObject,
+                                AncApplication.getInstance().getApplicationContext());
 
                         //process events
                         Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);

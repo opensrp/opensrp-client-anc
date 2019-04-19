@@ -1,12 +1,8 @@
 package org.smartregister.anc.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +11,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
-import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.PreviousContactsActivity;
 import org.smartregister.anc.activity.PreviousContactsTestsActivity;
-import org.smartregister.anc.adapter.LastContactAdapter;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.contract.ProfileFragmentContract;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
+import org.smartregister.anc.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
@@ -37,14 +33,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by ndegwamartin on 12/07/2018.
  */
-public class ProfileContactsFragment extends BaseProfileFragment {
+public class ProfileContactsFragment extends BaseProfileFragment implements ProfileFragmentContract.View {
     public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
     private List<YamlConfigWrapper> lastContactDetails;
     private List<YamlConfigWrapper> lastContactTests;
@@ -54,6 +49,9 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     private LinearLayout testsDisplayLayout;
     private ProfileContactsActionHandler profileContactsActionHandler = new ProfileContactsActionHandler();
     private JsonFormUtils formUtils = new JsonFormUtils();
+    private ProfileFragmentContract.Presenter presenter;
+    private String baseEntityId;
+    private String contactNo;
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -65,9 +63,17 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         return fragment;
     }
 
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
+        presenter = new ProfileFragmentPresenter(this);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializePresenter();
     }
 
     @Override
@@ -80,8 +86,10 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     protected void onResumption() {
         lastContactDetails = new ArrayList<>();
         lastContactTests = new ArrayList<>();
+        baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
                 (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
         initializeLastContactDetails(clientDetails);
     }
 
@@ -90,21 +98,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
             List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
             List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
 
-            JSONObject jsonObject = new JSONObject(AncApplication.getInstance().getDetailsRepository()
-                    .getAllDetailsForClient(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID))
-                    .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
-
-            Iterator<String> keys = jsonObject.keys();
-
-            String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-            Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID),
-                            contactNo);
-
-            while (keys.hasNext()) {
-                String key = keys.next();
-                facts.put(key, jsonObject.get(key));
-            }
+            Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
 
             addOtherRuleObjects(facts);
             addAttentionFlagsRuleObjects(facts);
@@ -198,11 +192,11 @@ public class ProfileContactsFragment extends BaseProfileFragment {
     }
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
-        LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
+      /*  LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
         adapter.notifyDataSetChanged();
         RecyclerView recyclerView = lastContactLayout.findViewById(R.id.last_contact_information);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
     }
 
     private void setUpContactTestsDetails(List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList) {
@@ -223,40 +217,7 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         if (data != null && data.size() > 0) {
             for (int position = 0; position < data.size(); position++) {
                 if (data.get(position).getYamlConfigItem() != null) {
-
-                    YamlConfigItem yamlConfigItem = data.get(position).getYamlConfigItem();
-
-                    JsonFormUtils.Template template = formUtils.getTemplate(yamlConfigItem.getTemplate());
-                    String output = "";
-                    if (!TextUtils.isEmpty(template.detail)) {
-                        output = Utils.fillTemplate(template.detail, facts);
-                    }
-
-                    LayoutInflater inflater =
-                            (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    ConstraintLayout constraintLayout =
-                            (ConstraintLayout) inflater.inflate(R.layout.previous_contacts_preview_row, null);
-                    TextView sectionDetailTitle = constraintLayout.findViewById(R.id.overview_section_details_left);
-                    TextView sectionDetails = constraintLayout.findViewById(R.id.overview_section_details_right);
-
-
-                    sectionDetailTitle.setText(template.title);
-                    sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
-
-                    if (AncApplication.getInstance().getAncRulesEngineHelper()
-                            .getRelevance(facts, yamlConfigItem.getIsRedFont())) {
-                        sectionDetailTitle.setTextColor(getActivity().getResources().getColor(R.color.overview_font_red));
-                        sectionDetails.setTextColor(getActivity().getResources().getColor(R.color.overview_font_red));
-                    } else {
-                        sectionDetailTitle.setTextColor(getActivity().getResources().getColor(R.color.overview_font_left));
-                        sectionDetails.setTextColor(getActivity().getResources().getColor(R.color.overview_font_right));
-
-
-                    }
-
-                    sectionDetailTitle.setVisibility(View.VISIBLE);
-                    sectionDetails.setVisibility(View.VISIBLE);
-
+                    ConstraintLayout constraintLayout = formUtils.createListViewItems(data, facts, position, getActivity());
                     testsDisplayLayout.addView(constraintLayout);
                 }
             }
@@ -286,25 +247,6 @@ public class ProfileContactsFragment extends BaseProfileFragment {
         return AncApplication.getInstance().readYaml(filename);
     }
 
-    /**
-     * Handles the Click actions on any of the section in the page.
-     */
-    private class ProfileContactsActionHandler implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.last_contact_bottom) {
-                if (!lastContactDetails.isEmpty()) {
-                    goToPreviousContacts();
-                }
-            } else if (view.getId() == R.id.tests_bottom) {
-                if (!lastContactTests.isEmpty()) {
-                    goToPreviousContactsTests();
-                }
-            }
-        }
-
-    }
-
     private void goToPreviousContacts() {
         Intent intent = new Intent(getActivity(), PreviousContactsActivity.class);
         String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
@@ -323,5 +265,24 @@ public class ProfileContactsFragment extends BaseProfileFragment {
                 getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
 
         this.startActivity(intent);
+    }
+
+    /**
+     * Handles the Click actions on any of the section in the page.
+     */
+    private class ProfileContactsActionHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.last_contact_bottom) {
+                if (!lastContactDetails.isEmpty()) {
+                    goToPreviousContacts();
+                }
+            } else if (view.getId() == R.id.tests_bottom) {
+                if (!lastContactTests.isEmpty()) {
+                    goToPreviousContactsTests();
+                }
+            }
+        }
+
     }
 }

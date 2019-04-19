@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PreviousContactRepository extends BaseRepository {
-    private static final String TAG = PreviousContactRepository.class.getCanonicalName();
-
     public static final String TABLE_NAME = "previous_contact";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -29,17 +27,14 @@ public class PreviousContactRepository extends BaseRepository {
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
+    private static final String TAG = PreviousContactRepository.class.getCanonicalName();
+    private static final String CREATE_TABLE_SQL =
+            "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + CONTACT_NO +
+                    "  VARCHAR NOT NULL, " + BASE_ENTITY_ID + "  VARCHAR NOT NULL, " + KEY + "  VARCHAR, " + VALUE +
+                    "  VARCHAR NOT NULL, " + CREATED_AT + " INTEGER NOT NULL)";
 
-    private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "(" +
-            ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-            CONTACT_NO + "  VARCHAR NOT NULL, " +
-            BASE_ENTITY_ID + "  VARCHAR NOT NULL, " +
-            KEY + "  VARCHAR, " +
-            VALUE + "  VARCHAR NOT NULL, " +
-            CREATED_AT + " INTEGER NOT NULL)";
-
-    private static final String INDEX_ID = "CREATE INDEX " + TABLE_NAME + "_" + ID +
-            "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";/*
+    private static final String INDEX_ID =
+            "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";/*
 
     private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID +
             "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
@@ -61,8 +56,7 @@ public class PreviousContactRepository extends BaseRepository {
     }
 
     public void savePreviousContact(PreviousContact previousContact) {
-        if (previousContact == null)
-            return;
+        if (previousContact == null) return;
         previousContact.setVisitDate(Utils.getDBDateToday());
         getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(previousContact));
 
@@ -81,11 +75,8 @@ public class PreviousContactRepository extends BaseRepository {
     }
 
     /**
-     * @param previousContactRequest object holding contact request params
-     *                               it MUST contain NON NULL values for
-     *                               key
-     *                               baseEntityId
-     *                               contactNo
+     * @param previousContactRequest object holding contact request params it MUST contain NON NULL values for key
+     *                               baseEntityId contactNo
      */
     public PreviousContact getPreviousContact(PreviousContact previousContactRequest) {
         String selection = null;
@@ -93,8 +84,8 @@ public class PreviousContactRepository extends BaseRepository {
         PreviousContact dbPreviousContact = null;
         Cursor mCursor = null;
         try {
-            if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) && StringUtils
-                    .isNotBlank(previousContactRequest.getKey())) {
+            if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) &&
+                    StringUtils.isNotBlank(previousContactRequest.getKey())) {
                 selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " = ? " + COLLATE_NOCASE;
                 selectionArgs = new String[]{previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
             }
@@ -176,8 +167,8 @@ public class PreviousContactRepository extends BaseRepository {
                 String[] selectionArgs = null;
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
-                    selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " + BASE_ENTITY_ID +
-                            " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
+                    selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
+                            BASE_ENTITY_ID + " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
                     selectionArgs = new String[]{baseEntityId, "attention_flag_facts", "weight_gain", "phys_symptoms"};
                 }
 

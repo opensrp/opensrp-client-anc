@@ -41,8 +41,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
 
     @Override
-    public void fetchUpcomingContacts(final String entityId,
-                                      final String referralContactNo,
+    public void fetchUpcomingContacts(final String entityId, final String referralContactNo,
                                       final ContactSummarySendContract.InteractorCallback callback) {
 
         Runnable runnable = new Runnable() {
@@ -57,18 +56,17 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                             AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
                     JSONObject rawContactSchedule;
                     if (clientDetails.containsKey(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
-                        rawContactSchedule =
-                                new JSONObject(
-                                        AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
-                                                .get(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                        rawContactSchedule = new JSONObject(
+                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
+                                        .get(Constants.DETAILS_KEY.CONTACT_SHEDULE));
                     } else {
                         rawContactSchedule = new JSONObject();
                     }
 
                     List<String> contactSchedule = new ArrayList<>();
                     if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
-                        contactSchedule = Utils
-                                .getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                        contactSchedule =
+                                Utils.getListFromString(rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
                     }
                     final List<ContactSummaryModel> contactDates;
 
@@ -76,7 +74,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     Integer lastContactSequence = Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT));
 
                     String edd = details.get(DBConstants.KEY.EDD);
-                    contactDates= formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
+                    contactDates = formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
 
                     getAppExecutors().mainThread().execute(new Runnable() {
                         @Override

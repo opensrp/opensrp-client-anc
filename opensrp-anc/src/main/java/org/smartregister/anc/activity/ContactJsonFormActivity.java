@@ -51,13 +51,12 @@ import java.util.List;
 
 public class ContactJsonFormActivity extends JsonFormActivity implements JsonApiInterface {
 
+    protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private AncGenericDialogInterface genericDialogInterface;
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private Utils utils = new Utils();
     private String TAG = this.getClass().getSimpleName();
-    protected AncRulesEngineFactory rulesEngineFactory = null;
-
     private String formName;
 
     public void init(String json) {
@@ -78,7 +77,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 globalValues = new HashMap<>();
             }
 
-            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues,mJSONObject);
+            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues, mJSONObject);
             setRulesEngineFactory(rulesEngineFactory);
 
             confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
@@ -126,8 +125,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     protected void initializeFormFragmentCore() {
-        JsonWizardFormFragment contactJsonFormFragment = ContactJsonFormFragment
-                .getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        JsonWizardFormFragment contactJsonFormFragment =
+                ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
 
         getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
                 .commit();
@@ -202,6 +201,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @param sectionJson
      * @param popup
+     *
      * @return
      * @throws JSONException
      * @author dubdabasoduba
@@ -234,6 +234,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      *
      * @param parentJson {@link JSONObject}
      * @param popup      {@link Boolean}
+     *
      * @return fields {@link JSONArray}
      * @throws JSONException
      * @author dubdabasoduba
@@ -352,6 +353,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
      * This fix is a bit hacky but feel free to use it
      *
      * @param fields {@link JSONArray}
+     *
      * @throws JSONException
      * @author dubdabasoduba
      */
@@ -451,14 +453,14 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                             .equals(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY))) {
                         result.put(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY), String.valueOf(true));
                     } else {
-                        if (!jsonObject.has(RuleConstant.IS_RULE_CHECK) || !jsonObject
-                                .getBoolean(RuleConstant.IS_RULE_CHECK)) {
+                        if (!jsonObject.has(RuleConstant.IS_RULE_CHECK) ||
+                                !jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
                             result.put(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY), String.valueOf(false));
                         }
                     }
                 } else {
-                    Log.e(TAG, "option for Key " + jsonArray.getJSONObject(j)
-                            .getString(JsonFormConstants.KEY) + " has NO value");
+                    Log.e(TAG, "option for Key " + jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY) +
+                            " has NO value");
                 }
             }
         } else {
@@ -504,7 +506,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
                 LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
                 LinearLayout mainContentView = contentLayout.findViewById(R.id.contentView);
-                formUtils.addValuesDisplay(values,mainContentView,getApplicationContext());
+                formUtils.addValuesDisplay(values, mainContentView, getApplicationContext());
 
                 /*ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) mainContentView.getAdapter();
                 adapter.setExpansionWidgetValues(values);

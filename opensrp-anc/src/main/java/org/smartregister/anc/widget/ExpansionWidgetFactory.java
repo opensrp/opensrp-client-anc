@@ -47,15 +47,14 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
-                                       JSONObject jsonObject,
-                                       CommonListener commonListener, boolean popup) throws Exception {
+                                       JSONObject jsonObject, CommonListener commonListener, boolean popup)
+    throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, popup);
     }
 
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
-                                       JSONObject jsonObject,
-                                       CommonListener commonListener) throws Exception {
+                                       JSONObject jsonObject, CommonListener commonListener) throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, false);
     }
 
@@ -70,9 +69,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         String relevance = jsonObject.optString(JsonFormConstants.RELEVANCE);
         String constraints = jsonObject.optString(JsonFormConstants.CONSTRAINTS);
         String calculation = jsonObject.optString(JsonFormConstants.CALCULATION);
-        LinearLayout.LayoutParams layoutParams = FormUtils
-                .getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1,
-                        2);
+        LinearLayout.LayoutParams layoutParams =
+                FormUtils.getLinearLayoutParams(FormUtils.MATCH_PARENT, FormUtils.MATCH_PARENT, 1, 2, 1, 2);
         LinearLayout rootLayout = getRootLayout(context);
         rootLayout.setLayoutParams(layoutParams);
         rootLayout.setId(ViewUtil.generateViewId());
@@ -109,8 +107,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     }
 
     private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment,
-                              JSONObject jsonObject,
-                              CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
+                              JSONObject jsonObject, CommonListener commonListener, LinearLayout rootLayout)
+    throws JSONException {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
         RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
         RelativeLayout expansion_header_layout = expansionHeader.findViewById(R.id.expansion_header_layout);
@@ -139,9 +137,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         for (int i = 0; i < value.length(); i++) {
             if (!value.isNull(i)) {
                 JSONObject item = value.getJSONObject(i);
-                if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) || item
-                        .getString(JsonFormConstants.TYPE)
-                        .equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
+                if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) ||
+                        item.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
 
                     JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
                     for (int k = 0; k < jsonArray.length(); k++) {
@@ -158,19 +155,16 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         if (stringValues.length >= 2) {
             String valueDisplay = list.split(":")[1];
 
-            if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) || valueDisplay
-                    .equals(Constants
-                            .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) || valueDisplay
-                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES
-                            .DONE) || valueDisplay
-                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) || valueDisplay.equals
-                    (Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) || valueDisplay.equals(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || valueDisplay.equals(Constants
-                    .ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) || valueDisplay
-                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT
-                            .ORDERED) || valueDisplay
-                    .equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) || valueDisplay.equals
-                    (Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
+            if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
 
                 formUtils.changeIcon(imageView, valueDisplay, context);
                 return true;
@@ -183,6 +177,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
      * Return the Expansion Panel value
      *
      * @param optionItem {@link JSONObject}
+     *
      * @return value {@link JSONArray}
      * @throws JSONException
      */
@@ -209,7 +204,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     }
 
     private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget)
-            throws JSONException {
+    throws JSONException {
         String accordionInfoText = jsonObject.optString(Constants.ACCORDION_INFO_TEXT, null);
         String accordionInfoTitle = jsonObject.optString(Constants.ACCORDION_INFO_TITLE, null);
         String accordionKey = jsonObject.getString(JsonFormConstants.KEY);
@@ -291,13 +286,33 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         return (LinearLayout) LayoutInflater.from(context).inflate(R.layout.native_expansion_panel, null);
     }
 
+    private boolean checkValuesContent(JSONArray value) throws JSONException {
+        boolean showHiddenViews = true;
+        if (value.length() == 1) {
+            JSONObject jsonObject = value.getJSONObject(0);
+            if (jsonObject.has(JsonFormConstants.TYPE) &&
+                    Constants.ANC_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE))) {
+                JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+                if (values.length() == 1) {
+                    String object = values.getString(0);
+                    if (object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
+                            object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
+                        showHiddenViews = false;
+                    }
+                }
+            }
+        }
+        return showHiddenViews;
+    }
+
     private class RecordButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             LinearLayout linearLayout;
             if (view instanceof RelativeLayout) {
                 linearLayout = (LinearLayout) view.getParent().getParent();
-            } else if (view instanceof ImageView || view instanceof CustomTextView) { // This caters for the different views that can be
+            } else if (view instanceof ImageView ||
+                    view instanceof CustomTextView) { // This caters for the different views that can be
                 // clicked to show the popup
                 linearLayout = (LinearLayout) view.getParent().getParent().getParent();
             } else {
@@ -306,25 +321,6 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             view.setTag(R.id.main_layout, linearLayout);
             formUtils.showGenericDialog(view);
         }
-    }
-
-    private boolean checkValuesContent(JSONArray value) throws JSONException {
-        boolean showHiddenViews = true;
-        if (value.length() == 1) {
-            JSONObject jsonObject = value.getJSONObject(0);
-            if (jsonObject.has(JsonFormConstants.TYPE) && Constants.ANC_RADIO_BUTTON
-                    .equals(jsonObject.getString(JsonFormConstants.TYPE))) {
-                JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
-                if (values.length() == 1) {
-                    String object = values.getString(0);
-                    if (object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) || object
-                            .contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
-                        showHiddenViews = false;
-                    }
-                }
-            }
-        }
-        return showHiddenViews;
     }
 
     private class UndoButtonClickListener implements View.OnClickListener {
@@ -347,8 +343,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     if (fields.length() > 0) {
                         for (int i = 0; i < fields.length(); i++) {
                             JSONObject item = fields.getJSONObject(i);
-                            if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey) && item
-                                    .has(JsonFormConstants.VALUE)) {
+                            if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey) &&
+                                    item.has(JsonFormConstants.VALUE)) {
                                 displayUndoDialog(context, item, mainJson, view);
                             }
                         }
@@ -360,7 +356,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
 
         private void displayUndoDialog(Context context, final JSONObject item, final JSONObject mainJson, final View view)
-                throws JSONException {
+        throws JSONException {
             Activity activity = (Activity) context;
             LayoutInflater inflater = activity.getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.expasion_panel_undo_dialog, null);
@@ -391,8 +387,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     item.remove(JsonFormConstants.VALUE);
                     jsonApi.setmJSONObject(mainJson);
 
-                    Utils.postEvent(
-                            new RefreshExpansionPanelEvent(null, (LinearLayout) view.getTag(R.id.linearLayout)));
+                    Utils.postEvent(new RefreshExpansionPanelEvent(null, (LinearLayout) view.getTag(R.id.linearLayout)));
                     dialog.dismiss();
                 }
             });

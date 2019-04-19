@@ -143,7 +143,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         } else if (view.getId() == R.id.back_button) {
             switchViews(false);
         } else if ((view.getId() == R.id.patient_column || view.getId() == R.id.profile) && view.getTag() != null) {
-            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
+            Utils.navigateToProfile(getActivity(),
+                    (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
         } else if (view.getId() == R.id.sync) {
             SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
             SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
@@ -172,10 +173,11 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        AdvancedSearchProvider advancedSearchProvider = new AdvancedSearchProvider(getActivity(), commonRepository(),
-                visibleColumns, registerActionHandler, paginationViewHandler);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, advancedSearchProvider,
-                context().commonrepository(this.tablename));
+        AdvancedSearchProvider advancedSearchProvider =
+                new AdvancedSearchProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler,
+                        paginationViewHandler);
+        clientAdapter =
+                new RecyclerViewPaginatedAdapter(null, advancedSearchProvider, context().commonrepository(this.tablename));
         clientsView.setAdapter(clientAdapter);
     }
 
@@ -293,10 +295,10 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
 
     private void checkTextFields() {
-        if (!TextUtils.isEmpty(ancId.getText()) || !TextUtils.isEmpty(firstName.getText()) || !TextUtils
-                .isEmpty(lastName.getText()) || !TextUtils.isEmpty(edd.getText()) || !TextUtils
-                .isEmpty(dob.getText()) || !TextUtils.isEmpty(phoneNumber.getText()) || !TextUtils
-                .isEmpty(altContactName.getText())) {
+        if (!TextUtils.isEmpty(ancId.getText()) || !TextUtils.isEmpty(firstName.getText()) ||
+                !TextUtils.isEmpty(lastName.getText()) || !TextUtils.isEmpty(edd.getText()) ||
+                !TextUtils.isEmpty(dob.getText()) || !TextUtils.isEmpty(phoneNumber.getText()) ||
+                !TextUtils.isEmpty(altContactName.getText())) {
             search.setEnabled(true);
             search.setTextColor(getResources().getColor(R.color.white));
             search.setOnClickListener(registerActionHandler);
@@ -544,8 +546,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
     }
 
     @Override
-    public Cursor getRawCustomQueryForAdapter(String query){
-      return commonRepository().rawCustomQueryForAdapter(query);
+    public Cursor getRawCustomQueryForAdapter(String query) {
+        return commonRepository().rawCustomQueryForAdapter(query);
     }
 
 

@@ -48,15 +48,13 @@ import java.util.Set;
  */
 
 public class HomeRegisterFragment extends BaseRegisterFragment
-        implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver
-        .SyncStatusListener {
-
-    private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
+        implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
+    private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
 
     @Override
     protected void initializePresenter() {
@@ -136,7 +134,8 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                     try {
 
                         JSONObject jsonObject = new JSONObject(
-                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+                                AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
+                                        .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
 
                         Facts facts = new Facts();
 
@@ -181,7 +180,8 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                 }
             }.execute();
 
-        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to catchment
+        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to
+         catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
             homeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
@@ -189,7 +189,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     }
 
 
-    @SuppressLint ("NewApi")
+    @SuppressLint("NewApi")
     @Override
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment
@@ -200,9 +200,8 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
-            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
-                    .findFragmentByPosition(BaseRegisterActivity
-                            .ADVANCED_SEARCH_POSITION);
+            android.support.v4.app.Fragment currentFragment =
+                    baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
         }
     }
@@ -212,17 +211,17 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     public void setAdvancedSearchFormData(HashMap<String, String> formData) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
-            android.support.v4.app.Fragment currentFragment = baseRegisterActivity
-                    .findFragmentByPosition(BaseRegisterActivity
-                            .ADVANCED_SEARCH_POSITION);
+            android.support.v4.app.Fragment currentFragment =
+                    baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
         }
     }
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        RegisterProvider registerProvider = new RegisterProvider(getActivity(), commonRepository(), visibleColumns,
-                registerActionHandler, paginationViewHandler);
+        RegisterProvider registerProvider =
+                new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler,
+                        paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

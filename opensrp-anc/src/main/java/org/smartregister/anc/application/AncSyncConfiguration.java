@@ -21,7 +21,8 @@ public class AncSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        AllSharedPreferences sharedPreferences = AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
+        AllSharedPreferences sharedPreferences =
+                AncApplication.getInstance().getContext().userService().getAllSharedPreferences();
         return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
     }
 

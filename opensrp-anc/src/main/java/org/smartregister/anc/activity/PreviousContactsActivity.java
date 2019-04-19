@@ -43,14 +43,20 @@ import java.util.Map;
 
 public class PreviousContactsActivity extends AppCompatActivity implements PreviousContacts.View {
 
-    private HashMap<String, String> clientDetails;
     protected PreviousContacts.Presenter mProfilePresenter;
     protected ActionBar actionBar;
+    RecyclerView contactSchedule;
+    private HashMap<String, String> clientDetails;
     private TextView deliveryDate;
     private RecyclerView previousContacts;
     private List<YamlConfigWrapper> lastContactDetails;
-    RecyclerView contactSchedule;
     private JsonFormUtils formUtils = new JsonFormUtils();
+
+    private static List<Facts> reverseList(List<Facts> list) {
+        List<Facts> reverse = new ArrayList<>(list);
+        Collections.reverse(reverse);
+        return reverse;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +96,8 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
 
     }
 
-    private void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd) throws JSONException,
-            ParseException {
+    private void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd)
+    throws JSONException, ParseException {
         Facts immediatePreviousSchedule = AncApplication.getInstance().getPreviousContactRepository()
                 .getImmediatePreviousSchedule(baseEntityId, contactNo);
         String contactScheduleString = "";
@@ -105,10 +111,9 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
         }
         List<String> scheduleList = Utils.getListFromString(contactScheduleString);
         Date lastContactEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
-        String formattedEdd =
-                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
-        List<ContactSummaryModel> schedule = formUtils
-                .generateNextContactSchedule(formattedEdd, scheduleList, Integer.valueOf(contactNo));
+        String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
+        List<ContactSummaryModel> schedule =
+                formUtils.generateNextContactSchedule(formattedEdd, scheduleList, Integer.valueOf(contactNo));
 
         ContactScheduleAdapter adapter = new ContactScheduleAdapter(this, schedule);
         adapter.notifyDataSetChanged();
@@ -161,21 +166,18 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
         }
     }
 
-
-    private void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo) throws
-            IOException, ParseException {
+    private void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo)
+    throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
 
         lastContactDetails = new ArrayList<>();
         addOtherRuleObjects(contactFacts);
         addAttentionFlagsRuleObjects(facts);
 
-        Date lastContactDate =
-                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(
-                        String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
+        Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                .parse(String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
 
-        String displayContactDate =
-                new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
+        String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
         lastContactDetailsWrapperList
                 .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
@@ -233,13 +235,6 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
         adapter.notifyDataSetChanged();
         previousContacts.setLayoutManager(new LinearLayoutManager(this));
         previousContacts.setAdapter(adapter);
-    }
-
-
-    private static List<Facts> reverseList(List<Facts> list) {
-        List<Facts> reverse = new ArrayList<>(list);
-        Collections.reverse(reverse);
-        return reverse;
     }
 
     private void setUpViews() {

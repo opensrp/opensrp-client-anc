@@ -54,6 +54,28 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
 
+    public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
+
+        String fieldKey = ContactJsonFormUtils.getKey(jsonObject);
+        Object fieldValue = ContactJsonFormUtils.getValue(jsonObject);
+        String fieldKeySecondary = fieldKey.contains(Constants.SUFFIX.OTHER) ?
+                fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE : "";
+        String fieldKeyOtherValue = fieldKey + Constants.SUFFIX.VALUE;
+
+        if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && !fieldKeySecondary.isEmpty() &&
+                facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
+
+            List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).split("\\s*,\\s*")));
+            tempList.remove(tempList.size() - 1);
+            tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue)));
+            facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
+
+        } else {
+            facts.put(fieldKey, fieldValue.toString());
+        }
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -309,9 +331,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                             isValueRequired = Boolean.parseBoolean(value);
                         }
 
-                        boolean isRequiredField = !fieldObject.getString(JsonFormConstants.TYPE)
-                                .equals(JsonFormConstants.LABEL) && !fieldObject.getString(JsonFormConstants.TYPE)
-                                .equals(JsonFormConstants.HIDDEN) && isValueRequired;
+                        boolean isRequiredField =
+                                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
+                                        !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.HIDDEN) &&
+                                        isValueRequired;
 
                         setRequiredCount(object, fieldObject, isRequiredField);
 
@@ -360,8 +383,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         if (isRequiredField && (!fieldObject.has(JsonFormConstants.VALUE) ||
                 TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
 
-            Integer requiredFieldCount =
-                    requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
+            Integer requiredFieldCount = requiredFieldsMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
 
             requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
 
@@ -369,22 +391,20 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 --requiredFieldCount;
             }
 
-            requiredFieldsMap
-                    .put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
+            requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), requiredFieldCount);
 
         }
     }
 
     private void checkRequiredForCheckBoxOther(JSONObject fieldObject) throws Exception {
         //Other field for check boxes
-        if (fieldObject.has(JsonFormConstants.VALUE) &&
-                !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
-                fieldObject.getString(Constants.KEY.KEY).endsWith(Constants.SUFFIX.OTHER) &&
-                formGlobalValues.get(fieldObject.getString(Constants.KEY.KEY)
-                        .replace(Constants.SUFFIX.OTHER, Constants.SUFFIX.VALUE)) != null) {
+        if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
+                fieldObject.getString(Constants.KEY.KEY).endsWith(Constants.SUFFIX.OTHER) && formGlobalValues
+                .get(fieldObject.getString(Constants.KEY.KEY).replace(Constants.SUFFIX.OTHER, Constants.SUFFIX.VALUE)) !=
+                null) {
 
-            formGlobalValues.put(ContactJsonFormUtils.getSecondaryKey(fieldObject),
-                    fieldObject.getString(JsonFormConstants.VALUE));
+            formGlobalValues
+                    .put(ContactJsonFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
             processAbnormalValues(formGlobalValues, fieldObject);
 
         }
@@ -401,11 +421,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 JSONObject subFormJson = com.vijay.jsonwizard.utils.FormUtils
                         .getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM),
                                 fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ?
-                                        fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "",
-                                this);
-                processRequiredStepsField(ContactJsonFormUtils
-                        .createSecondaryFormObject(fieldObject, subFormJson,
-                                object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
+                                        fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "", this);
+                processRequiredStepsField(ContactJsonFormUtils.createSecondaryFormObject(fieldObject, subFormJson,
+                        object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
 
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
@@ -526,10 +544,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
      * @param object Form Json object
      * @throws JSONException
      */
-    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException{
+    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException {
         if (object.has(Constants.GLOBAL_PREVIOUS)) {
             JSONArray globalPreviousArray = object.getJSONArray(Constants.GLOBAL_PREVIOUS);
-            for(int i = 0; i <globalPreviousArray.length(); i++){
+            for (int i = 0; i < globalPreviousArray.length(); i++) {
                 if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
                     object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL)
                             .put(Constants.PREFIX.PREVIOUS + globalPreviousArray.getString(i), "");
@@ -613,27 +631,5 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
 
         }
-    }
-
-    public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
-
-        String fieldKey = ContactJsonFormUtils.getKey(jsonObject);
-        Object fieldValue = ContactJsonFormUtils.getValue(jsonObject);
-        String fieldKeySecondary = fieldKey.contains(Constants.SUFFIX.OTHER) ?
-                fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE : "";
-        String fieldKeyOtherValue = fieldKey + Constants.SUFFIX.VALUE;
-
-        if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && !fieldKeySecondary.isEmpty() &&
-                facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
-
-            List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).split("\\s*,\\s*")));
-            tempList.remove(tempList.size() - 1);
-            tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue)));
-            facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
-
-        } else {
-            facts.put(fieldKey, fieldValue.toString());
-        }
-
     }
 }

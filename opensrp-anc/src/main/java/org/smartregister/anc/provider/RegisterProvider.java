@@ -61,6 +61,11 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         this.commonRepository = commonRepository;
     }
 
+    public static void fillValue(TextView v, String value) {
+        if (v != null) v.setText(value);
+
+    }
+
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
@@ -141,12 +146,10 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         }
     }
 
-
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         String ancId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
-
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
 
@@ -154,8 +157,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
-                ButtonAlertStatus buttonAlertStatus = Utils
-                        .getButtonAlertStatus(pc.getColumnmaps(), context.getString(R.string.contact_weeks));
+                ButtonAlertStatus buttonAlertStatus =
+                        Utils.getButtonAlertStatus(pc.getColumnmaps(), context.getString(R.string.contact_weeks));
                 Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contact_today_text,
                         buttonAlertStatus);
 
@@ -167,7 +170,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             }
         }
     }
-
 
     private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
@@ -181,12 +183,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_NORMAL);
     }
 
-    private void attachRiskLayoutOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
-    }
-
     /*
     private void adjustLayoutParams(View view, TextView details) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
@@ -198,6 +194,12 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         details.setLayoutParams(params);
     }
 */
+
+    private void attachRiskLayoutOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_ATTENTION_FLAG);
+    }
 
     private void attachAlertButtonOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
@@ -240,12 +242,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
         return FooterViewHolder.class.isInstance(viewHolder);
-    }
-
-
-    public static void fillValue(TextView v, String value) {
-        if (v != null) v.setText(value);
-
     }
 
     ////////////////////////////////////////////////////////////////

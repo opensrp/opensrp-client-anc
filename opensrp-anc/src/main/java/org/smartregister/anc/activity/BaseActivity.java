@@ -18,9 +18,9 @@ import java.util.Map;
  */
 public abstract class BaseActivity extends AppCompatActivity implements SiteCharacteristicsContract.View {
 
+    private static final String TAG = BaseActivity.class.getCanonicalName();
     protected ProgressDialog progressDialog;
     protected SiteCharacteristicsContract.Presenter presenter;
-    private static final String TAG = BaseActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
             progressDialog.setTitle(getString(saveMessageStringIdentifier));
             progressDialog.setMessage(getString(R.string.please_wait_message));
         }
-        if (!isFinishing())
-            progressDialog.show();
+        if (!isFinishing()) progressDialog.show();
     }
 
     public void hideProgressDialog() {
@@ -78,7 +77,8 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     public void goToSiteCharacteristicsExitPage() {
         Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN,
+                getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 
         finish();//finish this
@@ -86,7 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     public void goToHomeRegisterPage() {
         Intent intent = new Intent(this, HomeRegisterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
+        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN,
+                getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 
         finish();//finish this

@@ -47,16 +47,16 @@ import java.util.Map;
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
 
 public class AncGenericPopupDialog extends GenericPopupDialog implements AncGenericDialogInterface {
-    private String TAG = this.getClass().getSimpleName();
     private static ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
+    protected Toolbar mToolbar;
+    protected String container;
+    private String TAG = this.getClass().getSimpleName();
     private Map<String, ExpansionPanelValuesModel> secondaryValuesMap = new HashMap<>();
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private JsonApi jsonApi;
     private Activity activity;
     private Context context;
     private String header;
-    protected Toolbar mToolbar;
-    protected String container;
     private LinearLayout linearLayout;
 
     @Override
@@ -311,9 +311,9 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         JSONArray formFields = getSubFormsFields();
         for (int i = 0; i < formFields.length(); i++) {
             JSONObject field = formFields.getJSONObject(i);
-            if (field != null && field.has(JsonFormConstants.TYPE) && !JsonFormConstants.LABEL
-                    .equals(field.getString(JsonFormConstants.TYPE)) && !JsonFormConstants.SECTIONS
-                    .equals(field.getString(JsonFormConstants.TYPE))) {
+            if (field != null && field.has(JsonFormConstants.TYPE) &&
+                    !JsonFormConstants.LABEL.equals(field.getString(JsonFormConstants.TYPE)) &&
+                    !JsonFormConstants.SECTIONS.equals(field.getString(JsonFormConstants.TYPE))) {
                 JSONArray valueOpenMRSAttributes = new JSONArray();
                 JSONObject openMRSAttributes = getFieldOpenMRSAttributes(field);
                 String key = field.getString(JsonFormConstants.KEY);
@@ -325,13 +325,13 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                     values = getOptionsValueCheckBox(field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME));
                     getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
                 } else if ((JsonFormConstants.ANC_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) ||
-                        JsonFormConstants.NATIVE_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) && field
-                        .has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
+                        JsonFormConstants.NATIVE_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) &&
+                        field.has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
                     values.put(getOptionsValueRadioButton(field.optString(JsonFormConstants.VALUE),
                             field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME)));
                     getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
-                } else if (JsonFormConstants.SPINNER.equals(field.getString(JsonFormConstants.TYPE)) && field
-                        .has(JsonFormConstants.VALUE)) {
+                } else if (JsonFormConstants.SPINNER.equals(field.getString(JsonFormConstants.TYPE)) &&
+                        field.has(JsonFormConstants.VALUE)) {
                     values.put(field.optString(JsonFormConstants.VALUE));
                     getSpinnerValueOpenMRSAttributes(field, valueOpenMRSAttributes);
                 } else {
@@ -346,9 +346,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                         selectedValues.put(createValueObject(key, type, label, index, values, openMRSAttributes,
                                 valueOpenMRSAttributes));
                     } else {
-                        selectedValues
-                                .put(createSecondaryValueObject(key, type, values, openMRSAttributes,
-                                        valueOpenMRSAttributes));
+                        selectedValues.put(createSecondaryValueObject(key, type, values, openMRSAttributes,
+                                valueOpenMRSAttributes));
                     }
                 }
             }
@@ -465,6 +464,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
      *
      * @param jsonObject {@link JSONObject}
      * @param childKey   {@link String}
+     *
      * @return item {@link JSONObject}
      */
     @Override

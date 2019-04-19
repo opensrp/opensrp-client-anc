@@ -77,20 +77,18 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
         }
     }
 
-    private void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo, ViewHolder holder) throws
-            IOException, ParseException {
+    private void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo, ViewHolder holder)
+    throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
 
         lastContactDetails = new ArrayList<>();
         addOtherRuleObjects(contactFacts);
         addAttentionFlagsRuleObjects(facts);
 
-        Date lastContactDate =
-                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(
-                        String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
+        Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                .parse(String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
 
-        String displayContactDate =
-                new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
+        String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
         lastContactDetailsWrapperList
                 .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));

@@ -54,8 +54,8 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
 
-        ClientClassification clientClassification = assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION,
-                ClientClassification.class);
+        ClientClassification clientClassification =
+                assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION, ClientClassification.class);
 
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
@@ -72,8 +72,8 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
 
                 if (eventType.equals(Constants.EventType.CLOSE)) {
                     unsyncEvents.add(event);
-                } else if (eventType.equals(Constants.EventType.REGISTRATION) || eventType
-                        .equals(Constants.EventType.UPDATE_REGISTRATION)) {
+                } else if (eventType.equals(Constants.EventType.REGISTRATION) ||
+                        eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
                     if (clientClassification == null) {
                         continue;
                     }

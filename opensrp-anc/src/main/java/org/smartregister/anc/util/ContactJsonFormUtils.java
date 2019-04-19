@@ -42,144 +42,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ContactJsonFormUtils extends FormUtils {
-    private AncGenericDialogInterface genericDialogInterface;
     public static final String TAG = ContactJsonFormUtils.class.getCanonicalName();
-
-    @Override
-    public void showGenericDialog(View view) {
-        Context context = (Context) view.getTag(com.vijay.jsonwizard.R.id.specify_context);
-        String specifyContent = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_content);
-        String specifyContentForm = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_content_form);
-        String stepName = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_step_name);
-        CommonListener listener = (CommonListener) view.getTag(com.vijay.jsonwizard.R.id.specify_listener);
-        JsonFormFragment formFragment = (JsonFormFragment) view.getTag(com.vijay.jsonwizard.R.id.specify_fragment);
-        JSONArray jsonArray = (JSONArray) view.getTag(com.vijay.jsonwizard.R.id.secondaryValues);
-        String parentKey = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
-        String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
-        CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
-        CustomTextView reasonsTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_reasons_textview);
-        String toolbarHeader = "";
-        String container = "";
-        LinearLayout rootLayout = (LinearLayout) view.getTag(R.id.main_layout);
-        if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
-            toolbarHeader = (String) view.getTag(R.id.header);
-            container = (String) view.getTag(R.id.contact_container);
-        }
-        String childKey;
-
-        if (specifyContent != null) {
-            AncGenericPopupDialog genericPopupDialog = new AncGenericPopupDialog();
-            genericPopupDialog.setCommonListener(listener);
-            genericPopupDialog.setFormFragment(formFragment);
-            genericPopupDialog.setFormIdentity(specifyContent);
-            genericPopupDialog.setFormLocation(specifyContentForm);
-            genericPopupDialog.setStepName(stepName);
-            genericPopupDialog.setSecondaryValues(jsonArray);
-            genericPopupDialog.setParentKey(parentKey);
-            genericPopupDialog.setLinearLayout(rootLayout);
-            if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
-                genericPopupDialog.setHeader(toolbarHeader);
-                genericPopupDialog.setContainer(container);
-            }
-            genericPopupDialog.setWidgetType(type);
-            if (customTextView != null && reasonsTextView != null) {
-                genericPopupDialog.setCustomTextView(customTextView);
-                genericPopupDialog.setPopupReasonsTextView(reasonsTextView);
-            }
-            if (type != null &&
-                    (type.equals(JsonFormConstants.CHECK_BOX) || type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON))) {
-                childKey = (String) view.getTag(com.vijay.jsonwizard.R.id.childKey);
-                genericPopupDialog.setChildKey(childKey);
-            }
-
-            Activity activity = (Activity) context;
-            FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-            Fragment prev = activity.getFragmentManager().findFragmentByTag("GenericPopup");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-
-            ft.addToBackStack(null);
-            genericPopupDialog.show(ft, "GenericPopup");
-        } else {
-            Toast.makeText(context, "Please specify the sub form to display ", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public Map<String, String> createAssignedValue(AncGenericDialogInterface genericDialogInterface, String itemKey,
-                                                   String optionKey, String keyValue, String itemType, String itemText) {
-        this.genericDialogInterface = genericDialogInterface;
-        return addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
-    }
-
-    @Override
-    public Map<String, String> addAssignedValue(String itemKey, String optionKey, String keyValue, String itemType,
-                                                String itemText) {
-        Map<String, String> value = new HashMap<>();
-        if (genericDialogInterface != null && !TextUtils.isEmpty(genericDialogInterface.getWidgetType()) &&
-                genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            String[] labels = itemType.split(";");
-            String type = "";
-            if (labels.length >= 1) {
-                type = labels[0];
-            }
-            if (!TextUtils.isEmpty(type)) {
-                switch (type) {
-                    case JsonFormConstants.CHECK_BOX:
-                        value.put(itemKey, optionKey + ":" + itemText + ":" + keyValue + ";" + itemType);
-                        break;
-                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                        value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
-                        break;
-                    case Constants.ANC_RADIO_BUTTON:
-                        value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
-                        break;
-                    default:
-                        value.put(itemKey, keyValue + ";" + itemType);
-                        break;
-                }
-            }
-        } else {
-            return super.addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
-        }
-        return value;
-    }
-
-    /**
-     * Changes the Expansion panel status icon after selection
-     *
-     * @param imageView {@link ImageView}
-     * @param type      {@link String}
-     * @param context   {@link Context}
-     * @author dubdabasoduba
-     */
-    public void changeIcon(ImageView imageView, String type, Context context) {
-        if (!TextUtils.isEmpty(type)) {
-            switch (type) {
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
-                    break;
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
-                    break;
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_ordered_256));
-                    break;
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
-                    break;
-                default:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_task_256));
-                    break;
-            }
-        }
-    }
+    private AncGenericDialogInterface genericDialogInterface;
 
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
@@ -227,12 +91,11 @@ public class ContactJsonFormUtils extends FormUtils {
         AncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 
-
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
         //partial contact exists?
 
-        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository()
-                .getPartialContact(partialContactRequest);
+        PartialContact partialContact =
+                AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
 
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
         JSONObject object = new JSONObject(formJsonString);
@@ -308,7 +171,7 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     private static void processCheckBoxSpecialWidget(JSONObject widget, List<String> keyList, List<String> valueList)
-            throws Exception {
+    throws Exception {
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -316,8 +179,8 @@ public class ContactJsonFormUtils extends FormUtils {
                     !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) &&
                     jsonObject.getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
                 keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) && jsonObject
-                        .getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
+                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
+                        jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
                     valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
@@ -330,7 +193,6 @@ public class ContactJsonFormUtils extends FormUtils {
             widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
         }
     }
-
 
     public static void getRealSecondaryValue(JSONObject jsonObject) throws Exception {
 
@@ -394,42 +256,8 @@ public class ContactJsonFormUtils extends FormUtils {
 
     }
 
-    /**
-     * This updates the expansion panel child values affect the done is selected from the pop up. It also updates the
-     * expansion panel status image. It changes it to green when done, yellow when ordered, grey when not done
-     *
-     * @param values          {@link List<String>}
-     * @param statusImageView {@link ImageView}
-     * @throws JSONException
-     * @author dubdabasoduba
-     */
-    public void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView, Context context)
-            throws JSONException {
-        JSONArray list = new JSONArray(values);
-        for (int k = 0; k < list.length(); k++) {
-            String[] stringValues = list.getString(k).split(":");
-            if (stringValues.length >= 2) {
-                String valueDisplay = list.getString(k).split(":")[1];
-                if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
-
-                    changeIcon(statusImageView, valueDisplay, context);
-                    break;
-                }
-            }
-        }
-    }
-
     public static JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType)
-            throws JSONException {
+    throws JSONException {
         Map<String, String> vMap = new HashMap<>();
         JSONObject resultJsonObject = new JSONObject();
         JSONObject stepJsonObject = new JSONObject();
@@ -547,6 +375,7 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param facts       {@link Facts}
      * @param fieldObject {@link JSONObject}
+     *
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsFieldsSecondaryValues(Facts facts, JSONObject fieldObject) throws Exception {
@@ -567,11 +396,12 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param facts       {@link Facts}
      * @param fieldObject {@link JSONObject}
+     *
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsExpansionPanelValues(Facts facts, JSONObject fieldObject) throws Exception {
-        if (fieldObject.has(JsonFormConstants.TYPE) && JsonFormConstants.EXPANSION_PANEL
-                .equals(fieldObject.getString(JsonFormConstants.TYPE))) {
+        if (fieldObject.has(JsonFormConstants.TYPE) &&
+                JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
             JSONArray expansionPanelValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
 
             for (int j = 0; j < expansionPanelValue.length(); j++) {
@@ -677,6 +507,178 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
+    @Override
+    public void showGenericDialog(View view) {
+        Context context = (Context) view.getTag(com.vijay.jsonwizard.R.id.specify_context);
+        String specifyContent = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_content);
+        String specifyContentForm = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_content_form);
+        String stepName = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_step_name);
+        CommonListener listener = (CommonListener) view.getTag(com.vijay.jsonwizard.R.id.specify_listener);
+        JsonFormFragment formFragment = (JsonFormFragment) view.getTag(com.vijay.jsonwizard.R.id.specify_fragment);
+        JSONArray jsonArray = (JSONArray) view.getTag(com.vijay.jsonwizard.R.id.secondaryValues);
+        String parentKey = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
+        String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
+        CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
+        CustomTextView reasonsTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_reasons_textview);
+        String toolbarHeader = "";
+        String container = "";
+        LinearLayout rootLayout = (LinearLayout) view.getTag(R.id.main_layout);
+        if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
+            toolbarHeader = (String) view.getTag(R.id.header);
+            container = (String) view.getTag(R.id.contact_container);
+        }
+        String childKey;
+
+        if (specifyContent != null) {
+            AncGenericPopupDialog genericPopupDialog = new AncGenericPopupDialog();
+            genericPopupDialog.setCommonListener(listener);
+            genericPopupDialog.setFormFragment(formFragment);
+            genericPopupDialog.setFormIdentity(specifyContent);
+            genericPopupDialog.setFormLocation(specifyContentForm);
+            genericPopupDialog.setStepName(stepName);
+            genericPopupDialog.setSecondaryValues(jsonArray);
+            genericPopupDialog.setParentKey(parentKey);
+            genericPopupDialog.setLinearLayout(rootLayout);
+            if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
+                genericPopupDialog.setHeader(toolbarHeader);
+                genericPopupDialog.setContainer(container);
+            }
+            genericPopupDialog.setWidgetType(type);
+            if (customTextView != null && reasonsTextView != null) {
+                genericPopupDialog.setCustomTextView(customTextView);
+                genericPopupDialog.setPopupReasonsTextView(reasonsTextView);
+            }
+            if (type != null &&
+                    (type.equals(JsonFormConstants.CHECK_BOX) || type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON))) {
+                childKey = (String) view.getTag(com.vijay.jsonwizard.R.id.childKey);
+                genericPopupDialog.setChildKey(childKey);
+            }
+
+            Activity activity = (Activity) context;
+            FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
+            Fragment prev = activity.getFragmentManager().findFragmentByTag("GenericPopup");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+
+            ft.addToBackStack(null);
+            genericPopupDialog.show(ft, "GenericPopup");
+        } else {
+            Toast.makeText(context, "Please specify the sub form to display ", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public Map<String, String> createAssignedValue(AncGenericDialogInterface genericDialogInterface, String itemKey,
+                                                   String optionKey, String keyValue, String itemType, String itemText) {
+        this.genericDialogInterface = genericDialogInterface;
+        return addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
+    }
+
+    @Override
+    public Map<String, String> addAssignedValue(String itemKey, String optionKey, String keyValue, String itemType,
+                                                String itemText) {
+        Map<String, String> value = new HashMap<>();
+        if (genericDialogInterface != null && !TextUtils.isEmpty(genericDialogInterface.getWidgetType()) &&
+                genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
+            String[] labels = itemType.split(";");
+            String type = "";
+            if (labels.length >= 1) {
+                type = labels[0];
+            }
+            if (!TextUtils.isEmpty(type)) {
+                switch (type) {
+                    case JsonFormConstants.CHECK_BOX:
+                        value.put(itemKey, optionKey + ":" + itemText + ":" + keyValue + ";" + itemType);
+                        break;
+                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                        value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
+                        break;
+                    case Constants.ANC_RADIO_BUTTON:
+                        value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
+                        break;
+                    default:
+                        value.put(itemKey, keyValue + ";" + itemType);
+                        break;
+                }
+            }
+        } else {
+            return super.addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
+        }
+        return value;
+    }
+
+    /**
+     * Changes the Expansion panel status icon after selection
+     *
+     * @param imageView {@link ImageView}
+     * @param type      {@link String}
+     * @param context   {@link Context}
+     *
+     * @author dubdabasoduba
+     */
+    public void changeIcon(ImageView imageView, String type, Context context) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
+                    break;
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
+                    break;
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_ordered_256));
+                    break;
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
+                    break;
+                default:
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_task_256));
+                    break;
+            }
+        }
+    }
+
+    /**
+     * This updates the expansion panel child values affect the done is selected from the pop up. It also updates the
+     * expansion panel status image. It changes it to green when done, yellow when ordered, grey when not done
+     *
+     * @param values          {@link List<String>}
+     * @param statusImageView {@link ImageView}
+     *
+     * @throws JSONException
+     * @author dubdabasoduba
+     */
+    public void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView, Context context)
+    throws JSONException {
+        JSONArray list = new JSONArray(values);
+        for (int k = 0; k < list.length(); k++) {
+            String[] stringValues = list.getString(k).split(":");
+            if (stringValues.length >= 2) {
+                String valueDisplay = list.getString(k).split(":")[1];
+                if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
+
+                    changeIcon(statusImageView, valueDisplay, context);
+                    break;
+                }
+            }
+        }
+    }
+
     public Facts getCheckBoxResults(JSONObject jsonObject) throws JSONException {
         Facts result = new Facts();
         JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
@@ -717,9 +719,8 @@ public class ContactJsonFormUtils extends FormUtils {
                 CustomTextView listHeader = valuesLayout.findViewById(R.id.item_header);
                 CustomTextView listValue = valuesLayout.findViewById(R.id.item_value);
                 String[] valueObject = expansionWidgetValues.get(i).split(":");
-                if (valueObject.length >= 2 && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER
-                        .equals(valueObject[1]) && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY
-                        .equals(valueObject[1])) {
+                if (valueObject.length >= 2 && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER.equals(valueObject[1]) &&
+                        !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY.equals(valueObject[1])) {
                     listHeader.setText(valueObject[0]);
                     listValue.setText(valueObject[1]);
                 }

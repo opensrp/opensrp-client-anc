@@ -48,12 +48,9 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(
-                R.layout.fragment_sort_filter,
-                container, false);
+        View view = inflater.inflate(R.layout.fragment_sort_filter, container, false);
 
         updateFilterList(view, presenter.getConfig().getFilterFields());
 
@@ -190,22 +187,12 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
     private class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder> {
         private List<Field> filterList;
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public CheckedTextView checkedTextView;
-
-            public ViewHolder(CheckedTextView v) {
-                super(v);
-                checkedTextView = v;
-            }
-        }
-
         public FilterAdapter(List<Field> filterList) {
             this.filterList = filterList;
         }
 
         @Override
-        public FilterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+        public FilterAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             CheckedTextView v = (CheckedTextView) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.register_filter_item, parent, false);
 
@@ -255,6 +242,15 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
         public void clear() {
             presenter.getFilterList().clear();
             notifyDataSetChanged();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public CheckedTextView checkedTextView;
+
+            public ViewHolder(CheckedTextView v) {
+                super(v);
+                checkedTextView = v;
+            }
         }
     }
 

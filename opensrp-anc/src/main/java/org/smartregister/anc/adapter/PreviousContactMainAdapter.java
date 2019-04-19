@@ -22,20 +22,6 @@ public class PreviousContactMainAdapter extends RecyclerView.Adapter<PreviousCon
 
     private View.OnClickListener clickListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        View linearLayout;
-        public TextView name;
-        CircleImageView contactImage;
-
-
-        public ViewHolder(View view) {
-            super(view);
-            linearLayout = view.findViewById(R.id.card_layout);
-            name = view.findViewById(R.id.container_name);
-            contactImage = view.findViewById(R.id.contact_image);
-        }
-    }
-
     public PreviousContactMainAdapter(Context context, List<Contact> contacts, View.OnClickListener clickListener) {
         this.context = context;
         this.contacts = contacts;
@@ -48,8 +34,7 @@ public class PreviousContactMainAdapter extends RecyclerView.Adapter<PreviousCon
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.previous_contact_card_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.previous_contact_card_item, parent, false);
 
         return new ViewHolder(itemView);
     }
@@ -69,5 +54,19 @@ public class PreviousContactMainAdapter extends RecyclerView.Adapter<PreviousCon
     @Override
     public int getItemCount() {
         return contacts.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView name;
+        View linearLayout;
+        CircleImageView contactImage;
+
+
+        public ViewHolder(View view) {
+            super(view);
+            linearLayout = view.findViewById(R.id.card_layout);
+            name = view.findViewById(R.id.container_name);
+            contactImage = view.findViewById(R.id.contact_image);
+        }
     }
 }

@@ -100,27 +100,6 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         return mData.size();
     }
 
-
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView sectionHeader;
-        TextView subSectionHeader;
-        TextView sectionDetails;
-        TextView sectionDetailTitle;
-        TextView allTestResultsButton;
-        public View parent;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            sectionHeader = itemView.findViewById(R.id.overview_section_header);
-            subSectionHeader = itemView.findViewById(R.id.overview_subsection_header);
-            sectionDetailTitle = itemView.findViewById(R.id.overview_section_details_left);
-            sectionDetails = itemView.findViewById(R.id.overview_section_details_right);
-            allTestResultsButton = itemView.findViewById(R.id.all_test_results_button);
-            parent = itemView;
-        }
-    }
-
     private String processUnderscores(String string) {
         return string.replace("_", " ").toUpperCase();
     }
@@ -140,6 +119,26 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
         return template;
 
+    }
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public View parent;
+        TextView sectionHeader;
+        TextView subSectionHeader;
+        TextView sectionDetails;
+        TextView sectionDetailTitle;
+        TextView allTestResultsButton;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            sectionHeader = itemView.findViewById(R.id.overview_section_header);
+            subSectionHeader = itemView.findViewById(R.id.overview_subsection_header);
+            sectionDetailTitle = itemView.findViewById(R.id.overview_section_details_left);
+            sectionDetails = itemView.findViewById(R.id.overview_section_details_right);
+            allTestResultsButton = itemView.findViewById(R.id.all_test_results_button);
+            parent = itemView;
+        }
     }
 
     private class Template {

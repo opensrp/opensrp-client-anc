@@ -35,10 +35,10 @@ import java.util.Locale;
 
 public class PreviousContactsTestsActivity extends AppCompatActivity implements PreviousContacts.View {
 
-    private String baseEntityId;
-    private HashMap<String, String> clientDetails;
     protected PreviousContacts.Presenter mProfilePresenter;
     protected ActionBar actionBar;
+    private String baseEntityId;
+    private HashMap<String, String> clientDetails;
     private RecyclerView lastContactsTestsRecyclerView;
     private LinearLayout notTestShown;
 
@@ -71,8 +71,8 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
 
     private void loadPreviousContactsTest() throws ParseException, IOException {
         List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
-        Facts previousContactsFacts = AncApplication.getInstance().getPreviousContactRepository()
-                .getPreviousContactTestsFacts(baseEntityId);
+        Facts previousContactsFacts =
+                AncApplication.getInstance().getPreviousContactRepository().getPreviousContactTestsFacts(baseEntityId);
 
         addTestsRuleObjects(previousContactsFacts);
 
@@ -80,8 +80,9 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
         Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
 
-        lastContactDetailsTestsWrapperList.add(new LastContactDetailsWrapper(contactNo, new SimpleDateFormat("dd MMM " +
-                "yyyy", Locale.getDefault()).format(lastContactDate), lastContactTests, previousContactsFacts));
+        lastContactDetailsTestsWrapperList.add(new LastContactDetailsWrapper(contactNo,
+                new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate), lastContactTests,
+                previousContactsFacts));
 
         setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
     }

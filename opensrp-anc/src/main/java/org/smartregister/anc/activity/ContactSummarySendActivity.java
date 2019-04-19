@@ -25,7 +25,8 @@ import org.smartregister.helper.ImageRenderHelper;
 import java.util.HashMap;
 import java.util.List;
 
-public class ContactSummarySendActivity extends AppCompatActivity implements ContactSummarySendContract.View, View.OnClickListener {
+public class ContactSummarySendActivity extends AppCompatActivity
+        implements ContactSummarySendContract.View, View.OnClickListener {
 
     private TextView womanNameTextView;
     private ContactSummarySendContract.Presenter contactSummaryPresenter;
@@ -52,7 +53,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     protected void onResume() {
         super.onResume();
         contactSummaryPresenter.loadWoman(getEntityId());
-        contactSummaryPresenter.loadUpcomingContacts(getEntityId(),getReferredContactNo());
+        contactSummaryPresenter.loadUpcomingContacts(getEntityId(), getReferredContactNo());
         contactSummaryPresenter.showWomanProfileImage(getEntityId());
     }
 
@@ -80,12 +81,14 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         return null;
     }
 
-    public String getReferredContactNo(){
-        HashMap<String, String> client = (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
-        if (client != null ) {
+    public String getReferredContactNo() {
+        HashMap<String, String> client =
+                (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
+        if (client != null) {
             String contactNo = client.get(Constants.REFERRAL);
             if (contactNo != null) {
-            return contactNo;}
+                return contactNo;
+            }
         }
         return null;
     }
@@ -93,7 +96,8 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     @Override
     public void goToClientProfile() {
         finish();
-        Utils.navigateToProfile(this, (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
+        Utils.navigateToProfile(this,
+                (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
     }
 
     @Override
@@ -103,7 +107,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
-        if (models.size() <= 0){
+        if (models.size() <= 0) {
             contactDatesRecyclerView.setVisibility(View.GONE);
             contactScheduleHeadingTextView.setVisibility(View.GONE);
             referralContactTextTextView.setVisibility(View.VISIBLE);
@@ -118,8 +122,9 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void updateRecordedContact(Integer contactNumber) {
-        recordedContactTextView.setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
-        if(getReferredContactNo() != null){
+        recordedContactTextView
+                .setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
+        if (getReferredContactNo() != null) {
             recordedContactTextView.setGravity(Gravity.CENTER_HORIZONTAL);
         }
     }
