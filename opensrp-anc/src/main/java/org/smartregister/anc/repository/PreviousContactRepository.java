@@ -34,13 +34,7 @@ public class PreviousContactRepository extends BaseRepository {
                     "  VARCHAR NOT NULL, " + CREATED_AT + " INTEGER NOT NULL)";
 
     private static final String INDEX_ID =
-            "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";/*
-
-    private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID +
-            "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
-
-    private static final String INDEX_KEY = "CREATE INDEX " + TABLE_NAME + "_" + KEY +
-            "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";*/
+            "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
 
     private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
@@ -50,17 +44,13 @@ public class PreviousContactRepository extends BaseRepository {
 
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
-        database.execSQL(INDEX_ID);/*
-        database.execSQL(INDEX_BASE_ENTITY_ID);
-        database.execSQL(INDEX_KEY);*/
+        database.execSQL(INDEX_ID);
     }
 
     public void savePreviousContact(PreviousContact previousContact) {
         if (previousContact == null) return;
         previousContact.setVisitDate(Utils.getDBDateToday());
         getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(previousContact));
-
-
     }
 
     private ContentValues createValuesFor(PreviousContact PreviousContact) {
@@ -169,7 +159,8 @@ public class PreviousContactRepository extends BaseRepository {
                 if (StringUtils.isNotBlank(baseEntityId)) {
                     selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
                             BASE_ENTITY_ID + " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
-                    selectionArgs = new String[]{baseEntityId, "attention_flag_facts", "weight_gain", "phys_symptoms"};
+                    selectionArgs = new String[]{baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
+                            Constants.PHYS_SYMPTOMS};
                 }
 
                 previousContactsCursor = database.rawQuery(selection, selectionArgs);
@@ -243,19 +234,6 @@ public class PreviousContactRepository extends BaseRepository {
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
-    }
-
-    private Cursor getTestInformation(String baseEntityId, String testStatus, SQLiteDatabase database) {
-        String selection = "";
-        String orderBy = "created_at DESC";
-        String[] selectionArgs = null;
-
-        if (StringUtils.isNotBlank(baseEntityId)) {
-            selection = BASE_ENTITY_ID + " = ? AND (" + KEY + "= ? OR " + KEY + " = 'gest_age')";
-            selectionArgs = new String[]{baseEntityId, testStatus};
-        }
-
-        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
     }
 
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo) {

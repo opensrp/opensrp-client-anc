@@ -28,7 +28,6 @@ import java.util.Map;
  * Created by ndegwamartin on 13/07/2018.
  */
 public class ProfilePresenter implements ProfileContract.Presenter, RegisterContract.InteractorCallBack {
-
     private static final String TAG = ProfilePresenter.class.getCanonicalName();
 
     private WeakReference<ProfileContract.View> mProfileView;
@@ -90,22 +89,16 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         try {
             String jsonString = data.getStringExtra(Constants.INTENT_KEY.JSON);
             Log.d("JSONResult", jsonString);
-
             JSONObject form = new JSONObject(jsonString);
-
             getProfileView().showProgressDialog(
                     form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE) ?
                             R.string.removing_dialog_title : R.string.saving_dialog_title);
 
             if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
-
                 Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
                 mRegisterInteractor.saveRegistration(values, jsonString, true, this);
-
             } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
-
                 mRegisterInteractor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
-
             } else {
                 getProfileView().hideProgressDialog();
             }
@@ -123,16 +116,12 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     @Override
     public void onNoUniqueId() {
         getProfileView().displayToast(R.string.no_openmrs_id);
-
     }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
-
         this.refreshProfileView(getProfileView().getIntentString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
         getProfileView().hideProgressDialog();
-
         getProfileView().displayToast(isEdit ? R.string.registration_info_updated : R.string.new_registration_saved);
     }
 

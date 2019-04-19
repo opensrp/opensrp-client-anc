@@ -47,6 +47,9 @@ public abstract class Constants {
     public static final String DISPLAY_RECORD_BUTTON = "display_record_button";
     public static final String CONTACT_DATE = "contact_date";
     public static final String CONTACT_SCHEDULE = "contact_schedule";
+    public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
+    public static final String WEIGHT_GAIN = "weight_gain";
+    public static final String PHYS_SYMPTOMS = "phys_symptoms";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";

@@ -3,6 +3,8 @@ package org.smartregister.anc.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,9 @@ import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.R;
-import org.smartregister.anc.activity.PreviousContactsActivity;
+import org.smartregister.anc.activity.PreviousContactsDetailsActivity;
 import org.smartregister.anc.activity.PreviousContactsTestsActivity;
+import org.smartregister.anc.adapter.LastContactAdapter;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileFragmentContract;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
@@ -165,7 +168,6 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
 
                 }
@@ -192,11 +194,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
-      /*  LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
+        LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, getActivity());
         adapter.notifyDataSetChanged();
         RecyclerView recyclerView = lastContactLayout.findViewById(R.id.last_contact_information);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);*/
+        recyclerView.setAdapter(adapter);
     }
 
     private void setUpContactTestsDetails(List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList) {
@@ -248,7 +250,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void goToPreviousContacts() {
-        Intent intent = new Intent(getActivity(), PreviousContactsActivity.class);
+        Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
         String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP,

@@ -37,15 +37,12 @@
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/last_contact_information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foregroundGravity="top"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/contact_drawable_padding"
-                android:paddingBottom="@dimen/contact_drawable_padding"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toTopOf="@+id/contact_divider"
                 app:layout_constraintTop_toBottomOf="@+id/last_contact_header" />
 

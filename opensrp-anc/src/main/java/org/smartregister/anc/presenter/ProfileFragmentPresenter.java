@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileFragmentContract;
-import org.smartregister.anc.interactor.ContactInteractor;
 import org.smartregister.anc.interactor.ProfileFragmentInteractor;
 import org.smartregister.anc.util.Constants;
 
@@ -19,17 +18,14 @@ import java.util.Map;
  * Created by ndegwamartin on 13/07/2018.
  */
 public class ProfileFragmentPresenter implements ProfileFragmentContract.Presenter {
-
     private static final String TAG = ProfileFragmentPresenter.class.getCanonicalName();
 
     private WeakReference<ProfileFragmentContract.View> mProfileView;
     private ProfileFragmentContract.Interactor mProfileInteractor;
-    private ContactInteractor contactInteractor;
 
     public ProfileFragmentPresenter(ProfileFragmentContract.View profileView) {
         mProfileView = new WeakReference<>(profileView);
         mProfileInteractor = new ProfileFragmentInteractor(this);
-        contactInteractor = new ContactInteractor();
     }
 
     public void onDestroy(boolean isChangingConfiguration) {
@@ -44,7 +40,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         // Activity destroyed set interactor to null
         if (!isChangingConfiguration) {
             mProfileInteractor = null;
-            contactInteractor = null;
         }
 
     }

@@ -6,57 +6,46 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactScheduleAdapter;
 import org.smartregister.anc.adapter.LastContactAdapter;
 import org.smartregister.anc.application.AncApplication;
-import org.smartregister.anc.contract.PreviousContacts;
+import org.smartregister.anc.contract.PreviousContactsDetails;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.model.ContactSummaryModel;
-import org.smartregister.anc.presenter.PreviousContactsPresenter;
+import org.smartregister.anc.presenter.PreviousContactDetailsPresenter;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
-import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-public class PreviousContactsActivity extends AppCompatActivity implements PreviousContacts.View {
-
-    protected PreviousContacts.Presenter mProfilePresenter;
+public class PreviousContactsDetailsActivity extends AppCompatActivity implements PreviousContactsDetails.View {
+    private static final String TAG = PreviousContactsDetailsActivity.class.getCanonicalName();
+    protected PreviousContactsDetails.Presenter mProfilePresenter;
     protected ActionBar actionBar;
     RecyclerView contactSchedule;
-    private HashMap<String, String> clientDetails;
     private TextView deliveryDate;
     private RecyclerView previousContacts;
     private List<YamlConfigWrapper> lastContactDetails;
-    private JsonFormUtils formUtils = new JsonFormUtils();
 
-    private static List<Facts> reverseList(List<Facts> list) {
-        List<Facts> reverse = new ArrayList<>(list);
-        Collections.reverse(reverse);
-        return reverse;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +60,10 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
         }
 
         String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        clientDetails = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        HashMap<String, String> clientDetails =
+                (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-        mProfilePresenter = new PreviousContactsPresenter(this);
+        mProfilePresenter = new PreviousContactDetailsPresenter(this);
         setUpViews();
 
         try {
@@ -86,91 +76,30 @@ public class PreviousContactsActivity extends AppCompatActivity implements Previ
                     deliveryDate.setText(displayContactDate);
                 }
 
-
-                loadPreviousContacts(baseEntityId);
-                loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstants.KEY.EDD));
+                mProfilePresenter.loadPreviousContacts(baseEntityId, contactNo);
+                mProfilePresenter
+                        .loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstants.KEY.EDD));
             }
-        } catch (ParseException | JSONException e) {
-            e.printStackTrace();
+        } catch (ParseException | IOException | JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
         }
 
     }
 
-    private void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd)
-    throws JSONException, ParseException {
-        Facts immediatePreviousSchedule = AncApplication.getInstance().getPreviousContactRepository()
-                .getImmediatePreviousSchedule(baseEntityId, contactNo);
-        String contactScheduleString = "";
-        if (immediatePreviousSchedule != null) {
-            Map<String, Object> scheduleMap = immediatePreviousSchedule.asMap();
-            for (Map.Entry<String, Object> entry : scheduleMap.entrySet()) {
-                if (Constants.CONTACT_SCHEDULE.equals(entry.getKey())) {
-                    contactScheduleString = entry.getValue().toString();
-                }
-            }
-        }
-        List<String> scheduleList = Utils.getListFromString(contactScheduleString);
-        Date lastContactEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
-        String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
-        List<ContactSummaryModel> schedule =
-                formUtils.generateNextContactSchedule(formattedEdd, scheduleList, Integer.valueOf(contactNo));
-
+    @Override
+    public void displayPreviousContactSchedule(List<ContactSummaryModel> schedule) {
         ContactScheduleAdapter adapter = new ContactScheduleAdapter(this, schedule);
         adapter.notifyDataSetChanged();
         contactSchedule.setLayoutManager(new LinearLayoutManager(this));
         contactSchedule.setAdapter(adapter);
     }
 
-    private void loadPreviousContacts(String baseEntityId) {
-        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-        HashMap<String, Facts> previousContactsFacts = AncApplication.getInstance().getPreviousContactRepository()
-                .getPreviousContactsFacts(baseEntityId, contactNo);
-
-        List<Facts> contactFactsList = new ArrayList<>();
-
-        for (Map.Entry<String, Facts> entry : previousContactsFacts.entrySet()) {
-            if (Integer.parseInt(entry.getKey()) > 0) {
-                Facts facts = entry.getValue();
-                contactFactsList.add(facts);
-            }
-        }
-
-        List<Facts> factsList = reverseList(contactFactsList);
-
-        if (factsList.size() > 0) {
-            for (int i = 0; i < factsList.size(); i++) {
-                try {
-                    String specificContactNo = String.valueOf(factsList.size() - i);
-                    Facts contactFacts = factsList.get(i);
-
-                    Facts attentionFlagsFacts = new Facts();
-                    for (Map.Entry<String, Object> entry : contactFacts.asMap().entrySet()) {
-                        if (entry.getKey().equals(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
-                            JSONObject attentionFlags = new JSONObject(String.valueOf(entry.getValue()));
-                            Iterator<String> keys = attentionFlags.keys();
-
-                            while (keys.hasNext()) {
-                                String key = keys.next();
-                                attentionFlagsFacts.put(key, attentionFlags.get(key));
-
-                            }
-                        }
-                    }
-
-                    loadPreviousContactsTest(attentionFlagsFacts, contactFacts, specificContactNo);
-                } catch (JSONException | IOException | ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-    }
-
-    private void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo)
+    @Override
+    public void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo)
     throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
-
         lastContactDetails = new ArrayList<>();
+
         addOtherRuleObjects(contactFacts);
         addAttentionFlagsRuleObjects(facts);
 

@@ -57,6 +57,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -623,10 +624,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             return settings;
         } catch (Exception e) {
-
             Log.e(TAG, e.getMessage());
             return null;
-
         }
     }
 
@@ -772,9 +771,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     private static Date getContactStartDate(String contactStartDate) {
         try {
-
             return new LocalDate(contactStartDate).toDate();
-
         } catch (Exception e) {
             return new LocalDate().toDate();
         }
@@ -863,6 +860,19 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         sectionDetailTitle.setVisibility(View.VISIBLE);
         sectionDetails.setVisibility(View.VISIBLE);
         return constraintLayout;
+    }
+
+    /**
+     * Reverse a list
+     *
+     * @param list
+     *
+     * @return reverse
+     */
+    public List<Facts> reverseList(List<Facts> list) {
+        List<Facts> reverse = new ArrayList<>(list);
+        Collections.reverse(reverse);
+        return reverse;
     }
 
     public class Template {
