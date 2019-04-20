@@ -4,7 +4,6 @@ import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContactsDetails;
 import org.smartregister.anc.interactor.PreviousContactsDetailsInteractor;
@@ -19,8 +18,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -96,42 +93,9 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     @Override
     public void loadPreviousContacts(String baseEntityId, String contactNo)
     throws IOException, ParseException, JSONException {
-        HashMap<String, Facts> previousContactsFacts = AncApplication.getInstance().getPreviousContactRepository()
-                .getPreviousContactsFacts(baseEntityId, contactNo);
+        Facts previousContactsFacts =
+                AncApplication.getInstance().getPreviousContactRepository().getPreviousContactsFacts(baseEntityId);
 
-        List<Facts> contactFactsList = new ArrayList<>();
-
-        for (Map.Entry<String, Facts> entry : previousContactsFacts.entrySet()) {
-            if (Integer.parseInt(entry.getKey()) > 0) {
-                Facts facts = entry.getValue();
-                contactFactsList.add(facts);
-            }
-        }
-
-        List<Facts> factsList = formUtils.reverseList(contactFactsList);
-
-        if (factsList.size() > 0) {
-            for (int i = 0; i < factsList.size(); i++) {
-                String specificContactNo = String.valueOf(factsList.size() - i);
-                Facts contactFacts = factsList.get(i);
-
-                Facts attentionFlagsFacts = new Facts();
-                for (Map.Entry<String, Object> entry : contactFacts.asMap().entrySet()) {
-                    if (entry.getKey().equals(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
-                        JSONObject attentionFlags = new JSONObject(String.valueOf(entry.getValue()));
-                        Iterator<String> keys = attentionFlags.keys();
-
-                        while (keys.hasNext()) {
-                            String key = keys.next();
-                            attentionFlagsFacts.put(key, attentionFlags.get(key));
-
-                        }
-                    }
-                }
-
-                getProfileView().loadPreviousContactsTest(attentionFlagsFacts, contactFacts, specificContactNo);
-            }
-        }
-
+        List<Facts> contactsFacts = new ArrayList<>();
     }
 }

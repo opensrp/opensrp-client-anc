@@ -16,7 +16,6 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class PreviousContactRepository extends BaseRepository {
@@ -145,16 +144,15 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContacts;
     }
 
-    public HashMap<String, Facts> getPreviousContactsFacts(String baseEntityId, String contactNo) {
-        HashMap<String, Facts> previousContactFacts = new HashMap<>();
+    public Facts getPreviousContactsFacts(String baseEntityId) {
+        Facts previousContactFacts = new Facts();
         Cursor previousContactsCursor = null;
         try {
-            for (int i = Integer.parseInt(contactNo); i >= 1; i--) {
-                SQLiteDatabase database = getWritableDatabase();
+            SQLiteDatabase database = getWritableDatabase();
 
-                String selection = "";
-                String orderBy = "order by abs_contact_no, contact_no,_id DESC";
-                String[] selectionArgs = null;
+            String selection = "";
+            String orderBy = "order by abs_contact_no, contact_no,_id DESC";
+            String[] selectionArgs = null;
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
                     selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
@@ -163,26 +161,17 @@ public class PreviousContactRepository extends BaseRepository {
                             Constants.PHYS_SYMPTOMS};
                 }
 
-                previousContactsCursor = database.rawQuery(selection, selectionArgs);
+            previousContactsCursor = database.rawQuery(selection, selectionArgs);
 
+            if (previousContactsCursor != null) {
+                while (previousContactsCursor.moveToNext()) {
+                    String factKey = previousContactsCursor.getString(previousContactsCursor.getColumnIndex(KEY)) + ":" +
+                            previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CONTACT_NO)) + ":" +
+                            previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CREATED_AT));
 
-                if (previousContactsCursor != null) {
-                    Facts facts = new Facts();
-                    while (previousContactsCursor.moveToNext()) {
-                        facts.put(previousContactsCursor.getString(previousContactsCursor.getColumnIndex(KEY)),
-                                previousContactsCursor.getString(previousContactsCursor.getColumnIndex(VALUE)));
-                        if (previousContactsCursor.getPosition() == 1) {
-                            facts.put(Constants.CONTACT_DATE,
-                                    previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CREATED_AT)));
-                        }
+                    previousContactFacts.put(factKey, previousContactsCursor.getString(previousContactsCursor.getColumnIndex(VALUE)));
 
-                    }
-
-                    if (facts.asMap().size() > 0) {
-                        previousContactFacts.put(String.valueOf(i), facts);
-                    }
                 }
-
             }
 
             return previousContactFacts;

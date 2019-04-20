@@ -210,9 +210,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
     }
 
     private void processVisit(Event event) {
-
-        //event.getEvents();
-
         //Attention flags
         AncApplication.getInstance().getDetailsRepository()
                 .add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS,
@@ -230,13 +227,12 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
             if (!TextUtils.isEmpty(event.getDetails().get(Constants.CONTACT))) {
                 String[] contacts = event.getDetails().get(Constants.CONTACT).split(" ");
                 if (contacts.length >= 2) {
-                    int nextContact;
-                    if (Integer.parseInt(contacts[1]) > 0) {
-                        nextContact = Integer.parseInt(contacts[1]);
+                    int nextContact = Integer.parseInt(contacts[1]);
+                    if (nextContact > 0) {
+                        contactNo = String.valueOf(nextContact - 1);
                     } else {
-                        nextContact = Integer.parseInt(contacts[1]);
+                        contactNo = String.valueOf(nextContact + 1);
                     }
-                    contactNo = String.valueOf(nextContact);
                 }
             }
 

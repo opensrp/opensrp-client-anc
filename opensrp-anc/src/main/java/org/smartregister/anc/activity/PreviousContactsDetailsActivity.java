@@ -95,7 +95,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo)
+    public void loadPreviousContactsDetails(Facts facts, Facts contactFacts, String contactNo)
     throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
         lastContactDetails = new ArrayList<>();

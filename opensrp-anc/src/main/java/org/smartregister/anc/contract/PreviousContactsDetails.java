@@ -20,7 +20,7 @@ public interface PreviousContactsDetails {
     interface View {
         void displayPreviousContactSchedule(List<ContactSummaryModel> schedule);
 
-        void loadPreviousContactsTest(Facts attentionFlagsFacts, Facts contactFacts, String specificContactNo)
+        void loadPreviousContactsDetails(Facts attentionFlagsFacts, Facts contactFacts, String specificContactNo)
         throws IOException, ParseException;
     }
 
