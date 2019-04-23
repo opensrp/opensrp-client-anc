@@ -77,10 +77,10 @@ public class ContactScheduleAdapter extends RecyclerView.Adapter<ContactSchedule
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView gaWeeksDisplay;
-        TextView nextContactDate;
-        TextView timeAwayDisplay;
-        ConstraintLayout overviewSummaryRow;
+        private TextView gaWeeksDisplay;
+        private TextView nextContactDate;
+        private TextView timeAwayDisplay;
+        private ConstraintLayout overviewSummaryRow;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
