@@ -312,7 +312,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Counselling and referral required.",
+      "text": "Hep C positive diagnosis!",
+      "toaster_info_text": "Counselling and referral required.",
+      "toaster_info_title": "Hep C positive diagnosis!",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {

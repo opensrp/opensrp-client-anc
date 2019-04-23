@@ -114,14 +114,14 @@ actions:
 name: step1_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step1_hiv_test_result == 'positive') || global_health_conditions.contains('hiv') || (global_hiv_positive != '' && global_hiv_positive == 1)"
+condition: "(step1_hiv_test_result == 'positive') || (global_hiv_positive != '' && global_hiv_positive == 1)"
 actions:
 - "calculation = 1"
 ---
 name: step2_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step2_hiv_test_result == 'positive') || global_health_conditions.contains('hiv') || (global_hiv_positive != '' && global_hiv_positive == 1)"
+condition: "(step2_hiv_test_result == 'positive') || (global_hiv_positive != '' && global_hiv_positive == 1)"
 actions:
 - "calculation = 1"
 ---

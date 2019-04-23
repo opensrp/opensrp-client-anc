@@ -76,10 +76,6 @@
             "rules-file": "tests_calculation_rules.yml"
           }
         }
-      },
-      "v_required": {
-        "value": true,
-        "err": "Input the date of other test(s) that were done."
       }
     },
     {
