@@ -342,7 +342,11 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                         .put(createValueObject(key, type, label, index, values, openMRSAttributes, valueOpenMRSAttributes));
 
             } else {
-                selectedValues.put(createSecondaryValueObject(key, type, values, openMRSAttributes, valueOpenMRSAttributes));
+                //Only add secondary objects that are not empty.
+                JSONObject secValueObject = createSecondaryValueObject(key, type, values, openMRSAttributes, valueOpenMRSAttributes);
+                if (secValueObject.length() > 0) {
+                    selectedValues.put(secValueObject);
+                }
             }
         }
         return selectedValues;

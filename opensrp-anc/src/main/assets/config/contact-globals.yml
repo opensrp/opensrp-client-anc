@@ -191,7 +191,3 @@ fields:
   - "syph_test_status"
   - "ultrasound"
   - "hepb_positive"
----
-form: anc_quick_check
-fields:
-  - "nothing"

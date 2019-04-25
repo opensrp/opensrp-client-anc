@@ -185,7 +185,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         details.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
     }
 
-    private int getGestationAge(Map<String, String> details) {
+    public int getGestationAge(Map<String, String> details) {
         return details.containsKey(DBConstants.KEY.EDD) && details.get(DBConstants.KEY.EDD) != null ? Utils
                 .getGestationAgeFromEDDate(details.get(DBConstants.KEY.EDD)) : 4;
     }

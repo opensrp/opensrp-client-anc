@@ -75,7 +75,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Which medications is she still taking?",
+        "label": "What medications (including supplements and vitamins) is she still taking?",
         "label_info_text": "The woman reported taking these medications in the previous contact. Un-select the medications that she has stopped taking. If still taking, leave them selected.",
         "label_info_title": "Medication follow-up",
         "label_text_style": "bold",

@@ -80,9 +80,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             loadContactGlobalsConfig();
 
-            process(new String[]{getString(R.string.quick_check), getString(R.string.symptoms_follow_up),
-                    getString(R.string.physical_exam), getString(R.string.tests), getString(R.string.counselling_treatment),
-                    getString(R.string.profile)});
+            process(new String[]{Constants.JSON_FORM.ANC_QUICK_CHECK, Constants.JSON_FORM.ANC_PROFILE,
+                    Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM,
+                    Constants.JSON_FORM.ANC_TEST, Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT});
 
             List<Contact> contacts = new ArrayList<>();
 
@@ -239,6 +239,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             map.put(Constants.KEY.CONTACT_NO, contactNo.toString());
             map.put(Constants.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
 
+            //Handle Gestation age. Use the latest calculated gestation age. Checks if the Current
+            //Gestation Age is greater than the previously stored Gestation age
+            String gestAgeInMap = formGlobalValues.get(Constants.GEST_AGE_OPENMRS);
+            int previousGestAge = gestAgeInMap != null ? Integer.parseInt(gestAgeInMap) : 0;
+            if (previousGestAge < presenter.getGestationAge()) {
+                map.put(Constants.GEST_AGE_OPENMRS, String.valueOf(presenter.getGestationAge()));
+            }
+
             String lastContactDate =
                     ((HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP))
                             .get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
@@ -315,36 +323,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
                         setRequiredCount(object, fieldObject, isRequiredField);
 
-                        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
-                                fieldObject.has(JsonFormConstants.VALUE)) {
-
-                            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY),
-                                    fieldObject.getString(JsonFormConstants.VALUE));//Normal value
-                            processAbnormalValues(formGlobalValues, fieldObject);
-
-
-                            String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
-                            if (fieldObject.has(secKey)) {
-                                formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
-                            }
-
-                            if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
-
-                                fieldObject.put(Constants.KEY.SECONDARY_VALUES,
-                                        ContactJsonFormUtils.sortSecondaryValues(fieldObject));//sort and reset
-
-                                JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
-
-                                for (int j = 0; j < secondaryValues.length(); j++) {
-                                    JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                                    processAbnormalValues(formGlobalValues, jsonObject);
-
-
-                                }
-                            }
-                            checkRequiredForCheckBoxOther(fieldObject);
-
-                        }
+                        updateFormGlobalValues(fieldObject);
 
                         checkRequiredForSubForms(object, fieldObject);
 
@@ -354,6 +333,39 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         }
 
+    }
+
+    private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
+        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
+                fieldObject.has(JsonFormConstants.VALUE)) {
+
+            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY),
+                    fieldObject.getString(JsonFormConstants.VALUE));//Normal value
+            processAbnormalValues(formGlobalValues, fieldObject);
+
+
+            String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
+            if (fieldObject.has(secKey)) {
+                formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
+            }
+
+            if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
+
+                fieldObject.put(Constants.KEY.SECONDARY_VALUES,
+                        ContactJsonFormUtils.sortSecondaryValues(fieldObject));//sort and reset
+
+                JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
+
+                for (int j = 0; j < secondaryValues.length(); j++) {
+                    JSONObject jsonObject = secondaryValues.getJSONObject(j);
+                    processAbnormalValues(formGlobalValues, jsonObject);
+
+
+                }
+            }
+            checkRequiredForCheckBoxOther(fieldObject);
+
+        }
     }
 
     private void setRequiredCount(JSONObject object, JSONObject fieldObject, boolean isRequiredField) throws JSONException {
@@ -427,11 +439,25 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         partialContact.getFormJson());
                 processRequiredStepsField(object);
                 if (object.has(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)) {
-                    partialForms.remove(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
+                    partialForms.remove(eventToFileMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
                 }
             }
         }
 
+        Set<String> myKeys = new HashSet<>();
+        for (String nonDraftForm : partialForms) {
+            List<String> formKeys = formGlobalKeys.get(nonDraftForm);
+            if (formKeys != null) {
+                myKeys.addAll(formKeys);
+            }
+        }
+
+        for (String key : myKeys) {
+            String value = getMapValue(key);
+            if (value != null) {
+                formGlobalValues.put(key, value);
+            }
+        }
     }
 
     private int getRequiredCountTotal() {
@@ -526,10 +552,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
      * @param object Form Json object
      * @throws JSONException
      */
-    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException{
+    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException {
         if (object.has(Constants.GLOBAL_PREVIOUS)) {
             JSONArray globalPreviousArray = object.getJSONArray(Constants.GLOBAL_PREVIOUS);
-            for(int i = 0; i <globalPreviousArray.length(); i++){
+            for (int i = 0; i < globalPreviousArray.length(); i++) {
                 if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
                     object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL)
                             .put(Constants.PREFIX.PREVIOUS + globalPreviousArray.getString(i), "");
