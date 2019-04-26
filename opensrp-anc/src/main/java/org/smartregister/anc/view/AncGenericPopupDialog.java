@@ -295,10 +295,10 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     protected void addValues(JSONObject item) throws JSONException {
         JSONArray secondaryValuesArray = createValues();
         try {
-            JSONArray orderedValues = orderExpansionPanelValues(secondaryValuesArray);
-            item.put(JsonFormConstants.VALUE, orderedValues);
-            setNewSelectedValues(orderedValues);
-            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(orderedValues, linearLayout));
+          //  JSONArray orderedValues = orderExpansionPanelValues(secondaryValuesArray);
+            item.put(JsonFormConstants.VALUE, secondaryValuesArray);
+            setNewSelectedValues(secondaryValuesArray);
+            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(secondaryValuesArray, linearLayout));
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
         }
@@ -311,7 +311,10 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         for (int i = 0; i < formFields.length(); i++) {
             JSONObject field = formFields.getJSONObject(i);
             JSONArray valueOpenMRSAttributes = new JSONArray();
-            JSONObject openMRSAttributes = getFieldOpenMRSAttributes(field);
+            JSONObject openMRSAttributes = field.has(JsonFormConstants.OPENMRS_ENTITY_PARENT) &&
+                    field.has(JsonFormConstants.OPENMRS_ENTITY) && field.has(JsonFormConstants.OPENMRS_ENTITY_ID)
+                    ? getFieldOpenMRSAttributes(field) : new JSONObject();
+
             String key = field.getString(JsonFormConstants.KEY);
             String type = field.getString(JsonFormConstants.TYPE);
             String label = getWidgetLabel(field);
@@ -335,18 +338,17 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                     values.put(field.optString(JsonFormConstants.VALUE));
                 }
             }
-
+            JSONObject secValueObject;
+            //Only add secondary objects that are not empty.
             if (!TextUtils.isEmpty(label)) {
                 int index = field.optInt(Constants.INDEX);
-                selectedValues
-                        .put(createValueObject(key, type, label, index, values, openMRSAttributes, valueOpenMRSAttributes));
-
+                secValueObject = createValueObject(key, type, label, index, values, openMRSAttributes, valueOpenMRSAttributes);
             } else {
-                //Only add secondary objects that are not empty.
-                JSONObject secValueObject = createSecondaryValueObject(key, type, values, openMRSAttributes, valueOpenMRSAttributes);
-                if (secValueObject.length() > 0) {
-                    selectedValues.put(secValueObject);
-                }
+                secValueObject = createSecondaryValueObject(key, type, values, openMRSAttributes, valueOpenMRSAttributes);
+            }
+
+            if (secValueObject != null && secValueObject.length() > 0) {
+                selectedValues.put(secValueObject);
             }
         }
         return selectedValues;

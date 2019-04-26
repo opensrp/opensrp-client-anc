@@ -51,7 +51,7 @@ actions:
 name: step1_penicillin_comply
 description: Penicillin comply
 priority: 1
-condition: "global_syphilis_positive != '' && global_syphilis_positive == 1"
+condition: "global_syphilis_positive != '' && global_syphilis_positive == '1'"
 actions:
   - "isRelevant = true"
 ---
