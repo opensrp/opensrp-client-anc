@@ -295,10 +295,10 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     protected void addValues(JSONObject item) throws JSONException {
         JSONArray secondaryValuesArray = createValues();
         try {
-          //  JSONArray orderedValues = orderExpansionPanelValues(secondaryValuesArray);
-            item.put(JsonFormConstants.VALUE, secondaryValuesArray);
-            setNewSelectedValues(secondaryValuesArray);
-            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(secondaryValuesArray, linearLayout));
+           JSONArray orderedValues = orderExpansionPanelValues(secondaryValuesArray);
+            item.put(JsonFormConstants.VALUE, orderedValues);
+            setNewSelectedValues(orderedValues);
+            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(orderedValues, linearLayout));
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
         }
