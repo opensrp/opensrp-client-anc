@@ -222,13 +222,17 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                         if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils
                                 .isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
-
                             savePreviousContactItem(baseEntityId, fieldObject);
-
                         }
 
+                        if (fieldObject.has(Constants.KEY.SECONDARY_VALUES) &&
+                                fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).length() > 0) {
+                            JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
+                            for(int count = 0; count < secondaryValues.length(); count++){
+                                savePreviousContactItem(baseEntityId, secondaryValues.getJSONObject(count));
+                            }
+                        }
                     }
-
                 }
             }
         }
