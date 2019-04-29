@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/register_columns"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,7 +8,7 @@
     android:background="@color/white"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/patient_column"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
@@ -18,7 +19,10 @@
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="7dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/patient_name"
@@ -26,22 +30,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:paddingLeft="0dp"
+            android:padding="2dp"
             android:text="Patient Name"
             android:textColor="@color/black_text_color"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/age_ga_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:orientation="horizontal"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp">
+            android:padding="2dp"
+            app:layout_constraintTop_toBottomOf="@+id/patient_name"
+            app:layout_constraintBottom_toTopOf="@+id/anc_id"
+            app:layout_constraintStart_toStartOf="parent">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/age"
@@ -86,38 +94,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:paddingStart="0dp"
-            android:paddingLeft="0dp"
+            android:padding="2dp"
             android:text="ID: 3034503"
             android:textColor="@color/dark_grey_text"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/risk_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        android:paddingBottom="5dp"
-        android:layout_toLeftOf="@+id/due_button_wrapper"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
         android:gravity="bottom|center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/patient_column"
+        app:layout_constraintEnd_toStartOf="@+id/due_button_wrapper"
+        app:layout_constraintBottom_toBottomOf="parent">
+
 
         <TextView
             android:id="@+id/risk"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
             android:background="@drawable/grey_border"
             android:drawableLeft="@drawable/ic_red_flag"
             android:gravity="bottom"
-            android:paddingTop="5dp"
             android:paddingEnd="4dp"
-            android:paddingBottom="5dp"
             android:text="2"
             android:textColor="@color/dark_grey_text"
+            app:layout_constraintTop_toTopOf="@+id/anc_id"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -127,12 +140,13 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/register_list_item_height"
         android:layout_alignParentEnd="true"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="7dp">
+        android:layout_marginBottom="7dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/contact_today_text"
@@ -140,12 +154,12 @@
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
+            android:background="@drawable/contact_completed_today"
             android:drawableStart="@drawable/ic_checked_green"
             android:drawableLeft="@drawable/ic_checked_green"
             android:elevation="8dp"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
-            android:background="@drawable/contact_completed_today"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
             android:text="@string/contact_recorded_today"
@@ -184,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:elevation="8dp"  
+            android:elevation="8dp"
             android:padding="@dimen/advanced_search_button_padding"
             android:stateListAnimator="@drawable/button"
             android:text="@string/sync"
@@ -195,4 +209,4 @@
             android:visibility="gone" />
 
     </LinearLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
