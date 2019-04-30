@@ -91,7 +91,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
         }
 
         //Risk view
-        View attentionFlag = view.findViewById(R.id.risk_layout);
+        View attentionFlag = view.findViewById(R.id.risk);
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
         }

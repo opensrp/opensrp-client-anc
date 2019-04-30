@@ -508,10 +508,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 LinearLayout mainContentView = contentLayout.findViewById(R.id.contentView);
                 formUtils.addValuesDisplay(values, mainContentView, getApplicationContext());
 
-                /*ExpansionWidgetAdapter adapter = (ExpansionWidgetAdapter) mainContentView.getAdapter();
-                adapter.setExpansionWidgetValues(values);
-                adapter.notifyDataSetChanged();*/
-
                 LinearLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
                 Button undoButton = buttonLayout.findViewById(R.id.undo_button);
                 if (values != null && values.size() > 0) {

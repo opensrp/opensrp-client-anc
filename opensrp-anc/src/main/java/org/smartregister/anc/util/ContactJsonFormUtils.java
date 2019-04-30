@@ -718,6 +718,7 @@ public class ContactJsonFormUtils extends FormUtils {
                 LinearLayout valuesLayout = (LinearLayout) inflater.inflate(R.layout.native_expansion_panel_list_item, null);
                 CustomTextView listHeader = valuesLayout.findViewById(R.id.item_header);
                 CustomTextView listValue = valuesLayout.findViewById(R.id.item_value);
+                listValue.setTextColor(context.getResources().getColor(R.color.text_color_primary));
                 String[] valueObject = expansionWidgetValues.get(i).split(":");
                 if (valueObject.length >= 2 && !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER.equals(valueObject[1]) &&
                         !Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY.equals(valueObject[1])) {
