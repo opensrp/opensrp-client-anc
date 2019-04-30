@@ -6,6 +6,8 @@
     <!-- used to programatically tell if device is tab-->
     <bool name="isTablet">false</bool>
 
+    <dimen name="main_register_padding_end">8dp</dimen>
+    <dimen name="main_register_padding_start">15dp</dimen>
     <!-- Login-->
     <dimen name="login_horizontal_margin">30dp</dimen>
     <dimen name="login_bottom_margin">15dp</dimen>
