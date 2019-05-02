@@ -57,18 +57,23 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-            JSONObject jsonObject = new JSONObject(
-                    AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
-                            .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+            Map<String, String> womanDetails =
+                    AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId);
+            if (womanDetails != null) {
+                JSONObject jsonObject = new JSONObject(womanDetails.get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+                if (jsonObject.length() > 0) {
+                    Iterator<String> keys = jsonObject.keys();
+                    facts = AncApplication.getInstance().getPreviousContactRepository()
+                            .getPreviousContactFacts(baseEntityId, contactNo);
 
-            Iterator<String> keys = jsonObject.keys();
-            facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(baseEntityId, contactNo);
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        facts.put(key, jsonObject.get(key));
+                    }
+                }
 
-            while (keys.hasNext()) {
-                String key = keys.next();
-                facts.put(key, jsonObject.get(key));
             }
+
         } catch (JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }

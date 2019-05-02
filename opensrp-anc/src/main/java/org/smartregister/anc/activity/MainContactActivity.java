@@ -53,6 +53,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private List<String> globalValueFields = new ArrayList<>();
     private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
+    private Map<String, String> womanDetails = new HashMap<>();
+    private String womanAge = "";
 
     public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
 
@@ -82,6 +84,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
+        womanDetails = (Map<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstants.KEY.DOB)));
 
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
@@ -260,6 +264,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             //Inject some form defaults from client details
             map.put(Constants.KEY.CONTACT_NO, contactNo.toString());
             map.put(Constants.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
+            map.put(Constants.AGE, womanAge);
 
             String lastContactDate =
                     ((HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP))

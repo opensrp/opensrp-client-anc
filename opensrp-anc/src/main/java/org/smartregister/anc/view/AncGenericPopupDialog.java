@@ -73,6 +73,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     public void onDestroy() {
         super.onDestroy();
         destroyVariables();
+        JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
+        ancJsonApi.setGenericPopup(null);
     }
 
     private void destroyVariables() {
@@ -230,6 +232,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                     setFormIdentity(null);
                     setFormLocation(null);
                     setContext(null);
+                    jsonApi.setGenericPopup(null);
                     AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
@@ -239,6 +242,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 @Override
                 public void onClick(View v) {
                     passData();
+                    jsonApi.setGenericPopup(null);
                     jsonApi.updateGenericPopupSecondaryValues(new JSONArray());
                     AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
