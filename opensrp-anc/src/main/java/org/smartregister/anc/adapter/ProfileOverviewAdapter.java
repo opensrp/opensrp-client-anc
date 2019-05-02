@@ -124,11 +124,11 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View parent;
-        TextView sectionHeader;
-        TextView subSectionHeader;
-        TextView sectionDetails;
-        TextView sectionDetailTitle;
-        TextView allTestResultsButton;
+        private TextView sectionHeader;
+        private TextView subSectionHeader;
+        private TextView sectionDetails;
+        private TextView sectionDetailTitle;
+        private TextView allTestResultsButton;
 
         ViewHolder(View itemView) {
             super(itemView);

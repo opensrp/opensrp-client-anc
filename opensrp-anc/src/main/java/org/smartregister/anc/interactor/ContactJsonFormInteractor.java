@@ -26,10 +26,10 @@ public class ContactJsonFormInteractor extends JsonFormInteractor {
 
     @Override
     protected void registerWidgets() {
+        super.registerWidgets();
         map.put(JsonFormConstants.EDIT_TEXT, new AncEditTextFactory());
         map.put(JsonFormConstants.DATE_PICKER, new DatePickerFactory());
         map.put(Constants.EXPANSION_PANEL, new ExpansionWidgetFactory());
         map.put(Constants.ANC_RADIO_BUTTON, new AncRadioButtonWidgetFactory());
-        super.registerWidgets();
     }
 }

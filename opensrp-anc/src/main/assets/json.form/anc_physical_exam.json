@@ -1687,6 +1687,25 @@
         ]
       },
       {
+        "key": "toaster26_hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          },
+          "src": {
+            "key": "cervical_exam",
+            "option_key": "1",
+            "stepName": "step3"
+          }
+        }
+      },
+      {
         "key": "toaster26",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

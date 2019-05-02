@@ -73,6 +73,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     public void onDestroy() {
         super.onDestroy();
         destroyVariables();
+        JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
+        ancJsonApi.setGenericPopup(null);
     }
 
     private void destroyVariables() {
@@ -122,25 +124,27 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (context == null) {
-            throw new IllegalStateException(
-                    "The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
+        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
+            if (context == null) {
+                throw new IllegalStateException(
+                        "The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
+            }
+
+            activity = (Activity) context;
+            jsonApi = (JsonApi) activity;
+
+            try {
+                loadPartialSecondaryValues();
+                createSecondaryValuesMap();
+                loadSubForms();
+                jsonApi.updateGenericPopupSecondaryValues(getSpecifyContent());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
         }
-
-        activity = (Activity) context;
-        jsonApi = (JsonApi) activity;
-
-        try {
-            loadPartialSecondaryValues();
-            createSecondaryValuesMap();
-            loadSubForms();
-            jsonApi.updateGenericPopupSecondaryValues(getSpecifyContent());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
     }
 
     @Override
@@ -223,7 +227,12 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jsonApi.updateGenericPopupSecondaryValues(null);
+                    jsonApi.updateGenericPopupSecondaryValues(new JSONArray());
+                    setFormFragment(null);
+                    setFormIdentity(null);
+                    setFormLocation(null);
+                    setContext(null);
+                    jsonApi.setGenericPopup(null);
                     AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
@@ -233,7 +242,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 @Override
                 public void onClick(View v) {
                     passData();
-                    jsonApi.updateGenericPopupSecondaryValues(null);
+                    jsonApi.setGenericPopup(null);
+                    jsonApi.updateGenericPopupSecondaryValues(new JSONArray());
                     AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
@@ -309,16 +319,19 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     protected JSONArray createValues() throws JSONException {
         JSONArray selectedValues = new JSONArray();
         JSONArray formFields = getSubFormsFields();
+        String dateField = "";
         for (int i = 0; i < formFields.length(); i++) {
             JSONObject field = formFields.getJSONObject(i);
             if (field != null && field.has(JsonFormConstants.TYPE) &&
                     !JsonFormConstants.LABEL.equals(field.getString(JsonFormConstants.TYPE)) &&
-                    !JsonFormConstants.SECTIONS.equals(field.getString(JsonFormConstants.TYPE))) {
+                    !JsonFormConstants.SECTIONS.equals(field.getString(JsonFormConstants.TYPE)) && !JsonFormConstants.SPACER
+                    .equals(field.getString(JsonFormConstants.TYPE)) && !JsonFormConstants.TOASTER_NOTES
+                    .equals(field.getString(JsonFormConstants.TYPE))) {
                 JSONArray valueOpenMRSAttributes = new JSONArray();
                 JSONObject openMRSAttributes = getFieldOpenMRSAttributes(field);
                 String key = field.getString(JsonFormConstants.KEY);
                 String type = field.getString(JsonFormConstants.TYPE);
-                String label = getWidgetLabel(field);
+                String label = JsonFormConstants.HIDDEN.equals(type) ? JsonFormConstants.HIDDEN : getWidgetLabel(field);
                 JSONArray values = new JSONArray();
                 if (JsonFormConstants.CHECK_BOX.equals(field.getString(JsonFormConstants.TYPE)) &&
                         field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
@@ -337,12 +350,25 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 } else {
                     if (field.has(JsonFormConstants.VALUE)) {
                         values.put(field.optString(JsonFormConstants.VALUE));
+                        if (JsonFormConstants.HIDDEN.equals(type) && key.contains(Constants.DATE_TODAY_HIDDEN)) {
+                            dateField = key + ":" + field.optString(JsonFormConstants.VALUE);
+                        }
+                    } else {
+                        if (JsonFormConstants.DATE_PICKER.equals(type) && dateField.contains(key)) {
+                            String[] datePickerValues = dateField.split(":");
+                            if (datePickerValues.length > 1) {
+                                values.put(datePickerValues[1]);
+                            }
+                        }
                     }
                 }
 
                 if (values.length() > 0) {
-                    if (!TextUtils.isEmpty(label)) {
+                    if (!TextUtils.isEmpty(label) && field.has(Constants.INDEX)) {
                         int index = field.optInt(Constants.INDEX);
+                        if (JsonFormConstants.HIDDEN.equals(type)) {
+                            label = "";
+                        }
                         selectedValues.put(createValueObject(key, type, label, index, values, openMRSAttributes,
                                 valueOpenMRSAttributes));
                     } else {
@@ -464,7 +490,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
      *
      * @param jsonObject {@link JSONObject}
      * @param childKey   {@link String}
-     *
      * @return item {@link JSONObject}
      */
     @Override

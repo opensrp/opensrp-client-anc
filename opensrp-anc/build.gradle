@@ -75,8 +75,8 @@ android {
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
-            //resValue "string", 'opensrp_url', '"http://10.20.25.209:8081/opensrp/"'
+            //resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"http://10.20.25.209:8081/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -134,7 +134,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.6.1-DEMO-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.20010-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -145,7 +145,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.6.14-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.20-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
