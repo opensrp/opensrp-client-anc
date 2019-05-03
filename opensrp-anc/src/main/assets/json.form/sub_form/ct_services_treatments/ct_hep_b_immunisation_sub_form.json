@@ -368,7 +368,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Woman is fully immunised against Hep B!",
-      "toaster_type": "info",
+      "toaster_type": "positive",
       "relevance": {
         "rules-engine": {
           "ex-rules": {
