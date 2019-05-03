@@ -14,7 +14,12 @@
     "tt2_date",
     "tt3_date",
     "tt1_date_done",
-    "tt2_date_done"
+    "tt2_date_done",
+    "hepb1_date",
+    "hepb2_date",
+    "hepb3_date",
+    "hepb1_date_done",
+    "hepb2_date_done"
   ],
   "metadata": {
     "start": {
@@ -1509,7 +1514,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "TT Immunisations ",
+        "text": "TT Immunisation ",
         "accordion_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\n1-4 doses of TTCV in the past:\n\n- 1 dose scheme: Woman should receive one dose of TTCV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
         "type": "expansion_panel",
         "bottom_section": {
@@ -1532,7 +1537,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Hep B Immunisations ",
+        "text": "Hep B Immunisation ",
         "accordion_info_text": "Counseling:\n- Provide post-testing counselling\n- Advise retesting and immunisation if ongoing risk or known exposure",
         "type": "expansion_panel",
         "bottom_section": {
@@ -1555,7 +1560,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Flu Immunisations ",
+        "text": "Flu Immunisation ",
         "accordion_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy.",
         "type": "expansion_panel",
         "bottom_section": {

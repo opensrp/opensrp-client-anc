@@ -107,6 +107,13 @@
           }
         }
       },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      },
       "v_required": {
         "value": true,
         "err": "Date for Hep B dose #1 is required"
@@ -182,6 +189,13 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
           }
         }
       },
@@ -263,6 +277,13 @@
           }
         }
       },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      },
       "v_required": {
         "value": true,
         "err": "Date for Hep B dose #3 is required"
@@ -319,6 +340,10 @@
             "rules-file": "ct_relevance_rules.yml"
           }
         }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Reason Hep B was not given is  required"
       }
     },
     {

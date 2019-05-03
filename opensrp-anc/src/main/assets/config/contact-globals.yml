@@ -103,6 +103,11 @@ fields:
   - "tt3_date"
   - "tt1_date_done"
   - "tt2_date_done"
+  - "hepb1_date"
+  - "hepb2_date"
+  - "hepb3_date"
+  - "hepb1_date_done"
+  - "hepb2_date_done"
 ---
 form: anc_profile
 fields:

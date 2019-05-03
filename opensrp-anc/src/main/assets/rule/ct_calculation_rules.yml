@@ -251,6 +251,27 @@ condition: "step8_tt3_date != '' && step8_tt3_date != 'not_done'"
 actions:
 - "calculation = 3"
 ---
+name: step8_hepb1_date_done
+description: hepb1_date_done
+priority: 1
+condition: "step8_hepb1_date != '' && step8_hepb1_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
+name: step8_hepb2_date_done
+description: hepb2_date_done
+priority: 1
+condition: "step8_hepb2_date != '' && step8_hepb2_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
+name: step8_hepb3_date_done
+description: hepb3_date_done
+priority: 1
+condition: "step8_hepb3_date != '' && step8_hepb3_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
 name: step8_hepb1_dose_number
 description: hepb1_dose_number
 priority: 1
