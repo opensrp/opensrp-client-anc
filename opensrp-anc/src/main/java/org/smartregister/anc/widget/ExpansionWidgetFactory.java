@@ -319,6 +319,18 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 linearLayout = (LinearLayout) view.getParent().getParent().getParent();
             }
             view.setTag(R.id.main_layout, linearLayout);
+            String stepName = (String) view.getTag(R.id.specify_step_name);
+            String type = (String) view.getTag(R.id.type);
+            String key = (String) view.getTag(R.id.key);
+            Context context = (Context) view.getTag(R.id.specify_context);
+            JSONArray currentFields = formUtils.getFormFields(stepName,context);
+            JSONObject realTimeJsonObject = ContactJsonFormUtils.getFieldJSONObject(currentFields, key);
+
+            if (type != null) {
+                view.setTag(R.id.secondaryValues,
+                        formUtils.getSecondaryValues(realTimeJsonObject, type));
+            }
+
             formUtils.showGenericDialog(view);
         }
     }
