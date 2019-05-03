@@ -356,7 +356,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                     } else {
                         if (JsonFormConstants.DATE_PICKER.equals(type) && dateField.contains(key)) {
                             String[] datePickerValues = dateField.split(":");
-                            if (datePickerValues.length > 1) {
+                            if (datePickerValues.length > 1 && !datePickerValues[1].equals("0")) {
                                 values.put(datePickerValues[1]);
                             }
                         }

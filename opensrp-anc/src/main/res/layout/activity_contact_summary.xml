@@ -62,18 +62,6 @@
                 android:textColor="@color/text_color"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/referral_contact_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="center"
-                android:text="@string/negative_contact_text"
-                android:textColor="@color/text_color"
-                android:visibility="gone"
-                android:textSize="16sp" />
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/contact_summary_recycler"
                 android:layout_width="match_parent"

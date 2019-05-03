@@ -59,7 +59,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         try {
             Map<String, String> womanDetails =
                     AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId);
-            if (womanDetails != null) {
+            if (womanDetails != null && womanDetails.containsKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
                 JSONObject jsonObject = new JSONObject(womanDetails.get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
                 if (jsonObject.length() > 0) {
                     Iterator<String> keys = jsonObject.keys();
