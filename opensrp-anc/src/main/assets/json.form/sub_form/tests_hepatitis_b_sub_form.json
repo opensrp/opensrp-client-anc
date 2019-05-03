@@ -46,13 +46,6 @@
       "v_required": {
         "value": true,
         "err": "Hepatitis B test is required"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
       }
     },
     {

@@ -56,6 +56,7 @@
     "blood_type_test_status",
     "hiv_test_partner_result",
     "hiv_test_status",
+    "hiv_test_result",
     "hiv_test_partner_status",
     "hepb_test_status",
     "hepc_test_status",
@@ -64,7 +65,12 @@
     "hiv_positive",
     "syphilis_positive",
     "urine_test_status",
-    "hb_test_status"
+    "hb_test_status",
+    "syphilis_positive",
+    "hepc_positive",
+    "syph_test_status",
+    "ultrasound",
+    "hepb_positive"
   ],
   "step1": {
     "title": "Due",
@@ -202,16 +208,6 @@
         }
       },
       {
-        "key": "accordion_blood_glucose",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Blood Glucose test",
-        "type": "expansion_panel",
-        "content_form": "tests_blood_glucose_sub_form",
-        "container": "anc_test"
-      },
-      {
         "key": "accordion_blood_haemoglobin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -254,35 +250,6 @@
   "step2": {
     "title": "Other",
     "fields": [
-      {
-        "key": "accordion_other_tests",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Other Tests",
-        "accordion_info_text": "If any other test was done that is not included here, add it here.",
-        "accordion_info_title": "Other test",
-        "type": "expansion_panel",
-        "content_form": "tests_other_tests_sub_form",
-        "container": "anc_test"
-      },
-      {
-        "key": "accordion_partner_hiv",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "Partner HIV test",
-        "type": "expansion_panel",
-        "content_form": "tests_partner_hiv_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_relevance_rules.yml"
-            }
-          }
-        }
-      },
       {
         "key": "accordion_ultrasound",
         "openmrs_entity_parent": "",
@@ -329,6 +296,23 @@
         "accordion_info_title": "HIV test",
         "type": "expansion_panel",
         "content_form": "tests_hiv_sub_form",
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "accordion_partner_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Partner HIV test",
+        "type": "expansion_panel",
+        "content_form": "tests_partner_hiv_sub_form",
         "container": "anc_test",
         "relevance": {
           "rules-engine": {
@@ -462,6 +446,19 @@
             }
           }
         }
+      },
+      {
+        "key": "accordion_other_tests",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Other Tests",
+        "accordion_info_text": "If any other test was done that is not included here, add it here.",
+        "accordion_info_title": "Other test",
+        "type": "expansion_panel",
+        "display_bottom_section": true,
+        "content_form": "tests_other_tests_sub_form",
+        "container": "anc_test"
       }
     ]
   }

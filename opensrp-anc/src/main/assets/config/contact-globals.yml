@@ -176,6 +176,7 @@ fields:
   - "blood_type_test_status"
   - "hiv_test_partner_result"
   - "hiv_test_status"
+  - "hiv_test_result"
   - "hiv_test_partner_status"
   - "hepb_test_status"
   - "hepc_test_status"
@@ -185,6 +186,11 @@ fields:
   - "syphilis_positive"
   - "urine_test_status"
   - "hb_test_status"
+  - "syphilis_positive"
+  - "hepc_positive"
+  - "syph_test_status"
+  - "ultrasound"
+  - "hepb_positive"
 ---
 form: anc_quick_check
 fields:
