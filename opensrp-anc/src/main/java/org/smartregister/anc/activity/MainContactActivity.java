@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private List<String> globalValueFields = new ArrayList<>();
     private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
+    private String womanAge = "";
 
     @Override
     protected void onResume() {
@@ -60,6 +62,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
+        @SuppressWarnings("unchecked")
+        Map<String, String> womanDetails = (Map<String, String>) getIntent()
+                .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstants.KEY.DOB)));
 
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
@@ -238,6 +244,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             //Inject some form defaults from client details
             map.put(Constants.KEY.CONTACT_NO, contactNo.toString());
             map.put(Constants.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
+            map.put(Constants.AGE, womanAge);
 
             //Handle Gestation age. Use the latest calculated gestation age. Checks if the Current
             //Gestation Age is greater than the previously stored Gestation age

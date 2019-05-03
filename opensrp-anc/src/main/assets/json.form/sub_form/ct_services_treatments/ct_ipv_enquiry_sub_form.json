@@ -54,7 +54,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "openmrs_data_type": "",
-      "type": "check_box",
+      "type": "native_radio",
       "label": "Reason",
       "hint": "Reason",
       "label_text_style": "bold",

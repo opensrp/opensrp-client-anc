@@ -1,12 +1,14 @@
 {
   "content_form": [
     {
-      "key": "nausea_not_relieved_counsel",
+      "key": "malaria_counsel",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Pharmacological treatments for nausea and vomiting counseling",
+      "label": "Malaria prevention counseling",
+      "label_info_text": "Sleeping under an insecticide-treated bednet and the importance of seeking care and getting treatment as soon as she has any symptoms.",
+      "label_info_title": "Malaria prevention counseling",
       "label_text_style": "bold",
       "options": [
         {
@@ -23,17 +25,10 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ],
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_relevance_rules.yml"
-          }
-        }
-      }
+      ]
     },
     {
-      "key": "nausea_not_relieved_counsel_notdone",
+      "key": "malaria_counsel_notdone",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -59,14 +54,14 @@
         }
       ],
       "relevance": {
-        "step3:nausea_not_relieved_counsel": {
+        "step8:malaria_counsel": {
           "type": "string",
           "ex": "equalTo(., \"not_done\")"
         }
       }
     },
     {
-      "key": "nausea_not_relieved_counsel_notdone_other",
+      "key": "malaria_counsel_notdone_other",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -74,25 +69,9 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step3:nausea_not_relieved_counsel_notdone": {
+        "step8:malaria_counsel_notdone": {
           "type": "string",
           "ex": "equalTo(., \"other\")"
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "nausea_pharma",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
-          }
         }
       }
     }

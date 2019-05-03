@@ -4,6 +4,18 @@
   "encounter_type": "Counselling and Treatment",
   "entity_id": "",
   "relational_id": "",
+  "global_previous": [
+    "iptp_sp1",
+    "iptp_sp2",
+    "iptp_sp3",
+    "iptp_sp1_date",
+    "iptp_sp2_date",
+    "tt1_date",
+    "tt2_date",
+    "tt3_date",
+    "tt1_date_done",
+    "tt2_date_done"
+  ],
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -1228,6 +1240,30 @@
         }
       },
       {
+        "key": "accordion_hiv_prep_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "PrEP for HIV prevention counseling",
+        "accordion_info_text": "Oral pre-exposure prophylaxis (PrEP) containing tenofovir disoproxil fumarate (TDF) should be offered as an additional prevention choice for pregnant women at substantial risk of HIV infection as part of combination prevention approaches.",
+        "accordion_info_title": "PrEP offering framework",
+        "type": "expansion_panel",
+        "bottom_section": {
+          "display_bottom_section": true,
+          "display_record_button": false
+        },
+        "content_form": "ct_hiv_prep_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_risks",
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "accordion_gdm_risk_counsel",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1338,7 +1374,14 @@
         },
         "content_form": "ct_breastfeed_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -1397,9 +1440,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Deworming & Malaria phophylaxis",
+        "text": "Deworming",
         "accordion_info_text": "In areas with a population prevalence of infection with any soil-transmitted helminths 20% or higher OR a population anaemia prevalence 40% or higher, preventive antihelminthic treatment is recommended for pregnant women after the first trimester as part of worm infection reduction programmes.",
-        "accordion_info_title": "Prescribe single dose albendazole 400 mg or mebendazole 500 mg",
         "type": "expansion_panel",
         "bottom_section": {
           "display_bottom_section": true,
@@ -1417,19 +1459,110 @@
         }
       },
       {
-        "key": "accordion_immunisation",
+        "key": "accordion_malaria_prophylaxis",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Immunisations ",
-        "accordion_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\n1-4 doses of TTCV in the past:\n\n- 1 dose scheme: Woman should receive one dose of TTCV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
-        "accordion_info_title": "TT dose #1",
+        "text": "Malaria Phophylaxis",
+        "accordion_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
         "type": "expansion_panel",
         "bottom_section": {
           "display_bottom_section": true,
           "display_record_button": false
         },
-        "content_form": "ct_immunisation_sub_form",
+        "content_form": "ct_malaria_prophylaxis_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments",
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "accordion_malaria_prevention_counsel",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Malaria Prevention Counsel",
+        "accordion_info_text": "Sleeping under an insecticide-treated bednet and the importance of seeking care and getting treatment as soon as she has any symptoms.",
+        "type": "expansion_panel",
+        "bottom_section": {
+          "display_bottom_section": true,
+          "display_record_button": false
+        },
+        "content_form": "ct_malaria_prevention_counsel_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments",
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "accordion_tt_immunisation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "TT Immunisations ",
+        "accordion_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\n1-4 doses of TTCV in the past:\n\n- 1 dose scheme: Woman should receive one dose of TTCV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+        "type": "expansion_panel",
+        "bottom_section": {
+          "display_bottom_section": true,
+          "display_record_button": false
+        },
+        "content_form": "ct_tt_immunisation_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments",
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "accordion_hep_b_immunisation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Hep B Immunisations ",
+        "accordion_info_text": "Counseling:\n- Provide post-testing counselling\n- Advise retesting and immunisation if ongoing risk or known exposure",
+        "type": "expansion_panel",
+        "bottom_section": {
+          "display_bottom_section": true,
+          "display_record_button": false
+        },
+        "content_form": "ct_hep_b_immunisation_sub_form",
+        "content_form_location": "json.form/sub_form/ct_services_treatments",
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "accordion_flu_immunisation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Flu Immunisations ",
+        "accordion_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy.",
+        "type": "expansion_panel",
+        "bottom_section": {
+          "display_bottom_section": true,
+          "display_record_button": false
+        },
+        "content_form": "ct_flu_immunisation_sub_form",
         "content_form_location": "json.form/sub_form/ct_services_treatments",
         "container": "anc_counselling_treatment",
         "relevance": {

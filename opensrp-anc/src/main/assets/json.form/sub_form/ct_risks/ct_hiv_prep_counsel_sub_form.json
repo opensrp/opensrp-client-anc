@@ -1,12 +1,26 @@
 {
   "content_form": [
     {
-      "key": "nausea_not_relieved_counsel",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "hiv_prep_section",
+      "type": "section_label",
+      "section_background": "#F6C8C9",
+      "text_color": "#000000",
+      "text_size": "18px",
+      "label_text_style": "bold",
+      "name": "PrEP"
+    },
+    {
+      "key": "hiv_prep",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "native_radio",
-      "label": "Pharmacological treatments for nausea and vomiting counseling",
+      "label": "PrEP for HIV prevention counseling",
+      "label_info_text": "Oral pre-exposure prophylaxis (PrEP) containing tenofovir disoproxil fumarate (TDF) should be offered as an additional prevention choice for pregnant women at substantial risk of HIV infection as part of combination prevention approaches.\n\n[PrEP offering framework]",
+      "label_info_title": "PrEP for HIV prevention counseling",
       "label_text_style": "bold",
       "options": [
         {
@@ -23,29 +37,34 @@
           "openmrs_entity": "",
           "openmrs_entity_id": ""
         }
-      ],
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_relevance_rules.yml"
-          }
-        }
-      }
+      ]
     },
     {
-      "key": "nausea_not_relieved_counsel_notdone",
+      "key": "hiv_prep_notdone",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "openmrs_data_type": "",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "Reason",
-      "hint": "Reason",
       "label_text_style": "bold",
       "options": [
         {
-          "key": "referred_instead",
+          "key": "refered_instead",
           "text": "Referred instead",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "no_drugs",
+          "text": "No drugs available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_refused",
+          "text": "Woman did not accept",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""
@@ -58,15 +77,19 @@
           "openmrs_entity_id": ""
         }
       ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      },
       "relevance": {
-        "step3:nausea_not_relieved_counsel": {
+        "step6:hiv_prep": {
           "type": "string",
           "ex": "equalTo(., \"not_done\")"
         }
       }
     },
     {
-      "key": "nausea_not_relieved_counsel_notdone_other",
+      "key": "hiv_prep_notdone_other",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -74,9 +97,14 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step3:nausea_not_relieved_counsel_notdone": {
-          "type": "string",
-          "ex": "equalTo(., \"other\")"
+        "step6:hiv_prep_notdone": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
         }
       }
     },
@@ -84,7 +112,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "nausea_pharma",
+      "key": "prep",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#FF0000",

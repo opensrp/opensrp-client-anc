@@ -2,11 +2,13 @@ package org.smartregister.anc.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.rules.RulesEngineHelper;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
@@ -17,6 +19,7 @@ import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -162,18 +166,18 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             if (mJsonObject.has(step)) {
                 JSONObject stepsObject = mJsonObject.getJSONObject(step);
                 JSONArray fields = stepsObject.getJSONArray(JsonFormConstants.FIELDS);
-                if(fields.length()>1)
-                for (int i = 0; i < fields.length(); i++) {
-                    JSONObject accordionObject = fields.getJSONObject(i);
-                    if (accordionObject.getString(JsonFormConstants.KEY).equals(accordion)) {
-                        JSONArray value = accordionObject.optJSONArray(JsonFormConstants.VALUE);
-                        if (value == null) {
-                            return result;
+                if (fields.length() > 1)
+                    for (int i = 0; i < fields.length(); i++) {
+                        JSONObject accordionObject = fields.getJSONObject(i);
+                        if (accordionObject.getString(JsonFormConstants.KEY).equals(accordion)) {
+                            JSONArray value = accordionObject.optJSONArray(JsonFormConstants.VALUE);
+                            if (value == null) {
+                                return result;
+                            }
+                            result = obtainValue(key, value);
+                            break;
                         }
-                        result = obtainValue(key, value);
-                        break;
                     }
-                }
             }
         }
         return result;
@@ -181,5 +185,47 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
 
     private String getKey(String widget, String step) {
         return widget.replace(step + "_", "");
+    }
+
+    /**
+     * @param source
+     */
+    public void filterCheckboxOptions(String source) {
+        Log.i("Our json object", mJsonObject.toString());
+        String myString = source;
+        myString.split(":");
+    }
+
+    /**
+     * Given two dates compare if they are equal
+     * @param firstDate the first date entered
+     * @param secondDate the second date entered
+     * @return returns {-1} when first date occurs before second date, {0} when both dates are equal
+     * {1} when second date is greater than first date and {-2} if any of the dates passed is null
+     * or is empty
+     */
+    public int compareTwoDates(String firstDate, String secondDate) {
+        if (!TextUtils.isEmpty(firstDate) && !TextUtils.isEmpty(secondDate)) {
+            Calendar dateOne = FormUtils.getDate(firstDate);
+            Calendar dateTwo = FormUtils.getDate(secondDate);
+            if (dateOne.before(dateTwo)) {
+                return -1;
+            } else if (dateOne.equals(dateTwo)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        return -2;
+    }
+
+    /**
+     * Compares date against today's date
+     * @param theDate passed as first date to first date
+     * @return -1 if date is before today, 0 if equal, 1 if date is greater than today's date and -2
+     * otherwise
+     */
+    public int compareDateAgainstToday(String theDate){
+        return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
     }
 }

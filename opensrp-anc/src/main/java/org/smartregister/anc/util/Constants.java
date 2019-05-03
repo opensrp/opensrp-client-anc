@@ -46,6 +46,7 @@ public abstract class Constants {
     public static final String INDEX = "index";
     public static final String BOTTOM_SECTION = "bottom_section";
     public static final String DISPLAY_RECORD_BUTTON = "display_record_button";
+    public static final String AGE = "age";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
