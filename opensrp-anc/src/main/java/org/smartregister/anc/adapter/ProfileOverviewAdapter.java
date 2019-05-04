@@ -1,21 +1,38 @@
 package org.smartregister.anc.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.jeasy.rules.api.Facts;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
+import org.smartregister.anc.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 04/12/2018.
@@ -26,6 +43,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private LayoutInflater mInflater;
     private Facts facts;
     private Context context;
+    private AllTestClickListener allTestClickListener = new AllTestClickListener();
 
     // data is passed into the constructor
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
@@ -44,7 +62,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         if (!TextUtils.isEmpty(mData.get(position).getGroup())) {
 
@@ -91,7 +109,12 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         holder.allTestResultsButton.setVisibility(mData.get(position).isAllTests() ? View.VISIBLE : View.GONE);
-
+        holder.allTestResultsButton.setOnClickListener(allTestClickListener);
+        if (!TextUtils.isEmpty(mData.get(position).getTestResults())) {
+            holder.allTestResultsButton.setTag(R.id.test_results, mData.get(position).getTestResults());
+        } else {
+            holder.allTestResultsButton.setTag(R.id.test_results, "");
+        }
     }
 
     // total number of rows
@@ -146,4 +169,47 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         public String detail = "";
     }
 
+    private class AllTestClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.all_test_results_button) {
+                String testToFetch = (String) view.getTag(R.id.test_results);
+                if (!TextUtils.isEmpty(testToFetch)) {
+                    displayUndoDialog();
+                }
+            }
+        }
+
+        private void displayUndoDialog() {
+            Activity activity = (Activity) context;
+            LayoutInflater inflater = activity.getLayoutInflater();
+            View dialogLayout = inflater.inflate(R.layout.all_tests_results_dialog, null);
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setView(dialogLayout);
+
+            final ImageView cancel = dialogLayout.findViewById(R.id.all_test_popup_cancel);
+            CustomFontTextView headerTextView = dialogLayout.findViewById(R.id.txt_title_label);
+            headerTextView.setText("Testing stuff to see if this work well without issue");
+
+            final AlertDialog dialog = builder.create();
+
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams param = window.getAttributes();
+                param.gravity = Gravity.TOP;
+                window.setAttributes(param);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            }
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
+    }
 }

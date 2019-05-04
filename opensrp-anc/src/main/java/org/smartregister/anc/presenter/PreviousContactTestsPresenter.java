@@ -75,6 +75,12 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
         getProfileView().setUpContactTestsDetailsRecycler(lastContactDetailsTestsWrapperList);
     }
 
+    @Override
+    public void loadAllTestResults(String baseEntityId, String keysToFetch) {
+
+    }
+
+
     private List<YamlConfigWrapper> addTestsRuleObjects(Facts facts) throws IOException {
         List<YamlConfigWrapper> lastContactTests = new ArrayList<>();
         Iterable<Object> testsRuleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
@@ -86,19 +92,23 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
             YamlConfig testsConfig = (YamlConfig) ruleObject;
 
             if (testsConfig.getSubGroup() != null) {
-                yamlConfigList.add(new YamlConfigWrapper(null, testsConfig.getSubGroup(), null, false));
+                yamlConfigList.add(new YamlConfigWrapper(null, testsConfig.getSubGroup(), null, false, ""));
             }
 
             for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem, false,""));
                     valueCount = +1;
                 }
             }
 
             if (testsConfig.isAllTests()) {
-                yamlConfigList.add(new YamlConfigWrapper(null, null, null, true));
+                yamlConfigList.add(new YamlConfigWrapper(null, null, null, true,""));
+            }
+
+            if (testsConfig.getTestResults() != null) {
+                yamlConfigList.add(new YamlConfigWrapper(null,null,null,false, testsConfig.getTestResults()));
             }
 
             if (valueCount > 0) {

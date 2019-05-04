@@ -26,6 +26,7 @@ public class PreviousContactRepository extends BaseRepository {
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
+    public static final String GEST_AGE = "gest_age";
     private static final String TAG = PreviousContactRepository.class.getCanonicalName();
     private static final String CREATE_TABLE_SQL =
             "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + CONTACT_NO +
@@ -154,12 +155,12 @@ public class PreviousContactRepository extends BaseRepository {
             String orderBy = "order by abs_contact_no, contact_no,_id DESC";
             String[] selectionArgs = null;
 
-                if (StringUtils.isNotBlank(baseEntityId)) {
-                    selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
-                            BASE_ENTITY_ID + " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
-                    selectionArgs = new String[]{baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
-                            Constants.PHYS_SYMPTOMS};
-                }
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
+                        BASE_ENTITY_ID + " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
+                selectionArgs = new String[]{baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
+                        Constants.PHYS_SYMPTOMS};
+            }
 
             previousContactsCursor = database.rawQuery(selection, selectionArgs);
 
@@ -169,7 +170,8 @@ public class PreviousContactRepository extends BaseRepository {
                             previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CONTACT_NO)) + ":" +
                             previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CREATED_AT));
 
-                    previousContactFacts.put(factKey, previousContactsCursor.getString(previousContactsCursor.getColumnIndex(VALUE)));
+                    previousContactFacts
+                            .put(factKey, previousContactsCursor.getString(previousContactsCursor.getColumnIndex(VALUE)));
 
                 }
             }
@@ -212,6 +214,14 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContactsTestsFacts;
     }
 
+    /**
+     * Gets all the tests recorded in all contacts for the specific patient
+     *
+     * @param baseEntityId
+     * @param database
+     *
+     * @return
+     */
     private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
         String selection = "";
         String orderBy = ID + " DESC";
@@ -223,6 +233,19 @@ public class PreviousContactRepository extends BaseRepository {
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
+    }
+
+    private Cursor getAllTestResultsForIndividualTest(String baseEntityId, String indicator, SQLiteDatabase database) {
+        String selection = "";
+        String orderBy = ID + "DESC";
+        String[] selectionArgs = null;
+
+        if (StringUtils.isNoneEmpty(baseEntityId) && StringUtils.isNoneEmpty(indicator)) {
+            selection = BASE_ENTITY_ID + " = ? And (" + KEY + " = ? OR " + KEY + " = " + GEST_AGE + ")";
+            selectionArgs = new String[]{baseEntityId, indicator};
+        }
+
+        return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
     }
 
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo) {

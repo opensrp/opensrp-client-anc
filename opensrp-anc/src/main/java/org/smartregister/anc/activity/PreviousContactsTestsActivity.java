@@ -14,6 +14,7 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ProfileOverviewAdapter;
 import org.smartregister.anc.contract.PreviousContactsTests;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
+import org.smartregister.anc.domain.TestResults;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.presenter.PreviousContactTestsPresenter;
 import org.smartregister.anc.util.Constants;
@@ -80,6 +81,11 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             notTestShown.setVisibility(View.VISIBLE);
             lastContactsTestsRecyclerView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void setAllTestResults(List<TestResults> allTestResults) {
+
     }
 
     private void setUpViews() {
