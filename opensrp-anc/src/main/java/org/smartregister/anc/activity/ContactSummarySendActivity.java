@@ -35,7 +35,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
     private ImageRenderHelper imageRenderHelper;
     private TextView recordedContactTextView;
     private TextView contactScheduleHeadingTextView;
-    private TextView referralContactTextTextView;
     private RecyclerView contactDatesRecyclerView;
 
     @Override
@@ -64,7 +63,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
         womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
         recordedContactTextView = findViewById(R.id.contact_summary_contact_recorded);
         contactScheduleHeadingTextView = findViewById(R.id.contact_schedule_heading);
-        referralContactTextTextView = findViewById(R.id.referral_contact_text);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
         contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
@@ -110,7 +108,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
         if (models.size() <= 0) {
             contactDatesRecyclerView.setVisibility(View.GONE);
             contactScheduleHeadingTextView.setVisibility(View.GONE);
-            referralContactTextTextView.setVisibility(View.VISIBLE);
         }
         contactSummaryAdapter.setContactDates(models.size() > 5 ? models.subList(0, 4) : models);
     }
@@ -125,7 +122,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
         recordedContactTextView
                 .setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
         if (getReferredContactNo() != null) {
-            recordedContactTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+            recordedContactTextView.setVisibility(View.GONE);
         }
     }
 

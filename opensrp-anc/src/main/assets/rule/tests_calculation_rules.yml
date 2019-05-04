@@ -72,11 +72,25 @@ actions:
 name: step1_no_of_fetuses
 description: No. of fetuses
 priority: 1
+condition: "step1_no_of_fetuses_hidden != '' && (step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+    - "calculation = step1_no_of_fetuses_hidden"
+---
+name: step1_no_of_fetuses_hidden
+description: No. of fetuses
+priority: 1
 condition: "global_no_of_fetuses != ''"
 actions:
     - "calculation = global_no_of_fetuses"
 ---
 name: step2_no_of_fetuses
+description: No. of fetuses
+priority: 1
+condition: "step2_no_of_fetuses_hidden != '' && (step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+    - "calculation = step2_no_of_fetuses_hidden"
+---
+name: step2_no_of_fetuses_hidden
 description: No. of fetuses
 priority: 1
 condition: "global_no_of_fetuses != ''"
@@ -86,14 +100,14 @@ actions:
 name: step1_fetal_presentation
 description: Fetal presentation
 priority: 1
-condition: "global_fetal_presentation != '' && step1_fetal_presentation == ''"
+condition: "global_fetal_presentation != '' && step1_fetal_presentation == '' && (step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
 actions:
     - "calculation = global_fetal_presentation"
 ---
 name: step2_fetal_presentation
 description: Fetal presentation
 priority: 1
-condition: "global_fetal_presentation != '' && step2_fetal_presentation == ''"
+condition: "global_fetal_presentation != '' && step2_fetal_presentation == '' && (step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
 actions:
     - "calculation = global_fetal_presentation"
 ---

@@ -50,6 +50,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private Facts facts = new Facts();
     private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
+    private int contactNo;
     private MenuItem saveFinishMenuItem;
 
     @Override
@@ -57,6 +58,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         super.onCreate(savedInstanceState);
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
 
         setUpViews();
 
@@ -77,8 +79,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
         collapsingToolbarLayout.setTitleEnabled(false);
-        actionBar.setTitle(String.format(this.getString(R.string.contact_number),
-                getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
+        if (contactNo > 0){
+            actionBar.setTitle(String.format(this.getString(R.string.contact_number),
+                    getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
+        }
     }
 
     @Override

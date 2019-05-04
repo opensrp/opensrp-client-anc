@@ -133,7 +133,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
                                     .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
                 }
-                addThePreviousAttentionFlags(baseEntityId, details, attentionFlagsString);
+                addAttentionFlags(baseEntityId, details, new JSONObject(facts.asMap()).toString());
                 AncApplication.getInstance().getDetailsRepository()
                         .add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString,
                                 Calendar.getInstance().getTimeInMillis());
@@ -143,7 +143,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
 
                 if (eventPair != null) {
-                    createEvent(baseEntityId, attentionFlagsString, eventPair);
+                    createEvent(baseEntityId, new JSONObject(facts.asMap()).toString(), eventPair, referral);
                     JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
                     AncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
@@ -166,8 +166,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
-    private void addThePreviousAttentionFlags(String baseEntityId, Map<String, String> details,
-                                              String attentionFlagsString) {
+    private void addAttentionFlags(String baseEntityId, Map<String, String> details,
+                                   String attentionFlagsString) {
         PreviousContact previousContact = new PreviousContact();
         previousContact.setBaseEntityId(baseEntityId);
         String contactNo = details.containsKey(Constants.REFERRAL) ? details.get(Constants.REFERRAL) :
@@ -178,13 +178,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
-    private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair)
-    throws JSONException {
+    private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair,
+                             String referral)
+            throws JSONException {
         Event event = eventPair.first;
         //Here we save state
         event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);
         String currentContactState = getCurrentContactState(baseEntityId);
-        if (currentContactState != null) {
+        if (currentContactState != null && referral == null) {
             event.addDetails(Constants.DETAILS_KEY.PREVIOUS_CONTACTS, currentContactState);
         }
         JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
@@ -262,7 +263,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo)
-    throws JSONException {
+            throws JSONException {
         if (fieldObject != null) {
             JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
             if (value == null) {
@@ -403,8 +404,18 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             processAttentionFlags(womanDetail, facts);
 
             if (referral != null) {
-                womanDetail.setYellowFlagCount(Integer.valueOf(details.get(DBConstants.KEY.YELLOW_FLAG_COUNT)));
-                womanDetail.setRedFlagCount(Integer.valueOf(details.get(DBConstants.KEY.RED_FLAG_COUNT)));
+                int yellowFlagCount = 0;
+                int redFlagCount = 0;
+                if (details.containsKey(DBConstants.KEY.YELLOW_FLAG_COUNT) && details.get(DBConstants.KEY.YELLOW_FLAG_COUNT) != null) {
+                    yellowFlagCount = Integer.valueOf(details.get(DBConstants.KEY.YELLOW_FLAG_COUNT));
+                }
+
+                if (details.containsKey(DBConstants.KEY.RED_FLAG_COUNT) && details.get(DBConstants.KEY.RED_FLAG_COUNT) != null) {
+                    redFlagCount = Integer.valueOf(details.get(DBConstants.KEY.RED_FLAG_COUNT));
+                }
+
+                womanDetail.setYellowFlagCount(yellowFlagCount);
+                womanDetail.setRedFlagCount(redFlagCount);
                 womanDetail.setContactStatus(details.get(DBConstants.KEY.CONTACT_STATUS));
                 womanDetail.setReferral(true);
                 womanDetail.setLastContactRecordDate(details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
@@ -474,8 +485,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                    if (AncApplication.getInstance().getAncRulesEngineHelper()
-                            .getRelevance(facts, yamlConfigItem.getRelevance())) {
+                    if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                         Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
 

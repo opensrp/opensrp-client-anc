@@ -85,7 +85,6 @@ public class AncClientProcessorForJava extends ClientProcessorForJava {
 
                     }
                 } else if (eventType.equals(Constants.EventType.CONTACT_VISIT)) {
-
                     processVisit(event);
                 }
             }

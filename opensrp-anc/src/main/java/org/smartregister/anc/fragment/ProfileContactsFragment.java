@@ -83,6 +83,10 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     protected void onCreation() {
         lastContactDetails = new ArrayList<>();
         lastContactTests = new ArrayList<>();
+        if (testsDisplayLayout != null) {
+            testsDisplayLayout.removeAllViewsInLayout();
+        }
+
     }
 
     @Override
@@ -97,42 +101,44 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {
-        try {
-            List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
-            List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
+        if (clientDetails != null) {
+            try {
+                List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
+                List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
 
-            Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
+                Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
 
-            addOtherRuleObjects(facts);
-            addAttentionFlagsRuleObjects(facts);
-            addTestsRuleObjects(facts);
+                addOtherRuleObjects(facts);
+                addAttentionFlagsRuleObjects(facts);
+                addTestsRuleObjects(facts);
 
-            Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+                Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
 
-            String displayContactDate =
-                    new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
+                String displayContactDate =
+                        new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
-            if (lastContactDetails.isEmpty()) {
-                lastContactLayout.setVisibility(View.GONE);
-            } else {
-                lastContactDetailsWrapperList
-                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
-                setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+                if (lastContactDetails.isEmpty()) {
+                    lastContactLayout.setVisibility(View.GONE);
+                } else {
+                    lastContactDetailsWrapperList
+                            .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
+                    setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+                }
+
+                if (lastContactTests.isEmpty()) {
+                    testLayout.setVisibility(View.GONE);
+                } else {
+                    lastContactDetailsTestsWrapperList
+                            .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactTests, facts));
+                    testsHeader.setText(
+                            String.format(getActivity().getResources().getString(R.string.recent_test), displayContactDate));
+                    setUpContactTestsDetails(lastContactDetailsTestsWrapperList);
+                }
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
             }
-
-            if (lastContactTests.isEmpty()) {
-                testLayout.setVisibility(View.GONE);
-            } else {
-                lastContactDetailsTestsWrapperList
-                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactTests, facts));
-                testsHeader.setText(
-                        String.format(getActivity().getResources().getString(R.string.recent_test), displayContactDate));
-                setUpContactTestsDetails(lastContactDetailsTestsWrapperList);
-            }
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
         }
     }
 
