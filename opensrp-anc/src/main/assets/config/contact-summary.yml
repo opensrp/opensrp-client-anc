@@ -2,10 +2,10 @@
 group: hospital_referral
 fields:
 - template: "Woman referred to hospital"
-  relevance: "referred_hosp == 'Yes'"
+  relevance: "referred_hosp == 'yes'"
 
 - template: "Woman not referred to hospital: {referred_hosp_notdone_value}"
-  relevance: "referred_hosp == 'No'"
+  relevance: "referred_hosp == 'no'"
 
 - template: "Danger sign(s): {danger_signs_value}"
   relevance: "danger_signs != ''"
@@ -14,7 +14,7 @@ fields:
   relevance: "severe_hypertension == 1 && global_contact_no == 1"
 
 - template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia_value}"
-  relevance: "hypertension == 1 && symp_sev_preeclampsia!=''"
+  relevance: "hypertension == 1 && symp_sev_preeclampsia != '' && !symp_sev_preeclampsia.contains('none')"
 
 - template: "Pre-eclampsia diagnosis"
   relevance: "preeclampsia == 1 && global_contact_no == 1"
@@ -47,7 +47,7 @@ fields:
   relevance: "!pelvic_exam_abnormal.contains('none')"
 
 - template: "No fetal heartbeat observed"
-  relevance: "fetal_heartbeat == 'No'"
+  relevance: "fetal_heartbeat == 'no'"
 
 - template: "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm"
   relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
@@ -76,7 +76,7 @@ fields:
 ---
 group: current_pregnancy
 fields:
-- template: "GA: {gest_age} weeks"
+- template: "GA: {gest_age}"
   relevance: "gest_age !='' "
 
 - template: "EDD: {edd}"
@@ -127,7 +127,7 @@ fields:
 ---
 group: medical_history
 fields:
-- template: "Allergies: {allergies_value}"
+- template: "Allergies: {allergies_value}, {}"
   relevance: "allergies != '' || global_contact_no  == 1"
 
 - template: "Surgeries: {surgeries_value}"

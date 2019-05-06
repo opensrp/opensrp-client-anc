@@ -21,9 +21,11 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
+import org.smartregister.anc.presenter.PreviousContactDetailsPresenter;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
@@ -268,6 +270,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
+    private void loadPreviousContactData(){
+        Facts previousContacts = getPreviousCOntactsReposity().getPreviousContactFacts(baseEntityId,
+                String.valueOf(contactNo-1));
+    }
+
     protected void loadContactSummaryData() {
         try {
 
@@ -335,6 +342,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected PartialContactRepository getPartialContactRepository() {
         return AncApplication.getInstance().getPartialContactRepository();
+    }
+
+    protected PreviousContactRepository getPreviousCOntactsReposity(){
+        return AncApplication.getInstance().getPreviousContactRepository();
     }
 }
 
