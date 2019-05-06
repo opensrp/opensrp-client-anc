@@ -12,27 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-
 import org.jeasy.rules.api.Facts;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
-import org.smartregister.anc.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 04/12/2018.

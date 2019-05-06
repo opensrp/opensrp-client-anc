@@ -9,7 +9,6 @@ import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.interactor.PreviousContactsTestsInteractor;
 import org.smartregister.anc.util.FilePath;
-import org.smartregister.anc.util.JsonFormUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

@@ -21,7 +21,6 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ProfileContract;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.model.PartialContact;
-import org.smartregister.anc.presenter.PreviousContactDetailsPresenter;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PatientRepository;
