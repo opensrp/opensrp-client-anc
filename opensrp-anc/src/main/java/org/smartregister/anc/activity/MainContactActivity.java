@@ -618,22 +618,23 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
 
         String fieldKey = ContactJsonFormUtils.getKey(jsonObject);
-        Object fieldValue = ContactJsonFormUtils.getValue(jsonObject);
-        String fieldKeySecondary = fieldKey.contains(Constants.SUFFIX.OTHER) ?
-                fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE : "";
-        String fieldKeyOtherValue = fieldKey + Constants.SUFFIX.VALUE;
+        if (fieldKey != null) {
+            Object fieldValue = ContactJsonFormUtils.getValue(jsonObject);
+            String fieldKeySecondary = fieldKey.contains(Constants.SUFFIX.OTHER) ?
+                    fieldKey.substring(0, fieldKey.indexOf(Constants.SUFFIX.OTHER)) + Constants.SUFFIX.VALUE : "";
+            String fieldKeyOtherValue = fieldKey + Constants.SUFFIX.VALUE;
 
-        if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && !fieldKeySecondary.isEmpty() &&
-                facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
+            if (fieldKey.endsWith(Constants.SUFFIX.OTHER) && !fieldKeySecondary.isEmpty() &&
+                    facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
 
-            List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).split("\\s*,\\s*")));
-            tempList.remove(tempList.size() - 1);
-            tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue)));
-            facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
+                List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).split("\\s*,\\s*")));
+                tempList.remove(tempList.size() - 1);
+                tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue)));
+                facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
 
-        } else {
-            facts.put(fieldKey, fieldValue.toString());
+            } else {
+                facts.put(fieldKey, fieldValue.toString());
+            }
         }
-
     }
 }
