@@ -1,6 +1,5 @@
 package org.smartregister.anc.activity;
 
-import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;

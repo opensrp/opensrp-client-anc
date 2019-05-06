@@ -2,7 +2,6 @@ package org.smartregister.anc.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -185,15 +184,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
 
     private String getKey(String widget, String step) {
         return widget.replace(step + "_", "");
-    }
-
-    /**
-     * @param source
-     */
-    public void filterCheckboxOptions(String source) {
-        Log.i("Our json object", mJsonObject.toString());
-        String myString = source;
-        myString.split(":");
     }
 
     /**
