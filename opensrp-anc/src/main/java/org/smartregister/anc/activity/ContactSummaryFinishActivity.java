@@ -269,11 +269,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    private void loadPreviousContactData(){
-        Facts previousContacts = getPreviousCOntactsReposity().getPreviousContactFacts(baseEntityId,
-                String.valueOf(contactNo-1));
-    }
-
     protected void loadContactSummaryData() {
         try {
 

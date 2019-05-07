@@ -29,6 +29,7 @@ fields:
   - template: "RH factor: {rh_factor}"
     relevance: "rh_factor != ''"
 all_tests: true
+test_results: "['blood_type']"
 
 ---
 sub_group: hiv_tests_results
@@ -242,6 +243,7 @@ fields:
   - template: "TB screening result: {tb_screening_result}"
     relevance: "tb_screening_result != ''"
 all_tests: true
+test_results: "['tb_screening_result']"
 
 ---
 sub_group: partner_hiv_test_results
@@ -255,6 +257,7 @@ fields:
   - template: "Partner HIV test result: {hiv_test_partner_result}"
     relevance: "hiv_test_partner_result != ''"
 all_tests: true
+test_results: "['hiv_test_partner_result']"
 
 ---
 sub_group: other_tests_results
@@ -271,3 +274,4 @@ fields:
   - template: "Other test result: {other_test_result}"
     relevance: "other_test_result != ''"
 all_tests: true
+test_results: "['other_test_result']"

@@ -281,14 +281,10 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private class ProfileContactsActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.last_contact_bottom) {
-                if (!lastContactDetails.isEmpty()) {
-                    goToPreviousContacts();
-                }
-            } else if (view.getId() == R.id.tests_bottom) {
-                if (!lastContactTests.isEmpty()) {
-                    goToPreviousContactsTests();
-                }
+            if (view.getId() == R.id.last_contact_bottom && !lastContactDetails.isEmpty()) {
+                goToPreviousContacts();
+            } else if (view.getId() == R.id.tests_bottom && !lastContactTests.isEmpty()) {
+                goToPreviousContactsTests();
             }
         }
 

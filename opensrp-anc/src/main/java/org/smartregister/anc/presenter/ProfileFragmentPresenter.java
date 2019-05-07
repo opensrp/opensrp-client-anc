@@ -57,14 +57,15 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
+
+            facts = AncApplication.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo);
+
             Map<String, String> womanDetails =
                     AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId);
             if (womanDetails != null && womanDetails.containsKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
                 JSONObject jsonObject = new JSONObject(womanDetails.get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
                 if (jsonObject.length() > 0) {
                     Iterator<String> keys = jsonObject.keys();
-                    facts = AncApplication.getInstance().getPreviousContactRepository()
-                            .getPreviousContactFacts(baseEntityId, contactNo);
 
                     while (keys.hasNext()) {
                         String key = keys.next();
@@ -73,6 +74,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                 }
 
             }
+
 
         } catch (JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));

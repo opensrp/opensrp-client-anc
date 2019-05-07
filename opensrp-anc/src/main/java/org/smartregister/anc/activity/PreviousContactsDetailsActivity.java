@@ -41,7 +41,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     private static final String TAG = PreviousContactsDetailsActivity.class.getCanonicalName();
     protected PreviousContactsDetails.Presenter mProfilePresenter;
     protected ActionBar actionBar;
-    RecyclerView contactSchedule;
+    private RecyclerView contactSchedule;
     private TextView deliveryDate;
     private RecyclerView previousContacts;
     private List<YamlConfigWrapper> lastContactDetails;

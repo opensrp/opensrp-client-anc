@@ -25,7 +25,6 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
     private LayoutInflater inflater;
     private JsonFormUtils formUtils = new JsonFormUtils();
     private Context context;
-    private LastContactAdapterClickHandler lastContactAdapterClickHandler = new LastContactAdapterClickHandler();
 
     public LastContactAdapter(List<LastContactDetailsWrapper> lastContactDetailsList, Context context) {
         this.lastContactDetailsList = lastContactDetailsList;
@@ -78,30 +77,17 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView contactTextView;
+        TextView contactTextView;
         public TextView referral;
-        public TextView contactDate;
-        public LinearLayout lastContactDetails;
+        TextView contactDate;
+        LinearLayout lastContactDetails;
 
         ViewHolder(View itemView) {
             super(itemView);
             contactTextView = itemView.findViewById(R.id.contact);
-            contactTextView.setOnClickListener(lastContactAdapterClickHandler);
             referral = itemView.findViewById(R.id.referral);
             contactDate = itemView.findViewById(R.id.contact_date);
             lastContactDetails = itemView.findViewById(R.id.last_contact_details);
         }
-    }
-
-    /**
-     * Handles the Click actions on any of the section in the page.
-     */
-    private class LastContactAdapterClickHandler implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.contact) {
-            }
-        }
-
     }
 }

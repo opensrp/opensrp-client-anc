@@ -43,7 +43,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/accordion_bottom_navigation"
+        android:id="@+id/all_test_content_display_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/all_test_margin"

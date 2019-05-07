@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,11 +102,12 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         holder.allTestResultsButton.setVisibility(mData.get(position).isAllTests() ? View.VISIBLE : View.GONE);
+        holder.allTestResultsText.setVisibility(mData.get(position).isAllTests() ? View.VISIBLE : View.GONE);
         holder.allTestResultsButton.setOnClickListener(allTestClickListener);
         if (!TextUtils.isEmpty(mData.get(position).getTestResults())) {
-            holder.allTestResultsButton.setTag(R.id.test_results, mData.get(position).getTestResults());
+            holder.allTestResultsText.setText(mData.get(position).getTestResults());
         } else {
-            holder.allTestResultsButton.setTag(R.id.test_results, "");
+            holder.allTestResultsText.setText("");
         }
     }
 
@@ -143,6 +146,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         private TextView sectionDetails;
         private TextView sectionDetailTitle;
         private TextView allTestResultsButton;
+        private TextView allTestResultsText;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -151,6 +155,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             sectionDetailTitle = itemView.findViewById(R.id.overview_section_details_left);
             sectionDetails = itemView.findViewById(R.id.overview_section_details_right);
             allTestResultsButton = itemView.findViewById(R.id.all_test_results_button);
+            allTestResultsText = itemView.findViewById(R.id.all_test_fetch_text);
             parent = itemView;
         }
     }
@@ -164,10 +169,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.all_test_results_button) {
-                String testToFetch = (String) view.getTag(R.id.test_results);
-                if (!TextUtils.isEmpty(testToFetch)) {
-                    displayUndoDialog();
-                }
+
             }
         }
 

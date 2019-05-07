@@ -12,6 +12,8 @@ import org.smartregister.anc.activity.BaseUnitTest;
 
 import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.eq;
+
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
@@ -21,10 +23,9 @@ public class ContactJsonFormInteractorTest extends BaseUnitTest {
     @Test
     public void testRegisterWidgetsShouldAddCustomChildWidgetsToInteractorMapCorrectly() {
 
-        ContactJsonFormInteractor jsonFormInteractor = (ContactJsonFormInteractor) ContactJsonFormInteractor.getInstance();
+        ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
 
         Map<String, FormWidgetFactory> formWidgetFactoryMap = Whitebox.getInternalState(jsonFormInteractor, "map");
-        int formWidgetFactoryMapSizeParent = formWidgetFactoryMap.size(); //Get count of widgets added by super class
 
         Map<String, FormWidgetFactory> factoryMapSpy = Mockito.spy(formWidgetFactoryMap);
         Whitebox.setInternalState(jsonFormInteractor, "map", factoryMapSpy);
@@ -33,9 +34,9 @@ public class ContactJsonFormInteractorTest extends BaseUnitTest {
         Assert.assertNotNull(interactorSpy);
         interactorSpy.registerWidgets();
 
-        Mockito.verify(factoryMapSpy, Mockito.times(2 + formWidgetFactoryMapSizeParent)).put(ArgumentMatchers.anyString(), ArgumentMatchers.any(FormWidgetFactory.class));
-
         Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.EDIT_TEXT));
         Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.DATE_PICKER));
+        Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.EXPANSION_PANEL));
+        Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.ANC_RADIO_BUTTON));
     }
 }

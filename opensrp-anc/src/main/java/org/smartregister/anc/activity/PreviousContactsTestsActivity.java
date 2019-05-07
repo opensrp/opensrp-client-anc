@@ -53,7 +53,6 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
         String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
         String lastContactRecordDate = clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
 
-        List<YamlConfigWrapper> lastContactTests = new ArrayList<>();
         setUpViews();
         try {
             mProfilePresenter.loadPreviousContactsTest(baseEntityId, contactNo, lastContactRecordDate);
@@ -85,7 +84,7 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
 
     @Override
     public void setAllTestResults(List<TestResults> allTestResults) {
-
+        // todo
     }
 
     private void setUpViews() {

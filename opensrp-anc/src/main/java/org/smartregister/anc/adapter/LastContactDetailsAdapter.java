@@ -46,35 +46,34 @@ public class LastContactDetailsAdapter extends RecyclerView.Adapter<LastContactD
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (data != null && data.size() > 0) {
-            if (data.get(position).getYamlConfigItem() != null) {
+        if (data != null && data.size() > 0 && data.get(position).getYamlConfigItem() != null) {
 
-                YamlConfigItem yamlConfigItem = data.get(position).getYamlConfigItem();
+            YamlConfigItem yamlConfigItem = data.get(position).getYamlConfigItem();
 
-                JsonFormUtils.Template template = jsonFormUtils.getTemplate(yamlConfigItem.getTemplate());
-                String output = "";
-                if (!TextUtils.isEmpty(template.detail)) {
-                    output = Utils.fillTemplate(template.detail, facts);
-                }
-
-                holder.sectionDetailTitle.setText(template.title);
-                holder.sectionDetails.setText(output);
-
-                if (AncApplication.getInstance().getAncRulesEngineHelper()
-                        .getRelevance(facts, yamlConfigItem.getIsRedFont())) {
-                    holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
-                    holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_red));
-                } else {
-                    holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_left));
-                    holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_right));
-
-
-                }
-
-                holder.sectionDetailTitle.setVisibility(View.VISIBLE);
-                holder.sectionDetails.setVisibility(View.VISIBLE);
+            JsonFormUtils.Template template = jsonFormUtils.getTemplate(yamlConfigItem.getTemplate());
+            String output = "";
+            if (!TextUtils.isEmpty(template.detail)) {
+                output = Utils.fillTemplate(template.detail, facts);
             }
+
+            holder.sectionDetailTitle.setText(template.title);
+            holder.sectionDetails.setText(output);
+
+            if (AncApplication.getInstance().getAncRulesEngineHelper()
+                    .getRelevance(facts, yamlConfigItem.getIsRedFont())) {
+                holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
+                holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_red));
+            } else {
+                holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_left));
+                holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_right));
+
+
+            }
+
+            holder.sectionDetailTitle.setVisibility(View.VISIBLE);
+            holder.sectionDetails.setVisibility(View.VISIBLE);
         }
+
     }
 
     // total number of rows

@@ -800,6 +800,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public List<ContactSummaryModel> generateNextContactSchedule(String edd, List<String> contactSchedule,
                                                                  Integer lastContactSequence) {
         List<ContactSummaryModel> contactDates = new ArrayList<>();
+        Integer contactSequence = lastContactSequence;
         if (!TextUtils.isEmpty(edd)) {
             LocalDate localDate = new LocalDate(edd);
             LocalDate lmpDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
@@ -807,7 +808,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             for (String contactWeeks : contactSchedule) {
                 contactDates.add(new ContactSummaryModel(String.format(
                         AncApplication.getInstance().getApplicationContext().getString(R.string.contact_number),
-                        lastContactSequence++),
+                        contactSequence++),
                         Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
                                 Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
                         contactWeeks));

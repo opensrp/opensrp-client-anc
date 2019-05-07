@@ -219,7 +219,6 @@ public class PreviousContactRepository extends BaseRepository {
      *
      * @param baseEntityId
      * @param database
-     *
      * @return
      */
     private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
@@ -235,7 +234,8 @@ public class PreviousContactRepository extends BaseRepository {
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
     }
 
-    private Cursor getAllTestResultsForIndividualTest(String baseEntityId, String indicator, SQLiteDatabase database) {
+    // todo uncomment when implementing the all test results feature
+    /*private Cursor getAllTestResultsForIndividualTest(String baseEntityId, String indicator, SQLiteDatabase database) {
         String selection = "";
         String orderBy = ID + "DESC";
         String[] selectionArgs = null;
@@ -246,7 +246,7 @@ public class PreviousContactRepository extends BaseRepository {
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-    }
+    }*/
 
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo) {
         Cursor mCursor = null;

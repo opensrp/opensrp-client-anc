@@ -91,11 +91,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     }
 
     @Override
-    public void loadPreviousContacts(String baseEntityId, String contactNo)
-    throws IOException, ParseException, JSONException {
-        Facts previousContactsFacts =
-                AncApplication.getInstance().getPreviousContactRepository().getPreviousContactsFacts(baseEntityId);
-
-        List<Facts> contactsFacts = new ArrayList<>();
+    public void loadPreviousContacts(String baseEntityId, String contactNo) {
+       // todo
     }
 }
