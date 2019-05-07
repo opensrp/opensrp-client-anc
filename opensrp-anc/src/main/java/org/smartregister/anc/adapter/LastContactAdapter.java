@@ -77,10 +77,10 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView contactTextView;
+        private TextView contactTextView;
         public TextView referral;
-        TextView contactDate;
-        LinearLayout lastContactDetails;
+        private TextView contactDate;
+        private LinearLayout lastContactDetails;
 
         ViewHolder(View itemView) {
             super(itemView);

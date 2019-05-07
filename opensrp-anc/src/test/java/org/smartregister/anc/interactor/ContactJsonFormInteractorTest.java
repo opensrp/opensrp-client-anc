@@ -5,14 +5,11 @@ import com.vijay.jsonwizard.interfaces.FormWidgetFactory;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.activity.BaseUnitTest;
 
 import java.util.Map;
-
-import static org.mockito.ArgumentMatchers.eq;
 
 /**
  * Created by ndegwamartin on 04/07/2018.

@@ -3,7 +3,6 @@ package org.smartregister.anc.presenter;
 import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
-import org.json.JSONException;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContactsDetails;
 import org.smartregister.anc.interactor.PreviousContactsDetailsInteractor;
@@ -12,11 +11,9 @@ import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
