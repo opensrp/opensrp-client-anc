@@ -406,38 +406,38 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public Facts getValueFromAddressCore(JSONObject object) throws JSONException {
         Facts result = new Facts();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null &&
-                genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            if (object != null) {
-                switch (object.getString(JsonFormConstants.TYPE)) {
-                    case JsonFormConstants.CHECK_BOX:
-                        result = formUtils.getCheckBoxResults(object);
-                        break;
-                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                        Boolean multiRelevance =
-                                object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioButtonResults(multiRelevance, object);
-                        break;
-                    case Constants.ANC_RADIO_BUTTON:
-                        Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioButtonResults(relevance, object);
-                        break;
-                    default:
-                        result.put(getKey(object), getValue(object));
-                        break;
-                }
-
-                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK) &&
-                        (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) ||
-                                (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) &&
-                                        object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
-                    List<String> selectedValues = new ArrayList<>(result.asMap().keySet());
-                    result = new Facts();
-                    result.put(getKey(object), selectedValues.toString());
-                }
+                genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL) && object != null) {
+            switch (object.getString(JsonFormConstants.TYPE)) {
+                case JsonFormConstants.CHECK_BOX:
+                    result = formUtils.getCheckBoxResults(object);
+                    break;
+                case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                    Boolean multiRelevance =
+                            object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
+                    result = getRadioButtonResults(multiRelevance, object);
+                    break;
+                case Constants.ANC_RADIO_BUTTON:
+                    Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
+                    result = getRadioButtonResults(relevance, object);
+                    break;
+                default:
+                    result.put(getKey(object), getValue(object));
+                    break;
             }
-        } else {
+
+            if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK) &&
+                    (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) ||
+                            (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) &&
+                                    object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
+                List<String> selectedValues = new ArrayList<>(result.asMap().keySet());
+                result = new Facts();
+                result.put(getKey(object), selectedValues.toString());
+            }
+
+        } else if (object != null && object.length() > 0) {
             return super.getValueFromAddressCore(object);
         }
+
         return result;
     }
 

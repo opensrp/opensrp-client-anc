@@ -58,7 +58,7 @@ fields:
 - template: "Reason for coming to facility: {contact_reason_value}"
   relevance: "contact_reason_value != ''"
 
-- template: "Specific complaint(s): {specific_complaint_value}"
+- template: "Specific complaint(s): {specific_complaint_value}, {specific_complaint_other}"
   relevance: "specific_complaint_value != ''"
 
 ---
@@ -70,7 +70,7 @@ fields:
 - template: "Marital status: {marital_status_value}"
   relevance: "marital_status_value != ''"
 
-- template: "Occupation: {occupation_value}"
+- template: "Occupation: {occupation_value}, {occupation_other}"
   relevance: "occupation_value != ''"
 
 ---
@@ -121,7 +121,7 @@ fields:
 - template: "Past alcohol used: {alcohol_substance_use_value}"
   relevance: "(!alcohol_substance_use.contains('none') && alcohol_substance_use.size() > 0) "
 
-- template: "Past substances used: {substances_used_value}"
+- template: "Past substances used: {substances_used_value}, {substances_used_other}"
   relevance: "(!substances_used.contains('none') && substances_used.size() > 0) "
 
 ---
@@ -130,10 +130,10 @@ fields:
 - template: "Allergies: {allergies_value}, {}"
   relevance: "allergies != ''"
 
-- template: "Surgeries: {surgeries_value}"
+- template: "Surgeries: {surgeries_value}, {surgeries_other_gyn_proced}, {surgeries_other}"
   relevance: "surgeries != ''"
 
-- template: "Chronic health conditions: {health_conditions_value}"
+- template: "Chronic health conditions: {health_conditions_value}, {health_conditions_other}"
   relevance: "health_conditions != ''"
 
 - template: "HIV diagnosis date: {hiv_diagnosis_date}"
@@ -259,7 +259,7 @@ fields:
 - template: "Clinical enquiry for alcohol and other substance use done: {alcohol_substance_enquiry_value}"
   relevance: "alcohol_substance_enquiry != ''"
 
-- template: "Alcohol / substances used: {alcohol_substance_use_value}"
+- template: "Alcohol / substances used: {alcohol_substance_use_value}, {other_substance_use}"
   relevance: "alcohol_substance_use != ''"
 
 - template: "Alcohol / substance use counseling done"
