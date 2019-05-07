@@ -114,70 +114,70 @@ actions:
 name: step2_caffeine_counsel
 description: Caffeine reduction counseling
 priority: 1
-condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('high_caffeine')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
+condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('caffeine_intake')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_caffeine_counsel
 description: Caffeine reduction counseling
 priority: 1
-condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('high_caffeine')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
+condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('caffeine_intake')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_tobacco_counsel
 description: Tobacco cessation counseling
 priority: 1
-condition: "global_behaviour_persist.contains('current_tobacco_use') || global_tobacco_user.contains('yes') || global_tobacco_user.contains('recently_quit')"
+condition: "global_behaviour_persist.contains('tobacco_user') || global_tobacco_user.contains('yes') || global_tobacco_user.contains('recently_quit')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_tobacco_counsel
 description: Tobacco cessation counseling
 priority: 1
-condition: "global_behaviour_persist.contains('current_tobacco_use') || global_tobacco_user.contains('yes') || global_tobacco_user.contains('recently_quit')"
+condition: "global_behaviour_persist.contains('tobacco_user') || global_tobacco_user.contains('yes') || global_tobacco_user.contains('recently_quit')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_shs_counsel
 description: Second-hand smoke counseling
 priority: 1
-condition: "global_behaviour_persist.contains('tobacco_exposure') || global_shs_exposure == 'yes'"
+condition: "global_behaviour_persist.contains('shs_exposure') || global_shs_exposure == 'yes'"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_shs_counsel
 description: Second-hand smoke counseling
 priority: 1
-condition: "global_behaviour_persist.contains('tobacco_exposure') || global_shs_exposure == 'yes'"
+condition: "global_behaviour_persist.contains('shs_exposure') || global_shs_exposure == 'yes'"
 actions:
 - "isRelevant = true"
 ---
 name: step2_condom_counsel
 description: Condom counseling
 priority: 1
-condition: "global_behaviour_persist.contains('no_condom_use') || global_condom_use == 'no'"
+condition: "global_behaviour_persist.contains('condom_use') || global_condom_use == 'no'"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_condom_counsel
 description: Condom counseling
 priority: 1
-condition: "global_behaviour_persist.contains('no_condom_use') || global_condom_use == 'no'"
+condition: "global_behaviour_persist.contains('condom_use') || global_condom_use == 'no'"
 actions:
 - "isRelevant = true"
 ---
 name: step2_alcohol_substance_counsel
 description: Alcohol / substance use counseling
 priority: 1
-condition: "global_behaviour_persist.contains('alcohol_substance_use') || (!global_alcohol_substance_use.contains('none') && !global_alcohol_substance_use.isEmpty())"
+condition: "(!global_behaviour_persist.isEmpty()  && (global_behaviour_persist.contains('alcohol_use') || global_behaviour_persist.contains('substance_use'))) || (!global_alcohol_substance_use.contains('none') && !global_alcohol_substance_use.isEmpty())"
 actions:
 - "isRelevant = true"
 ---
 name: step2_accordion_alcohol_substance_counsel
 description: Alcohol / substance use counseling
 priority: 1
-condition: "global_behaviour_persist.contains('alcohol_substance_use') || (!global_alcohol_substance_use.contains('none') && !global_alcohol_substance_use.isEmpty())"
+condition: " (!global_behaviour_persist.isEmpty() && (global_behaviour_persist.contains('alcohol_use') || global_behaviour_persist.contains('substance_use'))) || (!global_alcohol_substance_use.contains('none') && !global_alcohol_substance_use.isEmpty())"
 actions:
 - "isRelevant = true"
 ---

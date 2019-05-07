@@ -80,7 +80,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 globalValues = new HashMap<>();
             }
 
-            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues,mJSONObject);
+            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues, mJSONObject);
             setRulesEngineFactory(rulesEngineFactory);
 
             confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
@@ -479,6 +479,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void onResume() {
         super.onResume();
         formName = getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME);
+        try {
+            ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
+        } catch (JSONException e) {
+            Log.e(TAG, "An error occurred while trying to filter checkbox items" + e);
+        }
         EventBus.getDefault().register(this);
     }
 

@@ -284,7 +284,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     @Override
-    protected void onResumption() {//Overriden from Secured Activity
+    protected void onResumption() {//Overridden from Secured Activity
 
     }
 
@@ -470,7 +470,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         PreviousContact previousContact =
                 AncApplication.getInstance().getPreviousContactRepository().getPreviousContact(request);
 
-
         return previousContact != null ? previousContact.getValue() : null;
     }
 
@@ -506,10 +505,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
                         for (int i = 0; i < stepArray.length(); i++) {
-
                             JSONObject fieldObject = stepArray.getJSONObject(i);
-
-
                             updateDefaultValues(stepArray, i, fieldObject);
                         }
                     }
@@ -526,10 +522,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
      * @param object Form Json object
      * @throws JSONException
      */
-    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException{
+    private void initializeGlobalPreviousValues(JSONObject object) throws JSONException {
         if (object.has(Constants.GLOBAL_PREVIOUS)) {
             JSONArray globalPreviousArray = object.getJSONArray(Constants.GLOBAL_PREVIOUS);
-            for(int i = 0; i <globalPreviousArray.length(); i++){
+            for (int i = 0; i < globalPreviousArray.length(); i++) {
                 if (object.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
                     object.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL)
                             .put(Constants.PREFIX.PREVIOUS + globalPreviousArray.getString(i), "");
