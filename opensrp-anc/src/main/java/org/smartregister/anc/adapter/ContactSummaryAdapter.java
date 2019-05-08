@@ -29,8 +29,7 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.partial_contact_dates, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.partial_contact_dates, parent, false);
         return new ViewHolder(itemView);
     }
 

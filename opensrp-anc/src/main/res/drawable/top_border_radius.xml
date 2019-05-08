@@ -4,5 +4,7 @@
     <solid android:color="@color/white" />
     <corners
         android:topLeftRadius="@dimen/contact_border_radius"
-        android:topRightRadius="@dimen/contact_border_radius" />
+        android:topRightRadius="@dimen/contact_border_radius"
+        android:bottomRightRadius="@dimen/contact_border_radius"
+        android:bottomLeftRadius="@dimen/contact_border_radius" />
 </shape>

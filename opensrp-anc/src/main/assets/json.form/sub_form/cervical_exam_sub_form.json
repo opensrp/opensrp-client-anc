@@ -31,7 +31,7 @@
         "err": "Cervical dilation must be equal to or less than 10"
       },
       "v_required": {
-        "value": "false",
+        "value": true,
         "err": "Field cervical dilation is required"
       }
     }

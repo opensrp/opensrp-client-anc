@@ -51,6 +51,7 @@ import java.util.HashMap;
 public class ProfileActivity extends BaseProfileActivity implements ProfileContract.View {
 
     public static final String CLOSE_ANC_RECORD = "Close ANC Record";
+    private static final String TAG = ProfileActivity.class.getCanonicalName();
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
@@ -58,9 +59,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private ImageView imageView;
     private String phoneNumber;
     private HashMap<String, String> detailMap;
-
-    private static final String TAG = ProfileActivity.class.getCanonicalName();
-
     private String buttonAlertStatus;
 
     @Override
@@ -87,7 +85,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
 
         buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE),
-                Constants.ALERT_STATUS.ACTIVE.equals(detailMap.get(DBConstants.KEY.CONTACT_STATUS)) ? Constants.ALERT_STATUS.IN_PROGRESS : "");
+                Constants.ALERT_STATUS.ACTIVE.equals(detailMap.get(DBConstants.KEY.CONTACT_STATUS)) ?
+                        Constants.ALERT_STATUS.IN_PROGRESS : "");
 
     }
 
@@ -126,11 +125,13 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             if (buttonAlertStatus.equals(Constants.ALERT_STATUS.TODAY)) {
 
-                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
+                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break),
+                        Utils.getTodayContact(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
 
             } else if (buttonAlertStatus.equals(Constants.ALERT_STATUS.IN_PROGRESS)) {
 
-                contactButtonText = String.format(getString(R.string.continue_contact), Integer.valueOf(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
+                contactButtonText = String.format(getString(R.string.continue_contact),
+                        Integer.valueOf(detailMap.get(DBConstants.KEY.NEXT_CONTACT)));
             }
 
 
@@ -327,7 +328,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     protected boolean isPermissionGranted() {
-        return PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE, PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
+        return PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE,
+                PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
     }
 
     protected void registerEventBus() {

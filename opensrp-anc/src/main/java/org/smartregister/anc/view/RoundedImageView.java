@@ -59,13 +59,11 @@ public class RoundedImageView extends AppCompatImageView {
     }
 
     private Bitmap createForegroundBitmap(Bitmap background, int color) {
-        Bitmap bitmap = Bitmap.createBitmap(background.getWidth(), background.getHeight(),
-                background.getConfig());
+        Bitmap bitmap = Bitmap.createBitmap(background.getWidth(), background.getHeight(), background.getConfig());
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
         paint.setColor(color);
-        canvas.drawRect((float) 0, (float) 0, (float) background.getWidth(),
-                (float) background.getHeight(), paint);
+        canvas.drawRect((float) 0, (float) 0, (float) background.getWidth(), (float) background.getHeight(), paint);
         return bitmap;
     }
 

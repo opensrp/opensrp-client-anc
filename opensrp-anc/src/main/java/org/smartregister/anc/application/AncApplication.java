@@ -106,7 +106,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
+                DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
     }
 
     @Override
@@ -200,14 +201,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     public PartialContactRepository getPartialContactRepository() {
-        if (partialContactRepository == null)
-            partialContactRepository = new PartialContactRepository(getRepository());
+        if (partialContactRepository == null) partialContactRepository = new PartialContactRepository(getRepository());
         return partialContactRepository;
     }
 
     public PreviousContactRepository getPreviousContactRepository() {
-        if (previousContactRepository == null)
-            previousContactRepository = new PreviousContactRepository(getRepository());
+        if (previousContactRepository == null) previousContactRepository = new PreviousContactRepository(getRepository());
         return previousContactRepository;
     }
 
@@ -274,8 +273,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
             EventBus.builder().addIndex(new org.smartregister.anc.ANCEventBusIndex()).installDefaultEventBus();
 
-        } catch
-        (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 

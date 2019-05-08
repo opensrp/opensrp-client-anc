@@ -19,6 +19,7 @@ public class ViewConfigurationsServiceJob extends BaseJob {
     protected Result onRunJob(@NonNull Params params) {
         Intent intent = new Intent(getApplicationContext(), PullConfigurableViewsIntentService.class);
         getApplicationContext().startService(intent);
-        return params != null && params.getExtras().getBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, false) ? Result.RESCHEDULE : Result.SUCCESS;
+        return params != null && params.getExtras().getBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, false) ?
+                Result.RESCHEDULE : Result.SUCCESS;
     }
 }

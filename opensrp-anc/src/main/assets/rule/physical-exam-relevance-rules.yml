@@ -233,6 +233,6 @@ actions:
 name: step3_toaster26
 description: toaster26
 priority: 1
-condition: "step3_dilation_cm > 2"
+condition: "step3_toaster26_hidden > 2"
 actions:
-- "isRelevant = true"
+    - "isRelevant = true"

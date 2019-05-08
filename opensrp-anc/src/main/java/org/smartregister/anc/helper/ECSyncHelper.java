@@ -38,11 +38,13 @@ public class ECSyncHelper extends org.smartregister.sync.helper.ECSyncHelper imp
     }
 
     public void updateLastViewsSyncTimeStamp(long lastSyncTimeStamp) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(LAST_VIEWS_SYNC_TIMESTAMP, lastSyncTimeStamp).commit();
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(LAST_VIEWS_SYNC_TIMESTAMP, lastSyncTimeStamp)
+                .commit();
     }
 
     public void updateLoginConfigurableViewPreference(String loginJson) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, loginJson).commit();
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(VIEW_CONFIGURATION_PREFIX + LOGIN, loginJson)
+                .commit();
     }
 
     public boolean deleteEventsByBaseEntityId(String baseEntityId) {

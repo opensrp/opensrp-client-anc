@@ -51,6 +51,13 @@ public abstract class Constants {
     public static final String FILTERED_ITEMS = "filtered_items";
     public static final String PREVIOUS = "previous";
     public static final String IS_FILTERED = "is_filtered";
+    public static final String CONTACT_DATE = "contact_date";
+    public static final String CONTACT_SCHEDULE = "contact_schedule";
+    public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
+    public static final String WEIGHT_GAIN = "weight_gain";
+    public static final String PHYS_SYMPTOMS = "phys_symptoms";
+    public static final String DATE_TODAY_HIDDEN = "date_today_hidden";
+    public static final String AGE = "age";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";

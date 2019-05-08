@@ -14,7 +14,8 @@ public class CustomServiceModeOption extends ServiceModeOption {
     private final int[] headerTextResourceIds;
     private final int[] columnWeights;
 
-    public CustomServiceModeOption(SmartRegisterClientsProvider provider, String name, int[] headerTextResourceIds, int[] columnWeights) {
+    public CustomServiceModeOption(SmartRegisterClientsProvider provider, String name, int[] headerTextResourceIds,
+                                   int[] columnWeights) {
         super(provider);
         this.name = name;
         this.headerTextResourceIds = headerTextResourceIds;

@@ -28,7 +28,8 @@ public interface ContactSummarySendContract {
     }
 
     interface Interactor extends BaseContactContract.Interactor {
-        void fetchUpcomingContacts(String baseEntityId, String referralContactNo, InteractorCallback upcomingContactsCallback);
+        void fetchUpcomingContacts(String baseEntityId, String referralContactNo,
+                                   InteractorCallback upcomingContactsCallback);
     }
 
     interface InteractorCallback extends BaseContactContract.InteractorCallback {

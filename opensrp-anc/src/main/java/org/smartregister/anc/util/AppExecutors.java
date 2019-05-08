@@ -14,8 +14,7 @@ import java.util.concurrent.Executors;
 /**
  * Global executor pools for the whole application.
  * <p>
- * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind
- * webservice requests).
+ * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind webservice requests).
  */
 public class AppExecutors {
 
@@ -34,8 +33,7 @@ public class AppExecutors {
     }
 
     public AppExecutors() {
-        this(new DiskIOThreadExecutor(), Executors.newFixedThreadPool(THREAD_COUNT),
-                new MainThreadExecutor());
+        this(new DiskIOThreadExecutor(), Executors.newFixedThreadPool(THREAD_COUNT), new MainThreadExecutor());
     }
 
     public Executor diskIO() {
