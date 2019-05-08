@@ -126,7 +126,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
             for (YamlConfigItem configItem : configItems) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                     valueCount += 1;
                 }
             }
@@ -147,7 +147,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
-                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
+                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
                 }
 

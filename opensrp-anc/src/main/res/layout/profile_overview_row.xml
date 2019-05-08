@@ -71,22 +71,6 @@
         app:layout_constraintTop_toBottomOf="@+id/overview_subsection_header" />
 
     <TextView
-        android:id="@+id/all_test_fetch_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:paddingStart="@dimen/contact_drawable_padding"
-        android:paddingTop="@dimen/contact_drawable_padding"
-        android:paddingBottom="@dimen/contact_drawable_padding"
-        android:visibility="visible"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/white"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/all_test_results_button"
-        app:layout_constraintTop_toBottomOf="@+id/overview_section_details_left" />
-
-    <TextView
         android:id="@+id/all_test_results_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

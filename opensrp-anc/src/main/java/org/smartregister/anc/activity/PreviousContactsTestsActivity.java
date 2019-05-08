@@ -73,7 +73,7 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             }
         }
         if (data.size() > 0) {
-            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts);
+            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts,lastContactsTestsRecyclerView);
             lastContactsTestsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             lastContactsTestsRecyclerView.setAdapter(adapter);
         } else {

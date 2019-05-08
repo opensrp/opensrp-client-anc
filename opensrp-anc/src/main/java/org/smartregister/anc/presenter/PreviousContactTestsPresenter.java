@@ -91,23 +91,19 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
             YamlConfig testsConfig = (YamlConfig) ruleObject;
 
             if (testsConfig.getSubGroup() != null) {
-                yamlConfigList.add(new YamlConfigWrapper(null, testsConfig.getSubGroup(), null, false, ""));
+                yamlConfigList.add(new YamlConfigWrapper(null, testsConfig.getSubGroup(), null, ""));
             }
 
             for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem, false,""));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem, ""));
                     valueCount = +1;
                 }
             }
 
-            if (testsConfig.isAllTests()) {
-                yamlConfigList.add(new YamlConfigWrapper(null, null, null, true,""));
-            }
-
             if (testsConfig.getTestResults() != null) {
-                yamlConfigList.add(new YamlConfigWrapper(null,null,null,false, testsConfig.getTestResults()));
+                yamlConfigList.add(new YamlConfigWrapper(null,null,null, testsConfig.getTestResults()));
             }
 
             if (valueCount > 0) {

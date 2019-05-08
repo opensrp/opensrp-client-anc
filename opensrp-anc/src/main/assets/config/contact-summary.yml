@@ -115,10 +115,10 @@ fields:
 - template: "No. of C-sections: {c_sections}"
   relevance: "c_sections > 0"
 
-- template: "Past pregnancy problems: {prev_preg_comps_value}"
+- template: "Past pregnancy problems: {prev_preg_comps_value}, {prev_preg_comps_other}"
   relevance: "(!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
 
-- template: "Past alcohol used: {alcohol_substance_use_value}"
+- template: "Past alcohol used: {alcohol_substance_use_value}, {other_substance_use}"
   relevance: "(!alcohol_substance_use.contains('none') && alcohol_substance_use.size() > 0) "
 
 - template: "Past substances used: {substances_used_value}, {substances_used_other}"
@@ -148,14 +148,14 @@ fields:
 - template: "TT immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status_value != ''"
 
-- template: "TT dose #1: {tt1_date}"
-  relevance: "tt1_date == 'done today' || tt1_date == 'done_earlier'"
+- template: "TT dose #1: {tt1_date_done}"
+  relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
 
-- template: "TT dose #2: {tt2_date}"
-  relevance: "tt2_date == 'done today' || tt2_date == 'done_earlier'"
+- template: "TT dose #2: {tt2_date_done}"
+  relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-- template: "TT dose #3: {tt3_date}"
-  relevance: "tt3_date == 'done today' || tt3_date == 'done_earlier'"
+- template: "TT dose #3: {tt3_date_done}"
+  relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
 
 - template: "TT dose not given: {tt_dose_notdone_value}"
   relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
@@ -163,14 +163,14 @@ fields:
 - template: "Hep B immunisation status: {hepb_immun_status}"
   relevance: "hepb_immun_status_value != ''"
 
-- template: "Hep B dose #1: {hepb1_date}"
-  relevance: "hepb1_date == 'done today' || hepb1_date == 'done_earlier'"
+- template: "Hep B dose #1: {hepb1_date_done}"
+  relevance: "hepb1_date == 'done_today' || hepb1_date == 'done_earlier'"
 
-- template: "Hep B dose #2: {hepb2_date}"
-  relevance: "hepb2_date == 'done today' || hepb2_date == 'done_earlier'"
+- template: "Hep B dose #2: {hepb2_date_done}"
+  relevance: "hepb2_date == 'done_today' || hepb2_date == 'done_earlier'"
 
-- template: "Hep B dose #3: {hepb3_date}"
-  relevance: "hepb3_date == 'done today' || hepb3_date == 'done_earlier'"
+- template: "Hep B dose #3: {hepb3_date_done}"
+  relevance: "hepb3_date == 'done_today' || hepb3_date == 'done_earlier'"
 
 - template: "Hep B dose not given: {hepb_dose_notdone_value}"
   relevance: "hepb1_date == 'not_done' || hepb2_date == 'not_done' || hepb3_date == 'not_done'"
@@ -178,8 +178,8 @@ fields:
 - template: "Flu immunisation status: {flu_immun_status}"
   relevance: "flu_immun_status_value != ''"
 
-- template: "Flu dose: {flu_date}"
-  relevance: "flu_date == 'done today' || flu_date == 'done_earlier'"
+- template: "Flu dose: {flu_date_done}"
+  relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"
 
 - template: "Flu dose not given: {flu_dose_notdone_value}"
   relevance: "flu_date == 'not_done'"
@@ -187,7 +187,7 @@ fields:
 group: medications
 fields:
 
-- template: "Current medications: {medications_value}"
+- template: "Current medications: {medications_value}, {medications_other}"
   relevance: "medications_value != ''"
 
 - template: "Medications prescribed: {medications_prescribed_value}"
@@ -226,7 +226,7 @@ fields:
 - template: "Caffeine reduction counseling: {caffeine_counsel_value}"
   relevance: "caffeine_counsel == 'done'"
 
-- template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone_value}"
+- template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone_value}, {caffeine_counsel_notdone_other}"
   relevance: "caffeine_counsel == 'not_done'"
 
 - template: "Tobacco user: {tobacco_user_value}"
@@ -235,7 +235,7 @@ fields:
 - template: "Tobacco cessation counseling done"
   relevance: "tobacco_counsel == 'done'"
 
-- template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}"
+- template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}, {tobacco_counsel_notdone_other}"
   relevance: "tobacco_counsel == 'not_done'"
 
 - template: "Anyone in the household smokes tobacco products: {shs_exposure_value}"
@@ -244,7 +244,7 @@ fields:
 - template: "Second-hand smoke counseling done"
   relevance: "shs_counsel == 'done'"
 
-- template: "Second-hand smoke counseling not done: {shs_counsel_notdone_value}"
+- template: "Second-hand smoke counseling not done: {shs_counsel_notdone_value}, {shs_counsel_notdone_other}"
   relevance: "shs_counsel == 'not_done'"
 
 - template: "Uses condoms during sex: {condom_use_value}"
@@ -253,7 +253,7 @@ fields:
 - template: "Condom counseling done"
   relevance: "condom_counsel == 'done'"
 
-- template: "Condom counseling not done: {condom_counsel_notdone_value}"
+- template: "Condom counseling not done: {condom_counsel_notdone_value}, {condom_counsel_notdone_other}"
   relevance: "condom_counsel == 'not_done'"
 
 - template: "Clinical enquiry for alcohol and other substance use done: {alcohol_substance_enquiry_value}"
@@ -265,7 +265,7 @@ fields:
 - template: "Alcohol / substance use counseling done"
   relevance: "alcohol_substance_counsel == 'done'"
 
-- template: "Alcohol / substance use counseling not done: {alcohol_substance_counsel_notdone_value}"
+- template: "Alcohol / substance use counseling not done: {alcohol_substance_counsel_notdone_value}, {alcohol_substance_counsel_notdone_other}"
   relevance: "alcohol_substance_counsel == 'not_done'"
 ---
 group: physiological_symptoms
@@ -292,61 +292,61 @@ fields:
 - template: "Pharmacological treatments for nausea and vomiting counseling done"
   relevance: "nausea_not_relieved_counsel == 'done'"
 
-- template: "Pharmacological treatments for nausea and vomiting counseling not done: {nausea_not_relieved_counsel_notdone_value}"
+- template: "Pharmacological treatments for nausea and vomiting counseling not done: {nausea_not_relieved_counsel_notdone_value}, {nausea_counsel_notdone_other}"
   relevance: "nausea_not_relieved_counsel == 'not_done'"
 
 - template: "Diet and lifestyle changes to prevent and relieve heartburn counseling done"
   relevance: "heartburn_counsel == 'done'"
 
-- template: "Diet and lifestyle changes to prevent and relieve heartburn counseling not done: {heartburn_counsel_notdone_value}"
+- template: "Diet and lifestyle changes to prevent and relieve heartburn counseling not done: {heartburn_counsel_notdone_value}, {heartburn_counsel_notdone_other}"
   relevance: "heartburn_counsel == 'not_done'"
 
 - template: "Antacid preparations to relieve heartburn counseling done"
   relevance: "heartburn_not_relieved_counsel == 'done'"
 
-- template: "Antacid preparations to relieve heartburn counseling not done: {heartburn_not_relieved_counsel_notdone_value}"
+- template: "Antacid preparations to relieve heartburn counseling not done: {heartburn_not_relieved_counsel_notdone_value}, {heartburn_not_relieved_counsel_notdone_other}"
   relevance: "heartburn_not_relieved_counsel == 'not_done'"
 
 - template: "Non-pharmacological treatment for the relief of leg cramps counseling done"
   relevance: "leg_cramp_counsel == 'done'"
 
-- template: "Non-pharmacological treatment for the relief of leg cramps counseling not done: {leg_cramp_counsel_notdone_value}"
+- template: "Non-pharmacological treatment for the relief of leg cramps counseling not done: {leg_cramp_counsel_notdone_value}, {leg_cramp_counsel_notdone_other}"
   relevance: "leg_cramp_counsel == 'Not done'"
 
 - template: "Magnesium and calcium to relieve leg cramps counseling done"
   relevance: "leg_cramp_not_relieved_counsel == 'done'"
 
-- template: "Magnesium and calcium to relieve leg cramps counseling not done: {leg_cramp_not_relieved_counsel_notdone_value}"
+- template: "Magnesium and calcium to relieve leg cramps counseling not done: {leg_cramp_not_relieved_counsel_notdone_value}, {leg_cramp_not_relieved_counsel_notdone_other}"
   relevance: "leg_cramp_not_relieved_counsel == 'not_done'"
 
 - template: "Dietary modifications to relieve constipation counseling done"
   relevance: "constipation_counsel == 'done'"
 
-- template: "Dietary modifications to relieve constipation counseling not done: {constipation_counsel_notdone_value}"
+- template: "Dietary modifications to relieve constipation counseling not done: {constipation_counsel_notdone_value}, {constipation_counsel_notdone_other}"
   relevance: "constipation_counsel == 'not_done'"
 
 - template: "Wheat bran || other fiber supplements to relieve constipation counseling done"
   relevance: "constipation_not_relieved_counsel == 'done'"
 
-- template: "Wheat bran || other fiber supplements to relieve constipation counseling not done: {constipation_not_relieved_counsel_notdone_value}"
+- template: "Wheat bran || other fiber supplements to relieve constipation counseling not done: {constipation_not_relieved_counsel_notdone_value}, {constipation_not_relieved_counsel_notdone_other}"
   relevance: "constipation_not_relieved_counsel == 'not_done'"
 
 - template: "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling done"
   relevance: "back_pelvic_pain_counsel == 'done'"
 
-- template: "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling not done: {back_pelvic_pain_counsel_notdone_value}"
+- template: "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling not done: {back_pelvic_pain_counsel_notdone_value}, {back_pelvic_pain_counsel_notdone_other}"
   relevance: "back_pelvic_pain_counsel == 'not_done'"
 
 - template: "Non-pharmacological options for varicose veins and oedema counseling done"
   relevance: "varicose_oedema_counsel == 'done'"
 
-- template: "Non-pharmacological options for varicose veins and oedema counseling not done: {varicose_oedema_counsel_notdone_value}"
+- template: "Non-pharmacological options for varicose veins and oedema counseling not done: {varicose_oedema_counsel_notdone_value}, {varicose_oedema_counsel_notdone_other}"
   relevance: "varicose_oedema_counsel == 'not_done'"
 
 - template: "Other persisting symptoms: {other_symptoms_persist_value}"
   relevance: "other_symptoms_persist != ''"
 
-- template: "Other symptoms: {other_symptoms_value}"
+- template: "Other symptoms: {other_symptoms_value}, {other_symptoms_other}"
   relevance: "other_symptoms != ''"
 
 - template: "Fetal movement felt by woman: {mat_percept_fetal_move}"
@@ -379,19 +379,19 @@ fields:
 - template: "Healthy eating and keeping physically active counseling done"
   relevance: "eat_exercise_counsel == 'done'"
 
-- template: "Healthy eating and keeping physically active counseling not done: {eat_exercise_counsel_notdone_value}"
+- template: "Healthy eating and keeping physically active counseling not done: {eat_exercise_counsel_notdone_value}, {eat_exercise_counsel_notdone_other}"
   relevance: "eat_exercise_counsel == 'not_done'"
 
 - template: "Increase daily energy and protein intake counseling done"
   relevance: "increase_energy_counsel == 'done'"
 
-- template: "Increase daily energy and protein intake counseling not done: {increase_energy_counsel_notdone_value}"
+- template: "Increase daily energy and protein intake counseling not done: {increase_energy_counsel_notdone_value}, {increase_energy_counsel_notdone_other}"
   relevance: "increase_energy_counsel == 'not_done'"
 
 - template: "Balanced energy and protein dietary supplementation counseling done"
   relevance: "balanced_energy_counsel == 'done'"
 
-- template: "Balanced energy and protein dietary supplementation counseling not done: {balanced_energy_counsel_notdone_value}"
+- template: "Balanced energy and protein dietary supplementation counseling not done: {balanced_energy_counsel_notdone_value}, {balanced_energy_counsel_notdone_other}"
   relevance: "balanced_energy_counsel == 'not_done'"
 ---
 group: blood_pressure
@@ -517,7 +517,7 @@ fields:
 - template: "Ultrasound test ordered"
   relevance: "ultrasound == 'Ordered'"
 
-- template: "Ultrasound not done: {ultrasound_notdone_value}"
+- template: "Ultrasound not done: {ultrasound_notdone_value}, {ultrasound_notdone_other}"
   relevance: "ultrasound == 'not_done'"
 ---
 group: blood_type_test
@@ -550,7 +550,7 @@ fields:
 - template: "HIV test ordered"
   relevance: "hiv_test_status == 'Ordered'"
 
-- template: "HIV test not done: {hiv_test_notdone_value}"
+- template: "HIV test not done: {hiv_test_notdone_value}, {hiv_test_notdone_other}"
   relevance: "hiv_test_status == 'not_done'"
 
 - template: "HIV test date: {hiv_test_date}"
@@ -589,7 +589,7 @@ fields:
 - template: "Hepatitis B test ordered"
   relevance: "hepb_test_status == 'Ordered'"
 
-- template: "Hepatitis B test not done: {hepb_test_notdone_value}"
+- template: "Hepatitis B test not done: {hepb_test_notdone_value}, {hepb_test_notdone_other}"
   relevance: "hepb_test_status == 'not_done'"
 
 - template: "Hepatitis B test date: {hepb_test_date}"
@@ -616,7 +616,7 @@ fields:
 - template: "Hepatitis C test ordered"
   relevance: "hepc_test_status == 'Ordered'"
 
-- template: "Hepatitis C test not done: {hepc_test_notdone_value}"
+- template: "Hepatitis C test not done: {hepc_test_notdone_value}, {hepc_test_notdone_other}"
   relevance: "hepc_test_status == 'not_done'"
 
 - template: "Hepatitis C test date: {hepc_test_date}"
@@ -643,7 +643,7 @@ fields:
 - template: "Syphilis test ordered"
   relevance: "syph_test_status == 'Ordered'"
 
-- template: "Syphilis test not done: {syph_test_notdone_value}"
+- template: "Syphilis test not done: {syph_test_notdone_value}, {syph_test_notdone_other}"
   relevance: "syph_test_status == 'not_done'"
 
 - template: "Syphilis test date: {syphilis_test_date}"
@@ -676,7 +676,7 @@ fields:
 - template: "Urine test ordered"
   relevance: "urine_test_status == 'Ordered'"
 
-- template: "Urine test not done: {urine_test_notdone_value}"
+- template: "Urine test not done: {urine_test_notdone_value}, {urine_test_notdone_other}"
   relevance: "urine_test_status == 'not_done'"
 
 - template: "Urine test date: {urine_test_date}"
@@ -703,7 +703,7 @@ fields:
 - template: "Seven-day antibiotic regimen for ASB given"
   relevance: "asb_positive_counsel == 'done'"
 
-- template: "Seven-day antibiotic regimen for ASB not given: {asb_positive_counsel_notdone_value}"
+- template: "Seven-day antibiotic regimen for ASB not given: {asb_positive_counsel_notdone_value}, {asb_positive_counsel_notdone_other}"
   relevance: "asb_positive_counsel == 'not_done'"
 
 - template: "Intrapartum antibiotic to prevent early neonatal GBS infection counseling done"
@@ -751,7 +751,7 @@ fields:
 - template: "Blood haemoglobin test ordered"
   relevance: "hb_test_status == 'Ordered'"
 
-- template: "Blood haemoglobin test not done: {hb_test_notdone_value}"
+- template: "Blood haemoglobin test not done: {hb_test_notdone_value}, {hb_test_notdone_other}"
   relevance: "hb_test_status == 'not_done'"
 
 - template: "Blood haemoglobin test date: {hb_test_date}"
@@ -778,7 +778,7 @@ fields:
 - template: "Daily dose of 120 mg iron and 2.8 mg folic acid given"
   relevance: "ifa_anaemia == 'done'"
 
-- template: "Daily dose of 120 mg iron and 2.8 mg folic acid not given: {ifa_anaemia_notdone_value}"
+- template: "Daily dose of 120 mg iron and 2.8 mg folic acid not given: {ifa_anaemia_notdone_value}, {ifa_anaemia_notdone_other}"
   relevance: "ifa_anaemia == 'not_done'"
 ---
 group: tb_screening
@@ -787,7 +787,7 @@ fields:
 - template: "TB screening ordered"
   relevance: "tb_screening_status == 'Ordered'"
 
-- template: "TB screening not done: {tb_screening_notdone_value}"
+- template: "TB screening not done: {tb_screening_notdone_value}, {tb_screening_notdone_other}"
   relevance: "tb_screening_status == 'not_done'"
 
 - template: "TB screening date: {tb_screening_date}"
@@ -820,13 +820,13 @@ fields:
 - template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) prescribed"
   relevance: "pe_risk_aspirin == 'done'"
 
-- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) not prescribed: {pe_risk_aspirin_notdone_value}"
+- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) not prescribed: {pe_risk_aspirin_notdone_value}, {pe_risk_aspirin_notdone_other}"
   relevance: "pe_risk_aspirin == 'not_done'"
 
 - template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) prescribed and woman told to continue to take daily calcium supplement of 1.5 to 2 g daily until delivery."
   relevance: "pe_risk_aspirin_calcium == 'done'"
 
-- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) not given and ensure that she continues to take her daily calcium supplement of 1.5 to 2 g until delivery: {pe_risk_aspirin_calcium_notdone_value}"
+- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) not given and ensure that she continues to take her daily calcium supplement of 1.5 to 2 g until delivery: {pe_risk_aspirin_calcium_notdone_value}, {pe_risk_aspirin_calcium_notdone_other}"
   relevance: "pe_risk_aspirin_calcium == 'not_done'"
 ---
 group: hiv_risk_and_prep
@@ -841,7 +841,7 @@ fields:
 - template: "PrEP for HIV prevention counseling done"
   relevance: "hiv_prep == 'done'"
 
-- template: "PrEP for HIV prevention counseling not done: {hiv_prep_notdone_value}"
+- template: "PrEP for HIV prevention counseling not done: {hiv_prep_notdone_value}, {hiv_prep_notdone_other}"
   relevance: "hiv_prep == 'not_done'"
 ---
 group: diabetes_risk
@@ -919,7 +919,7 @@ fields:
 - template: "IPV enquiry results: {ipv_enquiry_results}"
   relevance: "ipv_enquiry_results != ''"
 
-- template: "Clinical enquiry for IPV not done: {ipv_enquiry_notdone_value}"
+- template: "Clinical enquiry for IPV not done: {ipv_enquiry_notdone_value}, {ipv_enquiry_notdone_other}"
   relevance: "ipv_enquiry == 'not_done'"
 ---
 group: anaemia_prevention
@@ -928,19 +928,19 @@ fields:
 - template: "Daily dose of 60 mg iron and 0.4 mg folic acid prescribed"
   relevance: "ifa_high_prev == 'done'"
 
-- template: "Daily dose of 60 mg iron and 0.4 mg folic acid not prescribed: {ifa_high_prev_notdone_value}"
+- template: "Daily dose of 60 mg iron and 0.4 mg folic acid not prescribed: {ifa_high_prev_notdone_value}, {ifa_high_prev_notdone_other}"
   relevance: "ifa_high_prev == 'not_done'"
 
 - template: "Daily dose of 30 to 60 mg iron and 0.4 mg folic acid prescribed"
   relevance: "ifa_low_prev == 'done'"
 
-- template: "Daily dose of 30 to 60 mg iron and 0.4 mg folic acid not prescribed: {ifa_low_prev_notdone_value}"
+- template: "Daily dose of 30 to 60 mg iron and 0.4 mg folic acid not prescribed: {ifa_low_prev_notdone_value}, {ifa_low_prev_notdone_other}"
   relevance: "ifa_low_prev == 'not_done'"
 
 - template: "Changed prescription to weekly dose of 120 mg iron and 2.8 mg folic acid "
   relevance: "ifa_weekly == 'done'"
 
-- template: "Didn't change prescription to weekly dose of 120 mg iron and 2.8 mg folic acid: {ifa_weekly_notdone_value}"
+- template: "Didn't change prescription to weekly dose of 120 mg iron and 2.8 mg folic acid: {ifa_weekly_notdone_value}, {ifa_weekly_notdone_other}"
   relevance: "ifa_weekly == 'not_done'"
 ---
 group: deworming_and_malaria_prophylaxis
@@ -949,31 +949,31 @@ fields:
 - template: "Single dose albendazole 400 mg || mebendazole 500 mg prescribed"
   relevance: "deworm == 'done'"
 
-- template: "Single dose albendazole 400 mg || mebendazole 500 mg not prescribed: {deworm_notdone_value}"
+- template: "Single dose albendazole 400 mg || mebendazole 500 mg not prescribed: {deworm_notdone_value}, {deworm_notdone_other}"
   relevance: "deworm == 'not_done'"
 
 - template: "IPTp-SP dose 1 given"
   relevance: "iptp_sp1 == 'done'"
 
-- template: "IPTp-SP dose 1 not given: {iptp_sp_notdone_value}"
+- template: "IPTp-SP dose 1 not given: {iptp_sp_notdone_value}, {iptp_sp_notdone_other}"
   relevance: "iptp_sp1 == 'not_done'"
 
 - template: "IPTp-SP dose 2 given"
   relevance: "iptp_sp2 == 'done'"
 
-- template: "IPTp-SP dose 2 not given: {iptp_sp_notdone_value}"
+- template: "IPTp-SP dose 2 not given: {iptp_sp_notdone_value}, {iptp_sp_notdone_other}"
   relevance: "iptp_sp2 == 'not_done'"
 
 - template: "IPTp-SP dose 3 given"
   relevance: "iptp_sp3 == 'done'"
 
-- template: "IPTp-SP dose 3 not given: {iptp_sp_notdone_value}"
+- template: "IPTp-SP dose 3 not given: {iptp_sp_notdone_value}, {iptp_sp_notdone_other}"
   relevance: "iptp_sp3 == 'not_done'"
 
 - template: "Malaria prevention counseling done"
   relevance: "malaria_counsel == 'done'"
 
-- template: "Malaria prevention counseling not done: {malaria_counsel_notdone_value}"
+- template: "Malaria prevention counseling not done: {malaria_counsel_notdone_value}, {malaria_counsel_notdone_other}"
   relevance: "malaria_counsel == 'not_done'"
 ---
 group: calcium_supplementation
@@ -982,7 +982,7 @@ fields:
 - template: "Daily calcium supplementation (1.5–2.0 g oral elemental calcium) prescribed"
   relevance: "calcium_supp == 'done'"
 
-- template: "Daily calcium supplementation (1.5–2.0 g oral elemental calcium) not prescribed: {calcium_supp_notdone_value}"
+- template: "Daily calcium supplementation (1.5–2.0 g oral elemental calcium) not prescribed: {calcium_supp_notdone_value}, {calcium_supp_notdone_other}"
   relevance: "calcium_supp == 'not_done'"
 ---
 group: vitamin_a_supplementation
@@ -991,5 +991,5 @@ fields:
 - template: "Daily dose of up to 10,000 IU vitamin A, || a weekly dose of up to 25,000 IU prescribed"
   relevance: "vita_supp == 'done'"
 
-- template: "Daily dose of up to 10,000 IU vitamin A, || a weekly dose of up to 25,000 IU prescribed not prescribed: {vita_supp_notdone_value}"
+- template: "Daily dose of up to 10,000 IU vitamin A, || a weekly dose of up to 25,000 IU prescribed not prescribed: {vita_supp_notdone_value}, {vita_supp_notdone_other}"
   relevance: "vita_supp == 'not_done'"
