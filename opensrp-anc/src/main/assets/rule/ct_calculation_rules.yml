@@ -125,6 +125,13 @@ condition: "true"
 actions:
   - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done" ? "Penicillin for syphilis" : "") '
 ---
+name: step5_ifa_medication
+description: ifa_medication
+priority: 1
+condition: "true"
+actions:
+ - 'calculation = (step5_ifa_anaemia == "done" ? "Iron & folic acid for anaemia treatment" : "") '
+---
 name: step5_antibiotic
 description: antibiotic
 priority: 1
@@ -132,14 +139,14 @@ condition: "true"
 actions:
   - 'calculation = (step5_asb_positive_counsel == "done" ? "Seven-day antibiotic for ASB" : "") '
 ---
-name: step5_aspirin
+name: step6_aspirin
 description: aspirin
 priority: 1
 condition: "true"
 actions:
   - 'calculation = ((step6_pe_risk_aspirin == "done" || step6_pe_risk_aspirin_calcium == "done") ? "Aspirin for pre-eclampsia risk" : "") '
 ---
-name: step5_prep
+name: step6_prep
 description: prep
 priority: 1
 condition: "true"
@@ -160,8 +167,8 @@ condition: "true"
 actions:
   - 'calculation = (step8_deworm == "done" ? "Albendazole/mebendazole for deworming" : "")'
 ---
-name: step8_ifa
-description: ifa
+name: step8_sp
+description: sp
 priority: 1
 condition: "true"
 actions:
@@ -184,23 +191,30 @@ actions:
 name: step8_iptp_sp1_dose_number
 description: iptp_sp1_dose_number
 priority: 1
-condition: "step8_iptp_sp1 == '' && step8_iptp_sp1 == 'done'"
+condition: "step8_iptp_sp1 != '' && step8_iptp_sp1 == 'done'"
 actions:
 - "calculation = 1"
 ---
 name: step8_iptp_sp2_dose_number
 description: iptp_sp2_dose_number
 priority: 1
-condition: "step8_iptp_sp2 == '' && step8_iptp_sp2 == 'done'"
+condition: "step8_iptp_sp2 != '' && step8_iptp_sp2 == 'done'"
 actions:
 - "calculation = 2"
 ---
 name: step8_iptp_sp3_dose_number
 description: iptp_sp3_dose_number
 priority: 1
-condition: "step8_iptp_sp3 == '' && step8_iptp_sp3 == 'done'"
+condition: "step8_iptp_sp3 != '' && step8_iptp_sp3 == 'done'"
 actions:
 - "calculation = 3"
+---
+name: step8_tt1_date_done
+description: tt1_date_done
+priority: 1
+condition: "step8_tt1_date != '' && step8_tt1_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
 ---
 name: step8_tt1_dose_number
 description: tt1_dose_number
@@ -209,6 +223,13 @@ condition: "step8_tt1_date != '' && step8_tt1_date != 'not_done'"
 actions:
 - "calculation = 1"
 ---
+name: step8_tt2_date_done
+description: tt2_date_done
+priority: 1
+condition: "step8_tt2_date != '' && step8_tt2_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
 name: step8_tt2_dose_number
 description: tt2_dose_number
 priority: 1
@@ -216,12 +237,40 @@ condition: "step8_tt2_date != '' && step8_tt2_date != 'not_done'"
 actions:
 - "calculation = 2"
 ---
+name: step8_tt3_date_done
+description: tt3_date_done
+priority: 1
+condition: "step8_tt3_date != '' && step8_tt3_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
 name: step8_tt3_dose_number
 description: tt3_dose_number
 priority: 1
 condition: "step8_tt3_date != '' && step8_tt3_date != 'not_done'"
 actions:
 - "calculation = 3"
+---
+name: step8_hepb1_date_done
+description: hepb1_date_done
+priority: 1
+condition: "step8_hepb1_date != '' && step8_hepb1_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
+name: step8_hepb2_date_done
+description: hepb2_date_done
+priority: 1
+condition: "step8_hepb2_date != '' && step8_hepb2_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
+name: step8_hepb3_date_done
+description: hepb3_date_done
+priority: 1
+condition: "step8_hepb3_date != '' && step8_hepb3_date == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
 ---
 name: step8_hepb1_dose_number
 description: hepb1_dose_number
@@ -247,6 +296,6 @@ actions:
 name: step8_flu_date_done
 description: Date flu dose was given
 priority: 1
-condition: "step8_flu_date != '' && (step8_flu_date == 'done_today' || step8_flu_date == 'done_earlier')"
+condition: "step8_flu_date != '' && step8_flu_date == 'done_today'"
 actions:
 - "calculation = helper.getDateToday()"

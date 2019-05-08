@@ -24,6 +24,7 @@ import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.presenter.ProfilePresenter;
 import org.smartregister.anc.repository.PartialContactRepository;
 import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
@@ -40,6 +41,7 @@ import java.util.List;
  */
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
 
+    private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
@@ -47,9 +49,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
     private Facts facts = new Facts();
-    private static final String TAG = ContactSummaryFinishActivity.class.getCanonicalName();
     private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
+    private int contactNo;
     private MenuItem saveFinishMenuItem;
 
     @Override
@@ -57,6 +59,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         super.onCreate(savedInstanceState);
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
 
         setUpViews();
 
@@ -77,8 +80,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         findViewById(R.id.btn_profile_registration_info).setVisibility(View.GONE);
 
         collapsingToolbarLayout.setTitleEnabled(false);
-        actionBar.setTitle(String.format(this.getString(R.string.contact_number),
-                getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
+        if (contactNo > 0){
+            actionBar.setTitle(String.format(this.getString(R.string.contact_number),
+                    getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO)));
+        }
     }
 
     @Override
@@ -180,8 +185,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         //Overriden
     }
 
@@ -203,13 +207,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected Void doInBackground(Void... nada) {
                 try {
-                    HashMap<String, String> womanProfileDetails =
-                            (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
+                            .getWomanProfileDetails(getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
                     int contactNo = getIntent().getExtras().getInt(Constants.INTENT_KEY.CONTACT_NO);
                     if (contactNo < 0) {
                         womanProfileDetails.put(Constants.REFERRAL, String.valueOf(contactNo));
                     }
-                   newWomanProfileDetails =  mProfilePresenter.saveFinishForm(womanProfileDetails);
+                    newWomanProfileDetails = mProfilePresenter.saveFinishForm(womanProfileDetails);
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage(), e);
@@ -225,8 +229,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                 hideProgressDialog();
 
-                Intent contactSummaryIntent = new Intent(ContactSummaryFinishActivity.this,
-                        ContactSummarySendActivity.class);
+                Intent contactSummaryIntent =
+                        new Intent(ContactSummaryFinishActivity.this, ContactSummarySendActivity.class);
                 contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,
                         getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID));
                 contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, newWomanProfileDetails);
@@ -250,9 +254,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         for (PartialContact partialContact : partialContacts) {
             if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
-                object = new JSONObject(
-                        partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact
-                                .getFormJson());
+                object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
+                        partialContact.getFormJson());
                 ContactJsonFormUtils.processRequiredStepsField(facts, object, this);
             }
         }
@@ -309,8 +312,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                         saveFinishMenuItem.setEnabled(true);
                     }
 
-                    ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this,
-                            yamlConfigList, facts);
+                    ContactSummaryFinishAdapter adapter =
+                            new ContactSummaryFinishAdapter(ContactSummaryFinishActivity.this, yamlConfigList, facts);
+                    adapter.notifyDataSetChanged();
 
                     // set up the RecyclerView
                     RecyclerView recyclerView = findViewById(R.id.contact_summary_finish_recycler);
@@ -332,6 +336,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected PartialContactRepository getPartialContactRepository() {
         return AncApplication.getInstance().getPartialContactRepository();
+    }
+
+    protected PreviousContactRepository getPreviousCOntactsReposity(){
+        return AncApplication.getInstance().getPreviousContactRepository();
     }
 }
 

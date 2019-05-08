@@ -13,6 +13,7 @@ public class FilePath {
         public static final String CONTACT_SUMMARY = "contact-summary.yml";
         public static final String ATTENTION_FLAGS = "attention-flags.yml";
         public static final String PROFILE_OVERVIEW = "profile-overview.yml";
-        public static final String PROFILE_LAST_CONTACT = "profile-last-contact.yml";
+        public static final String PROFILE_LAST_CONTACT = "profile_contact_tab_contacts.yml";
+        public static final String PROFILE_LAST_CONTACT_TEST = "profile_contact_tab_tests.yml";
     }
 }

@@ -28,10 +28,11 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
     public static final String ALTERNATE_CONTACT_NAME = "Alternate contact name:";
     public static final String LIKE = "Like";
     public static final String AND = "AND";
-    
-    
+
+
     @Override
-    public Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact, boolean isLocal) {
+    public Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob,
+                                             String phoneNumber, String alternateContact, boolean isLocal) {
         Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(firstName)) {
             editMap.put(isLocal ? DBConstants.KEY.FIRST_NAME : GLOBAL_FIRST_NAME, firstName);
@@ -58,7 +59,8 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
     }
 
     @Override
-    public String createSearchString(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact) {
+    public String createSearchString(String firstName, String lastName, String ancId, String edd, String dob,
+                                     String phoneNumber, String alternateContact) {
         String searchCriteria = "";
 
         if (StringUtils.isNotBlank(firstName)) {

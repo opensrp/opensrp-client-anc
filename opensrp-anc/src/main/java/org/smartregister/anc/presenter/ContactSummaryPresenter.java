@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ContactSummaryPresenter implements ContactSummarySendContract.Presenter,
-        ContactSummarySendContract.InteractorCallback {
+public class ContactSummaryPresenter
+        implements ContactSummarySendContract.Presenter, ContactSummarySendContract.InteractorCallback {
 
     private WeakReference<ContactSummarySendContract.View> contactConfirmationView;
     private ContactSummarySendContract.Interactor contactSummaryInteractor;

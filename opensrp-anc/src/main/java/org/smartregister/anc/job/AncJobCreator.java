@@ -38,7 +38,8 @@ public class AncJobCreator implements JobCreator {
             case SyncSettingsServiceJob.TAG:
                 return new SyncSettingsServiceJob();
             default:
-                Log.d(AncJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
+                Log.d(AncJobCreator.class.getCanonicalName(),
+                        "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
                 return null;
         }
     }

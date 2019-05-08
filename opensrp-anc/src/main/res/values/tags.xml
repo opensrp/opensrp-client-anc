@@ -13,4 +13,5 @@
     <item name="accordion_context" type="id"/>
     <item name="accordion_info_text" type="id"/>
     <item name="accordion_info_title" type="id"/>
+    <item name="test_results" type="id"/>
 </resources>

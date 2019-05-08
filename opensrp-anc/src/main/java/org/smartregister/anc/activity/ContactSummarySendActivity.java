@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,7 +24,8 @@ import org.smartregister.helper.ImageRenderHelper;
 import java.util.HashMap;
 import java.util.List;
 
-public class ContactSummarySendActivity extends AppCompatActivity implements ContactSummarySendContract.View, View.OnClickListener {
+public class ContactSummarySendActivity extends AppCompatActivity
+        implements ContactSummarySendContract.View, View.OnClickListener {
 
     private TextView womanNameTextView;
     private ContactSummarySendContract.Presenter contactSummaryPresenter;
@@ -34,7 +34,6 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     private ImageRenderHelper imageRenderHelper;
     private TextView recordedContactTextView;
     private TextView contactScheduleHeadingTextView;
-    private TextView referralContactTextTextView;
     private RecyclerView contactDatesRecyclerView;
 
     @Override
@@ -52,7 +51,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     protected void onResume() {
         super.onResume();
         contactSummaryPresenter.loadWoman(getEntityId());
-        contactSummaryPresenter.loadUpcomingContacts(getEntityId(),getReferredContactNo());
+        contactSummaryPresenter.loadUpcomingContacts(getEntityId(), getReferredContactNo());
         contactSummaryPresenter.showWomanProfileImage(getEntityId());
     }
 
@@ -63,7 +62,6 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
         recordedContactTextView = findViewById(R.id.contact_summary_contact_recorded);
         contactScheduleHeadingTextView = findViewById(R.id.contact_schedule_heading);
-        referralContactTextTextView = findViewById(R.id.referral_contact_text);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
         contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
@@ -80,12 +78,14 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         return null;
     }
 
-    public String getReferredContactNo(){
-        HashMap<String, String> client = (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
-        if (client != null ) {
+    public String getReferredContactNo() {
+        HashMap<String, String> client =
+                (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
+        if (client != null) {
             String contactNo = client.get(Constants.REFERRAL);
             if (contactNo != null) {
-            return contactNo;}
+                return contactNo;
+            }
         }
         return null;
     }
@@ -93,7 +93,8 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     @Override
     public void goToClientProfile() {
         finish();
-        Utils.navigateToProfile(this, (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
+        Utils.navigateToProfile(this,
+                (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
     }
 
     @Override
@@ -103,10 +104,9 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
-        if (models.size() <= 0){
+        if (models.size() <= 0) {
             contactDatesRecyclerView.setVisibility(View.GONE);
             contactScheduleHeadingTextView.setVisibility(View.GONE);
-            referralContactTextTextView.setVisibility(View.VISIBLE);
         }
         contactSummaryAdapter.setContactDates(models.size() > 5 ? models.subList(0, 4) : models);
     }
@@ -118,9 +118,10 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void updateRecordedContact(Integer contactNumber) {
-        recordedContactTextView.setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
-        if(getReferredContactNo() != null){
-            recordedContactTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+        recordedContactTextView
+                .setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
+        if (getReferredContactNo() != null) {
+            recordedContactTextView.setVisibility(View.GONE);
         }
     }
 

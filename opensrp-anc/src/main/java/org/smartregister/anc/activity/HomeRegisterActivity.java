@@ -110,9 +110,9 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
         if (bottomNavigationView != null) {
-            bottomNavigationView.getMenu().add(
-                    Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me)
-                    .setIcon(bottomNavigationHelper
+            bottomNavigationView.getMenu()
+                    .add(Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me).setIcon(
+                    bottomNavigationHelper
                             .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, userInitials,
                                     getResources()));
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
@@ -150,8 +150,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView view = (TextView) super.getView(position, convertView, parent);
                 ConfigurableViewsLibrary.getInstance();
-                view.setTextColor(
-                        ConfigurableViewsLibrary.getContext().getColorResource(R.color.customAppThemeBlue));
+                view.setTextColor(ConfigurableViewsLibrary.getContext().getColorResource(R.color.customAppThemeBlue));
 
                 return view;
             }
@@ -206,14 +205,14 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         super.onPause();
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void showProgressDialogHandler(ShowProgressDialogEvent showProgressDialogEvent) {
         if (showProgressDialogEvent != null) {
             showProgressDialog(R.string.saving_dialog_title);
         }
     }
 
-    @Subscribe (sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void removePatientHandler(PatientRemovedEvent event) {
         if (event != null) {
             Utils.removeStickyEvent(event);
@@ -324,8 +323,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.record_birth_popup_message),
                 Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
                 Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstants.KEY.EDD)),
-                        dateFormatter),
-                Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)),
+                        dateFormatter), Utils.getDuration(client.getColumnmaps().get(DBConstants.KEY.EDD)),
                 client.getColumnmaps().get(DBConstants.KEY.FIRST_NAME)));
         recordBirthAlertDialog.show();
     }

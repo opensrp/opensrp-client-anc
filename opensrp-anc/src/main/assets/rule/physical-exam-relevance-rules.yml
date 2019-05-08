@@ -198,7 +198,7 @@ actions:
 name: step4_fetal_presentation
 description: Fetal movement
 priority: 1
-condition: "true"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
 actions:
 - "isRelevant = true"
 ---
@@ -233,6 +233,6 @@ actions:
 name: step3_toaster26
 description: toaster26
 priority: 1
-condition: "step3_dilation_cm > 2"
+condition: "step3_toaster26_hidden > 2"
 actions:
-- "isRelevant = true"
+    - "isRelevant = true"

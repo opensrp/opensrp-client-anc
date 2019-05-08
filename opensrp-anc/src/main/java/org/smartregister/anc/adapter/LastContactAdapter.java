@@ -2,28 +2,31 @@ package org.smartregister.anc.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.R;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
+import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.JsonFormUtils;
 
 import java.util.List;
 
 public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.ViewHolder> {
     private List<LastContactDetailsWrapper> lastContactDetailsList;
     private LayoutInflater inflater;
+    private JsonFormUtils formUtils = new JsonFormUtils();
     private Context context;
 
-    public LastContactAdapter(List<LastContactDetailsWrapper> lastContactDetailsList,
-                              Context context) {
+    public LastContactAdapter(List<LastContactDetailsWrapper> lastContactDetailsList, Context context) {
         this.lastContactDetailsList = lastContactDetailsList;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
@@ -47,19 +50,25 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 gestAge = "";
             }
 
-            viewHolder.contactTextView
-                    .setText(String.format(context.getResources().getString(R.string.contact_details), gestAge,
+            viewHolder.contactTextView.setText(
+                    String.format(context.getResources().getString(R.string.contact_details), gestAge,
                             lastContactDetails.getContactNo()));
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
-
-            LastContactDetailsAdapter adapter = new LastContactDetailsAdapter(context,
-                    lastContactDetails.getExtraInformation(), facts);
-
-            // set up the RecyclerView
-            RecyclerView recyclerView = viewHolder.lastContactDetailsRecycler;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(adapter);
+            createContactDetailsView(lastContactDetails.getExtraInformation(), facts, viewHolder);
         }
+    }
+
+    private void createContactDetailsView(List<YamlConfigWrapper> data, Facts facts, ViewHolder viewHolder) {
+        if (data != null && data.size() > 0) {
+            for (int position = 0; position < data.size(); position++) {
+                if (data.get(position).getYamlConfigItem() != null) {
+                    ConstraintLayout constraintLayout = formUtils.createListViewItems(data, facts, position, context);
+                    viewHolder.lastContactDetails.addView(constraintLayout);
+                }
+            }
+        }
+
+
     }
 
     @Override
@@ -68,17 +77,17 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView contactTextView;
+        private TextView contactTextView;
         public TextView referral;
-        public TextView contactDate;
-        public RecyclerView lastContactDetailsRecycler;
+        private TextView contactDate;
+        private LinearLayout lastContactDetails;
 
         ViewHolder(View itemView) {
             super(itemView);
             contactTextView = itemView.findViewById(R.id.contact);
             referral = itemView.findViewById(R.id.referral);
             contactDate = itemView.findViewById(R.id.contact_date);
-            lastContactDetailsRecycler = itemView.findViewById(R.id.last_contact_details_recycler);
+            lastContactDetails = itemView.findViewById(R.id.last_contact_details);
         }
     }
 }

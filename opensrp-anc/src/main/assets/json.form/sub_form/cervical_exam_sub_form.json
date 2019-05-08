@@ -1,6 +1,9 @@
 {
   "content_form": [
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
       "key": "dilation_cm_label",
       "type": "label",
       "label_text_style": "bold",
@@ -31,7 +34,7 @@
         "err": "Cervical dilation must be equal to or less than 10"
       },
       "v_required": {
-        "value": "false",
+        "value": true,
         "err": "Field cervical dilation is required"
       }
     }

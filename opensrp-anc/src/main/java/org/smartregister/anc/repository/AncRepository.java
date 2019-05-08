@@ -24,15 +24,18 @@ public class AncRepository extends Repository {
     protected SQLiteDatabase writableDatabase;
 
     public AncRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(), AncApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(),
+                AncApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
         ConfigurableViewsRepository.createTable(database);
-        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
-        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+        EventClientRepository
+                .createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+        EventClientRepository
+                .createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
 
         UniqueIdRepository.createTable(database);
         SettingsRepository.onUpgrade(database);
@@ -45,8 +48,7 @@ public class AncRepository extends Repository {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(AncRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
+                "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {

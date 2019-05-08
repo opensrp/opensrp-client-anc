@@ -64,7 +64,8 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void startForm(String formName, String entityId, String metadata, LocationPickerView locationPickerView) throws Exception {
+    public void startForm(String formName, String entityId, String metadata, LocationPickerView locationPickerView)
+    throws Exception {
         if (locationPickerView == null || StringUtils.isBlank(locationPickerView.getSelectedItem())) {
             getView().displayToast(R.string.no_location_picker);
         } else {
@@ -95,7 +96,8 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
             Log.d("JSONResult", jsonString);
-            getView().showProgressDialog(jsonString.contains(Constants.EventType.CLOSE) ? R.string.removing_dialog_title : R.string.saving_dialog_title);
+            getView().showProgressDialog(jsonString.contains(Constants.EventType.CLOSE) ? R.string.removing_dialog_title :
+                    R.string.saving_dialog_title);
 
             interactor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
 
@@ -167,10 +169,8 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     private RegisterContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
+        if (viewReference != null) return viewReference.get();
+        else return null;
     }
 
 }

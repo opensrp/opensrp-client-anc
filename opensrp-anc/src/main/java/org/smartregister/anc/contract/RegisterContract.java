@@ -29,7 +29,8 @@ public interface RegisterContract {
 
         void saveLanguage(String language);
 
-        void startForm(String formName, String entityId, String metatata, LocationPickerView locationPickerView) throws Exception;
+        void startForm(String formName, String entityId, String metatata, LocationPickerView locationPickerView)
+        throws Exception;
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
@@ -50,8 +51,7 @@ public interface RegisterContract {
 
         Pair<Client, Event> processRegistration(String jsonString);
 
-        JSONObject getFormAsJson(String formName, String entityId,
-                                 String currentLocationId) throws Exception;
+        JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception;
 
         String getInitials();
     }
@@ -61,7 +61,8 @@ public interface RegisterContract {
 
         void getNextUniqueId(Triple<String, String, String> triple, RegisterContract.InteractorCallBack callBack);
 
-        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack);
+        void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
+                              final RegisterContract.InteractorCallBack callBack);
 
         void removeWomanFromANCRegister(String closeFormJsonString, String providerId);
 
