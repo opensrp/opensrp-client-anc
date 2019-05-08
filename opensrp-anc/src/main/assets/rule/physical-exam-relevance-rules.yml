@@ -198,7 +198,7 @@ actions:
 name: step4_fetal_presentation
 description: Fetal movement
 priority: 1
-condition: "true"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
 actions:
 - "isRelevant = true"
 ---

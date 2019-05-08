@@ -26,14 +26,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Please select and option"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_relevance_rules.yml"
-          }
-        }
+        "err": "Please select an option"
       }
     },
     {
@@ -91,15 +84,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
-      "toaster_type": "warning"
-      /*,
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-file": "ct_relevance_rules.yml"
-                }
-              }
-            }*/
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
     }
   ]
 }

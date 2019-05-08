@@ -461,6 +461,17 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -486,6 +497,17 @@
         "v_required": {
           "value": "true",
           "err": "Field systolic is required"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -494,7 +516,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10sp"
+        "spacer_height": "10sp",
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "bp_diastolic_label",
@@ -504,6 +537,17 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -529,6 +573,82 @@
         "v_required": {
           "value": "true",
           "err": "Field diastolic is required"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "cant_record_bp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "cant_record_bp",
+            "text": "Unable to record BP",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "cant_record_bp_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Reason",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "bp_cuff_unavailable",
+            "text": "BP cuff (sphygmomanometer) not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "bp_cuff_broken",
+            "text": "BP cuff (sphygmomanometer) is broken",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Reason why SBP and DPB is cannot be done is required"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
