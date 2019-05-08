@@ -170,7 +170,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testFilterCheckboxValuesWhenFilterOptionsValuesAreDefineAsArray() throws Exception {
-        JSONObject mainObject = getMainJsonObject("json_test_forms/typical_json_form");
+        JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
         ContactJsonFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepOneBehaviourPersist = mainObject.getJSONObject("step1").getJSONArray("fields").getJSONObject(0);
@@ -184,7 +184,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testFilterCheckboxValuesWhenFilterOptionsValueIsNotNone() throws Exception {
-        JSONObject mainObject = getMainJsonObject("json_test_forms/typical_json_form");
+        JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
         ContactJsonFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepTwoBehaviourPersist = mainObject.getJSONObject("step2").getJSONArray("fields").getJSONObject(0);
@@ -197,7 +197,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testFilterCheckboxValuesWhenFilterOptionSourceIsDefined() throws Exception {
-        JSONObject mainObject = getMainJsonObject("json_test_forms/typical_json_form");
+        JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
         ContactJsonFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepThreePhysSymptomsPersist = mainObject.getJSONObject("step3").getJSONArray("fields").getJSONObject(0);
