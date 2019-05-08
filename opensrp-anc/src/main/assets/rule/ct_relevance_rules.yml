@@ -587,6 +587,13 @@ condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
 actions:
 - "isRelevant = true"
 ---
+name: step7_accordion_breastfeed_counsel
+description: breastfeed_counsel
+priority: 1
+condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
+actions:
+- "isRelevant = true"
+---
 name: step8_ipv_enquiry
 description: ipv_enquiry
 priority: 1

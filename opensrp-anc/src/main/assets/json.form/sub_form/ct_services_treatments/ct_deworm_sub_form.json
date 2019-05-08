@@ -1,18 +1,6 @@
 {
   "content_form": [
     {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "deworming_malaria_section",
-      "type": "section_label",
-      "section_background": "#F6C8C9",
-      "text_color": "#000000",
-      "text_size": "18px",
-      "label_text_style": "bold",
-      "name": "Deworming & Malaria Prophylaxis"
-    },
-    {
       "key": "deworm",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",

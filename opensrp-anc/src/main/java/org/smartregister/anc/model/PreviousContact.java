@@ -7,14 +7,16 @@ public class PreviousContact {
     private String key;
     private String value;
     private String visitDate;
+    private String contactNo;
 
     public PreviousContact() {
     }
 
-    public PreviousContact(String baseEntityId, String key, String value) {
+    public PreviousContact(String baseEntityId, String key, String value, String contactNo) {
         this.baseEntityId = baseEntityId;
         this.key = key;
         this.value = value;
+        this.contactNo = contactNo;
     }
 
     public String getKey() {
@@ -55,5 +57,13 @@ public class PreviousContact {
 
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 }

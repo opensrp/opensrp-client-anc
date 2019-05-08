@@ -45,7 +45,8 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
             settingObject.put(AllConstants.SETTINGS, localSettings);
             characteristic.setValue(settingObject.toString());
             characteristic
-                    .setKey(Constants.PREF_KEY.SITE_CHARACTERISTICS); //We know only site characteristics are being saved at this time
+                    .setKey(Constants.PREF_KEY.SITE_CHARACTERISTICS); //We know only site characteristics are being saved
+            // at this time
             characteristic.setSyncStatus(SyncStatus.PENDING.name());
 
             getAllSettingsRepo().putSetting(characteristic);

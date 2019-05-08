@@ -23,17 +23,12 @@ import java.util.TreeSet;
 public class RegisterFragmentPresenter
         implements RegisterFragmentContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
-    private WeakReference<RegisterFragmentContract.View> viewReference;
-
-    private RegisterFragmentContract.Model model;
-
-    private RegisterConfiguration config;
-
     protected AdvancedSearchContract.Interactor interactor;
-
     protected AdvancedMatrixCursor matrixCursor;
-
     protected Set<org.smartregister.configurableviews.model.View> visibleColumns = new TreeSet<>();
+    private WeakReference<RegisterFragmentContract.View> viewReference;
+    private RegisterFragmentContract.Model model;
+    private RegisterConfiguration config;
     private String viewConfigurationIdentifier;
 
     public RegisterFragmentPresenter(RegisterFragmentContract.View view, String viewConfigurationIdentifier) {
@@ -112,10 +107,8 @@ public class RegisterFragmentPresenter
     }
 
     protected RegisterFragmentContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
+        if (viewReference != null) return viewReference.get();
+        else return null;
     }
 
     private void setVisibleColumns(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
@@ -126,12 +119,12 @@ public class RegisterFragmentPresenter
         this.model = model;
     }
 
-    public void setMatrixCursor(AdvancedMatrixCursor matrixCursor) {
-        this.matrixCursor = matrixCursor;
-    }
-
     public AdvancedMatrixCursor getMatrixCursor() {
         return matrixCursor;
+    }
+
+    public void setMatrixCursor(AdvancedMatrixCursor matrixCursor) {
+        this.matrixCursor = matrixCursor;
     }
 
     public void setInteractor(AdvancedSearchContract.Interactor interactor) {

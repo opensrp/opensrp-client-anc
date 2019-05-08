@@ -55,10 +55,8 @@ public class SortFilterPresenter implements SortFilterContract.Presenter {
     }
 
     private SortFilterContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
+        if (viewReference != null) return viewReference.get();
+        else return null;
     }
 
 }

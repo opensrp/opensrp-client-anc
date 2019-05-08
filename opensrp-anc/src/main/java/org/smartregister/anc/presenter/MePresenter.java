@@ -36,10 +36,8 @@ public class MePresenter implements MeContract.Presenter {
     }
 
     private MeContract.View getView() {
-        if (viewReference != null)
-            return viewReference.get();
-        else
-            return null;
+        if (viewReference != null) return viewReference.get();
+        else return null;
     }
 
     public void setModel(MeContract.Model model) {

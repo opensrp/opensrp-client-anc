@@ -45,7 +45,8 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     @Override
     public void processViewCustomizations() {
         try {
-            String jsonString = getJsonViewFromPreference(Constants.VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN);
+            String jsonString =
+                    getJsonViewFromPreference(Constants.VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN);
             if (jsonString == null) {
                 return;
             }
@@ -54,8 +55,10 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
             LoginConfiguration.Background background = metadata.getBackground();
 
-            CheckBox showPasswordCheckBox = getLoginView().getActivityContext().findViewById(R.id.login_show_password_checkbox);
-            TextView showPasswordTextView = getLoginView().getActivityContext().findViewById(R.id.login_show_password_text_view);
+            CheckBox showPasswordCheckBox =
+                    getLoginView().getActivityContext().findViewById(R.id.login_show_password_checkbox);
+            TextView showPasswordTextView =
+                    getLoginView().getActivityContext().findViewById(R.id.login_show_password_text_view);
             if (!metadata.getShowPasswordCheckbox()) {
                 showPasswordCheckBox.setVisibility(View.GONE);
                 showPasswordTextView.setVisibility(View.GONE);
@@ -64,22 +67,23 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
                 showPasswordTextView.setVisibility(View.VISIBLE);
             }
 
-            if (background.getOrientation() != null && background.getStartColor() != null && background.getEndColor() != null) {
+            if (background.getOrientation() != null && background.getStartColor() != null &&
+                    background.getEndColor() != null) {
                 View loginLayout = getLoginView().getActivityContext().findViewById(R.id.login_layout);
                 GradientDrawable gradientDrawable = new GradientDrawable();
                 gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-                gradientDrawable.setOrientation(
-                        GradientDrawable.Orientation.valueOf(background.getOrientation()));
-                gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
-                        Color.parseColor(background.getEndColor())});
+                gradientDrawable.setOrientation(GradientDrawable.Orientation.valueOf(background.getOrientation()));
+                gradientDrawable.setColors(
+                        new int[]{Color.parseColor(background.getStartColor()), Color.parseColor(background.getEndColor())});
                 loginLayout.setBackground(gradientDrawable);
             }
 
             if (metadata.getLogoUrl() != null) {
                 ImageView imageView = getLoginView().getActivityContext().findViewById(R.id.login_logo);
                 ImageLoaderRequest.getInstance(getLoginView().getActivityContext()).getImageLoader()
-                        .get(metadata.getLogoUrl(), ImageLoader.getImageListener(imageView,
-                                R.drawable.ic_who_logo, R.drawable.ic_who_logo)).getBitmap();
+                        .get(metadata.getLogoUrl(),
+                                ImageLoader.getImageListener(imageView, R.drawable.ic_who_logo, R.drawable.ic_who_logo))
+                        .getBitmap();
             }
 
         } catch (Exception e) {
@@ -91,10 +95,12 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     public boolean isServerSettingsSet() {
 
         try {
-            Setting setting = AncApplication.getInstance().getContext().allSettings().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+            Setting setting = AncApplication.getInstance().getContext().allSettings()
+                    .getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
 
             JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
-            JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ? jsonObject.getJSONArray(AllConstants.SETTINGS) : null;
+            JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ?
+                    jsonObject.getJSONArray(AllConstants.SETTINGS) : null;
 
             if (settingArray != null && settingArray.length() > 0) {
 

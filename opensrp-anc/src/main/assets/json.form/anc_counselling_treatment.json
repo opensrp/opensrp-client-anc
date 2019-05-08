@@ -1338,7 +1338,14 @@
         },
         "content_form": "ct_breastfeed_counsel_sub_form",
         "content_form_location": "json.form/sub_form/ct_counseling",
-        "container": "anc_counselling_treatment"
+        "container": "anc_counselling_treatment",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },

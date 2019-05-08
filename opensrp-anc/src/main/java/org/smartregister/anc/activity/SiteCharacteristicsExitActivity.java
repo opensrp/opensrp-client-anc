@@ -24,8 +24,8 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
 
         presenter = new CharacteristicsPresenter(this);
 
-        String defaultLocation = LocationHelper.getInstance()
-                .getOpenMrsLocationName(LocationHelper.getInstance().getDefaultLocation());
+        String defaultLocation =
+                LocationHelper.getInstance().getOpenMrsLocationName(LocationHelper.getInstance().getDefaultLocation());
         TextView textView = findViewById(R.id.site_characteristics_facility_name);
         textView.setText(getString(R.string.your_site_characteristics_for_facility_name, defaultLocation));
 

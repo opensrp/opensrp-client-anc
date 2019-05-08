@@ -58,7 +58,8 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
             holder.parent.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
             holder.parent.setVisibility(View.GONE);
         } else {
-            holder.parent.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            holder.parent.setLayoutParams(
+                    new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             holder.parent.setVisibility(View.VISIBLE);
         }
 
@@ -71,6 +72,9 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         return mData.size();
     }
 
+    private String processUnderscores(String string) {
+        return string.replace("_", " ").toUpperCase();
+    }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -84,10 +88,6 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
             sectionDetails = itemView.findViewById(R.id.contact_summary_section_details);
             parent = itemView;
         }
-    }
-
-    private String processUnderscores(String string) {
-        return string.replace("_", " ").toUpperCase();
     }
 
 }

@@ -276,10 +276,6 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the woman's home address"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter a valid name"
         }
       },
       {
@@ -291,12 +287,12 @@
         "hint": "Mobile phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Phone number must be numeric"
         },
-        "v_regex": {
+        /*"v_regex": {
           "value": "([0-9]{10})|\\s*",
           "err": "Number must be a total of 10 digits in length"
-        },
+        },*/
         "v_required": {
           "value": "true",
           "err": "Please specify the woman's phone number"
@@ -348,11 +344,7 @@
         "hint": "Alternate contact phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "([0-9]{10})|\\s*",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Phone number must be numeric"
         }
       },
       {

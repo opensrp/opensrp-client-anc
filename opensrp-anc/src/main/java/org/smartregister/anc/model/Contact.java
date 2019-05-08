@@ -58,6 +58,9 @@ public abstract class Contact {
         return updatedAt;
     }
 
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getContactNo() {
         return contactNo;
@@ -65,9 +68,5 @@ public abstract class Contact {
 
     public void setContactNo(Integer contactNo) {
         this.contactNo = contactNo;
-    }
-
-    public void setUpdatedAt(Long updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
