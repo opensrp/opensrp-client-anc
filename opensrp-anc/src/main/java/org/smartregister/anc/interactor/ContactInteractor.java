@@ -210,9 +210,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         details.put(DBConstants.KEY.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
     }
 
-    private int getGestationAge(Map<String, String> details) {
-        return details.containsKey(DBConstants.KEY.EDD) && details.get(DBConstants.KEY.EDD) != null ?
-                Utils.getGestationAgeFromEDDate(details.get(DBConstants.KEY.EDD)) : 4;
+    public int getGestationAge(Map<String, String> details) {
+        return details.containsKey(DBConstants.KEY.EDD) && details.get(DBConstants.KEY.EDD) != null ? Utils
+                .getGestationAgeFromEDDate(details.get(DBConstants.KEY.EDD)) : 4;
     }
 
     private int getNextContact(Map<String, String> details) {
@@ -246,16 +246,22 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             continue;
                         }
 
+
                         if (fieldObject.has(JsonFormConstants.VALUE) &&
                                 !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
                             savePreviousContactItem(baseEntityId, fieldObject);
-
                         }
 
+                        if (fieldObject.has(Constants.KEY.SECONDARY_VALUES) &&
+                                fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).length() > 0) {
+                            JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
+                            for(int count = 0; count < secondaryValues.length(); count++){
+                                savePreviousContactItem(baseEntityId, secondaryValues.getJSONObject(count));
+                            }
+                        }
                     }
-
                 }
             }
         }

@@ -42,6 +42,7 @@ public abstract class Constants {
     public static final String FORM_SUBMISSION_IDS = "form_submission_ids";
     public static final String REFERRAL = "referral";
     public static final String GEST_AGE = "gest_age";
+    public static final String GEST_AGE_OPENMRS = "gest_age_openmrs";
     public static final String WOM_IMAGE = "wom_image";
     public static final String INDEX = "index";
     public static final String BOTTOM_SECTION = "bottom_section";

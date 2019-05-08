@@ -26,14 +26,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Please select and option"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_relevance_rules.yml"
-          }
-        }
+        "err": "Please select an option"
       }
     },
     {
@@ -42,7 +35,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "openmrs_data_type": "",
-      "type": "check_box",
+      "type": "native_radio",
       "label": "Reason",
       "hint": "Reason",
       "label_text_style": "bold",
@@ -96,54 +89,6 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "mag_calc",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "nausea_pharma",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "antacid",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
           }
         }
       }

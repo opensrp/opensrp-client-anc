@@ -87,13 +87,27 @@ fields:
   - "tt_immun_status"
   - "flu_immun_status"
   - "prev_preg_comps"
-  - "family_planning_type"
   - "other_symptoms"
   - "gravida"
   - "parity"
   - "danger_signs_value"
   - "gest_age"
   - "gest_age_openmrs"
+  - "iptp_sp1"
+  - "iptp_sp2"
+  - "iptp_sp3"
+  - "iptp_sp1_date"
+  - "iptp_sp2_date"
+  - "tt1_date"
+  - "tt2_date"
+  - "tt3_date"
+  - "tt1_date_done"
+  - "tt2_date_done"
+  - "hepb1_date"
+  - "hepb2_date"
+  - "hepb3_date"
+  - "hepb1_date_done"
+  - "hepb2_date_done"
 ---
 form: anc_profile
 fields:
@@ -191,7 +205,3 @@ fields:
   - "syph_test_status"
   - "ultrasound"
   - "hepb_positive"
----
-form: anc_quick_check
-fields:
-  - "nothing"
