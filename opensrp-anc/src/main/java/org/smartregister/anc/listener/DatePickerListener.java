@@ -52,18 +52,19 @@ public class DatePickerListener implements View.OnClickListener {
         int mMonth = mcurrentDate.get(Calendar.MONTH);
         int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog mDatePicker = new DatePickerDialog(context, android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, selectedyear);
-                calendar.set(Calendar.MONTH, selectedmonth);
-                calendar.set(Calendar.DAY_OF_MONTH, selectedday);
+        DatePickerDialog mDatePicker = new DatePickerDialog(context, android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
+                new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, selectedyear);
+                        calendar.set(Calendar.MONTH, selectedmonth);
+                        calendar.set(Calendar.DAY_OF_MONTH, selectedday);
 
-                String dateString = DateUtil.yyyyMMdd.format(calendar.getTime());
-                editText.setText(dateString);
+                        String dateString = DateUtil.yyyyMMdd.format(calendar.getTime());
+                        editText.setText(dateString);
 
-            }
-        }, mYear, mMonth, mDay);
+                    }
+                }, mYear, mMonth, mDay);
         mDatePicker.getDatePicker().setCalendarViewShown(false);
         if (maxDateToday) {
             mDatePicker.getDatePicker().setMaxDate(new Date().getTime());

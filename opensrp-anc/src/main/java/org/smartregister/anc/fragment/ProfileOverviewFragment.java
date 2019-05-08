@@ -19,14 +19,15 @@ import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 12/07/2018.
@@ -37,6 +38,8 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
     private Button dueButton;
     private ButtonAlertStatus buttonAlertStatus;
+    private String baseEntityId;
+    private String contactNo;
 
     public static ProfileOverviewFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -55,16 +58,20 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
     @Override
     protected void onCreation() {
-        buttonAlertStatus = Utils.getButtonAlertStatus((Map<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP), getString(R.string.contact_number_due));
+        HashMap<String, String> clientDetails =
+                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getString(R.string.contact_number_due));
         yamlConfigListGlobal = new ArrayList<>();
+        baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
     }
 
     @Override
     protected void onResumption() {
         try {
-
+            yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactsFacts(getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                    .getPreviousContactFacts(baseEntityId, contactNo);
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 
@@ -74,25 +81,25 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 YamlConfig yamlConfig = (YamlConfig) ruleObject;
                 if (yamlConfig.getGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
+                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null, false));
                 }
 
                 if (yamlConfig.getSubGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null));
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null, false));
                 }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();
 
                 for (YamlConfigItem configItem : configItems) {
 
-                    if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
+                    if (AncApplication.getInstance().getAncRulesEngineHelper()
+                            .getRelevance(facts, configItem.getRelevance())) {
+                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
                         valueCount += 1;
                     }
                 }
 
                 if (valueCount > 0) {
-
                     yamlConfigListGlobal.addAll(yamlConfigList);
 
                 }
@@ -102,7 +109,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             dueButton.setVisibility(View.VISIBLE);
 
             ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(getActivity(), yamlConfigListGlobal, facts);
-
+            adapter.notifyDataSetChanged();
             // set up the RecyclerView
             RecyclerView recyclerView = getActivity().findViewById(R.id.profile_overview_recycler);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

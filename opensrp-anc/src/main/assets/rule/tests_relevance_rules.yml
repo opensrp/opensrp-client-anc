@@ -98,14 +98,14 @@ actions:
 - "isRelevant = true"
 ---
 name: step1_hiv_test_result
-description: HIV test resupt
+description: HIV test result
 priority: 1
 condition: "step1_hiv_test_status != '' && (step1_hiv_test_status == 'done_today' || step1_hiv_test_status == 'done_earlier') "
 actions:
 - "isRelevant = true"
 ---
 name: step2_hiv_test_result
-description: HIV test resupt
+description: HIV test result
 priority: 1
 condition: "step2_hiv_test_status != '' && (step2_hiv_test_status == 'done_today' || step2_hiv_test_status == 'done_earlier') "
 actions:

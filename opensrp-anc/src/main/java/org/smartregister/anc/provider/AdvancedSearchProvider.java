@@ -49,7 +49,8 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     private CommonRepository commonRepository;
     private ImageRenderHelper imageRenderHelper;
 
-    public AdvancedSearchProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
+    public AdvancedSearchProvider(Context context, CommonRepository commonRepository, Set visibleColumns,
+                                  View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.visibleColumns = visibleColumns;
@@ -60,6 +61,11 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         this.context = context;
         this.commonRepository = commonRepository;
         this.imageRenderHelper = new ImageRenderHelper(context);
+    }
+
+    public static void fillValue(TextView v, String value) {
+        if (v != null) v.setText(value);
+
     }
 
     @Override
@@ -93,7 +99,8 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         mapping.put(ID, R.id.patient_column);
         mapping.put(DOSE, R.id.identifier_column);
         mapping.put(NAME, R.id.dose_column);
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView, visibleColumns, R.id.register_columns);
+        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().processRegisterColumns(mapping, convertView,
+        visibleColumns, R.id.register_columns);
         */
     }
 
@@ -103,11 +110,11 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     }
 
     @Override
-    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext, boolean hasPrevious) {
+    public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext,
+                              boolean hasPrevious) {
         FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
-        footerViewHolder.pageInfoView.setText(
-                MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount,
-                        totalPageCount));
+        footerViewHolder.pageInfoView
+                .setText(MessageFormat.format(context.getString(R.string.str_page_info), currentPageCount, totalPageCount));
 
         footerViewHolder.nextPageView.setVisibility(hasNext ? View.VISIBLE : View.INVISIBLE);
         footerViewHolder.previousPageView.setVisibility(hasPrevious ? View.VISIBLE : View.INVISIBLE);
@@ -116,7 +123,8 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
+    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
+                                       AdvancedSearchViewHolder viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
@@ -131,7 +139,6 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
     }
-
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
         String ancId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
@@ -149,7 +156,8 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         if (commonRepository != null) {
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
-                imageRenderHelper.refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIdentifier());
+                imageRenderHelper
+                        .refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIdentifier());
 
                 viewHolder.sync.setVisibility(View.GONE);
                 viewHolder.profile.setVisibility(View.VISIBLE);
@@ -168,7 +176,8 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     }
 
     @Override
-    public SmartRegisterClients updateClients(FilterOption filterOption, ServiceModeOption serviceModeOption, FilterOption filterOption1, SortOption sortOption) {
+    public SmartRegisterClients updateClients(FilterOption filterOption, ServiceModeOption serviceModeOption,
+                                              FilterOption filterOption1, SortOption sortOption) {
         return null;
     }
 
@@ -215,12 +224,6 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
         return FooterViewHolder.class.isInstance(viewHolder);
-    }
-
-    public static void fillValue(TextView v, String value) {
-        if (v != null)
-            v.setText(value);
-
     }
 
     ////////////////////////////////////////////////////////////////

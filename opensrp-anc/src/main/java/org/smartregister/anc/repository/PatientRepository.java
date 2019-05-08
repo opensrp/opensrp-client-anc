@@ -24,12 +24,14 @@ public class PatientRepository {
 
     private static final String TAG = PatientRepository.class.getCanonicalName();
 
-    private static final String[] projection = new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
-            DBConstants.KEY.DOB, DBConstants.KEY.DOB_UNKNOWN, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME,
-            DBConstants.KEY.ALT_PHONE_NUMBER, DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ANC_ID,
-            DBConstants.KEY.REMINDERS, DBConstants.KEY.HOME_ADDRESS, DBConstants.KEY.EDD, DBConstants.KEY.CONTACT_STATUS,
-            DBConstants.KEY.NEXT_CONTACT, DBConstants.KEY.NEXT_CONTACT_DATE, DBConstants.KEY.VISIT_START_DATE,
-            DBConstants.KEY.RED_FLAG_COUNT, DBConstants.KEY.YELLOW_FLAG_COUNT, DBConstants.KEY.LAST_CONTACT_RECORD_DATE};
+    private static final String[] projection =
+            new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB,
+                    DBConstants.KEY.DOB_UNKNOWN, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME,
+                    DBConstants.KEY.ALT_PHONE_NUMBER, DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.ANC_ID,
+                    DBConstants.KEY.REMINDERS, DBConstants.KEY.HOME_ADDRESS, DBConstants.KEY.EDD,
+                    DBConstants.KEY.CONTACT_STATUS, DBConstants.KEY.NEXT_CONTACT, DBConstants.KEY.NEXT_CONTACT_DATE,
+                    DBConstants.KEY.VISIT_START_DATE, DBConstants.KEY.RED_FLAG_COUNT, DBConstants.KEY.YELLOW_FLAG_COUNT,
+                    DBConstants.KEY.LAST_CONTACT_RECORD_DATE};
 
     public static Map<String, String> getWomanProfileDetails(String baseEntityId) {
         Cursor cursor = null;
@@ -38,8 +40,9 @@ public class PatientRepository {
         try {
             SQLiteDatabase db = getMasterRepository().getReadableDatabase();
 
-            String query = "SELECT " + StringUtils.join(projection,
-                    ",") + " FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + DBConstants.KEY.BASE_ENTITY_ID + " = ?";
+            String query =
+                    "SELECT " + StringUtils.join(projection, ",") + " FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " +
+                            DBConstants.KEY.BASE_ENTITY_ID + " = ?";
             cursor = db.rawQuery(query, new String[]{baseEntityId});
             if (cursor != null && cursor.moveToFirst()) {
                 detailsMap = new HashMap<>();
@@ -119,8 +122,7 @@ public class PatientRepository {
                 contentValues
                         .put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
             } else {
-                contentValues
-                        .put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
+                contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
             }
         }
         AncApplication.getInstance().getRepository().getWritableDatabase()

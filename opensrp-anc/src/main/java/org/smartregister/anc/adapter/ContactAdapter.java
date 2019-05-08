@@ -19,22 +19,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     private View.OnClickListener clickListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public View cardLayout;
-        public TextView name;
-        public TextView requiredFields;
-        public View completeLayout;
-
-
-        public ViewHolder(View view) {
-            super(view);
-            cardLayout = view.findViewById(R.id.card_layout);
-            name = view.findViewById(R.id.container_name);
-            requiredFields = view.findViewById(R.id.required_fields);
-            completeLayout = view.findViewById(R.id.complete_layout);
-        }
-    }
-
     public ContactAdapter(Context context, List<Contact> contacts, View.OnClickListener clickListener) {
         this.context = context;
         this.contacts = contacts;
@@ -47,8 +31,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contact_card_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_card_item, parent, false);
 
         return new ViewHolder(itemView);
     }
@@ -67,7 +50,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             holder.requiredFields.setVisibility(View.GONE);
             holder.completeLayout.setVisibility(View.GONE);
         } else if (contact.getRequiredFields() > 0) {
-            holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
+            holder.requiredFields
+                    .setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
 
             holder.requiredFields.setVisibility(View.VISIBLE);
             holder.completeLayout.setVisibility(View.GONE);
@@ -80,5 +64,21 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public int getItemCount() {
         return contacts.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public View cardLayout;
+        public TextView name;
+        public TextView requiredFields;
+        public View completeLayout;
+
+
+        public ViewHolder(View view) {
+            super(view);
+            cardLayout = view.findViewById(R.id.card_layout);
+            name = view.findViewById(R.id.container_name);
+            requiredFields = view.findViewById(R.id.required_fields);
+            completeLayout = view.findViewById(R.id.complete_layout);
+        }
     }
 }

@@ -2,12 +2,15 @@ package org.smartregister.anc.model;
 
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.Map;
 
 public class ContactSummaryModel extends BaseContactModel {
 
     private String contactName;
     private String contactDate;
+    private Date localDate;
+    private String contactWeeks;
 
     public ContactSummaryModel() {
     }
@@ -15,6 +18,13 @@ public class ContactSummaryModel extends BaseContactModel {
     public ContactSummaryModel(String contactName, String contactDate) {
         this.contactName = contactName;
         this.contactDate = contactDate;
+    }
+
+    public ContactSummaryModel(String contactName, String contactDate, Date localDate, String contactWeeks) {
+        this.contactName = contactName;
+        this.contactDate = contactDate;
+        this.localDate = localDate;
+        this.contactWeeks = contactWeeks;
     }
 
     public String getContactName() {
@@ -41,5 +51,21 @@ public class ContactSummaryModel extends BaseContactModel {
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
         return super.getFormAsJson(formName, entityId, currentLocationId);
+    }
+
+    public String getContactWeeks() {
+        return contactWeeks;
+    }
+
+    public void setContactWeeks(String contactWeeks) {
+        this.contactWeeks = contactWeeks;
+    }
+
+    public Date getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(Date localDate) {
+        this.localDate = localDate;
     }
 }

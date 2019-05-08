@@ -46,9 +46,8 @@ import java.util.HashMap;
 public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     public static final String TAG = ContactJsonFormFragment.class.getName();
-    private boolean savePartial = false;
-
     private static final int MENU_NAVIGATION = 100001;
+    private boolean savePartial = false;
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
 
@@ -169,8 +168,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             ImageButton goBackButton = view.findViewById(R.id.contact_menu);
             contactTitle = view.findViewById(R.id.contact_title);
 
-            if (getContact() != null && getContact().getBackIcon() > 0 && getContact().getFormName()
-                    .equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
+            if (getContact() != null && getContact().getBackIcon() > 0 &&
+                    getContact().getFormName().equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
                 goBackButton.setImageResource(R.drawable.ic_clear);
                 goBackButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -197,8 +196,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      */
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
-                .setTitle(getJsonApi().getConfirmCloseTitle())
-                .setMessage(getJsonApi().getConfirmCloseMessage())
+                .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
                 .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -256,6 +254,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      * Re-directs to the contact finalize page which when refer and close in the quick check container is clicked
      *
      * @param dialog {@link Dialog}
+     *
      * @author dubdabasoduba
      */
     private void goToContactFinalize(Dialog dialog) {
@@ -280,11 +279,12 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     /**
-     * Gets the root layout for the currently visible and finds the bottom refer & proceed layout then displays according to the status of
-     * the function parameters
+     * Gets the root layout for the currently visible and finds the bottom refer & proceed layout then displays according to
+     * the status of the function parameters
      *
      * @param none  {@link Boolean}
      * @param other {@link Boolean}
+     *
      * @author dubdabasoduba
      */
     public void displayQuickCheckBottomReferralButtons(boolean none, boolean other) {
@@ -356,8 +356,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                     }
                 }
 
-            } else if (view.getId() == com.vijay.jsonwizard.R.id.previous || view
-                    .getId() == com.vijay.jsonwizard.R.id.previous_icon) {
+            } else if (view.getId() == com.vijay.jsonwizard.R.id.previous ||
+                    view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
                 getFragmentManager().popBackStack();
             } else if (view.getId() == R.id.refer) {

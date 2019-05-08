@@ -20,8 +20,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AncAppTheme">
+        android:theme="@style/AncAppTheme"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -109,10 +109,14 @@
             android:theme="@style/AncAppTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.PreviousContactsActivity"
+            android:name=".activity.PreviousContactsDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AncAppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.PreviousContactsTestsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -40,11 +40,11 @@ import java.util.UUID;
 import static org.smartregister.anc.util.ContactJsonFormUtils.obtainValue;
 
 public class AncRulesEngineHelper extends RulesEngineHelper {
+    private final String RULE_FOLDER_PATH = "rule/";
     private Context context;
     private RulesEngine inferentialRulesEngine;
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
-    private final String RULE_FOLDER_PATH = "rule/";
     private JSONObject mJsonObject = new JSONObject();
 
     public AncRulesEngineHelper(Context context) {
@@ -64,8 +64,8 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         try {
             if (!ruleMap.containsKey(fileName)) {
 
-                BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader(context.getAssets().open(fileName)));
+                BufferedReader bufferedReader =
+                        new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
                 ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
             }
             return ruleMap.get(fileName);
@@ -136,6 +136,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
      * Strips the ANC Gestation age to just get me the weeks age
      *
      * @param gestAge {@link String}
+     *
      * @return ga {@link String}
      */
     public String stripGaNumber(String gestAge) {
@@ -165,6 +166,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             if (mJsonObject.has(step)) {
                 JSONObject stepsObject = mJsonObject.getJSONObject(step);
                 JSONArray fields = stepsObject.getJSONArray(JsonFormConstants.FIELDS);
+
                 if (fields.length() > 1)
                     for (int i = 0; i < fields.length(); i++) {
                         JSONObject accordionObject = fields.getJSONObject(i);
