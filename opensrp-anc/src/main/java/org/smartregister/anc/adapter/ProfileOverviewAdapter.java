@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -13,16 +14,21 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.contract.PreviousContactsTests;
+import org.smartregister.anc.domain.TestResultsDialog;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.view.customcontrols.CustomFontTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +41,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private Facts facts;
     private Context context;
     private AllTestClickListener allTestClickListener = new AllTestClickListener();
-    private RecyclerView recyclerView;
+    private PreviousContactsTests.Presenter presenter;
 
     // data is passed into the constructor
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
@@ -45,12 +51,13 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         this.context = context;
     }
 
-    public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts, RecyclerView recyclerView) {
+    public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts,
+                                  PreviousContactsTests.Presenter presenter) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
         this.context = context;
-        this.recyclerView = recyclerView;
+        this.presenter = presenter;
     }
 
     // inflates the row layout from xml when needed
@@ -172,17 +179,42 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         public String detail = "";
     }
 
+    private String[] getTestKeyAndTitle(String textKey) {
+        return textKey.split(":");
+    }
+
+    private List<TestResultsDialog> getTestData(JSONArray jsonArrayKeys) throws JSONException {
+        List<TestResultsDialog> allResultKeys = new ArrayList<>();
+        for (int i = 0; i < jsonArrayKeys.length(); i++) {
+            String[] keys = getTestKeyAndTitle(jsonArrayKeys.getString(i));
+            TestResultsDialog testResultsDialog = new TestResultsDialog();
+            testResultsDialog.setTestTitle(keys[0]);
+            testResultsDialog.setTestResultsList(null);
+            allResultKeys.add(testResultsDialog);
+        }
+        return allResultKeys;
+    }
+
 
     private class AllTestClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.all_test_results_button) {
-                String textKey = (String) view.getTag(R.id.test_results);
+            try {
+                if (view.getId() == R.id.all_test_results_button) {
+                    String textKey = (String) view.getTag(R.id.test_results);
+                    if (!TextUtils.isEmpty(textKey)) {
+                        JSONArray jsonArrayKeys = new JSONArray(textKey);
+                        List<TestResultsDialog> testResultsDialogs = getTestData(jsonArrayKeys);
+                        displayUndoDialog(testResultsDialogs);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 
-        private void displayUndoDialog() {
+        private void displayUndoDialog(List<TestResultsDialog> testResultsDialogList) {
             Activity activity = (Activity) context;
             LayoutInflater inflater = activity.getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.all_tests_results_dialog, null);
@@ -191,17 +223,17 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             builder.setView(dialogLayout);
 
             final ImageView cancel = dialogLayout.findViewById(R.id.all_test_popup_cancel);
-            CustomFontTextView headerTextView = dialogLayout.findViewById(R.id.txt_title_label);
-            headerTextView.setText("Testing stuff to see if this work well without issue");
+
+            setUpRecyclerView(testResultsDialogList, dialogLayout);
 
             final AlertDialog dialog = builder.create();
 
             Window window = dialog.getWindow();
             if (window != null) {
                 WindowManager.LayoutParams param = window.getAttributes();
-                param.gravity = Gravity.TOP;
+                param.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
                 window.setAttributes(param);
-                window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND, 8);
             }
 
             cancel.setOnClickListener(new View.OnClickListener() {
@@ -213,5 +245,15 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
             dialog.show();
         }
+
+        private void setUpRecyclerView(List<TestResultsDialog> testResultsDialogList, View dialogLayout) {
+            RelativeLayout relativeLayout = dialogLayout.findViewById(R.id.all_test_content_display_layout);
+            LastContactAllTestsDialogAdapter adapter = new LastContactAllTestsDialogAdapter(context, testResultsDialogList);
+            adapter.notifyDataSetChanged();
+            RecyclerView recyclerView = relativeLayout.findViewById(R.id.all_test_recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(adapter);
+        }
     }
+
 }

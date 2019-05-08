@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/all_tests_results_dialog_row"
+    android:paddingStart="@dimen/contact_drawable_padding"
+    android:paddingEnd="@dimen/contact_drawable_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/all_tests_ga"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:paddingStart="@dimen/contact_drawable_padding"
+        android:paddingEnd="@dimen/contact_drawable_padding"
+        android:textColor="@color/black_text_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/all_tests_dates" />
+
+    <TextView
+        android:id="@+id/all_tests_dates"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:paddingStart="@dimen/contact_drawable_padding"
+        android:paddingEnd="@dimen/contact_drawable_padding"
+        android:textColor="@color/black_text_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/all_tests_ga"
+        app:layout_constraintRight_toRightOf="@+id/all_tests_result" />
+
+    <TextView
+        android:id="@+id/all_tests_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end|center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:paddingStart="@dimen/contact_drawable_padding"
+        android:paddingEnd="@dimen/contact_drawable_padding"
+        android:textColor="@color/black_text_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/all_tests_dates"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
