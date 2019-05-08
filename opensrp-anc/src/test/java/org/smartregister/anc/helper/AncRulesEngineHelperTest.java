@@ -551,11 +551,4 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_other_tests","step2_blood_type_test_date"),"");
     }
-
-    @Test
-    public void testFilterCheckboxOptions() throws  JSONException{
-        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
-        ancRulesEngineHelperSpy.filterCheckboxValues("step1_symp_sev_preeclampsia","[severe_headache, epigastric_pain, dizziness]");
-    }
 }
