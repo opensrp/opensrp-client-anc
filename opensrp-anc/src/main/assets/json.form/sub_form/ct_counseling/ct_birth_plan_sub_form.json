@@ -64,7 +64,7 @@
       "text": "Encourage delivery at a facility!",
       "toaster_type": "warning",
       "relevance": {
-        "step2:caffeine_counsel": {
+        "step7:delivery_place": {
           "type": "string",
           "ex": "equalTo(., \"home\")"
         }

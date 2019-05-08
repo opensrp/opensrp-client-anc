@@ -13,7 +13,6 @@ import org.smartregister.anc.widget.ExpansionWidgetFactory;
  * Created by ndegwamartin on 30/06/2018.
  */
 public class ContactJsonFormInteractor extends JsonFormInteractor {
-
     private static final ContactJsonFormInteractor INSTANCE = new ContactJsonFormInteractor();
 
     private ContactJsonFormInteractor() {

@@ -1346,7 +1346,7 @@ actions:
 name: step2_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1 && (global_previous_ultrasound != '' || global_previous_ultrasound == 'ordered' || global_previous_ultrasound == 'not_done')) "
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1 && (global_previous_ultrasound != '' || global_previous_ultrasound == 'done_earlier' || global_previous_ultrasound == 'done_today')) "
 actions:
 - "isRelevant = true"
 ---

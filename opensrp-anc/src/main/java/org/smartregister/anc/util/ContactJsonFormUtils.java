@@ -171,7 +171,15 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     private static void processCheckBoxSpecialWidget(JSONObject widget, List<String> keyList, List<String> valueList)
-    throws Exception {
+            throws Exception {
+        //Clear previous selected values from the widget first
+        if (widget.has(JsonFormConstants.VALUE)) {
+            widget.remove(JsonFormConstants.VALUE);
+        }
+        if (widget.has(ContactJsonFormUtils.getSecondaryKey(widget))) {
+            widget.remove(ContactJsonFormUtils.getSecondaryKey(widget));
+        }
+
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -188,10 +196,8 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
 
-        if (keyList.size() > 0) {
-            widget.put(JsonFormConstants.VALUE, keyList);
-            widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
-        }
+        widget.put(JsonFormConstants.VALUE, keyList);
+        widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
     }
 
     public static void getRealSecondaryValue(JSONObject jsonObject) throws Exception {

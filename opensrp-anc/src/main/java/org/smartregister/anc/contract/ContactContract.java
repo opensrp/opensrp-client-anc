@@ -39,6 +39,8 @@ public interface ContactContract {
         void deleteDraft(String baseEntityId);
 
         void saveFinalJson(String baseEntityId);
+
+        int getGestationAge();
     }
 
     interface Model {
@@ -49,6 +51,7 @@ public interface ContactContract {
 
     interface Interactor extends BaseContactContract.Interactor {
         HashMap<String, String> finalizeContactForm(Map<String, String> details);
+        int getGestationAge(Map<String, String> details);
     }
 
     interface InteractorCallback extends BaseContactContract.InteractorCallback {

@@ -349,7 +349,7 @@ fields:
 - template: "Other symptoms: {other_symptoms_value}, {other_symptoms_other}"
   relevance: "other_symptoms != ''"
 
-- template: "Fetal movement felt by woman: {mat_percept_fetal_move}"
+- template: "Fetal movement felt by woman: {mat_percept_fetal_move_value}"
   relevance: "mat_percept_fetal_move != ''"
 ---
 group: height_and_weight
