@@ -87,7 +87,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 boolean isFirst = false;
                 String nextContactVisitDate;
                 if (referral == null) {
-                    isFirst = details.get(DBConstants.KEY.NEXT_CONTACT) == null;
+                    isFirst = TextUtils.equals("1", details.get(DBConstants.KEY.NEXT_CONTACT));
                     ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
                     List<Integer> integerList = AncApplication.getInstance().getAncRulesEngineHelper()
@@ -259,7 +259,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                                 fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).length() > 0) {
                             JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
                             for (int count = 0; count < secondaryValues.length(); count++) {
-                                savePreviousContactItem(baseEntityId, secondaryValues.getJSONObject(count));
+                                JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
+                                secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
+                                savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
                     }
