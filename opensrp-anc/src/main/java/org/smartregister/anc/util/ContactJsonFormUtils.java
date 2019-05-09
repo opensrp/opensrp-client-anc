@@ -762,7 +762,7 @@ public class ContactJsonFormUtils extends FormUtils {
                     String[] filteredKeys = itemsToFilter.substring(1, itemsToFilter.length() - 1).split(", ");
 
                     for (String filteredKey : filteredKeys) {
-                        if (!filteredKey.equals("none")) {
+                        if (!"none".equals(filteredKey)) {
                             newOptionsList.add(optionsMap.get(filteredKey));
                         }
                     }
