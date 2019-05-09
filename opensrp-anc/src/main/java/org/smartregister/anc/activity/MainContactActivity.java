@@ -83,9 +83,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
-        @SuppressWarnings("unchecked")
-        Map<String, String> womanDetails = (Map<String, String>) getIntent()
-                .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        @SuppressWarnings("unchecked") Map<String, String> womanDetails =
+                (Map<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstants.KEY.DOB)));
 
         if (!presenter.baseEntityIdExists()) {
@@ -94,7 +93,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         initializeMainContactContainers();
 
-        //Enable/Diable FinalizeButton
+        //Enable/Disable FinalizeButton
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() > 0); //TO REMOVE (SWITCH OPERATOR TO ==)
 
     }
@@ -223,19 +222,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     protected String getFormJson(PartialContact partialContactRequest, JSONObject form) {
-
         try {
             JSONObject object = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form);
-
             preProcessDefaultValues(object);
-
             return object.toString();
-
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
         return "";
-
     }
 
     @Override
@@ -248,7 +242,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         List<String> contactGlobals = formGlobalKeys.get(contact.getFormName());
 
         if (contactGlobals != null) {
-
             Map<String, String> map = new HashMap<>();
             for (String cg : contactGlobals) {
                 if (formGlobalValues.containsKey(cg)) {
@@ -355,8 +348,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
-        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
-                fieldObject.has(JsonFormConstants.VALUE)) {
+        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) && fieldObject.has(JsonFormConstants.VALUE)) {
 
             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY),
                     fieldObject.getString(JsonFormConstants.VALUE));//Normal value

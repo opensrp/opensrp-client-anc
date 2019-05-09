@@ -84,15 +84,17 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         lastContactDetails = new ArrayList<>();
         lastContactTests = new ArrayList<>();
         if (testsDisplayLayout != null) {
-            testsDisplayLayout.removeAllViewsInLayout();
+            testsDisplayLayout.removeAllViews();
         }
-
     }
 
     @Override
     protected void onResumption() {
         lastContactDetails = new ArrayList<>();
         lastContactTests = new ArrayList<>();
+        if (testsDisplayLayout != null) {
+            testsDisplayLayout.removeAllViews();
+        }
         baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
                 (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
@@ -232,21 +234,19 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
         lastContactLayout = fragmentView.findViewById(R.id.last_contact_layout);
-        TextView last_contact_bottom = lastContactLayout.findViewById(R.id.last_contact_bottom);
-        last_contact_bottom.setOnClickListener(profileContactsActionHandler);
+        TextView lastContactBottom = lastContactLayout.findViewById(R.id.last_contact_bottom);
+        lastContactBottom.setOnClickListener(profileContactsActionHandler);
 
         testLayout = fragmentView.findViewById(R.id.test_layout);
         testsHeader = testLayout.findViewById(R.id.tests_header);
-        TextView tests_bottom = testLayout.findViewById(R.id.tests_bottom);
-        tests_bottom.setOnClickListener(profileContactsActionHandler);
+        TextView testsBottom = testLayout.findViewById(R.id.tests_bottom);
+        testsBottom.setOnClickListener(profileContactsActionHandler);
 
         testsDisplayLayout = testLayout.findViewById(R.id.test_display_layout);
-
 
         return fragmentView;
     }

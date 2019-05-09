@@ -746,7 +746,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             e.printStackTrace();
         }
 
-
         String entityId = getString(jsonForm, ENTITY_ID);
         if (StringUtils.isBlank(entityId)) {
             entityId = baseEntityId;
@@ -766,7 +765,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
         return baseEvent;
-
     }
 
     private static Date getContactStartDate(String contactStartDate) {
@@ -790,11 +788,10 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
         } else {
             template.title = rawTemplate;
-            template.detail = "true";
+            template.detail = "Yes";
         }
 
         return template;
-
     }
 
     public List<ContactSummaryModel> generateNextContactSchedule(String edd, List<String> contactSchedule,
@@ -854,26 +851,11 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } else {
             sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_left));
             sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_right));
-
-
         }
 
         sectionDetailTitle.setVisibility(View.VISIBLE);
         sectionDetails.setVisibility(View.VISIBLE);
         return constraintLayout;
-    }
-
-    /**
-     * Reverse a list
-     *
-     * @param list
-     *
-     * @return reverse
-     */
-    public List<Facts> reverseList(List<Facts> list) {
-        List<Facts> reverse = new ArrayList<>(list);
-        Collections.reverse(reverse);
-        return reverse;
     }
 
     public class Template {

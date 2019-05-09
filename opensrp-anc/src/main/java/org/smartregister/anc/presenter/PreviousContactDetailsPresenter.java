@@ -1,5 +1,6 @@
 package org.smartregister.anc.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
@@ -14,6 +15,7 @@ import org.smartregister.anc.util.Utils;
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +25,6 @@ import java.util.Map;
  * Created by ndegwamartin on 13/07/2018.
  */
 public class PreviousContactDetailsPresenter implements PreviousContactsDetails.Presenter {
-
     private static final String TAG = PreviousContactDetailsPresenter.class.getCanonicalName();
     private JsonFormUtils formUtils = new JsonFormUtils();
 
@@ -36,7 +37,6 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     }
 
     public void onDestroy(boolean isChangingConfiguration) {
-
         mProfileView = null;//set to null on destroy
 
         // Inform interactor
@@ -48,7 +48,6 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
         if (!isChangingConfiguration) {
             mProfileInteractor = null;
         }
-
     }
 
     @Override
@@ -75,7 +74,11 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
                 }
             }
 
-            List<String> scheduleList = Utils.getListFromString(contactScheduleString);
+            List<String> scheduleList = new ArrayList<>();
+            if (!TextUtils.isEmpty(contactScheduleString)){
+                scheduleList = Utils.getListFromString(contactScheduleString);
+            }
+
             Date lastContactEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
             String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
             List<ContactSummaryModel> schedule =
