@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContactsTests;
+import org.smartregister.anc.domain.TestResults;
 import org.smartregister.anc.domain.TestResultsDialog;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
@@ -187,14 +188,28 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         List<TestResultsDialog> allResultKeys = new ArrayList<>();
         for (int i = 0; i < jsonArrayKeys.length(); i++) {
             String[] keys = getTestKeyAndTitle(jsonArrayKeys.getString(i));
-            TestResultsDialog testResultsDialog = new TestResultsDialog();
-            testResultsDialog.setTestTitle(keys[0]);
-            testResultsDialog.setTestResultsList(null);
-            allResultKeys.add(testResultsDialog);
+            List<TestResults> testResults = testTheDisplay();
+            if (testResults.size() > 0 && keys.length > 1) {
+                TestResultsDialog testResultsDialog = new TestResultsDialog(keys[1], testResults);
+                allResultKeys.add(testResultsDialog);
+            }
+
         }
         return allResultKeys;
     }
 
+    private List<TestResults> testTheDisplay() {
+        List<TestResults> resultsList = new ArrayList<>();
+        TestResults testResults1 = new TestResults("42", "12 Dec 2018", "Negative");
+        TestResults testResults2 = new TestResults("31", "12 Nov 2018", "Negative");
+        TestResults testResults3 = new TestResults("26", "12 June 2018", "Negative");
+        TestResults testResults4 = new TestResults("12", "12 May 2018", "Negative");
+        resultsList.add(testResults1);
+        resultsList.add(testResults2);
+        resultsList.add(testResults3);
+        resultsList.add(testResults4);
+        return resultsList;
+    }
 
     private class AllTestClickListener implements View.OnClickListener {
 

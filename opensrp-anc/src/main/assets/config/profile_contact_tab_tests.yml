@@ -46,7 +46,7 @@ fields:
 
   - template: "Hiv test result: {hiv_test_result}"
     relevance: "hiv_test_result != ''"
-test_results: "['hiv_test_result']"
+test_results: "['hiv_test_result:Hiv tests results']"
 
 ---
 sub_group: hepatitis_b_test_results
@@ -233,7 +233,7 @@ fields:
 
   - template: "TB screening result: {tb_screening_result}"
     relevance: "tb_screening_result != ''"
-test_results: "['tb_screening_result']"
+test_results: "['tb_screening_result: TB Screening tests results']"
 
 ---
 sub_group: partner_hiv_test_results
@@ -246,7 +246,7 @@ fields:
 
   - template: "Partner HIV test result: {hiv_test_partner_result}"
     relevance: "hiv_test_partner_result != ''"
-test_results: "['hiv_test_partner_result']"
+test_results: "['hiv_test_partner_result:Partner HIV tests results']"
 
 ---
 sub_group: other_tests_results
@@ -262,4 +262,4 @@ fields:
 
   - template: "Other test result: {other_test_result}"
     relevance: "other_test_result != ''"
-test_results: "['other_test_result']"
+test_results: "['other_test_result:Other tests results']"
