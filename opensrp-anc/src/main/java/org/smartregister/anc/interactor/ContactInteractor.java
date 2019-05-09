@@ -246,9 +246,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             continue;
                         }
 
-
+                        //Do not save empty checkbox values with nothing inside square braces ([])
                         if (fieldObject.has(JsonFormConstants.VALUE) &&
-                                !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
+                                !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
+                                !isCheckboxValueEmpty(fieldObject)) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
                             savePreviousContactItem(baseEntityId, fieldObject);
@@ -257,7 +258,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                         if (fieldObject.has(Constants.KEY.SECONDARY_VALUES) &&
                                 fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).length() > 0) {
                             JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
-                            for(int count = 0; count < secondaryValues.length(); count++){
+                            for (int count = 0; count < secondaryValues.length(); count++) {
                                 savePreviousContactItem(baseEntityId, secondaryValues.getJSONObject(count));
                             }
                         }
@@ -266,6 +267,15 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             }
         }
 
+    }
+
+    private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {
+        if (!fieldObject.has(JsonFormConstants.VALUE)) {
+            return true;
+        }
+        String currentValue = fieldObject.getString(JsonFormConstants.VALUE);
+        return TextUtils.equals(currentValue, "[]") || (currentValue.length() == 2
+                && currentValue.startsWith("[") && currentValue.endsWith("]"));
     }
 
     private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo)
@@ -279,6 +289,11 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 JSONObject valueItem = value.getJSONObject(j);
                 JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
                 String result = extractItemValue(valueItem, valueItemJSONArray);
+                // do not save empty checkbox values ([])
+                if (result.startsWith("[") && result.endsWith("]") && result.length() == 2 ||
+                        TextUtils.equals("[]", result)) {
+                    return;
+                }
                 JSONObject itemToSave = new JSONObject();
                 itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
                 itemToSave.put(JsonFormConstants.VALUE, result);

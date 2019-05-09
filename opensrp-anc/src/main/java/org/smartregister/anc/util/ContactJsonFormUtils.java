@@ -196,8 +196,10 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
 
-        widget.put(JsonFormConstants.VALUE, keyList);
-        widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
+        if (keyList.size() > 0) {
+            widget.put(JsonFormConstants.VALUE, keyList);
+            widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
+        }
     }
 
     public static void getRealSecondaryValue(JSONObject jsonObject) throws Exception {
@@ -263,7 +265,7 @@ public class ContactJsonFormUtils extends FormUtils {
     }
 
     public static JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType)
-    throws JSONException {
+            throws JSONException {
         Map<String, String> vMap = new HashMap<>();
         JSONObject resultJsonObject = new JSONObject();
         JSONObject stepJsonObject = new JSONObject();
@@ -381,7 +383,6 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param facts       {@link Facts}
      * @param fieldObject {@link JSONObject}
-     *
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsFieldsSecondaryValues(Facts facts, JSONObject fieldObject) throws Exception {
@@ -402,7 +403,6 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param facts       {@link Facts}
      * @param fieldObject {@link JSONObject}
-     *
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsExpansionPanelValues(Facts facts, JSONObject fieldObject) throws Exception {
@@ -620,7 +620,6 @@ public class ContactJsonFormUtils extends FormUtils {
      * @param imageView {@link ImageView}
      * @param type      {@link String}
      * @param context   {@link Context}
-     *
      * @author dubdabasoduba
      */
     public void changeIcon(ImageView imageView, String type, Context context) {
@@ -657,12 +656,11 @@ public class ContactJsonFormUtils extends FormUtils {
      *
      * @param values          {@link List<String>}
      * @param statusImageView {@link ImageView}
-     *
      * @throws JSONException
      * @author dubdabasoduba
      */
     public void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView, Context context)
-    throws JSONException {
+            throws JSONException {
         JSONArray list = new JSONArray(values);
         for (int k = 0; k < list.length(); k++) {
             String[] stringValues = list.getString(k).split(":");
