@@ -27,7 +27,7 @@ fields:
 
   - template: "RH factor: {rh_factor}"
     relevance: "rh_factor != ''"
-test_results: "['blood_type:Blood type tests results']"
+test_results: "['blood_type:Blood type tests results','other_tests:Test multiple tests','other_tests:Test multiple tests three']"
 
 ---
 sub_group: hiv_tests_results

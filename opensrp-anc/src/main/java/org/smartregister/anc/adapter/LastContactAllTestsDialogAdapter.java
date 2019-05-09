@@ -1,16 +1,13 @@
 package org.smartregister.anc.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.smartregister.anc.R;
 import org.smartregister.anc.domain.TestResults;
@@ -48,38 +45,19 @@ public class LastContactAllTestsDialogAdapter extends RecyclerView.Adapter<LastC
 
             List<TestResults> results = testResultsDialog.getTestResultsList();
             results.add(0, addHeadingText());
-            createResultList(results, holder);
+            setUpRecyclerView(holder.allTestsContent, results);
         }
+    }
+
+    private void setUpRecyclerView(RecyclerView allTestsContent, List<TestResults> testResults) {
+        LastContactAllTestsResultsDialogAdapter adapter = new LastContactAllTestsResultsDialogAdapter(context, testResults);
+        adapter.notifyDataSetChanged();
+        allTestsContent.setLayoutManager(new LinearLayoutManager(context));
+        allTestsContent.setAdapter(adapter);
     }
 
     private TestResults addHeadingText() {
         return new TestResults("GA", "Date", "Value");
-    }
-
-    private void createResultList(List<TestResults> testResultsList, ViewHolder holder) {
-        for (TestResults testResults : testResultsList) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            ConstraintLayout constraintLayout =
-                    (ConstraintLayout) inflater.inflate(R.layout.all_tests_results_dialog_row, null);
-            TextView gaText = constraintLayout.findViewById(R.id.all_tests_ga);
-            TextView dateText = constraintLayout.findViewById(R.id.all_tests_dates);
-            TextView resultText = constraintLayout.findViewById(R.id.all_tests_result);
-
-            gaText.setText(testResults.getGestAge());
-            gaText.setTextColor(context.getResources().getColor(R.color.overview_font_right));
-            dateText.setText(testResults.getTestDate());
-            dateText.setTextColor(context.getResources().getColor(R.color.overview_font_right));
-            resultText.setText(testResults.getTestValue());
-            resultText.setTextColor(context.getResources().getColor(R.color.overview_font_right));
-
-            if (testResultsList.indexOf(testResults) == 0) {
-                gaText.setTypeface(gaText.getTypeface(), Typeface.BOLD);
-                dateText.setTypeface(gaText.getTypeface(), Typeface.BOLD);
-                resultText.setTypeface(gaText.getTypeface(), Typeface.BOLD);
-            }
-
-            holder.allTestsContent.addView(constraintLayout);
-        }
     }
 
     // total number of rows
@@ -92,7 +70,7 @@ public class LastContactAllTestsDialogAdapter extends RecyclerView.Adapter<LastC
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View parent;
         private CustomFontTextView allTestsTitle;
-        private RelativeLayout allTestsContent;
+        private RecyclerView allTestsContent;
 
         ViewHolder(View itemView) {
             super(itemView);

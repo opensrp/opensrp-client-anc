@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/all_tests_results_dialog_row"
-    android:paddingStart="@dimen/contact_drawable_padding"
-    android:paddingEnd="@dimen/contact_drawable_padding"
+    android:layout_marginBottom="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,25 +10,20 @@
         style="@style/CustomFontTextViewStyle.ClientList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
-        android:layout_marginLeft="@dimen/all_test_margin"
-        android:layout_marginRight="@dimen/all_test_margin"
-        android:layout_marginBottom="30dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="15dp"
         android:maxLines="3"
         android:textColor="@color/text_black"
         android:textSize="@dimen/referral_dialog_title_text_size"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="parent" />
+        android:textStyle="bold" />
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/all_tests_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/all_tests_content_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="parent" >
-    </RelativeLayout>
+        android:layout_below="@+id/all_tests_content_title"
+        android:layout_marginLeft="@dimen/all_test_margin"
+        android:layout_marginRight="@dimen/all_test_margin" >
+    </android.support.v7.widget.RecyclerView>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
