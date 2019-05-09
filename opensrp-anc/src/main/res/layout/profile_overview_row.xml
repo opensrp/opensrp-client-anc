@@ -84,7 +84,7 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/button_navy_blue"
         android:clickable="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@+id/overview_section_details_left"
         app:layout_constraintRight_toRightOf="parent"

@@ -43,6 +43,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private Context context;
     private AllTestClickListener allTestClickListener = new AllTestClickListener();
     private PreviousContactsTests.Presenter presenter;
+    private String baseEntityId;
+    private String contactNo;
 
     // data is passed into the constructor
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
@@ -53,19 +55,20 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     }
 
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts,
-                                  PreviousContactsTests.Presenter presenter) {
+                                  PreviousContactsTests.Presenter presenter, String baseEntityId, String contactNo) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
         this.context = context;
         this.presenter = presenter;
+        this.baseEntityId = baseEntityId;
+        this.contactNo = contactNo;
     }
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.profile_overview_row, parent, false);/*
-        view.setOnClickListener(allTestClickListener);*/
+        View view = mInflater.inflate(R.layout.profile_overview_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -117,13 +120,13 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             holder.sectionDetails.setVisibility(View.GONE);
         }
 
-        if (!TextUtils.isEmpty(mData.get(position).getTestResults())) {
+        /*if (!TextUtils.isEmpty(mData.get(position).getTestResults())) {
             holder.allTestResultsButton.setVisibility(View.VISIBLE);
             holder.allTestResultsButton.setTag(R.id.test_results, mData.get(position).getTestResults());
         } else {
             holder.allTestResultsButton.setVisibility(View.GONE);
             holder.allTestResultsButton.setTag(R.id.test_results, "");
-        }
+        }*/
     }
 
     // total number of rows
@@ -188,27 +191,15 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         List<TestResultsDialog> allResultKeys = new ArrayList<>();
         for (int i = 0; i < jsonArrayKeys.length(); i++) {
             String[] keys = getTestKeyAndTitle(jsonArrayKeys.getString(i));
-            List<TestResults> testResults = testTheDisplay();
-            if (testResults.size() > 0 && keys.length > 1) {
-                TestResultsDialog testResultsDialog = new TestResultsDialog(keys[1], testResults);
-                allResultKeys.add(testResultsDialog);
+            if (keys.length > 2) {
+                List<TestResults> testResults = presenter.loadAllTestResults(baseEntityId, keys[0], keys[1], contactNo);
+                if (testResults.size() > 0) {
+                    TestResultsDialog testResultsDialog = new TestResultsDialog(keys[1], testResults);
+                    allResultKeys.add(testResultsDialog);
+                }
             }
-
         }
         return allResultKeys;
-    }
-
-    private List<TestResults> testTheDisplay() {
-        List<TestResults> resultsList = new ArrayList<>();
-        TestResults testResults1 = new TestResults("42", "12 Dec 2018", "Negative");
-        TestResults testResults2 = new TestResults("31", "12 Nov 2018", "Negative");
-        TestResults testResults3 = new TestResults("26", "12 June 2018", "Negative");
-        TestResults testResults4 = new TestResults("12", "12 May 2018", "Negative");
-        resultsList.add(testResults1);
-        resultsList.add(testResults2);
-        resultsList.add(testResults3);
-        resultsList.add(testResults4);
-        return resultsList;
     }
 
     private class AllTestClickListener implements View.OnClickListener {
@@ -221,7 +212,9 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
                     if (!TextUtils.isEmpty(textKey)) {
                         JSONArray jsonArrayKeys = new JSONArray(textKey);
                         List<TestResultsDialog> testResultsDialogs = getTestData(jsonArrayKeys);
-                        displayUndoDialog(testResultsDialogs);
+                        if (testResultsDialogs.size() > 0) {
+                            displayUndoDialog(testResultsDialogs);
+                        }
                     }
                 }
             } catch (JSONException e) {

@@ -12,9 +12,9 @@ public interface PreviousContactsTests {
         PreviousContactsTests.View getProfileView();
 
         void loadPreviousContactsTest(String baseEntityId, String contactNo, String lastContactRecordDate)
-        throws ParseException, IOException;
+                throws ParseException, IOException;
 
-        void loadAllTestResults(String baseEntityId, String keysToFetch);
+        List<TestResults> loadAllTestResults(String baseEntityId, String keysToFetch, String dateKey, String contactNo);
     }
 
     interface View {

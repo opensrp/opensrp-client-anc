@@ -46,7 +46,7 @@ fields:
 
   - template: "Hiv test result: {hiv_test_result}"
     relevance: "hiv_test_result != ''"
-test_results: "['hiv_test_result:Hiv tests results']"
+test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
 
 ---
 sub_group: hepatitis_b_test_results

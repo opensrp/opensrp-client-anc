@@ -4,6 +4,7 @@ import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContactsTests;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
+import org.smartregister.anc.domain.TestResults;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
 import org.smartregister.anc.domain.YamlConfigWrapper;
@@ -58,7 +59,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
 
     @Override
     public void loadPreviousContactsTest(String baseEntityId, String contactNo, String lastContactRecordDate)
-    throws ParseException, IOException {
+            throws ParseException, IOException {
         List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
         Facts previousContactsFacts =
                 AncApplication.getInstance().getPreviousContactRepository().getPreviousContactTestsFacts(baseEntityId);
@@ -75,8 +76,8 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
     }
 
     @Override
-    public void loadAllTestResults(String baseEntityId, String keysToFetch) {
-        // todo
+    public List<TestResults> loadAllTestResults(String baseEntityId, String keysToFetch, String dateKey, String contactNo) {
+        return  new ArrayList<>();
     }
 
 
@@ -103,7 +104,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
             }
 
             if (testsConfig.getTestResults() != null) {
-                yamlConfigList.add(new YamlConfigWrapper(null,null,null, testsConfig.getTestResults()));
+                yamlConfigList.add(new YamlConfigWrapper(null, null, null, testsConfig.getTestResults()));
             }
 
             if (valueCount > 0) {
