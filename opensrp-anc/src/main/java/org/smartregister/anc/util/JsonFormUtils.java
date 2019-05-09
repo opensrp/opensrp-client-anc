@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
@@ -13,13 +19,18 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.R;
 import org.smartregister.anc.activity.EditJsonFormActivity;
 import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.domain.YamlConfigItem;
+import org.smartregister.anc.domain.YamlConfigWrapper;
+import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -46,6 +57,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,18 +69,16 @@ import java.util.UUID;
  * Created by keyman on 27/06/2018.
  */
 public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
-    private static final String TAG = JsonFormUtils.class.getCanonicalName();
-
     public static final String METADATA = "metadata";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     public static final SimpleDateFormat EDD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final String READ_ONLY = "read_only";
-
     public static final int REQUEST_CODE_GET_JSON = 3432;
+    private static final String TAG = JsonFormUtils.class.getCanonicalName();
 
     public static JSONObject getFormAsJson(JSONObject form, String formName, String id, String currentLocationId)
-            throws Exception {
+    throws Exception {
         if (form == null) {
             return null;
         }
@@ -337,7 +347,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
-            throws JSONException {
+    throws JSONException {
 
         if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_ENTERED)) {
             getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.DOB);
@@ -374,7 +384,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String birthDate)
-            throws JSONException {
+    throws JSONException {
         String dobString = womanClient.get(birthDate);
         if (StringUtils.isNotBlank(dobString)) {
             Date dob = Utils.dobStringToDate(dobString);
@@ -385,7 +395,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void formatEdd(Map<String, String> womanClient, JSONObject jsonObject, String eddDate)
-            throws JSONException {
+    throws JSONException {
         String eddString = womanClient.get(eddDate);
         if (StringUtils.isNotBlank(eddString)) {
             Date edd = Utils.dobStringToDate(eddString);
@@ -606,18 +616,16 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             for (int i = 0; i < fields.length(); i++) {
                 if (!"label".equals(fields.getJSONObject(i).getString(Constants.KEY.TYPE))) {
                     settings.put(fields.getJSONObject(i).getString(Constants.KEY.KEY),
-                            StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" : fields
-                                    .getJSONObject(i).getString(Constants.KEY.VALUE));
+                            StringUtils.isBlank(fields.getJSONObject(i).getString(Constants.KEY.VALUE)) ? "0" :
+                                    fields.getJSONObject(i).getString(Constants.KEY.VALUE));
                 }
 
             }
 
             return settings;
         } catch (Exception e) {
-
             Log.e(TAG, e.getMessage());
             return null;
-
         }
     }
 
@@ -763,11 +771,113 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     private static Date getContactStartDate(String contactStartDate) {
         try {
-
             return new LocalDate(contactStartDate).toDate();
-
         } catch (Exception e) {
             return new LocalDate().toDate();
         }
+    }
+
+    public Template getTemplate(String rawTemplate) {
+        Template template = new Template();
+
+        if (rawTemplate.contains(":")) {
+            String[] templateArray = rawTemplate.split(":");
+            if (templateArray.length == 1) {
+                template.title = templateArray[0].trim();
+            } else if (templateArray.length > 1) {
+                template.title = templateArray[0].trim();
+                template.detail = templateArray[1].trim();
+            }
+        } else {
+            template.title = rawTemplate;
+            template.detail = "true";
+        }
+
+        return template;
+
+    }
+
+    public List<ContactSummaryModel> generateNextContactSchedule(String edd, List<String> contactSchedule,
+                                                                 Integer lastContactSequence) {
+        List<ContactSummaryModel> contactDates = new ArrayList<>();
+        Integer contactSequence = lastContactSequence;
+        if (!TextUtils.isEmpty(edd)) {
+            LocalDate localDate = new LocalDate(edd);
+            LocalDate lmpDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+
+            for (String contactWeeks : contactSchedule) {
+                contactDates.add(new ContactSummaryModel(String.format(
+                        AncApplication.getInstance().getApplicationContext().getString(R.string.contact_number),
+                        contactSequence++),
+                        Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                                Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                        contactWeeks));
+            }
+        }
+        return contactDates;
+    }
+
+    /**
+     * Creates and populates a constraint view to add the contacts tab view instead of using recycler views which introduce
+     * lots of scroll complexities
+     *
+     * @param data
+     * @param facts
+     * @param position
+     * @param context
+     *
+     * @return constraintLayout
+     */
+    @NonNull
+    public ConstraintLayout createListViewItems(List<YamlConfigWrapper> data, Facts facts, int position, Context context) {
+        YamlConfigItem yamlConfigItem = data.get(position).getYamlConfigItem();
+
+        JsonFormUtils.Template template = getTemplate(yamlConfigItem.getTemplate());
+        String output = "";
+        if (!TextUtils.isEmpty(template.detail)) {
+            output = Utils.fillTemplate(template.detail, facts);
+        }
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ConstraintLayout constraintLayout =
+                (ConstraintLayout) inflater.inflate(R.layout.previous_contacts_preview_row, null);
+        TextView sectionDetailTitle = constraintLayout.findViewById(R.id.overview_section_details_left);
+        TextView sectionDetails = constraintLayout.findViewById(R.id.overview_section_details_right);
+
+
+        sectionDetailTitle.setText(template.title);
+        sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
+
+        if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
+            sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
+            sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_red));
+        } else {
+            sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_left));
+            sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_right));
+
+
+        }
+
+        sectionDetailTitle.setVisibility(View.VISIBLE);
+        sectionDetails.setVisibility(View.VISIBLE);
+        return constraintLayout;
+    }
+
+    /**
+     * Reverse a list
+     *
+     * @param list
+     *
+     * @return reverse
+     */
+    public List<Facts> reverseList(List<Facts> list) {
+        List<Facts> reverse = new ArrayList<>(list);
+        Collections.reverse(reverse);
+        return reverse;
+    }
+
+    public class Template {
+        public String title = "";
+        public String detail = "";
     }
 }

@@ -38,8 +38,10 @@ public class AncEditTextFactory extends EditTextFactory {
     }
 
     @Override
-    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
-        if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) && jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
+    public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment,
+                                       JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
+        if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) &&
+                jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
             RelativeLayout rootLayout = getRootLayout(context);
@@ -82,8 +84,7 @@ public class AncEditTextFactory extends EditTextFactory {
                 }
             });
 
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER |
-                    InputType.TYPE_NUMBER_FLAG_SIGNED);
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
 
             return views;
@@ -97,8 +98,7 @@ public class AncEditTextFactory extends EditTextFactory {
     }
 
     protected RelativeLayout getRootLayout(Context context) {
-        return (RelativeLayout) LayoutInflater.from(context).inflate(
-                R.layout.item_edit_text_number_picker, null);
+        return (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.item_edit_text_number_picker, null);
     }
 
 }

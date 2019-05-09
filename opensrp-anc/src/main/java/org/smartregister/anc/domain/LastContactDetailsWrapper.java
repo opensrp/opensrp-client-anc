@@ -10,8 +10,8 @@ public class LastContactDetailsWrapper {
     private List<YamlConfigWrapper> extraInformation;
     private Facts facts;
 
-    public LastContactDetailsWrapper(String contactNo, String contactDate,
-                                     List<YamlConfigWrapper> extraInformation, Facts facts) {
+    public LastContactDetailsWrapper(String contactNo, String contactDate, List<YamlConfigWrapper> extraInformation,
+                                     Facts facts) {
         this.contactNo = contactNo;
         this.contactDate = contactDate;
         this.extraInformation = extraInformation;

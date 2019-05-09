@@ -119,14 +119,17 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
     public void deleteDraft(String baseEntityId) {
-
         getAncApplication().getPartialContactRepository().deleteDraftJson(baseEntityId);
     }
 
     @Override
     public void saveFinalJson(String baseEntityId) {
-
         getAncApplication().getPartialContactRepository().saveFinalJson(baseEntityId);
+    }
+
+    @Override
+    public int getGestationAge() {
+        return interactor.getGestationAge(details);
     }
 
     private ContactContract.View getView() {
@@ -162,5 +165,4 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     protected AncApplication getAncApplication() {
         return AncApplication.getInstance();
     }
-
 }

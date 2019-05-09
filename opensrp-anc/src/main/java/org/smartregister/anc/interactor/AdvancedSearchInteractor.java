@@ -16,13 +16,10 @@ import java.util.Map;
 
 public class AdvancedSearchInteractor implements AdvancedSearchContract.Interactor {
 
-    private AppExecutors appExecutors;
-
-    private HTTPAgent httpAgent;
-
-    private DristhiConfiguration dristhiConfiguration;
-
     public static final String SEARCH_URL = "/rest/search/search";
+    private AppExecutors appExecutors;
+    private HTTPAgent httpAgent;
+    private DristhiConfiguration dristhiConfiguration;
 
     @VisibleForTesting
     AdvancedSearchInteractor(AppExecutors appExecutors) {
@@ -35,11 +32,11 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
 
     @Override
     public void search(final Map<String, String> editMap, final AdvancedSearchContract.InteractorCallBack callBack,
-		    final String ancId) {
+                       final String ancId) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                
+
                 final Response<String> response = globalSearch(editMap);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override

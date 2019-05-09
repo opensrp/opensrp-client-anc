@@ -1,0 +1,7 @@
+---
+fields:
+-   template: "Physiological symptoms: {phys_symptoms}"
+    relevance: "phys_symptoms != ''"
+
+-   template: "Average weight gain per week since last contact: {weight_gain} kg"
+    relevance: "weight_gain != ''"

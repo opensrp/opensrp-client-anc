@@ -1,7 +1,6 @@
 package org.smartregister.anc.widget;
 
 import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -63,7 +62,7 @@ public class ExpansionPanelWidgetFactoryTest extends BaseUnitTest {
     private LinearLayout contentLayout;
 
     @Mock
-    private RecyclerView contentView;
+    private LinearLayout contentView;
 
     @Mock
     private LinearLayout bottomButtonsLayout;
@@ -111,7 +110,7 @@ public class ExpansionPanelWidgetFactoryTest extends BaseUnitTest {
         Mockito.doReturn(contentLayout).when(rootLayout).findViewById(R.id.contentLayout);
         Assert.assertNotNull(contentLayout);
 
-        Mockito.doReturn(contentView).when(contentLayout).findViewById(R.id.contentRecyclerView);
+        Mockito.doReturn(contentView).when(contentLayout).findViewById(R.id.contentView);
         Assert.assertNotNull(contentView);
 
         Mockito.doReturn(bottomButtonsLayout).when(rootLayout).findViewById(R.id.accordion_bottom_navigation);

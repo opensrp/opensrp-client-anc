@@ -300,4 +300,11 @@
     <string name="contact_details">%1$s &#183; Contact %2$s</string>
     <string name="undo_test_result">Undo the %1$s result?</string>
     <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
+    <string name="previous_contacts_header">Previous Contacts</string>
+    <string name="previous_contacts_tests_header">All Test Results</string>
+    <string name="expected_date_of_delivery">Expected Date of Delivery</string>
+    <string name="ga_weeks">%1$s Weeks</string>
+    <string name="timeline_away">%1$sw away</string>
+    <string name="all_results">All results</string>
+    <string name="no_tests_available">No Tests Available</string>
 </resources>

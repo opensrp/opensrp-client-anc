@@ -1,0 +1,351 @@
+{
+  "content_form": [
+    {
+      "key": "tt1_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "TT dose #1",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "TT dose #1 is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "tt1_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt1_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date TT dose #1 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for TT dose #1 is required"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt2_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "TT dose #2",
+      "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+      "label_info_title": "TT dose #2",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "TT dose #2 is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "tt2_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt2_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date TT dose #2 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for TT dose #2 is required"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt3_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "TT dose #3",
+      "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+      "label_info_title": "TT dose #3",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "TT dose #3 is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "tt3_dose_number",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt3_date_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date TT dose #3 was given.",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "Date for TT dose #3 is required"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt_dose_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "vaccine_available",
+          "text": "No vaccine available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_is_ill",
+          "text": "Woman is ill",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "woman_refused",
+          "text": "Woman refused",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "allergies",
+          "text": "Allergies",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Reason TT dose was not given is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "tt_dose_notdone_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:tt_dose_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    },
+    {
+      "key": "woman_immunised_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Woman is fully immunised against tetanus!",
+      "toaster_type": "positive",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    }
+  ]
+}

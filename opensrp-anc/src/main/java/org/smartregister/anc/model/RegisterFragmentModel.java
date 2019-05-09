@@ -43,12 +43,14 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public ViewConfiguration getViewConfiguration(String viewConfigurationIdentifier) {
-        return ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getViewConfiguration(viewConfigurationIdentifier);
+        return ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper()
+                .getViewConfiguration(viewConfigurationIdentifier);
     }
 
     @Override
     public Set<View> getRegisterActiveColumns(String viewConfigurationIdentifier) {
-        return ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().getRegisterActiveColumns(viewConfigurationIdentifier);
+        return ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper()
+                .getRegisterActiveColumns(viewConfigurationIdentifier);
     }
 
     @Override
@@ -61,23 +63,14 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        String[] columns = new String[]{
-                tableName + ".relationalid",
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.ANC_ID,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + DBConstants.KEY.PHONE_NUMBER,
-                tableName + "." + DBConstants.KEY.ALT_NAME,
-                tableName + "." + DBConstants.KEY.DATE_REMOVED,
-                tableName + "." + DBConstants.KEY.EDD,
-                tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
-                tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT,
-                tableName + "." + DBConstants.KEY.CONTACT_STATUS,
-                tableName + "." + DBConstants.KEY.NEXT_CONTACT,
-                tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE,
+        String[] columns = new String[]{tableName + ".relationalid", tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID, tableName + "." + DBConstants.KEY.FIRST_NAME,
+                tableName + "." + DBConstants.KEY.LAST_NAME, tableName + "." + DBConstants.KEY.ANC_ID,
+                tableName + "." + DBConstants.KEY.DOB, tableName + "." + DBConstants.KEY.PHONE_NUMBER,
+                tableName + "." + DBConstants.KEY.ALT_NAME, tableName + "." + DBConstants.KEY.DATE_REMOVED,
+                tableName + "." + DBConstants.KEY.EDD, tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
+                tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT, tableName + "." + DBConstants.KEY.CONTACT_STATUS,
+                tableName + "." + DBConstants.KEY.NEXT_CONTACT, tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE,
                 tableName + "." + DBConstants.KEY.LAST_CONTACT_RECORD_DATE};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
@@ -122,7 +115,8 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
-        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME};
+        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
+                DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME};
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
 
         if (response == null || response.isFailure() || StringUtils.isBlank(response.payload())) {
@@ -175,7 +169,8 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
                 altContactName = getJsonString(getJsonObject(client, "attributes"), "alt_name");
 
 
-                matrixCursor.addRow(new Object[]{entityId, null, firstName, lastName, dob, ancId, phoneNumber, altContactName});
+                matrixCursor
+                        .addRow(new Object[]{entityId, null, firstName, lastName, dob, ancId, phoneNumber, altContactName});
             }
         }
         return matrixCursor;
