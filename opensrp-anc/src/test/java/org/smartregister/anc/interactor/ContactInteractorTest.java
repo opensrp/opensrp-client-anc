@@ -131,13 +131,13 @@ public class ContactInteractorTest extends BaseUnitTest {
                 ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(Constants.RULES_FILE.CONTACT_RULES))).thenReturn(integerList);
 
         PowerMockito.mockStatic(PatientRepository.class);
-
-        interactor.finalizeContactForm(details);
+        ContactInteractor contactInteractor = (ContactInteractor) interactor;
+        contactInteractor.finalizeContactForm(details);
 
         PowerMockito.verifyStatic(PatientRepository.class);
 
         PatientRepository.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class), ArgumentMatchers.anyBoolean());
-        Assert.assertNotNull(interactor);
+        Assert.assertNotNull(contactInteractor);
     }
 
 }

@@ -8,6 +8,7 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContactsDetails;
 import org.smartregister.anc.interactor.PreviousContactsDetailsInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
@@ -62,7 +63,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     @Override
     public void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd) {
         try {
-            Facts immediatePreviousSchedule = AncApplication.getInstance().getPreviousContactRepository()
+            Facts immediatePreviousSchedule = getPreviousContactRepository()
                     .getImmediatePreviousSchedule(baseEntityId, contactNo);
             String contactScheduleString = "";
             if (immediatePreviousSchedule != null) {
@@ -75,7 +76,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
             }
 
             List<String> scheduleList = new ArrayList<>();
-            if (!TextUtils.isEmpty(contactScheduleString)){
+            if (!TextUtils.isEmpty(contactScheduleString)) {
                 scheduleList = Utils.getListFromString(contactScheduleString);
             }
 
@@ -92,6 +93,16 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
 
     @Override
     public void loadPreviousContacts(String baseEntityId, String contactNo) {
-       // todo
+        Facts allContactsFacts = getPreviousContactRepository().getPreviousContactsFacts(baseEntityId);
+        if (allContactsFacts != null) {
+            Map<String, Object> allContactsFactsMap = allContactsFacts.asMap();
+            for (Map.Entry<String, Object> entry : allContactsFactsMap.entrySet()) {
+
+            }
+        }
+    }
+
+    private PreviousContactRepository getPreviousContactRepository() {
+        return AncApplication.getInstance().getPreviousContactRepository();
     }
 }

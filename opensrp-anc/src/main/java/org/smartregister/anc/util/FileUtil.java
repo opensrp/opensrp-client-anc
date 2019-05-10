@@ -19,6 +19,4 @@ public class FileUtil {
     public static OutputStream createFileOutputStream(File file) throws FileNotFoundException {
         return new FileOutputStream(file);
     }
-
-
 }

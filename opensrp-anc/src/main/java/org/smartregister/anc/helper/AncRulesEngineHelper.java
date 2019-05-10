@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
+import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -162,11 +163,10 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         if (mJsonObject.length() > 0) {
             String[] splitWidget = widget.split("_");
             String step = splitWidget[0];
-            String key = getKey(widget, step);
+            String key = ContactJsonFormUtils.removeKeyPrefix(widget, step);
             if (mJsonObject.has(step)) {
                 JSONObject stepsObject = mJsonObject.getJSONObject(step);
                 JSONArray fields = stepsObject.getJSONArray(JsonFormConstants.FIELDS);
-
                 if (fields.length() > 1)
                     for (int i = 0; i < fields.length(); i++) {
                         JSONObject accordionObject = fields.getJSONObject(i);
