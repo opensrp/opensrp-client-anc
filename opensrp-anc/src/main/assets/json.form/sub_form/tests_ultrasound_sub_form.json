@@ -413,7 +413,7 @@
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "Other",
           "openmrs_entity_parent": "",
           "openmrs_entity": "",
           "openmrs_entity_id": ""

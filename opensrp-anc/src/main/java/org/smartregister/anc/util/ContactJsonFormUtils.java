@@ -98,8 +98,8 @@ public class ContactJsonFormUtils extends FormUtils {
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
         //partial contact exists?
 
-        PartialContact partialContact =
-                AncApplication.getInstance().getPartialContactRepository().getPartialContact(partialContactRequest);
+        PartialContact partialContact = AncApplication.getInstance().getPartialContactRepository()
+                .getPartialContact(partialContactRequest);
 
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
         JSONObject object = new JSONObject(formJsonString);
@@ -199,8 +199,10 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
 
-        widget.put(JsonFormConstants.VALUE, keyList);
-        widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
+        if (keyList.size() > 0) {
+            widget.put(JsonFormConstants.VALUE, keyList);
+            widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
+        }
     }
 
     public static void getRealSecondaryValue(JSONObject jsonObject) throws Exception {
@@ -217,52 +219,52 @@ public class ContactJsonFormUtils extends FormUtils {
 
 
         for (int j = 0; j < jsonArray2.length(); j++) {
-
             JSONObject secValue = jsonArray2.getJSONObject(j);
 
-            JSONArray values = new JSONArray();
-            if (secValue.has(JsonFormConstants.VALUES)) {
-                values = secValue.getJSONArray(JsonFormConstants.VALUES);
-            }
-
-            int valueLength = values.length();
-
-            List<String> keyList = new ArrayList<>();
-            List<String> valueList = new ArrayList<>();
-
-
-            for (int k = 0; k < valueLength; k++) {
-                String valuesString = values.getString(k);
-                String keyString = "";
-                if (TextUtils.isEmpty(keyString) && valuesString.contains(":")) {
-                    keyString = valuesString.substring(0, valuesString.indexOf(":"));
-                    keyList.add(keyString);
+            if (secValue.length() > 0) {
+                JSONArray values = new JSONArray();
+                if (secValue.has(JsonFormConstants.VALUES)) {
+                    values = secValue.getJSONArray(JsonFormConstants.VALUES);
                 }
-                valuesString =
-                        valuesString.contains(":") ? valuesString.substring(valuesString.indexOf(":") + 1) : valuesString;
-                valuesString =
-                        valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString;
 
-                valueList.add(valuesString);
+                int valueLength = values.length();
+
+                List<String> keyList = new ArrayList<>();
+                List<String> valueList = new ArrayList<>();
 
 
+                for (int k = 0; k < valueLength; k++) {
+                    String valuesString = values.getString(k);
+                    String keyString = "";
+                    if (TextUtils.isEmpty(keyString) && valuesString.contains(":")) {
+                        keyString = valuesString.substring(0, valuesString.indexOf(":"));
+                        keyList.add(keyString);
+                    }
+                    valuesString =
+                            valuesString.contains(":") ? valuesString
+                                    .substring(valuesString.indexOf(":") + 1) : valuesString;
+                    valuesString =
+                            valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString;
+
+                    valueList.add(valuesString);
+
+
+                }
+                if (keyList.size() > 0 && keyList.get(0).equals("other")) {
+                    Collections.reverse(keyList);
+                    Collections.reverse(valueList);
+                }
+
+
+                JSONObject secValueJsonObject = new JSONObject(ImmutableMap
+                        .of(JsonFormConstants.KEY, ContactJsonFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE,
+                                ContactJsonFormUtils.getListValuesAsString(valueList)));
+                jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(secValueJsonObject);
+
+                secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
+                jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(secValue);
             }
-            if (keyList.size() > 0 && keyList.get(0).equals("other")) {
-                Collections.reverse(keyList);
-                Collections.reverse(valueList);
-            }
-
-
-            JSONObject secValueJsonObject = new JSONObject(ImmutableMap
-                    .of(JsonFormConstants.KEY, ContactJsonFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE,
-                            ContactJsonFormUtils.getListValuesAsString(valueList)));
-            jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(secValueJsonObject);
-
-            secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
-            jsonObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).put(secValue);
-
         }
-
     }
 
     public static JSONObject createSecondaryFormObject(JSONObject parentObject, JSONObject jsonSubForm, String encounterType)
@@ -427,7 +429,8 @@ public class ContactJsonFormUtils extends FormUtils {
         for (int j = 0; j < secondaryValues.length(); j++) {
             JSONObject jsonObject = secondaryValues.getJSONObject(j);
 
-            if (jsonObject.getString(JsonFormConstants.KEY).endsWith(Constants.SUFFIX.OTHER)) {
+            if (jsonObject.has(JsonFormConstants.KEY) && jsonObject.getString(JsonFormConstants.KEY)
+                    .endsWith(Constants.SUFFIX.OTHER)) {
                 otherValue = jsonObject;
             } else {
                 newJsonArray.put(jsonObject);
