@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -99,7 +100,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     public void loadPreviousContacts(String baseEntityId, String contactNo) {
         List<PreviousContactsSummaryModel> allContactsFacts = getPreviousContactRepository()
                 .getPreviousContactsFacts(baseEntityId);
-        HashMap<String, List<Facts>> filteredContacts = new HashMap<>();
+        LinkedHashMap<String, List<Facts>> filteredContacts = new LinkedHashMap<>();
 
         if (allContactsFacts != null && allContactsFacts.size() > 0 && !TextUtils.isEmpty(contactNo)) {
             Collections.reverse(allContactsFacts);

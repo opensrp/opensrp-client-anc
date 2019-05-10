@@ -202,11 +202,11 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         previousContacts.setLayoutManager(new LinearLayoutManager(this));
         previousContacts.setAdapter(adapter);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        /*LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
 
-        previousContacts.setLayoutManager(mLayoutManager);
+        previousContacts.setLayoutManager(mLayoutManager);*/
     }
 
     private void setUpViews() {
