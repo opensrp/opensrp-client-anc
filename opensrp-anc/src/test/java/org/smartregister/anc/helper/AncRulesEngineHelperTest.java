@@ -44,6 +44,61 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
             "      \"title\": \"Due\",\n" +
             "      \"next\": \"step2\",\n" +
             "      \"fields\": [\n" +
+            "          {\n" +
+            "   \"key\": \"symp_sev_preeclampsia\",\n" +
+            "   \"type\": \"check_box\",\n" +
+            "   \"label\": \"Any symptoms of severe pre-eclampsia?\",\n" +
+            "   \"label_text_style\": \"bold\",\n" +
+            "   \"text_color\": \"#000000\",\n" +
+            "   \"exclusive\": [\n" +
+            "      \"none\"\n" +
+            "   ],\n" +
+            "   \"options\": [\n" +
+            "      {\n" +
+            "         \"key\": \"none\",\n" +
+            "         \"text\": \"None\",\n" +
+            "         \"value\": false,\n" +
+            "         \"openmrs_entity\": \"\",\n" +
+            "         \"openmrs_entity_id\": \"\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "         \"key\": \"severe_headache\",\n" +
+            "         \"text\": \"Severe headache\",\n" +
+            "         \"value\": false,\n" +
+            "         \"openmrs_entity\": \"Headache\",\n" +
+            "         \"openmrs_entity_id\": \"139084\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "         \"key\": \"blurred_vision\",\n" +
+            "         \"text\": \"Blurred vision\",\n" +
+            "         \"value\": false,\n" +
+            "         \"openmrs_entity\": \"Blurred vision\",\n" +
+            "         \"openmrs_entity_id\": \"147104\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "         \"key\": \"epigastric_pain\",\n" +
+            "         \"text\": \"Epigastric pain\",\n" +
+            "         \"value\": false,\n" +
+            "         \"openmrs_entity\": \"\",\n" +
+            "         \"openmrs_entity_id\": \"141128\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "         \"key\": \"dizziness\",\n" +
+            "         \"text\": \"Dizziness\",\n" +
+            "         \"value\": false,\n" +
+            "         \"openmrs_entity\": \"\",\n" +
+            "         \"openmrs_entity_id\": \"\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "         \"key\": \"vomiting\",\n" +
+            "         \"text\": \"Vomiting\",\n" +
+            "         \"value\": false,\n" +
+            "         \"openmrs_entity\": \"\",\n" +
+            "         \"openmrs_entity_id\": \"\"\n" +
+            "      }\n" +
+            "   ]\n" +
+
+            "},"+
             "         {\n" +
             "            \"key\": \"accordion_ultrasound\",\n" +
             "            \"openmrs_entity_parent\": \"\",\n" +

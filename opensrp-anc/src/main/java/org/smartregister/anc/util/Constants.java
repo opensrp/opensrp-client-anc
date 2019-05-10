@@ -22,6 +22,7 @@ public abstract class Constants {
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
+    public static final String GLOBAL = "global";
     public static final String EDITABLE_FIELDS = "editable_fields";
     public static final String FALSE = "false";
     public static final String DANGER_SIGNS = "danger_signs";
@@ -46,6 +47,11 @@ public abstract class Constants {
     public static final String INDEX = "index";
     public static final String BOTTOM_SECTION = "bottom_section";
     public static final String DISPLAY_RECORD_BUTTON = "display_record_button";
+    public static final String FILTER_OPTIONS_SOURCE = "filter_options_source";
+    public static final String FILTER_OPTIONS = "filter_options";
+    public static final String FILTERED_ITEMS = "filtered_items";
+    public static final String PREVIOUS = "previous";
+    public static final String IS_FILTERED = "is_filtered";
     public static final String CONTACT_DATE = "contact_date";
     public static final String CONTACT_SCHEDULE = "contact_schedule";
     public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";

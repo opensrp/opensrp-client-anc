@@ -4,6 +4,11 @@
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
   "relational_id": "",
+  "filtered_items": [
+    "step2_behaviour_persist",
+    "step3_phys_symptoms_persist",
+    "step3_other_symptoms_persist"
+  ],
   "default_values": [
     "medications",
     "medications_other",
@@ -599,6 +604,32 @@
         "label_info_title": "Previous behaviours",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "filter_options": [
+          {
+            "key": "global_previous_tobacco_user",
+            "value": "[yes, recently_quit]"
+          },
+          {
+            "key": "global_previous_condom_use",
+            "value": "no"
+          },
+          {
+            "key": "global_previous_shs_exposure",
+            "value": "yes"
+          },
+          {
+            "key": "global_previous_alcohol_substance_use",
+            "value": "!none",
+            "options": [
+              "alcohol_use",
+              "substance_use"
+            ]
+          },
+          {
+            "key": "global_previous_caffeine_intake",
+            "value": "!none"
+          }
+        ],
         "exclusive": [
           "none"
         ],
@@ -612,7 +643,7 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "high_caffeine",
+            "key": "caffeine_intake",
             "text": "High caffeine intake",
             "value": false,
             "openmrs_entity": "concept",
@@ -622,7 +653,7 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "current_tobacco_use",
+            "key": "tobacco_user",
             "text": "Current tobacco use or recently quit",
             "value": false,
             "openmrs_entity": "concept",
@@ -630,7 +661,7 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "tobacco_exposure",
+            "key": "shs_exposure",
             "text": "Exposure to second-hand smoke in the home",
             "value": false,
             "openmrs_entity": "concept",
@@ -638,7 +669,7 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "no_condom_use",
+            "key": "condom_use",
             "text": "No condom use during sex",
             "value": false,
             "openmrs_entity": "concept",
@@ -690,7 +721,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "high_caffeine"
+                  "caffeine_intake"
                 ]
               }
             ]
@@ -712,7 +743,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "current_tobacco_use"
+                  "tobacco_user"
                 ]
               }
             ]
@@ -734,7 +765,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "tobacco_exposure"
+                  "shs_exposure"
                 ]
               }
             ]
@@ -756,7 +787,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "no_condom_use"
+                  "condom_use"
                 ]
               }
             ]
@@ -803,6 +834,7 @@
         "label_info_title": "Previous Symptoms",
         "label_text_style": "bold",
         "text_color": "#000000",
+        "filter_options_source": "global_previous_phys_symptoms",
         "exclusive": [
           "none"
         ],
@@ -1206,6 +1238,7 @@
         "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous Symptoms",
         "text_color": "#000000",
+        "filter_options_source": "global_previous_other_symptoms",
         "exclusive": [
           "none"
         ],
