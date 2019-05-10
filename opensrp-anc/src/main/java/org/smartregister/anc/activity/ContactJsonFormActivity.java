@@ -405,8 +405,8 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     @Override
     public Facts getValueFromAddressCore(JSONObject object) throws JSONException {
         Facts result = new Facts();
-        if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null &&
-                genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL) && object != null) {
+        if ((genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface.getWidgetType()
+                .equals(Constants.EXPANSION_PANEL)) && (object != null && object.has(JsonFormConstants.TYPE))) {
             switch (object.getString(JsonFormConstants.TYPE)) {
                 case JsonFormConstants.CHECK_BOX:
                     result = formUtils.getCheckBoxResults(object);
@@ -434,7 +434,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 result.put(getKey(object), selectedValues.toString());
             }
 
-        } else if (object != null && object.length() > 0) {
+        } else if (object != null && object.has(JsonFormConstants.TYPE) && object.length() > 0) {
             return super.getValueFromAddressCore(object);
         }
 
@@ -491,7 +491,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
         if (refreshExpansionPanelEvent != null) {
             try {

@@ -270,7 +270,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             //Handle Gestation age. Use the latest calculated gestation age. Checks if the Current
             //Gestation Age is greater than the previously stored Gestation age
             String gestAgeInMap = formGlobalValues.get(Constants.GEST_AGE_OPENMRS);
-            int previousGestAge = gestAgeInMap != null ? Integer.parseInt(gestAgeInMap) : 0;
+            int previousGestAge = !TextUtils.isEmpty(gestAgeInMap) ? Integer.parseInt(gestAgeInMap) : 0;
             if (previousGestAge < presenter.getGestationAge()) {
                 map.put(Constants.GEST_AGE_OPENMRS, String.valueOf(presenter.getGestationAge()));
             }
@@ -355,6 +355,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
+        //Reset global value that matches this with an empty string first any time this method is called
+        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY))) {
+            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), "");
+        }
+
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
 
@@ -362,28 +367,21 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     fieldObject.getString(JsonFormConstants.VALUE));//Normal value
             processAbnormalValues(formGlobalValues, fieldObject);
 
-
             String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
             if (fieldObject.has(secKey)) {
                 formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
             }
 
             if (fieldObject.has(Constants.KEY.SECONDARY_VALUES)) {
-
                 fieldObject.put(Constants.KEY.SECONDARY_VALUES,
                         ContactJsonFormUtils.sortSecondaryValues(fieldObject));//sort and reset
-
                 JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
-
                 for (int j = 0; j < secondaryValues.length(); j++) {
                     JSONObject jsonObject = secondaryValues.getJSONObject(j);
                     processAbnormalValues(formGlobalValues, jsonObject);
-
-
                 }
             }
             checkRequiredForCheckBoxOther(fieldObject);
-
         }
     }
 
