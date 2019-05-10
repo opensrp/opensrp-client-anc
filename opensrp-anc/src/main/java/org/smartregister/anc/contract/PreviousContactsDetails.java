@@ -21,7 +21,7 @@ public interface PreviousContactsDetails {
     interface View {
         void displayPreviousContactSchedule(List<ContactSummaryModel> schedule);
 
-        void loadPreviousContactsDetails(Map<String, Facts> contactFacts) throws IOException, ParseException;
+        void loadPreviousContactsDetails(Map<String, List<Facts>> contactFacts) throws IOException, ParseException;
     }
 
     interface Interactor {

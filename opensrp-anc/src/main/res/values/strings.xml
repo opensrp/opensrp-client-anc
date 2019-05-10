@@ -298,6 +298,7 @@
     <string name="previous_contacts">PREVIOUS CONTACTS</string>
     <string name="all_tests_results">All Tests Results</string>
     <string name="contact_details">%1$s Weeks &#183; Contact %2$s</string>
+    <string name="referral_contact_details">Contact %1$s</string>
     <string name="undo_test_result">Undo the %1$s result?</string>
     <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
     <string name="previous_contacts_header">Previous Contacts</string>

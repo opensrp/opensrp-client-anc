@@ -99,31 +99,31 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     public void loadPreviousContacts(String baseEntityId, String contactNo) {
         List<PreviousContactsSummaryModel> allContactsFacts = getPreviousContactRepository()
                 .getPreviousContactsFacts(baseEntityId);
-        Map<String, Facts> contactMap = new HashMap<>();
+        HashMap<String, List<Facts>> filteredContacts = new HashMap<>();
+
         if (allContactsFacts != null && allContactsFacts.size() > 0 && !TextUtils.isEmpty(contactNo)) {
             Collections.reverse(allContactsFacts);
-            for (int position = Integer.parseInt(contactNo); position >= 1; position--) {
-                Facts newContactFacts = new Facts();
-                for (PreviousContactsSummaryModel previousContactsSummaryModel : allContactsFacts) {
-                    if (previousContactsSummaryModel.getContactNumber().equals(String.valueOf(position))) {
-                        Map<String, Object> modelFacts = previousContactsSummaryModel.getVisitFacts().asMap();
-                        for (Map.Entry<String, Object> entry : modelFacts.entrySet()) {
-                            newContactFacts.put(entry.getKey(), entry.getValue());
-                        }
-                    }
+            for (PreviousContactsSummaryModel previousContactsSummaryModel : allContactsFacts) {
+                String currentContactInLoop = previousContactsSummaryModel.getContactNumber();
+                List<Facts> factsList = filteredContacts.get(currentContactInLoop);
+                if (factsList != null && factsList.size() > 0) {
+                    factsList.add(previousContactsSummaryModel.getVisitFacts());
+                    filteredContacts.put(currentContactInLoop, factsList);
+                } else {
+                    List<Facts> newList = new ArrayList<>();
+                    newList.add(previousContactsSummaryModel.getVisitFacts());
+                    filteredContacts.put(currentContactInLoop, newList);
                 }
-
-                contactMap.put(String.valueOf(position), newContactFacts);
             }
         }
 
         try {
-            getProfileView().loadPreviousContactsDetails(contactMap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+            getProfileView().loadPreviousContactsDetails(filteredContacts);
+        } catch (IOException |
+                ParseException e) {
             e.printStackTrace();
         }
+
     }
 
     private PreviousContactRepository getPreviousContactRepository() {

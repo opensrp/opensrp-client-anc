@@ -98,24 +98,34 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void loadPreviousContactsDetails(Map<String, Facts> allContactFacts) throws IOException, ParseException {
+    public void loadPreviousContactsDetails(Map<String, List<Facts>> allContactFacts) throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
         if (!allContactFacts.isEmpty()) {
-            for (Map.Entry<String, Facts> entry : allContactFacts.entrySet()) {
-                Facts contactFacts = entry.getValue();
+            for (Map.Entry<String, List<Facts>> entry : allContactFacts.entrySet()) {
+                List<Facts> factsList = entry.getValue();
                 String contactNo = entry.getKey();
+                Facts factsToUpdate = new Facts();
+
+                for (Facts facts : factsList) {
+                    if (facts != null) {
+                        Map<String, Object> factObject = facts.asMap();
+                        for (Map.Entry<String, Object> stringObjectEntry : factObject.entrySet()) {
+                            factsToUpdate.put(stringObjectEntry.getKey(), stringObjectEntry.getValue());
+                        }
+                    }
+                }
 
                 lastContactDetails = new ArrayList<>();
 
-                if (contactFacts.asMap().get(Constants.ATTENTION_FLAG_FACTS) != null) {
+                if (factsToUpdate.asMap().get(Constants.ATTENTION_FLAG_FACTS) != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(
-                                (String) contactFacts.asMap().get(Constants.ATTENTION_FLAG_FACTS));
+                                (String) factsToUpdate.asMap().get(Constants.ATTENTION_FLAG_FACTS));
                         Iterator<String> keys = jsonObject.keys();
 
                         while (keys.hasNext()) {
                             String key = keys.next();
-                            contactFacts.put(key, jsonObject.get(key));
+                            factsToUpdate.put(key, jsonObject.get(key));
                         }
                     } catch (JSONException e) {
                         Log.e(TAG, Log.getStackTraceString(e));
@@ -123,18 +133,20 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                 }
 
 
-                addOtherRuleObjects(contactFacts);
-                addAttentionFlagsRuleObjects(contactFacts);
+                addOtherRuleObjects(factsToUpdate);
+                addAttentionFlagsRuleObjects(factsToUpdate);
                 Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse(String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
+                        .parse(String.valueOf(factsToUpdate.asMap().get(Constants.CONTACT_DATE)));
 
                 String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
                         .format(lastContactDate);
 
                 lastContactDetailsWrapperList
-                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, contactFacts));
+                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails,
+                                factsToUpdate));
                 setUpContactDetailsRecycler(lastContactDetailsWrapperList);
             }
+
         }
 
 
