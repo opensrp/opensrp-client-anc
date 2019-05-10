@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.ContactScheduleAdapter;
 import org.smartregister.anc.adapter.LastContactAdapter;
@@ -34,8 +35,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class PreviousContactsDetailsActivity extends AppCompatActivity implements PreviousContactsDetails.View {
     private static final String TAG = PreviousContactsDetailsActivity.class.getCanonicalName();
@@ -95,22 +98,45 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void loadPreviousContactsDetails(Facts facts, Facts contactFacts, String contactNo)
-    throws IOException, ParseException {
+    public void loadPreviousContactsDetails(Map<String, Facts> allContactFacts) throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
-        lastContactDetails = new ArrayList<>();
+        if (!allContactFacts.isEmpty()) {
+            for (Map.Entry<String, Facts> entry : allContactFacts.entrySet()) {
+                Facts contactFacts = entry.getValue();
+                String contactNo = entry.getKey();
 
-        addOtherRuleObjects(contactFacts);
-        addAttentionFlagsRuleObjects(facts);
+                lastContactDetails = new ArrayList<>();
 
-        Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                .parse(String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
+                if (contactFacts.asMap().get(Constants.ATTENTION_FLAG_FACTS) != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(
+                                (String) contactFacts.asMap().get(Constants.ATTENTION_FLAG_FACTS));
+                        Iterator<String> keys = jsonObject.keys();
 
-        String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            contactFacts.put(key, jsonObject.get(key));
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG, Log.getStackTraceString(e));
+                    }
+                }
 
-        lastContactDetailsWrapperList
-                .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));
-        setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+
+                addOtherRuleObjects(contactFacts);
+                addAttentionFlagsRuleObjects(contactFacts);
+                Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        .parse(String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
+
+                String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
+                        .format(lastContactDate);
+
+                lastContactDetailsWrapperList
+                        .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, contactFacts));
+                setUpContactDetailsRecycler(lastContactDetailsWrapperList);
+            }
+        }
+
 
     }
 
@@ -138,12 +164,11 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = loadFile(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.ATTENTION_FLAGS);
 
-        for (Object ruleObject : attentionFlagsRuleObjects) {
+        for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
@@ -164,6 +189,12 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         adapter.notifyDataSetChanged();
         previousContacts.setLayoutManager(new LinearLayoutManager(this));
         previousContacts.setAdapter(adapter);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        previousContacts.setLayoutManager(mLayoutManager);
     }
 
     private void setUpViews() {

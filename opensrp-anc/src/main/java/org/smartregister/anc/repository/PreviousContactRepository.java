@@ -9,6 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.model.PreviousContact;
+import org.smartregister.anc.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
@@ -36,6 +37,15 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_ID =
             "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
 
+    private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + TABLE_NAME + "_" + BASE_ENTITY_ID +
+            "_index ON " + TABLE_NAME + "(" + BASE_ENTITY_ID + " COLLATE NOCASE);";
+
+    private static final String INDEX_KEY = "CREATE INDEX " + TABLE_NAME + "_" + KEY +
+            "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";
+
+    private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
+            "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
+
     private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public PreviousContactRepository(Repository repository) {
@@ -45,6 +55,9 @@ public class PreviousContactRepository extends BaseRepository {
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
         database.execSQL(INDEX_ID);
+        database.execSQL(INDEX_BASE_ENTITY_ID);
+        database.execSQL(INDEX_KEY);
+        database.execSQL(INDEX_CONTACT_NO);
     }
 
     public void savePreviousContact(PreviousContact previousContact) {
@@ -145,9 +158,9 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContacts;
     }
 
-    public Facts getPreviousContactsFacts(String baseEntityId) {
-        Facts previousContactFacts = new Facts();
-        Cursor previousContactsCursor = null;
+    public List<PreviousContactsSummaryModel> getPreviousContactsFacts(String baseEntityId) {
+        List<PreviousContactsSummaryModel> previousContactFacts = new ArrayList<>();
+        Cursor factsCursor = null;
         try {
             SQLiteDatabase database = getWritableDatabase();
 
@@ -156,23 +169,27 @@ public class PreviousContactRepository extends BaseRepository {
             String[] selectionArgs = null;
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
-                        BASE_ENTITY_ID + " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
+                selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where "
+                        + BASE_ENTITY_ID + " = ? and ( " + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ? or " + KEY +
+                        " = ? ) " + orderBy;
                 selectionArgs = new String[]{baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
-                        Constants.PHYS_SYMPTOMS};
+                        Constants.PHYS_SYMPTOMS, Constants.CONTACT_DATE};
             }
 
-            previousContactsCursor = database.rawQuery(selection, selectionArgs);
+            factsCursor = database.rawQuery(selection, selectionArgs);
 
-            if (previousContactsCursor != null) {
-                while (previousContactsCursor.moveToNext()) {
-                    String factKey = previousContactsCursor.getString(previousContactsCursor.getColumnIndex(KEY)) + ":" +
-                            previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CONTACT_NO)) + ":" +
-                            previousContactsCursor.getString(previousContactsCursor.getColumnIndex(CREATED_AT));
+            if (factsCursor != null) {
+                while (factsCursor.moveToNext()) {
+                    Facts contactFacts = new Facts();
+                    contactFacts.put(factsCursor.getString(factsCursor.getColumnIndex(KEY)),
+                            factsCursor.getString(factsCursor.getColumnIndex(VALUE)));
 
-                    previousContactFacts
-                            .put(factKey, previousContactsCursor.getString(previousContactsCursor.getColumnIndex(VALUE)));
+                    PreviousContactsSummaryModel previousContactsSummary = new PreviousContactsSummaryModel();
+                    previousContactsSummary.setContactNumber(factsCursor.getString(factsCursor.getColumnIndex(CONTACT_NO)));
+                    previousContactsSummary.setCreatedAt(factsCursor.getString(factsCursor.getColumnIndex(CREATED_AT)));
+                    previousContactsSummary.setVisitFacts(contactFacts);
 
+                    previousContactFacts.add(previousContactsSummary);
                 }
             }
 
@@ -180,8 +197,8 @@ public class PreviousContactRepository extends BaseRepository {
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
         } finally {
-            if (previousContactsCursor != null) {
-                previousContactsCursor.close();
+            if (factsCursor != null) {
+                factsCursor.close();
             }
         }
 

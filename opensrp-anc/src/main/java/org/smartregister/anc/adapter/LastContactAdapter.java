@@ -54,6 +54,11 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                     String.format(context.getResources().getString(R.string.contact_details), gestAge,
                             lastContactDetails.getContactNo()));
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
+
+            if (Integer.parseInt(lastContactDetails.getContactNo()) < 1){
+                viewHolder.referral.setVisibility(View.VISIBLE);
+            }
+
             createContactDetailsView(lastContactDetails.getExtraInformation(), facts, viewHolder);
         }
     }

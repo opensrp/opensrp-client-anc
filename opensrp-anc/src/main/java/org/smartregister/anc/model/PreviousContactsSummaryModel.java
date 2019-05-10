@@ -1,0 +1,36 @@
+package org.smartregister.anc.model;
+
+import org.jeasy.rules.api.Facts;
+
+public class PreviousContactsSummaryModel {
+    String contactNumber;
+    String createdAt;
+    Facts visitFacts;
+
+    public PreviousContactsSummaryModel() {
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Facts getVisitFacts() {
+        return visitFacts;
+    }
+
+    public void setVisitFacts(Facts visitFacts) {
+        this.visitFacts = visitFacts;
+    }
+}

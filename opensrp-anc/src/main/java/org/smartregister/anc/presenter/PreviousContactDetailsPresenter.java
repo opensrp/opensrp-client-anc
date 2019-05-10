@@ -8,16 +8,20 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.PreviousContactsDetails;
 import org.smartregister.anc.interactor.PreviousContactsDetailsInteractor;
 import org.smartregister.anc.model.ContactSummaryModel;
+import org.smartregister.anc.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -93,12 +97,32 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
 
     @Override
     public void loadPreviousContacts(String baseEntityId, String contactNo) {
-        Facts allContactsFacts = getPreviousContactRepository().getPreviousContactsFacts(baseEntityId);
-        if (allContactsFacts != null) {
-            Map<String, Object> allContactsFactsMap = allContactsFacts.asMap();
-            for (Map.Entry<String, Object> entry : allContactsFactsMap.entrySet()) {
+        List<PreviousContactsSummaryModel> allContactsFacts = getPreviousContactRepository()
+                .getPreviousContactsFacts(baseEntityId);
+        Map<String, Facts> contactMap = new HashMap<>();
+        if (allContactsFacts != null && allContactsFacts.size() > 0 && !TextUtils.isEmpty(contactNo)) {
+            Collections.reverse(allContactsFacts);
+            for (int position = Integer.parseInt(contactNo); position >= 1; position--) {
+                Facts newContactFacts = new Facts();
+                for (PreviousContactsSummaryModel previousContactsSummaryModel : allContactsFacts) {
+                    if (previousContactsSummaryModel.getContactNumber().equals(String.valueOf(position))) {
+                        Map<String, Object> modelFacts = previousContactsSummaryModel.getVisitFacts().asMap();
+                        for (Map.Entry<String, Object> entry : modelFacts.entrySet()) {
+                            newContactFacts.put(entry.getKey(), entry.getValue());
+                        }
+                    }
+                }
 
+                contactMap.put(String.valueOf(position), newContactFacts);
             }
+        }
+
+        try {
+            getProfileView().loadPreviousContactsDetails(contactMap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
