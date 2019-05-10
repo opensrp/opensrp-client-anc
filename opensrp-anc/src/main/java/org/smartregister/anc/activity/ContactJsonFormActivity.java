@@ -477,6 +477,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void onResume() {
         super.onResume();
         formName = getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME);
+        try {
+            ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
+        } catch (JSONException e) {
+            Log.e(TAG, "An error occurred while trying to filter checkbox items" + e);
+        }
         EventBus.getDefault().register(this);
     }
 
