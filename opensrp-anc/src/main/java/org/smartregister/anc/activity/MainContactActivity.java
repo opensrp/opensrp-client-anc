@@ -315,7 +315,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     @Override
-    protected void onResumption() {//Overriden from Secured Activity
+    protected void onResumption() {//Overridden from Secured Activity
 
     }
 
@@ -510,7 +510,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         PreviousContact previousContact =
                 AncApplication.getInstance().getPreviousContactRepository().getPreviousContact(request);
 
-
         return previousContact != null ? previousContact.getValue() : null;
     }
 
@@ -546,10 +545,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
                         for (int i = 0; i < stepArray.length(); i++) {
-
                             JSONObject fieldObject = stepArray.getJSONObject(i);
-
-
                             updateDefaultValues(stepArray, i, fieldObject);
                         }
                     }
