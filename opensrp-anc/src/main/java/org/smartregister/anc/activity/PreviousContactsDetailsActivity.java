@@ -74,7 +74,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                 Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         .parse(clientDetails.get(DBConstants.KEY.EDD));
                 String displayContactDate =
-                        new SimpleDateFormat("MMMM dd " + ", " + "yyyy", Locale.getDefault()).format(lastContactDate);
+                        new SimpleDateFormat("MMMM dd" + ", " + "yyyy", Locale.getDefault()).format(lastContactDate);
                 if (!TextUtils.isEmpty(displayContactDate)) {
                     deliveryDate.setText(displayContactDate);
                 }

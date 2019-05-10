@@ -304,7 +304,7 @@
     <string name="previous_contacts_header">Previous Contacts</string>
     <string name="previous_contacts_tests_header">All Test Results</string>
     <string name="expected_date_of_delivery">Expected Date of Delivery</string>
-    <string name="ga_weeks">%1$s Weeks</string>
+    <string name="ga_weeks">%1$s weeks</string>
     <string name="timeline_away">%1$sw away</string>
     <string name="all_results">All results</string>
     <string name="no_tests_available">No Tests Available</string>
