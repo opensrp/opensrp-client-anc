@@ -171,20 +171,15 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
-
         try {
             LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-
             LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
-
             Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
             return weeks.getWeeks();
         } catch (IllegalArgumentException e) {
             Log.e(TAG, e.getMessage(), e);
             return 0;
         }
-
-
     }
 
     public static int getProfileImageResourceIdentifier() {

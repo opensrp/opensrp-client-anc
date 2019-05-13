@@ -175,7 +175,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     }
 
     public void showProgressDialog(String titleIdentifier) {
-
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
             progressDialog.setCancelable(false);

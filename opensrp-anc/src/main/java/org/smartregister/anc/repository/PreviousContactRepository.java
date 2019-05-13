@@ -1,6 +1,7 @@
 package org.smartregister.anc.repository;
 
 import android.content.ContentValues;
+import android.text.TextUtils;
 import android.util.Log;
 
 import net.sqlcipher.Cursor;
@@ -46,7 +47,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[] {ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public PreviousContactRepository(Repository repository) {
         super(repository);
@@ -90,7 +91,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) &&
                     StringUtils.isNotBlank(previousContactRequest.getKey())) {
                 selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
+                selectionArgs = new String[] {previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
             }
 
             mCursor = getReadableDatabase()
@@ -128,11 +129,11 @@ public class PreviousContactRepository extends BaseRepository {
                 if (keysList != null) {
 
                     selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " IN (?) " + COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
+                    selectionArgs = new String[] {baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
 
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId};
+                    selectionArgs = new String[] {baseEntityId};
                 }
             }
 
@@ -172,7 +173,7 @@ public class PreviousContactRepository extends BaseRepository {
                 selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where "
                         + BASE_ENTITY_ID + " = ? and ( " + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ? or " + KEY +
                         " = ? ) " + orderBy;
-                selectionArgs = new String[]{baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
+                selectionArgs = new String[] {baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
                         Constants.PHYS_SYMPTOMS, Constants.CONTACT_DATE};
             }
 
@@ -245,7 +246,7 @@ public class PreviousContactRepository extends BaseRepository {
 
         if (StringUtils.isNotBlank(baseEntityId)) {
             selection = BASE_ENTITY_ID + " = ?";
-            selectionArgs = new String[]{baseEntityId};
+            selectionArgs = new String[] {baseEntityId};
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
@@ -263,7 +264,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNoneEmpty(baseEntityId) && StringUtils.isNoneEmpty(indicator)) {
                 selection = BASE_ENTITY_ID + " = ? And ( " + KEY + " = ? OR " + KEY + " = '" + GEST_AGE + "' OR " + KEY +
                         " = ? )";
-                selectionArgs = new String[]{baseEntityId, indicator, dateKey};
+                selectionArgs = new String[] {baseEntityId, indicator, dateKey};
             }
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
@@ -289,29 +290,39 @@ public class PreviousContactRepository extends BaseRepository {
         return allTestResults;
     }
 
-    public Facts getPreviousContactFacts(String baseEntityId, String contactNo) {
+    /**
+     * Gets the Immediate previous contact's facts. It checks for both referral and normal contacts hence the recursion.
+     * @param baseEntityId {@link String}
+     * @param contactNo {@link String}
+     * @param checkNegative {@link Boolean}
+     * @return previousContactsFacts {@link Facts}
+     */
+    public Facts getPreviousContactFacts(String baseEntityId, String contactNo, boolean checkNegative) {
         Cursor mCursor = null;
         String selection = "";
         String orderBy = "created_at DESC";
         String[] selectionArgs = null;
-        Facts previousContacts = new Facts();
+        Facts previousContactFacts = new Facts();
         try {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-                selectionArgs = new String[]{baseEntityId, contactNo};
+                selectionArgs = new String[] {baseEntityId, getContactNo(contactNo, checkNegative)};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
-            if (mCursor != null) {
+            if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
-                    previousContacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                    previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
                             mCursor.getString(mCursor.getColumnIndex(VALUE)));
 
                 }
-                return previousContacts;
+                previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
+                return previousContactFacts;
+            } else if (Integer.parseInt(contactNo) > 0) {
+                getPreviousContactFacts(baseEntityId, contactNo, false);
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
@@ -321,9 +332,31 @@ public class PreviousContactRepository extends BaseRepository {
             }
         }
 
-        return previousContacts;
+        return previousContactFacts;
     }
 
+    /**
+     * Returns contact numbers according to the @param checkNegative. If true then it just uses the initial contact. If
+     * true the it would return a previous|referral contact
+     * @param previousContact {@link String}
+     * @param checkNegative {@link Boolean}
+     * @return contactNo {@link String}
+     */
+    private String getContactNo(String previousContact, boolean checkNegative) {
+        String contactNo = previousContact;
+        if (! TextUtils.isEmpty(previousContact) && checkNegative) {
+            contactNo = "-" + (Integer.parseInt(previousContact) + 1);
+        }
+
+        return contactNo;
+    }
+
+    /**
+     * Gets the last contacts Schedule
+     * @param baseEntityId {@link String}
+     * @param contactNo {@link String}
+     * @return schedule {@link Facts}
+     */
     public Facts getImmediatePreviousSchedule(String baseEntityId, String contactNo) {
         Cursor scheduleCursor = null;
         String selection = "";
@@ -335,7 +368,7 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-                selectionArgs = new String[]{baseEntityId, contactNo};
+                selectionArgs = new String[] {baseEntityId, contactNo};
             }
 
             scheduleCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);

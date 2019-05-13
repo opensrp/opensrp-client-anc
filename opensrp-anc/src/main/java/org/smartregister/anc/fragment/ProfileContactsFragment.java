@@ -109,13 +109,14 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
 
                 Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
-
                 addOtherRuleObjects(facts);
                 addAttentionFlagsRuleObjects(facts);
+                contactNo = (String) facts.asMap().get(Constants.CONTACT_NO);
+
                 addTestsRuleObjects(facts);
 
                 Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+                        .parse(String.valueOf(facts.asMap().get(Constants.CONTACT_DATE)));
 
                 String displayContactDate =
                         new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
@@ -185,7 +186,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addTestsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> testsRuleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
+        Iterable<Object> testsRuleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             YamlConfig testsConfig = (YamlConfig) ruleObject;

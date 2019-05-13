@@ -23,8 +23,12 @@ import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.anc.rule.ContactRule;
 import org.smartregister.anc.util.Constants;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -98,7 +102,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
             "      }\n" +
             "   ]\n" +
 
-            "},"+
+            "}," +
             "         {\n" +
             "            \"key\": \"accordion_ultrasound\",\n" +
             "            \"openmrs_entity_parent\": \"\",\n" +
@@ -423,11 +427,13 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         ContactRule contactRule = new ContactRule(20, true, DUMMY_BASE_ENTITY_ID);
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy.getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
+                .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        Mockito.verify(ancRulesEngineHelperSpy).processInferentialRules(ArgumentMatchers.any(Rules.class), ArgumentMatchers.any(Facts.class));
+        Mockito.verify(ancRulesEngineHelperSpy)
+                .processInferentialRules(ArgumentMatchers.any(Rules.class), ArgumentMatchers.any(Facts.class));
 
     }
 
@@ -437,11 +443,12 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         ContactRule contactRule = new ContactRule(4, true, DUMMY_BASE_ENTITY_ID);
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy.getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
+                .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        Assert.assertEquals(Arrays.asList(new Integer[]{12, 20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        Assert.assertEquals(Arrays.asList(new Integer[] {12, 20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
 
     }
 
@@ -451,11 +458,12 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         ContactRule contactRule = new ContactRule(12, true, DUMMY_BASE_ENTITY_ID);
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy.getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
+                .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        Assert.assertEquals(Arrays.asList(new Integer[]{20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        Assert.assertEquals(Arrays.asList(new Integer[] {20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
 
     }
 
@@ -465,11 +473,12 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         ContactRule contactRule = new ContactRule(20, true, DUMMY_BASE_ENTITY_ID);
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy.getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
+                .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        Assert.assertEquals(Arrays.asList(new Integer[]{26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        Assert.assertEquals(Arrays.asList(new Integer[] {26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
 
     }
 
@@ -479,11 +488,12 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         ContactRule contactRule = new ContactRule(28, true, DUMMY_BASE_ENTITY_ID);
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy.getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
+                .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        Assert.assertEquals(Arrays.asList(new Integer[]{32, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        Assert.assertEquals(Arrays.asList(new Integer[] {32, 34, 36, 38, 40, 41}), scheduleWeeksList);
 
     }
 
@@ -493,11 +503,12 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         ContactRule contactRule = new ContactRule(40, true, DUMMY_BASE_ENTITY_ID);
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy.getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
+        List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
+                .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        Assert.assertEquals(Arrays.asList(new Integer[]{40, 41}), scheduleWeeksList);
+        Assert.assertEquals(Arrays.asList(new Integer[] {40, 41}), scheduleWeeksList);
 
     }
 
@@ -509,77 +520,117 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         Assert.assertEquals("12", ancRulesEngineHelperSpy.stripGaNumber("12 Weeks"));
         Assert.assertEquals("12", ancRulesEngineHelperSpy.stripGaNumber("12 Weeks 7"));
     }
+
     @Test
     public void testGetValueFromCommonInputsFieldInAccordion() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
         //Test obtaining value for edit_text field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_elly_test"),"12");
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_elly_test"), "12");
         //Test obtaining value for hidden field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_ultrasound_gest_age"),"39 weeks 6 days");
+        Assert.assertEquals(
+                ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_ultrasound_gest_age"),
+                "39 weeks 6 days");
         //Test obtaining value for number_selector field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_no_of_fetuses"),"1");
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_no_of_fetuses"),
+                "1");
         //Test obtaining value for date_picker field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_blood_type_test_date"),"08-04-2019");
+        Assert.assertEquals(
+                ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_blood_type_test_date"),
+                "08-04-2019");
     }
+
     @Test
     public void testGetValueFromRadioButtonsFieldInAccordion() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
         //Test obtaining value for anc_radio_button field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_ultrasound"),"done_today");
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_ultrasound"),
+                "done_today");
         //Test obtaining value for native_radio field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_blood_type"),"ab");
+        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_blood_type"), "ab");
 
     }
+
     @Test
     public void testGetValueFromCheckobxFieldInAccordion() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
         //Test obtaining value for check_box field
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_urine_test_notdone"),"[stock_out, expired_stock, other]");
+        Assert.assertEquals(
+                ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_urine_test_notdone"),
+                "[stock_out, expired_stock, other]");
 
     }
+
     @Test
     public void testGetValueFromAccordionWithEmptyJson() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step1_blood_type_test_date"),"");
+        Assert.assertEquals(
+                ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_blood_type_test_date"), "");
     }
+
     @Test
     public void testGetValueFromAccordionWithMissingStep() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound","step3_blood_type_test_date"),"");
+        Assert.assertEquals(
+                ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step3_blood_type_test_date"), "");
     }
+
     @Test
     public void testGetValueFromAccordionWithNoValues() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        Assert.assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_other_tests","step2_blood_type_test_date"),"");
+        Assert.assertEquals(
+                ancRulesEngineHelperSpy.getValueFromAccordion("accordion_other_tests", "step2_blood_type_test_date"), "");
     }
+
     @Test
     public void testCompareDateWhenFirstDateIsLower() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2018", "31-05-2019"),-1);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-01-2019", "31-05-2019"),-1);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2018", "31-05-2019"), - 1);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-01-2019", "31-05-2019"), - 1);
     }
+
     @Test
     public void testCompareDateWhenBothDatesAreEqual() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2019", "31-05-2019"),0);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2019", "31-05-2019"), 0);
     }
+
     @Test
     public void testCompareDateWhenFirstDateIsHigher() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2019", "31-05-2018"),1);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2019", "31-01-2019"),1);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2019", "31-05-2018"), 1);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2019", "31-01-2019"), 1);
     }
+
     @Test
     public void testCompareDateWhenAnyDateIsNullOrEmpty() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("", "31-05-2019"),-2);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("", "31-05-2019"), - 2);
     }
+
     @Test
     public void testCompareDateAgainstToday() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstToday((new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN)),0);
+        assertEquals(ancRulesEngineHelperSpy
+                .compareDateAgainstToday((new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN)), 0);
+    }
+
+    @Test
+    public void testCompareDatesWithContactDate() throws ParseException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstContactDate("31-05-2019","2019-05-31"), true);
+        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstContactDate("30-05-2019","2019-05-31"), true);
+        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstContactDate(null,"2019-05-31"), false);
+    }
+
+    @Test
+    public void testConvertContactDate() throws ParseException {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate("2019-05-31"), "31-05-2019");
+        assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate("2018-02-01"), "01-02-2018");
+        assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate(""), "");
+        assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate(null), "");
     }
 }

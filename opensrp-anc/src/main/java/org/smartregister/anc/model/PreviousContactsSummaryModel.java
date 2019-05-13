@@ -3,12 +3,9 @@ package org.smartregister.anc.model;
 import org.jeasy.rules.api.Facts;
 
 public class PreviousContactsSummaryModel {
-    String contactNumber;
-    String createdAt;
-    Facts visitFacts;
-
-    public PreviousContactsSummaryModel() {
-    }
+    private String contactNumber;
+    private String createdAt;
+    private Facts visitFacts;
 
     public String getContactNumber() {
         return contactNumber;

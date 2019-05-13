@@ -135,6 +135,9 @@ fields:
   - template: "Urine test status: {urine_test_status}"
     relevance: "urine_test_status != ''"
 
+  - template: "Urine test done date: {urine_test_date}"
+    relevance: "urine_test_date != ''"
+
   - template: "Urine test type: {urine_test_type}"
     relevance: "urine_test_type != ''"
 

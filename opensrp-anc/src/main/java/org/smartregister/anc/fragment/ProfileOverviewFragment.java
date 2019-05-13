@@ -71,7 +71,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(baseEntityId, contactNo);
+                    .getPreviousContactFacts(baseEntityId, contactNo,false);
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 

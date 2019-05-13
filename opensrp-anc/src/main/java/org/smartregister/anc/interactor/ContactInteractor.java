@@ -26,6 +26,7 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -118,6 +119,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 addTheContactDate(baseEntityId, details);
                 updateWomanDetails(details, womanDetail);
+                if (referral != null && !TextUtils.isEmpty(details.get(DBConstants.KEY.EDD))) {
+                    addReferralGa(baseEntityId, details);
+                }
 
                 Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
                 if (eventPair != null) {
@@ -136,6 +140,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(Constants.CONTACT_DATE);
         previousContact.setValue(Utils.getDBDateToday());
+        AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+    }
+
+    private void addReferralGa(String baseEntityId, Map<String, String> details) {
+        PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
+        previousContact.setKey(Constants.GEST_AGE_OPENMRS);
+        String edd = details.get(DBConstants.KEY.EDD);
+        previousContact.setValue(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
         AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
@@ -165,7 +177,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair,
                              String referral)
-            throws JSONException {
+    throws JSONException {
         Event event = eventPair.first;
         //Here we save state
         event.addDetails(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString);

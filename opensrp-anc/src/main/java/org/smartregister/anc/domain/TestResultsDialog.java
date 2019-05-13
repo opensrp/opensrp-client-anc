@@ -3,8 +3,8 @@ package org.smartregister.anc.domain;
 import java.util.List;
 
 public class TestResultsDialog {
-    String testTitle;
-    List<TestResults> testResultsList;
+    private String testTitle;
+    private List<TestResults> testResultsList;
 
     public TestResultsDialog(String testTitle, List<TestResults> testResultsList) {
         this.testTitle = testTitle;
