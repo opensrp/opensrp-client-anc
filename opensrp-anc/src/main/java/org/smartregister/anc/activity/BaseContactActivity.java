@@ -44,11 +44,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
         initializePresenter();
-
         presenter.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
         setupViews();
     }
 
@@ -66,7 +63,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void setupViews() {
         initializeRecyclerView();
-
         View cancelButton = findViewById(R.id.undo_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +70,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 contactActionHandler.onClick(v);
             }
         });
-        findViewById(R.id.finalize_contact).setEnabled(true);
         findViewById(R.id.finalize_contact).setOnClickListener(contactActionHandler);
-
     }
 
     protected abstract void initializePresenter();

@@ -59,6 +59,7 @@ public abstract class Constants {
     public static final String PHYS_SYMPTOMS = "phys_symptoms";
     public static final String DATE_TODAY_HIDDEN = "date_today_hidden";
     public static final String AGE = "age";
+    public static final String REQUIRED_FIELDS = "required_fields";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";

@@ -1283,7 +1283,7 @@ actions:
 name: step1_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "((helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker')))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepc_test_status == '' || global_previous_hepc_test_status == 'not_done' || global_previous_hepc_test_status == 'done_earlier')))"
+condition: "((helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker')))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepc_test_status == '' || global_previous_hepc_test_status == 'not_done' || global_previous_hepc_test_status == 'ordered')))"
 actions:
 - "isRelevant = true"
 ---
