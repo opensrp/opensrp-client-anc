@@ -22,10 +22,8 @@ drishti-app/tmp/
 classes/
 tmp/
 project.properties
-.DS_Store
 .settings
 build/
-.gradle
 opensrp-anc/fabric.properties
 opensrp-anc/reports/
 opensrp-anc/jacoco.exec

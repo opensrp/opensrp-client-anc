@@ -1,5 +1,6 @@
 package org.smartregister.anc.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
@@ -37,7 +38,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         }
 
         // Activity destroyed set interactor to null
-        if (!isChangingConfiguration) {
+        if (! isChangingConfiguration) {
             mProfileInteractor = null;
         }
     }
@@ -55,12 +56,17 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-            facts = AncApplication.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo);
+            facts = AncApplication.getInstance().getPreviousContactRepository()
+                    .getPreviousContactFacts(baseEntityId, contactNo, true);
 
-            Map<String, String> womanDetails =
-                    AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId);
-            if (womanDetails != null && womanDetails.containsKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
-                JSONObject jsonObject = new JSONObject(womanDetails.get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
+            Map<String, Object> factsAsMap = facts.asMap();
+            String attentionFlags = "";
+            if (factsAsMap.containsKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
+                attentionFlags = (String) factsAsMap.get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
+            }
+
+            if (! TextUtils.isEmpty(attentionFlags)) {
+                JSONObject jsonObject = new JSONObject(attentionFlags);
                 if (jsonObject.length() > 0) {
                     Iterator<String> keys = jsonObject.keys();
 
@@ -69,10 +75,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                         facts.put(key, jsonObject.get(key));
                     }
                 }
-
             }
-
-
         } catch (JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }

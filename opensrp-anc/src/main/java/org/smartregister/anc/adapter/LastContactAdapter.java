@@ -45,15 +45,26 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
             LastContactDetailsWrapper lastContactDetails = lastContactDetailsList.get(position);
             Facts facts = lastContactDetails.getFacts();
 
-            String gestAge = facts.get(Constants.GEST_AGE);
+            String gestAge = facts.get(Constants.GEST_AGE_OPENMRS);
             if (TextUtils.isEmpty(gestAge)) {
                 gestAge = "";
             }
 
-            viewHolder.contactTextView.setText(
-                    String.format(context.getResources().getString(R.string.contact_details), gestAge,
-                            lastContactDetails.getContactNo()));
+            if (! TextUtils.isEmpty(gestAge)) {
+                viewHolder.contactTextView.setText(
+                        String.format(context.getResources().getString(R.string.contact_details), gestAge,
+                                lastContactDetails.getContactNo()));
+            } else {
+                viewHolder.contactTextView.setText(
+                        String.format(context.getResources().getString(R.string.referral_contact_details),
+                                lastContactDetails.getContactNo()));
+            }
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
+
+            if (lastContactDetails.getContactNo() != null && Integer.parseInt(lastContactDetails.getContactNo()) < 1) {
+                viewHolder.referral.setVisibility(View.VISIBLE);
+            }
+
             createContactDetailsView(lastContactDetails.getExtraInformation(), facts, viewHolder);
         }
     }
@@ -67,8 +78,6 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 }
             }
         }
-
-
     }
 
     @Override
