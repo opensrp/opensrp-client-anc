@@ -214,7 +214,6 @@ public class Utils extends org.smartregister.util.Utils {
      * @author martinndegwa
      */
     public static void proceedToContact(String baseEntityId, HashMap<String, String> personObjectClient, Context context) {
-
         try {
 
             Intent intent = new Intent(context.getApplicationContext(), ContactJsonFormActivity.class);

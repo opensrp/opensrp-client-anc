@@ -50,14 +50,17 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 gestAge = "";
             }
 
-            if (! TextUtils.isEmpty(gestAge)) {
+            String contactNo = "";
+            if (!lastContactDetails.getContactNo().contains("-")) {
+                contactNo = lastContactDetails.getContactNo();
+            }
+
+            if (!TextUtils.isEmpty(gestAge)) {
                 viewHolder.contactTextView.setText(
-                        String.format(context.getResources().getString(R.string.contact_details), gestAge,
-                                lastContactDetails.getContactNo()));
+                        String.format(context.getResources().getString(R.string.contact_details), gestAge, contactNo));
             } else {
                 viewHolder.contactTextView.setText(
-                        String.format(context.getResources().getString(R.string.referral_contact_details),
-                                lastContactDetails.getContactNo()));
+                        String.format(context.getResources().getString(R.string.referral_contact_details), contactNo));
             }
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
 

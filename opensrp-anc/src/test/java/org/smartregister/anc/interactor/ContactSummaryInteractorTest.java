@@ -21,9 +21,9 @@ public class ContactSummaryInteractorTest extends BaseUnitTest {
 
     @Test(expected = NullPointerException.class)
     public void testGetPreviousContactNo() {
-        ContactSummaryInteractor registerInteractor = (ContactSummaryInteractor) interactor;
-        Assert.assertEquals(registerInteractor.getPreviousContactNo("-1"),0);
-        Assert.assertEquals(registerInteractor.getPreviousContactNo("-8"),7);
-        Assert.assertEquals(registerInteractor.getPreviousContactNo(null),0);
+        ContactSummaryInteractor contactSummaryInteractor = (ContactSummaryInteractor) interactor;
+        Assert.assertEquals(contactSummaryInteractor.getPreviousContactNo("-1"),0);
+        Assert.assertEquals(contactSummaryInteractor.getPreviousContactNo("-8"),7);
+        Assert.assertEquals(contactSummaryInteractor.getPreviousContactNo(null),0);
     }
 }

@@ -368,7 +368,7 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection =
-                        BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ? AND " + KEY + " = " + " ' " + Constants.CONTACT_SCHEDULE + " ' ";
+                        BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ? AND " + KEY + " = " + "'" + Constants.CONTACT_SCHEDULE + "'";
                 selectionArgs = new String[] {baseEntityId, contactNo};
             }
 
