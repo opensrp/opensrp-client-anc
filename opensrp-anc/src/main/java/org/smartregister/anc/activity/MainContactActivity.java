@@ -482,7 +482,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private int getRequiredCountTotal() {
         int count = -1;
         Set<Map.Entry<String, Integer>> entries = requiredFieldsMap.entrySet();
-        //We count required fields for all the forms
+        //We count required fields for all the 6 contact forms
         if(entries.size() == 6) {
             count++;
             for (Map.Entry<String, Integer> entry : entries) {
