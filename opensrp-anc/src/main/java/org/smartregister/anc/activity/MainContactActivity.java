@@ -247,10 +247,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             for (String cg : contactGlobals) {
                 if (formGlobalValues.containsKey(cg)) {
                     String some = map.get(cg);
-                    if (some == null || !some.equals(formGlobalValues.get(cg))) {
 
+                    if (some == null || !some.equals(formGlobalValues.get(cg))) {
                         map.put(cg, formGlobalValues.get(cg));
                     }
+
                 } else {
                     map.put(cg, "");
                 }
@@ -457,21 +458,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 if (object.has(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)) {
                     partialForms.remove(eventToFileMap.get(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)));
                 }
-            }
-        }
-
-        Set<String> myKeys = new HashSet<>();
-        for (String nonDraftForm : partialForms) {
-            List<String> formKeys = formGlobalKeys.get(nonDraftForm);
-            if (formKeys != null) {
-                myKeys.addAll(formKeys);
-            }
-        }
-
-        for (String key : myKeys) {
-            String value = getMapValue(key);
-            if (value != null) {
-                formGlobalValues.put(key, value);
             }
         }
     }
