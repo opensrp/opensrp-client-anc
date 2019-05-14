@@ -171,20 +171,15 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
-
         try {
             LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-
             LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
-
             Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
             return weeks.getWeeks();
         } catch (IllegalArgumentException e) {
             Log.e(TAG, e.getMessage(), e);
             return 0;
         }
-
-
     }
 
     public static int getProfileImageResourceIdentifier() {
@@ -212,7 +207,6 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
-     *
      * @author martinndegwa
      */
     public static void proceedToContact(String baseEntityId, HashMap<String, String> personObjectClient, Context context) {
@@ -276,7 +270,6 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
-     *
      * @return true|false {@link Boolean}
      * @throws Exception
      * @author martinndegwa
@@ -317,7 +310,6 @@ public class Utils extends org.smartregister.util.Utils {
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
-     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context, HashMap<String, String> womanDetails, boolean isRefferal) {
@@ -359,13 +351,18 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private static String processValue(String key, Facts facts) {
-        String value = facts.get(key);
-        if (value != null && value.endsWith(OTHER_SUFFIX)) {
-            Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
-            value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
-                    value.substring(0, value.lastIndexOf(",")) + "]";
+        String value = "";
+        if (facts.get(key) instanceof String) {
+            value = facts.get(key);
+            if (value != null && value.endsWith(OTHER_SUFFIX)) {
+                Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
+                value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue
+                        .toString() + "]" :
+                        value.substring(0, value.lastIndexOf(",")) + "]";
 
+            }
         }
+
 
         return ContactJsonFormUtils.keyToValueConverter(value);
     }

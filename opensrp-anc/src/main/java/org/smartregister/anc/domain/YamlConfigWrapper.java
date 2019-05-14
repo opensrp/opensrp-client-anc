@@ -8,22 +8,19 @@ public class YamlConfigWrapper {
     private String group;
     private String subGroup;
     private YamlConfigItem yamlConfigItem;
-    private boolean allTests;
     private String testResults;
 
-    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem, boolean allTests) {
+    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem) {
         this.group = group;
         this.subGroup = subGroup;
         this.yamlConfigItem = yamlConfigItem;
-        this.allTests = allTests;
     }
 
-    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem, boolean allTests,
+    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem,
                              String testResults) {
         this.group = group;
         this.subGroup = subGroup;
         this.yamlConfigItem = yamlConfigItem;
-        this.allTests = allTests;
         this.testResults = testResults;
     }
 
@@ -49,14 +46,6 @@ public class YamlConfigWrapper {
 
     public void setGroup(String group) {
         this.group = group;
-    }
-
-    public boolean isAllTests() {
-        return allTests;
-    }
-
-    public void setAllTests(boolean allTests) {
-        this.allTests = allTests;
     }
 
     public String getTestResults() {

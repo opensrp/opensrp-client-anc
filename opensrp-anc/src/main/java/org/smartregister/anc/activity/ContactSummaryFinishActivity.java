@@ -70,7 +70,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void setUpViews() {
-
         ageView = findViewById(R.id.textview_age);
         gestationAgeView = findViewById(R.id.textview_gestation_age);
         ancIdView = findViewById(R.id.textview_anc_id);
@@ -109,7 +108,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         saveFinishMenuItem = menu.findItem(R.id.save_finish_menu_item);
         saveFinishMenuItem.setEnabled(false);//initially disable
 
@@ -190,8 +188,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-
-
         new AsyncTask<Void, Void, Void>() {
             private HashMap<String, String> newWomanProfileDetails;
 
@@ -214,7 +210,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                         womanProfileDetails.put(Constants.REFERRAL, String.valueOf(contactNo));
                     }
                     newWomanProfileDetails = mProfilePresenter.saveFinishForm(womanProfileDetails);
-
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage(), e);
                 }
@@ -225,10 +220,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
             @Override
             protected void onPostExecute(Void result) {
-
-
                 hideProgressDialog();
-
                 Intent contactSummaryIntent =
                         new Intent(ContactSummaryFinishActivity.this, ContactSummarySendActivity.class);
                 contactSummaryIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,
@@ -236,7 +228,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 contactSummaryIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, newWomanProfileDetails);
 
                 startActivity(contactSummaryIntent);
-
             }
         }.execute();
 

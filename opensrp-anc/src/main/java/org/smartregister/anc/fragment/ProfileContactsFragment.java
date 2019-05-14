@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,15 +85,17 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         lastContactDetails = new ArrayList<>();
         lastContactTests = new ArrayList<>();
         if (testsDisplayLayout != null) {
-            testsDisplayLayout.removeAllViewsInLayout();
+            testsDisplayLayout.removeAllViews();
         }
-
     }
 
     @Override
     protected void onResumption() {
         lastContactDetails = new ArrayList<>();
         lastContactTests = new ArrayList<>();
+        if (testsDisplayLayout != null) {
+            testsDisplayLayout.removeAllViews();
+        }
         baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
                 (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
@@ -107,16 +110,20 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
 
                 Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
-
                 addOtherRuleObjects(facts);
                 addAttentionFlagsRuleObjects(facts);
+                contactNo = (String) facts.asMap().get(Constants.CONTACT_NO);
+
                 addTestsRuleObjects(facts);
 
-                Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse(clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+                String contactDate = (String) facts.asMap().get(Constants.CONTACT_DATE);
+                String displayContactDate = "";
+                if ( !TextUtils.isEmpty(contactDate)) {
+                    Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(contactDate);
+                    displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
+                            .format(lastContactDate);
+                }
 
-                String displayContactDate =
-                        new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
                 if (lastContactDetails.isEmpty()) {
                     lastContactLayout.setVisibility(View.GONE);
@@ -154,7 +161,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
             for (YamlConfigItem configItem : configItems) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
+                    yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                     valueCount += 1;
                 }
             }
@@ -174,7 +181,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
+                    lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
                 }
 
@@ -183,7 +190,8 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addTestsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> testsRuleObjects = AncApplication.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
+        Iterable<Object> testsRuleObjects = AncApplication.getInstance()
+                .readYaml(FilePath.FILE.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             YamlConfig testsConfig = (YamlConfig) ruleObject;
@@ -191,7 +199,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem, false));
+                    lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
                 }
 
@@ -232,21 +240,19 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
         lastContactLayout = fragmentView.findViewById(R.id.last_contact_layout);
-        TextView last_contact_bottom = lastContactLayout.findViewById(R.id.last_contact_bottom);
-        last_contact_bottom.setOnClickListener(profileContactsActionHandler);
+        TextView lastContactBottom = lastContactLayout.findViewById(R.id.last_contact_bottom);
+        lastContactBottom.setOnClickListener(profileContactsActionHandler);
 
         testLayout = fragmentView.findViewById(R.id.test_layout);
         testsHeader = testLayout.findViewById(R.id.tests_header);
-        TextView tests_bottom = testLayout.findViewById(R.id.tests_bottom);
-        tests_bottom.setOnClickListener(profileContactsActionHandler);
+        TextView testsBottom = testLayout.findViewById(R.id.tests_bottom);
+        testsBottom.setOnClickListener(profileContactsActionHandler);
 
         testsDisplayLayout = testLayout.findViewById(R.id.test_display_layout);
-
 
         return fragmentView;
     }
@@ -281,9 +287,9 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private class ProfileContactsActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.last_contact_bottom && !lastContactDetails.isEmpty()) {
+            if (view.getId() == R.id.last_contact_bottom && ! lastContactDetails.isEmpty()) {
                 goToPreviousContacts();
-            } else if (view.getId() == R.id.tests_bottom && !lastContactTests.isEmpty()) {
+            } else if (view.getId() == R.id.tests_bottom && ! lastContactTests.isEmpty()) {
                 goToPreviousContactsTests();
             }
         }
