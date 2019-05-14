@@ -36,7 +36,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_ID =
             "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[] {ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public PreviousContactRepository(Repository repository) {
         super(repository);
@@ -77,7 +77,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) &&
                     StringUtils.isNotBlank(previousContactRequest.getKey())) {
                 selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " = ? " + COLLATE_NOCASE;
-                selectionArgs = new String[]{previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
+                selectionArgs = new String[] {previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
             }
 
             mCursor = getReadableDatabase()
@@ -115,11 +115,11 @@ public class PreviousContactRepository extends BaseRepository {
                 if (keysList != null) {
 
                     selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE + " AND " + KEY + " IN (?) " + COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
+                    selectionArgs = new String[] {baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
 
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId};
+                    selectionArgs = new String[] {baseEntityId};
                 }
             }
 
@@ -158,7 +158,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNotBlank(baseEntityId)) {
                 selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where " +
                         BASE_ENTITY_ID + " = ? and (" + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ?) " + orderBy;
-                selectionArgs = new String[]{baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
+                selectionArgs = new String[] {baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
                         Constants.PHYS_SYMPTOMS};
             }
 
@@ -228,7 +228,7 @@ public class PreviousContactRepository extends BaseRepository {
 
         if (StringUtils.isNotBlank(baseEntityId)) {
             selection = BASE_ENTITY_ID + " = ?";
-            selectionArgs = new String[]{baseEntityId};
+            selectionArgs = new String[] {baseEntityId};
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
@@ -259,7 +259,7 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-                selectionArgs = new String[]{baseEntityId, contactNo};
+                selectionArgs = new String[] {baseEntityId, contactNo};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
@@ -293,18 +293,17 @@ public class PreviousContactRepository extends BaseRepository {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-                selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-                selectionArgs = new String[]{baseEntityId, contactNo};
+                selection =
+                        BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ? AND " + KEY + " = " + " ' " + Constants.CONTACT_SCHEDULE + " ' ";
+                selectionArgs = new String[] {baseEntityId, contactNo};
             }
 
             scheduleCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
             if (scheduleCursor != null) {
                 while (scheduleCursor.moveToNext()) {
-                    if (Constants.CONTACT_SCHEDULE.equals(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)))) {
-                        schedule.put(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)),
-                                scheduleCursor.getString(scheduleCursor.getColumnIndex(VALUE)));
-                    }
+                    schedule.put(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)),
+                            scheduleCursor.getString(scheduleCursor.getColumnIndex(VALUE)));
                 }
                 return schedule;
             }

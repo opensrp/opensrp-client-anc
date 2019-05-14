@@ -29,7 +29,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     }
 
     public void onDestroy(boolean isChangingConfiguration) {
-
         mProfileView = null;//set to null on destroy
 
         // Inform interactor
@@ -41,7 +40,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         if (!isChangingConfiguration) {
             mProfileInteractor = null;
         }
-
     }
 
     @Override
@@ -57,7 +55,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-
             facts = AncApplication.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo);
 
             Map<String, String> womanDetails =

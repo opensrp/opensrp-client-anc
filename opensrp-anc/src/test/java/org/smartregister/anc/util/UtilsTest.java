@@ -180,4 +180,13 @@ public class UtilsTest extends BaseUnitTest {
         Assert.assertEquals(dobStringToDateTime, dobStringToDateTime);
     }
 
+    @Test
+    public void testGetListFromString(){
+        String stringList = "[30, 34, 36, 38, 40, 41]";
+        Assert.assertEquals(org.smartregister.anc.util.Utils.getListFromString("").size(), 0);
+        Assert.assertEquals(org.smartregister.anc.util.Utils.getListFromString(stringList).size(), 6);
+        Assert.assertEquals(org.smartregister.anc.util.Utils.getListFromString(null).size(), 0);
+        Assert.assertEquals(org.smartregister.anc.util.Utils.getListFromString(stringList).get(2), "36");
+    }
+
 }

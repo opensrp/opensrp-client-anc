@@ -201,8 +201,12 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static List<String> getListFromString(String stringArray) {
-        return new ArrayList<>(
-                Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+        List<String> stringList = new ArrayList<>();
+        if (!StringUtils.isEmpty(stringArray)) {
+            stringList = new ArrayList<>(
+                    Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+        }
+        return stringList;
     }
 
     /**
