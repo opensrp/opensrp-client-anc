@@ -71,7 +71,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
             Facts facts = AncApplication.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(baseEntityId, contactNo);
+                    .getPreviousContactFacts(baseEntityId, contactNo,false);
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
 
@@ -81,11 +81,11 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 YamlConfig yamlConfig = (YamlConfig) ruleObject;
                 if (yamlConfig.getGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null, false));
+                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
                 }
 
                 if (yamlConfig.getSubGroup() != null) {
-                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null, false));
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null));
                 }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();
@@ -94,7 +94,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                     if (AncApplication.getInstance().getAncRulesEngineHelper()
                             .getRelevance(facts, configItem.getRelevance())) {
-                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem, false));
+                        yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                         valueCount += 1;
                     }
                 }

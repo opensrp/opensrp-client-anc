@@ -473,8 +473,8 @@ public class ContactJsonFormUtils extends FormUtils {
 
     }
 
-    public static String getKey(JSONObject jsonObject) throws JSONException {
 
+    public static String getKey(JSONObject jsonObject) throws JSONException {
         return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
     }
 
@@ -506,7 +506,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public static String keyToValueConverter(String keys) {
         if (keys != null) {
-            String cleanKey = WordUtils.capitalize(cleanValue(keys));
+            String cleanKey = WordUtils.capitalizeFully(cleanValue(keys));
             if (!TextUtils.isEmpty(keys)) {
                 return cleanKey.replaceAll("_", " ");
             } else {

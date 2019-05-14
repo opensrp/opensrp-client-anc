@@ -85,9 +85,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
-        @SuppressWarnings("unchecked")
-        Map<String, String> womanDetails = (Map<String, String>) getIntent()
-                .getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+        @SuppressWarnings ("unchecked") Map<String, String> womanDetails =
+                (Map<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstants.KEY.DOB)));
 
         if (!presenter.baseEntityIdExists()) {
@@ -98,7 +97,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         //Enable/Diable FinalizeButton
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0); //TO REMOVE (SWITCH OPERATOR TO ==)
-
     }
 
     private void initializeMainContactContainers() {
@@ -245,7 +243,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         List<String> contactGlobals = formGlobalKeys.get(contact.getFormName());
 
         if (contactGlobals != null) {
-
             Map<String, String> map = new HashMap<>();
             for (String cg : contactGlobals) {
                 if (formGlobalValues.containsKey(cg)) {
@@ -514,6 +511,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         PreviousContact request = new PreviousContact();
         request.setBaseEntityId(baseEntityId);
         request.setKey(key);
+        if (contactNo > 1) {
+            request.setContactNo(String.valueOf(contactNo - 1));
+        }
 
         PreviousContact previousContact =
                 AncApplication.getInstance().getPreviousContactRepository().getPreviousContact(request);
@@ -633,10 +633,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         }
 
                     }
-
                 }
             }
-
         }
     }
 

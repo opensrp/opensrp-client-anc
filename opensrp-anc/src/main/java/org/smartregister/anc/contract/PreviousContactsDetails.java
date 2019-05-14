@@ -7,6 +7,7 @@ import org.smartregister.anc.model.ContactSummaryModel;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 public interface PreviousContactsDetails {
     interface Presenter {
@@ -20,8 +21,7 @@ public interface PreviousContactsDetails {
     interface View {
         void displayPreviousContactSchedule(List<ContactSummaryModel> schedule);
 
-        void loadPreviousContactsDetails(Facts attentionFlagsFacts, Facts contactFacts, String specificContactNo)
-        throws IOException, ParseException;
+        void loadPreviousContactsDetails(Map<String, List<Facts>> contactFacts) throws IOException, ParseException;
     }
 
     interface Interactor {
