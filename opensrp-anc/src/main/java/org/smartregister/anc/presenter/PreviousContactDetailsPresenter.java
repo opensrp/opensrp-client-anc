@@ -50,7 +50,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
         }
 
         // Activity destroyed set interactor to null
-        if (!isChangingConfiguration) {
+        if (! isChangingConfiguration) {
             mProfileInteractor = null;
         }
     }
@@ -80,14 +80,15 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
             }
 
             List<String> scheduleList = new ArrayList<>();
-            if (!TextUtils.isEmpty(contactScheduleString)) {
+            if (! TextUtils.isEmpty(contactScheduleString)) {
                 scheduleList = Utils.getListFromString(contactScheduleString);
             }
-
-            Date lastContactEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
-            String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
-            List<ContactSummaryModel> schedule =
-                    formUtils.generateNextContactSchedule(formattedEdd, scheduleList, Integer.valueOf(contactNo));
+            List<ContactSummaryModel> schedule = new ArrayList<>();
+            if (! TextUtils.isEmpty(edd)) {
+                Date lastContactEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
+                String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(lastContactEdd);
+                schedule = formUtils.generateNextContactSchedule(formattedEdd, scheduleList, Integer.valueOf(contactNo));
+            }
 
             getProfileView().displayPreviousContactSchedule(schedule);
         } catch (ParseException e) {
@@ -101,7 +102,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
                 .getPreviousContactsFacts(baseEntityId);
         LinkedHashMap<String, List<Facts>> filteredContacts = new LinkedHashMap<>();
 
-        if (allContactsFacts != null && allContactsFacts.size() > 0 && !TextUtils.isEmpty(contactNo)) {
+        if (allContactsFacts != null && allContactsFacts.size() > 0 && ! TextUtils.isEmpty(contactNo)) {
             Collections.reverse(allContactsFacts);
             for (PreviousContactsSummaryModel previousContactsSummaryModel : allContactsFacts) {
                 String currentContactInLoop = previousContactsSummaryModel.getContactNumber();

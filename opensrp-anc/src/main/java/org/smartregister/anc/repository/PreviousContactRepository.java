@@ -172,9 +172,9 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNotBlank(baseEntityId)) {
                 selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where "
                         + BASE_ENTITY_ID + " = ? and ( " + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ? or " + KEY +
-                        " = ? ) " + orderBy;
+                        " = ? or " + KEY + " = ? ) " + orderBy;
                 selectionArgs = new String[] {baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
-                        Constants.PHYS_SYMPTOMS, Constants.CONTACT_DATE};
+                        Constants.PHYS_SYMPTOMS, Constants.CONTACT_DATE, Constants.GEST_AGE_OPENMRS};
             }
 
             factsCursor = database.rawQuery(selection, selectionArgs);
@@ -322,7 +322,7 @@ public class PreviousContactRepository extends BaseRepository {
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
             } else if (Integer.parseInt(contactNo) > 0) {
-                getPreviousContactFacts(baseEntityId, contactNo, false);
+               return getPreviousContactFacts(baseEntityId, contactNo, false);
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);

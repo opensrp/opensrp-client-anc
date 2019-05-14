@@ -308,4 +308,6 @@
     <string name="timeline_away">%1$sw away</string>
     <string name="all_results">All results</string>
     <string name="no_tests_available">No Tests Available</string>
+    <string name="hospital_referral">Hospital referral</string>
+    <string name="no_contact_schedule">No contact schedule generated yet</string>
 </resources>

@@ -26,7 +26,6 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.HashMap;

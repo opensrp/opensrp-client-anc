@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
@@ -46,6 +47,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     protected ActionBar actionBar;
     private RecyclerView contactSchedule;
     private TextView deliveryDate;
+    private TextView noContactSchedule;
     private RecyclerView previousContacts;
     private List<YamlConfigWrapper> lastContactDetails;
 
@@ -70,13 +72,15 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         setUpViews();
 
         try {
-            if (!clientDetails.isEmpty()) {
-                Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse(clientDetails.get(DBConstants.KEY.EDD));
-                String displayContactDate =
-                        new SimpleDateFormat("MMMM dd" + ", " + "yyyy", Locale.getDefault()).format(lastContactDate);
-                if (!TextUtils.isEmpty(displayContactDate)) {
-                    deliveryDate.setText(displayContactDate);
+            String edd = clientDetails.get(Constants.EDD);
+            if (! clientDetails.isEmpty()) {
+                if (! TextUtils.isEmpty(edd)) {
+                    Date eddDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
+                    String eddDisplayDate =
+                            new SimpleDateFormat("MMMM dd" + ", " + "yyyy", Locale.getDefault()).format(eddDate);
+                    if (! TextUtils.isEmpty(eddDisplayDate)) {
+                        deliveryDate.setText(eddDisplayDate);
+                    }
                 }
 
                 mProfilePresenter.loadPreviousContacts(baseEntityId, contactNo);
@@ -91,16 +95,23 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
     @Override
     public void displayPreviousContactSchedule(List<ContactSummaryModel> schedule) {
-        ContactScheduleAdapter adapter = new ContactScheduleAdapter(this, schedule);
-        adapter.notifyDataSetChanged();
-        contactSchedule.setLayoutManager(new LinearLayoutManager(this));
-        contactSchedule.setAdapter(adapter);
+        if (schedule.size() > 0) {
+            contactSchedule.setVisibility(View.VISIBLE);
+            noContactSchedule.setVisibility(View.GONE);
+            ContactScheduleAdapter adapter = new ContactScheduleAdapter(this, schedule);
+            adapter.notifyDataSetChanged();
+            contactSchedule.setLayoutManager(new LinearLayoutManager(this));
+            contactSchedule.setAdapter(adapter);
+        } else {
+            contactSchedule.setVisibility(View.GONE);
+            noContactSchedule.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void loadPreviousContactsDetails(Map<String, List<Facts>> allContactFacts) throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
-        if (!allContactFacts.isEmpty()) {
+        if (! allContactFacts.isEmpty()) {
             for (Map.Entry<String, List<Facts>> entry : allContactFacts.entrySet()) {
                 List<Facts> factsList = entry.getValue();
                 String contactNo = entry.getKey();
@@ -205,6 +216,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
     private void setUpViews() {
         deliveryDate = findViewById(R.id.delivery_date);
+        noContactSchedule = findViewById(R.id.no_contact_schedule);
         previousContacts = findViewById(R.id.previous_contacts);
         contactSchedule = findViewById(R.id.upcoming_contacts);
     }

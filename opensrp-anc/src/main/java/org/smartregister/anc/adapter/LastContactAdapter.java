@@ -61,7 +61,7 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
             }
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
 
-            if (Integer.parseInt(lastContactDetails.getContactNo()) < 1) {
+            if (lastContactDetails.getContactNo() != null && Integer.parseInt(lastContactDetails.getContactNo()) < 1) {
                 viewHolder.referral.setVisibility(View.VISIBLE);
             }
 

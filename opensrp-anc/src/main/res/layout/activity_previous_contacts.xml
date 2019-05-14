@@ -68,8 +68,22 @@
                 android:foregroundGravity="top"
                 android:paddingTop="@dimen/contact_drawable_padding"
                 android:paddingBottom="@dimen/contact_drawable_padding"
+                android:visibility="gone"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintTop_toBottomOf="@+id/middle_header_text" />
+
+            <TextView
+                android:id="@+id/no_contact_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:foregroundGravity="top"
+                android:gravity="center_horizontal|center_vertical"
+                android:visibility="visible"
+                android:text="@string/no_contact_schedule"
+                android:paddingTop="@dimen/contact_drawable_padding"
+                android:paddingBottom="@dimen/contact_drawable_padding"
+                app:layout_constraintTop_toBottomOf="@+id/middle_header_text"  />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -115,7 +129,6 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="40dp"
-                android:text="September 1, 2018"
                 android:textSize="19sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
