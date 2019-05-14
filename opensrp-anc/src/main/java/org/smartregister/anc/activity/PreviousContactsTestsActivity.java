@@ -33,6 +33,8 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
     protected ActionBar actionBar;
     private RecyclerView lastContactsTestsRecyclerView;
     private LinearLayout notTestShown;
+    private  String baseEntityId;
+    private String contactNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,12 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             actionBar.setTitle(getResources().getString(R.string.previous_contacts_tests_header));
         }
 
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
                 (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+
         mProfilePresenter = new PreviousContactTestsPresenter(this);
-        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
         String lastContactRecordDate = clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
 
         setUpViews();
@@ -73,7 +76,8 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             }
         }
         if (data.size() > 0) {
-            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts);
+            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts, mProfilePresenter,baseEntityId,
+                    contactNo);
             lastContactsTestsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             lastContactsTestsRecyclerView.setAdapter(adapter);
         } else {

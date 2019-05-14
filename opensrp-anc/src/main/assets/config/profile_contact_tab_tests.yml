@@ -12,7 +12,6 @@ fields:
 
   - template: "Ultrasound done date: {ultrasound_date}"
     relevance: "ultrasound_date != ''"
-all_tests: true
 
 ---
 sub_group: blood_type_test_results
@@ -28,8 +27,7 @@ fields:
 
   - template: "RH factor: {rh_factor}"
     relevance: "rh_factor != ''"
-all_tests: true
-test_results: "['blood_type']"
+test_results: "['blood_type:Blood type tests results','other_tests:Test multiple tests','other_tests:Test multiple tests three']"
 
 ---
 sub_group: hiv_tests_results
@@ -48,8 +46,7 @@ fields:
 
   - template: "Hiv test result: {hiv_test_result}"
     relevance: "hiv_test_result != ''"
-all_tests: true
-test_results: "['hiv_test_result']"
+test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
 
 ---
 sub_group: hepatitis_b_test_results
@@ -77,7 +74,6 @@ fields:
 
   - template: "Dried Blood Spot (DBS) HBsAg test result: {hbsag_dbs}"
     relevance: "hbsag_dbs != ''"
-all_tests: true
 
 ---
 sub_group: hepatitis_c_test_results
@@ -105,7 +101,6 @@ fields:
 
   - template: "Dried Blood Spot (DBS) Anti-HCV test result: {hcv_dbs}"
     relevance: "hcv_dbs != ''"
-all_tests: true
 
 ---
 sub_group: syphilis_test_results
@@ -133,13 +128,15 @@ fields:
 
   - template: "Off-site lab test for syphilis result: {lab_syphilis_test}"
     relevance: "lab_syphilis_test != ''"
-all_tests: true
 
 ---
 sub_group: urine_tests_results
 fields:
   - template: "Urine test status: {urine_test_status}"
     relevance: "urine_test_status != ''"
+
+  - template: "Urine test done date: {urine_test_date}"
+    relevance: "urine_test_date != ''"
 
   - template: "Urine test type: {urine_test_type}"
     relevance: "urine_test_type != ''"
@@ -158,7 +155,6 @@ fields:
 
   - template: "Urine glucose: {urine_glucose}"
     relevance: "urine_glucose != ''"
-all_tests: true
 
 ---
 sub_group: blood_glucose_tests_results
@@ -186,7 +182,6 @@ fields:
 
   - template: "Random plasma glucose results (mg/dl): {random_plasma}"
     relevance: "random_plasma != ''"
-all_tests: true
 
 ---
 sub_group: blood_haemoglobin_test_results
@@ -223,7 +218,6 @@ fields:
 
   - template: "Platelet count: {platelets}"
     relevance: "platelets != ''"
-all_tests: true
 
 ---
 sub_group: tb_screening_test_results
@@ -242,8 +236,7 @@ fields:
 
   - template: "TB screening result: {tb_screening_result}"
     relevance: "tb_screening_result != ''"
-all_tests: true
-test_results: "['tb_screening_result']"
+test_results: "['tb_screening_result: TB Screening tests results']"
 
 ---
 sub_group: partner_hiv_test_results
@@ -256,8 +249,7 @@ fields:
 
   - template: "Partner HIV test result: {hiv_test_partner_result}"
     relevance: "hiv_test_partner_result != ''"
-all_tests: true
-test_results: "['hiv_test_partner_result']"
+test_results: "['hiv_test_partner_result:Partner HIV tests results']"
 
 ---
 sub_group: other_tests_results
@@ -273,5 +265,4 @@ fields:
 
   - template: "Other test result: {other_test_result}"
     relevance: "other_test_result != ''"
-all_tests: true
-test_results: "['other_test_result']"
+test_results: "['other_test_result:Other tests results']"
