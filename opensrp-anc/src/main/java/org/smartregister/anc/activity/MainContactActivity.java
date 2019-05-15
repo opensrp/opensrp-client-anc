@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.smartregister.anc.util.ContactJsonFormUtils.extractItemValue;
 import static org.smartregister.anc.util.JsonFormUtils.isFieldRequired;
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
@@ -85,7 +86,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
         contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 1);
-        @SuppressWarnings ("unchecked") Map<String, String> womanDetails =
+        @SuppressWarnings("unchecked") Map<String, String> womanDetails =
                 (Map<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
         womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstants.KEY.DOB)));
 
@@ -374,6 +375,25 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
+    private void updateFormGlobalValuesFromExpansionPanel(JSONObject fieldObject) throws JSONException {
+        if (fieldObject.has(JsonFormConstants.VALUE) && fieldObject.has(JsonFormConstants.TYPE)
+                && TextUtils.equals(JsonFormConstants.EXPANSION_PANEL, fieldObject.getString(JsonFormConstants.TYPE))) {
+
+            JSONArray accordionValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
+            for (int count = 0; count < accordionValue.length(); count++) {
+                JSONObject item = accordionValue.getJSONObject(count);
+                JSONArray itemValueJSONArray = item.optJSONArray(JsonFormConstants.VALUES);
+                if (itemValueJSONArray != null) {
+                    String itemValue = extractItemValue(item, itemValueJSONArray);
+                    if (globalKeys.contains(item.getString(JsonFormConstants.KEY))) {
+                        formGlobalValues.put(item.getString(JsonFormConstants.KEY), itemValue);
+                    }
+                }
+            }
+
+        }
+    }
+
     private void updateFieldRequiredCount(JSONObject object, JSONObject fieldObject, boolean isRequiredField) throws JSONException {
         if (isRequiredField && (!fieldObject.has(JsonFormConstants.VALUE) ||
                 TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)))) {
@@ -404,6 +424,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             JSONArray requiredFieldsArray = fieldObject.has(Constants.REQUIRED_FIELDS) ?
                     fieldObject.getJSONArray(Constants.REQUIRED_FIELDS) : new JSONArray();
             updateSubFormRequiredCount(requiredFieldsArray, createAccordionValuesMap(fieldObject), encounterType);
+            updateFormGlobalValuesFromExpansionPanel(fieldObject);
         }
     }
 
@@ -466,7 +487,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         int count = -1;
         Set<Map.Entry<String, Integer>> entries = requiredFieldsMap.entrySet();
         //We count required fields for all the 6 contact forms
-        if(entries.size() == 6) {
+        if (entries.size() == 6) {
             count++;
             for (Map.Entry<String, Integer> entry : entries) {
                 count += entry.getValue();
