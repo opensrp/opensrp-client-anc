@@ -23,7 +23,7 @@ import java.util.Date;
 @Config(application = TestAncApplication.class, constants = BuildConfig.class, sdk = 22)
 public abstract class BaseUnitTest {
 
-    public static int ASYNC_TIMEOUT = 1000;
+    public static int ASYNC_TIMEOUT = 100000;
 
     protected static final String DUMMY_USERNAME = "myusername";
     protected static final String DUMMY_PASSWORD = "mypassword";

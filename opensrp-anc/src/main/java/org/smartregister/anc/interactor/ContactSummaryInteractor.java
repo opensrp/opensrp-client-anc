@@ -18,7 +18,6 @@ import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -55,31 +54,31 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     Map<String, String> clientDetails =
                             AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
                     JSONObject rawContactSchedule;
-                    if (clientDetails.containsKey(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
+                    if (clientDetails.containsKey(Constants.DETAILS_KEY.CONTACT_SCHEDULE)) {
                         rawContactSchedule = new JSONObject(
                                 AncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
-                                        .get(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                                        .get(Constants.DETAILS_KEY.CONTACT_SCHEDULE));
                     } else {
                         rawContactSchedule = new JSONObject();
                     }
 
                     List<String> contactSchedule = new ArrayList<>();
                     if (TextUtils.isEmpty(referralContactNo)) {
-                        if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SHEDULE)) {
+                        if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SCHEDULE)) {
                             contactSchedule =
                                     Utils.getListFromString(
-                                            rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SHEDULE));
+                                            rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SCHEDULE));
                         }
                     } else {
                         int previousContact = getPreviousContactNo(referralContactNo);
                         if (previousContact > 0) {
-                           Facts facts =
-                                   AncApplication.getInstance().getPreviousContactRepository()
-                                           .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
-                           if (facts != null && facts.asMap().containsKey(Constants.CONTACT_SCHEDULE)) {
-                               String schedule = (String) facts.asMap().get(Constants.CONTACT_SCHEDULE);
-                               contactSchedule = Utils.getListFromString(schedule);
-                           }
+                            Facts facts =
+                                    AncApplication.getInstance().getPreviousContactRepository()
+                                            .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
+                            if (facts != null && facts.asMap().containsKey(Constants.CONTACT_SCHEDULE)) {
+                                String schedule = (String) facts.asMap().get(Constants.CONTACT_SCHEDULE);
+                                contactSchedule = Utils.getListFromString(schedule);
+                            }
                         }
                     }
                     final List<ContactSummaryModel> contactDates;
@@ -94,7 +93,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                         @Override
                         public void run() {
                             int contact = lastContact - 1;
-                            if (! TextUtils.isEmpty(referralContactNo)) {
+                            if (!TextUtils.isEmpty(referralContactNo)) {
                                 contact = Integer.parseInt(referralContactNo);
                             }
                             callback.onUpcomingContactsFetched(contactDates, contact);

@@ -106,7 +106,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             contactSchedule.setLayoutManager(new LinearLayoutManager(this));
             contactSchedule.setAdapter(adapter);
         } else {
-            layoutBottom.setVisibility(View.GONE);
+            layoutMiddle.setVisibility(View.GONE);
         }
     }
 

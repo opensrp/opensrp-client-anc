@@ -55,17 +55,16 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
     private JsonApi jsonApi;
     private Activity activity;
-    private Context context;
     private String header;
     private LinearLayout linearLayout;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.context = context;
         activity = (Activity) context;
         jsonApi = (JsonApi) activity;
         JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
+        jsonApi.setGenericPopup(this);
         ancJsonApi.setGenericPopup(this);
     }
 
@@ -125,15 +124,16 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            if (context == null) {
+            if (getContext() == null) {
                 throw new IllegalStateException(
                         "The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
             }
 
-            activity = (Activity) context;
+            activity = (Activity) getContext();
             jsonApi = (JsonApi) activity;
 
             try {
+                jsonApi.setGenericPopup(this);
                 loadPartialSecondaryValues();
                 createSecondaryValuesMap();
                 loadSubForms();
@@ -152,7 +152,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         if (!TextUtils.isEmpty(getFormIdentity())) {
             JSONObject subForm = null;
             try {
-                subForm = FormUtils.getSubFormJson(getFormIdentity(), getFormLocation(), context);
+                subForm = FormUtils.getSubFormJson(getFormIdentity(), getFormLocation(), getContext());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -177,7 +177,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     protected void loadPartialSecondaryValues() throws JSONException {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            JSONArray fields = formUtils.getFormFields(getStepName(), context);
+            JSONArray fields = formUtils.getFormFields(getStepName(), getContext());
             if (fields != null && fields.length() > 0) {
                 for (int i = 0; i < fields.length(); i++) {
                     JSONObject item = fields.getJSONObject(i);
@@ -211,8 +211,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 @Override
                 public void onShow(DialogInterface dialog) {
                     InputMethodManager inputManager =
-                            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    inputManager.hideSoftInputFromWindow(((Activity) context).getCurrentFocus().getWindowToken(),
+                            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(((Activity) getContext()).getCurrentFocus().getWindowToken(),
                             HIDE_NOT_ALWAYS);
                 }
             };
@@ -282,7 +282,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     public void onDataPass(String parentKey, String stepName, String childKey) {
         JSONObject mJSONObject = getJsonApi().getmJSONObject();
         if (mJSONObject != null) {
-            JSONArray fields = formUtils.getFormFields(stepName, context);
+            JSONArray fields = formUtils.getFormFields(stepName, getContext());
             try {
 
                 if (fields.length() > 0) {

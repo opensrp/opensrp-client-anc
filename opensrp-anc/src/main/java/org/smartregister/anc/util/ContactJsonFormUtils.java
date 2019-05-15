@@ -549,6 +549,7 @@ public class ContactJsonFormUtils extends FormUtils {
             genericPopupDialog.setSecondaryValues(jsonArray);
             genericPopupDialog.setParentKey(parentKey);
             genericPopupDialog.setLinearLayout(rootLayout);
+            genericPopupDialog.setContext(context);
             if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
                 genericPopupDialog.setHeader(toolbarHeader);
                 genericPopupDialog.setContainer(container);

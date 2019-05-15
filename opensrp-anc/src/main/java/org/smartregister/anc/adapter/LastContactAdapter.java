@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.R;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
@@ -55,12 +56,12 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 contactNo = lastContactDetails.getContactNo();
             }
 
-            if (!TextUtils.isEmpty(gestAge)) {
+            if (!StringUtils.isEmpty(gestAge)) {
                 viewHolder.contactTextView.setText(
-                        String.format(context.getResources().getString(R.string.contact_details), gestAge, contactNo));
-            } else {
-                viewHolder.contactTextView.setText(
-                        String.format(context.getResources().getString(R.string.referral_contact_details), contactNo));
+                        !StringUtils.isEmpty(contactNo) ? String
+                                .format(context.getResources().getString(R.string.contact_details), gestAge,
+                                        contactNo) : String
+                                .format(context.getResources().getString(R.string.ga_weeks), gestAge));
             }
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
 
