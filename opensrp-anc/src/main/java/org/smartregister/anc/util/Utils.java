@@ -211,6 +211,7 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
+     *
      * @author martinndegwa
      */
     public static void proceedToContact(String baseEntityId, HashMap<String, String> personObjectClient, Context context) {
@@ -273,6 +274,7 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
+     *
      * @return true|false {@link Boolean}
      * @throws Exception
      * @author martinndegwa
@@ -313,6 +315,7 @@ public class Utils extends org.smartregister.util.Utils {
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
+     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context, HashMap<String, String> womanDetails, boolean isRefferal) {
@@ -359,8 +362,8 @@ public class Utils extends org.smartregister.util.Utils {
             value = facts.get(key);
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
-                value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue
-                        .toString() + "]" :
+                value = otherValue != null ?
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
@@ -512,17 +515,6 @@ public class Utils extends org.smartregister.util.Utils {
                 contactTextView.setPadding(2, 2, 2, 2);
 
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-
-                /*dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
-                dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-
-                SpannableStringBuilder ssb = new SpannableStringBuilder(
-                        String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
-                ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1,
-                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
-                dueButton.setPadding(2, 2, 2, 2);*/
-
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
                 dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
                 dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),

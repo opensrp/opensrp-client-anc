@@ -567,13 +567,13 @@ public class ContactJsonFormUtils extends FormUtils {
 
             Activity activity = (Activity) context;
             FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-            Fragment prev = activity.getFragmentManager().findFragmentByTag("GenericPopup");
+            Fragment prev = activity.getFragmentManager().findFragmentByTag("ANCGenericPopup");
             if (prev != null) {
                 ft.remove(prev);
             }
 
             ft.addToBackStack(null);
-            genericPopupDialog.show(ft, "GenericPopup");
+            genericPopupDialog.show(ft, "ANCGenericPopup");
         } else {
             Toast.makeText(context, "Please specify the sub form to display ", Toast.LENGTH_LONG).show();
         }
