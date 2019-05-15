@@ -4,6 +4,7 @@ import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.application.AncApplication;
@@ -63,7 +64,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     }
 
                     List<String> contactSchedule = new ArrayList<>();
-                    if (TextUtils.isEmpty(referralContactNo)) {
+                    if (StringUtils.isEmpty(referralContactNo)) {
                         if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SCHEDULE)) {
                             contactSchedule =
                                     Utils.getListFromString(
@@ -93,7 +94,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                         @Override
                         public void run() {
                             int contact = lastContact - 1;
-                            if (!TextUtils.isEmpty(referralContactNo)) {
+                            if (!StringUtils.isEmpty(referralContactNo)) {
                                 contact = Integer.parseInt(referralContactNo);
                             }
                             callback.onUpcomingContactsFetched(contactDates, contact);

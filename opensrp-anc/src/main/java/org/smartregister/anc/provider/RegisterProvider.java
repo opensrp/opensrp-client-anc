@@ -250,16 +250,16 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     ////////////////////////////////////////////////////////////////
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
-        TextView patientName;
-        TextView age;
-        TextView period;
-        TextView ga;
-        TextView ancId;
-        TextView risk;
-        Button dueButton;
-        Button sync;
-        View patientColumn;
-        CustomTextView contactDoneTodayButton;
+        private TextView patientName;
+        private TextView age;
+        private TextView period;
+        private TextView ga;
+        private TextView ancId;
+        private TextView risk;
+        private Button dueButton;
+        private Button sync;
+        private View patientColumn;
+        private CustomTextView contactDoneTodayButton;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
@@ -277,9 +277,9 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
-        TextView pageInfoView;
-        Button nextPageView;
-        Button previousPageView;
+        private TextView pageInfoView;
+        private Button nextPageView;
+        private Button previousPageView;
 
         public FooterViewHolder(View view) {
             super(view);
