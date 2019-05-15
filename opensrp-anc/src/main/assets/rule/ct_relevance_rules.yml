@@ -870,6 +870,6 @@ actions:
 name: step8_flu_date_done
 description: flu_date_done
 priority: 1
-condition: "step8_flu_date != '' && (step8_flu_date == 'done_today' || step8_flu_date == 'done_earlier')"
+condition: "step8_flu_date != '' && step8_flu_date == 'done_earlier'"
 actions:
   - "isRelevant = true"
