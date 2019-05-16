@@ -2,9 +2,9 @@
   "content_form": [
     {
       "key": "ultrasound",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Ultrasound test",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -15,32 +15,32 @@
           "text": "Done today",
           "type": "done_today",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "done_earlier",
           "text": "Done earlier",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ordered",
           "text": "Ordered",
           "type": "ordered",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "type": "not_done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -57,9 +57,9 @@
     },
     {
       "key": "ultrasound_notdone",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Reason",
       "label_text_style": "bold",
@@ -68,22 +68,22 @@
           "key": "delayed",
           "text": "Delayed to next contact",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "MARRIED OR LIVING WITH PARTNER",
-          "openmrs_entity_id": "1055"
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_available",
           "text": "Not available",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "Divorced",
-          "openmrs_entity_id": "1058"
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other (specify)",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "Not married",
-          "openmrs_entity_id": "5615"
+          "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -100,9 +100,9 @@
     },
     {
       "key": "ultrasound_notdone_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Specify",
       "edit_type": "edit_text",
@@ -136,9 +136,9 @@
     },
     {
       "key": "ultrasound_date",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
       "hint": "Ultrasound date",
       "expanded": "false",
@@ -166,8 +166,8 @@
     {
       "key": "ultrasound_gest_age_wks",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "GA from ultrasound - weeks",
       "v_required": {
@@ -218,8 +218,8 @@
     {
       "key": "ultrasound_done_early_toaster",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "Counselling (Human immunodeficiency virus [HIV] counselling)",
-      "openmrs_entity_id": "2047",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Early ultrasound done!",
       "toaster_info_text": "An early U/S is key to estimate gestational age, improve detection of fetal anomalies and multiple fetuses, reduce induction of labour for post-term pregnancy, and improve a woman’s pregnancy experience.",
@@ -280,12 +280,12 @@
     {
       "key": "no_of_fetuses",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "numbers_selector",
       "label": "No. of fetuses",
       "number_of_selectors": "5",
-      "start_number": "1",
+      "start_number": "escaped_1_no_slash",
       "max_value": "15",
       "text_size": "16px",
       "text_color": "#000000",
@@ -310,27 +310,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "no_of_fetuses_hidden",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#000000",
-      "v_required": {
-        "value": false
-      },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_calculation_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "preeclampsia_risk",
       "type": "hidden",
       "label_text_style": "bold",
@@ -383,8 +364,8 @@
     {
       "key": "fetal_presentation",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Fetal presentation",
       "label_text_style": "bold",
@@ -394,29 +375,29 @@
           "key": "cephalic",
           "text": "Cephalic",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "pelvic",
           "text": "Pelvic",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "transverse",
           "text": "Transverse",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -437,8 +418,8 @@
     {
       "key": "amniotic_fluid",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Amniotic fluid",
       "label_text_style": "bold",
@@ -447,22 +428,22 @@
           "key": "normal",
           "text": "Normal",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "reduced",
           "text": "Reduced",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "162648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "increased",
           "text": "Increased",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -476,8 +457,8 @@
     {
       "key": "placenta_location",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165296AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Placenta location",
       "label_text_style": "bold",
@@ -486,50 +467,50 @@
           "key": "praevia",
           "text": "Praevia",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "low",
           "text": "Low",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "anterior",
           "text": "Anterior",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "posterior",
           "text": "Posterior",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "right_side",
           "text": "Right side",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "left_side",
           "text": "Left side",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5139AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "fundal",
           "text": "Fundal",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -543,8 +524,8 @@
     {
       "key": "select_gest_age_edd",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Select preferred gestational age:",
       "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
@@ -555,24 +536,24 @@
           "key": "use_lmp",
           "text": "Using LMP",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "extra_info": "GA: {lmp_gest_age} <br/> EDD: {lmp_edd}"
         },
         {
           "key": "use_ultrasound",
           "text": "Using ultrasound",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "extra_info": "GA: {ultrasound_gest_age} <br> EDD: {ultrasound_edd}"
         },
         {
           "key": "use_sfh_abdominal_palpation",
           "text": "Using SFH or abdominal palpation",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "extra_info": "GA: {sfh_gest_age}<br>EDD: {sfh_edd}"
         }
       ],
