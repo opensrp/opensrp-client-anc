@@ -549,6 +549,7 @@ public class ContactJsonFormUtils extends FormUtils {
             genericPopupDialog.setSecondaryValues(jsonArray);
             genericPopupDialog.setParentKey(parentKey);
             genericPopupDialog.setLinearLayout(rootLayout);
+            genericPopupDialog.setContext(context);
             if (type != null && type.equals(Constants.EXPANSION_PANEL)) {
                 genericPopupDialog.setHeader(toolbarHeader);
                 genericPopupDialog.setContainer(container);
@@ -566,13 +567,13 @@ public class ContactJsonFormUtils extends FormUtils {
 
             Activity activity = (Activity) context;
             FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-            Fragment prev = activity.getFragmentManager().findFragmentByTag("GenericPopup");
+            Fragment prev = activity.getFragmentManager().findFragmentByTag("ANCGenericPopup");
             if (prev != null) {
                 ft.remove(prev);
             }
 
             ft.addToBackStack(null);
-            genericPopupDialog.show(ft, "GenericPopup");
+            genericPopupDialog.show(ft, "ANCGenericPopup");
         } else {
             Toast.makeText(context, "Please specify the sub form to display ", Toast.LENGTH_LONG).show();
         }

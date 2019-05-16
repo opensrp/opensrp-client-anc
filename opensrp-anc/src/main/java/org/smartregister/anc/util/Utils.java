@@ -196,8 +196,12 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static List<String> getListFromString(String stringArray) {
-        return new ArrayList<>(
-                Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+        List<String> stringList = new ArrayList<>();
+        if (!StringUtils.isEmpty(stringArray)) {
+            stringList = new ArrayList<>(
+                    Arrays.asList(stringArray.substring(1, stringArray.length() - 1).replaceAll("\"", "").split(", ")));
+        }
+        return stringList;
     }
 
     /**
@@ -207,10 +211,10 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
+     *
      * @author martinndegwa
      */
     public static void proceedToContact(String baseEntityId, HashMap<String, String> personObjectClient, Context context) {
-
         try {
 
             Intent intent = new Intent(context.getApplicationContext(), ContactJsonFormActivity.class);
@@ -270,6 +274,7 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
+     *
      * @return true|false {@link Boolean}
      * @throws Exception
      * @author martinndegwa
@@ -310,6 +315,7 @@ public class Utils extends org.smartregister.util.Utils {
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
+     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context, HashMap<String, String> womanDetails, boolean isRefferal) {
@@ -356,8 +362,8 @@ public class Utils extends org.smartregister.util.Utils {
             value = facts.get(key);
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
-                value = otherValue != null ? value.substring(0, value.lastIndexOf(",")) + ", " + otherValue
-                        .toString() + "]" :
+                value = otherValue != null ?
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
