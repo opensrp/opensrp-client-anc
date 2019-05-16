@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.R;
 import org.smartregister.anc.domain.LastContactDetailsWrapper;
@@ -50,15 +51,23 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 gestAge = "";
             }
 
-            if (! TextUtils.isEmpty(gestAge)) {
-                viewHolder.contactTextView.setText(
-                        String.format(context.getResources().getString(R.string.contact_details), gestAge,
-                                lastContactDetails.getContactNo()));
-            } else {
-                viewHolder.contactTextView.setText(
-                        String.format(context.getResources().getString(R.string.referral_contact_details),
-                                lastContactDetails.getContactNo()));
+            String contactNo = "";
+            if (!lastContactDetails.getContactNo().contains("-")) {
+                contactNo = lastContactDetails.getContactNo();
             }
+
+            if (!StringUtils.isEmpty(gestAge)) {
+                viewHolder.contactTextView.setText(
+                        !StringUtils.isEmpty(contactNo) ? String
+                                .format(context.getResources().getString(R.string.contact_details), gestAge,
+                                        contactNo) : String
+                                .format(context.getResources().getString(R.string.ga_weeks), gestAge));
+            }
+
+            if (StringUtils.isEmpty(gestAge) && StringUtils.isEmpty(contactNo)) {
+                viewHolder.contactTextView.setText("");
+            }
+
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
 
             if (lastContactDetails.getContactNo() != null && Integer.parseInt(lastContactDetails.getContactNo()) < 1) {

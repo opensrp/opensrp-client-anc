@@ -30,7 +30,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     }
 
     public void onDestroy(boolean isChangingConfiguration) {
-
         mProfileView = null;//set to null on destroy
 
         // Inform interactor
@@ -42,7 +41,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         if (! isChangingConfiguration) {
             mProfileInteractor = null;
         }
-
     }
 
     @Override

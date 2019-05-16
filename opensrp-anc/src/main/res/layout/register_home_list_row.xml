@@ -4,11 +4,11 @@
     android:id="@+id/register_columns"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingEnd="@dimen/main_register_padding_end"
-    android:paddingStart="@dimen/main_register_padding_start"
     android:layout_weight="2"
     android:background="@color/white"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/main_register_padding_start"
+    android:paddingEnd="@dimen/main_register_padding_end">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/patient_column"
@@ -17,8 +17,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
-        android:orientation="vertical"
-        android:layout_weight="1.3">
+        android:layout_weight="1.3"
+        android:orientation="vertical">
 
         <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/patient_name"
@@ -115,14 +115,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="3dp"
                 android:background="@drawable/grey_border"
                 android:drawableLeft="@drawable/ic_red_flag"
                 android:gravity="bottom"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="3dp"
-                android:text="20"
-                android:paddingEnd="2dp"
                 android:paddingStart="1dp"
+                android:paddingEnd="2dp"
+                android:text="20"
                 android:textColor="@color/dark_grey_text"
                 android:textSize="16sp" />
         </RelativeLayout>
@@ -136,19 +136,20 @@
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:layout_weight="0.7"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_vertical|center_horizontal">
 
-        <TextView
+        <com.vijay.jsonwizard.views.CustomTextView
             android:id="@+id/contact_today_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:background="@drawable/contact_completed_today"
             android:drawableStart="@drawable/ic_checked_green"
-            android:drawableLeft="@drawable/ic_checked_green"
             android:elevation="8dp"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:hapticFeedbackEnabled="true"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
@@ -158,7 +159,7 @@
             android:textColor="@color/dark_grey"
             android:textSize="15sp"
             android:typeface="normal"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/due_button"
@@ -179,7 +180,7 @@
             android:textColor="@color/vaccine_blue_bg_st"
             android:textSize="15sp"
             android:typeface="normal"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/sync"

@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,8 +48,9 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     protected ActionBar actionBar;
     private RecyclerView contactSchedule;
     private TextView deliveryDate;
-    private TextView noContactSchedule;
     private RecyclerView previousContacts;
+    private ConstraintLayout layoutBottom;
+    private ConstraintLayout layoutMiddle;
     private List<YamlConfigWrapper> lastContactDetails;
 
 
@@ -73,14 +75,16 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
         try {
             String edd = clientDetails.get(Constants.EDD);
-            if (! clientDetails.isEmpty()) {
-                if (! TextUtils.isEmpty(edd)) {
+            if (!clientDetails.isEmpty()) {
+                if (!TextUtils.isEmpty(edd)) {
                     Date eddDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
                     String eddDisplayDate =
                             new SimpleDateFormat("MMMM dd" + ", " + "yyyy", Locale.getDefault()).format(eddDate);
-                    if (! TextUtils.isEmpty(eddDisplayDate)) {
+                    if (!TextUtils.isEmpty(eddDisplayDate)) {
                         deliveryDate.setText(eddDisplayDate);
                     }
+                } else {
+                    layoutBottom.setVisibility(View.GONE);
                 }
 
                 mProfilePresenter.loadPreviousContacts(baseEntityId, contactNo);
@@ -97,21 +101,19 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     public void displayPreviousContactSchedule(List<ContactSummaryModel> schedule) {
         if (schedule.size() > 0) {
             contactSchedule.setVisibility(View.VISIBLE);
-            noContactSchedule.setVisibility(View.GONE);
             ContactScheduleAdapter adapter = new ContactScheduleAdapter(this, schedule);
             adapter.notifyDataSetChanged();
             contactSchedule.setLayoutManager(new LinearLayoutManager(this));
             contactSchedule.setAdapter(adapter);
         } else {
-            contactSchedule.setVisibility(View.GONE);
-            noContactSchedule.setVisibility(View.VISIBLE);
+            layoutMiddle.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void loadPreviousContactsDetails(Map<String, List<Facts>> allContactFacts) throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
-        if (! allContactFacts.isEmpty()) {
+        if (!allContactFacts.isEmpty()) {
             for (Map.Entry<String, List<Facts>> entry : allContactFacts.entrySet()) {
                 List<Facts> factsList = entry.getValue();
                 String contactNo = entry.getKey();
@@ -194,7 +196,6 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
-
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
                 }
@@ -216,9 +217,10 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
     private void setUpViews() {
         deliveryDate = findViewById(R.id.delivery_date);
-        noContactSchedule = findViewById(R.id.no_contact_schedule);
         previousContacts = findViewById(R.id.previous_contacts);
         contactSchedule = findViewById(R.id.upcoming_contacts);
+        layoutBottom = findViewById(R.id.layout_bottom);
+        layoutMiddle = findViewById(R.id.layout_middle);
     }
 
     @Override

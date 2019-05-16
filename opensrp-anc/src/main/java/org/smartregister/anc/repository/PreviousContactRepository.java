@@ -367,7 +367,8 @@ public class PreviousContactRepository extends BaseRepository {
             SQLiteDatabase db = getWritableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-                selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
+                selection =
+                        BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ? AND " + KEY + " = " + "'" + Constants.CONTACT_SCHEDULE + "'";
                 selectionArgs = new String[] {baseEntityId, contactNo};
             }
 
@@ -375,10 +376,8 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (scheduleCursor != null) {
                 while (scheduleCursor.moveToNext()) {
-                    if (Constants.CONTACT_SCHEDULE.equals(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)))) {
-                        schedule.put(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)),
-                                scheduleCursor.getString(scheduleCursor.getColumnIndex(VALUE)));
-                    }
+                    schedule.put(scheduleCursor.getString(scheduleCursor.getColumnIndex(KEY)),
+                            scheduleCursor.getString(scheduleCursor.getColumnIndex(VALUE)));
                 }
                 return schedule;
             }
