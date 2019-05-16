@@ -513,7 +513,7 @@ actions:
 name: step6_accordion_hiv_risk_counsel
 description: hiv_risk_counsel
 priority: 1
-condition: "(global_hiv_risk == 1)"
+condition: "(global_hiv_risk == 1 && global_hiv_positive != 1)"
 actions:
   - "isRelevant = true"
 ---
