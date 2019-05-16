@@ -46,6 +46,22 @@
       }
     },
     {
+      "key": "flu_date_done_date_today_hidden",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "flu_date_done",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",

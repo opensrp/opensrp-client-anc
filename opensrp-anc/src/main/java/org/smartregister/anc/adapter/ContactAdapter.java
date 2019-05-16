@@ -32,7 +32,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_card_item, parent, false);
-
         return new ViewHolder(itemView);
     }
 
@@ -49,15 +48,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         if (contact.getRequiredFields() == null) {
             holder.requiredFields.setVisibility(View.GONE);
             holder.completeLayout.setVisibility(View.GONE);
-        } else if (contact.getRequiredFields() > 0) {
-            holder.requiredFields
-                    .setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
-
-            holder.requiredFields.setVisibility(View.VISIBLE);
-            holder.completeLayout.setVisibility(View.GONE);
-        } else {
+        } else if (contact.getRequiredFields() == 0) {
             holder.completeLayout.setVisibility(View.VISIBLE);
             holder.requiredFields.setVisibility(View.GONE);
+        } else {
+            holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
+            holder.requiredFields.setVisibility(View.VISIBLE);
+            holder.completeLayout.setVisibility(View.GONE);
         }
     }
 
