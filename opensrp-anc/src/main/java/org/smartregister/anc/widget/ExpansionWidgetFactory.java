@@ -397,6 +397,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 @Override
                 public void onClick(View v) {
                     item.remove(JsonFormConstants.VALUE);
+                    item.remove(Constants.REQUIRED_FIELDS);
                     jsonApi.setmJSONObject(mainJson);
 
                     Utils.postEvent(new RefreshExpansionPanelEvent(null, (LinearLayout) view.getTag(R.id.linearLayout)));

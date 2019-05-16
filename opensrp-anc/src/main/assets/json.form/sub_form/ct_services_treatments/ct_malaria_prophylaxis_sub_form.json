@@ -39,10 +39,10 @@
       }
     },
     {
+      "key": "iptp_sp1_dose_number",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "iptp_sp1_dose_number",
       "type": "hidden",
       "calculation": {
         "rules-engine": {
@@ -111,10 +111,10 @@
       }
     },
     {
+      "key": "iptp_sp2_dose_number",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "iptp_sp2_dose_number",
       "type": "hidden",
       "calculation": {
         "rules-engine": {
@@ -183,10 +183,10 @@
       }
     },
     {
+      "key": "iptp_sp3_dose_number",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "iptp_sp3_dose_number",
       "type": "hidden",
       "calculation": {
         "rules-engine": {
