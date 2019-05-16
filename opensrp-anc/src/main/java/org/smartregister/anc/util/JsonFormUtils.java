@@ -184,8 +184,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
             return Pair.create(baseClient, baseEvent);
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (Exception e) {         Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
     }

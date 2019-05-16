@@ -579,12 +579,6 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
-    public Map<String, String> createAssignedValue(AncGenericDialogInterface genericDialogInterface, String itemKey,
-                                                   String optionKey, String keyValue, String itemType, String itemText) {
-        this.genericDialogInterface = genericDialogInterface;
-        return addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
-    }
-
     @Override
     public Map<String, String> addAssignedValue(String itemKey, String optionKey, String keyValue, String itemType,
                                                 String itemText) {
