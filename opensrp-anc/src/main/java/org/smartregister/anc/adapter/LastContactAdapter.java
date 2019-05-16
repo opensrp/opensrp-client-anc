@@ -63,6 +63,11 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                                         contactNo) : String
                                 .format(context.getResources().getString(R.string.ga_weeks), gestAge));
             }
+
+            if (StringUtils.isEmpty(gestAge) && StringUtils.isEmpty(contactNo)) {
+                viewHolder.contactTextView.setText("");
+            }
+
             viewHolder.contactDate.setText(lastContactDetails.getContactDate());
 
             if (lastContactDetails.getContactNo() != null && Integer.parseInt(lastContactDetails.getContactNo()) < 1) {
