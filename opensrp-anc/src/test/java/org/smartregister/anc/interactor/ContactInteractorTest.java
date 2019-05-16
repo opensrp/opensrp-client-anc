@@ -123,7 +123,7 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
-        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
+        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
         List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40});
 

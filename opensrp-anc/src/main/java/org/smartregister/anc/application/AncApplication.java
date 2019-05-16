@@ -337,7 +337,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return AncApplication.getInstance().getContext().allSettings().getSetting(characteristics);
     }
 
-
     public JSONObject getDefaultContactFormGlobals() {
         return defaultContactFormGlobals;
     }

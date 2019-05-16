@@ -187,10 +187,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return result;
     }
 
-    private String getKey(String widget, String step) {
-        return widget.replace(step + "_", "");
-    }
-
     /**
      * Given two dates compare if they are equal
      *

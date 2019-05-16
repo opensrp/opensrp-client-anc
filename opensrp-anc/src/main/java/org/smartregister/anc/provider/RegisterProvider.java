@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.views.CustomTextView;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.R;
@@ -152,14 +154,13 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-
         if (commonRepository != null) {
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
                 ButtonAlertStatus buttonAlertStatus =
                         Utils.getButtonAlertStatus(pc.getColumnmaps(), context.getString(R.string.contact_weeks));
-                Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contact_today_text,
+                Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contactDoneTodayButton,
                         buttonAlertStatus);
 
             } else {
@@ -249,20 +250,19 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     ////////////////////////////////////////////////////////////////
 
     public class RegisterViewHolder extends RecyclerView.ViewHolder {
-        public TextView patientName;
-        public TextView age;
-        public TextView period;
-        public TextView ga;
-        public TextView ancId;
-        public TextView risk;
-        public Button dueButton;
-        public Button sync;
-        public View patientColumn;
-        public TextView contact_today_text;
+        private TextView patientName;
+        private TextView age;
+        private TextView period;
+        private TextView ga;
+        private TextView ancId;
+        private TextView risk;
+        private Button dueButton;
+        private Button sync;
+        private View patientColumn;
+        private CustomTextView contactDoneTodayButton;
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
-
             patientName = itemView.findViewById(R.id.patient_name);
             age = itemView.findViewById(R.id.age);
             ga = itemView.findViewById(R.id.ga);
@@ -271,17 +271,15 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             risk = itemView.findViewById(R.id.risk);
             dueButton = itemView.findViewById(R.id.due_button);
             sync = itemView.findViewById(R.id.sync);
-
             patientColumn = itemView.findViewById(R.id.patient_column);
-
-            contact_today_text = itemView.findViewById(R.id.contact_today_text);
+            contactDoneTodayButton = itemView.findViewById(R.id.contact_today_text);
         }
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
-        public TextView pageInfoView;
-        public Button nextPageView;
-        public Button previousPageView;
+        private TextView pageInfoView;
+        private Button nextPageView;
+        private Button previousPageView;
 
         public FooterViewHolder(View view) {
             super(view);

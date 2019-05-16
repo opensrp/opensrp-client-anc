@@ -72,19 +72,6 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintTop_toBottomOf="@+id/middle_header_text" />
 
-            <TextView
-                android:id="@+id/no_contact_schedule"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:foregroundGravity="top"
-                android:gravity="center_horizontal|center_vertical"
-                android:visibility="visible"
-                android:text="@string/no_contact_schedule"
-                android:paddingTop="@dimen/contact_drawable_padding"
-                android:paddingBottom="@dimen/contact_drawable_padding"
-                app:layout_constraintTop_toBottomOf="@+id/middle_header_text"  />
-
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
