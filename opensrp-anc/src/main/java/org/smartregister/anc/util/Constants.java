@@ -182,7 +182,7 @@ public abstract class Constants {
     }
 
     public static class DETAILS_KEY {
-        public static final String CONTACT_SHEDULE = "contact_schedule";
+        public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
 

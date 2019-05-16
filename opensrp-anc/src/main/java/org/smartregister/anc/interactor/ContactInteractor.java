@@ -74,10 +74,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     int nextContactVisitWeeks = integerList.get(0);
 
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, integerList);
+                    jsonObject.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, integerList);
                     addThePreviousContactSchedule(baseEntityId, details, integerList);
                     AncApplication.getInstance().getDetailsRepository()
-                            .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SHEDULE, jsonObject.toString(),
+                            .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SCHEDULE, jsonObject.toString(),
                                     Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
                     LocalDate localDate = new LocalDate(details.get(DBConstants.KEY.EDD));
@@ -152,7 +152,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void addThePreviousContactSchedule(String baseEntityId, Map<String, String> details, List<Integer> integerList) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
-        previousContact.setKey(Constants.DETAILS_KEY.CONTACT_SHEDULE);
+        previousContact.setKey(Constants.DETAILS_KEY.CONTACT_SCHEDULE);
         previousContact.setValue(String.valueOf(integerList));
         AncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
