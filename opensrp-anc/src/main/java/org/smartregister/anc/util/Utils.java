@@ -509,22 +509,10 @@ public class Utils extends org.smartregister.util.Utils {
                 contactTextView.setPadding(2, 2, 2, 2);
 
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-
-                /*dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_completed_today));
-                dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-
-                SpannableStringBuilder ssb = new SpannableStringBuilder(
-                        String.format(context.getString(R.string.contact_recorded_today), getTodayContact(nextContact)));
-                ssb.setSpan(new ImageSpan(context, R.drawable.ic_checked_green, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1,
-                        Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                dueButton.setText(ssb, TextView.BufferType.SPANNABLE);
-                dueButton.setPadding(2, 2, 2, 2);*/
-
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
                 dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
                 dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
                         Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-
                 break;
             default:
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
