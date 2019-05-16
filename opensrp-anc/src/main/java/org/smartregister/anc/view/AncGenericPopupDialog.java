@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
+import static org.smartregister.anc.util.JsonFormUtils.isFieldRequired;
 
 public class AncGenericPopupDialog extends GenericPopupDialog implements AncGenericDialogInterface {
     private static ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
@@ -319,8 +320,41 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             item.put(JsonFormConstants.VALUE, orderedValues);
             setNewSelectedValues(orderedValues);
             org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(orderedValues, linearLayout));
+            addRequiredFields(item);
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    /**
+     * This methods adds a new attribute field called required_fields to the accordion object that it
+     * has been passed. It does so by getting only visible that are required;
+     * @param theAccordion accordion/Expansion panel that is to be updated with the new attribute
+     * @throws JSONException Exception thrown
+     */
+    private void addRequiredFields(JSONObject theAccordion) throws JSONException {
+        //Clear the current required fields first
+        if (theAccordion.has(Constants.REQUIRED_FIELDS)) {
+            theAccordion.remove(Constants.REQUIRED_FIELDS);
+        }
+
+        JSONArray requiredFieldsList = new JSONArray();
+        JSONArray formFields = getSubFormsFields();
+
+        for (int index = 0; index < formFields.length(); index++) {
+            JSONObject fieldObject = formFields.getJSONObject(index);
+            boolean isFieldVisible = !fieldObject.has(JsonFormConstants.IS_VISIBLE) ||
+                    fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE);
+            if (isFieldRequired(fieldObject)) {
+                if(!isFieldVisible){
+                    continue;
+                }
+                requiredFieldsList.put(fieldObject.getString(JsonFormConstants.KEY));
+            }
+        }
+
+        if (requiredFieldsList.length() > 0) {
+            theAccordion.put(Constants.REQUIRED_FIELDS, requiredFieldsList);
         }
     }
 

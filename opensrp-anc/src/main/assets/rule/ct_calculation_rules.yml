@@ -2,7 +2,7 @@
 name: step1_danger_signs_toaster
 description: Displays the womans danger signs.
 priority: 1
-condition: "!global_danger_signs.contains('danger_none')"
+condition: "!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none')"
 actions:
  - 'calculation = ["danger_signs" : global_danger_signs_value]'
 ---
@@ -209,8 +209,8 @@ condition: "step8_iptp_sp3 != '' && step8_iptp_sp3 == 'done'"
 actions:
 - "calculation = 3"
 ---
-name: step8_tt1_date_done
-description: tt1_date_done
+name: step8_tt1_date_done_date_today_hidden
+description: tt1_date_done_today
 priority: 1
 condition: "step8_tt1_date != '' && step8_tt1_date == 'done_today'"
 actions:
@@ -223,7 +223,7 @@ condition: "step8_tt1_date != '' && step8_tt1_date != 'not_done'"
 actions:
 - "calculation = 1"
 ---
-name: step8_tt2_date_done
+name: step8_tt2_date_done_date_today_hidden
 description: tt2_date_done
 priority: 1
 condition: "step8_tt2_date != '' && step8_tt2_date == 'done_today'"
@@ -237,8 +237,8 @@ condition: "step8_tt2_date != '' && step8_tt2_date != 'not_done'"
 actions:
 - "calculation = 2"
 ---
-name: step8_tt3_date_done
-description: tt3_date_done
+name: step8_tt3_date_done_date_today_hidden
+description: tt3_date_done_today
 priority: 1
 condition: "step8_tt3_date != '' && step8_tt3_date == 'done_today'"
 actions:
@@ -251,22 +251,22 @@ condition: "step8_tt3_date != '' && step8_tt3_date != 'not_done'"
 actions:
 - "calculation = 3"
 ---
-name: step8_hepb1_date_done
-description: hepb1_date_done
+name: step8_hepb1_date_done_date_today_hidden
+description: hepb1_date_done_today
 priority: 1
 condition: "step8_hepb1_date != '' && step8_hepb1_date == 'done_today'"
 actions:
  - "calculation = helper.getDateToday()"
 ---
-name: step8_hepb2_date_done
-description: hepb2_date_done
+name: step8_hepb2_date_done_date_today_hidden
+description: hepb2_date_done_today
 priority: 1
 condition: "step8_hepb2_date != '' && step8_hepb2_date == 'done_today'"
 actions:
  - "calculation = helper.getDateToday()"
 ---
-name: step8_hepb3_date_done
-description: hepb3_date_done
+name: step8_hepb3_date_done_date_today_hidden
+description: hepb3_date_done_today
 priority: 1
 condition: "step8_hepb3_date != '' && step8_hepb3_date == 'done_today'"
 actions:
@@ -293,7 +293,7 @@ condition: "step8_hepb3_date != '' && step8_hepb3_date != 'not_done'"
 actions:
 - "calculation = 3"
 ---
-name: step8_flu_date_done
+name: step8_flu_date_done_date_today_hidden
 description: Date flu dose was given
 priority: 1
 condition: "step8_flu_date != '' && step8_flu_date == 'done_today'"

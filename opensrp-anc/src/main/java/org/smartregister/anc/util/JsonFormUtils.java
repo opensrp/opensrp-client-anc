@@ -76,6 +76,21 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final int REQUEST_CODE_GET_JSON = 3432;
     private static final String TAG = JsonFormUtils.class.getCanonicalName();
 
+    public static boolean isFieldRequired(JSONObject fieldObject) throws JSONException {
+        boolean isValueRequired = false;
+        if (fieldObject.has(JsonFormConstants.V_REQUIRED)) {
+            JSONObject valueRequired = fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED);
+            String value = valueRequired.getString(JsonFormConstants.VALUE);
+            isValueRequired = Boolean.parseBoolean(value);
+        }
+        //Don't check required for hidden, toaster notes, spacer and label widgets
+        return (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
+                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.SPACER) &&
+                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.TOASTER_NOTES) &&
+                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.HIDDEN)) &&
+                isValueRequired;
+    }
+
     public static JSONObject getFormAsJson(JSONObject form, String formName, String id, String currentLocationId)
     throws Exception {
         if (form == null) {
