@@ -2,7 +2,7 @@
   "content_form": [
     {
       "key": "blood_type_test_status",
-      "openmrs_entity_parent": " 300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Blood type test",
@@ -74,7 +74,7 @@
     },
     {
       "key": "blood_type_test_date",
-      "openmrs_entity_parent": " 300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",

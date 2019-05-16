@@ -48,13 +48,13 @@
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": " 1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_parent": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
     },
     {
       "key": "abdominal_exam_abnormal_other",
-      "openmrs_entity_parent": " 1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",

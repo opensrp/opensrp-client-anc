@@ -2,7 +2,7 @@
   "content_form": [
     {
       "key": "ultrasound",
-      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Ultrasound test",
@@ -57,7 +57,7 @@
     },
     {
       "key": "ultrasound_notdone",
-      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
@@ -100,7 +100,7 @@
     },
     {
       "key": "ultrasound_notdone_other",
-      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
@@ -136,7 +136,7 @@
     },
     {
       "key": "ultrasound_date",
-      "openmrs_entity_parent": " 159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",

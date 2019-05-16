@@ -64,13 +64,13 @@
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": " 159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_parent": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
     },
     {
       "key": "breast_exam_abnormal_other",
-      "openmrs_entity_parent": " 159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",

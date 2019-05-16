@@ -2,7 +2,7 @@
   "content_form": [
     {
       "key": "hiv_test_status",
-      "openmrs_entity_parent": " 1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "HIV test",
@@ -102,7 +102,7 @@
     },
     {
       "key": "hiv_test_notdone_other",
-      "openmrs_entity_parent": " 165300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "165300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",

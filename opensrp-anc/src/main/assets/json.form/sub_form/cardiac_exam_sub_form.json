@@ -78,7 +78,7 @@
     },
     {
       "key": "cardiac_exam_abnormal_other",
-      "openmrs_entity_parent": " 1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",

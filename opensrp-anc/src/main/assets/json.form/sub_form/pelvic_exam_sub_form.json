@@ -120,13 +120,13 @@
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": " 165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_parent": "165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
     },
     {
       "key": "pelvic_exam_abnormal_other",
-      "openmrs_entity_parent": " 165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
