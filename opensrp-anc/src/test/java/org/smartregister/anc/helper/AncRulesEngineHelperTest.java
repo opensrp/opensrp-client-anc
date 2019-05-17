@@ -384,7 +384,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     public void testGetButtonAlertStatusReturnsDueDeliveryForDueDeliveryDate() {
 
         //delivery due
-        AlertRule alertRule = new AlertRule(40, "2018-11-11");
+        AlertRule alertRule = new AlertRule(41, "2018-11-11");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-12"));
 
         String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
@@ -396,7 +396,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     public void testGetButtonAlertStatusReturnsExpiredForExpiredDeliveryDate() {
 
         //expired
-        AlertRule alertRule = new AlertRule(40, "2018-11-04");
+        AlertRule alertRule = new AlertRule(42, "2018-11-04");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-11"));
 
         String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
@@ -409,7 +409,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     public void testGetButtonAlertStatusReturnsExpiredOverdueForOverdueDeliveryDate() {
 
         //Expired Overdue
-        AlertRule alertRule = new AlertRule(41, "2018-10-09");
+        AlertRule alertRule = new AlertRule(42, "2018-10-09");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-09"));
 
         String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
