@@ -62,7 +62,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void init(String json) {
         try {
             mJSONObject = new JSONObject(json);
-            if (!mJSONObject.has("encounter_type")) {
+            if (!mJSONObject.has(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)) {
                 mJSONObject = new JSONObject();
                 throw new JSONException("Form encounter_type not set");
             }
@@ -489,7 +489,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe (threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
         if (refreshExpansionPanelEvent != null) {
             try {
