@@ -285,7 +285,7 @@
       "type": "numbers_selector",
       "label": "No. of fetuses",
       "number_of_selectors": "5",
-      "start_number": "escaped_1_no_slash",
+      "start_number": "1",
       "max_value": "15",
       "text_size": "16px",
       "text_color": "#000000",
