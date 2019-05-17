@@ -519,7 +519,6 @@ public class Utils extends org.smartregister.util.Utils {
                 dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
                 dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
                         Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-
                 break;
             default:
                 dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
