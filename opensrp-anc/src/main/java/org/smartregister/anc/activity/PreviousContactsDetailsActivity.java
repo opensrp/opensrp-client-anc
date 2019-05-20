@@ -51,6 +51,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     private RecyclerView previousContacts;
     private ConstraintLayout layoutBottom;
     private ConstraintLayout layoutMiddle;
+    private ConstraintLayout layoutStart;
     private List<YamlConfigWrapper> lastContactDetails;
 
 
@@ -209,10 +210,14 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
-        LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, this);
-        adapter.notifyDataSetChanged();
-        previousContacts.setLayoutManager(new LinearLayoutManager(this));
-        previousContacts.setAdapter(adapter);
+        if (lastContactDetailsWrappers.size() > 0) {
+            LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, this);
+            adapter.notifyDataSetChanged();
+            previousContacts.setLayoutManager(new LinearLayoutManager(this));
+            previousContacts.setAdapter(adapter);
+        } else {
+            layoutStart.setVisibility(View.GONE);
+        }
     }
 
     private void setUpViews() {
@@ -221,6 +226,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         contactSchedule = findViewById(R.id.upcoming_contacts);
         layoutBottom = findViewById(R.id.layout_bottom);
         layoutMiddle = findViewById(R.id.layout_middle);
+        layoutStart = findViewById(R.id.layout_start);
     }
 
     @Override
