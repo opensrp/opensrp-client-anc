@@ -420,7 +420,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err":"Specific complain is required"
+          "err": "Specific complain is required"
         },
         "relevance": {
           "step1:contact_reason": {
@@ -431,7 +431,7 @@
       },
       {
         "key": "specific_complaint_other",
-        "openmrs_entity_parent": " 5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",

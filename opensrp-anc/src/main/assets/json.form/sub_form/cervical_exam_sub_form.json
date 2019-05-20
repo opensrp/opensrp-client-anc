@@ -16,8 +16,8 @@
     {
       "key": "dilation_cm",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "Amount of cervical dilation ",
-      "openmrs_entity_id": "162261",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "normal_edit_text",
       "edit_text_style": "bordered",
       "edit_type": "number",
@@ -34,7 +34,7 @@
         "err": "Cervical dilation must be equal to or less than 10"
       },
       "v_required": {
-        "value": true,
+        "value": false,
         "err": "Field cervical dilation is required"
       }
     }

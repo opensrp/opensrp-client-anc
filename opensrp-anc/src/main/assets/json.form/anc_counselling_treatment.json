@@ -425,8 +425,8 @@
       {
         "key": "referred_hosp",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Referred to hospital?",
         "multi_relevance": true,
@@ -436,15 +436,15 @@
             "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -462,8 +462,8 @@
       {
         "key": "referred_hosp_notdone",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Reason",
@@ -474,22 +474,22 @@
             "key": "woman_refused",
             "text": "Woman refused",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "Student",
-            "openmrs_entity_id": "159465"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165306AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_necessary",
             "text": "Not necessary",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "Unemployed",
-            "openmrs_entity_id": "123801"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
             "text": "Other (specify)",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -509,9 +509,9 @@
       },
       {
         "key": "referred_hosp_notdone_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Specify",
         "edit_type": "name",
