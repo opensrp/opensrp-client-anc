@@ -2,9 +2,9 @@
   "content_form": [
     {
       "key": "glucose_test_status",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Blood glucose test",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -15,32 +15,32 @@
           "text": "Done today",
           "type": "done_today",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "done_earlier",
           "text": "Done earlier",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ordered",
           "text": "Ordered",
           "type": "ordered",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "type": "not_done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -73,9 +73,9 @@
     },
     {
       "key": "glucose_test_date",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
       "hint": "Blood glucose test date",
       "expanded": "false",
@@ -102,8 +102,8 @@
     {
       "key": "glucose_test_type",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Blood glucose test type",
       "label_text_style": "bold",
@@ -112,22 +112,22 @@
           "key": "fasting_plasma",
           "text": "Fasting plasma glucose",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ogtt_75",
           "text": "75g OGTT",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "random_plasma",
           "text": "Random plasma glucose",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -144,8 +144,8 @@
     {
       "key": "fasting_plasma_gluc",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Fasting plasma glucose results (mg/dl)",
       "edit_type": "number",
@@ -176,8 +176,8 @@
     {
       "key": "ogtt_fasting",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "75g OGTT - fasting glucose results (mg/dl)",
       "edit_type": "number",
@@ -208,8 +208,8 @@
     {
       "key": "ogtt_1",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "75g OGTT - 1 hr results (mg/dl)",
       "edit_type": "number",
@@ -240,8 +240,8 @@
     {
       "key": "ogtt_2",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "75g OGTT - 2 hrs results (mg/dl)",
       "edit_type": "number",
@@ -272,8 +272,8 @@
     {
       "key": "random_plasma",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Random plasma glucose results (mg/dl)",
       "edit_type": "number",
@@ -303,8 +303,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "117807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "gdm",
       "type": "hidden",
       "label_text_style": "bold",
@@ -319,8 +319,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "119477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "dm_in_preg",
       "type": "hidden",
       "label_text_style": "bold",

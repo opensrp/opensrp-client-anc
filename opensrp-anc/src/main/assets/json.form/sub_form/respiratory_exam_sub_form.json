@@ -62,7 +62,7 @@
           "key": "other",
           "text": "Other (specify)",
           "value": false,
-          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
@@ -70,7 +70,7 @@
     },
     {
       "key": "respiratory_exam_abnormal_other",
-      "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_parent": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
