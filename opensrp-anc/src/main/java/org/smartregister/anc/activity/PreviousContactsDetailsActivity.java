@@ -198,9 +198,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                 if (AncApplication.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
-
                 }
-
             }
         }
     }
