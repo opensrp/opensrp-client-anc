@@ -2,5 +2,5 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4a58cd4e1748432780ac66a9fbee0394)](https://www.codacy.com/app/OpenSRP/opensrp-client-anc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=OpenSRP/opensrp-client-anc&amp;utm_campaign=Badge_Grade)
 
 # opensrp-client-anc
-OpenSRP Client ANC(Ante-Natal Care) Reference App
+OpenSRP Client ANC(Ante-Natal Care) Reference Application
 
