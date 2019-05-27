@@ -6,6 +6,8 @@
     <!-- used to programatically tell if device is tab-->
     <bool name="isTablet">false</bool>
 
+    <dimen name="main_register_padding_end">8dp</dimen>
+    <dimen name="main_register_padding_start">15dp</dimen>
     <!-- Login-->
     <dimen name="login_horizontal_margin">30dp</dimen>
     <dimen name="login_bottom_margin">15dp</dimen>
@@ -121,6 +123,7 @@
     <dimen name="contact_default_layout_margin">14dp</dimen>
     <dimen name="contact_layout_margin">4dp</dimen>
     <dimen name="contact_elevation">5dp</dimen>
+    <dimen name="contact_border_radius">10dp</dimen>
 
     <dimen name="contact_save_title_text_size">24sp</dimen>
     <dimen name="contact_save_detail_text_size">20sp</dimen>
@@ -142,4 +145,7 @@
     <dimen name="contact_toolbar_image_margin">20dp</dimen>
     <dimen name="patients_name_margin">2dp</dimen>
     <dimen name="accordion_content_margin">10dp</dimen>
+    <dimen name="all_test_margin">5dp</dimen>
+
+    <dimen name="expansion_panel_dialog_padding">20dp</dimen>
 </resources>

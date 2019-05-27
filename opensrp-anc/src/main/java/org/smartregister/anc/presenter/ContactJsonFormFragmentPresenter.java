@@ -3,13 +3,11 @@ package org.smartregister.anc.presenter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
-import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
-import com.vijay.jsonwizard.utils.ValidationStatus;
+import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
 import org.smartregister.anc.fragment.ContactJsonFormFragment;
@@ -19,7 +17,7 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 /**
  * Created by keyman on 04/08/18.
  */
-public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
+public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPresenter {
 
     public static final String TAG = ContactJsonFormFragmentPresenter.class.getName();
 
@@ -34,16 +32,10 @@ public class ContactJsonFormFragmentPresenter extends JsonFormFragmentPresenter 
     }
 
     @Override
-    public void onNextClick(LinearLayout mainView) {
-        ValidationStatus validationStatus = this.writeValuesAndValidate(mainView);
-        if (validationStatus.isValid()) {
-            JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(Constants.NEXT));
-            getView().hideKeyBoard();
-            getView().transactThis(next);
-        } else {
-            validationStatus.requestAttention();
-            getView().showToast(validationStatus.getErrorMessage());
-        }
+    protected void moveToNextWizardStep() {
+        JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(Constants.NEXT));
+        getView().hideKeyBoard();
+        getView().transactThis(next);
     }
 
     @Override

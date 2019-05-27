@@ -4,8 +4,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
+        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
     }
 }
 
@@ -28,7 +28,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1
-        versionName "0.0.5"
+        versionName "0.1.5"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -36,6 +36,7 @@ android {
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
+        buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -75,7 +76,6 @@ android {
 
         debug {
             resValue "string", 'opensrp_url', '"https://anc-stage.smartregister.org/opensrp/"'
-            //resValue "string", 'opensrp_url', '"http://10.20.25.209:8081/opensrp/"' // Enable and change when testing on local servers
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -133,7 +133,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.4.9-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -143,7 +143,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'org.yaml', module: 'snakeyaml'
     }
-    implementation('org.smartregister:opensrp-client-core:1.6.8-DEMO-1-SNAPSHOT@aar') {
+
+    implementation('org.smartregister:opensrp-client-core:1.6.20-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -190,11 +191,10 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.6.8'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.23'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.24'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'org.jeasy:easy-rules-core:3.2.0'
     implementation 'org.jeasy:easy-rules-mvel:3.2.0'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.23'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'

@@ -16,17 +16,18 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.adapter.CharacteristicsAdapter;
 import org.smartregister.anc.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.contract.PopulationCharacteristicsContract;
-import org.smartregister.domain.Characteristic;
+import org.smartregister.domain.ServerSetting;
 
 import java.util.List;
 
 /**
  * Created by ndegwamartin on 31/08/2018.
  */
-public abstract class BaseCharacteristicsActivity extends BaseActivity implements CharacteristicsAdapter.ItemClickListener, PopulationCharacteristicsContract.View {
+public abstract class BaseCharacteristicsActivity extends BaseActivity
+        implements CharacteristicsAdapter.ItemClickListener, PopulationCharacteristicsContract.View {
 
-    private RecyclerView recyclerView;
     protected Toolbar mToolbar;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,8 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity implement
         recyclerView.setLayoutManager(layoutManager);
 
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         BaseCharacteristicsContract.BasePresenter basePresenter = getPresenter();
@@ -57,7 +59,8 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity implement
         String title = getToolbarTitle();
         titleTextView.setText(title);
 
-        mToolbar.findViewById(R.id.characteristics_toolbar_edit).setVisibility(title.equals(getString(R.string.population_characteristics)) ? View.GONE : View.VISIBLE);
+        mToolbar.findViewById(R.id.characteristics_toolbar_edit)
+                .setVisibility(title.equals(getString(R.string.population_characteristics)) ? View.GONE : View.VISIBLE);
 
     }
 
@@ -75,8 +78,7 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity implement
         } else {
             builder = new AlertDialog.Builder(this);
         }
-        builder.setTitle("Info")
-                .setMessage(info)
+        builder.setTitle("Info").setMessage(info)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -89,7 +91,7 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity implement
     }
 
     @Override
-    public void renderSettings(List<Characteristic> characteristics) {
+    public void renderSettings(List<ServerSetting> characteristics) {
 
         CharacteristicsAdapter adapter = new CharacteristicsAdapter(this, characteristics);
         adapter.setClickListener(this);

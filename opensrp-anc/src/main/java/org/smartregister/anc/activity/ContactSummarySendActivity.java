@@ -24,7 +24,8 @@ import org.smartregister.helper.ImageRenderHelper;
 import java.util.HashMap;
 import java.util.List;
 
-public class ContactSummarySendActivity extends AppCompatActivity implements ContactSummarySendContract.View, View.OnClickListener {
+public class ContactSummarySendActivity extends AppCompatActivity
+        implements ContactSummarySendContract.View, View.OnClickListener {
 
     private TextView womanNameTextView;
     private ContactSummarySendContract.Presenter contactSummaryPresenter;
@@ -32,6 +33,8 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     private ImageView womanProfileImage;
     private ImageRenderHelper imageRenderHelper;
     private TextView recordedContactTextView;
+    private TextView contactScheduleHeadingTextView;
+    private RecyclerView contactDatesRecyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
     protected void onResume() {
         super.onResume();
         contactSummaryPresenter.loadWoman(getEntityId());
-        contactSummaryPresenter.loadUpcomingContacts(getEntityId());
+        contactSummaryPresenter.loadUpcomingContacts(getEntityId(), getReferredContactNo());
         contactSummaryPresenter.showWomanProfileImage(getEntityId());
     }
 
@@ -58,9 +61,10 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         womanNameTextView = findViewById(R.id.contact_summary_woman_name);
         womanProfileImage = findViewById(R.id.contact_summary_woman_profile);
         recordedContactTextView = findViewById(R.id.contact_summary_contact_recorded);
+        contactScheduleHeadingTextView = findViewById(R.id.contact_schedule_heading);
 
         contactSummaryAdapter = new ContactSummaryAdapter();
-        RecyclerView contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
+        contactDatesRecyclerView = findViewById(R.id.contact_summary_recycler);
         contactDatesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         contactDatesRecyclerView.setAdapter(contactSummaryAdapter);
 
@@ -74,19 +78,36 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
         return null;
     }
 
-    @Override
-    public void goToClientProfile() {
-        finish();
-        Utils.navigateToProfile(this, (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
+    public String getReferredContactNo() {
+        HashMap<String, String> client =
+                (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
+        if (client != null) {
+            String contactNo = client.get(Constants.REFERRAL);
+            if (contactNo != null) {
+                return contactNo;
+            }
+        }
+        return null;
     }
 
     @Override
-    public void displayWomansName(String fullName) {
+    public void goToClientProfile() {
+        finish();
+        Utils.navigateToProfile(this,
+                (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
+    }
+
+    @Override
+    public void displayPatientName(String fullName) {
         womanNameTextView.setText(fullName);
     }
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
+        if (models.size() <= 0) {
+            contactDatesRecyclerView.setVisibility(View.GONE);
+            contactScheduleHeadingTextView.setVisibility(View.GONE);
+        }
         contactSummaryAdapter.setContactDates(models.size() > 5 ? models.subList(0, 4) : models);
     }
 
@@ -97,7 +118,11 @@ public class ContactSummarySendActivity extends AppCompatActivity implements Con
 
     @Override
     public void updateRecordedContact(Integer contactNumber) {
-        recordedContactTextView.setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
+        recordedContactTextView
+                .setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
+        if (getReferredContactNo() != null) {
+            recordedContactTextView.setVisibility(View.GONE);
+        }
     }
 
     @Override

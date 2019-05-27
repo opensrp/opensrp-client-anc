@@ -51,7 +51,7 @@ actions:
 name: step1_penicillin_comply
 description: Penicillin comply
 priority: 1
-condition: "global_syphilis_positive != '' && global_syphilis_positive == 1"
+condition: "global_syphilis_positive != '' && global_syphilis_positive == '1'"
 actions:
   - "isRelevant = true"
 ---
@@ -61,6 +61,7 @@ priority: 1
 condition: "(!global_previous_caffeine_intake.isEmpty() && !global_previous_caffeine_intake.contains('none'))  || (global_previous_tobacco_user != '' && (global_previous_tobacco_user == 'yes' || global_previous_tobacco_user == 'recently_quit')) || (global_previous_shs_exposure != '' &&  global_previous_shs_exposure == 'yes') || (global_previous_condom_use != '' && global_previous_condom_use == 'no') || (!global_previous_alcohol_substance_use.isEmpty() && !global_previous_alcohol_substance_use.contains('none'))"
 actions:
   - "isRelevant = true"
+  - "helper.filterCheckboxOptions('some_cool_text');"
 ---
 name: step3_phys_symptoms_persist
 description: Physical symptoms persist
@@ -100,7 +101,7 @@ actions:
 name: step4_other_sym_vvo
 description: Oedema symptoms
 priority: 1
-condition: "(step4_phys_symptoms.isEmpty() && (step4_phys_symptoms.contains('varicose_veins') || step4_phys_symptoms.contains('oedema'))) && ((!global_health_conditions.isEmpty() && global_health_conditions.contains('hypertension')) || (global_hypertension != '' && global_hypertension == 1))"
+condition: "(!step4_phys_symptoms.isEmpty() && (step4_phys_symptoms.contains('varicose_veins') || step4_phys_symptoms.contains('oedema')) ) && ((!global_health_conditions.isEmpty() && global_health_conditions.contains('hypertension')) || (global_hypertension == 1))"
 actions:
 - "isRelevant = true"
 ---
@@ -114,13 +115,13 @@ actions:
 name: step4_toaster21
 description: Non-pharmacological toaster
 priority: 1
-condition: "((!step4_phys_symptoms_persist.isEmpty() && step4_phys_symptoms_persist.contains('varicose_veins')) || (!step4_phys_symptoms_persist.isEmpty() && step4_phys_symptoms_persist.contains('oedema'))) && (!step4_other_sym_vvo.isEmpty() && step4_other_sym_vvo.contains('none'))"
+condition: "((!step4_phys_symptoms.isEmpty() && step4_phys_symptoms.contains('varicose_veins')) || (!step4_phys_symptoms.isEmpty() && step4_phys_symptoms.contains('oedema'))) && (!step4_other_sym_vvo.isEmpty() && step4_other_sym_vvo.contains('none'))"
 actions:
 - "isRelevant = true"
 ---
 name: step4_mat_percept_fetal_move
 description: Felt baby move
 priority: 1
-condition: "(global_gest_age != '' && global_gest_age > 20)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
 - "isRelevant = true"

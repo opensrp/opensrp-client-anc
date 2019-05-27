@@ -19,9 +19,9 @@ import org.smartregister.anc.R;
  */
 
 public class CopyToClipboardDialog extends Dialog implements View.OnClickListener {
+    private static final String TAG = CopyToClipboardDialog.class.getCanonicalName();
     private Context context;
     private String content;
-    private static final String TAG = CopyToClipboardDialog.class.getCanonicalName();
 
     public CopyToClipboardDialog(@NonNull Context context) {
         super(context);

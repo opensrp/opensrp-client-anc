@@ -69,7 +69,7 @@
         "openmrs_entity_id": "ANC_ID",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "ANC ID *",
+        "hint": "ANC ID",
         "value": "0",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
@@ -87,7 +87,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "First name *",
+        "hint": "First name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -104,7 +104,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "hint": "Last name *",
+        "hint": "Last name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -159,13 +159,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "Date of birth (DOB) *",
+        "hint": "Date of birth (DOB)",
         "expanded": false,
         "duration": {
           "label": "Age"
         },
         "min_date": "today-49y",
-        "max_date": "today-15y",
+        "max_date": "today-10y",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -236,14 +236,14 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age *",
+        "hint": "Age",
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+          "err": "Age must be a number"
         },
         "v_min": {
-          "value": "15",
-          "err": "Age must be equal or greater than 15"
+          "value": "10",
+          "err": "Age must be equal to or greater than 10"
         },
         "v_max": {
           "value": "49",
@@ -261,7 +261,7 @@
           }
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please enter the woman's age"
         }
       },
@@ -271,15 +271,11 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
         "type": "edit_text",
-        "hint": "Home address *",
+        "hint": "Home address",
         "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please enter the woman's home address"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter a valid name"
         }
       },
       {
@@ -288,17 +284,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Mobile phone number *",
+        "hint": "Mobile phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "([0-9]{10})|\\s*",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Phone number must be numeric"
         },
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify the woman's phone number"
         }
       },
@@ -310,7 +302,7 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
-        "hint": "Reminders throughout pregnancy? *",
+        "hint": "Reminders throughout pregnancy?",
         "values": [
           "Yes",
           "No"
@@ -341,18 +333,14 @@
       },
       {
         "key": "alt_phone_number",
-        "openmrs_entity_parent": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Alternate contact phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "([0-9]{10})|\\s*",
-          "err": "Number must be a total of 10 digits in length"
+          "err": "Phone number must be numeric"
         }
       },
       {

@@ -2,9 +2,9 @@
   "content_form": [
     {
       "key": "varicose_oedema_counsel",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165323AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Non-pharmacological options for varicose veins and oedema counseling",
       "label_text_style": "bold",
@@ -13,36 +13,29 @@
           "key": "done",
           "text": "Done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
         "value": true,
-        "err": "Please select and option"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_relevance_rules.yml"
-          }
-        }
+        "err": "Please select an option"
       }
     },
     {
       "key": "varicose_oedema_counsel_notdone",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165323AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_data_type": "",
-      "type": "check_box",
+      "type": "native_radio",
       "label": "Reason",
       "hint": "Reason",
       "label_text_style": "bold",
@@ -51,15 +44,15 @@
           "key": "referred_instead",
           "text": "Referred instead",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other (specify)",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -71,9 +64,9 @@
     },
     {
       "key": "varicose_oedema_counsel_notdone_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165323AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Specify",
       "edit_type": "name",
@@ -96,54 +89,6 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "mag_calc",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "nausea_pharma",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "key": "antacid",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text_color": "#FF0000",
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_calculation_rules.yml"
           }
         }
       }

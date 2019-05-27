@@ -2,44 +2,38 @@
   "content_form": [
     {
       "key": "back_pelvic_pain_counsel",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165322AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling","label_text_style": "bold",
+      "label": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
+      "label_text_style": "bold",
       "options": [
         {
           "key": "done",
           "text": "Done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
         "value": true,
-        "err": "Please select and option"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ct_relevance_rules.yml"
-          }
-        }
+        "err": "Please select an option"
       }
     },
     {
       "key": "back_pelvic_pain_counsel_notdone",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165322AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_data_type": "",
       "type": "native_radio",
       "label": "Reason",
@@ -50,15 +44,15 @@
           "key": "referred_instead",
           "text": "Referred instead",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other (specify)",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -70,9 +64,9 @@
     },
     {
       "key": "back_pelvic_pain_counsel_notdone_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165322AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Specify",
       "edit_type": "name",
@@ -90,14 +84,14 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
-      "toaster_type": "warning"/*,
+      "toaster_type": "warning",
       "relevance": {
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ct_relevance_rules.yml"
           }
         }
-      }*/
+      }
     }
   ]
 }

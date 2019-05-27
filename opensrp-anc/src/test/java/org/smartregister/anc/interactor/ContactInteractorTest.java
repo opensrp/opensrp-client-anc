@@ -19,7 +19,7 @@ import org.smartregister.anc.activity.BaseUnitTest;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactContract;
 import org.smartregister.anc.domain.WomanDetail;
-import org.smartregister.anc.helper.RulesEngineHelper;
+import org.smartregister.anc.helper.AncRulesEngineHelper;
 import org.smartregister.anc.repository.PatientRepository;
 import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.rule.ContactRule;
@@ -51,7 +51,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     private AncApplication ancApplication;
 
     @Mock
-    private RulesEngineHelper rulesEngineHelper;
+    private AncRulesEngineHelper ancRulesEngineHelper;
 
     @Mock
     private DetailsRepository detailsRepository;
@@ -119,24 +119,25 @@ public class ContactInteractorTest extends BaseUnitTest {
 
         PowerMockito.when(PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID)).thenReturn(details);
         PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getRulesEngineHelper()).thenReturn(rulesEngineHelper);
+        PowerMockito.when(ancApplication.getAncRulesEngineHelper()).thenReturn(ancRulesEngineHelper);
         PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
-        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
+        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
         List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40});
 
-        PowerMockito.when(rulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(Constants.RULES_FILE.CONTACT_RULES))).thenReturn(integerList);
+        PowerMockito.when(
+                ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(Constants.RULES_FILE.CONTACT_RULES))).thenReturn(integerList);
 
         PowerMockito.mockStatic(PatientRepository.class);
-
-        interactor.finalizeContactForm(details);
+        ContactInteractor contactInteractor = (ContactInteractor) interactor;
+        contactInteractor.finalizeContactForm(details);
 
         PowerMockito.verifyStatic(PatientRepository.class);
 
         PatientRepository.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class), ArgumentMatchers.anyBoolean());
-        Assert.assertNotNull(interactor);
+        Assert.assertNotNull(contactInteractor);
     }
 
 }

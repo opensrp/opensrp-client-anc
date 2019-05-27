@@ -2,9 +2,9 @@
   "content_form": [
     {
       "key": "hepb_test_status",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Hepatitis B test",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -15,58 +15,52 @@
           "text": "Done today",
           "type": "done_today",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "done_earlier",
           "text": "Done earlier",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ordered",
           "text": "Ordered",
           "type": "ordered",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "type": "not_done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
-        "value": true
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
+        "value": true,
+        "err": "Hepatitis B test is required"
       }
     },
     {
       "key": "spacer",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
+      "openmrs_entity": "concept",
       "openmrs_entity_id": "spacer",
       "type": "spacer",
       "spacer_height": "10dp"
     },
     {
       "key": "hepb_test_notdone",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
       "label": "Reason",
       "label_text_style": "bold",
@@ -75,26 +69,27 @@
           "key": "stock_out",
           "text": "Stock out",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "expired_stock",
           "text": "Expired stock",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other (specify)",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity_parent": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Hepatitis B test not done reason is required"
       },
       "relevance": {
         "rules-engine": {
@@ -106,31 +101,43 @@
     },
     {
       "key": "hepb_test_notdone_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step1:hepb_test_notdone": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "hepb_test_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
         }
       }
     },
     {
       "key": "hepb_test_date",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Hep B test date *",
+      "hint": "Hep B test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -148,14 +155,15 @@
         }
       },
       "v_required": {
-        "value": false
+        "value": true,
+        "err": "Hep B test date is required"
       }
     },
     {
       "key": "hepb_test_type",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Hep B test type",
       "label_text_style": "bold",
@@ -164,22 +172,22 @@
           "key": "hbsag_lab_based",
           "text": "HBsAg laboratory-based immunoassay (recommended)",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "hbsag_rdt",
           "text": "HBsAg rapid diagnostic test (RDT)",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "hbsag_dbs",
           "text": "Dried Blood Spot (DBS) HBsAg test",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "161472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -190,14 +198,15 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Hep B test type is required"
       }
     },
     {
       "key": "hbsag_lab_ima",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "159430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "HBsAg laboratory-based immunoassay (recommended)",
       "label_text_style": "bold",
@@ -206,19 +215,20 @@
           "key": "positive",
           "text": "Positive",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
           "text": "Negative",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "BsAg laboratory-based immunoassay is required"
       },
       "relevance": {
         "rules-engine": {
@@ -231,8 +241,8 @@
     {
       "key": "hbsag_rdt",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "HBsAg rapid diagnostic test (RDT)",
       "label_text_style": "bold",
@@ -241,19 +251,20 @@
           "key": "positive",
           "text": "Positive",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
           "text": "Negative",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "HBsAg rapid diagnostic test is required"
       },
       "relevance": {
         "rules-engine": {
@@ -266,8 +277,8 @@
     {
       "key": "hbsag_dbs",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "161472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Dried Blood Spot (DBS) HBsAg test",
       "label_text_style": "bold",
@@ -276,19 +287,20 @@
           "key": "positive",
           "text": "Positive",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
           "text": "Negative",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": " (DBS) HBsAg test is required"
       },
       "relevance": {
         "rules-engine": {
@@ -300,8 +312,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "111759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "hepb_positive",
       "type": "hidden",
       "label_text_style": "bold",
@@ -317,7 +329,7 @@
     {
       "key": "hepatitis_b_danger_toaster",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
+      "openmrs_entity": "concept",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Hep B positive diagnosis!",
@@ -335,7 +347,7 @@
     {
       "key": "hepatitis_b_info_toaster",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
+      "openmrs_entity": "concept",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Hep B vaccination required.",

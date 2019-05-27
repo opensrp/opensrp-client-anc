@@ -36,20 +36,11 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
 
     public static final String TAG = RegisterInteractor.class.getName();
-
-    public enum type {SAVED, UPDATED}
-
-
     private AppExecutors appExecutors;
-
     private UniqueIdRepository uniqueIdRepository;
-
     private ECSyncHelper syncHelper;
-
     private AllSharedPreferences allSharedPreferences;
-
     private AncClientProcessorForJava clientProcessorForJava;
-
     private AllCommonsRepository allCommonsRepository;
 
     @VisibleForTesting
@@ -62,7 +53,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple, final RegisterContract.InteractorCallBack callBack) {
+    public void getNextUniqueId(final Triple<String, String, String> triple,
+                                final RegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -74,7 +66,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     public void run() {
                         if (StringUtils.isBlank(entityId)) {
                             callBack.onNoUniqueId();
-                            PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
+                            PullUniqueIdsServiceJob.scheduleJobImmediately(
+                                    PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
                         } else {
                             callBack.onUniqueIdFetched(triple, entityId);
                         }
@@ -87,7 +80,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final RegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
+                                 final RegisterContract.InteractorCallBack callBack) {
 
         Runnable runnable = new Runnable() {
             @Override
@@ -113,7 +107,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
                 try {
 
-                    Triple<Boolean, Event, Event> triple = JsonFormUtils.saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
+                    Triple<Boolean, Event, Event> triple = JsonFormUtils
+                            .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
 
                     if (triple == null) {
                         return;
@@ -141,7 +136,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
 
                     //Update Child Entity to include death date
-                    JSONObject eventJsonUpdateChildEvent = new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
+                    JSONObject eventJsonUpdateChildEvent =
+                            new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
                     getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
 
                     //Update REGISTER and FTS Tables
@@ -188,7 +184,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
                     String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID).replace("-", "");
-                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, Constants.CURRENT_OPENSRP_ID).replace("-", "");
+                    String currentOpenSRPId =
+                            JsonFormUtils.getString(jsonString, Constants.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
@@ -205,7 +202,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.WOM_IMAGE);
                 JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
@@ -269,7 +266,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     public AllCommonsRepository getAllCommonsRepository() {
         if (allCommonsRepository == null) {
-            allCommonsRepository = AncApplication.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
+            allCommonsRepository =
+                    AncApplication.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
         }
         return allCommonsRepository;
     }
@@ -277,4 +275,6 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public void setAllCommonsRepository(AllCommonsRepository allCommonsRepository) {
         this.allCommonsRepository = allCommonsRepository;
     }
+
+    public enum type {SAVED, UPDATED}
 }

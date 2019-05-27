@@ -28,17 +28,17 @@ import org.smartregister.view.activity.SecuredActivity;
 /**
  * Created by ndegwamartin on 16/07/2018.
  */
-public abstract class BaseProfileActivity extends SecuredActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
+public abstract class BaseProfileActivity extends SecuredActivity
+        implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
+    public final String TAG = BaseProfileActivity.class.getCanonicalName();
     protected CollapsingToolbarLayout collapsingToolbarLayout;
     protected ActionBar actionBar;
-    private boolean appBarTitleIsShown = true;
-    private int appBarLayoutScrollRange = -1;
-
     protected String womanName;
     protected AppBarLayout appBarLayout;
     protected ProgressDialog progressDialog;
     protected ProfileContract.Presenter mProfilePresenter;
-    public final String TAG = BaseProfileActivity.class.getCanonicalName();
+    private boolean appBarTitleIsShown = true;
+    private int appBarLayoutScrollRange = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +161,7 @@ public abstract class BaseProfileActivity extends SecuredActivity implements App
             progressDialog.setTitle(getString(saveMessageStringIdentifier));
             progressDialog.setMessage(getString(R.string.please_wait_message));
         }
-        if (!isFinishing())
-            progressDialog.show();
+        if (!isFinishing()) progressDialog.show();
     }
 
     public void hideProgressDialog() {

@@ -2,30 +2,29 @@
   "content_form": [
     {
       "key": "other_test",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Other test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "anc_radio_button",
-      "multi_relevance": true,
       "options": [
         {
           "key": "done_today",
           "text": "Done today",
           "type": "done_today",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "done_earlier",
           "text": "Done earlier",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -43,43 +42,48 @@
     {
       "key": "other_test_name",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Which test?",
       "edit_type": "name",
       "relevance": {
-        "step2:other_test": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "other_test_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
         }
       }
     },
     {
       "key": "other_test_date",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
       "hint": "Test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
         "step2:other_test": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+          "type": "string",
+          "ex": "equalTo(., \"done_earlier\")"
         }
       },
       "calculation": {
@@ -88,30 +92,21 @@
             "rules-file": "tests_calculation_rules.yml"
           }
         }
-      },
-      "v_required": {
-        "value": true,
-        "err": "Input the date of other test(s) that were done."
       }
     },
     {
       "key": "other_test_result",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "165398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Test result?",
       "edit_type": "name",
       "relevance": {
-        "step2:other_test": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "done_today",
-                "done_earlier"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
         }
       }
     }

@@ -1,5 +1,6 @@
 package org.smartregister.anc.interactor;
 
+import org.jeasy.rules.api.Facts;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,9 +23,11 @@ import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.ContactSummarySendContract;
 import org.smartregister.anc.model.ContactSummaryModel;
 import org.smartregister.anc.repository.PatientRepository;
+import org.smartregister.anc.repository.PreviousContactRepository;
 import org.smartregister.anc.util.AppExecutors;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.DBConstants;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.repository.DetailsRepository;
 
 import java.util.ArrayList;
@@ -34,8 +37,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepository.class, AncApplication.class})
+@RunWith (PowerMockRunner.class)
+@PrepareForTest ({PatientRepository.class, AncApplication.class, Utils.class})
 public class YamlConfigInteractorTest extends BaseUnitTest {
 
     private ContactSummarySendContract.Interactor summaryInteractor;
@@ -65,6 +68,9 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
 
     @Mock
     private DetailsRepository detailsRepository;
+
+    @Mock
+    private PreviousContactRepository previousContactRepository;
 
 
     @Before
@@ -101,50 +107,149 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    public void testFetchUpcomingContacts() {
-
+    public void testFetchUpcomingContactsWithReferralContacts() {
         ContactSummarySendContract.InteractorCallback callBack = PowerMockito.mock(
                 ContactSummarySendContract.InteractorCallback.class);
+        ContactSummarySendContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
 
-        final List<String> contactDates = new ArrayList<>();
-        contactDates.add("10");
-        contactDates.add("20");
-        contactDates.add("30");
-        contactDates.add("40");
+        final List<String> contactSchedule = new ArrayList<>();
+        contactSchedule.add("10");
+        contactSchedule.add("20");
+        contactSchedule.add("30");
+        contactSchedule.add("40");
 
+        String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
         details.put(DBConstants.KEY.NEXT_CONTACT, "2");
         details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2017-04-09");
         details.put(DBConstants.KEY.EDD, "2017-04-10");
-        details.put(Constants.DETAILS_KEY.CONTACT_SHEDULE, "{ contact_schedule : \"" + contactDates.toString() + "\" }");
+        details.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
+
+        Facts facts = new Facts();
+        facts.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncApplication.class);
         PowerMockito.mockStatic(PatientRepository.class);
-
+        PowerMockito.mockStatic(Utils.class);
 
         PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
         PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getContext()).thenReturn(opensrpContext);
         PowerMockito.when(ancApplication.getApplicationContext()).thenReturn(context);
         PowerMockito.when(context.getString(R.string.contact_number)).thenReturn("Contact %s number");
         PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
 
-        ContactSummarySendContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
-        summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, callBack);
+        PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        PowerMockito.when(previousContactRepository.getImmediatePreviousSchedule(baseEntityId, "1")).thenReturn(facts);
+        PowerMockito.when(Utils.getListFromString(contactScheduleList)).thenReturn(contactSchedule);
 
-        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onUpcomingContactsFetched(upcomingContactsCaptor.capture(), integerArgumentCaptor.capture());
+        summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, "-2", callBack);
+
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT))
+                .onUpcomingContactsFetched(upcomingContactsCaptor.capture(), integerArgumentCaptor.capture());
 
         Assert.assertNotNull(upcomingContactsCaptor.getValue());
-        Assert.assertEquals(contactDates.size(), upcomingContactsCaptor.getValue().size());
+        Assert.assertEquals(contactSchedule.size(), upcomingContactsCaptor.getValue().size());
+
+        Assert.assertNotNull(integerArgumentCaptor.getValue());
+        Assert.assertEquals(-2, integerArgumentCaptor.getValue().intValue());
+
+        Assert.assertEquals("Contact 2 number", upcomingContactsCaptor.getValue().get(0).getContactName());
+        Assert.assertEquals("Contact 5 number",
+                upcomingContactsCaptor.getValue().get(contactSchedule.size() - 1).getContactName());
+    }
+
+    @Test
+    public void testFetchUpcomingContactsWithNoReferralContacts() {
+        ContactSummarySendContract.InteractorCallback callBack = PowerMockito.mock(
+                ContactSummarySendContract.InteractorCallback.class);
+        ContactSummarySendContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
+
+        final List<String> contactSchedule = new ArrayList<>();
+        contactSchedule.add("10");
+        contactSchedule.add("20");
+        contactSchedule.add("30");
+        contactSchedule.add("40");
+
+        String contactScheduleList = "[10, 20, 30, 40]";
+
+        Map<String, String> details = new HashMap<>();
+        details.put(DBConstants.KEY.NEXT_CONTACT, "2");
+        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstants.KEY.EDD, "2017-04-10");
+        details.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
+
+        Facts facts = new Facts();
+        facts.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, contactScheduleList);
+
+        PowerMockito.mockStatic(AncApplication.class);
+        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.mockStatic(Utils.class);
+
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
+        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
+        PowerMockito.when(ancApplication.getApplicationContext()).thenReturn(context);
+        PowerMockito.when(context.getString(R.string.contact_number)).thenReturn("Contact %s number");
+        PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
+        PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
+        PowerMockito.when(Utils.getListFromString(contactScheduleList)).thenReturn(contactSchedule);
+
+        summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, "", callBack);
+
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT))
+                .onUpcomingContactsFetched(upcomingContactsCaptor.capture(), integerArgumentCaptor.capture());
+
+        Assert.assertNotNull(upcomingContactsCaptor.getValue());
+        Assert.assertEquals(contactSchedule.size(), upcomingContactsCaptor.getValue().size());
 
         Assert.assertNotNull(integerArgumentCaptor.getValue());
         Assert.assertEquals(1, integerArgumentCaptor.getValue().intValue());
 
         Assert.assertEquals("Contact 2 number", upcomingContactsCaptor.getValue().get(0).getContactName());
-        Assert.assertEquals("Contact 5 number", upcomingContactsCaptor.getValue().get(contactDates.size() - 1).getContactName());
+        Assert.assertEquals("Contact 5 number",
+                upcomingContactsCaptor.getValue().get(contactSchedule.size() - 1).getContactName());
     }
 
+    @Test
+    public void testFetchUpcomingContactsWithNoReferralContactsAndContactSchedule() {
+        ContactSummarySendContract.InteractorCallback callBack = PowerMockito.mock(
+                ContactSummarySendContract.InteractorCallback.class);
+        ContactSummarySendContract.Interactor summaryInteractorSpy = Mockito.spy(summaryInteractor);
+
+        final List<String> contactSchedule = new ArrayList<>();
+        String contactScheduleList = "[10, 20, 30, 40]";
+
+        Map<String, String> details = new HashMap<>();
+        details.put(DBConstants.KEY.NEXT_CONTACT, "2");
+        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstants.KEY.EDD, "2017-04-10");
+
+        Facts facts = new Facts();
+        facts.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, contactScheduleList);
+
+        PowerMockito.mockStatic(AncApplication.class);
+        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.mockStatic(Utils.class);
+
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
+        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
+        PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
+        PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
+        PowerMockito.when(Utils.getListFromString(contactScheduleList)).thenReturn(contactSchedule);
+
+        summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, "", callBack);
+
+        Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT))
+                .onUpcomingContactsFetched(upcomingContactsCaptor.capture(), integerArgumentCaptor.capture());
+
+        Assert.assertNotNull(upcomingContactsCaptor.getValue());
+        Assert.assertEquals(contactSchedule.size(), upcomingContactsCaptor.getValue().size());
+
+        Assert.assertNotNull(integerArgumentCaptor.getValue());
+        Assert.assertEquals(1, integerArgumentCaptor.getValue().intValue());
+
+        Assert.assertEquals(0, upcomingContactsCaptor.getValue().size());
+    }
 
 }

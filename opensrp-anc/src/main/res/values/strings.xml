@@ -232,7 +232,7 @@
     <string name="continue_">continue</string>
     <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
     <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
-    <string name="site_characteristics_are_shared_for_all">Site charactersitics ares shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
+    <string name="site_characteristics_are_shared_for_all">Site characteristics are shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
     <string name="go_back_to_site_characteristics">Go back to site characteristics</string>
     <string name="edit"> edit </string>
 
@@ -275,7 +275,7 @@
     <string name="woman_name">Woman Name</string>
     <string name="contact_weeks">CONTACT %1$s\n%2$s</string>
     <string name="due_delivery">DUE\nDELIVERY</string>
-    <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago). \n\n %4$s should come in immediately for delivery.</string>
+    <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
     <string name="contact_number">Contact %1$d</string>
     <string name="contact_recorded">Contact %1$d recorded</string>
     <string name="info_icon_display">the more info icon display</string>
@@ -285,11 +285,29 @@
     <string name="save_and_finish">SAVE + FINISH</string>
     <string name="reason_for_visit">REASON FOR VISIT</string>
     <string name="contact_recorded_today">CONTACT %1$d\ndone today</string>
-    <string name="contact_recorded_today_no_break">CONTACT %1$d done today</string>
+    <string name="contact_recorded_today_no_break"> CONTACT %1$d done today</string>
     <string name="continue_contact">Continue Contact %1$d</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="finalizing_contact">Finalizing Contact %1$d</string>
     <string name="summarizing_contact_number">Summarizing Contact %1$d</string>
     <string name="contact_number_due">Contact %1$d &#183; due %2$s</string>
+    <string name="last_contact">LAST CONTACT</string>
+    <string name="key_figure">KEY FIGURES</string>
+    <string name="recent_test">RECENT TEST: %1$s</string>
+    <string name="previous_contacts">PREVIOUS CONTACTS</string>
+    <string name="all_tests_results">All Tests Results</string>
+    <string name="contact_details">%1$s Weeks &#183; Contact %2$s</string>
+    <string name="referral_contact_details">Contact %1$s</string>
+    <string name="undo_test_result">Undo the %1$s result?</string>
+    <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
+    <string name="previous_contacts_header">Previous Contacts</string>
+    <string name="previous_contacts_tests_header">All Test Results</string>
+    <string name="expected_date_of_delivery">Expected Date of Delivery</string>
+    <string name="ga_weeks">%1$s weeks</string>
+    <string name="timeline_away">%1$sw away</string>
+    <string name="all_results">All results</string>
+    <string name="no_tests_available">No Tests Available</string>
+    <string name="hospital_referral">Hospital referral</string>
+    <string name="no_contact_schedule">No contact schedule generated yet</string>
 </resources>

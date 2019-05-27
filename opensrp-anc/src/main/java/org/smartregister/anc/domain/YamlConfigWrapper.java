@@ -8,11 +8,20 @@ public class YamlConfigWrapper {
     private String group;
     private String subGroup;
     private YamlConfigItem yamlConfigItem;
+    private String testResults;
 
-    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem){
+    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem) {
         this.group = group;
-        this.subGroup =subGroup;
+        this.subGroup = subGroup;
         this.yamlConfigItem = yamlConfigItem;
+    }
+
+    public YamlConfigWrapper(String group, String subGroup, YamlConfigItem yamlConfigItem,
+                             String testResults) {
+        this.group = group;
+        this.subGroup = subGroup;
+        this.yamlConfigItem = yamlConfigItem;
+        this.testResults = testResults;
     }
 
     public YamlConfigItem getYamlConfigItem() {
@@ -39,4 +48,11 @@ public class YamlConfigWrapper {
         this.group = group;
     }
 
+    public String getTestResults() {
+        return testResults;
+    }
+
+    public void setTestResults(String testResults) {
+        this.testResults = testResults;
+    }
 }

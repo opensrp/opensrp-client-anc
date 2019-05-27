@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.BuildConfig;
@@ -18,8 +19,8 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.domain.YamlConfig;
 import org.smartregister.anc.domain.YamlConfigItem;
+import org.smartregister.anc.helper.AncRulesEngineHelper;
 import org.smartregister.anc.helper.ECSyncHelper;
-import org.smartregister.anc.helper.RulesEngineHelper;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.repository.PartialContactRepository;
@@ -71,7 +72,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private String password;
     private PartialContactRepository partialContactRepository;
     private PreviousContactRepository previousContactRepository;
-    private RulesEngineHelper rulesEngineHelper;
+    private AncRulesEngineHelper ancRulesEngineHelper;
     private JSONObject defaultContactFormGlobals = new JSONObject();
     private Yaml yaml;
     private Gson gson;
@@ -105,7 +106,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
+                DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
     }
 
     @Override
@@ -199,14 +201,12 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     public PartialContactRepository getPartialContactRepository() {
-        if (partialContactRepository == null)
-            partialContactRepository = new PartialContactRepository(getRepository());
+        if (partialContactRepository == null) partialContactRepository = new PartialContactRepository(getRepository());
         return partialContactRepository;
     }
 
     public PreviousContactRepository getPreviousContactRepository() {
-        if (previousContactRepository == null)
-            previousContactRepository = new PreviousContactRepository(getRepository());
+        if (previousContactRepository == null) previousContactRepository = new PreviousContactRepository(getRepository());
         return previousContactRepository;
     }
 
@@ -224,11 +224,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return uniqueIdRepository;
     }
 
-    public RulesEngineHelper getRulesEngineHelper() {
-        if (rulesEngineHelper == null) {
-            rulesEngineHelper = new RulesEngineHelper(getApplicationContext());
+    public AncRulesEngineHelper getAncRulesEngineHelper() {
+        if (ancRulesEngineHelper == null) {
+            ancRulesEngineHelper = new AncRulesEngineHelper(getApplicationContext());
         }
-        return rulesEngineHelper;
+        return ancRulesEngineHelper;
     }
 
     public ECSyncHelper getEcSyncHelper() {
@@ -273,8 +273,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
             EventBus.builder().addIndex(new org.smartregister.anc.ANCEventBusIndex()).installDefaultEventBus();
 
-        } catch
-        (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
 
@@ -308,24 +307,26 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void populateGlobalSettingsCore(Setting setting) {
         try {
-            JSONArray settingArray = setting != null ? new JSONArray(setting.getValue()) : null;
+            JSONObject settingObject = setting != null ? new JSONObject(setting.getValue()) : null;
+            if (settingObject != null) {
+                JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
+                if (settingArray != null) {
 
-            if (settingArray != null) {
+                    for (int i = 0; i < settingArray.length(); i++) {
 
-                for (int i = 0; i < settingArray.length(); i++) {
+                        JSONObject jsonObject = settingArray.getJSONObject(i);
+                        Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
+                        JSONObject nullObject = null;
+                        if (value != null && !value.equals(nullObject)) {
+                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
+                        } else {
 
-                    JSONObject jsonObject = settingArray.getJSONObject(i);
-                    Object value = jsonObject.get(JsonFormConstants.VALUE);
-                    JSONObject nullObject = null;
-                    if (value != null && !value.equals(nullObject)) {
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), jsonObject.getString(JsonFormConstants.VALUE));
-                    } else {
-
-                        defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                        }
                     }
+
+
                 }
-
-
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage());
@@ -336,14 +337,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return AncApplication.getInstance().getContext().allSettings().getSetting(characteristics);
     }
 
-
     public JSONObject getDefaultContactFormGlobals() {
         return defaultContactFormGlobals;
     }
 
 
     public Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
+        InputStreamReader inputStreamReader = new InputStreamReader(
+                getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
     }
 

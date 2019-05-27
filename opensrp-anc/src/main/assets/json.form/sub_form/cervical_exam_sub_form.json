@@ -1,6 +1,9 @@
 {
   "content_form": [
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
       "key": "dilation_cm_label",
       "type": "label",
       "label_text_style": "bold",
@@ -13,8 +16,8 @@
     {
       "key": "dilation_cm",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "Amount of cervical dilation ",
-      "openmrs_entity_id": "162261",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "normal_edit_text",
       "edit_text_style": "bordered",
       "edit_type": "number",
@@ -23,15 +26,15 @@
         "err": "Enter valid cervical dilation in cm"
       },
       "v_min": {
-        "value": "0.1",
-        "err": "Cervical dilation must be greater than 0"
+        "value": "0",
+        "err": "Cervical dilation must be greater than or equal to 0"
       },
       "v_max": {
         "value": "10",
-        "err": "Cervical dilation must be equal or less than 10"
+        "err": "Cervical dilation must be equal to or less than 10"
       },
       "v_required": {
-        "value": "false",
+        "value": false,
         "err": "Field cervical dilation is required"
       }
     }

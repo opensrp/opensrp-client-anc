@@ -2,9 +2,9 @@
   "content_form": [
     {
       "key": "syph_test_status",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Syphilis test",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -15,43 +15,36 @@
           "text": "Done today",
           "type": "done_today",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "done_earlier",
           "text": "Done earlier",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ordered",
           "text": "Ordered",
           "type": "ordered",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "type": "not_done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
         "value": true
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
       }
     },
     {
@@ -100,9 +93,9 @@
     },
     {
       "key": "syph_test_notdone",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
       "label": "Reason",
       "label_text_style": "bold",
@@ -111,22 +104,22 @@
           "key": "stock_out",
           "text": "Stock out",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "expired_stock",
           "text": "Expired stock",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other (specify)",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -142,9 +135,9 @@
     },
     {
       "key": "syph_test_notdone_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Specify",
       "edit_type": "name",
@@ -157,12 +150,28 @@
       }
     },
     {
-      "key": "syphilis_test_date",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
+      "key": "syphilis_test_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "syphilis_test_date",
+      "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Syphilis test date *",
+      "hint": "Syphilis test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -180,15 +189,15 @@
         }
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Select the date of the syphilis test."
       }
     },
     {
       "key": "syph_test_type",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Syphilis test type",
       "label_text_style": "bold",
@@ -197,22 +206,22 @@
           "key": "rapid_syphilis",
           "text": "Rapid syphilis test",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "rapid_plasma",
           "text": "Rapid plasma reagin test",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "off_site_lab",
           "text": "Off-site lab test",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -229,8 +238,8 @@
     {
       "key": "rapid_syphilis_test",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Rapid syphilis test (RST)",
       "label_text_style": "bold",
@@ -239,15 +248,15 @@
           "key": "positive",
           "text": "Positive",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
           "text": "Negative",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -263,9 +272,9 @@
     },
     {
       "key": "rpr_syphilis_test",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Rapid plasma reagin (RPR) test",
       "label_text_style": "bold",
@@ -274,15 +283,15 @@
           "key": "positive",
           "text": "Positive",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
           "text": "Negative",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -299,8 +308,8 @@
     {
       "key": "lab_syphilis_test",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Off-site lab test for syphilis",
       "label_text_style": "bold",
@@ -309,15 +318,15 @@
           "key": "positive",
           "text": "Positive",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
           "text": "Negative",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -333,8 +342,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "112493AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "syphilis_positive",
       "type": "hidden",
       "label_text_style": "bold",

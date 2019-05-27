@@ -9,6 +9,7 @@ import com.evernote.android.job.JobCreator;
 
 import org.smartregister.anc.service.AncSyncIntentService;
 import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
@@ -37,7 +38,8 @@ public class AncJobCreator implements JobCreator {
             case SyncSettingsServiceJob.TAG:
                 return new SyncSettingsServiceJob();
             default:
-                Log.d(AncJobCreator.class.getCanonicalName(), "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
+                Log.d(AncJobCreator.class.getCanonicalName(),
+                        "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
                 return null;
         }
     }

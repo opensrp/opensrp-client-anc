@@ -3,8 +3,8 @@
     {
       "key": "breast_exam_abnormal",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
       "label": "Breast exam: abnormal",
       "label_text_style": "bold",
@@ -14,62 +14,69 @@
           "key": "nodule",
           "text": "Nodule",
           "value": false,
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "146931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "discharge",
           "text": "Discharge",
           "value": false,
-          "openmrs_entity": "Discharge from Nipple",
-          "openmrs_entity_id": "142248"
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "142248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "flushing",
           "text": "Flushing",
           "value": false,
-          "openmrs_entity": "Flushing",
-          "openmrs_entity_id": "140039"
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "local_pain",
           "text": "Local pain",
           "value": false,
-          "openmrs_entity": "Pain of Breast",
-          "openmrs_entity_id": "131021"
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "bleeding",
           "text": "Bleeding",
           "value": false,
-          "openmrs_entity": "Bleeding from Breast",
-          "openmrs_entity_id": "147236"
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "147236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "increased_temperature",
           "text": "Increased temperature",
           "value": false,
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
           "text": "Other (specify)",
           "value": false,
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
     },
     {
       "key": "breast_exam_abnormal_other",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "Specify",
       "v_regex": {
-        "value": "[A-Za-z\\\\s\\\\.\\\\-]*",
+        "value": "[A-Za-z\\s\\.\\-]*",
         "err": "Please enter valid content"
       },
       "relevance": {

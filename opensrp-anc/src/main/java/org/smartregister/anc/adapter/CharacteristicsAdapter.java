@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.smartregister.anc.R;
-import org.smartregister.domain.Characteristic;
+import org.smartregister.domain.ServerSetting;
 
 import java.util.List;
 
@@ -17,11 +17,11 @@ import java.util.List;
  */
 public class CharacteristicsAdapter extends RecyclerView.Adapter<CharacteristicsAdapter.ViewHolder> {
 
-    private List<Characteristic> mData;
+    private List<ServerSetting> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public CharacteristicsAdapter(Context context, List<Characteristic> data) {
+    public CharacteristicsAdapter(Context context, List<ServerSetting> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -35,7 +35,7 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Characteristic characteristic = mData.get(position);
+        ServerSetting characteristic = mData.get(position);
 
         holder.labelTextView.setText(characteristic.getLabel());
 
@@ -49,6 +49,14 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -68,13 +76,5 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
-    }
-
-    public void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

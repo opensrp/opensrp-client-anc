@@ -44,11 +44,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
         initializePresenter();
-
         presenter.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-
         setupViews();
     }
 
@@ -66,7 +63,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void setupViews() {
         initializeRecyclerView();
-
         View cancelButton = findViewById(R.id.undo_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +70,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 contactActionHandler.onClick(v);
             }
         });
-        findViewById(R.id.finalize_contact).setEnabled(true);
         findViewById(R.id.finalize_contact).setOnClickListener(contactActionHandler);
-
     }
 
     protected abstract void initializePresenter();
@@ -107,7 +101,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest, form));
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,
+                getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
         intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, contact.getFormName());
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
@@ -217,7 +212,9 @@ public abstract class BaseContactActivity extends SecuredActivity {
                     presenter.startForm(view.getTag());
                     break;
                 case R.id.finalize_contact:
-                    Utils.finalizeForm(getActivity(), (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
+                    Utils.finalizeForm(getActivity(),
+                            (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP),
+                            false);
                     break;
                 default:
                     break;

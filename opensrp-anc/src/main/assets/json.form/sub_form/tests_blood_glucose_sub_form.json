@@ -2,9 +2,9 @@
   "content_form": [
     {
       "key": "glucose_test_status",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "Blood glucose test",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -15,32 +15,32 @@
           "text": "Done today",
           "type": "done_today",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "done_earlier",
           "text": "Done earlier",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ordered",
           "text": "Ordered",
           "type": "ordered",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_done",
           "text": "Not done",
           "type": "not_done",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {
@@ -56,12 +56,28 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "glucose_test_date",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
+      "key": "glucose_test_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "glucose_test_date",
+      "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Blood glucose test date. *",
+      "hint": "Blood glucose test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -79,39 +95,39 @@
         }
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Select the date of the glucose test.."
       }
     },
     {
       "key": "glucose_test_type",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Blood glucose test",
+      "label": "Blood glucose test type",
       "label_text_style": "bold",
       "options": [
         {
           "key": "fasting_plasma",
           "text": "Fasting plasma glucose",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ogtt_75",
           "text": "75g OGTT",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "random_plasma",
           "text": "Random plasma glucose",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -128,26 +144,26 @@
     {
       "key": "fasting_plasma_gluc",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Fasting plasma glucose results (mg/dl) *",
+      "hint": "Fasting plasma glucose results (mg/dl)",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "Fasting plasma glucose results must be greater than 30"
+        "err": "Fasting plasma glucose results must be greater than or equal to 30"
       },
       "v_max": {
         "value": "500",
-        "err": "Fasting plasma glucose results must be les than 500"
+        "err": "Fasting plasma glucose results must be less than or equal to 500"
       },
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
-        "err": "Specify any other reason why the syphilis test was not done"
+        "value": true,
+        "err": "Enter the result for the fasting plasma glucose test"
       },
       "relevance": {
         "rules-engine": {
@@ -160,26 +176,26 @@
     {
       "key": "ogtt_fasting",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "75g OGTT - fasting glucose results (mg/dl) *",
+      "hint": "75g OGTT - fasting glucose results (mg/dl)",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "75g OGTT - fasting glucose results must be greater than 30"
+        "err": "75g OGTT - fasting glucose results must be greater than or equal to 30"
       },
       "v_max": {
         "value": "500",
-        "err": "75g OGTT - fasting glucose results must be les than 500"
+        "err": "75g OGTT - fasting glucose results must be less than or equal to 500"
       },
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
-        "err": "Enter the result for the initial 75g OGTT - fasting glucose. "
+        "value": true,
+        "err": "Enter the result for the initial 75g OGTT - fasting glucose."
       },
       "relevance": {
         "rules-engine": {
@@ -192,25 +208,25 @@
     {
       "key": "ogtt_1",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "75g OGTT - 1 hr results (mg/dl) *",
+      "hint": "75g OGTT - 1 hr results (mg/dl)",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - fasting glucose (1 hr) must be greater than 30"
+        "err": "The result for the 75g OGTT - 1 hr must be greater than or equal to 30"
       },
       "v_max": {
         "value": "500",
-        "err": "the result for the 75g OGTT - fasting glucose (1 hr) must be les than 500"
+        "err": "The result for the 75g OGTT - 1 hr must be less than or equal to 500"
       },
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Enter the result for the 75g OGTT - fasting glucose (1 hr)."
       },
       "relevance": {
@@ -224,25 +240,25 @@
     {
       "key": "ogtt_2",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "75g OGTT - 2 hrs results (mg/dl) *",
+      "hint": "75g OGTT - 2 hrs results (mg/dl)",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - fasting glucose (2 hr) must be greater than 30"
+        "err": "The result for the 75g OGTT - 2 hr must be greater than or equal to 30"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - fasting glucose (2 hr) must be les than 500"
+        "err": "The result for the 75g OGTT - 2 hr must be less than or equal to 500"
       },
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Enter the result for the 75g OGTT - fasting glucose (2 hr)."
       },
       "relevance": {
@@ -256,25 +272,25 @@
     {
       "key": "random_plasma",
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Random plasma glucose results (mg/dl) *",
+      "hint": "Random plasma glucose results (mg/dl)",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the random plasma glucose test. must be greater than 30"
+        "err": "The result for the random plasma glucose test must be greater than or equal to 30"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the random plasma glucose test must be les than 500"
+        "err": "The result for the random plasma glucose test must be less than or equal to 500"
       },
       "v_numeric": {
         "value": "true",
         "err": "Enter a numeric value"
       },
       "v_required": {
-        "value": false,
+        "value": true,
         "err": "Enter the result for the random plasma glucose test."
       },
       "relevance": {
@@ -287,8 +303,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "117807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "gdm",
       "type": "hidden",
       "label_text_style": "bold",
@@ -303,8 +319,8 @@
     },
     {
       "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "119477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "key": "dm_in_preg",
       "type": "hidden",
       "label_text_style": "bold",
@@ -324,7 +340,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Gestational Diabetes Mellitus (GDM) diagnosis!",
-      "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if her fasting plasma glucose is 92–125 mg/dL. \n\nOR\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n\n- 75g OGTT - 1 hr 180–199 mg/dL\n\n- 75g OGTT - 2 hrs 153–199 mg/dL",
+      "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if her fasting plasma glucose is 92–125 mg/dL. \n\nOR\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n- 75g OGTT - 1 hr 180–199 mg/dL\n- 75g OGTT - 2 hrs 153–199 mg/dL",
       "toaster_info_title": "Gestational Diabetes Mellitus (GDM) diagnosis!",
       "toaster_type": "problem",
       "relevance": {
@@ -342,7 +358,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
-      "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if her fasting plasma glucose is 126 mg/dL or higher.\n\nOR\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n\n- 75g OGTT - 1 hr 200 mg/dL or higher\n\n- 75g OGTT - 2 hrs 200 mg/dL or higher\n\n- Random plasma glucose 200 mg/dL or higher",
+      "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if her fasting plasma glucose is 126 mg/dL or higher.\n\nOR\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n- 75g OGTT - 1 hr 200 mg/dL or higher\n- 75g OGTT - 2 hrs 200 mg/dL or higher\n- Random plasma glucose 200 mg/dL or higher",
       "toaster_info_title": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
       "toaster_type": "problem",
       "relevance": {
@@ -361,7 +377,6 @@
       "type": "toaster_notes",
       "text": "Dietary intervention recommended and referral to high level care.",
       "toaster_info_text": "Woman with hyperglycemia - Recommend dietary intervention and refer to higher level care.",
-      "toaster_info_title": "Dietary intervention recommended and referral to high level care.",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {

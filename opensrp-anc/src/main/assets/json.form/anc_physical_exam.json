@@ -1,4 +1,5 @@
 {
+  "validate_on_submit": true,
   "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
@@ -87,13 +88,13 @@
       {
         "key": "height",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "5090",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter the height"
         },
         "v_numeric": {
@@ -142,8 +143,8 @@
       {
         "key": "pregest_weight",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "5090",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -171,21 +172,24 @@
           "err": "Weight must be equal or less than 180"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Pre-gestational weight is required"
         }
       },
       {
         "key": "pregest_weight_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "options": [
           {
             "key": "pregest_weight_unknown",
             "text": "Pre-gestational weight unknown",
-            "value": "false"
+            "value": "false",
+            "openmrs_entity_parent": "165277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -210,8 +214,8 @@
       {
         "key": "current_weight",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "5089",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -228,7 +232,7 @@
           "err": "Weight must be equal or less than 180"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter the current weight"
         }
       },
@@ -249,8 +253,8 @@
       {
         "key": "bmi",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -263,8 +267,8 @@
       {
         "key": "gdm_risk",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -460,13 +464,24 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
         "key": "bp_systolic",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Systolic blood pressure",
-        "openmrs_entity_id": "5085",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -483,8 +498,19 @@
           "err": "SBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Field systolic is required"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -493,7 +519,18 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "spacer",
         "type": "spacer",
-        "spacer_height": "10sp"
+        "spacer_height": "10sp",
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
+        }
       },
       {
         "key": "bp_diastolic_label",
@@ -503,13 +540,24 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
         "key": "bp_diastolic",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Diastolic blood pressure",
-        "openmrs_entity_id": "5086",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -526,8 +574,84 @@
           "err": "DBP must be equal to or less than 260"
         },
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Field diastolic is required"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "cant_record_bp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "cant_record_bp",
+            "text": "Unable to record BP",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "cant_record_bp_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label": "Reason",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "bp_cuff_unavailable",
+            "text": "BP cuff (sphygmomanometer) not available",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "bp_cuff_broken",
+            "text": "BP cuff (sphygmomanometer) is broken",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Reason why SBP and DPB is cannot be done is required"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
+          }
         }
       },
       {
@@ -583,8 +707,8 @@
       {
         "key": "bp_systolic_repeat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165278AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -601,8 +725,8 @@
           "err": "SBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "false",
-          "err": "Field systolic is required"
+          "value": "true",
+          "err": "Field systolic repeat is required"
         },
         "relevance": {
           "rules-engine": {
@@ -640,8 +764,8 @@
       {
         "key": "bp_diastolic_repeat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -658,8 +782,8 @@
           "err": "DBP must be equal or less than 260"
         },
         "v_required": {
-          "value": "false",
-          "err": "Field diastolic is required"
+          "value": "true",
+          "err": "Field diastolic repeat is required"
         },
         "relevance": {
           "rules-engine": {
@@ -697,8 +821,8 @@
       {
         "key": "symp_sev_preeclampsia",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165280AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Any symptoms of severe pre-eclampsia?",
         "label_text_style": "bold",
@@ -711,47 +835,53 @@
             "key": "none",
             "text": "None",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "severe_headache",
             "text": "Severe headache",
             "value": false,
-            "openmrs_entity": "Headache",
-            "openmrs_entity_id": "139084"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "blurred_vision",
             "text": "Blurred vision",
             "value": false,
-            "openmrs_entity": "Blurred vision",
-            "openmrs_entity_id": "147104"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "epigastric_pain",
             "text": "Epigastric pain",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "141128"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "141128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "dizziness",
             "text": "Dizziness",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "156046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "vomiting",
             "text": "Vomiting",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify any other symptoms or select none"
         },
         "relevance": {
@@ -765,8 +895,8 @@
       {
         "key": "urine_protein",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "URINE PROTEIN (DIP STICK)",
-        "openmrs_entity_id": "1875",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Urine dipstick result - protein",
         "label_text_style": "bold",
@@ -776,40 +906,45 @@
             "key": "none",
             "text": "None",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "one_plus",
+            "key": "+",
             "text": "+",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "two_plus",
+            "key": "++",
             "text": "++",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "three_plus",
+            "key": "+++",
             "text": "+++",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "four_plus",
+            "key": "++++",
             "text": "++++",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please enter the result for the dipstick test."
         },
         "relevance": {
@@ -823,8 +958,8 @@
       {
         "key": "hypertension",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "47AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -837,8 +972,8 @@
       {
         "key": "severe_hypertension",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165205AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -855,7 +990,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Hypertension diagnosis! Provide counseling.",
-        "toaster_info_text": "Woman has hypertension - SBP of 140 mmHg or higher and/or DBP of 90 mmHg or higher and no proteinuria.\n\nCounseling:\n- Advice to reduce workload and to rest\n- Advise on danger signs\n- Reassess at the next contact or in 1 week if 8 months pregnant\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
+        "toaster_info_text": "Woman has hypertension - SBP of 140 mmHg or higher and/or DBP of 90 mmHg or higher and no proteinuria.\\n\\nCounseling:\n- Advice to reduce workload and to rest\n- Advise on danger signs\n- Reassess at the next contact or in 1 week if 8 months pregnant\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -905,8 +1040,8 @@
       {
         "key": "severe_preeclampsia",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "113006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -937,8 +1072,8 @@
       {
         "key": "preeclampsia",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -986,13 +1121,13 @@
       {
         "key": "body_temp",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Temperature (C)",
-        "openmrs_entity_id": "5088",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
+          "value": "true",
           "err": "Please enter body temperature"
         },
         "v_numeric": {
@@ -1052,14 +1187,14 @@
       {
         "key": "body_temp_repeat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "5088",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
-          "err": "Please re-enter body temperature"
+          "value": "true",
+          "err": "Please enter second body temperature"
         },
         "relevance": {
           "step3:body_temp": {
@@ -1118,13 +1253,13 @@
       {
         "key": "pulse_rate",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Pulse",
-        "openmrs_entity_id": "5087",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
+          "value": "true",
           "err": "Please enter pulse rate"
         },
         "v_numeric": {
@@ -1186,14 +1321,14 @@
       {
         "key": "pulse_rate_repeat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": false,
-          "err": "Please enter pulse rate"
+          "value": "true",
+          "err": "Please enter repeated pulse rate"
         },
         "relevance": {
           "rules-engine": {
@@ -1232,8 +1367,8 @@
       {
         "key": "pallor",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Pallor",
-        "openmrs_entity_id": "5245",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Pallor present?",
         "label_text_style": "bold",
@@ -1241,19 +1376,25 @@
         "options": [
           {
             "key": "yes",
-            "text": "Yes"
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
       {
         "key": "anaemic",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -1284,8 +1425,8 @@
       {
         "key": "respiratory_exam",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Respiratory exam",
         "label_text_style": "bold",
@@ -1295,11 +1436,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1307,7 +1454,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "respiratory_exam_sub_form"
+            "content_form": "respiratory_exam_sub_form",
+            "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1333,9 +1483,6 @@
         "label_text_style": "bold",
         "text": "Oximetry (%)",
         "text_color": "#000000",
-        "v_required": {
-          "value": false
-        },
         "relevance": {
           "step3:respiratory_exam": {
             "type": "string",
@@ -1346,8 +1493,8 @@
       {
         "key": "oximetry",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -1387,8 +1534,8 @@
       {
         "key": "cardiac_exam",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Cardiac exam",
         "label_text_style": "bold",
@@ -1398,11 +1545,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1410,7 +1563,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "cardiac_exam_sub_form"
+            "content_form": "cardiac_exam_sub_form",
+            "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1442,8 +1598,8 @@
       {
         "key": "breast_exam",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Breast examination (text) ",
-        "openmrs_entity_id": "162825",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Breast exam",
         "label_text_style": "bold",
@@ -1453,11 +1609,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1465,7 +1627,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "breast_exam_sub_form"
+            "content_form": "breast_exam_sub_form",
+            "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1496,9 +1661,9 @@
       },
       {
         "key": "abdominal_exam",
-        "openmrs_entity_parent": "Abdominal Examination",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "160947",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Abdominal exam",
         "label_text_style": "bold",
@@ -1508,11 +1673,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1520,7 +1691,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "abdominal_exam_sub_form"
+            "content_form": "abdominal_exam_sub_form",
+            "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1552,8 +1726,8 @@
       {
         "key": "pelvic_exam",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Pelvic exam (visual)",
         "label_text_style": "bold",
@@ -1563,11 +1737,17 @@
         "options": [
           {
             "key": "1",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "2",
-            "text": "Normal"
+            "text": "Normal",
+            "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "3",
@@ -1575,7 +1755,10 @@
             "specify_info": "specify...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
-            "content_form": "pelvic_exam_sub_form"
+            "content_form": "pelvic_exam_sub_form",
+            "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -1607,8 +1790,8 @@
       {
         "key": "cervical_exam",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Uterine cervix examination (text) ",
-        "openmrs_entity_id": "160968",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Cervical exam done?",
         "label_text_style": "bold",
@@ -1619,6 +1802,9 @@
           {
             "key": "1",
             "text": "Done",
+            "openmrs_entity_parent": "165374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "specify_info": "specify cm cervix dilated...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
@@ -1627,9 +1813,31 @@
           },
           {
             "key": "2",
-            "text": "Not done"
+            "text": "Not done",
+            "openmrs_entity_parent": "165374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
+      },
+      {
+        "key": "toaster26_hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          },
+          "src": {
+            "key": "cervical_exam",
+            "option_key": "1",
+            "stepName": "step3"
+          }
+        }
       },
       {
         "key": "toaster26",
@@ -1659,8 +1867,8 @@
       {
         "key": "oedema",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "460",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Oedema present?",
         "label_text_style": "bold",
@@ -1674,55 +1882,65 @@
             "specify_info": "specify type...",
             "specify_widget": "radio_button",
             "specify_info_color": "#8C8C8C",
-            "content_form": "oedema_present_sub_form"
+            "content_form": "oedema_present_sub_form",
+            "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
       {
         "key": "oedema_severity",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "URINE PROTEIN (DIP STICK)",
-        "openmrs_entity_id": "1875",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Oedema severity",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
-            "key": "one_plus",
+            "key": "+",
             "text": "+",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "two_plus",
+            "key": "++",
             "text": "++",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "three_plus",
+            "key": "+++",
             "text": "+++",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "four_plus",
+            "key": "++++",
             "text": "++++",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "164494AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please enter the result for the dipstick test."
         },
         "relevance": {
@@ -1750,8 +1968,8 @@
       {
         "key": "sfh",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "FUNDAL HEIGHT",
-        "openmrs_entity_id": "1439",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -1783,8 +2001,8 @@
       {
         "key": "fetal_movement",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Fetal movements present",
-        "openmrs_entity_id": "1875",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Fetal movement felt?",
         "label_text_style": "bold",
@@ -1794,19 +2012,21 @@
             "key": "yes",
             "text": "Yes",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
             "text": "No",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
-          "value": false,
+          "value": "false",
           "err": "Please this field is required."
         },
         "relevance": {
@@ -1820,52 +2040,81 @@
       {
         "key": "fetal_heartbeat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Fetal heartbeat present?",
         "label_text_style": "bold",
         "text_color": "#000000",
-        "extra_rel": true,
-        "has_extra_rel": "yes",
         "options": [
           {
             "key": "yes",
             "text": "Yes",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "specify_info": "specify fetal heart rate (bpm)...",
-            "specify_widget": "normal_edit_text",
-            "specify_info_color": "#8C8C8C",
-            "secondary_suffix": "bpm",
-            "content_form": "fetal_heartbeat_sub_form"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
             "text": "No",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
-          "value": true,
+          "value": "true",
           "err": "Please specify if fetal heartbeat is present."
         }
       },
       {
-        "key": "fetal_heart_beat_rate_value",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
+        "key": "fetal_heart_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify if fetal heartbeat is present."
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
+        }
+      },
+      {
+        "key": "fetal_heart_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_min": {
+          "value": "80",
+          "err": "Fetal heartbeat must be equal or greater than 80"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Fetal heartbeat must be less than or equal to 200"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify if fetal heartbeat is present."
         }
       },
       {
@@ -1930,13 +2179,13 @@
       {
         "key": "fetal_heart_rate_repeat",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter result for the second fetal heart rate"
         },
         "relevance": {
@@ -1996,8 +2245,8 @@
       {
         "key": "no_of_fetuses",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "numbers_selector",
         "number_of_selectors": "5",
         "start_number": "1",
@@ -2050,22 +2299,25 @@
       {
         "key": "no_of_fetuses_unknown",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "options": [
           {
             "key": "no_of_fetuses_unknown",
             "text": "No. of fetuses unknown",
-            "value": "false"
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
       {
         "key": "preeclampsia_risk",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -2096,8 +2348,8 @@
       {
         "key": "fetal_presentation",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Fetal presentation ",
-        "openmrs_entity_id": "1067",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Fetal presentation",
         "label_text_style": "bold",
@@ -2107,36 +2359,41 @@
             "key": "unknown",
             "text": "Unknown",
             "value": "false",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "cephalic",
             "text": "Cephalic",
             "value": "false",
-            "openmrs_entity": "Vertex presentation",
-            "openmrs_entity_id": "160091"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "pelvic",
             "text": "Pelvic",
             "value": "false",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "transverse",
             "text": "Transverse",
             "value": "false",
-            "openmrs_entity": "Transverse or Oblique Fetal Presentation",
-            "openmrs_entity_id": "112259"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
             "key": "other",
             "text": "Other",
             "value": "false",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {

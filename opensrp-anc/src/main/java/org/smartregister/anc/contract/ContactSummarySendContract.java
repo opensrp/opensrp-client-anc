@@ -8,7 +8,7 @@ public interface ContactSummarySendContract {
     interface View {
         void goToClientProfile();
 
-        void displayWomansName(String fullName);
+        void displayPatientName(String fullName);
 
         void displayUpcomingContactDates(List<ContactSummaryModel> models);
 
@@ -20,7 +20,7 @@ public interface ContactSummarySendContract {
     interface Presenter {
         void loadWoman(String entityId);
 
-        void loadUpcomingContacts(String entityId);
+        void loadUpcomingContacts(String entityId, String referralContact);
 
         void attachView(ContactSummarySendContract.View view);
 
@@ -28,7 +28,8 @@ public interface ContactSummarySendContract {
     }
 
     interface Interactor extends BaseContactContract.Interactor {
-        void fetchUpcomingContacts(String baseEntityId, InteractorCallback upcomingContactsCallback);
+        void fetchUpcomingContacts(String baseEntityId, String referralContactNo,
+                                   InteractorCallback upcomingContactsCallback);
     }
 
     interface InteractorCallback extends BaseContactContract.InteractorCallback {

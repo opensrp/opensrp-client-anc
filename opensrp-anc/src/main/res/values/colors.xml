@@ -14,6 +14,7 @@
     <color name="text_color_primary">#737373</color>
 
     <color name="light_grey">#cccccc</color>
+    <color name="light_grey_background">#EEEEED</color>
     <color name="light_grey_text">#7f7f7f</color>
     <color name="lighter_grey">#e5e5e5</color>
     <color name="lighter_grey_text">#737373</color>
@@ -84,4 +85,6 @@
     <color name="overview_font_red">#D44D4C</color>
     <color name="overview_font_right">#212121</color>
     <color name="overview_font_left">#757575</color>
+
+    <color name="profile_contact_section_bg">#3F3F4F</color>
 </resources>

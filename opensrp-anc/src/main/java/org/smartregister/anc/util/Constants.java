@@ -22,6 +22,7 @@ public abstract class Constants {
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
+    public static final String GLOBAL = "global";
     public static final String EDITABLE_FIELDS = "editable_fields";
     public static final String FALSE = "false";
     public static final String DANGER_SIGNS = "danger_signs";
@@ -30,7 +31,6 @@ public abstract class Constants {
     public static final String START_CONTACT = "Start Contact";
     public static final String CONTINUE_CONTACT = "Continue Contact";
     public static final String ORIGIN = "origin";
-    public static final String ADVANCED_SEARCH = "AdvancedSearch";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String EDD = "edd";
@@ -40,6 +40,27 @@ public abstract class Constants {
     public static final String CONTACT = "Contact";
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
     public static final String FORM_SUBMISSION_IDS = "form_submission_ids";
+    public static final String REFERRAL = "referral";
+    public static final String GEST_AGE = "gest_age";
+    public static final String GEST_AGE_OPENMRS = "gest_age_openmrs";
+    public static final String WOM_IMAGE = "wom_image";
+    public static final String INDEX = "index";
+    public static final String BOTTOM_SECTION = "bottom_section";
+    public static final String DISPLAY_RECORD_BUTTON = "display_record_button";
+    public static final String FILTER_OPTIONS_SOURCE = "filter_options_source";
+    public static final String FILTER_OPTIONS = "filter_options";
+    public static final String FILTERED_ITEMS = "filtered_items";
+    public static final String PREVIOUS = "previous";
+    public static final String IS_FILTERED = "is_filtered";
+    public static final String CONTACT_DATE = "contact_date";
+    public static final String CONTACT_SCHEDULE = "contact_schedule";
+    public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
+    public static final String WEIGHT_GAIN = "weight_gain";
+    public static final String PHYS_SYMPTOMS = "phys_symptoms";
+    public static final String DATE_TODAY_HIDDEN = "date_today_hidden";
+    public static final String AGE = "age";
+    public static final String REQUIRED_FIELDS = "required_fields";
+    public static final String CONTACT_NO = "contact_no";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";
@@ -162,7 +183,7 @@ public abstract class Constants {
     }
 
     public static class DETAILS_KEY {
-        public static final String CONTACT_SHEDULE = "contact_schedule";
+        public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
 

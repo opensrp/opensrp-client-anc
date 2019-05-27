@@ -20,10 +20,12 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
 
         findViewById(R.id.btn_site_characteristics_home_register).setOnClickListener(this);
         findViewById(R.id.btn_back_to_home).setOnClickListener(this);
+        findViewById(R.id.txt_title_label).setOnClickListener(this);
 
         presenter = new CharacteristicsPresenter(this);
 
-        String defaultLocation = LocationHelper.getInstance().getOpenMrsLocationName(LocationHelper.getInstance().getDefaultLocation());
+        String defaultLocation =
+                LocationHelper.getInstance().getOpenMrsLocationName(LocationHelper.getInstance().getDefaultLocation());
         TextView textView = findViewById(R.id.site_characteristics_facility_name);
         textView.setText(getString(R.string.your_site_characteristics_for_facility_name, defaultLocation));
 
@@ -32,13 +34,11 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
 
     @Override
     public void onClick(View view) {
-
         if (view.getId() == R.id.btn_site_characteristics_home_register) {
-
             goToHomeRegisterPage();
-
+        } else if (view.getId() == R.id.txt_title_label) {
+            presenter.launchSiteCharacteristicsFormForEdit();
         } else {
-
             presenter.launchSiteCharacteristicsFormForEdit();
         }
 

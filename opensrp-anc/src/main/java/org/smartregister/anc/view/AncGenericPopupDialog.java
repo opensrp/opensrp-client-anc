@@ -41,45 +41,42 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import static android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS;
+import static org.smartregister.anc.util.JsonFormUtils.isFieldRequired;
 
 public class AncGenericPopupDialog extends GenericPopupDialog implements AncGenericDialogInterface {
-    private String TAG = this.getClass().getSimpleName();
     private static ContactJsonFormInteractor jsonFormInteractor = ContactJsonFormInteractor.getInstance();
-    private Map<String, ExpansionPanelValuesModel> popAssignedValue = new HashMap<>();
+    protected Toolbar mToolbar;
+    protected String container;
+    private String TAG = this.getClass().getSimpleName();
     private Map<String, ExpansionPanelValuesModel> secondaryValuesMap = new HashMap<>();
-    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
-    private JsonApi jsonApi;
+    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
     private Activity activity;
     private Context context;
     private String header;
-    protected Toolbar mToolbar;
-    protected String container;
     private LinearLayout linearLayout;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
-        activity = (Activity) context;
-        jsonApi = (JsonApi) activity;
-        JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
-        ancJsonApi.setGenericPopup(this);
+        this.activity = (Activity) context;
+        setAncGenericPopUpDialog();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         destroyVariables();
+        JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
+        ancJsonApi.setGenericPopup(null);
     }
 
     private void destroyVariables() {
-        popAssignedValue = new HashMap<>();
-        secondaryValuesMap = new HashMap<>();
+        setSecondaryValuesMap(new HashMap<String, SecondaryValueModel>());
     }
 
     @Override
@@ -93,9 +90,9 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     protected void passData() {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            onDataPass(popAssignedValue, getParentKey(), getStepName(), getChildKey());
+            onDataPass(getParentKey(), getChildKey());
         } else {
-            onGenericDataPass(getPopAssignedValue(), getParentKey(), getStepName(), getChildKey());
+            onGenericDataPass(getParentKey(), getChildKey());
         }
 
     }
@@ -127,23 +124,36 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         super.onCreate(savedInstanceState);
         if (context == null) {
             throw new IllegalStateException(
-                    "The Context is not set. Did you forget to set context with Generic Dialog setContext method?");
+                    "The Context is not set. Did you forget to set context with Anc Generic Dialog setContext method?");
         }
 
-        activity = (Activity) context;
-        jsonApi = (JsonApi) activity;
+        this.activity = (Activity) context;
+        setJsonApi((JsonApi) activity);
 
         try {
+            setMainFormFields(contactJsonFormUtils.getFormFields(getStepName(), context));
+            getJsonApi().setGenericPopup(this);
+            setAncGenericPopUpDialog();
             loadPartialSecondaryValues();
             createSecondaryValuesMap();
             loadSubForms();
-            jsonApi.updateGenericPopupSecondaryValues(getSpecifyContent());
+            getJsonApi().updateGenericPopupSecondaryValues(getSpecifyContent());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
+    }
+
+    private void setAncGenericPopUpDialog() {
+        JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
+        ancJsonApi.setGenericPopup(this);
+    }
+
+    @Override
+    public void setContext(Context context) throws IllegalStateException {
+        super.setContext(context);
+        this.context = context;
     }
 
     @Override
@@ -159,7 +169,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 try {
                     if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
                         setSpecifyContent(subForm.getJSONArray(JsonFormConstants.CONTENT_FORM));
-                        addFormValues(getSpecifyContent());
+                        setSubFormsFields(addFormValues(getSpecifyContent()));
                     } else {
                         Utils.showToast(activity, activity.getApplicationContext().getResources()
                                 .getString(com.vijay.jsonwizard.R.string.please_specify_content));
@@ -176,13 +186,11 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     protected void loadPartialSecondaryValues() throws JSONException {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            JSONArray fields = formUtils.getFormFields(getStepName(), context);
-            if (fields != null && fields.length() > 0) {
-                for (int i = 0; i < fields.length(); i++) {
-                    JSONObject item = fields.getJSONObject(i);
-                    if (item.has(JsonFormConstants.KEY) && item.getString(JsonFormConstants.KEY)
-                            .equals(getParentKey()) && item.has
-                            (JsonFormConstants.VALUE)) {
+            if (getMainFormFields() != null && getMainFormFields().length() > 0) {
+                for (int i = 0; i < getMainFormFields().length(); i++) {
+                    JSONObject item = getMainFormFields().getJSONObject(i);
+                    if (item.has(JsonFormConstants.KEY) && item.getString(JsonFormConstants.KEY).equals(getParentKey()) &&
+                            item.has(JsonFormConstants.VALUE)) {
                         setSecondaryValues(item.getJSONArray(JsonFormConstants.VALUE));
                     }
                 }
@@ -210,8 +218,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
-                    InputMethodManager inputManager = (InputMethodManager) context
-                            .getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager inputManager =
+                            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(((Activity) context).getCurrentFocus().getWindowToken(),
                             HIDE_NOT_ALWAYS);
                 }
@@ -227,8 +235,13 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jsonApi.updateGenericPopupSecondaryValues(null);
-                    AncGenericPopupDialog.this.dismiss();
+                    getJsonApi().updateGenericPopupSecondaryValues(new JSONArray());
+                    setFormFragment(null);
+                    setFormIdentity(null);
+                    setFormLocation(null);
+                    setContext(null);
+                    getJsonApi().setGenericPopup(null);
+                    AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
 
@@ -237,14 +250,15 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 @Override
                 public void onClick(View v) {
                     passData();
-                    jsonApi.updateGenericPopupSecondaryValues(null);
-                    AncGenericPopupDialog.this.dismiss();
+                    getJsonApi().setGenericPopup(null);
+                    getJsonApi().updateGenericPopupSecondaryValues(new JSONArray());
+                    AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
             if (getDialog().getWindow() != null) {
                 getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             }
-            jsonApi.invokeRefreshLogic(null, true, null, null);
+            getJsonApi().invokeRefreshLogic(null, true, null, null);
             return dialogView;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);
@@ -269,67 +283,155 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     /**
      * Receives the generic popup data from Generic Dialog fragment
      *
-     * @param selectedValues
      * @param parentKey
-     * @param stepName
      * @param childKey
      */
-    public void onDataPass(Map<String, ExpansionPanelValuesModel> selectedValues, String parentKey, String stepName,
-                           String childKey) {
+    public void onDataPass(String parentKey, String childKey) {
         JSONObject mJSONObject = getJsonApi().getmJSONObject();
         if (mJSONObject != null) {
-            JSONArray fields = formUtils.getFormFields(stepName, context);
             try {
-
-                if (fields.length() > 0) {
-                    for (int i = 0; i < fields.length(); i++) {
-                        JSONObject item = fields.getJSONObject(i);
+                if (getMainFormFields().length() > 0) {
+                    for (int i = 0; i < getMainFormFields().length(); i++) {
+                        JSONObject item = getMainFormFields().getJSONObject(i);
                         if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey)) {
-                            addValues(getJsonObjectToUpdate(item, childKey), selectedValues);
+                            addValues(getJsonObjectToUpdate(item, childKey));
                         }
                     }
                 }
-
                 getJsonApi().setmJSONObject(mJSONObject);
-
             } catch (JSONException e) {
                 Log.i(TAG, Log.getStackTraceString(e));
             }
         }
     }
 
-    protected void addValues(JSONObject item, Map<String, ExpansionPanelValuesModel> secondaryValueModel) {
-        JSONObject valueObject;
-        JSONArray secondaryValuesArray = new JSONArray();
-        ExpansionPanelValuesModel secondaryValue;
-        for (Object object : secondaryValueModel.entrySet()) {
-            Map.Entry pair = (Map.Entry) object;
-            secondaryValue = (ExpansionPanelValuesModel) pair.getValue();
-            valueObject = createSecValues(secondaryValue);
-            secondaryValuesArray.put(valueObject);
-        }
+    protected void addValues(JSONObject item) throws JSONException {
+        JSONArray secondaryValuesArray = createValues();
         try {
-            item.put(JsonFormConstants.VALUE, reverseValues(secondaryValuesArray));
-            setNewSelectedValues(reverseValues(secondaryValuesArray));
-            org.smartregister.anc.util.Utils
-                    .postEvent(new RefreshExpansionPanelEvent(reverseValues(secondaryValuesArray), linearLayout));
+            JSONArray orderedValues = orderExpansionPanelValues(secondaryValuesArray);
+            item.remove(JsonFormConstants.VALUE);
+            item.put(JsonFormConstants.VALUE, orderedValues);
+            setNewSelectedValues(orderedValues);
+            org.smartregister.anc.util.Utils.postEvent(new RefreshExpansionPanelEvent(orderedValues, linearLayout));
+            addRequiredFields(item);
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
         }
     }
 
-    private JSONObject createSecValues(ExpansionPanelValuesModel valuesModel) {
+    /**
+     * This methods adds a new attribute field called required_fields to the accordion object that it
+     * has been passed. It does so by getting only visible that are required;
+     * @param theAccordion accordion/Expansion panel that is to be updated with the new attribute
+     * @throws JSONException Exception thrown
+     */
+    private void addRequiredFields(JSONObject theAccordion) throws JSONException {
+        //Clear the current required fields first
+        if (theAccordion.has(Constants.REQUIRED_FIELDS)) {
+            theAccordion.remove(Constants.REQUIRED_FIELDS);
+        }
+
+        JSONArray requiredFieldsList = new JSONArray();
+        JSONArray formFields = getSubFormsFields();
+
+        for (int index = 0; index < formFields.length(); index++) {
+            JSONObject fieldObject = formFields.getJSONObject(index);
+            boolean isFieldVisible = !fieldObject.has(JsonFormConstants.IS_VISIBLE) ||
+                    fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE);
+            if (isFieldRequired(fieldObject)) {
+                if(!isFieldVisible){
+                    continue;
+                }
+                requiredFieldsList.put(fieldObject.getString(JsonFormConstants.KEY));
+            }
+        }
+
+        if (requiredFieldsList.length() > 0) {
+            theAccordion.put(Constants.REQUIRED_FIELDS, requiredFieldsList);
+        }
+    }
+
+    @Override
+    protected JSONArray createValues() throws JSONException {
+        JSONArray selectedValues = new JSONArray();
+        JSONArray formFields = getSubFormsFields();
+        String dateField = "";
+        for (int i = 0; i < formFields.length(); i++) {
+            JSONObject field = formFields.getJSONObject(i);
+            if (field != null && field.has(JsonFormConstants.TYPE) &&
+                    !JsonFormConstants.LABEL.equals(field.getString(JsonFormConstants.TYPE)) &&
+                    !JsonFormConstants.SECTIONS.equals(field.getString(JsonFormConstants.TYPE)) &&
+                    !JsonFormConstants.SPACER.equals(field.getString(JsonFormConstants.TYPE)) &&
+                    !JsonFormConstants.TOASTER_NOTES.equals(field.getString(JsonFormConstants.TYPE))) {
+                JSONArray valueOpenMRSAttributes = new JSONArray();
+                JSONObject openMRSAttributes = getFieldOpenMRSAttributes(field);
+                String key = field.getString(JsonFormConstants.KEY);
+                String type = field.getString(JsonFormConstants.TYPE);
+                String label = JsonFormConstants.HIDDEN.equals(type) ? JsonFormConstants.HIDDEN : getWidgetLabel(field);
+                JSONArray values = new JSONArray();
+                if (JsonFormConstants.CHECK_BOX.equals(field.getString(JsonFormConstants.TYPE)) &&
+                        field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+                    values = getOptionsValueCheckBox(field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME));
+                    getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
+                } else if ((JsonFormConstants.ANC_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) ||
+                        JsonFormConstants.NATIVE_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) &&
+                        field.has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
+                    values.put(getOptionsValueRadioButton(field.optString(JsonFormConstants.VALUE),
+                            field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME)));
+                    getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
+                } else if (JsonFormConstants.SPINNER.equals(field.getString(JsonFormConstants.TYPE)) &&
+                        field.has(JsonFormConstants.VALUE)) {
+                    values.put(field.optString(JsonFormConstants.VALUE));
+                    getSpinnerValueOpenMRSAttributes(field, valueOpenMRSAttributes);
+                } else {
+                    if (field.has(JsonFormConstants.VALUE)) {
+                        values.put(field.optString(JsonFormConstants.VALUE));
+                        if (JsonFormConstants.HIDDEN.equals(type) && key.contains(Constants.DATE_TODAY_HIDDEN)) {
+                            dateField = key + ":" + field.optString(JsonFormConstants.VALUE);
+                        }
+                    } else {
+                        if (JsonFormConstants.DATE_PICKER.equals(type) && dateField.contains(key)) {
+                            String[] datePickerValues = dateField.split(":");
+                            if (datePickerValues.length > 1 && !datePickerValues[1].equals("0")) {
+                                values.put(datePickerValues[1]);
+                            }
+                        }
+                    }
+                }
+
+                if (values.length() > 0) {
+                    if (!TextUtils.isEmpty(label) && field.has(Constants.INDEX)) {
+                        int index = field.optInt(Constants.INDEX);
+                        if (JsonFormConstants.HIDDEN.equals(type)) {
+                            label = "";
+                        }
+                        selectedValues.put(createValueObject(key, type, label, index, values, openMRSAttributes,
+                                valueOpenMRSAttributes));
+                    } else {
+                        selectedValues.put(createSecondaryValueObject(key, type, values, openMRSAttributes,
+                                valueOpenMRSAttributes));
+                    }
+                }
+            }
+        }
+        return selectedValues;
+    }
+
+    protected JSONObject createValueObject(String key, String type, String label, int index, JSONArray values,
+                                           JSONObject openMRSAttributes, JSONArray valueOpenMRSAttributes) {
         JSONObject jsonObject = new JSONObject();
         try {
-            String key = valuesModel.getKey();
-            String type = valuesModel.getType();
-            String label = valuesModel.getLabel();
-            JSONArray values = valuesModel.getValues();
-
-            jsonObject.put(JsonFormConstants.KEY, key);
-            jsonObject.put(JsonFormConstants.TYPE, type);
-            jsonObject.put(JsonFormConstants.LABEL, label);
-            jsonObject.put(JsonFormConstants.VALUES, values);
+            if (values.length() > 0) {
+                jsonObject.put(JsonFormConstants.KEY, key);
+                jsonObject.put(JsonFormConstants.TYPE, type);
+                jsonObject.put(JsonFormConstants.LABEL, label);
+                jsonObject.put(Constants.INDEX, index);
+                jsonObject.put(JsonFormConstants.VALUES, values);
+                jsonObject.put(JsonFormConstants.OPENMRS_ATTRIBUTES, openMRSAttributes);
+                if (valueOpenMRSAttributes.length() > 0) {
+                    jsonObject.put(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES, valueOpenMRSAttributes);
+                }
+            }
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));
 
@@ -337,22 +439,56 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         return jsonObject;
     }
 
-    private JSONArray reverseValues(JSONArray jsonArray) throws JSONException {
-        JSONArray newJsonArray = new JSONArray();
-        for (int i = jsonArray.length() - 1; i >= 0; i--) {
-            newJsonArray.put(jsonArray.getJSONObject(i));
+    private String getWidgetLabel(JSONObject jsonObject) throws JSONException {
+        String label = "";
+        String widgetType = jsonObject.getString(JsonFormConstants.TYPE);
+        if (!TextUtils.isEmpty(widgetType) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
+            switch (widgetType) {
+                case JsonFormConstants.EDIT_TEXT:
+                    label = jsonObject.optString(JsonFormConstants.HINT, "");
+                    break;
+                case JsonFormConstants.DATE_PICKER:
+                    label = jsonObject.optString(JsonFormConstants.HINT, "");
+                    break;
+                default:
+                    label = jsonObject.optString(JsonFormConstants.LABEL, "");
+                    break;
+            }
         }
-        return newJsonArray;
+        return label;
+    }
+
+    private JSONArray orderExpansionPanelValues(JSONArray expansionPanelValues) throws JSONException {
+        JSONArray formattedArray = new JSONArray();
+        if (expansionPanelValues != null && expansionPanelValues.length() > 0) {
+            JSONArray sortedItemsWithNulls = new JSONArray();
+            for (int i = 0; i < expansionPanelValues.length(); i++) {
+                JSONObject valueItem = expansionPanelValues.getJSONObject(i);
+                if (valueItem.has(Constants.INDEX)) {
+                    int itemIndex = valueItem.getInt(Constants.INDEX);
+                    sortedItemsWithNulls.put(itemIndex, valueItem);
+                }
+            }
+
+            for (int k = 0; k < sortedItemsWithNulls.length(); k++) {
+                if (!sortedItemsWithNulls.isNull(k)) {
+                    formattedArray.put(sortedItemsWithNulls.getJSONObject(k));
+                }
+            }
+        }
+
+        return formattedArray;
     }
 
     @Override
-    protected void addFormValues(JSONArray jsonArray) {
+    protected JSONArray addFormValues(JSONArray jsonArray) {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject;
                 try {
                     jsonObject = jsonArray.getJSONObject(i);
                     String key = jsonObject.getString(JsonFormConstants.KEY);
+                    jsonObject.put(Constants.INDEX, String.valueOf(i));
                     if (secondaryValuesMap != null && secondaryValuesMap.containsKey(key)) {
                         SecondaryValueModel secondaryValueModel = secondaryValuesMap.get(key);
                         String type = secondaryValueModel.getType();
@@ -364,8 +500,8 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                             }
                         } else {
                             JSONArray values = secondaryValueModel.getValues();
-                            if (type != null && (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) || type.equals(Constants
-                                    .ANC_RADIO_BUTTON))) {
+                            if (type != null && (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) ||
+                                    type.equals(Constants.ANC_RADIO_BUTTON))) {
                                 for (int k = 0; k < values.length(); k++) {
                                     jsonObject.put(JsonFormConstants.VALUE, getValueKey(values.getString(k)));
                                 }
@@ -378,9 +514,11 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                     Log.i(TAG, Log.getStackTraceString(e));
                 }
             }
+            return jsonArray;
         } else {
             super.addFormValues(jsonArray);
         }
+        return jsonArray;
     }
 
     /**
@@ -395,15 +533,15 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         JSONObject item = new JSONObject();
         try {
             if (jsonObject != null && jsonObject.has(JsonFormConstants.TYPE)) {
-                if ((jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) || jsonObject.getString
-                        (JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) && childKey != null) {
+                if ((jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) ||
+                        jsonObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) &&
+                        childKey != null) {
                     JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
                     if (options != null) {
                         for (int i = 0; i < options.length(); i++) {
                             JSONObject childItem = options.getJSONObject(i);
-                            if (childItem != null && childItem.has(JsonFormConstants.KEY) && childKey
-                                    .equals(childItem.getString
-                                            (JsonFormConstants.KEY))) {
+                            if (childItem != null && childItem.has(JsonFormConstants.KEY) &&
+                                    childKey.equals(childItem.getString(JsonFormConstants.KEY))) {
                                 item = childItem;
                             }
                         }
@@ -428,16 +566,30 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
             if (getSecondaryValues() != null) {
                 for (int i = 0; i < getSecondaryValues().length(); i++) {
-                    try {
-                        jsonObject = getSecondaryValues().getJSONObject(i);
-                        String key = jsonObject.getString(JsonFormConstants.KEY);
-                        String type = jsonObject.getString(JsonFormConstants.TYPE);
-                        String label = jsonObject.getString(JsonFormConstants.LABEL);
-                        JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
-                        secondaryValuesMap.put(key, new ExpansionPanelValuesModel(key, type, label, values));
-                        popAssignedValue = secondaryValuesMap;
-                    } catch (JSONException e) {
-                        Log.i(TAG, Log.getStackTraceString(e));
+                    if (!getSecondaryValues().isNull(i)) {
+                        try {
+                            jsonObject = getSecondaryValues().getJSONObject(i);
+                            String key = jsonObject.getString(JsonFormConstants.KEY);
+                            String type = jsonObject.getString(JsonFormConstants.TYPE);
+                            String label = jsonObject.getString(JsonFormConstants.LABEL);
+                            JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+                            int index = jsonObject.optInt(Constants.INDEX);
+
+                            JSONObject openmrsAttributes = new JSONObject();
+                            if (jsonObject.has(JsonFormConstants.OPENMRS_ATTRIBUTES)) {
+                                openmrsAttributes = jsonObject.getJSONObject(JsonFormConstants.OPENMRS_ATTRIBUTES);
+                            }
+                            JSONArray valueOpenMRSAttributes = new JSONArray();
+                            if (jsonObject.has(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES)) {
+                                valueOpenMRSAttributes = jsonObject.getJSONArray(JsonFormConstants.VALUE_OPENMRS_ATTRIBUTES);
+                            }
+
+                            secondaryValuesMap.put(key,
+                                    new ExpansionPanelValuesModel(key, type, label, index, values, openmrsAttributes,
+                                            valueOpenMRSAttributes));
+                        } catch (JSONException e) {
+                            Log.i(TAG, Log.getStackTraceString(e));
+                        }
                     }
                 }
             }
@@ -445,118 +597,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             super.createSecondaryValuesMap();
         }
 
-    }
-
-
-    @Override
-    public void addSelectedValues(Map<String, String> newValue) {
-        if (newValue != null) {
-            Iterator newValueIterator = newValue.entrySet().iterator();
-            String key = "";
-            String type = "";
-            String iteratorValue = "";
-            String value = "";
-            while (newValueIterator.hasNext()) {
-                Map.Entry pair = (Map.Entry) newValueIterator.next();
-                key = String.valueOf(pair.getKey());
-                iteratorValue = String.valueOf(pair.getValue());
-            }
-
-            String[] widgetValues = getWidgetType(iteratorValue);
-            if (widgetValues != null && widgetValues.length > 2) {
-                type = widgetValues[1] + ";" + widgetValues[2];
-                value = widgetValues[0];
-            } else if (widgetValues != null && widgetValues.length == 2) {
-                type = widgetValues[1];
-                value = widgetValues[0];
-            }
-
-            createSecondaryValues(key, type, value);
-        }
-    }
-
-
-    @Override
-    protected void createSecondaryValues(String key, String labelType, String value) {
-        JSONArray values = new JSONArray();
-        values.put(value);
-        String[] string = splitText(labelType, ";");
-        if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            if (string.length > 1) {
-                String type = string[0];
-                String label = string[1];
-                if (type != null && type.equals(JsonFormConstants.CHECK_BOX)) {
-                    if (popAssignedValue != null && popAssignedValue.containsKey(key)) {
-                        ExpansionPanelValuesModel valueModel = popAssignedValue.get(key);
-                        if (valueModel != null) {
-                            JSONArray jsonArray = valueModel.getValues();
-                            if (!checkSimilarity(jsonArray, value)) {
-                                jsonArray.put(value);
-                            }
-
-                            valueModel.setValues(removeUnselectedItems(jsonArray, value));
-                        }
-                    } else {
-                        if (popAssignedValue != null) {
-                            popAssignedValue.put(key, new ExpansionPanelValuesModel(key, type, label, values));
-                        }
-                    }
-                } else {
-                    popAssignedValue.put(key, new ExpansionPanelValuesModel(key, type, label, values));
-                }
-            }
-        } else {
-            super.createSecondaryValues(key, labelType, value);
-        }
-    }
-
-    @Override
-    protected boolean checkSimilarity(JSONArray values, String value) {
-        boolean same = false;
-        try {
-            for (int i = 0; i < values.length(); i++) {
-                String currentValue = values.getString(i);
-                if (currentValue.equals(value)) {
-                    same = true;
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            Log.i(TAG, Log.getStackTraceString(e));
-        }
-
-        return same;
-    }
-
-    @Override
-    protected JSONArray removeUnselectedItems(JSONArray jsonArray, String currentValue) {
-        JSONArray values;
-        ArrayList<String> list = new ArrayList<>();
-        try {
-            for (int i = 0; i < jsonArray.length(); i++) {
-                list.add(jsonArray.getString(i));
-            }
-
-            for (int k = 0; k < list.size(); k++) {
-                String value = list.get(k);
-                String[] splitValues = splitText(value, ":");
-                String[] currentValues = splitText(currentValue, ":");
-                if (splitValues.length == 3 && currentValues.length == 3 && splitValues[0]
-                        .equals(currentValues[0]) && splitValues[1]
-                        .equals(currentValues[1]) && currentValues[2].equals(Constants.FALSE)) {
-                    list.remove(k);
-                }
-            }
-        } catch (Exception e) {
-            Log.i(TAG, Log.getStackTraceString(e));
-        }
-
-        values = new JSONArray(list);
-        return values;
-    }
-
-    private String[] splitText(String text, String spliter) {
-        return text.split(spliter);
     }
 
     public void setHeader(String header) {

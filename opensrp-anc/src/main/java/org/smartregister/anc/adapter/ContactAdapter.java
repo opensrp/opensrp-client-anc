@@ -19,6 +19,50 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     private View.OnClickListener clickListener;
 
+    public ContactAdapter(Context context, List<Contact> contacts, View.OnClickListener clickListener) {
+        this.context = context;
+        this.contacts = contacts;
+        this.clickListener = clickListener;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_card_item, parent, false);
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        Contact contact = contacts.get(position);
+
+        holder.cardLayout.setBackgroundResource(contact.getBackground());
+        holder.cardLayout.setOnClickListener(clickListener);
+        holder.cardLayout.setTag(contact);
+
+        holder.name.setText(contact.getName());
+
+        if (contact.getRequiredFields() == null) {
+            holder.requiredFields.setVisibility(View.GONE);
+            holder.completeLayout.setVisibility(View.GONE);
+        } else if (contact.getRequiredFields() == 0) {
+            holder.completeLayout.setVisibility(View.VISIBLE);
+            holder.requiredFields.setVisibility(View.GONE);
+        } else {
+            holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
+            holder.requiredFields.setVisibility(View.VISIBLE);
+            holder.completeLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return contacts.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View cardLayout;
         public TextView name;
@@ -33,49 +77,5 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             requiredFields = view.findViewById(R.id.required_fields);
             completeLayout = view.findViewById(R.id.complete_layout);
         }
-    }
-
-    public ContactAdapter(Context context, List<Contact> contacts, View.OnClickListener clickListener) {
-        this.context = context;
-        this.contacts = contacts;
-        this.clickListener = clickListener;
-    }
-
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contact_card_item, parent, false);
-
-        return new ViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        Contact contact = contacts.get(position);
-
-        holder.cardLayout.setBackgroundResource(contact.getBackground());
-        holder.cardLayout.setOnClickListener(clickListener);
-        holder.cardLayout.setTag(contact);
-
-        holder.name.setText(contact.getName());
-
-        if (contact.getRequiredFields() > 0) {
-            holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
-
-            holder.requiredFields.setVisibility(View.VISIBLE);
-            holder.completeLayout.setVisibility(View.GONE);
-        } else {
-            holder.completeLayout.setVisibility(View.VISIBLE);
-            holder.requiredFields.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return contacts.size();
     }
 }

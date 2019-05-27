@@ -100,28 +100,28 @@ actions:
 name: step4_toaster28
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_beat_rate_value > 0 && (step4_fetal_heart_beat_rate_value < 110 || step4_fetal_heart_beat_rate_value > 160))"
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
 actions:
 - "isRelevant = true"
 ---
 name: step4_fetal_movement
 description: Fetal movement
 priority: 1
-condition: "global_gest_age >=  20"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
 - "isRelevant = true"
 ---
 name: step4_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_beat_rate_value > 0 && (step4_fetal_heart_beat_rate_value < 110 || step4_fetal_heart_beat_rate_value > 160))"
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
 actions:
 - "isRelevant = true"
 ---
 name: step4_fetal_heart_rate_repeat
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_beat_rate_value > 0 && (step4_fetal_heart_beat_rate_value < 110 || step4_fetal_heart_beat_rate_value > 160))"
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
 actions:
 - "isRelevant = true"
 ---
@@ -198,7 +198,7 @@ actions:
 name: step4_fetal_presentation
 description: Fetal movement
 priority: 1
-condition: "true"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
 actions:
 - "isRelevant = true"
 ---
@@ -233,6 +233,6 @@ actions:
 name: step3_toaster26
 description: toaster26
 priority: 1
-condition: "step3_cervical_exam == 3"
+condition: "step3_toaster26_hidden > 2"
 actions:
-- "isRelevant = true"
+    - "isRelevant = true"
