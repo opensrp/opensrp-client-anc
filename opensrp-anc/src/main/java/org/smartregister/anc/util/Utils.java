@@ -172,10 +172,14 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
         try {
-            LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-            LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
-            Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
-            return weeks.getWeeks();
+            if (!"0".equals(expectedDeliveryDate)) {
+                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+                LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
+                return weeks.getWeeks();
+            } else {
+                return 0;
+            }
         } catch (IllegalArgumentException e) {
             Log.e(TAG, e.getMessage(), e);
             return 0;
@@ -211,7 +215,6 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId       {@link String}
      * @param personObjectClient {@link CommonPersonObjectClient}
      * @param context            {@link Context}
-     *
      * @author martinndegwa
      */
     public static void proceedToContact(String baseEntityId, HashMap<String, String> personObjectClient, Context context) {
@@ -274,7 +277,6 @@ public class Utils extends org.smartregister.util.Utils {
      * Checks the pending required fields on the json forms and returns true|false
      *
      * @param object {@link JSONObject}
-     *
      * @return true|false {@link Boolean}
      * @throws Exception
      * @author martinndegwa
@@ -315,7 +317,6 @@ public class Utils extends org.smartregister.util.Utils {
      * This finalizes the form and redirects you to the contact summary page for more confirmation of the data added
      *
      * @param context {@link Activity}
-     *
      * @author martinndegwa
      */
     public static void finalizeForm(Activity context, HashMap<String, String> womanDetails, boolean isRefferal) {

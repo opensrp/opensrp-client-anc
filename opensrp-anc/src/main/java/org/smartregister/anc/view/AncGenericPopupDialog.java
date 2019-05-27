@@ -53,8 +53,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     protected String container;
     private String TAG = this.getClass().getSimpleName();
     private Map<String, ExpansionPanelValuesModel> secondaryValuesMap = new HashMap<>();
-    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
-    private JsonApi jsonApi;
+    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
     private Activity activity;
     private Context context;
     private String header;
@@ -77,7 +76,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     }
 
     private void destroyVariables() {
-        secondaryValuesMap = new HashMap<>();
+        setSecondaryValuesMap(new HashMap<String, SecondaryValueModel>());
     }
 
     @Override
@@ -91,9 +90,9 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     protected void passData() {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            onDataPass(getParentKey(), getStepName(), getChildKey());
+            onDataPass(getParentKey(), getChildKey());
         } else {
-            onGenericDataPass(getParentKey(), getStepName(), getChildKey());
+            onGenericDataPass(getParentKey(), getChildKey());
         }
 
     }
@@ -123,30 +122,30 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            if (context == null) {
-                throw new IllegalStateException(
-                        "The Context is not set. Did you forget to set context with Anc Generic Dialog setContext method?");
-            }
+        if (context == null) {
+            throw new IllegalStateException(
+                    "The Context is not set. Did you forget to set context with Anc Generic Dialog setContext method?");
+        }
 
-            this.activity = (Activity) context;
-            this.jsonApi = (JsonApi) activity;
+        this.activity = (Activity) context;
+        setJsonApi((JsonApi) activity);
 
-            try {
-                jsonApi.setGenericPopup(this);
-                setAncGenericPopUpDialog();
-                loadPartialSecondaryValues();
-                createSecondaryValuesMap();
-                loadSubForms();
-                jsonApi.updateGenericPopupSecondaryValues(getSpecifyContent());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        try {
+            setMainFormFields(contactJsonFormUtils.getFormFields(getStepName(), context));
+            getJsonApi().setGenericPopup(this);
+            setAncGenericPopUpDialog();
+            loadPartialSecondaryValues();
+            createSecondaryValuesMap();
+            loadSubForms();
+            getJsonApi().updateGenericPopupSecondaryValues(getSpecifyContent());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-            setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogStyle);
     }
 
-    private void setAncGenericPopUpDialog(){
-        jsonApi = (JsonApi) activity;
+    private void setAncGenericPopUpDialog() {
         JsonApiInterface ancJsonApi = (JsonApiInterface) activity;
         ancJsonApi.setGenericPopup(this);
     }
@@ -187,10 +186,9 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     @Override
     protected void loadPartialSecondaryValues() throws JSONException {
         if (!TextUtils.isEmpty(getWidgetType()) && getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-            JSONArray fields = formUtils.getFormFields(getStepName(), context);
-            if (fields != null && fields.length() > 0) {
-                for (int i = 0; i < fields.length(); i++) {
-                    JSONObject item = fields.getJSONObject(i);
+            if (getMainFormFields() != null && getMainFormFields().length() > 0) {
+                for (int i = 0; i < getMainFormFields().length(); i++) {
+                    JSONObject item = getMainFormFields().getJSONObject(i);
                     if (item.has(JsonFormConstants.KEY) && item.getString(JsonFormConstants.KEY).equals(getParentKey()) &&
                             item.has(JsonFormConstants.VALUE)) {
                         setSecondaryValues(item.getJSONArray(JsonFormConstants.VALUE));
@@ -237,12 +235,12 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             cancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jsonApi.updateGenericPopupSecondaryValues(new JSONArray());
+                    getJsonApi().updateGenericPopupSecondaryValues(new JSONArray());
                     setFormFragment(null);
                     setFormIdentity(null);
                     setFormLocation(null);
                     setContext(null);
-                    jsonApi.setGenericPopup(null);
+                    getJsonApi().setGenericPopup(null);
                     AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
@@ -252,15 +250,15 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                 @Override
                 public void onClick(View v) {
                     passData();
-                    jsonApi.setGenericPopup(null);
-                    jsonApi.updateGenericPopupSecondaryValues(new JSONArray());
+                    getJsonApi().setGenericPopup(null);
+                    getJsonApi().updateGenericPopupSecondaryValues(new JSONArray());
                     AncGenericPopupDialog.this.dismissAllowingStateLoss();
                 }
             });
             if (getDialog().getWindow() != null) {
                 getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             }
-            jsonApi.invokeRefreshLogic(null, true, null, null);
+            getJsonApi().invokeRefreshLogic(null, true, null, null);
             return dialogView;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);
@@ -286,26 +284,21 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
      * Receives the generic popup data from Generic Dialog fragment
      *
      * @param parentKey
-     * @param stepName
      * @param childKey
      */
-    public void onDataPass(String parentKey, String stepName, String childKey) {
+    public void onDataPass(String parentKey, String childKey) {
         JSONObject mJSONObject = getJsonApi().getmJSONObject();
         if (mJSONObject != null) {
-            JSONArray fields = formUtils.getFormFields(stepName, context);
             try {
-
-                if (fields.length() > 0) {
-                    for (int i = 0; i < fields.length(); i++) {
-                        JSONObject item = fields.getJSONObject(i);
+                if (getMainFormFields().length() > 0) {
+                    for (int i = 0; i < getMainFormFields().length(); i++) {
+                        JSONObject item = getMainFormFields().getJSONObject(i);
                         if (item != null && item.getString(JsonFormConstants.KEY).equals(parentKey)) {
                             addValues(getJsonObjectToUpdate(item, childKey));
                         }
                     }
                 }
-
                 getJsonApi().setmJSONObject(mJSONObject);
-
             } catch (JSONException e) {
                 Log.i(TAG, Log.getStackTraceString(e));
             }
@@ -533,7 +526,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
      *
      * @param jsonObject {@link JSONObject}
      * @param childKey   {@link String}
-     *
      * @return item {@link JSONObject}
      */
     @Override

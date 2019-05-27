@@ -8,6 +8,7 @@
     android:scrollbars="none">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_grey_background">

@@ -1,7 +1,6 @@
 package org.smartregister.anc.interactor;
 
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
