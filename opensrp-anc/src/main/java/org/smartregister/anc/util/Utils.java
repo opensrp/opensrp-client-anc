@@ -48,7 +48,6 @@ import org.smartregister.anc.model.ContactModel;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.util.FormUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
