@@ -368,8 +368,7 @@
           "err": "Please enter the current weight"
         },
         "step": "step1",
-        "is-rule-check": true,
-        "value": "78"
+        "is-rule-check": true
       },
       {
         "key": "first_weight",
