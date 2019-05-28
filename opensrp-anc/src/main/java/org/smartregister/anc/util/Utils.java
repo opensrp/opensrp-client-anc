@@ -48,6 +48,7 @@ import org.smartregister.anc.model.ContactModel;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.util.FormUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -286,10 +287,8 @@ public class Utils extends org.smartregister.util.Utils {
     public static boolean hasPendingRequiredFields(JSONObject object) throws Exception {
         if (object != null) {
             Iterator<String> keys = object.keys();
-
             while (keys.hasNext()) {
                 String key = keys.next();
-
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
@@ -297,22 +296,22 @@ public class Utils extends org.smartregister.util.Utils {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        boolean isRequiredField =
-                                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
-                                        fieldObject.has(JsonFormConstants.V_REQUIRED);
+                        boolean isRequiredField = JsonFormUtils.isFieldRequired(fieldObject);
+                        //Do not check for required for fields that are invisible
+                        if(fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)){
+                            isRequiredField = false;
+                        }
 
-                        if (isRequiredField && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(
-                                fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
-
-                            return false;
-
-
+                        if (isRequiredField && ((fieldObject.has(JsonFormConstants.VALUE) && TextUtils.isEmpty(
+                                fieldObject.getString(JsonFormConstants.VALUE))) || !fieldObject.has(JsonFormConstants.VALUE))) {
+                            //TO DO Remove/ Alter logical condition
+                            return true;
                         }
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**

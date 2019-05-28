@@ -275,7 +275,7 @@ public class UtilsTest extends BaseUnitTest {
     public void testHasPendingRequiredFields() throws Exception {
         //Checks if there are required fields that don't have value
         JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
-        Assert.assertFalse(hasPendingRequiredFields(mainObject));
+        Assert.assertTrue(hasPendingRequiredFields(mainObject));
     }
 
     @Test
