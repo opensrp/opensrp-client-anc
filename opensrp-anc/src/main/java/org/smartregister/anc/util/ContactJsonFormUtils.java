@@ -186,9 +186,7 @@ public class ContactJsonFormUtils extends FormUtils {
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUE) &&
-                    !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.VALUE)) &&
-                    jsonObject.getString(JsonFormConstants.VALUE).equals(Constants.BOOLEAN.TRUE)) {
+            if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
                 keyList.add(jsonObject.getString(JsonFormConstants.KEY));
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
