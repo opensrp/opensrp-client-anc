@@ -604,28 +604,28 @@ actions:
 name: step8_ifa_high_prev
 description: ifa_high_prev
 priority: 1
-condition: "global_pop_anaemia_40 == true && global_anaemic == 0"
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_accordion_ifa_high_prev
 description: ifa_high_prev
 priority: 1
-condition: "(global_pop_anaemia_40 == true && global_anaemic == 0) || (global_pop_anaemia_40 == false && global_anaemic == 0) || (global_pop_anaemia_40 == false && global_anaemic == 0 && global_pop_anaemia_20 == true && global_ifa_effects == 'yes')"
+condition: "(global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0)) || (global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)) || (global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && global_pop_anaemia_20 == true && global_ifa_effects == 'yes')"
 actions:
   - "isRelevant = true"
 ---
 name: step8_ifa_low_prev
 description: ifa_low_prev
 priority: 1
-condition: "global_pop_anaemia_40 == false && global_anaemic == 0"
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_ifa_weekly
 description: ifa_weekly
 priority: 1
-condition: "global_pop_anaemia_40 == false && global_anaemic == 0 && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
 actions:
   - "isRelevant = true"
 ---
