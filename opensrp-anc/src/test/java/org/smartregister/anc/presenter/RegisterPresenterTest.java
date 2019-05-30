@@ -1,5 +1,6 @@
 package org.smartregister.anc.presenter;
 
+import android.content.Context;
 import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -38,6 +39,8 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
     private RegisterContract.Presenter presenter;
 
+    @Mock
+    private Context context;
 
     @Before
     public void setUp() {
@@ -274,5 +277,10 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
         registerPresenter.updateInitials();
         Mockito.verify(view).updateInitialsText(initials);
+    }
+
+    @Test
+    public void testAncCloseRecord() {
+
     }
 }

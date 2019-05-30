@@ -8,6 +8,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
@@ -79,6 +80,12 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     @Override
     public void setupViews(View view) {
         super.setupViews(view);
+        //Do not show filter button at the moment until all filters are implemented
+        RelativeLayout filterSortRelativeLayout = view.findViewById(R.id.filter_sort_layout);
+        if(filterSortRelativeLayout != null){
+            filterSortRelativeLayout.setVisibility(View.GONE);
+        }
+
         View filterText = view.findViewById(R.id.filter_text_view);
         if (filterText != null) {
             filterText.setOnClickListener(registerActionHandler);
