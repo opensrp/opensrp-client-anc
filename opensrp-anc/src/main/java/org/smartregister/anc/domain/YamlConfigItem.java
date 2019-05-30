@@ -11,6 +11,15 @@ public class YamlConfigItem {
     private String relevance;
     private String isRedFont;
 
+    public YamlConfigItem() {
+    }
+
+    public YamlConfigItem(String template, String relevance, String isRedFont) {
+        this.template = template;
+        this.relevance = relevance;
+        this.isRedFont = isRedFont;
+    }
+
     public String getIsRedFont() {
         return isRedFont;
     }

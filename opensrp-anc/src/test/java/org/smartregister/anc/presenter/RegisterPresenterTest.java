@@ -278,9 +278,4 @@ public class RegisterPresenterTest extends BaseUnitTest {
         registerPresenter.updateInitials();
         Mockito.verify(view).updateInitialsText(initials);
     }
-
-    @Test
-    public void testAncCloseRecord() {
-
-    }
 }

@@ -12,6 +12,16 @@ public class YamlConfig {
     private List<YamlConfigItem> fields;
     private String test_results;
 
+    public YamlConfig() {
+    }
+
+    public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results) {
+        this.group = group;
+        this.sub_group = sub_group;
+        this.fields = fields;
+        this.test_results = test_results;
+    }
+
     public String getSubGroup() {
         return sub_group;
     }
