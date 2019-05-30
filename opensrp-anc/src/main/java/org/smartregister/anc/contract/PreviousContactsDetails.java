@@ -16,6 +16,7 @@ public interface PreviousContactsDetails {
         void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd);
 
         void loadPreviousContacts(String baseEntityId, String contactNo) throws IOException, ParseException, JSONException;
+
     }
 
     interface View {

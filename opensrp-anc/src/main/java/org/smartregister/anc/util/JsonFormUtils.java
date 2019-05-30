@@ -92,7 +92,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static JSONObject getFormAsJson(JSONObject form, String formName, String id, String currentLocationId)
-    throws Exception {
+            throws Exception {
         if (form == null) {
             return null;
         }
@@ -199,7 +199,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JsonFormUtils.tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
             return Pair.create(baseClient, baseEvent);
-        } catch (Exception e) {         Log.e(TAG, Log.getStackTraceString(e));
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
     }
@@ -360,7 +361,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
-    throws JSONException {
+            throws JSONException {
 
         if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_ENTERED)) {
             getDobUsingEdd(womanClient, jsonObject, DBConstants.KEY.DOB);
@@ -397,7 +398,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void getDobUsingEdd(Map<String, String> womanClient, JSONObject jsonObject, String birthDate)
-    throws JSONException {
+            throws JSONException {
         String dobString = womanClient.get(birthDate);
         if (StringUtils.isNotBlank(dobString)) {
             Date dob = Utils.dobStringToDate(dobString);
@@ -408,7 +409,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void formatEdd(Map<String, String> womanClient, JSONObject jsonObject, String eddDate)
-    throws JSONException {
+            throws JSONException {
         String eddString = womanClient.get(eddDate);
         if (StringUtils.isNotBlank(eddString)) {
             Date edd = Utils.dobStringToDate(eddString);
@@ -835,7 +836,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
      * @param facts
      * @param position
      * @param context
-     *
      * @return constraintLayout
      */
     @NonNull
