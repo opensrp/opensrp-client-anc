@@ -289,10 +289,6 @@
           "value": "true",
           "err": "Phone number must be numeric"
         },
-        /*"v_regex": {
-          "value": "([0-9]{10})|\\s*",
-          "err": "Number must be a total of 10 digits in length"
-        },*/
         "v_required": {
           "value": "true",
           "err": "Please specify the woman's phone number"
