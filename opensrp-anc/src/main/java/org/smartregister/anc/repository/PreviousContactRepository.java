@@ -30,10 +30,14 @@ public class PreviousContactRepository extends BaseRepository {
     public static final String CREATED_AT = "created_at";
     public static final String GEST_AGE = "gest_age_openmrs";
     private static final String TAG = PreviousContactRepository.class.getCanonicalName();
-    private static final String CREATE_TABLE_SQL =
-            "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + CONTACT_NO +
-                    "  VARCHAR NOT NULL, " + BASE_ENTITY_ID + "  VARCHAR NOT NULL, " + KEY + "  VARCHAR, " + VALUE +
-                    "  VARCHAR NOT NULL, " + CREATED_AT + " INTEGER NOT NULL)";
+    private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
+            + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+            + CONTACT_NO + "  VARCHAR NOT NULL, "
+            + BASE_ENTITY_ID + "  VARCHAR NOT NULL, "
+            + KEY + "  VARCHAR, "
+            + VALUE + "  VARCHAR NOT NULL, "
+            + CREATED_AT + " INTEGER NOT NULL, " +
+            "UNIQUE(" + BASE_ENTITY_ID + ", " + CONTACT_NO + ", " + KEY + ") ON CONFLICT REPLACE)";
 
     private static final String INDEX_ID =
             "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
@@ -118,6 +122,7 @@ public class PreviousContactRepository extends BaseRepository {
      * @param keysList     an optional list of keys to query null otherwise to get all keys for that base entity id
      */
     public List<PreviousContact> getPreviousContacts(String baseEntityId, List<String> keysList) {
+        String orderBy = ID + " DESC ";
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
@@ -137,7 +142,7 @@ public class PreviousContactRepository extends BaseRepository {
                 }
             }
 
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
             if (mCursor != null) {
 
@@ -292,8 +297,9 @@ public class PreviousContactRepository extends BaseRepository {
 
     /**
      * Gets the Immediate previous contact's facts. It checks for both referral and normal contacts hence the recursion.
-     * @param baseEntityId {@link String}
-     * @param contactNo {@link String}
+     *
+     * @param baseEntityId  {@link String}
+     * @param contactNo     {@link String}
      * @param checkNegative {@link Boolean}
      * @return previousContactsFacts {@link Facts}
      */
@@ -322,7 +328,7 @@ public class PreviousContactRepository extends BaseRepository {
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
             } else if (Integer.parseInt(contactNo) > 0) {
-               return getPreviousContactFacts(baseEntityId, contactNo, false);
+                return getPreviousContactFacts(baseEntityId, contactNo, false);
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
@@ -338,13 +344,14 @@ public class PreviousContactRepository extends BaseRepository {
     /**
      * Returns contact numbers according to the @param checkNegative. If true then it just uses the initial contact. If
      * true the it would return a previous|referral contact
+     *
      * @param previousContact {@link String}
-     * @param checkNegative {@link Boolean}
+     * @param checkNegative   {@link Boolean}
      * @return contactNo {@link String}
      */
     private String getContactNo(String previousContact, boolean checkNegative) {
         String contactNo = previousContact;
-        if (! TextUtils.isEmpty(previousContact) && checkNegative) {
+        if (!TextUtils.isEmpty(previousContact) && checkNegative) {
             contactNo = "-" + (Integer.parseInt(previousContact) + 1);
         }
 
@@ -353,8 +360,9 @@ public class PreviousContactRepository extends BaseRepository {
 
     /**
      * Gets the last contacts Schedule
+     *
      * @param baseEntityId {@link String}
-     * @param contactNo {@link String}
+     * @param contactNo    {@link String}
      * @return schedule {@link Facts}
      */
     public Facts getImmediatePreviousSchedule(String baseEntityId, String contactNo) {
