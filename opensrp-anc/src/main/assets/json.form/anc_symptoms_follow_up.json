@@ -24,7 +24,16 @@
     "condom_use",
     "alcohol_substance_use",
     "phys_symptoms",
-    "other_symptoms"
+    "other_symptoms",
+    "calcium_supp",
+    "vita_supp",
+    "syphilis_positive",
+    "pe_risk_aspirin_calcium",
+    "pe_risk_aspirin",
+    "ifa_high_prev",
+    "ifa_low_prev",
+    "ifa_weekly",
+    "ifa_anaemia"
   ],
   "metadata": {
     "start": {
