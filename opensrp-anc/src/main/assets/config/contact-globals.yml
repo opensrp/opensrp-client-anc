@@ -160,6 +160,7 @@ form: anc_test
 fields:
   - "other_sym_lbpp"
   - "urine_protein"
+  - "edd"
   - "gest_age"
   - "gest_age_openmrs"
   - "no_of_fetuses"

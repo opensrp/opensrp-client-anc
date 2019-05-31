@@ -533,7 +533,7 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "use_lmp",
+          "key": "lmp",
           "text": "Using LMP",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -541,7 +541,7 @@
           "extra_info": "GA: {lmp_gest_age} <br/> EDD: {lmp_edd}"
         },
         {
-          "key": "use_ultrasound",
+          "key": "ultrasound",
           "text": "Using ultrasound",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -549,7 +549,7 @@
           "extra_info": "GA: {ultrasound_gest_age} <br> EDD: {ultrasound_edd}"
         },
         {
-          "key": "use_sfh_abdominal_palpation",
+          "key": "sfh",
           "text": "Using SFH or abdominal palpation",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -577,29 +577,45 @@
       }
     },
     {
+      "key": "gest_age",
+      "type": "hidden",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "gest_age",
-      "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     },
     {
+      "key": "edd",
+      "type": "hidden",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "edd",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "gest_age_openmrs",
       "type": "hidden",
-      "label_text_style": "bold",
-      "text": "0",
-      "text_color": "#000000",
-      "v_required": {
-        "value": false
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
       }
     }
   ]

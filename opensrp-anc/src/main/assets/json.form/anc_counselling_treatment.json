@@ -493,7 +493,8 @@
           }
         ],
         "v_required": {
-          "value": false
+          "value": true,
+          "err": "Enter reason hospital referral was not done"
         },
         "relevance": {
           "step1:referred_hosp": {

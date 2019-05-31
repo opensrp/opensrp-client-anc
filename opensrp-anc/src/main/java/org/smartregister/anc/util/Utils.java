@@ -539,7 +539,8 @@ public class Utils extends org.smartregister.util.Utils {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
                         !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
-                    label = jsonObject.getString(JsonFormConstants.LABEL);
+                    //Get label and replace any colon in some labels. Not needed at this point
+                    label = jsonObject.getString(JsonFormConstants.LABEL).replace(":","");
                     stringList.add(label + ":" + getStringValue(jsonObject));
                 }
             }

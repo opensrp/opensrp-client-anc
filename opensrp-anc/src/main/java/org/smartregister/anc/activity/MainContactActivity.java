@@ -263,11 +263,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             map.put(Constants.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
             map.put(Constants.AGE, womanAge);
 
-            //Handle Gestation age. Use the latest calculated gestation age. Checks if the Current
-            //Gestation Age is greater than the previously stored Gestation age
-            String gestAgeInMap = formGlobalValues.get(Constants.GEST_AGE_OPENMRS);
-            int previousGestAge = !TextUtils.isEmpty(gestAgeInMap) ? Integer.parseInt(gestAgeInMap) : 0;
-            if (previousGestAge < presenter.getGestationAge()) {
+            //Inject gestational age when it has not been calculated from profile form
+            if (TextUtils.isEmpty(formGlobalValues.get(Constants.GEST_AGE_OPENMRS))) {
                 map.put(Constants.GEST_AGE_OPENMRS, String.valueOf(presenter.getGestationAge()));
             }
 

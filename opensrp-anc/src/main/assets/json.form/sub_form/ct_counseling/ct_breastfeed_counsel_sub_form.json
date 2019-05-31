@@ -6,7 +6,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "label": "Breastfeeding counseling",
       "label_text_style": "bold",
       "options": [
         {

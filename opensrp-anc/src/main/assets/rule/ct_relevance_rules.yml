@@ -562,7 +562,7 @@ actions:
 name: step7_gbs_agent_counsel
 description: gbs_agent_counsel
 priority: 1
-condition: "global_urine_culture == 'positive_gbs'"
+condition: "global_urine_culture != '' && global_urine_culture == 'positive_gbs'"
 actions:
   - "isRelevant = true"
 ---
@@ -572,13 +572,6 @@ priority: 1
 condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
 actions:
   - "isRelevant = true"
----
-name: step7_accordion_breastfeed_counsel
-description: breastfeed_counsel
-priority: 1
-condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
-actions:
-- "isRelevant = true"
 ---
 name: step8_ipv_enquiry
 description: ipv_enquiry

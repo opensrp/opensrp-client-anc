@@ -58,16 +58,58 @@ actions:
 name: step1_select_gest_age_edd
 description: Gest age
 priority: 1
-condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
+condition: "true"
 actions:
     - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
 ---
 name: step2_select_gest_age_edd
 description: Gest age
 priority: 1
-condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
+condition: "true"
 actions:
     - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+---
+name: step1_edd
+description: Selected EDD
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step1_select_gest_age_edd != '' && step1_select_gest_age_edd == 'ultrasound'  && (step1_ultrasound == 'done_today' || (step1_ultrasound == 'done_earlier' && step1_ultrasound_edd != '')) ?  step1_ultrasound_edd : global_edd"
+---
+name: step2_edd
+description: Selected EDD
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step2_select_gest_age_edd != '' && step2_select_gest_age_edd == 'ultrasound'  && (step2_ultrasound == 'done_today' || (step2_ultrasound == 'done_earlier' && step2_ultrasound_edd != '')) ?  step2_ultrasound_edd : global_edd"
+---
+name: step1_gest_age
+description: Selected Gest Age
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step1_select_gest_age_edd != '' && step1_select_gest_age_edd == 'ultrasound'  && (step1_ultrasound == 'done_today' || (step1_ultrasound == 'done_earlier' && step1_ultrasound_gest_age != '')) ?  step1_ultrasound_gest_age : global_gest_age"
+---
+name: step2_gest_age
+description: Selected Gest Age
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step2_select_gest_age_edd != '' && step2_select_gest_age_edd == 'ultrasound'  && (step2_ultrasound == 'done_today' || (step2_ultrasound == 'done_earlier' && step2_ultrasound_gest_age != '')) ?  step2_ultrasound_gest_age : global_gest_age"
+---
+name: step1_gest_age_openmrs
+description: Ga to send to openmrs
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step1_select_gest_age_edd != '' && step1_select_gest_age_edd == 'ultrasound' && (step1_ultrasound == 'done_today' || (step1_ultrasound == 'done_earlier' && step1_ultrasound_gest_age != ''))  ? helper.stripGaNumber(step1_ultrasound_gest_age) : global_gest_age_openmrs"
+---
+name: step2_gest_age_openmrs
+description: Ga to send to openmrs
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step2_select_gest_age_edd != '' && step2_select_gest_age_edd == 'ultrasound' && (step2_ultrasound == 'done_today' || (step2_ultrasound == 'done_earlier' && step2_ultrasound_gest_age != '')) ? helper.stripGaNumber(step2_ultrasound_gest_age) : global_gest_age_openmrs"
 ---
 name: step1_no_of_fetuses
 description: No. of fetuses
