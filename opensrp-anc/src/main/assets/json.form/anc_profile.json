@@ -1882,7 +1882,7 @@
         },
         "max_date": "today",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please enter the HIV diagnosis date"
         }
       },

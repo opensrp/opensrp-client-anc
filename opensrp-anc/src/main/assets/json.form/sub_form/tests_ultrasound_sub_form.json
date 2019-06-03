@@ -261,6 +261,20 @@
       "spacer_height": "10dp"
     },
     {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "no_of_fetuses_hidden",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "no_of_fetuses_label",
       "type": "label",
       "label_text_style": "bold",
