@@ -37,7 +37,7 @@ public class PreviousContactRepository extends BaseRepository {
             + KEY + "  VARCHAR, "
             + VALUE + "  VARCHAR NOT NULL, "
             + CREATED_AT + " INTEGER NOT NULL, " +
-            "UNIQUE(" + BASE_ENTITY_ID + ", " + CONTACT_NO + ", " + KEY + ") ON CONFLICT REPLACE)";
+            "UNIQUE(" + BASE_ENTITY_ID + ", " + CONTACT_NO + ", " + KEY + ", " + VALUE + ") ON CONFLICT REPLACE)";
 
     private static final String INDEX_ID =
             "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
