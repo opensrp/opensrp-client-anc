@@ -125,9 +125,6 @@ fields:
   - template: "Cervix dilated: {dilation_cm} cm"
     relevance: "dilation_cm > 2"
 
-  - template: "No fetal movement felt"
-    relevance: "fetal_movement == 'no'"
-
   - template: "No fetal heartbeat observed"
     relevance: "fetal_heartbeat == 'no'"
 
