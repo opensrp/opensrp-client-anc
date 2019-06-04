@@ -29,22 +29,22 @@ fields:
   relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
 - template: "Respiratory distress: {respiratory_exam_abnormal_value}"
-  relevance: "respiratory_exam_abnormal != ''"
+  relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
 - template: "Low oximetry: {oximetry}%"
   relevance: "oximetry < 92"
 
 - template: "Abnormal cardiac exam: {cardiac_exam_abnormal_value}"
-  relevance: "!cardiac_exam_abnormal.contains('none')"
+  relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
 
 - template: "Abnormal breast exam: {breast_exam_abnormal_value}"
-  relevance: "!breast_exam_abnormal.contains('none')"
+  relevance: "!breast_exam_abnormal.contains('none') && !breast_exam_abnormal.isEmpty()"
 
 - template: "Abnormal abdominal exam: {abdominal_exam_abnormal_value}"
-  relevance: "!abdominal_exam_abnormal.contains('none')"
+  relevance: "!abdominal_exam_abnormal.contains('none') && !abdominal_exam_abnormal.isEmpty()"
 
 - template: "Abnormal pelvic exam: {pelvic_exam_abnormal_value}"
-  relevance: "!pelvic_exam_abnormal.contains('none')"
+  relevance: "!pelvic_exam_abnormal.contains('none') && !pelvic_exam_abnormal.isEmpty()"
 
 - template: "No fetal heartbeat observed"
   relevance: "fetal_heartbeat == 'no'"
@@ -130,7 +130,7 @@ fields:
 - template: "Allergies: {allergies_value}, {}"
   relevance: "allergies != ''"
 
-- template: "Surgeries: {surgeries_value}, {surgeries_other_gyn_proced}, {surgeries_other}"
+- template: "Surgeries: {surgeries_value}"
   relevance: "surgeries != ''"
 
 - template: "Chronic health conditions: {health_conditions_value}, {health_conditions_other}"
@@ -449,7 +449,7 @@ fields:
   relevance: "respiratory_exam != ''"
 
 - template: "Abnormal (specify): {respiratory_exam_abnormal_value}"
-  relevance: "respiratory_exam_abnormal != ''"
+  relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
 - template: "Oximetry: {oximetry}%"
   relevance: "oximetry != ''"

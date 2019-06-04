@@ -1665,6 +1665,10 @@
         "type": "edit_text",
         "hint": "Other gynecological procedures",
         "edit_type": "edit_text",
+        "other_for": {
+          "parent_key": "surgeries",
+          "label": "Other gynecological procedures (specify)"
+        },
         "relevance": {
           "step4:surgeries": {
             "ex-checkbox": [

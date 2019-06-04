@@ -375,7 +375,15 @@ public class ContactJsonFormUtils extends FormUtils {
 
             facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
             ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
-
+            // in complex expression of other where more than one other option is defined e.g. surgeries for profile has 2 items
+            //To specify other for: gynecology surgery and the normal other fields with edit text
+        } else if (fieldObject.has(Constants.OTHER_FOR) && !TextUtils.isEmpty(fieldObject.getString(Constants.OTHER_FOR))) {
+                JSONObject otherFor = fieldObject.getJSONObject(Constants.OTHER_FOR);
+                String parentKey = otherFor.getString(JsonFormConstants.PARENT_KEY) + Constants.SUFFIX.VALUE;
+                String parentLabel = otherFor.getString(JsonFormConstants.LABEL);
+                String factValue = facts.get(parentKey);
+                String newValue = factValue.replace(parentLabel, fieldObject.getString(JsonFormConstants.VALUE));
+                facts.put(parentKey, newValue);
         }
     }
 
@@ -758,7 +766,7 @@ public class ContactJsonFormUtils extends FormUtils {
                     String[] filteredKeys = itemsToFilter.substring(1, itemsToFilter.length() - 1).split(", ");
 
                     for (String filteredKey : filteredKeys) {
-                        if (!TextUtils.equals("none",filteredKey)) {
+                        if (!TextUtils.equals("none", filteredKey)) {
                             newOptionsList.add(optionsMap.get(filteredKey));
                         }
                     }
