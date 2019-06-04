@@ -148,4 +148,5 @@
     <dimen name="all_test_margin">5dp</dimen>
 
     <dimen name="expansion_panel_dialog_padding">20dp</dimen>
+    <dimen name="avatar_margin">24dp</dimen>
 </resources>
