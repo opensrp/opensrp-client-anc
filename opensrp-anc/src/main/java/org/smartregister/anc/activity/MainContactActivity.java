@@ -319,10 +319,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             //Do not add defaults for test and CT contact containers unless they are opened
             if (!Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT_ENCOUNTER_TYPE.equals(encounterType)
-                    && !Constants.JSON_FORM.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
-                if (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType)) {
-                    requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), 0);
-                }
+                    && !Constants.JSON_FORM.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) &&
+                    (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
+                requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), 0);
             }
 
             Iterator<String> keys = object.keys();
