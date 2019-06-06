@@ -170,14 +170,14 @@ actions:
 name: step1_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step1_hiv_test_result == 'positive') || (global_hiv_positive != '' && global_hiv_positive == 1)"
+condition: "(step1_hiv_test_result == 'positive') || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hiv'))"
 actions:
     - "calculation = 1"
 ---
 name: step2_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step2_hiv_test_result == 'positive') || (global_hiv_positive != '' && global_hiv_positive == 1)"
+condition: "(step2_hiv_test_result == 'positive') || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hiv'))"
 actions:
     - "calculation = 1"
 ---
@@ -191,7 +191,7 @@ actions:
 name: step2_hiv_risk
 description: hiv_risk
 priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') != '1' && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true) )"
+condition: "((global_hiv_positive == ''  || global_hiv_positive == 0) && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true))"
 actions:
     - "calculation = 1"
 ---

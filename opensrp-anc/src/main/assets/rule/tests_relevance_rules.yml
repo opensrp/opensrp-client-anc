@@ -1255,7 +1255,7 @@ actions:
 name: step1_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && (global_hiv_positive == '' || global_hiv_positive == 0)) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
+condition: "(global_pop_hiv_prevalence == true && (global_health_conditions.isEmpty() || !global_health_conditions.contains('hiv'))) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
 actions:
 - "isRelevant = true"
 ---

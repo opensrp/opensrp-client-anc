@@ -527,7 +527,7 @@ actions:
 name: step6_prep_toaster
 description: prep_toaster
 priority: 1
-condition: "global_partner_hiv_status == 'dont_know' && global_hiv_test_partner_status == 'not_done'"
+condition: "global_partner_hiv_status == 'dont_know' && (global_hiv_test_partner_status == '' || global_hiv_test_partner_status == 'not_done') "
 actions:
   - "isRelevant = true"
 ---
@@ -632,7 +632,7 @@ actions:
 name: step8_accordion_malaria_prophylaxis
 description: malaria pr
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && !global_medications.isEmpty() && !global_medications.contains('cotrimoxazole'))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole')))"
 actions:
   - "isRelevant = true"
 ---
@@ -646,7 +646,7 @@ actions:
 name: step8_iptp_sp1
 description: iptsp
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && !global_medications.isEmpty() && !global_medications.contains('cotrimoxazole')) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---

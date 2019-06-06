@@ -96,7 +96,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         initializeMainContactContainers();
 
-        //Enable/Diable FinalizeButton
+        //Enable/Disable finalize button
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
     }
 
@@ -347,10 +347,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
 
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
-        //Reset global value that matches this with an empty string first any time this method is called
-        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY))) {
-            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), "");
-        }
 
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
