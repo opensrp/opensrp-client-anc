@@ -297,7 +297,7 @@ public class Utils extends org.smartregister.util.Utils {
 
                         boolean isRequiredField = JsonFormUtils.isFieldRequired(fieldObject);
                         //Do not check for required for fields that are invisible
-                        if(fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)){
+                        if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                             isRequiredField = false;
                         }
 
@@ -351,10 +351,27 @@ public class Utils extends org.smartregister.util.Utils {
         while (stringValueResult.contains("{")) {
             String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
             String value = processValue(key, facts);
-            stringValueResult = stringValueResult.replace("{" + key + "}", value != null ? value : "");
+            stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
         }
+        //Remove unnecessary commas by cleaning the returned string
+        return cleanValueResult(stringValueResult);
+    }
 
-        return stringValueResult;
+    private static String cleanValueResult(String result) {
+        ArrayList<String> nonEmptyItems = new ArrayList<>();
+
+        for (String item : result.split(",")) {
+            if (item.length() > 1) {
+                nonEmptyItems.add(item);
+            }
+        }
+        //Get the first item that usually  has a colon and remove it form list
+        String firstItem = "";
+        if (nonEmptyItems.get(0).contains(":")) {
+            firstItem = nonEmptyItems.get(0);
+            nonEmptyItems.remove(0);
+        }
+        return firstItem + StringUtils.join(nonEmptyItems.toArray(), ",");
     }
 
     private static String processValue(String key, Facts facts) {
@@ -540,7 +557,7 @@ public class Utils extends org.smartregister.util.Utils {
                 if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
                         !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
                     //Get label and replace any colon in some labels. Not needed at this point
-                    label = jsonObject.getString(JsonFormConstants.LABEL).replace(":","");
+                    label = jsonObject.getString(JsonFormConstants.LABEL).replace(":", "");
                     stringList.add(label + ":" + getStringValue(jsonObject));
                 }
             }

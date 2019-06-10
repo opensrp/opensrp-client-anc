@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericPopupDialog;
+import org.smartregister.anc.model.ExpansionPanelItemModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,6 +60,46 @@ public class ContactJsonFormUtils extends FormUtils {
         return result;
     }
 
+    public static ExpansionPanelItemModel getExpansionPanelItem(String key, JSONArray value) throws JSONException {
+        ExpansionPanelItemModel result = null;
+        for (int j = 0; j < value.length(); j++) {
+            JSONObject valueItem = value.getJSONObject(j);
+            if (valueItem.getString(JsonFormConstants.KEY).equals(key)) {
+                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
+                result = extractExpansionPanelItems(valueItem, valueItemJSONArray);
+                break;
+            }
+        }
+        return result;
+    }
+
+    private static ExpansionPanelItemModel extractExpansionPanelItems(
+            JSONObject valueItem, JSONArray valueItemJSONArray) throws JSONException {
+        ExpansionPanelItemModel result;
+        String selectedKeys;
+        String selectedValues;
+        switch (valueItem.getString(JsonFormConstants.TYPE)) {
+            case JsonFormConstants.ANC_RADIO_BUTTON:
+            case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                selectedKeys = valueItemJSONArray.getString(0).split(":")[0];
+                selectedValues = valueItemJSONArray.getString(0).split(":")[1];
+                result = new ExpansionPanelItemModel(valueItem.getString(JsonFormConstants.KEY), selectedKeys, selectedValues);
+                break;
+            case JsonFormConstants.CHECK_BOX:
+                StringBuilder keysStringBuilder = new StringBuilder("[");
+                StringBuilder valuesStringBuilder = new StringBuilder();
+                selectedKeys = formatCheckboxValues(keysStringBuilder, valueItemJSONArray, 0) + "]";
+                selectedValues = formatCheckboxValues(valuesStringBuilder, valueItemJSONArray, 1);
+                result = new ExpansionPanelItemModel(valueItem.getString(JsonFormConstants.KEY), selectedKeys, selectedValues);
+                break;
+            default:
+                result = new ExpansionPanelItemModel(valueItem.getString(JsonFormConstants.KEY),
+                        valueItemJSONArray.getString(0), valueItemJSONArray.getString(0));
+                break;
+        }
+        return result;
+    }
+
     public static String removeKeyPrefix(String widgetKey, String prefix) {
         return widgetKey.replace(prefix + "_", "");
     }
@@ -70,17 +112,33 @@ public class ContactJsonFormUtils extends FormUtils {
                 result = valueItemJSONArray.getString(0).split(":")[0];
                 break;
             case JsonFormConstants.CHECK_BOX:
-                StringBuilder sb = new StringBuilder("[");
-                for (int index = 0; index < valueItemJSONArray.length(); index++) {
-                    sb.append(valueItemJSONArray.getString(index).split(":")[0]);
-                    sb.append(", ");
-                }
-                result = sb.toString().replaceAll(", $", "") + "]";
+                result = formatCheckboxValues(new StringBuilder("["), valueItemJSONArray, 0) + "]";
                 break;
             default:
                 result = valueItemJSONArray.getString(0);
                 break;
         }
+        return result;
+    }
+
+    /**
+     * Returns formatted checkbox values in this format:  [item1, item2, item2]
+     * Can be used to return list of selected checkbox keys or the list of values  for checkboxes
+     *
+     * @param sb                 String builder to be used for the formatting
+     * @param valueItemJSONArray JsonArray with the selected values from the checkbox
+     * @param i                  index flag used to determine whether to get list for keys/values; 0 returns key list, 1 returns values list
+     * @return List of selected keys or values
+     * @throws JSONException exception thrown
+     */
+    @NonNull
+    private static String formatCheckboxValues(StringBuilder sb, JSONArray valueItemJSONArray, int i) throws JSONException {
+        String result;
+        for (int index = 0; index < valueItemJSONArray.length(); index++) {
+            sb.append(valueItemJSONArray.getString(index).split(":")[i]);
+            sb.append(", ");
+        }
+        result = sb.toString().replaceAll(", $", "");
         return result;
     }
 
@@ -378,12 +436,12 @@ public class ContactJsonFormUtils extends FormUtils {
             // in complex expression of other where more than one other option is defined e.g. surgeries for profile has 2 items
             //To specify other for: gynecology surgery and the normal other fields with edit text
         } else if (fieldObject.has(Constants.OTHER_FOR) && !TextUtils.isEmpty(fieldObject.getString(Constants.OTHER_FOR))) {
-                JSONObject otherFor = fieldObject.getJSONObject(Constants.OTHER_FOR);
-                String parentKey = otherFor.getString(JsonFormConstants.PARENT_KEY) + Constants.SUFFIX.VALUE;
-                String parentLabel = otherFor.getString(JsonFormConstants.LABEL);
-                String factValue = facts.get(parentKey);
-                String newValue = factValue.replace(parentLabel, fieldObject.getString(JsonFormConstants.VALUE));
-                facts.put(parentKey, newValue);
+            JSONObject otherFor = fieldObject.getJSONObject(Constants.OTHER_FOR);
+            String parentKey = otherFor.getString(JsonFormConstants.PARENT_KEY) + Constants.SUFFIX.VALUE;
+            String parentLabel = otherFor.getString(JsonFormConstants.LABEL);
+            String factValue = facts.get(parentKey);
+            String newValue = factValue.replace(parentLabel, fieldObject.getString(JsonFormConstants.VALUE));
+            facts.put(parentKey, newValue);
         }
     }
 
@@ -402,7 +460,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
             for (int j = 0; j < secondaryValues.length(); j++) {
                 JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);//secondary values
+                ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);
             }
         }
     }
@@ -421,7 +479,18 @@ public class ContactJsonFormUtils extends FormUtils {
 
             for (int j = 0; j < expansionPanelValue.length(); j++) {
                 JSONObject jsonObject = expansionPanelValue.getJSONObject(j);
-                ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);//secondary values
+                ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
+                        jsonObject.getString(JsonFormConstants.KEY), expansionPanelValue);
+
+                if (jsonObject.has(JsonFormConstants.TYPE) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.getString(JsonFormConstants.TYPE))
+                        || JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)) ||
+                        JsonFormConstants.ANC_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)))) {
+
+                    facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
+                    facts.put(expansionPanelItem.getKey() + Constants.SUFFIX.VALUE, expansionPanelItem.getSelectedValues());
+                } else {
+                    facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
+                }
             }
         }
     }
@@ -450,7 +519,14 @@ public class ContactJsonFormUtils extends FormUtils {
         return newJsonArray;
     }
 
-    public static void processAbnormalValues(Facts facts, JSONObject jsonObject) throws Exception {
+    private static void processAbnormalValues(Facts facts, JSONObject jsonObject) throws Exception {
+
+        //Expansion panel widgets have values attribute instead of value so do not process them return instead
+        //We will handle the processing somewhere else.
+
+        if (jsonObject.has(JsonFormConstants.VALUES)) {
+            return;
+        }
 
         String fieldKey = getKey(jsonObject);
         Object fieldValue = getValue(jsonObject);
@@ -466,12 +542,6 @@ public class ContactJsonFormUtils extends FormUtils {
             tempList.remove(tempList.size() - 1);
             tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue).toString()));
             facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
-
-           /* if (fieldKey.endsWith(Constants.SUFFIX.ABNORMAL_OTHER)) {
-                String valueKey = fieldKeySecondary.replace(Constants.SUFFIX.ABNORMAL, "");
-                String prefix = facts.get(valueKey);
-                facts.put(valueKey, prefix + " - " + facts.get(fieldKeySecondary));
-            }*/
 
         } else {
             facts.put(fieldKey, fieldValue);

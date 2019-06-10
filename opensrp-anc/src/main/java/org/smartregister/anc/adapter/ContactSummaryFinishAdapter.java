@@ -45,12 +45,16 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
 
         List<YamlConfigItem> fields = mData.get(position).getFields();
-        String output = "";
+        StringBuilder outputBuilder = new StringBuilder();
         for (YamlConfigItem yamlConfigItem : fields) {
+            if (yamlConfigItem.isMultiWidget()) {
+                prefillInjectableFacts(facts, yamlConfigItem.getTemplate());
+            }
             if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
-                output += Utils.fillTemplate(yamlConfigItem.getTemplate(), this.facts) + "\n\n";
+                outputBuilder.append(Utils.fillTemplate(yamlConfigItem.getTemplate(), this.facts)).append("\n\n");
             }
         }
+        String output = outputBuilder.toString();
 
         holder.sectionDetails.setText(output);
 
@@ -64,6 +68,19 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         }
 
 
+    }
+
+    private void prefillInjectableFacts(Facts facts, String template) {
+        String[] relevanceToken = template.split(",");
+        String key;
+        for (String s : relevanceToken) {
+            if (s.contains("{") && s.contains("}")) {
+                key = s.substring(s.indexOf('{') + 1, s.indexOf('}'));
+                if (facts.get(key) == null) {
+                    facts.put(key, "");
+                }
+            }
+        }
     }
 
     // total number of rows

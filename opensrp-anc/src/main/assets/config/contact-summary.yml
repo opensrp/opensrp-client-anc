@@ -8,7 +8,7 @@ fields:
   relevance: "referred_hosp == 'no'"
 
 - template: "Danger sign(s): {danger_signs_value}"
-  relevance: "danger_signs != ''"
+  relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
 
 - template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1"
@@ -70,7 +70,7 @@ fields:
 - template: "Marital status: {marital_status_value}"
   relevance: "marital_status_value != ''"
 
-- template: "Occupation: {occupation_value}, {occupation_other}"
+- template: "Occupation: {occupation_value}"
   relevance: "occupation_value != ''"
 
 ---
@@ -115,14 +115,11 @@ fields:
 - template: "No. of C-sections: {c_sections}"
   relevance: "c_sections > 0"
 
-- template: "Past pregnancy problems: {prev_preg_comps_value}, {prev_preg_comps_other}"
+- template: "Past pregnancy problems: {prev_preg_comps_value}"
   relevance: "(!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
 
-- template: "Past alcohol used: {alcohol_substance_use_value}, {other_substance_use}"
-  relevance: "(!alcohol_substance_use.contains('none') && alcohol_substance_use.size() > 0) "
-
-- template: "Past substances used: {substances_used_value}, {substances_used_other}"
-  relevance: "(!substances_used.contains('none') && substances_used.size() > 0) "
+- template: "Past substances used: {substances_used_value}"
+  relevance: "(!substances_used.isEmpty()) "
 
 ---
 group: medical_history
@@ -187,11 +184,12 @@ fields:
 group: medications
 fields:
 
-- template: "Current medications: {medications_value}, {medications_other}"
-  relevance: "medications_value != ''"
+- template: "Current medications: {medications_value}"
+  relevance: "!medications_value.isEmpty()"
 
-- template: "Medications prescribed: {medications_prescribed_value}"
-  relevance: "medications_prescribed_value!=''"
+- template: "Medications prescribed: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
+  relevance: "vita != '' || mag_calc != '' ||  nausea_pharma != '' || vita != '' || alben_meben != '' || antacid != '' || penicillin != '' || antibiotic != '' ||  prep != '' || sp != '' || ifa != '' || ifa_medication != '' ||  aspirin != '' || calcium != ''"
+  isMultiWidget: true
 
 - template: "Calcium compliance: {calcium_comply}"
   relevance: "calcium_comply != ''"
@@ -226,7 +224,7 @@ fields:
 - template: "Caffeine reduction counseling: {caffeine_counsel_value}"
   relevance: "caffeine_counsel == 'done'"
 
-- template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone_value}, {caffeine_counsel_notdone_other}"
+- template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone_value}"
   relevance: "caffeine_counsel == 'not_done'"
 
 - template: "Tobacco user: {tobacco_user_value}"
@@ -235,7 +233,7 @@ fields:
 - template: "Tobacco cessation counseling done"
   relevance: "tobacco_counsel == 'done'"
 
-- template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}, {tobacco_counsel_notdone_other}"
+- template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}"
   relevance: "tobacco_counsel == 'not_done'"
 
 - template: "Anyone in the household smokes tobacco products: {shs_exposure_value}"
@@ -244,7 +242,7 @@ fields:
 - template: "Second-hand smoke counseling done"
   relevance: "shs_counsel == 'done'"
 
-- template: "Second-hand smoke counseling not done: {shs_counsel_notdone_value}, {shs_counsel_notdone_other}"
+- template: "Second-hand smoke counseling not done: {shs_counsel_notdone_value}"
   relevance: "shs_counsel == 'not_done'"
 
 - template: "Uses condoms during sex: {condom_use_value}"
@@ -253,7 +251,7 @@ fields:
 - template: "Condom counseling done"
   relevance: "condom_counsel == 'done'"
 
-- template: "Condom counseling not done: {condom_counsel_notdone_value}, {condom_counsel_notdone_other}"
+- template: "Condom counseling not done: {condom_counsel_notdone_value}"
   relevance: "condom_counsel == 'not_done'"
 
 - template: "Clinical enquiry for alcohol and other substance use done: {alcohol_substance_enquiry_value}"
@@ -265,7 +263,7 @@ fields:
 - template: "Alcohol / substance use counseling done"
   relevance: "alcohol_substance_counsel == 'done'"
 
-- template: "Alcohol / substance use counseling not done: {alcohol_substance_counsel_notdone_value}, {alcohol_substance_counsel_notdone_other}"
+- template: "Alcohol / substance use counseling not done: {alcohol_substance_counsel_notdone_value}"
   relevance: "alcohol_substance_counsel == 'not_done'"
 ---
 group: physiological_symptoms

@@ -500,6 +500,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 } else {
                     values = new ArrayList<>();
                 }
+
+                if(refreshExpansionPanelEvent.getPreviousSelectedValues() != null &&
+                        refreshExpansionPanelEvent.getPreviousSelectedValues().size() > 0){
+
+                }
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
                 RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
@@ -523,7 +528,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 }
 
             } catch (JSONException e) {
-                e.printStackTrace();
+               Log.e(TAG,  e.toString());
             }
         }
     }

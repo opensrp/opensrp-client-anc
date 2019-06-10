@@ -97,7 +97,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         initializeMainContactContainers();
 
         //Enable/Disable finalize button
-        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
+        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() > 0);
     }
 
     private void initializeMainContactContainers() {
