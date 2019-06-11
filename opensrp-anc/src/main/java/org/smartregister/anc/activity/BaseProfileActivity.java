@@ -82,12 +82,9 @@ public abstract class BaseProfileActivity extends SecuredActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
-
             String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
-
                 JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
-
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
