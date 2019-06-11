@@ -358,20 +358,23 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private static String cleanValueResult(String result) {
-        ArrayList<String> nonEmptyItems = new ArrayList<>();
+        List<String> nonEmptyItems = new ArrayList<>();
 
         for (String item : result.split(",")) {
             if (item.length() > 1) {
                 nonEmptyItems.add(item);
             }
         }
-        //Get the first item that usually  has a colon and remove it form list
-        String firstItem = "";
-        if (nonEmptyItems.get(0).contains(":")) {
-            firstItem = nonEmptyItems.get(0);
-            nonEmptyItems.remove(0);
+        //Get the first item that usually  has a colon and remove it form list, if list has one item append separator
+        String itemLabel = "";
+        if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
+            String[] separatedLabel = nonEmptyItems.get(0).split(":");
+            itemLabel = separatedLabel[0];
+            if (separatedLabel.length > 1) {
+                nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
+            }//replace with extracted value
         }
-        return firstItem + StringUtils.join(nonEmptyItems.toArray(), ",");
+        return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
     }
 
     private static String processValue(String key, Facts facts) {
@@ -386,7 +389,6 @@ public class Utils extends org.smartregister.util.Utils {
 
             }
         }
-
 
         return ContactJsonFormUtils.keyToValueConverter(value);
     }

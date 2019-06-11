@@ -1168,14 +1168,14 @@ condition: "step2_tb_screening_result!= ''  && step2_tb_screening_result == 'pos
 actions:
 - "isRelevant = true"
 ---
-name: step1_tb_test_notdone_other
+name: step1_tb_screening_notdone_other
 description: tb_screening_status
 priority: 1
 condition: "!step1_tb_screening_notdone.isEmpty() && step1_tb_screening_notdone.contains('other')"
 actions:
 - "isRelevant = true"
 ---
-name: step2_tb_test_notdone_other
+name: step2_tb_screening_notdone_other
 description: tb_screening_status
 priority: 1
 condition: "!step2_tb_screening_notdone.isEmpty() && step2_tb_screening_notdone.contains('other')"

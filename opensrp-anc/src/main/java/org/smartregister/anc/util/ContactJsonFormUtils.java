@@ -31,9 +31,9 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.contract.AncGenericDialogInterface;
 import org.smartregister.anc.domain.Contact;
+import org.smartregister.anc.model.ExpansionPanelItemModel;
 import org.smartregister.anc.model.PartialContact;
 import org.smartregister.anc.view.AncGenericPopupDialog;
-import org.smartregister.anc.model.ExpansionPanelItemModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -368,14 +368,11 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
-    public static void processRequiredStepsField(Facts facts, JSONObject object, Context context) throws Exception {
+    public static void processRequiredStepsField(Facts facts, JSONObject object) throws Exception {
         if (object != null) {
-
             Iterator<String> keys = object.keys();
-
             while (keys.hasNext()) {
                 String key = keys.next();
-
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
@@ -384,42 +381,26 @@ public class ContactJsonFormUtils extends FormUtils {
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
                         String fieldKey = getKey(fieldObject);
+                        //Do not add to facts values from expansion panels since they are processed separately
+                        if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE) && fieldObject.has(JsonFormConstants.TYPE)
+                                && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
 
-                        if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE)) {
-                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE)); //Normal Value
+                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
                             ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
-
                             String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
+
                             if (fieldObject.has(secKey)) {
                                 facts.put(secKey, fieldObject.getString(secKey)); //Normal value secondary key
                             }
 
                             processRequiredStepsFieldsSecondaryValues(facts, fieldObject);
-                            processRequiredStepsExpansionPanelValues(facts, fieldObject);
                             processOtherCheckBoxField(facts, fieldObject);
-
                         }
 
                         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
-                            try {
-
-                                JSONObject subFormJson = FormUtils
-                                        .getSubFormJson(fieldObject.getString(JsonFormConstants.CONTENT_FORM),
-                                                fieldObject.has(JsonFormConstants.CONTENT_FORM_LOCATION) ?
-                                                        fieldObject.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "",
-                                                context);
-                                processRequiredStepsField(facts, ContactJsonFormUtils
-                                        .createSecondaryFormObject(fieldObject, subFormJson,
-                                                object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)), context);
-
-                            } catch (Exception e) {
-                                Log.e(TAG, e.getMessage(), e);
-                            }
+                            processRequiredStepsExpansionPanelValues(facts, fieldObject);
                         }
-
-
                     }
-
                 }
             }
         }
@@ -474,7 +455,8 @@ public class ContactJsonFormUtils extends FormUtils {
      */
     private static void processRequiredStepsExpansionPanelValues(Facts facts, JSONObject fieldObject) throws Exception {
         if (fieldObject.has(JsonFormConstants.TYPE) &&
-                JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
+                JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE)) &&
+                fieldObject.has(JsonFormConstants.VALUE)) {
             JSONArray expansionPanelValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
 
             for (int j = 0; j < expansionPanelValue.length(); j++) {
@@ -489,8 +471,29 @@ public class ContactJsonFormUtils extends FormUtils {
                     facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
                     facts.put(expansionPanelItem.getKey() + Constants.SUFFIX.VALUE, expansionPanelItem.getSelectedValues());
                 } else {
+                    processExpansionPanelAbnormalValues(facts, expansionPanelItem);
                     facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
                 }
+            }
+        }
+    }
+
+    /***
+     * Method that replaces abnormal values other
+     * @param facts Map containing facts
+     * @param expansionPanelItem expansionPanel with values
+     */
+    private static void processExpansionPanelAbnormalValues(Facts facts, ExpansionPanelItemModel expansionPanelItem) {
+        if (expansionPanelItem.getKey().endsWith(Constants.SUFFIX.OTHER)) {
+            String parentKey = expansionPanelItem.getKey().replace(Constants.SUFFIX.OTHER, "") + Constants.SUFFIX.VALUE;
+            String parentsValue = facts.get(parentKey);
+            if (parentsValue != null) {
+                int startPos = StringUtils.indexOf(parentsValue.toLowerCase(), Constants.OTHER);
+                int endPos = StringUtils.indexOf(parentsValue.toLowerCase(), ",", startPos);
+
+                String newValue = parentsValue.replace(StringUtils.substring(parentsValue,
+                        startPos, endPos != -1 ? endPos : parentsValue.length()), expansionPanelItem.getSelectedValues());
+                facts.put(parentKey, newValue);
             }
         }
     }
@@ -521,10 +524,9 @@ public class ContactJsonFormUtils extends FormUtils {
 
     private static void processAbnormalValues(Facts facts, JSONObject jsonObject) throws Exception {
 
-        //Expansion panel widgets have values attribute instead of value so do not process them return instead
+        //Expansion panel widgets have "values" attribute with no "value" do not process them
         //We will handle the processing somewhere else.
-
-        if (jsonObject.has(JsonFormConstants.VALUES)) {
+        if (jsonObject.has(JsonFormConstants.VALUES) && !jsonObject.has(JsonFormConstants.VALUE)) {
             return;
         }
 
@@ -582,7 +584,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public static String keyToValueConverter(String keys) {
         if (keys != null) {
-            String cleanKey = WordUtils.capitalizeFully(cleanValue(keys));
+            String cleanKey = WordUtils.capitalizeFully(cleanValue(keys), ',');
             if (!TextUtils.isEmpty(keys)) {
                 return cleanKey.replaceAll("_", " ");
             } else {

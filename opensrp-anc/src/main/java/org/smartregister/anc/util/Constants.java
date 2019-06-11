@@ -62,6 +62,7 @@ public abstract class Constants {
     public static final String REQUIRED_FIELDS = "required_fields";
     public static final String CONTACT_NO = "contact_no";
     public static final String OTHER_FOR = "other_for";
+    public static final String OTHER = "other";
 
     public static class ANC_RADIO_BUTTON_OPTION_TYPES {
         public static final String DONE_TODAY = "done_today";

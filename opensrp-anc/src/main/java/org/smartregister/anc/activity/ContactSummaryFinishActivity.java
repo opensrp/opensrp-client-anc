@@ -247,7 +247,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
                 object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
                         partialContact.getFormJson());
-                ContactJsonFormUtils.processRequiredStepsField(facts, object, this);
+                ContactJsonFormUtils.processRequiredStepsField(facts, object);
             }
         }
 
