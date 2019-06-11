@@ -501,10 +501,12 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     values = new ArrayList<>();
                 }
 
-                if(refreshExpansionPanelEvent.getPreviousSelectedValues() != null &&
-                        refreshExpansionPanelEvent.getPreviousSelectedValues().size() > 0){
-
+                if (refreshExpansionPanelEvent.getPreviousSelectedValues() != null &&
+                        refreshExpansionPanelEvent.getPreviousSelectedValues().size() > 0) {
+                    Log.i(TAG, "Undone records from an accordion from Test: " +
+                            refreshExpansionPanelEvent.getPreviousSelectedValues());
                 }
+
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
                 RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
@@ -528,7 +530,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                 }
 
             } catch (JSONException e) {
-               Log.e(TAG,  e.toString());
+                Log.e(TAG, e.toString());
             }
         }
     }
