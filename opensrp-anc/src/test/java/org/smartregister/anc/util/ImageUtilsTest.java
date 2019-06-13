@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.smartregister.Context;
@@ -22,6 +23,7 @@ import org.smartregister.util.ImageUtils;
  */
 
 @PrepareForTest(CoreLibrary.class)
+@PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ImageUtilsTest extends BaseUnitTest {
 
     private ImageUtils imageUtils;

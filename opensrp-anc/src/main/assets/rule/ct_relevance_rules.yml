@@ -527,7 +527,7 @@ actions:
 name: step6_prep_toaster
 description: prep_toaster
 priority: 1
-condition: "global_partner_hiv_status == 'dont_know' && global_hiv_test_partner_status == 'not_done'"
+condition: "global_partner_hiv_status == 'dont_know' && (global_hiv_test_partner_status == '' || global_hiv_test_partner_status == 'not_done') "
 actions:
   - "isRelevant = true"
 ---
@@ -562,7 +562,7 @@ actions:
 name: step7_gbs_agent_counsel
 description: gbs_agent_counsel
 priority: 1
-condition: "global_urine_culture == 'positive_gbs'"
+condition: "global_urine_culture != '' && global_urine_culture == 'positive_gbs'"
 actions:
   - "isRelevant = true"
 ---
@@ -572,13 +572,6 @@ priority: 1
 condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
 actions:
   - "isRelevant = true"
----
-name: step7_accordion_breastfeed_counsel
-description: breastfeed_counsel
-priority: 1
-condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
-actions:
-- "isRelevant = true"
 ---
 name: step8_ipv_enquiry
 description: ipv_enquiry
@@ -604,28 +597,28 @@ actions:
 name: step8_ifa_high_prev
 description: ifa_high_prev
 priority: 1
-condition: "global_pop_anaemia_40 == true && global_anaemic == 0"
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_accordion_ifa_high_prev
 description: ifa_high_prev
 priority: 1
-condition: "(global_pop_anaemia_40 == true && global_anaemic == 0) || (global_pop_anaemia_40 == false && global_anaemic == 0) || (global_pop_anaemia_40 == false && global_anaemic == 0 && global_pop_anaemia_20 == true && global_ifa_effects == 'yes')"
+condition: "(global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0)) || (global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)) || (global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && global_pop_anaemia_20 == true && global_ifa_effects == 'yes')"
 actions:
   - "isRelevant = true"
 ---
 name: step8_ifa_low_prev
 description: ifa_low_prev
 priority: 1
-condition: "global_pop_anaemia_40 == false && global_anaemic == 0"
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_ifa_weekly
 description: ifa_weekly
 priority: 1
-condition: "global_pop_anaemia_40 == false && global_anaemic == 0 && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
 actions:
   - "isRelevant = true"
 ---
@@ -639,7 +632,7 @@ actions:
 name: step8_accordion_malaria_prophylaxis
 description: malaria pr
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && !global_medications.isEmpty() && !global_medications.contains('cotrimoxazole'))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole')))"
 actions:
   - "isRelevant = true"
 ---
@@ -653,7 +646,7 @@ actions:
 name: step8_iptp_sp1
 description: iptsp
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && !global_medications.isEmpty() && !global_medications.contains('cotrimoxazole')) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---

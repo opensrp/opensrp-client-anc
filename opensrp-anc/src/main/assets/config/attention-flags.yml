@@ -12,10 +12,10 @@ fields:
     relevance: "parity >= 5"
 
   - template: "Past pregnancy problems: {prev_preg_comps_value}"
-    relevance: "prev_preg_comps != '' && !prev_preg_comps.contains('none')"
+    relevance: "!prev_preg_comps.isEmpty() && !prev_preg_comps.contains('none')"
 
   - template: "Past alcohol / substances used: {substances_used_value}"
-    relevance: "substances_used != '' && !substances_used.contains('none')"
+    relevance: "!substances_used.isEmpty() && !substances_used.contains('none')"
 
   - template: "Pre-eclampsia risk"
     relevance: "preeclampsia_risk == 1"
@@ -24,40 +24,40 @@ fields:
     relevance: "gdm_risk == 1"
 
   - template: "Surgeries: {surgeries_value}"
-    relevance: "surgeries != '' && !surgeries.contains('none')"
+    relevance: "!surgeries.isEmpty() && !surgeries.contains('none')"
 
   - template: "Chronic health conditions: {health_conditions_value}"
-    relevance: "health_conditions != '' && !health_conditions.contains('none')"
+    relevance: "!health_conditions.isEmpty() && !health_conditions.contains('none')"
 
   - template: "High daily consumption of caffeine"
-    relevance: "caffeine_intake != '' && !caffeine_intake.contains('none')"
+    relevance: "!caffeine_intake.isEmpty() && !caffeine_intake.contains('none')"
 
   - template: "Second-hand exposure to tobacco smoke"
-    relevance: "shs_exposure != '' && !shs_exposure.contains('none')"
+    relevance: "shs_exposure == 'yes'"
 
   - template: "Persistent physiological symptoms: {phys_symptoms_persist_value}"
-    relevance: "phys_symptoms_persist != '' && !phys_symptoms_persist.contains('none')"
+    relevance: "!phys_symptoms_persist.isEmpty() && !phys_symptoms_persist.contains('none')"
 
   - template: "Reduced or no fetal movement perceived by woman"
-    relevance: "mat_percept_fetal_move != '' && !mat_percept_fetal_move.contains('normal_fetal_move')"
+    relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
 
   - template: "Weight category: {weight_cat_value}"
-    relevance: "weight_cat != ''&& (weight_cat.contains('underweight') || weight_cat.contains('overweight')  || weight_cat.contains('obese'))"
+    relevance: "weight_cat != '' && (weight_cat == 'underweight' || weight_cat == 'overweight' || weight_cat == 'obese')"
 
   - template: "Abnormal breast exam: {breast_exam_abnormal_value}"
-    relevance: "breast_exam_abnormal != ''"
+    relevance: "!breast_exam_abnormal.contains('none') && !breast_exam_abnormal.isEmpty()"
 
   - template: "Oedema present"
-    relevance: "oedema.contains('yes')"
+    relevance: "oedema == 'yes'"
 
   - template: "Rh factor negative"
-    relevance: "rh_factor.contains('negative')"
+    relevance: "rh_factor == 'negative'"
 ---
 group: red_attention_flag
 fields:
 
   - template: "Danger sign(s): {danger_signs_value}"
-    relevance: "danger_signs != '' && !danger_signs.contains('danger_none')"
+    relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
 
   - template: "Occupation: Informal employment (sex worker)"
     relevance: "occupation.contains('informal_employment_sex_worker')"
@@ -72,16 +72,16 @@ fields:
     relevance: "{c_sections} >= 1"
 
   - template: "Allergies: {allergies_value}"
-    relevance: "allergies != '' && !allergies.contains('none')"
+    relevance: "!allergies.isEmpty() && !allergies.contains('none')"
 
   - template: "Tobacco user or recently quit"
-    relevance: "tobacco_user.contains('yes') ||  tobacco_user.contains('recently_quit')"
+    relevance: "tobacco_user == 'yes' ||  tobacco_user == 'recently_quit'"
 
   - template: "Woman and her partner(s) do not use condoms"
-    relevance: "condom_use.contains('no')"
+    relevance: "condom_use == 'no'"
 
   - template: "Alcohol / substances currently using: {alcohol_substance_use_value}"
-    relevance: "alcohol_substance_use != '' && !alcohol_substance_use.contains('none')"
+    relevance: "!alcohol_substance_use.isEmpty()  && !alcohol_substance_use.contains('none')"
 
   - template: "Hypertension diagnosis"
     relevance: "hypertension == 1"
@@ -90,7 +90,7 @@ fields:
     relevance: "severe_hypertension == 1"
 
   - template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
-    relevance: "hypertension == 1 && !symp_sev_preeclampsia.contains('none')"
+    relevance: "hypertension == 1 && !symp_sev_preeclampsia.isEmpty() && !symp_sev_preeclampsia.contains('none')"
 
   - template: "Pre-eclampsia diagnosis"
     relevance: "preeclampsia == 1"
@@ -107,26 +107,23 @@ fields:
   - template: "Anaemia diagnosis"
     relevance: "anaemic == 1"
 
-  - template: "Respiratory distress: {repiratory_exam_abnormal_value}"
-    relevance: "!respiratory_exam_abnormal.contains('none')"
+  - template: "Respiratory distress: {respiratory_exam_abnormal_value}"
+    relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
   - template: "Low oximetry: {oximetry}%"
     relevance: "oximetry < 92"
 
   - template: "Abnormal cardiac exam: {cardiac_exam_abnormal_value}"
-    relevance: "!cardiac_exam_abnormal.contains('none')"
+    relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
 
   - template: "Abnormal abdominal exam: {abdominal_exam_abnormal_value}"
-    relevance: "!abdominal_exam_abnormal.contains('none')"
+    relevance: "!abdominal_exam_abnormal.contains('none') && !abdominal_exam_abnormal.isEmpty()"
 
   - template: "Abnormal pelvic exam: {pelvic_exam_abnormal_value}"
-    relevance: "!pelvic_exam_abnormal.contains('none')"
+    relevance: "!pelvic_exam_abnormal.contains('none') && !pelvic_exam_abnormal.isEmpty()"
 
   - template: "Cervix dilated: {dilation_cm} cm"
     relevance: "dilation_cm > 2"
-
-  - template: "No fetal movement felt"
-    relevance: "fetal_movement == 'no'"
 
   - template: "No fetal heartbeat observed"
     relevance: "fetal_heartbeat == 'no'"
@@ -138,13 +135,13 @@ fields:
     relevance: "no_of_fetuses > 1"
 
   - template: "Fetal presentation: {fetal_presentation} "
-    relevance: "gest_age >= 28 && fetal_presentation.contains('transverse')"
+    relevance: "gest_age >= 28 && fetal_presentation == 'transverse'"
 
   - template: "Amniotic fluid: {amniotic_fluid}"
-    relevance: "amniotic_fluid.contains('reduced') || amniotic_fluid.contains('increased')"
+    relevance: "amniotic_fluid == 'reduced' || amniotic_fluid == 'increased'"
 
-  - template: "Placenta location: {placenta_location_valu}"
-    relevance: "placenta_location.contains('previa')"
+  - template: "Placenta location: {placenta_location_value}"
+    relevance: "placenta_location == 'praevia'"
 
   - template: "HIV risk"
     relevance: "hiv_risk == 1"
@@ -183,4 +180,4 @@ fields:
     relevance: "platelets < 100000"
 
   - template: "TB screening positive"
-    relevance: "tb_screening_result.contains('positive')"
+    relevance: "tb_screening_result == 'positive'"

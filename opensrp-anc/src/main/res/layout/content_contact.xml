@@ -45,6 +45,7 @@
                 android:paddingTop="@dimen/contact_drawable_padding"
                 android:text="@string/view_anc_history"
                 android:textAllCaps="true"
+                android:visibility="gone"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/view_history_blue"
                 android:textSize="@dimen/contact_detail_text_size" />

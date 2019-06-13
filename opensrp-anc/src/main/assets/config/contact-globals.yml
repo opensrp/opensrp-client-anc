@@ -1,6 +1,7 @@
 ---
 form: anc_counselling_treatment
 fields:
+  - "hepc_positive"
   - "danger_signs"
   - "danger_signs_value"
   - "bp_systolic_repeat"
@@ -118,6 +119,8 @@ fields:
   - "gdm"
   - "dm_in_preg"
   - "hiv_test_result"
+  - "hiv_positive"
+  - "hiv_test_partner_result"
 ---
 form: anc_physical_exam
 fields:
@@ -160,6 +163,7 @@ form: anc_test
 fields:
   - "other_sym_lbpp"
   - "urine_protein"
+  - "edd"
   - "gest_age"
   - "gest_age_openmrs"
   - "no_of_fetuses"

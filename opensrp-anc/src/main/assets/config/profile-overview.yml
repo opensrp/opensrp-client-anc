@@ -143,7 +143,7 @@ fields:
   isRedFont: "true"
 
 - template: "Danger sign(s): {danger_signs}"
-  relevance: "danger_signs != ''"
+  relevance: "!danger_signs.contains('danger_none') && !danger_signs.isEmpty()"
 
 - template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1 && global_contact_no == 1"

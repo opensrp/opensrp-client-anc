@@ -38,7 +38,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
 
     private RegisterContract.Presenter presenter;
 
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);

@@ -7,6 +7,15 @@ public class PreviousContactsSummaryModel {
     private String createdAt;
     private Facts visitFacts;
 
+    public PreviousContactsSummaryModel() {
+    }
+
+    public PreviousContactsSummaryModel(String contactNumber, String createdAt, Facts visitFacts) {
+        this.contactNumber = contactNumber;
+        this.createdAt = createdAt;
+        this.visitFacts = visitFacts;
+    }
+
     public String getContactNumber() {
         return contactNumber;
     }

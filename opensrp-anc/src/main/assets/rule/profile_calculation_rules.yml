@@ -107,7 +107,7 @@ actions:
 name: step4_preeclampsia_risk
 description: preeclampsia_risk
 priority: 1
-condition: "(!global_no_of_fetuses.isEmpty() && global_no_of_fetuses >= 2) || step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions') || step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease')"
+condition: "(global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions') || step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease')"
 actions:
 - "calculation = 1"
 ---
@@ -121,20 +121,20 @@ actions:
 name: step7_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "((global_hiv_positive == '' || global_hiv_positive == 0) && step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---
 name: step8_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "((global_hiv_positive == '' || global_hiv_positive == 0) && step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---
 name: step8_partner_hiv_positive
 description: HIV Risk
 priority: 1
-condition: "(step8_partner_hiv_status == 'positive' && (!global_hiv_test_result.isEmpty() && global_hiv_test_result == 'positive'))"
+condition: "(step8_partner_hiv_status == 'positive') || (global_hiv_test_partner_result != '' && global_hiv_test_partner_result == 'positive')"
 actions:
   - "calculation = 1"

@@ -396,11 +396,15 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             undo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    RefreshExpansionPanelEvent expansionPanelEvent = new RefreshExpansionPanelEvent(null,
+                            (LinearLayout) view.getTag(R.id.linearLayout));
+
+                    expansionPanelEvent.setPreviousSelectedValues(new ArrayList<String>());
+
                     item.remove(JsonFormConstants.VALUE);
                     item.remove(Constants.REQUIRED_FIELDS);
                     jsonApi.setmJSONObject(mainJson);
-
-                    Utils.postEvent(new RefreshExpansionPanelEvent(null, (LinearLayout) view.getTag(R.id.linearLayout)));
+                    Utils.postEvent(expansionPanelEvent);
                     dialog.dismiss();
                 }
             });

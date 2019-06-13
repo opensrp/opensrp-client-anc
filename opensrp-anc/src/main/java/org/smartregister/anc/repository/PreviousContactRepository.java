@@ -88,6 +88,7 @@ public class PreviousContactRepository extends BaseRepository {
      */
     public PreviousContact getPreviousContact(PreviousContact previousContactRequest) {
         String selection = null;
+        String orderBy = ID + " DESC";
         String[] selectionArgs = null;
         PreviousContact dbPreviousContact = null;
         Cursor mCursor = null;
@@ -99,7 +100,7 @@ public class PreviousContactRepository extends BaseRepository {
             }
 
             mCursor = getReadableDatabase()
-                    .query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, null, null);
+                    .query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor.getCount() > 0) {
 
                 mCursor.moveToFirst();

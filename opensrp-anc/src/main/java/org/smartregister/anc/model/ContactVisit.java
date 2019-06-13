@@ -133,8 +133,7 @@ public class ContactVisit {
                     }
 
                     //process attention flags
-                    ContactJsonFormUtils.processRequiredStepsField(facts, formObject,
-                            AncApplication.getInstance().getApplicationContext());
+                    ContactJsonFormUtils.processRequiredStepsField(facts, formObject);
 
                     //process events
                     Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);

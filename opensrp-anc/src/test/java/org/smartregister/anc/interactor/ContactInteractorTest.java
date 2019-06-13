@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.activity.BaseUnitTest;
@@ -37,6 +38,7 @@ import java.util.UUID;
 import java.util.concurrent.Executors;
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ContactInteractorTest extends BaseUnitTest {
 
     private ContactContract.Interactor interactor;
