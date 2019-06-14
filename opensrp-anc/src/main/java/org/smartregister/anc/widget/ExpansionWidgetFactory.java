@@ -402,7 +402,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                             (LinearLayout) view.getTag(R.id.linearLayout));
 
                     try {
-                        expansionPanelEvent.setPreviousSelectedValues(getUndoneValues(item));
+                        resetClearedGlobalValues(mainJson, getUndoneValues(item));
                     } catch (JSONException e) {
                         Log.e(TAG, "Error getting previous values: " + e);
                     }
@@ -423,6 +423,22 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             });
 
             dialog.show();
+        }
+    }
+    /**
+     * Resets the global values for values that have been undone to empty
+     *
+     * @param previousSelectedValues values to be reset
+     * @throws JSONException JsonException thrown
+     */
+    private void resetClearedGlobalValues(JSONObject mainJson, List<String> previousSelectedValues) throws JSONException {
+        if (mainJson.has(Constants.GLOBAL)) {
+            JSONObject globals = mainJson.getJSONObject(Constants.GLOBAL);
+            for (String item : previousSelectedValues) {
+                if (globals.has(item)) {
+                    globals.put(item, "");
+                }
+            }
         }
     }
 

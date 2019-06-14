@@ -53,18 +53,18 @@ fields:
 
 - template: "No. of C-sections: {c_sections}"
   relevance: "c_sections != ''"
-  isRedFont: "stillbirths > 0)"
+  isRedFont: "stillbirths > 0"
 
 - template: "Past pregnancy problems: {prev_preg_comps}"
-  relevance: "(!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
+  relevance: "!prev_preg_comps.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
   isRedFont: "true"
 
 - template: "Past alcohol used: {alcohol_substance_use}"
-  relevance: "(!alcohol_substance_use.contains('none') && alcohol_substance_use.size() > 0) "
+  relevance: "(!alcohol_substance_use.contains('none') && !alcohol_substance_use.isEmpty()) "
   isRedFont: "true"
 
 - template: "Past substances used: {substances_used}"
-  relevance: "(!substances_used.contains('none') && substances_used.size() > 0)"
+  relevance: "(!substances_used.contains('none') && !substances_used.isEmpty())"
   isRedFont: "true"
 
 ---
@@ -80,7 +80,7 @@ fields:
   relevance: "surgeries != ''"
 
 - template: "Chronic health conditions: {health_conditions}"
-  relevance: "health_conditions != ''"
+  relevance: "!health_conditions.isEmpty()"
 
 - template: "Past HIV diagnosis date: {hiv_diagnosis_date}"
   relevance: "hiv_diagnosis_date != ''"
@@ -110,7 +110,7 @@ fields:
   relevance: "medications != ''"
 
 - template: "Medications prescribed: {medications_prescribed}"
-  relevance: "medications_prescribed!=''"
+  relevance: "medications_prescribed !='' "
 
 - template: "Calcium compliance: {calcium_comply}"
   relevance: "calcium_comply != ''"

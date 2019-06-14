@@ -100,6 +100,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        formGlobalValues.clear();
+    }
+
     private void initializeMainContactContainers() {
 
         try {

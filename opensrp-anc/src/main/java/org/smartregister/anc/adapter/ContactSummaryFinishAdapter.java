@@ -47,7 +47,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();
         for (YamlConfigItem yamlConfigItem : fields) {
-            if (yamlConfigItem.isMultiWidget()) {
+            if (yamlConfigItem.isMultiWidget() != null && yamlConfigItem.isMultiWidget()) {
                 prefillInjectableFacts(facts, yamlConfigItem.getTemplate());
             }
             if (AncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {

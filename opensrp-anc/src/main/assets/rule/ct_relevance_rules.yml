@@ -415,7 +415,7 @@ actions:
 name: step5_accordion_syphilis_low_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
-condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false) || (global_syphilis_positive == 1 && global_pop_syphilis == true)"
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false)"
 actions:
   - "isRelevant = true"
 ---
