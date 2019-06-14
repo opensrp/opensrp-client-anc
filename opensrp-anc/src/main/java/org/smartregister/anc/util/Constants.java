@@ -166,6 +166,7 @@ public abstract class Constants {
         public static final String CONTACT_NO = "contact_number";
         public static final String FORM_NAME = "form_name";
         public static final String CLIENT_MAP = "client_map";
+        public static final String UNDONE_VALUES = "undone_values";
     }
 
     public static class OPENMRS {

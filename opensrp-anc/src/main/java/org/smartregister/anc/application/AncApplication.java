@@ -1,6 +1,7 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
@@ -40,6 +41,7 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -354,6 +356,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
         constructor.addTypeDescription(customTypeDescription);
         yaml = new Yaml(constructor);
+    }
+    @NonNull
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return AncClientProcessorForJava.getInstance(this);
     }
 
 }

@@ -29,12 +29,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.R;
 import org.smartregister.anc.event.RefreshExpansionPanelEvent;
+import org.smartregister.anc.model.ExpansionPanelItemModel;
 import org.smartregister.anc.util.Constants;
 import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ExpansionWidgetFactory implements FormWidgetFactory {
@@ -48,7 +50,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment jsonFormFragment,
                                        JSONObject jsonObject, CommonListener commonListener, boolean popup)
-    throws Exception {
+            throws Exception {
         return attachJson(stepName, context, jsonFormFragment, jsonObject, commonListener, popup);
     }
 
@@ -108,7 +110,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
     private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment,
                               JSONObject jsonObject, CommonListener commonListener, LinearLayout rootLayout)
-    throws JSONException {
+            throws JSONException {
         String accordionText = jsonObject.optString(JsonFormConstants.TEXT, "");
         RelativeLayout expansionHeader = rootLayout.findViewById(R.id.expansionHeader);
         RelativeLayout expansion_header_layout = expansionHeader.findViewById(R.id.expansion_header_layout);
@@ -144,7 +146,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     for (int k = 0; k < jsonArray.length(); k++) {
                         String list = jsonArray.getString(k);
                         String[] stringValues = list.split(":");
-                        if (getWidgetValueAndChangeIcon(imageView, context, list, stringValues)) break;
+                        if (getWidgetValueAndChangeIcon(imageView, context, list, stringValues))
+                            break;
                     }
                 }
             }
@@ -177,7 +180,6 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
      * Return the Expansion Panel value
      *
      * @param optionItem {@link JSONObject}
-     *
      * @return value {@link JSONArray}
      * @throws JSONException
      */
@@ -204,7 +206,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
     }
 
     private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget)
-    throws JSONException {
+            throws JSONException {
         String accordionInfoText = jsonObject.optString(Constants.ACCORDION_INFO_TEXT, null);
         String accordionInfoTitle = jsonObject.optString(Constants.ACCORDION_INFO_TITLE, null);
         String accordionKey = jsonObject.getString(JsonFormConstants.KEY);
@@ -323,7 +325,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
             String type = (String) view.getTag(R.id.type);
             String key = (String) view.getTag(R.id.key);
             Context context = (Context) view.getTag(R.id.specify_context);
-            JSONArray currentFields = formUtils.getFormFields(stepName,context);
+            JSONArray currentFields = formUtils.getFormFields(stepName, context);
             JSONObject realTimeJsonObject = ContactJsonFormUtils.getFieldJSONObject(currentFields, key);
 
             if (type != null) {
@@ -368,7 +370,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
 
         private void displayUndoDialog(Context context, final JSONObject item, final JSONObject mainJson, final View view)
-        throws JSONException {
+                throws JSONException {
             Activity activity = (Activity) context;
             LayoutInflater inflater = activity.getLayoutInflater();
             View dialogLayout = inflater.inflate(R.layout.expasion_panel_undo_dialog, null);
@@ -399,7 +401,11 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     RefreshExpansionPanelEvent expansionPanelEvent = new RefreshExpansionPanelEvent(null,
                             (LinearLayout) view.getTag(R.id.linearLayout));
 
-                    expansionPanelEvent.setPreviousSelectedValues(new ArrayList<String>());
+                    try {
+                        expansionPanelEvent.setPreviousSelectedValues(getUndoneValues(item));
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Error getting previous values: " + e);
+                    }
 
                     item.remove(JsonFormConstants.VALUE);
                     item.remove(Constants.REQUIRED_FIELDS);
@@ -418,5 +424,20 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
             dialog.show();
         }
+    }
+
+    private List<String> getUndoneValues(JSONObject item) throws JSONException {
+        LinkedList<String> previousValues = new LinkedList<>();
+        if (item.has(JsonFormConstants.VALUE)) {
+            JSONArray valuesArray = item.getJSONArray(JsonFormConstants.VALUE);
+            for (int index = 0; index < valuesArray.length(); index++) {
+                ExpansionPanelItemModel expansionPanelItem = ContactJsonFormUtils.getExpansionPanelItem(
+                        valuesArray.getJSONObject(index).getString(JsonFormConstants.KEY), valuesArray);
+
+                previousValues.add(expansionPanelItem.getKey());
+            }
+
+        }
+        return previousValues;
     }
 }

@@ -2,7 +2,6 @@ package org.smartregister.anc.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -58,6 +57,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     private Utils utils = new Utils();
     private String TAG = this.getClass().getSimpleName();
     private String formName;
+    private ArrayList<String> removedValues = new ArrayList<>();
 
     public void init(String json) {
         try {
@@ -142,6 +142,9 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     @Override
     public void onBackPressed() {
+        proceedToMainContactPage();
+        this.finish();
+/*
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -171,6 +174,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             }
         }.execute();
+*/
 
     }
 
@@ -503,8 +507,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
                 if (refreshExpansionPanelEvent.getPreviousSelectedValues() != null &&
                         refreshExpansionPanelEvent.getPreviousSelectedValues().size() > 0) {
-                    Log.i(TAG, "Undone records from an accordion from Test: " +
-                            refreshExpansionPanelEvent.getPreviousSelectedValues());
+                    removedValues.addAll(refreshExpansionPanelEvent.getPreviousSelectedValues());
                 }
 
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
@@ -550,7 +553,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
-
+        intent.putExtra(Constants.INTENT_KEY.UNDONE_VALUES, removedValues);
         Contact contact = getContact();
         contact.setJsonForm(currentJsonState());
         contact.setContactNumber(contactNo);
