@@ -9,49 +9,49 @@ actions:
 name: step1_calcium_comply
 description: Calcium comply
 priority: 1
-condition: "(global_calcium_supp != '' && global_calcium_supp == 'done')"
+condition: "(global_calcium_supp == 'done' || global_previous_calcium_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_calcium_effects
 description: Calcium effects
 priority: 1
-condition: "(global_calcium_supp != '' &&  global_calcium_supp == 'done')"
+condition: "(global_calcium_supp == 'done' || global_previous_calcium_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_ifa_comply
 description: Ifa comply
 priority: 1
-condition: "(global_iga_high_prev != '' && global_iga_high_prev == 'done') || (global_ifa_low_prev != '' && global_ifa_low_prev == 'done') || (global_ifa_weekly != '' && global_ifa_weekly == 'done') || (global_ifa_anaemia != '' && global_ifa_anaemia == 'done')"
+condition: "(global_iga_high_prev == 'done' || global_previous_iga_high_prev == 'done') || (global_ifa_low_prev == 'done' || global_previous_ifa_low_prev == 'done') || (global_ifa_weekly == 'done' || global_previous_ifa_weekly == 'done') || (global_ifa_anaemia == 'done' || global_previous_ifa_anaemia == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_ifa_effects
 description: ifa effects
 priority: 1
-condition: "(global_iga_high_prev != '' && global_iga_high_prev == 'done') || (global_ifa_low_prev != ''  && global_ifa_low_prev == 'done') || ( global_ifa_weekly != '' && global_ifa_weekly == 'done') || (global_ifa_anaemia != '' && global_ifa_anaemia == 'done')"
+condition: "(global_iga_high_prev == 'done' || global_previous_iga_high_prev == 'done') || (global_ifa_low_prev == 'done' || global_previous_ifa_low_prev == 'done') || (global_ifa_weekly == 'done' || global_previous_ifa_weekly == 'done') || (global_ifa_anaemia == 'done' || global_previous_ifa_anaemia == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_aspirin_comply
 description: Asprin comply
 priority: 1
-condition: "(global_pe_risk_aspirin != '' && global_pe_risk_aspirin == 'done') || (global_pe_risk_aspirin_calcium != '' && global_pe_risk_aspirin_calcium == 'done')"
+condition: "(global_pe_risk_aspirin == 'done' || global_previous_pe_risk_aspirin == 'done') || (global_pe_risk_aspirin_calcium == 'done' || global_previous_pe_risk_aspirin_calcium == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_vita_comply
 description: Vitamin A comply
 priority: 1
-condition: "global_vita_supp != '' && global_vita_supp == 'done'"
+condition: "(global_vita_supp == 'done' || global_previous_vita_supp == 'done')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_penicillin_comply
 description: Penicillin comply
 priority: 1
-condition: "global_syphilis_positive != '' && global_syphilis_positive == '1'"
+condition: "(global_syphilis_positive == '1' || global_previous_syphilis_positive == '1')"
 actions:
   - "isRelevant = true"
 ---

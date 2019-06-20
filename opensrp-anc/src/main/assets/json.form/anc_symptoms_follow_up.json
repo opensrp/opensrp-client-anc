@@ -24,7 +24,16 @@
     "condom_use",
     "alcohol_substance_use",
     "phys_symptoms",
-    "other_symptoms"
+    "other_symptoms",
+    "calcium_supp",
+    "vita_supp",
+    "syphilis_positive",
+    "pe_risk_aspirin_calcium",
+    "pe_risk_aspirin",
+    "ifa_high_prev",
+    "ifa_low_prev",
+    "ifa_weekly",
+    "ifa_anaemia"
   ],
   "metadata": {
     "start": {
@@ -365,14 +374,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -398,14 +407,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -431,14 +440,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -464,14 +473,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -497,14 +506,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -530,14 +539,14 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -565,14 +574,14 @@
         "label_info_title": "Syphilis Compliance",
         "options": [
           {
-            "key": "1",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "0",
+            "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",

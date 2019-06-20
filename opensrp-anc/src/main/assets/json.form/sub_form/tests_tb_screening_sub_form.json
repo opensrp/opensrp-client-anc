@@ -135,7 +135,7 @@
       }
     },
     {
-      "key": "tb_test_notdone_other",
+      "key": "tb_screening_notdone_other",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

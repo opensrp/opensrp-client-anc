@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.skyscreamer.jsonassert.Customization;
@@ -49,6 +50,10 @@ import id.zelory.compressor.Compressor;
  */
 
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore({
+        "org.powermock.*",
+        "org.mockito.*",
+})
 public class JsonFormUtilsTest {
     private static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     private static final String DUMMY_LOCATION_ID = "dummy-location-id-2018";

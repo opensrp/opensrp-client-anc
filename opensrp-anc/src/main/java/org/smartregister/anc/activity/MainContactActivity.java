@@ -96,8 +96,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         initializeMainContactContainers();
 
-        //Enable/Diable FinalizeButton
-        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0); //TO REMOVE (SWITCH OPERATOR TO ==)
+        //Enable/Disable finalize button
+        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
     }
 
     private void initializeMainContactContainers() {
@@ -263,11 +263,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             map.put(Constants.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
             map.put(Constants.AGE, womanAge);
 
-            //Handle Gestation age. Use the latest calculated gestation age. Checks if the Current
-            //Gestation Age is greater than the previously stored Gestation age
-            String gestAgeInMap = formGlobalValues.get(Constants.GEST_AGE_OPENMRS);
-            int previousGestAge = !TextUtils.isEmpty(gestAgeInMap) ? Integer.parseInt(gestAgeInMap) : 0;
-            if (previousGestAge < presenter.getGestationAge()) {
+            //Inject gestational age when it has not been calculated from profile form
+            if (TextUtils.isEmpty(formGlobalValues.get(Constants.GEST_AGE_OPENMRS))) {
                 map.put(Constants.GEST_AGE_OPENMRS, String.valueOf(presenter.getGestationAge()));
             }
 
@@ -316,10 +313,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void processRequiredStepsField(JSONObject object) throws Exception {
-        if (object != null) {
+        if (object != null && object.has(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)) {
             //initialize required fields map
-            if (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(
-                    object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE))) {
+            String encounterType = object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE);
+
+            //Do not add defaults for test and CT contact containers unless they are opened
+            if (!Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT_ENCOUNTER_TYPE.equals(encounterType)
+                    && !Constants.JSON_FORM.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) &&
+                    (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
                 requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), 0);
             }
 
@@ -336,7 +337,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                         boolean isRequiredField = isFieldVisible && isFieldRequired(fieldObject);
                         updateFieldRequiredCount(object, fieldObject, isRequiredField);
                         updateFormGlobalValues(fieldObject);
-                        checkRequiredForSubForms(fieldObject, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE));
+                        checkRequiredForSubForms(fieldObject, object);
                     }
                 }
             }
@@ -345,10 +346,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
 
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
-        //Reset global value that matches this with an empty string first any time this method is called
-        if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY))) {
-            formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), "");
-        }
 
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
@@ -416,22 +413,28 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
-    private void checkRequiredForSubForms(JSONObject fieldObject, String encounterType) throws JSONException {
+    private void checkRequiredForSubForms(JSONObject fieldObject, JSONObject encounterObject) throws JSONException {
         if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
             if ((fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE))) {
                 return;
             }
             JSONArray requiredFieldsArray = fieldObject.has(Constants.REQUIRED_FIELDS) ?
                     fieldObject.getJSONArray(Constants.REQUIRED_FIELDS) : new JSONArray();
-            updateSubFormRequiredCount(requiredFieldsArray, createAccordionValuesMap(fieldObject), encounterType);
+            updateSubFormRequiredCount(requiredFieldsArray, createAccordionValuesMap(fieldObject, encounterObject), encounterObject);
             updateFormGlobalValuesFromExpansionPanel(fieldObject);
         }
     }
 
-    private HashMap<String, JSONArray> createAccordionValuesMap(JSONObject accordionJsonObject)
+    private HashMap<String, JSONArray> createAccordionValuesMap(JSONObject accordionJsonObject, JSONObject encounterObject)
             throws JSONException {
         HashMap<String, JSONArray> accordionValuesMap = new HashMap<>();
         if (accordionJsonObject.has(JsonFormConstants.VALUE)) {
+            String encounterType = encounterObject.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE);
+            //At this point we can now initialize required value for Test/CT since at least on of the expansion widget has a value
+            if (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType)) {
+                requiredFieldsMap.put(encounterType, 0);
+            }
+
             JSONArray accordionValues = accordionJsonObject.getJSONArray(JsonFormConstants.VALUE);
             for (int index = 0; index < accordionValues.length(); index++) {
                 JSONObject item = accordionValues.getJSONObject(index);
@@ -444,13 +447,15 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void updateSubFormRequiredCount(JSONArray requiredAccordionFields, HashMap<String, JSONArray> accordionValuesMap,
-                                            String encounterType) throws JSONException {
+                                            JSONObject encounterObject) throws JSONException {
 
         if (requiredAccordionFields.length() == 0) {
             return;
         }
 
+        String encounterType = encounterObject.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE);
         Integer requiredFieldCount = requiredFieldsMap.get(encounterType);
+
         for (int count = 0; count < requiredAccordionFields.length(); count++) {
             String item = requiredAccordionFields.getString(count);
             if (!accordionValuesMap.containsKey(item)) {

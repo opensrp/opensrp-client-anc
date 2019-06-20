@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.smartregister.anc.activity.BaseUnitTest;
@@ -30,6 +31,10 @@ import org.smartregister.view.activity.DrishtiApplication;
  * Created by ndegwamartin on 14/07/2018.
  */
 @PrepareForTest({ImageUtils.class, DrishtiApplication.class, BitmapFactory.class, ContextCompat.class})
+@PowerMockIgnore({
+        "org.powermock.*",
+        "org.mockito.*",
+})
 public class ImageRenderHelperTest extends BaseUnitTest {
 
     private ImageRenderHelper imageRenderHelper;

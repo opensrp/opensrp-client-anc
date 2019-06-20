@@ -190,13 +190,15 @@ public class Utils extends org.smartregister.util.Utils {
         return R.drawable.avatar_woman;
     }
 
-    public static String reverseHyphenSeperatedValues(String rawString, String outputSeperator) {
-        String resultString = rawString;
-        String[] tokenArray = resultString.split("-");
-        ArrayUtils.reverse(tokenArray);
-        resultString = StringUtils.join(tokenArray, outputSeperator);
-
-        return resultString;
+    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
+        if (!TextUtils.isEmpty(rawString) && rawString != null) {
+            String resultString = rawString;
+            String[] tokenArray = resultString.trim().split("-");
+            ArrayUtils.reverse(tokenArray);
+            resultString = StringUtils.join(tokenArray, outputSeparator);
+            return resultString;
+        }
+        return "";
     }
 
     public static List<String> getListFromString(String stringArray) {
@@ -284,10 +286,8 @@ public class Utils extends org.smartregister.util.Utils {
     public static boolean hasPendingRequiredFields(JSONObject object) throws Exception {
         if (object != null) {
             Iterator<String> keys = object.keys();
-
             while (keys.hasNext()) {
                 String key = keys.next();
-
                 if (key.startsWith(RuleConstant.STEP)) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
 
@@ -295,22 +295,22 @@ public class Utils extends org.smartregister.util.Utils {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        boolean isRequiredField =
-                                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
-                                        fieldObject.has(JsonFormConstants.V_REQUIRED);
+                        boolean isRequiredField = JsonFormUtils.isFieldRequired(fieldObject);
+                        //Do not check for required for fields that are invisible
+                        if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                            isRequiredField = false;
+                        }
 
-                        if (isRequiredField && fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(
-                                fieldObject.getString(JsonFormConstants.VALUE))) {//TO DO Remove/ Alter logical condition
-
-                            return false;
-
-
+                        if (isRequiredField && ((fieldObject.has(JsonFormConstants.VALUE) && TextUtils.isEmpty(
+                                fieldObject.getString(JsonFormConstants.VALUE))) || !fieldObject.has(JsonFormConstants.VALUE))) {
+                            //TO DO Remove/ Alter logical condition
+                            return true;
                         }
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -351,10 +351,30 @@ public class Utils extends org.smartregister.util.Utils {
         while (stringValueResult.contains("{")) {
             String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
             String value = processValue(key, facts);
-            stringValueResult = stringValueResult.replace("{" + key + "}", value != null ? value : "");
+            stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
         }
+        //Remove unnecessary commas by cleaning the returned string
+        return cleanValueResult(stringValueResult);
+    }
 
-        return stringValueResult;
+    private static String cleanValueResult(String result) {
+        List<String> nonEmptyItems = new ArrayList<>();
+
+        for (String item : result.split(",")) {
+            if (item.length() > 1) {
+                nonEmptyItems.add(item);
+            }
+        }
+        //Get the first item that usually  has a colon and remove it form list, if list has one item append separator
+        String itemLabel = "";
+        if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
+            String[] separatedLabel = nonEmptyItems.get(0).split(":");
+            itemLabel = separatedLabel[0];
+            if (separatedLabel.length > 1) {
+                nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
+            }//replace with extracted value
+        }
+        return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
     }
 
     private static String processValue(String key, Facts facts) {
@@ -369,7 +389,6 @@ public class Utils extends org.smartregister.util.Utils {
 
             }
         }
-
 
         return ContactJsonFormUtils.keyToValueConverter(value);
     }
@@ -475,58 +494,59 @@ public class Utils extends org.smartregister.util.Utils {
         dueButton.setText(buttonAlertStatus.buttonText);
         dueButton.setTag(R.id.GESTATION_AGE, buttonAlertStatus.gestationAge);
 
-        switch (buttonAlertStatus.buttonAlertStatus) {
-            case Constants.ALERT_STATUS.IN_PROGRESS:
-                contactTextView.setVisibility(View.GONE);
-                dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                break;
-            case Constants.ALERT_STATUS.DUE:
-                contactTextView.setVisibility(View.GONE);
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                break;
-            case Constants.ALERT_STATUS.OVERDUE:
-                contactTextView.setVisibility(View.GONE);
-                dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                break;
-            case Constants.ALERT_STATUS.NOT_DUE:
-                contactTextView.setVisibility(View.GONE);
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                break;
-            case Constants.ALERT_STATUS.DELIVERY_DUE:
-                contactTextView.setVisibility(View.GONE);
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                dueButton.setText(context.getString(R.string.due_delivery));
-                break;
-            case Constants.ALERT_STATUS.EXPIRED:
-                contactTextView.setVisibility(View.GONE);
-                dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                dueButton.setText(context.getString(R.string.due_delivery));
-                break;
-            case Constants.ALERT_STATUS.TODAY:
-                dueButton.setVisibility(View.GONE);
-                contactTextView.setVisibility(View.VISIBLE);
-                contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
-                        Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                contactTextView.setPadding(2, 2, 2, 2);
+        if (buttonAlertStatus.buttonAlertStatus != null) {
+            switch (buttonAlertStatus.buttonAlertStatus) {
+                case Constants.ALERT_STATUS.IN_PROGRESS:
+                    contactTextView.setVisibility(View.GONE);
+                    dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                    break;
+                case Constants.ALERT_STATUS.DUE:
+                    contactTextView.setVisibility(View.GONE);
+                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                    break;
+                case Constants.ALERT_STATUS.OVERDUE:
+                    contactTextView.setVisibility(View.GONE);
+                    dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                    break;
+                case Constants.ALERT_STATUS.NOT_DUE:
+                    contactTextView.setVisibility(View.GONE);
+                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                    break;
+                case Constants.ALERT_STATUS.DELIVERY_DUE:
+                    contactTextView.setVisibility(View.GONE);
+                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                    dueButton.setText(context.getString(R.string.due_delivery));
+                    break;
+                case Constants.ALERT_STATUS.EXPIRED:
+                    contactTextView.setVisibility(View.GONE);
+                    dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                    dueButton.setText(context.getString(R.string.due_delivery));
+                    break;
+                case Constants.ALERT_STATUS.TODAY:
+                    dueButton.setVisibility(View.GONE);
+                    contactTextView.setVisibility(View.VISIBLE);
+                    contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
+                            Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                    contactTextView.setPadding(2, 2, 2, 2);
 
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
-                        Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                break;
-            default:
-                dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                contactTextView.setVisibility(View.GONE);
-                break;
-
+                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
+                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                    dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
+                            Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                    break;
+                default:
+                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                    contactTextView.setVisibility(View.GONE);
+                    break;
+            }
         }
     }
 
@@ -538,7 +558,8 @@ public class Utils extends org.smartregister.util.Utils {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
                         !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
-                    label = jsonObject.getString(JsonFormConstants.LABEL);
+                    //Get label and replace any colon in some labels. Not needed at this point
+                    label = jsonObject.getString(JsonFormConstants.LABEL).replace(":", "");
                     stringList.add(label + ":" + getStringValue(jsonObject));
                 }
             }

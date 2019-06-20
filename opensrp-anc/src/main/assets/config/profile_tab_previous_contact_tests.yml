@@ -231,8 +231,8 @@ fields:
   - template: "TB screening test not done reason: {tb_screening_notdone}"
     relevance: "tb_screening_notdone != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
 
-  - template: "TB screening test not done other reason: {tb_test_notdone_other}"
-    relevance: "tb_test_notdone_other != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+  - template: "TB screening test not done other reason: {tb_screening_notdone_other}"
+    relevance: "tb_screening_notdone_other != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
 
   - template: "TB screening result: {tb_screening_result}"
     relevance: "tb_screening_result != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"

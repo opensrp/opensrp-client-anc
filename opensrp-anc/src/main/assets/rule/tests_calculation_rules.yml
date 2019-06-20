@@ -58,16 +58,58 @@ actions:
 name: step1_select_gest_age_edd
 description: Gest age
 priority: 1
-condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
+condition: "true"
 actions:
     - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
 ---
 name: step2_select_gest_age_edd
 description: Gest age
 priority: 1
-condition: "global_lmp_gest_age != '' || global_lmp_edd != '' || global_ultrasound_gest_age != '' || global_ultrasound_edd != '' || global_sfh_ga_hidden != '' || global_sfh_edd != ''"
+condition: "true"
 actions:
     - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+---
+name: step1_edd
+description: Selected EDD
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step1_select_gest_age_edd != '' && step1_select_gest_age_edd == 'ultrasound'  && (step1_ultrasound == 'done_today' || (step1_ultrasound == 'done_earlier' && step1_ultrasound_edd != '')) ?  step1_ultrasound_edd : global_edd"
+---
+name: step2_edd
+description: Selected EDD
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step2_select_gest_age_edd != '' && step2_select_gest_age_edd == 'ultrasound'  && (step2_ultrasound == 'done_today' || (step2_ultrasound == 'done_earlier' && step2_ultrasound_edd != '')) ?  step2_ultrasound_edd : global_edd"
+---
+name: step1_gest_age
+description: Selected Gest Age
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step1_select_gest_age_edd != '' && step1_select_gest_age_edd == 'ultrasound'  && (step1_ultrasound == 'done_today' || (step1_ultrasound == 'done_earlier' && step1_ultrasound_gest_age != '')) ?  step1_ultrasound_gest_age : global_gest_age"
+---
+name: step2_gest_age
+description: Selected Gest Age
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step2_select_gest_age_edd != '' && step2_select_gest_age_edd == 'ultrasound'  && (step2_ultrasound == 'done_today' || (step2_ultrasound == 'done_earlier' && step2_ultrasound_gest_age != '')) ?  step2_ultrasound_gest_age : global_gest_age"
+---
+name: step1_gest_age_openmrs
+description: Ga to send to openmrs
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step1_select_gest_age_edd != '' && step1_select_gest_age_edd == 'ultrasound' && (step1_ultrasound == 'done_today' || (step1_ultrasound == 'done_earlier' && step1_ultrasound_gest_age != ''))  ? helper.stripGaNumber(step1_ultrasound_gest_age) : global_gest_age_openmrs"
+---
+name: step2_gest_age_openmrs
+description: Ga to send to openmrs
+priority: 1
+condition: "true"
+actions:
+    - "calculation = step2_select_gest_age_edd != '' && step2_select_gest_age_edd == 'ultrasound' && (step2_ultrasound == 'done_today' || (step2_ultrasound == 'done_earlier' && step2_ultrasound_gest_age != '')) ? helper.stripGaNumber(step2_ultrasound_gest_age) : global_gest_age_openmrs"
 ---
 name: step1_no_of_fetuses
 description: No. of fetuses
@@ -128,14 +170,14 @@ actions:
 name: step1_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step1_hiv_test_result == 'positive') || (global_hiv_positive != '' && global_hiv_positive == 1)"
+condition: "(step1_hiv_test_result == 'positive') || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hiv'))"
 actions:
     - "calculation = 1"
 ---
 name: step2_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step2_hiv_test_result == 'positive') || (global_hiv_positive != '' && global_hiv_positive == 1)"
+condition: "(step2_hiv_test_result == 'positive') || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hiv'))"
 actions:
     - "calculation = 1"
 ---
@@ -149,7 +191,7 @@ actions:
 name: step2_hiv_risk
 description: hiv_risk
 priority: 1
-condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') != '1' && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true) )"
+condition: "((global_hiv_positive == ''  || global_hiv_positive == 0) && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true))"
 actions:
     - "calculation = 1"
 ---
@@ -242,26 +284,26 @@ description: hb_result
 priority: 1
 condition: "true"
 actions:
-    - "calculation = step1_hb_test_type != '' && step1_hb_test_type == 'complete_blood_count' ? step1_cbc : step1_hb_test_type != '' && step1_hb_test_type == 'hb_test_colour_scale' ? step1_hb_colour : step1_hb_gmeter"
+    - "calculation = step1_hb_test_type == 'complete_blood_count' ? step1_cbc : step1_hb_test_type == 'hb_test_haemoglobinometer' ? step1_hb_gmeter :  step1_hb_test_type == 'hb_test_colour_scale' ? step1_hb_colour : '' "
 ---
 name: step2_hb_result
 description: hb_result
 priority: 1
 condition: "true"
 actions:
-    - "calculation = step2_hb_test_type != '' && step2_hb_test_type == 'complete_blood_count' ? step2_cbc : step2_hb_test_type != '' && step2_hb_test_type == 'hb_test_colour_scale' ? step2_hb_colour : step2_hb_gmeter"
+    - "calculation = step2_hb_test_type == 'complete_blood_count' ? step2_cbc : step2_hb_test_type == 'hb_test_haemoglobinometer' ? step2_hb_gmeter : step2_hb_test_type == 'hb_test_colour_scale' ? step2_hb_colour : '' "
 ---
 name: step1_anaemic
 description: anaemic
 priority: 1
-condition: "(global_pallor == 'yes') || step1_hb_result > 0 && ((step1_hb_result < 11 && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (step1_hb_result < 10.5 && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28)))"
+condition: "(step1_hb_result == '' && global_pallor == 'yes') || (step1_hb_result < 11 && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (step1_hb_result < 10.5 && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28))"
 actions:
     - "calculation = 1"
 ---
 name: step2_anaemic
 description: anaemic
 priority: 1
-condition: "(global_pallor == 'yes') || step2_hb_result > 0 && ((step2_hb_result < 11 && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (step2_hb_result < 10.5 && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28)))"
+condition: "(step2_hb_result == '' && global_pallor == 'yes') || (step2_hb_result < 11 && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (step2_hb_result < 10.5 && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28))"
 actions:
     - "calculation = 1"
 ---
