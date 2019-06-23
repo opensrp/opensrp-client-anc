@@ -625,7 +625,7 @@ actions:
 name: step8_accordion_deworm
 description: deworm
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
 actions:
   - "isRelevant = true"
 ---
@@ -737,7 +737,7 @@ actions:
 name: step8_accordion_flu_immunisation
 description: tt1_date
 priority: 1
-condition: "global_flu_immun_status != '' && (global_flu_immun_status == 'seasonal_flu_dose_missing' || global_flu_immun_status ==  'unknown')"
+condition: "(global_flu_immun_status != '' && (global_flu_immun_status == 'seasonal_flu_dose_missing' || global_flu_immun_status ==  'unknown')) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_flu_date == '')) "
 actions:
   - "isRelevant = true"
 ---

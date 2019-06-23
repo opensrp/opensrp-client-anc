@@ -8,6 +8,7 @@
       "type": "toaster_notes",
       "text": "Woman should plan to give birth at a facility due to risk factors",
       "toaster_type": "info",
+      "toaster_info_text": "Risk factors necessitating a facility birth:\n- Age 17 or under\n- Primigravida\n- Parity 6 or higher\n- Prior C-section\n- Previous pregnancy complications: Heavy bleeding, Forceps or vacuum delivery, Convulsions, or 3rd or 4th degree tear\n- Vaginal bleeding\n- Multiple fetuses\n- Abnormal fetal presentation\n- HIV+\n- Wants IUD or tubal ligation following delivery",
       "relevance": {
         "rules-engine": {
           "ex-rules": {

@@ -1,5 +1,7 @@
 package org.smartregister.anc.activity;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -8,6 +10,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.R;
 import org.smartregister.anc.application.TestAncApplication;
+import org.smartregister.anc.util.JsonFormUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -39,16 +42,7 @@ public abstract class BaseUnitTest {
     protected static final String DUMMY_PHONE_NUMBER = "07233244059";
 
     protected JSONObject getMainJsonObject(String filePath) throws Exception {
-        InputStream inputStream = RuntimeEnvironment.application.getAssets()
-                .open( filePath+ ".json");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                "UTF-8"));
-        String jsonString;
-        StringBuilder stringBuilder = new StringBuilder();
-        while ((jsonString = reader.readLine()) != null) {
-            stringBuilder.append(jsonString);
-        }
-        inputStream.close();
-        return new JSONObject(stringBuilder.toString());
+        Context context = RuntimeEnvironment.application;
+        return JsonFormUtils.readJsonFromAsset(context, filePath);
     }
 }

@@ -27,6 +27,34 @@ condition: "global_ultrasound_gest_age_wks != '' && step2_ultrasound_gest_age_wk
 actions:
     - "calculation = global_ultrasound_gest_age_wks"
 ---
+name: step1_ultrasound_gest_age_days
+description: GA from ultrasound - days
+priority: 1
+condition: "global_ultrasound_gest_age_days != '' && step1_ultrasound_gest_age_days == ''"
+actions:
+    - "calculation = global_ultrasound_gest_age_days"
+---
+name: step2_ultrasound_gest_age_days
+description: GA from ultrasound - days
+priority: 1
+condition: "global_ultrasound_gest_age_days != '' && step2_ultrasound_gest_age_days == ''"
+actions:
+    - "calculation = global_ultrasound_gest_age_days"
+---
+name: step1_ultrasound_gest_age_concept
+description: Ultrasound  Gest age concept
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+    - "calculation = Math.ceil(((step1_ultrasound_gest_age_wks * 7) + new Integer(step1_ultrasound_gest_age_days)) / 7)"
+---
+name: step2_ultrasound_gest_age_concept
+description: Ultrasound  Gest age concept
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+    - "calculation = Math.ceil(((step2_ultrasound_gest_age_wks * 7) + new Integer(step2_ultrasound_gest_age_days)) / 7)"
+---
 name: step1_ultrasound_gest_age
 description: GA from ultrasound - weeks
 priority: 1
@@ -46,14 +74,14 @@ description: EDD calculated from ultrasound results.
 priority: 1
 condition: "(step1_ultrasound_date != '' || step1_ultrasound_date_today_hidden != 0) && step1_ultrasound_gest_age_wks > 0"
 actions:
-    - "calculation = helper.addDuration(step1_ultrasound_date_today_hidden != 0 ? step1_ultrasound_date_today_hidden : step1_ultrasound_date, ( (280 - (step1_ultrasound_gest_age_wks * 7) ) +'d'))"
+    - "calculation = helper.addDuration(step1_ultrasound_date_today_hidden != 0 ? step1_ultrasound_date_today_hidden : step1_ultrasound_date, ( (280 - ( (new Integer(step1_ultrasound_gest_age_wks) * 7) +  new Integer(step1_ultrasound_gest_age_days != '' ? step1_ultrasound_gest_age_days : 0)) ) +'d'))"
 ---
 name: step2_ultrasound_edd
 description: EDD calculated from ultrasound results.
 priority: 1
 condition: "(step2_ultrasound_date != '' || step2_ultrasound_date_today_hidden != 0 ) && step2_ultrasound_gest_age_wks > 0"
 actions:
-    - "calculation = helper.addDuration(step2_ultrasound_date_today_hidden != 0 ? step2_ultrasound_date_today_hidden : step2_ultrasound_date, ((280 - (step2_ultrasound_gest_age_wks * 7)) +'d'))"
+    - "calculation = helper.addDuration(step2_ultrasound_date_today_hidden != 0 ? step2_ultrasound_date_today_hidden : step2_ultrasound_date, ( (280 - ( (new Integer(step2_ultrasound_gest_age_wks) * 7) +  new Integer(step2_ultrasound_gest_age_days != '' ? step2_ultrasound_gest_age_days : 0)) ) +'d'))"
 ---
 name: step1_select_gest_age_edd
 description: Gest age

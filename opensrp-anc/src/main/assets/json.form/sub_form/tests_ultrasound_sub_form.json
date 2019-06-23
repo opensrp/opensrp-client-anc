@@ -202,6 +202,61 @@
       }
     },
     {
+      "key": "ultrasound_gest_age_days",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "GA from ultrasound - days",
+      "v_required": {
+        "value": "false",
+        "err": "Please give the GA from ultrasound - days"
+      },
+      "v_numeric_integer": {
+        "value": "true",
+        "err": "Enter a Valid GA from ultrasound - days value"
+      },
+      "v_min": {
+        "value": "1",
+        "err": "GA from ultrasound - days should be equal to or greater than 1"
+      },
+      "v_max": {
+        "value": "6",
+        "err": "GA from ultrasound - days should be less than or equal to 6"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_gest_age_concept",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "hidden",
+      "v_required": {
+        "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "ultrasound_gest_age",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",

@@ -126,19 +126,17 @@ public abstract class Constants {
         public static final String ANC_CLOSE_REASON = "anc_close_reason";
         public static final String DOB_ENTERED = "dob_entered";
         public static final String AGE_ENTERED = "age_entered";
-
     }
 
     public static class JSON_FORM_EXTRA {
         public static final String CONTACT = "contact";
         public static final String JSON = "json";
-
     }
 
     public static class PREF_KEY {
         public static final String SITE_CHARACTERISTICS = "site_characteristics";
         public static final String POPULATION_CHARACTERISTICS = "population_characteristics";
-
+        public static String FORM_INVISIBLE_REQUIRED_FIELDS = "anc.invisible.req.fields";
     }
 
     public static final class KEY {
@@ -155,7 +153,6 @@ public abstract class Constants {
         public static final String LAST_CONTACT_DATE = "last_contact_date";
         public static final String SECONDARY_VALUES = "secondary_values";
         public static final String PARENT_SECONDARY_KEY = "parent_secondary_key";
-
     }
 
     public static final class INTENT_KEY {
@@ -191,7 +188,6 @@ public abstract class Constants {
         public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
-
     }
 
     public static final class ALERT_STATUS {

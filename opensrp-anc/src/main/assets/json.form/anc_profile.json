@@ -533,7 +533,7 @@
         "key": "ultrasound_gest_age_wks",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "GA from ultrasound - weeks",
         "relevance": {
@@ -557,6 +557,53 @@
         "v_max": {
           "value": "40",
           "err": "GA from ultrasound - weeks should be less than or equal to 40"
+        }
+      },
+      {
+        "key": "ultrasound_gest_age_days",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "GA from ultrasound - days",
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please give the GA from ultrasound - days"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a Valid GA from ultrasound - days value"
+        },
+        "v_min": {
+          "value": "1",
+          "err": "GA from ultrasound - days should be equal to or greater than 1"
+        },
+        "v_max": {
+          "value": "6",
+          "err": "GA from ultrasound - days should be less than or equal to 6"
+        }
+      },
+      {
+        "key": "ultrasound_gest_age_concept",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
         }
       },
       {
@@ -620,9 +667,9 @@
         "type": "edit_text",
         "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
         "label_info_title": "GA from SFH or abdominal palpation - weeks",
-        "hint": "GA from SFH or palpation - wks",
+        "hint": "GA from SFH or palpation - weeks",
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "Please give the GA from SFH or abdominal palpation - weeks"
         },
         "v_numeric_integer": {
@@ -966,6 +1013,47 @@
         "spacer_height": "24dp"
       },
       {
+        "key": "last_live_birth_preterm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Was the last live birth preterm (less than 37 weeks)?",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "dont_know",
+            "text": "Don't know",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Last live birth preterm is required"
+        }
+      },
+      {
         "key": "stillbirths_label",
         "type": "label",
         "label_text_style": "bold",
@@ -1207,7 +1295,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "124858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "3rd_degree_tear",
-            "text": "3rd degree tear"
+            "text": "3rd or 4th degree tear"
           },
           {
             "openmrs_entity_parent": "",

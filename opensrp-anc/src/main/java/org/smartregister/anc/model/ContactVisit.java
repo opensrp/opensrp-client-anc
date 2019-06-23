@@ -21,6 +21,7 @@ import org.smartregister.anc.util.ContactJsonFormUtils;
 import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.JsonFormUtils;
+import org.smartregister.anc.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 
 import java.io.IOException;
@@ -183,6 +184,7 @@ public class ContactVisit {
 
     private void processFormFieldKeyValues(String baseEntityId, JSONObject object, String contactNo) throws Exception {
         if (object != null) {
+            persistRequiredInvisibleFields(object);
             Iterator<String> keys = object.keys();
 
             while (keys.hasNext()) {
@@ -223,6 +225,14 @@ public class ContactVisit {
             }
         }
 
+    }
+
+    private void persistRequiredInvisibleFields(JSONObject object) throws JSONException {
+        if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
+            Utils.saveToSharedPreference(Constants.PREF_KEY.FORM_INVISIBLE_REQUIRED_FIELDS,
+                    object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE),
+                    object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS));
+        }
     }
 
     private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {

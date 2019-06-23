@@ -11,7 +11,7 @@ description: LMP EDD
 priority: 1
 condition: "step2_lmp_known == 'yes' && !step2_lmp_known_date.isEmpty()"
 actions:
-  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_lmp_known_date),'7d-9m')"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_lmp_known_date),'280d')"
 ---
 name: step2_lmp_gest_age
 description: LMP Gest age
@@ -20,12 +20,19 @@ condition: "step2_lmp_known == 'yes'"
 actions:
   - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(step2_lmp_known_date)))"
 ---
+name: step2_ultrasound_gest_age_concept
+description: Ultrasound  Gest age concept
+priority: 1
+condition: "step2_ultrasound_done== 'yes' && step2_ultrasound_gest_age_days != ''"
+actions:
+  - "calculation = Math.ceil(((step2_ultrasound_gest_age_wks * 7) + new Integer(step2_ultrasound_gest_age_days)) / 7)"
+---
 name: step2_ultrasound_edd
 description: Ultrasound edd
 priority: 1
-condition: "step2_ultrasound_gest_age_wks > 0 && !step2_ultrasound_done_date.isEmpty()"
+condition: "step2_ultrasound_gest_age_wks != ''"
 actions:
-  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_done_date), ( (280 - (step2_ultrasound_gest_age_wks * 7) ) +'d'))"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_done_date), ( (280 - ( (new Integer(step2_ultrasound_gest_age_wks) * 7) +  new Integer(step2_ultrasound_gest_age_days != '' ? step2_ultrasound_gest_age_days : 0)) ) +'d'))"
 ---
 name: step2_ultrasound_gest_age
 description: Ultrasound  Gest age
@@ -114,7 +121,7 @@ actions:
 name: step4_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(!global_hiv_test_result.isEmpty() && global_hiv_test_result == 'positive') || (step4_health_conditions.contains('hiv'))"
+condition: "(global_hiv_test_result != '' && global_hiv_test_result == 'positive') || (step4_health_conditions.contains('hiv'))"
 actions:
   - "calculation = 1"
 ---
