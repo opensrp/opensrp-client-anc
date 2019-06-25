@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
+import com.flurry.android.FlurryAgent;
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -147,6 +148,16 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //initialize configs processor
         initializeYamlConfigs();
+
+        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
+        if (!BuildConfig.DEBUG) {
+            new FlurryAgent.Builder()
+                    .withLogEnabled(true)
+                    .withCaptureUncaughtExceptions(true)
+                    .withContinueSessionMillis(10000)
+                    .withLogLevel(Log.VERBOSE)
+                    .build(this, BuildConfig.FLURRY_API_KEY);
+        }
     }
 
     @Override

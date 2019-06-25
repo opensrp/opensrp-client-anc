@@ -21,7 +21,8 @@
     "hepb1_date_done",
     "hepb2_date_done",
     "deworm",
-    "flu_date"
+    "flu_date",
+    "hepb_positive"
   ],
   "metadata": {
     "start": {

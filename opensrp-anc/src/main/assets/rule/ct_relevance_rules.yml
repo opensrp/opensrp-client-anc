@@ -415,7 +415,7 @@ actions:
 name: step5_accordion_syphilis_low_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
-condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false)"
+condition: "(global_syphilis_positive == 1)"
 actions:
   - "isRelevant = true"
 ---
@@ -730,7 +730,7 @@ actions:
 name: step8_accordion_hep_b_immunisation
 description: tt1_date
 priority: 1
-condition: "(global_hepb_positive != '' && global_hepb_positive == 0)"
+condition: "(global_previous_hepb_positive == 0 || global_hepb_positive == 0)"
 actions:
   - "isRelevant = true"
 ---
