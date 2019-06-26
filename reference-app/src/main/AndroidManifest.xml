@@ -23,7 +23,7 @@
         android:theme="@style/AncAppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".library.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
@@ -39,82 +39,82 @@
             android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ContactJsonFormActivity"
+            android:name=".library.activity.ContactJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.EditJsonFormActivity"
+            android:name=".library.activity.EditJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.HomeRegisterActivity"
+            android:name=".library.activity.HomeRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ProfileActivity"
+            android:name=".library.activity.ProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
-            android:name=".activity.PopulationCharacteristicsActivity"
+            android:name=".library.activity.PopulationCharacteristicsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
-            android:name=".activity.MainContactActivity"
+            android:name=".library.activity.MainContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ContactSummarySendActivity"
+            android:name=".library.activity.ContactSummarySendActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ContactSummaryFinishActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AncAppTheme.NoActionBar" />
-
-
-        <activity
-            android:name=".activity.SiteCharacteristicsActivity"
+            android:name=".library.activity.ContactSummaryFinishActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
 
+
         <activity
-            android:name=".activity.SiteCharacteristicsEnterActivity"
+            android:name=".library.activity.SiteCharacteristicsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.SiteCharacteristicsExitActivity"
+            android:name=".library.activity.SiteCharacteristicsEnterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name=".library.activity.SiteCharacteristicsExitActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
 
         <activity
-            android:name=".activity.PreviousContactsDetailsActivity"
+            android:name=".library.activity.PreviousContactsDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.PreviousContactsTestsActivity"
+            android:name=".library.activity.PreviousContactsTestsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
 
@@ -129,7 +129,7 @@
         </provider>
 
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.anc.service.AncSyncIntentService" />
+        <service android:name="org.smartregister.anc.library.service.AncSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService" />
