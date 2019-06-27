@@ -542,10 +542,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             //Get invisible required fields saved in the shared pref
             for (String key : eventToFileMap.keySet()) {
-                String sharedPrefResult = Utils.readFromSharedPreference(Constants.PREF_KEY.FORM_INVISIBLE_REQUIRED_FIELDS,
-                        key);
-                if (sharedPrefResult != null && sharedPrefResult.length() > 2) { // do not bother processing empty list
-                    invisibleRequiredFields.addAll(Arrays.asList(sharedPrefResult.replace("[", "")
+                String invisibleFields = getMapValue(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS
+                        + key.toLowerCase().replace("_", ""));
+                if (invisibleFields != null && invisibleFields.length() > 2) { // do not bother processing empty list
+                    invisibleRequiredFields.addAll(Arrays.asList(invisibleFields.replace("[", "")
                             .replace("]", "").split(",")));
                 }
             }

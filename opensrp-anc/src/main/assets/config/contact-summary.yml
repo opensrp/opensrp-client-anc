@@ -437,7 +437,7 @@ fields:
 - template: "Second temperature: {body_temp_repeat}ºC"
   relevance: "body_temp_repeat != ''"
 
-- template: "Pulse rate: {pulse_rate}bpm"
+- template: "Pulse rate: {pulse_rate} bpm"
   relevance: "pulse_rate != ''"
 
 - template: "Second pulse rate: {pulse_rate_repeat} bpm"

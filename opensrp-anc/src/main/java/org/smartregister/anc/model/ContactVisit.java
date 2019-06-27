@@ -236,11 +236,13 @@ public class ContactVisit {
      */
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
-            savePreviousContactItem(baseEntityId,
-                    new JSONObject()
-                            .put(JsonFormConstants.KEY, object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE))
-                            .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
-                            .put(PreviousContactRepository.CONTACT_NO, contactNo));
+            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
+                    object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)
+                            .toLowerCase().replace(" ", "_");
+            savePreviousContactItem(baseEntityId, new JSONObject()
+                    .put(JsonFormConstants.KEY, key)
+                    .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
+                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
 
         }
     }
