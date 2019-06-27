@@ -1,0 +1,48 @@
+{
+  "content_form": [
+    {
+      "key": "oedema_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165292AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "Oedema type",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "ankle_oedema",
+          "text": "Pitting ankle oedema",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "155113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "hands_feet_oedema",
+          "text": "Oedema of the hands and feet",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "lower_back_oedema",
+          "text": "Pitting lower back oedema",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "leg_swelling",
+          "text": "Leg swelling",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "141478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    }
+  ]
+}

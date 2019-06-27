@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/canvasSV"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:isScrollContainer="false">
+
+    <LinearLayout
+        android:id="@+id/top_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/site_characteristics_logo"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:contentDescription="logo"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/site_characteristics" />
+
+        <com.vijay.jsonwizard.views.CustomTextView
+            android:id="@+id/site_characteristics_text_view"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:maxLines="4"
+            android:text="@string/welcome_site_characteristics"
+            android:textColor="@color/black_text_color"
+            android:maxWidth="200dp"
+            android:typeface="sans"
+            android:textSize="23sp"/>
+
+
+        <Button
+            android:id="@+id/btn_site_characteristics"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/site_xters_continue_button"
+            android:paddingBottom="10dp"
+            android:paddingLeft="@dimen/profile_btn_registration_info_padding"
+            android:paddingRight="@dimen/profile_btn_registration_info_padding"
+            android:paddingTop="10dp"
+            android:text="@string/continue_"
+            android:textColor="@color/white"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</ScrollView>

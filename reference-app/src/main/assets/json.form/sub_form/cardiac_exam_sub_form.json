@@ -1,0 +1,103 @@
+{
+  "content_form": [
+    {
+      "key": "cardiac_exam_abnormal",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "Cardiac exam: abnormal",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "heart_murmur",
+          "text": "Heart murmur",
+          "value": false,
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "139063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept"
+        },
+        {
+          "key": "weak_pulse",
+          "text": "Weak pulse",
+          "value": false,
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "124823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept"
+        },
+        {
+          "key": "tachycardia",
+          "text": "Tachycardia",
+          "value": false,
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "125063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept"
+        },
+        {
+          "key": "bradycardia",
+          "text": "Bradycardia",
+          "value": false,
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "147020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept"
+        },
+        {
+          "key": "arrhythmia",
+          "text": "Arrhythmia",
+          "value": false,
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept"
+        },
+        {
+          "key": "cyanosis",
+          "text": "Cyanosis",
+          "value": false,
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept"
+        },
+        {
+          "key": "cold_sweats",
+          "text": "Cold sweats",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "cardiac_exam_abnormal_other",
+      "openmrs_entity_parent": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Specify",
+      "v_regex": {
+        "value": "[A-Za-z\\s\\.\\-]*",
+        "err": "Please enter valid content"
+      },
+      "relevance": {
+        "step3:cardiac_exam_abnormal": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

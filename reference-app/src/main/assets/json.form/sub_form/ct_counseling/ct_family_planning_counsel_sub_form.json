@@ -1,0 +1,106 @@
+{
+  "content_form": [
+    {
+      "key": "family_planning_counsel",
+      "openmrs_entity_parent": "165340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Postpartum family planning counseling ",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      }
+    },
+    {
+      "key": "family_planning_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "FP method accepted",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "oral_contraceptive",
+          "text": "Oral contraceptive",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "injectable",
+          "text": "Injectable",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "implant",
+          "text": "Implant",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "iud",
+          "text": "IUD",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "vaginal_ring",
+          "text": "Vaginal ring",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "162473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "tubal_ligation",
+          "text": "Tubal ligation",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "sterilization",
+          "text": "Sterilization (partner)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "none",
+          "text": "None",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "step7:family_planning_counsel": {
+          "type": "string",
+          "ex": "equalTo(., \"done\")"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "content_form": [
+    {
+      "key": "abdominal_exam_abnormal",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "Abdominal exam: abnormal",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "mass_tumour",
+          "text": "Mass/tumour",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "superficial_palpation_pain",
+          "text": "Pain on superficial palpation",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "deep_palpation_pain",
+          "text": "Pain on deep palpation",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "painful_decompression",
+          "text": "Painful decompression",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "127866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "abdominal_exam_abnormal_other",
+      "openmrs_entity_parent": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Specify",
+      "v_regex": {
+        "value": "[A-Za-z\\s\\.\\-]*",
+        "err": "Please enter valid content"
+      },
+      "relevance": {
+        "step3:abdominal_exam_abnormal": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

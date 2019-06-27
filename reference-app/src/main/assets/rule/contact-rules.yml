@@ -1,0 +1,70 @@
+---
+name: after_eight
+description: after eight weeks
+priority: 2
+condition: "contactRule.currentVisit < 20"
+actions:
+  - "contactRule.currentVisit = contactRule.currentVisit + 8"
+  - "contactRule.set.add(contactRule.currentVisit)"
+---
+name: after_six
+description: after six weeks
+priority: 2
+condition: "contactRule.currentVisit >= 20 && contactRule.currentVisit < 26"
+actions:
+    - "contactRule.currentVisit = contactRule.currentVisit + 6"
+    - "contactRule.set.add(contactRule.currentVisit)"
+---
+name: after_four
+description: after four weeks
+priority: 2
+condition: "contactRule.currentVisit >= 26 && contactRule.currentVisit < 34"
+actions:
+    - "contactRule.currentVisit = contactRule.currentVisit + 4"
+    - "contactRule.set.add(contactRule.currentVisit)"
+---
+name: after_two
+description: after two weeks
+priority: 2
+condition: "contactRule.currentVisit >= 34  && contactRule.currentVisit < 40"
+actions:
+    - "contactRule.currentVisit = contactRule.currentVisit + 2"
+    - "contactRule.set.add(contactRule.currentVisit)"
+---
+name: contains_40
+description: contains 40 weeks
+priority: 3
+condition: "!contactRule.set.contains(40) && contactRule.initialVisit != 41"
+actions:
+    - "contactRule.set.add(40)"
+---
+name: contains_41
+description: contains 41 weeks
+priority: 3
+condition: "!contactRule.set.contains(41)"
+actions:
+    - "contactRule.set.add(41)"
+---
+name: first_visit_22_23
+description: first visit is 22 or 23 weeks
+priority: 1
+condition: "contactRule.isFirst && (contactRule.initialVisit == 22 || contactRule.initialVisit == 23) && contactRule.currentVisit >= 30 && contactRule.currentVisit < 40"
+actions:
+    - "contactRule.currentVisit = contactRule.currentVisit + 2"
+    - "contactRule.set.add(contactRule.currentVisit)"
+---
+name: first_visit_28_29
+description: first visit is 28 or 29 weeks
+priority: 1
+condition: "contactRule.isFirst && (contactRule.initialVisit == 28 || contactRule.initialVisit == 29) && contactRule.currentVisit >= 32 && contactRule.currentVisit < 40"
+actions:
+    - "contactRule.currentVisit = contactRule.currentVisit + 2"
+    - "contactRule.set.add(contactRule.currentVisit)"
+---
+name: first_visit_30
+description: first visit is 30 weeks
+priority: 1
+condition: "contactRule.isFirst && (contactRule.initialVisit >= 30) && contactRule.currentVisit < 40"
+actions:
+    - "contactRule.currentVisit = contactRule.currentVisit + 2"
+    - "contactRule.set.add(contactRule.currentVisit)"

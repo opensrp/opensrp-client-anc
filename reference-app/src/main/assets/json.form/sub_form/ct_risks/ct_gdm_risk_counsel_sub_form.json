@@ -1,0 +1,36 @@
+{
+  "content_form": [
+    {
+      "key": "gdm_risk_counsel",
+      "openmrs_entity_parent": "165337AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Gestational diabetes mellitus (GDM) risk counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    }
+  ]
+}

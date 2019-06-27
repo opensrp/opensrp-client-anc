@@ -1,0 +1,497 @@
+{
+  "count": "1",
+  "encounter_type": "ANC Close",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Close ANC Record",
+    "fields": [
+      {
+        "key": "anc_close_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Reason?",
+        "values": [
+          "Live birth",
+          "Stillbirth",
+          "Miscarriage",
+          "Abortion",
+          "Woman died",
+          "Moved away",
+          "False pregnancy",
+          "Lost to follow-up",
+          "Wrong entry",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Stillbirth": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Miscarriage": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Abortion": "50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Woman Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Lost to follow-up": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "False Pregnancy": "128299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Wrong entry": "165246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "delivery_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Delivery date",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of delivery"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "delivery_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Place of delivery?",
+        "values": [
+          "Health facility",
+          "Home",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Place of delivery is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preterm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hidden": true,
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a number"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_calculations_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "delivery_mode",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Delivery mode",
+        "values": [
+          "Normal",
+          "Forceps or Vacuum",
+          "C-section"
+        ],
+        "openmrs_choice_ids": {
+          "Normal": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Forceps or Vacuum": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "C-section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "false"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birthweight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Birth weight (kg)",
+        "v_required": {
+          "value": false,
+          "err": "Please enter the child's weight at birth"
+        },
+        "v_min": {
+          "value": "0.1",
+          "err": "Birth weight must be greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Birth weight must be less than or equal to 10"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid weight between 1 and 10"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "exclusive_bf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Exclusively breastfeeding?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "false"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ppfp_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Postpartum FP method?",
+        "values": [
+          "None",
+          "Exclusive breastfeeding",
+          "OCP",
+          "Condom",
+          "Female sterilization",
+          "Male sterilization",
+          "IUD",
+          "Abstinence",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Exclusive breastfeeding": "5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "OCP": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Condom": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Female sterlization": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Male sterlization": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "IUD": "136452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Abstinence": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Forceps or Vacuum": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "false"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "delivery_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Any delivery complications?",
+        "hint": "Any delivery complications?",
+        "label_text_style": "bold",
+        "exclusive": [
+          "None"
+        ],
+        "options": [
+          {
+            "key": "None",
+            "text": "None",
+            "value": false,
+            "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Postpartum haemorrhage",
+            "text": "Postpartum haemorrhage",
+            "value": false,
+            "openmrs_choice_id": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Antepartum haemorrhage",
+            "text": "Antepartum haemorrhage",
+            "value": false,
+            "openmrs_choice_id": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Placenta praevia",
+            "text": "Placenta praevia",
+            "value": false,
+            "openmrs_choice_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Placental abruption",
+            "text": "Placental abruption",
+            "value": false,
+            "openmrs_choice_id": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Cord prolapse",
+            "text": "Cord prolapse",
+            "value": false,
+            "openmrs_choice_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Obstructed labour",
+            "text": "Obstructed labour",
+            "value": false,
+            "openmrs_choice_id": "141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Abnormal presentation",
+            "text": "Abnormal presentation",
+            "value": false,
+            "openmrs_choice_id": "150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Pre-eclampsia",
+            "text": "Pre-eclampsia",
+            "value": false,
+            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Eclampsia",
+            "text": "Eclampsia",
+            "value": false,
+            "openmrs_choice_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Perineal tear (2nd, 3rd or 4th degree)",
+            "text": "Perineal tear (2nd, 3rd or 4th degree)",
+            "value": false,
+            "openmrs_choice_id": "165247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Other",
+            "text": "Other",
+            "value": false,
+            "openmrs_choice_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "false"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "miscarriage_abortion_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Date of miscarriage/abortion",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of miscarriage/abortion"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "miscarriage_abortion_ga",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "miscarriage_abortion_ga",
+        "type": "hidden",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a number"
+        },
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_calculations_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "death_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Date of death",
+        "expanded": false,
+        "duration": {
+          "label": "Yrs"
+        },
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of death"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Cause of death?",
+        "values": [
+          "Unknown",
+          "Abortion-related complications",
+          "Obstructed labour",
+          "Pre-eclampsia",
+          "Eclampsia",
+          "Postpartum haemorrhage",
+          "Antepartum haemorrhage ",
+          "Placental abruption",
+          "Infection",
+          "Other"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of death"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        },
+        "openmrs_choice_ids": {
+          "Unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Abortion-related complications": "122299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Obstructed labour": "141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Pre-eclampsia": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Eclampsia": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Postpartum haemorrhage": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Antepartum haemorrhage": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Placental abruption": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Infection": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      }
+    ]
+  }
+}

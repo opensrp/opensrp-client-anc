@@ -1,0 +1,88 @@
+{
+  "content_form": [
+    {
+      "key": "leg_cramp_counsel",
+      "openmrs_entity_parent": "165318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Non-pharmacological treatment for the relief of leg cramps counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select and option"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "leg_cramp_counsel_notdone",
+      "openmrs_entity_parent": "165318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_data_type": "",
+      "type": "native_radio",
+      "label": "Reason",
+      "hint": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "referred_instead",
+          "text": "Referred instead",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "step3:leg_cramp_counsel": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      }
+    },
+    {
+      "key": "leg_cramp_counsel_notdone_other",
+      "openmrs_entity_parent": "165318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step3:leg_cramp_counsel_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    }
+  ]
+}

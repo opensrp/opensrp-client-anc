@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_summary_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/contact_summary_section_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/contact_summary_section_header_bg"
+        android:gravity="left"
+        android:paddingTop="@dimen/contact_drawable_padding"
+        android:paddingBottom="@dimen/contact_drawable_padding"
+        android:paddingLeft="@dimen/contact_drawable_padding"
+        android:singleLine="true"
+        android:text="@string/reason_for_visit"
+        android:textAllCaps="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/contact_summary_section_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingTop="@dimen/contact_drawable_padding"
+        android:paddingBottom="@dimen/contact_drawable_padding"
+        android:text="Chillin"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/black_text_color"
+        android:paddingLeft="@dimen/contact_drawable_padding"/>
+
+</LinearLayout>

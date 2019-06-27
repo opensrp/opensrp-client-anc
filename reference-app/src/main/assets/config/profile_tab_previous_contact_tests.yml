@@ -1,0 +1,268 @@
+---
+sub_group: ultrasound_tests_results
+fields:
+  - template: "Ultrasound test: {ultrasound}"
+    relevance: "ultrasound != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+
+  - template: "Ultrasound not done reason: {ultrasound_notdone}"
+    relevance: "ultrasound_notdone != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+
+  - template: "Ultrasound not done other reason: {ultrasound_notdone_other}"
+    relevance: "ultrasound_notdone_other != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+
+  - template: "Ultrasound done date: {ultrasound_date}"
+    relevance: "ultrasound_date != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+
+---
+sub_group: blood_type_test_results
+fields:
+  - template: "Blood type test status: {blood_type_test_status}"
+    relevance: "blood_type_test_status != '' && helper.compareDateAgainstContactDate(blood_type_test_date, contact_date) "
+
+  - template: "Blood type test done date: {blood_type_test_date}"
+    relevance: "blood_type_test_date != '' && helper.compareDateAgainstContactDate(blood_type_test_date, contact_date)"
+
+  - template: "Blood Type: {blood_type}"
+    relevance: "blood_type != '' && helper.compareDateAgainstContactDate(blood_type_test_date, contact_date)"
+
+  - template: "RH factor: {rh_factor}"
+    relevance: "rh_factor != '' && helper.compareDateAgainstContactDate(blood_type_test_date, contact_date)"
+test_results: "['blood_type:Blood type tests results','other_tests:Test multiple tests','other_tests:Test multiple tests three']"
+
+---
+sub_group: hiv_tests_results
+fields:
+  - template: "Hiv test status: {hiv_test_status}"
+    relevance: "hiv_test_status != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
+
+  - template: "Hiv test done date: {hiv_test_date}"
+    relevance: "hiv_test_date != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
+
+  - template: "Hiv test not done reason: {hiv_test_notdone}"
+    relevance: "hiv_test_notdone != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
+
+  - template: "Hiv test not done other reason: {hiv_test_notdone_other}"
+    relevance: "hiv_test_notdone_other != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
+
+  - template: "Hiv test result: {hiv_test_result}"
+    relevance: "hiv_test_result != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
+test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
+
+---
+sub_group: hepatitis_b_test_results
+fields:
+  - template: "Hepatitis B test status: {hepb_test_status}"
+    relevance: "hepb_test_status != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "Hepatitis B test done date: {hepb_test_date}"
+    relevance: "hepb_test_date != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "Hepatitis B test not done reason: {hepb_test_notdone}"
+    relevance: "hepb_test_notdone != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "Hepatitis B test not done other reason: {hepb_test_notdone_other}"
+    relevance: "hepb_test_notdone_other != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "Hepatitis B test type: {hepb_test_type}"
+    relevance: "hepb_test_type != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "HBsAg laboratory-based immunoassay result: {hbsag_lab_ima}"
+    relevance: "hbsag_lab_ima != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "HBsAg rapid diagnostic test (RDT) result: {hbsag_rdt}"
+    relevance: "hbsag_rdt != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+  - template: "Dried Blood Spot (DBS) HBsAg test result: {hbsag_dbs}"
+    relevance: "hbsag_dbs != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
+
+---
+sub_group: hepatitis_c_test_results
+fields:
+  - template: "Hepatitis C test status: {hepc_test_status}"
+    relevance: "hepc_test_status != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Hepatitis C test done date: {hepc_test_date}"
+    relevance: "hepc_test_date != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Hepatitis C test not done reason: {hepc_test_notdone}"
+    relevance: "hepc_test_notdone != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Hepatitis C test not done other reason: {hepc_test_notdone_other}"
+    relevance: "hepc_test_notdone_other != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Hepatitis C test type: {hepc_test_type}"
+    relevance: "hepc_test_type != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Anti-HCV laboratory-based immunoassay result: {hcv_lab_ima}"
+    relevance: "hcv_lab_ima != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Anti-HCV rapid diagnostic test (RDT) result: {hcv_rdt}"
+    relevance: "hcv_rdt != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+  - template: "Dried Blood Spot (DBS) Anti-HCV test result: {hcv_dbs}"
+    relevance: "hcv_dbs != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+
+---
+sub_group: syphilis_test_results
+fields:
+  - template: "Syphilis test status: {syph_test_status}"
+    relevance: "syph_test_status != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Syphilis test done date: {syphilis_test_date}"
+    relevance: "syphilis_test_date != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Syphilis test not done reason: {syph_test_notdone}"
+    relevance: "syph_test_notdone != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Syphilis test not done other reason: {syph_test_notdone_other}"
+    relevance: "syph_test_notdone_other != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Syphilis test type: {syph_test_type}"
+    relevance: "syph_test_type != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Rapid syphilis test (RST) result: {rapid_syphilis_test}"
+    relevance: "rapid_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Rapid plasma reagin (RPR) test result: {rpr_syphilis_test}"
+    relevance: "rpr_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "Off-site lab test for syphilis result: {lab_syphilis_test}"
+    relevance: "lab_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+---
+sub_group: urine_tests_results
+fields:
+  - template: "Urine test status: {urine_test_status}"
+    relevance: "urine_test_status != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine test done date: {urine_test_date}"
+    relevance: "urine_test_date != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine test type: {urine_test_type}"
+    relevance: "urine_test_type != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine culture: {urine_culture}"
+    relevance: "urine_culture != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine gram stain: {urine_gram_stain}"
+    relevance: "urine_gram_stain != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine nitrites: {urine_nitrites}"
+    relevance: "urine_nitrites != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine leukocytes: {urine_leukocytes}"
+    relevance: "urine_leukocytes != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+  - template: "Urine glucose: {urine_glucose}"
+    relevance: "urine_glucose != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
+
+---
+sub_group: blood_glucose_tests_results
+fields:
+  - template: "Blood glucose test status: {glucose_test_status}"
+    relevance: "glucose_test_status != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "Blood glucose test date: {glucose_test_date}"
+    relevance: "glucose_test_date != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "Blood glucose test type: {glucose_test_type}"
+    relevance: "glucose_test_type != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "Fasting plasma glucose results (mg/dl): {fasting_plasma_gluc}"
+    relevance: "fasting_plasma_gluc != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "75g OGTT - fasting glucose results (mg/dl): {ogtt_fasting}"
+    relevance: "ogtt_fasting != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "75g OGTT - 1 hr results (mg/dl): {ogtt_1}"
+    relevance: "ogtt_1 != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "75g OGTT - 2 hrs results (mg/dl): {ogtt_2}"
+    relevance: "ogtt_2 != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+  - template: "Random plasma glucose results (mg/dl): {random_plasma}"
+    relevance: "random_plasma != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
+
+---
+sub_group: blood_haemoglobin_test_results
+fields:
+  - template: "Blood haemoglobin test status: {hb_test_status}"
+    relevance: "hb_test_status != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Blood haemoglobin test done date: {hb_test_date}"
+    relevance: "hb_test_date != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Blood haemoglobin test not done reason: {hb_test_notdone}"
+    relevance: "hb_test_notdone != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Blood haemoglobin test not done other reason: {hb_test_notdone_other}"
+    relevance: "hb_test_notdone_other != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Blood haemoglobin test type: {hb_test_type}"
+    relevance: "hb_test_type != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Complete blood count test result (g/dl): {cbc}"
+    relevance: "cbc != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "RHb test result - haemoglobinometer (g/dl): {hb_gmeter}"
+    relevance: "hb_gmeter != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Hb test result - haemoglobin colour scale (g/dl): {hb_colour}"
+    relevance: "hb_colour != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Hematocrit (Ht): {ht}"
+    relevance: "ht != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "White blood cell (WBC) count: {wbc}"
+    relevance: "wbc != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+  - template: "Platelet count: {platelets}"
+    relevance: "platelets != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
+
+---
+sub_group: tb_screening_test_results
+fields:
+  - template: "TB screening test status: {tb_screening_status}"
+    relevance: "tb_screening_status != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "TB screening test done date: {tb_screening_date}"
+    relevance: "tb_screening_date != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "TB screening test not done reason: {tb_screening_notdone}"
+    relevance: "tb_screening_notdone != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "TB screening test not done other reason: {tb_screening_notdone_other}"
+    relevance: "tb_screening_notdone_other != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "TB screening result: {tb_screening_result}"
+    relevance: "tb_screening_result != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+test_results: "['tb_screening_result: TB Screening tests results']"
+
+---
+sub_group: partner_hiv_test_results
+fields:
+  - template: "Partner HIV test status: {hiv_test_partner_status}"
+    relevance: "hiv_test_partner_status != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
+
+  - template: "Partner HIV test done date: {hiv_test_partner_date}"
+    relevance: "hiv_test_partner_date != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
+
+  - template: "Partner HIV test result: {hiv_test_partner_result}"
+    relevance: "hiv_test_partner_result != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
+test_results: "['hiv_test_partner_result:Partner HIV tests results']"
+
+---
+sub_group: other_tests_results
+fields:
+  - template: "Other test test status: {other_test}"
+    relevance: "other_test != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
+
+  - template: "Other test done date: {other_test_date}"
+    relevance: "other_test_date != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
+
+  - template: "Other test name: {other_test_name}"
+    relevance: "other_test_name != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
+
+  - template: "Other test result: {other_test_result}"
+    relevance: "other_test_result != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
+test_results: "['other_test_result:Other tests results']"

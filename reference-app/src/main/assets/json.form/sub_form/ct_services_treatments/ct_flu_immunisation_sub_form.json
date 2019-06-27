@@ -1,0 +1,176 @@
+{
+  "content_form": [
+    {
+      "key": "flu_date",
+      "openmrs_entity_parent": "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Flu dose",
+      "label_info_text": "Pregnant women should be vaccinated with trivalent inactivated influenza vaccine at any stage of pregnancy. ",
+      "label_info_title": "Flu dose",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "Done today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "done_earlier",
+          "text": "Done earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Flu dose is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "flu_date_done_date_today_hidden",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "flu_date_done",
+      "openmrs_entity_parent": "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "date_picker",
+      "hint": "Date flu dose was given",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "flu_dose_notdone",
+      "openmrs_entity_parent": "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "vaccine_available",
+          "text": "No vaccine available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "woman_is_ill",
+          "text": "Woman is ill",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "woman_refused",
+          "text": "Woman refused",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "127750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "allergies",
+          "text": "Allergies",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "141760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Reason Flu dose was not done is required"
+      },
+      "relevance": {
+        "step8:flu_date": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      }
+    },
+    {
+      "key": "flu_dose_notdone_other",
+      "openmrs_entity_parent": "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step8:flu_dose_notdone": {
+          "type": "string",
+          "ex": "equalTo(., \"other\")"
+        }
+      }
+    },
+    {
+      "key": "woman_immunised_flu_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Woman is immunised against flu!",
+      "toaster_type": "positive",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ct_relevance_rules.yml"
+          }
+        }
+      }
+    }
+  ]
+}
