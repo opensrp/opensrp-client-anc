@@ -27,6 +27,7 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
+import org.smartregister.util.FormUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -108,6 +109,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     protected void onPause() {
         super.onPause();
         formGlobalValues.clear();
+        invisibleRequiredFields.clear();
     }
 
     private void initializeMainContactContainers() {
@@ -215,24 +217,18 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
      */
     @SuppressLint("StaticFieldLeak")
     private void updateGlobalValuesWithDefaults(final String formEventType) {
-
-        new AsyncTask<Void, Void, JSONObject>() {
-
-            @Override
-            protected JSONObject doInBackground(Void... voids) {
-                JSONObject mainJson = null;
-                try {
-                    mainJson = JsonFormUtils.readJsonFromAsset(getApplicationContext(), "json.form/" + formEventType);
-                    if (mainJson.has(Constants.DEFAULT_VALUES)) {
-                        JSONArray defaultValuesArray = mainJson.getJSONArray(Constants.DEFAULT_VALUES);
-                        defaultValueFields.addAll(getListValues(defaultValuesArray));
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "Error reding json from asset file " + e);
-                }
-                return mainJson;
+        JSONObject mainJson;
+        try {
+            mainJson = JsonFormUtils.readJsonFromAsset(getApplicationContext(), "json.form/" + formEventType);
+            if (mainJson.has(Constants.DEFAULT_VALUES)) {
+                JSONArray defaultValuesArray = mainJson.getJSONArray(Constants.DEFAULT_VALUES);
+                defaultValueFields.addAll(getListValues(defaultValuesArray));
             }
-        }.execute();
+        } catch (JSONException e) {
+            Log.e(TAG, "Error converting file to JsonObject " + e);
+        } catch (Exception e) {
+            Log.e(TAG, "Error reading json from asset file " + e);
+        }
 
     }
 
@@ -370,7 +366,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
                 requiredFieldsMap.put(object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE), 0);
             }
-
+            if (contactNo > 1 && Constants.JSON_FORM.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)) {
+                requiredFieldsMap.put(Constants.JSON_FORM.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+                return;
+            }
             Iterator<String> keys = object.keys();
             while (keys.hasNext()) {
                 String key = keys.next();
@@ -517,6 +516,28 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     private void process(String[] mainContactForms) throws Exception {
 
+        //Fetch and load previously saved values
+        if (contactNo > 1) {
+            for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
+                if (eventToFileMap.containsValue(formEventType)) {
+                    updateGlobalValuesWithDefaults(formEventType);
+                }
+            }
+            //Get invisible required fields saved with the last contact visit
+            for (String key : eventToFileMap.keySet()) {
+                String prevKey = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
+                        key.toLowerCase().replace(" ", "_");
+                String invisibleFields = getMapValue(prevKey);
+                if (invisibleFields != null && invisibleFields.length() > 2) {
+                    String toSplit = invisibleFields.substring(1, invisibleFields.length() - 1);
+                    invisibleRequiredFields.addAll(Arrays.asList(toSplit.split(",")));
+                }
+            }
+            //Make profile always complete on second contact onwards
+            requiredFieldsMap.put(Constants.JSON_FORM.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+
+        }
+
         JSONObject object;
         List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
 
@@ -533,23 +554,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
         }
-        //Fetch and load previously saved values
-        if (contactNo > 1) {
-            for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
-                if (eventToFileMap.containsValue(formEventType)) {
-                    updateGlobalValuesWithDefaults(formEventType);
-                }
-            }
-            //Get invisible required fields saved in the shared pref
-            for (String key : eventToFileMap.keySet()) {
-                String invisibleFields = getMapValue(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS
-                        + key.toLowerCase().replace("_", ""));
-                if (invisibleFields != null && invisibleFields.length() > 2) { // do not bother processing empty list
-                    invisibleRequiredFields.addAll(Arrays.asList(invisibleFields.replace("[", "")
-                            .replace("]", "").split(",")));
-                }
-            }
-        }
+
     }
 
     private int getRequiredCountTotal() {

@@ -940,7 +940,7 @@ actions:
 name: step2_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "(global_contact_no > 1  && (global_previous_hb_test_status != '' || global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today'))"
+condition: "(global_contact_no > 1  && (global_previous_hb_test_status != '' && (global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today')))"
 actions:
 - "isRelevant = true"
 ---
@@ -1290,7 +1290,7 @@ actions:
 name: step2_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
-condition: "global_contact_no > 1 && (global_previous_hepb_test_status != '' || global_previous_hepb_test_status == 'done_earlier' || global_previous_hepb_test_status == 'done_today') && global_previous_hepb_positive == '0'"
+condition: "global_contact_no > 1 && (global_previous_hepb_test_status != '' && (global_previous_hepb_test_status == 'done_earlier' || global_previous_hepb_test_status == 'done_today')) && global_previous_hepb_positive == '0'"
 actions:
 - "isRelevant = true"
 ---
@@ -1332,7 +1332,7 @@ actions:
 name: step2_accordion_urine
 description: urine accordion
 priority: 1
-condition: "global_contact_no > 1  && (global_previous_urine_test_status != '' || global_previous_urine_test_status == 'done_earlier' || global_previous_urine_test_status == 'done_today')"
+condition: "global_contact_no > 1  && (global_previous_urine_test_status != '' && (global_previous_urine_test_status == 'done_earlier' || global_previous_urine_test_status == 'done_today'))"
 actions:
 - "isRelevant = true"
 ---
@@ -1360,7 +1360,7 @@ actions:
 name: step2_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1 && (global_previous_ultrasound != '' || global_previous_ultrasound == 'done_earlier' || global_previous_ultrasound == 'done_today')) "
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 24 && global_contact_no == 1) || (global_contact_no > 1 && (global_previous_ultrasound != '' && (global_previous_ultrasound == 'done_earlier' || global_previous_ultrasound == 'done_today'))) "
 actions:
 - "isRelevant = true"
 ---

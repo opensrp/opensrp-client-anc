@@ -114,6 +114,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     @Override
+    protected void attachBaseContext(android.content.Context base) {
+        super.attachBaseContext(base);
+    }
+
+    @Override
     public void onCreate() {
 
         super.onCreate();
