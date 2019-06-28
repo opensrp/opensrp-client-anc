@@ -29,7 +29,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 
         PullUniqueIdsServiceJob
-                .scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES),
+                .scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES),
                         getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
 
         ImageUploadServiceJob
