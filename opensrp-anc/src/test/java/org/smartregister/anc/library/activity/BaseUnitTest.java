@@ -5,8 +5,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.application.TestAncApplication;
 
 import java.io.BufferedReader;

@@ -1,15 +1,17 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.activity.LoginActivity;
 import org.smartregister.anc.library.application.AncSyncConfiguration;
 import org.smartregister.anc.library.job.AncJobCreator;
 import org.smartregister.anc.library.repository.AncRepository;

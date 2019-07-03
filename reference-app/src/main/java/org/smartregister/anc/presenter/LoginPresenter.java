@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.presenter;
+package org.smartregister.anc.presenter;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
