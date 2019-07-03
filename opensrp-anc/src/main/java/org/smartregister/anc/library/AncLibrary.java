@@ -1,12 +1,15 @@
 package org.smartregister.anc.library;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.EventBusBuilder;
+import org.greenrobot.eventbus.meta.SubscriberInfoIndex;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,9 +71,15 @@ public class AncLibrary {
 
     private Yaml yaml;
 
+    private SubscriberInfoIndex subscriberInfoIndex;
+
     public static void init(@NonNull Context context, @NonNull Repository repository) {
+        init(context, repository, null);
+    }
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         if (instance == null) {
-            instance = new AncLibrary(context, repository);
+            instance = new AncLibrary(context, repository, subscriberInfoIndex);
         }
     }
 
@@ -88,9 +97,10 @@ public class AncLibrary {
         return getInstance().jsonSpecHelper;
     }
 
-    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg) {
+    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = contextArg;
         repository = repositoryArg;
+        this.subscriberInfoIndex = subscriberInfoIndex;
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
@@ -184,7 +194,14 @@ public class AncLibrary {
     private void setUpEventHandling() {
         try {
 
-            EventBus.builder().addIndex(new org.smartregister.anc.library.ANCEventBusIndex()).installDefaultEventBus();
+            EventBusBuilder eventBusBuilder = EventBus.builder()
+                    .addIndex(new org.smartregister.anc.library.ANCEventBusIndex());
+
+            if (subscriberInfoIndex != null) {
+                eventBusBuilder.addIndex(subscriberInfoIndex);
+            }
+
+            eventBusBuilder.installDefaultEventBus();
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
