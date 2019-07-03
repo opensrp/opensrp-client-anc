@@ -6,12 +6,13 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.CoreLibrary;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.view.activity.DrishtiApplication;
 
 /**
  * Created by ndegwamartin on 09/04/2018.
@@ -25,7 +26,7 @@ public class AncRepository extends Repository {
 
     public AncRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(),
-                BaseAncApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+                CoreLibrary.getInstance().context().commonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
     @Override
@@ -65,12 +66,12 @@ public class AncRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase (BaseAncApplication.getInstance().getPassword());
+        return getReadableDatabase (DrishtiApplication.getInstance().getPassword());
     }
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        return getWritableDatabase (BaseAncApplication.getInstance().getPassword());
+        return getWritableDatabase (DrishtiApplication.getInstance().getPassword());
     }
 
     @Override

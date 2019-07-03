@@ -3,6 +3,7 @@ package org.smartregister.anc.library.application;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 
 /**
@@ -22,7 +23,7 @@ public class AncSyncConfiguration extends SyncConfiguration {
     @Override
     public String getSyncFilterValue() {
         AllSharedPreferences sharedPreferences =
-                BaseAncApplication.getInstance().getContext().userService().getAllSharedPreferences();
+                AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
         return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
     }
 

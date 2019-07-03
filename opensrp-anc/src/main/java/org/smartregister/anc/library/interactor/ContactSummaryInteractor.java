@@ -6,7 +6,7 @@ import android.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
@@ -52,11 +52,11 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     Map<String, String> details = PatientRepository.getWomanProfileDetails(entityId);
 
                     Map<String, String> clientDetails =
-                            BaseAncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
+                            AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
                     JSONObject rawContactSchedule;
                     if (clientDetails.containsKey(Constants.DETAILS_KEY.CONTACT_SCHEDULE)) {
                         rawContactSchedule = new JSONObject(
-                                BaseAncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
+                                AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
                                         .get(Constants.DETAILS_KEY.CONTACT_SCHEDULE));
                     } else {
                         rawContactSchedule = new JSONObject();
@@ -73,7 +73,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                         int previousContact = getPreviousContactNo(referralContactNo);
                         if (previousContact > 0) {
                             Facts facts =
-                                    BaseAncApplication.getInstance().getPreviousContactRepository()
+                                    AncLibrary.getInstance().getPreviousContactRepository()
                                             .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
                             if (facts != null && facts.asMap().containsKey(Constants.CONTACT_SCHEDULE)) {
                                 String schedule = (String) facts.asMap().get(Constants.CONTACT_SCHEDULE);

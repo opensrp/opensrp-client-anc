@@ -6,7 +6,7 @@ import android.util.Log;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
 import org.smartregister.anc.library.util.Constants;
@@ -56,7 +56,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-            facts = BaseAncApplication.getInstance().getPreviousContactRepository()
+            facts = AncLibrary.getInstance().getPreviousContactRepository()
                     .getPreviousContactFacts(baseEntityId, contactNo, true);
 
             Map<String, Object> factsAsMap = facts.asMap();

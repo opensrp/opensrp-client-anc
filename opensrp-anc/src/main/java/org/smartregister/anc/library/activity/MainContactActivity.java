@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
@@ -205,7 +205,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     protected void setupViews() {
         super.setupViews();
         patientNameView = findViewById(R.id.top_patient_name);
-        BaseAncApplication.getInstance().populateGlobalSettings();
+        AncLibrary.getInstance().populateGlobalSettings();
     }
 
     @Override
@@ -297,7 +297,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     private List<String> getListValues(JSONArray jsonArray) {
         if (jsonArray != null) {
-            return BaseAncApplication.getInstance().getGsonInstance()
+            return AncLibrary.getInstance().getGsonInstance()
                     .fromJson(jsonArray.toString(), new TypeToken<List<String>>() {
                     }.getType());
         } else {
@@ -471,7 +471,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         JSONObject object;
         List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
 
-        List<PartialContact> partialContacts = BaseAncApplication.getInstance().getPartialContactRepository()
+        List<PartialContact> partialContacts = AncLibrary.getInstance().getPartialContactRepository()
                 .getPartialContacts(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contactNo);
 
         for (PartialContact partialContact : partialContacts) {
@@ -526,7 +526,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
 
         PreviousContact previousContact =
-                BaseAncApplication.getInstance().getPreviousContactRepository().getPreviousContact(request);
+                AncLibrary.getInstance().getPreviousContactRepository().getPreviousContact(request);
 
         return previousContact != null ? previousContact.getValue() : null;
     }

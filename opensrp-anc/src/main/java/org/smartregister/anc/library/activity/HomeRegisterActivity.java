@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.domain.AttentionFlag;
 import org.smartregister.anc.library.domain.Contact;
@@ -231,7 +231,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                String locationId = BaseAncApplication.getInstance().getContext().allSharedPreferences()
+                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
                         .getPreference(AllConstants.CURRENT_LOCATION_ID);
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }

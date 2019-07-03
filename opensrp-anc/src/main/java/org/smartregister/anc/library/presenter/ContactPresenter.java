@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.interactor.ContactInteractor;
@@ -162,7 +162,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         this.details = details;
     }
 
-    protected BaseAncApplication getAncApplication() {
-        return BaseAncApplication.getInstance();
+    protected AncLibrary getAncApplication() {
+        return AncLibrary.getInstance();
     }
 }

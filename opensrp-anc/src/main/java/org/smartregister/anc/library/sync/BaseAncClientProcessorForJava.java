@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.util.Constants;
@@ -53,6 +53,10 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
+        Log.e(TAG, "Inside the BaseAncClientProcessorForJava");
+        int closeEvents = 0;
+        int regEvents = 0;
+        int contactEvents = 0;
 
         ClientClassification clientClassification =
                 assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION, ClientClassification.class);
@@ -71,9 +75,11 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
                 }
 
                 if (eventType.equals(Constants.EventType.CLOSE)) {
+                    Log.e(TAG, "Processing Close event " + closeEvents++);
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.REGISTRATION) ||
                         eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
+                    Log.e(TAG, "Processing registration/update registration " + regEvents++);
                     if (clientClassification == null) {
                         continue;
                     }
@@ -85,6 +91,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
 
                     }
                 } else if (eventType.equals(Constants.EventType.CONTACT_VISIT)) {
+                    Log.e(TAG, "Processing contact visit " + contactEvents++);
                     processVisit(event);
                 }
             }
@@ -192,7 +199,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
             }
 
             List<Table> bindObjects = clientField.bindobjects;
-            DetailsRepository detailsRepository = BaseAncApplication.getInstance().getContext().detailsRepository();
+            DetailsRepository detailsRepository = AncLibrary.getInstance().getContext().detailsRepository();
             ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
 
             for (Event event : events) {
@@ -210,14 +217,14 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
 
     private void processVisit(Event event) {
         //Attention flags
-        BaseAncApplication.getInstance().getDetailsRepository()
+        AncLibrary.getInstance().getDetailsRepository()
                 .add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS,
                         event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS),
                         Calendar.getInstance().getTimeInMillis());
 
         //Previous contact state
         String previousContactsRaw = event.getDetails().get(Constants.DETAILS_KEY.PREVIOUS_CONTACTS);
-        Map<String, String> previousContactMap = BaseAncApplication.getInstance().getGsonInstance()
+        Map<String, String> previousContactMap = AncLibrary.getInstance().getGsonInstance()
                 .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
                 }.getType());
 
@@ -236,7 +243,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
             }
 
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
-                BaseAncApplication.getInstance().getPreviousContactRepository().savePreviousContact(
+                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(
                         new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
             }
         }

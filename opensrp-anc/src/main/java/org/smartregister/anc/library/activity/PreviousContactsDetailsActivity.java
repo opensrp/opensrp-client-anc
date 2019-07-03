@@ -18,7 +18,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactScheduleAdapter;
 import org.smartregister.anc.library.adapter.LastContactAdapter;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -177,7 +177,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             List<YamlConfigItem> configItems = yamlConfig.getFields();
 
             for (YamlConfigItem configItem : configItems) {
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
                     yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                     valueCount += 1;
                 }
@@ -195,7 +195,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
                 }
@@ -204,7 +204,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private Iterable<Object> loadFile(String filename) throws IOException {
-        return BaseAncApplication.getInstance().readYaml(filename);
+        return AncLibrary.getInstance().readYaml(filename);
     }
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {

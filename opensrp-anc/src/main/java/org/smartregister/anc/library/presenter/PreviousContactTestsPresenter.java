@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.presenter;
 
 import org.jeasy.rules.api.Facts;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PreviousContactsTests;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.TestResults;
@@ -62,7 +62,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
             throws ParseException, IOException {
         List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
         Facts previousContactsFacts =
-                BaseAncApplication.getInstance().getPreviousContactRepository().getPreviousContactTestsFacts(baseEntityId);
+                AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactTestsFacts(baseEntityId);
 
         List<YamlConfigWrapper> lastContactTests = addTestsRuleObjects(previousContactsFacts);
 
@@ -83,7 +83,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
 
     private List<YamlConfigWrapper> addTestsRuleObjects(Facts facts) throws IOException {
         List<YamlConfigWrapper> lastContactTests = new ArrayList<>();
-        Iterable<Object> testsRuleObjects = BaseAncApplication.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
+        Iterable<Object> testsRuleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -96,7 +96,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
             }
 
             for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     yamlConfigList.add(new YamlConfigWrapper(null, null, yamlConfigItem, ""));
                     valueCount = +1;

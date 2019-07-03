@@ -21,7 +21,7 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PreviousContactsTests;
 import org.smartregister.anc.library.domain.TestResults;
 import org.smartregister.anc.library.domain.TestResultsDialog;
@@ -104,7 +104,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             holder.sectionDetailTitle.setText(template.title);
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
 
-            if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
+            if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
                 holder.sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
                 holder.sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_red));
             } else {

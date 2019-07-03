@@ -13,7 +13,7 @@ import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.adapter.ProfileOverviewAdapter;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -70,7 +70,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     protected void onResumption() {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
-            Facts facts = BaseAncApplication.getInstance().getPreviousContactRepository()
+            Facts facts = AncLibrary.getInstance().getPreviousContactRepository()
                     .getPreviousContactFacts(baseEntityId, contactNo,false);
 
             Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
@@ -92,7 +92,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
                 for (YamlConfigItem configItem : configItems) {
 
-                    if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                    if (AncLibrary.getInstance().getAncRulesEngineHelper()
                             .getRelevance(facts, configItem.getRelevance())) {
                         yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                         valueCount += 1;
@@ -135,7 +135,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
     private Iterable<Object> loadFile(String filename) throws IOException {
 
-        return BaseAncApplication.getInstance().readYaml(filename);
+        return AncLibrary.getInstance().readYaml(filename);
 
     }
 }

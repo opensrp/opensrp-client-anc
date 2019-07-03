@@ -15,7 +15,7 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.HomeRegisterActivity;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.domain.AttentionFlag;
@@ -143,7 +143,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                     try {
 
                         JSONObject jsonObject = new JSONObject(
-                                BaseAncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
+                                AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
                                         .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
 
                         Facts facts = new Facts();
@@ -156,14 +156,14 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                             facts.put(key, jsonObject.get(key));
                         }
 
-                        Iterable<Object> ruleObjects = BaseAncApplication.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+                        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
 
                         for (Object ruleObject : ruleObjects) {
                             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
 
                             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                                if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                                if (AncLibrary.getInstance().getAncRulesEngineHelper()
                                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                                     attentionFlagList

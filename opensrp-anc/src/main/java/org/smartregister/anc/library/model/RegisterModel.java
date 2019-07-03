@@ -4,7 +4,7 @@ import android.util.Log;
 import android.util.Pair;
 
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -37,7 +37,7 @@ public class RegisterModel implements RegisterContract.Model {
     }
 
     private Map<String, String> getAvailableLanguagesMap() {
-        return BaseAncApplication.getJsonSpecHelper().getAvailableLanguagesMap();
+        return AncLibrary.getInstance().getJsonSpecHelper().getAvailableLanguagesMap();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class RegisterModel implements RegisterContract.Model {
     private FormUtils getFormUtils() {
         if (formUtils == null) {
             try {
-                formUtils = FormUtils.getInstance(BaseAncApplication.getInstance().getApplicationContext());
+                formUtils = FormUtils.getInstance(AncLibrary.getInstance().getApplicationContext());
             } catch (Exception e) {
                 Log.e(RegisterModel.class.getCanonicalName(), e.getMessage(), e);
             }

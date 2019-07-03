@@ -12,7 +12,7 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -107,7 +107,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
             List<YamlConfigItem> configItems = yamlConfig.getFields();
 
             for (YamlConfigItem configItem : configItems) {
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
                     yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                     valueCount += 1;
                 }
@@ -126,7 +126,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
 
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
@@ -138,7 +138,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
     }
 
     private Iterable<Object> loadFile(String filename) throws IOException {
-        return BaseAncApplication.getInstance().readYaml(filename);
+        return AncLibrary.getInstance().readYaml(filename);
     }
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers, ViewHolder holder) {

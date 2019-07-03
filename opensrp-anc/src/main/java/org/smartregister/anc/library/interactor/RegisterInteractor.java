@@ -8,7 +8,7 @@ import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.helper.ECSyncHelper;
@@ -26,6 +26,7 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
 
@@ -40,7 +41,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     private UniqueIdRepository uniqueIdRepository;
     private ECSyncHelper syncHelper;
     private AllSharedPreferences allSharedPreferences;
-    private BaseAncClientProcessorForJava clientProcessorForJava;
+    private ClientProcessorForJava clientProcessorForJava;
     private AllCommonsRepository allCommonsRepository;
 
     @VisibleForTesting
@@ -222,7 +223,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     public UniqueIdRepository getUniqueIdRepository() {
         if (uniqueIdRepository == null) {
-            uniqueIdRepository = BaseAncApplication.getInstance().getUniqueIdRepository();
+            uniqueIdRepository = AncLibrary.getInstance().getUniqueIdRepository();
         }
         return uniqueIdRepository;
     }
@@ -233,7 +234,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     public ECSyncHelper getSyncHelper() {
         if (syncHelper == null) {
-            syncHelper = BaseAncApplication.getInstance().getEcSyncHelper();
+            syncHelper = AncLibrary.getInstance().getEcSyncHelper();
         }
         return syncHelper;
     }
@@ -244,7 +245,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     public AllSharedPreferences getAllSharedPreferences() {
         if (allSharedPreferences == null) {
-            allSharedPreferences = BaseAncApplication.getInstance().getContext().allSharedPreferences();
+            allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
         }
         return allSharedPreferences;
     }
@@ -253,9 +254,9 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         this.allSharedPreferences = allSharedPreferences;
     }
 
-    public BaseAncClientProcessorForJava getClientProcessorForJava() {
+    public ClientProcessorForJava getClientProcessorForJava() {
         if (clientProcessorForJava == null) {
-            clientProcessorForJava = BaseAncApplication.getInstance().getClientProcessorForJava();
+            clientProcessorForJava = AncLibrary.getInstance().getClientProcessorForJava();
         }
         return clientProcessorForJava;
     }
@@ -267,7 +268,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public AllCommonsRepository getAllCommonsRepository() {
         if (allCommonsRepository == null) {
             allCommonsRepository =
-                    BaseAncApplication.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
+                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
         }
         return allCommonsRepository;
     }

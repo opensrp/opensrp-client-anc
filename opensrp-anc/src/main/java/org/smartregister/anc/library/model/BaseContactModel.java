@@ -4,7 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
@@ -49,7 +49,7 @@ public abstract class BaseContactModel {
     private FormUtils getFormUtils() {
         if (formUtils == null) {
             try {
-                formUtils = FormUtils.getInstance(BaseAncApplication.getInstance().getApplicationContext());
+                formUtils = FormUtils.getInstance(AncLibrary.getInstance().getApplicationContext());
             } catch (Exception e) {
                 Log.e(RegisterModel.class.getCanonicalName(), e.getMessage(), e);
             }
