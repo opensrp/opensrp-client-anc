@@ -33,8 +33,6 @@ import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import static org.smartregister.anc.library.util.Utils.getName;
-
 /**
  * Created by keyman on 26/06/2018.
  */
