@@ -15,7 +15,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
@@ -138,7 +138,7 @@ public abstract class BaseProfileActivity extends SecuredActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        AllSharedPreferences allSharedPreferences = BaseAncApplication.getInstance().getContext().allSharedPreferences();
+        AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             mProfilePresenter.processFormDetailsSave(data, allSharedPreferences);
 

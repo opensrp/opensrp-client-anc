@@ -28,7 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.AncGenericDialogInterface;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.ExpansionPanelItemModel;
@@ -150,13 +150,13 @@ public class ContactJsonFormUtils extends FormUtils {
         partialContact.setType(contact.getFormName());
 
         partialContact.setFormJsonDraft(contact.getJsonForm());
-        BaseAncApplication.getInstance().getPartialContactRepository().savePartialContact(partialContact);
+        AncLibrary.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
         //partial contact exists?
 
-        PartialContact partialContact = BaseAncApplication.getInstance().getPartialContactRepository()
+        PartialContact partialContact = AncLibrary.getInstance().getPartialContactRepository()
                 .getPartialContact(partialContactRequest);
 
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();

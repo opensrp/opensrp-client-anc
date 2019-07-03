@@ -7,11 +7,12 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.Repository;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -105,7 +106,7 @@ public class PatientRepository {
     }
 
     protected static Repository getMasterRepository() {
-        return BaseAncApplication.getInstance().getRepository();
+        return DrishtiApplication.getInstance().getRepository();
     }
 
     public static void updateContactVisitDetails(WomanDetail patientDetail, boolean isFinalize) {
@@ -125,7 +126,7 @@ public class PatientRepository {
                 contentValues.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
             }
         }
-        BaseAncApplication.getInstance().getRepository().getWritableDatabase()
+        AncLibrary.getInstance().getRepository().getWritableDatabase()
                 .update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?",
                         new String[]{patientDetail.getBaseEntityId()});
     }
@@ -139,7 +140,7 @@ public class PatientRepository {
         } else {
             contentValues.putNull(DBConstants.KEY.EDD);
         }
-        BaseAncApplication.getInstance().getRepository().getWritableDatabase()
+        AncLibrary.getInstance().getRepository().getWritableDatabase()
                 .update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
@@ -152,7 +153,7 @@ public class PatientRepository {
         } else {
             contentValues.putNull(DBConstants.KEY.VISIT_START_DATE);
         }
-        BaseAncApplication.getInstance().getRepository().getWritableDatabase()
+        AncLibrary.getInstance().getRepository().getWritableDatabase()
                 .update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }

@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.library.activity.SiteCharacteristicsActivity;
-import org.smartregister.anc.library.application.BaseAncApplication;
 import org.smartregister.anc.library.presenter.MePresenter;
+import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.MeContract;
 
 public class MeFragment extends org.smartregister.view.fragment.MeFragment implements MeContract.View {
@@ -50,7 +50,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
     protected void onViewClicked(View view) {
         int i = view.getId();
         if (i == R.id.logout_section) {
-            BaseAncApplication.getInstance().logoutCurrentUser();
+            DrishtiApplication.getInstance().logoutCurrentUser();
         } else if (i == R.id.setting_section) {
             //ToDO Add the functionality for the setting page after that is decided.
         } else if (i == R.id.site_characteristics_section) {

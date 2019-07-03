@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.util.Utils;
@@ -50,7 +50,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
             if (yamlConfigItem.isMultiWidget() != null && yamlConfigItem.isMultiWidget()) {
                 prefillInjectableFacts(facts, yamlConfigItem.getTemplate());
             }
-            if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+            if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
                 outputBuilder.append(Utils.fillTemplate(yamlConfigItem.getTemplate(), this.facts)).append("\n\n");
             }
         }

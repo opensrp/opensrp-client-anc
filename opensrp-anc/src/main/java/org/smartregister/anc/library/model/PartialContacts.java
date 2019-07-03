@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.model;
 
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.anc.library.util.DBConstants;
@@ -32,7 +32,7 @@ public class PartialContacts {
     }
 
     public PartialContacts invoke() {
-        partialContactRepository = BaseAncApplication.getInstance().getPartialContactRepository();
+        partialContactRepository = AncLibrary.getInstance().getPartialContactRepository();
 
         if (partialContactRepository != null) {
             if (isFirst) {

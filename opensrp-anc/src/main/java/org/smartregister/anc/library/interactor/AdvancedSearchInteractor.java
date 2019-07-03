@@ -4,7 +4,7 @@ import android.support.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.DristhiConfiguration;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.domain.Response;
@@ -85,7 +85,7 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
 
     public HTTPAgent getHttpAgent() {
         if (this.httpAgent == null) {
-            this.httpAgent = BaseAncApplication.getInstance().getContext().getHttpAgent();
+            this.httpAgent = AncLibrary.getInstance().getContext().getHttpAgent();
         }
         return this.httpAgent;
 
@@ -97,7 +97,7 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
 
     public DristhiConfiguration getDristhiConfiguration() {
         if (this.dristhiConfiguration == null) {
-            this.dristhiConfiguration = BaseAncApplication.getInstance().getContext().configuration();
+            this.dristhiConfiguration = AncLibrary.getInstance().getContext().configuration();
         }
         return this.dristhiConfiguration;
     }

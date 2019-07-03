@@ -18,7 +18,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PreviousContactsDetailsActivity;
 import org.smartregister.anc.library.activity.PreviousContactsTestsActivity;
 import org.smartregister.anc.library.adapter.LastContactAdapter;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -160,7 +160,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
             List<YamlConfigItem> configItems = yamlConfig.getFields();
 
             for (YamlConfigItem configItem : configItems) {
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
+                if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, configItem.getRelevance())) {
                     yamlConfigList.add(new YamlConfigWrapper(null, null, configItem));
                     valueCount += 1;
                 }
@@ -173,13 +173,13 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = BaseAncApplication.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
 
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
@@ -190,14 +190,14 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addTestsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> testsRuleObjects = BaseAncApplication.getInstance()
+        Iterable<Object> testsRuleObjects = AncLibrary.getInstance()
                 .readYaml(FilePath.FILE.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             YamlConfig testsConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : testsConfig.getFields()) {
 
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactTests.add(new YamlConfigWrapper(null, null, yamlConfigItem));
 
@@ -258,7 +258,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private Iterable<Object> loadFile(String filename) throws IOException {
-        return BaseAncApplication.getInstance().readYaml(filename);
+        return AncLibrary.getInstance().readYaml(filename);
     }
 
     private void goToPreviousContacts() {

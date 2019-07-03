@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.interactor;
 
 import org.smartregister.anc.library.BuildConfig;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -50,7 +50,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     protected void processServerSettings(LoginResponse loginResponse) {
 
         super.processServerSettings(loginResponse);
-        BaseAncApplication.getInstance().populateGlobalSettings();
+        AncLibrary.getInstance().populateGlobalSettings();
     }
 
 

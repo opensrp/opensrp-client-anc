@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.EditJsonFormActivity;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.model.ContactSummaryModel;
@@ -212,13 +212,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         JSONObject updatedClientJson = new JSONObject(org.smartregister.util.JsonFormUtils.gson.toJson(baseClient));
 
         JSONObject originalClientJsonObject =
-                BaseAncApplication.getInstance().getEcSyncHelper().getClient(baseClient.getBaseEntityId());
+                AncLibrary.getInstance().getEcSyncHelper().getClient(baseClient.getBaseEntityId());
 
         JSONObject mergedJson = org.smartregister.util.JsonFormUtils.merge(originalClientJsonObject, updatedClientJson);
 
         //TODO Save edit log ?
 
-        BaseAncApplication.getInstance().getEcSyncHelper().addClient(baseClient.getBaseEntityId(), mergedJson);
+        AncLibrary.getInstance().getEcSyncHelper().addClient(baseClient.getBaseEntityId(), mergedJson);
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
@@ -232,7 +232,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return;
         }
 
-        Bitmap compressedBitmap = BaseAncApplication.getInstance().getCompressor().compressToBitmap(file);
+        Bitmap compressedBitmap = AncLibrary.getInstance().getCompressor().compressToBitmap(file);
 
         if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             return;
@@ -262,7 +262,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 profileImage.setFilepath(absoluteFileName);
                 profileImage.setFilecategory(Constants.FILE_CATEGORY.PROFILE_PIC);
                 profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                ImageRepository imageRepo = BaseAncApplication.getInstance().getContext().imageRepository();
+                ImageRepository imageRepo = AncLibrary.getInstance().getContext().imageRepository();
                 imageRepo.add(profileImage);
             }
 
@@ -701,14 +701,14 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             contactVisitEvent.addDetails(Constants.CONTACT, currentContactNo);
             contactVisitEvent.addDetails(Constants.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
 
-            JsonFormUtils.tagSyncMetadata(BaseAncApplication.getInstance().getContext().userService().getAllSharedPreferences(),
+            JsonFormUtils.tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
                     contactVisitEvent);
 
             PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
 
 
             //Update client
-            EventClientRepository db = BaseAncApplication.getInstance().getEventClientRepository();
+            EventClientRepository db = AncLibrary.getInstance().getEventClientRepository();
             JSONObject clientForm = db.getClientByBaseEntityId(baseEntityId);
 
             JSONObject attributes = clientForm.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
@@ -723,7 +723,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             clientForm.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
 
             FormTag formTag = new FormTag();
-            formTag.providerId = BaseAncApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
+            formTag.providerId = AncLibrary.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
             formTag.appVersion = BuildConfig.VERSION_CODE;
             formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
             formTag.childLocationId = LocationHelper.getInstance().getChildLocationId();
@@ -748,13 +748,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString()).withDateCreated(new Date());
 
         JsonFormUtils
-                .tagSyncMetadata(BaseAncApplication.getInstance().getContext().allSharedPreferences(), updateChildDetailsEvent);
+                .tagSyncMetadata(AncLibrary.getInstance().getContext().allSharedPreferences(), updateChildDetailsEvent);
 
         return updateChildDetailsEvent;
     }
 
     public static Event processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
-        AllSharedPreferences allSharedPreferences = BaseAncApplication.getInstance().getContext().allSharedPreferences();
+        AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
 
         JSONArray fields = null;
         try {
@@ -821,7 +821,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             for (String contactWeeks : contactSchedule) {
                 contactDates.add(new ContactSummaryModel(String.format(
-                        BaseAncApplication.getInstance().getApplicationContext().getString(R.string.contact_number),
+                        AncLibrary.getInstance().getApplicationContext().getString(R.string.contact_number),
                         contactSequence++),
                         Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
                                 Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
@@ -861,7 +861,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         sectionDetailTitle.setText(template.title);
         sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
 
-        if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
+        if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {
             sectionDetailTitle.setTextColor(context.getResources().getColor(R.color.overview_font_red));
             sectionDetails.setTextColor(context.getResources().getColor(R.color.overview_font_red));
         } else {

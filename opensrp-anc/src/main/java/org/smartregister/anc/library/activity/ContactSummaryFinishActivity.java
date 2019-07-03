@@ -17,7 +17,7 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactSummaryFinishAdapter;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
@@ -253,7 +253,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             }
         }
 
-        Iterable<Object> ruleObjects = BaseAncApplication.getInstance().readYaml(FilePath.FILE.CONTACT_SUMMARY);
+        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.CONTACT_SUMMARY);
 
         yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
@@ -328,11 +328,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected PartialContactRepository getPartialContactRepository() {
-        return BaseAncApplication.getInstance().getPartialContactRepository();
+        return AncLibrary.getInstance().getPartialContactRepository();
     }
 
     protected PreviousContactRepository getPreviousCOntactsReposity(){
-        return BaseAncApplication.getInstance().getPreviousContactRepository();
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 }
 

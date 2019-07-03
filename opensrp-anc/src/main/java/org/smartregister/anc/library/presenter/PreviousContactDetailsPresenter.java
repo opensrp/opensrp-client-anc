@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.interactor.PreviousContactsDetailsInteractor;
 import org.smartregister.anc.library.model.ContactSummaryModel;
@@ -128,6 +128,6 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     }
 
     private PreviousContactRepository getPreviousContactRepository() {
-        return BaseAncApplication.getInstance().getPreviousContactRepository();
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 }

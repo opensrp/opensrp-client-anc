@@ -9,7 +9,7 @@ import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -140,7 +140,7 @@ public class ContactVisit {
                     formSubmissionIDs.add(event.getFormSubmissionId());
 
                     JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-                    BaseAncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+                    AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
                 }
 
                 //Remove partial contact
@@ -159,14 +159,14 @@ public class ContactVisit {
     }
 
     private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = BaseAncApplication.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
 
-                if (BaseAncApplication.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
                     Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
                     requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
                     attentionFlagCountMap.put(attentionFlagConfig.getGroup(), requiredFieldCount);
@@ -290,6 +290,6 @@ public class ContactVisit {
     }
 
     protected PreviousContactRepository getPreviousContactRepository() {
-        return BaseAncApplication.getInstance().getPreviousContactRepository();
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 }

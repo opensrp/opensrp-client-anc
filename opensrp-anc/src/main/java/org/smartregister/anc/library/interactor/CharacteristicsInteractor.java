@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.domain.Setting;
@@ -51,11 +51,11 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
 
             getAllSettingsRepo().putSetting(characteristic);
 
-            BaseAncApplication.getInstance().populateGlobalSettings();//Refresh global settings
+            AncLibrary.getInstance().populateGlobalSettings();//Refresh global settings
         }
     }
 
     protected AllSettings getAllSettingsRepo() {
-        return BaseAncApplication.getInstance().getContext().allSettings();
+        return AncLibrary.getInstance().getContext().allSettings();
     }
 }

@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -40,14 +42,16 @@ import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.activity.HomeRegisterActivity;
 import org.smartregister.anc.library.activity.MainContactActivity;
 import org.smartregister.anc.library.activity.ProfileActivity;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
 import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.repository.AncRepository;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,12 +100,12 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static void setLocale(Locale locale) {
-        Resources resources = BaseAncApplication.getInstance().getApplicationContext().getResources();
+        Resources resources = AncLibrary.getInstance().getApplicationContext().getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             configuration.setLocale(locale);
-            BaseAncApplication.getInstance().getApplicationContext().createConfigurationContext(configuration);
+            AncLibrary.getInstance().getApplicationContext().createConfigurationContext(configuration);
         } else {
             configuration.locale = locale;
             resources.updateConfiguration(configuration, displayMetrics);
@@ -240,7 +244,7 @@ public class Utils extends org.smartregister.util.Utils {
             partialContactRequest.setContactNo(quickCheck.getContactNumber());
             partialContactRequest.setType(quickCheck.getFormName());
 
-            String locationId = BaseAncApplication.getInstance().getContext().allSharedPreferences()
+            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
                     .getPreference(AllConstants.CURRENT_LOCATION_ID);
 
             ContactModel baseContactModel = new ContactModel();
@@ -457,7 +461,7 @@ public class Utils extends org.smartregister.util.Utils {
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
             buttonAlertStatus =
                     StringUtils.isNotBlank(contactStatus) && Constants.ALERT_STATUS.ACTIVE.equals(contactStatus) ?
-                            Constants.ALERT_STATUS.IN_PROGRESS : BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                            Constants.ALERT_STATUS.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
                             .getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
         } else {
             buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
@@ -594,7 +598,7 @@ public class Utils extends org.smartregister.util.Utils {
      * @param value value to persist
      */
     public static void saveToSharedPreference(String sharedPref, String key, String value){
-        SharedPreferences.Editor editor =  AncApplication.getInstance().getSharedPreferences(
+        SharedPreferences.Editor editor =  DrishtiApplication.getInstance().getSharedPreferences(
                 sharedPref, Context.MODE_PRIVATE).edit();
         editor.putString(key, value).apply();
     }
@@ -604,8 +608,46 @@ public class Utils extends org.smartregister.util.Utils {
      * @param key key used to retrieve the value
      */
     public static String readFromSharedPreference(String sharedPref, String key){
-        SharedPreferences sharedPreferences =  AncApplication.getInstance().getSharedPreferences(
+        SharedPreferences sharedPreferences =  DrishtiApplication.getInstance().getSharedPreferences(
                 sharedPref, Context.MODE_PRIVATE);
        return sharedPreferences.getString(key, null);
+    }
+
+    public static ArrayList<Object> runQuery(@NonNull String query) {
+        Cursor cursor = ((AncRepository) ((DrishtiApplication) DrishtiApplication.getInstance()).getRepository()).getReadableDatabase().rawQuery(query, null);
+
+        ArrayList<Object> rows = new ArrayList<>();
+        if (cursor != null) {
+            int cols = cursor.getColumnCount();
+
+            while (cursor.moveToNext()) {
+                Object[] col = new Object[cols];
+
+                for (int i = 0; i < cols; i++) {
+                    int type = cursor.getType(i);
+                    Object cellValue = null;
+
+                    if (type == Cursor.FIELD_TYPE_FLOAT) {
+                        cellValue = (Float) cursor.getFloat(i);
+                    } else if (type == Cursor.FIELD_TYPE_INTEGER) {
+                        cellValue = (Integer) cursor.getInt(i);
+                    } else if (type == Cursor.FIELD_TYPE_STRING) {
+                        cellValue = (String) cursor.getString(i);
+                    }
+
+                    if (cols > 1) {
+                        col[i] = cellValue;
+                    } else {
+                        rows.add(cellValue);
+                    }
+                }
+
+                if (cols > 1) {
+                    rows.add(col);
+                }
+            }
+        }
+
+        return rows;
     }
 }

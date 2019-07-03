@@ -9,7 +9,7 @@ import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.WomanDetail;
@@ -68,7 +68,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     isFirst = TextUtils.equals("1", details.get(DBConstants.KEY.NEXT_CONTACT));
                     ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
-                    List<Integer> integerList = BaseAncApplication.getInstance().getAncRulesEngineHelper()
+                    List<Integer> integerList = AncLibrary.getInstance().getAncRulesEngineHelper()
                             .getContactVisitSchedule(contactRule, Constants.RULES_FILE.CONTACT_RULES);
 
                     int nextContactVisitWeeks = integerList.get(0);
@@ -76,7 +76,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, integerList);
                     addThePreviousContactSchedule(baseEntityId, details, integerList);
-                    BaseAncApplication.getInstance().getDetailsRepository()
+                    AncLibrary.getInstance().getDetailsRepository()
                             .add(baseEntityId, Constants.DETAILS_KEY.CONTACT_SCHEDULE, jsonObject.toString(),
                                     Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
@@ -108,11 +108,11 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     attentionFlagsString = new JSONObject(facts.asMap()).toString();
                 } else {
                     attentionFlagsString =
-                            BaseAncApplication.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
+                            AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
                                     .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
                 }
                 addAttentionFlags(baseEntityId, details, new JSONObject(facts.asMap()).toString());
-                BaseAncApplication.getInstance().getDetailsRepository()
+                AncLibrary.getInstance().getDetailsRepository()
                         .add(baseEntityId, Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS, attentionFlagsString,
                                 Calendar.getInstance().getTimeInMillis());
 
@@ -126,7 +126,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 if (eventPair != null) {
                     createEvent(baseEntityId, new JSONObject(facts.asMap()).toString(), eventPair, referral);
                     JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
-                    BaseAncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
+                    AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage(), e);
@@ -139,7 +139,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(Constants.CONTACT_DATE);
         previousContact.setValue(Utils.getDBDateToday());
-        BaseAncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void addReferralGa(String baseEntityId, Map<String, String> details) {
@@ -147,14 +147,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         previousContact.setKey(Constants.GEST_AGE_OPENMRS);
         String edd = details.get(DBConstants.KEY.EDD);
         previousContact.setValue(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
-        BaseAncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void addThePreviousContactSchedule(String baseEntityId, Map<String, String> details, List<Integer> integerList) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(Constants.DETAILS_KEY.CONTACT_SCHEDULE);
         previousContact.setValue(String.valueOf(integerList));
-        BaseAncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void addAttentionFlags(String baseEntityId, Map<String, String> details,
@@ -162,7 +162,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
         previousContact.setValue(attentionFlagsString);
-        BaseAncApplication.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private PreviousContact preLoadPreviousContact(String baseEntityId, Map<String, String> details) {
@@ -185,7 +185,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             event.addDetails(Constants.DETAILS_KEY.PREVIOUS_CONTACTS, currentContactState);
         }
         JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-        BaseAncApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+        AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
     }
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
@@ -221,7 +221,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
 
     protected PreviousContactRepository getPreviousContactRepository() {
-        return BaseAncApplication.getInstance().getPreviousContactRepository();
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 
     private String getCurrentContactState(String baseEntityId) throws JSONException {

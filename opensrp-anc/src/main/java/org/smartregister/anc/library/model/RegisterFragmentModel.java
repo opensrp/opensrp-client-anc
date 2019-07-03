@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.application.BaseAncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.util.ConfigHelper;
@@ -38,7 +38,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
-        return ConfigHelper.defaultRegisterConfiguration(BaseAncApplication.getInstance().getApplicationContext());
+        return ConfigHelper.defaultRegisterConfiguration(AncLibrary.getInstance().getApplicationContext());
     }
 
     @Override
