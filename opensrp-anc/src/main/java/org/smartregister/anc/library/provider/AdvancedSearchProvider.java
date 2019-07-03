@@ -31,8 +31,6 @@ import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static org.smartregister.anc.library.util.Utils.getName;
-
 /**
  * Created by keyman on 26/06/2018.
  */
