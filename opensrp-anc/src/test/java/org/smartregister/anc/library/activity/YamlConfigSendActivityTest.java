@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.util.Constants;
 
 import java.util.HashMap;

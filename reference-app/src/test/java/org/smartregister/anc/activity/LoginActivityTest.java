@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.activity;
+package org.smartregister.anc.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -26,6 +26,9 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowApplication;
 import org.smartregister.anc.R;
+import org.smartregister.anc.library.activity.BaseActivityUnitTest;
+import org.smartregister.anc.library.activity.HomeRegisterActivity;
+import org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity;
 import org.smartregister.anc.library.custom.SettingsTestMenuItem;
 import org.smartregister.anc.library.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.view.contract.BaseLoginContract;

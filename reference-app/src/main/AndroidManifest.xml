@@ -23,7 +23,7 @@
         android:theme="@style/AncAppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".library.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.Login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">

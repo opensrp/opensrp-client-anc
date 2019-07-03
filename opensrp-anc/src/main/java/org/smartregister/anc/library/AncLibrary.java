@@ -184,7 +184,7 @@ public class AncLibrary {
     private void setUpEventHandling() {
         try {
 
-            EventBus.builder().addIndex(new org.smartregister.anc.ANCEventBusIndex()).installDefaultEventBus();
+            EventBus.builder().addIndex(new org.smartregister.anc.library.ANCEventBusIndex()).installDefaultEventBus();
 
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());

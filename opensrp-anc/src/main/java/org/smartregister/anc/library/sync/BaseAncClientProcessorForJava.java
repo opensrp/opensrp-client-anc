@@ -54,9 +54,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
         Log.e(TAG, "Inside the BaseAncClientProcessorForJava");
-        int closeEvents = 0;
-        int regEvents = 0;
-        int contactEvents = 0;
 
         ClientClassification clientClassification =
                 assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION, ClientClassification.class);
@@ -75,11 +72,9 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
                 }
 
                 if (eventType.equals(Constants.EventType.CLOSE)) {
-                    Log.e(TAG, "Processing Close event " + closeEvents++);
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.REGISTRATION) ||
                         eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
-                    Log.e(TAG, "Processing registration/update registration " + regEvents++);
                     if (clientClassification == null) {
                         continue;
                     }
@@ -91,7 +86,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
 
                     }
                 } else if (eventType.equals(Constants.EventType.CONTACT_VISIT)) {
-                    Log.e(TAG, "Processing contact visit " + contactEvents++);
                     processVisit(event);
                 }
             }
