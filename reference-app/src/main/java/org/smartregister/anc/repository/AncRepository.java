@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.repository;
+package org.smartregister.anc.repository;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;

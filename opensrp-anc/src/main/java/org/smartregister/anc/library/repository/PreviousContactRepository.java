@@ -57,7 +57,7 @@ public class PreviousContactRepository extends BaseRepository {
         super(repository);
     }
 
-    protected static void createTable(SQLiteDatabase database) {
+    public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
         database.execSQL(INDEX_ID);
         database.execSQL(INDEX_BASE_ENTITY_ID);
