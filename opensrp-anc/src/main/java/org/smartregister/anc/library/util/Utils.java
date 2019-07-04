@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -35,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseContactActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
@@ -42,16 +41,13 @@ import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.activity.HomeRegisterActivity;
 import org.smartregister.anc.library.activity.MainContactActivity;
 import org.smartregister.anc.library.activity.ProfileActivity;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
 import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
-import org.smartregister.anc.library.repository.AncRepository;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.view.activity.DrishtiApplication;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -591,41 +587,4 @@ public class Utils extends org.smartregister.util.Utils {
         return strings.length > 1 ? strings[1] : strings[0];
     }
 
-    public static ArrayList<Object> runQuery(@NonNull String query) {
-        Cursor cursor = ((AncRepository) ((DrishtiApplication) DrishtiApplication.getInstance()).getRepository()).getReadableDatabase().rawQuery(query, null);
-
-        ArrayList<Object> rows = new ArrayList<>();
-        if (cursor != null) {
-            int cols = cursor.getColumnCount();
-
-            while (cursor.moveToNext()) {
-                Object[] col = new Object[cols];
-
-                for (int i = 0; i < cols; i++) {
-                    int type = cursor.getType(i);
-                    Object cellValue = null;
-
-                    if (type == Cursor.FIELD_TYPE_FLOAT) {
-                        cellValue = (Float) cursor.getFloat(i);
-                    } else if (type == Cursor.FIELD_TYPE_INTEGER) {
-                        cellValue = (Integer) cursor.getInt(i);
-                    } else if (type == Cursor.FIELD_TYPE_STRING) {
-                        cellValue = (String) cursor.getString(i);
-                    }
-
-                    if (cols > 1) {
-                        col[i] = cellValue;
-                    } else {
-                        rows.add(cellValue);
-                    }
-                }
-
-                if (cols > 1) {
-                    rows.add(col);
-                }
-            }
-        }
-
-        return rows;
-    }
 }
