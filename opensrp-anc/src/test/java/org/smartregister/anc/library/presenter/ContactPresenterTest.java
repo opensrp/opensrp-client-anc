@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.DBConstants;
@@ -33,7 +33,7 @@ public class ContactPresenterTest extends BaseUnitTest {
     private PartialContactRepository partialContactRepository;
 
     @Mock
-    private AncApplication ancApplication;
+    private AncLibrary AncLibrary;
 
     private ContactContract.Presenter presenter;
 
@@ -186,8 +186,8 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 
-        Mockito.doReturn(ancApplication).when(contactPresenter).getAncApplication();
-        Mockito.doReturn(partialContactRepository).when(ancApplication).getPartialContactRepository();
+        Mockito.doReturn(AncLibrary).when(contactPresenter).getAncLibrary();
+        Mockito.doReturn(partialContactRepository).when(AncLibrary).getPartialContactRepository();
         Mockito.doNothing().when(partialContactRepository).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
 
         contactPresenter.deleteDraft(DUMMY_BASE_ENTITY_ID);
@@ -202,8 +202,8 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 
-        Mockito.doReturn(ancApplication).when(contactPresenter).getAncApplication();
-        Mockito.doReturn(partialContactRepository).when(ancApplication).getPartialContactRepository();
+        Mockito.doReturn(AncLibrary).when(contactPresenter).getAncLibrary();
+        Mockito.doReturn(partialContactRepository).when(AncLibrary).getPartialContactRepository();
         Mockito.doNothing().when(partialContactRepository).saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
 

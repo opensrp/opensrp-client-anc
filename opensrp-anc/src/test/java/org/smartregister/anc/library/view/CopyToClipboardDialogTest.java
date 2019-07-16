@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.robolectric.RuntimeEnvironment;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 
 /**

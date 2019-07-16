@@ -25,7 +25,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
@@ -60,7 +60,7 @@ public class JsonFormUtilsTest {
     private JSONObject formObject;
 
     @Mock
-    private AncApplication ancApplication;
+    private AncLibrary AncLibrary;
 
     @Mock
     private Compressor compressor;
@@ -215,18 +215,18 @@ public class JsonFormUtilsTest {
     }
 
     @Test
-    @PrepareForTest({AncApplication.class, FileUtil.class, DrishtiApplication.class})
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
     public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParams() throws Exception {
 
 
         String PROVIDER_ID = "dummy-provider-id";
 
-        PowerMockito.mockStatic(AncApplication.class);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getCompressor()).thenReturn(compressor);
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(AncLibrary.getCompressor()).thenReturn(compressor);
         PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(bitmap);
 
-        PowerMockito.when(ancApplication.getContext()).thenReturn(context);
+        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
 
 

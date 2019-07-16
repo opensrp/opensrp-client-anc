@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseActivityUnitTest;
 import org.smartregister.anc.library.activity.HomeRegisterActivity;
 import org.smartregister.helper.BottomNavigationHelper;

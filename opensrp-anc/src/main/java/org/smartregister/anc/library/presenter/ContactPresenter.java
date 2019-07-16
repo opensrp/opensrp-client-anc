@@ -34,7 +34,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         viewReference = new WeakReference<>(contactView);
         interactor = new ContactInteractor();
         model = new ContactModel();
-        defaultGlobals = getAncApplication().getDefaultContactFormGlobals();
+        defaultGlobals = getAncLibrary().getDefaultContactFormGlobals();
     }
 
     @Override
@@ -119,12 +119,12 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
     public void deleteDraft(String baseEntityId) {
-        getAncApplication().getPartialContactRepository().deleteDraftJson(baseEntityId);
+        getAncLibrary().getPartialContactRepository().deleteDraftJson(baseEntityId);
     }
 
     @Override
     public void saveFinalJson(String baseEntityId) {
-        getAncApplication().getPartialContactRepository().saveFinalJson(baseEntityId);
+        getAncLibrary().getPartialContactRepository().saveFinalJson(baseEntityId);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         this.details = details;
     }
 
-    protected AncLibrary getAncApplication() {
+    protected AncLibrary getAncLibrary() {
         return AncLibrary.getInstance();
     }
 }
