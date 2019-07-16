@@ -1,6 +1,6 @@
-package org.smartregister.anc.library.interactor;
+package org.smartregister.anc.interactor;
 
-import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.job.ImageUploadServiceJob;

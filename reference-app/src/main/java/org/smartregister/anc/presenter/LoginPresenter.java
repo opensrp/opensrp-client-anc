@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.interactor.LoginInteractor;
+import org.smartregister.anc.interactor.LoginInteractor;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.anc.library.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;

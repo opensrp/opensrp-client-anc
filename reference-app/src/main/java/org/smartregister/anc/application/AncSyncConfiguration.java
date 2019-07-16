@@ -2,7 +2,7 @@ package org.smartregister.anc.application;
 
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
-import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 

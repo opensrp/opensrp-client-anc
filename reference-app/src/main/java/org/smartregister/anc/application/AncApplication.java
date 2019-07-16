@@ -12,7 +12,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.job.AncJobCreator;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.DBConstants;
@@ -84,7 +84,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //Initialize Modules
         CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-        AncLibrary.init(context, getRepository(), new ANCEventBusIndex());
+        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context, getRepository());
 
         SyncStatusBroadcastReceiver.init(this);
