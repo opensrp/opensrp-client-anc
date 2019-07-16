@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.job;
+package org.smartregister.anc.job;
 
 import android.content.ComponentName;
 import android.content.Context;

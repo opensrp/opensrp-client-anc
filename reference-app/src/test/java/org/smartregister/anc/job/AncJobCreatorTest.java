@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.job;
+package org.smartregister.anc.job;
 
 import com.evernote.android.job.Job;
 
