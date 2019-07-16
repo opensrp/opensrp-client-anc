@@ -23,7 +23,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.anc.library.util.DBConstants;

@@ -17,7 +17,7 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
@@ -50,7 +50,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     private ArgumentCaptor<Map<String, String>> detailsArgumentCaptor;
 
     @Mock
-    private AncApplication ancApplication;
+    private AncLibrary AncLibrary;
 
     @Mock
     private AncRulesEngineHelper ancRulesEngineHelper;
@@ -94,7 +94,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    @PrepareForTest({PatientRepository.class, AncApplication.class})
+    @PrepareForTest({PatientRepository.class, AncLibrary.class})
     public void testFinalizeContactFormInvokesUpdatesPatientRepositoryWithCorrectParameters() throws Exception {
 
         String firstName = "First Name";
@@ -115,15 +115,15 @@ public class ContactInteractorTest extends BaseUnitTest {
         contactDates.add("40");
 
 
-        PowerMockito.mockStatic(AncApplication.class);
+        PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);
 
 
         PowerMockito.when(PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID)).thenReturn(details);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getAncRulesEngineHelper()).thenReturn(ancRulesEngineHelper);
-        PowerMockito.when(ancApplication.getDetailsRepository()).thenReturn(detailsRepository);
-        PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(AncLibrary.getAncRulesEngineHelper()).thenReturn(ancRulesEngineHelper);
+        PowerMockito.when(AncLibrary.getDetailsRepository()).thenReturn(detailsRepository);
+        PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
         Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 

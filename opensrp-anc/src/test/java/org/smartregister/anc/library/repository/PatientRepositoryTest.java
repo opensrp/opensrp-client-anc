@@ -17,7 +17,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.Context;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.repository.Repository;
@@ -29,11 +29,11 @@ import java.util.Map;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepository.class, AncApplication.class, SQLiteDatabase.class})
+@PrepareForTest({PatientRepository.class, AncLibrary.class, SQLiteDatabase.class})
 public class PatientRepositoryTest {
 
     @Mock
-    private AncApplication ancApplication;
+    private AncLibrary AncLibrary;
 
     @Mock
     private Context context;
@@ -66,9 +66,9 @@ public class PatientRepositoryTest {
     @Test
     public void testUpdateWomanDetailsInvokesUpdateMethodOfWritableDatabase() {
 
-        PowerMockito.mockStatic(AncApplication.class);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getContext()).thenReturn(context);
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
 
 
         PatientRepository spy = PowerMockito.spy(new PatientRepository());

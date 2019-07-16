@@ -17,7 +17,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
@@ -44,7 +44,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
     private PreviousContactsDetails.View profileView;
 
     @Mock
-    private AncApplication ancApplication;
+    private AncLibrary AncLibrary;
 
     @Mock
     private Context context;
@@ -70,14 +70,14 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         Assert.assertNotNull((previousContactPresenter.getProfileView()));
     }
 
-    @PrepareForTest(AncApplication.class)
+    @PrepareForTest(AncLibrary.class)
     @Test
     public void testLoadPreviousContactSchedule() {
-        PowerMockito.mockStatic(AncApplication.class);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getApplicationContext()).thenReturn(context);
-        PowerMockito.when(ancApplication.getApplicationContext().getString(any(Integer.class))).thenReturn("Contact %1$d");
-        PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(AncLibrary.getApplicationContext()).thenReturn(context);
+        PowerMockito.when(AncLibrary.getApplicationContext().getString(any(Integer.class))).thenReturn("Contact %1$d");
+        PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
         String edd = "2019-09-01";
@@ -88,12 +88,12 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         verify(profileView, atLeastOnce()).displayPreviousContactSchedule(schedulesArgs.capture());
     }
 
-    @PrepareForTest(AncApplication.class)
+    @PrepareForTest(AncLibrary.class)
     @Test
     public void testLoadPreviousContacts() throws ParseException, JSONException, IOException {
-        PowerMockito.mockStatic(AncApplication.class);
-        PowerMockito.when(AncApplication.getInstance()).thenReturn(ancApplication);
-        PowerMockito.when(ancApplication.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";

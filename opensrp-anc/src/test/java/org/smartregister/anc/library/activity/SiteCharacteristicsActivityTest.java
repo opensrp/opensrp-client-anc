@@ -14,7 +14,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.library.presenter.SiteCharacteristicsPresenter;

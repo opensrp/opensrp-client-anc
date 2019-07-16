@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.R;
+import org.smartregister.anc.library.R;
 
 /**
  * Created by ndegwamartin on 20/08/2018.
