@@ -29,13 +29,6 @@ android {
         versionCode 1
         versionName "0.1.7"
         multiDexEnabled true
-        buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
-        buildConfigField "boolean", "TIME_CHECK", "false"
-        buildConfigField "String", "SYNC_TYPE", '"teamId"'
-        buildConfigField "int", "MAX_SYNC_RETRIES", '3'
-        buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
-        buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
-        buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -58,35 +51,9 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc-preview.smartregister.org/opensrp/"'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
-            buildConfigField "int", "DATABASE_VERSION", '1'
-            buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
-            buildConfigField "boolean", "TIME_CHECK", "true"
-            buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
-            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
-            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
-            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
-            buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '2'
-            buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '2'
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc-preview.smartregister.org/opensrp/"'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
-            buildConfigField "int", "DATABASE_VERSION", '1'
-            buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
-            buildConfigField "boolean", "TIME_CHECK", "false"
-            buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '2'
-            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '2'
-            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '7'
-            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '10'
-            buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '2'
-            buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '2'
             testCoverageEnabled true
         }
     }

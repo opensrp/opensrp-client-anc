@@ -73,13 +73,15 @@ public class AncLibrary {
 
     private SubscriberInfoIndex subscriberInfoIndex;
 
-    public static void init(@NonNull Context context, @NonNull Repository repository) {
-        init(context, repository, null);
+    private int databaseVersion;
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion) {
+        init(context, repository,  dbVersion, null);
     }
 
-    public static void init(@NonNull Context context, @NonNull Repository repository, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         if (instance == null) {
-            instance = new AncLibrary(context, repository, subscriberInfoIndex);
+            instance = new AncLibrary(context, repository, dbVersion, subscriberInfoIndex);
         }
     }
 
@@ -97,10 +99,11 @@ public class AncLibrary {
         return getInstance().jsonSpecHelper;
     }
 
-    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = contextArg;
         repository = repositoryArg;
         this.subscriberInfoIndex = subscriberInfoIndex;
+        this.databaseVersion = dbVersion;
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
@@ -276,4 +279,7 @@ public class AncLibrary {
         return context;
     }
 
+    public int getDatabaseVersion() {
+        return databaseVersion;
+    }
 }

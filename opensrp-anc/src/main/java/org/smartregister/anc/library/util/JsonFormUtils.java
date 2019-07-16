@@ -189,7 +189,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             FormTag formTag = new FormTag();
             formTag.providerId = allSharedPreferences.fetchRegisteredANM();
             formTag.appVersion = BuildConfig.VERSION_CODE;
-            formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+            formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
 
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
@@ -582,7 +582,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
         //event.setVersion(BuildConfig.EVENT_VERSION);
         event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
-        event.setClientDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        event.setClientDatabaseVersion(AncLibrary.getInstance().getDatabaseVersion());
         return event;
     }
 
@@ -722,7 +722,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             FormTag formTag = new FormTag();
             formTag.providerId = AncLibrary.getInstance().getContext().allSharedPreferences().fetchRegisteredANM();
             formTag.appVersion = BuildConfig.VERSION_CODE;
-            formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+            formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
             formTag.childLocationId = LocationHelper.getInstance().getChildLocationId();
             formTag.locationId = LocationHelper.getInstance().getParentLocationId();
 
@@ -771,7 +771,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         FormTag formTag = new FormTag();
         formTag.providerId = allSharedPreferences.fetchRegisteredANM();
         formTag.appVersion = BuildConfig.VERSION_CODE;
-        formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+        formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
 
         Event baseEvent = org.smartregister.util.JsonFormUtils
                 .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstants.WOMAN_TABLE_NAME);
