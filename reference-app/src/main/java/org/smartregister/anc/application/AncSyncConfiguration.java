@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.application;
+package org.smartregister.anc.application;
 
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
