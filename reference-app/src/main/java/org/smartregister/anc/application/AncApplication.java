@@ -11,7 +11,7 @@ import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.library.job.AncJobCreator;
+import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.Utils;

@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.job;
+package org.smartregister.anc.job;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
