@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.custom;
+package org.smartregister.anc.custom;
 
 import org.robolectric.fakes.RoboMenuItem;
 
