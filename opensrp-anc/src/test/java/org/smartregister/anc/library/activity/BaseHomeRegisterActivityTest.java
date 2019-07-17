@@ -45,11 +45,11 @@ import java.util.Map;
 /**
  * Created by ndegwamartin on 24/07/2018.
  */
-public class HomeRegisterActivityTest extends BaseActivityUnitTest {
+public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
 
-    private HomeRegisterActivity homeRegisterActivity;
+    private BaseHomeRegisterActivity baseHomeRegisterActivity;
 
-    private ActivityController<HomeRegisterActivity> controller;
+    private ActivityController<BaseHomeRegisterActivity> controller;
 
     @Mock
     private HomeRegisterFragment homeRegisterFragment;
@@ -72,8 +72,8 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        controller = Robolectric.buildActivity(HomeRegisterActivity.class).create().start();
-        homeRegisterActivity = controller.get();
+        controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create().start();
+        baseHomeRegisterActivity = controller.get();
     }
 
     @After
@@ -84,13 +84,13 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Test
     public void testActivityCreatedSuccesfully() {
-        Assert.assertNotNull(homeRegisterActivity);
+        Assert.assertNotNull(baseHomeRegisterActivity);
     }
 
     @Test
     public void testGetRegisterFragmentShouldReturnAValidInstance() {
 
-        Fragment fragment = homeRegisterActivity.getRegisterFragment();
+        Fragment fragment = baseHomeRegisterActivity.getRegisterFragment();
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof HomeRegisterFragment);
     }
@@ -98,7 +98,7 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     @Test
     public void testGetOtherFragmentsShouldReturnCorrectInstances() {
 
-        Fragment[] fragments = homeRegisterActivity.getOtherFragments();
+        Fragment[] fragments = baseHomeRegisterActivity.getOtherFragments();
         Assert.assertNotNull(fragments);
         Assert.assertTrue(fragments.length == 4);
         Assert.assertTrue(fragments[0] instanceof AdvancedSearchFragment);
@@ -112,11 +112,11 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     public void testInitializePresenterInstantiatesPresenterCorrectly() {
 
 
-        RegisterPresenter presenter = Whitebox.getInternalState(homeRegisterActivity, "presenter");
+        RegisterPresenter presenter = Whitebox.getInternalState(baseHomeRegisterActivity, "presenter");
 
         Assert.assertNotNull(presenter);
 
-        homeRegisterActivity.initializePresenter();
+        baseHomeRegisterActivity.initializePresenter();
 
         Assert.assertNotNull(presenter);
 
@@ -124,7 +124,7 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Test
     public void testGetViewIdentifiersReturnsCorrectIdentifierValues() {
-        List<String> viewIdentifiers = homeRegisterActivity.getViewIdentifiers();
+        List<String> viewIdentifiers = baseHomeRegisterActivity.getViewIdentifiers();
         Assert.assertNotNull(viewIdentifiers);
         Assert.assertTrue(viewIdentifiers.size() == 1);
         Assert.assertEquals(Constants.CONFIGURATION.HOME_REGISTER, viewIdentifiers.get(0));
@@ -134,9 +134,9 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     @Test
     public void testUpdateSortAndFilterShouldInvokeCorrectMethods() {
 
-        Whitebox.setInternalState(homeRegisterActivity, "mBaseFragment", homeRegisterFragment);
+        Whitebox.setInternalState(baseHomeRegisterActivity, "mBaseFragment", homeRegisterFragment);
 
-        HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
+        BaseHomeRegisterActivity spyActivity = Mockito.spy(baseHomeRegisterActivity);
 
         spyActivity.updateSortAndFilter(filterList, sortField);
 
@@ -148,36 +148,36 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
     @Test
     public void testRemovePatientHandlerShouldInvokeCorrectMethods() {
 
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        homeRegisterActivitySpy.removePatientHandler(null);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        baseHomeRegisterActivitySpy.removePatientHandler(null);
 
-        Mockito.verify(homeRegisterActivitySpy, Mockito.times(0)).hideProgressDialog();
-        Mockito.verify(homeRegisterActivitySpy, Mockito.times(0)).refreshList(FetchStatus.fetched);
+        Mockito.verify(baseHomeRegisterActivitySpy, Mockito.times(0)).hideProgressDialog();
+        Mockito.verify(baseHomeRegisterActivitySpy, Mockito.times(0)).refreshList(FetchStatus.fetched);
 
-        homeRegisterActivitySpy.removePatientHandler(new PatientRemovedEvent());
+        baseHomeRegisterActivitySpy.removePatientHandler(new PatientRemovedEvent());
 
-        Mockito.verify(homeRegisterActivitySpy, Mockito.times(1)).hideProgressDialog();
-        Mockito.verify(homeRegisterActivitySpy, Mockito.times(1)).refreshList(FetchStatus.fetched);
+        Mockito.verify(baseHomeRegisterActivitySpy, Mockito.times(1)).hideProgressDialog();
+        Mockito.verify(baseHomeRegisterActivitySpy, Mockito.times(1)).refreshList(FetchStatus.fetched);
     }
 
     @Test
     public void testShowProgressDialogHandlerInvokesShowProgressDialogWithCorrectTitle() {
 
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        homeRegisterActivitySpy.showProgressDialogHandler(null);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        baseHomeRegisterActivitySpy.showProgressDialogHandler(null);
 
-        Mockito.verify(homeRegisterActivitySpy, Mockito.times(0)).showProgressDialog(ArgumentMatchers.anyInt());
-        homeRegisterActivitySpy.showProgressDialogHandler(new ShowProgressDialogEvent());
+        Mockito.verify(baseHomeRegisterActivitySpy, Mockito.times(0)).showProgressDialog(ArgumentMatchers.anyInt());
+        baseHomeRegisterActivitySpy.showProgressDialogHandler(new ShowProgressDialogEvent());
 
-        Mockito.verify(homeRegisterActivitySpy, Mockito.times(1)).showProgressDialog(R.string.saving_dialog_title);
+        Mockito.verify(baseHomeRegisterActivitySpy, Mockito.times(1)).showProgressDialog(R.string.saving_dialog_title);
 
     }
 
     @Test
     public void testShowRecordBirthPopUpInvokesMethodsOnRecordBirthAlertDialogsCorrectly() {
 
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        Whitebox.setInternalState(homeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
 
         CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID,
                 ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"),
@@ -185,29 +185,29 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
         Map<String, String> details = new HashMap<>();
         details.putAll(client.getDetails());
         client.setColumnmaps(details);
-        homeRegisterActivitySpy.showRecordBirthPopUp(client);
+        baseHomeRegisterActivitySpy.showRecordBirthPopUp(client);
         Mockito.verify(recordBirthAlertDialog, Mockito.times(1)).setMessage(ArgumentMatchers.contains("25/12/2018"));
         Mockito.verify(recordBirthAlertDialog).show();
     }
 
     public void testShowAttentionFlagsAlertDialogPopUpInvokesMethodsOnAttentionFlagsAlertDialogsCorrectly() {
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        Whitebox.setInternalState(homeRegisterActivitySpy, "attentionFlagAlertDialog", attentionFlagsAlertDialog);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "attentionFlagAlertDialog", attentionFlagsAlertDialog);
 
         List<AttentionFlag> testAttentionFlags = Arrays
                 .asList(new AttentionFlag[]{new AttentionFlag("Red Flag 1", true), new AttentionFlag("Red Flag 2",
                         true), new AttentionFlag("Yellow Flag 1", false), new AttentionFlag("Yellow Flag 2", false)});
 
-        homeRegisterActivitySpy.showAttentionFlagsDialog(testAttentionFlags);
+        baseHomeRegisterActivitySpy.showAttentionFlagsDialog(testAttentionFlags);
         Mockito.verify(attentionFlagsAlertDialog).show();
     }
 
     @Test
     public void testStartFormActivityInvokesPresenterStartFormMethodWithCorrectParameters() throws Exception {
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", registerPresenter);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
 
-        homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
+        baseHomeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
         /* LocationPickerView locationPickerView = null;
         Mockito.verify(registerPresenter).startForm(ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(TEST_STRING),
                 ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));*/
@@ -218,60 +218,60 @@ public class HomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Test
     public void testStartRegistrationFormActivityInvokesPresenterStartFormMethodWithCorrectParameters() throws Exception {
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", registerPresenter);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
 
-        homeRegisterActivitySpy.startRegistration();
+        baseHomeRegisterActivitySpy.startRegistration();
         Mockito.verify(registerPresenter).startForm("anc_register", null,
                 null, "");
     }
 
     @Test ()
     public void testStartFormActivityDisplaysErrorMessageToastWhenExceptionThrown() {
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
         RegisterContract.Presenter presenter = null;
-        Whitebox.setInternalState(homeRegisterActivitySpy, "presenter", presenter);
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", presenter);
 
-        homeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
-        Mockito.verify(homeRegisterActivitySpy)
+        baseHomeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
+        Mockito.verify(baseHomeRegisterActivitySpy)
                 .displayToast(RuntimeEnvironment.application.getString(R.string.error_unable_to_start_form));
     }
 
     @Test
     public void testGetContextReturnsCorrectActivityInstance() {
 
-        Context context = homeRegisterActivity.getContext();
+        Context context = baseHomeRegisterActivity.getContext();
 
         Assert.assertNotNull(context);
-        Assert.assertTrue(context instanceof HomeRegisterActivity);
+        Assert.assertTrue(context instanceof BaseHomeRegisterActivity);
 
     }
 
     @Test
     public void testHomeRegisterActivityOnBackPressedCalled() {
-        HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
+        BaseHomeRegisterActivity spyActivity = Mockito.spy(baseHomeRegisterActivity);
         spyActivity.onBackPressed();
         Mockito.verify(spyActivity).onBackPressed();
     }
 
     @Test
     public void testSwitchToAdvancedSearchFromBarcode() {
-        HomeRegisterActivity homeRegisterActivitySpy = Mockito.spy(homeRegisterActivity);
-        Whitebox.setInternalState(homeRegisterActivitySpy, "isAdvancedSearch", true);
+        BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "isAdvancedSearch", true);
         try {
-            Whitebox.invokeMethod(homeRegisterActivitySpy, HomeRegisterActivity.class, "switchToAdvancedSearchFromBarcode");
+            Whitebox.invokeMethod(baseHomeRegisterActivitySpy, BaseHomeRegisterActivity.class, "switchToAdvancedSearchFromBarcode");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Assert.assertEquals(Whitebox.getInternalState(homeRegisterActivitySpy, "advancedSearchQrText"), "");
-        Assert.assertEquals(Whitebox.getInternalState(homeRegisterActivitySpy, "isAdvancedSearch"), false);
-        Assert.assertEquals(Whitebox.getInternalState(homeRegisterActivitySpy, "advancedSearchFormData"), new HashMap<>());
+        Assert.assertEquals(Whitebox.getInternalState(baseHomeRegisterActivitySpy, "advancedSearchQrText"), "");
+        Assert.assertEquals(Whitebox.getInternalState(baseHomeRegisterActivitySpy, "isAdvancedSearch"), false);
+        Assert.assertEquals(Whitebox.getInternalState(baseHomeRegisterActivitySpy, "advancedSearchFormData"), new HashMap<>());
     }
 
     @Override
     protected Activity getActivity() {
-        return homeRegisterActivity;
+        return baseHomeRegisterActivity;
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.library.util.Constants;
@@ -85,7 +86,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     }
 
     public void goToHomeRegisterPage() {
-        Intent intent = new Intent(this, HomeRegisterActivity.class);
+        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN,
                 getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
         startActivity(intent);

@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
@@ -112,14 +112,14 @@ public class HomeRegisterFragment extends BaseRegisterFragment
             return;
         }
 
-        final HomeRegisterActivity homeRegisterActivity = (HomeRegisterActivity) getActivity();
+        final BaseHomeRegisterActivity baseHomeRegisterActivity = (BaseHomeRegisterActivity) getActivity();
         final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
 
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
             if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= Constants.DELIVERY_DATE_WEEKS) {
-                homeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+                baseHomeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
                 String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
 
@@ -184,7 +184,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                 @Override
                 protected void onPostExecute(Void result) {
                     // hideProgressDialog();
-                    homeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
+                    baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
 
                 }
             }.execute();
@@ -193,7 +193,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
          catchment
                 // TODO Move to catchment
             }*/ else if (view.getId() == R.id.filter_text_view) {
-            homeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
+            baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }
     }
 
@@ -238,7 +238,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
 
     @Override
     protected void startRegistration() {
-        ((HomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
+        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
     }
 
 

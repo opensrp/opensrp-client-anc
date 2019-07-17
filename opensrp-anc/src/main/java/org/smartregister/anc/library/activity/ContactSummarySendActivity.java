@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactSummaryAdapter;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
@@ -136,6 +137,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        Utils.navigateToHomeRegister(this, false);
+        Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
     }
 }

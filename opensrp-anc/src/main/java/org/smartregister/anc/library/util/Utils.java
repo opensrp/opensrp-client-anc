@@ -36,9 +36,9 @@ import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseContactActivity;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
 import org.smartregister.anc.library.activity.MainContactActivity;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
@@ -393,8 +393,8 @@ public class Utils extends org.smartregister.util.Utils {
         return ContactJsonFormUtils.keyToValueConverter(value);
     }
 
-    public static void navigateToHomeRegister(Context context, boolean isRemote) {
-        Intent intent = new Intent(context, HomeRegisterActivity.class);
+    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<BaseHomeRegisterActivity> homeRegisterActivityClass) {
+        Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, isRemote);
         context.startActivity(intent);

@@ -62,8 +62,9 @@ import java.util.List;
  * Created by keyman on 26/06/2018.
  */
 
-public class HomeRegisterActivity extends BaseRegisterActivity implements RegisterContract.View {
-    public static final String TAG = HomeRegisterActivity.class.getCanonicalName();
+public class BaseHomeRegisterActivity extends BaseRegisterActivity implements RegisterContract.View {
+
+    public static final String TAG = BaseHomeRegisterActivity.class.getCanonicalName();
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private AlertDialog recordBirthAlertDialog;
@@ -87,16 +88,29 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     @Override
     protected Fragment[] getOtherFragments() {
-        BaseRegisterActivity.ADVANCED_SEARCH_POSITION = 1;
-        BaseRegisterActivity.SORT_FILTER_POSITION = 2;
-        BaseRegisterActivity.ME_POSITION = 3;
-        BaseRegisterActivity.LIBRARY_POSITION = 4;
+        int posCounter = 0;
+        BaseRegisterActivity.ADVANCED_SEARCH_POSITION = ++posCounter;
+        BaseRegisterActivity.SORT_FILTER_POSITION = ++posCounter;
 
-        Fragment[] fragments = new Fragment[4];
+        if (isMeItemEnabled()) {
+            BaseRegisterActivity.ME_POSITION = ++posCounter;
+        }
+
+        if (isLibraryItemEnabled()) {
+            BaseRegisterActivity.LIBRARY_POSITION = ++posCounter;
+        }
+
+        Fragment[] fragments = new Fragment[posCounter];
         fragments[BaseRegisterActivity.ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
         fragments[BaseRegisterActivity.SORT_FILTER_POSITION - 1] = new SortFilterFragment();
-        fragments[BaseRegisterActivity.ME_POSITION - 1] = new MeFragment();
-        fragments[BaseRegisterActivity.LIBRARY_POSITION - 1] = new LibraryFragment();
+
+        if (isMeItemEnabled()) {
+            fragments[BaseRegisterActivity.ME_POSITION - 1] = new MeFragment();
+        }
+
+        if (isLibraryItemEnabled()) {
+            fragments[BaseRegisterActivity.LIBRARY_POSITION - 1] = new LibraryFragment();
+        }
 
         return fragments;
     }
@@ -110,13 +124,21 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+
         if (bottomNavigationView != null) {
-            bottomNavigationView.getMenu()
-                    .add(Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me).setIcon(
-                    bottomNavigationHelper
-                            .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, userInitials,
-                                    getResources()));
+            if (isMeItemEnabled()) {
+                bottomNavigationView.getMenu()
+                        .add(Menu.NONE, org.smartregister.R.string.action_me, Menu.NONE, org.smartregister.R.string.me).setIcon(
+                        bottomNavigationHelper
+                                .writeOnDrawable(org.smartregister.R.drawable.bottom_bar_initials_background, userInitials,
+                                        getResources()));
+            }
+
             bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+
+            if (!isLibraryItemEnabled()) {
+                bottomNavigationView.getMenu().removeItem(R.id.action_library);
+            }
 
             BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
@@ -344,7 +366,7 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.record_birth).toUpperCase(),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        JsonFormUtils.launchANCCloseForm(HomeRegisterActivity.this);
+                        JsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this);
                     }
                 });
         return alertDialog;
@@ -443,5 +465,13 @@ public class HomeRegisterActivity extends BaseRegisterActivity implements Regist
 
     public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
         this.advancedSearchFormData = advancedSearchFormData;
+    }
+
+    public boolean isLibraryItemEnabled() {
+        return true;
+    }
+
+    public boolean isMeItemEnabled() {
+        return true;
     }
 }
