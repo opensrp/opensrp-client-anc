@@ -118,7 +118,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         int itemId = item.getItemId();
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            Utils.navigateToHomeRegister(this, false);
+            Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
         } else {
 
             String contactButtonText = getString(R.string.start_contact);

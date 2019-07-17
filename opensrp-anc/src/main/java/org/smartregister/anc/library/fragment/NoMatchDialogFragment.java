@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 @SuppressLint("ValidFragment")
@@ -91,7 +91,7 @@ public class NoMatchDialogFragment extends DialogFragment {
         }
 
         private void goToAdvancedSearch(String whoAncId) {
-            ((HomeRegisterActivity) baseRegisterActivity).startAdvancedSearch();
+            ((BaseHomeRegisterActivity) baseRegisterActivity).startAdvancedSearch();
             android.support.v4.app.Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).getAncId().setText(whoAncId);

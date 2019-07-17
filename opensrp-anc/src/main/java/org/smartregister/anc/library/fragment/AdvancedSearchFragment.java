@@ -26,7 +26,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
@@ -264,8 +264,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
                 BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
                 baseRegisterActivity.startQrCodeScanner();
 
-                ((HomeRegisterActivity) getActivity()).setAdvancedSearch(true);
-                ((HomeRegisterActivity) getActivity()).setAdvancedSearchFormData(createSelectedFieldMap());
+                ((BaseHomeRegisterActivity) getActivity()).setAdvancedSearch(true);
+                ((BaseHomeRegisterActivity) getActivity()).setAdvancedSearchFormData(createSelectedFieldMap());
             }
         });
 

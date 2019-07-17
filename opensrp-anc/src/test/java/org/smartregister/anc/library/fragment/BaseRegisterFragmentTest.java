@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class BaseRegisterFragmentTest extends BaseUnitTest {
@@ -17,9 +17,9 @@ public class BaseRegisterFragmentTest extends BaseUnitTest {
 
     @Test
     public void testAdvancedSearchFragmentInstance() {
-        HomeRegisterActivity homeRegisterActivity = Mockito.mock(HomeRegisterActivity.class);
+        BaseHomeRegisterActivity baseHomeRegisterActivity = Mockito.mock(BaseHomeRegisterActivity.class);
         AdvancedSearchFragment advancedSearchFragment = Mockito.mock(AdvancedSearchFragment.class);
-        Mockito.doReturn(advancedSearchFragment).when(homeRegisterActivity).findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
+        Mockito.doReturn(advancedSearchFragment).when(baseHomeRegisterActivity).findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
         Assert.assertNotNull(advancedSearchFragment);
         Assert.assertTrue(advancedSearchFragment instanceof AdvancedSearchFragment);
     }

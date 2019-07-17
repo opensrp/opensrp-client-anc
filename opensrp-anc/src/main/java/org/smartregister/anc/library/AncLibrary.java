@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
+import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
@@ -74,14 +75,22 @@ public class AncLibrary {
     private SubscriberInfoIndex subscriberInfoIndex;
 
     private int databaseVersion;
+    private ActivityConfiguration activityConfiguration;
 
     public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion) {
-        init(context, repository,  dbVersion, null);
+        init(context, repository, dbVersion, new ActivityConfiguration());
+    }
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
+        init(context, repository,  dbVersion, activityConfiguration, null);
     }
 
     public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        init(context, repository, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
+    }
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         if (instance == null) {
-            instance = new AncLibrary(context, repository, dbVersion, subscriberInfoIndex);
+            instance = new AncLibrary(context, repository, dbVersion, activityConfiguration, subscriberInfoIndex);
         }
     }
 
@@ -99,11 +108,12 @@ public class AncLibrary {
         return getInstance().jsonSpecHelper;
     }
 
-    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = contextArg;
         repository = repositoryArg;
         this.subscriberInfoIndex = subscriberInfoIndex;
         this.databaseVersion = dbVersion;
+        this.activityConfiguration = activityConfiguration;
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
@@ -281,5 +291,10 @@ public class AncLibrary {
 
     public int getDatabaseVersion() {
         return databaseVersion;
+    }
+
+    @NonNull
+    public ActivityConfiguration getActivityConfiguration() {
+        return activityConfiguration;
     }
 }

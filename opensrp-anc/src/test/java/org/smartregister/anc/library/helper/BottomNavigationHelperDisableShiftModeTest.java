@@ -13,25 +13,25 @@ import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseActivityUnitTest;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.helper.BottomNavigationHelper;
 
 public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnitTest {
 
-    private HomeRegisterActivity homeRegisterActivity;
-    private ActivityController<HomeRegisterActivity> controller;
+    private BaseHomeRegisterActivity baseHomeRegisterActivity;
+    private ActivityController<BaseHomeRegisterActivity> controller;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(HomeRegisterActivity.class).create().start();
-        homeRegisterActivity = controller.get();
+        controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create().start();
+        baseHomeRegisterActivity = controller.get();
     }
 
     @Test
     public void testDisableShiftMode() {
         BottomNavigationHelper spyBottomNavigationHelper = Mockito.mock(BottomNavigationHelper.class);
-        HomeRegisterActivity spyActivity = Mockito.spy(homeRegisterActivity);
+        BaseHomeRegisterActivity spyActivity = Mockito.spy(baseHomeRegisterActivity);
 
         BottomNavigationView bottomNavigationView = spyActivity.findViewById(R.id.bottom_navigation);
         Assert.assertNotNull(bottomNavigationView);
@@ -61,7 +61,7 @@ public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnit
 
     @Override
     protected Activity getActivity() {
-        return homeRegisterActivity;
+        return baseHomeRegisterActivity;
     }
 
     @Override

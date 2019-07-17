@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.activity.HomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.contract.SortFilterContract;
 import org.smartregister.anc.library.presenter.SortFilterPresenter;
 import org.smartregister.configurableviews.model.Field;
@@ -84,7 +84,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
     @Override
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         if (getActivity() != null) {
-            ((HomeRegisterActivity) getActivity()).updateSortAndFilter(filterList, sortField);
+            ((BaseHomeRegisterActivity) getActivity()).updateSortAndFilter(filterList, sortField);
         }
     }
 

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactAdapter;
 import org.smartregister.anc.library.contract.ContactContract;
@@ -189,8 +190,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
         return this;
     }
 
-    private void goToMainRegister() {
-        Intent intent = new Intent(getActivity(), HomeRegisterActivity.class);
+    public void goToMainRegister() {
+        Intent intent = new Intent(getActivity(), AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
         startActivity(intent);
     }
 
