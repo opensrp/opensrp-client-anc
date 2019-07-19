@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import net.sqlcipher.Cursor;
@@ -12,6 +13,7 @@ import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.Repository;
+import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.Calendar;
@@ -156,6 +158,82 @@ public class PatientRepository {
         AncLibrary.getInstance().getRepository().getWritableDatabase()
                 .update(DBConstants.WOMAN_TABLE_NAME, contentValues, DBConstants.KEY.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
+    }
+
+    public static void performMigrations(@NonNull SQLiteDatabase database) {
+        // Change table name and add change the anc_id field to register_id field
+
+        if (Utils.isTableExists(database, "ec_woman")) {
+            changeTableNameToEcMother(database);
+        }
+    }
+
+    public static void changeTableNameToEcMother(@NonNull SQLiteDatabase database) {
+        // Add fields to the ec_mother table
+        // Move data from the
+        // Set the default for the is_value_set to false
+        database.execSQL("PRAGMA foreign_keys=off");
+        database.beginTransaction();
+
+        database.execSQL("CREATE TABLE ec_mother(id VARCHAR PRIMARY KEY,relationalid VARCHAR, details VARCHAR, is_closed TINYINT DEFAULT 0, base_entity_id VARCHAR,register_id VARCHAR,first_name VARCHAR,last_name VARCHAR,dob VARCHAR,dob_unknown VARCHAR,last_interacted_with VARCHAR,date_removed VARCHAR,phone_number VARCHAR,alt_name VARCHAR,alt_phone_number VARCHAR,reminders VARCHAR,home_address VARCHAR,edd VARCHAR,red_flag_count VARCHAR,yellow_flag_count VARCHAR,contact_status VARCHAR,next_contact VARCHAR,next_contact_date VARCHAR,last_contact_record_date VARCHAR,visit_start_date VARCHAR)");
+
+        String copyDataSQL = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s FROM %s",
+                DBConstants.WOMAN_TABLE_NAME,
+                DBConstants.KEY.ID,
+                DBConstants.KEY.RELATIONAL_ID,
+                DBConstants.KEY.BASE_ENTITY_ID,
+                DBConstants.KEY.ANC_ID,
+                DBConstants.KEY.FIRST_NAME,
+                DBConstants.KEY.LAST_NAME,
+                DBConstants.KEY.DOB,
+                DBConstants.KEY.DOB_UNKNOWN,
+                DBConstants.KEY.LAST_INTERACTED_WITH,
+                DBConstants.KEY.DATE_REMOVED,
+                DBConstants.KEY.PHONE_NUMBER,
+                DBConstants.KEY.ALT_NAME,
+                DBConstants.KEY.ALT_PHONE_NUMBER,
+                DBConstants.KEY.REMINDERS,
+                DBConstants.KEY.HOME_ADDRESS,
+                DBConstants.KEY.EDD,
+                DBConstants.KEY.RED_FLAG_COUNT,
+                DBConstants.KEY.YELLOW_FLAG_COUNT,
+                DBConstants.KEY.CONTACT_STATUS,
+                DBConstants.KEY.NEXT_CONTACT,
+                DBConstants.KEY.NEXT_CONTACT_DATE,
+                DBConstants.KEY.LAST_CONTACT_RECORD_DATE,
+                DBConstants.KEY.VISIT_START_DATE,
+                DBConstants.KEY.ID,
+                DBConstants.KEY.RELATIONAL_ID,
+                DBConstants.KEY.BASE_ENTITY_ID,
+                "anc_id",
+                DBConstants.KEY.FIRST_NAME,
+                DBConstants.KEY.LAST_NAME,
+                DBConstants.KEY.DOB,
+                DBConstants.KEY.DOB_UNKNOWN,
+                DBConstants.KEY.LAST_INTERACTED_WITH,
+                DBConstants.KEY.DATE_REMOVED,
+                DBConstants.KEY.PHONE_NUMBER,
+                DBConstants.KEY.ALT_NAME,
+                DBConstants.KEY.ALT_PHONE_NUMBER,
+                DBConstants.KEY.REMINDERS,
+                DBConstants.KEY.HOME_ADDRESS,
+                DBConstants.KEY.EDD,
+                DBConstants.KEY.RED_FLAG_COUNT,
+                DBConstants.KEY.YELLOW_FLAG_COUNT,
+                DBConstants.KEY.CONTACT_STATUS,
+                DBConstants.KEY.NEXT_CONTACT,
+                DBConstants.KEY.NEXT_CONTACT_DATE,
+                DBConstants.KEY.LAST_CONTACT_RECORD_DATE,
+                DBConstants.KEY.VISIT_START_DATE,
+                "ec_woman");
+
+        // Copy over the data
+        database.execSQL(copyDataSQL);
+        database.execSQL("DROP TABLE ec_woman");
+
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        database.execSQL("PRAGMA foreign_keys=on;");
     }
 
 }

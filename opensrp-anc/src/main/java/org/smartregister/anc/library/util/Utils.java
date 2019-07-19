@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -585,6 +589,35 @@ public class Utils extends org.smartregister.util.Utils {
     private String getValueFromSecondaryValues(String itemString) {
         String[] strings = itemString.split(":");
         return strings.length > 1 ? strings[1] : strings[0];
+    }
+
+    /**
+     * Checks if a table exists on the table. An {@link Exception} is expected to be thrown by the sqlite
+     * database in case of anything weird such as the query being wrongly executed. This method is used
+     * to determine critical operations such as migrations that if not done will case data corruption.
+     * It is therefore safe to let the app crash instead of handling the error. So that the developer/user
+     * can fix the issue before continuing with any other operations.
+     *
+     * @param sqliteDatabase
+     * @param tableName
+     * @return
+     */
+    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String tableName) {
+        Cursor cursor = sqliteDatabase.rawQuery(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "'",
+                null
+        );
+
+        int nameColumnIndex = cursor.getColumnIndexOrThrow("name");
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(nameColumnIndex);
+
+            if (name.equals(tableName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
