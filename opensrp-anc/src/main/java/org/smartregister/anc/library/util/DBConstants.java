@@ -8,7 +8,7 @@ public class DBConstants {
 
     public static final String CONTACT_ENTITY_TYPE = "contact";
 
-    public static final String WOMAN_TABLE_NAME = "ec_woman";
+    public static final String WOMAN_TABLE_NAME = "ec_mother";
 
     public static final class KEY {
         public static final String ID = "_ID";
@@ -22,7 +22,7 @@ public class DBConstants {
         public static final String DOB_UNKNOWN = "dob_unknown";
         public static final String EDD = "edd";
         public static final String GENDER = "gender";
-        public static final String ANC_ID = "anc_id";
+        public static final String ANC_ID = "register_id";
         public static final String LAST_INTERACTED_WITH = "last_interacted_with";
         public static final String DATE_REMOVED = "date_removed";
         public static final String PHONE_NUMBER = "phone_number";
