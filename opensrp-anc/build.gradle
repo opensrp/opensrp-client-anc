@@ -214,3 +214,5 @@ task printTasks {
         println "$it"
     }
 }
+
+apply from: '../maven.gradle'

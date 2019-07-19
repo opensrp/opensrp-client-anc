@@ -10,6 +10,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -17,6 +19,22 @@ buildscript {
 
 apply plugin: 'com.palantir.jacoco-full-report'
 apply plugin: 'com.github.kt3k.coveralls'
+
+configure(allprojects) { project ->
+
+    version = VERSION_NAME
+    group = GROUP
+    buildscript {
+        repositories {
+            google()
+            jcenter()
+            mavenCentral()
+            maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+            mavenLocal()
+        }
+    }
+}
+
 
 allprojects {
     repositories {
@@ -74,4 +92,10 @@ coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
     sourceDirs += ["opensrp-anc/src/main/java"
                    , "reference-app/src/main/java"]
+}
+apply plugin: 'io.codearte.nexus-staging'
+
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
 }
