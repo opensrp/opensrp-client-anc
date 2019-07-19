@@ -7,6 +7,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusBuilder;
 import org.greenrobot.eventbus.meta.SubscriberInfoIndex;
@@ -21,6 +23,7 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.Constants;
@@ -296,5 +299,13 @@ public class AncLibrary {
     @NonNull
     public ActivityConfiguration getActivityConfiguration() {
         return activityConfiguration;
+    }
+
+    /**
+     * This method should be called in onUpgrade method of the Repository class where the migrations
+     * are already managed instead of writing new code to manage them.
+     */
+    public void performMigrations(@NonNull SQLiteDatabase database) {
+        PatientRepository.performMigrations(database);
     }
 }

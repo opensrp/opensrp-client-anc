@@ -7,7 +7,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -52,6 +54,8 @@ public class AncRepository extends Repository {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(AncRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+
+        AncLibrary.getInstance().performMigrations(db);
 
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
