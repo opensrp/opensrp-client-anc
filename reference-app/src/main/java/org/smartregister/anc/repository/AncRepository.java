@@ -7,6 +7,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
@@ -29,7 +30,7 @@ public class AncRepository extends Repository {
     protected SQLiteDatabase writableDatabase;
 
     public AncRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(),
+        super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
                 CoreLibrary.getInstance().context().commonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
