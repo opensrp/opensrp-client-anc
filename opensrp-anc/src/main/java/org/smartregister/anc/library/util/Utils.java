@@ -613,8 +613,16 @@ public class Utils extends org.smartregister.util.Utils {
             String name = cursor.getString(nameColumnIndex);
 
             if (name.equals(tableName)) {
+                if (cursor != null) {
+                    cursor.close();
+                }
+
                 return true;
             }
+        }
+
+        if (cursor != null) {
+            cursor.close();
         }
 
         return false;

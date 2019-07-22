@@ -179,7 +179,7 @@ public class PatientRepository {
 
         String copyDataSQL = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s FROM %s",
                 DBConstants.WOMAN_TABLE_NAME,
-                DBConstants.KEY.ID,
+                "id",
                 DBConstants.KEY.RELATIONAL_ID,
                 DBConstants.KEY.BASE_ENTITY_ID,
                 DBConstants.KEY.ANC_ID,
@@ -202,7 +202,7 @@ public class PatientRepository {
                 DBConstants.KEY.NEXT_CONTACT_DATE,
                 DBConstants.KEY.LAST_CONTACT_RECORD_DATE,
                 DBConstants.KEY.VISIT_START_DATE,
-                DBConstants.KEY.ID,
+                "id",
                 DBConstants.KEY.RELATIONAL_ID,
                 DBConstants.KEY.BASE_ENTITY_ID,
                 "anc_id",
