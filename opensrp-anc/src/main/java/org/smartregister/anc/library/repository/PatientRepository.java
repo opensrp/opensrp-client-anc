@@ -231,6 +231,21 @@ public class PatientRepository {
         database.execSQL(copyDataSQL);
         database.execSQL("DROP TABLE ec_woman");
 
+        // Create ec_mother indexes
+        database.execSQL("CREATE INDEX ec_mother_base_entity_id_index ON ec_mother(base_entity_id COLLATE NOCASE)");
+        database.execSQL("CREATE INDEX ec_mother_id_index ON ec_mother(id COLLATE NOCASE)");
+        database.execSQL("CREATE INDEX ec_mother_relationalid_index ON ec_mother(relationalid COLLATE NOCASE)");
+
+        // Create ec_mother FTS table
+        database.execSQL("create virtual table ec_mother_search using fts4 (object_id,object_relational_id,phrase,is_closed TINYINT DEFAULT 0,base_entity_id,first_name,last_name,last_interacted_with,date_removed)");
+
+        // Copy the current FTS table ec_woman_sesarch into ec_mother_search
+        database.execSQL("insert into ec_mother_search(object_id, object_relational_id, phrase, is_closed, base_entity_id, first_name, last_name, last_interacted_with, date_removed) " +
+                "SELECT object_id, object_relational_id, phrase, is_closed, base_entity_id, first_name, last_name, last_interacted_with, date_removed FROM ec_woman_search");
+
+        // Delete the previous FTS table ec_woman_search
+        database.execSQL("DROP TABLE ec_woman_search");
+
         database.setTransactionSuccessful();
         database.endTransaction();
         database.execSQL("PRAGMA foreign_keys=on;");
