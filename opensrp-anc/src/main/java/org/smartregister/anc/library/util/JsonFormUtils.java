@@ -386,7 +386,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.EDD)) {
             formatEdd(womanClient, jsonObject, DBConstants.KEY.EDD);
 
-        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.ANC_ID)) {
+        } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.ANC_ID)) {
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstants.KEY.ANC_ID).replace("-", ""));
 
         } else if (womanClient.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {

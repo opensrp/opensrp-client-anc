@@ -246,6 +246,9 @@ public class PatientRepository {
         // Delete the previous FTS table ec_woman_search
         database.execSQL("DROP TABLE ec_woman_search");
 
+        // Update the ec_details to use register_id
+        database.execSQL("UPDATE ec_details SET key = 'register_id' WHERE key = 'anc_id'");
+
         database.setTransactionSuccessful();
         database.endTransaction();
         database.execSQL("PRAGMA foreign_keys=on;");
