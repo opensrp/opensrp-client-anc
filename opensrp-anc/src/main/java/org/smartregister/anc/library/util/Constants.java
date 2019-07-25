@@ -246,4 +246,9 @@ public abstract class Constants {
         public static final String RED = "red_attention_flag";
         public static final String YELLOW = "yellow_attention_flag";
     }
+
+    public static class Client {
+
+        public static final String ANC_ID = "ANC_ID";
+    }
 }

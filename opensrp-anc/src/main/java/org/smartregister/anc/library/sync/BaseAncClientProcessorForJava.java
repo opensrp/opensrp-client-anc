@@ -246,7 +246,12 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public String[] getOpenmrsGenIds() {
-        return new String[]{DBConstants.KEY.ANC_ID};
+        /*
+        This method is not currently used because the ANC_ID is always a number and does not contain hyphens.
+        This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
+        content values for such identifiers
+         */
+        return new String[]{DBConstants.KEY.ANC_ID, Constants.JSON_FORM_KEY.ANC_ID};
     }
 
     @Override

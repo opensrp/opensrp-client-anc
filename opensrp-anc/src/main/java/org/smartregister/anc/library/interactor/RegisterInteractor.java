@@ -184,18 +184,19 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             if (isEditMode) {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
-                    String newOpenSRPId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID).replace("-", "");
+                    String newOpenSRPId = baseClient.getIdentifier(Constants.Client.ANC_ID).replace("-", "");
                     String currentOpenSRPId =
                             JsonFormUtils.getString(jsonString, Constants.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
+                        // TODO: The new ID should be closed in the unique_ids repository
                         getUniqueIdRepository().open(currentOpenSRPId);
                     }
                 }
 
             } else {
                 if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(DBConstants.KEY.ANC_ID);
+                    String opensrpId = baseClient.getIdentifier(Constants.Client.ANC_ID);
 
                     //mark OPENSRP ID as used
                     getUniqueIdRepository().close(opensrpId);
