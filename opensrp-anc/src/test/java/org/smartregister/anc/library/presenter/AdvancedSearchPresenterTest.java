@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
@@ -31,9 +33,13 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
 
     private AdvancedSearchContract.Presenter presenter;
 
+    @Mock
+    private AncLibrary ancLibrary;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         presenter = new AdvancedSearchPresenter(view, "advancedSearch");
     }
 

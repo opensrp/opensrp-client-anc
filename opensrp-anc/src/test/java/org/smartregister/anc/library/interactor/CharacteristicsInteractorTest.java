@@ -9,6 +9,8 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.AllSettings;
@@ -24,9 +26,13 @@ public class CharacteristicsInteractorTest extends BaseUnitTest {
     @Mock
     private AllSettings allSettings;
 
+    @Mock
+    private AncLibrary ancLibrary;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
     }
 
     @Test

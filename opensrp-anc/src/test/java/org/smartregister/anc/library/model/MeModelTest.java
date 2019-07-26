@@ -11,7 +11,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.contract.MeContract;
@@ -37,7 +36,7 @@ public class MeModelTest extends BaseUnitTest {
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMM yyyy";
         String dateToday = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
-        long buildTimestamp = BuildConfig.BUILD_TIMESTAMP;
+        long buildTimestamp = System.currentTimeMillis();
         Assert.assertNotNull(dateToday);
 
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);

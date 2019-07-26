@@ -18,9 +18,11 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterContract;
+import org.smartregister.anc.library.util.Constants;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -644,10 +646,10 @@ public class RegisterModelTest extends BaseUnitTest {
 
         Assert.assertEquals("Client", client.type());
         Assert.assertEquals(BuildConfig.VERSION_CODE, client.getClientApplicationVersion().intValue());
-        Assert.assertEquals(BuildConfig.DATABASE_VERSION, client.getClientDatabaseVersion().intValue());
+        Assert.assertEquals(AncLibrary.getInstance().getDatabaseVersion(), client.getClientDatabaseVersion().intValue());
 
         Assert.assertEquals(BuildConfig.VERSION_CODE, event.getClientApplicationVersion().intValue());
-        Assert.assertEquals(BuildConfig.DATABASE_VERSION, event.getClientDatabaseVersion().intValue());
+        Assert.assertEquals(AncLibrary.getInstance().getDatabaseVersion(), event.getClientDatabaseVersion().intValue());
 
         Assert.assertTrue(DateUtils.isSameDay(new Date(), client.getDateCreated()));
         Assert.assertTrue(DateUtils.isSameDay(new Date(), event.getDateCreated()));
@@ -699,7 +701,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
     private String entityId(JSONObject jsonObject) {
         JSONArray field = JsonFormUtils.fields(jsonObject);
-        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
         return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
     }
 
