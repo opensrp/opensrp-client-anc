@@ -8,6 +8,8 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
@@ -44,9 +46,13 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
     @Mock
     private RegisterConfiguration configuration;
 
+    @Mock
+    private AncLibrary ancLibrary;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         presenter = new RegisterFragmentPresenter(view, "register");
     }
 

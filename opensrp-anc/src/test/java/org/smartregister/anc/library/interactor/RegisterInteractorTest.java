@@ -19,6 +19,7 @@ import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.AppExecutors;
+import org.smartregister.anc.library.util.Constants;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
@@ -139,7 +140,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
-        identifiers.put(DBConstants.KEY.ANC_ID, ancId);
+        identifiers.put(Constants.JSON_FORM_KEY.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
 
         Event event = new Event();
