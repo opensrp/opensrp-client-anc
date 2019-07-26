@@ -8,11 +8,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.RuntimeEnvironment;
+import org.smartregister.Context;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.repository.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,13 +36,22 @@ public class ContactPresenterTest extends BaseUnitTest {
     private PartialContactRepository partialContactRepository;
 
     @Mock
-    private AncLibrary AncLibrary;
+    private Repository repository;
+
+    @Mock
+    private Context context;
+
+    private AncLibrary ancLibrary;
 
     private ContactContract.Presenter presenter;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
+        AncLibrary.init(context, repository, 1);
+        ancLibrary = Mockito.spy(AncLibrary.getInstance());
+
         presenter = new ContactPresenter(view);
     }
 
@@ -90,7 +102,6 @@ public class ContactPresenterTest extends BaseUnitTest {
 
     @Test
     public void testOnNullWomanDetailsFetched() {
-
         ContactPresenter contactPresenter = (ContactPresenter) presenter;
         contactPresenter.setModel(model);
 
@@ -101,7 +112,6 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.<String, String>anyMap());
         Mockito.verify(view, Mockito.times(0)).displayPatientName(Mockito.anyString());
-
     }
 
     @Test
@@ -183,17 +193,15 @@ public class ContactPresenterTest extends BaseUnitTest {
 
     @Test
     public void testDeleteDraftInvokesDeleteJsonDraftOfPatientRepositoryWithCorrectParamters() {
-
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 
-        Mockito.doReturn(AncLibrary).when(contactPresenter).getAncLibrary();
-        Mockito.doReturn(partialContactRepository).when(AncLibrary).getPartialContactRepository();
+        Mockito.doReturn(ancLibrary).when(contactPresenter).getAncLibrary();
+        Mockito.doReturn(partialContactRepository).when(ancLibrary).getPartialContactRepository();
         Mockito.doNothing().when(partialContactRepository).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
 
         contactPresenter.deleteDraft(DUMMY_BASE_ENTITY_ID);
 
         Mockito.verify(partialContactRepository, Mockito.times(1)).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
-
     }
 
 
@@ -202,8 +210,8 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 
-        Mockito.doReturn(AncLibrary).when(contactPresenter).getAncLibrary();
-        Mockito.doReturn(partialContactRepository).when(AncLibrary).getPartialContactRepository();
+        Mockito.doReturn(ancLibrary).when(contactPresenter).getAncLibrary();
+        Mockito.doReturn(partialContactRepository).when(ancLibrary).getPartialContactRepository();
         Mockito.doNothing().when(partialContactRepository).saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
 
