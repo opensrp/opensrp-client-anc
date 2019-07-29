@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.library.R;
@@ -21,9 +20,10 @@ public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnit
     private BaseHomeRegisterActivity baseHomeRegisterActivity;
     private ActivityController<BaseHomeRegisterActivity> controller;
 
+    @Override
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
         controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create().start();
         baseHomeRegisterActivity = controller.get();
     }

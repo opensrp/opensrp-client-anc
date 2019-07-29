@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -30,9 +29,10 @@ public class SiteCharacteristicsActivityTest extends BaseActivityUnitTest {
     @Mock
     private SiteCharacteristicsContract.Presenter presenter;
 
+    @Override
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
         controller = Robolectric.buildActivity(SiteCharacteristicsActivity.class).create().start();
         activity = controller.get();
     }

@@ -138,7 +138,7 @@ public class JsonFormUtilsTest {
 
 
         JSONObject fieldObject = new JSONObject();
-        fieldObject.put(JsonFormUtils.KEY, DBConstants.KEY.ANC_ID);
+        fieldObject.put(JsonFormUtils.KEY, Constants.JSON_FORM_KEY.ANC_ID);
         fieldObject.put(JsonFormUtils.VALUE, "");
         fieldObject.put(JsonFormUtils.OPENMRS_ENTITY, "");
         fieldObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, "");
@@ -176,10 +176,10 @@ public class JsonFormUtilsTest {
         JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+        JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.ANC_ID).get(JsonFormUtils.VALUE));
+        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID).get(JsonFormUtils.VALUE));
     }
 
     @Test
@@ -189,7 +189,7 @@ public class JsonFormUtilsTest {
         JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+        JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
 
         Assert.assertNotNull(resultObject);
         Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultObject.getString(JsonFormUtils.ENTITY_ID));

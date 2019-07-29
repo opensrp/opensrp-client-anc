@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.library.R;
@@ -27,9 +26,10 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
     @Mock
     private LinearLayout view;
 
+    @Override
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
         controller = Robolectric.buildActivity(PopulationCharacteristicsActivity.class).create().start();
         populationCharacteristicsActivity = controller.get();
     }

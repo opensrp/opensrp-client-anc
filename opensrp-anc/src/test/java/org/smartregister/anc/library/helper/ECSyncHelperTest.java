@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.helper;
 
+import android.app.Activity;
+
 import junit.framework.Assert;
 
 import org.json.JSONArray;
@@ -12,6 +14,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.android.controller.ActivityController;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.CoreLibrary;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.activity.BaseActivityUnitTest;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.AllSharedPreferences;
@@ -22,7 +29,7 @@ import java.util.List;
 /**
  * Created by ndegwamartin on 07/09/2018.
  */
-public class ECSyncHelperTest extends BaseUnitTest {
+public class ECSyncHelperTest extends BaseActivityUnitTest {
 
     private ECSyncHelper syncHelper;
     private static final String EVENT_CLIENT_REPOSITORY = "eventClientRepository";
@@ -35,11 +42,21 @@ public class ECSyncHelperTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
 
         syncHelper = ECSyncHelper.getInstance(RuntimeEnvironment.application);
         Whitebox.setInternalState(syncHelper, EVENT_CLIENT_REPOSITORY, eventClientRepository);
         Whitebox.setInternalState(syncHelper, allSharedPreferences, allSharedPreferences);
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return null;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return null;
     }
 
     @Test

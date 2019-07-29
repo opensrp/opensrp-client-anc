@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.view.contract.MeContract;
 
@@ -37,6 +39,7 @@ public class MePresenterTest extends BaseUnitTest {
     @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMM yyyy";
+        ReflectionHelpers.setStaticField(CoreLibrary.class, "buildTimeStamp", System.currentTimeMillis());
         String todaysDate = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance().getTime());
         Assert.assertEquals(todaysDate, presenter.getBuildDate());
     }

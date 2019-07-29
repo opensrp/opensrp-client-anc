@@ -16,11 +16,12 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.repository.Repository;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.Map;
 
@@ -32,8 +33,6 @@ import java.util.Map;
 @PrepareForTest({PatientRepository.class, AncLibrary.class, SQLiteDatabase.class})
 public class PatientRepositoryTest {
 
-    @Mock
-    private AncLibrary AncLibrary;
 
     @Mock
     private Context context;
@@ -50,6 +49,7 @@ public class PatientRepositoryTest {
     public void setUp() {
 
         MockitoAnnotations.initMocks(this);
+        AncLibrary.init(context, repository, 1);
     }
 
     @Test
@@ -65,15 +65,12 @@ public class PatientRepositoryTest {
 
     @Test
     public void testUpdateWomanDetailsInvokesUpdateMethodOfWritableDatabase() {
-
-        PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
-
-
         PatientRepository spy = PowerMockito.spy(new PatientRepository());
 
-        PowerMockito.when(spy.getMasterRepository()).thenReturn(repository);
+        DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
+
+        Mockito.doReturn(repository).when(drishtiApplication).getRepository();
 
 
         PowerMockito.when(spy.getMasterRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);

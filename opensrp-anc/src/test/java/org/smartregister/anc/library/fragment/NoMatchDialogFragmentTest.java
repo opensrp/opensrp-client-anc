@@ -1,24 +1,37 @@
 package org.smartregister.anc.library.fragment;
 
+import android.app.Activity;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
+import org.smartregister.anc.library.activity.BaseActivityUnitTest;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
-import org.smartregister.anc.library.activity.BaseUnitTest;
 
-public class NoMatchDialogFragmentTest extends BaseUnitTest {
+public class NoMatchDialogFragmentTest extends BaseActivityUnitTest {
     private BaseHomeRegisterActivity activity;
 
+    @Override
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
+
         ActivityController<BaseHomeRegisterActivity> controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create()
                 .start();
         activity = controller.get();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return null;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return null;
     }
 
     @Test
