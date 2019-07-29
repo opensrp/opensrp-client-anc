@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -66,10 +65,9 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
     private MenuItem saveFinishMenuItem;
 
     @Before
+    @Override
     public void setUp() {
-
-        MockitoAnnotations.initMocks(this);
-
+        super.setUp();
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummaryFinishActivity.class);
         contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);

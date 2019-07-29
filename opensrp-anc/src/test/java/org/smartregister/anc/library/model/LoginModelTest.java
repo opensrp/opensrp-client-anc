@@ -3,6 +3,8 @@ package org.smartregister.anc.library.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -17,6 +19,8 @@ public class LoginModelTest extends BaseUnitTest {
     @Before
     public void setUp() {
         model = new BaseLoginModel();
+
+        CoreLibrary.init(Context.getInstance());
     }
 
 

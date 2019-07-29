@@ -163,7 +163,7 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         Map<String, String> editMap = model.createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, true);
         String mainCondition = model.getMainConditionString(editMap);
 
-        Assert.assertEquals(" first_name Like '%first_name%' AND last_name Like '%last_name%' AND anc_id Like '%anc_id%' AND edd Like '%edd%' AND dob Like '%dob%' AND phone_number Like '%phone_number%' AND alt_name Like '%alternate_contact%' ", mainCondition);
+        Assert.assertEquals(" first_name Like '%first_name%' AND last_name Like '%last_name%' AND register_id Like '%anc_id%' AND edd Like '%edd%' AND dob Like '%dob%' AND phone_number Like '%phone_number%' AND alt_name Like '%alternate_contact%' ", mainCondition);
     }
 
     @Test
@@ -186,7 +186,7 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         Map<String, String> editMap = model.createEditMap(firstName, null, ancId, "", dob, null, alternateContact, true);
         String mainCondition = model.getMainConditionString(editMap);
 
-        Assert.assertEquals(" first_name Like '%first_name%' AND anc_id Like '%anc_id%' AND dob Like '%dob%' AND alt_name Like '%alternate_contact%' ", mainCondition);
+        Assert.assertEquals(" first_name Like '%first_name%' AND register_id Like '%anc_id%' AND dob Like '%dob%' AND alt_name Like '%alternate_contact%' ", mainCondition);
     }
 
     @Test

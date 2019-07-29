@@ -25,7 +25,7 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
     @Test
     public void testCountSelect() {
 
-        String mainCondition = "anc_id is not null";
+        String mainCondition = "register_id is not null";
         String sql = "SELECT COUNT(*) FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
 
         // With main condition
@@ -42,14 +42,14 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
     @Test
     public void testMainSelect() {
 
-        String mainCondition = "anc_id is not null";
-        String sql = "Select ec_woman.id as _id , ec_woman.relationalid , ec_woman.last_interacted_with , ec_woman.base_entity_id , ec_woman.first_name , ec_woman.last_name , ec_woman.anc_id , ec_woman.dob , ec_woman.phone_number , ec_woman.alt_name , ec_woman.date_removed , ec_woman.edd , ec_woman.red_flag_count , ec_woman.yellow_flag_count , ec_woman.contact_status , ec_woman.next_contact , ec_woman.next_contact_date , ec_woman.last_contact_record_date FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
+        String mainCondition = "register_id is not null";
+        String sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
 
         // With main condition
         String mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
         Assert.assertEquals(mainSelect, sql);
 
-        sql = "Select ec_woman.id as _id , ec_woman.relationalid , ec_woman.last_interacted_with , ec_woman.base_entity_id , ec_woman.first_name , ec_woman.last_name , ec_woman.anc_id , ec_woman.dob , ec_woman.phone_number , ec_woman.alt_name , ec_woman.date_removed , ec_woman.edd , ec_woman.red_flag_count , ec_woman.yellow_flag_count , ec_woman.contact_status , ec_woman.next_contact , ec_woman.next_contact_date , ec_woman.last_contact_record_date FROM " + DBConstants.WOMAN_TABLE_NAME;
+        sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstants.WOMAN_TABLE_NAME;
 
         // Without main condition
         mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, "");

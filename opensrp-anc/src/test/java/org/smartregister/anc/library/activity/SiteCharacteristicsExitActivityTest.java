@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -31,10 +30,12 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
     private SiteCharacteristicsContract.Presenter presenter;
 
     @Before
+    @Override
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        super.setUp();
         Intent testIntent = new Intent();
         testIntent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, true);
+
         controller = Robolectric.buildActivity(SiteCharacteristicsExitActivity.class, testIntent).create().start();
         activity = controller.get();
     }

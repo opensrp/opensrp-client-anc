@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -69,9 +68,9 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
     private RegisterPresenter registerPresenter;
 
     @Before
+    @Override
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
+        super.setUp();
         controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create().start();
         baseHomeRegisterActivity = controller.get();
     }
