@@ -18,6 +18,6 @@ public class TestAncApplication extends DrishtiApplication {
 
     @Override
     public void logoutCurrentUser() {
-
+        // Nothing happens here
     }
 }

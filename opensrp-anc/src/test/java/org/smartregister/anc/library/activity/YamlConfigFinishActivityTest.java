@@ -22,6 +22,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowAsyncTask;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -238,7 +239,7 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testLoadContactSummaryDataPopulatesContactSummaryListFieldCorrectly() {
+    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() {
 
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
 
@@ -275,7 +276,7 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
 
         Mockito.doReturn(partialContactsList).when(partialContactRepository).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
 
-        spyActivity.loadContactSummaryData();
+        ReflectionHelpers.callInstanceMethod(spyActivity, "process");
 
         List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
 

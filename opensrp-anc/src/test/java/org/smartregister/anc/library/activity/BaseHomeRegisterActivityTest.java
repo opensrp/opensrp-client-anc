@@ -80,7 +80,6 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         destroyController();
     }
 
-
     @Test
     public void testActivityCreatedSuccesfully() {
         Assert.assertNotNull(baseHomeRegisterActivity);

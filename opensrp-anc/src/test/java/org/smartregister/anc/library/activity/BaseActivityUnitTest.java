@@ -2,7 +2,6 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 
-import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -40,6 +39,9 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
         ReflectionHelpers.setField(context, "formDataRepository", formDataRepository);
 
         CoreLibrary.init(context);
+
+        // For areas where the library has been initiated wrongly, this will fix that
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
         AncLibrary.init(context, repository, 1);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
