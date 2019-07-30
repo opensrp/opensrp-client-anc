@@ -132,7 +132,6 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Test
     public void testUpdateSortAndFilterShouldInvokeCorrectMethods() {
-
         Whitebox.setInternalState(baseHomeRegisterActivity, "mBaseFragment", homeRegisterFragment);
 
         BaseHomeRegisterActivity spyActivity = Mockito.spy(baseHomeRegisterActivity);
@@ -204,6 +203,9 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
     @Test
     public void testStartFormActivityInvokesPresenterStartFormMethodWithCorrectParameters() throws Exception {
         BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+
+        // Removing this makes the tests flaky and dependent on other tests
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "mBaseFragment", homeRegisterFragment);
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
 
         baseHomeRegisterActivitySpy.startFormActivity(TEST_STRING, TEST_STRING, TEST_STRING);
@@ -218,6 +220,9 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
     @Test
     public void testStartRegistrationFormActivityInvokesPresenterStartFormMethodWithCorrectParameters() throws Exception {
         BaseHomeRegisterActivity baseHomeRegisterActivitySpy = Mockito.spy(baseHomeRegisterActivity);
+
+        // Removing this makes the tests flaky and dependent on other tests
+        Whitebox.setInternalState(baseHomeRegisterActivitySpy, "mBaseFragment", homeRegisterFragment);
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
 
         baseHomeRegisterActivitySpy.startRegistration();
