@@ -52,8 +52,8 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  # The tests have been disabled and are fixed in https://github.com/OpenSRP/opensrp-client-anc/pull/335
-  - travis_wait ./gradlew build -x test --stacktrace
+  - travis_wait ./gradlew :opensrp-anc:jacocoTestReport coveralls --stacktrace
+  - travis_wait ./gradlew :reference-app:jacocoTestReport coveralls --stacktrace
 
 notifications:
   slack:

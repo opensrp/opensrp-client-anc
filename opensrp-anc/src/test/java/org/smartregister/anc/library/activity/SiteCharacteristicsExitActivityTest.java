@@ -64,6 +64,10 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
         View view = new View(RuntimeEnvironment.application);
         view.setId(R.id.btn_site_characteristics_home_register);
 
+        Mockito.doNothing()
+                .when(spyActivity)
+                .goToHomeRegisterPage();
+
         spyActivity.onClick(view);
 
         Mockito.verify(spyActivity).goToHomeRegisterPage();
