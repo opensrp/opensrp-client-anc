@@ -13,7 +13,6 @@ import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.Repository;
-import org.smartregister.util.DatabaseMigrationUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.Calendar;

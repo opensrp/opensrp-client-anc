@@ -23,7 +23,6 @@ import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;

@@ -2,7 +2,6 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 
-import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
