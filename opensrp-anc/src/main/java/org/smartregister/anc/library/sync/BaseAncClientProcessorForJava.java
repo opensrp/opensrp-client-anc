@@ -186,7 +186,8 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return false;
     }
 
-    private boolean unSync(List<Event> events) {
+    @Override
+    public boolean unSync(@Nullable List<Event> events) {
         try {
 
             if (events == null || events.isEmpty()) {
@@ -281,7 +282,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
     @NonNull
     @Override
-    public HashSet<String> getEventType() {
+    public HashSet<String> getEventTypes() {
         if (eventTypes.isEmpty()) {
             eventTypes.add(Constants.EventType.REGISTRATION);
             eventTypes.add(Constants.EventType.UPDATE_REGISTRATION);
@@ -296,6 +297,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
     @Override
     public boolean canProcess(@NonNull String eventType) {
-        return getEventType().contains(eventType);
+        return getEventTypes().contains(eventType);
     }
 }

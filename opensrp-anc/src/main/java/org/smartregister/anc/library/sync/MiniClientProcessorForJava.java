@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.sync;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -16,9 +17,11 @@ import java.util.List;
 public interface MiniClientProcessorForJava {
 
     @NonNull
-    HashSet<String> getEventType();
+    HashSet<String> getEventTypes();
 
     boolean canProcess(@NonNull String eventType);
 
-    void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @NonNull ClientClassification clientClassification) throws Exception;
+    void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception;
+
+    boolean unSync(@Nullable List<Event> events);
 }
