@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -65,33 +66,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
             for (EventClient eventClient : eventClients) {
-                Event event = eventClient.getEvent();
-                if (event == null) {
-                    return;
-                }
-
-                String eventType = event.getEventType();
-                if (eventType == null) {
-                    continue;
-                }
-
-                if (eventType.equals(Constants.EventType.CLOSE)) {
-                    unsyncEvents.add(event);
-                } else if (eventType.equals(Constants.EventType.REGISTRATION) ||
-                        eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
-                    if (clientClassification == null) {
-                        continue;
-                    }
-
-                    Client client = eventClient.getClient();
-                    //iterate through the events
-                    if (client != null) {
-                        processEvent(event, client, clientClassification);
-
-                    }
-                } else if (eventType.equals(Constants.EventType.CONTACT_VISIT)) {
-                    processVisit(event);
-                }
+                processEventClient(eventClient, unsyncEvents, clientClassification);
             }
 
             // Unsync events that are should not be in this device
@@ -101,55 +76,86 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         }
     }
 
+    @Override
+    public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
+        Event event = eventClient.getEvent();
+        if (event == null) {
+            return;
+        }
+
+        String eventType = event.getEventType();
+        if (eventType == null) {
+            return;
+        }
+
+        if (eventType.equals(Constants.EventType.CLOSE)) {
+            unsyncEvents.add(event);
+        } else if (eventType.equals(Constants.EventType.REGISTRATION) ||
+                eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
+            if (clientClassification == null) {
+                return;
+            }
+
+            Client client = eventClient.getClient();
+            //iterate through the events
+            if (client != null) {
+                processEvent(event, client, clientClassification);
+
+            }
+        } else if (eventType.equals(Constants.EventType.CONTACT_VISIT)) {
+            processVisit(event);
+        }
+    }
+
     /*
-        private Integer parseInt(String string) {
-            try {
-                return Integer.valueOf(string);
-            } catch (NumberFormatException e) {
-                Log.e(TAG, e.toString(), e);
-            }
-            return null;
-        }
-
-        private ContentValues processCaseModel(EventClient eventClient, Table table) {
-            try {
-                List<Column> columns = table.columns;
-                ContentValues contentValues = new ContentValues();
-
-                for (Column column : columns) {
-                    processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
-                }
-
-                return contentValues;
-            } catch (Exception e) {
-                Log.e(TAG, e.toString(), e);
-            }
-            return null;
-        }
-
-        private Date getDate(String eventDateStr) {
-            Date date = null;
-            if (StringUtils.isNotBlank(eventDateStr)) {
+            private Integer parseInt(String string) {
                 try {
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-                    date = dateFormat.parse(eventDateStr);
-                } catch (ParseException e) {
+                    return Integer.valueOf(string);
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, e.toString(), e);
+                }
+                return null;
+            }
+
+            private ContentValues processCaseModel(EventClient eventClient, Table table) {
+                try {
+                    List<Column> columns = table.columns;
+                    ContentValues contentValues = new ContentValues();
+
+                    for (Column column : columns) {
+                        processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
+                    }
+
+                    return contentValues;
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString(), e);
+                }
+                return null;
+            }
+
+            private Date getDate(String eventDateStr) {
+                Date date = null;
+                if (StringUtils.isNotBlank(eventDateStr)) {
                     try {
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
                         date = dateFormat.parse(eventDateStr);
-                    } catch (ParseException pe) {
+                    } catch (ParseException e) {
                         try {
-                            date = DateUtil.parseDate(eventDateStr);
-                        } catch (ParseException pee) {
-                            Log.e(TAG, pee.toString(), pee);
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                            date = dateFormat.parse(eventDateStr);
+                        } catch (ParseException pe) {
+                            try {
+                                date = DateUtil.parseDate(eventDateStr);
+                            } catch (ParseException pee) {
+                                Log.e(TAG, pee.toString(), pee);
+                            }
                         }
                     }
                 }
+                return date;
             }
-            return date;
-        }
 
-    */
+        */
     private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
                            Event event, String registeredAnm) {
         try {
