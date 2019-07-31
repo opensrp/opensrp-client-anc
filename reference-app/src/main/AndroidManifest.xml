@@ -129,7 +129,7 @@
         </provider>
 
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.anc.library.service.AncSyncIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService" />

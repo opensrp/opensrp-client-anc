@@ -1,6 +1,7 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
@@ -12,6 +13,7 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.job.AncJobCreator;
+import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.Utils;
@@ -20,6 +22,7 @@ import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -167,6 +170,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         logoutCurrentUser();
     }
 
-
-
+    @NonNull
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return BaseAncClientProcessorForJava.getInstance(this);
+    }
 }
