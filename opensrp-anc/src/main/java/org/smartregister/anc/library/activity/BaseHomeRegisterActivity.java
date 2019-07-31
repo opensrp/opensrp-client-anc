@@ -89,7 +89,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     @Override
     protected Fragment[] getOtherFragments() {
         int posCounter = 0;
-        BaseRegisterActivity.ADVANCED_SEARCH_POSITION = ++posCounter;
+        if (isAdvancedSearchEnabled()) {
+            BaseRegisterActivity.ADVANCED_SEARCH_POSITION = ++posCounter;
+        }
+
         BaseRegisterActivity.SORT_FILTER_POSITION = ++posCounter;
 
         if (isMeItemEnabled()) {
@@ -101,7 +104,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
 
         Fragment[] fragments = new Fragment[posCounter];
-        fragments[BaseRegisterActivity.ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
+
+        if (isAdvancedSearchEnabled()) {
+            fragments[BaseRegisterActivity.ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
+        }
+
         fragments[BaseRegisterActivity.SORT_FILTER_POSITION - 1] = new SortFilterFragment();
 
         if (isMeItemEnabled()) {
@@ -140,6 +147,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                 bottomNavigationView.getMenu().removeItem(R.id.action_library);
             }
 
+            if (!isAdvancedSearchEnabled()) {
+                bottomNavigationView.getMenu().removeItem(R.id.action_search);
+            }
+
             BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavigationListener);
         }
@@ -157,10 +168,12 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     }
 
     public void startAdvancedSearch() {
-        try {
-            mPager.setCurrentItem(BaseRegisterActivity.ADVANCED_SEARCH_POSITION, false);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+        if (isAdvancedSearchEnabled()) {
+            try {
+                mPager.setCurrentItem(BaseRegisterActivity.ADVANCED_SEARCH_POSITION, false);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
         }
 
     }
@@ -203,7 +216,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        switchToAdvancedSearchFromBarcode();
+
+        if (isAdvancedSearchEnabled()) {
+            switchToAdvancedSearchFromBarcode();
+        }
     }
 
     /**
@@ -473,5 +489,9 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     public boolean isMeItemEnabled() {
         return true;
+    }
+
+    public boolean isAdvancedSearchEnabled() {
+        return false;
     }
 }

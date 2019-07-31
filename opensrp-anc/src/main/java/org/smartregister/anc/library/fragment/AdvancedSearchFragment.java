@@ -90,7 +90,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_advanced_search, container, false);
+        View view = inflater.inflate(R.layout.anc_fragment_advanced_search, container, false);
         rootView = view;//handle to the root
 
         setupViews(view);

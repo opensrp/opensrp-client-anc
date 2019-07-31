@@ -211,7 +211,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment
         if (baseRegisterActivity != null) {
             android.support.v4.app.Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
-            ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+            if (currentFragment instanceof AdvancedSearchFragment) {
+                ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
+            }
         }
     }
 
