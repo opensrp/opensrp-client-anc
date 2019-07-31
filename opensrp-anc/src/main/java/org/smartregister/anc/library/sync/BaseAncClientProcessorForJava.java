@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -27,6 +28,7 @@ import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +36,12 @@ import java.util.Map;
  * Created by ndegwamartin on 15/03/2018.
  */
 
-public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
+public class BaseAncClientProcessorForJava extends ClientProcessorForJava implements MiniClientProcessorForJava {
 
     private static final String TAG = BaseAncClientProcessorForJava.class.getCanonicalName();
     private static BaseAncClientProcessorForJava instance;
+
+    private HashSet<String> eventTypes = new HashSet<>();
 
     public BaseAncClientProcessorForJava(Context context) {
         super(context);
@@ -267,5 +271,25 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava {
         }
 
         //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
+    }
+
+    @NonNull
+    @Override
+    public HashSet<String> getEventType() {
+        if (eventTypes.isEmpty()) {
+            eventTypes.add(Constants.EventType.REGISTRATION);
+            eventTypes.add(Constants.EventType.UPDATE_REGISTRATION);
+            eventTypes.add(Constants.EventType.QUICK_CHECK);
+            eventTypes.add(Constants.EventType.CONTACT_VISIT);
+            eventTypes.add(Constants.EventType.CLOSE);
+            eventTypes.add(Constants.EventType.SITE_CHARACTERISTICS);
+        }
+
+        return eventTypes;
+    }
+
+    @Override
+    public boolean canProcess(@NonNull String eventType) {
+        return getEventType().contains(eventType);
     }
 }
