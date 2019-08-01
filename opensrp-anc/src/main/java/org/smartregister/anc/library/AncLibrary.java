@@ -35,6 +35,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.view.activity.DrishtiApplication;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -185,7 +186,7 @@ public class AncLibrary {
 
     public ClientProcessorForJava getClientProcessorForJava() {
         if (clientProcessorForJava == null) {
-            clientProcessorForJava = BaseAncClientProcessorForJava.getInstance(getApplicationContext());
+            clientProcessorForJava = DrishtiApplication.getInstance().getClientProcessor();
         }
 
         return clientProcessorForJava;
@@ -305,7 +306,7 @@ public class AncLibrary {
      * This method should be called in onUpgrade method of the Repository class where the migrations
      * are already managed instead of writing new code to manage them.
      */
-    public void performMigrations(@NonNull SQLiteDatabase database) {
+    public static void performMigrations(@NonNull SQLiteDatabase database) {
         PatientRepository.performMigrations(database);
     }
 }
