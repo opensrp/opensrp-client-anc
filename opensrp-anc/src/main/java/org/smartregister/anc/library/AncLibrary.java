@@ -25,7 +25,6 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.Constants;
 import org.smartregister.anc.library.util.FilePath;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
