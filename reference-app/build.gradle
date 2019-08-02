@@ -147,7 +147,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-native-form:1.6.17000-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.27-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -158,7 +158,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.6.39-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.6.47-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -169,6 +169,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'cardview-v7'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.2-SNAPSHOT@aar') {
         transitive = true

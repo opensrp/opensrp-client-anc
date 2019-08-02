@@ -12,9 +12,6 @@ import org.smartregister.anc.R;
 import org.smartregister.anc.application.TestAncApplication;
 import org.smartregister.anc.util.JsonFormUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.Date;
 

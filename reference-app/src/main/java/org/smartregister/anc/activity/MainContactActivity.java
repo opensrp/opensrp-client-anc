@@ -1,7 +1,6 @@
 package org.smartregister.anc.activity;
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
@@ -27,7 +26,6 @@ import org.smartregister.anc.util.DBConstants;
 import org.smartregister.anc.util.FilePath;
 import org.smartregister.anc.util.JsonFormUtils;
 import org.smartregister.anc.util.Utils;
-import org.smartregister.util.FormUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
