@@ -32,10 +32,12 @@ public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPres
     }
 
     @Override
-    protected void moveToNextWizardStep() {
+    protected boolean moveToNextWizardStep() {
         JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(Constants.NEXT));
         getView().hideKeyBoard();
         getView().transactThis(next);
+
+        return false;
     }
 
     @Override
