@@ -53,7 +53,7 @@ public class AncLibrary {
     private static final String TAG = AncLibrary.class.getCanonicalName();
 
     private static AncLibrary instance;
-    private static JsonSpecHelper jsonSpecHelper;
+    private JsonSpecHelper jsonSpecHelper;
 
     private final Context context;
     private final Repository repository;

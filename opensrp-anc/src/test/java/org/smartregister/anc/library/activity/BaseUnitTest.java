@@ -8,10 +8,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.application.TestAncApplication;
 import org.smartregister.anc.library.shadows.MyShadowActivity;
 import org.smartregister.anc.library.util.JsonFormUtils;
-import org.smartregister.anc.library.shadows.MyShadowAsyncTask;
 
 import java.util.Calendar;
 import java.util.Date;

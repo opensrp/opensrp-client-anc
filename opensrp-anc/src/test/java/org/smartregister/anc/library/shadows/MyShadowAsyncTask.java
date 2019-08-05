@@ -13,19 +13,19 @@ import org.robolectric.util.ReflectionHelpers;
  */
 
 @Implements(AsyncTask.class)
-public class MyShadowAsyncTask<Params, Progress, Result> extends ShadowAsyncTask<Params, Progress, Result> {
+public class MyShadowAsyncTask<P, Q, R> extends ShadowAsyncTask<P, Q, R> {
 
     @RealObject
     private AsyncTask actualAsyncTask;
 
     @Override
-    public AsyncTask execute(Params... params) {
+    public AsyncTask execute(P... params) {
         ReflectionHelpers.setField(this, "status", AsyncTask.Status.RUNNING);
 
-        ShadowAsyncTaskBridge<Params, Progress, Result> bridge = ReflectionHelpers.callInstanceMethod(this, "getBridge");
+        ShadowAsyncTaskBridge<P, Q, R> bridge = ReflectionHelpers.callInstanceMethod(this, "getBridge");
         bridge.onPreExecute();
 
-        Result result = ReflectionHelpers.callInstanceMethod(actualAsyncTask, "doInBackground", ReflectionHelpers.ClassParameter.from(Object[].class, params));
+        R result = ReflectionHelpers.callInstanceMethod(actualAsyncTask, "doInBackground", ReflectionHelpers.ClassParameter.from(Object[].class, params));
         bridge.onPostExecute(result);
 
         return actualAsyncTask;

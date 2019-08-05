@@ -4,19 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.util.Utils;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.login.model.BaseLoginModel;
-import org.smartregister.repository.FormDataRepository;
-import org.smartregister.repository.Repository;
-import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.BaseLoginContract;
 
 /**

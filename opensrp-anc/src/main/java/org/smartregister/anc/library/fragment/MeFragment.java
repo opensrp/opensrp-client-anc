@@ -51,8 +51,6 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         int i = view.getId();
         if (i == R.id.logout_section) {
             DrishtiApplication.getInstance().logoutCurrentUser();
-        } else if (i == R.id.setting_section) {
-            //ToDO Add the functionality for the setting page after that is decided.
         } else if (i == R.id.site_characteristics_section) {
             getContext().startActivity(new Intent(getContext(), SiteCharacteristicsActivity.class));
         } else if (i == R.id.me_pop_characteristics_section) {
