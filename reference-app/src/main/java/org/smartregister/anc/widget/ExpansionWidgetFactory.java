@@ -404,7 +404,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     try {
                         resetClearedGlobalValues(mainJson, getUndoneValues(item));
                     } catch (JSONException e) {
-                        Log.e(TAG, "Error getting previous values: " + e);
+                        Log.e(TAG, "Error getting previous values: ", e);
                     }
 
                     item.remove(JsonFormConstants.VALUE);

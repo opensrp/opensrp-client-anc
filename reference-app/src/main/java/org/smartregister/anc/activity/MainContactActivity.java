@@ -223,9 +223,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 defaultValueFields.addAll(getListValues(defaultValuesArray));
             }
         } catch (JSONException e) {
-            Log.e(TAG, "Error converting file to JsonObject " + e);
+            Log.e(TAG, "Error converting file to JsonObject ", e);
         } catch (Exception e) {
-            Log.e(TAG, "Error reading json from asset file " + e);
+            Log.e(TAG, "Error reading json from asset file ", e);
         }
 
     }
