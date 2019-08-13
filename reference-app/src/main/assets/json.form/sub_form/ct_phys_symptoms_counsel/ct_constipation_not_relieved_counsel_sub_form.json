@@ -76,7 +76,7 @@
       "relevance": {
         "step3:constipation_not_relieved_counsel_notdone": {
           "type": "string",
-          "ex": "equalTo(., \"not_done\")"
+          "ex": "equalTo(., \"other\")"
         }
       }
     }

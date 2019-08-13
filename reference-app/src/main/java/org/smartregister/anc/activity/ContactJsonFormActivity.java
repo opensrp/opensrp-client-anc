@@ -147,29 +147,25 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             @Override
             protected void onPreExecute() {
-
                 //  showProgressDialog("Saving contact progress...");
             }
 
             @Override
             protected Void doInBackground(Void... nada) {
                 Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
-
                 Contact contact = getContact();
                 contact.setJsonForm(currentJsonState());
                 contact.setContactNumber(contactNo);
-                ContactJsonFormUtils
-                        .persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
                 return null;
-
             }
 
             @Override
             protected void onPostExecute(Void result) {
                 // hideProgressDialog();
                 ContactJsonFormActivity.this.finish();
-
             }
+
         }.execute();
 
     }
@@ -501,12 +497,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                     values = new ArrayList<>();
                 }
 
-                if (refreshExpansionPanelEvent.getPreviousSelectedValues() != null &&
-                        refreshExpansionPanelEvent.getPreviousSelectedValues().size() > 0) {
-                    Log.i(TAG, "Undone records from an accordion from Test: " +
-                            refreshExpansionPanelEvent.getPreviousSelectedValues());
-                }
-
                 LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
                 RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
                 ImageView status = layoutHeader.findViewById(R.id.statusImageView);
@@ -550,7 +540,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
         intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
         intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
-
         Contact contact = getContact();
         contact.setJsonForm(currentJsonState());
         contact.setContactNumber(contactNo);

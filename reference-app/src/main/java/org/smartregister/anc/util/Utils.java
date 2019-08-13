@@ -586,4 +586,26 @@ public class Utils extends org.smartregister.util.Utils {
         String[] strings = itemString.split(":");
         return strings.length > 1 ? strings[1] : strings[0];
     }
+
+    /***
+     * Save to shared preference
+     * @param sharedPref name of shared preference file
+     * @param key key to persist
+     * @param value value to persist
+     */
+    public static void saveToSharedPreference(String sharedPref, String key, String value){
+        SharedPreferences.Editor editor =  AncApplication.getInstance().getSharedPreferences(
+                sharedPref, Context.MODE_PRIVATE).edit();
+        editor.putString(key, value).apply();
+    }
+    /***
+     * Save to shared preference
+     * @param sharedPref name of shared preference file
+     * @param key key used to retrieve the value
+     */
+    public static String readFromSharedPreference(String sharedPref, String key){
+        SharedPreferences sharedPreferences =  AncApplication.getInstance().getSharedPreferences(
+                sharedPref, Context.MODE_PRIVATE);
+       return sharedPreferences.getString(key, null);
+    }
 }

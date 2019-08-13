@@ -19,7 +19,7 @@ public class YamlConfigItem {
         this.template = template;
         this.relevance = relevance;
         this.isRedFont = isRedFont;
-        this.isMultiWidget = false;
+        this.isMultiWidget = Boolean.FALSE;
     }
 
     public String getIsRedFont() {
@@ -46,11 +46,11 @@ public class YamlConfigItem {
         this.relevance = relevance;
     }
 
-    public boolean isMultiWidget() {
+    public Boolean isMultiWidget() {
         return isMultiWidget;
     }
 
-    public void setIsMultiWidget(boolean multiWidget) {
+    public void setIsMultiWidget(Boolean multiWidget) {
         this.isMultiWidget = multiWidget;
     }
 }

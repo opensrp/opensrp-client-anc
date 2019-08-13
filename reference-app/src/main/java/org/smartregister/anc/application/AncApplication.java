@@ -1,9 +1,11 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.evernote.android.job.JobManager;
+import com.flurry.android.FlurryAgent;
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -40,6 +42,7 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -111,6 +114,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     @Override
+    protected void attachBaseContext(android.content.Context base) {
+        super.attachBaseContext(base);
+    }
+
+    @Override
     public void onCreate() {
 
         super.onCreate();
@@ -145,6 +153,16 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //initialize configs processor
         initializeYamlConfigs();
+
+        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
+        if (!BuildConfig.DEBUG) {
+            new FlurryAgent.Builder()
+                    .withLogEnabled(true)
+                    .withCaptureUncaughtExceptions(true)
+                    .withContinueSessionMillis(10000)
+                    .withLogLevel(Log.VERBOSE)
+                    .build(this, BuildConfig.FLURRY_API_KEY);
+        }
     }
 
     @Override
@@ -354,6 +372,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
         constructor.addTypeDescription(customTypeDescription);
         yaml = new Yaml(constructor);
+    }
+    @NonNull
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return AncClientProcessorForJava.getInstance(this);
     }
 
 }

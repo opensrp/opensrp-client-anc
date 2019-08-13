@@ -183,6 +183,7 @@ public class ContactVisit {
 
     private void processFormFieldKeyValues(String baseEntityId, JSONObject object, String contactNo) throws Exception {
         if (object != null) {
+            persistRequiredInvisibleFields(baseEntityId, contactNo, object);
             Iterator<String> keys = object.keys();
 
             while (keys.hasNext()) {
@@ -223,6 +224,26 @@ public class ContactVisit {
             }
         }
 
+    }
+
+    /***
+     * Method that persist previous invisible required fields
+     * @param baseEntityId unique Id for the woman
+     * @param contactNo the contact number
+     * @param object main form json object
+     * @throws JSONException exception thrown
+     */
+    private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
+        if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
+            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
+                    object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)
+                            .toLowerCase().replace(" ", "_");
+            savePreviousContactItem(baseEntityId, new JSONObject()
+                    .put(JsonFormConstants.KEY, key)
+                    .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
+                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
+
+        }
     }
 
     private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {

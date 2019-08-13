@@ -186,7 +186,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please specify your education level"
         }
       },
@@ -229,7 +229,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please specify your marital status"
         }
       },
@@ -288,7 +288,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select at least one occupation"
         }
       },
@@ -312,7 +312,7 @@
           }
         },
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify your occupation"
         },
         "v_regex": {
@@ -396,7 +396,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Lmp unknown is required"
         }
       },
@@ -478,7 +478,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Ultrasound done is required"
         }
       },
@@ -533,7 +533,7 @@
         "key": "ultrasound_gest_age_wks",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "GA from ultrasound - weeks",
         "relevance": {
@@ -543,11 +543,11 @@
           }
         },
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please give the GA from ultrasound - weeks"
         },
         "v_numeric_integer": {
-          "value": "true",
+          "value": true,
           "err": "Enter a Valid GA from ultrasound - weeks value"
         },
         "v_min": {
@@ -557,6 +557,53 @@
         "v_max": {
           "value": "40",
           "err": "GA from ultrasound - weeks should be less than or equal to 40"
+        }
+      },
+      {
+        "key": "ultrasound_gest_age_days",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "GA from ultrasound - days",
+        "relevance": {
+          "step2:ultrasound_done": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please give the GA from ultrasound - days"
+        },
+        "v_numeric_integer": {
+          "value": true,
+          "err": "Enter a Valid GA from ultrasound - days value"
+        },
+        "v_min": {
+          "value": "1",
+          "err": "GA from ultrasound - days should be equal to or greater than 1"
+        },
+        "v_max": {
+          "value": "6",
+          "err": "GA from ultrasound - days should be less than or equal to 6"
+        }
+      },
+      {
+        "key": "ultrasound_gest_age_concept",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
         }
       },
       {
@@ -620,9 +667,9 @@
         "type": "edit_text",
         "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
         "label_info_title": "GA from SFH or abdominal palpation - weeks",
-        "hint": "GA from SFH or palpation - wks",
+        "hint": "GA from SFH or palpation - weeks",
         "v_required": {
-          "value": "false",
+          "value": true,
           "err": "Please give the GA from SFH or abdominal palpation - weeks"
         },
         "v_numeric_integer": {
@@ -715,7 +762,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select preferred gestational age"
         },
         "calculation": {
@@ -804,7 +851,7 @@
         "text": "No. of pregnancies (including this pregnancy)",
         "text_color": "#000000",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "No of pregnancies is required"
         }
       },
@@ -821,7 +868,7 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "No of pregnancies is required"
         }
       },
@@ -834,7 +881,7 @@
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Previous pregnancies is required"
         },
         "calculation": {
@@ -883,7 +930,7 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Miscarriage abortions is required"
         },
         "constraints": {
@@ -939,7 +986,7 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Live births is required"
         },
         "constraints": {
@@ -966,13 +1013,54 @@
         "spacer_height": "24dp"
       },
       {
+        "key": "last_live_birth_preterm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Was the last live birth preterm (less than 37 weeks)?",
+        "text_color": "#000000",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "dont_know",
+            "text": "Don't know",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "Last live birth preterm is required"
+        }
+      },
+      {
         "key": "stillbirths_label",
         "type": "label",
         "label_text_style": "bold",
         "text": "No. of stillbirths (after 22 weeks)",
         "text_color": "#000000",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Still births is required"
         },
         "relevance": {
@@ -996,7 +1084,7 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Still births is required"
         },
         "constraints": {
@@ -1071,7 +1159,7 @@
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "C-sections is required"
         },
         "constraints": {
@@ -1207,7 +1295,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "124858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "3rd_degree_tear",
-            "text": "3rd degree tear"
+            "text": "3rd or 4th degree tear"
           },
           {
             "openmrs_entity_parent": "",
@@ -1218,7 +1306,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select at least one past pregnancy problems"
         },
         "relevance": {
@@ -1248,7 +1336,7 @@
           }
         },
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify other past pregnancy problems"
         },
         "v_regex": {
@@ -1307,7 +1395,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select at least one alcohol or illicit substance use"
         }
       },
@@ -1330,7 +1418,7 @@
           }
         },
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify other substances abused"
         },
         "v_regex": {
@@ -1542,7 +1630,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select at least one allergy"
         }
       },
@@ -1653,7 +1741,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select at least one surgeries"
         }
       },
@@ -1681,7 +1769,7 @@
           }
         },
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify the other gynecological procedures"
         }
       },
@@ -1694,7 +1782,7 @@
         "hint": "Other surgeries",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify the Other surgeries"
         },
         "relevance": {
@@ -1803,7 +1891,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select at least one chronic or past health conditions"
         }
       },
@@ -1816,7 +1904,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify the chronic or past health conditions"
         },
         "relevance": {
@@ -1886,7 +1974,7 @@
         },
         "max_date": "today",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please enter the HIV diagnosis date"
         }
       },
@@ -1909,7 +1997,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select the unknown HIV Date"
         },
         "relevance": {
@@ -1989,7 +2077,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select TT Immunisation status"
         }
       },
@@ -2079,7 +2167,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select Hep B immunisation status"
         },
         "relevance": {
@@ -2169,7 +2257,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select Hep B immunisation status"
         }
       },
@@ -2464,7 +2552,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select at least one medication"
         }
       },
@@ -2477,7 +2565,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify the Other medications"
         },
         "relevance": {
@@ -2550,7 +2638,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Daily caffeine intake is required"
         }
       },
@@ -2613,7 +2701,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select if woman uses any tobacco products"
         }
       },
@@ -2666,7 +2754,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select if you use any tobacco products"
         }
       },
@@ -2713,7 +2801,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select if you use any tobacco products"
         }
       },
@@ -2761,7 +2849,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please select if you use any tobacco products"
         }
       },
@@ -2821,7 +2909,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please specify if woman uses alcohol/abuses substances"
         }
       },
@@ -2834,7 +2922,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please specify other substances abused"
         },
         "relevance": {
@@ -2951,7 +3039,7 @@
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": false,
           "err": "Please select one"
         }
       },

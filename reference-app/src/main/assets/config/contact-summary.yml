@@ -437,10 +437,10 @@ fields:
 - template: "Second temperature: {body_temp_repeat}ºC"
   relevance: "body_temp_repeat != ''"
 
-- template: "Pulse rate: {pulse_rate}bpm"
+- template: "Pulse rate: {pulse_rate} bpm"
   relevance: "pulse_rate != ''"
 
-- template: "Second pulse rate: {pulse_rate_repeat}bpm"
+- template: "Second pulse rate: {pulse_rate_repeat} bpm"
   relevance: "pulse_rate_repeat != ''"
 
 - template: "Pallor present: {pallor_value}"
@@ -992,5 +992,5 @@ fields:
 - template: "Daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU prescribed"
   relevance: "vita_supp == 'done'"
 
-- template: "Daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU prescribed not prescribed: {vita_supp_notdone_value}"
+- template: "Daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU not prescribed: {vita_supp_notdone_value}"
   relevance: "vita_supp == 'not_done'"

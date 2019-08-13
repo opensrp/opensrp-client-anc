@@ -50,9 +50,12 @@ import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -874,5 +877,17 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public class Template {
         public String title = "";
         public String detail = "";
+    }
+
+    public static JSONObject readJsonFromAsset(Context context, String filePath) throws Exception {
+        InputStream inputStream = context.getAssets().open(filePath + ".json");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        String jsonString;
+        StringBuilder stringBuilder = new StringBuilder();
+        while ((jsonString = reader.readLine()) != null) {
+            stringBuilder.append(jsonString);
+        }
+        inputStream.close();
+        return new JSONObject(stringBuilder.toString());
     }
 }

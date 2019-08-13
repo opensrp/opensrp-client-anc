@@ -109,6 +109,8 @@ fields:
   - "hepb3_date"
   - "hepb1_date_done"
   - "hepb2_date_done"
+  - "deworm"
+  - "flu_date"
 ---
 form: anc_profile
 fields:

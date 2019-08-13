@@ -19,7 +19,10 @@
     "hepb2_date",
     "hepb3_date",
     "hepb1_date_done",
-    "hepb2_date_done"
+    "hepb2_date_done",
+    "deworm",
+    "flu_date",
+    "hepb_positive"
   ],
   "metadata": {
     "start": {
@@ -1002,7 +1005,7 @@
         }
       },
       {
-        "key": "accordion_hiv_positive_counsehiv_test_statusl",
+        "key": "accordion_hiv_positive_counsel",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -1339,8 +1342,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "text": "Birth preparedness and complications readiness counseling",
-        "accordion_info_text": "Risk factors necessitating a facility birth:\n- Age 17 or under\n- Primigravida\n- Parity 6 or higher\n- Prior C-section\n- Previous pregnancy complications: Heavy bleeding, Forceps or vacuum delivery, Convulsions, or 3rd degree tear\n- Vaginal bleeding\n- Multiple fetuses\n- Abnormal fetal presentation\n- HIV+\n- Wants IUD or tubal ligation following delivery",
-        "accordion_info_title": "Woman should plan to give birth at a facility due to risk factors",
         "type": "expansion_panel",
         "bottom_section": {
           "display_bottom_section": true,

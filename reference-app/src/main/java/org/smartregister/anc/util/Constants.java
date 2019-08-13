@@ -105,6 +105,7 @@ public abstract class Constants {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
         public static final String ANC_PROFILE = "anc_profile";
+        public static final String ANC_PROFILE_ENCOUNTER_TYPE = "Profile";
         public static final String ANC_SYMPTOMS_FOLLOW_UP = "anc_symptoms_follow_up";
         public static final String ANC_PHYSICAL_EXAM = "anc_physical_exam";
         public static final String ANC_TEST = "anc_test";
@@ -126,19 +127,17 @@ public abstract class Constants {
         public static final String ANC_CLOSE_REASON = "anc_close_reason";
         public static final String DOB_ENTERED = "dob_entered";
         public static final String AGE_ENTERED = "age_entered";
-
     }
 
     public static class JSON_FORM_EXTRA {
         public static final String CONTACT = "contact";
         public static final String JSON = "json";
-
     }
 
     public static class PREF_KEY {
         public static final String SITE_CHARACTERISTICS = "site_characteristics";
         public static final String POPULATION_CHARACTERISTICS = "population_characteristics";
-
+        public static String FORM_INVISIBLE_REQUIRED_FIELDS = "anc.invisible.req.fields";
     }
 
     public static final class KEY {
@@ -155,7 +154,6 @@ public abstract class Constants {
         public static final String LAST_CONTACT_DATE = "last_contact_date";
         public static final String SECONDARY_VALUES = "secondary_values";
         public static final String PARENT_SECONDARY_KEY = "parent_secondary_key";
-
     }
 
     public static final class INTENT_KEY {
@@ -166,6 +164,7 @@ public abstract class Constants {
         public static final String CONTACT_NO = "contact_number";
         public static final String FORM_NAME = "form_name";
         public static final String CLIENT_MAP = "client_map";
+        public static final String UNDONE_VALUES = "undone_values";
     }
 
     public static class OPENMRS {
@@ -190,7 +189,6 @@ public abstract class Constants {
         public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
-
     }
 
     public static final class ALERT_STATUS {
