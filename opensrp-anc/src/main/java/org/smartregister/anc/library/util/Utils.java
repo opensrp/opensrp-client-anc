@@ -398,7 +398,7 @@ public class Utils extends org.smartregister.util.Utils {
         return ContactJsonFormUtils.keyToValueConverter(value);
     }
 
-    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<BaseHomeRegisterActivity> homeRegisterActivityClass) {
+    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
         Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, isRemote);

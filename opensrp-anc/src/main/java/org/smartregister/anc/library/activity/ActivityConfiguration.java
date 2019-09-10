@@ -8,17 +8,17 @@ import android.support.annotation.NonNull;
 
 public class ActivityConfiguration {
 
-    private Class<BaseHomeRegisterActivity> homeRegisterActivityClass;
+    private Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass;
 
     public ActivityConfiguration() {
         setHomeRegisterActivityClass(BaseHomeRegisterActivity.class);
     }
 
-    public Class<BaseHomeRegisterActivity> getHomeRegisterActivityClass() {
+    public Class<? extends BaseHomeRegisterActivity> getHomeRegisterActivityClass() {
         return homeRegisterActivityClass;
     }
 
-    public void setHomeRegisterActivityClass(@NonNull Class<BaseHomeRegisterActivity> homeRegisterActivityClass) {
+    public void setHomeRegisterActivityClass(@NonNull Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
         this.homeRegisterActivityClass = homeRegisterActivityClass;
     }
 }
