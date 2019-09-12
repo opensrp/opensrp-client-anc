@@ -434,7 +434,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static Integer getTodayContact(String nextContact) {
-        Integer todayContact = 0;
+        Integer todayContact = 1;
         try {
             todayContact = Integer.valueOf(nextContact) - 1;
 

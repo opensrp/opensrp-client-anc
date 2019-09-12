@@ -61,6 +61,9 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
     private AncLibrary AncLibrary;
 
     @Mock
+    private Context opensrpContext;
+
+    @Mock
     private android.content.Context context;
 
     @Mock

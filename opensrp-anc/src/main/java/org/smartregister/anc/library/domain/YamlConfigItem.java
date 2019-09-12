@@ -47,6 +47,10 @@ public class YamlConfigItem {
     }
 
     public Boolean isMultiWidget() {
+        if (isMultiWidget == null) {
+            setIsMultiWidget(Boolean.FALSE);
+        }
+
         return isMultiWidget;
     }
 

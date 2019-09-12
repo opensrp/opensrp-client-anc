@@ -11,13 +11,14 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.activity.LoginActivity;
-import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.BuildConfig;
-import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
+import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.repository.AncRepository;
+import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
@@ -37,7 +38,7 @@ import static org.smartregister.util.Log.logInfo;
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
 
 
-    private static final String TAG = AncLibrary.class.getCanonicalName();
+    private static final String TAG = AncApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
 
     private String password;
