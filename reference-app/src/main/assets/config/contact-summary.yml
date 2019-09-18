@@ -1,0 +1,996 @@
+---
+group: hospital_referral
+fields:
+- template: "Woman referred to hospital"
+  relevance: "referred_hosp == 'yes'"
+
+- template: "Woman not referred to hospital: {referred_hosp_notdone_value}"
+  relevance: "referred_hosp == 'no'"
+
+- template: "Danger sign(s): {danger_signs_value}"
+  relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
+
+- template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
+  relevance: "severe_hypertension == 1"
+
+- template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia_value}"
+  relevance: "hypertension == 1 && symp_sev_preeclampsia != '' && !symp_sev_preeclampsia.contains('none')"
+
+- template: "Pre-eclampsia diagnosis"
+  relevance: "preeclampsia == 1"
+
+- template: "Severe pre-eclampsia diagnosis"
+  relevance: "severe_preeclampsia == 1"
+
+- template: "Fever: {body_temp_repeat}ºC"
+  relevance: "body_temp_repeat >= 38"
+
+- template: "Abnormal pulse rate: {pulse_rate_repeat}bpm"
+  relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
+
+- template: "Respiratory distress: {respiratory_exam_abnormal_value}"
+  relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
+
+- template: "Low oximetry: {oximetry}%"
+  relevance: "oximetry < 92"
+
+- template: "Abnormal cardiac exam: {cardiac_exam_abnormal_value}"
+  relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
+
+- template: "Abnormal breast exam: {breast_exam_abnormal_value}"
+  relevance: "!breast_exam_abnormal.contains('none') && !breast_exam_abnormal.isEmpty()"
+
+- template: "Abnormal abdominal exam: {abdominal_exam_abnormal_value}"
+  relevance: "!abdominal_exam_abnormal.contains('none') && !abdominal_exam_abnormal.isEmpty()"
+
+- template: "Abnormal pelvic exam: {pelvic_exam_abnormal_value}"
+  relevance: "!pelvic_exam_abnormal.contains('none') && !pelvic_exam_abnormal.isEmpty()"
+
+- template: "No fetal heartbeat observed"
+  relevance: "fetal_heartbeat == 'no'"
+
+- template: "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm"
+  relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
+
+---
+group: reason_for_visit
+fields:
+- template: "Reason for coming to facility: {contact_reason_value}"
+  relevance: "contact_reason_value != ''"
+
+- template: "Specific complaint(s): {specific_complaint_value}"
+  relevance: "specific_complaint_value != ''"
+
+---
+group: demographic_info
+fields:
+- template: "Highest level of school: {educ_level_value}"
+  relevance: "educ_level_value != ''"
+
+- template: "Marital status: {marital_status_value}"
+  relevance: "marital_status_value != ''"
+
+- template: "Occupation: {occupation_value}"
+  relevance: "occupation_value != ''"
+
+---
+group: current_pregnancy
+fields:
+- template: "GA: {gest_age}"
+  relevance: "gest_age !='' "
+
+- template: "EDD: {edd}"
+  relevance: "edd != '' "
+
+- template: "Ultrasound date: {ultrasound_date}"
+  relevance: "ultrasound_date != ''"
+
+- template: "No. of fetuses: {no_of_fetuses}"
+  relevance: "no_of_fetuses != ''"
+
+- template: "Fetal presentation: {fetal_presentation_value}"
+  relevance: "fetal_presentation != ''"
+
+- template: "Amniotic fluid: {amniotic_fluid_value}"
+  relevance: "amniotic_fluid != ''"
+
+- template: "Placenta location: {placenta_location_value}"
+  relevance: "placenta_location != ''"
+
+---
+group: obstetric_history
+fields:
+- template: "G = {gravida} P = {parity}"
+  relevance: "gravida !='' || parity != ''"
+
+- template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
+  relevance: "miscarriages_abortions > 0"
+
+- template: "No. of live births: {live_births}"
+  relevance: "live_births > 0"
+
+- template: "No. of stillbirths: {stillbirths}"
+  relevance: "stillbirths > 0"
+
+- template: "No. of C-sections: {c_sections}"
+  relevance: "c_sections > 0"
+
+- template: "Past pregnancy problems: {prev_preg_comps_value}"
+  relevance: "(!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
+
+- template: "Past substances used: {substances_used_value}"
+  relevance: "(!substances_used.isEmpty()) "
+
+---
+group: medical_history
+fields:
+- template: "Allergies: {allergies_value}, {}"
+  relevance: "!allergies.isEmpty()"
+
+- template: "Surgeries: {surgeries_value}"
+  relevance: "!surgeries.isEmpty()"
+
+- template: "Chronic health conditions: {health_conditions_value}"
+  relevance: "!health_conditions.isEmpty()"
+
+- template: "HIV diagnosis date: {hiv_diagnosis_date}"
+  relevance: "hiv_diagnosis_date != ''"
+
+- template: "HIV diagnosis date unknown"
+  relevance: "hiv_diagnosis_date_unknown.contains('yes') "
+---
+group: immunisation_status
+fields:
+
+- template: "TT immunisation status: {tt_immun_status}"
+  relevance: "tt_immun_status_value != ''"
+
+- template: "TT dose #1: {tt1_date_done}"
+  relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
+
+- template: "TT dose #2: {tt2_date_done}"
+  relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
+
+- template: "TT dose #3: {tt3_date_done}"
+  relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
+
+- template: "TT dose not given: {tt_dose_notdone_value}"
+  relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
+
+- template: "Hep B immunisation status: {hepb_immun_status}"
+  relevance: "hepb_immun_status_value != ''"
+
+- template: "Hep B dose #1: {hepb1_date_done}"
+  relevance: "hepb1_date == 'done_today' || hepb1_date == 'done_earlier'"
+
+- template: "Hep B dose #2: {hepb2_date_done}"
+  relevance: "hepb2_date == 'done_today' || hepb2_date == 'done_earlier'"
+
+- template: "Hep B dose #3: {hepb3_date_done}"
+  relevance: "hepb3_date == 'done_today' || hepb3_date == 'done_earlier'"
+
+- template: "Hep B dose not given: {hepb_dose_notdone_value}"
+  relevance: "hepb1_date == 'not_done' || hepb2_date == 'not_done' || hepb3_date == 'not_done'"
+
+- template: "Flu immunisation status: {flu_immun_status}"
+  relevance: "flu_immun_status_value != ''"
+
+- template: "Flu dose: {flu_date_done}"
+  relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"
+
+- template: "Flu dose not given: {flu_dose_notdone_value}"
+  relevance: "flu_date == 'not_done'"
+---
+group: medications
+fields:
+
+- template: "Current medications: {medications_value}"
+  relevance: "!medications_value.isEmpty()"
+
+- template: "Medications prescribed: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
+  relevance: "vita != '' || mag_calc != '' ||  nausea_pharma != '' || vita != '' || alben_meben != '' || antacid != '' || penicillin != '' || antibiotic != '' ||  prep != '' || sp != '' || ifa != '' || ifa_medication != '' ||  aspirin != '' || calcium != ''"
+  isMultiWidget: true
+
+- template: "Calcium compliance: {calcium_comply}"
+  relevance: "calcium_comply != ''"
+
+- template: "Calcium side effects: {calcium_effects}"
+  relevance: "calcium_effects != ''"
+
+- template: "IFA compliance: {ifa_comply}"
+  relevance: "ifa_comply != ''"
+
+- template: "IFA side effects: {ifa_effects}"
+  relevance: "ifa_effects != ''"
+
+- template: "Aspirin compliance: {aspirin_comply}"
+  relevance: "aspirin_comply != ''"
+
+- template: "Vitamin A compliance: {vita_comply}"
+  relevance: "vita_comply != ''"
+
+- template: "Penicillin compliance: {penicillin_comply}"
+  relevance: "penicillin_comply != ''"
+---
+group: woman's_behaviour
+fields:
+
+- template: "Persisting behaviours: {behaviour_persist_value}"
+  relevance: "behaviour_persist != ''"
+
+- template: "Daily caffeine intake: {caffeine_intake_value}"
+  relevance: "caffeine_intake != ''"
+
+- template: "Caffeine reduction counseling: {caffeine_counsel_value}"
+  relevance: "caffeine_counsel == 'done'"
+
+- template: "Caffeine reduction counseling not done: {caffeine_counsel_notdone_value}"
+  relevance: "caffeine_counsel == 'not_done'"
+
+- template: "Tobacco user: {tobacco_user_value}"
+  relevance: "tobacco_user != ''"
+
+- template: "Tobacco cessation counseling done"
+  relevance: "tobacco_counsel == 'done'"
+
+- template: "Tobacco cessation counseling not done: {tobacco_counsel_notdone_value}"
+  relevance: "tobacco_counsel == 'not_done'"
+
+- template: "Anyone in the household smokes tobacco products: {shs_exposure_value}"
+  relevance: "shs_exposure != ''"
+
+- template: "Second-hand smoke counseling done"
+  relevance: "shs_counsel == 'done'"
+
+- template: "Second-hand smoke counseling not done: {shs_counsel_notdone_value}"
+  relevance: "shs_counsel == 'not_done'"
+
+- template: "Uses condoms during sex: {condom_use_value}"
+  relevance: "condom_use != ''"
+
+- template: "Condom counseling done"
+  relevance: "condom_counsel == 'done'"
+
+- template: "Condom counseling not done: {condom_counsel_notdone_value}"
+  relevance: "condom_counsel == 'not_done'"
+
+- template: "Clinical enquiry for alcohol and other substance use done: {alcohol_substance_enquiry_value}"
+  relevance: "alcohol_substance_enquiry != ''"
+
+- template: "Alcohol / substances used: {alcohol_substance_use_value}, {other_substance_use}"
+  relevance: "alcohol_substance_use != ''"
+
+- template: "Alcohol / substance use counseling done"
+  relevance: "alcohol_substance_counsel == 'done'"
+
+- template: "Alcohol / substance use counseling not done: {alcohol_substance_counsel_notdone_value}"
+  relevance: "alcohol_substance_counsel == 'not_done'"
+---
+group: physiological_symptoms
+fields:
+
+- template: "Persisting physiological symptoms: {phys_symptoms_persist_value}"
+  relevance: "phys_symptoms_persist != ''"
+
+- template: "Physiological symptoms: {phys_symptoms_value}"
+  relevance: "phys_symptoms != ''"
+
+- template: "Low back and pelvic pain other symptoms: {other_sym_lbpp_value}"
+  relevance: "other_sym_lbpp != ''"
+
+- template: "Varicose veins or oedema other symptoms: {other_sym_vvo_value}"
+  relevance: "other_sym_vvo != ''"
+
+- template: "Non-pharma measures to relieve nausea and vomiting counseling done"
+  relevance: "nausea_counsel == 'done'"
+
+- template: "Non-pharma measures to relieve nausea and vomiting counseling not done: {nausea_counsel_notdone_value}"
+  relevance: "nausea_counsel == 'not_done'"
+
+- template: "Pharmacological treatments for nausea and vomiting counseling done"
+  relevance: "nausea_not_relieved_counsel == 'done'"
+
+- template: "Pharmacological treatments for nausea and vomiting counseling not done: {nausea_not_relieved_counsel_notdone_value}"
+  relevance: "nausea_not_relieved_counsel == 'not_done'"
+
+- template: "Diet and lifestyle changes to prevent and relieve heartburn counseling done"
+  relevance: "heartburn_counsel == 'done'"
+
+- template: "Diet and lifestyle changes to prevent and relieve heartburn counseling not done: {heartburn_counsel_notdone_value}"
+  relevance: "heartburn_counsel == 'not_done'"
+
+- template: "Antacid preparations to relieve heartburn counseling done"
+  relevance: "heartburn_not_relieved_counsel == 'done'"
+
+- template: "Antacid preparations to relieve heartburn counseling not done: {heartburn_not_relieved_counsel_notdone_value}"
+  relevance: "heartburn_not_relieved_counsel == 'not_done'"
+
+- template: "Non-pharmacological treatment for the relief of leg cramps counseling done"
+  relevance: "leg_cramp_counsel == 'done'"
+
+- template: "Non-pharmacological treatment for the relief of leg cramps counseling not done: {leg_cramp_counsel_notdone_value}"
+  relevance: "leg_cramp_counsel == 'not_done'"
+
+- template: "Magnesium and calcium to relieve leg cramps counseling done"
+  relevance: "leg_cramp_not_relieved_counsel == 'done'"
+
+- template: "Magnesium and calcium to relieve leg cramps counseling not done: {leg_cramp_not_relieved_counsel_notdone_value}"
+  relevance: "leg_cramp_not_relieved_counsel == 'not_done'"
+
+- template: "Dietary modifications to relieve constipation counseling done"
+  relevance: "constipation_counsel == 'done'"
+
+- template: "Dietary modifications to relieve constipation counseling not done: {constipation_counsel_notdone_value}"
+  relevance: "constipation_counsel == 'not_done'"
+
+- template: "Wheat bran or other fiber supplements to relieve constipation counseling done"
+  relevance: "constipation_not_relieved_counsel == 'done'"
+
+- template: "Wheat bran or other fiber supplements to relieve constipation counseling not done: {constipation_not_relieved_counsel_notdone_value}"
+  relevance: "constipation_not_relieved_counsel == 'not_done'"
+
+- template: "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling done"
+  relevance: "back_pelvic_pain_counsel == 'done'"
+
+- template: "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling not done: {back_pelvic_pain_counsel_notdone_value}"
+  relevance: "back_pelvic_pain_counsel == 'not_done'"
+
+- template: "Non-pharmacological options for varicose veins and oedema counseling done"
+  relevance: "varicose_oedema_counsel == 'done'"
+
+- template: "Non-pharmacological options for varicose veins and oedema counseling not done: {varicose_oedema_counsel_notdone_value}"
+  relevance: "varicose_oedema_counsel == 'not_done'"
+
+- template: "Other persisting symptoms: {other_symptoms_persist_value}"
+  relevance: "other_symptoms_persist != ''"
+
+- template: "Other symptoms: {other_symptoms_value}"
+  relevance: "other_symptoms != ''"
+
+- template: "Fetal movement felt by woman: {mat_percept_fetal_move_value}"
+  relevance: "mat_percept_fetal_move != ''"
+---
+group: height_and_weight
+fields:
+
+- template: "Height: {height} cm"
+  relevance: "height != ''"
+
+- template: "Pre-gestational weight: {first_weight} kg"
+  relevance: "first_weight != ''"
+
+- template: "Body mass index (BMI) = {bmi}"
+  relevance: "bmi != ''"
+
+- template: "Weight category: {weight_cat}"
+  relevance: "weight_cat !=''"
+
+- template: "Expected weight gain during pregnancy: {exp_weight_gain}"
+  relevance: "exp_weight_gain != ''"
+
+- template: "Current weight: {current_weight} kg"
+  relevance: "current_weight != ''"
+
+- template: "Average weight gain per week since last contact: {weight_gain} kg"
+  relevance: "weight_gain != ''"
+
+- template: "Total weight gain in pregnancy so far: {tot_weight_gain} kg"
+  relevance: "tot_weight_gain != ''"
+
+- template: "Healthy eating and keeping physically active counseling done"
+  relevance: "eat_exercise_counsel == 'done'"
+
+- template: "Healthy eating and keeping physically active counseling not done: {eat_exercise_counsel_notdone_value}"
+  relevance: "eat_exercise_counsel == 'not_done'"
+
+- template: "Increase daily energy and protein intake counseling done"
+  relevance: "increase_energy_counsel == 'done'"
+
+- template: "Increase daily energy and protein intake counseling not done: {increase_energy_counsel_notdone_value}"
+  relevance: "increase_energy_counsel == 'not_done'"
+
+- template: "Balanced energy and protein dietary supplementation counseling done"
+  relevance: "balanced_energy_counsel == 'done'"
+
+- template: "Balanced energy and protein dietary supplementation counseling not done: {balanced_energy_counsel_notdone_value}"
+  relevance: "balanced_energy_counsel == 'not_done'"
+---
+group: blood_pressure
+fields:
+
+- template: "BP: {bp_systolic}/{bp_diastolic} mmHg"
+  relevance: "bp_systolic != '' && bp_diastolic != ''"
+
+- template: "BP (after 10-15 minutes rest): {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
+  relevance: "bp_systolic_repeat != '' && bp_diastolic_repeat != ''"
+
+- template: "Symptoms of severe pre-eclampsia: {symp_sev_preeclampsia_value}"
+  relevance: "symp_sev_preeclampsia != ''"
+
+- template: "Urine dipstick result - protein: {urine_protein_value}"
+  relevance: "urine_protein != ''"
+
+- template: "Hypertension diagnosis"
+  relevance: "hypertension == 1"
+
+- template: "Hypertension counseling done"
+  relevance: "hypertension_counsel == 'done'"
+
+- template: "Hypertension counseling not done"
+  relevance: "hypertension_counsel == 'not_done'"
+
+- template: "Severe hypertension diagnosis"
+  relevance: "severe_hypertension == 1"
+
+- template: "Pre-eclampsia diagnosis"
+  relevance: "preeclampsia == 1"
+
+- template: "Severe pre-eclampsia diagnosis"
+  relevance: "severe_preeclampsia == 1"
+---
+group: maternal_exam
+fields:
+
+- template: "Temperature: {body_temp}ºC"
+  relevance: "body_temp != ''"
+
+- template: "Second temperature: {body_temp_repeat}ºC"
+  relevance: "body_temp_repeat != ''"
+
+- template: "Pulse rate: {pulse_rate} bpm"
+  relevance: "pulse_rate != ''"
+
+- template: "Second pulse rate: {pulse_rate_repeat} bpm"
+  relevance: "pulse_rate_repeat != ''"
+
+- template: "Pallor present: {pallor_value}"
+  relevance: "pallor != ''"
+
+- template: "Respiratory exam: {respiratory_exam_value}"
+  relevance: "respiratory_exam != ''"
+
+- template: "Abnormal (specify): {respiratory_exam_abnormal_value}"
+  relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
+
+- template: "Oximetry: {oximetry}%"
+  relevance: "oximetry != ''"
+
+- template: "Cardiac exam: {cardiac_exam_value}"
+  relevance: "cardiac_exam != ''"
+
+- template: "Abnormal (specify): {cardiac_exam_abnormal_value}"
+  relevance: "!cardiac_exam_abnormal.isEmpty()"
+
+- template: "Breast exam: {breast_exam_value}"
+  relevance: "breast_exam != ''"
+
+- template: "Abnormal (specify): {breast_exam_abnormal_value}"
+  relevance: "!breast_exam_abnormal.isEmpty()"
+
+- template: "Abdominal exam: {abdominal_exam_value}"
+  relevance: "abdominal_exam != ''"
+
+- template: "Abnormal (specify): {abdominal_exam_abnormal_value}"
+  relevance: "!abdominal_exam_abnormal.isEmpty()"
+
+- template: "Pelvic exam: {pelvic_exam_value}"
+  relevance: "pelvic_exam != ''"
+
+- template: "Abnormal (specify): {pelvic_exam_abnormal_value}"
+  relevance: "!pelvic_exam_abnormal.isEmpty()"
+
+- template: "Cervical exam: {cervical_exam_value}"
+  relevance: "cervical_exam != ''"
+
+- template: "Cervix dilated: {dilation_cm_value} cm"
+  relevance: "dilation_cm != ''"
+
+- template: "Oedema present: {oedema_value}"
+  relevance: "oedema != ''"
+
+- template: "Oedema type: {oedema_type_value}"
+  relevance: "oedema_type != ''"
+
+- template: "Oedema severity: {oedema_severity_value}"
+  relevance: "oedema_severity != ''"
+---
+group: fetal_assessment
+fields:
+
+- template: "Symphysis-fundal height (SFH): {sfh} cm"
+  relevance: "sfh != ''"
+
+- template: "Fetal movement felt: {fetal_movement}"
+  relevance: "fetal_movement != ''"
+
+- template: "Fetal heartbeat present: {fetal_heartbeat}"
+  relevance: "fetal_heartbeat != ''"
+
+- template: "Fetal heart rate: {fetal_heart_rate} bpm"
+  relevance: "fetal_heart_rate != ''"
+
+- template: "Second fetal heart rate: {fetal_heart_rate_repeat} bpm"
+  relevance: "fetal_heart_rate_repeat != ''"
+---
+group: ultrasound_test
+fields:
+
+- template: "Ultrasound test ordered"
+  relevance: "ultrasound == 'ordered'"
+
+- template: "Ultrasound not done: {ultrasound_notdone_value}"
+  relevance: "ultrasound == 'not_done'"
+---
+group: blood_type_test
+fields:
+
+- template: "Blood type test ordered"
+  relevance: "blood_type_test_status == 'ordered'"
+
+- template: "Blood type test not done"
+  relevance: "blood_type_test_status == 'not_done'"
+
+- template: "Blood type test date: {blood_type_test_date}"
+  relevance: "blood_type_test_date != ''"
+
+- template: "Blood type: {blood_type_value}"
+  relevance: "blood_type != ''"
+
+- template: "Rh factor: {rh_factor_value}"
+  relevance: "rh_factor != ''"
+
+- template: "Rh factor negative counseling done"
+  relevance: "rh_negative_counsel == 'done'"
+
+- template: "Rh factor negative counseling not done"
+  relevance: "rh_negative_counsel == 'not_done'"
+---
+group: hiv_test
+fields:
+
+- template: "HIV test ordered"
+  relevance: "hiv_test_status == 'ordered'"
+
+- template: "HIV test not done: {hiv_test_notdone_value}"
+  relevance: "hiv_test_status == 'not_done'"
+
+- template: "HIV test date: {hiv_test_date}"
+  relevance: "hiv_test_date != ''"
+
+- template: "HIV test result: {hiv_test_result_value}"
+  relevance: "hiv_test_result != ''"
+
+- template: "HIV positive counseling done"
+  relevance: "hiv_positive_counsel == 'done'"
+
+- template: "HIV positive counseling not done"
+  relevance: "hiv_positive_counsel == 'not_done'"
+---
+group: partner_hiv_test
+fields:
+
+- template: "Partner HIV status: {partner_hiv_status_value}"
+  relevance: "partner_hiv_status != ''"
+
+- template: "Partner HIV test date: {hiv_test_partner_date}"
+  relevance: "hiv_test_partner_date != ''"
+
+- template: "Partner HIV test result: {hiv_test_partner_result_value}"
+  relevance: "hiv_test_partner_result != ''"
+
+- template: "Partner HIV test ordered"
+  relevance: "hiv_test_partner_status == 'ordered'"
+
+- template: "Partner HIV test not done"
+  relevance: "hiv_test_partner_status == 'not_done'"
+---
+group: hepatitis_b_test
+fields:
+
+- template: "Hepatitis B test ordered"
+  relevance: "hepb_test_status == 'ordered'"
+
+- template: "Hepatitis B test not done: {hepb_test_notdone_value}"
+  relevance: "hepb_test_status == 'not_done'"
+
+- template: "Hepatitis B test date: {hepb_test_date}"
+  relevance: "hepb_test_date != ''"
+
+- template: "HBsAg laboratory-based immunoassay result: {hbsag_lab_ima_value}"
+  relevance: "hbsag_lab_ima != ''"
+
+- template: "HBsAg rapid diagnostic test (RDT) result: {hbsag_rdt_value}"
+  relevance: "hbsag_rdt != ''"
+
+- template: "Dried Blood Spot (DBS) HBsAg testing result: {hbsag_dbs_value}"
+  relevance: "hbsag_dbs != ''"
+
+- template: "Hepatitis B positive counseling done"
+  relevance: "hepb_positive_counsel == 'done'"
+
+- template: "Hepatitis B positive counseling not done"
+  relevance: "hepb_positive_counsel == 'not_done'"
+---
+group: hepatitis_c_test
+fields:
+
+- template: "Hepatitis C test ordered"
+  relevance: "hepc_test_status == 'ordered'"
+
+- template: "Hepatitis C test not done: {hepc_test_notdone_value}"
+  relevance: "hepc_test_status == 'not_done'"
+
+- template: "Hepatitis C test date: {hepc_test_date}"
+  relevance: "hepc_test_date != ''"
+
+- template: "Anti-HCV laboratory-based immunoassay result: {hcv_lab_ima}"
+  relevance: "hcv_lab_ima != ''"
+
+- template: "Anti-HCV rapid diagnostic test (RDT) result: {hcv_rdt}"
+  relevance: "hcv_rdt != ''"
+
+- template: "Dried Blood Spot (DBS) anti-HCV test result: {hcv_dbs}"
+  relevance: "hcv_dbs != ''"
+
+- template: "Hepatitis C positive counseling done"
+  relevance: "hepc_positive_counsel == 'done'"
+
+- template: "Hepatitis C positive counseling not done"
+  relevance: "hepc_positive_counsel == 'not_done'"
+---
+group: syphilis_test
+fields:
+
+- template: "Syphilis test ordered"
+  relevance: "syph_test_status == 'ordered'"
+
+- template: "Syphilis test not done: {syph_test_notdone_value}"
+  relevance: "syph_test_status == 'not_done'"
+
+- template: "Syphilis test date: {syphilis_test_date}"
+  relevance: "syphilis_test_date != ''"
+
+- template: "Rapid syphilis test (RST) result: {rapid_syphilis_test}"
+  relevance: "rapid_syphilis_test != ''"
+
+- template: "Rapid plasma reagin (RPR) test result: {rpr_syphilis_test}"
+  relevance: "rpr_syphilis_test != ''"
+
+- template: "Off-site lab test for syphilis result: {lab_syphilis_test}"
+  relevance: "lab_syphilis_test != ''"
+
+- template: "Syphilis counselling and treatment done"
+  relevance: "syphilis_low_prev_counsel == 'done'"
+
+- template: "Syphilis counselling and treatment not done"
+  relevance: "syphilis_low_prev_counsel == 'not_done'"
+
+- template: "Syphilis counselling and further testing done"
+  relevance: "syphilis_high_prev_counsel == 'done'"
+
+- template: "Syphilis counselling and further testing not done"
+  relevance: "syphilis_high_prev_counsel == 'not_done'"
+---
+group: urine_test
+fields:
+
+- template: "Urine test ordered"
+  relevance: "urine_test_status == 'ordered'"
+
+- template: "Urine test not done: {urine_test_notdone_value}"
+  relevance: "urine_test_status == 'not_done'"
+
+- template: "Urine test date: {urine_test_date}"
+  relevance: "urine_test_date != ''"
+
+- template: "Midstream urine culture result: {urine_culture_value}"
+  relevance: "urine_culture != ''"
+
+- template: "Midstream urine Gram-staining result: {urine_gram_stain_value}"
+  relevance: "urine_gram_stain != ''"
+
+- template: "Urine dipstick result - nitrites: {urine_nitrites_value}"
+  relevance: "urine_nitrites != ''"
+
+- template: "Urine dipstick result - leukocytes: {urine_leukocytes_value}"
+  relevance: "urine_leukocytes != ''"
+
+- template: "Urine dipstick result - protein: {urine_protein_value}"
+  relevance: "urine_protein != ''"
+
+- template: "Urine dipstick result - glucose: {urine_glucose_value}"
+  relevance: "urine_glucose != ''"
+
+- template: "Seven-day antibiotic regimen for ASB given"
+  relevance: "asb_positive_counsel == 'done'"
+
+- template: "Seven-day antibiotic regimen for ASB not given: {asb_positive_counsel_notdone_value}"
+  relevance: "asb_positive_counsel == 'not_done'"
+
+- template: "Intrapartum antibiotic to prevent early neonatal GBS infection counseling done"
+  relevance: "gbs_agent_counsel == 'done'"
+
+- template: "Intrapartum antibiotic to prevent early neonatal GBS infection counseling not done"
+  relevance: "gbs_agent_counsel == 'not_done'"
+---
+group: blood_glucose_test
+fields:
+
+- template: "Blood glucose test ordered"
+  relevance: "glucose_test_status == 'ordered'"
+
+- template: "Blood glucose test not done"
+  relevance: "glucose_test_status == 'not_done'"
+
+- template: "Blood glucose test date: {glucose_test_date}"
+  relevance: "glucose_test_date != ''"
+
+- template: "Fasting plasma glucose results: {fasting_plasma_gluc} mg/dl"
+  relevance: "fasting_plasma_gluc != ''"
+
+- template: "75g OGTT - fasting glucose results: {ogtt_fasting} mg/dl"
+  relevance: "ogtt_fasting != ''"
+
+- template: "75g OGTT - 1 hr results: {ogtt_1} mg/dl"
+  relevance: "ogtt_1 != ''"
+
+- template: "75g OGTT - 2 hrs results: {ogtt_2} mg/dl"
+  relevance: "ogtt_2 != ''"
+
+- template: "Random plasma glucose results: {random_plasma} mg/dl"
+  relevance: "random_plasma != ''"
+
+- template: "Diabetes counseling done"
+  relevance: "diabetes_counsel == 'done'"
+
+- template: "Diabetes counseling not done"
+  relevance: "diabetes_counsel == 'not_done'"
+---
+group: blood_haemoglobin_test_and_ifa
+fields:
+
+- template: "Blood haemoglobin test ordered"
+  relevance: "hb_test_status == 'ordered'"
+
+- template: "Blood haemoglobin test not done: {hb_test_notdone_value}"
+  relevance: "hb_test_status == 'not_done'"
+
+- template: "Blood haemoglobin test date: {hb_test_date}"
+  relevance: "hb_test_date != ''"
+
+- template: "Complete blood count test results: {cbc} g/dl"
+  relevance: "cbc != ''"
+
+- template: "Hb test result - haemoglobinometer: {hb_gmeter} g/dl"
+  relevance: "hb_gmeter != ''"
+
+- template: "Hb test result - haemoglobin colour scale: {hb_colour} g/dl"
+  relevance: "hb_colour != ''"
+
+- template: "Hematocrit (Ht): {ht}"
+  relevance: "ht != ''"
+
+- template: "White blood cell (WBC) count: {wbc}"
+  relevance: "wbc != ''"
+
+- template: "Platelet count: {platelets}"
+  relevance: "platelets != ''"
+
+- template: "Daily dose of 120 mg iron and 2.8 mg folic acid given"
+  relevance: "ifa_anaemia == 'done'"
+
+- template: "Daily dose of 120 mg iron and 2.8 mg folic acid not given: {ifa_anaemia_notdone_value}"
+  relevance: "ifa_anaemia == 'not_done'"
+---
+group: tb_screening
+fields:
+
+- template: "TB screening ordered"
+  relevance: "tb_screening_status == 'ordered'"
+
+- template: "TB screening not done: {tb_screening_notdone_value}"
+  relevance: "tb_screening_status == 'not_done'"
+
+- template: "TB screening date: {tb_screening_date}"
+  relevance: "tb_screening_date != ''"
+
+- template: "TB screening result: {tb_screening_result}"
+  relevance: "tb_screening_result != ''"
+
+- template: "TB screening positive counseling done"
+  relevance: "tb_positive_counseling == 'done'"
+
+- template: "TB screening positive counseling not done"
+  relevance: "tb_positive_counseling == 'not_done'"
+---
+group: other_tests
+fields:
+
+- template: "Other test done: {other_test_name}"
+  relevance: "other_test_name != ''"
+
+- template: "Other test date: {other_test_date}"
+  relevance: "other_test_date != ''"
+
+- template: "Other test result: {other_test_result}"
+  relevance: "other_test_result != ''"
+---
+group: pre-eclampsia_risk
+fields:
+
+- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) prescribed"
+  relevance: "pe_risk_aspirin == 'done'"
+
+- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) not prescribed: {pe_risk_aspirin_notdone_value}"
+  relevance: "pe_risk_aspirin == 'not_done'"
+
+- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) prescribed and woman told to continue to take daily calcium supplement of 1.5 to 2 g daily until delivery."
+  relevance: "pe_risk_aspirin_calcium == 'done'"
+
+- template: "Aspirin 75 mg daily until delivery (starting at 12 weeks gestation) not given and ensure that she continues to take her daily calcium supplement of 1.5 to 2 g until delivery: {pe_risk_aspirin_calcium_notdone_value}"
+  relevance: "pe_risk_aspirin_calcium == 'not_done'"
+---
+group: hiv_risk_and_prep
+fields:
+
+- template: "HIV risk counseling done"
+  relevance: "hiv_risk_counsel == 'done'"
+
+- template: "HIV risk counseling not done"
+  relevance: "hiv_risk_counsel == 'not_done'"
+
+- template: "PrEP for HIV prevention counseling done"
+  relevance: "hiv_prep == 'done'"
+
+- template: "PrEP for HIV prevention counseling not done: {hiv_prep_notdone_value}"
+  relevance: "hiv_prep == 'not_done'"
+---
+group: diabetes_risk
+fields:
+
+- template: "Gestational diabetes mellitus (GDM) risk counseling done"
+  relevance: "gdm_risk_counsel == 'done'"
+
+- template: "Gestational diabetes mellitus (GDM) risk counseling not done"
+  relevance: "gdm_risk_counsel == 'not_done'"
+---
+group: danger_signs_counseling
+fields:
+
+- template: "Seeking care for danger signs counseling done"
+  relevance: "danger_signs_counsel == 'done'"
+
+- template: "Seeking care for danger signs counseling not done"
+  relevance: "danger_signs_counsel == 'not_done'"
+
+- template: "Counseling done on going immediately to the hospital if severe danger signs"
+  relevance: "emergency_hosp_counsel == 'done'"
+
+- template: "Counseling not done on going immediately to the hospital if severe danger signs"
+  relevance: "emergency_hosp_counsel == 'not_done'"
+---
+group: anc_contacts_counseling
+fields:
+
+- template: "ANC contact schedule counseling done"
+  relevance: "anc_contact_counsel == 'done'"
+
+- template: "ANC contact schedule counseling not done"
+  relevance: "anc_contact_counsel == 'not_done'"
+---
+group: family_planning_counseling
+fields:
+
+- template: "Postpartum family planning counseling done"
+  relevance: "family_planning_counsel == 'done'"
+
+- template: "Postpartum family planning counseling not done"
+  relevance: "family_planning_counsel == 'not_done'"
+
+- template: "FP method accepted: {family_planning_type_value}"
+  relevance: "family_planning_type != ''"
+---
+group: birth_plan_counseling
+fields:
+
+- template: "Planned birth place: {delivery_place_value}"
+  relevance: "delivery_place != ''"
+
+- template: "Birth preparedness and complications readiness counseling done"
+  relevance: "birth_prep_counsel == 'done'"
+
+- template: "Birth preparedness and complications readiness counseling not done"
+  relevance: "birth_prep_counsel == 'not_done'"
+---
+group: breastfeeding_counseling
+fields:
+
+- template: "Breastfeeding counseling done"
+  relevance: "breastfeed_counsel == 'done'"
+
+- template: "Breastfeeding counseling not done"
+  relevance: "breastfeed_counsel == 'not_done'"
+---
+group: ipv_assessment
+fields:
+
+- template: "Clinical enquiry for IPV done"
+  relevance: "ipv_enquiry == 'done'"
+
+- template: "IPV enquiry results: {ipv_enquiry_results}"
+  relevance: "ipv_enquiry_results != ''"
+
+- template: "Clinical enquiry for IPV not done: {ipv_enquiry_notdone_value}"
+  relevance: "ipv_enquiry == 'not_done'"
+---
+group: anaemia_prevention
+fields:
+
+- template: "Daily dose of 60 mg iron and 0.4 mg folic acid prescribed"
+  relevance: "ifa_high_prev == 'done'"
+
+- template: "Daily dose of 60 mg iron and 0.4 mg folic acid not prescribed: {ifa_high_prev_notdone_value}"
+  relevance: "ifa_high_prev == 'not_done'"
+
+- template: "Daily dose of 30 to 60 mg iron and 0.4 mg folic acid prescribed"
+  relevance: "ifa_low_prev == 'done'"
+
+- template: "Daily dose of 30 to 60 mg iron and 0.4 mg folic acid not prescribed: {ifa_low_prev_notdone_value}"
+  relevance: "ifa_low_prev == 'not_done'"
+
+- template: "Changed prescription to weekly dose of 120 mg iron and 2.8 mg folic acid "
+  relevance: "ifa_weekly == 'done'"
+
+- template: "Didn't change prescription to weekly dose of 120 mg iron and 2.8 mg folic acid: {ifa_weekly_notdone_value}"
+  relevance: "ifa_weekly == 'not_done'"
+---
+group: deworming_and_malaria_prophylaxis
+fields:
+
+- template: "Single dose albendazole 400 mg or mebendazole 500 mg prescribed"
+  relevance: "deworm == 'done'"
+
+- template: "Single dose albendazole 400 mg or mebendazole 500 mg not prescribed: {deworm_notdone_value}"
+  relevance: "deworm == 'not_done'"
+
+- template: "IPTp-SP dose 1 given"
+  relevance: "iptp_sp1 == 'done'"
+
+- template: "IPTp-SP dose 1 not given: {iptp_sp_notdone_value}"
+  relevance: "iptp_sp1 == 'not_done'"
+
+- template: "IPTp-SP dose 2 given"
+  relevance: "iptp_sp2 == 'done'"
+
+- template: "IPTp-SP dose 2 not given: {iptp_sp_notdone_value}"
+  relevance: "iptp_sp2 == 'not_done'"
+
+- template: "IPTp-SP dose 3 given"
+  relevance: "iptp_sp3 == 'done'"
+
+- template: "IPTp-SP dose 3 not given: {iptp_sp_notdone_value}"
+  relevance: "iptp_sp3 == 'not_done'"
+
+- template: "Malaria prevention counseling done"
+  relevance: "malaria_counsel == 'done'"
+
+- template: "Malaria prevention counseling not done: {malaria_counsel_notdone_value}"
+  relevance: "malaria_counsel == 'not_done'"
+---
+group: calcium_supplementation
+fields:
+
+- template: "Daily calcium supplementation (1.5–2.0 g oral elemental calcium) prescribed"
+  relevance: "calcium_supp == 'done'"
+
+- template: "Daily calcium supplementation (1.5–2.0 g oral elemental calcium) not prescribed: {calcium_supp_notdone_value}"
+  relevance: "calcium_supp == 'not_done'"
+---
+group: vitamin_a_supplementation
+fields:
+
+- template: "Daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU prescribed"
+  relevance: "vita_supp == 'done'"
+
+- template: "Daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU not prescribed: {vita_supp_notdone_value}"
+  relevance: "vita_supp == 'not_done'"

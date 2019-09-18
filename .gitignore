@@ -6,6 +6,7 @@
 /.idea/workspace.xml
 .DS_Store
 /build
+/release/
 /captures
 .externalNativeBuild
 *.ipr
@@ -29,3 +30,4 @@ opensrp-anc/reports/
 opensrp-anc/jacoco.exec
 jacoco.exec
 ~                 
+/build/
