@@ -13,7 +13,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.BaseUnitTest;
 
 /**
  * Created by ndegwamartin on 10/09/2018.

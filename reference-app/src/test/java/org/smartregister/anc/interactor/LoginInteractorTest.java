@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.Context;
-import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.BaseUnitTest;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;

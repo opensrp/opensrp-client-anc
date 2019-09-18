@@ -14,11 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.R;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.interactor.LoginInteractor;
-import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.ImageLoaderRequest;
+import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ImageLoaderRequest;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
@@ -51,7 +51,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
                 return;
             }
 
-            ViewConfiguration loginView = AncApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            ViewConfiguration loginView = AncLibrary.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
             LoginConfiguration.Background background = metadata.getBackground();
 
@@ -95,7 +95,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     public boolean isServerSettingsSet() {
 
         try {
-            Setting setting = AncApplication.getInstance().getContext().allSettings()
+            Setting setting = AncLibrary.getInstance().getContext().allSettings()
                     .getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
 
             JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
