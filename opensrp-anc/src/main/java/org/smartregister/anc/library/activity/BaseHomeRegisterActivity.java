@@ -492,6 +492,6 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     }
 
     public boolean isAdvancedSearchEnabled() {
-        return false;
+        return true;
     }
 }

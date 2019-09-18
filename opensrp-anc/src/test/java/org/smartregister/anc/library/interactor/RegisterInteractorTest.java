@@ -161,7 +161,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         eventClients.add(eventClient);
 
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
-        Mockito.doReturn(eventClients).when(syncHelper).getEvents(new Date(timestamp), BaseRepository.TYPE_Unsynced);
+        Mockito.doReturn(eventClients).when(syncHelper).getEvents(new Date(timestamp), BaseRepository.TYPE_Unprocessed);
 
         registerInteractor.saveRegistration(pair, jsonString, false, callBack);
 

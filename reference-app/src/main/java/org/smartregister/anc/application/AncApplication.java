@@ -102,13 +102,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         JobManager.create(this).addJobCreator(new AncJobCreator());
 
         //Only integrate Flurry Analytics for  production. Remove negation to test in debug
-        if (!org.smartregister.anc.BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             new FlurryAgent.Builder()
                     .withLogEnabled(true)
                     .withCaptureUncaughtExceptions(true)
                     .withContinueSessionMillis(10000)
                     .withLogLevel(Log.VERBOSE)
-                    .build(this, org.smartregister.anc.BuildConfig.FLURRY_API_KEY);
+                    .build(this, BuildConfig.FLURRY_API_KEY);
         }
 
     }

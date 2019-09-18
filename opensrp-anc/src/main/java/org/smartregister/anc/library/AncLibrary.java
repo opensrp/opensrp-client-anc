@@ -211,7 +211,7 @@ public class AncLibrary {
         try {
 
             EventBusBuilder eventBusBuilder = EventBus.builder()
-                    .addIndex(new org.smartregister.anc.library.ANCEventBusIndex());
+                    .addIndex(new ANCEventBusIndex());
 
             if (subscriberInfoIndex != null) {
                 eventBusBuilder.addIndex(subscriberInfoIndex);

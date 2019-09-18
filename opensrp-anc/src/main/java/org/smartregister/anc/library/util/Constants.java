@@ -235,7 +235,6 @@ public abstract class Constants {
         public static final String OTHER = "_other";
         public static final String ABNORMAL = "_abnormal";
         public static final String ABNORMAL_OTHER = ABNORMAL + OTHER;
-
     }
 
     public static class BOOLEAN {
@@ -248,7 +247,6 @@ public abstract class Constants {
     }
 
     public static class Client {
-
         public static final String ANC_ID = "ANC_ID";
     }
 }

@@ -69,7 +69,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         map.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, "10-12-2018");
         testIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, map);
 
-        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start();
+        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
 
         profileActivity = controller.get();
         Whitebox.setInternalState(profileActivity, "presenter", presenter);
