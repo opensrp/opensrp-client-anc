@@ -1,1 +1,1 @@
-include ':opensrp-anc'
+include ':reference-app', ':sample', ':opensrp-anc'

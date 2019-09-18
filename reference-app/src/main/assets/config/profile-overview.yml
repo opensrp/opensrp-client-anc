@@ -1,0 +1,257 @@
+---
+group: overview_of_pregnancy
+sub_group: demographic_info
+fields:
+- template: "Occupation: {occupation}"
+  relevance: "occupation != ''"
+
+---
+sub_group: current_pregnancy
+fields:
+- template: "GA: {gest_age}"
+  relevance: "gest_age != ''"
+  isRedFont: "gest_age > 40"
+
+- template: "EDD: {edd}"
+  relevance: "edd != ''"
+
+- template: "Ultrasound date: {ultrasound_date}"
+  relevance: "ultrasound_date != ''"
+
+- template: "No. of fetuses: {no_of_fetuses}"
+  relevance: "no_of_fetuses != ''"
+  isRedFont: "no_of_fetuses > 1"
+
+- template: "Fetal presentation: {fetal_presentation}"
+  relevance: "fetal_presentation != ''"
+
+- template: "Amniotic fluid: {amniotic_fluid}"
+  relevance: "amniotic_fluid != ''"
+
+- template: "Placenta location: {placenta_location}"
+  relevance: "placenta_location != ''"
+  isRedFont: "placenta_location.contains('Previa')"
+
+---
+sub_group: obstetric_history
+fields:
+- template: "Gravida: {gravida}"
+  relevance: "gravida != ''"
+  isRedFont: "gravida >= 5"
+
+- template: "Parity: {parity}"
+  relevance: "parity != ''"
+  isRedFont: "parity >= 5"
+
+- template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
+  relevance: "miscarriages_abortions != ''"
+  isRedFont: "miscarriages_abortions > 1"
+
+- template: "No. of stillbirths: {stillbirths}"
+  relevance: "stillbirths != ''"
+  isRedFont: "stillbirths > 0"
+
+- template: "No. of C-sections: {c_sections}"
+  relevance: "c_sections != ''"
+  isRedFont: "stillbirths > 0"
+
+- template: "Past pregnancy problems: {prev_preg_comps}"
+  relevance: "!prev_preg_comps.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
+  isRedFont: "true"
+
+- template: "Past alcohol used: {alcohol_substance_use}"
+  relevance: "(!alcohol_substance_use.contains('none') && !alcohol_substance_use.isEmpty()) "
+  isRedFont: "true"
+
+- template: "Past substances used: {substances_used}"
+  relevance: "(!substances_used.contains('none') && !substances_used.isEmpty())"
+  isRedFont: "true"
+
+---
+sub_group: medical_history
+fields:
+- template: "Blood type: {blood_type}"
+  relevance: "blood_type != ''"
+
+- template: "Allergies: {allergies}"
+  relevance: "allergies != ''"
+
+- template: "Surgeries: {surgeries}"
+  relevance: "surgeries != ''"
+
+- template: "Chronic health conditions: {health_conditions}"
+  relevance: "!health_conditions.isEmpty()"
+
+- template: "Past HIV diagnosis date: {hiv_diagnosis_date}"
+  relevance: "hiv_diagnosis_date != ''"
+  isRedFont: "true"
+
+---
+sub_group: weight
+fields:
+- template: "BMI: {bmi}"
+  relevance: "bmi != ''"
+  isRedFont: "bmi < 18.5 || bmi >= 25"
+
+- template: "Weight category: {weight_cat}"
+  relevance: "weight_cat !=''"
+  isRedFont: "weight_cat.contains('Underweight') || weight_cat.contains('Overweight') || weight_cat.contains('Obese')"
+
+- template: "Expected weight gain during pregnancy: {exp_weight_gain} kg"
+  relevance: "exp_weight_gain != ''"
+
+- template: "Total weight gain in pregnancy so far: {tot_weight_gain} kg"
+  relevance: "tot_weight_gain != ''"
+
+---
+sub_group: medications
+fields:
+- template: "Current medications: {medications}"
+  relevance: "medications != ''"
+
+- template: "Medications prescribed: {medications_prescribed}"
+  relevance: "medications_prescribed !='' "
+
+- template: "Calcium compliance: {calcium_comply}"
+  relevance: "calcium_comply != ''"
+
+- template: "Calcium side effects: {calcium_effects}"
+  relevance: "calcium_effects != ''"
+
+- template: "IFA compliance: {ifa_comply}"
+  relevance: "ifa_comply != ''"
+
+- template: "IFA side effects: {ifa_effects}"
+  relevance: "ifa_effects != ''"
+
+- template: "Aspirin compliance: {aspirin_comply}"
+  relevance: "aspirin_comply != ''"
+
+- template: "Vitamin A compliance: {vita_comply}"
+  relevance: "vita_comply != ''"
+
+- template: "Penicillin compliance: {penicillin_comply}"
+  relevance: "penicillin_comply != ''"
+---
+group: hospital_referral_reasons
+fields:
+- template: "Woman referred to hospital"
+  relevance: "referred_hosp == 'Yes'"
+
+- template: "Woman not referred to hospital: {referred_hosp_notdone}"
+  relevance: "referred_hosp == 'No'"
+  isRedFont: "true"
+
+- template: "Danger sign(s): {danger_signs}"
+  relevance: "!danger_signs.contains('danger_none') && !danger_signs.isEmpty()"
+
+- template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
+  relevance: "severe_hypertension == 1 && global_contact_no == 1"
+
+- template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia}"
+  relevance: "hypertension == 1 && symp_sev_preeclampsia!=''"
+
+- template: "Pre-eclampsia diagnosis"
+  relevance: "preeclampsia == 1 && global_contact_no == 1"
+
+- template: "Severe pre-eclampsia diagnosis"
+  relevance: "severe_preeclampsia == 1 && global_contact_no == 1"
+
+- template: "Fever: {body_temp_repeat}ºC"
+  relevance: "body_temp_repeat >= 38"
+  isRedFont: "true"
+
+- template: "Abnormal pulse rate: {pulse_rate_repeat} bpm"
+  relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
+
+- template: "Respiratory distress: {respiratory_exam_abnormal}"
+  relevance: "respiratory_exam_abnormal != ''"
+
+- template: "Low oximetry: {oximetry}%"
+  relevance: "oximetry < 92"
+  isRedFont: "true"
+
+- template: "Abnormal cardiac exam: {cardiac_exam_abnormal}"
+  relevance: "!cardiac_exam_abnormal.contains('none')"
+
+- template: "Abnormal breast exam: {breast_exam_abnormal}"
+  relevance: "!breast_exam_abnormal.contains('none')"
+
+- template: "Abnormal abdominal exam: {abdominal_exam_abnormal}"
+  relevance: "!abdominal_exam_abnormal.contains('none')"
+
+- template: "Abnormal pelvic exam: {pelvic_exam_abnormal}"
+  relevance: "!pelvic_exam_abnormal.contains('none')"
+
+- template: "No fetal heartbeat observed"
+  relevance: "fetal_heartbeat == 'No'"
+  isRedFont: "true"
+
+- template: "Abnormal fetal heart rate: {fetal_heart_rate_repeat} bpm"
+  relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
+
+---
+group: physiological_symptoms
+fields:
+- template: "Physiological symptoms: {phys_symptoms}"
+  relevance: "phys_symptoms != ''"
+- template: "Persisting physiological symptoms: {phys_symptoms_persist}"
+  relevance: "phys_symptoms_persist != ''"
+  isRedFont: "true"
+
+---
+group: birth_plan_counseling
+fields:
+- template: "Planned birth place: {delivery_place}"
+  relevance: "delivery_place != ''"
+
+- template: "FP method accepted: {family_planning_type}"
+  relevance: "family_planning_type != ''"
+
+---
+group: malaria_prophylaxis
+fields:
+- template: "IPTp-SP dose 1: {date}"
+  relevance: "iptp_sp1 == 'Done'"
+
+- template: "IPTp-SP dose 2: {date}"
+  relevance: "iptp_sp2 == 'Done'"
+
+- template: "IPTp-SP dose 3: {date}"
+  relevance: "iptp_sp3 == 'Done'"
+
+---
+group: immunisation_status
+fields:
+- template: "TT immunisation status: {tt_immun_status}"
+  relevance: "tt_immun_status != ''"
+  isRedFont: "tt_immun_status == 'TTCV not received' || tt_immun_status == 'Unknown'"
+
+- template: "TT dose #1: {tt1_date}"
+  relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
+
+- template: "TT dose #1: {tt2_date}"
+  relevance: "tt2_date == 'Done today' || tt2_date == 'Done earlier'"
+
+- template: "TT dose #1: {tt3_date}"
+  relevance: "tt3_date == 'Done today' || tt3_date == 'Done earlier'"
+
+- template: "Hep B immunisation status: {hepb_immun_status}"
+  relevance: "hepb_immun_status != ''"
+  isRedFont: "hepb_immun_status == 'TTCV not received' || hepb_immun_status == 'Unknown' ||  hepb_immun_status == 'Incomplete'"
+
+- template: "Hep B dose #1: {hepb1_date}"
+  relevance: "hepb1_date == 'Done today' || hepb1_date == 'Done earlier'"
+
+- template: "Hep B dose #2: {hepb2_date}"
+  relevance: "hepb2_date == 'Done today' || hepb2_date == 'Done earlier'"
+
+- template: "Hep B dose #3: {hepb3_date}"
+  relevance: "hepb3_date == 'Done today' || hepb3_date == 'Done earlier'"
+
+- template: "Flu immunisation status: {flu_immun_status}"
+  relevance: "flu_immun_status != ''"
+  isRedFont: "flu_immun_status == 'Seasonal flu dose missing' || flu_immun_status == 'Unknown'"
+
+- template: "Flu dose: {flu_date}"
+  relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
