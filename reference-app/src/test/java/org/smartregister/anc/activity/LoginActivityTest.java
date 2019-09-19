@@ -27,7 +27,9 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowApplication;
 import org.smartregister.anc.R;
 import org.smartregister.anc.custom.SettingsTestMenuItem;
-import org.smartregister.anc.event.ViewConfigurationSyncCompleteEvent;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity;
+import org.smartregister.anc.library.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.view.contract.BaseLoginContract;
 
 
@@ -134,7 +136,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new BaseHomeRegisterActivity());
     }
 
     @Test
@@ -146,7 +148,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
             e.printStackTrace();
         }
 
-        assertActivityStarted(loginActivity, new HomeRegisterActivity());
+        assertActivityStarted(loginActivity, new BaseHomeRegisterActivity());
     }
 
     private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
