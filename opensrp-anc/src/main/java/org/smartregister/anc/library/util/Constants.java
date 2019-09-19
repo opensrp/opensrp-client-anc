@@ -64,7 +64,7 @@ public abstract class Constants {
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";
 
-    public static class ANC_RADIO_BUTTON_OPTION_TYPES {
+    public static class ANC_RADIO_BUTTON_OPTION_TYPES_UTILS {
         public static final String DONE_TODAY = "done_today";
         public static final String DONE_EARLIER = "done_earlier";
         public static final String ORDERED = "ordered";
@@ -246,7 +246,7 @@ public abstract class Constants {
         public static final String YELLOW = "yellow_attention_flag";
     }
 
-    public static class Client {
+    public static class CLIENT_UTILS {
         public static final String ANC_ID = "ANC_ID";
     }
 }

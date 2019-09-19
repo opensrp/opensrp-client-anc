@@ -701,21 +701,21 @@ public class ContactJsonFormUtils extends FormUtils {
     public void changeIcon(ImageView imageView, String type, Context context) {
         if (!TextUtils.isEmpty(type)) {
             switch (type) {
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY:
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
                     break;
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
                     break;
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_ordered_256));
                     break;
-                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE:
+                case Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE:
                 case Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
                     break;
@@ -742,15 +742,15 @@ public class ContactJsonFormUtils extends FormUtils {
             String[] stringValues = list.getString(k).split(":");
             if (stringValues.length >= 2) {
                 String valueDisplay = list.getString(k).split(":")[1];
-                if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) ||
+                if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY) ||
                         valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE) ||
                         valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER) ||
                         valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED) ||
                         valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) ||
-                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) ||
+                        valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE) ||
                         valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
 
                     changeIcon(statusImageView, valueDisplay, context);

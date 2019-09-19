@@ -158,15 +158,15 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         if (stringValues.length >= 2) {
             String valueDisplay = list.split(":")[1];
 
-            if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_TODAY) ||
+            if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY) ||
                     valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE) ||
                     valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.DONE_EARLIER) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER) ||
                     valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.ORDERED) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED) ||
                     valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES.NOT_DONE) ||
+                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE) ||
                     valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
 
                 formUtils.changeIcon(imageView, valueDisplay, context);
