@@ -7,8 +7,8 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.interactor.ContactInteractor;
@@ -37,21 +37,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         defaultGlobals = getAncLibrary().getDefaultContactFormGlobals();
     }
 
-    @Override
-    public void setBaseEntityId(String baseEntityId) {
-        this.baseEntityId = baseEntityId;
-
-        fetchPatient(baseEntityId);
-    }
-
-    @Override
-    public boolean baseEntityIdExists() {
-        return StringUtils.isNotBlank(baseEntityId);
-    }
-
-    @Override
-    public void fetchPatient(String baseEntityId) {
-        interactor.fetchWomanDetails(baseEntityId, this);
+    protected AncLibrary getAncLibrary() {
+        return AncLibrary.getInstance();
     }
 
     @Override
@@ -64,15 +51,56 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         String patientName = model.extractPatientName(womanDetails);
         getView().displayPatientName(patientName);
 
+    }    @Override
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
+
+        fetchPatient(baseEntityId);
     }
 
-    @Override
+    private ContactContract.View getView() {
+        if (viewReference != null) return viewReference.get();
+        else return null;
+    }
+
+    // Test methods
+    public WeakReference<ContactContract.View> getViewReference() {
+        return viewReference;
+    }    @Override
+    public boolean baseEntityIdExists() {
+        return StringUtils.isNotBlank(baseEntityId);
+    }
+
+    public ContactContract.Interactor getInteractor() {
+        return interactor;
+    }
+
+    public void setInteractor(ContactContract.Interactor interactor) {
+        this.interactor = interactor;
+    }    @Override
+    public void fetchPatient(String baseEntityId) {
+        interactor.fetchWomanDetails(baseEntityId, this);
+    }
+
+    public void setModel(ContactContract.Model model) {
+        this.model = model;
+    }
+
+    public Map<String, String> getDetails() {
+        return details;
+    }
+
+    public void setDetails(Map<String, String> details) {
+        this.details = details;
+    }    @Override
     public String getPatientName() {
         if (details == null || details.isEmpty()) {
             return "";
         }
         return model.extractPatientName(details);
     }
+
+
 
     @Override
     public void startForm(Object tag) {
@@ -103,6 +131,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         }
     }
 
+
+
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
         viewReference = null;//set to null on destroy
@@ -113,10 +143,14 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         }
     }
 
+
+
     @Override
     public void finalizeContactForm(Map<String, String> details) {
         interactor.finalizeContactForm(details);
     }
+
+
 
     public void deleteDraft(String baseEntityId) {
         getAncLibrary().getPartialContactRepository().deleteDraftJson(baseEntityId);
@@ -132,37 +166,5 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         return interactor.getGestationAge(details);
     }
 
-    private ContactContract.View getView() {
-        if (viewReference != null) return viewReference.get();
-        else return null;
-    }
 
-    // Test methods
-    public WeakReference<ContactContract.View> getViewReference() {
-        return viewReference;
-    }
-
-    public ContactContract.Interactor getInteractor() {
-        return interactor;
-    }
-
-    public void setInteractor(ContactContract.Interactor interactor) {
-        this.interactor = interactor;
-    }
-
-    public void setModel(ContactContract.Model model) {
-        this.model = model;
-    }
-
-    public Map<String, String> getDetails() {
-        return details;
-    }
-
-    public void setDetails(Map<String, String> details) {
-        this.details = details;
-    }
-
-    protected AncLibrary getAncLibrary() {
-        return AncLibrary.getInstance();
-    }
 }

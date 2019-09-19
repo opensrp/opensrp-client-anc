@@ -15,7 +15,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 /**
  * Created by ndegwamartin on 30/08/2018.
@@ -33,7 +33,7 @@ public class SiteCharacteristicsEnterActivityTest extends BaseActivityUnitTest {
     public void setUp() {
         super.setUp();
         Intent testIntent = new Intent();
-        testIntent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, true);
+        testIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, true);
         controller = Robolectric.buildActivity(SiteCharacteristicsEnterActivity.class, testIntent).create().start();
         activity = controller.get();
     }

@@ -171,8 +171,8 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
         assertEquals(4, checkBoxOptions.length());
         assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
         assertEquals("caffeine_intake", checkBoxOptions.getJSONObject(3).getString(JsonFormConstants.KEY));
-        assertTrue(stepOneBehaviourPersist.getBoolean(Constants.IS_FILTERED));
-        assertTrue(stepOneBehaviourPersist.has(Constants.IS_FILTERED));
+        assertTrue(stepOneBehaviourPersist.getBoolean(ConstantsUtils.IS_FILTERED));
+        assertTrue(stepOneBehaviourPersist.has(ConstantsUtils.IS_FILTERED));
     }
 
     @Test
@@ -184,8 +184,8 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
         JSONArray checkBoxOptions = stepTwoBehaviourPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         assertEquals(1, checkBoxOptions.length());
         assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
-        assertTrue(stepTwoBehaviourPersist.getBoolean(Constants.IS_FILTERED));
-        assertTrue(stepTwoBehaviourPersist.has(Constants.IS_FILTERED));
+        assertTrue(stepTwoBehaviourPersist.getBoolean(ConstantsUtils.IS_FILTERED));
+        assertTrue(stepTwoBehaviourPersist.has(ConstantsUtils.IS_FILTERED));
     }
 
     @Test
@@ -199,7 +199,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
         assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
         assertEquals("heartburn", checkBoxOptions.getJSONObject(1).getString(JsonFormConstants.KEY));
         assertEquals("leg_cramps", checkBoxOptions.getJSONObject(2).getString(JsonFormConstants.KEY));
-        assertTrue(stepThreePhysSymptomsPersist.getBoolean(Constants.IS_FILTERED));
-        assertTrue(stepThreePhysSymptomsPersist.has(Constants.IS_FILTERED));
+        assertTrue(stepThreePhysSymptomsPersist.getBoolean(ConstantsUtils.IS_FILTERED));
+        assertTrue(stepThreePhysSymptomsPersist.has(ConstantsUtils.IS_FILTERED));
     }
 }

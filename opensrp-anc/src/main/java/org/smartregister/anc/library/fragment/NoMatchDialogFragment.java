@@ -52,6 +52,12 @@ public class NoMatchDialogFragment extends DialogFragment {
         setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog);
     }
 
+    @Override
+    public void onCancel(DialogInterface dialogInterface) {
+        super.onCancel(dialogInterface);
+        baseRegisterActivity.setSearchTerm("");
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,12 +68,6 @@ public class NoMatchDialogFragment extends DialogFragment {
         advancedSearch.setOnClickListener(noMatchDialogActionHandler);
 
         return dialogView;
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialogInterface) {
-        super.onCancel(dialogInterface);
-        baseRegisterActivity.setSearchTerm("");
     }
 
     ////////////////////////////////////////////////////////////////

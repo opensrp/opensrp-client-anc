@@ -23,7 +23,7 @@ import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.FilePathUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -85,7 +85,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
         populateYamlConfiRules((ArrayList<Object>) testsRuleObjects);
 
         PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
-        PowerMockito.when(AncLibrary.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
+        PowerMockito.when(AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
         PowerMockito.when(AncLibrary.getAncRulesEngineHelper()).thenReturn(rulesEngineHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";

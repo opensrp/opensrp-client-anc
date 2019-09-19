@@ -16,10 +16,10 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
-import org.smartregister.anc.library.util.DBConstants;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 
@@ -48,9 +48,9 @@ public class ContactVisit {
     private WomanDetail womanDetail;
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
     private List<String> parsableFormsList =
-            Arrays.asList(Constants.JSON_FORM.ANC_QUICK_CHECK, Constants.JSON_FORM.ANC_PROFILE,
-                    Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, Constants.JSON_FORM.ANC_PHYSICAL_EXAM,
-                    Constants.JSON_FORM.ANC_TEST, Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT);
+            Arrays.asList(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK, ConstantsUtils.JSON_FORM_UTILS.ANC_PROFILE,
+                    ConstantsUtils.JSON_FORM_UTILS.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JSON_FORM_UTILS.ANC_PHYSICAL_EXAM,
+                    ConstantsUtils.JSON_FORM_UTILS.ANC_TEST, ConstantsUtils.JSON_FORM_UTILS.ANC_COUNSELLING_TREATMENT);
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -90,19 +90,19 @@ public class ContactVisit {
         if (referral != null) {
             int yellowFlagCount = 0;
             int redFlagCount = 0;
-            if (details.containsKey(DBConstants.KEY.YELLOW_FLAG_COUNT) && details.get(DBConstants.KEY.YELLOW_FLAG_COUNT) != null) {
-                yellowFlagCount = Integer.valueOf(details.get(DBConstants.KEY.YELLOW_FLAG_COUNT));
+            if (details.containsKey(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT) && details.get(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT) != null) {
+                yellowFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT));
             }
 
-            if (details.containsKey(DBConstants.KEY.RED_FLAG_COUNT) && details.get(DBConstants.KEY.RED_FLAG_COUNT) != null) {
-                redFlagCount = Integer.valueOf(details.get(DBConstants.KEY.RED_FLAG_COUNT));
+            if (details.containsKey(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT) && details.get(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT) != null) {
+                redFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT));
             }
 
             womanDetail.setYellowFlagCount(yellowFlagCount);
             womanDetail.setRedFlagCount(redFlagCount);
-            womanDetail.setContactStatus(details.get(DBConstants.KEY.CONTACT_STATUS));
+            womanDetail.setContactStatus(details.get(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS));
             womanDetail.setReferral(true);
-            womanDetail.setLastContactRecordDate(details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE));
+            womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE));
         }
         PatientRepository.updateContactVisitDetails(womanDetail, true);
         return this;
@@ -154,12 +154,12 @@ public class ContactVisit {
         womanDetail.setBaseEntityId(baseEntityId);
         womanDetail.setNextContact(nextContact);
         womanDetail.setNextContactDate(nextContactVisitDate);
-        womanDetail.setContactStatus(Constants.ALERT_STATUS.TODAY);
+        womanDetail.setContactStatus(ConstantsUtils.ALERT_STATUS_UTILS.TODAY);
         return womanDetail;
     }
 
     private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
@@ -175,8 +175,8 @@ public class ContactVisit {
             }
         }
 
-        Integer redCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.RED);
-        Integer yellowCount = attentionFlagCountMap.get(Constants.ATTENTION_FLAG.YELLOW);
+        Integer redCount = attentionFlagCountMap.get(ConstantsUtils.ATTENTION_FLAG_UTILS.RED);
+        Integer yellowCount = attentionFlagCountMap.get(ConstantsUtils.ATTENTION_FLAG_UTILS.YELLOW);
         patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
         patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
     }
@@ -210,9 +210,9 @@ public class ContactVisit {
                             savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
-                        if (fieldObject.has(Constants.KEY.SECONDARY_VALUES) &&
-                                fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES).length() > 0) {
-                            JSONArray secondaryValues = fieldObject.getJSONArray(Constants.KEY.SECONDARY_VALUES);
+                        if (fieldObject.has(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES) &&
+                                fieldObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES).length() > 0) {
+                            JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES);
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
                                 secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
@@ -236,7 +236,7 @@ public class ContactVisit {
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
             String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
-                    object.getString(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)
+                    object.getString(ConstantsUtils.JSON_FORM_KEY_UTILS.ENCOUNTER_TYPE)
                             .toLowerCase().replace(" ", "_");
             savePreviousContactItem(baseEntityId, new JSONObject()
                     .put(JsonFormConstants.KEY, key)

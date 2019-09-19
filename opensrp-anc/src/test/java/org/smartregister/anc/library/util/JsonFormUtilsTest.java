@@ -138,7 +138,7 @@ public class JsonFormUtilsTest {
 
 
         JSONObject fieldObject = new JSONObject();
-        fieldObject.put(JsonFormUtils.KEY, Constants.JSON_FORM_KEY.ANC_ID);
+        fieldObject.put(JsonFormUtils.KEY, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID);
         fieldObject.put(JsonFormUtils.VALUE, "");
         fieldObject.put(JsonFormUtils.OPENMRS_ENTITY, "");
         fieldObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, "");
@@ -158,13 +158,13 @@ public class JsonFormUtilsTest {
 
         JsonFormUtils.getFormAsJson(formObject, "random-form-name", DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONObject resultObject = JsonFormUtils.getFormAsJson(null, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = JsonFormUtils.getFormAsJson(null, ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
         Assert.assertNull(resultObject);
 
-        resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        resultObject = JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+        JsonFormUtils.getFieldJSONObject(field, DBConstantsUtils.KEY_UTILS.ANC_ID);
 
         Assert.assertNotNull(resultObject);
         Assert.assertEquals(DUMMY_LOCATION_ID, resultObject.getJSONObject(JsonFormUtils.METADATA).get(JsonFormUtils.ENCOUNTER_LOCATION));
@@ -173,23 +173,23 @@ public class JsonFormUtilsTest {
     @Test
     public void testGetFormAsJsonInjectsANCIDInRegisterFormCorrectly() throws Exception {
 
-        JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
+        JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID).get(JsonFormUtils.VALUE));
+        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID).get(JsonFormUtils.VALUE));
     }
 
     @Test
     public void testGetFormAsJsonInjectsEntityIDinCloseFormCorrectly() throws Exception {
 
         formObject.put(JsonFormUtils.ENTITY_ID, "");
-        JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JSON_FORM_UTILS.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
+        JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID);
 
         Assert.assertNotNull(resultObject);
         Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultObject.getString(JsonFormUtils.ENTITY_ID));
@@ -254,16 +254,16 @@ public class JsonFormUtilsTest {
         String lastName = "Last Name";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
-        details.put(DBConstants.KEY.EDD, "2018-10-19");
-        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2018-08-09");
-        details.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstants.KEY.ANC_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstants.KEY.DOB, "09-08-1995");
-        details.put(DBConstants.KEY.DOB_UNKNOWN, "false");
-        details.put(DBConstants.KEY.HOME_ADDRESS, "Roysambu");
-        details.put(DBConstants.KEY.AGE, "23");
+        details.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KEY_UTILS.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KEY_UTILS.EDD, "2018-10-19");
+        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2018-08-09");
+        details.put(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KEY_UTILS.ANC_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KEY_UTILS.DOB, "09-08-1995");
+        details.put(DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN, "false");
+        details.put(DBConstantsUtils.KEY_UTILS.HOME_ADDRESS, "Roysambu");
+        details.put(DBConstantsUtils.KEY_UTILS.AGE, "23");
 
         PowerMockito.mockStatic(CoreLibrary.class);
         PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
@@ -292,8 +292,8 @@ public class JsonFormUtilsTest {
 
         List<FormLocation> formLocations = new ArrayList<>();
         FormLocation formLocation = new FormLocation();
-        formLocation.key = DBConstants.KEY.HOME_ADDRESS;
-        formLocation.name = details.get(DBConstants.KEY.HOME_ADDRESS);
+        formLocation.key = DBConstantsUtils.KEY_UTILS.HOME_ADDRESS;
+        formLocation.name = details.get(DBConstantsUtils.KEY_UTILS.HOME_ADDRESS);
         formLocations.add(formLocation);
 
 
@@ -308,7 +308,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(photo.getFilePath()).thenReturn("/images/" + DUMMY_BASE_ENTITY_ID);
 
         JSONObject registerForm = new JSONObject(registerFormJsonString);
-        PowerMockito.when(formUtils.getFormJson(Constants.JSON_FORM.ANC_REGISTER)).thenReturn(registerForm);
+        PowerMockito.when(formUtils.getFormJson(ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER)).thenReturn(registerForm);
 
         String resultJsonFormString = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(applicationContext, details);
 

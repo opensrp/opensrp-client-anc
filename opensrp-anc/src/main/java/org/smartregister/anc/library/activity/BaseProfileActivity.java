@@ -14,13 +14,13 @@ import android.view.View;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
@@ -66,9 +66,37 @@ public abstract class BaseProfileActivity extends SecuredActivity
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        registerEventBus();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
+        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+            mProfilePresenter.processFormDetailsSave(data, allSharedPreferences);
+
+        }
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    protected void registerEventBus() {
+
+        EventBus.getDefault().register(this);
+    }
+
+    protected abstract int getViewLayoutId();
+
+    @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_profile_registration_info) {
-            String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
             new FetchProfileDataTask(true).execute(baseEntityId);
         }
     }
@@ -103,16 +131,10 @@ public abstract class BaseProfileActivity extends SecuredActivity
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        registerEventBus();
-    }
-
-    @Override
-    public void onPause() {
-        EventBus.getDefault().unregister(this);
-        super.onPause();
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
     public AppBarLayout getProfileAppBarLayout() {
@@ -136,15 +158,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
-            mProfilePresenter.processFormDetailsSave(data, allSharedPreferences);
-
-        }
-    }
-
     public void showProgressDialog(int saveMessageStringIdentifier) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
@@ -154,18 +167,5 @@ public abstract class BaseProfileActivity extends SecuredActivity
         }
         if (!isFinishing()) progressDialog.show();
     }
-
-    public void hideProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
-    }
-
-    protected void registerEventBus() {
-
-        EventBus.getDefault().register(this);
-    }
-
-    protected abstract int getViewLayoutId();
 
 }

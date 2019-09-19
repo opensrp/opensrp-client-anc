@@ -77,30 +77,6 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
         presenter.updateSort();
     }
 
-    private void initializePresenter() {
-        presenter = new SortFilterPresenter(this);
-    }
-
-    @Override
-    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
-        if (getActivity() != null) {
-            ((BaseHomeRegisterActivity) getActivity()).updateSortAndFilter(filterList, sortField);
-        }
-    }
-
-    private void switchToRegister() {
-        if (getActivity() != null) {
-            ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
-        }
-    }
-
-    public void updateSortLabel(String sortText) {
-        if (getView() != null && StringUtils.isNotBlank(sortText)) {
-            TextView sortLabel = getView().findViewById(R.id.sort_label);
-            sortLabel.setText(Html.fromHtml(sortText));
-        }
-    }
-
     protected void updateFilterList(final View view, final List<Field> filterList) {
 
         if (filterList == null) {
@@ -118,6 +94,30 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
 
         filterAdapter = new FilterAdapter(filterList);
         recyclerView.setAdapter(filterAdapter);
+    }
+
+    private void initializePresenter() {
+        presenter = new SortFilterPresenter(this);
+    }
+
+    @Override
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+        if (getActivity() != null) {
+            ((BaseHomeRegisterActivity) getActivity()).updateSortAndFilter(filterList, sortField);
+        }
+    }
+
+    public void updateSortLabel(String sortText) {
+        if (getView() != null && StringUtils.isNotBlank(sortText)) {
+            TextView sortLabel = getView().findViewById(R.id.sort_label);
+            sortLabel.setText(Html.fromHtml(sortText));
+        }
+    }
+
+    private void switchToRegister() {
+        if (getActivity() != null) {
+            ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
+        }
     }
 
     private void updateSortList(final List<Field> sortFields) {
@@ -212,9 +212,7 @@ public class SortFilterFragment extends Fragment implements SortFilterContract.V
                                 presenter.getFilterList().add(currentField);
                             }
                         } else {
-                            if (presenter.getFilterList().contains(currentField)) {
-                                presenter.getFilterList().remove(currentField);
-                            }
+                            presenter.getFilterList().remove(currentField);
                         }
                     }
                 }

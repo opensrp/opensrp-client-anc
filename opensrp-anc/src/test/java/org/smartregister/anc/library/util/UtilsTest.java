@@ -290,63 +290,63 @@ public class UtilsTest extends BaseUnitTest {
         buttonAlertStatus.buttonText = "Awesome People";
 
         //Process alert status in_progress
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.IN_PROGRESS;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.IN_PROGRESS, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS, buttonAlertStatus));
         //Process alert status  due
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.DUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.DUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.DUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.DUE, buttonAlertStatus));
         //Process alert status overdue
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.OVERDUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.OVERDUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.OVERDUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.OVERDUE, buttonAlertStatus));
         //Process alert status  not_due
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.NOT_DUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.NOT_DUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE, buttonAlertStatus));
         //Process alert status delivery_due
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.DELIVERY_DUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.DELIVERY_DUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.DELIVERY_DUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.DELIVERY_DUE, buttonAlertStatus));
         //Process alert status  expired
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.EXPIRED;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.EXPIRED;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.EXPIRED, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.EXPIRED, buttonAlertStatus));
         //Process alert status  today
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.TODAY;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.ALERT_STATUS_UTILS.TODAY;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.TODAY, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.ALERT_STATUS_UTILS.TODAY, buttonAlertStatus));
     }
 
     private boolean assertAlertButtonStatus(android.content.Context context, Button button,
                                             TextView textView, String status, ButtonAlertStatus buttonAlertStatus) {
         boolean result;
         switch (status) {
-            case Constants.ALERT_STATUS.IN_PROGRESS:
+            case ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS:
                 result = (textView.getVisibility() == (View.GONE));
 
                 break;
-            case Constants.ALERT_STATUS.DUE:
+            case ConstantsUtils.ALERT_STATUS_UTILS.DUE:
                 result = (textView.getVisibility() == (View.GONE));
 
                 break;
-            case Constants.ALERT_STATUS.OVERDUE:
+            case ConstantsUtils.ALERT_STATUS_UTILS.OVERDUE:
                 result = (textView.getVisibility() == (View.GONE));
 
                 break;
-            case Constants.ALERT_STATUS.NOT_DUE:
+            case ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE:
                 result = (textView.getVisibility() == (View.GONE));
                 break;
-            case Constants.ALERT_STATUS.DELIVERY_DUE:
+            case ConstantsUtils.ALERT_STATUS_UTILS.DELIVERY_DUE:
                 result = (textView.getVisibility() == (View.GONE)) &&
                         button.getText() == (context.getString(R.string.due_delivery));
                 break;
-            case Constants.ALERT_STATUS.EXPIRED:
+            case ConstantsUtils.ALERT_STATUS_UTILS.EXPIRED:
                 result = (textView.getVisibility() == (View.GONE)) &&
                         button.getText() == (context.getString(R.string.due_delivery));
                 break;
-            case Constants.ALERT_STATUS.TODAY:
+            case ConstantsUtils.ALERT_STATUS_UTILS.TODAY:
                 result = (textView.getVisibility() == (View.VISIBLE)) && (button.getVisibility() == (View.GONE)) &&
                         textView.getText().equals(String.format(context.getString(R.string.contact_recorded_today),
                                 getTodayContact(String.valueOf(buttonAlertStatus.nextContact)))) &&

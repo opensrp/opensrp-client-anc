@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import org.jeasy.rules.api.Facts;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.adapter.ProfileOverviewAdapter;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
@@ -59,11 +59,11 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     @Override
     protected void onCreation() {
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
         buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getString(R.string.contact_number_due));
         yamlConfigListGlobal = new ArrayList<>();
-        baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
     }
 
     @Override
@@ -71,9 +71,9 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
             Facts facts = AncLibrary.getInstance().getPreviousContactRepository()
-                    .getPreviousContactFacts(baseEntityId, contactNo,false);
+                    .getPreviousContactFacts(baseEntityId, contactNo, false);
 
-            Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_OVERVIEW);
+            Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_OVERVIEW);
 
             for (Object ruleObject : ruleObjects) {
                 List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -120,22 +120,22 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         }
     }
 
+    private Iterable<Object> loadFile(String filename) throws IOException {
+
+        return AncLibrary.getInstance().readYaml(filename);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View fragmentView = inflater.inflate(R.layout.fragment_profile_overview, container, false);
         dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
-        if (!Constants.ALERT_STATUS.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
+        if (!ConstantsUtils.ALERT_STATUS_UTILS.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
             dueButton.setEnabled(false);
         }
         return fragmentView;
-    }
-
-    private Iterable<Object> loadFile(String filename) throws IOException {
-
-        return AncLibrary.getInstance().readYaml(filename);
-
     }
 }

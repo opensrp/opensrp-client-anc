@@ -12,8 +12,8 @@ import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.AppExecutors;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
@@ -26,13 +26,13 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
     private static String TAG = ContactSummaryInteractor.class.getCanonicalName();
     private JsonFormUtils formUtils = new JsonFormUtils();
 
+    public ContactSummaryInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     ContactSummaryInteractor(AppExecutors appExecutors) {
         super(appExecutors);
-    }
-
-    public ContactSummaryInteractor() {
-        this(new AppExecutors());
     }
 
     @Override
@@ -54,20 +54,20 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     Map<String, String> clientDetails =
                             AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
                     JSONObject rawContactSchedule;
-                    if (clientDetails.containsKey(Constants.DETAILS_KEY.CONTACT_SCHEDULE)) {
+                    if (clientDetails.containsKey(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE)) {
                         rawContactSchedule = new JSONObject(
                                 AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
-                                        .get(Constants.DETAILS_KEY.CONTACT_SCHEDULE));
+                                        .get(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE));
                     } else {
                         rawContactSchedule = new JSONObject();
                     }
 
                     List<String> contactSchedule = new ArrayList<>();
                     if (StringUtils.isEmpty(referralContactNo)) {
-                        if (rawContactSchedule.has(Constants.DETAILS_KEY.CONTACT_SCHEDULE)) {
+                        if (rawContactSchedule.has(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE)) {
                             contactSchedule =
                                     Utils.getListFromString(
-                                            rawContactSchedule.getString(Constants.DETAILS_KEY.CONTACT_SCHEDULE));
+                                            rawContactSchedule.getString(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE));
                         }
                     } else {
                         int previousContact = getPreviousContactNo(referralContactNo);
@@ -75,18 +75,18 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                             Facts facts =
                                     AncLibrary.getInstance().getPreviousContactRepository()
                                             .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
-                            if (facts != null && facts.asMap().containsKey(Constants.CONTACT_SCHEDULE)) {
-                                String schedule = (String) facts.asMap().get(Constants.CONTACT_SCHEDULE);
+                            if (facts != null && facts.asMap().containsKey(ConstantsUtils.CONTACT_SCHEDULE)) {
+                                String schedule = (String) facts.asMap().get(ConstantsUtils.CONTACT_SCHEDULE);
                                 contactSchedule = Utils.getListFromString(schedule);
                             }
                         }
                     }
                     final List<ContactSummaryModel> contactDates;
 
-                    final Integer lastContact = Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT));
-                    Integer lastContactSequence = Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT));
+                    final Integer lastContact = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
+                    Integer lastContactSequence = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
 
-                    String edd = details.get(DBConstants.KEY.EDD);
+                    String edd = details.get(DBConstantsUtils.KEY_UTILS.EDD);
                     contactDates = formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
 
                     getAppExecutors().mainThread().execute(new Runnable() {

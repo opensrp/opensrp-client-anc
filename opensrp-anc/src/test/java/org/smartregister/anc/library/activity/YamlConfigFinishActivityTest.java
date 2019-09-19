@@ -27,7 +27,7 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
@@ -71,8 +71,8 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
         super.setUp();
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummaryFinishActivity.class);
-        contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        contactSummaryActivityIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, DUMMY_CONTACT_NO);
+        contactSummaryActivityIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        contactSummaryActivityIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, DUMMY_CONTACT_NO);
         activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class,
                 contactSummaryActivityIntent);
         activity = activityController.create().resume().get();

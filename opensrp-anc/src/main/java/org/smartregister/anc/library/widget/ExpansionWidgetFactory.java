@@ -30,7 +30,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.library.model.ExpansionPanelItemModel;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -108,6 +108,10 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         return views;
     }
 
+    protected LinearLayout getRootLayout(Context context) {
+        return (LinearLayout) LayoutInflater.from(context).inflate(R.layout.native_expansion_panel, null);
+    }
+
     private void attachLayout(String stepName, final Context context, JsonFormFragment jsonFormFragment,
                               JSONObject jsonObject, CommonListener commonListener, LinearLayout rootLayout)
             throws JSONException {
@@ -134,12 +138,50 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         addBottomSection(stepName, context, jsonFormFragment, jsonObject, commonListener, rootLayout);
     }
 
+    private void addRecordViewTags(View recordView, JSONObject jsonObject, String stepName, CommonListener commonListener,
+                                   JsonFormFragment jsonFormFragment, Context context) throws JSONException {
+        recordView.setTag(R.id.specify_content, jsonObject.optString(JsonFormConstants.CONTENT_FORM, ""));
+        recordView.setTag(R.id.specify_context, context);
+        recordView.setTag(R.id.specify_content_form, jsonObject.optString(JsonFormConstants.CONTENT_FORM_LOCATION, ""));
+        recordView.setTag(R.id.specify_step_name, stepName);
+        recordView.setTag(R.id.specify_listener, commonListener);
+        recordView.setTag(R.id.specify_fragment, jsonFormFragment);
+        recordView.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
+        if (jsonObject.getString(JsonFormConstants.TYPE) != null) {
+            recordView.setTag(R.id.secondaryValues,
+                    formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
+        }
+        recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
+        recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
+        if (jsonObject.has(ConstantsUtils.JSON_FORM_CONSTANTS_UTILS.CONTACT_CONTAINER)) {
+            String container = jsonObject.optString(ConstantsUtils.JSON_FORM_CONSTANTS_UTILS.CONTACT_CONTAINER, null);
+            recordView.setTag(R.id.contact_container, container);
+        }
+
+    }
+
+    private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget)
+            throws JSONException {
+        String accordionInfoText = jsonObject.optString(ConstantsUtils.ACCORDION_INFO_TEXT, null);
+        String accordionInfoTitle = jsonObject.optString(ConstantsUtils.ACCORDION_INFO_TITLE, null);
+        String accordionKey = jsonObject.getString(JsonFormConstants.KEY);
+        String accordionType = jsonObject.getString(JsonFormConstants.TYPE);
+        if (accordionInfoText != null) {
+            accordionInfoWidget.setVisibility(View.VISIBLE);
+            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.key, accordionKey);
+            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.type, accordionType);
+            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.label_dialog_info, accordionInfoText);
+            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.label_dialog_title, accordionInfoTitle);
+            accordionInfoWidget.setOnClickListener(commonListener);
+        }
+    }
+
     private void changeStatusIcon(ImageView imageView, JSONObject optionItem, Context context) throws JSONException {
         JSONArray value = getExpansionPanelValue(optionItem);
         for (int i = 0; i < value.length(); i++) {
             if (!value.isNull(i)) {
                 JSONObject item = value.getJSONObject(i);
-                if (item.getString(JsonFormConstants.TYPE).equals(Constants.ANC_RADIO_BUTTON) ||
+                if (item.getString(JsonFormConstants.TYPE).equals(ConstantsUtils.ANC_RADIO_BUTTON) ||
                         item.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON)) {
 
                     JSONArray jsonArray = item.getJSONArray(JsonFormConstants.VALUES);
@@ -154,44 +196,6 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
     }
 
-    private boolean getWidgetValueAndChangeIcon(ImageView imageView, Context context, String list, String[] stringValues) {
-        if (stringValues.length >= 2) {
-            String valueDisplay = list.split(":")[1];
-
-            if (valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.ORDERED) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE) ||
-                    valueDisplay.equals(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.NOT_DONE)) {
-
-                formUtils.changeIcon(imageView, valueDisplay, context);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Return the Expansion Panel value
-     *
-     * @param optionItem {@link JSONObject}
-     * @return value {@link JSONArray}
-     * @throws JSONException
-     */
-    private JSONArray getExpansionPanelValue(JSONObject optionItem) throws JSONException {
-        JSONArray value = new JSONArray();
-        if (optionItem.has(JsonFormConstants.VALUE)) {
-            value = optionItem.getJSONArray(JsonFormConstants.VALUE);
-        }
-        return value;
-    }
-
-
     private void attachContent(LinearLayout rootLayout, Context context, JSONObject jsonObject) throws JSONException {
         JSONArray values = new JSONArray();
         LinearLayout contentLayout = rootLayout.findViewById(R.id.contentLayout);
@@ -205,31 +209,15 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         formUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), contentView, context);
     }
 
-    private void displayInfoIcon(JSONObject jsonObject, CommonListener commonListener, ImageView accordionInfoWidget)
-            throws JSONException {
-        String accordionInfoText = jsonObject.optString(Constants.ACCORDION_INFO_TEXT, null);
-        String accordionInfoTitle = jsonObject.optString(Constants.ACCORDION_INFO_TITLE, null);
-        String accordionKey = jsonObject.getString(JsonFormConstants.KEY);
-        String accordionType = jsonObject.getString(JsonFormConstants.TYPE);
-        if (accordionInfoText != null) {
-            accordionInfoWidget.setVisibility(View.VISIBLE);
-            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.key, accordionKey);
-            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.type, accordionType);
-            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.label_dialog_info, accordionInfoText);
-            accordionInfoWidget.setTag(com.vijay.jsonwizard.R.id.label_dialog_title, accordionInfoTitle);
-            accordionInfoWidget.setOnClickListener(commonListener);
-        }
-    }
-
     private void addBottomSection(String stepName, Context context, JsonFormFragment jsonFormFragment, JSONObject jsonObject,
                                   CommonListener commonListener, LinearLayout rootLayout) throws JSONException {
         LinearLayout buttonSectionLayout = rootLayout.findViewById(R.id.accordion_bottom_navigation);
-        JSONObject showBottomSection = jsonObject.optJSONObject(Constants.BOTTOM_SECTION);
+        JSONObject showBottomSection = jsonObject.optJSONObject(ConstantsUtils.BOTTOM_SECTION);
         boolean showButtons = true;
         boolean showRecordButton = true;
         if (showBottomSection != null) {
-            showButtons = showBottomSection.optBoolean(Constants.DISPLAY_BOTTOM_SECTION, true);
-            showRecordButton = showBottomSection.optBoolean(Constants.DISPLAY_RECORD_BUTTON, true);
+            showButtons = showBottomSection.optBoolean(ConstantsUtils.DISPLAY_BOTTOM_SECTION, true);
+            showRecordButton = showBottomSection.optBoolean(ConstantsUtils.DISPLAY_RECORD_BUTTON, true);
         }
 
         Button recordButton = buttonSectionLayout.findViewById(R.id.ok_button);
@@ -261,31 +249,41 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
     }
 
-
-    private void addRecordViewTags(View recordView, JSONObject jsonObject, String stepName, CommonListener commonListener,
-                                   JsonFormFragment jsonFormFragment, Context context) throws JSONException {
-        recordView.setTag(R.id.specify_content, jsonObject.optString(JsonFormConstants.CONTENT_FORM, ""));
-        recordView.setTag(R.id.specify_context, context);
-        recordView.setTag(R.id.specify_content_form, jsonObject.optString(JsonFormConstants.CONTENT_FORM_LOCATION, ""));
-        recordView.setTag(R.id.specify_step_name, stepName);
-        recordView.setTag(R.id.specify_listener, commonListener);
-        recordView.setTag(R.id.specify_fragment, jsonFormFragment);
-        recordView.setTag(R.id.header, jsonObject.optString(JsonFormConstants.TEXT, ""));
-        if (jsonObject.getString(JsonFormConstants.TYPE) != null) {
-            recordView.setTag(R.id.secondaryValues,
-                    formUtils.getSecondaryValues(jsonObject, jsonObject.getString(JsonFormConstants.TYPE)));
+    /**
+     * Return the Expansion Panel value
+     *
+     * @param optionItem {@link JSONObject}
+     * @return value {@link JSONArray}
+     * @throws JSONException
+     */
+    private JSONArray getExpansionPanelValue(JSONObject optionItem) throws JSONException {
+        JSONArray value = new JSONArray();
+        if (optionItem.has(JsonFormConstants.VALUE)) {
+            value = optionItem.getJSONArray(JsonFormConstants.VALUE);
         }
-        recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
-        recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
-        if (jsonObject.has(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER)) {
-            String container = jsonObject.optString(Constants.JSON_FORM_CONSTANTS.CONTACT_CONTAINER, null);
-            recordView.setTag(R.id.contact_container, container);
-        }
-
+        return value;
     }
 
-    protected LinearLayout getRootLayout(Context context) {
-        return (LinearLayout) LayoutInflater.from(context).inflate(R.layout.native_expansion_panel, null);
+    private boolean getWidgetValueAndChangeIcon(ImageView imageView, Context context, String list, String[] stringValues) {
+        if (stringValues.length >= 2) {
+            String valueDisplay = list.split(":")[1];
+
+            if (valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.ORDERED) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE) ||
+                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.NOT_DONE)) {
+
+                formUtils.changeIcon(imageView, valueDisplay, context);
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkValuesContent(JSONArray value) throws JSONException {
@@ -293,18 +291,50 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         if (value.length() == 1) {
             JSONObject jsonObject = value.getJSONObject(0);
             if (jsonObject.has(JsonFormConstants.TYPE) &&
-                    Constants.ANC_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE))) {
+                    ConstantsUtils.ANC_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE))) {
                 JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
                 if (values.length() == 1) {
                     String object = values.getString(0);
-                    if (object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_EARLIER) ||
-                            object.contains(Constants.ANC_RADIO_BUTTON_OPTION_TEXT.DONE_TODAY)) {
+                    if (object.contains(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER) ||
+                            object.contains(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY)) {
                         showHiddenViews = false;
                     }
                 }
             }
         }
         return showHiddenViews;
+    }
+
+    /**
+     * Resets the global values for values that have been undone to empty
+     *
+     * @param previousSelectedValues values to be reset
+     * @throws JSONException JsonException thrown
+     */
+    private void resetClearedGlobalValues(JSONObject mainJson, List<String> previousSelectedValues) throws JSONException {
+        if (mainJson.has(ConstantsUtils.GLOBAL)) {
+            JSONObject globals = mainJson.getJSONObject(ConstantsUtils.GLOBAL);
+            for (String item : previousSelectedValues) {
+                if (globals.has(item)) {
+                    globals.put(item, "");
+                }
+            }
+        }
+    }
+
+    private List<String> getUndoneValues(JSONObject item) throws JSONException {
+        LinkedList<String> previousValues = new LinkedList<>();
+        if (item.has(JsonFormConstants.VALUE)) {
+            JSONArray valuesArray = item.getJSONArray(JsonFormConstants.VALUE);
+            for (int index = 0; index < valuesArray.length(); index++) {
+                ExpansionPanelItemModel expansionPanelItem = ContactJsonFormUtils.getExpansionPanelItem(
+                        valuesArray.getJSONObject(index).getString(JsonFormConstants.KEY), valuesArray);
+
+                previousValues.add(expansionPanelItem.getKey());
+            }
+
+        }
+        return previousValues;
     }
 
     private class RecordButtonClickListener implements View.OnClickListener {
@@ -408,7 +438,7 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                     }
 
                     item.remove(JsonFormConstants.VALUE);
-                    item.remove(Constants.REQUIRED_FIELDS);
+                    item.remove(ConstantsUtils.REQUIRED_FIELDS);
                     jsonApi.setmJSONObject(mainJson);
                     Utils.postEvent(expansionPanelEvent);
                     dialog.dismiss();
@@ -424,36 +454,5 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
 
             dialog.show();
         }
-    }
-    /**
-     * Resets the global values for values that have been undone to empty
-     *
-     * @param previousSelectedValues values to be reset
-     * @throws JSONException JsonException thrown
-     */
-    private void resetClearedGlobalValues(JSONObject mainJson, List<String> previousSelectedValues) throws JSONException {
-        if (mainJson.has(Constants.GLOBAL)) {
-            JSONObject globals = mainJson.getJSONObject(Constants.GLOBAL);
-            for (String item : previousSelectedValues) {
-                if (globals.has(item)) {
-                    globals.put(item, "");
-                }
-            }
-        }
-    }
-
-    private List<String> getUndoneValues(JSONObject item) throws JSONException {
-        LinkedList<String> previousValues = new LinkedList<>();
-        if (item.has(JsonFormConstants.VALUE)) {
-            JSONArray valuesArray = item.getJSONArray(JsonFormConstants.VALUE);
-            for (int index = 0; index < valuesArray.length(); index++) {
-                ExpansionPanelItemModel expansionPanelItem = ContactJsonFormUtils.getExpansionPanelItem(
-                        valuesArray.getJSONObject(index).getString(JsonFormConstants.KEY), valuesArray);
-
-                previousValues.add(expansionPanelItem.getKey());
-            }
-
-        }
-        return previousValues;
     }
 }

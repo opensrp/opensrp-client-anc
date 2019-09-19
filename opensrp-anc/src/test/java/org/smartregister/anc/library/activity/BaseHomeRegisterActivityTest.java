@@ -30,8 +30,8 @@ import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.anc.library.fragment.SortFilterFragment;
 import org.smartregister.anc.library.presenter.RegisterPresenter;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
@@ -125,7 +125,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         List<String> viewIdentifiers = baseHomeRegisterActivity.getViewIdentifiers();
         Assert.assertNotNull(viewIdentifiers);
         Assert.assertTrue(viewIdentifiers.size() == 1);
-        Assert.assertEquals(Constants.CONFIGURATION.HOME_REGISTER, viewIdentifiers.get(0));
+        Assert.assertEquals(ConstantsUtils.CONFIGURATION_UTILS.HOME_REGISTER, viewIdentifiers.get(0));
 
     }
 
@@ -177,7 +177,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
 
         CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID,
-                ImmutableMap.of(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME, DBConstants.KEY.EDD, "2018-12-25"),
+                ImmutableMap.of(DBConstantsUtils.KEY_UTILS.FIRST_NAME, DUMMY_USERNAME, DBConstantsUtils.KEY_UTILS.EDD, "2018-12-25"),
                 DUMMY_USERNAME);
         Map<String, String> details = new HashMap<>();
         details.putAll(client.getDetails());

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -38,7 +38,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         }
 
         // Activity destroyed set interactor to null
-        if (! isChangingConfiguration) {
+        if (!isChangingConfiguration) {
             mProfileInteractor = null;
         }
     }
@@ -61,11 +61,11 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
 
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
-            if (factsAsMap.containsKey(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
-                attentionFlags = (String) factsAsMap.get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS);
+            if (factsAsMap.containsKey(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS)) {
+                attentionFlags = (String) factsAsMap.get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS);
             }
 
-            if (! TextUtils.isEmpty(attentionFlags)) {
+            if (!TextUtils.isEmpty(attentionFlags)) {
                 JSONObject jsonObject = new JSONObject(attentionFlags);
                 if (jsonObject.length() > 0) {
                     Iterator<String> keys = jsonObject.keys();

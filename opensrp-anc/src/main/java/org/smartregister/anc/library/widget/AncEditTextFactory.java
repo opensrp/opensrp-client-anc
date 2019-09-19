@@ -18,7 +18,7 @@ import com.vijay.jsonwizard.widgets.EditTextFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +31,10 @@ public class AncEditTextFactory extends EditTextFactory {
     private ImageView editable;
 
     @Override
-    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject,
-                             MaterialEditText editText, ImageView editable) throws Exception {
-        super.attachLayout(stepName, context, formFragment, jsonObject, editText, editable);
-        this.editable = editable;
-    }
-
-    @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment,
                                        JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
-        if (jsonObject.has(DBConstants.KEY.NUMBER_PICKER) &&
-                jsonObject.get(DBConstants.KEY.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
+        if (jsonObject.has(DBConstantsUtils.KEY_UTILS.NUMBER_PICKER) &&
+                jsonObject.get(DBConstantsUtils.KEY_UTILS.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
             RelativeLayout rootLayout = getRootLayout(context);
@@ -95,6 +88,13 @@ public class AncEditTextFactory extends EditTextFactory {
 
         }
 
+    }
+
+    @Override
+    public void attachLayout(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject,
+                             MaterialEditText editText, ImageView editable) throws Exception {
+        super.attachLayout(stepName, context, formFragment, jsonObject, editText, editable);
+        this.editable = editable;
     }
 
     protected RelativeLayout getRootLayout(Context context) {

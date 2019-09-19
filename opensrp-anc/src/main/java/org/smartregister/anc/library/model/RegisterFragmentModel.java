@@ -9,9 +9,9 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
-import org.smartregister.anc.library.util.ConfigHelper;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConfigHelperUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.smartregister.anc.library.util.Constants.GLOBAL_IDENTIFIER;
+import static org.smartregister.anc.library.util.ConstantsUtils.GLOBAL_IDENTIFIER;
 
 /**
  * Created by keyman on 12/07/2018.
@@ -38,7 +38,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public RegisterConfiguration defaultRegisterConfiguration() {
-        return ConfigHelper.defaultRegisterConfiguration(AncLibrary.getInstance().getApplicationContext());
+        return ConfigHelperUtils.defaultRegisterConfiguration(AncLibrary.getInstance().getApplicationContext());
     }
 
     @Override
@@ -63,15 +63,15 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        String[] columns = new String[]{tableName + ".relationalid", tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID, tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.LAST_NAME, tableName + "." + DBConstants.KEY.ANC_ID,
-                tableName + "." + DBConstants.KEY.DOB, tableName + "." + DBConstants.KEY.PHONE_NUMBER,
-                tableName + "." + DBConstants.KEY.ALT_NAME, tableName + "." + DBConstants.KEY.DATE_REMOVED,
-                tableName + "." + DBConstants.KEY.EDD, tableName + "." + DBConstants.KEY.RED_FLAG_COUNT,
-                tableName + "." + DBConstants.KEY.YELLOW_FLAG_COUNT, tableName + "." + DBConstants.KEY.CONTACT_STATUS,
-                tableName + "." + DBConstants.KEY.NEXT_CONTACT, tableName + "." + DBConstants.KEY.NEXT_CONTACT_DATE,
-                tableName + "." + DBConstants.KEY.LAST_CONTACT_RECORD_DATE};
+        String[] columns = new String[]{tableName + ".relationalid", tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KEY_UTILS.FIRST_NAME,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_NAME, tableName + "." + DBConstantsUtils.KEY_UTILS.ANC_ID,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.DOB, tableName + "." + DBConstantsUtils.KEY_UTILS.PHONE_NUMBER,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.ALT_NAME, tableName + "." + DBConstantsUtils.KEY_UTILS.DATE_REMOVED,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.EDD, tableName + "." + DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT, tableName + "." + DBConstantsUtils.KEY_UTILS.CONTACT_STATUS,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, tableName + "." + DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE,
+                tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }
@@ -108,15 +108,15 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
         Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(ancId)) {
 
-            editMap.put(GLOBAL_IDENTIFIER, Constants.IDENTIFIER.ANC_ID + ":" + ancId);
+            editMap.put(GLOBAL_IDENTIFIER, ConstantsUtils.IDENTIFIER_UTILS.ANC_ID + ":" + ancId);
         }
         return editMap;
     }
 
     @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
-        String[] columns = new String[]{"_id", "relationalid", DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
-                DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID, DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME};
+        String[] columns = new String[]{"_id", "relationalid", DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME,
+                DBConstantsUtils.KEY_UTILS.DOB, DBConstantsUtils.KEY_UTILS.ANC_ID, DBConstantsUtils.KEY_UTILS.PHONE_NUMBER, DBConstantsUtils.KEY_UTILS.ALT_NAME};
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
 
         if (response == null || response.isFailure() || StringUtils.isBlank(response.payload())) {
@@ -159,7 +159,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
                     }
                 }
 
-                ancId = getJsonString(getJsonObject(client, "identifiers"), Constants.IDENTIFIER.ANC_ID);
+                ancId = getJsonString(getJsonObject(client, "identifiers"), ConstantsUtils.IDENTIFIER_UTILS.ANC_ID);
                 if (StringUtils.isNotBlank(ancId)) {
                     ancId = ancId.replace("-", "");
                 }
@@ -174,6 +174,18 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
             }
         }
         return matrixCursor;
+    }
+
+    private JSONObject getJsonObject(JSONArray jsonArray, int position) {
+        try {
+            if (jsonArray != null && jsonArray.length() > 0) {
+                return jsonArray.getJSONObject(position);
+            }
+        } catch (JSONException e) {
+            Log.e(getClass().getName(), "", e);
+        }
+        return null;
+
     }
 
     private String getJsonString(JSONObject jsonObject, String field) {
@@ -197,18 +209,6 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
         try {
             if (jsonObject != null && jsonObject.has(field)) {
                 return jsonObject.getJSONObject(field);
-            }
-        } catch (JSONException e) {
-            Log.e(getClass().getName(), "", e);
-        }
-        return null;
-
-    }
-
-    private JSONObject getJsonObject(JSONArray jsonArray, int position) {
-        try {
-            if (jsonArray != null && jsonArray.length() > 0) {
-                return jsonArray.getJSONObject(position);
             }
         } catch (JSONException e) {
             Log.e(getClass().getName(), "", e);

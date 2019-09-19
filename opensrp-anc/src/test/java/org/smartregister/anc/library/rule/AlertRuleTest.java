@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 /**
  * Created by ndegwamartin on 08/11/2018.
@@ -34,7 +34,7 @@ public class AlertRuleTest extends BaseUnitTest {
 
     @Test
     public void testGetButtonStatusReturnsCorrectDefaultValue() {
-        Assert.assertEquals(Constants.ALERT_STATUS.NOT_DUE, alertRule.getButtonStatus());
+        Assert.assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE, alertRule.getButtonStatus());
     }
 
     @Test

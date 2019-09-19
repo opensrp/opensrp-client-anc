@@ -14,8 +14,8 @@ import com.google.gson.reflect.TypeToken;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PreviousContact;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
@@ -61,7 +61,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         Log.e(TAG, "Inside the BaseAncClientProcessorForJava");
 
         ClientClassification clientClassification =
-                assetJsonToJava(Constants.EC_FILE.CLIENT_CLASSIFICATION, ClientClassification.class);
+                assetJsonToJava(ConstantsUtils.EC_FILE_UTILS.CLIENT_CLASSIFICATION, ClientClassification.class);
 
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
@@ -76,35 +76,39 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         }
     }
 
-    @Override
-    public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
-        Event event = eventClient.getEvent();
-        if (event == null) {
-            return;
-        }
+    private void processVisit(Event event) {
+        //Attention flags
+        AncLibrary.getInstance().getDetailsRepository()
+                .add(event.getBaseEntityId(), ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS,
+                        event.getDetails().get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS),
+                        Calendar.getInstance().getTimeInMillis());
 
-        String eventType = event.getEventType();
-        if (eventType == null) {
-            return;
-        }
+        //Previous contact state
+        String previousContactsRaw = event.getDetails().get(ConstantsUtils.DETAILS_KEY_UTILS.PREVIOUS_CONTACTS);
+        Map<String, String> previousContactMap = AncLibrary.getInstance().getGsonInstance()
+                .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
+                }.getType());
 
-        if (eventType.equals(Constants.EventType.CLOSE)) {
-            unsyncEvents.add(event);
-        } else if (eventType.equals(Constants.EventType.REGISTRATION) ||
-                eventType.equals(Constants.EventType.UPDATE_REGISTRATION)) {
-            if (clientClassification == null) {
-                return;
+        if (previousContactMap != null) {
+            String contactNo = "";
+            if (!TextUtils.isEmpty(event.getDetails().get(ConstantsUtils.CONTACT))) {
+                String[] contacts = event.getDetails().get(ConstantsUtils.CONTACT).split(" ");
+                if (contacts.length >= 2) {
+                    int nextContact = Integer.parseInt(contacts[1]);
+                    if (nextContact > 0) {
+                        contactNo = String.valueOf(nextContact - 1);
+                    } else {
+                        contactNo = String.valueOf(nextContact + 1);
+                    }
+                }
             }
 
-            Client client = eventClient.getClient();
-            //iterate through the events
-            if (client != null) {
-                processEvent(event, client, clientClassification);
-
+            for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
+                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(
+                        new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
             }
-        } else if (eventType.equals(Constants.EventType.CONTACT_VISIT)) {
-            processVisit(event);
         }
+
     }
 
     /*
@@ -184,6 +188,60 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             Log.e(TAG, e.toString(), e);
         }
         return false;
+    }    @Override
+    public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
+        Event event = eventClient.getEvent();
+        if (event == null) {
+            return;
+        }
+
+        String eventType = event.getEventType();
+        if (eventType == null) {
+            return;
+        }
+
+        if (eventType.equals(ConstantsUtils.EventTypeUtils.CLOSE)) {
+            unsyncEvents.add(event);
+        } else if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) ||
+                eventType.equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
+            if (clientClassification == null) {
+                return;
+            }
+
+            Client client = eventClient.getClient();
+            //iterate through the events
+            if (client != null) {
+                processEvent(event, client, clientClassification);
+
+            }
+        } else if (eventType.equals(ConstantsUtils.EventTypeUtils.CONTACT_VISIT)) {
+            processVisit(event);
+        }
+    }
+
+    @Override
+    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
+
+        // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
+
+        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
+                allCommonsRepositoryobjects(tableName);
+
+        if (allCommonsRepository != null) {
+            allCommonsRepository.updateSearch(entityId);
+        }
+
+        //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
+    }
+
+    @Override
+    public String[] getOpenmrsGenIds() {
+        /*
+        This method is not currently used because the ANC_ID is always a number and does not contain hyphens.
+        This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
+        content values for such identifiers
+         */
+        return new String[]{DBConstantsUtils.KEY_UTILS.ANC_ID, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID};
     }
 
     @Override
@@ -198,7 +256,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
             String registeredAnm = allSharedPreferences.fetchRegisteredANM();
 
-            ClientField clientField = assetJsonToJava(Constants.EC_FILE.CLIENT_FIELDS, ClientField.class);
+            ClientField clientField = assetJsonToJava(ConstantsUtils.EC_FILE_UTILS.CLIENT_FIELDS, ClientField.class);
             if (clientField == null) {
                 return false;
             }
@@ -220,76 +278,19 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return false;
     }
 
-    private void processVisit(Event event) {
-        //Attention flags
-        AncLibrary.getInstance().getDetailsRepository()
-                .add(event.getBaseEntityId(), Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS,
-                        event.getDetails().get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS),
-                        Calendar.getInstance().getTimeInMillis());
 
-        //Previous contact state
-        String previousContactsRaw = event.getDetails().get(Constants.DETAILS_KEY.PREVIOUS_CONTACTS);
-        Map<String, String> previousContactMap = AncLibrary.getInstance().getGsonInstance()
-                .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
-                }.getType());
 
-        if (previousContactMap != null) {
-            String contactNo = "";
-            if (!TextUtils.isEmpty(event.getDetails().get(Constants.CONTACT))) {
-                String[] contacts = event.getDetails().get(Constants.CONTACT).split(" ");
-                if (contacts.length >= 2) {
-                    int nextContact = Integer.parseInt(contacts[1]);
-                    if (nextContact > 0) {
-                        contactNo = String.valueOf(nextContact - 1);
-                    } else {
-                        contactNo = String.valueOf(nextContact + 1);
-                    }
-                }
-            }
-
-            for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
-                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(
-                        new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
-            }
-        }
-
-    }
-
-    @Override
-    public String[] getOpenmrsGenIds() {
-        /*
-        This method is not currently used because the ANC_ID is always a number and does not contain hyphens.
-        This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
-        content values for such identifiers
-         */
-        return new String[]{DBConstants.KEY.ANC_ID, Constants.JSON_FORM_KEY.ANC_ID};
-    }
-
-    @Override
-    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-
-        // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
-
-        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
-                allCommonsRepositoryobjects(tableName);
-
-        if (allCommonsRepository != null) {
-            allCommonsRepository.updateSearch(entityId);
-        }
-
-        //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
-    }
 
     @NonNull
     @Override
     public HashSet<String> getEventTypes() {
         if (eventTypes.isEmpty()) {
-            eventTypes.add(Constants.EventType.REGISTRATION);
-            eventTypes.add(Constants.EventType.UPDATE_REGISTRATION);
-            eventTypes.add(Constants.EventType.QUICK_CHECK);
-            eventTypes.add(Constants.EventType.CONTACT_VISIT);
-            eventTypes.add(Constants.EventType.CLOSE);
-            eventTypes.add(Constants.EventType.SITE_CHARACTERISTICS);
+            eventTypes.add(ConstantsUtils.EventTypeUtils.REGISTRATION);
+            eventTypes.add(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION);
+            eventTypes.add(ConstantsUtils.EventTypeUtils.QUICK_CHECK);
+            eventTypes.add(ConstantsUtils.EventTypeUtils.CONTACT_VISIT);
+            eventTypes.add(ConstantsUtils.EventTypeUtils.CLOSE);
+            eventTypes.add(ConstantsUtils.EventTypeUtils.SITE_CHARACTERISTICS);
         }
 
         return eventTypes;

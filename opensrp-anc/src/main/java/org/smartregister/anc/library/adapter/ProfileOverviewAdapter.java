@@ -20,8 +20,8 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.PreviousContactsTests;
 import org.smartregister.anc.library.domain.TestResults;
 import org.smartregister.anc.library.domain.TestResultsDialog;
@@ -156,6 +156,25 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
     }
 
+    private List<TestResultsDialog> getTestData(JSONArray jsonArrayKeys) throws JSONException {
+        List<TestResultsDialog> allResultKeys = new ArrayList<>();
+        for (int i = 0; i < jsonArrayKeys.length(); i++) {
+            String[] keys = getTestKeyAndTitle(jsonArrayKeys.getString(i));
+            if (keys.length > 2) {
+                List<TestResults> testResults = presenter.loadAllTestResults(baseEntityId, keys[0], keys[1], contactNo);
+                if (testResults.size() > 0) {
+                    TestResultsDialog testResultsDialog = new TestResultsDialog(keys[1], testResults);
+                    allResultKeys.add(testResultsDialog);
+                }
+            }
+        }
+        return allResultKeys;
+    }
+
+    private String[] getTestKeyAndTitle(String textKey) {
+        return textKey.split(":");
+    }
+
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View parent;
@@ -181,25 +200,6 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private class Template {
         public String title = "";
         public String detail = "";
-    }
-
-    private String[] getTestKeyAndTitle(String textKey) {
-        return textKey.split(":");
-    }
-
-    private List<TestResultsDialog> getTestData(JSONArray jsonArrayKeys) throws JSONException {
-        List<TestResultsDialog> allResultKeys = new ArrayList<>();
-        for (int i = 0; i < jsonArrayKeys.length(); i++) {
-            String[] keys = getTestKeyAndTitle(jsonArrayKeys.getString(i));
-            if (keys.length > 2) {
-                List<TestResults> testResults = presenter.loadAllTestResults(baseEntityId, keys[0], keys[1], contactNo);
-                if (testResults.size() > 0) {
-                    TestResultsDialog testResultsDialog = new TestResultsDialog(keys[1], testResults);
-                    allResultKeys.add(testResultsDialog);
-                }
-            }
-        }
-        return allResultKeys;
     }
 
     private class AllTestClickListener implements View.OnClickListener {

@@ -23,7 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
         JSONArray canvasIds = new JSONArray();
         List<View> views = new ArrayList<>(1);
         ImageView editButton;
-        if (widgetType.equals(Constants.ANC_RADIO_BUTTON)) {
+        if (widgetType.equals(ConstantsUtils.ANC_RADIO_BUTTON)) {
             boolean readOnly = false;
             if (jsonObject.has(JsonFormConstants.READ_ONLY)) {
                 readOnly = jsonObject.getBoolean(JsonFormConstants.READ_ONLY);
@@ -100,9 +100,13 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
         return views;
     }
 
+    private RadioGroup getRootLayout(Context context) {
+        return (RadioGroup) LayoutInflater.from(context).inflate(R.layout.anc_radio_button, null);
+    }
+
     private void addRadioButtons(String stepName, Context context, JSONObject jsonObject, CommonListener commonListener,
                                  boolean popup, RadioGroup rootLayout, boolean readOnly, JSONArray canvasIds)
-    throws JSONException {
+            throws JSONException {
         JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         String optionTextSize =
                 String.valueOf(context.getResources().getDimension(com.vijay.jsonwizard.R.dimen.options_default_text_size));
@@ -156,9 +160,5 @@ public class AncRadioButtonWidgetFactory extends NativeRadioButtonFactory {
         } else {
             Toast.makeText(context, "Please make sure you have set the radio button options", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private RadioGroup getRootLayout(Context context) {
-        return (RadioGroup) LayoutInflater.from(context).inflate(R.layout.anc_radio_button, null);
     }
 }

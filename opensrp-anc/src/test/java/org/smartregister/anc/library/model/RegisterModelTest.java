@@ -22,7 +22,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterContract;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -700,7 +700,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
     private String entityId(JSONObject jsonObject) {
         JSONArray field = JsonFormUtils.fields(jsonObject);
-        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
+        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID);
         return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
     }
 

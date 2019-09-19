@@ -24,24 +24,12 @@ public class ContactSummaryPresenter
         this.contactSummaryModel = new ContactSummaryModel();
     }
 
-    private void setWomansName() {
-        getView().displayPatientName(contactSummaryModel.extractPatientName(this.womanDetails));
-    }
-
-    private void addUpcomingContactsToView() {
-        getView().displayUpcomingContactDates(this.upcomingContacts);
-    }
-
     public Map<String, String> getWomanDetails() {
         return womanDetails;
     }
 
     public List<ContactSummaryModel> getUpcomingContacts() {
         return upcomingContacts;
-    }
-
-    public ContactSummarySendContract.View getView() {
-        return contactConfirmationView.get();
     }
 
     @Override
@@ -68,6 +56,10 @@ public class ContactSummaryPresenter
         getView().setProfileImage(clientEntityId);
     }
 
+    public ContactSummarySendContract.View getView() {
+        return contactConfirmationView.get();
+    }
+
     @Override
     public void onWomanDetailsFetched(Map<String, String> womanDetails) {
         if (womanDetails == null || womanDetails.isEmpty()) {
@@ -75,6 +67,10 @@ public class ContactSummaryPresenter
         }
         this.womanDetails = womanDetails;
         setWomansName();
+    }
+
+    private void setWomansName() {
+        getView().displayPatientName(contactSummaryModel.extractPatientName(this.womanDetails));
     }
 
     @Override
@@ -85,5 +81,9 @@ public class ContactSummaryPresenter
         this.upcomingContacts.addAll(upcomingContacts);
         addUpcomingContactsToView();
         getView().updateRecordedContact(lastContact);
+    }
+
+    private void addUpcomingContactsToView() {
+        getView().displayUpcomingContactDates(this.upcomingContacts);
     }
 }

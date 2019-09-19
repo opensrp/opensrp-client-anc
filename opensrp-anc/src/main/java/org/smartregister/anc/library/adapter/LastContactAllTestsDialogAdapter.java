@@ -49,15 +49,15 @@ public class LastContactAllTestsDialogAdapter extends RecyclerView.Adapter<LastC
         }
     }
 
+    private TestResults addHeadingText() {
+        return new TestResults("GA", "Date", "Value");
+    }
+
     private void setUpRecyclerView(RecyclerView allTestsContent, List<TestResults> testResults) {
         LastContactAllTestsResultsDialogAdapter adapter = new LastContactAllTestsResultsDialogAdapter(context, testResults);
         adapter.notifyDataSetChanged();
         allTestsContent.setLayoutManager(new LinearLayoutManager(context));
         allTestsContent.setAdapter(adapter);
-    }
-
-    private TestResults addHeadingText() {
-        return new TestResults("GA", "Date", "Value");
     }
 
     // total number of rows

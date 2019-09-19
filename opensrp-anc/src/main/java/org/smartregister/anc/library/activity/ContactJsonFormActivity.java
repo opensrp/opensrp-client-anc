@@ -36,7 +36,7 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.AncGenericPopupDialog;
@@ -62,7 +62,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void init(String json) {
         try {
             mJSONObject = new JSONObject(json);
-            if (!mJSONObject.has(Constants.JSON_FORM_KEY.ENCOUNTER_TYPE)) {
+            if (!mJSONObject.has(ConstantsUtils.JSON_FORM_KEY_UTILS.ENCOUNTER_TYPE)) {
                 mJSONObject = new JSONObject();
                 throw new JSONException("Form encounter_type not set");
             }
@@ -92,13 +92,21 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        formName = getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME);
+        formName = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public void initializeFormFragment() {
         initializeFormFragmentCore();
+    }
+
+    protected void initializeFormFragmentCore() {
+        JsonWizardFormFragment contactJsonFormFragment =
+                ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
+                .commit();
     }
 
     @Override
@@ -117,27 +125,69 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         super.onFormFinish();
     }
 
-    protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent,
-                                       String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
-        super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+    @Override
+    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent,
+                                     String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
+        synchronized (getmJSONObject()) {
+            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
+            JSONArray fields = fetchFields(jsonObject, popup);
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject item = fields.getJSONObject(i);
+                String keyAtIndex = item.getString(JsonFormConstants.KEY);
+                String itemType = item.optString(JsonFormConstants.TYPE, "");
+                boolean isSpecialWidget = isSpecialWidget(itemType);
 
+                String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
 
-    }
+                if (parentKey.equals(keyAtIndex)) {
 
-    protected void initializeFormFragmentCore() {
-        JsonWizardFormFragment contactJsonFormFragment =
-                ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+                    if (item.has(JsonFormConstants.TEXT)) {
+                        item.put(JsonFormConstants.TEXT, value);
+                    } else {
+                        item.put(JsonFormConstants.VALUE,
+                                itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ?
+                                        item.has(JsonFormConstants.VALUE) &&
+                                                !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ?
+                                                item.getString(JsonFormConstants.VALUE) : value : value);
+                    }
 
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
-                .commit();
-    }
-
-    public Contact getContact() {
-        Form form = getForm();
-        if (form instanceof Contact) {
-            return (Contact) form;
+                    invokeRefreshLogic(value, popup, parentKey, null);
+                    return;
+                }
+            }
         }
-        return null;
+    }
+
+    @Override
+    protected void checkBoxWriteValue(String stepName, String parentKey, String childObjectKey, String childKey,
+                                      String value, boolean popup) throws JSONException {
+        synchronized (getmJSONObject()) {
+            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
+            JSONArray fields = fetchFields(jsonObject, popup);
+
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject item = fields.getJSONObject(i);
+                String keyAtIndex = item.getString(JsonFormConstants.KEY);
+                if (parentKey.equals(keyAtIndex)) {
+                    JSONArray jsonArray = item.getJSONArray(childObjectKey);
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        JSONObject innerItem = jsonArray.getJSONObject(j);
+                        String anotherKeyAtIndex = innerItem.getString(JsonFormConstants.KEY);
+
+                        if (childKey.equals(anotherKeyAtIndex)) {
+                            innerItem.put(JsonFormConstants.VALUE, value);
+                            if (!TextUtils.isEmpty(formName) && formName.equals(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK)) {
+                                quickCheckDangerSignsSelectionHandler(fields);
+                            }
+
+                            invokeRefreshLogic(value, popup, parentKey, childKey);
+                            return;
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     @Override
@@ -146,18 +196,18 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         new AsyncTask<Void, Void, Void>() {
 
             @Override
-            protected void onPreExecute() {
-                //  showProgressDialog("Saving contact progress...");
-            }
-
-            @Override
             protected Void doInBackground(Void... nada) {
-                Integer contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
+                Integer contactNo = getIntent().getIntExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, 0);
                 Contact contact = getContact();
                 contact.setJsonForm(currentJsonState());
                 contact.setContactNumber(contactNo);
-                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID), contact);
+                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID), contact);
                 return null;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                //  showProgressDialog("Saving contact progress...");
             }
 
             @Override
@@ -170,21 +220,70 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     }
 
-    public void showProgressDialog(String titleIdentifier) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-            progressDialog.setTitle(titleIdentifier);
-            progressDialog.setMessage(getString(R.string.please_wait_message));
+    public Contact getContact() {
+        Form form = getForm();
+        if (form instanceof Contact) {
+            return (Contact) form;
         }
-
-        if (!isFinishing()) progressDialog.show();
+        return null;
     }
 
-    public void hideProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        formName = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME);
+        try {
+            ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
+        } catch (JSONException e) {
+            Log.e(TAG, "An error occurred while trying to filter checkbox items" + e);
         }
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public Facts getValueFromAddressCore(JSONObject object) throws JSONException {
+        Facts result = new Facts();
+        if (object != null && object.has(JsonFormConstants.TYPE)) {
+            if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface
+                    .getWidgetType().equals(ConstantsUtils.EXPANSION_PANEL)) {
+                switch (object.getString(JsonFormConstants.TYPE)) {
+                    case JsonFormConstants.CHECK_BOX:
+                        result = formUtils.getCheckBoxResults(object);
+                        break;
+                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                        Boolean multiRelevance =
+                                object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
+                        result = getRadioButtonResults(multiRelevance, object);
+                        break;
+                    case ConstantsUtils.ANC_RADIO_BUTTON:
+                        Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
+                        result = getRadioButtonResults(relevance, object);
+                        break;
+                    default:
+                        result.put(getKey(object), getValue(object));
+                        break;
+                }
+
+                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK) &&
+                        (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) ||
+                                (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) &&
+                                        object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
+                    List<String> selectedValues = new ArrayList<>(result.asMap().keySet());
+                    result = new Facts();
+                    result.put(getKey(object), selectedValues.toString());
+                }
+
+            } else if (object.length() > 0) {
+                return super.getValueFromAddressCore(object);
+            }
+        }
+        return result;
     }
 
     /**
@@ -254,7 +353,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     protected JSONArray specifyFields(JSONObject parentJson) {
         JSONArray fields = new JSONArray();
         if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null &&
-                genericDialogInterface.getWidgetType().equals(Constants.EXPANSION_PANEL)) {
+                genericDialogInterface.getWidgetType().equals(ConstantsUtils.EXPANSION_PANEL)) {
             try {
                 if (parentJson.has(JsonFormConstants.CONTENT_FORM)) {
                     if (getExtraFieldsWithValues() != null) {
@@ -273,166 +372,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
             return super.specifyFields(parentJson);
         }
         return fields;
-    }
-
-    @Override
-    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent,
-                                     String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
-        synchronized (getmJSONObject()) {
-            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
-            JSONArray fields = fetchFields(jsonObject, popup);
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject item = fields.getJSONObject(i);
-                String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                String itemType = item.optString(JsonFormConstants.TYPE, "");
-                boolean isSpecialWidget = isSpecialWidget(itemType);
-
-                String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
-
-                if (parentKey.equals(keyAtIndex)) {
-
-                    if (item.has(JsonFormConstants.TEXT)) {
-                        item.put(JsonFormConstants.TEXT, value);
-                    } else {
-                        item.put(JsonFormConstants.VALUE,
-                                itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ?
-                                        item.has(JsonFormConstants.VALUE) &&
-                                                !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ?
-                                                item.getString(JsonFormConstants.VALUE) : value : value);
-                    }
-
-                    invokeRefreshLogic(value, popup, parentKey, null);
-                    return;
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void checkBoxWriteValue(String stepName, String parentKey, String childObjectKey, String childKey,
-                                      String value, boolean popup) throws JSONException {
-        synchronized (getmJSONObject()) {
-            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
-            JSONArray fields = fetchFields(jsonObject, popup);
-
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject item = fields.getJSONObject(i);
-                String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                if (parentKey.equals(keyAtIndex)) {
-                    JSONArray jsonArray = item.getJSONArray(childObjectKey);
-                    for (int j = 0; j < jsonArray.length(); j++) {
-                        JSONObject innerItem = jsonArray.getJSONObject(j);
-                        String anotherKeyAtIndex = innerItem.getString(JsonFormConstants.KEY);
-
-                        if (childKey.equals(anotherKeyAtIndex)) {
-                            innerItem.put(JsonFormConstants.VALUE, value);
-                            if (!TextUtils.isEmpty(formName) && formName.equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
-                                quickCheckDangerSignsSelectionHandler(fields);
-                            }
-
-                            invokeRefreshLogic(value, popup, parentKey, childKey);
-                            return;
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-    /**
-     * Finds gets the currently selected dangers signs on the quick change page and sets the none {@link Boolean} and other
-     * {@link Boolean} so as  to identify times to show the refer and proceed buttons on quick check
-     * <p>
-     * This fix is a bit hacky but feel free to use it
-     *
-     * @param fields {@link JSONArray}
-     * @throws JSONException
-     * @author dubdabasoduba
-     */
-    public void quickCheckDangerSignsSelectionHandler(JSONArray fields) throws JSONException {
-        boolean none = false;
-        boolean other = false;
-
-        Fragment fragment = getVisibleFragment();
-        if (fragment instanceof ContactJsonFormFragment) {
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject jsonObject = fields.getJSONObject(i);
-                if (jsonObject != null && jsonObject.getString(JsonFormConstants.KEY).equals(Constants.DANGER_SIGNS)) {
-
-                    JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-                    for (int k = 0; k < jsonArray.length(); k++) {
-                        JSONObject item = jsonArray.getJSONObject(k);
-                        if (item != null && item.getBoolean(JsonFormConstants.VALUE)) {
-                            if (item.getString(JsonFormConstants.KEY).equals(Constants.DANGER_NONE)) {
-                                none = true;
-                            }
-
-                            if (!item.getString(JsonFormConstants.KEY).equals(Constants.DANGER_NONE)) {
-                                other = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            ((ContactJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
-        }
-    }
-
-    /**
-     * Returns the current visible fragment on the device
-     *
-     * @return fragment {@link Fragment}
-     * @author dubdabasoduba
-     */
-    public Fragment getVisibleFragment() {
-        List<Fragment> fragments = this.getSupportFragmentManager().getFragments();
-        for (Fragment fragment : fragments) {
-            if (fragment != null && fragment.isVisible()) return fragment;
-        }
-        return null;
-    }
-
-
-    @Override
-    public Facts getValueFromAddressCore(JSONObject object) throws JSONException {
-        Facts result = new Facts();
-        if (object != null && object.has(JsonFormConstants.TYPE)) {
-            if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface
-                    .getWidgetType().equals(Constants.EXPANSION_PANEL)) {
-                switch (object.getString(JsonFormConstants.TYPE)) {
-                    case JsonFormConstants.CHECK_BOX:
-                        result = formUtils.getCheckBoxResults(object);
-                        break;
-                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                        Boolean multiRelevance =
-                                object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioButtonResults(multiRelevance, object);
-                        break;
-                    case Constants.ANC_RADIO_BUTTON:
-                        Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioButtonResults(relevance, object);
-                        break;
-                    default:
-                        result.put(getKey(object), getValue(object));
-                        break;
-                }
-
-                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK) &&
-                        (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) ||
-                                (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) &&
-                                        object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
-                    List<String> selectedValues = new ArrayList<>(result.asMap().keySet());
-                    result = new Facts();
-                    result.put(getKey(object), selectedValues.toString());
-                }
-
-            } else if (object.length() > 0) {
-                return super.getValueFromAddressCore(object);
-            }
-        }
-        return result;
     }
 
     private Facts getRadioButtonResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
@@ -462,27 +401,87 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         return result;
     }
 
+    /**
+     * Finds gets the currently selected dangers signs on the quick change page and sets the none {@link Boolean} and other
+     * {@link Boolean} so as  to identify times to show the refer and proceed buttons on quick check
+     * <p>
+     * This fix is a bit hacky but feel free to use it
+     *
+     * @param fields {@link JSONArray}
+     * @throws JSONException
+     * @author dubdabasoduba
+     */
+    public void quickCheckDangerSignsSelectionHandler(JSONArray fields) throws JSONException {
+        boolean none = false;
+        boolean other = false;
+
+        Fragment fragment = getVisibleFragment();
+        if (fragment instanceof ContactJsonFormFragment) {
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject jsonObject = fields.getJSONObject(i);
+                if (jsonObject != null && jsonObject.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_SIGNS)) {
+
+                    JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                    for (int k = 0; k < jsonArray.length(); k++) {
+                        JSONObject item = jsonArray.getJSONObject(k);
+                        if (item != null && item.getBoolean(JsonFormConstants.VALUE)) {
+                            if (item.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_NONE)) {
+                                none = true;
+                            }
+
+                            if (!item.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_NONE)) {
+                                other = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            ((ContactJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
+        }
+    }
+
+    /**
+     * Returns the current visible fragment on the device
+     *
+     * @return fragment {@link Fragment}
+     * @author dubdabasoduba
+     */
+    public Fragment getVisibleFragment() {
+        List<Fragment> fragments = this.getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible()) return fragment;
+        }
+        return null;
+    }
+
+    protected void callSuperWriteValue(String stepName, String key, String value, String openMrsEntityParent,
+                                       String openMrsEntity, String openMrsEntityId, Boolean popup) throws JSONException {
+        super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId, popup);
+
+
+    }
+
+    public void showProgressDialog(String titleIdentifier) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle(titleIdentifier);
+            progressDialog.setMessage(getString(R.string.please_wait_message));
+        }
+
+        if (!isFinishing()) progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
     @Override
     public void setGenericPopup(AncGenericPopupDialog context) {
         genericDialogInterface = context;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        formName = getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME);
-        try {
-            ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
-        } catch (JSONException e) {
-            Log.e(TAG, "An error occurred while trying to filter checkbox items" + e);
-        }
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -533,13 +532,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void proceedToMainContactPage() {
         Intent intent = new Intent(this, MainContactActivity.class);
 
-        int contactNo = getIntent().getIntExtra(Constants.INTENT_KEY.CONTACT_NO, 0);
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        int contactNo = getIntent().getIntExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, 0);
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
 
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
-        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, getIntent().getStringExtra(Constants.INTENT_KEY.FORM_NAME));
-        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME));
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, contactNo);
         Contact contact = getContact();
         contact.setJsonForm(currentJsonState());
         contact.setContactNumber(contactNo);

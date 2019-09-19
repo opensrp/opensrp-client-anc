@@ -14,6 +14,11 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 public class LibraryFragment extends org.smartregister.view.fragment.LibraryFragment {
     protected Toolbar mToolbar;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -21,11 +26,6 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
         View view = inflater.inflate(R.layout.fragment_library, container, false);
         setUpViews(view);
         return view;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     private void setUpViews(View views) {

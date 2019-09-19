@@ -20,7 +20,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.List;
 
@@ -116,7 +116,7 @@ public class AncEditTextFactoryTest extends BaseUnitTest {
         factory.attachLayout(JsonFormConstants.FIRST_STEP_NAME, context, formFragment, jsonObject, editText, imageView);
         JSONObject jsonObject = new JSONObject(SAMPLE_CLOSE_REG_FORM);
 
-        jsonObject.put(DBConstants.KEY.NUMBER_PICKER, true);
+        jsonObject.put(DBConstantsUtils.KEY_UTILS.NUMBER_PICKER, true);
         AncEditTextFactory factorySpy = Mockito.spy(factory);
         Mockito.doReturn(relativeLayout).when(factorySpy).getRootLayout(context);
         Mockito.doReturn(editText).when(relativeLayout).findViewById(R.id.edit_text);

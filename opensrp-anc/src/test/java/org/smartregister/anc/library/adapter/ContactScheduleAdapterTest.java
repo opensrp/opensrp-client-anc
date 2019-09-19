@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
         newModel.setContactWeeks("20");
 
         LocalDate localDate = new LocalDate("2019-07-23");
-        LocalDate lmpDate = localDate.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
+        LocalDate lmpDate = localDate.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
         newModel.setLocalDate(lmpDate.plusWeeks(Integer.valueOf("20")).toDate());
         data.add(newModel);
         MockitoAnnotations.initMocks(this);

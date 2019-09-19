@@ -19,8 +19,8 @@ import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.AppExecutors;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -140,7 +140,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
-        identifiers.put(Constants.JSON_FORM_KEY.ANC_ID, ancId);
+        identifiers.put(ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
 
         Event event = new Event();
@@ -215,7 +215,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
-        identifiers.put(DBConstants.KEY.ANC_ID, ancId);
+        identifiers.put(DBConstantsUtils.KEY_UTILS.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
 
         Event event = new Event();
@@ -226,7 +226,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject clientObject = new JSONObject(JsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(JsonFormUtils.gson.toJson(event));
 
-        String jsonString = "{\"" + DBConstants.KEY.ANC_ID + "\":\"" + originalAncId + "\"}";
+        String jsonString = "{\"" + DBConstantsUtils.KEY_UTILS.ANC_ID + "\":\"" + originalAncId + "\"}";
 
         long timestamp = new Date().getTime();
 

@@ -13,9 +13,9 @@ import android.widget.RelativeLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.domain.AttentionFlag;
@@ -25,9 +25,9 @@ import org.smartregister.anc.library.event.SyncEvent;
 import org.smartregister.anc.library.helper.DBQueryHelper;
 import org.smartregister.anc.library.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.library.provider.RegisterProvider;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
@@ -70,142 +70,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     }
 
     @Override
-    protected String getMainCondition() {
-        return DBQueryHelper.getHomePatientRegisterCondition();
-    }
-
-    @Override
-    protected String getDefaultSortQuery() {
-        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC";
-    }
-
-    @Override
-    public void setupViews(View view) {
-        super.setupViews(view);
-        //Do not show filter button at the moment until all filters are implemented
-        RelativeLayout filterSortRelativeLayout = view.findViewById(R.id.filter_sort_layout);
-        if(filterSortRelativeLayout != null){
-            filterSortRelativeLayout.setVisibility(View.GONE);
-        }
-
-        View filterText = view.findViewById(R.id.filter_text_view);
-        if (filterText != null) {
-            filterText.setOnClickListener(registerActionHandler);
-        }
-
-        // Due Button
-        View contactButton = view.findViewById(R.id.due_button);
-        if (contactButton != null) {
-            contactButton.setOnClickListener(registerActionHandler);
-        }
-
-        //Risk view
-        View attentionFlag = view.findViewById(R.id.risk);
-        if (attentionFlag != null) {
-            attentionFlag.setOnClickListener(registerActionHandler);
-        }
-    }
-
-    @Override
-    protected void onViewClicked(View view) {
-        if (getActivity() == null) {
-            return;
-        }
-
-        final BaseHomeRegisterActivity baseHomeRegisterActivity = (BaseHomeRegisterActivity) getActivity();
-        final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
-
-        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
-            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
-        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
-            if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= Constants.DELIVERY_DATE_WEEKS) {
-                baseHomeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
-            } else {
-                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-
-                if (StringUtils.isNotBlank(baseEntityId)) {
-                    Utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
-                }
-            }
-
-        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-            new AsyncTask<Void, Void, Void>() {
-                private List<AttentionFlag> attentionFlagList = new ArrayList<>();
-
-                @Override
-                protected void onPreExecute() {
-
-                    //  showProgressDialog("Saving contact progress...");
-                }
-
-                @Override
-                protected Void doInBackground(Void... nada) {
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(
-                                AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
-                                        .get(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS));
-
-                        Facts facts = new Facts();
-
-
-                        Iterator<String> keys = jsonObject.keys();
-
-                        while (keys.hasNext()) {
-                            String key = keys.next();
-                            facts.put(key, jsonObject.get(key));
-                        }
-
-                        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
-
-                        for (Object ruleObject : ruleObjects) {
-                            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
-
-                            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
-                                if (AncLibrary.getInstance().getAncRulesEngineHelper()
-                                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
-
-                                    attentionFlagList
-                                            .add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts),
-                                                    attentionFlagConfig.getGroup().equals(Constants.ATTENTION_FLAG.RED)));
-
-                                }
-
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    // hideProgressDialog();
-                    baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
-
-                }
-            }.execute();
-
-        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to
-         catchment
-                // TODO Move to catchment
-            }*/ else if (view.getId() == R.id.filter_text_view) {
-            baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
-        }
-    }
-
-
-    @SuppressLint("NewApi")
-    @Override
-    public void showNotFoundPopup(String whoAncId) {
-        NoMatchDialogFragment
-                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
-    }
-
-    @Override
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
@@ -229,6 +93,151 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     }
 
     @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        //Do not show filter button at the moment until all filters are implemented
+        RelativeLayout filterSortRelativeLayout = view.findViewById(R.id.filter_sort_layout);
+        if (filterSortRelativeLayout != null) {
+            filterSortRelativeLayout.setVisibility(View.GONE);
+        }
+
+        View filterText = view.findViewById(R.id.filter_text_view);
+        if (filterText != null) {
+            filterText.setOnClickListener(registerActionHandler);
+        }
+
+        // Due Button
+        View contactButton = view.findViewById(R.id.due_button);
+        if (contactButton != null) {
+            contactButton.setOnClickListener(registerActionHandler);
+        }
+
+        //Risk view
+        View attentionFlag = view.findViewById(R.id.risk);
+        if (attentionFlag != null) {
+            attentionFlag.setOnClickListener(registerActionHandler);
+        }
+    }
+
+    @Override
+    protected String getMainCondition() {
+        return DBQueryHelper.getHomePatientRegisterCondition();
+    }
+
+    @Override
+    protected String getDefaultSortQuery() {
+        return DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH + " DESC";
+    }
+
+    @Override
+    protected void startRegistration() {
+        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER, null, null);
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        if (getActivity() == null) {
+            return;
+        }
+
+        final BaseHomeRegisterActivity baseHomeRegisterActivity = (BaseHomeRegisterActivity) getActivity();
+        final CommonPersonObjectClient pc = (CommonPersonObjectClient) view.getTag();
+
+        if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+            Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
+        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
+            if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= ConstantsUtils.DELIVERY_DATE_WEEKS) {
+                baseHomeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
+            } else {
+                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, false);
+
+                if (StringUtils.isNotBlank(baseEntityId)) {
+                    Utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
+                }
+            }
+
+        } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
+            new AsyncTask<Void, Void, Void>() {
+                private List<AttentionFlag> attentionFlagList = new ArrayList<>();
+
+                @Override
+                protected Void doInBackground(Void... nada) {
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(
+                                AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
+                                        .get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS));
+
+                        Facts facts = new Facts();
+
+
+                        Iterator<String> keys = jsonObject.keys();
+
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            facts.put(key, jsonObject.get(key));
+                        }
+
+                        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
+
+                        for (Object ruleObject : ruleObjects) {
+                            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
+
+                            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
+
+                                if (AncLibrary.getInstance().getAncRulesEngineHelper()
+                                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
+
+                                    attentionFlagList
+                                            .add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts),
+                                                    attentionFlagConfig.getGroup().equals(ConstantsUtils.ATTENTION_FLAG_UTILS.RED)));
+
+                                }
+
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+
+                    return null;
+                }
+
+                @Override
+                protected void onPreExecute() {
+
+                    //  showProgressDialog("Saving contact progress...");
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    // hideProgressDialog();
+                    baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
+
+                }
+            }.execute();
+
+        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to
+         catchment
+                // TODO Move to catchment
+            }*/ else if (view.getId() == R.id.filter_text_view) {
+            baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
+        }
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        Utils.postEvent(new SyncEvent(fetchStatus));
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void showNotFoundPopup(String whoAncId) {
+        NoMatchDialogFragment
+                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
+    }
+
+    @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
         RegisterProvider registerProvider =
                 new RegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler,
@@ -236,21 +245,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment
         clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
-    }
-
-    @Override
-    protected void startRegistration() {
-        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(Constants.JSON_FORM.ANC_REGISTER, null, null);
-    }
-
-
-    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
-        ((RegisterFragmentPresenter) presenter).updateSortAndFilter(filterList, sortField);
-    }
-
-    @Override
-    public void onSyncInProgress(FetchStatus fetchStatus) {
-        Utils.postEvent(new SyncEvent(fetchStatus));
     }
 
     @Override
@@ -262,6 +256,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment
             clientAdapter.setCurrentlimit(clientAdapter.getTotalcount());
         }
         clientAdapter.setCurrentoffset(0);
+    }
+
+    public void updateSortAndFilter(List<Field> filterList, Field sortField) {
+        ((RegisterFragmentPresenter) presenter).updateSortAndFilter(filterList, sortField);
     }
 
     @Override

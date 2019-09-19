@@ -21,15 +21,6 @@ public abstract class BaseCharacteristicsPresenter implements PopulationCharacte
     }
 
     @Override
-    public BaseCharacteristicsContract.View getView() {
-        if (view != null) {
-            return view.get();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
     public void onDestroy(boolean isChangingConfiguration) {
 
         view = null;//set to null on destroy
@@ -45,15 +36,23 @@ public abstract class BaseCharacteristicsPresenter implements PopulationCharacte
     }
 
     @Override
+    public void renderView(List<ServerSetting> data) {
+        getView().renderSettings(data);
+    }
+
+    @Override
+    public BaseCharacteristicsContract.View getView() {
+        if (view != null) {
+            return view.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void getCharacteristics() {
         interactor.fetchCharacteristics();
     }
 
-
     public abstract BaseCharacteristicsContract.Interactor getInteractor();
-
-    @Override
-    public void renderView(List<ServerSetting> data) {
-        getView().renderSettings(data);
-    }
 }

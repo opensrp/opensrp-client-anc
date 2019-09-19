@@ -14,20 +14,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PreviousContactsDetailsActivity;
 import org.smartregister.anc.library.activity.PreviousContactsTestsActivity;
 import org.smartregister.anc.library.adapter.LastContactAdapter;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
@@ -67,17 +67,17 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initializePresenter();
+    }
+
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;
         }
         presenter = new ProfileFragmentPresenter(this);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initializePresenter();
     }
 
     @Override
@@ -96,10 +96,10 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         if (testsDisplayLayout != null) {
             testsDisplayLayout.removeAllViews();
         }
-        baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
         initializeLastContactDetails(clientDetails);
     }
 
@@ -112,13 +112,13 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
                 addOtherRuleObjects(facts);
                 addAttentionFlagsRuleObjects(facts);
-                contactNo = (String) facts.asMap().get(Constants.CONTACT_NO);
+                contactNo = (String) facts.asMap().get(ConstantsUtils.CONTACT_NO);
 
                 addTestsRuleObjects(facts);
 
-                String contactDate = (String) facts.asMap().get(Constants.CONTACT_DATE);
+                String contactDate = (String) facts.asMap().get(ConstantsUtils.CONTACT_DATE);
                 String displayContactDate = "";
-                if ( !TextUtils.isEmpty(contactDate)) {
+                if (!TextUtils.isEmpty(contactDate)) {
                     Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(contactDate);
                     displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
                             .format(lastContactDate);
@@ -150,7 +150,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -173,7 +173,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
 
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
@@ -191,7 +191,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
     private void addTestsRuleObjects(Facts facts) throws IOException {
         Iterable<Object> testsRuleObjects = AncLibrary.getInstance()
-                .readYaml(FilePath.FILE.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
+                .readYaml(FilePathUtils.FILE_UTILS.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             YamlConfig testsConfig = (YamlConfig) ruleObject;
@@ -229,6 +229,10 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         populateTestDetails(data, facts);
     }
 
+    private Iterable<Object> loadFile(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
+    }
+
     private void populateTestDetails(List<YamlConfigWrapper> data, Facts facts) {
         if (data != null && data.size() > 0) {
             for (int position = 0; position < data.size(); position++) {
@@ -257,26 +261,22 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         return fragmentView;
     }
 
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
     private void goToPreviousContacts() {
         Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
+        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP,
+                getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
 
         this.startActivity(intent);
     }
 
     private void goToPreviousContactsTests() {
         Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
+        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP,
+                getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
 
         this.startActivity(intent);
     }
@@ -287,9 +287,9 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private class ProfileContactsActionHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.last_contact_bottom && ! lastContactDetails.isEmpty()) {
+            if (view.getId() == R.id.last_contact_bottom && !lastContactDetails.isEmpty()) {
                 goToPreviousContacts();
-            } else if (view.getId() == R.id.tests_bottom && ! lastContactTests.isEmpty()) {
+            } else if (view.getId() == R.id.tests_bottom && !lastContactTests.isEmpty()) {
                 goToPreviousContactsTests();
             }
         }

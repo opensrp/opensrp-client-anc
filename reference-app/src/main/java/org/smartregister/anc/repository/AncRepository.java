@@ -72,12 +72,23 @@ public class AncRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase (DrishtiApplication.getInstance().getPassword());
+        return getReadableDatabase(DrishtiApplication.getInstance().getPassword());
     }
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        return getWritableDatabase (DrishtiApplication.getInstance().getPassword());
+        return getWritableDatabase(DrishtiApplication.getInstance().getPassword());
+    }
+
+    @Override
+    public synchronized SQLiteDatabase getWritableDatabase(String password) {
+        if (writableDatabase == null || !writableDatabase.isOpen()) {
+            if (writableDatabase != null) {
+                writableDatabase.close();
+            }
+            writableDatabase = super.getWritableDatabase(password);
+        }
+        return writableDatabase;
     }
 
     @Override
@@ -95,17 +106,6 @@ public class AncRepository extends Repository {
             return null;
         }
 
-    }
-
-    @Override
-    public synchronized SQLiteDatabase getWritableDatabase(String password) {
-        if (writableDatabase == null || !writableDatabase.isOpen()) {
-            if (writableDatabase != null) {
-                writableDatabase.close();
-            }
-            writableDatabase = super.getWritableDatabase(password);
-        }
-        return writableDatabase;
     }
 
     @Override

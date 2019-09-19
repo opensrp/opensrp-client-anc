@@ -14,8 +14,8 @@ import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.AppExecutors;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -44,13 +44,18 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     private ClientProcessorForJava clientProcessorForJava;
     private AllCommonsRepository allCommonsRepository;
 
+    public RegisterInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     RegisterInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
     }
 
-    public RegisterInteractor() {
-        this(new AppExecutors());
+    @Override
+    public void onDestroy(boolean isChangingConfiguration) {
+        //TODO set presenter or model to null
     }
 
     @Override
@@ -124,12 +129,12 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     //Update client to deceased
                     JSONObject client = getSyncHelper().getClient(baseEntityId);
                     if (isDeath) {
-                        client.put(Constants.JSON_FORM_KEY.DEATH_DATE, Utils.getTodaysDate());
-                        client.put(Constants.JSON_FORM_KEY.DEATH_DATE_APPROX, false);
+                        client.put(ConstantsUtils.JSON_FORM_KEY_UTILS.DEATH_DATE, Utils.getTodaysDate());
+                        client.put(ConstantsUtils.JSON_FORM_KEY_UTILS.DEATH_DATE_APPROX, false);
                     }
-                    JSONObject attributes = client.getJSONObject(Constants.JSON_FORM_KEY.ATTRIBUTES);
-                    attributes.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
-                    client.put(Constants.JSON_FORM_KEY.ATTRIBUTES, attributes);
+                    JSONObject attributes = client.getJSONObject(ConstantsUtils.JSON_FORM_KEY_UTILS.ATTRIBUTES);
+                    attributes.put(DBConstantsUtils.KEY_UTILS.DATE_REMOVED, Utils.getTodaysDate());
+                    client.put(ConstantsUtils.JSON_FORM_KEY_UTILS.ATTRIBUTES, attributes);
                     getSyncHelper().addClient(baseEntityId, client);
 
                     //Add Remove Event for child to flag for Server delete
@@ -144,8 +149,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     //Update REGISTER and FTS Tables
                     if (getAllCommonsRepository() != null) {
                         ContentValues values = new ContentValues();
-                        values.put(DBConstants.KEY.DATE_REMOVED, Utils.getTodaysDate());
-                        getAllCommonsRepository().update(DBConstants.WOMAN_TABLE_NAME, values, baseEntityId);
+                        values.put(DBConstantsUtils.KEY_UTILS.DATE_REMOVED, Utils.getTodaysDate());
+                        getAllCommonsRepository().update(DBConstantsUtils.WOMAN_TABLE_NAME, values, baseEntityId);
                         getAllCommonsRepository().updateSearch(baseEntityId);
 
                     }
@@ -158,6 +163,18 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    public AllCommonsRepository getAllCommonsRepository() {
+        if (allCommonsRepository == null) {
+            allCommonsRepository =
+                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstantsUtils.WOMAN_TABLE_NAME);
+        }
+        return allCommonsRepository;
+    }
+
+    public void setAllCommonsRepository(AllCommonsRepository allCommonsRepository) {
+        this.allCommonsRepository = allCommonsRepository;
     }
 
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
@@ -184,9 +201,9 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             if (isEditMode) {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
-                    String newOpenSRPId = baseClient.getIdentifier(Constants.CLIENT_UTILS.ANC_ID).replace("-", "");
+                    String newOpenSRPId = baseClient.getIdentifier(ConstantsUtils.CLIENT_UTILS.ANC_ID).replace("-", "");
                     String currentOpenSRPId =
-                            JsonFormUtils.getString(jsonString, Constants.CURRENT_OPENSRP_ID).replace("-", "");
+                            JsonFormUtils.getString(jsonString, ConstantsUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         // TODO: The new ID should be closed in the unique_ids repository
@@ -196,7 +213,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
             } else {
                 if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(Constants.CLIENT_UTILS.ANC_ID);
+                    String opensrpId = baseClient.getIdentifier(ConstantsUtils.CLIENT_UTILS.ANC_ID);
 
                     //mark OPENSRP ID as used
                     getUniqueIdRepository().close(opensrpId);
@@ -204,7 +221,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.WOM_IMAGE);
+                String imageLocation = JsonFormUtils.getFieldValue(jsonString, ConstantsUtils.WOM_IMAGE);
                 JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
@@ -218,22 +235,6 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-    }
-
-    @Override
-    public void onDestroy(boolean isChangingConfiguration) {
-        //TODO set presenter or model to null
-    }
-
-    public UniqueIdRepository getUniqueIdRepository() {
-        if (uniqueIdRepository == null) {
-            uniqueIdRepository = AncLibrary.getInstance().getUniqueIdRepository();
-        }
-        return uniqueIdRepository;
-    }
-
-    public void setUniqueIdRepository(UniqueIdRepository uniqueIdRepository) {
-        this.uniqueIdRepository = uniqueIdRepository;
     }
 
     public ECSyncHelper getSyncHelper() {
@@ -269,17 +270,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         this.clientProcessorForJava = clientProcessorForJava;
     }
 
-    public AllCommonsRepository getAllCommonsRepository() {
-        if (allCommonsRepository == null) {
-            allCommonsRepository =
-                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstants.WOMAN_TABLE_NAME);
+    public UniqueIdRepository getUniqueIdRepository() {
+        if (uniqueIdRepository == null) {
+            uniqueIdRepository = AncLibrary.getInstance().getUniqueIdRepository();
         }
-        return allCommonsRepository;
+        return uniqueIdRepository;
     }
 
-    public void setAllCommonsRepository(AllCommonsRepository allCommonsRepository) {
-        this.allCommonsRepository = allCommonsRepository;
+    public void setUniqueIdRepository(UniqueIdRepository uniqueIdRepository) {
+        this.uniqueIdRepository = uniqueIdRepository;
     }
 
-    public enum type {SAVED, UPDATED}
+    public enum TYPE {SAVED, UPDATED}
 }

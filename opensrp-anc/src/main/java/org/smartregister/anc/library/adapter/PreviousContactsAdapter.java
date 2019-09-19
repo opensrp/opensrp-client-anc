@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -58,7 +58,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
 
                 Facts attentionFlagsFacts = new Facts();
                 for (Map.Entry<String, Object> entry : contactFacts.asMap().entrySet()) {
-                    if (entry.getKey().equals(Constants.DETAILS_KEY.ATTENTION_FLAG_FACTS)) {
+                    if (entry.getKey().equals(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS)) {
                         JSONObject attentionFlags = new JSONObject(String.valueOf(entry.getValue()));
                         Iterator<String> keys = attentionFlags.keys();
 
@@ -78,7 +78,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
     }
 
     private void loadPreviousContactsTest(Facts facts, Facts contactFacts, String contactNo, ViewHolder holder)
-    throws IOException, ParseException {
+            throws IOException, ParseException {
         List<LastContactDetailsWrapper> lastContactDetailsWrapperList = new ArrayList<>();
 
         lastContactDetails = new ArrayList<>();
@@ -86,7 +86,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
         addAttentionFlagsRuleObjects(facts);
 
         Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                .parse(String.valueOf(contactFacts.asMap().get(Constants.CONTACT_DATE)));
+                .parse(String.valueOf(contactFacts.asMap().get(ConstantsUtils.CONTACT_DATE)));
 
         String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
@@ -97,7 +97,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -120,7 +120,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = loadFile(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> attentionFlagsRuleObjects = loadFile(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
 
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
@@ -137,15 +137,15 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
         }
     }
 
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers, ViewHolder holder) {
         LastContactAdapter adapter = new LastContactAdapter(lastContactDetailsWrappers, context);
         adapter.notifyDataSetChanged();
         holder.contactDisplay.setLayoutManager(new LinearLayoutManager(context));
         holder.contactDisplay.setAdapter(adapter);
+    }
+
+    private Iterable<Object> loadFile(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
     }
 
     @Override

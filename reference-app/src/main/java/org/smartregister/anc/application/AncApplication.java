@@ -15,7 +15,7 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -41,36 +41,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private static CommonFtsObject commonFtsObject;
 
     private String password;
-
-
-    public static synchronized AncApplication getInstance() {
-        return (AncApplication) DrishtiApplication.mInstance;
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        if (commonFtsObject == null) {
-            commonFtsObject = new CommonFtsObject(getFtsTables());
-            for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
-            }
-        }
-        return commonFtsObject;
-    }
-
-    private static String[] getFtsTables() {
-        return new String[]{DBConstants.WOMAN_TABLE_NAME};
-    }
-
-    private static String[] getFtsSearchFields() {
-        return new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID};
-
-    }
-
-    private static String[] getFtsSortFields() {
-        return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
-                DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
-    }
 
     @Override
     public void onCreate() {
@@ -113,10 +83,44 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     }
 
-    @NonNull
+    public static CommonFtsObject createCommonFtsObject() {
+        if (commonFtsObject == null) {
+            commonFtsObject = new CommonFtsObject(getFtsTables());
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+            }
+        }
+        return commonFtsObject;
+    }
+
+    private static String[] getFtsTables() {
+        return new String[]{DBConstantsUtils.WOMAN_TABLE_NAME};
+    }
+
+    private static String[] getFtsSearchFields() {
+        return new String[]{DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME, DBConstantsUtils.KEY_UTILS.ANC_ID};
+
+    }
+
+    private static String[] getFtsSortFields() {
+        return new String[]{DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME,
+                DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH, DBConstantsUtils.KEY_UTILS.DATE_REMOVED};
+    }
+
+    public static synchronized AncApplication getInstance() {
+        return (AncApplication) DrishtiApplication.mInstance;
+    }
+
     @Override
-    public ClientProcessorForJava getClientProcessor() {
-        return BaseAncClientProcessorForJava.getInstance(this);
+    public void logoutCurrentUser() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getApplicationContext().startActivity(intent);
+        context.userService().logoutSession();
     }
 
     @Override
@@ -145,28 +149,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return password;
     }
 
+    @NonNull
     @Override
-    public void logoutCurrentUser() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
+    public ClientProcessorForJava getClientProcessor() {
+        return BaseAncClientProcessorForJava.getInstance(this);
     }
 
     public Context getContext() {
         return context;
-    }
-
-    protected void cleanUpSyncState() {
-        try {
-            DrishtiSyncScheduler.stop(getApplicationContext());
-            context.allSharedPreferences().saveIsSyncInProgress(false);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
     }
 
     @Override
@@ -177,6 +167,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         super.onTerminate();
     }
 
+    protected void cleanUpSyncState() {
+        try {
+            DrishtiSyncScheduler.stop(getApplicationContext());
+            context.allSharedPreferences().saveIsSyncInProgress(false);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
 
     @Override
     public void onTimeChanged() {
@@ -192,7 +190,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         logoutCurrentUser();
     }
-
 
 
 }

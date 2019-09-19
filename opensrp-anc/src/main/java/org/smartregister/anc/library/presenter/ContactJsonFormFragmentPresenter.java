@@ -11,7 +11,7 @@ import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
 import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 
 /**
@@ -34,7 +34,7 @@ public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPres
     @Override
     protected boolean moveToNextWizardStep() {
         if (!"".equals(mStepDetails.optString(JsonFormConstants.NEXT))) {
-            JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(Constants.NEXT));
+            JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(ConstantsUtils.NEXT));
             getView().hideKeyBoard();
             getView().transactThis(next);
             return true;
@@ -47,13 +47,13 @@ public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPres
         key = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
         type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
         switch (type) {
-            case Constants.EXPANSION_PANEL:
+            case ConstantsUtils.EXPANSION_PANEL:
                 String info = (String) view.getTag(com.vijay.jsonwizard.R.id.label_dialog_info);
                 if (!TextUtils.isEmpty(info)) {
                     showInformationDialog(view);
                 }
                 break;
-            case Constants.ANC_RADIO_BUTTON:
+            case ConstantsUtils.ANC_RADIO_BUTTON:
                 showInformationDialog(view);
                 break;
             default:
