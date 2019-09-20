@@ -74,12 +74,12 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
 
                 contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break),
-                        Utils.getTodayContact(detailMap.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+                        Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
 
             } else if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.IN_PROGRESS)) {
 
                 contactButtonText = String.format(getString(R.string.continue_contact),
-                        Integer.valueOf(detailMap.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+                        Integer.valueOf(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             }
 
 
@@ -172,7 +172,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private void continueToContact() {
         if (!buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
 
-            String baseEntityId = detailMap.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID);
+            String baseEntityId = detailMap.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 Utils.proceedToContact(baseEntityId, detailMap, ProfileActivity.this);
@@ -241,8 +241,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
         detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
 
-        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE),
-                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS)) ?
+        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE),
+                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS)) ?
                         ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
 
     }

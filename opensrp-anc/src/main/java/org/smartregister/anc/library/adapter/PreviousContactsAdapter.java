@@ -97,7 +97,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -120,7 +120,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = loadFile(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
+        Iterable<Object> attentionFlagsRuleObjects = loadFile(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;

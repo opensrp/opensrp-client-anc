@@ -193,13 +193,13 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         String[] columns = new String[]{
                 tableName + ".relationalid",
-                tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.FIRST_NAME,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_NAME,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.ANC_ID,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.DOB,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.DATE_REMOVED};
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.DOB,
+                tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }

@@ -80,8 +80,8 @@ public class ContactPresenterTest extends BaseUnitTest {
         String lastName = "Last Name Test";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME, firstName);
-        details.put(DBConstantsUtils.KEY_UTILS.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
         ContactPresenter contactPresenter = (ContactPresenter) presenter;
         contactPresenter.setModel(model);

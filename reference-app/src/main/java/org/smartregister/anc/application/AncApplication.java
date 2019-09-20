@@ -99,13 +99,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     }
 
     private static String[] getFtsSearchFields() {
-        return new String[]{DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME, DBConstantsUtils.KEY_UTILS.ANC_ID};
+        return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
 
     }
 
     private static String[] getFtsSortFields() {
-        return new String[]{DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME,
-                DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH, DBConstantsUtils.KEY_UTILS.DATE_REMOVED};
+        return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
+                DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, DBConstantsUtils.KeyUtils.DATE_REMOVED};
     }
 
     public static synchronized AncApplication getInstance() {

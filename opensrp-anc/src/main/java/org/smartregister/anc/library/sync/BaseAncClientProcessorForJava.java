@@ -241,7 +241,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
         content values for such identifiers
          */
-        return new String[]{DBConstantsUtils.KEY_UTILS.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
+        return new String[]{DBConstantsUtils.KeyUtils.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
     }
 
     @Override

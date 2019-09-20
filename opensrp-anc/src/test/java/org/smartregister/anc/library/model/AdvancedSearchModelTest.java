@@ -43,13 +43,13 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         Assert.assertNotNull(editMap);
         Assert.assertEquals(7, editMap.size());
 
-        Assert.assertEquals(firstName, editMap.get(DBConstantsUtils.KEY_UTILS.FIRST_NAME));
-        Assert.assertEquals(lastName, editMap.get(DBConstantsUtils.KEY_UTILS.LAST_NAME));
-        Assert.assertEquals(ancId, editMap.get(DBConstantsUtils.KEY_UTILS.ANC_ID));
-        Assert.assertEquals(edd, editMap.get(DBConstantsUtils.KEY_UTILS.EDD));
-        Assert.assertEquals(dob, editMap.get(DBConstantsUtils.KEY_UTILS.DOB));
-        Assert.assertEquals(phoneNumber, editMap.get(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER));
-        Assert.assertEquals(alternateContact, editMap.get(DBConstantsUtils.KEY_UTILS.ALT_NAME));
+        Assert.assertEquals(firstName, editMap.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
+        Assert.assertEquals(lastName, editMap.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+        Assert.assertEquals(ancId, editMap.get(DBConstantsUtils.KeyUtils.ANC_ID));
+        Assert.assertEquals(edd, editMap.get(DBConstantsUtils.KeyUtils.EDD));
+        Assert.assertEquals(dob, editMap.get(DBConstantsUtils.KeyUtils.DOB));
+        Assert.assertEquals(phoneNumber, editMap.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
+        Assert.assertEquals(alternateContact, editMap.get(DBConstantsUtils.KeyUtils.ALT_NAME));
 
     }
 
@@ -91,9 +91,9 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         Assert.assertNotNull(editMap);
         Assert.assertEquals(3, editMap.size());
 
-        Assert.assertEquals(lastName, editMap.get(DBConstantsUtils.KEY_UTILS.LAST_NAME));
-        Assert.assertEquals(edd, editMap.get(DBConstantsUtils.KEY_UTILS.EDD));
-        Assert.assertEquals(phoneNumber, editMap.get(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER));
+        Assert.assertEquals(lastName, editMap.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+        Assert.assertEquals(edd, editMap.get(DBConstantsUtils.KeyUtils.EDD));
+        Assert.assertEquals(phoneNumber, editMap.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
 
     }
 

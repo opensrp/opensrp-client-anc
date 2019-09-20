@@ -54,7 +54,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     public static JsonWizardFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(DBConstantsUtils.KEY_UTILS.STEPNAME, stepName);
+        bundle.putString(DBConstantsUtils.KeyUtils.STEPNAME, stepName);
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
     }

@@ -63,15 +63,15 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        String[] columns = new String[]{tableName + ".relationalid", tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KEY_UTILS.FIRST_NAME,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_NAME, tableName + "." + DBConstantsUtils.KEY_UTILS.ANC_ID,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.DOB, tableName + "." + DBConstantsUtils.KEY_UTILS.PHONE_NUMBER,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.ALT_NAME, tableName + "." + DBConstantsUtils.KEY_UTILS.DATE_REMOVED,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.EDD, tableName + "." + DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT, tableName + "." + DBConstantsUtils.KEY_UTILS.CONTACT_STATUS,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, tableName + "." + DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE,
-                tableName + "." + DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE};
+        String[] columns = new String[]{tableName + ".relationalid", tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME, tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.DOB, tableName + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                tableName + "." + DBConstantsUtils.KeyUtils.ALT_NAME, tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
+                tableName + "." + DBConstantsUtils.KeyUtils.EDD, tableName + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+                tableName + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, tableName + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+                tableName + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, tableName + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }
@@ -115,8 +115,8 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
-        String[] columns = new String[]{"_id", "relationalid", DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME,
-                DBConstantsUtils.KEY_UTILS.DOB, DBConstantsUtils.KEY_UTILS.ANC_ID, DBConstantsUtils.KEY_UTILS.PHONE_NUMBER, DBConstantsUtils.KEY_UTILS.ALT_NAME};
+        String[] columns = new String[]{"_id", "relationalid", DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
+                DBConstantsUtils.KeyUtils.DOB, DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME};
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
 
         if (response == null || response.isFailure() || StringUtils.isBlank(response.payload())) {

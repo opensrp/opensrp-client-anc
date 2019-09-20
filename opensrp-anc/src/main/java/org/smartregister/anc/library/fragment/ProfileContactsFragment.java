@@ -99,7 +99,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
                 (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
         initializeLastContactDetails(clientDetails);
     }
 
@@ -150,7 +150,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -173,7 +173,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
+        Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
@@ -191,7 +191,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
     private void addTestsRuleObjects(Facts facts) throws IOException {
         Iterable<Object> testsRuleObjects = AncLibrary.getInstance()
-                .readYaml(FilePathUtils.FILE_UTILS.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
+                .readYaml(FilePathUtils.FileUtils.PROFILE_TAB_PREVIOUS_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             YamlConfig testsConfig = (YamlConfig) ruleObject;

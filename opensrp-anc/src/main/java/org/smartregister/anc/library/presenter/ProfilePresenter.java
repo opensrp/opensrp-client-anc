@@ -129,18 +129,18 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     public void refreshProfileTopSection(Map<String, String> client) {
         if (client != null) {
             getProfileView()
-                    .setProfileName(client.get(DBConstantsUtils.KEY_UTILS.FIRST_NAME) + " " + client.get(DBConstantsUtils.KEY_UTILS.LAST_NAME));
-            getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KEY_UTILS.DOB))));
+                    .setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+            getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
             try {
                 getProfileView().setProfileGestationAge(
-                        client.containsKey(DBConstantsUtils.KEY_UTILS.EDD) && client.get(DBConstantsUtils.KEY_UTILS.EDD) != null ?
-                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KEY_UTILS.EDD))) : null);
+                        client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null ?
+                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))) : null);
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
             }
-            getProfileView().setProfileID(client.get(DBConstantsUtils.KEY_UTILS.ANC_ID));
-            getProfileView().setProfileImage(client.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
-            getProfileView().setPhoneNumber(client.get(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER));
+            getProfileView().setProfileID(client.get(DBConstantsUtils.KeyUtils.ANC_ID));
+            getProfileView().setProfileImage(client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
+            getProfileView().setPhoneNumber(client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
         }
     }
 

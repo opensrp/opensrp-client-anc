@@ -83,7 +83,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
 
     private List<YamlConfigWrapper> addTestsRuleObjects(Facts facts) throws IOException {
         List<YamlConfigWrapper> lastContactTests = new ArrayList<>();
-        Iterable<Object> testsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT_TEST);
+        Iterable<Object> testsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();

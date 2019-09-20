@@ -87,8 +87,8 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String lastName = "Smith";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME, firstName);
-        details.put(DBConstantsUtils.KEY_UTILS.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
         PowerMockito.mockStatic(PatientRepository.class);
 
@@ -117,9 +117,9 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, "2");
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2017-04-09");
-        details.put(DBConstantsUtils.KEY_UTILS.EDD, "2017-04-10");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "2");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2017-04-10");
         details.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
 
         Facts facts = new Facts();
@@ -171,9 +171,9 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, "2");
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2017-04-09");
-        details.put(DBConstantsUtils.KEY_UTILS.EDD, "2017-04-10");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "2");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2017-04-10");
         details.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
 
         Facts facts = new Facts();
@@ -217,9 +217,9 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, "2");
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2017-04-09");
-        details.put(DBConstantsUtils.KEY_UTILS.EDD, "2017-04-10");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "2");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2017-04-10");
 
         Facts facts = new Facts();
         facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);

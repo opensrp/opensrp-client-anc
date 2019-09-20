@@ -133,7 +133,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                         client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
                     }
                     JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-                    attributes.put(DBConstantsUtils.KEY_UTILS.DATE_REMOVED, Utils.getTodaysDate());
+                    attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
                     client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
                     getSyncHelper().addClient(baseEntityId, client);
 
@@ -149,7 +149,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     //Update REGISTER and FTS Tables
                     if (getAllCommonsRepository() != null) {
                         ContentValues values = new ContentValues();
-                        values.put(DBConstantsUtils.KEY_UTILS.DATE_REMOVED, Utils.getTodaysDate());
+                        values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
                         getAllCommonsRepository().update(DBConstantsUtils.WOMAN_TABLE_NAME, values, baseEntityId);
                         getAllCommonsRepository().updateSearch(baseEntityId);
 

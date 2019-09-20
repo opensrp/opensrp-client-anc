@@ -83,10 +83,10 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     }
                     final List<ContactSummaryModel> contactDates;
 
-                    final Integer lastContact = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
-                    Integer lastContactSequence = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
+                    final Integer lastContact = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+                    Integer lastContactSequence = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
 
-                    String edd = details.get(DBConstantsUtils.KEY_UTILS.EDD);
+                    String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
                     contactDates = formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
 
                     getAppExecutors().mainThread().execute(new Runnable() {

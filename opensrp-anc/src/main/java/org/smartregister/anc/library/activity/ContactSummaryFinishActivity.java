@@ -115,7 +115,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 @Override
                 protected void onPostExecute(Void result) {
 
-                    String edd = facts.get(DBConstantsUtils.KEY_UTILS.EDD);
+                    String edd = facts.get(DBConstantsUtils.KeyUtils.EDD);
                     String contactNo = String.valueOf(getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
 
                     if (edd != null && saveFinishMenuItem != null) {
@@ -168,7 +168,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             }
         }
 
-        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.CONTACT_SUMMARY);
+        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
 
         yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {

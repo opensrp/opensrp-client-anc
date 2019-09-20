@@ -14,17 +14,17 @@ public class CreateRemoteLocalCursorUtils {
 
     public CreateRemoteLocalCursorUtils(Cursor cursor, boolean isRemote) {
         if (isRemote) {
-            id = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE));
+            id = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
         } else {
-            id = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
+            id = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
         }
-        relationalId = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.RELATIONAL_ID));
-        firstName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.FIRST_NAME));
-        lastName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.LAST_NAME));
-        dob = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.DOB));
-        ancId = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.ANC_ID));
-        phoneNumber = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER));
-        altName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.ALT_NAME));
+        relationalId = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.RELATIONAL_ID));
+        firstName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.FIRST_NAME));
+        lastName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_NAME));
+        dob = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.DOB));
+        ancId = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ANC_ID));
+        phoneNumber = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
+        altName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_NAME));
     }
 
     public String getId() {

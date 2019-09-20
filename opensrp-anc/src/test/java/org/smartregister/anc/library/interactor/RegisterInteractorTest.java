@@ -215,7 +215,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
-        identifiers.put(DBConstantsUtils.KEY_UTILS.ANC_ID, ancId);
+        identifiers.put(DBConstantsUtils.KeyUtils.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
 
         Event event = new Event();
@@ -226,7 +226,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject clientObject = new JSONObject(JsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(JsonFormUtils.gson.toJson(event));
 
-        String jsonString = "{\"" + DBConstantsUtils.KEY_UTILS.ANC_ID + "\":\"" + originalAncId + "\"}";
+        String jsonString = "{\"" + DBConstantsUtils.KeyUtils.ANC_ID + "\":\"" + originalAncId + "\"}";
 
         long timestamp = new Date().getTime();
 

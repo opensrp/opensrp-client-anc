@@ -177,7 +177,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "recordBirthAlertDialog", recordBirthAlertDialog);
 
         CommonPersonObjectClient client = new CommonPersonObjectClient(DUMMY_BASE_ENTITY_ID,
-                ImmutableMap.of(DBConstantsUtils.KEY_UTILS.FIRST_NAME, DUMMY_USERNAME, DBConstantsUtils.KEY_UTILS.EDD, "2018-12-25"),
+                ImmutableMap.of(DBConstantsUtils.KeyUtils.FIRST_NAME, DUMMY_USERNAME, DBConstantsUtils.KeyUtils.EDD, "2018-12-25"),
                 DUMMY_USERNAME);
         Map<String, String> details = new HashMap<>();
         details.putAll(client.getDetails());

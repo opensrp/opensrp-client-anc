@@ -53,8 +53,8 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
                 (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
 
         mProfilePresenter = new PreviousContactTestsPresenter(this);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
-        String lastContactRecordDate = clientDetails.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE);
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+        String lastContactRecordDate = clientDetails.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
 
         setUpViews();
         try {

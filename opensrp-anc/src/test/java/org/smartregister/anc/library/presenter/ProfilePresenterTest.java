@@ -124,21 +124,21 @@ public class ProfilePresenterTest extends BaseUnitTest {
         ProfileContract.Presenter presenterSpy = Mockito.spy(presenter);
 
         Map<String, String> client = new ArrayMap<>();
-        client.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME, DUMMY_USERNAME);
-        client.put(DBConstantsUtils.KEY_UTILS.LAST_NAME, DUMMY_USERNAME);
-        client.put(DBConstantsUtils.KEY_UTILS.DOB, "1997-08-09");
-        client.put(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        client.put(DBConstantsUtils.KEY_UTILS.ANC_ID, TEST_STRING);
-        client.put(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER, TEST_STRING);
+        client.put(DBConstantsUtils.KeyUtils.FIRST_NAME, DUMMY_USERNAME);
+        client.put(DBConstantsUtils.KeyUtils.LAST_NAME, DUMMY_USERNAME);
+        client.put(DBConstantsUtils.KeyUtils.DOB, "1997-08-09");
+        client.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        client.put(DBConstantsUtils.KeyUtils.ANC_ID, TEST_STRING);
+        client.put(DBConstantsUtils.KeyUtils.PHONE_NUMBER, TEST_STRING);
 
         presenterSpy.refreshProfileTopSection(client);
 
 
-        Mockito.verify(view).setProfileName(client.get(DBConstantsUtils.KEY_UTILS.FIRST_NAME) + " " + client.get(DBConstantsUtils.KEY_UTILS.LAST_NAME));
-        Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KEY_UTILS.DOB))));
-        Mockito.verify(view).setProfileID(client.get(DBConstantsUtils.KEY_UTILS.ANC_ID));
-        Mockito.verify(view).setProfileImage(client.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
-        Mockito.verify(view).setPhoneNumber(client.get(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER));
+        Mockito.verify(view).setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+        Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
+        Mockito.verify(view).setProfileID(client.get(DBConstantsUtils.KeyUtils.ANC_ID));
+        Mockito.verify(view).setProfileImage(client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
+        Mockito.verify(view).setPhoneNumber(client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
 
     }
 

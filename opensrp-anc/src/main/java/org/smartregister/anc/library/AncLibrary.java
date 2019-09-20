@@ -294,7 +294,7 @@ public class AncLibrary {
 
     public Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(
-                getApplicationContext().getAssets().open((FilePathUtils.FOLDER_UTILS.CONFIG_FOLDER_PATH + filename)));
+                getApplicationContext().getAssets().open((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
     }
 

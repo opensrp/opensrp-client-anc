@@ -100,13 +100,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         Cursor cursor = getView().getRawCustomQueryForAdapter(query);
         if (cursor != null && cursor.getCount() > 0) {
             AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(
-                    new String[]{DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE, DBConstantsUtils.KEY_UTILS.RELATIONAL_ID, DBConstantsUtils.KEY_UTILS.FIRST_NAME,
-                            DBConstantsUtils.KEY_UTILS.LAST_NAME, DBConstantsUtils.KEY_UTILS.DOB, DBConstantsUtils.KEY_UTILS.ANC_ID,
-                            DBConstantsUtils.KEY_UTILS.PHONE_NUMBER, DBConstantsUtils.KEY_UTILS.ALT_NAME});
+                    new String[]{DBConstantsUtils.KeyUtils.ID_LOWER_CASE, DBConstantsUtils.KeyUtils.RELATIONAL_ID, DBConstantsUtils.KeyUtils.FIRST_NAME,
+                            DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB, DBConstantsUtils.KeyUtils.ANC_ID,
+                            DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME});
 
             CursorJoiner joiner =
-                    new CursorJoiner(matrixCursor, new String[]{DBConstantsUtils.KEY_UTILS.ANC_ID, DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE},
-                            cursor, new String[]{DBConstantsUtils.KEY_UTILS.ANC_ID, DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE});
+                    new CursorJoiner(matrixCursor, new String[]{DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.ID_LOWER_CASE},
+                            cursor, new String[]{DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.ID_LOWER_CASE});
             for (CursorJoiner.Result joinerResult : joiner) {
                 switch (joinerResult) {
                     case BOTH:

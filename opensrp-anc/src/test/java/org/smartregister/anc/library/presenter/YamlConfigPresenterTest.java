@@ -129,8 +129,8 @@ public class YamlConfigPresenterTest extends BaseUnitTest {
         String lastName = "Smith";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME, firstName);
-        details.put(DBConstantsUtils.KEY_UTILS.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
         contactSummaryPresenter.onWomanDetailsFetched(details);
         Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(), false);
 

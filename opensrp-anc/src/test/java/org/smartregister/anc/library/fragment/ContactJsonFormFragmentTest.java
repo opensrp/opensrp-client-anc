@@ -101,7 +101,7 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
         formFragmentSpy.onCreateView(layoutInflater, viewGroup, bundle);
 
         Bundle fragmentArgs = formFragmentSpy.getArguments();
-        Assert.assertEquals(JsonFormConstants.FIRST_STEP_NAME, fragmentArgs.get(DBConstantsUtils.KEY_UTILS.STEPNAME));
+        Assert.assertEquals(JsonFormConstants.FIRST_STEP_NAME, fragmentArgs.get(DBConstantsUtils.KeyUtils.STEPNAME));
     }
 
     @Test

@@ -204,7 +204,7 @@ public class Utils extends org.smartregister.util.Utils {
             Contact quickCheck = new Contact();
             quickCheck.setName(context.getResources().getString(R.string.quick_check));
             quickCheck.setFormName(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK);
-            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             quickCheck.setBackground(R.drawable.quick_check_bg);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackIcon(R.drawable.ic_clear);
@@ -240,7 +240,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
-                        Integer.valueOf(personObjectClient.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+                        Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
                 context.startActivity(intent);
             }
 
@@ -248,7 +248,7 @@ public class Utils extends org.smartregister.util.Utils {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             Utils.showToast(context,
-                    "Error proceeding to contact for client " + personObjectClient.get(DBConstantsUtils.KEY_UTILS.FIRST_NAME));
+                    "Error proceeding to contact for client " + personObjectClient.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
         }
     }
 
@@ -301,12 +301,12 @@ public class Utils extends org.smartregister.util.Utils {
 
             Intent contactSummaryFinishIntent = new Intent(context, ContactSummaryFinishActivity.class);
             contactSummaryFinishIntent
-                    .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, womanDetails.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
+                    .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
             contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, womanDetails);
             contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
-                    Integer.valueOf(womanDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+                    Integer.valueOf(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             if (isRefferal) {
-                int contactNo = Integer.parseInt(womanDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
+                int contactNo = Integer.parseInt(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
                 if (contactNo < 0) {
                     contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, Integer.valueOf(contactNo));
                 } else {
@@ -314,7 +314,7 @@ public class Utils extends org.smartregister.util.Utils {
                 }
             } else {
                 contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
-                        Integer.valueOf(womanDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+                        Integer.valueOf(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             }
             context.startActivity(contactSummaryFinishIntent);
         } catch (Exception e) {
@@ -380,7 +380,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
 
         Intent intent = new Intent(context, ProfileActivity.class);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);
         context.startActivity(intent);
     }
@@ -395,10 +395,10 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, String textTemplate) {
 
-        String contactStatus = details.get(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS);
+        String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
-        String nextContactDate = details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE);
-        String edd = details.get(DBConstantsUtils.KEY_UTILS.EDD);
+        String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
+        String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
         String buttonAlertStatus;
         Integer gestationAge = 0;
         if (StringUtils.isNotBlank(edd)) {
@@ -415,7 +415,7 @@ public class Utils extends org.smartregister.util.Utils {
         ButtonAlertStatus buttonAlertStatus1 = new ButtonAlertStatus();
 
         //Set text first
-        String nextContactRaw = details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT);
+        String nextContactRaw = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.valueOf(nextContactRaw) : 1;
 
         nextContactDate =
@@ -426,7 +426,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         buttonAlertStatus =
-                Utils.processContactDoneToday(details.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
+                Utils.processContactDoneToday(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
 
         buttonAlertStatus1.buttonAlertStatus = buttonAlertStatus;
         buttonAlertStatus1.gestationAge = gestationAge;

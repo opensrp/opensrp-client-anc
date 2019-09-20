@@ -58,14 +58,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         if (details != null) {
             try {
                 String referral = details.get(ConstantsUtils.REFERRAL);
-                String baseEntityId = details.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID);
+                String baseEntityId = details.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
 
                 int gestationAge = getGestationAge(details);
                 int nextContact;
                 boolean isFirst = false;
                 String nextContactVisitDate;
                 if (referral == null) {
-                    isFirst = TextUtils.equals("1", details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
+                    isFirst = TextUtils.equals("1", details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
                     ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
                     List<Integer> integerList = AncLibrary.getInstance().getAncRulesEngineHelper()
@@ -80,13 +80,13 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                             .add(baseEntityId, ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, jsonObject.toString(),
                                     Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
-                    LocalDate localDate = new LocalDate(details.get(DBConstantsUtils.KEY_UTILS.EDD));
+                    LocalDate localDate = new LocalDate(details.get(DBConstantsUtils.KeyUtils.EDD));
                     nextContactVisitDate =
                             localDate.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
                     nextContact = getNextContact(details);
                 } else {
-                    nextContact = Integer.parseInt(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
-                    nextContactVisitDate = details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE);
+                    nextContact = Integer.parseInt(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+                    nextContactVisitDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
                 }
 
 
@@ -118,7 +118,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 addTheContactDate(baseEntityId, details);
                 updateWomanDetails(details, womanDetail);
-                if (referral != null && !TextUtils.isEmpty(details.get(DBConstantsUtils.KEY_UTILS.EDD))) {
+                if (referral != null && !TextUtils.isEmpty(details.get(DBConstantsUtils.KeyUtils.EDD))) {
                     addReferralGa(baseEntityId, details);
                 }
 
@@ -144,8 +144,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private int getNextContact(Map<String, String> details) {
         Integer nextContact =
-                details.containsKey(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT) && details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT) != null ?
-                        Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)) : 1;
+                details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ?
+                        Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }
@@ -168,25 +168,25 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
         //update woman profile details
         if (details != null && details.get(ConstantsUtils.REFERRAL) != null) {
-            details.put(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE, details.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE));
-            details.put(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT, details.get(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT));
-            details.put(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT, details.get(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT));
+            details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
+            details.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, details.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT));
+            details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, details.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
         } else {
-            details.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, womanDetail.getContactStatus());
-            details.put(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
-            details.put(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
-            details.put(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
+            details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
+            details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
+            details.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
+            details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
 
         }
-        details.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, womanDetail.getContactStatus());
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, womanDetail.getNextContact().toString());
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
+        details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetail.getNextContact().toString());
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
     }
 
     private void addReferralGa(String baseEntityId, Map<String, String> details) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.GEST_AGE_OPENMRS);
-        String edd = details.get(DBConstantsUtils.KEY_UTILS.EDD);
+        String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
         previousContact.setValue(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
         AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
@@ -209,7 +209,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = new PreviousContact();
         previousContact.setBaseEntityId(baseEntityId);
         String contactNo = details.containsKey(ConstantsUtils.REFERRAL) ? details.get(ConstantsUtils.REFERRAL) :
-                details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT);
+                details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         previousContact.setContactNo(contactNo);
         return previousContact;
     }
@@ -235,7 +235,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     public int getGestationAge(Map<String, String> details) {
-        return details.containsKey(DBConstantsUtils.KEY_UTILS.EDD) && details.get(DBConstantsUtils.KEY_UTILS.EDD) != null ? Utils
-                .getGestationAgeFromEDDate(details.get(DBConstantsUtils.KEY_UTILS.EDD)) : 4;
+        return details.containsKey(DBConstantsUtils.KeyUtils.EDD) && details.get(DBConstantsUtils.KeyUtils.EDD) != null ? Utils
+                .getGestationAgeFromEDDate(details.get(DBConstantsUtils.KeyUtils.EDD)) : 4;
     }
 }

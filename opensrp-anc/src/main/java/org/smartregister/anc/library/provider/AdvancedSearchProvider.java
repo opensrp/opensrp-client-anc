@@ -165,13 +165,13 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
                                        AdvancedSearchViewHolder viewHolder) {
 
-        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.FIRST_NAME, true);
-        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.LAST_NAME, true);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.FIRST_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_NAME, true);
         String patientName = Utils.getName(firstName, lastName);
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.DOB, false));
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
@@ -180,7 +180,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
     }
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
-        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.ANC_ID, false);
+        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 

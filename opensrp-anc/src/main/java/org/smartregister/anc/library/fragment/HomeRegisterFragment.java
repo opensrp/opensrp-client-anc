@@ -126,7 +126,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
 
     @Override
     protected String getDefaultSortQuery() {
-        return DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH + " DESC";
+        return DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH + " DESC";
     }
 
     @Override
@@ -149,7 +149,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
             if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= ConstantsUtils.DELIVERY_DATE_WEEKS) {
                 baseHomeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
-                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, false);
+                String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, false);
 
                 if (StringUtils.isNotBlank(baseEntityId)) {
                     Utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
@@ -178,7 +178,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                             facts.put(key, jsonObject.get(key));
                         }
 
-                        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
+                        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
                         for (Object ruleObject : ruleObjects) {
                             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;

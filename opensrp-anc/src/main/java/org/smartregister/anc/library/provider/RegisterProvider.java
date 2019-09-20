@@ -139,18 +139,18 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
                                        RegisterViewHolder viewHolder) {
 
-        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.FIRST_NAME, true);
-        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.LAST_NAME, true);
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.FIRST_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_NAME, true);
         String patientName = Utils.getName(firstName, lastName);
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.DOB, false));
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
 
-        String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.EDD, false);
+        String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, false);
 
         if (StringUtils.isNotBlank(edd)) {
             fillValue((viewHolder.ga),
@@ -169,8 +169,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         attachAlertButtonOnclickListener(dueButton, client);
 
 
-        String redFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT, false);
-        String yellowFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT, false);
+        String redFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, false);
+        String yellowFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, false);
 
         int redFlagCount = !TextUtils.isEmpty(redFlagCountRaw) ? Integer.valueOf(redFlagCountRaw) : 0;
         int yellowFlagCount = !TextUtils.isEmpty(yellowFlagCountRaw) ? Integer.valueOf(yellowFlagCountRaw) : 0;
@@ -191,7 +191,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KEY_UTILS.ANC_ID, false);
+        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
         fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 

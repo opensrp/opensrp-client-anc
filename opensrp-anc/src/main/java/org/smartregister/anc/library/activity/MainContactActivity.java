@@ -65,7 +65,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1);
         @SuppressWarnings("unchecked") Map<String, String> womanDetails =
                 (Map<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KEY_UTILS.DOB)));
+        womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KeyUtils.DOB)));
 
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
@@ -189,7 +189,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void loadContactGlobalsConfig() throws IOException {
-        Iterable<Object> contactGlobals = readYaml(FilePathUtils.FILE_UTILS.CONTACT_GLOBALS);
+        Iterable<Object> contactGlobals = readYaml(FilePathUtils.FileUtils.CONTACT_GLOBALS);
 
         for (Object ruleObject : contactGlobals) {
             Map<String, Object> map = ((Map<String, Object>) ruleObject);
@@ -244,7 +244,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     public Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader =
-                new InputStreamReader(this.getAssets().open((FilePathUtils.FOLDER_UTILS.CONFIG_FOLDER_PATH + filename)));
+                new InputStreamReader(this.getAssets().open((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
     }
 
@@ -700,7 +700,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             String lastContactDate =
                     ((HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP))
-                            .get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE);
+                            .get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
             map.put(ConstantsUtils.KeyUtils.LAST_CONTACT_DATE,
                     !TextUtils.isEmpty(lastContactDate) ? Utils.reverseHyphenSeperatedValues(lastContactDate, "-") : "");
 

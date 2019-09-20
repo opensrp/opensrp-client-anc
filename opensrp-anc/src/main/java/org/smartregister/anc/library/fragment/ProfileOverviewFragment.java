@@ -63,7 +63,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getString(R.string.contact_number_due));
         yamlConfigListGlobal = new ArrayList<>();
         baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             Facts facts = AncLibrary.getInstance().getPreviousContactRepository()
                     .getPreviousContactFacts(baseEntityId, contactNo, false);
 
-            Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_OVERVIEW);
+            Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_OVERVIEW);
 
             for (Object ruleObject : ruleObjects) {
                 List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();

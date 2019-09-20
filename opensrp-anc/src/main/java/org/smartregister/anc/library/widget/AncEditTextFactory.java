@@ -33,8 +33,8 @@ public class AncEditTextFactory extends EditTextFactory {
     @Override
     public List<View> getViewsFromJson(String stepName, Context context, JsonFormFragment formFragment,
                                        JSONObject jsonObject, CommonListener listener, boolean popup) throws Exception {
-        if (jsonObject.has(DBConstantsUtils.KEY_UTILS.NUMBER_PICKER) &&
-                jsonObject.get(DBConstantsUtils.KEY_UTILS.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
+        if (jsonObject.has(DBConstantsUtils.KeyUtils.NUMBER_PICKER) &&
+                jsonObject.get(DBConstantsUtils.KeyUtils.NUMBER_PICKER).toString().equalsIgnoreCase(Boolean.TRUE.toString())) {
             List<View> views = new ArrayList<>(1);
 
             RelativeLayout rootLayout = getRootLayout(context);

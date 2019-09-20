@@ -43,7 +43,7 @@ public class PartialContacts {
                             .getPartialContacts(baseEntityId, Integer.valueOf(details.get(ConstantsUtils.REFERRAL)));
                 } else {
                     partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
-                            Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+                            Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
                 }
             }
         } else {

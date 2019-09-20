@@ -164,7 +164,7 @@ public class JsonFormUtilsTest {
         resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
-        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, DBConstantsUtils.KEY_UTILS.ANC_ID);
+        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, DBConstantsUtils.KeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
         Assert.assertEquals(DUMMY_LOCATION_ID, resultObject.getJSONObject(org.smartregister.anc.library.util.JsonFormUtils.METADATA).get(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_LOCATION));
@@ -254,16 +254,16 @@ public class JsonFormUtilsTest {
         String lastName = "Last Name";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME, firstName);
-        details.put(DBConstantsUtils.KEY_UTILS.LAST_NAME, lastName);
-        details.put(DBConstantsUtils.KEY_UTILS.EDD, "2018-10-19");
-        details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2018-08-09");
-        details.put(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstantsUtils.KEY_UTILS.ANC_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstantsUtils.KEY_UTILS.DOB, "09-08-1995");
-        details.put(DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN, "false");
-        details.put(DBConstantsUtils.KEY_UTILS.HOME_ADDRESS, "Roysambu");
-        details.put(DBConstantsUtils.KEY_UTILS.AGE, "23");
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2018-10-19");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2018-08-09");
+        details.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KeyUtils.ANC_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KeyUtils.DOB, "09-08-1995");
+        details.put(DBConstantsUtils.KeyUtils.DOB_UNKNOWN, "false");
+        details.put(DBConstantsUtils.KeyUtils.HOME_ADDRESS, "Roysambu");
+        details.put(DBConstantsUtils.KeyUtils.AGE, "23");
 
         PowerMockito.mockStatic(CoreLibrary.class);
         PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
@@ -292,8 +292,8 @@ public class JsonFormUtilsTest {
 
         List<FormLocation> formLocations = new ArrayList<>();
         FormLocation formLocation = new FormLocation();
-        formLocation.key = DBConstantsUtils.KEY_UTILS.HOME_ADDRESS;
-        formLocation.name = details.get(DBConstantsUtils.KEY_UTILS.HOME_ADDRESS);
+        formLocation.key = DBConstantsUtils.KeyUtils.HOME_ADDRESS;
+        formLocation.name = details.get(DBConstantsUtils.KeyUtils.HOME_ADDRESS);
         formLocations.add(formLocation);
 
 

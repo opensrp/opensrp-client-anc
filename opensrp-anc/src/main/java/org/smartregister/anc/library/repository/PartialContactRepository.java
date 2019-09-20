@@ -31,7 +31,6 @@ public class PartialContactRepository extends BaseRepository {
     public static final String CONTACT_NO = "contact_no";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    private static final String TAG = PartialContactRepository.class.getCanonicalName();
     private static final String CREATE_TABLE_SQL =
             "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + BASE_ENTITY_ID +
                     "  VARCHAR NOT NULL, " + TYPE + "  VARCHAR NOT NULL, " + FORM_JSON + "  VARCHAR, " + FORM_JSON_DRAFT +

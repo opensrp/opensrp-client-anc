@@ -15,8 +15,8 @@ public abstract class BaseContactModel {
     private FormUtils formUtils;
 
     protected String extractPatientName(Map<String, String> womanDetails) {
-        String firstName = extractValue(womanDetails, DBConstantsUtils.KEY_UTILS.FIRST_NAME);
-        String lastName = extractValue(womanDetails, DBConstantsUtils.KEY_UTILS.LAST_NAME);
+        String firstName = extractValue(womanDetails, DBConstantsUtils.KeyUtils.FIRST_NAME);
+        String lastName = extractValue(womanDetails, DBConstantsUtils.KeyUtils.LAST_NAME);
 
         if (StringUtils.isBlank(firstName) && StringUtils.isBlank(lastName)) {
             return "";

@@ -27,13 +27,13 @@ public class PatientRepository {
     private static final String TAG = PatientRepository.class.getCanonicalName();
 
     private static final String[] projection =
-            new String[]{DBConstantsUtils.KEY_UTILS.FIRST_NAME, DBConstantsUtils.KEY_UTILS.LAST_NAME, DBConstantsUtils.KEY_UTILS.DOB,
-                    DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN, DBConstantsUtils.KEY_UTILS.PHONE_NUMBER, DBConstantsUtils.KEY_UTILS.ALT_NAME,
-                    DBConstantsUtils.KEY_UTILS.ALT_PHONE_NUMBER, DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID, DBConstantsUtils.KEY_UTILS.ANC_ID,
-                    DBConstantsUtils.KEY_UTILS.REMINDERS, DBConstantsUtils.KEY_UTILS.HOME_ADDRESS, DBConstantsUtils.KEY_UTILS.EDD,
-                    DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE,
-                    DBConstantsUtils.KEY_UTILS.VISIT_START_DATE, DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT, DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT,
-                    DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE};
+            new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
+                    DBConstantsUtils.KeyUtils.DOB_UNKNOWN, DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,
+                    DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.ANC_ID,
+                    DBConstantsUtils.KeyUtils.REMINDERS, DBConstantsUtils.KeyUtils.HOME_ADDRESS, DBConstantsUtils.KeyUtils.EDD,
+                    DBConstantsUtils.KeyUtils.CONTACT_STATUS, DBConstantsUtils.KeyUtils.NEXT_CONTACT, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                    DBConstantsUtils.KeyUtils.VISIT_START_DATE, DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
+                    DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
 
     public static Map<String, String> getWomanProfileDetails(String baseEntityId) {
         Cursor cursor = null;
@@ -44,46 +44,46 @@ public class PatientRepository {
 
             String query =
                     "SELECT " + StringUtils.join(projection, ",") + " FROM " + DBConstantsUtils.WOMAN_TABLE_NAME + " WHERE " +
-                            DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID + " = ?";
+                            DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?";
             cursor = db.rawQuery(query, new String[]{baseEntityId});
             if (cursor != null && cursor.moveToFirst()) {
                 detailsMap = new HashMap<>();
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.FIRST_NAME,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.FIRST_NAME)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.FIRST_NAME,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.FIRST_NAME)));
                 detailsMap
-                        .put(DBConstantsUtils.KEY_UTILS.LAST_NAME, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.LAST_NAME)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.ANC_ID, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.ANC_ID)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.DOB, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.DOB)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.PHONE_NUMBER)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.ALT_NAME, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.ALT_NAME)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.ALT_PHONE_NUMBER,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.ALT_PHONE_NUMBER)));
+                        .put(DBConstantsUtils.KeyUtils.LAST_NAME, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_NAME)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.ANC_ID, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ANC_ID)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.DOB, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.DOB)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.DOB_UNKNOWN,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.DOB_UNKNOWN)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.ID_LOWER_CASE,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PHONE_NUMBER)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.ALT_NAME, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_NAME)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER)));
                 detailsMap
-                        .put(DBConstantsUtils.KEY_UTILS.REMINDERS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.REMINDERS)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.HOME_ADDRESS,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.HOME_ADDRESS)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.EDD, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.EDD)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.VISIT_START_DATE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.VISIT_START_DATE)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT)));
-                detailsMap.put(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE)));
+                        .put(DBConstantsUtils.KeyUtils.REMINDERS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.REMINDERS)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.HOME_ADDRESS,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.HOME_ADDRESS)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.EDD, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.EDD)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.CONTACT_STATUS)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.VISIT_START_DATE,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.VISIT_START_DATE)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
+                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE)));
             }
             return detailsMap;
         } catch (Exception e) {
@@ -102,33 +102,33 @@ public class PatientRepository {
 
     public static void updateWomanAlertStatus(String baseEntityId, String alertStatus) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, alertStatus);
-        contentValues.put(DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
+        contentValues.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, alertStatus);
+        contentValues.put(DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
         getMasterRepository().getWritableDatabase()
-                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID + " = ?",
+                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
 
     public static void updateContactVisitDetails(WomanDetail patientDetail, boolean isFinalize) {
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, patientDetail.getNextContact());
-        contentValues.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, patientDetail.getNextContactDate());
-        contentValues.put(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT, patientDetail.getYellowFlagCount());
-        contentValues.put(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
-        contentValues.put(DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
-        contentValues.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, patientDetail.getContactStatus());
+        contentValues.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, patientDetail.getNextContact());
+        contentValues.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, patientDetail.getNextContactDate());
+        contentValues.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, patientDetail.getYellowFlagCount());
+        contentValues.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, patientDetail.getRedFlagCount());
+        contentValues.put(DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
+        contentValues.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, patientDetail.getContactStatus());
         if (isFinalize) {
             if (!patientDetail.isReferral()) {
                 contentValues
-                        .put(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+                        .put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
             } else {
-                contentValues.put(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
+                contentValues.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
             }
         }
         AncLibrary.getInstance().getRepository().getWritableDatabase()
-                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID + " = ?",
+                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{patientDetail.getBaseEntityId()});
     }
 
@@ -136,13 +136,13 @@ public class PatientRepository {
 
         ContentValues contentValues = new ContentValues();
         if (edd != null) {
-            contentValues.put(DBConstantsUtils.KEY_UTILS.EDD, edd);
+            contentValues.put(DBConstantsUtils.KeyUtils.EDD, edd);
             //contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
         } else {
-            contentValues.putNull(DBConstantsUtils.KEY_UTILS.EDD);
+            contentValues.putNull(DBConstantsUtils.KeyUtils.EDD);
         }
         AncLibrary.getInstance().getRepository().getWritableDatabase()
-                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID + " = ?",
+                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
 
@@ -150,12 +150,12 @@ public class PatientRepository {
 
         ContentValues contentValues = new ContentValues();
         if (contactVisitStartDate != null) {
-            contentValues.put(DBConstantsUtils.KEY_UTILS.VISIT_START_DATE, contactVisitStartDate);
+            contentValues.put(DBConstantsUtils.KeyUtils.VISIT_START_DATE, contactVisitStartDate);
         } else {
-            contentValues.putNull(DBConstantsUtils.KEY_UTILS.VISIT_START_DATE);
+            contentValues.putNull(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
         }
         AncLibrary.getInstance().getRepository().getWritableDatabase()
-                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID + " = ?",
+                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
 
@@ -179,51 +179,51 @@ public class PatientRepository {
         String copyDataSQL = String.format("INSERT INTO %s(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s FROM %s",
                 DBConstantsUtils.WOMAN_TABLE_NAME,
                 "id",
-                DBConstantsUtils.KEY_UTILS.RELATIONAL_ID,
-                DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID,
-                DBConstantsUtils.KEY_UTILS.ANC_ID,
-                DBConstantsUtils.KEY_UTILS.FIRST_NAME,
-                DBConstantsUtils.KEY_UTILS.LAST_NAME,
-                DBConstantsUtils.KEY_UTILS.DOB,
-                DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN,
-                DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH,
-                DBConstantsUtils.KEY_UTILS.DATE_REMOVED,
-                DBConstantsUtils.KEY_UTILS.PHONE_NUMBER,
-                DBConstantsUtils.KEY_UTILS.ALT_NAME,
-                DBConstantsUtils.KEY_UTILS.ALT_PHONE_NUMBER,
-                DBConstantsUtils.KEY_UTILS.REMINDERS,
-                DBConstantsUtils.KEY_UTILS.HOME_ADDRESS,
-                DBConstantsUtils.KEY_UTILS.EDD,
-                DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT,
-                DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT,
-                DBConstantsUtils.KEY_UTILS.CONTACT_STATUS,
-                DBConstantsUtils.KEY_UTILS.NEXT_CONTACT,
-                DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE,
-                DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE,
-                DBConstantsUtils.KEY_UTILS.VISIT_START_DATE,
+                DBConstantsUtils.KeyUtils.RELATIONAL_ID,
+                DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+                DBConstantsUtils.KeyUtils.ANC_ID,
+                DBConstantsUtils.KeyUtils.FIRST_NAME,
+                DBConstantsUtils.KeyUtils.LAST_NAME,
+                DBConstantsUtils.KeyUtils.DOB,
+                DBConstantsUtils.KeyUtils.DOB_UNKNOWN,
+                DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+                DBConstantsUtils.KeyUtils.DATE_REMOVED,
+                DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                DBConstantsUtils.KeyUtils.ALT_NAME,
+                DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
+                DBConstantsUtils.KeyUtils.REMINDERS,
+                DBConstantsUtils.KeyUtils.HOME_ADDRESS,
+                DBConstantsUtils.KeyUtils.EDD,
+                DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+                DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
+                DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+                DBConstantsUtils.KeyUtils.NEXT_CONTACT,
+                DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
+                DBConstantsUtils.KeyUtils.VISIT_START_DATE,
                 "id",
-                DBConstantsUtils.KEY_UTILS.RELATIONAL_ID,
-                DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID,
+                DBConstantsUtils.KeyUtils.RELATIONAL_ID,
+                DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
                 "anc_id",
-                DBConstantsUtils.KEY_UTILS.FIRST_NAME,
-                DBConstantsUtils.KEY_UTILS.LAST_NAME,
-                DBConstantsUtils.KEY_UTILS.DOB,
-                DBConstantsUtils.KEY_UTILS.DOB_UNKNOWN,
-                DBConstantsUtils.KEY_UTILS.LAST_INTERACTED_WITH,
-                DBConstantsUtils.KEY_UTILS.DATE_REMOVED,
-                DBConstantsUtils.KEY_UTILS.PHONE_NUMBER,
-                DBConstantsUtils.KEY_UTILS.ALT_NAME,
-                DBConstantsUtils.KEY_UTILS.ALT_PHONE_NUMBER,
-                DBConstantsUtils.KEY_UTILS.REMINDERS,
-                DBConstantsUtils.KEY_UTILS.HOME_ADDRESS,
-                DBConstantsUtils.KEY_UTILS.EDD,
-                DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT,
-                DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT,
-                DBConstantsUtils.KEY_UTILS.CONTACT_STATUS,
-                DBConstantsUtils.KEY_UTILS.NEXT_CONTACT,
-                DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE,
-                DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE,
-                DBConstantsUtils.KEY_UTILS.VISIT_START_DATE,
+                DBConstantsUtils.KeyUtils.FIRST_NAME,
+                DBConstantsUtils.KeyUtils.LAST_NAME,
+                DBConstantsUtils.KeyUtils.DOB,
+                DBConstantsUtils.KeyUtils.DOB_UNKNOWN,
+                DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+                DBConstantsUtils.KeyUtils.DATE_REMOVED,
+                DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                DBConstantsUtils.KeyUtils.ALT_NAME,
+                DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
+                DBConstantsUtils.KeyUtils.REMINDERS,
+                DBConstantsUtils.KeyUtils.HOME_ADDRESS,
+                DBConstantsUtils.KeyUtils.EDD,
+                DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+                DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
+                DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+                DBConstantsUtils.KeyUtils.NEXT_CONTACT,
+                DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
+                DBConstantsUtils.KeyUtils.VISIT_START_DATE,
                 "ec_woman");
 
         // Copy over the data

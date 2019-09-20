@@ -70,7 +70,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
                 (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
+        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
         mProfilePresenter = new PreviousContactDetailsPresenter(this);
         setUpViews();
 
@@ -90,7 +90,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 mProfilePresenter.loadPreviousContacts(baseEntityId, contactNo);
                 mProfilePresenter
-                        .loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstantsUtils.KEY_UTILS.EDD));
+                        .loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstantsUtils.KeyUtils.EDD));
             }
         } catch (ParseException | IOException | JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -180,7 +180,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -203,7 +203,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;

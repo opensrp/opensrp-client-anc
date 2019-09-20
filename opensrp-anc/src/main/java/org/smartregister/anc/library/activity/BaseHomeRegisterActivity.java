@@ -473,13 +473,13 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {
         //This is required
         getIntent()
-                .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
+                .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
 
         recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.record_birth_popup_message),
-                Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.EDD)),
-                Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.EDD)),
-                        dateFormatter), Utils.getDuration(client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.EDD)),
-                client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.FIRST_NAME)));
+                Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstantsUtils.KeyUtils.EDD)),
+                Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstantsUtils.KeyUtils.EDD)),
+                        dateFormatter), Utils.getDuration(client.getColumnmaps().get(DBConstantsUtils.KeyUtils.EDD)),
+                client.getColumnmaps().get(DBConstantsUtils.KeyUtils.FIRST_NAME)));
         recordBirthAlertDialog.show();
     }
 

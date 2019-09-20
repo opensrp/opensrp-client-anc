@@ -35,25 +35,25 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
                                              String phoneNumber, String alternateContact, boolean isLocal) {
         Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(firstName)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.FIRST_NAME : GLOBAL_FIRST_NAME, firstName);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.FIRST_NAME : GLOBAL_FIRST_NAME, firstName);
         }
         if (StringUtils.isNotBlank(lastName)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.LAST_NAME : GLOBAL_LAST_NAME, lastName);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.LAST_NAME : GLOBAL_LAST_NAME, lastName);
         }
         if (StringUtils.isNotBlank(ancId)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.ANC_ID : GLOBAL_IDENTIFIER, isLocal ? ancId : ANC_ID + ":" + ancId);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.ANC_ID : GLOBAL_IDENTIFIER, isLocal ? ancId : ANC_ID + ":" + ancId);
         }
         if (StringUtils.isNotBlank(edd)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.EDD : GLOBAL_ATTRIBUTE, isLocal ? edd : EDD_ATTR + ":" + edd);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.EDD : GLOBAL_ATTRIBUTE, isLocal ? edd : EDD_ATTR + ":" + edd);
         }
         if (StringUtils.isNotBlank(dob)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.DOB : GLOBAL_BIRTH_DATE, dob);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.DOB : GLOBAL_BIRTH_DATE, dob);
         }
         if (StringUtils.isNotBlank(phoneNumber)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.PHONE_NUMBER : PHONE_NUMBER, phoneNumber);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.PHONE_NUMBER : PHONE_NUMBER, phoneNumber);
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            editMap.put(isLocal ? DBConstantsUtils.KEY_UTILS.ALT_NAME : ALT_CONTACT_NAME, alternateContact);
+            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.ALT_NAME : ALT_CONTACT_NAME, alternateContact);
         }
         return editMap;
     }

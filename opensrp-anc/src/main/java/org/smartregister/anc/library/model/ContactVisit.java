@@ -89,19 +89,19 @@ public class ContactVisit {
         if (referral != null) {
             int yellowFlagCount = 0;
             int redFlagCount = 0;
-            if (details.containsKey(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT) && details.get(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT) != null) {
-                yellowFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.YELLOW_FLAG_COUNT));
+            if (details.containsKey(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT) && details.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT) != null) {
+                yellowFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT));
             }
 
-            if (details.containsKey(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT) && details.get(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT) != null) {
-                redFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KEY_UTILS.RED_FLAG_COUNT));
+            if (details.containsKey(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT) && details.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT) != null) {
+                redFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
             }
 
             womanDetail.setYellowFlagCount(yellowFlagCount);
             womanDetail.setRedFlagCount(redFlagCount);
-            womanDetail.setContactStatus(details.get(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS));
+            womanDetail.setContactStatus(details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS));
             womanDetail.setReferral(true);
-            womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE));
+            womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
         }
         PatientRepository.updateContactVisitDetails(womanDetail, true);
         return this;
@@ -158,7 +158,7 @@ public class ContactVisit {
     }
 
     private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FILE_UTILS.ATTENTION_FLAGS);
+        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
