@@ -349,9 +349,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AlertRule alertRule = new AlertRule(30, "2019-07-09");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-09"));
 
-        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
 
-        assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE, buttonAlertStatus);
+        assertEquals(ConstantsUtils.AlertStatusUtils.NOT_DUE, buttonAlertStatus);
     }
 
 
@@ -361,9 +361,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AlertRule alertRule = new AlertRule(30, "2018-11-09");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-09"));
 
-        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
 
-        assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.DUE, buttonAlertStatus);
+        assertEquals(ConstantsUtils.AlertStatusUtils.DUE, buttonAlertStatus);
     }
 
 
@@ -374,9 +374,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AlertRule alertRule = new AlertRule(30, "2018-11-01");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-09"));
 
-        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
 
-        assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.OVERDUE, buttonAlertStatus);
+        assertEquals(ConstantsUtils.AlertStatusUtils.OVERDUE, buttonAlertStatus);
     }
 
 
@@ -387,9 +387,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AlertRule alertRule = new AlertRule(41, "2018-11-11");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-12"));
 
-        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
 
-        assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.DELIVERY_DUE, buttonAlertStatus);
+        assertEquals(ConstantsUtils.AlertStatusUtils.DELIVERY_DUE, buttonAlertStatus);
     }
 
     @Test
@@ -399,9 +399,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AlertRule alertRule = new AlertRule(42, "2018-11-04");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-11"));
 
-        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
 
-        assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.EXPIRED, buttonAlertStatus);
+        assertEquals(ConstantsUtils.AlertStatusUtils.EXPIRED, buttonAlertStatus);
     }
 
 
@@ -412,9 +412,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         AlertRule alertRule = new AlertRule(42, "2018-10-09");
         Whitebox.setInternalState(alertRule, ALERT_RULE_FIELD_TODAY_DATE, new LocalDate("2018-11-09"));
 
-        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+        String buttonAlertStatus = ancRulesEngineHelper.getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
 
-        assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.EXPIRED, buttonAlertStatus);
+        assertEquals(ConstantsUtils.AlertStatusUtils.EXPIRED, buttonAlertStatus);
     }
 
     @Test
@@ -424,7 +424,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
-                .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
@@ -440,7 +440,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
-                .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
@@ -455,7 +455,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
-                .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
@@ -470,7 +470,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
-                .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
@@ -485,7 +485,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
-                .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 
@@ -500,7 +500,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         List<Integer> scheduleWeeksList = ancRulesEngineHelperSpy
-                .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
         Assert.assertNotNull(scheduleWeeksList);
 

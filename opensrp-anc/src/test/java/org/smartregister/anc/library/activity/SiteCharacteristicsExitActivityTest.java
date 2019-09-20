@@ -34,7 +34,7 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
     public void setUp() {
         super.setUp();
         Intent testIntent = new Intent();
-        testIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, true);
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, true);
 
         controller = Robolectric.buildActivity(SiteCharacteristicsExitActivity.class, testIntent).create().start();
         activity = controller.get();

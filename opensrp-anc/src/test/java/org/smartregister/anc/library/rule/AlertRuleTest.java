@@ -34,7 +34,7 @@ public class AlertRuleTest extends BaseUnitTest {
 
     @Test
     public void testGetButtonStatusReturnsCorrectDefaultValue() {
-        Assert.assertEquals(ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE, alertRule.getButtonStatus());
+        Assert.assertEquals(ConstantsUtils.AlertStatusUtils.NOT_DUE, alertRule.getButtonStatus());
     }
 
     @Test

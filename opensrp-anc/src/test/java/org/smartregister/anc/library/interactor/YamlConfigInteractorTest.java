@@ -120,10 +120,10 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, "2");
         details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2017-04-09");
         details.put(DBConstantsUtils.KEY_UTILS.EDD, "2017-04-10");
-        details.put(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
+        details.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
 
         Facts facts = new Facts();
-        facts.put(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, contactScheduleList);
+        facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);
@@ -174,10 +174,10 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT, "2");
         details.put(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT_DATE, "2017-04-09");
         details.put(DBConstantsUtils.KEY_UTILS.EDD, "2017-04-10");
-        details.put(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
+        details.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
 
         Facts facts = new Facts();
-        facts.put(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, contactScheduleList);
+        facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);
@@ -222,7 +222,7 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KEY_UTILS.EDD, "2017-04-10");
 
         Facts facts = new Facts();
-        facts.put(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, contactScheduleList);
+        facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);

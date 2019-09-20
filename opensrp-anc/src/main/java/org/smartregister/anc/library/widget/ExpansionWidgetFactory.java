@@ -153,8 +153,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         }
         recordView.setTag(R.id.key, jsonObject.getString(JsonFormConstants.KEY));
         recordView.setTag(R.id.type, jsonObject.getString(JsonFormConstants.TYPE));
-        if (jsonObject.has(ConstantsUtils.JSON_FORM_CONSTANTS_UTILS.CONTACT_CONTAINER)) {
-            String container = jsonObject.optString(ConstantsUtils.JSON_FORM_CONSTANTS_UTILS.CONTACT_CONTAINER, null);
+        if (jsonObject.has(ConstantsUtils.JsonFormConstantsUtils.CONTACT_CONTAINER)) {
+            String container = jsonObject.optString(ConstantsUtils.JsonFormConstantsUtils.CONTACT_CONTAINER, null);
             recordView.setTag(R.id.contact_container, container);
         }
 
@@ -268,16 +268,16 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
         if (stringValues.length >= 2) {
             String valueDisplay = list.split(":")[1];
 
-            if (valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.ORDERED) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE) ||
-                    valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.NOT_DONE)) {
+            if (valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.ORDERED) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE) ||
+                    valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.NOT_DONE)) {
 
                 formUtils.changeIcon(imageView, valueDisplay, context);
                 return true;
@@ -295,8 +295,8 @@ public class ExpansionWidgetFactory implements FormWidgetFactory {
                 JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
                 if (values.length() == 1) {
                     String object = values.getString(0);
-                    if (object.contains(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER) ||
-                            object.contains(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY)) {
+                    if (object.contains(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER) ||
+                            object.contains(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY)) {
                         showHiddenViews = false;
                     }
                 }

@@ -67,9 +67,9 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             actionBar.setTitle(getResources().getString(R.string.previous_contacts_header));
         }
 
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
+                (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
         mProfilePresenter = new PreviousContactDetailsPresenter(this);
         setUpViews();

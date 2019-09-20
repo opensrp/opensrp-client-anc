@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -18,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class PartialContactRepository extends BaseRepository {
     public static final String TABLE_NAME = "partial_contact";
@@ -52,10 +53,10 @@ public class PartialContactRepository extends BaseRepository {
     public PartialContactRepository(Repository repository) {
         super(repository);
 
-        formProcessingOrderMap = ImmutableMap.<String, Integer>builder().put(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK, 1)
-                .put(ConstantsUtils.JSON_FORM_UTILS.ANC_PROFILE, 2).put(ConstantsUtils.JSON_FORM_UTILS.ANC_SYMPTOMS_FOLLOW_UP, 3)
-                .put(ConstantsUtils.JSON_FORM_UTILS.ANC_PHYSICAL_EXAM, 4).put(ConstantsUtils.JSON_FORM_UTILS.ANC_TEST, 5)
-                .put(ConstantsUtils.JSON_FORM_UTILS.ANC_COUNSELLING_TREATMENT, 6).build();
+        formProcessingOrderMap = ImmutableMap.<String, Integer>builder().put(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, 1)
+                .put(ConstantsUtils.JsonFormUtils.ANC_PROFILE, 2).put(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, 3)
+                .put(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM, 4).put(ConstantsUtils.JsonFormUtils.ANC_TEST, 5)
+                .put(ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, 6).build();
     }
 
     public static void createTable(SQLiteDatabase database) {
@@ -111,7 +112,7 @@ public class PartialContactRepository extends BaseRepository {
                 dbPartialContact = getContactResult(mCursor);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e,"PartialContactRepository --> getPartialContact");
 
         } finally {
             if (mCursor != null) {
@@ -188,7 +189,7 @@ public class PartialContactRepository extends BaseRepository {
                 return partialContactList;
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e,"PartialContactRepository --> getPartialContacts");
         } finally {
             if (mCursor != null) {
                 mCursor.close();
@@ -205,14 +206,12 @@ public class PartialContactRepository extends BaseRepository {
     }
 
     public void saveFinalJson(String baseEntityId) {
-
         getWritableDatabase().execSQL(
                 "UPDATE " + TABLE_NAME + " SET " + FORM_JSON + "=" + FORM_JSON_DRAFT + ", " + FORM_JSON_DRAFT +
                         "= NULL WHERE " + BASE_ENTITY_ID + " = ? AND " + FORM_JSON_DRAFT + " IS NOT NULL",
                 new String[]{baseEntityId});
 
-        PatientRepository patientRepository = new PatientRepository();
-        PatientRepository.updateWomanAlertStatus(baseEntityId, ConstantsUtils.ALERT_STATUS_UTILS.ACTIVE);
+        PatientRepository.updateWomanAlertStatus(baseEntityId, ConstantsUtils.AlertStatusUtils.ACTIVE);
     }
 
     public void deletePartialContact(Long id) {
@@ -220,7 +219,6 @@ public class PartialContactRepository extends BaseRepository {
     }
 
     public void clearPartialRepository() {
-
         getWritableDatabase().delete(TABLE_NAME, "_id IS NOT NULL", null);
     }
 }

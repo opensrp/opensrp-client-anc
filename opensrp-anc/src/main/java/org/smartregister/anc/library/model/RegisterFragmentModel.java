@@ -108,7 +108,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
         Map<String, String> editMap = new LinkedHashMap<>();
         if (StringUtils.isNotBlank(ancId)) {
 
-            editMap.put(GLOBAL_IDENTIFIER, ConstantsUtils.IDENTIFIER_UTILS.ANC_ID + ":" + ancId);
+            editMap.put(GLOBAL_IDENTIFIER, ConstantsUtils.IdentifierUtils.ANC_ID + ":" + ancId);
         }
         return editMap;
     }
@@ -159,7 +159,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
                     }
                 }
 
-                ancId = getJsonString(getJsonObject(client, "identifiers"), ConstantsUtils.IDENTIFIER_UTILS.ANC_ID);
+                ancId = getJsonString(getJsonObject(client, "identifiers"), ConstantsUtils.IdentifierUtils.ANC_ID);
                 if (StringUtils.isNotBlank(ancId)) {
                     ancId = ancId.replace("-", "");
                 }

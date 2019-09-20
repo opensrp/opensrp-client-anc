@@ -23,7 +23,7 @@ public class FetchSiteCharacteristicsTask extends AsyncTask<Void, Void, List<Ser
 
     @Override
     protected List<ServerSetting> doInBackground(final Void... params) {
-        ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PREF_KEY_UTILS.SITE_CHARACTERISTICS);
+        ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         List<ServerSetting> characteristics = helper.getServerSettings();
 
         return characteristics;

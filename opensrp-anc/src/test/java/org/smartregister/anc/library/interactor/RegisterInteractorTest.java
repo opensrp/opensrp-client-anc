@@ -140,7 +140,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
-        identifiers.put(ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID, ancId);
+        identifiers.put(ConstantsUtils.JsonFormKeyUtils.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
 
         Event event = new Event();

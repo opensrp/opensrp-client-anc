@@ -54,20 +54,20 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     Map<String, String> clientDetails =
                             AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
                     JSONObject rawContactSchedule;
-                    if (clientDetails.containsKey(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE)) {
+                    if (clientDetails.containsKey(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
                         rawContactSchedule = new JSONObject(
                                 AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
-                                        .get(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE));
+                                        .get(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE));
                     } else {
                         rawContactSchedule = new JSONObject();
                     }
 
                     List<String> contactSchedule = new ArrayList<>();
                     if (StringUtils.isEmpty(referralContactNo)) {
-                        if (rawContactSchedule.has(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE)) {
+                        if (rawContactSchedule.has(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
                             contactSchedule =
                                     Utils.getListFromString(
-                                            rawContactSchedule.getString(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE));
+                                            rawContactSchedule.getString(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE));
                         }
                     } else {
                         int previousContact = getPreviousContactNo(referralContactNo);

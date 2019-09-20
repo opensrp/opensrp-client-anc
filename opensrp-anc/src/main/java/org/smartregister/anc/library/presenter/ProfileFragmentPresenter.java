@@ -61,8 +61,8 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
 
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
-            if (factsAsMap.containsKey(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS)) {
-                attentionFlags = (String) factsAsMap.get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS);
+            if (factsAsMap.containsKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)) {
+                attentionFlags = (String) factsAsMap.get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
             }
 
             if (!TextUtils.isEmpty(attentionFlags)) {

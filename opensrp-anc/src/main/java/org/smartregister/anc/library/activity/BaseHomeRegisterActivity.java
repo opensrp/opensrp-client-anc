@@ -42,7 +42,6 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
@@ -195,8 +194,8 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     @Override
     public void startFormActivity(JSONObject form) {
         Intent intent = new Intent(this, JsonFormActivity.class);
-        intent.putExtra(ConstantsUtils.JSON_FORM_EXTRA_UTILS.JSON, form.toString());
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
+        startActivityForResult(intent, org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -224,13 +223,13 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+        if (requestCode == org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             try {
-                String jsonString = data.getStringExtra(ConstantsUtils.JSON_FORM_EXTRA_UTILS.JSON);
+                String jsonString = data.getStringExtra(ConstantsUtils.JsonFormExtraUtils.JSON);
                 Log.d("JSONResult", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                switch (form.getString(JsonFormUtils.ENCOUNTER_TYPE)) {
+                switch (form.getString(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_TYPE)) {
                     case ConstantsUtils.EventTypeUtils.REGISTRATION:
                         ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
                         break;
@@ -241,11 +240,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                         break;
                     case ConstantsUtils.EventTypeUtils.QUICK_CHECK:
                         Contact contact = new Contact();
-                        contact.setContactNumber(getIntent().getIntExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, 0));
+                        contact.setContactNumber(getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0));
                         ContactJsonFormUtils
-                                .persistPartial(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID), contact);
+                                .persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
                         PatientRepository
-                                .updateContactVisitStartDate(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID),
+                                .updateContactVisitStartDate(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
                                         Utils.getDBDateToday());
                         break;
                     default:
@@ -270,7 +269,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public List<String> getViewIdentifiers() {
-        return Arrays.asList(ConstantsUtils.CONFIGURATION_UTILS.HOME_REGISTER);
+        return Arrays.asList(ConstantsUtils.ConfigurationUtils.HOME_REGISTER);
     }
 
     @Override
@@ -336,7 +335,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.record_birth).toUpperCase(),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        JsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this);
+                        org.smartregister.anc.library.util.JsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this);
                     }
                 });
         return alertDialog;
@@ -468,13 +467,13 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startRegistration() {
-        startFormActivity(ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER, null, null);
+        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
     }
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {
         //This is required
         getIntent()
-                .putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
+                .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
 
         recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.record_birth_popup_message),
                 Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstantsUtils.KEY_UTILS.EDD)),

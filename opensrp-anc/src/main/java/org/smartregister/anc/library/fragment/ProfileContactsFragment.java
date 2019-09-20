@@ -96,9 +96,9 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         if (testsDisplayLayout != null) {
             testsDisplayLayout.removeAllViews();
         }
-        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
+                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
         initializeLastContactDetails(clientDetails);
     }
@@ -263,20 +263,20 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
     private void goToPreviousContacts() {
         Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
+        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
+                getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
 
         this.startActivity(intent);
     }
 
     private void goToPreviousContactsTests() {
         Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
+        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
+                getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
 
         this.startActivity(intent);
     }

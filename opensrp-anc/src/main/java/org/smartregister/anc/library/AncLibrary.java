@@ -245,8 +245,8 @@ public class AncLibrary {
 
     public void populateGlobalSettings() {
 
-        Setting setting = getCharactersitics(ConstantsUtils.PREF_KEY_UTILS.SITE_CHARACTERISTICS);
-        Setting populationSetting = getCharactersitics(ConstantsUtils.PREF_KEY_UTILS.POPULATION_CHARACTERISTICS);
+        Setting setting = getCharactersitics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
+        Setting populationSetting = getCharactersitics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 
         populateGlobalSettingsCore(setting);
         populateGlobalSettingsCore(populationSetting);

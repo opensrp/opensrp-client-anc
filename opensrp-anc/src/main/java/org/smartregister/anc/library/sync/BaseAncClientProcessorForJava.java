@@ -61,7 +61,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         Log.e(TAG, "Inside the BaseAncClientProcessorForJava");
 
         ClientClassification clientClassification =
-                assetJsonToJava(ConstantsUtils.EC_FILE_UTILS.CLIENT_CLASSIFICATION, ClientClassification.class);
+                assetJsonToJava(ConstantsUtils.EcFileUtils.CLIENT_CLASSIFICATION, ClientClassification.class);
 
         if (!eventClients.isEmpty()) {
             List<Event> unsyncEvents = new ArrayList<>();
@@ -79,12 +79,12 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
     private void processVisit(Event event) {
         //Attention flags
         AncLibrary.getInstance().getDetailsRepository()
-                .add(event.getBaseEntityId(), ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS,
-                        event.getDetails().get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS),
+                .add(event.getBaseEntityId(), ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS,
+                        event.getDetails().get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS),
                         Calendar.getInstance().getTimeInMillis());
 
         //Previous contact state
-        String previousContactsRaw = event.getDetails().get(ConstantsUtils.DETAILS_KEY_UTILS.PREVIOUS_CONTACTS);
+        String previousContactsRaw = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS);
         Map<String, String> previousContactMap = AncLibrary.getInstance().getGsonInstance()
                 .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
                 }.getType());
@@ -241,7 +241,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
         content values for such identifiers
          */
-        return new String[]{DBConstantsUtils.KEY_UTILS.ANC_ID, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID};
+        return new String[]{DBConstantsUtils.KEY_UTILS.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
     }
 
     @Override
@@ -256,7 +256,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
             String registeredAnm = allSharedPreferences.fetchRegisteredANM();
 
-            ClientField clientField = assetJsonToJava(ConstantsUtils.EC_FILE_UTILS.CLIENT_FIELDS, ClientField.class);
+            ClientField clientField = assetJsonToJava(ConstantsUtils.EcFileUtils.CLIENT_FIELDS, ClientField.class);
             if (clientField == null) {
                 return false;
             }

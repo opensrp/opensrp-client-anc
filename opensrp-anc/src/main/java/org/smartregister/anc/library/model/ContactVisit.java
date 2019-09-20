@@ -20,7 +20,6 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 
 import java.io.IOException;
@@ -48,9 +47,9 @@ public class ContactVisit {
     private WomanDetail womanDetail;
     private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
     private List<String> parsableFormsList =
-            Arrays.asList(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK, ConstantsUtils.JSON_FORM_UTILS.ANC_PROFILE,
-                    ConstantsUtils.JSON_FORM_UTILS.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JSON_FORM_UTILS.ANC_PHYSICAL_EXAM,
-                    ConstantsUtils.JSON_FORM_UTILS.ANC_TEST, ConstantsUtils.JSON_FORM_UTILS.ANC_COUNSELLING_TREATMENT);
+            Arrays.asList(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
+                    ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
+                    ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -121,7 +120,7 @@ public class ContactVisit {
             });
 
             for (PartialContact partialContact : partialContactList) {
-                JSONObject formObject = JsonFormUtils.toJSONObject(
+                JSONObject formObject = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(
                         partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
                                 partialContact.getFormJson());
 
@@ -136,10 +135,10 @@ public class ContactVisit {
                     ContactJsonFormUtils.processRequiredStepsField(facts, formObject);
 
                     //process events
-                    Event event = JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
+                    Event event = org.smartregister.anc.library.util.JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
                     formSubmissionIDs.add(event.getFormSubmissionId());
 
-                    JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                    JSONObject eventJson = new JSONObject(org.smartregister.anc.library.util.JsonFormUtils.gson.toJson(event));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
                 }
 
@@ -154,7 +153,7 @@ public class ContactVisit {
         womanDetail.setBaseEntityId(baseEntityId);
         womanDetail.setNextContact(nextContact);
         womanDetail.setNextContactDate(nextContactVisitDate);
-        womanDetail.setContactStatus(ConstantsUtils.ALERT_STATUS_UTILS.TODAY);
+        womanDetail.setContactStatus(ConstantsUtils.AlertStatusUtils.TODAY);
         return womanDetail;
     }
 
@@ -175,8 +174,8 @@ public class ContactVisit {
             }
         }
 
-        Integer redCount = attentionFlagCountMap.get(ConstantsUtils.ATTENTION_FLAG_UTILS.RED);
-        Integer yellowCount = attentionFlagCountMap.get(ConstantsUtils.ATTENTION_FLAG_UTILS.YELLOW);
+        Integer redCount = attentionFlagCountMap.get(ConstantsUtils.AttentionFlagUtils.RED);
+        Integer yellowCount = attentionFlagCountMap.get(ConstantsUtils.AttentionFlagUtils.YELLOW);
         patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
         patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
     }
@@ -210,9 +209,9 @@ public class ContactVisit {
                             savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
-                        if (fieldObject.has(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES) &&
-                                fieldObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES).length() > 0) {
-                            JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES);
+                        if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES) &&
+                                fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).length() > 0) {
+                            JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
                                 secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
@@ -236,7 +235,7 @@ public class ContactVisit {
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
             String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
-                    object.getString(ConstantsUtils.JSON_FORM_KEY_UTILS.ENCOUNTER_TYPE)
+                    object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)
                             .toLowerCase().replace(" ", "_");
             savePreviousContactItem(baseEntityId, new JSONObject()
                     .put(JsonFormConstants.KEY, key)

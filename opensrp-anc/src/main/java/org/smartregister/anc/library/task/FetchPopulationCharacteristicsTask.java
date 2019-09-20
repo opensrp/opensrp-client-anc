@@ -22,7 +22,7 @@ public class FetchPopulationCharacteristicsTask extends AsyncTask<Void, Void, Li
 
     @Override
     protected List<ServerSetting> doInBackground(final Void... params) {
-        ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PREF_KEY_UTILS.POPULATION_CHARACTERISTICS);
+        ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
         return helper.getServerSettings();
     }
 

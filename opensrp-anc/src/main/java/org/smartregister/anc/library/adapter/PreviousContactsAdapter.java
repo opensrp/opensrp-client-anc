@@ -58,7 +58,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
 
                 Facts attentionFlagsFacts = new Facts();
                 for (Map.Entry<String, Object> entry : contactFacts.asMap().entrySet()) {
-                    if (entry.getKey().equals(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS)) {
+                    if (entry.getKey().equals(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)) {
                         JSONObject attentionFlags = new JSONObject(String.valueOf(entry.getValue()));
                         Iterator<String> keys = attentionFlags.keys();
 

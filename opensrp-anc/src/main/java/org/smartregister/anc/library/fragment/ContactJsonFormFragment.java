@@ -193,7 +193,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             contactTitle = view.findViewById(R.id.contact_title);
 
             if (getContact() != null && getContact().getBackIcon() > 0 &&
-                    getContact().getFormName().equals(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK)) {
+                    getContact().getFormName().equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
                 goBackButton.setImageResource(R.drawable.ic_clear);
                 goBackButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -274,7 +274,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      * @author dubdabasoduba
      */
     private void goToContactFinalize(Dialog dialog) {
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         Contact contact = getContact();
         if (contact != null) {
             int contactNo = contact.getContactNumber();
@@ -288,7 +288,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
 
         Utils.finalizeForm(getActivity(),
-                ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP)),
+                ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP)),
                 true);
 
         dialog.dismiss();

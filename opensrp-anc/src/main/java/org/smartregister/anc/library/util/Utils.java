@@ -203,7 +203,7 @@ public class Utils extends org.smartregister.util.Utils {
 
             Contact quickCheck = new Contact();
             quickCheck.setName(context.getResources().getString(R.string.quick_check));
-            quickCheck.setFormName(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK);
+            quickCheck.setFormName(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK);
             quickCheck.setContactNumber(Integer.valueOf(personObjectClient.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
             quickCheck.setBackground(R.drawable.quick_check_bg);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
@@ -226,20 +226,20 @@ public class Utils extends org.smartregister.util.Utils {
             String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 
             if (hasPendingRequiredFields(new JSONObject(processedForm))) {
-                intent.putExtra(ConstantsUtils.JSON_FORM_EXTRA_UTILS.JSON, processedForm);
+                intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, processedForm);
                 intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, personObjectClient);
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, partialContactRequest.getContactNo());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
                 Activity activity = (Activity) context;
-                activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+                activity.startActivityForResult(intent, org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
                 intent = new Intent(context, MainContactActivity.class);
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, personObjectClient);
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO,
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                         Integer.valueOf(personObjectClient.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
                 context.startActivity(intent);
             }
@@ -272,7 +272,7 @@ public class Utils extends org.smartregister.util.Utils {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        boolean isRequiredField = JsonFormUtils.isFieldRequired(fieldObject);
+                        boolean isRequiredField = org.smartregister.anc.library.util.JsonFormUtils.isFieldRequired(fieldObject);
                         //Do not check for required for fields that are invisible
                         if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                             isRequiredField = false;
@@ -301,19 +301,19 @@ public class Utils extends org.smartregister.util.Utils {
 
             Intent contactSummaryFinishIntent = new Intent(context, ContactSummaryFinishActivity.class);
             contactSummaryFinishIntent
-                    .putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, womanDetails.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
-            contactSummaryFinishIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, womanDetails);
-            contactSummaryFinishIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO,
+                    .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, womanDetails.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID));
+            contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, womanDetails);
+            contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                     Integer.valueOf(womanDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
             if (isRefferal) {
                 int contactNo = Integer.parseInt(womanDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT));
                 if (contactNo < 0) {
-                    contactSummaryFinishIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, Integer.valueOf(contactNo));
+                    contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, Integer.valueOf(contactNo));
                 } else {
-                    contactSummaryFinishIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, Integer.valueOf("-" + contactNo));
+                    contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, Integer.valueOf("-" + contactNo));
                 }
             } else {
-                contactSummaryFinishIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO,
+                contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                         Integer.valueOf(womanDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
             }
             context.startActivity(contactSummaryFinishIntent);
@@ -339,7 +339,7 @@ public class Utils extends org.smartregister.util.Utils {
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
-                Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SUFFIX_UTILS.OTHER) : "";
+                Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
                         value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
@@ -373,15 +373,15 @@ public class Utils extends org.smartregister.util.Utils {
     public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
         Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, isRemote);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, isRemote);
         context.startActivity(intent);
     }
 
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
 
         Intent intent = new Intent(context, ProfileActivity.class);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE));
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, patient);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KEY_UTILS.ID_LOWER_CASE));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);
         context.startActivity(intent);
     }
 
@@ -405,11 +405,11 @@ public class Utils extends org.smartregister.util.Utils {
             gestationAge = Utils.getGestationAgeFromEDDate(edd);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
             buttonAlertStatus =
-                    StringUtils.isNotBlank(contactStatus) && ConstantsUtils.ALERT_STATUS_UTILS.ACTIVE.equals(contactStatus) ?
-                            ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
-                            .getButtonAlertStatus(alertRule, ConstantsUtils.RULES_FILE_UTILS.ALERT_RULES);
+                    StringUtils.isNotBlank(contactStatus) && ConstantsUtils.AlertStatusUtils.ACTIVE.equals(contactStatus) ?
+                            ConstantsUtils.AlertStatusUtils.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
+                            .getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
         } else {
-            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS : "DEAD";
+            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "DEAD";
         }
 
         ButtonAlertStatus buttonAlertStatus1 = new ButtonAlertStatus();
@@ -469,7 +469,7 @@ public class Utils extends org.smartregister.util.Utils {
         if (!TextUtils.isEmpty(lastContactDate)) {
 
             try {
-                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.ALERT_STATUS_UTILS.TODAY :
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.AlertStatusUtils.TODAY :
                         alertStatus;
             } catch (ParseException e) {
                 Log.e(TAG, e.getMessage());
@@ -488,39 +488,39 @@ public class Utils extends org.smartregister.util.Utils {
 
         if (buttonAlertStatus.buttonAlertStatus != null) {
             switch (buttonAlertStatus.buttonAlertStatus) {
-                case ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS:
+                case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     break;
-                case ConstantsUtils.ALERT_STATUS_UTILS.DUE:
+                case ConstantsUtils.AlertStatusUtils.DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     break;
-                case ConstantsUtils.ALERT_STATUS_UTILS.OVERDUE:
+                case ConstantsUtils.AlertStatusUtils.OVERDUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     break;
-                case ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE:
+                case ConstantsUtils.AlertStatusUtils.NOT_DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     break;
-                case ConstantsUtils.ALERT_STATUS_UTILS.DELIVERY_DUE:
+                case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     dueButton.setText(context.getString(R.string.due_delivery));
                     break;
-                case ConstantsUtils.ALERT_STATUS_UTILS.EXPIRED:
+                case ConstantsUtils.AlertStatusUtils.EXPIRED:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     dueButton.setText(context.getString(R.string.due_delivery));
                     break;
-                case ConstantsUtils.ALERT_STATUS_UTILS.TODAY:
+                case ConstantsUtils.AlertStatusUtils.TODAY:
                     dueButton.setVisibility(View.GONE);
                     contactTextView.setVisibility(View.VISIBLE);
                     contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),

@@ -77,8 +77,8 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     public void goToHomeRegisterPage() {
         Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN,
-                getIntent().getBooleanExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, false));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
+                getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 
         finish();//finish this
@@ -86,8 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     public void goToSiteCharacteristicsExitPage() {
         Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN,
-                getIntent().getBooleanExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, false));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
+                getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 
         finish();//finish this

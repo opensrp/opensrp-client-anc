@@ -58,8 +58,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
-        contactNo = getIntent().getExtras().getInt(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO);
+        baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        contactNo = getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO);
 
         setUpViews();
 
@@ -81,7 +81,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         collapsingToolbarLayout.setTitleEnabled(false);
         if (contactNo > 0) {
             actionBar.setTitle(String.format(this.getString(R.string.contact_number),
-                    getIntent().getExtras().getInt(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO)));
+                    getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)));
         }
     }
 
@@ -108,7 +108,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                     showProgressDialog(R.string.please_wait_message);
                     progressDialog.setMessage(
                             String.format(context().applicationContext().getString(R.string.summarizing_contact_number),
-                                    getIntent().getExtras().getInt(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO)) + " data");
+                                    getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
                     progressDialog.show();
                 }
 
@@ -116,7 +116,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 protected void onPostExecute(Void result) {
 
                     String edd = facts.get(DBConstantsUtils.KEY_UTILS.EDD);
-                    String contactNo = String.valueOf(getIntent().getExtras().getInt(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO));
+                    String contactNo = String.valueOf(getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
 
                     if (edd != null && saveFinishMenuItem != null) {
 
@@ -155,8 +155,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         JSONObject object;
 
         List<PartialContact> partialContacts = getPartialContactRepository()
-                .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID),
-                        getIntent().getIntExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, 1));
+                .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
+                        getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1));
 
         if (partialContacts != null && !partialContacts.isEmpty()) {
             for (PartialContact partialContact : partialContacts) {
@@ -235,8 +235,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             protected Void doInBackground(Void... nada) {
                 try {
                     HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
-                            .getWomanProfileDetails(getIntent().getExtras().getString(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
-                    int contactNo = getIntent().getExtras().getInt(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO);
+                            .getWomanProfileDetails(getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+                    int contactNo = getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO);
                     if (contactNo < 0) {
                         womanProfileDetails.put(ConstantsUtils.REFERRAL, String.valueOf(contactNo));
                     }
@@ -254,7 +254,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 showProgressDialog(R.string.please_wait_message);
                 progressDialog.setMessage(
                         String.format(context().applicationContext().getString(R.string.finalizing_contact),
-                                getIntent().getExtras().getInt(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO)) + " data");
+                                getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
                 progressDialog.show();
             }
 
@@ -263,9 +263,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 hideProgressDialog();
                 Intent contactSummaryIntent =
                         new Intent(ContactSummaryFinishActivity.this, ContactSummarySendActivity.class);
-                contactSummaryIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID,
-                        getIntent().getExtras().getString(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
-                contactSummaryIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, newWomanProfileDetails);
+                contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
+                        getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+                contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, newWomanProfileDetails);
 
                 startActivity(contactSummaryIntent);
             }

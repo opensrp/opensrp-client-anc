@@ -125,12 +125,12 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(AncLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
-        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID)), ArgumentMatchers.eq(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
+        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID)), ArgumentMatchers.eq(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
         List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40});
 
         PowerMockito.when(
-                ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES))).thenReturn(integerList);
+                ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(ConstantsUtils.RulesFileUtils.CONTACT_RULES))).thenReturn(integerList);
 
         PowerMockito.mockStatic(PatientRepository.class);
         ContactInteractor contactInteractor = (ContactInteractor) interactor;

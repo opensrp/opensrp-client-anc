@@ -131,7 +131,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
 
     @Override
     protected void startRegistration() {
-        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JSON_FORM_UTILS.ANC_REGISTER, null, null);
+        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
     }
 
     @Override
@@ -166,7 +166,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
 
                         JSONObject jsonObject = new JSONObject(
                                 AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
-                                        .get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS));
+                                        .get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS));
 
                         Facts facts = new Facts();
 
@@ -190,7 +190,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
 
                                     attentionFlagList
                                             .add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts),
-                                                    attentionFlagConfig.getGroup().equals(ConstantsUtils.ATTENTION_FLAG_UTILS.RED)));
+                                                    attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.RED)));
 
                                 }
 

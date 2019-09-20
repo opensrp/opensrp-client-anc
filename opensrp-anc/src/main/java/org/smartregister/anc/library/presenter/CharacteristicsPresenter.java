@@ -45,7 +45,7 @@ public class CharacteristicsPresenter implements SiteCharacteristicsContract.Pre
 
     @Override
     public void launchSiteCharacteristicsFormForEdit() {
-        Map<String, String> settings = getSettingsMapByType(ConstantsUtils.PREF_KEY_UTILS.SITE_CHARACTERISTICS);
+        Map<String, String> settings = getSettingsMapByType(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         getSiteCharacteristicsView().launchSiteCharacteristicsSettingsFormForEdit(settings);
     }
 

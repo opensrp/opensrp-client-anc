@@ -71,12 +71,12 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             String contactButtonText = getString(R.string.start_contact);
 
-            if (buttonAlertStatus.equals(ConstantsUtils.ALERT_STATUS_UTILS.TODAY)) {
+            if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
 
                 contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break),
                         Utils.getTodayContact(detailMap.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
 
-            } else if (buttonAlertStatus.equals(ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS)) {
+            } else if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.IN_PROGRESS)) {
 
                 contactButtonText = String.format(getString(R.string.continue_contact),
                         Integer.valueOf(detailMap.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
@@ -170,7 +170,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     private void continueToContact() {
-        if (!buttonAlertStatus.equals(ConstantsUtils.ALERT_STATUS_UTILS.TODAY)) {
+        if (!buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
 
             String baseEntityId = detailMap.get(DBConstantsUtils.KEY_UTILS.BASE_ENTITY_ID);
 
@@ -193,7 +193,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     protected void onResumption() {
         super.onResumption();
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
     }
@@ -206,7 +206,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     public void onClick(View view) {
         if (view.getId() == R.id.profile_overview_due_button) {
 
-            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 Utils.proceedToContact(baseEntityId, detailMap, getActivity());
@@ -239,11 +239,11 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     private void getButtonAlertStatus() {
 
-        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
+        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
 
         buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE),
-                ConstantsUtils.ALERT_STATUS_UTILS.ACTIVE.equals(detailMap.get(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS)) ?
-                        ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS : "");
+                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS)) ?
+                        ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
 
     }
 
@@ -266,7 +266,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     protected void fetchProfileData() {
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
     }
 

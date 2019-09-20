@@ -76,7 +76,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
     public void goToClientProfile() {
         finish();
         Utils.navigateToProfile(this,
-                (HashMap<String, String>) getIntent().getExtras().getSerializable(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
+                (HashMap<String, String>) getIntent().getExtras().getSerializable(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
     }
 
     @Override
@@ -109,7 +109,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
 
     public String getReferredContactNo() {
         HashMap<String, String> client =
-                (HashMap<String, String>) getIntent().getExtras().get(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
+                (HashMap<String, String>) getIntent().getExtras().get(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         if (client != null) {
             String contactNo = client.get(ConstantsUtils.REFERRAL);
             return contactNo;
@@ -131,7 +131,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
     }
 
     public String getEntityId() {
-        String entityId = getIntent().getExtras().getString(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        String entityId = getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         return entityId;
     }
 }

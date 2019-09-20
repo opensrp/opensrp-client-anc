@@ -46,7 +46,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     public void processViewCustomizations() {
         try {
             String jsonString =
-                    getJsonViewFromPreference(ConstantsUtils.VIEW_CONFIGURATION_PREFIX + ConstantsUtils.CONFIGURATION_UTILS.LOGIN);
+                    getJsonViewFromPreference(ConstantsUtils.VIEW_CONFIGURATION_PREFIX + ConstantsUtils.ConfigurationUtils.LOGIN);
             if (jsonString == null) {
                 return;
             }
@@ -96,7 +96,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
 
         try {
             Setting setting = AncLibrary.getInstance().getContext().allSettings()
-                    .getSetting(ConstantsUtils.PREF_KEY_UTILS.SITE_CHARACTERISTICS);
+                    .getSetting(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
 
             JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
             JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ?
@@ -105,7 +105,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
             if (settingArray != null && settingArray.length() > 0) {
 
                 JSONObject settingObject = settingArray.getJSONObject(0);// get first setting to test
-                return !settingObject.isNull(ConstantsUtils.KEY_UTILS.VALUE);
+                return !settingObject.isNull(ConstantsUtils.KeyUtils.VALUE);
 
             }
         } catch (JSONException e) {

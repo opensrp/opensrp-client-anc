@@ -83,7 +83,7 @@ public class ProfilePresenterTest extends BaseUnitTest {
 
         ProfilePresenter presenterSpy = (ProfilePresenter) Mockito.spy(presenter);
 
-        Mockito.doReturn(DUMMY_BASE_ENTITY_ID).when(view).getIntentString(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        Mockito.doReturn(DUMMY_BASE_ENTITY_ID).when(view).getIntentString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         Mockito.doNothing().when(presenterSpy).refreshProfileView(DUMMY_BASE_ENTITY_ID);
         presenterSpy.onRegistrationSaved(true);
         Mockito.verify(presenterSpy).refreshProfileView(DUMMY_BASE_ENTITY_ID);

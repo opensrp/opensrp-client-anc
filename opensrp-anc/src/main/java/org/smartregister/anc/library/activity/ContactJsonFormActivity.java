@@ -62,7 +62,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void init(String json) {
         try {
             mJSONObject = new JSONObject(json);
-            if (!mJSONObject.has(ConstantsUtils.JSON_FORM_KEY_UTILS.ENCOUNTER_TYPE)) {
+            if (!mJSONObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
                 mJSONObject = new JSONObject();
                 throw new JSONException("Form encounter_type not set");
             }
@@ -92,7 +92,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        formName = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME);
+        formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         super.onCreate(savedInstanceState);
     }
 
@@ -176,7 +176,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put(JsonFormConstants.VALUE, value);
-                            if (!TextUtils.isEmpty(formName) && formName.equals(ConstantsUtils.JSON_FORM_UTILS.ANC_QUICK_CHECK)) {
+                            if (!TextUtils.isEmpty(formName) && formName.equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
                                 quickCheckDangerSignsSelectionHandler(fields);
                             }
 
@@ -197,11 +197,11 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
             @Override
             protected Void doInBackground(Void... nada) {
-                Integer contactNo = getIntent().getIntExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, 0);
+                Integer contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
                 Contact contact = getContact();
                 contact.setJsonForm(currentJsonState());
                 contact.setContactNumber(contactNo);
-                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID), contact);
+                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
                 return null;
             }
 
@@ -237,7 +237,7 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     @Override
     public void onResume() {
         super.onResume();
-        formName = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME);
+        formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         try {
             ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
@@ -532,13 +532,13 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     public void proceedToMainContactPage() {
         Intent intent = new Intent(this, MainContactActivity.class);
 
-        int contactNo = getIntent().getIntExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, 0);
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        int contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
 
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME));
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, contactNo);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
         contact.setJsonForm(currentJsonState());
         contact.setContactNumber(contactNo);

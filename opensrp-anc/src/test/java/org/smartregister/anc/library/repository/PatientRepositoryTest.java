@@ -78,7 +78,7 @@ public class PatientRepositoryTest {
         PowerMockito.when(spy.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
 
 
-        spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.ALERT_STATUS_UTILS.IN_PROGRESS);
+        spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
 
         Mockito.verify(sqLiteDatabase, Mockito.times(1)).update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}));
     }

@@ -69,15 +69,15 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
 
                     List<Integer> integerList = AncLibrary.getInstance().getAncRulesEngineHelper()
-                            .getContactVisitSchedule(contactRule, ConstantsUtils.RULES_FILE_UTILS.CONTACT_RULES);
+                            .getContactVisitSchedule(contactRule, ConstantsUtils.RulesFileUtils.CONTACT_RULES);
 
                     int nextContactVisitWeeks = integerList.get(0);
 
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, integerList);
+                    jsonObject.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, integerList);
                     addThePreviousContactSchedule(baseEntityId, details, integerList);
                     AncLibrary.getInstance().getDetailsRepository()
-                            .add(baseEntityId, ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE, jsonObject.toString(),
+                            .add(baseEntityId, ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, jsonObject.toString(),
                                     Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
                     LocalDate localDate = new LocalDate(details.get(DBConstantsUtils.KEY_UTILS.EDD));
@@ -109,11 +109,11 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 } else {
                     attentionFlagsString =
                             AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
-                                    .get(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS);
+                                    .get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
                 }
                 addAttentionFlags(baseEntityId, details, new JSONObject(facts.asMap()).toString());
                 AncLibrary.getInstance().getDetailsRepository()
-                        .add(baseEntityId, ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS, attentionFlagsString,
+                        .add(baseEntityId, ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString,
                                 Calendar.getInstance().getTimeInMillis());
 
                 addTheContactDate(baseEntityId, details);
@@ -137,7 +137,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void addThePreviousContactSchedule(String baseEntityId, Map<String, String> details, List<Integer> integerList) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
-        previousContact.setKey(ConstantsUtils.DETAILS_KEY_UTILS.CONTACT_SCHEDULE);
+        previousContact.setKey(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE);
         previousContact.setValue(String.valueOf(integerList));
         AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
@@ -153,7 +153,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     private void addAttentionFlags(String baseEntityId, Map<String, String> details,
                                    String attentionFlagsString) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
-        previousContact.setKey(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS);
+        previousContact.setKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
         previousContact.setValue(attentionFlagsString);
         AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
@@ -196,10 +196,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
             throws JSONException {
         Event event = eventPair.first;
         //Here we save state
-        event.addDetails(ConstantsUtils.DETAILS_KEY_UTILS.ATTENTION_FLAG_FACTS, attentionFlagsString);
+        event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
         String currentContactState = getCurrentContactState(baseEntityId);
         if (currentContactState != null && referral == null) {
-            event.addDetails(ConstantsUtils.DETAILS_KEY_UTILS.PREVIOUS_CONTACTS, currentContactState);
+            event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
         JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
         AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);

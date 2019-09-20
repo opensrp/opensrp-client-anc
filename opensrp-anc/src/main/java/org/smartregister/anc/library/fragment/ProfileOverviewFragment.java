@@ -59,10 +59,10 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     @Override
     protected void onCreation() {
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP);
+                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getString(R.string.contact_number_due));
         yamlConfigListGlobal = new ArrayList<>();
-        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KEY_UTILS.NEXT_CONTACT)));
     }
 
@@ -131,7 +131,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
         View fragmentView = inflater.inflate(R.layout.fragment_profile_overview, container, false);
         dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
-        if (!ConstantsUtils.ALERT_STATUS_UTILS.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
+        if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
             dueButton.setEnabled(false);

@@ -38,7 +38,6 @@ import org.smartregister.anc.library.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.library.model.ExpansionPanelValuesModel;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -436,10 +435,10 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
     private void changeToolbarColor() {
         if (!TextUtils.isEmpty(getContainer())) {
             switch (getContainer()) {
-                case ConstantsUtils.JSON_FORM_UTILS.ANC_TEST:
+                case ConstantsUtils.JsonFormUtils.ANC_TEST:
                     mToolbar.setBackgroundColor(getResources().getColor(R.color.contact_tests_actionbar));
                     break;
-                case ConstantsUtils.JSON_FORM_UTILS.ANC_COUNSELLING_TREATMENT:
+                case ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT:
                     mToolbar.setBackgroundColor(getResources().getColor(R.color.contact_counselling_actionbar));
                     break;
                 default:
@@ -533,7 +532,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             JSONObject fieldObject = formFields.getJSONObject(index);
             boolean isFieldVisible = !fieldObject.has(JsonFormConstants.IS_VISIBLE) ||
                     fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE);
-            if (JsonFormUtils.isFieldRequired(fieldObject)) {
+            if (org.smartregister.anc.library.util.JsonFormUtils.isFieldRequired(fieldObject)) {
                 if (!isFieldVisible) {
                     continue;
                 }

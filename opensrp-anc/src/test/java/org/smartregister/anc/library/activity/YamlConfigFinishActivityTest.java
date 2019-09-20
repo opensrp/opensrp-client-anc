@@ -71,8 +71,8 @@ public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
         super.setUp();
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummaryFinishActivity.class);
-        contactSummaryActivityIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        contactSummaryActivityIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, DUMMY_CONTACT_NO);
+        contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, DUMMY_CONTACT_NO);
         activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class,
                 contactSummaryActivityIntent);
         activity = activityController.create().resume().get();

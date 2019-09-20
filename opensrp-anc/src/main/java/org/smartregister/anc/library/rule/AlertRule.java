@@ -11,7 +11,7 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 public class AlertRule {
 
     public static final String RULE_KEY = "alertRule";
-    public String buttonStatus = ConstantsUtils.ALERT_STATUS_UTILS.NOT_DUE;
+    public String buttonStatus = ConstantsUtils.AlertStatusUtils.NOT_DUE;
 
     public String nextContactDate;
     public Integer gestationAge;

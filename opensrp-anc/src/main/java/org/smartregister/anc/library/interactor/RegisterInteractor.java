@@ -129,12 +129,12 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                     //Update client to deceased
                     JSONObject client = getSyncHelper().getClient(baseEntityId);
                     if (isDeath) {
-                        client.put(ConstantsUtils.JSON_FORM_KEY_UTILS.DEATH_DATE, Utils.getTodaysDate());
-                        client.put(ConstantsUtils.JSON_FORM_KEY_UTILS.DEATH_DATE_APPROX, false);
+                        client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, Utils.getTodaysDate());
+                        client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
                     }
-                    JSONObject attributes = client.getJSONObject(ConstantsUtils.JSON_FORM_KEY_UTILS.ATTRIBUTES);
+                    JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
                     attributes.put(DBConstantsUtils.KEY_UTILS.DATE_REMOVED, Utils.getTodaysDate());
-                    client.put(ConstantsUtils.JSON_FORM_KEY_UTILS.ATTRIBUTES, attributes);
+                    client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
                     getSyncHelper().addClient(baseEntityId, client);
 
                     //Add Remove Event for child to flag for Server delete
@@ -201,7 +201,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             if (isEditMode) {
                 // Unassign current OPENSRP ID
                 if (baseClient != null) {
-                    String newOpenSRPId = baseClient.getIdentifier(ConstantsUtils.CLIENT_UTILS.ANC_ID).replace("-", "");
+                    String newOpenSRPId = baseClient.getIdentifier(ConstantsUtils.ClientUtils.ANC_ID).replace("-", "");
                     String currentOpenSRPId =
                             JsonFormUtils.getString(jsonString, ConstantsUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
@@ -213,7 +213,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
             } else {
                 if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(ConstantsUtils.CLIENT_UTILS.ANC_ID);
+                    String opensrpId = baseClient.getIdentifier(ConstantsUtils.ClientUtils.ANC_ID);
 
                     //mark OPENSRP ID as used
                     getUniqueIdRepository().close(opensrpId);

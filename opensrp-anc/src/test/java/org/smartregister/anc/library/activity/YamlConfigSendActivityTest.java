@@ -29,8 +29,8 @@ public class YamlConfigSendActivityTest extends BaseUnitTest {
     public void setUp() {
         Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
                 ContactSummarySendActivity.class);
-        contactSummaryActivityIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, baseEntityId);
-        contactSummaryActivityIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, new HashMap<>());
+        contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+        contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, new HashMap<>());
         activityController = Robolectric.buildActivity(ContactSummarySendActivity.class,
                 contactSummaryActivityIntent);
     }

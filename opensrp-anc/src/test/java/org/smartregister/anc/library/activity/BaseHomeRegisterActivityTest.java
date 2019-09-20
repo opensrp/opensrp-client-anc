@@ -125,7 +125,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         List<String> viewIdentifiers = baseHomeRegisterActivity.getViewIdentifiers();
         Assert.assertNotNull(viewIdentifiers);
         Assert.assertTrue(viewIdentifiers.size() == 1);
-        Assert.assertEquals(ConstantsUtils.CONFIGURATION_UTILS.HOME_REGISTER, viewIdentifiers.get(0));
+        Assert.assertEquals(ConstantsUtils.ConfigurationUtils.HOME_REGISTER, viewIdentifiers.get(0));
 
     }
 

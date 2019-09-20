@@ -63,11 +63,11 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         super.setUp();
 
         Intent testIntent = new Intent();
-        testIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         HashMap<String, String> map = new HashMap<>();
-        map.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, ConstantsUtils.ALERT_STATUS_UTILS.ACTIVE);
+        map.put(DBConstantsUtils.KEY_UTILS.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.ACTIVE);
         map.put(DBConstantsUtils.KEY_UTILS.LAST_CONTACT_RECORD_DATE, "10-12-2018");
-        testIntent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, map);
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
 
         controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
 

@@ -77,7 +77,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
-        this.refreshProfileView(getProfileView().getIntentString(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
+        this.refreshProfileView(getProfileView().getIntentString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         getProfileView().hideProgressDialog();
         getProfileView().displayToast(isEdit ? R.string.registration_info_updated : R.string.new_registration_saved);
     }
@@ -104,7 +104,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     @Override
     public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
         try {
-            String jsonString = data.getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.JSON);
+            String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
             Log.d("JSONResult", jsonString);
             JSONObject form = new JSONObject(jsonString);
             getProfileView().showProgressDialog(

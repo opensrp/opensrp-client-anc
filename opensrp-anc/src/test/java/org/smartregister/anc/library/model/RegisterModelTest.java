@@ -700,7 +700,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
     private String entityId(JSONObject jsonObject) {
         JSONArray field = JsonFormUtils.fields(jsonObject);
-        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JSON_FORM_KEY_UTILS.ANC_ID);
+        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
         return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
     }
 

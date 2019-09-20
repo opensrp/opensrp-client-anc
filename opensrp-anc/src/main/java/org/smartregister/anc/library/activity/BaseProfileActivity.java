@@ -96,7 +96,7 @@ public abstract class BaseProfileActivity extends SecuredActivity
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_profile_registration_info) {
-            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID);
+            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
             new FetchProfileDataTask(true).execute(baseEntityId);
         }
     }

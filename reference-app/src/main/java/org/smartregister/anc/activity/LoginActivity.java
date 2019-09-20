@@ -60,13 +60,13 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     private void gotToHomeRegister(boolean remote) {
         Intent intent = new Intent(this, BaseHomeRegisterActivity.class);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, remote);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }
 
     private void goToSiteCharacteristics(boolean remote) {
         Intent intent = new Intent(this, SiteCharacteristicsEnterActivity.class);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.IS_REMOTE_LOGIN, remote);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }
 

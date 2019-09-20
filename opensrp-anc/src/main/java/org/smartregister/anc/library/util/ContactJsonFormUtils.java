@@ -206,11 +206,11 @@ public class ContactJsonFormUtils extends FormUtils {
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
 
-                    jsonObject.put(ConstantsUtils.KEY_UTILS.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
+                    jsonObject.put(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
                     getRealSecondaryValue(jsonObject);
 
-                    if (jsonObject.has(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES)) {
-                        widget.put(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES, jsonObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES));
+                    if (jsonObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES)) {
+                        widget.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES, jsonObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES));
                     }
 
                     break;
@@ -261,11 +261,11 @@ public class ContactJsonFormUtils extends FormUtils {
 
         JSONArray jsonArray2 = jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
 
-        jsonObject.put(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES, new JSONArray());
+        jsonObject.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES, new JSONArray());
 
-        String keystone = jsonObject.has(ConstantsUtils.KEY_UTILS.PARENT_SECONDARY_KEY) ?
-                jsonObject.getString(ConstantsUtils.KEY_UTILS.PARENT_SECONDARY_KEY) : ContactJsonFormUtils.getSecondaryKey(jsonObject);
-        jsonObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES).put(new JSONObject(ImmutableMap
+        String keystone = jsonObject.has(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) ?
+                jsonObject.getString(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) : ContactJsonFormUtils.getSecondaryKey(jsonObject);
+        jsonObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(new JSONObject(ImmutableMap
                 .of(JsonFormConstants.KEY, keystone, JsonFormConstants.VALUE,
                         jsonObject.getString(JsonFormConstants.TEXT))));
 
@@ -311,10 +311,10 @@ public class ContactJsonFormUtils extends FormUtils {
                 JSONObject secValueJsonObject = new JSONObject(ImmutableMap
                         .of(JsonFormConstants.KEY, ContactJsonFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE,
                                 ContactJsonFormUtils.getListValuesAsString(valueList)));
-                jsonObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES).put(secValueJsonObject);
+                jsonObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(secValueJsonObject);
 
                 secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
-                jsonObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES).put(secValue);
+                jsonObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(secValue);
             }
         }
     }
@@ -349,7 +349,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
         stepJsonObject.put(JsonFormConstants.FIELDS, fieldsJsonArray);
         resultJsonObject.put(JsonFormConstants.FIRST_STEP_NAME, stepJsonObject);
-        resultJsonObject.put(ConstantsUtils.JSON_FORM_KEY_UTILS.ENCOUNTER_TYPE, encounterType);
+        resultJsonObject.put(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE, encounterType);
 
         return resultJsonObject;
 
@@ -405,8 +405,8 @@ public class ContactJsonFormUtils extends FormUtils {
     private static void processOtherCheckBoxField(Facts facts, JSONObject fieldObject) throws Exception {
         //Other field for check boxes
         if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
-                fieldObject.getString(ConstantsUtils.KEY_UTILS.KEY).endsWith(ConstantsUtils.SUFFIX_UTILS.OTHER) && facts.get(
-                fieldObject.getString(ConstantsUtils.KEY_UTILS.KEY).replace(ConstantsUtils.SUFFIX_UTILS.OTHER, ConstantsUtils.SUFFIX_UTILS.VALUE)) != null) {
+                fieldObject.getString(ConstantsUtils.KeyUtils.KEY).endsWith(ConstantsUtils.SuffixUtils.OTHER) && facts.get(
+                fieldObject.getString(ConstantsUtils.KeyUtils.KEY).replace(ConstantsUtils.SuffixUtils.OTHER, ConstantsUtils.SuffixUtils.VALUE)) != null) {
 
             facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
             ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
@@ -414,7 +414,7 @@ public class ContactJsonFormUtils extends FormUtils {
             //To specify other for: gynecology surgery and the normal other fields with edit text
         } else if (fieldObject.has(ConstantsUtils.OTHER_FOR) && !TextUtils.isEmpty(fieldObject.getString(ConstantsUtils.OTHER_FOR))) {
             JSONObject otherFor = fieldObject.getJSONObject(ConstantsUtils.OTHER_FOR);
-            String parentKey = otherFor.getString(JsonFormConstants.PARENT_KEY) + ConstantsUtils.SUFFIX_UTILS.VALUE;
+            String parentKey = otherFor.getString(JsonFormConstants.PARENT_KEY) + ConstantsUtils.SuffixUtils.VALUE;
             String parentLabel = otherFor.getString(JsonFormConstants.LABEL);
             String factValue = facts.get(parentKey);
             String newValue = factValue.replace(parentLabel, fieldObject.getString(JsonFormConstants.VALUE));
@@ -430,10 +430,10 @@ public class ContactJsonFormUtils extends FormUtils {
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsFieldsSecondaryValues(Facts facts, JSONObject fieldObject) throws Exception {
-        if (fieldObject.has(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES)) {
-            fieldObject.put(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES, sortSecondaryValues(fieldObject));//sort and reset
+        if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES)) {
+            fieldObject.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES, sortSecondaryValues(fieldObject));//sort and reset
 
-            JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES);
+            JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
 
             for (int j = 0; j < secondaryValues.length(); j++) {
                 JSONObject jsonObject = secondaryValues.getJSONObject(j);
@@ -465,7 +465,7 @@ public class ContactJsonFormUtils extends FormUtils {
                         JsonFormConstants.ANC_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)))) {
 
                     facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
-                    facts.put(expansionPanelItem.getKey() + ConstantsUtils.SUFFIX_UTILS.VALUE, expansionPanelItem.getSelectedValues());
+                    facts.put(expansionPanelItem.getKey() + ConstantsUtils.SuffixUtils.VALUE, expansionPanelItem.getSelectedValues());
                 } else {
                     processExpansionPanelAbnormalValues(facts, expansionPanelItem);
                     facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
@@ -480,8 +480,8 @@ public class ContactJsonFormUtils extends FormUtils {
      * @param expansionPanelItem expansionPanel with values
      */
     private static void processExpansionPanelAbnormalValues(Facts facts, ExpansionPanelItemModel expansionPanelItem) {
-        if (expansionPanelItem.getKey().endsWith(ConstantsUtils.SUFFIX_UTILS.OTHER)) {
-            String parentKey = expansionPanelItem.getKey().replace(ConstantsUtils.SUFFIX_UTILS.OTHER, "") + ConstantsUtils.SUFFIX_UTILS.VALUE;
+        if (expansionPanelItem.getKey().endsWith(ConstantsUtils.SuffixUtils.OTHER)) {
+            String parentKey = expansionPanelItem.getKey().replace(ConstantsUtils.SuffixUtils.OTHER, "") + ConstantsUtils.SuffixUtils.VALUE;
             String parentsValue = facts.get(parentKey);
             if (parentsValue != null) {
                 int startPos = StringUtils.indexOf(parentsValue.toLowerCase(), ConstantsUtils.OTHER);
@@ -498,13 +498,13 @@ public class ContactJsonFormUtils extends FormUtils {
         JSONObject otherValue = null;
         JSONArray newJsonArray = new JSONArray();
 
-        JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KEY_UTILS.SECONDARY_VALUES);
+        JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
 
         for (int j = 0; j < secondaryValues.length(); j++) {
             JSONObject jsonObject = secondaryValues.getJSONObject(j);
 
             if (jsonObject.has(JsonFormConstants.KEY) && jsonObject.getString(JsonFormConstants.KEY)
-                    .endsWith(ConstantsUtils.SUFFIX_UTILS.OTHER)) {
+                    .endsWith(ConstantsUtils.SuffixUtils.OTHER)) {
                 otherValue = jsonObject;
             } else {
                 newJsonArray.put(jsonObject);
@@ -528,11 +528,11 @@ public class ContactJsonFormUtils extends FormUtils {
 
         String fieldKey = getKey(jsonObject);
         Object fieldValue = getValue(jsonObject);
-        String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SUFFIX_UTILS.OTHER) ?
-                fieldKey.substring(0, fieldKey.indexOf(ConstantsUtils.SUFFIX_UTILS.OTHER)) + ConstantsUtils.SUFFIX_UTILS.VALUE : "";
-        String fieldKeyOtherValue = fieldKey + ConstantsUtils.SUFFIX_UTILS.VALUE;
+        String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
+                fieldKey.substring(0, fieldKey.indexOf(ConstantsUtils.SuffixUtils.OTHER)) + ConstantsUtils.SuffixUtils.VALUE : "";
+        String fieldKeyOtherValue = fieldKey + ConstantsUtils.SuffixUtils.VALUE;
 
-        if (fieldKey.endsWith(ConstantsUtils.SUFFIX_UTILS.OTHER) && !fieldKeySecondary.isEmpty() &&
+        if (fieldKey.endsWith(ConstantsUtils.SuffixUtils.OTHER) && !fieldKeySecondary.isEmpty() &&
                 facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
 
             List<String> tempList =
@@ -549,7 +549,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public static String getSecondaryKey(JSONObject jsonObject) throws JSONException {
 
-        return getKey(jsonObject) + ConstantsUtils.SUFFIX_UTILS.VALUE;
+        return getKey(jsonObject) + ConstantsUtils.SuffixUtils.VALUE;
 
     }
 
@@ -819,16 +819,16 @@ public class ContactJsonFormUtils extends FormUtils {
             String[] stringValues = list.getString(k).split(":");
             if (stringValues.length >= 2) {
                 String valueDisplay = list.getString(k).split(":")[1];
-                if (valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.ORDERED) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE) ||
-                        valueDisplay.equals(ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.NOT_DONE)) {
+                if (valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.ORDERED) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE) ||
+                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.NOT_DONE)) {
 
                     changeIcon(statusImageView, valueDisplay, context);
                     break;
@@ -848,22 +848,22 @@ public class ContactJsonFormUtils extends FormUtils {
     public void changeIcon(ImageView imageView, String type, Context context) {
         if (!TextUtils.isEmpty(type)) {
             switch (type) {
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_TODAY:
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY:
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE:
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE:
+                case ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY:
+                case ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY:
+                case ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE:
+                case ConstantsUtils.AncRadioButtonOptionTextUtils.DONE:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
                     break;
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.DONE_EARLIER:
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER:
+                case ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER:
+                case ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
                     break;
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.ORDERED:
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.ORDERED:
+                case ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED:
+                case ConstantsUtils.AncRadioButtonOptionTextUtils.ORDERED:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_ordered_256));
                     break;
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TYPES_UTILS.NOT_DONE:
-                case ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.NOT_DONE:
+                case ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE:
+                case ConstantsUtils.AncRadioButtonOptionTextUtils.NOT_DONE:
                     imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
                     break;
                 default:
@@ -914,8 +914,8 @@ public class ContactJsonFormUtils extends FormUtils {
                 CustomTextView listValue = valuesLayout.findViewById(R.id.item_value);
                 listValue.setTextColor(context.getResources().getColor(R.color.text_color_primary));
                 String[] valueObject = expansionWidgetValues.get(i).split(":");
-                if (valueObject.length >= 2 && !ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_EARLIER.equals(valueObject[1]) &&
-                        !ConstantsUtils.ANC_RADIO_BUTTON_OPTION_TEXT_UTILS.DONE_TODAY.equals(valueObject[1])) {
+                if (valueObject.length >= 2 && !ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER.equals(valueObject[1]) &&
+                        !ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY.equals(valueObject[1])) {
                     listHeader.setText(valueObject[0]);
                     listValue.setText(valueObject[1]);
                 }

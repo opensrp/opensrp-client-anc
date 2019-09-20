@@ -46,7 +46,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         initializePresenter();
-        presenter.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
+        presenter.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         setupViews();
     }
 
@@ -96,17 +96,17 @@ public abstract class BaseContactActivity extends SecuredActivity {
     private void formStartActions(JSONObject form, Contact contact, Intent intent) {
         //partial contact exists?
         PartialContact partialContactRequest = new PartialContact();
-        partialContactRequest.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
+        partialContactRequest.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         partialContactRequest.setContactNo(contact.getContactNumber());
         partialContactRequest.setType(contact.getFormName());
 
-        intent.putExtra(ConstantsUtils.JSON_FORM_EXTRA_UTILS.JSON, getFormJson(partialContactRequest, form));
+        intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getFormJson(partialContactRequest, form));
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID,
-                getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP));
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.FORM_NAME, contact.getFormName());
-        intent.putExtra(ConstantsUtils.INTENT_KEY_UTILS.CONTACT_NO, contactNo);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
+                getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -163,7 +163,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
+                presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 goToMainRegister();
             }
         });
@@ -179,7 +179,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.INTENT_KEY_UTILS.BASE_ENTITY_ID));
+                presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 goToMainRegister();
             }
         });
@@ -211,7 +211,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 presenter.startForm(view.getTag());
             } else if (i == R.id.finalize_contact) {
                 Utils.finalizeForm(getActivity(),
-                        (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.INTENT_KEY_UTILS.CLIENT_MAP),
+                        (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP),
                         false);
             }
         }
