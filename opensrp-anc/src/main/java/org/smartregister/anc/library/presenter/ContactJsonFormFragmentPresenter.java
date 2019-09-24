@@ -53,7 +53,7 @@ public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPres
                     showInformationDialog(view);
                 }
                 break;
-            case ConstantsUtils.ANC_RADIO_BUTTON:
+            case ConstantsUtils.EXTENDED_RADIO_BUTTON:
                 showInformationDialog(view);
                 break;
             default:

@@ -18,7 +18,7 @@ public abstract class ConstantsUtils {
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final int DELIVERY_DATE_WEEKS = 40;
     public static final String EXPANSION_PANEL = "expansion_panel";
-    public static final String ANC_RADIO_BUTTON = "anc_radio_button";
+    public static final String EXTENDED_RADIO_BUTTON = "extended_radio_button";
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";

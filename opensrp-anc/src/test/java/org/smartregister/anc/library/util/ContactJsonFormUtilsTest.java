@@ -26,7 +26,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         try {
-            accordionValuesJson = new JSONArray("[{\"key\":\"ultrasound\",\"type\":\"anc_radio_button\",\"label\":\"Ultrasound test\",\"values\":[\"done_today:Done today\"]," +
+            accordionValuesJson = new JSONArray("[{\"key\":\"ultrasound\",\"type\":\"extended_radio_button\",\"label\":\"Ultrasound test\",\"values\":[\"done_today:Done today\"]," +
                     "\"openmrs_attributes\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\"},\"value_openmrs_attributes\":[{\"key\":\"ultrasound\"," +
                     "\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\"}]},{\"key\":\"blood_type_test_date\",\"type\":\"date_picker\",\"label\":\"Blood type test date\"," +
                     "\"index\":2,\"values\":[\"08-04-2019\"],\"openmrs_attributes\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\"," +

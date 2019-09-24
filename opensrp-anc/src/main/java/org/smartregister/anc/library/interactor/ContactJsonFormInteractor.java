@@ -6,7 +6,6 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.widget.AncEditTextFactory;
-import org.smartregister.anc.library.widget.AncRadioButtonWidgetFactory;
 import org.smartregister.anc.library.widget.ExpansionWidgetFactory;
 
 /**
@@ -29,6 +28,5 @@ public class ContactJsonFormInteractor extends JsonFormInteractor {
         map.put(JsonFormConstants.EDIT_TEXT, new AncEditTextFactory());
         map.put(JsonFormConstants.DATE_PICKER, new DatePickerFactory());
         map.put(ConstantsUtils.EXPANSION_PANEL, new ExpansionWidgetFactory());
-        map.put(ConstantsUtils.ANC_RADIO_BUTTON, new AncRadioButtonWidgetFactory());
     }
 }

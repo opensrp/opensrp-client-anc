@@ -196,7 +196,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                         } else {
                             JSONArray values = secondaryValueModel.getValues();
                             if (type != null && (type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) ||
-                                    type.equals(ConstantsUtils.ANC_RADIO_BUTTON))) {
+                                    type.equals(ConstantsUtils.EXTENDED_RADIO_BUTTON))) {
                                 for (int k = 0; k < values.length(); k++) {
                                     jsonObject.put(JsonFormConstants.VALUE, getValueKey(values.getString(k)));
                                 }
@@ -388,7 +388,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
                         field.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                     values = getOptionsValueCheckBox(field.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME));
                     getOptionsOpenMRSAttributes(field, valueOpenMRSAttributes);
-                } else if ((JsonFormConstants.ANC_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) ||
+                } else if ((JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE)) ||
                         JsonFormConstants.NATIVE_RADIO_BUTTON.equals(field.getString(JsonFormConstants.TYPE))) &&
                         field.has(JsonFormConstants.OPTIONS_FIELD_NAME) && field.has(JsonFormConstants.VALUE)) {
                     values.put(getOptionsValueRadioButton(field.optString(JsonFormConstants.VALUE),
@@ -551,8 +551,6 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
         if (!TextUtils.isEmpty(widgetType) && getWidgetType().equals(ConstantsUtils.EXPANSION_PANEL)) {
             switch (widgetType) {
                 case JsonFormConstants.EDIT_TEXT:
-                    label = jsonObject.optString(JsonFormConstants.HINT, "");
-                    break;
                 case JsonFormConstants.DATE_PICKER:
                     label = jsonObject.optString(JsonFormConstants.HINT, "");
                     break;

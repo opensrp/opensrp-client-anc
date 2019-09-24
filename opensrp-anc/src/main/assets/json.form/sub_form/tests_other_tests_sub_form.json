@@ -8,7 +8,7 @@
       "label": "Other test",
       "label_text_style": "bold",
       "text_color": "#000000",
-      "type": "anc_radio_button",
+      "type": "extended_radio_button",
       "options": [
         {
           "key": "done_today",

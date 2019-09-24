@@ -122,7 +122,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
             "            \"value\": [\n" +
             "               {\n" +
             "                  \"key\": \"ultrasound\",\n" +
-            "                  \"type\": \"anc_radio_button\",\n" +
+            "                  \"type\": \"extended_radio_button\",\n" +
             "                  \"label\": \"Ultrasound test\",\n" +
             "                  \"values\": [\n" +
             "                     \"done_today:Done today\"\n" +
@@ -540,7 +540,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     public void testGetValueFromRadioButtonsFieldInAccordion() throws JSONException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
         ancRulesEngineHelperSpy.setJsonObject(new JSONObject(jsonObject));
-        //Test obtaining value for anc_radio_button field
+        //Test obtaining value for extended_radio_button field
         assertEquals(ancRulesEngineHelperSpy.getValueFromAccordion("accordion_ultrasound", "step1_ultrasound"),
                 "done_today");
         //Test obtaining value for native_radio field

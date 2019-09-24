@@ -63,7 +63,7 @@ public class ContactJsonFormUtils extends FormUtils {
     public static String extractItemValue(JSONObject valueItem, JSONArray valueItemJSONArray) throws JSONException {
         String result;
         switch (valueItem.getString(JsonFormConstants.TYPE)) {
-            case JsonFormConstants.ANC_RADIO_BUTTON:
+            case JsonFormConstants.EXTENDED_RADIO_BUTTON:
             case JsonFormConstants.NATIVE_RADIO_BUTTON:
                 result = valueItemJSONArray.getString(0).split(":")[0];
                 break;
@@ -117,7 +117,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String selectedKeys;
         String selectedValues;
         switch (valueItem.getString(JsonFormConstants.TYPE)) {
-            case JsonFormConstants.ANC_RADIO_BUTTON:
+            case JsonFormConstants.EXTENDED_RADIO_BUTTON:
             case JsonFormConstants.NATIVE_RADIO_BUTTON:
                 selectedKeys = valueItemJSONArray.getString(0).split(":")[0];
                 selectedValues = valueItemJSONArray.getString(0).split(":")[1];
@@ -187,7 +187,7 @@ public class ContactJsonFormUtils extends FormUtils {
             processCheckBoxSpecialWidget(widget, keyList, valueList);
 
         } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) ||
-                widgetType.equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(ConstantsUtils.ANC_RADIO_BUTTON)) {
+                widgetType.equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(ConstantsUtils.EXTENDED_RADIO_BUTTON)) {
             processRadioButtonsSpecialWidget(widget, valueList);
         }
     }
@@ -462,7 +462,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
                 if (jsonObject.has(JsonFormConstants.TYPE) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.getString(JsonFormConstants.TYPE))
                         || JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)) ||
-                        JsonFormConstants.ANC_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)))) {
+                        JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)))) {
 
                     facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
                     facts.put(expansionPanelItem.getKey() + ConstantsUtils.SuffixUtils.VALUE, expansionPanelItem.getSelectedValues());
@@ -789,7 +789,7 @@ public class ContactJsonFormUtils extends FormUtils {
                     case JsonFormConstants.NATIVE_RADIO_BUTTON:
                         value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
                         break;
-                    case ConstantsUtils.ANC_RADIO_BUTTON:
+                    case ConstantsUtils.EXTENDED_RADIO_BUTTON:
                         value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
                         break;
                     default:

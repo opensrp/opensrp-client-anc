@@ -34,6 +34,6 @@ public class ContactJsonFormInteractorTest extends BaseUnitTest {
         Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.EDIT_TEXT));
         Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.DATE_PICKER));
         Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.EXPANSION_PANEL));
-        Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.ANC_RADIO_BUTTON));
+        Assert.assertTrue(factoryMapSpy.containsKey(JsonFormConstants.extended_radio_button));
     }
 }

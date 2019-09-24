@@ -257,13 +257,10 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
                         result = formUtils.getCheckBoxResults(object);
                         break;
                     case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                    case ConstantsUtils.EXTENDED_RADIO_BUTTON:
                         Boolean multiRelevance =
                                 object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
                         result = getRadioButtonResults(multiRelevance, object);
-                        break;
-                    case ConstantsUtils.ANC_RADIO_BUTTON:
-                        Boolean relevance = object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioButtonResults(relevance, object);
                         break;
                     default:
                         result.put(getKey(object), getValue(object));
