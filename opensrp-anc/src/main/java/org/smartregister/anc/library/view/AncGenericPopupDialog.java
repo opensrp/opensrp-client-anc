@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.GenericPopupDialog;
+import com.vijay.jsonwizard.domain.ExpansionPanelValuesModel;
+import com.vijay.jsonwizard.event.RefreshExpansionPanelEvent;
 import com.vijay.jsonwizard.interfaces.JsonApi;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.SecondaryValueModel;
@@ -33,9 +35,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AncGenericDialogInterface;
 import org.smartregister.anc.library.contract.JsonApiInterface;
-import org.smartregister.anc.library.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.library.interactor.ContactJsonFormInteractor;
-import org.smartregister.anc.library.model.ExpansionPanelValuesModel;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 
@@ -483,7 +483,7 @@ public class AncGenericPopupDialog extends GenericPopupDialog implements AncGene
             item.remove(JsonFormConstants.VALUE);
             item.put(JsonFormConstants.VALUE, orderedValues);
             setNewSelectedValues(orderedValues);
-            org.smartregister.anc.library.util.Utils.postEvent(new RefreshExpansionPanelEvent(orderedValues, linearLayout));
+            Utils.postEvent(new RefreshExpansionPanelEvent(orderedValues, linearLayout));
             addRequiredFields(item);
         } catch (Exception e) {
             Log.i(TAG, Log.getStackTraceString(e));

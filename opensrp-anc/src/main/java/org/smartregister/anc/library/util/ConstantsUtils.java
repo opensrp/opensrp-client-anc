@@ -23,6 +23,7 @@ public abstract class ConstantsUtils {
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
     public static final String GLOBAL = "global";
+    public static final String REQUIRED_FIELDS = "required_fields";
     public static final String EDITABLE_FIELDS = "editable_fields";
     public static final String FALSE = "false";
     public static final String DANGER_SIGNS = "danger_signs";
@@ -59,7 +60,6 @@ public abstract class ConstantsUtils {
     public static final String PHYS_SYMPTOMS = "phys_symptoms";
     public static final String DATE_TODAY_HIDDEN = "date_today_hidden";
     public static final String AGE = "age";
-    public static final String REQUIRED_FIELDS = "required_fields";
     public static final String CONTACT_NO = "contact_no";
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";

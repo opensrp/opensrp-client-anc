@@ -148,7 +148,7 @@ dependencies {
     implementation project(":opensrp-anc")
     //implementation 'org.smartregister:opensrp-client-anc:0.0.1-SNAPSHOT'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.6.27-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.4406-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -159,7 +159,8 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.6.47-SNAPSHOT@aar') {
+
+    implementation('org.smartregister:opensrp-client-core:1.7.22-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

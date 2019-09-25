@@ -8,11 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,9 +17,6 @@ import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +25,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AncGenericDialogInterface;
 import org.smartregister.anc.library.contract.JsonApiInterface;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.event.RefreshExpansionPanelEvent;
 import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -231,7 +222,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     @Override
     public void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -243,7 +233,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         } catch (JSONException e) {
             Log.e(TAG, "An error occurred while trying to filter checkbox items" + e);
         }
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -479,46 +468,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
     @Override
     public void setGenericPopup(AncGenericPopupDialog context) {
         genericDialogInterface = context;
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshExpansionPanel(RefreshExpansionPanelEvent refreshExpansionPanelEvent) {
-        if (refreshExpansionPanelEvent != null) {
-            try {
-                List<String> values;
-
-                if (refreshExpansionPanelEvent.getValues() != null) {
-                    values = utils.createExpansionPanelChildren(refreshExpansionPanelEvent.getValues());
-                } else {
-                    values = new ArrayList<>();
-                }
-
-                LinearLayout linearLayout = refreshExpansionPanelEvent.getLinearLayout();
-                RelativeLayout layoutHeader = (RelativeLayout) linearLayout.getChildAt(0);
-                ImageView status = layoutHeader.findViewById(R.id.statusImageView);
-                formUtils.updateExpansionPanelRecyclerView(values, status, getApplicationContext());
-
-                LinearLayout contentLayout = (LinearLayout) linearLayout.getChildAt(1);
-                LinearLayout mainContentView = contentLayout.findViewById(R.id.contentView);
-                formUtils.addValuesDisplay(values, mainContentView, getApplicationContext());
-
-                LinearLayout buttonLayout = contentLayout.findViewById(R.id.accordion_bottom_navigation);
-                Button undoButton = buttonLayout.findViewById(R.id.undo_button);
-                if (values != null && values.size() > 0) {
-                    undoButton.setVisibility(View.VISIBLE);
-                    contentLayout.setVisibility(View.VISIBLE);
-                    buttonLayout.setVisibility(View.VISIBLE);
-                } else {
-                    undoButton.setVisibility(View.GONE);
-                    contentLayout.setVisibility(View.GONE);
-                    buttonLayout.setVisibility(View.GONE);
-                    status.setImageDrawable(this.getResources().getDrawable(R.drawable.icon_task_256));
-                }
-
-            } catch (JSONException e) {
-                Log.e(TAG, e.toString());
-            }
-        }
     }
 
     /**

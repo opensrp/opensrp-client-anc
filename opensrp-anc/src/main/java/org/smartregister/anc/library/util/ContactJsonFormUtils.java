@@ -4,17 +4,15 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.common.collect.ImmutableMap;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -31,7 +29,6 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AncGenericDialogInterface;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.model.ExpansionPanelItemModel;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.view.AncGenericPopupDialog;
 
@@ -72,67 +69,6 @@ public class ContactJsonFormUtils extends FormUtils {
                 break;
             default:
                 result = valueItemJSONArray.getString(0);
-                break;
-        }
-        return result;
-    }
-
-    /**
-     * Returns formatted checkbox values in this format:  [item1, item2, item2]
-     * Can be used to return list of selected checkbox keys or the list of values  for checkboxes
-     *
-     * @param sb                 String builder to be used for the formatting
-     * @param valueItemJSONArray JsonArray with the selected values from the checkbox
-     * @param i                  index flag used to determine whether to get list for keys/values; 0 returns key list, 1 returns values list
-     * @return List of selected keys or values
-     * @throws JSONException exception thrown
-     */
-    @NonNull
-    private static String formatCheckboxValues(StringBuilder sb, JSONArray valueItemJSONArray, int i) throws JSONException {
-        String result;
-        for (int index = 0; index < valueItemJSONArray.length(); index++) {
-            sb.append(valueItemJSONArray.getString(index).split(":")[i]);
-            sb.append(", ");
-        }
-        result = sb.toString().replaceAll(", $", "");
-        return result;
-    }
-
-    public static ExpansionPanelItemModel getExpansionPanelItem(String key, JSONArray value) throws JSONException {
-        ExpansionPanelItemModel result = null;
-        for (int j = 0; j < value.length(); j++) {
-            JSONObject valueItem = value.getJSONObject(j);
-            if (valueItem.getString(JsonFormConstants.KEY).equals(key)) {
-                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
-                result = extractExpansionPanelItems(valueItem, valueItemJSONArray);
-                break;
-            }
-        }
-        return result;
-    }
-
-    private static ExpansionPanelItemModel extractExpansionPanelItems(
-            JSONObject valueItem, JSONArray valueItemJSONArray) throws JSONException {
-        ExpansionPanelItemModel result;
-        String selectedKeys;
-        String selectedValues;
-        switch (valueItem.getString(JsonFormConstants.TYPE)) {
-            case JsonFormConstants.EXTENDED_RADIO_BUTTON:
-            case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                selectedKeys = valueItemJSONArray.getString(0).split(":")[0];
-                selectedValues = valueItemJSONArray.getString(0).split(":")[1];
-                result = new ExpansionPanelItemModel(valueItem.getString(JsonFormConstants.KEY), selectedKeys, selectedValues);
-                break;
-            case JsonFormConstants.CHECK_BOX:
-                StringBuilder keysStringBuilder = new StringBuilder("[");
-                StringBuilder valuesStringBuilder = new StringBuilder();
-                selectedKeys = formatCheckboxValues(keysStringBuilder, valueItemJSONArray, 0) + "]";
-                selectedValues = formatCheckboxValues(valuesStringBuilder, valueItemJSONArray, 1);
-                result = new ExpansionPanelItemModel(valueItem.getString(JsonFormConstants.KEY), selectedKeys, selectedValues);
-                break;
-            default:
-                result = new ExpansionPanelItemModel(valueItem.getString(JsonFormConstants.KEY),
-                        valueItemJSONArray.getString(0), valueItemJSONArray.getString(0));
                 break;
         }
         return result;
@@ -787,9 +723,7 @@ public class ContactJsonFormUtils extends FormUtils {
                         value.put(itemKey, optionKey + ":" + itemText + ":" + keyValue + ";" + itemType);
                         break;
                     case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                        value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
-                        break;
-                    case ConstantsUtils.EXTENDED_RADIO_BUTTON:
+                    case JsonFormConstants.EXTENDED_RADIO_BUTTON:
                         value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
                         break;
                     default:
@@ -801,76 +735,6 @@ public class ContactJsonFormUtils extends FormUtils {
             return super.addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
         }
         return value;
-    }
-
-    /**
-     * This updates the expansion panel child values affect the done is selected from the pop up. It also updates the
-     * expansion panel status image. It changes it to green when done, yellow when ordered, grey when not done
-     *
-     * @param values          {@link List<String>}
-     * @param statusImageView {@link ImageView}
-     * @throws JSONException
-     * @author dubdabasoduba
-     */
-    public void updateExpansionPanelRecyclerView(List<String> values, ImageView statusImageView, Context context)
-            throws JSONException {
-        JSONArray list = new JSONArray(values);
-        for (int k = 0; k < list.length(); k++) {
-            String[] stringValues = list.getString(k).split(":");
-            if (stringValues.length >= 2) {
-                String valueDisplay = list.getString(k).split(":")[1];
-                if (valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.ORDERED) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE) ||
-                        valueDisplay.equals(ConstantsUtils.AncRadioButtonOptionTextUtils.NOT_DONE)) {
-
-                    changeIcon(statusImageView, valueDisplay, context);
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * Changes the Expansion panel status icon after selection
-     *
-     * @param imageView {@link ImageView}
-     * @param type      {@link String}
-     * @param context   {@link Context}
-     * @author dubdabasoduba
-     */
-    public void changeIcon(ImageView imageView, String type, Context context) {
-        if (!TextUtils.isEmpty(type)) {
-            switch (type) {
-                case ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY:
-                case ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY:
-                case ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE:
-                case ConstantsUtils.AncRadioButtonOptionTextUtils.DONE:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
-                    break;
-                case ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER:
-                case ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_done_256));
-                    break;
-                case ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED:
-                case ConstantsUtils.AncRadioButtonOptionTextUtils.ORDERED:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_ordered_256));
-                    break;
-                case ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE:
-                case ConstantsUtils.AncRadioButtonOptionTextUtils.NOT_DONE:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_not_done_256));
-                    break;
-                default:
-                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_task_256));
-                    break;
-            }
-        }
     }
 
     public Facts getCheckBoxResults(JSONObject jsonObject) throws JSONException {
@@ -900,28 +764,5 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
         return result;
-    }
-
-    public void addValuesDisplay(List<String> expansionWidgetValues, LinearLayout contentView, Context context) {
-        if (expansionWidgetValues.size() > 0) {
-            if (contentView.getChildCount() > 0) {
-                contentView.removeAllViews();
-            }
-            for (int i = 0; i < expansionWidgetValues.size(); i++) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                LinearLayout valuesLayout = (LinearLayout) inflater.inflate(R.layout.native_expansion_panel_list_item, null);
-                CustomTextView listHeader = valuesLayout.findViewById(R.id.item_header);
-                CustomTextView listValue = valuesLayout.findViewById(R.id.item_value);
-                listValue.setTextColor(context.getResources().getColor(R.color.text_color_primary));
-                String[] valueObject = expansionWidgetValues.get(i).split(":");
-                if (valueObject.length >= 2 && !ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_EARLIER.equals(valueObject[1]) &&
-                        !ConstantsUtils.AncRadioButtonOptionTextUtils.DONE_TODAY.equals(valueObject[1])) {
-                    listHeader.setText(valueObject[0]);
-                    listValue.setText(valueObject[1]);
-                }
-
-                contentView.addView(valuesLayout);
-            }
-        }
     }
 }
