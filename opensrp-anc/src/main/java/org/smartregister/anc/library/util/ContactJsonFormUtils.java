@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.common.collect.ImmutableMap;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
-import com.vijay.jsonwizard.interfaces.GenericDialogInterface;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -30,7 +29,6 @@ import java.util.Map;
 
 public class ContactJsonFormUtils extends FormUtils {
     public static final String TAG = ContactJsonFormUtils.class.getCanonicalName();
-    private GenericDialogInterface genericDialogInterface;
 
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";

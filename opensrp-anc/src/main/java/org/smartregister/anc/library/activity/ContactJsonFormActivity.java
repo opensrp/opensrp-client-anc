@@ -15,10 +15,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
-import com.vijay.jsonwizard.interfaces.GenericDialogInterface;
-import com.vijay.jsonwizard.rules.RuleConstant;
 
-import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +25,7 @@ import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
-import org.smartregister.anc.library.util.Utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
