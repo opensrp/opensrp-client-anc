@@ -52,13 +52,13 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetKeyWhenObjectIsEmpty() throws Exception {
-        String itemKey = ContactJsonFormUtils.getKey(new JSONObject());
+        String itemKey = ContactJsonFormUtils.getObjectKey(new JSONObject());
         Assert.assertNull(itemKey);
     }
 
     @Test(expected = NullPointerException.class)
     public void testGetKeyWhenObjectIsNull() throws Exception {
-        String itemKey = ContactJsonFormUtils.getKey(null);
+        String itemKey = ContactJsonFormUtils.getObjectKey(null);
         Assert.assertNull(itemKey);
     }
 

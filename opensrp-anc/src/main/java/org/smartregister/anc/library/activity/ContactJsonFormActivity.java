@@ -15,6 +15,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.interfaces.GenericDialogInterface;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import org.jeasy.rules.api.Facts;
@@ -22,15 +23,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.contract.AncGenericDialogInterface;
-import org.smartregister.anc.library.contract.JsonApiInterface;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
-import org.smartregister.anc.library.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,13 +38,9 @@ import java.util.List;
  * Created by ndegwamartin on 30/06/2018.
  */
 
-public class ContactJsonFormActivity extends JsonFormActivity implements JsonApiInterface {
-
+public class ContactJsonFormActivity extends JsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
-    private AncGenericDialogInterface genericDialogInterface;
-    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
-    private Utils utils = new Utils();
     private String TAG = this.getClass().getSimpleName();
     private String formName;
 
@@ -114,39 +108,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
 
     protected void callSuperFinish() {
         super.onFormFinish();
-    }
-
-    @Override
-    protected void widgetsWriteValue(String stepName, String key, String value, String openMrsEntityParent,
-                                     String openMrsEntity, String openMrsEntityId, boolean popup) throws JSONException {
-        synchronized (getmJSONObject()) {
-            JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
-            JSONArray fields = fetchFields(jsonObject, popup);
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject item = fields.getJSONObject(i);
-                String keyAtIndex = item.getString(JsonFormConstants.KEY);
-                String itemType = item.optString(JsonFormConstants.TYPE, "");
-                boolean isSpecialWidget = isSpecialWidget(itemType);
-
-                String parentKey = isSpecialWidget ? cleanWidgetKey(key, itemType) : key;
-
-                if (parentKey.equals(keyAtIndex)) {
-
-                    if (item.has(JsonFormConstants.TEXT)) {
-                        item.put(JsonFormConstants.TEXT, value);
-                    } else {
-                        item.put(JsonFormConstants.VALUE,
-                                itemType.equals(JsonFormConstants.HIDDEN) && TextUtils.isEmpty(value) ?
-                                        item.has(JsonFormConstants.VALUE) &&
-                                                !TextUtils.isEmpty(item.getString(JsonFormConstants.VALUE)) ?
-                                                item.getString(JsonFormConstants.VALUE) : value : value);
-                    }
-
-                    invokeRefreshLogic(value, popup, parentKey, null);
-                    return;
-                }
-            }
-        }
     }
 
     @Override
@@ -235,158 +196,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         }
     }
 
-    @Override
-    public Facts getValueFromAddressCore(JSONObject object) throws JSONException {
-        Facts result = new Facts();
-        if (object != null && object.has(JsonFormConstants.TYPE)) {
-            if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null && genericDialogInterface
-                    .getWidgetType().equals(ConstantsUtils.EXPANSION_PANEL)) {
-                switch (object.getString(JsonFormConstants.TYPE)) {
-                    case JsonFormConstants.CHECK_BOX:
-                        result = formUtils.getCheckBoxResults(object);
-                        break;
-                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                    case ConstantsUtils.EXTENDED_RADIO_BUTTON:
-                        Boolean multiRelevance =
-                                object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false);
-                        result = getRadioButtonResults(multiRelevance, object);
-                        break;
-                    default:
-                        result.put(getKey(object), getValue(object));
-                        break;
-                }
-
-                if (object.has(RuleConstant.IS_RULE_CHECK) && object.getBoolean(RuleConstant.IS_RULE_CHECK) &&
-                        (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX) ||
-                                (object.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.NATIVE_RADIO_BUTTON) &&
-                                        object.optBoolean(JsonFormConstants.NATIVE_RADIO_BUTTON_MULTI_RELEVANCE, false)))) {
-                    List<String> selectedValues = new ArrayList<>(result.asMap().keySet());
-                    result = new Facts();
-                    result.put(getKey(object), selectedValues.toString());
-                }
-
-            } else if (object.length() > 0) {
-                return super.getValueFromAddressCore(object);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Get form fields from JSON forms that have sections in the form steps. The JSONObject {@link JSONObject} argument is
-     * the object after getting the section in the specified step name The popup {@link boolean} argument is a boolean value
-     * to let the function know that the form is being executed on a popup and not the main android view.
-     * <p>
-     * This function returns a JSONArray {@link JSONArray} of the fields contained in the section for the given step
-     *
-     * @param sectionJson
-     * @param popup
-     * @return
-     * @throws JSONException
-     * @author dubdabasoduba
-     */
-    @Override
-    protected JSONArray returnFormWithSectionFields(JSONObject sectionJson, boolean popup) throws JSONException {
-        JSONArray fields = new JSONArray();
-        if (sectionJson.has(JsonFormConstants.FIELDS)) {
-            if (popup) {
-                JSONArray jsonArray = sectionJson.getJSONArray(JsonFormConstants.FIELDS);
-                for (int k = 0; k < jsonArray.length(); k++) {
-                    JSONObject item = jsonArray.getJSONObject(k);
-                    if (item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
-                        fields = formUtils.concatArray(fields, specifyFields(item));
-                    }
-                }
-            } else {
-                fields = formUtils.concatArray(fields, sectionJson.getJSONArray(JsonFormConstants.FIELDS));
-            }
-        }
-        return fields;
-    }
-
-    /**
-     * Get the form fields for the JSON forms that do not use the sections in the steps The JSONObject {@link JSONObject}
-     * argument is the object after getting the step name The popup {@link Boolean} argument is a boolean value to let the
-     * function know that the form is being executed on a popup and not the main android view.
-     * <p>
-     * This function returns a JSONArray {@link JSONArray} of the fields contained in the step
-     *
-     * @param parentJson {@link JSONObject}
-     * @param popup      {@link Boolean}
-     * @return fields {@link JSONArray}
-     * @throws JSONException
-     * @author dubdabasoduba
-     */
-    @Override
-    protected JSONArray returnWithFormFields(JSONObject parentJson, boolean popup) throws JSONException {
-        JSONArray fields = new JSONArray();
-        if (popup) {
-            JSONArray jsonArray = parentJson.getJSONArray(JsonFormConstants.FIELDS);
-            for (int k = 0; k < jsonArray.length(); k++) {
-                JSONObject item = jsonArray.getJSONObject(k);
-                if (genericDialogInterface != null &&
-                        item.getString(JsonFormConstants.KEY).equals(genericDialogInterface.getParentKey())) {
-                    fields = specifyFields(item);
-                }
-            }
-        } else {
-            fields = parentJson.getJSONArray(JsonFormConstants.FIELDS);
-        }
-        return fields;
-    }
-
-    @Override
-    protected JSONArray specifyFields(JSONObject parentJson) {
-        JSONArray fields = new JSONArray();
-        if (genericDialogInterface != null && genericDialogInterface.getWidgetType() != null &&
-                genericDialogInterface.getWidgetType().equals(ConstantsUtils.EXPANSION_PANEL)) {
-            try {
-                if (parentJson.has(JsonFormConstants.CONTENT_FORM)) {
-                    if (getExtraFieldsWithValues() != null) {
-                        fields = getExtraFieldsWithValues();
-                    } else {
-                        String formLocation = parentJson.has(JsonFormConstants.CONTENT_FORM_LOCATION) ?
-                                parentJson.getString(JsonFormConstants.CONTENT_FORM_LOCATION) : "";
-                        fields = getSubFormFields(parentJson.get(JsonFormConstants.CONTENT_FORM).toString(), formLocation,
-                                fields);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            return super.specifyFields(parentJson);
-        }
-        return fields;
-    }
-
-    private Facts getRadioButtonResults(Boolean multiRelevance, JSONObject jsonObject) throws JSONException {
-        Facts result = new Facts();
-        if (multiRelevance) {
-            JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-            for (int j = 0; j < jsonArray.length(); j++) {
-                if (jsonObject.has(JsonFormConstants.VALUE)) {
-                    if (jsonObject.getString(JsonFormConstants.VALUE)
-                            .equals(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY))) {
-                        result.put(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY), String.valueOf(true));
-                    } else {
-                        if (!jsonObject.has(RuleConstant.IS_RULE_CHECK) ||
-                                !jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
-                            result.put(jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY), String.valueOf(false));
-                        }
-                    }
-                } else {
-                    Log.e(TAG, "option for Key " + jsonArray.getJSONObject(j).getString(JsonFormConstants.KEY) +
-                            " has NO value");
-                }
-            }
-        } else {
-            result.put(getKey(jsonObject), getValue(jsonObject));
-        }
-
-        return result;
-    }
-
     /**
      * Finds gets the currently selected dangers signs on the quick change page and sets the none {@link Boolean} and other
      * {@link Boolean} so as  to identify times to show the refer and proceed buttons on quick check
@@ -463,11 +272,6 @@ public class ContactJsonFormActivity extends JsonFormActivity implements JsonApi
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
-    }
-
-    @Override
-    public void setGenericPopup(AncGenericPopupDialog context) {
-        genericDialogInterface = context;
     }
 
     /**

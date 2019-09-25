@@ -380,8 +380,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
 
-        String fieldKey = ContactJsonFormUtils.getKey(jsonObject);
-        Object fieldValue = ContactJsonFormUtils.getValue(jsonObject);
+        String fieldKey = ContactJsonFormUtils.getObjectKey(jsonObject);
+        Object fieldValue = ContactJsonFormUtils.getObjectValue(jsonObject);
         String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
                 fieldKey.substring(0, fieldKey.indexOf(ConstantsUtils.SuffixUtils.OTHER)) + ConstantsUtils.SuffixUtils.VALUE : "";
         String fieldKeyOtherValue = fieldKey + ConstantsUtils.SuffixUtils.VALUE;

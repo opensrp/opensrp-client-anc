@@ -1,23 +1,14 @@
 package org.smartregister.anc.library.util;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.common.collect.ImmutableMap;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
-import com.vijay.jsonwizard.fragments.JsonFormFragment;
-import com.vijay.jsonwizard.interfaces.CommonListener;
+import com.vijay.jsonwizard.interfaces.GenericDialogInterface;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
-import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -26,11 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.contract.AncGenericDialogInterface;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
-import org.smartregister.anc.library.view.AncGenericPopupDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +30,7 @@ import java.util.Map;
 
 public class ContactJsonFormUtils extends FormUtils {
     public static final String TAG = ContactJsonFormUtils.class.getCanonicalName();
-    private AncGenericDialogInterface genericDialogInterface;
+    private GenericDialogInterface genericDialogInterface;
 
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
@@ -312,7 +300,7 @@ public class ContactJsonFormUtils extends FormUtils {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        String fieldKey = getKey(fieldObject);
+                        String fieldKey = getObjectKey(fieldObject);
                         //Do not add to facts values from expansion panels since they are processed separately
                         if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE) && fieldObject.has(JsonFormConstants.TYPE)
                                 && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
@@ -462,8 +450,8 @@ public class ContactJsonFormUtils extends FormUtils {
             return;
         }
 
-        String fieldKey = getKey(jsonObject);
-        Object fieldValue = getValue(jsonObject);
+        String fieldKey = getObjectKey(jsonObject);
+        Object fieldValue = getObjectValue(jsonObject);
         String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
                 fieldKey.substring(0, fieldKey.indexOf(ConstantsUtils.SuffixUtils.OTHER)) + ConstantsUtils.SuffixUtils.VALUE : "";
         String fieldKeyOtherValue = fieldKey + ConstantsUtils.SuffixUtils.VALUE;
@@ -485,7 +473,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
     public static String getSecondaryKey(JSONObject jsonObject) throws JSONException {
 
-        return getKey(jsonObject) + ConstantsUtils.SuffixUtils.VALUE;
+        return getObjectKey(jsonObject) + ConstantsUtils.SuffixUtils.VALUE;
 
     }
 
@@ -580,8 +568,8 @@ public class ContactJsonFormUtils extends FormUtils {
                                     Log.e(TAG, "JsonObject for filter options must contain a key value pair with an optional options attribute");
                                     return;
                                 }
-                                String keyGlobal = removeKeyPrefix(getKey(filterOption), ConstantsUtils.GLOBAL);
-                                String itemValue = getValue(filterOption);
+                                String keyGlobal = removeKeyPrefix(getObjectKey(filterOption), ConstantsUtils.GLOBAL);
+                                String itemValue = getObjectValue(filterOption);
                                 String globalValue = mainJsonObject.getJSONObject(ConstantsUtils.GLOBAL).getString(keyGlobal);
 
                                 if (compareItemAndValueGlobal(itemValue, globalValue)) {
@@ -609,12 +597,11 @@ public class ContactJsonFormUtils extends FormUtils {
         return widgetKey.replace(prefix + "_", "");
     }
 
-    public static String getKey(JSONObject jsonObject) throws JSONException {
+    public static String getObjectKey(JSONObject jsonObject) throws JSONException {
         return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
     }
 
-    public static String getValue(JSONObject jsonObject) throws JSONException {
-
+    public static String getObjectValue(JSONObject jsonObject) throws JSONException {
         return jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : null;
     }
 
@@ -642,127 +629,5 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
         return false;
-    }
-
-    @Override
-    public void showGenericDialog(View view) {
-        Context context = (Context) view.getTag(com.vijay.jsonwizard.R.id.specify_context);
-        String specifyContent = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_content);
-        String specifyContentForm = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_content_form);
-        String stepName = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_step_name);
-        CommonListener listener = (CommonListener) view.getTag(com.vijay.jsonwizard.R.id.specify_listener);
-        JsonFormFragment formFragment = (JsonFormFragment) view.getTag(com.vijay.jsonwizard.R.id.specify_fragment);
-        JSONArray jsonArray = (JSONArray) view.getTag(com.vijay.jsonwizard.R.id.secondaryValues);
-        String parentKey = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
-        String type = (String) view.getTag(com.vijay.jsonwizard.R.id.type);
-        CustomTextView customTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_textview);
-        CustomTextView reasonsTextView = (CustomTextView) view.getTag(com.vijay.jsonwizard.R.id.specify_reasons_textview);
-        String toolbarHeader = "";
-        String container = "";
-        LinearLayout rootLayout = (LinearLayout) view.getTag(R.id.main_layout);
-        if (type != null && type.equals(ConstantsUtils.EXPANSION_PANEL)) {
-            toolbarHeader = (String) view.getTag(R.id.header);
-            container = (String) view.getTag(R.id.contact_container);
-        }
-        String childKey;
-
-        if (specifyContent != null) {
-            AncGenericPopupDialog genericPopupDialog = new AncGenericPopupDialog();
-            genericPopupDialog.setCommonListener(listener);
-            genericPopupDialog.setFormFragment(formFragment);
-            genericPopupDialog.setFormIdentity(specifyContent);
-            genericPopupDialog.setFormLocation(specifyContentForm);
-            genericPopupDialog.setStepName(stepName);
-            genericPopupDialog.setSecondaryValues(jsonArray);
-            genericPopupDialog.setParentKey(parentKey);
-            genericPopupDialog.setLinearLayout(rootLayout);
-            genericPopupDialog.setContext(context);
-            if (type != null && type.equals(ConstantsUtils.EXPANSION_PANEL)) {
-                genericPopupDialog.setHeader(toolbarHeader);
-                genericPopupDialog.setContainer(container);
-            }
-            genericPopupDialog.setWidgetType(type);
-            if (customTextView != null && reasonsTextView != null) {
-                genericPopupDialog.setCustomTextView(customTextView);
-                genericPopupDialog.setPopupReasonsTextView(reasonsTextView);
-            }
-            if (type != null &&
-                    (type.equals(JsonFormConstants.CHECK_BOX) || type.equals(JsonFormConstants.NATIVE_RADIO_BUTTON))) {
-                childKey = (String) view.getTag(com.vijay.jsonwizard.R.id.childKey);
-                genericPopupDialog.setChildKey(childKey);
-            }
-
-            Activity activity = (Activity) context;
-            FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
-            Fragment prev = activity.getFragmentManager().findFragmentByTag("ANCGenericPopup");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-
-            ft.addToBackStack(null);
-            genericPopupDialog.show(ft, "ANCGenericPopup");
-        } else {
-            Toast.makeText(context, "Please specify the sub form to display ", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public Map<String, String> addAssignedValue(String itemKey, String optionKey, String keyValue, String itemType,
-                                                String itemText) {
-        Map<String, String> value = new HashMap<>();
-        if (genericDialogInterface != null && !TextUtils.isEmpty(genericDialogInterface.getWidgetType()) &&
-                genericDialogInterface.getWidgetType().equals(ConstantsUtils.EXPANSION_PANEL)) {
-            String[] labels = itemType.split(";");
-            String type = "";
-            if (labels.length >= 1) {
-                type = labels[0];
-            }
-            if (!TextUtils.isEmpty(type)) {
-                switch (type) {
-                    case JsonFormConstants.CHECK_BOX:
-                        value.put(itemKey, optionKey + ":" + itemText + ":" + keyValue + ";" + itemType);
-                        break;
-                    case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                    case JsonFormConstants.EXTENDED_RADIO_BUTTON:
-                        value.put(itemKey, keyValue + ":" + itemText + ";" + itemType);
-                        break;
-                    default:
-                        value.put(itemKey, keyValue + ";" + itemType);
-                        break;
-                }
-            }
-        } else {
-            return super.addAssignedValue(itemKey, optionKey, keyValue, itemType, itemText);
-        }
-        return value;
-    }
-
-    public Facts getCheckBoxResults(JSONObject jsonObject) throws JSONException {
-        Facts result = new Facts();
-        JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-        for (int j = 0; j < options.length(); j++) {
-            if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
-                if (jsonObject.has(RuleConstant.IS_RULE_CHECK) && jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
-                    if (Boolean.valueOf(options.getJSONObject(j)
-                            .getString(JsonFormConstants.VALUE))) {//Rules engine use only true values
-                        result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY),
-                                options.getJSONObject(j).getString(JsonFormConstants.VALUE));
-                    }
-                } else {
-                    result.put(options.getJSONObject(j).getString(JsonFormConstants.KEY),
-                            options.getJSONObject(j).getString(JsonFormConstants.VALUE));
-                }
-            }
-
-            //Backward compatibility Fix
-            if (jsonObject.has(RuleConstant.IS_RULE_CHECK) && !jsonObject.getBoolean(RuleConstant.IS_RULE_CHECK)) {
-                if (options.getJSONObject(j).has(JsonFormConstants.VALUE)) {
-                    result.put(JsonFormConstants.VALUE, options.getJSONObject(j).getString(JsonFormConstants.VALUE));
-                } else {
-                    result.put(JsonFormConstants.VALUE, ConstantsUtils.FALSE);
-                }
-            }
-        }
-        return result;
     }
 }
