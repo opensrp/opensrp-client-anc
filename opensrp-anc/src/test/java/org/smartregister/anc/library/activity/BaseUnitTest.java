@@ -20,7 +20,7 @@ import java.util.Date;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestAncApplication.class, sdk = 22, shadows = {MyShadowActivity.class})
+@Config(application = TestAncApplication.class, shadows = {MyShadowActivity.class})
 public abstract class BaseUnitTest {
 
     public static int ASYNC_TIMEOUT = 1000;
