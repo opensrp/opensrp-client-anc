@@ -62,7 +62,7 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
             throws ParseException, IOException {
         List<LastContactDetailsWrapper> lastContactDetailsTestsWrapperList = new ArrayList<>();
         Facts previousContactsFacts =
-                AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactTestsFacts(baseEntityId);
+                AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContactTestsFacts(baseEntityId);
 
         List<YamlConfigWrapper> lastContactTests = addTestsRuleObjects(previousContactsFacts);
 

@@ -22,9 +22,9 @@ import java.util.Map;
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
-public class PatientRepository {
+public class PatientRepositoryHelper {
 
-    private static final String TAG = PatientRepository.class.getCanonicalName();
+    private static final String TAG = PatientRepositoryHelper.class.getCanonicalName();
 
     private static final String[] projection =
             new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,

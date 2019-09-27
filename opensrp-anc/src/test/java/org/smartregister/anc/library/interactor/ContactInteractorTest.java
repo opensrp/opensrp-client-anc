@@ -21,8 +21,8 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
-import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -59,14 +59,14 @@ public class ContactInteractorTest extends BaseUnitTest {
     private DetailsRepository detailsRepository;
 
     @Mock
-    private PreviousContactRepository previousContactRepository;
+    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
 
     @Before
     public void setUp() {
         interactor = new ContactInteractor(new AppExecutors(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor()));
     }
 
-    @PrepareForTest({PatientRepository.class})
+    @PrepareForTest({PatientRepositoryHelper.class})
     @Test
     public void testFetchWomanDetails() {
 
@@ -80,9 +80,9 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
         details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
-        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
 
-        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId))
+        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId))
                 .thenReturn(details);
 
 
@@ -94,7 +94,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    @PrepareForTest({PatientRepository.class, AncLibrary.class})
+    @PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class})
     public void testFinalizeContactFormInvokesUpdatesPatientRepositoryWithCorrectParameters() throws Exception {
 
         String firstName = "First Name";
@@ -116,14 +116,14 @@ public class ContactInteractorTest extends BaseUnitTest {
 
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
 
 
-        PowerMockito.when(PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID)).thenReturn(details);
+        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID)).thenReturn(details);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
         PowerMockito.when(AncLibrary.getAncRulesEngineHelper()).thenReturn(ancRulesEngineHelper);
         PowerMockito.when(AncLibrary.getDetailsRepository()).thenReturn(detailsRepository);
-        PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
 
         Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)), ArgumentMatchers.eq(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
@@ -132,13 +132,13 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(
                 ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(ConstantsUtils.RulesFileUtils.CONTACT_RULES))).thenReturn(integerList);
 
-        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
         ContactInteractor contactInteractor = (ContactInteractor) interactor;
         contactInteractor.finalizeContactForm(details);
 
-        PowerMockito.verifyStatic(PatientRepository.class);
+        PowerMockito.verifyStatic(PatientRepositoryHelper.class);
 
-        PatientRepository.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class), ArgumentMatchers.anyBoolean());
+        PatientRepositoryHelper.updateContactVisitDetails(ArgumentMatchers.any(WomanDetail.class), ArgumentMatchers.anyBoolean());
         Assert.assertNotNull(contactInteractor);
     }
 

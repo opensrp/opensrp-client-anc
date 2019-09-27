@@ -303,11 +303,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      * @author dubdabasoduba
      */
     public void displayQuickCheckBottomReferralButtons(boolean none, boolean other) {
-        LinearLayout linearLayout = (LinearLayout) this.getView();
-        LinearLayout buttonLayout = null;
-        if (linearLayout != null) {
-            buttonLayout = linearLayout.findViewById(R.id.navigation_layout);
-        }
+        LinearLayout buttonLayout = getQuickCheckButtonsLayout();
 
         Button referButton = null;
         Button proceedButton = null;
@@ -316,7 +312,34 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             proceedButton = buttonLayout.findViewById(R.id.proceed);
         }
 
+        setQuickCheckButtonsVisible(none, other, buttonLayout, referButton, proceedButton);
+        setQuickCheckButtonsInvisible(none, other, buttonLayout, referButton, proceedButton);
 
+        if ((none && !other) && buttonLayout != null) {
+            referButton.setVisibility(View.GONE);
+        }
+
+    }
+
+    @org.jetbrains.annotations.Nullable
+    private LinearLayout getQuickCheckButtonsLayout() {
+        LinearLayout linearLayout = (LinearLayout) this.getView();
+        LinearLayout buttonLayout = null;
+        if (linearLayout != null) {
+            buttonLayout = linearLayout.findViewById(R.id.navigation_layout);
+        }
+        return buttonLayout;
+    }
+
+    private void setQuickCheckButtonsInvisible(boolean none, boolean other, LinearLayout buttonLayout, Button referButton, Button proceedButton) {
+        if ((!none && !other) && buttonLayout != null) {
+            buttonLayout.setVisibility(View.GONE);
+            proceedButton.setVisibility(View.GONE);
+            referButton.setVisibility(View.GONE);
+        }
+    }
+
+    private void setQuickCheckButtonsVisible(boolean none, boolean other, LinearLayout buttonLayout, Button referButton, Button proceedButton) {
         if ((none || other) && buttonLayout != null) {
             buttonLayout.setVisibility(View.VISIBLE);
             proceedButton.setVisibility(View.VISIBLE);
@@ -324,17 +347,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 referButton.setVisibility(View.VISIBLE);
             }
         }
-
-        if ((!none && !other) && buttonLayout != null) {
-            buttonLayout.setVisibility(View.GONE);
-            proceedButton.setVisibility(View.GONE);
-            referButton.setVisibility(View.GONE);
-        }
-
-        if ((none && !other) && buttonLayout != null) {
-            referButton.setVisibility(View.GONE);
-        }
-
     }
 
     private class BottomNavigationListener implements View.OnClickListener {
