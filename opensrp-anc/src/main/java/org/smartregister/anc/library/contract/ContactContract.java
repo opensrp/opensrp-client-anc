@@ -51,6 +51,7 @@ public interface ContactContract {
 
     interface Interactor extends BaseContactContract.Interactor {
         HashMap<String, String> finalizeContactForm(Map<String, String> details);
+
         int getGestationAge(Map<String, String> details);
     }
 

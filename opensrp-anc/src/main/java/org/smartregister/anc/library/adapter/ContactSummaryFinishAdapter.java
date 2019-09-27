@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.util.Utils;
@@ -70,6 +70,16 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
 
     }
 
+    // total number of rows
+    @Override
+    public int getItemCount() {
+        return mData.size();
+    }
+
+    private String processUnderscores(String string) {
+        return string.replace("_", " ").toUpperCase();
+    }
+
     private void prefillInjectableFacts(Facts facts, String template) {
         String[] relevanceToken = template.split(",");
         String key;
@@ -81,16 +91,6 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
                 }
             }
         }
-    }
-
-    // total number of rows
-    @Override
-    public int getItemCount() {
-        return mData.size();
-    }
-
-    private String processUnderscores(String string) {
-        return string.replace("_", " ").toUpperCase();
     }
 
     // stores and recycles views as they are scrolled off screen

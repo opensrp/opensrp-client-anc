@@ -8,7 +8,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity;
 import org.smartregister.anc.library.event.ViewConfigurationSyncCompleteEvent;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.task.SaveTeamLocationsTask;
@@ -23,6 +23,15 @@ import static org.smartregister.util.Log.logInfo;
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
 
     public static final String TAG = LoginActivity.class.getCanonicalName();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLoginPresenter.processViewCustomizations();
+        if (!mLoginPresenter.isUserLoggedOut()) {
+            goToHome(false);
+        }
+    }
 
     @Override
     protected int getContentView() {
@@ -51,23 +60,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     private void gotToHomeRegister(boolean remote) {
         Intent intent = new Intent(this, BaseHomeRegisterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }
 
     private void goToSiteCharacteristics(boolean remote) {
         Intent intent = new Intent(this, SiteCharacteristicsEnterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mLoginPresenter.processViewCustomizations();
-        if (!mLoginPresenter.isUserLoggedOut()) {
-            goToHome(false);
-        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)

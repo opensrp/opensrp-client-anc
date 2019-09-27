@@ -16,7 +16,7 @@ import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
             LastContactDetailsWrapper lastContactDetails = lastContactDetailsList.get(position);
             Facts facts = lastContactDetails.getFacts();
 
-            String gestAge = facts.get(Constants.GEST_AGE_OPENMRS);
+            String gestAge = facts.get(ConstantsUtils.GEST_AGE_OPENMRS);
             if (TextUtils.isEmpty(gestAge)) {
                 gestAge = "";
             }
@@ -95,8 +95,8 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView contactTextView;
         public TextView referral;
+        private TextView contactTextView;
         private TextView contactDate;
         private LinearLayout lastContactDetails;
 

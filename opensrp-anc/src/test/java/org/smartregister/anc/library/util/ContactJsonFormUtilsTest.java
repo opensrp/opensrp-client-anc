@@ -26,7 +26,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         try {
-            accordionValuesJson = new JSONArray("[{\"key\":\"ultrasound\",\"type\":\"anc_radio_button\",\"label\":\"Ultrasound test\",\"values\":[\"done_today:Done today\"]," +
+            accordionValuesJson = new JSONArray("[{\"key\":\"ultrasound\",\"type\":\"extended_radio_button\",\"label\":\"Ultrasound test\",\"values\":[\"done_today:Done today\"]," +
                     "\"openmrs_attributes\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\"},\"value_openmrs_attributes\":[{\"key\":\"ultrasound\"," +
                     "\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\"}]},{\"key\":\"blood_type_test_date\",\"type\":\"date_picker\",\"label\":\"Blood type test date\"," +
                     "\"index\":2,\"values\":[\"08-04-2019\"],\"openmrs_attributes\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\"," +
@@ -52,13 +52,13 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetKeyWhenObjectIsEmpty() throws Exception {
-        String itemKey = ContactJsonFormUtils.getKey(new JSONObject());
+        String itemKey = ContactJsonFormUtils.getObjectKey(new JSONObject());
         Assert.assertNull(itemKey);
     }
 
     @Test(expected = NullPointerException.class)
     public void testGetKeyWhenObjectIsNull() throws Exception {
-        String itemKey = ContactJsonFormUtils.getKey(null);
+        String itemKey = ContactJsonFormUtils.getObjectKey(null);
         Assert.assertNull(itemKey);
     }
 
@@ -171,8 +171,8 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
         assertEquals(4, checkBoxOptions.length());
         assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
         assertEquals("caffeine_intake", checkBoxOptions.getJSONObject(3).getString(JsonFormConstants.KEY));
-        assertTrue(stepOneBehaviourPersist.getBoolean(Constants.IS_FILTERED));
-        assertTrue(stepOneBehaviourPersist.has(Constants.IS_FILTERED));
+        assertTrue(stepOneBehaviourPersist.getBoolean(ConstantsUtils.IS_FILTERED));
+        assertTrue(stepOneBehaviourPersist.has(ConstantsUtils.IS_FILTERED));
     }
 
     @Test
@@ -184,8 +184,8 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
         JSONArray checkBoxOptions = stepTwoBehaviourPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         assertEquals(1, checkBoxOptions.length());
         assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
-        assertTrue(stepTwoBehaviourPersist.getBoolean(Constants.IS_FILTERED));
-        assertTrue(stepTwoBehaviourPersist.has(Constants.IS_FILTERED));
+        assertTrue(stepTwoBehaviourPersist.getBoolean(ConstantsUtils.IS_FILTERED));
+        assertTrue(stepTwoBehaviourPersist.has(ConstantsUtils.IS_FILTERED));
     }
 
     @Test
@@ -199,7 +199,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
         assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
         assertEquals("heartburn", checkBoxOptions.getJSONObject(1).getString(JsonFormConstants.KEY));
         assertEquals("leg_cramps", checkBoxOptions.getJSONObject(2).getString(JsonFormConstants.KEY));
-        assertTrue(stepThreePhysSymptomsPersist.getBoolean(Constants.IS_FILTERED));
-        assertTrue(stepThreePhysSymptomsPersist.has(Constants.IS_FILTERED));
+        assertTrue(stepThreePhysSymptomsPersist.getBoolean(ConstantsUtils.IS_FILTERED));
+        assertTrue(stepThreePhysSymptomsPersist.has(ConstantsUtils.IS_FILTERED));
     }
 }

@@ -3,8 +3,7 @@ package org.smartregister.anc.library.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +35,7 @@ public class YamlConfigModelTest {
         String firstNameOnly = "Elly";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstNameOnly);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstNameOnly);
 
         String patientName = model.extractPatientName(details);
 
@@ -49,7 +48,7 @@ public class YamlConfigModelTest {
         String lastNameOnly = "Smith";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.LAST_NAME, lastNameOnly);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastNameOnly);
 
         String patientName = model.extractPatientName(details);
 
@@ -63,8 +62,8 @@ public class YamlConfigModelTest {
         String lastName = "Smith";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, fistName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, fistName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
 
         String patientName = model.extractPatientName(details);

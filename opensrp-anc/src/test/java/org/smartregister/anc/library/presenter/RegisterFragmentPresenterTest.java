@@ -15,7 +15,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
@@ -63,8 +63,8 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         registerFragmentPresenter.setModel(model);
 
         String mainCondition = "anc_id is not null";
-        String countSelect = countSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
-        String mainSelect = mainSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
+        String countSelect = countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
+        String mainSelect = mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
 
         Mockito.doReturn(countSelect).when(model).countSelect(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
         Mockito.doReturn(mainSelect).when(model).mainSelect(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
@@ -72,10 +72,10 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
         registerFragmentPresenter.initializeQueries("anc_id is not null");
 
-        Mockito.verify(model).countSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
-        Mockito.verify(model).mainSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
+        Mockito.verify(model).countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
+        Mockito.verify(model).mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
 
-        Mockito.verify(view).initializeQueryParams(DBConstants.WOMAN_TABLE_NAME, countSelect, mainSelect);
+        Mockito.verify(view).initializeQueryParams(DBConstantsUtils.WOMAN_TABLE_NAME, countSelect, mainSelect);
         Mockito.verify(view).initializeAdapter(ArgumentMatchers.any((Class<Set<View>>) (Object) Set.class));
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
@@ -193,13 +193,13 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
         String[] columns = new String[]{
                 tableName + ".relationalid",
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.ANC_ID,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + DBConstants.KEY.DATE_REMOVED};
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.DOB,
+                tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED};
         queryBUilder.SelectInitiateMainTable(tableName, columns);
         return queryBUilder.mainCondition(mainCondition);
     }

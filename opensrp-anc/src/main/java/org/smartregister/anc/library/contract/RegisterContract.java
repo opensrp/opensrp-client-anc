@@ -30,7 +30,7 @@ public interface RegisterContract {
         void saveLanguage(String language);
 
         void startForm(String formName, String entityId, String metatata, LocationPickerView locationPickerView)
-        throws Exception;
+                throws Exception;
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
@@ -68,7 +68,7 @@ public interface RegisterContract {
 
     }
 
-    public interface InteractorCallBack {
+    interface InteractorCallBack {
         void onUniqueIdFetched(Triple<String, String, String> triple, String entityId);
 
         void onNoUniqueId();

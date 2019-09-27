@@ -16,15 +16,15 @@ import com.android.volley.toolbox.ImageLoader;
  * Created by samuelgithengi on 1/19/18.
  */
 
-public class ImageLoaderRequest {
+public class ImageLoaderRequestUtils {
 
-    private static ImageLoaderRequest imageLoaderRequest;
+    private static ImageLoaderRequestUtils imageLoaderRequestUtils;
     private final Context context;
     private final ImageLoader imageLoader;
     private RequestQueue requestQueue;
 
 
-    private ImageLoaderRequest(Context context) {
+    private ImageLoaderRequestUtils(Context context) {
         this.context = context;
         this.requestQueue = getRequestQueue();
 
@@ -43,13 +43,6 @@ public class ImageLoaderRequest {
         });
     }
 
-    public static synchronized ImageLoaderRequest getInstance(Context context) {
-        if (imageLoaderRequest == null) {
-            imageLoaderRequest = new ImageLoaderRequest(context);
-        }
-        return imageLoaderRequest;
-    }
-
     private RequestQueue getRequestQueue() {
         if (requestQueue == null) {
             Cache cache = new DiskBasedCache(context.getCacheDir(), 10 * 1024 * 1024);
@@ -58,6 +51,13 @@ public class ImageLoaderRequest {
             requestQueue.start();
         }
         return requestQueue;
+    }
+
+    public static synchronized ImageLoaderRequestUtils getInstance(Context context) {
+        if (imageLoaderRequestUtils == null) {
+            imageLoaderRequestUtils = new ImageLoaderRequestUtils(context);
+        }
+        return imageLoaderRequestUtils;
     }
 
     public ImageLoader getImageLoader() {

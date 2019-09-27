@@ -13,7 +13,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.repository.Repository;
 
 import java.util.HashMap;
@@ -80,8 +80,8 @@ public class ContactPresenterTest extends BaseUnitTest {
         String lastName = "Last Name Test";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
         ContactPresenter contactPresenter = (ContactPresenter) presenter;
         contactPresenter.setModel(model);

@@ -9,7 +9,7 @@ import org.smartregister.configurableviews.model.RegisterConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigHelper {
+public class ConfigHelperUtils {
     public static RegisterConfiguration defaultRegisterConfiguration(Context context) {
         if (context == null) {
             return null;

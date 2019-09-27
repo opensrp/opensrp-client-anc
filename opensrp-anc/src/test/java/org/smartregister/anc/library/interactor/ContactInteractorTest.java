@@ -25,8 +25,8 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.repository.DetailsRepository;
 
 import java.util.ArrayList;
@@ -77,8 +77,8 @@ public class ContactInteractorTest extends BaseUnitTest {
         String lastName = "Last Name";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
         PowerMockito.mockStatic(PatientRepository.class);
 
@@ -101,12 +101,12 @@ public class ContactInteractorTest extends BaseUnitTest {
         String lastName = "Last Name";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
-        details.put(DBConstants.KEY.EDD, "2018-10-19");
-        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2018-08-09");
-        details.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstants.KEY.NEXT_CONTACT, "1");
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2018-10-19");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2018-08-09");
+        details.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "1");
 
         final List<String> contactDates = new ArrayList<>();
         contactDates.add("10");
@@ -125,12 +125,12 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(AncLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(AncLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
-        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstants.KEY.BASE_ENTITY_ID)), ArgumentMatchers.eq(Constants.DETAILS_KEY.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
+        Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)), ArgumentMatchers.eq(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
         List<Integer> integerList = Arrays.asList(new Integer[]{10, 20, 30, 40});
 
         PowerMockito.when(
-                ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(Constants.RULES_FILE.CONTACT_RULES))).thenReturn(integerList);
+                ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(ConstantsUtils.RulesFileUtils.CONTACT_RULES))).thenReturn(integerList);
 
         PowerMockito.mockStatic(PatientRepository.class);
         ContactInteractor contactInteractor = (ContactInteractor) interactor;

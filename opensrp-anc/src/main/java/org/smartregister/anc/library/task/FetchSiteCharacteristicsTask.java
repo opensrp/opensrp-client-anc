@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import org.smartregister.anc.library.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.domain.ServerSetting;
 import org.smartregister.sync.helper.ServerSettingsHelper;
 
@@ -23,7 +23,7 @@ public class FetchSiteCharacteristicsTask extends AsyncTask<Void, Void, List<Ser
 
     @Override
     protected List<ServerSetting> doInBackground(final Void... params) {
-        ServerSettingsHelper helper = new ServerSettingsHelper(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+        ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         List<ServerSetting> characteristics = helper.getServerSettings();
 
         return characteristics;

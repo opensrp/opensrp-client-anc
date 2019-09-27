@@ -10,7 +10,7 @@ import org.smartregister.anc.library.interactor.PreviousContactsDetailsInteracto
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
@@ -73,7 +73,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
             if (immediatePreviousSchedule != null) {
                 Map<String, Object> scheduleMap = immediatePreviousSchedule.asMap();
                 for (Map.Entry<String, Object> entry : scheduleMap.entrySet()) {
-                    if (Constants.CONTACT_SCHEDULE.equals(entry.getKey())) {
+                    if (ConstantsUtils.CONTACT_SCHEDULE.equals(entry.getKey())) {
                         contactScheduleString = entry.getValue().toString();
                     }
                 }

@@ -3,14 +3,11 @@ package org.smartregister.anc.library.util;
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
-public class DBConstants {
-
-
+public class DBConstantsUtils {
     public static final String CONTACT_ENTITY_TYPE = "contact";
-
     public static final String WOMAN_TABLE_NAME = "ec_mother";
 
-    public static final class KEY {
+    public static final class KeyUtils {
         public static final String ID = "_ID";
         public static final String ID_LOWER_CASE = "_id";
         public static final String STEPNAME = "stepName";

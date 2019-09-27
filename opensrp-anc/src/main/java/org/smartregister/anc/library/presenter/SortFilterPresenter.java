@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.presenter;
 
 import org.smartregister.anc.library.contract.SortFilterContract;
-import org.smartregister.anc.library.util.ConfigHelper;
+import org.smartregister.anc.library.util.ConfigHelperUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 
@@ -18,7 +18,7 @@ public class SortFilterPresenter implements SortFilterContract.Presenter {
 
     public SortFilterPresenter(SortFilterContract.View view) {
         this.viewReference = new WeakReference<>(view);
-        this.config = ConfigHelper.defaultRegisterConfiguration(view.getContext());
+        this.config = ConfigHelperUtils.defaultRegisterConfiguration(view.getContext());
         if (this.sortField == null && this.config != null && this.config.getSortFields() != null) {
             this.sortField = this.config.getSortFields().get(0);
         }

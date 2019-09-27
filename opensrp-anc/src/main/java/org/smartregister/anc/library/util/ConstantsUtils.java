@@ -4,7 +4,7 @@ package org.smartregister.anc.library.util;
  * Created by ndegwamartin on 14/03/2018.
  */
 
-public abstract class Constants {
+public abstract class ConstantsUtils {
     public static final String SQLITE_DATE_TIME_FORMAT = "yyyy-MM-dd";
     public static final String CONTACT_DATE_FORMAT = "dd/MM/yyyy";
     public static final String CONTACT_SUMMARY_DATE_FORMAT = "dd MMMM yyyy";
@@ -18,11 +18,12 @@ public abstract class Constants {
     public static final String GLOBAL_IDENTIFIER = "identifier";
     public static final int DELIVERY_DATE_WEEKS = 40;
     public static final String EXPANSION_PANEL = "expansion_panel";
-    public static final String ANC_RADIO_BUTTON = "anc_radio_button";
+    public static final String EXTENDED_RADIO_BUTTON = "extended_radio_button";
     public static final String DEFAULT_VALUES = "default_values";
     public static final String PREVIOUS_CONTACT_NO = "previous_contact_no";
     public static final String GLOBAL_PREVIOUS = "global_previous";
     public static final String GLOBAL = "global";
+    public static final String REQUIRED_FIELDS = "required_fields";
     public static final String EDITABLE_FIELDS = "editable_fields";
     public static final String FALSE = "false";
     public static final String DANGER_SIGNS = "danger_signs";
@@ -59,12 +60,11 @@ public abstract class Constants {
     public static final String PHYS_SYMPTOMS = "phys_symptoms";
     public static final String DATE_TODAY_HIDDEN = "date_today_hidden";
     public static final String AGE = "age";
-    public static final String REQUIRED_FIELDS = "required_fields";
     public static final String CONTACT_NO = "contact_no";
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";
 
-    public static class ANC_RADIO_BUTTON_OPTION_TYPES {
+    public static class AncRadioButtonOptionTypesUtils {
         public static final String DONE_TODAY = "done_today";
         public static final String DONE_EARLIER = "done_earlier";
         public static final String ORDERED = "ordered";
@@ -73,7 +73,7 @@ public abstract class Constants {
 
     }
 
-    public static class ANC_RADIO_BUTTON_OPTION_TEXT {
+    public static class AncRadioButtonOptionTextUtils {
         public static final String DONE_TODAY = "Done today";
         public static final String DONE_EARLIER = "Done earlier";
         public static final String ORDERED = "Ordered";
@@ -82,17 +82,17 @@ public abstract class Constants {
 
     }
 
-    public static class CONFIGURATION {
+    public static class ConfigurationUtils {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
     }
 
 
-    public static class IDENTIFIER {
+    public static class IdentifierUtils {
         public static final String ANC_ID = "ANC_ID";
     }
 
-    public static final class EventType {
+    public static final class EventTypeUtils {
         public static final String REGISTRATION = "ANC Registration";
         public static final String UPDATE_REGISTRATION = "Update ANC Registration";
         public static final String QUICK_CHECK = "Quick Check";
@@ -101,7 +101,7 @@ public abstract class Constants {
         public static final String CONTACT_VISIT = "Contact Visit";
     }
 
-    public static class JSON_FORM {
+    public static class JsonFormUtils {
         public static final String ANC_REGISTER = "anc_register";
         public static final String ANC_CLOSE = "anc_close";
         public static final String ANC_PROFILE = "anc_profile";
@@ -109,14 +109,14 @@ public abstract class Constants {
         public static final String ANC_SYMPTOMS_FOLLOW_UP = "anc_symptoms_follow_up";
         public static final String ANC_PHYSICAL_EXAM = "anc_physical_exam";
         public static final String ANC_TEST = "anc_test";
-        public static final String ANC_TEST_ENCOUNTER_TYPE = "Tests";
         public static final String ANC_COUNSELLING_TREATMENT = "anc_counselling_treatment";
+        public static final String ANC_TEST_ENCOUNTER_TYPE = "Tests";
         public static final String ANC_COUNSELLING_TREATMENT_ENCOUNTER_TYPE = "Counselling and Treatment";
         public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
         public static final String ANC_QUICK_CHECK = "anc_quick_check";
     }
 
-    public static class JSON_FORM_KEY {
+    public static class JsonFormKeyUtils {
         public static final String ENTITY_ID = "entity_id";
         public static final String OPTIONS = "options";
         public static final String ENCOUNTER_LOCATION = "encounter_location";
@@ -132,18 +132,18 @@ public abstract class Constants {
         public static final String ANC_ID = "anc_id";
     }
 
-    public static class JSON_FORM_EXTRA {
+    public static class JsonFormExtraUtils {
         public static final String CONTACT = "contact";
         public static final String JSON = "json";
     }
 
-    public static class PREF_KEY {
+    public static class PrefKeyUtils {
         public static final String SITE_CHARACTERISTICS = "site_characteristics";
         public static final String POPULATION_CHARACTERISTICS = "population_characteristics";
         public static String FORM_INVISIBLE_REQUIRED_FIELDS = "anc.invisible.req.fields";
     }
 
-    public static final class KEY {
+    public static final class KeyUtils {
         public static final String KEY = "key";
         public static final String VALUE = "value";
         public static final String TREE = "tree";
@@ -159,7 +159,7 @@ public abstract class Constants {
         public static final String PARENT_SECONDARY_KEY = "parent_secondary_key";
     }
 
-    public static final class INTENT_KEY {
+    public static final class IntentKeyUtils {
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String JSON = "json";
         public static final String TO_RESCHEDULE = "to_reschedule";
@@ -170,31 +170,30 @@ public abstract class Constants {
         public static final String UNDONE_VALUES = "undone_values";
     }
 
-    public static class OPENMRS {
+    public static class OpenmrsUtils {
         public static final String ENTITY = "openmrs_entity";
         public static final String ENTITY_ID = "openmrs_entity_id";
     }
 
-    public static class ENTITY {
+    public static class EntityUtils {
         public static final String PERSON = "person";
     }
 
-    public static class BOOLEAN_INT {
+    public static class BooleanIntUtils {
         public static final int TRUE = 1;
     }
 
-    public static final class SyncFilters {
-
+    public static final class SyncFiltersUtils {
         public static final String FILTER_TEAM_ID = "teamId";
     }
 
-    public static class DETAILS_KEY {
+    public static class DetailsKeyUtils {
         public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
     }
 
-    public static final class ALERT_STATUS {
+    public static final class AlertStatusUtils {
         public static final String DUE = "due";
         public static final String OVERDUE = "overdue";
         public static final String NOT_DUE = "not_due";
@@ -205,48 +204,48 @@ public abstract class Constants {
         public static final String ACTIVE = "active";
     }
 
-    public static class FILE_CATEGORY {
+    public static class FileCategoryUtils {
         public static final String PROFILE_PIC = "profilepic";
 
     }
 
-    public static class RULES_FILE {
+    public static class RulesFileUtils {
         public static final String CONTACT_RULES = "contact-rules.yml";
         public static final String ALERT_RULES = "alert-rules.yml";
 
     }
 
-    public static class EC_FILE {
+    public static class EcFileUtils {
         public static final String CLIENT_CLASSIFICATION = "ec_client_classification.json";
         public static final String CLIENT_FIELDS = "ec_client_fields.json";
 
     }
 
-    public static class JSON_FORM_CONSTANTS {
+    public static class JsonFormConstantsUtils {
         public static final String CONTACT_CONTAINER = "container";
     }
 
-    public static class PREFIX {
+    public static class PrefixUtils {
         public static final String PREVIOUS = "previous_";
     }
 
-    public static class SUFFIX {
+    public static class SuffixUtils {
         public static final String VALUE = "_value";
         public static final String OTHER = "_other";
         public static final String ABNORMAL = "_abnormal";
         public static final String ABNORMAL_OTHER = ABNORMAL + OTHER;
     }
 
-    public static class BOOLEAN {
+    public static class BooleanUtils {
         public static final String TRUE = "true";
     }
 
-    public static class ATTENTION_FLAG {
+    public static class AttentionFlagUtils {
         public static final String RED = "red_attention_flag";
         public static final String YELLOW = "yellow_attention_flag";
     }
 
-    public static class Client {
+    public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
     }
 }

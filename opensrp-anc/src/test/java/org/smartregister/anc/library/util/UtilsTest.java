@@ -264,13 +264,14 @@ public class UtilsTest extends BaseUnitTest {
 
         JSONObject mainObject = getMainJsonObject("json_test_forms/expansion_panel_json_array");
         JSONArray expansionValues = mainObject.getJSONArray("expansion_values");
-        org.smartregister.anc.library.util.Utils utils = new org.smartregister.anc.library.util.Utils();
+        com.vijay.jsonwizard.utils.Utils utils = new com.vijay.jsonwizard.utils.Utils();
         List<String> result = utils.createExpansionPanelChildren(expansionValues);
         //Compare returned list sizes and the second and last values
         Assert.assertEquals(4, result.size());
         Assert.assertEquals(list.get(1), result.get(1));
         Assert.assertEquals(list.get(3), result.get(3));
     }
+
     @Test
     public void testHasPendingRequiredFields() throws Exception {
         //Checks if there are required fields that don't have value
@@ -290,69 +291,56 @@ public class UtilsTest extends BaseUnitTest {
         buttonAlertStatus.buttonText = "Awesome People";
 
         //Process alert status in_progress
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.IN_PROGRESS;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.IN_PROGRESS;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.IN_PROGRESS, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.IN_PROGRESS, buttonAlertStatus));
         //Process alert status  due
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.DUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.DUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.DUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.DUE, buttonAlertStatus));
         //Process alert status overdue
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.OVERDUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.OVERDUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.OVERDUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.OVERDUE, buttonAlertStatus));
         //Process alert status  not_due
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.NOT_DUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.NOT_DUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.NOT_DUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.NOT_DUE, buttonAlertStatus));
         //Process alert status delivery_due
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.DELIVERY_DUE;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.DELIVERY_DUE;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.DELIVERY_DUE, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.DELIVERY_DUE, buttonAlertStatus));
         //Process alert status  expired
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.EXPIRED;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.EXPIRED;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.EXPIRED, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.EXPIRED, buttonAlertStatus));
         //Process alert status  today
-        buttonAlertStatus.buttonAlertStatus = Constants.ALERT_STATUS.TODAY;
+        buttonAlertStatus.buttonAlertStatus = ConstantsUtils.AlertStatusUtils.TODAY;
         processButtonAlertStatus(context, button, textView, buttonAlertStatus);
-        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, Constants.ALERT_STATUS.TODAY, buttonAlertStatus));
+        Assert.assertTrue(assertAlertButtonStatus(context, button, textView, ConstantsUtils.AlertStatusUtils.TODAY, buttonAlertStatus));
     }
 
     private boolean assertAlertButtonStatus(android.content.Context context, Button button,
                                             TextView textView, String status, ButtonAlertStatus buttonAlertStatus) {
         boolean result;
         switch (status) {
-            case Constants.ALERT_STATUS.IN_PROGRESS:
-                result = (textView.getVisibility() == (View.GONE));
-
-                break;
-            case Constants.ALERT_STATUS.DUE:
-                result = (textView.getVisibility() == (View.GONE));
-
-                break;
-            case Constants.ALERT_STATUS.OVERDUE:
-                result = (textView.getVisibility() == (View.GONE));
-
-                break;
-            case Constants.ALERT_STATUS.NOT_DUE:
-                result = (textView.getVisibility() == (View.GONE));
-                break;
-            case Constants.ALERT_STATUS.DELIVERY_DUE:
+            case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                 result = (textView.getVisibility() == (View.GONE)) &&
                         button.getText() == (context.getString(R.string.due_delivery));
                 break;
-            case Constants.ALERT_STATUS.EXPIRED:
+            case ConstantsUtils.AlertStatusUtils.EXPIRED:
                 result = (textView.getVisibility() == (View.GONE)) &&
                         button.getText() == (context.getString(R.string.due_delivery));
                 break;
-            case Constants.ALERT_STATUS.TODAY:
+            case ConstantsUtils.AlertStatusUtils.TODAY:
                 result = (textView.getVisibility() == (View.VISIBLE)) && (button.getVisibility() == (View.GONE)) &&
-                        textView.getText().equals(String.format(context.getString(R.string.contact_recorded_today),
-                                getTodayContact(String.valueOf(buttonAlertStatus.nextContact)))) &&
-                        button.getText().equals( String.format(context.getString(R.string.contact_recorded_today_no_break),
-                                getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                        textView.getText().equals(String.format(context.getString(R.string.contact_recorded_today), getTodayContact(String.valueOf(buttonAlertStatus.nextContact)))) &&
+                        button.getText().equals(String.format(context.getString(R.string.contact_recorded_today_no_break), getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
                 break;
+            case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
+            case ConstantsUtils.AlertStatusUtils.DUE:
+            case ConstantsUtils.AlertStatusUtils.NOT_DUE:
+            case ConstantsUtils.AlertStatusUtils.OVERDUE:
             default:
                 result = (textView.getVisibility() == (View.GONE));
                 break;

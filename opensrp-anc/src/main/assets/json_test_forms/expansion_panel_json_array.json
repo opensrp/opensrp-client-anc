@@ -2,7 +2,7 @@
   "expansion_values": [
     {
       "key": "hepc_test_status",
-      "type": "anc_radio_button",
+      "type": "extended_radio_button",
       "label": "Hepatitis C test",
       "index": 0,
       "values": [

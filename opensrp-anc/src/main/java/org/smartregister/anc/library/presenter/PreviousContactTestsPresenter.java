@@ -9,7 +9,7 @@ import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.interactor.PreviousContactsTestsInteractor;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.FilePathUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -77,13 +77,13 @@ public class PreviousContactTestsPresenter implements PreviousContactsTests.Pres
 
     @Override
     public List<TestResults> loadAllTestResults(String baseEntityId, String keysToFetch, String dateKey, String contactNo) {
-        return  new ArrayList<>();
+        return new ArrayList<>();
     }
 
 
     private List<YamlConfigWrapper> addTestsRuleObjects(Facts facts) throws IOException {
         List<YamlConfigWrapper> lastContactTests = new ArrayList<>();
-        Iterable<Object> testsRuleObjects = AncLibrary.getInstance().readYaml(FilePath.FILE.PROFILE_LAST_CONTACT_TEST);
+        Iterable<Object> testsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST);
 
         for (Object ruleObject : testsRuleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();

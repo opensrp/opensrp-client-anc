@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.domain.Setting;
 import org.smartregister.domain.SyncStatus;
 import org.smartregister.repository.AllSettings;
@@ -22,7 +22,7 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
     public void saveSiteCharacteristics(Map<String, String> siteCharacteristicsSettingsMap) throws JSONException {
 
         JSONArray localSettings;
-        Setting characteristic = getAllSettingsRepo().getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+        Setting characteristic = getAllSettingsRepo().getSetting(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
 
 
         JSONObject settingObject = characteristic != null ? new JSONObject(characteristic.getValue()) : null;
@@ -35,8 +35,8 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
                     JSONObject localSetting = localSettings.getJSONObject(i);
 
                     //updating by java object reference
-                    localSetting.put(Constants.KEY.VALUE,
-                            "1".equals(siteCharacteristicsSettingsMap.get(localSetting.getString(Constants.KEY.KEY))));
+                    localSetting.put(ConstantsUtils.KeyUtils.VALUE,
+                            "1".equals(siteCharacteristicsSettingsMap.get(localSetting.getString(ConstantsUtils.KeyUtils.KEY))));
 
                 }
 
@@ -45,7 +45,7 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
             settingObject.put(AllConstants.SETTINGS, localSettings);
             characteristic.setValue(settingObject.toString());
             characteristic
-                    .setKey(Constants.PREF_KEY.SITE_CHARACTERISTICS); //We know only site characteristics are being saved
+                    .setKey(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS); //We know only site characteristics are being saved
             // at this time
             characteristic.setSyncStatus(SyncStatus.PENDING.name());
 

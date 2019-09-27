@@ -21,13 +21,13 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
     private HTTPAgent httpAgent;
     private DristhiConfiguration dristhiConfiguration;
 
+    public AdvancedSearchInteractor() {
+        this(new AppExecutors());
+    }
+
     @VisibleForTesting
     AdvancedSearchInteractor(AppExecutors appExecutors) {
         this.appExecutors = appExecutors;
-    }
-
-    public AdvancedSearchInteractor() {
-        this(new AppExecutors());
     }
 
     @Override
@@ -74,6 +74,12 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
         return getHttpAgent().fetch(uri);
     }
 
+    public DristhiConfiguration getDristhiConfiguration() {
+        if (this.dristhiConfiguration == null) {
+            this.dristhiConfiguration = AncLibrary.getInstance().getContext().configuration();
+        }
+        return this.dristhiConfiguration;
+    }
 
     private String urlEncode(String value) {
         try {
@@ -93,13 +99,6 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
 
     public void setHttpAgent(HTTPAgent httpAgent) {
         this.httpAgent = httpAgent;
-    }
-
-    public DristhiConfiguration getDristhiConfiguration() {
-        if (this.dristhiConfiguration == null) {
-            this.dristhiConfiguration = AncLibrary.getInstance().getContext().configuration();
-        }
-        return this.dristhiConfiguration;
     }
 
     public void setDristhiConfiguration(DristhiConfiguration dristhiConfiguration) {

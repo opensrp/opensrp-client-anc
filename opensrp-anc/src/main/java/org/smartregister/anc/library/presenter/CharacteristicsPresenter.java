@@ -7,7 +7,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.library.interactor.CharacteristicsInteractor;
 import org.smartregister.anc.library.model.SiteCharacteristicModel;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.domain.ServerSetting;
 import org.smartregister.sync.helper.ServerSettingsHelper;
 
@@ -45,7 +45,7 @@ public class CharacteristicsPresenter implements SiteCharacteristicsContract.Pre
 
     @Override
     public void launchSiteCharacteristicsFormForEdit() {
-        Map<String, String> settings = getSettingsMapByType(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+        Map<String, String> settings = getSettingsMapByType(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         getSiteCharacteristicsView().launchSiteCharacteristicsSettingsFormForEdit(settings);
     }
 

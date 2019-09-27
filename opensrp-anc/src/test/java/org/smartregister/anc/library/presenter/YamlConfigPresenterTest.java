@@ -11,7 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,8 +129,8 @@ public class YamlConfigPresenterTest extends BaseUnitTest {
         String lastName = "Smith";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
         contactSummaryPresenter.onWomanDetailsFetched(details);
         Assert.assertEquals(contactSummaryPresenter.getWomanDetails().isEmpty(), false);
 

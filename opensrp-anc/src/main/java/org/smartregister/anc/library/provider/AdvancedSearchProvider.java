@@ -12,7 +12,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -61,11 +61,6 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         this.imageRenderHelper = new ImageRenderHelper(context);
     }
 
-    public static void fillValue(TextView v, String value) {
-        if (v != null) v.setText(value);
-
-    }
-
     @Override
     public void getView(Cursor cursor, SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
@@ -102,11 +97,6 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         */
     }
 
-    private void profileImageClick(SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
-        View patientImage = viewHolder.profile;
-        attachPatientOnclickListener(patientImage, client);
-    }
-
     @Override
     public void getFooterView(RecyclerView.ViewHolder viewHolder, int currentPageCount, int totalPageCount, boolean hasNext,
                               boolean hasPrevious) {
@@ -119,58 +109,6 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
         footerViewHolder.nextPageView.setOnClickListener(paginationClickListener);
         footerViewHolder.previousPageView.setOnClickListener(paginationClickListener);
-    }
-
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
-                                       AdvancedSearchViewHolder viewHolder) {
-
-        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
-        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-        String patientName = Utils.getName(firstName, lastName);
-
-        fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
-
-        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
-
-        View patient = viewHolder.patientColumn;
-        attachPatientOnclickListener(patient, client);
-    }
-
-    private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
-        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.ANC_ID, false);
-        fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
-    }
-
-    private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_NORMAL);
-    }
-
-    private void populateLastColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
-
-        if (commonRepository != null) {
-            CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
-            if (commonPersonObject != null) {
-                imageRenderHelper
-                        .refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIdentifier());
-
-                viewHolder.sync.setVisibility(View.GONE);
-                viewHolder.profile.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.profile.setVisibility(View.GONE);
-                viewHolder.sync.setVisibility(View.VISIBLE);
-                attachSyncOnclickListener(viewHolder.sync, pc);
-            }
-        }
-    }
-
-    private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_SYNC);
     }
 
     @Override
@@ -221,7 +159,69 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
-        return FooterViewHolder.class.isInstance(viewHolder);
+        return viewHolder instanceof FooterViewHolder;
+    }
+
+    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
+                                       AdvancedSearchViewHolder viewHolder) {
+
+        String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.FIRST_NAME, true);
+        String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_NAME, true);
+        String patientName = Utils.getName(firstName, lastName);
+
+        fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
+
+        String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
+        dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+        fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
+
+        View patient = viewHolder.patientColumn;
+        attachPatientOnclickListener(patient, client);
+    }
+
+    private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
+        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
+        fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
+    }
+
+    private void populateLastColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
+
+        if (commonRepository != null) {
+            CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
+            if (commonPersonObject != null) {
+                imageRenderHelper
+                        .refreshProfileImage(pc.entityId(), viewHolder.profile, Utils.getProfileImageResourceIdentifier());
+
+                viewHolder.sync.setVisibility(View.GONE);
+                viewHolder.profile.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.profile.setVisibility(View.GONE);
+                viewHolder.sync.setVisibility(View.VISIBLE);
+                attachSyncOnclickListener(viewHolder.sync, pc);
+            }
+        }
+    }
+
+    private void profileImageClick(SmartRegisterClient client, AdvancedSearchViewHolder viewHolder) {
+        View patientImage = viewHolder.profile;
+        attachPatientOnclickListener(patientImage, client);
+    }
+
+    public static void fillValue(TextView v, String value) {
+        if (v != null) v.setText(value);
+
+    }
+
+    private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_NORMAL);
+    }
+
+    private void attachSyncOnclickListener(View view, SmartRegisterClient client) {
+        view.setOnClickListener(onClickListener);
+        view.setTag(client);
+        view.setTag(R.id.VIEW_ID, HomeRegisterFragment.CLICK_VIEW_SYNC);
     }
 
     ////////////////////////////////////////////////////////////////

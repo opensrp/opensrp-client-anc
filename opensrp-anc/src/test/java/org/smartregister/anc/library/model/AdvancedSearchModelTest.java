@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 
@@ -43,13 +43,13 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         Assert.assertNotNull(editMap);
         Assert.assertEquals(7, editMap.size());
 
-        Assert.assertEquals(firstName, editMap.get(DBConstants.KEY.FIRST_NAME));
-        Assert.assertEquals(lastName, editMap.get(DBConstants.KEY.LAST_NAME));
-        Assert.assertEquals(ancId, editMap.get(DBConstants.KEY.ANC_ID));
-        Assert.assertEquals(edd, editMap.get(DBConstants.KEY.EDD));
-        Assert.assertEquals(dob, editMap.get(DBConstants.KEY.DOB));
-        Assert.assertEquals(phoneNumber, editMap.get(DBConstants.KEY.PHONE_NUMBER));
-        Assert.assertEquals(alternateContact, editMap.get(DBConstants.KEY.ALT_NAME));
+        Assert.assertEquals(firstName, editMap.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
+        Assert.assertEquals(lastName, editMap.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+        Assert.assertEquals(ancId, editMap.get(DBConstantsUtils.KeyUtils.ANC_ID));
+        Assert.assertEquals(edd, editMap.get(DBConstantsUtils.KeyUtils.EDD));
+        Assert.assertEquals(dob, editMap.get(DBConstantsUtils.KeyUtils.DOB));
+        Assert.assertEquals(phoneNumber, editMap.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
+        Assert.assertEquals(alternateContact, editMap.get(DBConstantsUtils.KeyUtils.ALT_NAME));
 
     }
 
@@ -91,9 +91,9 @@ public class AdvancedSearchModelTest extends BaseUnitTest {
         Assert.assertNotNull(editMap);
         Assert.assertEquals(3, editMap.size());
 
-        Assert.assertEquals(lastName, editMap.get(DBConstants.KEY.LAST_NAME));
-        Assert.assertEquals(edd, editMap.get(DBConstants.KEY.EDD));
-        Assert.assertEquals(phoneNumber, editMap.get(DBConstants.KEY.PHONE_NUMBER));
+        Assert.assertEquals(lastName, editMap.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+        Assert.assertEquals(edd, editMap.get(DBConstantsUtils.KeyUtils.EDD));
+        Assert.assertEquals(phoneNumber, editMap.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
 
     }
 

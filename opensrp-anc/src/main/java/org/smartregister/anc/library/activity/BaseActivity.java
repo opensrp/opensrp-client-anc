@@ -9,7 +9,7 @@ import android.util.Log;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 
 import java.util.Map;
@@ -26,23 +26,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-
-    public void showProgressDialog(int saveMessageStringIdentifier) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-            progressDialog.setTitle(getString(saveMessageStringIdentifier));
-            progressDialog.setMessage(getString(R.string.please_wait_message));
-        }
-        if (!isFinishing()) progressDialog.show();
-    }
-
-    public void hideProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
     }
 
     @Override
@@ -66,6 +49,22 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
         JsonFormUtils.launchSiteCharacteristicsForm(this);
     }
 
+    public void showProgressDialog(int saveMessageStringIdentifier) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle(getString(saveMessageStringIdentifier));
+            progressDialog.setMessage(getString(R.string.please_wait_message));
+        }
+        if (!isFinishing()) progressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
     @Override
     public void goToLastPage() {
 
@@ -76,19 +75,19 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
         }
     }
 
-    public void goToSiteCharacteristicsExitPage() {
-        Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN,
-                getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
+    public void goToHomeRegisterPage() {
+        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
+                getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 
         finish();//finish this
     }
 
-    public void goToHomeRegisterPage() {
-        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN,
-                getIntent().getBooleanExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, false));
+    public void goToSiteCharacteristicsExitPage() {
+        Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
+                getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
 
         finish();//finish this

@@ -22,7 +22,7 @@ import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -82,7 +82,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         String contactNo = "1";
         String edd = "2019-09-01";
         Facts facts = new Facts();
-        facts.put(Constants.CONTACT_SCHEDULE, "[30, 34, 36, 38, 40, 41]");
+        facts.put(ConstantsUtils.CONTACT_SCHEDULE, "[30, 34, 36, 38, 40, 41]");
         Mockito.doReturn(facts).when(previousContactRepository).getImmediatePreviousSchedule(baseEntityId, contactNo);
         previousContactPresenter.loadPreviousContactSchedule(baseEntityId, contactNo, edd);
         verify(profileView, atLeastOnce()).displayPreviousContactSchedule(schedulesArgs.capture());
@@ -107,15 +107,15 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
     private void populatePreviousContacts(List<PreviousContactsSummaryModel> allContactsFacts) {
         //Add  10 dummy records to allContactFacts list
         Facts fact1 = new Facts();
-        fact1.put(Constants.GEST_AGE_OPENMRS, "21");
+        fact1.put(ConstantsUtils.GEST_AGE_OPENMRS, "21");
         Facts fact2 = new Facts();
-        fact1.put(Constants.DANGER_NONE, "[none]");
+        fact1.put(ConstantsUtils.DANGER_NONE, "[none]");
         Facts fact3 = new Facts();
-        fact1.put(Constants.CONTACT_DATE, "2019-05-30");
+        fact1.put(ConstantsUtils.CONTACT_DATE, "2019-05-30");
         Facts fact4 = new Facts();
-        fact1.put(Constants.GEST_AGE_OPENMRS, "18");
+        fact1.put(ConstantsUtils.GEST_AGE_OPENMRS, "18");
         Facts fact5 = new Facts();
-        fact1.put(Constants.DANGER_NONE, "[bleeding_vaginally]");
+        fact1.put(ConstantsUtils.DANGER_NONE, "[bleeding_vaginally]");
 
         PreviousContactsSummaryModel prevContactModel1 = new PreviousContactsSummaryModel("2", "2019-05-30", fact1);
         PreviousContactsSummaryModel prevContactModel2 = new PreviousContactsSummaryModel("2", "2019-05-30", fact2);

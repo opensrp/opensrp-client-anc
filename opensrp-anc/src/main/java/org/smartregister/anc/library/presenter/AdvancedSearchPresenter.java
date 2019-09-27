@@ -8,8 +8,8 @@ import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.library.model.AdvancedSearchModel;
-import org.smartregister.anc.library.util.CreateRemoteLocalCursor;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.CreateRemoteLocalCursorUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.domain.Response;
 
 import java.lang.ref.WeakReference;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         implements AdvancedSearchContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
-    public static final String TABLE_NAME = DBConstants.WOMAN_TABLE_NAME;
+    public static final String TABLE_NAME = DBConstantsUtils.WOMAN_TABLE_NAME;
     private WeakReference<AdvancedSearchContract.View> viewReference;
     private AdvancedSearchContract.Model model;
 
@@ -69,6 +69,11 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         }
     }
 
+    protected AdvancedSearchContract.View getView() {
+        if (viewReference != null) return viewReference.get();
+        else return null;
+    }
+
     private void localQueryInitialize(Map<String, String> editMap) {
         String mainCondition = model.getMainConditionString(editMap);
 
@@ -95,39 +100,39 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         Cursor cursor = getView().getRawCustomQueryForAdapter(query);
         if (cursor != null && cursor.getCount() > 0) {
             AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(
-                    new String[]{DBConstants.KEY.ID_LOWER_CASE, DBConstants.KEY.RELATIONAL_ID, DBConstants.KEY.FIRST_NAME,
-                            DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.ANC_ID,
-                            DBConstants.KEY.PHONE_NUMBER, DBConstants.KEY.ALT_NAME});
+                    new String[]{DBConstantsUtils.KeyUtils.ID_LOWER_CASE, DBConstantsUtils.KeyUtils.RELATIONAL_ID, DBConstantsUtils.KeyUtils.FIRST_NAME,
+                            DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB, DBConstantsUtils.KeyUtils.ANC_ID,
+                            DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME});
 
             CursorJoiner joiner =
-                    new CursorJoiner(matrixCursor, new String[]{DBConstants.KEY.ANC_ID, DBConstants.KEY.ID_LOWER_CASE},
-                            cursor, new String[]{DBConstants.KEY.ANC_ID, DBConstants.KEY.ID_LOWER_CASE});
+                    new CursorJoiner(matrixCursor, new String[]{DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.ID_LOWER_CASE},
+                            cursor, new String[]{DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.ID_LOWER_CASE});
             for (CursorJoiner.Result joinerResult : joiner) {
                 switch (joinerResult) {
                     case BOTH:
-                        CreateRemoteLocalCursor createRemoteLocalCursor = new CreateRemoteLocalCursor(matrixCursor, true);
-                        remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursor.getId(),
-                                createRemoteLocalCursor.getRelationalId(), createRemoteLocalCursor.getFirstName(),
-                                createRemoteLocalCursor.getLastName(), createRemoteLocalCursor.getDob(),
-                                createRemoteLocalCursor.getAncId(), createRemoteLocalCursor.getPhoneNumber(),
-                                createRemoteLocalCursor.getAltName()});
+                        CreateRemoteLocalCursorUtils createRemoteLocalCursorUtils = new CreateRemoteLocalCursorUtils(matrixCursor, true);
+                        remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursorUtils.getId(),
+                                createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
+                                createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
+                                createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
+                                createRemoteLocalCursorUtils.getAltName()});
                         break;
                     case RIGHT:
-                        CreateRemoteLocalCursor localCreateRemoteLocalCursor = new CreateRemoteLocalCursor(cursor, false);
-                        remoteLocalCursor.addRow(new Object[]{localCreateRemoteLocalCursor.getId(),
-                                localCreateRemoteLocalCursor.getRelationalId(), localCreateRemoteLocalCursor.getFirstName(),
-                                localCreateRemoteLocalCursor.getLastName(), localCreateRemoteLocalCursor.getDob(),
-                                localCreateRemoteLocalCursor.getAncId(), localCreateRemoteLocalCursor.getPhoneNumber(),
-                                localCreateRemoteLocalCursor.getAltName()});
+                        CreateRemoteLocalCursorUtils localCreateRemoteLocalCursorUtils = new CreateRemoteLocalCursorUtils(cursor, false);
+                        remoteLocalCursor.addRow(new Object[]{localCreateRemoteLocalCursorUtils.getId(),
+                                localCreateRemoteLocalCursorUtils.getRelationalId(), localCreateRemoteLocalCursorUtils.getFirstName(),
+                                localCreateRemoteLocalCursorUtils.getLastName(), localCreateRemoteLocalCursorUtils.getDob(),
+                                localCreateRemoteLocalCursorUtils.getAncId(), localCreateRemoteLocalCursorUtils.getPhoneNumber(),
+                                localCreateRemoteLocalCursorUtils.getAltName()});
 
                         break;
                     case LEFT:
-                        createRemoteLocalCursor = new CreateRemoteLocalCursor(matrixCursor, true);
-                        remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursor.getId(),
-                                createRemoteLocalCursor.getRelationalId(), createRemoteLocalCursor.getFirstName(),
-                                createRemoteLocalCursor.getLastName(), createRemoteLocalCursor.getDob(),
-                                createRemoteLocalCursor.getAncId(), createRemoteLocalCursor.getPhoneNumber(),
-                                createRemoteLocalCursor.getAltName()});
+                        createRemoteLocalCursorUtils = new CreateRemoteLocalCursorUtils(matrixCursor, true);
+                        remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursorUtils.getId(),
+                                createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
+                                createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
+                                createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
+                                createRemoteLocalCursorUtils.getAltName()});
                         break;
                     default:
                         break;
@@ -142,17 +147,11 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         }
     }
 
-
-    protected AdvancedSearchContract.View getView() {
-        if (viewReference != null) return viewReference.get();
-        else return null;
+    public void setInteractor(AdvancedSearchContract.Interactor interactor) {
+        this.interactor = interactor;
     }
 
     public void setModel(AdvancedSearchContract.Model model) {
         this.model = model;
-    }
-
-    public void setInteractor(AdvancedSearchContract.Interactor interactor) {
-        this.interactor = interactor;
     }
 }

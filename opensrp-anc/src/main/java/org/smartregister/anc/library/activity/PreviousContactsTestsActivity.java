@@ -16,10 +16,10 @@ import org.smartregister.anc.library.contract.PreviousContactsTests;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.TestResults;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
-import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.presenter.PreviousContactTestsPresenter;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -33,7 +33,7 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
     protected ActionBar actionBar;
     private RecyclerView lastContactsTestsRecyclerView;
     private LinearLayout notTestShown;
-    private  String baseEntityId;
+    private String baseEntityId;
     private String contactNo;
 
     @Override
@@ -48,13 +48,13 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             actionBar.setTitle(getResources().getString(R.string.previous_contacts_tests_header));
         }
 
-        baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
+                (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
 
         mProfilePresenter = new PreviousContactTestsPresenter(this);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
-        String lastContactRecordDate = clientDetails.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE);
+        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+        String lastContactRecordDate = clientDetails.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
 
         setUpViews();
         try {
@@ -62,6 +62,15 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    protected int getViewLayoutId() {
+        return R.layout.activity_previous_contacts_tests;
+    }
+
+    private void setUpViews() {
+        lastContactsTestsRecyclerView = findViewById(R.id.last_contacts_tests);
+        notTestShown = findViewById(R.id.show_no_tests);
     }
 
     @Override
@@ -76,7 +85,7 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             }
         }
         if (data.size() > 0) {
-            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts, mProfilePresenter,baseEntityId,
+            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(this, data, facts, mProfilePresenter, baseEntityId,
                     contactNo);
             lastContactsTestsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             lastContactsTestsRecyclerView.setAdapter(adapter);
@@ -91,11 +100,6 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
         // todo
     }
 
-    private void setUpViews() {
-        lastContactsTestsRecyclerView = findViewById(R.id.last_contacts_tests);
-        notTestShown = findViewById(R.id.show_no_tests);
-    }
-
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
@@ -103,10 +107,6 @@ public class PreviousContactsTestsActivity extends AppCompatActivity implements 
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    protected int getViewLayoutId() {
-        return R.layout.activity_previous_contacts_tests;
     }
 
     @Override

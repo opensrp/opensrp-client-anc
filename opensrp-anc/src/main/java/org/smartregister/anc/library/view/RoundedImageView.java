@@ -35,18 +35,18 @@ public class RoundedImageView extends AppCompatImageView {
         super(context, attrs, defStyle);
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        this.setImageBitmap(createRoundedImage(background));
+    }
+
     protected Bitmap createRoundedImage(Bitmap background) {
         ViewGroup parentLayout = ((ViewGroup) this.getParent());
         int imageViewBackgroundColor = getImageViewBackgroundColor(parentLayout);
         Bitmap foreground = createForegroundBitmap(background, imageViewBackgroundColor);
         foreground = punchAHoleInABitmap(foreground, background);
         return combineTwoBitmaps(background, foreground);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        this.setImageBitmap(createRoundedImage(background));
     }
 
     private int getImageViewBackgroundColor(ViewGroup viewGroup) {

@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -10,7 +9,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.model.PartialContact;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
@@ -18,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class PartialContactRepository extends BaseRepository {
     public static final String TABLE_NAME = "partial_contact";
@@ -30,7 +31,6 @@ public class PartialContactRepository extends BaseRepository {
     public static final String CONTACT_NO = "contact_no";
     public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT_COLUMN = "updated_at";
-    private static final String TAG = PartialContactRepository.class.getCanonicalName();
     private static final String CREATE_TABLE_SQL =
             "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," + BASE_ENTITY_ID +
                     "  VARCHAR NOT NULL, " + TYPE + "  VARCHAR NOT NULL, " + FORM_JSON + "  VARCHAR, " + FORM_JSON_DRAFT +
@@ -52,10 +52,10 @@ public class PartialContactRepository extends BaseRepository {
     public PartialContactRepository(Repository repository) {
         super(repository);
 
-        formProcessingOrderMap = ImmutableMap.<String, Integer>builder().put(Constants.JSON_FORM.ANC_QUICK_CHECK, 1)
-                .put(Constants.JSON_FORM.ANC_PROFILE, 2).put(Constants.JSON_FORM.ANC_SYMPTOMS_FOLLOW_UP, 3)
-                .put(Constants.JSON_FORM.ANC_PHYSICAL_EXAM, 4).put(Constants.JSON_FORM.ANC_TEST, 5)
-                .put(Constants.JSON_FORM.ANC_COUNSELLING_TREATMENT, 6).build();
+        formProcessingOrderMap = ImmutableMap.<String, Integer>builder().put(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, 1)
+                .put(ConstantsUtils.JsonFormUtils.ANC_PROFILE, 2).put(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, 3)
+                .put(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM, 4).put(ConstantsUtils.JsonFormUtils.ANC_TEST, 5)
+                .put(ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, 6).build();
     }
 
     public static void createTable(SQLiteDatabase database) {
@@ -88,26 +88,6 @@ public class PartialContactRepository extends BaseRepository {
         }
     }
 
-    private void update(PartialContact PartialContact) {
-        ContentValues contentValues = createValuesFor(PartialContact);
-        getWritableDatabase()
-                .update(TABLE_NAME, contentValues, ID + " = ?", new String[]{PartialContact.getId().toString()});
-    }
-
-    private ContentValues createValuesFor(PartialContact PartialContact) {
-        ContentValues values = new ContentValues();
-        values.put(ID, PartialContact.getId());
-        values.put(BASE_ENTITY_ID, PartialContact.getBaseEntityId());
-        values.put(TYPE, PartialContact.getType());
-        values.put(FORM_JSON, PartialContact.getFormJson());
-        values.put(FORM_JSON_DRAFT, PartialContact.getFormJsonDraft());
-        values.put(CONTACT_NO, PartialContact.getContactNo());
-        values.put(IS_FINALIZED, PartialContact.getFinalized());
-        values.put(CREATED_AT, PartialContact.getCreatedAt());
-        values.put(UPDATED_AT_COLUMN, PartialContact.getUpdatedAt());
-        return values;
-    }
-
     public PartialContact getPartialContact(PartialContact partialContact) {
         String selection = null;
         String[] selectionArgs = null;
@@ -131,7 +111,7 @@ public class PartialContactRepository extends BaseRepository {
                 dbPartialContact = getContactResult(mCursor);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e,"PartialContactRepository --> getPartialContact");
 
         } finally {
             if (mCursor != null) {
@@ -139,6 +119,44 @@ public class PartialContactRepository extends BaseRepository {
             }
         }
         return dbPartialContact;
+    }
+
+    private void update(PartialContact PartialContact) {
+        ContentValues contentValues = createValuesFor(PartialContact);
+        getWritableDatabase()
+                .update(TABLE_NAME, contentValues, ID + " = ?", new String[]{PartialContact.getId().toString()});
+    }
+
+    private ContentValues createValuesFor(PartialContact PartialContact) {
+        ContentValues values = new ContentValues();
+        values.put(ID, PartialContact.getId());
+        values.put(BASE_ENTITY_ID, PartialContact.getBaseEntityId());
+        values.put(TYPE, PartialContact.getType());
+        values.put(FORM_JSON, PartialContact.getFormJson());
+        values.put(FORM_JSON_DRAFT, PartialContact.getFormJsonDraft());
+        values.put(CONTACT_NO, PartialContact.getContactNo());
+        values.put(IS_FINALIZED, PartialContact.getFinalized());
+        values.put(CREATED_AT, PartialContact.getCreatedAt());
+        values.put(UPDATED_AT_COLUMN, PartialContact.getUpdatedAt());
+        return values;
+    }
+
+    private PartialContact getContactResult(Cursor cursor) {
+
+        PartialContact partialContact = new PartialContact();
+        partialContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
+        partialContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));
+        partialContact.setFormJson(cursor.getString(cursor.getColumnIndex(FORM_JSON)));
+        partialContact.setContactNo(cursor.getInt(cursor.getColumnIndex(CONTACT_NO)));
+        partialContact.setFormJsonDraft(cursor.getString(cursor.getColumnIndex(FORM_JSON_DRAFT)));
+        partialContact.setFinalized(cursor.getInt(cursor.getColumnIndex(IS_FINALIZED)) != 0);
+        partialContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+        partialContact.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
+        partialContact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)));
+        partialContact.setSortOrder(formProcessingOrderMap.get(partialContact.getType()));
+
+
+        return partialContact;
     }
 
     public List<PartialContact> getPartialContacts(String baseEntityId, Integer contactNumber) {
@@ -170,31 +188,13 @@ public class PartialContactRepository extends BaseRepository {
                 return partialContactList;
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e,"PartialContactRepository --> getPartialContacts");
         } finally {
             if (mCursor != null) {
                 mCursor.close();
             }
         }
         return partialContactList;
-    }
-
-    private PartialContact getContactResult(Cursor cursor) {
-
-        PartialContact partialContact = new PartialContact();
-        partialContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
-        partialContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));
-        partialContact.setFormJson(cursor.getString(cursor.getColumnIndex(FORM_JSON)));
-        partialContact.setContactNo(cursor.getInt(cursor.getColumnIndex(CONTACT_NO)));
-        partialContact.setFormJsonDraft(cursor.getString(cursor.getColumnIndex(FORM_JSON_DRAFT)));
-        partialContact.setFinalized(cursor.getInt(cursor.getColumnIndex(IS_FINALIZED)) != 0);
-        partialContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
-        partialContact.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
-        partialContact.setUpdatedAt(cursor.getLong(cursor.getColumnIndex(UPDATED_AT_COLUMN)));
-        partialContact.setSortOrder(formProcessingOrderMap.get(partialContact.getType()));
-
-
-        return partialContact;
     }
 
     public void deleteDraftJson(String baseEntityId) {
@@ -205,14 +205,12 @@ public class PartialContactRepository extends BaseRepository {
     }
 
     public void saveFinalJson(String baseEntityId) {
-
         getWritableDatabase().execSQL(
                 "UPDATE " + TABLE_NAME + " SET " + FORM_JSON + "=" + FORM_JSON_DRAFT + ", " + FORM_JSON_DRAFT +
                         "= NULL WHERE " + BASE_ENTITY_ID + " = ? AND " + FORM_JSON_DRAFT + " IS NOT NULL",
                 new String[]{baseEntityId});
 
-        PatientRepository patientRepository = new PatientRepository();
-        patientRepository.updateWomanAlertStatus(baseEntityId, Constants.ALERT_STATUS.ACTIVE);
+        PatientRepository.updateWomanAlertStatus(baseEntityId, ConstantsUtils.AlertStatusUtils.ACTIVE);
     }
 
     public void deletePartialContact(Long id) {
@@ -220,7 +218,6 @@ public class PartialContactRepository extends BaseRepository {
     }
 
     public void clearPartialRepository() {
-
         getWritableDatabase().delete(TABLE_NAME, "_id IS NOT NULL", null);
     }
 }

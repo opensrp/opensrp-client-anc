@@ -22,9 +22,9 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
+import org.smartregister.anc.library.util.ContactJsonFormUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -63,31 +63,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         mJsonObject = jsonObject;
     }
 
-    private Rules getRulesFromAsset(String fileName) {
-        try {
-            if (! ruleMap.containsKey(fileName)) {
-
-                BufferedReader bufferedReader =
-                        new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
-                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
-            }
-            return ruleMap.get(fileName);
-        } catch (IOException e) {
-            Log.e(ContactRule.class.getName(), e.getMessage(), e);
-            return null;
-        }
-    }
-
-    protected void processInferentialRules(Rules rules, Facts facts) {
-
-        inferentialRulesEngine.fire(rules, facts);
-    }
-
-    protected void processDefaultRules(Rules rules, Facts facts) {
-
-        defaultRulesEngine.fire(rules, facts);
-    }
-
     public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
 
         Facts facts = new Facts();
@@ -107,6 +82,26 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return list;
     }
 
+    private Rules getRulesFromAsset(String fileName) {
+        try {
+            if (!ruleMap.containsKey(fileName)) {
+
+                BufferedReader bufferedReader =
+                        new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
+                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
+            }
+            return ruleMap.get(fileName);
+        } catch (IOException e) {
+            Log.e(ContactRule.class.getName(), e.getMessage(), e);
+            return null;
+        }
+    }
+
+    protected void processInferentialRules(Rules rules, Facts facts) {
+
+        inferentialRulesEngine.fire(rules, facts);
+    }
+
     public String getButtonAlertStatus(AlertRule alertRule, String rulesFile) {
 
         Facts facts = new Facts();
@@ -120,6 +115,11 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         processDefaultRules(rules, facts);
 
         return alertRule.buttonStatus;
+    }
+
+    protected void processDefaultRules(Rules rules, Facts facts) {
+
+        defaultRulesEngine.fire(rules, facts);
     }
 
     public boolean getRelevance(Facts relevanceFacts, String rule) {
@@ -143,7 +143,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
      */
     public String stripGaNumber(String gestAge) {
         String ga = "";
-        if (! TextUtils.isEmpty(gestAge)) {
+        if (!TextUtils.isEmpty(gestAge)) {
             String[] gestAgeSplit = gestAge.split(" ");
             if (gestAgeSplit.length >= 1) {
                 int gaWeeks = Integer.parseInt(gestAgeSplit[0]);
@@ -186,30 +186,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
     /**
-     * Given two dates compare if they are equal
-     *
-     * @param firstDate  the first date entered
-     * @param secondDate the second date entered
-     * @return returns {-1} when first date occurs before second date, {0} when both dates are equal
-     * {1} when second date is greater than first date and {-2} if any of the dates passed is null
-     * or is empty
-     */
-    public int compareTwoDates(String firstDate, String secondDate) {
-        if (! TextUtils.isEmpty(firstDate) && ! TextUtils.isEmpty(secondDate)) {
-            Calendar dateOne = FormUtils.getDate(firstDate);
-            Calendar dateTwo = FormUtils.getDate(secondDate);
-            if (dateOne.before(dateTwo)) {
-                return - 1;
-            } else if (dateOne.equals(dateTwo)) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
-        return - 2;
-    }
-
-    /**
      * Compares date against today's date
      *
      * @param theDate passed as first date to first date
@@ -220,10 +196,34 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
     }
 
+    /**
+     * Given two dates compare if they are equal
+     *
+     * @param firstDate  the first date entered
+     * @param secondDate the second date entered
+     * @return returns {-1} when first date occurs before second date, {0} when both dates are equal
+     * {1} when second date is greater than first date and {-2} if any of the dates passed is null
+     * or is empty
+     */
+    public int compareTwoDates(String firstDate, String secondDate) {
+        if (!TextUtils.isEmpty(firstDate) && !TextUtils.isEmpty(secondDate)) {
+            Calendar dateOne = FormUtils.getDate(firstDate);
+            Calendar dateTwo = FormUtils.getDate(secondDate);
+            if (dateOne.before(dateTwo)) {
+                return -1;
+            } else if (dateOne.equals(dateTwo)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        return -2;
+    }
+
     public boolean compareDateAgainstContactDate(String firstDate, String contactDate) throws ParseException {
         int comparisonValue = compareTwoDates(firstDate, convertContactDateToTestDate(contactDate));
         boolean isLessOrEqual = false;
-        if (comparisonValue == - 1 || comparisonValue == 0) {
+        if (comparisonValue == -1 || comparisonValue == 0) {
             isLessOrEqual = true;
         }
         return isLessOrEqual;
@@ -231,7 +231,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
 
     public String convertContactDateToTestDate(String contactDate) throws ParseException {
         String convertedContactDate = "";
-        if (! TextUtils.isEmpty(contactDate)) {
+        if (!TextUtils.isEmpty(contactDate)) {
             Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(contactDate);
             if (lastContactDate != null) {
                 convertedContactDate =

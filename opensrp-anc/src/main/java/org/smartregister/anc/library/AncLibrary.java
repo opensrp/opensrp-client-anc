@@ -25,8 +25,8 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.FilePath;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.DetailsRepository;
@@ -53,11 +53,9 @@ public class AncLibrary {
     private static final String TAG = AncLibrary.class.getCanonicalName();
 
     private static AncLibrary instance;
-    private JsonSpecHelper jsonSpecHelper;
-
     private final Context context;
     private final Repository repository;
-
+    private JsonSpecHelper jsonSpecHelper;
     private PartialContactRepository partialContactRepository;
     private PreviousContactRepository previousContactRepository;
     private EventClientRepository eventClientRepository;
@@ -80,37 +78,6 @@ public class AncLibrary {
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
 
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion) {
-        init(context, repository, dbVersion, new ActivityConfiguration());
-    }
-
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
-        init(context, repository,  dbVersion, activityConfiguration, null);
-    }
-
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
-        init(context, repository, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
-    }
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
-        if (instance == null) {
-            instance = new AncLibrary(context, repository, dbVersion, activityConfiguration, subscriberInfoIndex);
-        }
-    }
-
-    public static AncLibrary getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException(" Instance does not exist!!! Call "
-                    + AncLibrary.class.getName()
-                    + ".init method in the onCreate method of "
-                    + "your Application class ");
-        }
-        return instance;
-    }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
-    }
-
     private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = contextArg;
         repository = repositoryArg;
@@ -126,10 +93,75 @@ public class AncLibrary {
         initializeYamlConfigs();
     }
 
-    public Repository getRepository() {
-        return repository;
+    public android.content.Context getApplicationContext() {
+        return context.applicationContext();
     }
 
+    private void setUpEventHandling() {
+        try {
+
+            EventBusBuilder eventBusBuilder = EventBus.builder()
+                    .addIndex(new ANCEventBusIndex());
+
+            if (subscriberInfoIndex != null) {
+                eventBusBuilder.addIndex(subscriberInfoIndex);
+            }
+
+            eventBusBuilder.installDefaultEventBus();
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+    }
+
+    private void initializeYamlConfigs() {
+        Constructor constructor = new Constructor(YamlConfig.class);
+        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
+        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
+        constructor.addTypeDescription(customTypeDescription);
+        yaml = new Yaml(constructor);
+    }
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion) {
+        init(context, repository, dbVersion, new ActivityConfiguration());
+    }
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
+        init(context, repository, dbVersion, activityConfiguration, null);
+    }
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        if (instance == null) {
+            instance = new AncLibrary(context, repository, dbVersion, activityConfiguration, subscriberInfoIndex);
+        }
+    }
+
+    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        init(context, repository, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
+    }
+
+    public static AncLibrary getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException(" Instance does not exist!!! Call "
+                    + AncLibrary.class.getName()
+                    + ".init method in the onCreate method of "
+                    + "your Application class ");
+        }
+        return instance;
+    }
+
+    /**
+     * This method should be called in onUpgrade method of the Repository class where the migrations
+     * are already managed instead of writing new code to manage them.
+     */
+    public static void performMigrations(@NonNull SQLiteDatabase database) {
+        PatientRepository.performMigrations(database);
+    }
 
     public PartialContactRepository getPartialContactRepository() {
         if (partialContactRepository == null) {
@@ -137,6 +169,10 @@ public class AncLibrary {
         }
 
         return partialContactRepository;
+    }
+
+    public Repository getRepository() {
+        return repository;
     }
 
     public PreviousContactRepository getPreviousContactRepository() {
@@ -207,31 +243,17 @@ public class AncLibrary {
         return gson;
     }
 
-    private void setUpEventHandling() {
-        try {
-
-            EventBusBuilder eventBusBuilder = EventBus.builder()
-                    .addIndex(new ANCEventBusIndex());
-
-            if (subscriberInfoIndex != null) {
-                eventBusBuilder.addIndex(subscriberInfoIndex);
-            }
-
-            eventBusBuilder.installDefaultEventBus();
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-    }
-
     public void populateGlobalSettings() {
 
-        Setting setting = getCharactersitics(Constants.PREF_KEY.SITE_CHARACTERISTICS);
-        Setting populationSetting = getCharactersitics(Constants.PREF_KEY.POPULATION_CHARACTERISTICS);
+        Setting setting = getCharactersitics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
+        Setting populationSetting = getCharactersitics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 
         populateGlobalSettingsCore(setting);
         populateGlobalSettingsCore(populationSetting);
+    }
+
+    public Setting getCharactersitics(String characteristics) {
+        return AncLibrary.getInstance().getContext().allSettings().getSetting(characteristics);
     }
 
     private void populateGlobalSettingsCore(Setting setting) {
@@ -262,8 +284,8 @@ public class AncLibrary {
         }
     }
 
-    public Setting getCharactersitics(String characteristics) {
-        return AncLibrary.getInstance().getContext().allSettings().getSetting(characteristics);
+    public Context getContext() {
+        return context;
     }
 
     public JSONObject getDefaultContactFormGlobals() {
@@ -272,24 +294,8 @@ public class AncLibrary {
 
     public Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader = new InputStreamReader(
-                getApplicationContext().getAssets().open((FilePath.FOLDER.CONFIG_FOLDER_PATH + filename)));
+                getApplicationContext().getAssets().open((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename)));
         return yaml.loadAll(inputStreamReader);
-    }
-
-    private void initializeYamlConfigs() {
-        Constructor constructor = new Constructor(YamlConfig.class);
-        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
-        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
-    }
-
-    public android.content.Context getApplicationContext() {
-        return context.applicationContext();
-    }
-
-    public Context getContext() {
-        return context;
     }
 
     public int getDatabaseVersion() {
@@ -299,13 +305,5 @@ public class AncLibrary {
     @NonNull
     public ActivityConfiguration getActivityConfiguration() {
         return activityConfiguration;
-    }
-
-    /**
-     * This method should be called in onUpgrade method of the Repository class where the migrations
-     * are already managed instead of writing new code to manage them.
-     */
-    public static void performMigrations(@NonNull SQLiteDatabase database) {
-        PatientRepository.performMigrations(database);
     }
 }

@@ -23,7 +23,7 @@ import org.smartregister.anc.library.adapter.ContactAdapter;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
@@ -46,7 +46,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         initializePresenter();
-        presenter.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        presenter.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         setupViews();
     }
 
@@ -62,6 +62,10 @@ public abstract class BaseContactActivity extends SecuredActivity {
         presenter.onDestroy(isChangingConfigurations());
     }
 
+    protected abstract void createContacts();
+
+    protected abstract void initializePresenter();
+
     protected void setupViews() {
         initializeRecyclerView();
         View cancelButton = findViewById(R.id.undo_button);
@@ -74,8 +78,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
         findViewById(R.id.finalize_contact).setOnClickListener(contactActionHandler);
     }
 
-    protected abstract void initializePresenter();
-
     protected void initializeRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
@@ -86,8 +88,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
         recyclerView.setAdapter(contactAdapter);
     }
 
-    protected abstract void createContacts();
-
     protected void startFormActivity(JSONObject form, Contact contact) {
         Intent intent = new Intent(this, ContactJsonFormActivity.class);
         formStartActions(form, contact, intent);
@@ -96,20 +96,21 @@ public abstract class BaseContactActivity extends SecuredActivity {
     private void formStartActions(JSONObject form, Contact contact, Intent intent) {
         //partial contact exists?
         PartialContact partialContactRequest = new PartialContact();
-        partialContactRequest.setBaseEntityId(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+        partialContactRequest.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         partialContactRequest.setContactNo(contact.getContactNumber());
         partialContactRequest.setType(contact.getFormName());
 
-        intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, getFormJson(partialContactRequest, form));
+        intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getFormJson(partialContactRequest, form));
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID,
-                getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP));
-        intent.putExtra(Constants.INTENT_KEY.FORM_NAME, contact.getFormName());
-        intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, contactNo);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
+                getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
+    protected abstract String getFormJson(PartialContact partialContactRequest, JSONObject jsonForm);
 
     private void displayContactSaveDialog() {
         LayoutInflater inflater = getLayoutInflater();
@@ -162,7 +163,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                presenter.saveFinalJson(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 goToMainRegister();
             }
         });
@@ -178,7 +179,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                presenter.deleteDraft(getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID));
+                presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 goToMainRegister();
             }
         });
@@ -186,16 +187,14 @@ public abstract class BaseContactActivity extends SecuredActivity {
         dialog.show();
     }
 
-    private Activity getActivity() {
-        return this;
-    }
-
     public void goToMainRegister() {
         Intent intent = new Intent(getActivity(), AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
         startActivity(intent);
     }
 
-    protected abstract String getFormJson(PartialContact partialContactRequest, JSONObject jsonForm);
+    private Activity getActivity() {
+        return this;
+    }
 
     ////////////////////////////////////////////////////////////////
     // Inner classesC
@@ -212,7 +211,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                 presenter.startForm(view.getTag());
             } else if (i == R.id.finalize_contact) {
                 Utils.finalizeForm(getActivity(),
-                        (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP),
+                        (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP),
                         false);
             }
         }

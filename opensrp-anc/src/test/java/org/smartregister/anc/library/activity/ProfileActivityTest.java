@@ -23,8 +23,8 @@ import org.robolectric.android.controller.ActivityController;
 import org.smartregister.Context;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
@@ -63,11 +63,11 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         super.setUp();
 
         Intent testIntent = new Intent();
-        testIntent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         HashMap<String, String> map = new HashMap<>();
-        map.put(DBConstants.KEY.CONTACT_STATUS, Constants.ALERT_STATUS.ACTIVE);
-        map.put(DBConstants.KEY.LAST_CONTACT_RECORD_DATE, "10-12-2018");
-        testIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, map);
+        map.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.ACTIVE);
+        map.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, "10-12-2018");
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
 
         controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
 

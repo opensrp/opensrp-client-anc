@@ -34,7 +34,6 @@ import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
@@ -73,14 +72,14 @@ import java.util.Map;
 
 public class Utils extends org.smartregister.util.Utils {
 
-    public static final SimpleDateFormat DB_DF = new SimpleDateFormat(Constants.SQLITE_DATE_TIME_FORMAT);
-    public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(Constants.CONTACT_DATE_FORMAT);
-    public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(Constants.CONTACT_SUMMARY_DATE_FORMAT);
+    public static final SimpleDateFormat DB_DF = new SimpleDateFormat(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
+    public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_DATE_FORMAT);
+    public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_SUMMARY_DATE_FORMAT);
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
-    private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(Constants.SQLITE_DATE_TIME_FORMAT);
+    private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
     private static final String TAG = "Anc Utils";
     private static final String OTHER_SUFFIX = ", other]";
 
@@ -95,11 +94,6 @@ public class Utils extends org.smartregister.util.Utils {
         setLocale(new Locale(language));
     }
 
-
-    public static String getLanguage() {
-        return Utils.getAllSharedPreferences().fetchLanguagePreference();
-    }
-
     public static void setLocale(Locale locale) {
         Resources resources = AncLibrary.getInstance().getApplicationContext().getResources();
         Configuration configuration = resources.getConfiguration();
@@ -111,6 +105,10 @@ public class Utils extends org.smartregister.util.Utils {
             configuration.locale = locale;
             resources.updateConfiguration(configuration, displayMetrics);
         }
+    }
+
+    public static String getLanguage() {
+        return Utils.getAllSharedPreferences().fetchLanguagePreference();
     }
 
     public static void postEvent(BaseEvent event) {
@@ -151,11 +149,6 @@ public class Utils extends org.smartregister.util.Utils {
         return Math.round(px);
     }
 
-    public static String convertDateFormat(Date date, SimpleDateFormat formatter) {
-
-        return formatter.format(date);
-    }
-
     public static boolean isEmptyMap(Map map) {
         return map == null || map.isEmpty();
     }
@@ -168,6 +161,11 @@ public class Utils extends org.smartregister.util.Utils {
         return convertDateFormat(Calendar.getInstance().getTime(), DB_DF);
     }
 
+    public static String convertDateFormat(Date date, SimpleDateFormat formatter) {
+
+        return formatter.format(date);
+    }
+
     @Nullable
     public static int getAttributeDrawableResource(Context context, int attributeId) {
         TypedValue typedValue = new TypedValue();
@@ -175,35 +173,8 @@ public class Utils extends org.smartregister.util.Utils {
         return typedValue.resourceId;
     }
 
-    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
-        try {
-            if (!"0".equals(expectedDeliveryDate)) {
-                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-                LocalDate lmpDate = date.minusWeeks(Constants.DELIVERY_DATE_WEEKS);
-                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
-                return weeks.getWeeks();
-            } else {
-                return 0;
-            }
-        } catch (IllegalArgumentException e) {
-            Log.e(TAG, e.getMessage(), e);
-            return 0;
-        }
-    }
-
     public static int getProfileImageResourceIdentifier() {
         return R.drawable.avatar_woman;
-    }
-
-    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
-        if (!TextUtils.isEmpty(rawString) && rawString != null) {
-            String resultString = rawString;
-            String[] tokenArray = resultString.trim().split("-");
-            ArrayUtils.reverse(tokenArray);
-            resultString = StringUtils.join(tokenArray, outputSeparator);
-            return resultString;
-        }
-        return "";
     }
 
     public static List<String> getListFromString(String stringArray) {
@@ -231,8 +202,8 @@ public class Utils extends org.smartregister.util.Utils {
 
             Contact quickCheck = new Contact();
             quickCheck.setName(context.getResources().getString(R.string.quick_check));
-            quickCheck.setFormName(Constants.JSON_FORM.ANC_QUICK_CHECK);
-            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.get(DBConstants.KEY.NEXT_CONTACT)));
+            quickCheck.setFormName(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK);
+            quickCheck.setContactNumber(Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             quickCheck.setBackground(R.drawable.quick_check_bg);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackIcon(R.drawable.ic_clear);
@@ -254,21 +225,21 @@ public class Utils extends org.smartregister.util.Utils {
             String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 
             if (hasPendingRequiredFields(new JSONObject(processedForm))) {
-                intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, processedForm);
+                intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, processedForm);
                 intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
-                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
-                intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, personObjectClient);
-                intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO, partialContactRequest.getContactNo());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
                 Activity activity = (Activity) context;
-                activity.startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+                activity.startActivityForResult(intent, org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
                 intent = new Intent(context, MainContactActivity.class);
-                intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, baseEntityId);
-                intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, personObjectClient);
-                intent.putExtra(Constants.INTENT_KEY.FORM_NAME, partialContactRequest.getType());
-                intent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                        Integer.valueOf(personObjectClient.get(DBConstants.KEY.NEXT_CONTACT)));
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
+                intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
+                        Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
                 context.startActivity(intent);
             }
 
@@ -276,7 +247,7 @@ public class Utils extends org.smartregister.util.Utils {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
             Utils.showToast(context,
-                    "Error proceeding to contact for client " + personObjectClient.get(DBConstants.KEY.FIRST_NAME));
+                    "Error proceeding to contact for client " + personObjectClient.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
         }
     }
 
@@ -300,7 +271,7 @@ public class Utils extends org.smartregister.util.Utils {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
 
-                        boolean isRequiredField = JsonFormUtils.isFieldRequired(fieldObject);
+                        boolean isRequiredField = org.smartregister.anc.library.util.JsonFormUtils.isFieldRequired(fieldObject);
                         //Do not check for required for fields that are invisible
                         if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                             isRequiredField = false;
@@ -329,20 +300,20 @@ public class Utils extends org.smartregister.util.Utils {
 
             Intent contactSummaryFinishIntent = new Intent(context, ContactSummaryFinishActivity.class);
             contactSummaryFinishIntent
-                    .putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, womanDetails.get(DBConstants.KEY.BASE_ENTITY_ID));
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, womanDetails);
-            contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                    Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+                    .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
+            contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, womanDetails);
+            contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
+                    Integer.valueOf(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             if (isRefferal) {
-                int contactNo = Integer.parseInt(womanDetails.get(DBConstants.KEY.NEXT_CONTACT));
+                int contactNo = Integer.parseInt(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
                 if (contactNo < 0) {
-                    contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf(contactNo));
+                    contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, Integer.valueOf(contactNo));
                 } else {
-                    contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO, Integer.valueOf("-" + contactNo));
+                    contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, Integer.valueOf("-" + contactNo));
                 }
             } else {
-                contactSummaryFinishIntent.putExtra(Constants.INTENT_KEY.CONTACT_NO,
-                        Integer.valueOf(womanDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+                contactSummaryFinishIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
+                        Integer.valueOf(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             }
             context.startActivity(contactSummaryFinishIntent);
         } catch (Exception e) {
@@ -360,6 +331,22 @@ public class Utils extends org.smartregister.util.Utils {
         }
         //Remove unnecessary commas by cleaning the returned string
         return cleanValueResult(stringValueResult);
+    }
+
+    private static String processValue(String key, Facts facts) {
+        String value = "";
+        if (facts.get(key) instanceof String) {
+            value = facts.get(key);
+            if (value != null && value.endsWith(OTHER_SUFFIX)) {
+                Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
+                value = otherValue != null ?
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
+                        value.substring(0, value.lastIndexOf(",")) + "]";
+
+            }
+        }
+
+        return ContactJsonFormUtils.keyToValueConverter(value);
     }
 
     private static String cleanValueResult(String result) {
@@ -382,67 +369,23 @@ public class Utils extends org.smartregister.util.Utils {
         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
     }
 
-    private static String processValue(String key, Facts facts) {
-        String value = "";
-        if (facts.get(key) instanceof String) {
-            value = facts.get(key);
-            if (value != null && value.endsWith(OTHER_SUFFIX)) {
-                Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + Constants.SUFFIX.OTHER) : "";
-                value = otherValue != null ?
-                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
-                        value.substring(0, value.lastIndexOf(",")) + "]";
-
-            }
-        }
-
-        return ContactJsonFormUtils.keyToValueConverter(value);
-    }
-
     public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
         Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, isRemote);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, isRemote);
         context.startActivity(intent);
     }
 
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
 
         Intent intent = new Intent(context, ProfileActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.get(DBConstants.KEY.ID_LOWER_CASE));
-        intent.putExtra(Constants.INTENT_KEY.CLIENT_MAP, patient);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);
         context.startActivity(intent);
     }
 
     public static String getColumnMapValue(CommonPersonObjectClient pc, String key) {
         return org.smartregister.util.Utils.getValue(pc.getColumnmaps(), key, false);
-    }
-
-    public static String processContactDoneToday(String lastContactDate, String alertStatus) {
-        String result = alertStatus;
-
-        if (!TextUtils.isEmpty(lastContactDate)) {
-
-            try {
-                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? Constants.ALERT_STATUS.TODAY :
-                        alertStatus;
-            } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-
-        return result;
-    }
-
-    public static Integer getTodayContact(String nextContact) {
-        Integer todayContact = 1;
-        try {
-            todayContact = Integer.valueOf(nextContact) - 1;
-
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-        return todayContact;
     }
 
     public static String getDBDateToday() {
@@ -451,27 +394,27 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, String textTemplate) {
 
-        String contactStatus = details.get(DBConstants.KEY.CONTACT_STATUS);
+        String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
-        String nextContactDate = details.get(DBConstants.KEY.NEXT_CONTACT_DATE);
-        String edd = details.get(DBConstants.KEY.EDD);
+        String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
+        String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
         String buttonAlertStatus;
         Integer gestationAge = 0;
         if (StringUtils.isNotBlank(edd)) {
             gestationAge = Utils.getGestationAgeFromEDDate(edd);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
             buttonAlertStatus =
-                    StringUtils.isNotBlank(contactStatus) && Constants.ALERT_STATUS.ACTIVE.equals(contactStatus) ?
-                            Constants.ALERT_STATUS.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
-                            .getButtonAlertStatus(alertRule, Constants.RULES_FILE.ALERT_RULES);
+                    StringUtils.isNotBlank(contactStatus) && ConstantsUtils.AlertStatusUtils.ACTIVE.equals(contactStatus) ?
+                            ConstantsUtils.AlertStatusUtils.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
+                            .getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
         } else {
-            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? Constants.ALERT_STATUS.IN_PROGRESS : "DEAD";
+            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "DEAD";
         }
 
         ButtonAlertStatus buttonAlertStatus1 = new ButtonAlertStatus();
 
         //Set text first
-        String nextContactRaw = details.get(DBConstants.KEY.NEXT_CONTACT);
+        String nextContactRaw = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.valueOf(nextContactRaw) : 1;
 
         nextContactDate =
@@ -482,7 +425,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         buttonAlertStatus =
-                Utils.processContactDoneToday(details.get(DBConstants.KEY.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
+                Utils.processContactDoneToday(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
 
         buttonAlertStatus1.buttonAlertStatus = buttonAlertStatus;
         buttonAlertStatus1.gestationAge = gestationAge;
@@ -490,6 +433,49 @@ public class Utils extends org.smartregister.util.Utils {
         buttonAlertStatus1.nextContactDate = nextContactDate;
 
         return buttonAlertStatus1;
+    }
+
+    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
+        try {
+            if (!"0".equals(expectedDeliveryDate)) {
+                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+                LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
+                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
+                return weeks.getWeeks();
+            } else {
+                return 0;
+            }
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, e.getMessage(), e);
+            return 0;
+        }
+    }
+
+    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
+        if (!TextUtils.isEmpty(rawString) && rawString != null) {
+            String resultString = rawString;
+            String[] tokenArray = resultString.trim().split("-");
+            ArrayUtils.reverse(tokenArray);
+            resultString = StringUtils.join(tokenArray, outputSeparator);
+            return resultString;
+        }
+        return "";
+    }
+
+    public static String processContactDoneToday(String lastContactDate, String alertStatus) {
+        String result = alertStatus;
+
+        if (!TextUtils.isEmpty(lastContactDate)) {
+
+            try {
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.AlertStatusUtils.TODAY :
+                        alertStatus;
+            } catch (ParseException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+
+        return result;
     }
 
     public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
@@ -501,39 +487,39 @@ public class Utils extends org.smartregister.util.Utils {
 
         if (buttonAlertStatus.buttonAlertStatus != null) {
             switch (buttonAlertStatus.buttonAlertStatus) {
-                case Constants.ALERT_STATUS.IN_PROGRESS:
+                case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     break;
-                case Constants.ALERT_STATUS.DUE:
+                case ConstantsUtils.AlertStatusUtils.DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     break;
-                case Constants.ALERT_STATUS.OVERDUE:
+                case ConstantsUtils.AlertStatusUtils.OVERDUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     break;
-                case Constants.ALERT_STATUS.NOT_DUE:
+                case ConstantsUtils.AlertStatusUtils.NOT_DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     break;
-                case Constants.ALERT_STATUS.DELIVERY_DUE:
+                case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     dueButton.setText(context.getString(R.string.due_delivery));
                     break;
-                case Constants.ALERT_STATUS.EXPIRED:
+                case ConstantsUtils.AlertStatusUtils.EXPIRED:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     dueButton.setText(context.getString(R.string.due_delivery));
                     break;
-                case Constants.ALERT_STATUS.TODAY:
+                case ConstantsUtils.AlertStatusUtils.TODAY:
                     dueButton.setVisibility(View.GONE);
                     contactTextView.setVisibility(View.VISIBLE);
                     contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
@@ -555,41 +541,16 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-    public List<String> createExpansionPanelChildren(JSONArray jsonArray) throws JSONException {
-        List<String> stringList = new ArrayList<>();
-        String label;
-        for (int i = 0; i < jsonArray.length(); i++) {
-            if (!jsonArray.isNull(i)) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                if (jsonObject.has(JsonFormConstants.VALUES) && jsonObject.has(JsonFormConstants.LABEL) &&
-                        !"".equals(jsonObject.getString(JsonFormConstants.LABEL))) {
-                    //Get label and replace any colon in some labels. Not needed at this point
-                    label = jsonObject.getString(JsonFormConstants.LABEL).replace(":", "");
-                    stringList.add(label + ":" + getStringValue(jsonObject));
-                }
-            }
+    public static Integer getTodayContact(String nextContact) {
+        Integer todayContact = 1;
+        try {
+            todayContact = Integer.valueOf(nextContact) - 1;
+
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
 
-        return stringList;
-    }
-
-    private String getStringValue(JSONObject jsonObject) throws JSONException {
-        StringBuilder value = new StringBuilder();
-        if (jsonObject != null) {
-            JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.VALUES);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                String stringValue = jsonArray.getString(i);
-                value.append(getValueFromSecondaryValues(stringValue));
-                value.append(", ");
-            }
-        }
-
-        return value.toString().replaceAll(", $", "");
-    }
-
-    private String getValueFromSecondaryValues(String itemString) {
-        String[] strings = itemString.split(":");
-        return strings.length > 1 ? strings[1] : strings[0];
+        return todayContact;
     }
 
     /***
@@ -598,21 +559,23 @@ public class Utils extends org.smartregister.util.Utils {
      * @param key key to persist
      * @param value value to persist
      */
-    public static void saveToSharedPreference(String sharedPref, String key, String value){
-        SharedPreferences.Editor editor =  DrishtiApplication.getInstance().getSharedPreferences(
+    public static void saveToSharedPreference(String sharedPref, String key, String value) {
+        SharedPreferences.Editor editor = DrishtiApplication.getInstance().getSharedPreferences(
                 sharedPref, Context.MODE_PRIVATE).edit();
         editor.putString(key, value).apply();
     }
+
     /***
      * Save to shared preference
      * @param sharedPref name of shared preference file
      * @param key key used to retrieve the value
      */
-    public static String readFromSharedPreference(String sharedPref, String key){
-        SharedPreferences sharedPreferences =  DrishtiApplication.getInstance().getSharedPreferences(
+    public static String readFromSharedPreference(String sharedPref, String key) {
+        SharedPreferences sharedPreferences = DrishtiApplication.getInstance().getSharedPreferences(
                 sharedPref, Context.MODE_PRIVATE);
-       return sharedPreferences.getString(key, null);
+        return sharedPreferences.getString(key, null);
     }
+
     /**
      * Checks if a table exists on the table. An {@link Exception} is expected to be thrown by the sqlite
      * database in case of anything weird such as the query being wrongly executed. This method is used
@@ -649,5 +612,4 @@ public class Utils extends org.smartregister.util.Utils {
 
         return false;
     }
-
 }

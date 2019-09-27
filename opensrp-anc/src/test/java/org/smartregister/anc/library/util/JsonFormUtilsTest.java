@@ -138,70 +138,70 @@ public class JsonFormUtilsTest {
 
 
         JSONObject fieldObject = new JSONObject();
-        fieldObject.put(JsonFormUtils.KEY, Constants.JSON_FORM_KEY.ANC_ID);
-        fieldObject.put(JsonFormUtils.VALUE, "");
-        fieldObject.put(JsonFormUtils.OPENMRS_ENTITY, "");
-        fieldObject.put(JsonFormUtils.OPENMRS_ENTITY_ID, "");
-        fieldObject.put(JsonFormUtils.OPENMRS_ENTITY_PARENT, "");
+        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.KEY, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
+        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.VALUE, "");
+        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY, "");
+        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY_ID, "");
+        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY_PARENT, "");
 
         fieldsObject.put(fieldObject);
         JSONObject step1Object = new JSONObject();
-        step1Object.put(JsonFormUtils.FIELDS, fieldsObject);
+        step1Object.put(org.smartregister.anc.library.util.JsonFormUtils.FIELDS, fieldsObject);
 
-        formObject.put(JsonFormUtils.METADATA, metadataObject);
-        formObject.put(JsonFormUtils.STEP1, step1Object);
+        formObject.put(org.smartregister.anc.library.util.JsonFormUtils.METADATA, metadataObject);
+        formObject.put(org.smartregister.anc.library.util.JsonFormUtils.STEP1, step1Object);
     }
 
     @Test
     public void testGetFormAsJsonInjectsCurrentLocationIDinFormCorrectly() throws Exception {
 
 
-        JsonFormUtils.getFormAsJson(formObject, "random-form-name", DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, "random-form-name", DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONObject resultObject = JsonFormUtils.getFormAsJson(null, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(null, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
         Assert.assertNull(resultObject);
 
-        resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.ANC_ID);
+        JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
+        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, DBConstantsUtils.KeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_LOCATION_ID, resultObject.getJSONObject(JsonFormUtils.METADATA).get(JsonFormUtils.ENCOUNTER_LOCATION));
+        Assert.assertEquals(DUMMY_LOCATION_ID, resultObject.getJSONObject(org.smartregister.anc.library.util.JsonFormUtils.METADATA).get(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_LOCATION));
     }
 
     @Test
     public void testGetFormAsJsonInjectsANCIDInRegisterFormCorrectly() throws Exception {
 
-        JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
+        JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
+        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID).get(JsonFormUtils.VALUE));
+        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID).get(org.smartregister.anc.library.util.JsonFormUtils.VALUE));
     }
 
     @Test
     public void testGetFormAsJsonInjectsEntityIDinCloseFormCorrectly() throws Exception {
 
-        formObject.put(JsonFormUtils.ENTITY_ID, "");
-        JSONObject resultObject = JsonFormUtils.getFormAsJson(formObject, Constants.JSON_FORM.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        formObject.put(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID, "");
+        JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONArray field = JsonFormUtils.fields(resultObject);
-        JsonFormUtils.getFieldJSONObject(field, Constants.JSON_FORM_KEY.ANC_ID);
+        JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
+        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultObject.getString(JsonFormUtils.ENTITY_ID));
+        Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultObject.getString(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID));
     }
 
     @Test
     public void testValidateParametersReturnsCorrectResult() throws Exception {
 
         String jsonFormObjectString = formObject.toString();
-        JSONArray jsonFormObjectFields = JsonFormUtils.fields(formObject);
+        JSONArray jsonFormObjectFields = org.smartregister.anc.library.util.JsonFormUtils.fields(formObject);
 
-        Triple<Boolean, JSONObject, JSONArray> validatedResult = JsonFormUtils.validateParameters(jsonFormObjectString);
+        Triple<Boolean, JSONObject, JSONArray> validatedResult = org.smartregister.anc.library.util.JsonFormUtils.validateParameters(jsonFormObjectString);
 
         Assert.assertNotNull(validatedResult);
         Assert.assertTrue(validatedResult.getLeft());
@@ -239,7 +239,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
 
-        JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
 
         Mockito.verify(imageRepository).add(ArgumentMatchers.any(ProfileImage.class));
 
@@ -254,16 +254,16 @@ public class JsonFormUtilsTest {
         String lastName = "Last Name";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
-        details.put(DBConstants.KEY.EDD, "2018-10-19");
-        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2018-08-09");
-        details.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstants.KEY.ANC_ID, DUMMY_BASE_ENTITY_ID);
-        details.put(DBConstants.KEY.DOB, "09-08-1995");
-        details.put(DBConstants.KEY.DOB_UNKNOWN, "false");
-        details.put(DBConstants.KEY.HOME_ADDRESS, "Roysambu");
-        details.put(DBConstants.KEY.AGE, "23");
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2018-10-19");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2018-08-09");
+        details.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KeyUtils.ANC_ID, DUMMY_BASE_ENTITY_ID);
+        details.put(DBConstantsUtils.KeyUtils.DOB, "09-08-1995");
+        details.put(DBConstantsUtils.KeyUtils.DOB_UNKNOWN, "false");
+        details.put(DBConstantsUtils.KeyUtils.HOME_ADDRESS, "Roysambu");
+        details.put(DBConstantsUtils.KeyUtils.AGE, "23");
 
         PowerMockito.mockStatic(CoreLibrary.class);
         PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
@@ -292,8 +292,8 @@ public class JsonFormUtilsTest {
 
         List<FormLocation> formLocations = new ArrayList<>();
         FormLocation formLocation = new FormLocation();
-        formLocation.key = DBConstants.KEY.HOME_ADDRESS;
-        formLocation.name = details.get(DBConstants.KEY.HOME_ADDRESS);
+        formLocation.key = DBConstantsUtils.KeyUtils.HOME_ADDRESS;
+        formLocation.name = details.get(DBConstantsUtils.KeyUtils.HOME_ADDRESS);
         formLocations.add(formLocation);
 
 
@@ -308,9 +308,9 @@ public class JsonFormUtilsTest {
         PowerMockito.when(photo.getFilePath()).thenReturn("/images/" + DUMMY_BASE_ENTITY_ID);
 
         JSONObject registerForm = new JSONObject(registerFormJsonString);
-        PowerMockito.when(formUtils.getFormJson(Constants.JSON_FORM.ANC_REGISTER)).thenReturn(registerForm);
+        PowerMockito.when(formUtils.getFormJson(ConstantsUtils.JsonFormUtils.ANC_REGISTER)).thenReturn(registerForm);
 
-        String resultJsonFormString = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(applicationContext, details);
+        String resultJsonFormString = org.smartregister.anc.library.util.JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(applicationContext, details);
 
         Assert.assertNotNull(resultJsonFormString);
         JSONAssert.assertEquals(expectedProcessedJson, resultJsonFormString, new CustomComparator(JSONCompareMode.LENIENT, new Customization("step1.fields[key=age]", new AgeValueMatcher())));

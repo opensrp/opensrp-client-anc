@@ -17,9 +17,9 @@ import org.smartregister.anc.library.adapter.ContactSummaryAdapter;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.presenter.ContactSummaryPresenter;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.HashMap;
@@ -48,14 +48,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        contactSummaryPresenter.loadWoman(getEntityId());
-        contactSummaryPresenter.loadUpcomingContacts(getEntityId(), getReferredContactNo());
-        contactSummaryPresenter.showWomanProfileImage(getEntityId());
-    }
-
     private void setupView() {
         Button goToClientProfileButton = findViewById(R.id.button_go_to_client_profile);
         goToClientProfileButton.setOnClickListener(this);
@@ -71,31 +63,20 @@ public class ContactSummarySendActivity extends AppCompatActivity
 
     }
 
-    public String getEntityId() {
-        String entityId = getIntent().getExtras().getString(Constants.INTENT_KEY.BASE_ENTITY_ID);
-        if (entityId != null) {
-            return entityId;
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.button_go_to_client_profile) {
+            goToClientProfile();
+        } else {
+            Toast.makeText(this, "Action not recognized", Toast.LENGTH_SHORT).show();
         }
-        return null;
-    }
-
-    public String getReferredContactNo() {
-        HashMap<String, String> client =
-                (HashMap<String, String>) getIntent().getExtras().get(Constants.INTENT_KEY.CLIENT_MAP);
-        if (client != null) {
-            String contactNo = client.get(Constants.REFERRAL);
-            if (contactNo != null) {
-                return contactNo;
-            }
-        }
-        return null;
     }
 
     @Override
     public void goToClientProfile() {
         finish();
         Utils.navigateToProfile(this,
-                (HashMap<String, String>) getIntent().getExtras().getSerializable(Constants.INTENT_KEY.CLIENT_MAP));
+                (HashMap<String, String>) getIntent().getExtras().getSerializable(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
     }
 
     @Override
@@ -126,17 +107,31 @@ public class ContactSummarySendActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.button_go_to_client_profile) {
-            goToClientProfile();
-        } else {
-            Toast.makeText(this, "Action not recognized", Toast.LENGTH_SHORT).show();
+    public String getReferredContactNo() {
+        HashMap<String, String> client =
+                (HashMap<String, String>) getIntent().getExtras().get(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        if (client != null) {
+            String contactNo = client.get(ConstantsUtils.REFERRAL);
+            return contactNo;
         }
+        return null;
     }
 
     @Override
     public void onBackPressed() {
         Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        contactSummaryPresenter.loadWoman(getEntityId());
+        contactSummaryPresenter.loadUpcomingContacts(getEntityId(), getReferredContactNo());
+        contactSummaryPresenter.showWomanProfileImage(getEntityId());
+    }
+
+    public String getEntityId() {
+        String entityId = getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        return entityId;
     }
 }

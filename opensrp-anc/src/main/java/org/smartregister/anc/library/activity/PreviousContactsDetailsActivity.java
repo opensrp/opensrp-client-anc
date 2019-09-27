@@ -15,21 +15,21 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactScheduleAdapter;
 import org.smartregister.anc.library.adapter.LastContactAdapter;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
-import org.smartregister.anc.library.util.FilePath;
-import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.presenter.PreviousContactDetailsPresenter;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -67,15 +67,15 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             actionBar.setTitle(getResources().getString(R.string.previous_contacts_header));
         }
 
-        String baseEntityId = getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP);
-        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstants.KEY.NEXT_CONTACT)));
+                (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        String contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
         mProfilePresenter = new PreviousContactDetailsPresenter(this);
         setUpViews();
 
         try {
-            String edd = clientDetails.get(Constants.EDD);
+            String edd = clientDetails.get(ConstantsUtils.EDD);
             if (!clientDetails.isEmpty()) {
                 if (!TextUtils.isEmpty(edd)) {
                     Date eddDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
@@ -90,12 +90,25 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 mProfilePresenter.loadPreviousContacts(baseEntityId, contactNo);
                 mProfilePresenter
-                        .loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstants.KEY.EDD));
+                        .loadPreviousContactSchedule(baseEntityId, contactNo, clientDetails.get(DBConstantsUtils.KeyUtils.EDD));
             }
         } catch (ParseException | IOException | JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
 
+    }
+
+    protected int getViewLayoutId() {
+        return R.layout.activity_previous_contacts;
+    }
+
+    private void setUpViews() {
+        deliveryDate = findViewById(R.id.delivery_date);
+        previousContacts = findViewById(R.id.previous_contacts);
+        contactSchedule = findViewById(R.id.upcoming_contacts);
+        layoutBottom = findViewById(R.id.layout_bottom);
+        layoutMiddle = findViewById(R.id.layout_middle);
+        layoutStart = findViewById(R.id.layout_start);
     }
 
     @Override
@@ -131,10 +144,10 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 lastContactDetails = new ArrayList<>();
 
-                if (factsToUpdate.asMap().get(Constants.ATTENTION_FLAG_FACTS) != null) {
+                if (factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS) != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(
-                                (String) factsToUpdate.asMap().get(Constants.ATTENTION_FLAG_FACTS));
+                                (String) factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS));
                         Iterator<String> keys = jsonObject.keys();
 
                         while (keys.hasNext()) {
@@ -150,7 +163,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                 addOtherRuleObjects(factsToUpdate);
                 addAttentionFlagsRuleObjects(factsToUpdate);
                 Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse(String.valueOf(factsToUpdate.asMap().get(Constants.CONTACT_DATE)));
+                        .parse(String.valueOf(factsToUpdate.asMap().get(ConstantsUtils.CONTACT_DATE)));
 
                 String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
                         .format(lastContactDate);
@@ -167,7 +180,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -190,7 +203,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
     }
 
     private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePath.FILE.ATTENTION_FLAGS);
+        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
@@ -201,10 +214,6 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                 }
             }
         }
-    }
-
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
     }
 
     private void setUpContactDetailsRecycler(List<LastContactDetailsWrapper> lastContactDetailsWrappers) {
@@ -218,13 +227,8 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
         }
     }
 
-    private void setUpViews() {
-        deliveryDate = findViewById(R.id.delivery_date);
-        previousContacts = findViewById(R.id.previous_contacts);
-        contactSchedule = findViewById(R.id.upcoming_contacts);
-        layoutBottom = findViewById(R.id.layout_bottom);
-        layoutMiddle = findViewById(R.id.layout_middle);
-        layoutStart = findViewById(R.id.layout_start);
+    private Iterable<Object> loadFile(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
     }
 
     @Override
@@ -234,10 +238,6 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    protected int getViewLayoutId() {
-        return R.layout.activity_previous_contacts;
     }
 
     @Override

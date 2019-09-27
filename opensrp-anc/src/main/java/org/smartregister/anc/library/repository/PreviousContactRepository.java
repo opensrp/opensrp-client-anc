@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.BaseRepository;
@@ -51,7 +51,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[] {ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public PreviousContactRepository(Repository repository) {
         super(repository);
@@ -96,7 +96,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNotBlank(previousContactRequest.getBaseEntityId()) &&
                     StringUtils.isNotBlank(previousContactRequest.getKey())) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " = ? " + BaseRepository.COLLATE_NOCASE;
-                selectionArgs = new String[] {previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
+                selectionArgs = new String[]{previousContactRequest.getBaseEntityId(), previousContactRequest.getKey()};
             }
 
             mCursor = getReadableDatabase()
@@ -118,6 +118,18 @@ public class PreviousContactRepository extends BaseRepository {
         return dbPreviousContact;
     }
 
+    private PreviousContact getContactResult(Cursor cursor) {
+
+        PreviousContact previousContact = new PreviousContact();
+        previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
+        previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
+        previousContact.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
+        previousContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+        previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));
+
+        return previousContact;
+    }
+
     /**
      * @param baseEntityId is the Base entity Id No to filter by
      * @param keysList     an optional list of keys to query null otherwise to get all keys for that base entity id
@@ -135,11 +147,11 @@ public class PreviousContactRepository extends BaseRepository {
                 if (keysList != null) {
 
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN (?) " + BaseRepository.COLLATE_NOCASE;
-                    selectionArgs = new String[] {baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
+                    selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
 
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
-                    selectionArgs = new String[] {baseEntityId};
+                    selectionArgs = new String[]{baseEntityId};
                 }
             }
 
@@ -179,8 +191,8 @@ public class PreviousContactRepository extends BaseRepository {
                 selection = "select *,  abs(" + CONTACT_NO + ") as abs_contact_no from " + TABLE_NAME + " where "
                         + BASE_ENTITY_ID + " = ? and ( " + KEY + " = ? or " + KEY + " = ? or " + KEY + " = ? or " + KEY +
                         " = ? or " + KEY + " = ? ) " + orderBy;
-                selectionArgs = new String[] {baseEntityId, Constants.ATTENTION_FLAG_FACTS, Constants.WEIGHT_GAIN,
-                        Constants.PHYS_SYMPTOMS, Constants.CONTACT_DATE, Constants.GEST_AGE_OPENMRS};
+                selectionArgs = new String[]{baseEntityId, ConstantsUtils.ATTENTION_FLAG_FACTS, ConstantsUtils.WEIGHT_GAIN,
+                        ConstantsUtils.PHYS_SYMPTOMS, ConstantsUtils.CONTACT_DATE, ConstantsUtils.GEST_AGE_OPENMRS};
             }
 
             factsCursor = database.rawQuery(selection, selectionArgs);
@@ -252,7 +264,7 @@ public class PreviousContactRepository extends BaseRepository {
 
         if (StringUtils.isNotBlank(baseEntityId)) {
             selection = BASE_ENTITY_ID + " = ?";
-            selectionArgs = new String[] {baseEntityId};
+            selectionArgs = new String[]{baseEntityId};
         }
 
         return database.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
@@ -270,7 +282,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNoneEmpty(baseEntityId) && StringUtils.isNoneEmpty(indicator)) {
                 selection = BASE_ENTITY_ID + " = ? And ( " + KEY + " = ? OR " + KEY + " = '" + GEST_AGE + "' OR " + KEY +
                         " = ? )";
-                selectionArgs = new String[] {baseEntityId, indicator, dateKey};
+                selectionArgs = new String[]{baseEntityId, indicator, dateKey};
             }
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
 
@@ -315,7 +327,7 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-                selectionArgs = new String[] {baseEntityId, getContactNo(contactNo, checkNegative)};
+                selectionArgs = new String[]{baseEntityId, getContactNo(contactNo, checkNegative)};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
@@ -377,8 +389,8 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection =
-                        BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ? AND " + KEY + " = " + "'" + Constants.CONTACT_SCHEDULE + "'";
-                selectionArgs = new String[] {baseEntityId, contactNo};
+                        BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ? AND " + KEY + " = " + "'" + ConstantsUtils.CONTACT_SCHEDULE + "'";
+                selectionArgs = new String[]{baseEntityId, contactNo};
             }
 
             scheduleCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
@@ -399,17 +411,5 @@ public class PreviousContactRepository extends BaseRepository {
         }
 
         return schedule;
-    }
-
-    private PreviousContact getContactResult(Cursor cursor) {
-
-        PreviousContact previousContact = new PreviousContact();
-        previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
-        previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
-        previousContact.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
-        previousContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
-        previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));
-
-        return previousContact;
     }
 }

@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.model.Field;
 
 import java.util.ArrayList;
@@ -26,15 +26,15 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
     public void testCountSelect() {
 
         String mainCondition = "register_id is not null";
-        String sql = "SELECT COUNT(*) FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
+        String sql = "SELECT COUNT(*) FROM " + DBConstantsUtils.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
 
         // With main condition
-        String countSelect = model.countSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
+        String countSelect = model.countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
         Assert.assertEquals(countSelect, sql);
 
         // Without main condition
-        sql = "SELECT COUNT(*) FROM " + DBConstants.WOMAN_TABLE_NAME;
-        countSelect = model.countSelect(DBConstants.WOMAN_TABLE_NAME, "");
+        sql = "SELECT COUNT(*) FROM " + DBConstantsUtils.WOMAN_TABLE_NAME;
+        countSelect = model.countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, "");
         Assert.assertEquals(countSelect, sql);
 
     }
@@ -43,16 +43,16 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
     public void testMainSelect() {
 
         String mainCondition = "register_id is not null";
-        String sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstants.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
+        String sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstantsUtils.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
 
         // With main condition
-        String mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, mainCondition);
+        String mainSelect = model.mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
         Assert.assertEquals(mainSelect, sql);
 
-        sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstants.WOMAN_TABLE_NAME;
+        sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstantsUtils.WOMAN_TABLE_NAME;
 
         // Without main condition
-        mainSelect = model.mainSelect(DBConstants.WOMAN_TABLE_NAME, "");
+        mainSelect = model.mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, "");
         Assert.assertEquals(mainSelect, sql);
     }
 
@@ -127,7 +127,7 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
         Assert.assertEquals(1, editMap.size());
 
         //TODO Change to OpenSRP_ID
-        Assert.assertEquals(Constants.IDENTIFIER.ANC_ID + ":" + ancId, editMap.get(Constants.GLOBAL_IDENTIFIER));
+        Assert.assertEquals(ConstantsUtils.IdentifierUtils.ANC_ID + ":" + ancId, editMap.get(ConstantsUtils.GLOBAL_IDENTIFIER));
 
     }
 }

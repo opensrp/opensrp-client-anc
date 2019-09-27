@@ -19,7 +19,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -78,7 +78,7 @@ public class PatientRepositoryTest {
         PowerMockito.when(spy.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
 
 
-        spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, Constants.ALERT_STATUS.IN_PROGRESS);
+        spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
 
         Mockito.verify(sqLiteDatabase, Mockito.times(1)).update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}));
     }

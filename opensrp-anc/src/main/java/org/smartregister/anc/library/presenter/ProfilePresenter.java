@@ -12,8 +12,8 @@ import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.interactor.ContactInteractor;
 import org.smartregister.anc.library.interactor.ProfileInteractor;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -66,13 +66,20 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
-    public void fetchProfileData(String baseEntityId) {
-        mProfileInteractor.refreshProfileView(baseEntityId, true);
+    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+        //Overriden
     }
 
     @Override
-    public void refreshProfileView(String baseEntityId) {
-        mProfileInteractor.refreshProfileView(baseEntityId, false);
+    public void onNoUniqueId() {
+        getProfileView().displayToast(R.string.no_openmrs_id);
+    }
+
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        this.refreshProfileView(getProfileView().getIntentString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+        getProfileView().hideProgressDialog();
+        getProfileView().displayToast(isEdit ? R.string.registration_info_updated : R.string.new_registration_saved);
     }
 
     @Override
@@ -85,19 +92,29 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
+    public void fetchProfileData(String baseEntityId) {
+        mProfileInteractor.refreshProfileView(baseEntityId, true);
+    }
+
+    @Override
+    public void refreshProfileView(String baseEntityId) {
+        mProfileInteractor.refreshProfileView(baseEntityId, false);
+    }
+
+    @Override
     public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
         try {
-            String jsonString = data.getStringExtra(Constants.INTENT_KEY.JSON);
+            String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
             Log.d("JSONResult", jsonString);
             JSONObject form = new JSONObject(jsonString);
             getProfileView().showProgressDialog(
-                    form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE) ?
+                    form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE) ?
                             R.string.removing_dialog_title : R.string.saving_dialog_title);
 
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.UPDATE_REGISTRATION)) {
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
                 Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
                 mRegisterInteractor.saveRegistration(values, jsonString, true, this);
-            } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EventType.CLOSE)) {
+            } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE)) {
                 mRegisterInteractor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
             } else {
                 getProfileView().hideProgressDialog();
@@ -107,40 +124,23 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         }
     }
 
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        //Overriden
-    }
-
-
-    @Override
-    public void onNoUniqueId() {
-        getProfileView().displayToast(R.string.no_openmrs_id);
-    }
-
-    @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        this.refreshProfileView(getProfileView().getIntentString(Constants.INTENT_KEY.BASE_ENTITY_ID));
-        getProfileView().hideProgressDialog();
-        getProfileView().displayToast(isEdit ? R.string.registration_info_updated : R.string.new_registration_saved);
-    }
 
     @Override
     public void refreshProfileTopSection(Map<String, String> client) {
         if (client != null) {
             getProfileView()
-                    .setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
-            getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
+                    .setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+            getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
             try {
                 getProfileView().setProfileGestationAge(
-                        client.containsKey(DBConstants.KEY.EDD) && client.get(DBConstants.KEY.EDD) != null ?
-                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstants.KEY.EDD))) : null);
+                        client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null ?
+                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))) : null);
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
             }
-            getProfileView().setProfileID(client.get(DBConstants.KEY.ANC_ID));
-            getProfileView().setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
-            getProfileView().setPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+            getProfileView().setProfileID(client.get(DBConstantsUtils.KeyUtils.ANC_ID));
+            getProfileView().setProfileImage(client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
+            getProfileView().setPhoneNumber(client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
         }
     }
 

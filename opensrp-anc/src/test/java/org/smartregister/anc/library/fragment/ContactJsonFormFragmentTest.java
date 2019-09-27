@@ -26,7 +26,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
 
 /**
@@ -101,7 +101,7 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
         formFragmentSpy.onCreateView(layoutInflater, viewGroup, bundle);
 
         Bundle fragmentArgs = formFragmentSpy.getArguments();
-        Assert.assertEquals(JsonFormConstants.FIRST_STEP_NAME, fragmentArgs.get(DBConstants.KEY.STEPNAME));
+        Assert.assertEquals(JsonFormConstants.FIRST_STEP_NAME, fragmentArgs.get(DBConstantsUtils.KeyUtils.STEPNAME));
     }
 
     @Test

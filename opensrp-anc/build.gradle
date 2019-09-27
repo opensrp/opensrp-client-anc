@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
 }
 
@@ -20,6 +20,11 @@ android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         minSdkVersion androidMinSdkVersion
@@ -99,7 +104,7 @@ tasks.withType(Test) {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation('org.smartregister:opensrp-client-native-form:1.6.34-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.44-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -108,8 +113,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'org.yaml', module: 'snakeyaml'
+        exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.7.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.7.22-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -155,7 +161,7 @@ dependencies {
 
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.6.8'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.24'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
@@ -165,7 +171,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
-    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:robolectric:4.0.1'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     // PowerMock

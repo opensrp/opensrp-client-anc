@@ -16,7 +16,6 @@ import org.mockito.junit.MockitoRule;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.smartregister.Context;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.AncLibrary;
@@ -25,8 +24,8 @@ import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.AppExecutors;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.DetailsRepository;
 
@@ -61,9 +60,6 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
     private AncLibrary AncLibrary;
 
     @Mock
-    private Context opensrpContext;
-
-    @Mock
     private android.content.Context context;
 
     @Mock
@@ -91,8 +87,8 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String lastName = "Smith";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.FIRST_NAME, firstName);
-        details.put(DBConstants.KEY.LAST_NAME, lastName);
+        details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
+        details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
         PowerMockito.mockStatic(PatientRepository.class);
 
@@ -121,13 +117,13 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.NEXT_CONTACT, "2");
-        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2017-04-09");
-        details.put(DBConstants.KEY.EDD, "2017-04-10");
-        details.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "2");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2017-04-10");
+        details.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
 
         Facts facts = new Facts();
-        facts.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, contactScheduleList);
+        facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);
@@ -175,13 +171,13 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.NEXT_CONTACT, "2");
-        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2017-04-09");
-        details.put(DBConstants.KEY.EDD, "2017-04-10");
-        details.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "2");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2017-04-10");
+        details.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, "{ contact_schedule : \"" + contactSchedule.toString() + "\" }");
 
         Facts facts = new Facts();
-        facts.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, contactScheduleList);
+        facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);
@@ -221,12 +217,12 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         String contactScheduleList = "[10, 20, 30, 40]";
 
         Map<String, String> details = new HashMap<>();
-        details.put(DBConstants.KEY.NEXT_CONTACT, "2");
-        details.put(DBConstants.KEY.NEXT_CONTACT_DATE, "2017-04-09");
-        details.put(DBConstants.KEY.EDD, "2017-04-10");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "2");
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, "2017-04-09");
+        details.put(DBConstantsUtils.KeyUtils.EDD, "2017-04-10");
 
         Facts facts = new Facts();
-        facts.put(Constants.DETAILS_KEY.CONTACT_SCHEDULE, contactScheduleList);
+        facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(PatientRepository.class);

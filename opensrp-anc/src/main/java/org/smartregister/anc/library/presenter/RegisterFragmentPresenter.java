@@ -8,7 +8,7 @@ import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.library.model.RegisterFragmentModel;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
@@ -59,7 +59,7 @@ public class RegisterFragmentPresenter
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = DBConstants.WOMAN_TABLE_NAME;
+        String tableName = DBConstantsUtils.WOMAN_TABLE_NAME;
 
         String countSelect = model.countSelect(tableName, mainCondition);
         String mainSelect = model.mainSelect(tableName, mainCondition);
@@ -77,6 +77,23 @@ public class RegisterFragmentPresenter
     }
 
     @Override
+    public void searchGlobally(String ancId) {
+        getView().showProgressView();
+
+        Map<String, String> editMap = model.createEditMap(ancId);
+        interactor.search(editMap, this, ancId);
+    }
+
+    private void setVisibleColumns(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
+        this.visibleColumns = visibleColumns;
+    }
+
+    protected RegisterFragmentContract.View getView() {
+        if (viewReference != null) return viewReference.get();
+        else return null;
+    }
+
+    @Override
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
         String filterText = model.getFilterText(filterList, getView().getString(R.string.filter));
         String sortText = model.getSortText(sortField);
@@ -84,12 +101,12 @@ public class RegisterFragmentPresenter
         getView().updateFilterAndFilterStatus(filterText, sortText);
     }
 
-    @Override
-    public void searchGlobally(String ancId) {
-        getView().showProgressView();
+    public AdvancedMatrixCursor getMatrixCursor() {
+        return matrixCursor;
+    }
 
-        Map<String, String> editMap = model.createEditMap(ancId);
-        interactor.search(editMap, this, ancId);
+    public void setMatrixCursor(AdvancedMatrixCursor matrixCursor) {
+        this.matrixCursor = matrixCursor;
     }
 
     @Override
@@ -106,25 +123,8 @@ public class RegisterFragmentPresenter
         }
     }
 
-    protected RegisterFragmentContract.View getView() {
-        if (viewReference != null) return viewReference.get();
-        else return null;
-    }
-
-    private void setVisibleColumns(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        this.visibleColumns = visibleColumns;
-    }
-
     public void setModel(RegisterFragmentContract.Model model) {
         this.model = model;
-    }
-
-    public AdvancedMatrixCursor getMatrixCursor() {
-        return matrixCursor;
-    }
-
-    public void setMatrixCursor(AdvancedMatrixCursor matrixCursor) {
-        this.matrixCursor = matrixCursor;
     }
 
     public void setInteractor(AdvancedSearchContract.Interactor interactor) {

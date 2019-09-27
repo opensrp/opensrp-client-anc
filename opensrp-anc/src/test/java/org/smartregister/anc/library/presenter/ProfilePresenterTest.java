@@ -13,8 +13,8 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ProfileContract;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.Map;
@@ -83,7 +83,7 @@ public class ProfilePresenterTest extends BaseUnitTest {
 
         ProfilePresenter presenterSpy = (ProfilePresenter) Mockito.spy(presenter);
 
-        Mockito.doReturn(DUMMY_BASE_ENTITY_ID).when(view).getIntentString(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        Mockito.doReturn(DUMMY_BASE_ENTITY_ID).when(view).getIntentString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         Mockito.doNothing().when(presenterSpy).refreshProfileView(DUMMY_BASE_ENTITY_ID);
         presenterSpy.onRegistrationSaved(true);
         Mockito.verify(presenterSpy).refreshProfileView(DUMMY_BASE_ENTITY_ID);
@@ -124,21 +124,21 @@ public class ProfilePresenterTest extends BaseUnitTest {
         ProfileContract.Presenter presenterSpy = Mockito.spy(presenter);
 
         Map<String, String> client = new ArrayMap<>();
-        client.put(DBConstants.KEY.FIRST_NAME, DUMMY_USERNAME);
-        client.put(DBConstants.KEY.LAST_NAME, DUMMY_USERNAME);
-        client.put(DBConstants.KEY.DOB, "1997-08-09");
-        client.put(DBConstants.KEY.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        client.put(DBConstants.KEY.ANC_ID, TEST_STRING);
-        client.put(DBConstants.KEY.PHONE_NUMBER, TEST_STRING);
+        client.put(DBConstantsUtils.KeyUtils.FIRST_NAME, DUMMY_USERNAME);
+        client.put(DBConstantsUtils.KeyUtils.LAST_NAME, DUMMY_USERNAME);
+        client.put(DBConstantsUtils.KeyUtils.DOB, "1997-08-09");
+        client.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        client.put(DBConstantsUtils.KeyUtils.ANC_ID, TEST_STRING);
+        client.put(DBConstantsUtils.KeyUtils.PHONE_NUMBER, TEST_STRING);
 
         presenterSpy.refreshProfileTopSection(client);
 
 
-        Mockito.verify(view).setProfileName(client.get(DBConstants.KEY.FIRST_NAME) + " " + client.get(DBConstants.KEY.LAST_NAME));
-        Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstants.KEY.DOB))));
-        Mockito.verify(view).setProfileID(client.get(DBConstants.KEY.ANC_ID));
-        Mockito.verify(view).setProfileImage(client.get(DBConstants.KEY.BASE_ENTITY_ID));
-        Mockito.verify(view).setPhoneNumber(client.get(DBConstants.KEY.PHONE_NUMBER));
+        Mockito.verify(view).setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
+        Mockito.verify(view).setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
+        Mockito.verify(view).setProfileID(client.get(DBConstantsUtils.KeyUtils.ANC_ID));
+        Mockito.verify(view).setProfileImage(client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
+        Mockito.verify(view).setPhoneNumber(client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
 
     }
 

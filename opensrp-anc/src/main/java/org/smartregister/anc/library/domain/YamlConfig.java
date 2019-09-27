@@ -54,7 +54,7 @@ public class YamlConfig {
         this.test_results = test_results;
     }
 
-    public static final class KEY {
+    public static final class KeyUtils {
         public static final String GROUP = "group";
         public static final String FIELDS = "fields";
     }

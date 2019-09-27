@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.rule;
 
 import org.joda.time.LocalDate;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 //All date formats ISO 8601 yyyy-mm-dd
 
@@ -11,7 +11,7 @@ import org.smartregister.anc.library.util.Constants;
 public class AlertRule {
 
     public static final String RULE_KEY = "alertRule";
-    public String buttonStatus = Constants.ALERT_STATUS.NOT_DUE;
+    public String buttonStatus = ConstantsUtils.AlertStatusUtils.NOT_DUE;
 
     public String nextContactDate;
     public Integer gestationAge;

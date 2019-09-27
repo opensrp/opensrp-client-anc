@@ -2,8 +2,8 @@ package org.smartregister.anc.library.model;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.util.Constants;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -40,10 +40,10 @@ public class PartialContacts {
             } else {
                 if (referral != null) {
                     partialContactList = partialContactRepository
-                            .getPartialContacts(baseEntityId, Integer.valueOf(details.get(Constants.REFERRAL)));
+                            .getPartialContacts(baseEntityId, Integer.valueOf(details.get(ConstantsUtils.REFERRAL)));
                 } else {
                     partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
-                            Integer.valueOf(details.get(DBConstants.KEY.NEXT_CONTACT)));
+                            Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
                 }
             }
         } else {

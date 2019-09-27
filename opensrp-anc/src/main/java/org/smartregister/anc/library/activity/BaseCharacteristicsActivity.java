@@ -64,6 +64,10 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
 
     }
 
+    protected abstract BaseCharacteristicsContract.BasePresenter getPresenter();
+
+    protected abstract String getToolbarTitle();
+
     @Override
     public void onItemClick(View view, int position) {
         renderSubInfoAlertDialog(view.findViewById(R.id.info).getTag(R.id.CHARACTERISTIC_DESC).toString());
@@ -97,8 +101,4 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
-
-    protected abstract BaseCharacteristicsContract.BasePresenter getPresenter();
-
-    protected abstract String getToolbarTitle();
 }

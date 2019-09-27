@@ -31,9 +31,9 @@ import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.library.presenter.ContactJsonFormFragmentPresenter;
-import org.smartregister.anc.library.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
-import org.smartregister.anc.library.util.DBConstants;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
 
@@ -54,16 +54,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     public static JsonWizardFormFragment getFormFragment(String stepName) {
         ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(DBConstants.KEY.STEPNAME, stepName);
+        bundle.putString(DBConstantsUtils.KeyUtils.STEPNAME, stepName);
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
-    }
-
-    private Contact getContact() {
-        if (getActivity() != null && getActivity() instanceof ContactJsonFormActivity) {
-            return ((ContactJsonFormActivity) getActivity()).getContact();
-        }
-        return null;
     }
 
     @Override
@@ -79,49 +72,40 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         return rootView;
     }
 
-    @Override
-    protected void setupNavigation(View rootView) {
-        super.setupNavigation(rootView);
-        LinearLayout proceedLayout = rootView.findViewById(R.id.navigation_layout);
+    private Contact getContact() {
+        if (getActivity() != null && getActivity() instanceof ContactJsonFormActivity) {
+            return ((ContactJsonFormActivity) getActivity()).getContact();
+        }
+        return null;
+    }
 
-        Button previousButton = rootView.findViewById(com.vijay.jsonwizard.R.id.previous);
-        ImageView previousIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.previous_icon);
+    /**
+     * Shows the form exit dialog message if yes is clicked a partial save of the quick check selection is saved and it
+     * redirects back to the main register
+     *
+     * @author dubdabasoduba
+     */
+    private void quickCheckClose() {
+        AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
+                .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
+                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck();
+                    }
+                }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName());
+                    }
+                }).create();
 
-        previousButton.setVisibility(View.INVISIBLE);
-        previousIcon.setVisibility(View.INVISIBLE);
-
-        previousButton.setOnClickListener(navigationListener);
-        previousIcon.setOnClickListener(navigationListener);
-
-        Button nextButton = rootView.findViewById(com.vijay.jsonwizard.R.id.next);
-        ImageView nextIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.next_icon);
-
-        nextButton.setOnClickListener(navigationListener);
-        nextIcon.setOnClickListener(navigationListener);
-
-        Button referClose = proceedLayout.findViewById(R.id.refer);
-        referClose.setOnClickListener(navigationListener);
-
-        Button proceed = proceedLayout.findViewById(R.id.proceed);
-        proceed.setOnClickListener(navigationListener);
+        dialog.show();
     }
 
     @Override
     protected ContactJsonFormFragmentViewState createViewState() {
         return new ContactJsonFormFragmentViewState();
-    }
-
-    @Override
-    public void setActionBarTitle(String title) {
-        Contact contact = getContact();
-        if (contact != null) {
-            contactTitle.setText(contact.getName());
-            if (getStepName() != null) {
-                getStepName().setText(title);
-            }
-        } else {
-            contactTitle.setText(title);
-        }
     }
 
     @Override
@@ -158,6 +142,46 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
+    public void setActionBarTitle(String title) {
+        Contact contact = getContact();
+        if (contact != null) {
+            contactTitle.setText(contact.getName());
+            if (getStepName() != null) {
+                getStepName().setText(title);
+            }
+        } else {
+            contactTitle.setText(title);
+        }
+    }
+
+    @Override
+    protected void setupNavigation(View rootView) {
+        super.setupNavigation(rootView);
+        LinearLayout proceedLayout = rootView.findViewById(R.id.navigation_layout);
+
+        Button previousButton = rootView.findViewById(com.vijay.jsonwizard.R.id.previous);
+        ImageView previousIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.previous_icon);
+
+        previousButton.setVisibility(View.INVISIBLE);
+        previousIcon.setVisibility(View.INVISIBLE);
+
+        previousButton.setOnClickListener(navigationListener);
+        previousIcon.setOnClickListener(navigationListener);
+
+        Button nextButton = rootView.findViewById(com.vijay.jsonwizard.R.id.next);
+        ImageView nextIcon = rootView.findViewById(com.vijay.jsonwizard.R.id.next_icon);
+
+        nextButton.setOnClickListener(navigationListener);
+        nextIcon.setOnClickListener(navigationListener);
+
+        Button referClose = proceedLayout.findViewById(R.id.refer);
+        referClose.setOnClickListener(navigationListener);
+
+        Button proceed = proceedLayout.findViewById(R.id.proceed);
+        proceed.setOnClickListener(navigationListener);
+    }
+
+    @Override
     protected void setupCustomUI() {
         super.setupCustomUI();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -169,7 +193,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             contactTitle = view.findViewById(R.id.contact_title);
 
             if (getContact() != null && getContact().getBackIcon() > 0 &&
-                    getContact().getFormName().equals(Constants.JSON_FORM.ANC_QUICK_CHECK)) {
+                    getContact().getFormName().equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
                 goBackButton.setImageResource(R.drawable.ic_clear);
                 goBackButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,28 +212,21 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
-    /**
-     * Shows the form exit dialog message if yes is clicked a partial save of the quick check selection is saved and it
-     * redirects back to the main register
-     *
-     * @author dubdabasoduba
-     */
-    private void quickCheckClose() {
-        AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
-                .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck();
-                    }
-                }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName());
-                    }
-                }).create();
+    @Override
+    protected void save() {
+        try {
+            if (savePartial) {
+                if (getActivity() != null) {
+                    ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
+                }
+            } else {
+                super.save();
+            }
+        } catch (Exception var2) {
+            Log.e(TAG, var2.getMessage());
+            this.save(false);
+        }
 
-        dialog.show();
     }
 
     private void displayReferralDialog() {
@@ -254,11 +271,10 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      * Re-directs to the contact finalize page which when refer and close in the quick check container is clicked
      *
      * @param dialog {@link Dialog}
-     *
      * @author dubdabasoduba
      */
     private void goToContactFinalize(Dialog dialog) {
-        String baseEntityId = getActivity().getIntent().getStringExtra(Constants.INTENT_KEY.BASE_ENTITY_ID);
+        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         Contact contact = getContact();
         if (contact != null) {
             int contactNo = contact.getContactNumber();
@@ -272,7 +288,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
 
         Utils.finalizeForm(getActivity(),
-                ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(Constants.INTENT_KEY.CLIENT_MAP)),
+                ((HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP)),
                 true);
 
         dialog.dismiss();
@@ -284,7 +300,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
      *
      * @param none  {@link Boolean}
      * @param other {@link Boolean}
-     *
      * @author dubdabasoduba
      */
     public void displayQuickCheckBottomReferralButtons(boolean none, boolean other) {
@@ -318,23 +333,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
         if ((none && !other) && buttonLayout != null) {
             referButton.setVisibility(View.GONE);
-        }
-
-    }
-
-    @Override
-    protected void save() {
-        try {
-            if (savePartial) {
-                if (getActivity() != null) {
-                    ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
-                }
-            } else {
-                super.save();
-            }
-        } catch (Exception var2) {
-            Log.e(TAG, var2.getMessage());
-            this.save(false);
         }
 
     }
