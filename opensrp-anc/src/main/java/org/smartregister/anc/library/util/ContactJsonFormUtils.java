@@ -542,13 +542,10 @@ public class ContactJsonFormUtils extends FormUtils {
 
     private static boolean checkForFilterSources(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
         if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS_SOURCE)) {
-            if (getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
-                return true;
+            return getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
         } else {
-            if (getFilteredItemsWithoutFilteredSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
-                return true;
+            return getFilteredItemsWithoutFilteredSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
         }
-        return false;
     }
 
     private static void setUpNoneForSpecialTreatment(ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap, boolean none, String none2) {
