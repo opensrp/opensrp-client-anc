@@ -2067,6 +2067,13 @@
         "v_required": {
           "value": "true",
           "err": "Please specify if fetal heartbeat is present."
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
