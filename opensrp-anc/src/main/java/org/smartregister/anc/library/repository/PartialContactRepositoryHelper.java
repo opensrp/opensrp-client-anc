@@ -20,7 +20,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class PartialContactRepository extends BaseRepository {
+public class PartialContactRepositoryHelper extends BaseRepository {
     public static final String TABLE_NAME = "partial_contact";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -49,7 +49,7 @@ public class PartialContactRepository extends BaseRepository {
             new String[]{ID, TYPE, FORM_JSON, FORM_JSON_DRAFT, CONTACT_NO, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT,
                     UPDATED_AT_COLUMN};
 
-    public PartialContactRepository(Repository repository) {
+    public PartialContactRepositoryHelper(Repository repository) {
         super(repository);
 
         formProcessingOrderMap = ImmutableMap.<String, Integer>builder().put(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, 1)
@@ -210,7 +210,7 @@ public class PartialContactRepository extends BaseRepository {
                         "= NULL WHERE " + BASE_ENTITY_ID + " = ? AND " + FORM_JSON_DRAFT + " IS NOT NULL",
                 new String[]{baseEntityId});
 
-        PatientRepository.updateWomanAlertStatus(baseEntityId, ConstantsUtils.AlertStatusUtils.ACTIVE);
+        PatientRepositoryHelper.updateWomanAlertStatus(baseEntityId, ConstantsUtils.AlertStatusUtils.ACTIVE);
     }
 
     public void deletePartialContact(Long id) {

@@ -22,9 +22,9 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
-import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -120,7 +120,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
                     if (edd != null && saveFinishMenuItem != null) {
 
-                        PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+                        PatientRepositoryHelper.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
 
                         saveFinishMenuItem.setEnabled(true);
 
@@ -177,8 +177,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    protected PartialContactRepository getPartialContactRepository() {
-        return AncLibrary.getInstance().getPartialContactRepository();
+    protected PartialContactRepositoryHelper getPartialContactRepository() {
+        return AncLibrary.getInstance().getPartialContactRepositoryHelper();
     }
 
     @Override
@@ -197,7 +197,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
+            PatientRepositoryHelper.updateEDDDate(baseEntityId, null); //Reset EDD
             super.onBackPressed();
         } else {
             saveFinishForm();
@@ -234,7 +234,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             @Override
             protected Void doInBackground(Void... nada) {
                 try {
-                    HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
+                    HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepositoryHelper
                             .getWomanProfileDetails(getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                     int contactNo = getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO);
                     if (contactNo < 0) {
@@ -330,8 +330,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         //Overriden
     }
 
-    protected PreviousContactRepository getPreviousCOntactsReposity() {
-        return AncLibrary.getInstance().getPreviousContactRepository();
+    protected PreviousContactRepositoryHelper getPreviousCOntactsReposity() {
+        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
     }
 }
 
