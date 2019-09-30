@@ -22,9 +22,9 @@ import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
-import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -56,8 +56,8 @@ public class AncLibrary {
     private final Context context;
     private final Repository repository;
     private JsonSpecHelper jsonSpecHelper;
-    private PartialContactRepository partialContactRepository;
-    private PreviousContactRepository previousContactRepository;
+    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
@@ -160,27 +160,27 @@ public class AncLibrary {
      * are already managed instead of writing new code to manage them.
      */
     public static void performMigrations(@NonNull SQLiteDatabase database) {
-        PatientRepository.performMigrations(database);
+        PatientRepositoryHelper.performMigrations(database);
     }
 
-    public PartialContactRepository getPartialContactRepository() {
-        if (partialContactRepository == null) {
-            partialContactRepository = new PartialContactRepository(getRepository());
+    public PartialContactRepositoryHelper getPartialContactRepositoryHelper() {
+        if (partialContactRepositoryHelper == null) {
+            partialContactRepositoryHelper = new PartialContactRepositoryHelper(getRepository());
         }
 
-        return partialContactRepository;
+        return partialContactRepositoryHelper;
     }
 
     public Repository getRepository() {
         return repository;
     }
 
-    public PreviousContactRepository getPreviousContactRepository() {
-        if (previousContactRepository == null) {
-            previousContactRepository = new PreviousContactRepository(getRepository());
+    public PreviousContactRepositoryHelper getPreviousContactRepositoryHelper() {
+        if (previousContactRepositoryHelper == null) {
+            previousContactRepositoryHelper = new PreviousContactRepositoryHelper(getRepository());
         }
 
-        return previousContactRepository;
+        return previousContactRepositoryHelper;
     }
 
     public EventClientRepository getEventClientRepository() {

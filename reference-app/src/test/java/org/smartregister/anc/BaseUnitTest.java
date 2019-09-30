@@ -5,9 +5,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.smartregister.anc.library.BuildConfig;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.application.TestAncApplication;
+import org.smartregister.anc.library.R;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -40,7 +39,7 @@ public abstract class BaseUnitTest {
 
     protected JSONObject getMainJsonObject(String filePath) throws Exception {
         InputStream inputStream = RuntimeEnvironment.application.getAssets()
-                .open( filePath+ ".json");
+                .open(filePath + ".json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
                 "UTF-8"));
         String jsonString;

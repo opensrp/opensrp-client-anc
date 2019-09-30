@@ -3,7 +3,7 @@ package org.smartregister.anc.library.task;
 import android.os.AsyncTask;
 
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
-import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.Map;
@@ -21,7 +21,7 @@ public class FetchProfileDataTask extends AsyncTask<String, Integer, Map<String,
 
     protected Map<String, String> doInBackground(String... params) {
         String baseEntityId = params[0];
-        return PatientRepository.getWomanProfileDetails(baseEntityId);
+        return PatientRepositoryHelper.getWomanProfileDetails(baseEntityId);
     }
 
     protected void onPostExecute(Map<String, String> client) {

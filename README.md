@@ -3,5 +3,5 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/opensrp/opensrp-client-anc/badge)](https://www.codefactor.io/repository/github/opensrp/opensrp-client-anc)
 
 # opensrp-client-anc
-OpenSRP Client ANC(Ante-Natal Care) Reference Application
+OpenSRP Client ANC(Ante-Natal Care) Reference Mobile Application
 

@@ -226,7 +226,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         JSONObject object;
         List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
 
-        List<PartialContact> partialContacts = AncLibrary.getInstance().getPartialContactRepository()
+        List<PartialContact> partialContacts = AncLibrary.getInstance().getPartialContactRepositoryHelper()
                 .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
 
         for (PartialContact partialContact : partialContacts) {
@@ -280,7 +280,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
 
         PreviousContact previousContact =
-                AncLibrary.getInstance().getPreviousContactRepository().getPreviousContact(request);
+                AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContact(request);
 
         return previousContact != null ? previousContact.getValue() : null;
     }
