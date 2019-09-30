@@ -530,25 +530,38 @@ public class ContactJsonFormUtils extends FormUtils {
                 Map<String, JSONObject> optionsMap = new HashMap<>();
                 JSONArray checkboxOptions = checkBoxField.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
-                for (int i = 0; i < checkboxOptions.length(); i++) {
-                    JSONObject item = checkboxOptions.getJSONObject(i);
-                    optionsMap.put(item.getString(JsonFormConstants.KEY), item);
-                }
-                //Treat none option as special.
-                if (optionsMap.containsKey("none")) {
-                    newOptionsList.add(optionsMap.get("none"));
-                }
-
-                if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS_SOURCE)) {
-                    if (getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
-                        return;
-                } else {
-                    if (getFilteredItemsWithoutFilteredSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
-                        return;
-                }
+                getOptionsMap(optionsMap, checkboxOptions);
+                setUpNoneForSpecialTreatment(newOptionsList, optionsMap, optionsMap.containsKey("none"), "none");
+                if (checkForFilterSources(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
+                    return;
                 checkBoxField.put(JsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray(newOptionsList));
                 checkBoxField.put(ConstantsUtils.IS_FILTERED, true);
             }
+        }
+    }
+
+    private static boolean checkForFilterSources(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
+        if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS_SOURCE)) {
+            if (getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
+                return true;
+        } else {
+            if (getFilteredItemsWithoutFilteredSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
+                return true;
+        }
+        return false;
+    }
+
+    private static void setUpNoneForSpecialTreatment(ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap, boolean none, String none2) {
+        //Treat none option as special.
+        if (none) {
+            newOptionsList.add(optionsMap.get(none2));
+        }
+    }
+
+    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray checkboxOptions) throws JSONException {
+        for (int i = 0; i < checkboxOptions.length(); i++) {
+            JSONObject item = checkboxOptions.getJSONObject(i);
+            optionsMap.put(item.getString(JsonFormConstants.KEY), item);
         }
     }
 
@@ -567,9 +580,7 @@ public class ContactJsonFormUtils extends FormUtils {
         String[] filteredKeys = itemsToFilter.substring(1, itemsToFilter.length() - 1).split(", ");
 
         for (String filteredKey : filteredKeys) {
-            if (!TextUtils.equals("none", filteredKey)) {
-                newOptionsList.add(optionsMap.get(filteredKey));
-            }
+            setUpNoneForSpecialTreatment(newOptionsList, optionsMap, !TextUtils.equals("none", filteredKey), filteredKey);
         }
         return false;
     }
