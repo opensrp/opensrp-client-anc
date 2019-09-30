@@ -17,8 +17,8 @@ import org.smartregister.anc.library.model.ContactVisit;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PartialContacts;
 import org.smartregister.anc.library.model.PreviousContact;
-import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -92,12 +92,12 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 PartialContacts partialContacts =
                         new PartialContacts(details, referral, baseEntityId, isFirst).invoke();
-                PartialContactRepository partialContactRepository = partialContacts.getPartialContactRepository();
+                PartialContactRepositoryHelper partialContactRepositoryHelper = partialContacts.getPartialContactRepositoryHelper();
                 List<PartialContact> partialContactList = partialContacts.getPartialContactList();
 
                 ContactVisit contactVisit =
                         new ContactVisit(details, referral, baseEntityId, nextContact, nextContactVisitDate,
-                                partialContactRepository, partialContactList).invoke();
+                                partialContactRepositoryHelper, partialContactList).invoke();
                 Facts facts = contactVisit.getFacts();
                 List<String> formSubmissionIDs = contactVisit.getFormSubmissionIDs();
                 WomanDetail womanDetail = contactVisit.getWomanDetail();
@@ -139,7 +139,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE);
         previousContact.setValue(String.valueOf(integerList));
-        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
     }
 
     private int getNextContact(Map<String, String> details) {
@@ -155,14 +155,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
         previousContact.setValue(attentionFlagsString);
-        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
     }
 
     private void addTheContactDate(String baseEntityId, Map<String, String> details) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.CONTACT_DATE);
         previousContact.setValue(Utils.getDBDateToday());
-        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
     }
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
@@ -188,7 +188,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         previousContact.setKey(ConstantsUtils.GEST_AGE_OPENMRS);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
         previousContact.setValue(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
-        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
     }
 
     private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair,
@@ -230,8 +230,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         return stateObject != null ? stateObject.toString() : null;
     }
 
-    protected PreviousContactRepository getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepository();
+    protected PreviousContactRepositoryHelper getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
     }
 
     public int getGestationAge(Map<String, String> details) {

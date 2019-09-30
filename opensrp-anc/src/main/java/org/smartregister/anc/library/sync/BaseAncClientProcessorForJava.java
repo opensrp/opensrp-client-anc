@@ -104,7 +104,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             }
 
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
-                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(
+                AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(
                         new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
             }
         }

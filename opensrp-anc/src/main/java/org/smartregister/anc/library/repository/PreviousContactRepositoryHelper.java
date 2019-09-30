@@ -20,7 +20,7 @@ import org.smartregister.repository.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreviousContactRepository extends BaseRepository {
+public class PreviousContactRepositoryHelper extends BaseRepository {
     public static final String TABLE_NAME = "previous_contact";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -29,7 +29,7 @@ public class PreviousContactRepository extends BaseRepository {
     public static final String VALUE = "value";
     public static final String CREATED_AT = "created_at";
     public static final String GEST_AGE = "gest_age_openmrs";
-    private static final String TAG = PreviousContactRepository.class.getCanonicalName();
+    private static final String TAG = PreviousContactRepositoryHelper.class.getCanonicalName();
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
             + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
             + CONTACT_NO + "  VARCHAR NOT NULL, "
@@ -53,7 +53,7 @@ public class PreviousContactRepository extends BaseRepository {
 
     private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
-    public PreviousContactRepository(Repository repository) {
+    public PreviousContactRepositoryHelper(Repository repository) {
         super(repository);
     }
 

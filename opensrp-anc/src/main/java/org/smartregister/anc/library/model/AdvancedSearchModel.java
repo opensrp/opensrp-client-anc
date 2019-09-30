@@ -34,28 +34,26 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
     public Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob,
                                              String phoneNumber, String alternateContact, boolean isLocal) {
         Map<String, String> editMap = new LinkedHashMap<>();
-        if (StringUtils.isNotBlank(firstName)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.FIRST_NAME : GLOBAL_FIRST_NAME, firstName);
-        }
-        if (StringUtils.isNotBlank(lastName)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.LAST_NAME : GLOBAL_LAST_NAME, lastName);
-        }
-        if (StringUtils.isNotBlank(ancId)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.ANC_ID : GLOBAL_IDENTIFIER, isLocal ? ancId : ANC_ID + ":" + ancId);
-        }
-        if (StringUtils.isNotBlank(edd)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.EDD : GLOBAL_ATTRIBUTE, isLocal ? edd : EDD_ATTR + ":" + edd);
-        }
-        if (StringUtils.isNotBlank(dob)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.DOB : GLOBAL_BIRTH_DATE, dob);
-        }
-        if (StringUtils.isNotBlank(phoneNumber)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.PHONE_NUMBER : PHONE_NUMBER, phoneNumber);
-        }
-        if (StringUtils.isNotBlank(alternateContact)) {
-            editMap.put(isLocal ? DBConstantsUtils.KeyUtils.ALT_NAME : ALT_CONTACT_NAME, alternateContact);
-        }
+        addMapValues(firstName, isLocal, editMap, DBConstantsUtils.KeyUtils.FIRST_NAME, GLOBAL_FIRST_NAME);
+        addMapValues(lastName, isLocal, editMap, DBConstantsUtils.KeyUtils.LAST_NAME, GLOBAL_LAST_NAME);
+        addMapValuesCheckingLocals(ancId, isLocal, editMap, DBConstantsUtils.KeyUtils.ANC_ID, GLOBAL_IDENTIFIER, ANC_ID);
+        addMapValuesCheckingLocals(edd, isLocal, editMap, DBConstantsUtils.KeyUtils.EDD, GLOBAL_ATTRIBUTE, EDD_ATTR);
+        addMapValues(dob, isLocal, editMap, DBConstantsUtils.KeyUtils.DOB, GLOBAL_BIRTH_DATE);
+        addMapValues(phoneNumber, isLocal, editMap, DBConstantsUtils.KeyUtils.PHONE_NUMBER, PHONE_NUMBER);
+        addMapValues(alternateContact, isLocal, editMap, DBConstantsUtils.KeyUtils.ALT_NAME, ALT_CONTACT_NAME);
         return editMap;
+    }
+
+    private void addMapValuesCheckingLocals(String field, boolean isLocal, Map<String, String> editMap, String key, String globalField, String keyToMapTo) {
+        if (StringUtils.isNotBlank(field)) {
+            editMap.put(isLocal ? key : globalField, isLocal ? field : keyToMapTo + ":" + field);
+        }
+    }
+
+    private void addMapValues(String field, boolean isLocal, Map<String, String> editMap, String key, String globalField) {
+        if (StringUtils.isNotBlank(field)) {
+            editMap.put(isLocal ? key : globalField, field);
+        }
     }
 
     @Override

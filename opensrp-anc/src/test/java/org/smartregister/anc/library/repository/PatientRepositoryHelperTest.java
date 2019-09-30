@@ -30,8 +30,8 @@ import java.util.Map;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepository.class, AncLibrary.class, SQLiteDatabase.class})
-public class PatientRepositoryTest {
+@PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, SQLiteDatabase.class})
+public class PatientRepositoryHelperTest {
 
 
     @Mock
@@ -55,17 +55,17 @@ public class PatientRepositoryTest {
     @Test
     public void testPatientRepositoryInstantiatesCorrectly() {
 
-        PatientRepository patientRepository = new PatientRepository();
-        Assert.assertNotNull(patientRepository);
+        PatientRepositoryHelper patientRepositoryHelper = new PatientRepositoryHelper();
+        Assert.assertNotNull(patientRepositoryHelper);
 
-        Map<String, String> womanProfileDetails = PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
+        Map<String, String> womanProfileDetails = PatientRepositoryHelper.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
         Assert.assertNull(womanProfileDetails);
 
     }
 
     @Test
     public void testUpdateWomanDetailsInvokesUpdateMethodOfWritableDatabase() {
-        PatientRepository spy = PowerMockito.spy(new PatientRepository());
+        PatientRepositoryHelper spy = PowerMockito.spy(new PatientRepositoryHelper());
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);

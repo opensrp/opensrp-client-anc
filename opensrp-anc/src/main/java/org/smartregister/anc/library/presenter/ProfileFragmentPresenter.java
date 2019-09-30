@@ -56,7 +56,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-            facts = AncLibrary.getInstance().getPreviousContactRepository()
+            facts = AncLibrary.getInstance().getPreviousContactRepositoryHelper()
                     .getPreviousContactFacts(baseEntityId, contactNo, true);
 
             Map<String, Object> factsAsMap = facts.asMap();

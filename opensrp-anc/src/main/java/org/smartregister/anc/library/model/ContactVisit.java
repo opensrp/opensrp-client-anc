@@ -13,9 +13,9 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
-import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -40,7 +40,7 @@ public class ContactVisit {
     private String baseEntityId;
     private int nextContact;
     private String nextContactVisitDate;
-    private PartialContactRepository partialContactRepository;
+    private PartialContactRepositoryHelper partialContactRepositoryHelper;
     private List<PartialContact> partialContactList;
     private Facts facts;
     private List<String> formSubmissionIDs;
@@ -52,14 +52,14 @@ public class ContactVisit {
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
-                        String nextContactVisitDate, PartialContactRepository partialContactRepository,
+                        String nextContactVisitDate, PartialContactRepositoryHelper partialContactRepositoryHelper,
                         List<PartialContact> partialContactList) {
         this.details = details;
         this.referral = referral;
         this.baseEntityId = baseEntityId;
         this.nextContact = nextContact;
         this.nextContactVisitDate = nextContactVisitDate;
-        this.partialContactRepository = partialContactRepository;
+        this.partialContactRepositoryHelper = partialContactRepositoryHelper;
         this.partialContactList = partialContactList;
     }
 
@@ -79,7 +79,7 @@ public class ContactVisit {
         facts = new Facts();
         formSubmissionIDs = new ArrayList<>();
 
-        updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts,
+        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts,
                 formSubmissionIDs);
 
         womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
@@ -103,11 +103,11 @@ public class ContactVisit {
             womanDetail.setReferral(true);
             womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
         }
-        PatientRepository.updateContactVisitDetails(womanDetail, true);
+        PatientRepositoryHelper.updateContactVisitDetails(womanDetail, true);
         return this;
     }
 
-    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepository partialContactRepository,
+    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepositoryHelper partialContactRepositoryHelper,
                                                   List<PartialContact> partialContactList, Facts facts,
                                                   List<String> formSubmissionIDs) throws Exception {
         if (partialContactList != null) {
@@ -143,7 +143,7 @@ public class ContactVisit {
                 }
 
                 //Remove partial contact
-                partialContactRepository.deletePartialContact(partialContact.getId());
+                partialContactRepositoryHelper.deletePartialContact(partialContact.getId());
             }
         }
     }
@@ -205,7 +205,7 @@ public class ContactVisit {
                                 !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
                                 !isCheckboxValueEmpty(fieldObject)) {
 
-                            fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
+                            fieldObject.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
                             savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
@@ -214,7 +214,7 @@ public class ContactVisit {
                             JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
-                                secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
+                                secondaryValuesJSONObject.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
                                 savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
@@ -240,7 +240,7 @@ public class ContactVisit {
             savePreviousContactItem(baseEntityId, new JSONObject()
                     .put(JsonFormConstants.KEY, key)
                     .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
-                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
+                    .put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo));
 
         }
     }
@@ -273,7 +273,7 @@ public class ContactVisit {
                 JSONObject itemToSave = new JSONObject();
                 itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
                 itemToSave.put(JsonFormConstants.VALUE, result);
-                itemToSave.put(PreviousContactRepository.CONTACT_NO, contactNo);
+                itemToSave.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
                 savePreviousContactItem(baseEntityId, itemToSave);
             }
         }
@@ -284,11 +284,11 @@ public class ContactVisit {
         previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
         previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
         previousContact.setBaseEntityId(baseEntityId);
-        previousContact.setContactNo(fieldObject.getString(PreviousContactRepository.CONTACT_NO));
+        previousContact.setContactNo(fieldObject.getString(PreviousContactRepositoryHelper.CONTACT_NO));
         getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
-    protected PreviousContactRepository getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepository();
+    protected PreviousContactRepositoryHelper getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
     }
 }
