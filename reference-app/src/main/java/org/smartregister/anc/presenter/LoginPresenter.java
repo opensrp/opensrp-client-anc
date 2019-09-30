@@ -14,11 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.R;
-import org.smartregister.anc.application.AncApplication;
 import org.smartregister.anc.interactor.LoginInteractor;
-import org.smartregister.anc.util.Constants;
-import org.smartregister.anc.util.ImageLoaderRequest;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.ImageLoaderRequestUtils;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.domain.Setting;
@@ -46,12 +46,12 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     public void processViewCustomizations() {
         try {
             String jsonString =
-                    getJsonViewFromPreference(Constants.VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN);
+                    getJsonViewFromPreference(ConstantsUtils.VIEW_CONFIGURATION_PREFIX + ConstantsUtils.ConfigurationUtils.LOGIN);
             if (jsonString == null) {
                 return;
             }
 
-            ViewConfiguration loginView = AncApplication.getJsonSpecHelper().getConfigurableView(jsonString);
+            ViewConfiguration loginView = AncLibrary.getJsonSpecHelper().getConfigurableView(jsonString);
             LoginConfiguration metadata = (LoginConfiguration) loginView.getMetadata();
             LoginConfiguration.Background background = metadata.getBackground();
 
@@ -80,7 +80,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
 
             if (metadata.getLogoUrl() != null) {
                 ImageView imageView = getLoginView().getActivityContext().findViewById(R.id.login_logo);
-                ImageLoaderRequest.getInstance(getLoginView().getActivityContext()).getImageLoader()
+                ImageLoaderRequestUtils.getInstance(getLoginView().getActivityContext()).getImageLoader()
                         .get(metadata.getLogoUrl(),
                                 ImageLoader.getImageListener(imageView, R.drawable.ic_who_logo, R.drawable.ic_who_logo))
                         .getBitmap();
@@ -95,8 +95,8 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     public boolean isServerSettingsSet() {
 
         try {
-            Setting setting = AncApplication.getInstance().getContext().allSettings()
-                    .getSetting(Constants.PREF_KEY.SITE_CHARACTERISTICS);
+            Setting setting = AncLibrary.getInstance().getContext().allSettings()
+                    .getSetting(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
 
             JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
             JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ?
@@ -105,7 +105,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
             if (settingArray != null && settingArray.length() > 0) {
 
                 JSONObject settingObject = settingArray.getJSONObject(0);// get first setting to test
-                return !settingObject.isNull(Constants.KEY.VALUE);
+                return !settingObject.isNull(ConstantsUtils.KeyUtils.VALUE);
 
             }
         } catch (JSONException e) {

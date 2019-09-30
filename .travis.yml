@@ -51,9 +51,9 @@ script:
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
   - chmod 755 gradlew
   - ls -la
-  #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  # The tests have been disabled and are fixed in https://github.com/OpenSRP/opensrp-client-anc/pull/335
-  - travis_wait ./gradlew build -x test --stacktrace
+  # jacocoTestReport is supposed to run both local and instrumented tests on all the modules
+  # Gradle issue running composite tasks in order https://github.com/gradle/gradle/issues/3300
+  - travis_wait ./gradlew opensrp-anc:clean opensrp-anc:jacocoTestReport coveralls --stacktrace
 
 notifications:
   slack:

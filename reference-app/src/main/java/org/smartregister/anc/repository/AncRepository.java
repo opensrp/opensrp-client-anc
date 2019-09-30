@@ -6,12 +6,17 @@ import android.util.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
-import org.smartregister.anc.application.AncApplication;
+import org.smartregister.CoreLibrary;
+import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
+import org.smartregister.view.activity.DrishtiApplication;
 
 /**
  * Created by ndegwamartin on 09/04/2018.
@@ -24,8 +29,8 @@ public class AncRepository extends Repository {
     protected SQLiteDatabase writableDatabase;
 
     public AncRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, AllConstants.DATABASE_VERSION, openSRPContext.session(),
-                AncApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
+                CoreLibrary.getInstance().context().commonFtsObject(), openSRPContext.sharedRepositoriesArray());
     }
 
     @Override
@@ -39,8 +44,8 @@ public class AncRepository extends Repository {
 
         UniqueIdRepository.createTable(database);
         SettingsRepository.onUpgrade(database);
-        PartialContactRepository.createTable(database);
-        PreviousContactRepository.createTable(database);
+        PartialContactRepositoryHelper.createTable(database);
+        PreviousContactRepositoryHelper.createTable(database);
 
         //onUpgrade(database, 1, 2);
     }
@@ -49,6 +54,8 @@ public class AncRepository extends Repository {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(AncRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+
+        AncLibrary.getInstance().performMigrations(db);
 
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
@@ -65,12 +72,23 @@ public class AncRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase(AncApplication.getInstance().getPassword());
+        return getReadableDatabase(DrishtiApplication.getInstance().getPassword());
     }
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        return getWritableDatabase(AncApplication.getInstance().getPassword());
+        return getWritableDatabase(DrishtiApplication.getInstance().getPassword());
+    }
+
+    @Override
+    public synchronized SQLiteDatabase getWritableDatabase(String password) {
+        if (writableDatabase == null || !writableDatabase.isOpen()) {
+            if (writableDatabase != null) {
+                writableDatabase.close();
+            }
+            writableDatabase = super.getWritableDatabase(password);
+        }
+        return writableDatabase;
     }
 
     @Override
@@ -88,17 +106,6 @@ public class AncRepository extends Repository {
             return null;
         }
 
-    }
-
-    @Override
-    public synchronized SQLiteDatabase getWritableDatabase(String password) {
-        if (writableDatabase == null || !writableDatabase.isOpen()) {
-            if (writableDatabase != null) {
-                writableDatabase.close();
-            }
-            writableDatabase = super.getWritableDatabase(password);
-        }
-        return writableDatabase;
     }
 
     @Override

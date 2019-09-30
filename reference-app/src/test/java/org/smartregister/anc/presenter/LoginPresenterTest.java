@@ -18,8 +18,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
-import org.smartregister.anc.R;
-import org.smartregister.anc.activity.BaseUnitTest;
+import org.smartregister.anc.library.R;
+import org.smartregister.anc.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.view.contract.BaseLoginContract;
 

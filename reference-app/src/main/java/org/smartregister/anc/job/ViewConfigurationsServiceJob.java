@@ -3,7 +3,7 @@ package org.smartregister.anc.job;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import org.smartregister.anc.util.Constants;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.job.BaseJob;
 
@@ -19,7 +19,7 @@ public class ViewConfigurationsServiceJob extends BaseJob {
     protected Result onRunJob(@NonNull Params params) {
         Intent intent = new Intent(getApplicationContext(), PullConfigurableViewsIntentService.class);
         getApplicationContext().startService(intent);
-        return params != null && params.getExtras().getBoolean(Constants.INTENT_KEY.TO_RESCHEDULE, false) ?
+        return params != null && params.getExtras().getBoolean(ConstantsUtils.IntentKeyUtils.TO_RESCHEDULE, false) ?
                 Result.RESCHEDULE : Result.SUCCESS;
     }
 }
