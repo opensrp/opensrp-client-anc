@@ -135,7 +135,7 @@ actions:
 name: step2_anaemic
 description: anaemic
 priority: 1
-condition: "((step2_hb_result == '' && step2_hb_result == 0) && global_pallor == 'yes') || ((step2_hb_result != '' && step2_hb_result > 0 && step2_hb_result < 11) && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || ((step2_hb_result != '' && step2_hb_result > 0 && step2_hb_result < 10.5) && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28))"
+condition: "((step2_hb_result == '' || step2_hb_result == 0) && global_pallor == 'yes') || ((step2_hb_result != '' && step2_hb_result > 0 && step2_hb_result < 11) && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || ((step2_hb_result != '' && step2_hb_result > 0 && step2_hb_result < 10.5) && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28))"
 actions:
   - "calculation = 1"
 ---
