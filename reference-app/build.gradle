@@ -31,7 +31,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1
-        versionName "0.1.9"
+        versionName "1.2.0"
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
         buildConfigField "String", "SYNC_TYPE", '"teamId"'
