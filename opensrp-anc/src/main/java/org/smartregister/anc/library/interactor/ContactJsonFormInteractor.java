@@ -24,6 +24,5 @@ public class ContactJsonFormInteractor extends JsonFormInteractor {
     protected void registerWidgets() {
         super.registerWidgets();
         map.put(JsonFormConstants.EDIT_TEXT, new AncEditTextFactory());
-        map.put(JsonFormConstants.DATE_PICKER, new DatePickerFactory());
     }
 }
