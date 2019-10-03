@@ -224,13 +224,6 @@
         "value": "6",
         "err": "GA from ultrasound - days should be less than or equal to 6"
       },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
-          }
-        }
-      },
       "relevance": {
         "rules-engine": {
           "ex-rules": {
