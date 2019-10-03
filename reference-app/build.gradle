@@ -15,6 +15,13 @@ apply plugin: 'jacoco'
 jacoco {
     toolVersion = jacocoVersion
 }
+// This variables are used by the version code & name generators
+ext.versionMajor = 1
+ext.versionMinor = 2
+ext.versionPatch = 1
+ext.versionClassifier = null
+ext.isSnapshot = false
+ext.minimumSdkVersion = androidMinSdkVersion
 
 android {
     useLibrary 'org.apache.http.legacy'
@@ -30,8 +37,8 @@ android {
         applicationId "org.smartregister.anc"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 1
-        versionName "1.2.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
         buildConfigField "String", "SYNC_TYPE", '"teamId"'
@@ -145,6 +152,33 @@ android {
     }
 }
 
+/**
+ * Generates the version code following the naming method describe here
+ * https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
+ * @return version code
+ */
+private Integer generateVersionCode() {
+    //return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch This bit will be activated after we are sure of the clients minimum sdk version.
+    return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+/**
+ * Generates the version name following the naming method describe here
+ * https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
+ * @return version name
+ */
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return versionName;
+}
+
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
@@ -163,7 +197,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.7.22-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.7.28-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -186,7 +220,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     annotationProcessor 'com.jakewharton:butterknife:7.0.0'
-    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    implementation 'net.zetetic:android-database-sqlcipher:4.2.0@aar'
     implementation 'commons-validator:commons-validator:1.6'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
         transitive = true
