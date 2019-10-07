@@ -1704,9 +1704,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Abnormal abdominal exam. Refer for further investigation.",
+        "text": "Abnormal abdominal exam. Consider high level evaluation or referral.",
         "text_color": "#E20000",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
