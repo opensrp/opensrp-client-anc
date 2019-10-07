@@ -58,7 +58,10 @@ android {
         versionName "1.2.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
+
+        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
+            signingConfig signingConfigs.release
+        }
 
         javaCompileOptions {
             annotationProcessorOptions {
