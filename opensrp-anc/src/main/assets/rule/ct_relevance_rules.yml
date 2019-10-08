@@ -681,7 +681,7 @@ actions:
 name: step8_tt1_date
 description: tt1_date
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && (global_tt_immun_status != '' && global_tt_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
+condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
@@ -723,7 +723,7 @@ actions:
 name: step8_accordion_tt_immunisation
 description: tt1_date
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && (global_tt_immun_status != '' && global_tt_immun_status != '3_doses')"
+condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses')"
 actions:
   - "isRelevant = true"
 ---
