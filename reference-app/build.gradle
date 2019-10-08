@@ -24,6 +24,31 @@ ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
 
 android {
+    /*
+    * This allows you to run the app in the release variant.  make sure to add this configs to the
+    * local.properties files when you need to use them
+    * */
+    if (project.rootProject.file("local.properties").exists()) {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
+            signingConfigs {
+                release {
+                    storeFile file(properties['store.file'])
+                    storePassword properties['store.password']
+                    keyAlias = 'release'
+                    keyPassword properties['key.password']
+                }
+                debug {
+                    storeFile file(properties['store.file'])
+                    storePassword properties['store.password']
+                    keyAlias = 'release'
+                    keyPassword properties['key.password']
+                }
+            }
+        }
+    }
+
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -48,6 +73,11 @@ android {
         buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
+            signingConfig signingConfigs.release
+        }
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [eventBusIndex: 'org.smartregister.anc.ANCEventBusIndex']
@@ -63,7 +93,6 @@ android {
                 println("Flurry Analytics API key config variables is not set in your local.properties")
                 buildConfigField "String", "FLURRY_API_KEY", "\"sample_key\""
             }
-
         } else {
             println("local.properties does not exist")
             buildConfigField "String", "FLURRY_API_KEY", "\"sample_key\""
@@ -185,9 +214,7 @@ tasks.withType(Test) {
 
 dependencies {
     implementation project(":opensrp-anc")
-    //implementation 'org.smartregister:opensrp-client-anc:0.0.1-SNAPSHOT'
-
-    implementation('org.smartregister:opensrp-client-native-form:1.6.45-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.46-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -199,7 +226,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.7.28-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.7.30-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
