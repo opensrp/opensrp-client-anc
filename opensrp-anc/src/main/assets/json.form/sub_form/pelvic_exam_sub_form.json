@@ -125,6 +125,23 @@
       ]
     },
     {
+      "key": "evaluate_labour_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Evaluate labor. Urgent referral if GA is less than 37 weeks.",
+      "text_color": "#E20000",
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "physical-exam-relevance-rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "pelvic_exam_abnormal_other",
       "openmrs_entity_parent": "165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
