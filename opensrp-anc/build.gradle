@@ -17,6 +17,31 @@ jacoco {
 }
 
 android {
+    /*
+    * This allows running the app in the release variant. Make sure to add this configs to the
+    * local.properties files when you need to use them
+    * */
+    if (project.rootProject.file("local.properties").exists()) {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
+            signingConfigs {
+                release {
+                    storeFile file(properties['store.file'])
+                    storePassword properties['store.password']
+                    keyAlias = 'release'
+                    keyPassword properties['key.password']
+                }
+                debug {
+                    storeFile file(properties['store.file'])
+                    storePassword properties['store.password']
+                    keyAlias = 'release'
+                    keyPassword properties['key.password']
+                }
+            }
+        }
+    }
+
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -33,6 +58,10 @@ android {
         versionName "1.2.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
+            signingConfig signingConfigs.release
+        }
 
         javaCompileOptions {
             annotationProcessorOptions {
