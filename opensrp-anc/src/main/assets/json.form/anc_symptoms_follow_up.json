@@ -1,5 +1,6 @@
 {
   "validate_on_submit": true,
+  "display_scroll_bars": true,
   "count": "4",
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
