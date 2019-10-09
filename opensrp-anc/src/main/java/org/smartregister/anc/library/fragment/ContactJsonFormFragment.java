@@ -39,7 +39,6 @@ import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
 
 import java.util.HashMap;
 
-
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
@@ -68,6 +67,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
         setupNavigation(rootView);
         setupCustomUI();
+        showScrollBars();
 
         return rootView;
     }
@@ -88,17 +88,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck();
-                    }
-                }).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName());
-                    }
-                }).create();
+                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName())).create();
 
         dialog.show();
     }
@@ -131,12 +121,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             return true;
         }
 
-        switch (item.getItemId()) {
-            case MENU_NAVIGATION:
-                Toast.makeText(getActivity(), "Right navigation item clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                break;
+        if (item.getItemId() == MENU_NAVIGATION) {
+            Toast.makeText(getActivity(), "Right navigation item clicked", Toast.LENGTH_SHORT).show();
+            return true;
         }
         return false;
     }
@@ -195,19 +182,9 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             if (getContact() != null && getContact().getBackIcon() > 0 &&
                     getContact().getFormName().equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
                 goBackButton.setImageResource(R.drawable.ic_clear);
-                goBackButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        quickCheckClose();
-                    }
-                });
+                goBackButton.setOnClickListener(view1 -> quickCheckClose());
             } else {
-                goBackButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        backClick();
-                    }
-                });
+                goBackButton.setOnClickListener(view12 -> backClick());
             }
         }
     }
@@ -250,19 +227,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToContactFinalize(dialog);
-            }
-        });
-
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToContactFinalize(dialog);
-            }
-        });
+        yes.setOnClickListener(v -> goToContactFinalize(dialog));
+        no.setOnClickListener(v -> goToContactFinalize(dialog));
 
         dialog.show();
     }
