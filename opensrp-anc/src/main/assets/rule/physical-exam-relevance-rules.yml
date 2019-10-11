@@ -111,13 +111,6 @@ condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
   - "isRelevant = true"
 ---
-name: step4_fetal_heartbeat
-description: Fetal Heartbeat
-priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
-actions:
-  - "isRelevant = true"
----
 name: step4_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
@@ -129,6 +122,13 @@ name: step4_fetal_heart_rate_repeat
 description: Fetal heart beat rate
 priority: 1
 condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster27
+description: No fetal heartbeat observed. Refer to hospital.
+priority: 1
+condition: "(step4_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20))"
 actions:
   - "isRelevant = true"
 ---
@@ -241,5 +241,12 @@ name: step3_toaster26
 description: toaster26
 priority: 1
 condition: "step3_toaster26_hidden > 2"
+actions:
+  - "isRelevant = true"
+---
+name: step3_evaluate_labour_toaster
+description: evaluate_labour_toaster
+priority: 1
+condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.contains('amniotic_fluid_evidence')"
 actions:
   - "isRelevant = true"
