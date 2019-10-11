@@ -243,3 +243,10 @@ priority: 1
 condition: "step3_toaster26_hidden > 2"
 actions:
   - "isRelevant = true"
+---
+name: step3_evaluate_labour_toaster
+description: evaluate_labour_toaster
+priority: 1
+condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.contains('amniotic_fluid_evidence')"
+actions:
+  - "isRelevant = true"
