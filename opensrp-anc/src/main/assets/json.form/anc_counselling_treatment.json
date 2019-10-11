@@ -344,7 +344,7 @@
         "type": "toaster_notes",
         "text": "Abnormal abdominal exam: {abdominal_exam_abnormal}",
         "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -368,7 +368,7 @@
         "type": "toaster_notes",
         "text": "Abnormal pelvic exam: {pelvic_exam_abnormal}",
         "toaster_info_text": "Procedure:\n\n- Refer for further investigation",
-        "toaster_type": "problem",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

@@ -1705,9 +1705,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Abnormal abdominal exam. Refer for further investigation.",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
+        "text": "Abnormal abdominal exam. Consider high level evaluation or referral.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1769,9 +1769,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Abnormal pelvic exam. Refer for further investigation.",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
+        "text": "Abnormal pelvic exam. Consider high level evaluation, specific syndromic treatment or referral.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
