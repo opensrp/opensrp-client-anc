@@ -16,6 +16,8 @@ import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.mvp.MvpBasePresenter;
 import com.vijay.jsonwizard.mvp.ViewState;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -26,6 +28,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
+import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
 
@@ -67,6 +70,15 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
 
     @Mock
     private LinearLayout navigationLayout;
+    private String testJson = "{\n" +
+            "  \"encounter_type\": \"Birth Registration\",\n" +
+            "  \"show_errors_on_submit\": true,\n" +
+            "  \"count\": \"1\",\n" +
+            "  \"display_scroll_bars\": true,\n" +
+            "  \"mother\": {\n" +
+            "    \"encounter_type\": \"New Woman Registration\"\n" +
+            "  }\n" +
+            "}";
 
     @Before
     public void setUp() {
@@ -74,7 +86,7 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testGetFormFragmentShouldCreateAValidFragmentInstance() {
+    public void testGetFormFragmentShouldCreateAValidFragmentInstance() throws JSONException {
 
         JsonWizardFormFragment formFragment = ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
@@ -97,6 +109,10 @@ public class ContactJsonFormFragmentTest extends BaseUnitTest {
         JsonWizardFormFragment formFragmentSpy = Mockito.spy(formFragment);
 
         Mockito.doReturn(actionBar).when(formFragmentSpy).getSupportActionBar();
+        ContactJsonFormActivity activity = new ContactJsonFormActivity();
+        ContactJsonFormActivity activitySpy = Mockito.spy(activity);
+        activitySpy.setmJSONObject(new JSONObject(testJson));
+        formFragmentSpy.setmJsonApi(activitySpy);
 
         formFragmentSpy.onCreateView(layoutInflater, viewGroup, bundle);
 

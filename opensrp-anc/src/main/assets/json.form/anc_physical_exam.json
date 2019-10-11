@@ -1,5 +1,6 @@
 {
   "validate_on_submit": true,
+  "display_scroll_bars": true,
   "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
@@ -2067,13 +2068,6 @@
         "v_required": {
           "value": "true",
           "err": "Please specify if fetal heartbeat is present."
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
         }
       },
       {
@@ -2135,9 +2129,10 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
