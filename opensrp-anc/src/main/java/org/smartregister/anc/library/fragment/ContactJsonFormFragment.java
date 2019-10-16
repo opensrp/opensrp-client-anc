@@ -315,6 +315,11 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
