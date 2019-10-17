@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-@RunWith(PowerMockRunner.class)
 public class TemplateUtilsTest {
 
     @Test
@@ -25,7 +24,7 @@ public class TemplateUtilsTest {
         Context context = PowerMockito.mock(Context.class);
         Resources resources = PowerMockito.mock(Resources.class);
         Configuration configuration = PowerMockito.mock(Configuration.class);
-        AssetManager assetManager = Mockito.spy(AssetManager.class);
+        AssetManager assetManager = PowerMockito.mock(AssetManager.class);
         configuration.locale = Locale.getDefault();
         PowerMockito.when(resources.getConfiguration()).thenReturn(configuration);
         InputStream inputStream = new ByteArrayInputStream("{}".getBytes());
