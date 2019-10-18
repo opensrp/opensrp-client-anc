@@ -327,17 +327,9 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         alertDialog.setTitle(getString(R.string.record_birth) + "?");
 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel).toUpperCase(),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                (dialog, which) -> dialog.dismiss());
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.record_birth).toUpperCase(),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        org.smartregister.anc.library.util.JsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this);
-                    }
-                });
+                (dialog, which) -> org.smartregister.anc.library.util.JsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this));
         return alertDialog;
     }
 

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAdapter.ViewHolder> {
-
     private List<ContactSummaryModel> contactDates;
 
     public ContactSummaryAdapter() {

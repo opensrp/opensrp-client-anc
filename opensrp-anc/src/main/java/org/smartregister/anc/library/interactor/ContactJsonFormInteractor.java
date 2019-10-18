@@ -2,7 +2,6 @@ package org.smartregister.anc.library.interactor;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
-import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.smartregister.anc.library.widget.AncEditTextFactory;
 
