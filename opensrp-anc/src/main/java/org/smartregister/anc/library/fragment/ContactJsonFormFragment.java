@@ -2,7 +2,6 @@ package org.smartregister.anc.library.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -313,6 +312,11 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 referButton.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private class BottomNavigationListener implements View.OnClickListener {
