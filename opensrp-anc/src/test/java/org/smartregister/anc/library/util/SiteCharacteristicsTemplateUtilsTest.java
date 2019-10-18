@@ -22,7 +22,7 @@ import org.smartregister.service.UserService;
 public class SiteCharacteristicsTemplateUtilsTest extends BaseUnitTest {
 
     @Mock
-    AncLibrary ancLibrary;
+    private AncLibrary ancLibrary;
 
     @Test
     public void testStructureFormForRequestWhenTemplateIsNotFound() throws Exception {
