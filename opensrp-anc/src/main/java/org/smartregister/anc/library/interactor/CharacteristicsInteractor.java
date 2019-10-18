@@ -70,7 +70,7 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
     }
 
     private Boolean getPropertyForInitialSaveAction(Context context) {
-        String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.CAN_SAVE_INITIAL_SETTING, "false");
+        String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.CAN_SAVE_SITE_INITIAL_SETTING, "false");
         return Boolean.valueOf(value);
     }
 }

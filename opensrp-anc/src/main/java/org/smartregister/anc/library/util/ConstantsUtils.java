@@ -65,7 +65,7 @@ public abstract class ConstantsUtils {
     public static final String OTHER = "other";
 
     public interface Properties {
-        String CAN_SAVE_INITIAL_SETTING = "can.save.initial.site.settings";
+        String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
     }
 
     public static class AncRadioButtonOptionTypesUtils {

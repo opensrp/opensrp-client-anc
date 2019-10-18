@@ -11,13 +11,15 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.anc.library.activity.BaseUnitTest;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-public class TemplateUtilsTest {
+@RunWith(PowerMockRunner.class)
+public class TemplateUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetTemplateAsJsonShouldReturnEmptyJson() throws IOException {
