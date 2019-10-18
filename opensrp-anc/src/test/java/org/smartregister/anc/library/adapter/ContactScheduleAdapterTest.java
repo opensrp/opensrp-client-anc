@@ -2,12 +2,12 @@ package org.smartregister.anc.library.adapter;
 
 import android.widget.LinearLayout;
 
-import junit.framework.Assert;
-
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.model.ContactSummaryModel;
@@ -15,6 +15,8 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 20/08/2018.
@@ -55,5 +57,27 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
     @Test
     public void testGetItemCountInvokesGetSizeMethodOfDataList() {
         Assert.assertEquals(1, adapter.getItemCount());
+    }
+
+    @Test
+    public void testGenerateTimeAway() {
+        try {
+            String contactDate = "2019-01-01";
+            int timeAway = Whitebox.invokeMethod(adapter, "generateTimeAway", contactDate);
+            Assert.assertNotEquals(0, timeAway);
+        } catch (Exception e) {
+            Timber.e(e, this.getClass().getCanonicalName() + " --> testGenerateTimeAway");
+        }
+    }
+
+    @Test
+    public void testOnBindViewHolder() {
+        LinearLayout viewGroup = new LinearLayout(RuntimeEnvironment.application);
+        viewGroup.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
+        ContactScheduleAdapter.ViewHolder viewHolder = adapter.onCreateViewHolder(viewGroup, 0);
+        Assert.assertNotNull(viewHolder);
+
+        Whitebox.getInternalState(adapter, "contactsSchedule");
+        adapter.onBindViewHolder(viewHolder, 0);
     }
 }
