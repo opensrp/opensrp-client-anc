@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.activity;
 
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -48,12 +47,7 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
         basePresenter.getCharacteristics();
 
         mToolbar = findViewById(R.id.register_toolbar);
-        mToolbar.findViewById(R.id.close_characteristics).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        mToolbar.findViewById(R.id.close_characteristics).setOnClickListener(view -> onBackPressed());
 
         TextView titleTextView = mToolbar.findViewById(R.id.characteristics_toolbar_title);
         String title = getToolbarTitle();
@@ -83,11 +77,7 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
             builder = new AlertDialog.Builder(this);
         }
         builder.setTitle("Info").setMessage(info)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setIcon(R.drawable.ic_info);
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> dialog.dismiss()).setIcon(R.drawable.ic_info);
 
         AlertDialog dialog = builder.create();
         dialog.show();

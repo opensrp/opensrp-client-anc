@@ -18,7 +18,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 2
-ext.versionPatch = 1
+ext.versionPatch = 3
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -214,7 +214,7 @@ tasks.withType(Test) {
 
 dependencies {
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:1.6.50-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.6.52-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
