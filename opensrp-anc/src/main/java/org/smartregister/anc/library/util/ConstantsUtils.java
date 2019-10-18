@@ -64,6 +64,10 @@ public abstract class ConstantsUtils {
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";
 
+    public interface Properties {
+        String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
+    }
+
     public static class AncRadioButtonOptionTypesUtils {
         public static final String DONE_TODAY = "done_today";
         public static final String DONE_EARLIER = "done_earlier";
@@ -130,6 +134,8 @@ public abstract class ConstantsUtils {
 
         //
         public static final String ANC_ID = "anc_id";
+        public static final String STEP1 = "step1";
+        public static final String FIELDS = "fields";
     }
 
     public static class JsonFormExtraUtils {
@@ -247,5 +253,15 @@ public abstract class ConstantsUtils {
 
     public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
+    }
+
+    public interface TemplateUtils {
+        interface SiteCharacteristics {
+            String teamId = "teamId";
+            String team = "team";
+            String locationId = "locationId";
+            String providerId = "providerId";
+            String revision = "revision";
+        }
     }
 }
