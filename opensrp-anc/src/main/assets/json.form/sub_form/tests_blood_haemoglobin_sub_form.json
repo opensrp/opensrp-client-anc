@@ -309,6 +309,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "hidden",
+      "hidden": true,
       "calculation": {
         "rules-engine": {
           "ex-rules": {
