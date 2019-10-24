@@ -50,7 +50,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             }
 
             //populate them global values
-            if (mJSONObject.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+            if (mJSONObject.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {git
                 globalValues = new Gson()
                         .fromJson(mJSONObject.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
                                 new TypeToken<HashMap<String, String>>() {
