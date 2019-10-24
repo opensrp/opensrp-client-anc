@@ -116,14 +116,14 @@ description: hb_result
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step1_hb_test_type == 'complete_blood_count' && step1_hb_test_type != '' && step1_cbc != '') ? step1_cbc : (step1_hb_test_type == 'hb_test_haemoglobinometer' && step1_hb_test_type != '' && step1_hb_gmeter != '') ? step1_hb_gmeter :  (step1_hb_test_type == 'hb_test_colour_scale' && step1_hb_test_type != '' && step1_hb_colour != '') ? step1_hb_colour : '' "
+  - "calculation = (step1_hb_test_type == 'complete_blood_count' && step1_hb_test_type != '' && step1_cbc != '') ? step1_cbc : (step1_hb_test_type == 'hb_test_haemoglobinometer' && step1_hb_test_type != '' && step1_hb_gmeter != '') ? step1_hb_gmeter :  (step1_hb_test_type == 'hb_test_colour_scale' && step1_hb_test_type != '' && step1_hb_colour != '') ? step1_hb_colour : 0 "
 ---
 name: step2_hb_result
 description: hb_result
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step2_hb_test_type == 'complete_blood_count' && step2_hb_test_type != '' && step2_cbc != '') ? step2_cbc : (step2_hb_test_type == 'hb_test_haemoglobinometer' && step2_hb_test_type != '' && step2_hb_gmeter != '') ? step2_hb_gmeter :  (step2_hb_test_type == 'hb_test_colour_scale' && step2_hb_test_type != '' &&  step2_hb_colour != '') ? step2_hb_colour : '' "
+  - "calculation = (step2_hb_test_type == 'complete_blood_count' && step2_hb_test_type != '' && step2_cbc != '') ? step2_cbc : (step2_hb_test_type == 'hb_test_haemoglobinometer' && step2_hb_test_type != '' && step2_hb_gmeter != '') ? step2_hb_gmeter :  (step2_hb_test_type == 'hb_test_colour_scale' && step2_hb_test_type != '' &&  step2_hb_colour != '') ? step2_hb_colour : 0 "
 ---
 name: step1_anaemic
 description: anaemic
