@@ -49,6 +49,6 @@ public class LastContactAdapterTest extends BaseUnitTest {
     @Test
     public void testGetItemCountInvokesGetSizeMethodOfDataList() {
         Whitebox.setInternalState(lastContactAdapter, "lastContactDetailsList", new ArrayList<>());
-        Assert.assertEquals(Mockito.anyInt(), lastContactAdapter.getItemCount());
+        Assert.assertEquals(0, lastContactAdapter.getItemCount());
     }
 }
