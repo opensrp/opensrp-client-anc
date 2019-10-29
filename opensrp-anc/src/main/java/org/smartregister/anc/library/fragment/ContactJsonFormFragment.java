@@ -24,11 +24,11 @@ import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.interactor.ContactJsonFormInteractor;
 import org.smartregister.anc.library.presenter.ContactJsonFormFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
@@ -37,6 +37,8 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
 
 import java.util.HashMap;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 30/06/2018.
@@ -99,7 +101,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     @Override
     protected ContactJsonFormFragmentPresenter createPresenter() {
-        return new ContactJsonFormFragmentPresenter(this, ContactJsonFormInteractor.getInstance());
+        return new ContactJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
     }
 
     @Override
@@ -198,8 +200,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             } else {
                 super.save();
             }
-        } catch (Exception var2) {
-            Log.e(TAG, var2.getMessage());
+        } catch (Exception e) {
+            Timber.e(e, "%s --> save", this.getClass().getCanonicalName());
             this.save(false);
         }
 

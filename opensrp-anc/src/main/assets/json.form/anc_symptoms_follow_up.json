@@ -6,6 +6,7 @@
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
   "relational_id": "",
+  "form_version": "0.0.1",
   "filtered_items": [
     "step2_behaviour_persist",
     "step3_phys_symptoms_persist",

@@ -2,6 +2,7 @@ package org.smartregister.anc.library.adapter;
 
 import android.widget.LinearLayout;
 
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,6 +28,13 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
+        List<ContactSummaryModel> data = getContactSummaryModels();
+        MockitoAnnotations.initMocks(this);
+        adapter = new ContactScheduleAdapter(RuntimeEnvironment.application, data);
+    }
+
+    @NotNull
+    private List<ContactSummaryModel> getContactSummaryModels() {
         List<ContactSummaryModel> data = new ArrayList<>();
         ContactSummaryModel newModel = new ContactSummaryModel();
         newModel.setContactDate("2019-04-30");
@@ -37,8 +45,7 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
         LocalDate lmpDate = localDate.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
         newModel.setLocalDate(lmpDate.plusWeeks(Integer.valueOf("20")).toDate());
         data.add(newModel);
-        MockitoAnnotations.initMocks(this);
-        adapter = new ContactScheduleAdapter(RuntimeEnvironment.application, data);
+        return data;
     }
 
     @Test

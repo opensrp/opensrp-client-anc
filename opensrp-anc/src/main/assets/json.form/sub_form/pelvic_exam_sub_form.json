@@ -11,14 +11,6 @@
       "text_color": "#000000",
       "options": [
         {
-          "key": "phy_vaginal_discharge",
-          "text": "Physiological vaginal discharge",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165285AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
           "key": "abnormal_vaginal_discharge",
           "text": "Abnormal vaginal discharge",
           "value": false,

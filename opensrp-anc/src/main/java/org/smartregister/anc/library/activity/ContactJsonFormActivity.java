@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,6 +28,8 @@ import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
@@ -36,8 +37,8 @@ import java.util.List;
 public class ContactJsonFormActivity extends JsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
-    private String TAG = this.getClass().getSimpleName();
     private String formName;
+    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
 
     public void init(String json) {
         try {
@@ -65,7 +66,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
         } catch (JSONException e) {
-            Log.e(TAG, "Initialization error. Json passed is invalid : " + e.getMessage(), e);
+            Timber.e(e, "Initialization error. Json passed is invalid : ");
         }
     }
 
@@ -139,7 +140,6 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void onBackPressed() {
-
         new AsyncTask<Void, Void, Void>() {
 
             @Override
@@ -154,12 +154,11 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
             @Override
             protected void onPreExecute() {
-                //  showProgressDialog("Saving contact progress...");
+                // not used
             }
 
             @Override
             protected void onPostExecute(Void result) {
-                // hideProgressDialog();
                 ContactJsonFormActivity.this.finish();
             }
 
@@ -187,7 +186,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         try {
             ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
-            Log.e(TAG, "An error occurred while trying to filter checkbox items" + e);
+            Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
     }
 
@@ -285,7 +284,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
-        contact.setJsonForm(currentJsonState());
+        contact.setJsonForm(contactJsonFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
         ContactJsonFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);

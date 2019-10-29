@@ -22,7 +22,7 @@ public class ServiceLocationsAdapterTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        serviceLocationsAdapter = new ServiceLocationsAdapter(RuntimeEnvironment.systemContext, locationNames);
+        serviceLocationsAdapter = new ServiceLocationsAdapter(RuntimeEnvironment.application, locationNames);
     }
 
     @Test

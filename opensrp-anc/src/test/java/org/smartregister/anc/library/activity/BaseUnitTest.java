@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.application.TestAncApplication;
 import org.smartregister.anc.library.shadows.MyShadowActivity;
@@ -20,7 +21,7 @@ import java.util.Date;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestAncApplication.class, shadows = {MyShadowActivity.class})
+@Config(application = TestAncApplication.class, constants = BuildConfig.class, sdk = 22, shadows = {MyShadowActivity.class})
 public abstract class BaseUnitTest {
 
     public static int ASYNC_TIMEOUT = 1000;
