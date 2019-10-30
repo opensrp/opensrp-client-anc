@@ -20,7 +20,7 @@ import timber.log.Timber;
 
 public class AncRulesEngineFactoryTest extends BaseUnitTest {
     private AncRulesEngineFactory ancRulesEngineFactory;
-    Map<String, String> globalValues = new HashMap<>();
+    private Map<String, String> globalValues = new HashMap<>();
 
     @Mock
     private Rule rule;
