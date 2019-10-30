@@ -271,17 +271,3 @@ priority: 1
 condition: "step2_hb_test_status != '' && step2_hb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
----
-name: step1_ultrasound_date_today_hidden
-description: ultrasound_date_today_hidden
-priority: 1
-condition: "step1_ultrasound != '' && step1_ultrasound == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"
----
-name: step2_ultrasound_date_today_hidden
-description: ultrasound_date_today_hidden
-priority: 1
-condition: "step2_ultrasound != '' && step2_ultrasound == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"

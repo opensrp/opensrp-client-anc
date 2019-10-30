@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ndegwamartin on 09/11/2018.
@@ -444,7 +446,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        assertEquals(Arrays.asList(new Integer[] {12, 20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        assertEquals(Arrays.asList(12, 20, 26, 30, 34, 36, 38, 40, 41), scheduleWeeksList);
 
     }
 
@@ -459,7 +461,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        assertEquals(Arrays.asList(new Integer[] {20, 26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        assertEquals(Arrays.asList(20, 26, 30, 34, 36, 38, 40, 41), scheduleWeeksList);
 
     }
 
@@ -474,7 +476,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        assertEquals(Arrays.asList(new Integer[] {26, 30, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        assertEquals(Arrays.asList(26, 30, 34, 36, 38, 40, 41), scheduleWeeksList);
 
     }
 
@@ -489,7 +491,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        assertEquals(Arrays.asList(new Integer[] {32, 34, 36, 38, 40, 41}), scheduleWeeksList);
+        assertEquals(Arrays.asList(32, 34, 36, 38, 40, 41), scheduleWeeksList);
 
     }
 
@@ -504,7 +506,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
 
         Assert.assertNotNull(scheduleWeeksList);
 
-        assertEquals(Arrays.asList(new Integer[] {40, 41}), scheduleWeeksList);
+        assertEquals(Arrays.asList(40, 41), scheduleWeeksList);
 
     }
 
@@ -583,8 +585,8 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     @Test
     public void testCompareDateWhenFirstDateIsLower() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2018", "31-05-2019"), - 1);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-01-2019", "31-05-2019"), - 1);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-05-2018", "31-05-2019"), -1);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("31-01-2019", "31-05-2019"), -1);
     }
 
     @Test
@@ -603,7 +605,7 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     @Test
     public void testCompareDateWhenAnyDateIsNullOrEmpty() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("", "31-05-2019"), - 2);
+        assertEquals(ancRulesEngineHelperSpy.compareTwoDates("", "31-05-2019"), -2);
     }
 
     @Test
@@ -616,9 +618,9 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     @Test
     public void testCompareDatesWithContactDate() throws ParseException {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstContactDate("31-05-2019", "2019-05-31"), true);
-        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstContactDate("30-05-2019", "2019-05-31"), true);
-        assertEquals(ancRulesEngineHelperSpy.compareDateAgainstContactDate(null, "2019-05-31"), false);
+        assertTrue(ancRulesEngineHelperSpy.compareDateAgainstContactDate("31-05-2019", "2019-05-31"));
+        assertTrue(ancRulesEngineHelperSpy.compareDateAgainstContactDate("30-05-2019", "2019-05-31"));
+        assertFalse(ancRulesEngineHelperSpy.compareDateAgainstContactDate(null, "2019-05-31"));
     }
 
     @Test
@@ -628,5 +630,12 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
         assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate("2018-02-01"), "01-02-2018");
         assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate(""), "");
         assertEquals(ancRulesEngineHelperSpy.convertContactDateToTestDate(null), "");
+    }
+
+    @Test
+    public void testGetRelevance() {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        boolean isRelevant = ancRulesEngineHelperSpy.getRelevance(new Facts(),"true");
+        assertTrue(isRelevant);
     }
 }

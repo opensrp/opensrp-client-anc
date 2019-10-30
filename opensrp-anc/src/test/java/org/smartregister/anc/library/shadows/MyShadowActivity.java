@@ -14,7 +14,6 @@ import org.smartregister.anc.library.R;
 @Implements(Activity.class)
 public class MyShadowActivity extends ShadowActivity {
 
-
     @Override
     public void callAttach(Intent intent) {
         super.callAttach(intent);
