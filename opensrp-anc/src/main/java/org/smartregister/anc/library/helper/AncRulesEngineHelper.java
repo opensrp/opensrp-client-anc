@@ -98,12 +98,10 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
     protected void processInferentialRules(Rules rules, Facts facts) {
-
         inferentialRulesEngine.fire(rules, facts);
     }
 
     public String getButtonAlertStatus(AlertRule alertRule, String rulesFile) {
-
         Facts facts = new Facts();
         facts.put(AlertRule.RULE_KEY, alertRule);
 
@@ -118,7 +116,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
     protected void processDefaultRules(Rules rules, Facts facts) {
-
         defaultRulesEngine.fire(rules, facts);
     }
 

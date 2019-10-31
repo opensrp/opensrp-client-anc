@@ -28,14 +28,10 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
 
     @Override
     protected Facts initializeFacts(Facts facts) {
-
         if (globalValues != null) {
-
             for (Map.Entry<String, String> entry : globalValues.entrySet()) {
-
                 facts.put(RuleConstant.PREFIX.GLOBAL + entry.getKey(), getValue(entry.getValue()));
             }
-
 
             facts.asMap().putAll(globalValues);
         }
