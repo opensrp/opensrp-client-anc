@@ -2,7 +2,6 @@ package org.smartregister.anc.library.interactor;
 
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 
 import org.jeasy.rules.api.Facts;
@@ -32,12 +31,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by keyman 30/07/2018.
  */
 public class ContactInteractor extends BaseContactInteractor implements ContactContract.Interactor {
-
-    public static final String TAG = ContactInteractor.class.getName();
 
     public ContactInteractor() {
         this(new AppExecutors());
@@ -129,7 +128,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage(), e);
+                Timber.e(e, "%s --> finalizeContactForm", this.getClass().getCanonicalName());
             }
         }
         return (HashMap<String, String>) details;
@@ -222,9 +221,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             for (PreviousContact previousContact : previousContactList) {
                 stateObject.put(previousContact.getKey(), previousContact.getValue());
-
             }
-
         }
 
         return stateObject != null ? stateObject.toString() : null;

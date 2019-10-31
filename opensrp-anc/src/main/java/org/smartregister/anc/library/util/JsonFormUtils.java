@@ -40,7 +40,6 @@ import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
-import org.smartregister.exception.JsonFormMissingStepCountException;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
@@ -779,13 +778,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static Event processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-
-        JSONArray fields = null;
-        try {
-            fields = org.smartregister.anc.library.util.JsonFormUtils.getMultiStepFormFields(jsonForm);
-        } catch (JsonFormMissingStepCountException e) {
-            e.printStackTrace();
-        }
+        JSONArray fields = org.smartregister.anc.library.util.JsonFormUtils.getMultiStepFormFields(jsonForm);
 
         String entityId = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonForm, org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID);
         if (StringUtils.isBlank(entityId)) {

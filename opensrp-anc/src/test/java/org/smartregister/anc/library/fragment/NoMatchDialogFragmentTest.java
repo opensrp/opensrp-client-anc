@@ -18,9 +18,7 @@ public class NoMatchDialogFragmentTest extends BaseActivityUnitTest {
     @Before
     public void setUp() {
         super.setUp();
-
-        ActivityController<BaseHomeRegisterActivity> controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create()
-                .start();
+        ActivityController<BaseHomeRegisterActivity> controller = Robolectric.buildActivity(BaseHomeRegisterActivity.class).create().start();
         activity = controller.get();
     }
 

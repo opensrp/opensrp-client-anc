@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.TestResults;
 
@@ -28,8 +29,9 @@ public class LastContactAllTestsResultsDialogAdapter
     }
 
     // inflates the row layout from xml when needed
+    @NotNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.all_tests_results_dialog_row, parent, false);
         return new ViewHolder(view);
     }

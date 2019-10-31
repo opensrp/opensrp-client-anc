@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
@@ -93,10 +95,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 @Override
                 protected Void doInBackground(Void... nada) {
                     try {
-
                         process();
                     } catch (Exception e) {
-                        Log.e(TAG, e.getMessage(), e);
+                        Timber.e(e, this.getClass().getCanonicalName() + " --> loadContactSummaryData");
                     }
 
                     return null;

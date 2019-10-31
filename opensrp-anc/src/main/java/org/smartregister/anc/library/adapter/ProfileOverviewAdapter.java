@@ -244,12 +244,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
                 window.setFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND, 8);
             }
 
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+            cancel.setOnClickListener(v -> dialog.dismiss());
 
             dialog.show();
         }

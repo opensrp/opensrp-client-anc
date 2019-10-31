@@ -21,12 +21,12 @@ import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.util.JsonFormUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -108,16 +108,9 @@ public class ContactVisit {
     }
 
     private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepositoryHelper partialContactRepositoryHelper,
-                                                  List<PartialContact> partialContactList, Facts facts,
-                                                  List<String> formSubmissionIDs) throws Exception {
+                                                  List<PartialContact> partialContactList, Facts facts, List<String> formSubmissionIDs) throws Exception {
         if (partialContactList != null) {
-
-            Collections.sort(partialContactList, new Comparator<PartialContact>() {
-                @Override
-                public int compare(PartialContact o1, PartialContact o2) {
-                    return o1.getSortOrder().compareTo(o2.getSortOrder());
-                }
-            });
+            Collections.sort(partialContactList, (firstPartialContact, secondPartialContact) -> firstPartialContact.getSortOrder().compareTo(secondPartialContact.getSortOrder()));
 
             for (PartialContact partialContact : partialContactList) {
                 JSONObject formObject = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(
@@ -127,8 +120,7 @@ public class ContactVisit {
                 if (formObject != null) {
                     //process form details
                     if (parsableFormsList.contains(partialContact.getType())) {
-                        processFormFieldKeyValues(baseEntityId, formObject,
-                                String.valueOf(partialContact.getContactNo()));
+                        processFormFieldKeyValues(baseEntityId, formObject, String.valueOf(partialContact.getContactNo()));
                     }
 
                     //process attention flags
@@ -139,6 +131,7 @@ public class ContactVisit {
                     formSubmissionIDs.add(event.getFormSubmissionId());
 
                     JSONObject eventJson = new JSONObject(org.smartregister.anc.library.util.JsonFormUtils.gson.toJson(event));
+                    eventJson.put(JsonFormConstants.Properties.DETAILS, JsonFormUtils.getJSONObject(formObject, JsonFormConstants.Properties.DETAILS));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
                 }
 

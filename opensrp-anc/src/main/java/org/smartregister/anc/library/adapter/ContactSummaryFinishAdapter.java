@@ -83,9 +83,9 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     private void prefillInjectableFacts(Facts facts, String template) {
         String[] relevanceToken = template.split(",");
         String key;
-        for (String s : relevanceToken) {
-            if (s.contains("{") && s.contains("}")) {
-                key = s.substring(s.indexOf('{') + 1, s.indexOf('}'));
+        for (String token : relevanceToken) {
+            if (token.contains("{") && token.contains("}")) {
+                key = token.substring(token.indexOf('{') + 1, token.indexOf('}'));
                 if (facts.get(key) == null) {
                     facts.put(key, "");
                 }

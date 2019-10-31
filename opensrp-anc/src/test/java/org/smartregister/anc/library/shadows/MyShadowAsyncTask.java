@@ -14,7 +14,6 @@ import org.robolectric.util.ReflectionHelpers;
 
 @Implements(AsyncTask.class)
 public class MyShadowAsyncTask<P, Q, R> extends ShadowAsyncTask<P, Q, R> {
-
     @RealObject
     private AsyncTask actualAsyncTask;
 
