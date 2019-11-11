@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.interactor;
 
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
@@ -21,9 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class ContactSummaryInteractor extends BaseContactInteractor implements ContactSummarySendContract.Interactor {
 
-    private static String TAG = ContactSummaryInteractor.class.getCanonicalName();
     private JsonFormUtils formUtils = new JsonFormUtils();
 
     public ContactSummaryInteractor() {
@@ -45,63 +45,57 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
     public void fetchUpcomingContacts(final String entityId, final String referralContactNo,
                                       final ContactSummarySendContract.InteractorCallback callback) {
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Map<String, String> details = PatientRepositoryHelper.getWomanProfileDetails(entityId);
+        Runnable runnable = () -> {
+            try {
+                Map<String, String> details = PatientRepositoryHelper.getWomanProfileDetails(entityId);
 
-                    Map<String, String> clientDetails =
-                            AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
-                    JSONObject rawContactSchedule;
-                    if (clientDetails.containsKey(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
-                        rawContactSchedule = new JSONObject(
-                                AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
-                                        .get(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE));
-                    } else {
-                        rawContactSchedule = new JSONObject();
-                    }
-
-                    List<String> contactSchedule = new ArrayList<>();
-                    if (StringUtils.isEmpty(referralContactNo)) {
-                        if (rawContactSchedule.has(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
-                            contactSchedule =
-                                    Utils.getListFromString(
-                                            rawContactSchedule.getString(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE));
-                        }
-                    } else {
-                        int previousContact = getPreviousContactNo(referralContactNo);
-                        if (previousContact > 0) {
-                            Facts facts =
-                                    AncLibrary.getInstance().getPreviousContactRepositoryHelper()
-                                            .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
-                            if (facts != null && facts.asMap().containsKey(ConstantsUtils.CONTACT_SCHEDULE)) {
-                                String schedule = (String) facts.asMap().get(ConstantsUtils.CONTACT_SCHEDULE);
-                                contactSchedule = Utils.getListFromString(schedule);
-                            }
-                        }
-                    }
-                    final List<ContactSummaryModel> contactDates;
-
-                    final Integer lastContact = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
-                    Integer lastContactSequence = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
-
-                    String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
-                    contactDates = formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
-
-                    getAppExecutors().mainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            int contact = lastContact - 1;
-                            if (!StringUtils.isEmpty(referralContactNo)) {
-                                contact = Integer.parseInt(referralContactNo);
-                            }
-                            callback.onUpcomingContactsFetched(contactDates, contact);
-                        }
-                    });
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+                Map<String, String> clientDetails =
+                        AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
+                JSONObject rawContactSchedule;
+                if (clientDetails.containsKey(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
+                    rawContactSchedule = new JSONObject(
+                            AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId)
+                                    .get(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE));
+                } else {
+                    rawContactSchedule = new JSONObject();
                 }
+
+                List<String> contactSchedule = new ArrayList<>();
+                if (StringUtils.isEmpty(referralContactNo)) {
+                    if (rawContactSchedule.has(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
+                        contactSchedule =
+                                Utils.getListFromString(
+                                        rawContactSchedule.getString(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE));
+                    }
+                } else {
+                    int previousContact = getPreviousContactNo(referralContactNo);
+                    if (previousContact > 0) {
+                        Facts facts =
+                                AncLibrary.getInstance().getPreviousContactRepositoryHelper()
+                                        .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
+                        if (facts != null && facts.asMap().containsKey(ConstantsUtils.CONTACT_SCHEDULE)) {
+                            String schedule = (String) facts.asMap().get(ConstantsUtils.CONTACT_SCHEDULE);
+                            contactSchedule = Utils.getListFromString(schedule);
+                        }
+                    }
+                }
+                final List<ContactSummaryModel> contactDates;
+
+                final Integer lastContact = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+                Integer lastContactSequence = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+
+                String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
+                contactDates = formUtils.generateNextContactSchedule(edd, contactSchedule, lastContactSequence);
+
+                getAppExecutors().mainThread().execute(() -> {
+                    int contact = lastContact - 1;
+                    if (!StringUtils.isEmpty(referralContactNo)) {
+                        contact = Integer.parseInt(referralContactNo);
+                    }
+                    callback.onUpcomingContactsFetched(contactDates, contact);
+                });
+            } catch (Exception e) {
+                Timber.e(e, "fetchUpcomingContacts()");
             }
         };
         getAppExecutors().diskIO().execute(runnable);

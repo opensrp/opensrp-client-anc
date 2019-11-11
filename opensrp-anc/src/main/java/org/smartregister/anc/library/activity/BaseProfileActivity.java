@@ -87,7 +87,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
     }
 
     protected void registerEventBus() {
-
         EventBus.getDefault().register(this);
     }
 

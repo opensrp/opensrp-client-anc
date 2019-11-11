@@ -103,7 +103,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
         recordedContactTextView
                 .setText(String.format(this.getResources().getString(R.string.contact_recorded), contactNumber));
         if (getReferredContactNo() != null) {
-            recordedContactTextView.setVisibility(View.GONE);
+            recordedContactTextView.setText(getString(R.string.hospital_referral_title));
         }
     }
 
