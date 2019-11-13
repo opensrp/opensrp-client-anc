@@ -11,6 +11,7 @@ buildscript {
 
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
+apply plugin: 'io.fabric'
 
 jacoco {
     toolVersion = jacocoVersion
@@ -251,9 +252,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife:7.0.0'
     implementation 'net.zetetic:android-database-sqlcipher:4.2.0@aar'
     implementation 'commons-validator:commons-validator:1.6'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
-        transitive = true
-    }
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'org.greenrobot:eventbus:3.1.1'
     annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.1.1'
@@ -279,6 +277,16 @@ dependencies {
     implementation 'org.jeasy:easy-rules-core:3.2.0'
     implementation 'org.jeasy:easy-rules-mvel:3.2.0'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
+    implementation ('com.google.firebase:firebase-analytics:16.5.0'){
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    implementation ('com.crashlytics.sdk.android:crashlytics:2.10.1'){
+        transitive = true
+    }
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
@@ -286,6 +294,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:4.0.1'
     testImplementation 'org.robolectric:shadows-multidex:3.8'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+
     // PowerMock
     def powerMockVersion = '1.7.1'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
