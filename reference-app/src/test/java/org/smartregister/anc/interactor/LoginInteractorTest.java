@@ -21,24 +21,18 @@ import java.lang.ref.WeakReference;
  */
 public class LoginInteractorTest extends BaseUnitTest {
 
+    private static final String FIELD_LOGIN_PRESENTER = "mLoginPresenter";
     private BaseLoginContract.Interactor interactor;
-
     @Mock
     private BaseLoginContract.Presenter presenter;
-
     @Mock
     private BaseLoginContract.View view;
-
     @Mock
     private Context opensrpContext;
-
     @Mock
     private AllSharedPreferences sharedPreferences;
-
     @Mock
     private UserService userService;
-
-    private static final String FIELD_LOGIN_PRESENTER = "mLoginPresenter";
 
     @Before
     public void setUp() {

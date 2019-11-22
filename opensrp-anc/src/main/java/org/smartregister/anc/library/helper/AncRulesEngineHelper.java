@@ -42,6 +42,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class AncRulesEngineHelper extends RulesEngineHelper {
     private final String RULE_FOLDER_PATH = "rule/";
     private Context context;
@@ -85,14 +87,13 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     private Rules getRulesFromAsset(String fileName) {
         try {
             if (!ruleMap.containsKey(fileName)) {
-
                 BufferedReader bufferedReader =
                         new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
                 ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
             }
             return ruleMap.get(fileName);
         } catch (IOException e) {
-            Log.e(ContactRule.class.getName(), e.getMessage(), e);
+            Timber.e(e, "%s getRulesFromAsset()", this.getClass().getCanonicalName());
             return null;
         }
     }

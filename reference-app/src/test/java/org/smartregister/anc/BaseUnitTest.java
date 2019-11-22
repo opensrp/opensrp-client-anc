@@ -11,6 +11,7 @@ import org.smartregister.anc.library.R;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,8 +22,6 @@ import java.util.Date;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = TestAncApplication.class)
 public abstract class BaseUnitTest {
-
-    public static int ASYNC_TIMEOUT = 1000;
 
     protected static final String DUMMY_USERNAME = "myusername";
     protected static final String DUMMY_PASSWORD = "mypassword";
@@ -36,12 +35,13 @@ public abstract class BaseUnitTest {
     protected static final Date DUMMY_DATE = Calendar.getInstance().getTime();
     protected static final String DUMMY_JSON = "[\r\n        {\r\n            \"key\": \"site_ipv_assess\",\r\n            \"label\": \"Minimum requirements for IPV assessment\",\r\n            \"value\": \"true\",\r\n            \"description\": \"\\\"Are all of the following in place at your facility: \\r\\n1. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \\r\\n2. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\\r\\n3. A private setting; \\r\\n4. A way to ensure confidentiality; \\r\\n5. Time to allow for appropriate disclosure; and\\r\\n6. A system for referral in place. \\\"\"\r\n        },\r\n        {\r\n            \"key\": \"site_anc_hiv\",\r\n            \"label\": \"Generalized HIV epidemic\",\r\n            \"value\": \"true\",\r\n            \"description\": \"Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?\"\r\n        },\r\n        {\r\n            \"key\": \"site_ultrasound\",\r\n            \"label\": \"Ultrasound available\",\r\n            \"value\": \"false\",\r\n            \"description\": \"Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?\"\r\n        },\r\n        {\r\n            \"key\": \"site_bp_tool\",\r\n            \"label\": \"Automated BP measurement tool\",\r\n            \"value\": \"true\",\r\n            \"description\": \"Does your facility use an automated blood pressure (BP) measurement tool?\"\r\n        }\r\n    ]";
     protected static final String DUMMY_PHONE_NUMBER = "07233244059";
+    public static int ASYNC_TIMEOUT = 1000;
 
     protected JSONObject getMainJsonObject(String filePath) throws Exception {
         InputStream inputStream = RuntimeEnvironment.application.getAssets()
                 .open(filePath + ".json");
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream,
-                "UTF-8"));
+                StandardCharsets.UTF_8));
         String jsonString;
         StringBuilder stringBuilder = new StringBuilder();
         while ((jsonString = reader.readLine()) != null) {

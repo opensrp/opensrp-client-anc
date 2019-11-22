@@ -62,8 +62,6 @@ import java.util.List;
  */
 
 public class BaseHomeRegisterActivity extends BaseRegisterActivity implements RegisterContract.View {
-
-    public static final String TAG = BaseHomeRegisterActivity.class.getCanonicalName();
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private AlertDialog recordBirthAlertDialog;
@@ -389,13 +387,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public AlertDialog createLanguageDialog(ArrayAdapter<String> adapter, final List<String> displayValues) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(this.getString(R.string.select_language));
-        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String selectedItem = displayValues.get(which);
-                ((RegisterContract.Presenter) presenter).saveLanguage(selectedItem);
-                dialog.dismiss();
-            }
+        builder.setSingleChoiceItems(adapter, 0, (dialog, which) -> {
+            String selectedItem = displayValues.get(which);
+            ((RegisterContract.Presenter) presenter).saveLanguage(selectedItem);
+            dialog.dismiss();
         });
 
         return builder.create();
