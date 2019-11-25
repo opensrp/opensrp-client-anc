@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.model;
 
-import android.text.TextUtils;
 import android.util.Pair;
 
 import org.apache.commons.lang3.time.DateUtils;
