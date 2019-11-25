@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
@@ -87,7 +89,7 @@ public class PatientRepositoryHelper {
             }
             return detailsMap;
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, "");
         } finally {
             if (cursor != null) {
                 cursor.close();

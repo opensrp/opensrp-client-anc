@@ -468,8 +468,7 @@ public class Utils extends org.smartregister.util.Utils {
         if (!TextUtils.isEmpty(lastContactDate)) {
 
             try {
-                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.AlertStatusUtils.TODAY :
-                        alertStatus;
+                result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.AlertStatusUtils.TODAY : alertStatus;
             } catch (ParseException e) {
                 Log.e(TAG, e.getMessage());
             }

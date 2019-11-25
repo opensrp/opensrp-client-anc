@@ -12,7 +12,7 @@ public class AncTestApplication extends DrishtiApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        setTheme(R.style.Theme_AppCompat);
+        setTheme(R.style.AncAppTheme);
     }
 
     @Override

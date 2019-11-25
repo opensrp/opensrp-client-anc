@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
@@ -70,10 +71,12 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         Assert.assertNotNull((previousContactPresenter.getProfileView()));
     }
 
-    @PrepareForTest(AncLibrary.class)
+    @PrepareForTest({AncLibrary.class, TextUtils.class})
     @Test
     public void testLoadPreviousContactSchedule() {
         PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.mockStatic(TextUtils.class);
+        PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
         PowerMockito.when(AncLibrary.getApplicationContext()).thenReturn(context);
         PowerMockito.when(AncLibrary.getApplicationContext().getString(any(Integer.class))).thenReturn("Contact %1$d");
@@ -88,10 +91,12 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         verify(profileView, atLeastOnce()).displayPreviousContactSchedule(schedulesArgs.capture());
     }
 
-    @PrepareForTest(AncLibrary.class)
+    @PrepareForTest({AncLibrary.class, TextUtils.class})
     @Test
     public void testLoadPreviousContacts() throws ParseException, JSONException, IOException {
         PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.mockStatic(TextUtils.class);
+        PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
         PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
 

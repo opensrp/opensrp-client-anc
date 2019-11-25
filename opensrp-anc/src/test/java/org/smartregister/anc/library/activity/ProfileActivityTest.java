@@ -9,14 +9,15 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
@@ -61,7 +62,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
     @Before
     public void setUp() {
         super.setUp();
-
         Intent testIntent = new Intent();
         testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         HashMap<String, String> map = new HashMap<>();

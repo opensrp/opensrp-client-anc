@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.model;
 
+import android.text.TextUtils;
 import android.util.Pair;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -33,7 +34,7 @@ import org.smartregister.util.Utils;
 
 import java.util.Date;
 
-@RunWith (PowerMockRunner.class)
+@RunWith(PowerMockRunner.class)
 public class RegisterModelTest extends BaseUnitTest {
     private RegisterContract.Model model;
     private String jsonString = "{\n" +
@@ -598,7 +599,7 @@ public class RegisterModelTest extends BaseUnitTest {
     }
 
     @Ignore
-    @PrepareForTest ({CoreLibrary.class, Context.class, LocationHelper.class, Pair.class})
+    @PrepareForTest({CoreLibrary.class, Context.class, LocationHelper.class, Pair.class})
     @Test
     public void testProgressRegistration() {
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
@@ -704,7 +705,7 @@ public class RegisterModelTest extends BaseUnitTest {
         return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
     }
 
-    @PrepareForTest ({CoreLibrary.class, Context.class})
+    @PrepareForTest({CoreLibrary.class, Context.class})
     @Test
     public void testGetInitials() {
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
@@ -735,7 +736,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
     }
 
-    @PrepareForTest ({CoreLibrary.class, Context.class})
+    @PrepareForTest({CoreLibrary.class, Context.class})
     @Test
     public void testGetInitialsFromThreeNames() {
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
@@ -764,7 +765,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
     }
 
-    @PrepareForTest ({CoreLibrary.class, Context.class})
+    @PrepareForTest({CoreLibrary.class, Context.class})
     @Test
     public void testGetInitialsFromOneNames() {
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
@@ -793,7 +794,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
     }
 
-    @PrepareForTest ({CoreLibrary.class, Context.class})
+    @PrepareForTest({CoreLibrary.class, Context.class})
     @Test
     public void testGetInitialsWhenPreferredNameIsEmpty() {
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
@@ -822,7 +823,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.verify(allSharedPreferences).getANMPreferredName(username);
     }
 
-    @PrepareForTest (Utils.class)
+    @PrepareForTest(Utils.class)
     @Test
     public void testGetInitialsWhenAllSharedPreferencesIsNull() {
         PowerMockito.mockStatic(Utils.class);
