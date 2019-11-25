@@ -57,6 +57,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by keyman on 26/06/2018.
  */
@@ -183,7 +185,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, "%s --> startFormActivity()", this.getClass().getCanonicalName());
             displayToast(getString(R.string.error_unable_to_start_form));
         }
 
@@ -249,7 +251,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                         break;
                 }
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e, "%s --> onActivityResultExtended()", this.getClass().getCanonicalName());
             }
 
         }
@@ -360,7 +362,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
             try {
                 mPager.setCurrentItem(BaseRegisterActivity.ADVANCED_SEARCH_POSITION, false);
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage(), e);
+                Timber.e(e, "%s --> startAdvancedSearch()", this.getClass().getCanonicalName());
             }
         }
 

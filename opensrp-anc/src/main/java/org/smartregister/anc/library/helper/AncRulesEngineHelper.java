@@ -2,7 +2,6 @@ package org.smartregister.anc.library.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -93,6 +92,9 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             }
             return ruleMap.get(fileName);
         } catch (IOException e) {
+            Timber.e(e, "%s getRulesFromAsset()", this.getClass().getCanonicalName());
+            return null;
+        } catch (Exception e) {
             Timber.e(e, "%s getRulesFromAsset()", this.getClass().getCanonicalName());
             return null;
         }
