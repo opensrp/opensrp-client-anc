@@ -36,6 +36,7 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
+@PrepareForTest({AncLibrary.class, TextUtils.class})
 public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
 
     @Mock
@@ -71,7 +72,6 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         Assert.assertNotNull((previousContactPresenter.getProfileView()));
     }
 
-    @PrepareForTest({AncLibrary.class, TextUtils.class})
     @Test
     public void testLoadPreviousContactSchedule() {
         PowerMockito.mockStatic(AncLibrary.class);
@@ -91,7 +91,6 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         verify(profileView, atLeastOnce()).displayPreviousContactSchedule(schedulesArgs.capture());
     }
 
-    @PrepareForTest({AncLibrary.class, TextUtils.class})
     @Test
     public void testLoadPreviousContacts() throws ParseException, JSONException, IOException {
         PowerMockito.mockStatic(AncLibrary.class);

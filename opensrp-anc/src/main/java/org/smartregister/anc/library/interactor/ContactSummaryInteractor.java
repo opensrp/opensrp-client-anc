@@ -61,7 +61,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                 }
 
                 List<String> contactSchedule = new ArrayList<>();
-                if (StringUtils.isEmpty(referralContactNo)) {
+                if (StringUtils.isBlank(referralContactNo)) {
                     if (rawContactSchedule.has(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE)) {
                         contactSchedule =
                                 Utils.getListFromString(
@@ -89,13 +89,13 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
                 getAppExecutors().mainThread().execute(() -> {
                     int contact = lastContact - 1;
-                    if (!StringUtils.isEmpty(referralContactNo)) {
+                    if (!StringUtils.isBlank(referralContactNo)) {
                         contact = Integer.parseInt(referralContactNo);
                     }
                     callback.onUpcomingContactsFetched(contactDates, contact);
                 });
             } catch (Exception e) {
-                Timber.e(e, "fetchUpcomingContacts()");
+                Timber.e(e, "%s --> fetchUpcomingContacts()", this.getClass().getCanonicalName());
             }
         };
         getAppExecutors().diskIO().execute(runnable);

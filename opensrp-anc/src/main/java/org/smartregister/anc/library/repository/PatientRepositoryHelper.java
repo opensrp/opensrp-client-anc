@@ -85,7 +85,7 @@ public class PatientRepositoryHelper {
             }
             return detailsMap;
         } catch (Exception e) {
-            Timber.e(e, " --> getWomanProfileDetails ==> getWomanProfileDetails()");
+            Timber.e(e,  "%s ==> getWomanProfileDetails()", PatientRepositoryHelper.class.getCanonicalName());
         } finally {
             if (cursor != null) {
                 cursor.close();

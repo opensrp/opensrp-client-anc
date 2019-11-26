@@ -17,6 +17,7 @@ import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +51,8 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
     private JSONObject mJsonObject = new JSONObject();
+    private YamlRuleDefinitionReader yamlRuleDefinitionReader = new YamlRuleDefinitionReader();
+    private MVELRuleFactory mvelRuleFactory = new MVELRuleFactory(yamlRuleDefinitionReader);
 
     public AncRulesEngineHelper(Context context) {
         this.context = context;
@@ -65,7 +68,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
     public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
-
         Facts facts = new Facts();
         facts.put(ContactRule.RULE_KEY, contactRule);
 
@@ -88,7 +90,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             if (!ruleMap.containsKey(fileName)) {
                 BufferedReader bufferedReader =
                         new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
-                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
+                ruleMap.put(fileName, mvelRuleFactory.(bufferedReader));
             }
             return ruleMap.get(fileName);
         } catch (IOException e) {
