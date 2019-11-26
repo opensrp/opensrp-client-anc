@@ -22,7 +22,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AncAppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:theme">
+
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
