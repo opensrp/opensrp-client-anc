@@ -90,7 +90,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             if (!ruleMap.containsKey(fileName)) {
                 BufferedReader bufferedReader =
                         new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
-                ruleMap.put(fileName, mvelRuleFactory.(bufferedReader));
+                ruleMap.put(fileName, mvelRuleFactory.createRules(bufferedReader));
             }
             return ruleMap.get(fileName);
         } catch (IOException e) {
