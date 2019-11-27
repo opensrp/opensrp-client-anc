@@ -26,7 +26,6 @@ public class ContactJsonFormFragmentViewStateTest extends BaseUnitTest {
 
     @Test
     public void testGetFormFragmentShouldCreateAValidFragmentInstance() {
-
         ContactJsonFormFragmentViewState viewState = new ContactJsonFormFragmentViewState();
         Assert.assertNotNull(viewState);
 
@@ -38,7 +37,6 @@ public class ContactJsonFormFragmentViewStateTest extends BaseUnitTest {
 
     @Test
     public void testStaticCreatorPropertyShouldHaveValidCreatorInstance() {
-
         Parcelable.Creator<ContactJsonFormFragmentViewState> creator = ContactJsonFormFragmentViewState.CREATOR;
         Assert.assertNotNull(creator);
 
