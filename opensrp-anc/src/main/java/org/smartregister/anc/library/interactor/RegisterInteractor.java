@@ -80,7 +80,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
-    public void saveRegistration(android.support.v4.util.Pair<Client, Event> pair, String jsonString, boolean isEditMode, RegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, RegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
             saveRegistration(pair, jsonString, isEditMode);
             appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
