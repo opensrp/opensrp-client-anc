@@ -9,9 +9,8 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
@@ -61,7 +60,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
     @Before
     public void setUp() {
         super.setUp();
-
         Intent testIntent = new Intent();
         testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         HashMap<String, String> map = new HashMap<>();

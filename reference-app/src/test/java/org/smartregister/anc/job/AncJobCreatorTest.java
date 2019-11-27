@@ -2,8 +2,7 @@ package org.smartregister.anc.job;
 
 import com.evernote.android.job.Job;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.smartregister.anc.BaseUnitTest;

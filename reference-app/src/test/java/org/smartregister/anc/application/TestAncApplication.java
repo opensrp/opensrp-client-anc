@@ -12,7 +12,7 @@ public class TestAncApplication extends AncApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        setTheme(R.style.Theme_AppCompat); //or just R.style.Theme_AppCompat
+        setTheme(R.style.AncAppTheme); //or just R.style.Theme_AppCompat
 
     }
 }

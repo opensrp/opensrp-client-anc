@@ -12,7 +12,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -54,7 +53,6 @@ import static org.smartregister.anc.library.util.Utils.reverseHyphenSeperatedVal
         "javax.xml.parsers.*", "com.sun.org.apache.xerces.internal.jaxp.*"
 })
 public class UtilsTest extends BaseUnitTest {
-
     @Rule
     public PowerMockRule rule = new PowerMockRule();
 
@@ -144,7 +142,6 @@ public class UtilsTest extends BaseUnitTest {
     @PrepareForTest({StringUtils.class, CoreLibrary.class, Context.class})
     @Test
     public void testGetUserInitialsWithOneNames() {
-
         String username = "UserNAME3";
         String preferredName = "Anc";
 
@@ -191,20 +188,19 @@ public class UtilsTest extends BaseUnitTest {
         PowerMockito.when(context.allSharedPreferences()).thenReturn(null);
 
         String name = Utils.getPrefferedName();
-
         Assert.assertNull(name);
     }
 
     @PrepareForTest(StringUtils.class)
     @Test
     public void testDobStringToDateTime() {
-        String dobString = ArgumentMatchers.anyString();
+        String dobString = "2019-01-23";
 
         PowerMockito.mockStatic(StringUtils.class);
         PowerMockito.when(StringUtils.isNotBlank(dobString)).thenReturn(true);
 
         DateTime dobStringToDateTime = Utils.dobStringToDateTime(dobString);
-        Assert.assertEquals(dobStringToDateTime, dobStringToDateTime);
+        Assert.assertNotNull(dobStringToDateTime);
     }
 
     @PrepareForTest(StringUtils.class)

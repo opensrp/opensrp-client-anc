@@ -310,4 +310,6 @@
     <string name="no_tests_available">No Tests Available</string>
     <string name="hospital_referral">Hospital referral</string>
     <string name="no_contact_schedule">No contact schedule generated yet</string>
+    <string name="hospital_referral_title">Hospital referral recorded</string>
+    <string name="back">Back</string>
 </resources>

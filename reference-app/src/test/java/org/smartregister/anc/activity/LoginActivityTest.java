@@ -12,9 +12,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -115,6 +114,13 @@ public class LoginActivityTest extends BaseActivityUnitTest {
         assertActivityStarted(loginActivity, new SiteCharacteristicsEnterActivity());
     }
 
+    private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
+
+        Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
+        Intent actual = ShadowApplication.getInstance().getNextStartedActivity();
+        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
+    }
+
     @Test
     public void testGoToHomeWithRemoteTrue() {
 
@@ -149,13 +155,6 @@ public class LoginActivityTest extends BaseActivityUnitTest {
         }
 
         assertActivityStarted(loginActivity, new BaseHomeRegisterActivity());
-    }
-
-    private void assertActivityStarted(Activity currActivity, Activity nextActivity) {
-
-        Intent expectedIntent = new Intent(currActivity, nextActivity.getClass());
-        Intent actual = ShadowApplication.getInstance().getNextStartedActivity();
-        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 
     @Test

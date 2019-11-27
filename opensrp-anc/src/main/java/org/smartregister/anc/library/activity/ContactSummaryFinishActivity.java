@@ -84,6 +84,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         if (contactNo > 0) {
             actionBar.setTitle(String.format(this.getString(R.string.contact_number),
                     getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)));
+        } else {
+            actionBar.setTitle(R.string.back);
         }
     }
 
@@ -147,7 +149,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 }
             }.execute();
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
         }
     }
 
