@@ -109,7 +109,6 @@ public class PatientRepositoryHelper {
     }
 
     public static void updateContactVisitDetails(WomanDetail patientDetail, boolean isFinalize) {
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, patientDetail.getNextContact());
         contentValues.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, patientDetail.getNextContactDate());
