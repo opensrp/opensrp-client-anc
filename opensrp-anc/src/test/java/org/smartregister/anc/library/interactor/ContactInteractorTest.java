@@ -148,7 +148,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
 
         PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID)).thenReturn(details);
-        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         PowerMockito.when(ancLibrary.getAncRulesEngineHelper()).thenReturn(ancRulesEngineHelper);
         PowerMockito.when(ancLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
