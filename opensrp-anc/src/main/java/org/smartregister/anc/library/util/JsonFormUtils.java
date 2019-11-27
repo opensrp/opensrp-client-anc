@@ -126,9 +126,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID, entityId);
             }
         } else {
-            Log.w(TAG, "Unsupported form requested for launch " + formName);
+            Timber.tag(TAG).w("Unsupported form requested for launch " + formName);
         }
-        Log.d(TAG, "form is " + form.toString());
+        Timber.d("form is " + form.toString());
         return form;
     }
 

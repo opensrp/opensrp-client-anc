@@ -8,7 +8,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,12 +25,13 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.SecuredActivity;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 16/07/2018.
  */
 public abstract class BaseProfileActivity extends SecuredActivity
         implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
-    public final String TAG = BaseProfileActivity.class.getCanonicalName();
     protected CollapsingToolbarLayout collapsingToolbarLayout;
     protected ActionBar actionBar;
     protected String womanName;
@@ -87,7 +87,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
     }
 
     protected void registerEventBus() {
-
         EventBus.getDefault().register(this);
     }
 
@@ -108,7 +107,7 @@ public abstract class BaseProfileActivity extends SecuredActivity
             try {
                 JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+                Timber.e(e, "%s  --> startFormForEdit()", this.getClass().getCanonicalName());
             }
         }
 

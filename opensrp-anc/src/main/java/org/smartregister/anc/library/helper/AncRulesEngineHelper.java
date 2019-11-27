@@ -2,7 +2,6 @@ package org.smartregister.anc.library.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -18,6 +17,7 @@ import org.jeasy.rules.core.InferenceRulesEngine;
 import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +42,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class AncRulesEngineHelper extends RulesEngineHelper {
     private final String RULE_FOLDER_PATH = "rule/";
     private Context context;
@@ -49,6 +51,8 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     private RulesEngine defaultRulesEngine;
     private Map<String, Rules> ruleMap;
     private JSONObject mJsonObject = new JSONObject();
+    private YamlRuleDefinitionReader yamlRuleDefinitionReader = new YamlRuleDefinitionReader();
+    private MVELRuleFactory mvelRuleFactory = new MVELRuleFactory(yamlRuleDefinitionReader);
 
     public AncRulesEngineHelper(Context context) {
         this.context = context;
@@ -64,7 +68,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
     public List<Integer> getContactVisitSchedule(ContactRule contactRule, String rulesFile) {
-
         Facts facts = new Facts();
         facts.put(ContactRule.RULE_KEY, contactRule);
 
@@ -85,14 +88,16 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     private Rules getRulesFromAsset(String fileName) {
         try {
             if (!ruleMap.containsKey(fileName)) {
-
                 BufferedReader bufferedReader =
                         new BufferedReader(new InputStreamReader(context.getAssets().open(fileName)));
-                ruleMap.put(fileName, MVELRuleFactory.createRulesFrom(bufferedReader));
+                ruleMap.put(fileName, mvelRuleFactory.createRules(bufferedReader));
             }
             return ruleMap.get(fileName);
         } catch (IOException e) {
-            Log.e(ContactRule.class.getName(), e.getMessage(), e);
+            Timber.e(e, "%s getRulesFromAsset()", this.getClass().getCanonicalName());
+            return null;
+        } catch (Exception e) {
+            Timber.e(e, "%s getRulesFromAsset()", this.getClass().getCanonicalName());
             return null;
         }
     }

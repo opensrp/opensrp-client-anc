@@ -136,7 +136,12 @@
     "alcohol_substance_enquiry",
     "alcohol_substance_use",
     "other_substance_use",
-    "partner_hiv_status"
+    "partner_hiv_status",
+    "lmp_gest_age_selection",
+    "ultrasound_gest_age_selection",
+    "sfh_gest_age_selection",
+    "lmp_ultrasound_gest_age_selection",
+    "sfh_ultrasound_gest_age_selection"
   ],
   "step1": {
     "title": "Demographic Info",

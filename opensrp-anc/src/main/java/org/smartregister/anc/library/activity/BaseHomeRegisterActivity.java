@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -57,13 +56,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by keyman on 26/06/2018.
  */
 
 public class BaseHomeRegisterActivity extends BaseRegisterActivity implements RegisterContract.View {
-
-    public static final String TAG = BaseHomeRegisterActivity.class.getCanonicalName();
     private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     private AlertDialog recordBirthAlertDialog;
@@ -185,7 +184,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, "%s --> startFormActivity()", this.getClass().getCanonicalName());
             displayToast(getString(R.string.error_unable_to_start_form));
         }
 
@@ -251,7 +250,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                         break;
                 }
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e, "%s --> onActivityResultExtended()", this.getClass().getCanonicalName());
             }
 
         }
@@ -362,7 +361,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
             try {
                 mPager.setCurrentItem(BaseRegisterActivity.ADVANCED_SEARCH_POSITION, false);
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage(), e);
+                Timber.e(e, "%s --> startAdvancedSearch()", this.getClass().getCanonicalName());
             }
         }
 
@@ -389,13 +388,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public AlertDialog createLanguageDialog(ArrayAdapter<String> adapter, final List<String> displayValues) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(this.getString(R.string.select_language));
-        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String selectedItem = displayValues.get(which);
-                ((RegisterContract.Presenter) presenter).saveLanguage(selectedItem);
-                dialog.dismiss();
-            }
+        builder.setSingleChoiceItems(adapter, 0, (dialog, which) -> {
+            String selectedItem = displayValues.get(which);
+            ((RegisterContract.Presenter) presenter).saveLanguage(selectedItem);
+            dialog.dismiss();
         });
 
         return builder.create();

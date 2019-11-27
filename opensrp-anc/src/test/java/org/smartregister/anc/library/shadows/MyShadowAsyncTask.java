@@ -17,7 +17,6 @@ public class MyShadowAsyncTask<P, Q, R> extends ShadowAsyncTask<P, Q, R> {
     @RealObject
     private AsyncTask actualAsyncTask;
 
-    @Override
     public AsyncTask execute(P... params) {
         ReflectionHelpers.setField(this, "status", AsyncTask.Status.RUNNING);
 

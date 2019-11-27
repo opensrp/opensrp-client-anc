@@ -8,9 +8,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,7 +34,7 @@ import java.util.List;
 
 import static org.robolectric.Shadows.shadowOf;
 
-public class YamlConfigFinishActivityTest extends BaseActivityUnitTest {
+public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
     private ContactSummaryFinishActivity activity;

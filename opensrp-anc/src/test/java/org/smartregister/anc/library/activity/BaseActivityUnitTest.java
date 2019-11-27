@@ -20,6 +20,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 /**
  * Created by ndegwamartin on 24/07/2018.
  */
+
 public abstract class BaseActivityUnitTest extends BaseUnitTest {
     @Mock
     private Repository repository;
