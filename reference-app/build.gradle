@@ -219,7 +219,7 @@ dependencies {
     def powerMockVersion = '2.0.4'
 
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:1.6.62-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
