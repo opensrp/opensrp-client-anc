@@ -201,7 +201,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             if (commonPersonObject != null) {
                 viewHolder.sync.setVisibility(View.GONE);
                 ButtonAlertStatus buttonAlertStatus =
-                        Utils.getButtonAlertStatus(pc.getColumnmaps(), context.getString(R.string.contact_weeks));
+                        Utils.getButtonAlertStatus(pc.getColumnmaps(), context, false);
                 Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contactDoneTodayButton,
                         buttonAlertStatus);
 

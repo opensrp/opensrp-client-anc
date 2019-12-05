@@ -392,26 +392,26 @@ public class Utils extends org.smartregister.util.Utils {
         return (new LocalDate()).toString(SQLITE_DATE_DF);
     }
 
-    public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, String textTemplate) {
+    public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, Context context, boolean isProfile) {
 
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
-        String buttonAlertStatus;
+        String alertStatus;
         Integer gestationAge = 0;
         if (StringUtils.isNotBlank(edd)) {
             gestationAge = Utils.getGestationAgeFromEDDate(edd);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-            buttonAlertStatus =
+            alertStatus =
                     StringUtils.isNotBlank(contactStatus) && ConstantsUtils.AlertStatusUtils.ACTIVE.equals(contactStatus) ?
                             ConstantsUtils.AlertStatusUtils.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
                             .getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
         } else {
-            buttonAlertStatus = StringUtils.isNotBlank(contactStatus) ? ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "DEAD";
+            alertStatus = StringUtils.isNotBlank(contactStatus) ? ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "DEAD";
         }
 
-        ButtonAlertStatus buttonAlertStatus1 = new ButtonAlertStatus();
+        ButtonAlertStatus buttonAlertStatus = new ButtonAlertStatus();
 
         //Set text first
         String nextContactRaw = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
@@ -420,19 +420,42 @@ public class Utils extends org.smartregister.util.Utils {
         nextContactDate =
                 StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
 
-        buttonAlertStatus1.buttonText = String.format(textTemplate, nextContact, (nextContactDate != null ? nextContactDate :
+        buttonAlertStatus.buttonText = String.format(getDisplayTemplate(context, alertStatus, isProfile), nextContact, (nextContactDate != null ? nextContactDate :
                 Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
 
+        alertStatus =
+                Utils.processContactDoneToday(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE), alertStatus);
 
-        buttonAlertStatus =
-                Utils.processContactDoneToday(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE), buttonAlertStatus);
+        buttonAlertStatus.buttonAlertStatus = alertStatus;
+        buttonAlertStatus.gestationAge = gestationAge;
+        buttonAlertStatus.nextContact = nextContact;
+        buttonAlertStatus.nextContactDate = nextContactDate;
 
-        buttonAlertStatus1.buttonAlertStatus = buttonAlertStatus;
-        buttonAlertStatus1.gestationAge = gestationAge;
-        buttonAlertStatus1.nextContact = nextContact;
-        buttonAlertStatus1.nextContactDate = nextContactDate;
+        return buttonAlertStatus;
+    }
 
-        return buttonAlertStatus1;
+    private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
+        String displayTemplate = "";
+        if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
+            switch (alertStatus) {
+                case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
+                    displayTemplate = context.getString(R.string.contact_in_progress);
+                    break;
+                default:
+                    displayTemplate = context.getString(R.string.contact_weeks);
+                    break;
+            }
+        } else {
+            switch (alertStatus) {
+                case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
+                    displayTemplate = context.getString(R.string.contact_in_progress_no_break);
+                    break;
+                default:
+                    displayTemplate = context.getString(R.string.contact_weeks_no_break);
+                    break;
+            }
+        }
+        return displayTemplate;
     }
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
@@ -504,7 +527,7 @@ public class Utils extends org.smartregister.util.Utils {
                 case ConstantsUtils.AlertStatusUtils.NOT_DUE:
                     contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                    dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
                     break;
                 case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                     contactTextView.setVisibility(View.GONE);
