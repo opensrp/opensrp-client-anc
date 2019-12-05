@@ -435,11 +435,14 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
-        String displayTemplate = "";
+        String displayTemplate;
         if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
             switch (alertStatus) {
                 case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
                     displayTemplate = context.getString(R.string.contact_in_progress);
+                    break;
+                case ConstantsUtils.AlertStatusUtils.NOT_DUE:
+                    displayTemplate = context.getString(R.string.contact_number_due);
                     break;
                 default:
                     displayTemplate = context.getString(R.string.contact_weeks);
@@ -450,6 +453,8 @@ public class Utils extends org.smartregister.util.Utils {
                 case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
                     displayTemplate = context.getString(R.string.contact_in_progress_no_break);
                     break;
+                case ConstantsUtils.AlertStatusUtils.NOT_DUE:
+                    displayTemplate = context.getString(R.string.contact_number_due_no_break);
                 default:
                     displayTemplate = context.getString(R.string.contact_weeks_no_break);
                     break;

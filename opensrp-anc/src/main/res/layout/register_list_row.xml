@@ -63,7 +63,7 @@
         android:background="#ffffff"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:visibility="gone"></LinearLayout>
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/extra_column_2"
@@ -74,6 +74,6 @@
         android:background="#ffffff"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:visibility="gone"></LinearLayout>
+        android:visibility="gone" />
 
 </merge>
