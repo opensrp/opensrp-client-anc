@@ -455,6 +455,7 @@ public class Utils extends org.smartregister.util.Utils {
                     break;
                 case ConstantsUtils.AlertStatusUtils.NOT_DUE:
                     displayTemplate = context.getString(R.string.contact_number_due_no_break);
+                    break;
                 default:
                     displayTemplate = context.getString(R.string.contact_weeks_no_break);
                     break;
