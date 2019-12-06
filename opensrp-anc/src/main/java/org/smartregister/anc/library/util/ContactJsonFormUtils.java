@@ -540,11 +540,14 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
-    private static boolean checkForFilterSources(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
-        if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS_SOURCE)) {
-            return getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
-        } else {
-            return getFilteredItemsWithoutFilteredSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
+    public static String removeKeyPrefix(String widgetKey, String prefix) {
+        return widgetKey.replace(prefix + "_", "");
+    }
+
+    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray checkboxOptions) throws JSONException {
+        for (int i = 0; i < checkboxOptions.length(); i++) {
+            JSONObject item = checkboxOptions.getJSONObject(i);
+            optionsMap.put(item.getString(JsonFormConstants.KEY), item);
         }
     }
 
@@ -555,10 +558,11 @@ public class ContactJsonFormUtils extends FormUtils {
         }
     }
 
-    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray checkboxOptions) throws JSONException {
-        for (int i = 0; i < checkboxOptions.length(); i++) {
-            JSONObject item = checkboxOptions.getJSONObject(i);
-            optionsMap.put(item.getString(JsonFormConstants.KEY), item);
+    private static boolean checkForFilterSources(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
+        if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS_SOURCE)) {
+            return getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
+        } else {
+            return getFilteredItemsWithoutFilteredSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
         }
     }
 
@@ -611,10 +615,6 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
         return false;
-    }
-
-    public static String removeKeyPrefix(String widgetKey, String prefix) {
-        return widgetKey.replace(prefix + "_", "");
     }
 
     public static String getObjectKey(JSONObject jsonObject) throws JSONException {

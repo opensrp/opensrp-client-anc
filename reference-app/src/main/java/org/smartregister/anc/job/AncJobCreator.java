@@ -2,7 +2,6 @@ package org.smartregister.anc.job;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
@@ -14,6 +13,8 @@ import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 05/09/2018.
@@ -38,8 +39,7 @@ public class AncJobCreator implements JobCreator {
             case SyncSettingsServiceJob.TAG:
                 return new SyncSettingsServiceJob();
             default:
-                Log.d(AncJobCreator.class.getCanonicalName(),
-                        "Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
+                Timber.d("Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
                 return null;
         }
     }

@@ -2,8 +2,8 @@ package org.smartregister.anc.library.interactor;
 
 import android.content.ContentValues;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.util.Pair;
 import android.util.Log;
-import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -61,6 +61,10 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     @Override
     public void getNextUniqueId(final Triple<String, String, String> triple,
                                 final RegisterContract.InteractorCallBack callBack) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 026f28fcb101633849c628a36cd85e2959561525
         Runnable runnable = () -> {
             UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
             final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
@@ -79,8 +83,12 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
+<<<<<<< HEAD
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
                                  final RegisterContract.InteractorCallBack callBack) {
+=======
+    public void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, RegisterContract.InteractorCallBack callBack) {
+>>>>>>> 026f28fcb101633849c628a36cd85e2959561525
         Runnable runnable = () -> {
             saveRegistration(pair, jsonString, isEditMode);
             appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
@@ -158,7 +166,6 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
         try {
-
             Client baseClient = pair.first;
             Event baseEvent = pair.second;
 
