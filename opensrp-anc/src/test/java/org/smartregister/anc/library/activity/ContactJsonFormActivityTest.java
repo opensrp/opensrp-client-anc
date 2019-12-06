@@ -3,7 +3,7 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.customviews.FullScreenGenericPopupDialog;
+import com.vijay.jsonwizard.customviews.ExpansionPanelGenericPopupDialog;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONArray;
@@ -163,7 +163,7 @@ public class ContactJsonFormActivityTest extends BaseUnitTest {
         ContactJsonFormActivity formActivity = Mockito.spy(activity);
         Assert.assertNotNull(formActivity);
 
-        FullScreenGenericPopupDialog genericPopupDialog = new FullScreenGenericPopupDialog();
+        ExpansionPanelGenericPopupDialog genericPopupDialog = new ExpansionPanelGenericPopupDialog();
 
         Whitebox.setInternalState(genericPopupDialog, "parentKey", "parent_keys_expansion");
         Whitebox.setInternalState(genericPopupDialog, "widgetType", "expansion_panel");
