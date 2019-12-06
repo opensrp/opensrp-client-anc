@@ -27,33 +27,68 @@ condition: "(step2_lmp_known == 'no' && step2_ultrasound_done == 'no') || (step2
 actions:
   - "isRelevant = true"
 ---
+name: step2_sfh_ultrasound_gest_age_selection
+description: sfh_ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_lmp_known == 'no' && step2_ultrasound_done == 'yes' && step2_ultrasound_gest_age_wks >= 24)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_lmp_ultrasound_gest_age_selection
+description: lmp_ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_lmp_known == 'yes' && step2_ultrasound_done == 'yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_sfh_gest_age_selection
+description: sfh_gest_age_selection
+priority: 1
+condition: "step2_lmp_known == '' || step2_ultrasound_done == '' || (step2_lmp_known == 'no' && step2_ultrasound_done == 'no')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_ultrasound_gest_age_selection
+description: ultrasound_gest_age_selection
+priority: 1
+condition: "step2_lmp_known == '' || step2_ultrasound_done == '' || (step2_lmp_known == 'no' && step2_ultrasound_done == 'yes' && (step2_ultrasound_gest_age_wks == '' || step2_ultrasound_gest_age_wks < 24))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_lmp_gest_age_selection
+description: lmp_gest_age_selection
+priority: 1
+condition: "step2_lmp_known == '' || step2_ultrasound_done == '' || (step2_lmp_known == 'yes' && step2_ultrasound_done == 'no')"
+actions:
+  - "isRelevant = true"
+---
 name: step3_miscarriages_abortions_label
 description: Miscarrige abortions label
 priority: 1
 condition: "step3_previous_pregnancies > 0 "
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step3_miscarriages_abortions
 description: Miscarrige abortions
 priority: 1
 condition: "step3_previous_pregnancies > 0 "
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step3_live_births_label
 description: Live births label
 priority: 1
 condition: "((step3_previous_pregnancies - step3_miscarriages_abortions) > 0)"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step3_live_births
 description: Live births
 priority: 1
 condition: "((step3_previous_pregnancies - step3_miscarriages_abortions) > 0)"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step3_last_live_birth_preterm
 description: Live last live birth preterm
@@ -67,14 +102,14 @@ description: Still births label
 priority: 1
 condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_live_births) > 0)"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step3_stillbirths
 description: Slill births
 priority: 1
 condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_live_births) > 0) "
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step3_prev_preg_comps
 description: Previous pregnancy complications

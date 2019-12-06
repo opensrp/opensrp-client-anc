@@ -2,8 +2,8 @@ package org.smartregister.anc.library.interactor;
 
 import android.content.ContentValues;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.util.Pair;
 import android.util.Log;
-import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -61,25 +61,18 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     @Override
     public void getNextUniqueId(final Triple<String, String, String> triple,
                                 final RegisterContract.InteractorCallBack callBack) {
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
-                final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (StringUtils.isBlank(entityId)) {
-                            callBack.onNoUniqueId();
-                            PullUniqueIdsServiceJob.scheduleJobImmediately(
-                                    PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
-                        } else {
-                            callBack.onUniqueIdFetched(triple, entityId);
-                        }
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
+            final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
+            appExecutors.mainThread().execute(() -> {
+                if (StringUtils.isBlank(entityId)) {
+                    callBack.onNoUniqueId();
+                    PullUniqueIdsServiceJob.scheduleJobImmediately(
+                            PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
+                } else {
+                    callBack.onUniqueIdFetched(triple, entityId);
+                }
+            });
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -88,18 +81,9 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     @Override
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
                                  final RegisterContract.InteractorCallBack callBack) {
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                saveRegistration(pair, jsonString, isEditMode);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onRegistrationSaved(isEditMode);
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            saveRegistration(pair, jsonString, isEditMode);
+            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -107,58 +91,53 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
     @Override
     public void removeWomanFromANCRegister(final String closeFormJsonString, final String providerId) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
+        Runnable runnable = () -> {
+            try {
+                Triple<Boolean, Event, Event> triple = JsonFormUtils
+                        .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
 
-                try {
-
-                    Triple<Boolean, Event, Event> triple = JsonFormUtils
-                            .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
-
-                    if (triple == null) {
-                        return;
-                    }
-
-                    boolean isDeath = triple.getLeft();
-                    Event event = triple.getMiddle();
-                    Event updateChildDetailsEvent = triple.getRight();
-
-                    String baseEntityId = event.getBaseEntityId();
-
-                    //Update client to deceased
-                    JSONObject client = getSyncHelper().getClient(baseEntityId);
-                    if (isDeath) {
-                        client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, Utils.getTodaysDate());
-                        client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
-                    }
-                    JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-                    attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                    client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
-                    getSyncHelper().addClient(baseEntityId, client);
-
-                    //Add Remove Event for child to flag for Server delete
-                    JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
-                    getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
-
-                    //Update Child Entity to include death date
-                    JSONObject eventJsonUpdateChildEvent =
-                            new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
-                    getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
-
-                    //Update REGISTER and FTS Tables
-                    if (getAllCommonsRepository() != null) {
-                        ContentValues values = new ContentValues();
-                        values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                        getAllCommonsRepository().update(DBConstantsUtils.WOMAN_TABLE_NAME, values, baseEntityId);
-                        getAllCommonsRepository().updateSearch(baseEntityId);
-
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "", e);
-                } finally {
-                    Utils.postStickyEvent(new PatientRemovedEvent());
+                if (triple == null) {
+                    return;
                 }
+
+                boolean isDeath = triple.getLeft();
+                Event event = triple.getMiddle();
+                Event updateChildDetailsEvent = triple.getRight();
+
+                String baseEntityId = event.getBaseEntityId();
+
+                //Update client to deceased
+                JSONObject client = getSyncHelper().getClient(baseEntityId);
+                if (isDeath) {
+                    client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, Utils.getTodaysDate());
+                    client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
+                }
+                JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
+                attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
+                client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
+                getSyncHelper().addClient(baseEntityId, client);
+
+                //Add Remove Event for child to flag for Server delete
+                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
+
+                //Update Child Entity to include death date
+                JSONObject eventJsonUpdateChildEvent =
+                        new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
+                getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
+
+                //Update REGISTER and FTS Tables
+                if (getAllCommonsRepository() != null) {
+                    ContentValues values = new ContentValues();
+                    values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
+                    getAllCommonsRepository().update(DBConstantsUtils.WOMAN_TABLE_NAME, values, baseEntityId);
+                    getAllCommonsRepository().updateSearch(baseEntityId);
+
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "", e);
+            } finally {
+                Utils.postStickyEvent(new PatientRemovedEvent());
             }
         };
 
@@ -178,9 +157,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     private void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
-
         try {
-
             Client baseClient = pair.first;
             Event baseEvent = pair.second;
 

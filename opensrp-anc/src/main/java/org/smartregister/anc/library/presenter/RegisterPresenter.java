@@ -2,8 +2,8 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.util.Pair;
 import android.util.Log;
-import android.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;

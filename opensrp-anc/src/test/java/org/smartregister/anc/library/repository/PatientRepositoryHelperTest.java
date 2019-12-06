@@ -2,10 +2,9 @@ package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
 
-import junit.framework.Assert;
-
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,14 +46,12 @@ public class PatientRepositoryHelperTest {
 
     @Before
     public void setUp() {
-
         MockitoAnnotations.initMocks(this);
         AncLibrary.init(context, repository, 1);
     }
 
     @Test
     public void testPatientRepositoryInstantiatesCorrectly() {
-
         PatientRepositoryHelper patientRepositoryHelper = new PatientRepositoryHelper();
         Assert.assertNotNull(patientRepositoryHelper);
 
@@ -63,23 +60,19 @@ public class PatientRepositoryHelperTest {
 
     }
 
+    @PrepareForTest({ContentValues.class})
     @Test
     public void testUpdateWomanDetailsInvokesUpdateMethodOfWritableDatabase() {
         PatientRepositoryHelper spy = PowerMockito.spy(new PatientRepositoryHelper());
+        PowerMockito.mockStatic(ContentValues.class);
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-
-
         PowerMockito.when(spy.getMasterRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);
-
         PowerMockito.when(spy.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
-
-
         spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
-
         Mockito.verify(sqLiteDatabase, Mockito.times(1)).update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}));
     }
 }

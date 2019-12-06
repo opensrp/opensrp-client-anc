@@ -19,10 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+@PrepareForTest ({CoreLibrary.class, Context.class})
 @RunWith (PowerMockRunner.class)
 public class MeModelTest extends BaseUnitTest {
-
-
     private MeContract.Model model;
 
     @Before
@@ -31,7 +30,6 @@ public class MeModelTest extends BaseUnitTest {
         model = new MeModel();
     }
 
-    @PrepareForTest({CoreLibrary.class})
     @Test
     public void testGetBuildDateShouldReturnCorrectValue() {
         String dateFormat = "dd MMM yyyy";
@@ -48,7 +46,6 @@ public class MeModelTest extends BaseUnitTest {
         Assert.assertEquals(dateToday, model.getBuildDate());
     }
 
-    @PrepareForTest ({CoreLibrary.class, Context.class})
     @Test
     public void testUpdateInitials() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
@@ -68,7 +65,6 @@ public class MeModelTest extends BaseUnitTest {
         Assert.assertEquals("Me", foundInitials);
     }
 
-    @PrepareForTest ({CoreLibrary.class, Context.class})
     @Test
     public void testGetName() {
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);

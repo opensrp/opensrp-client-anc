@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -126,9 +126,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID, entityId);
             }
         } else {
-            Log.w(TAG, "Unsupported form requested for launch " + formName);
+            Timber.tag(TAG).w("Unsupported form requested for launch " + formName);
         }
-        Log.d(TAG, "form is " + form.toString());
+        Timber.d("form is " + form.toString());
         return form;
     }
 

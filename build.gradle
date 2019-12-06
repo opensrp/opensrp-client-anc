@@ -1,17 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.5.0-x'
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
-
+        classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'io.fabric.tools:gradle:1.31.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -55,19 +59,16 @@ allprojects {
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects {
-
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '28.0.3'
-    ext.androidBuildToolsVersion = '28.0.3'
+    ext.androidToolsBuildGradle = '29.0.2'
+    ext.androidBuildToolsVersion = '29.0.2'
     ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 28
-    ext.androidTargetSdkVersion = 28
-
+    ext.androidCompileSdkVersion = 29
+    ext.androidTargetSdkVersion = 29
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
-
-    ext.jacocoVersion = "0.7.9"
+    ext.jacocoVersion = "0.8.5"
 
     // Improve build server performance by allowing disabling of pre-dexing
     // (see http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.)
@@ -90,11 +91,9 @@ jacocoFull {
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
-    sourceDirs += ["opensrp-anc/src/main/java"
-                   , "reference-app/src/main/java"]
+    sourceDirs += ["opensrp-anc/src/main/java/", "reference-app/src/main/java"]
 }
 apply plugin: 'io.codearte.nexus-staging'
-
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false

@@ -8,7 +8,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.application.TestAncApplication;
+import org.smartregister.anc.library.application.AncTestApplication;
 import org.smartregister.anc.library.shadows.MyShadowActivity;
 import org.smartregister.anc.library.util.JsonFormUtils;
 
@@ -20,7 +20,7 @@ import java.util.Date;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestAncApplication.class, shadows = {MyShadowActivity.class})
+@Config(application = AncTestApplication.class, shadows = {MyShadowActivity.class})
 public abstract class BaseUnitTest {
 
     public static int ASYNC_TIMEOUT = 1000;

@@ -157,7 +157,7 @@
             android:textAllCaps="false"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/dark_grey"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:typeface="normal"
             android:visibility="visible" />
 
@@ -178,7 +178,7 @@
             android:textAllCaps="false"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/vaccine_blue_bg_st"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:typeface="normal"
             android:visibility="gone" />
 

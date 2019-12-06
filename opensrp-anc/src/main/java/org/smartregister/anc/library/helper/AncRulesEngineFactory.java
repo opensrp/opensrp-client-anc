@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import java.util.Map;
 
 public class AncRulesEngineFactory extends RulesEngineFactory {
-
     private Map<String, String> globalValues;
     private AncRulesEngineHelper ancRulesEngineHelper;
     private String selectedRuleName;

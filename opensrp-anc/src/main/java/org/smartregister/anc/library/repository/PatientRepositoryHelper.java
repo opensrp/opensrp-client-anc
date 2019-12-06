@@ -2,7 +2,6 @@ package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -19,13 +18,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
 public class PatientRepositoryHelper {
-
-    private static final String TAG = PatientRepositoryHelper.class.getCanonicalName();
-
     private static final String[] projection =
             new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
                     DBConstantsUtils.KeyUtils.DOB_UNKNOWN, DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,
@@ -87,7 +85,7 @@ public class PatientRepositoryHelper {
             }
             return detailsMap;
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e,  "%s ==> getWomanProfileDetails()", PatientRepositoryHelper.class.getCanonicalName());
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -111,7 +109,6 @@ public class PatientRepositoryHelper {
     }
 
     public static void updateContactVisitDetails(WomanDetail patientDetail, boolean isFinalize) {
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, patientDetail.getNextContact());
         contentValues.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, patientDetail.getNextContactDate());

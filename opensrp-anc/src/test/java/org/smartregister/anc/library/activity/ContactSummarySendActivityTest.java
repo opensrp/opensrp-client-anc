@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import static org.robolectric.Shadows.shadowOf;
 
-public class YamlConfigSendActivityTest extends BaseUnitTest {
+public class ContactSummarySendActivityTest extends BaseUnitTest {
 
     private ActivityController<ContactSummarySendActivity> activityController;
     private ContactSummarySendActivity activity;
