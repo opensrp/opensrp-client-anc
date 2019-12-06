@@ -1,8 +1,8 @@
 package org.smartregister.anc.library.interactor;
 
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
-import android.util.Pair;
 
 import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;

@@ -15,14 +15,12 @@ import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
-import static org.smartregister.util.Log.logInfo;
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 21/06/2018.
  */
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
-
-    public static final String TAG = LoginActivity.class.getCanonicalName();
 
     @Override
     protected void onResume() {
@@ -73,7 +71,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
     public void refreshViews(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
         if (syncCompleteEvent != null) {
-            logInfo("Refreshing Login View...");
+            Timber.d("Refreshing Login View...");
             mLoginPresenter.processViewCustomizations();
 
         }

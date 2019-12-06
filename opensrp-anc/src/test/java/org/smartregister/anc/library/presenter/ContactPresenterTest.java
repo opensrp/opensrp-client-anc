@@ -222,8 +222,6 @@ public class ContactPresenterTest extends BaseUnitTest {
 
     @Test
     public void testFinalizeContactFormInvokesFinalizeContactFormOfInteractorWithCorrectParameters() {
-
-
         Whitebox.setInternalState(presenter, "interactor", interactor);
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 

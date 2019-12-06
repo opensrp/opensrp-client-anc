@@ -1,8 +1,8 @@
 package org.smartregister.anc.library.presenter;
 
 import android.content.Intent;
+import android.support.v4.util.Pair;
 import android.util.Log;
-import android.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
