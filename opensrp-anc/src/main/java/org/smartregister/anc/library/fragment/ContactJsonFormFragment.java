@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
@@ -118,10 +119,11 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (super.onOptionsItemSelected(item)) {
-            return true;
+        if (item.getItemId() == R.id.action_save) {
+            if (getActivity() != null) {
+                ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
+            }
         }
-
         if (item.getItemId() == MENU_NAVIGATION) {
             Toast.makeText(getActivity(), "Right navigation item clicked", Toast.LENGTH_SHORT).show();
             return true;
@@ -288,7 +290,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     private LinearLayout getQuickCheckButtonsLayout() {
         LinearLayout linearLayout = (LinearLayout) this.getView();
         LinearLayout buttonLayout = null;
