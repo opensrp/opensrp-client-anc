@@ -2,7 +2,6 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.Intent;
 import android.support.v4.util.Pair;
-import android.util.Log;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -24,12 +23,12 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
 public class ProfilePresenter implements ProfileContract.Presenter, RegisterContract.InteractorCallBack {
-    private static final String TAG = ProfilePresenter.class.getCanonicalName();
-
     private WeakReference<ProfileContract.View> mProfileView;
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
@@ -105,7 +104,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
         try {
             String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
-            Log.d("JSONResult", jsonString);
+            Timber.d(jsonString);
             JSONObject form = new JSONObject(jsonString);
             getProfileView().showProgressDialog(
                     form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE) ?
@@ -120,7 +119,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                 getProfileView().hideProgressDialog();
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> processFormDetailsSave");
         }
     }
 

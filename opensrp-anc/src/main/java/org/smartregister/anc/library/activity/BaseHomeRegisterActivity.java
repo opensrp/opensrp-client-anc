@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -202,7 +202,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         if (requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
-                Log.d("Scanned QR Code", barcode.displayValue);
+                Timber.d(barcode.displayValue);
 
                 Fragment fragment = findFragmentByPosition(currentPage);
                 if (fragment instanceof AdvancedSearchFragment) {
@@ -213,7 +213,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                 }
 
             } else {
-                Log.i("", "NO RESULT FOR QR CODE");
+                Timber.i("NO RESULT FOR QR CODE");
             }
         } else {
             onActivityResultExtended(requestCode, resultCode, data);
@@ -225,29 +225,30 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         if (requestCode == org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(ConstantsUtils.JsonFormExtraUtils.JSON);
-                Log.d("JSONResult", jsonString);
-
-                JSONObject form = new JSONObject(jsonString);
-                switch (form.getString(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_TYPE)) {
-                    case ConstantsUtils.EventTypeUtils.REGISTRATION:
-                        ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
-                        break;
-                    case ConstantsUtils.EventTypeUtils.CLOSE:
-                        ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
-                        break;
-                    case ConstantsUtils.EventTypeUtils.SITE_CHARACTERISTICS:
-                        break;
-                    case ConstantsUtils.EventTypeUtils.QUICK_CHECK:
-                        Contact contact = new Contact();
-                        contact.setContactNumber(getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0));
-                        ContactJsonFormUtils
-                                .persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
-                        PatientRepositoryHelper
-                                .updateContactVisitStartDate(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
-                                        Utils.getDBDateToday());
-                        break;
-                    default:
-                        break;
+                Timber.d(jsonString);
+                if (StringUtils.isNotBlank(jsonString)) {
+                    JSONObject form = new JSONObject(jsonString);
+                    switch (form.getString(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_TYPE)) {
+                        case ConstantsUtils.EventTypeUtils.REGISTRATION:
+                            ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
+                            break;
+                        case ConstantsUtils.EventTypeUtils.CLOSE:
+                            ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
+                            break;
+                        case ConstantsUtils.EventTypeUtils.SITE_CHARACTERISTICS:
+                            break;
+                        case ConstantsUtils.EventTypeUtils.QUICK_CHECK:
+                            Contact contact = new Contact();
+                            contact.setContactNumber(getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0));
+                            ContactJsonFormUtils
+                                    .persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
+                            PatientRepositoryHelper
+                                    .updateContactVisitStartDate(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
+                                            Utils.getDBDateToday());
+                            break;
+                        default:
+                            break;
+                    }
                 }
             } catch (Exception e) {
                 Timber.e(e, "%s --> onActivityResultExtended()", this.getClass().getCanonicalName());

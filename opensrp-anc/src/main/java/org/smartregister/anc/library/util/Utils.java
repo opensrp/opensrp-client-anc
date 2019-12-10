@@ -377,7 +377,6 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
-
         Intent intent = new Intent(context, ProfileActivity.class);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);

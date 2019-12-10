@@ -30,6 +30,8 @@ import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
 
+import timber.log.Timber;
+
 /**
  * Created by keyman 27/06/2018.
  */
@@ -210,7 +212,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e," --> saveRegistration");
         }
     }
 

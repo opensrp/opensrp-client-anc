@@ -225,7 +225,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     protected void setupViews() {
-
         super.setupViews();
 
         ageView = findViewById(R.id.textview_detail_two);
