@@ -39,8 +39,6 @@ import static org.smartregister.util.Log.logInfo;
  * Created by ndegwamartin on 21/06/2018.
  */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
-
-
     private static final String TAG = AncApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
 
