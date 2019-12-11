@@ -95,54 +95,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
-    protected ContactJsonFormFragmentViewState createViewState() {
-        return new ContactJsonFormFragmentViewState();
-    }
-
-    @Override
-    protected ContactJsonFormFragmentPresenter createPresenter() {
-        return new ContactJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-
-        Contact form = getContact();
-        if (form != null && form.isHideSaveLabel()) {
-            updateVisibilityOfNextAndSave(false, false);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (super.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        if (item.getItemId() == MENU_NAVIGATION) {
-            Toast.makeText(getActivity(), "Right navigation item clicked", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void setActionBarTitle(String title) {
-        Contact contact = getContact();
-        if (contact != null) {
-            contactTitle.setText(contact.getName());
-            if (getStepName() != null) {
-                getStepName().setText(title);
-            }
-        } else {
-            contactTitle.setText(title);
-        }
-    }
-
-    @Override
     protected void setupNavigation(View rootView) {
         super.setupNavigation(rootView);
         LinearLayout proceedLayout = rootView.findViewById(R.id.navigation_layout);
@@ -187,6 +139,59 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             } else {
                 goBackButton.setOnClickListener(view12 -> backClick());
             }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+        Contact form = getContact();
+        if (form != null && form.isHideSaveLabel()) {
+            updateVisibilityOfNextAndSave(false, false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save && getActivity() != null) {
+            ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
+        }
+        
+        if (item.getItemId() == MENU_NAVIGATION) {
+            Toast.makeText(getActivity(), "Right navigation item clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected ContactJsonFormFragmentViewState createViewState() {
+        return new ContactJsonFormFragmentViewState();
+    }
+
+    @Override
+    protected ContactJsonFormFragmentPresenter createPresenter() {
+        return new ContactJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
+    }
+
+    @Override
+    public void setActionBarTitle(String title) {
+        Contact contact = getContact();
+        if (contact != null) {
+            contactTitle.setText(contact.getName());
+            if (getStepName() != null) {
+                getStepName().setText(title);
+            }
+        } else {
+            contactTitle.setText(title);
         }
     }
 
@@ -288,7 +293,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
 
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     private LinearLayout getQuickCheckButtonsLayout() {
         LinearLayout linearLayout = (LinearLayout) this.getView();
         LinearLayout buttonLayout = null;
@@ -296,14 +301,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             buttonLayout = linearLayout.findViewById(R.id.navigation_layout);
         }
         return buttonLayout;
-    }
-
-    private void setQuickCheckButtonsInvisible(boolean none, boolean other, LinearLayout buttonLayout, Button referButton, Button proceedButton) {
-        if ((!none && !other) && buttonLayout != null) {
-            buttonLayout.setVisibility(View.GONE);
-            proceedButton.setVisibility(View.GONE);
-            referButton.setVisibility(View.GONE);
-        }
     }
 
     private void setQuickCheckButtonsVisible(boolean none, boolean other, LinearLayout buttonLayout, Button referButton, Button proceedButton) {
@@ -316,9 +313,12 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void setQuickCheckButtonsInvisible(boolean none, boolean other, LinearLayout buttonLayout, Button referButton, Button proceedButton) {
+        if ((!none && !other) && buttonLayout != null) {
+            buttonLayout.setVisibility(View.GONE);
+            proceedButton.setVisibility(View.GONE);
+            referButton.setVisibility(View.GONE);
+        }
     }
 
     private class BottomNavigationListener implements View.OnClickListener {

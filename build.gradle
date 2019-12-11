@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-
     repositories {
         google()
         jcenter()
@@ -9,6 +8,7 @@ buildscript {
             url 'https://maven.fabric.io/public'
         }
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
@@ -59,7 +59,6 @@ allprojects {
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects {
-
     group = 'org.smartregister'
 
     ext.androidToolsBuildGradle = '29.0.2'
@@ -67,11 +66,9 @@ subprojects {
     ext.androidMinSdkVersion = 18
     ext.androidCompileSdkVersion = 29
     ext.androidTargetSdkVersion = 29
-
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
-
-    ext.jacocoVersion = "0.7.9"
+    ext.jacocoVersion = "0.8.5"
 
     // Improve build server performance by allowing disabling of pre-dexing
     // (see http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.)
@@ -94,10 +91,9 @@ jacocoFull {
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
-    sourceDirs += ["opensrp-anc/src/main/java", "reference-app/src/main/java"]
+    sourceDirs += ["opensrp-anc/src/main/java/", "reference-app/src/main/java"]
 }
 apply plugin: 'io.codearte.nexus-staging'
-
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false

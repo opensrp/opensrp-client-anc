@@ -61,7 +61,6 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     @Override
     public void getNextUniqueId(final Triple<String, String, String> triple,
                                 final RegisterContract.InteractorCallBack callBack) {
-
         Runnable runnable = () -> {
             UniqueId uniqueId = getUniqueIdRepository().getNextUniqueId();
             final String entityId = uniqueId != null ? uniqueId.getOpenmrsId() : "";
@@ -80,7 +79,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     }
 
     @Override
-    public void saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode, RegisterContract.InteractorCallBack callBack) {
+    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
+                                 final RegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
             saveRegistration(pair, jsonString, isEditMode);
             appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
