@@ -44,7 +44,6 @@ import timber.log.Timber;
  * Created by ndegwamartin on 30/06/2018.
  */
 public class ContactJsonFormFragment extends JsonWizardFormFragment {
-
     public static final String TAG = ContactJsonFormFragment.class.getName();
     private static final int MENU_NAVIGATION = 100001;
     private boolean savePartial = false;
@@ -62,7 +61,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.contact_json_form_fragment_wizard, null);
-
         this.mMainView = rootView.findViewById(com.vijay.jsonwizard.R.id.main_layout);
         this.mScrollView = rootView.findViewById(com.vijay.jsonwizard.R.id.scroll_view);
 
@@ -89,7 +87,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Log.d(TAG, "No button on dialog in " + JsonFormActivity.class.getCanonicalName())).create();
+                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in " + JsonFormActivity.class.getCanonicalName())).create();
 
         dialog.show();
     }
@@ -213,7 +211,6 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     private void displayReferralDialog() {
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.alert_referral_dialog, null);
 
@@ -324,6 +321,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            getJsonApi().setPreviousPressed(false);
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
@@ -341,6 +339,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             } else if (view.getId() == com.vijay.jsonwizard.R.id.previous ||
                     view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
+                getJsonApi().setPreviousPressed(true);
                 getFragmentManager().popBackStack();
             } else if (view.getId() == R.id.refer) {
                 displayReferralDialog();
