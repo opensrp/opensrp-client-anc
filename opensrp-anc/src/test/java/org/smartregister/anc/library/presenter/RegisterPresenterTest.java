@@ -27,7 +27,6 @@ import java.util.List;
  * Created by keymanc on 11/07/2018.
  */
 public class RegisterPresenterTest extends BaseUnitTest {
-
     @Mock
     private RegisterContract.View view;
 
@@ -233,7 +232,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
     @Test
     public void testOnRegistrationSaved() {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
-
         Mockito.doNothing().when(view).refreshList(ArgumentMatchers.any(FetchStatus.class));
 
         registerPresenter.onRegistrationSaved(false);

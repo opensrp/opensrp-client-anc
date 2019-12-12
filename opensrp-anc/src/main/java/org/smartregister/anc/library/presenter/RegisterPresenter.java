@@ -169,8 +169,10 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
+        getView().refreshList(FetchStatus.fetched);
         goToClientProfile(baseEntityId);
         getView().hideProgressDialog();
+
     }
 
     private void goToClientProfile(String baseEntityId) {

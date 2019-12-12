@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 12/07/2018.
  */
@@ -103,27 +105,26 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
             dueButton.setVisibility(View.VISIBLE);
 
-            ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(getActivity(), yamlConfigListGlobal, facts);
-            adapter.notifyDataSetChanged();
-            // set up the RecyclerView
-            RecyclerView recyclerView = getActivity().findViewById(R.id.profile_overview_recycler);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            recyclerView.setAdapter(adapter);
-
+            attachRecyclerView(facts);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, " --> onResumption");
         }
     }
 
+    private void attachRecyclerView(Facts facts) {
+        ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(getActivity(), yamlConfigListGlobal, facts);
+        adapter.notifyDataSetChanged();
+        RecyclerView recyclerView = getActivity().findViewById(R.id.profile_overview_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+    }
+
     private Iterable<Object> loadFile(String filename) throws IOException {
-
         return AncLibrary.getInstance().readYaml(filename);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View fragmentView = inflater.inflate(R.layout.fragment_profile_overview, container, false);
         dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
