@@ -192,7 +192,7 @@ public class RegisterPresenterTest extends BaseUnitTest {
         Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class),
                 ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
 
-        presenter.saveForm(jsonString, false);
+        presenter.saveRegistrationForm(jsonString, false);
 
         Mockito.verify(view).showProgressDialog(R.string.saving_dialog_title);
         Mockito.verify(model).processRegistration(jsonString);

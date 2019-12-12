@@ -33,6 +33,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
     private ContactInteractor contactInteractor;
+    private String baseEntityId;
 
     public ProfilePresenter(ProfileContract.View profileView) {
         mProfileView = new WeakReference<>(profileView);
@@ -72,6 +73,11 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     @Override
     public void onNoUniqueId() {
         getProfileView().displayToast(R.string.no_openmrs_id);
+    }
+
+    @Override
+    public void setBaseEntityRegister(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
     }
 
     @Override

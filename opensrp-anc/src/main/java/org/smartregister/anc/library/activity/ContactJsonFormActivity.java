@@ -40,6 +40,12 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     private String formName;
     private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
+        super.onCreate(savedInstanceState);
+    }
+
     public void init(String json) {
         try {
             mJSONObject = new JSONObject(json);
@@ -68,13 +74,6 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         } catch (JSONException e) {
             Timber.e(e, "Initialization error. Json passed is invalid : ");
         }
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
-        super.onCreate(savedInstanceState);
     }
 
     @Override

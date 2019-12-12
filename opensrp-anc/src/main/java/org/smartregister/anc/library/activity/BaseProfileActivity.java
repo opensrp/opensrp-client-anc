@@ -60,7 +60,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
         if (appBarLayout != null) {
             // Set collapsing tool bar title.
             collapsingToolbarLayout = appBarLayout.findViewById(R.id.collapsing_toolbar_layout);
-
             appBarLayout.addOnOffsetChangedListener(this);
         }
     }
@@ -142,12 +141,10 @@ public abstract class BaseProfileActivity extends SecuredActivity
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-
         if (appBarLayoutScrollRange == -1) {
             appBarLayoutScrollRange = appBarLayout.getTotalScrollRange();
         }
         if (appBarLayoutScrollRange + verticalOffset == 0) {
-
             collapsingToolbarLayout.setTitle(womanName);
             appBarTitleIsShown = true;
         } else if (appBarTitleIsShown) {
