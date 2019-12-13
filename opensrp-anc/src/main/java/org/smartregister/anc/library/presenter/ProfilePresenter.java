@@ -33,7 +33,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
     private ContactInteractor contactInteractor;
-    private String baseEntityId;
 
     public ProfilePresenter(ProfileContract.View profileView) {
         mProfileView = new WeakReference<>(profileView);
@@ -77,7 +76,9 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
     @Override
     public void setBaseEntityRegister(String baseEntityId) {
-        this.baseEntityId = baseEntityId;
+        /**
+         * Overrriden because the implemented contract requires it.  It can be used to set the base enitty id for a user.
+         */
     }
 
     @Override

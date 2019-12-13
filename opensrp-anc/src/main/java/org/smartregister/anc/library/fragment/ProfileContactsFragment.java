@@ -3,7 +3,6 @@ package org.smartregister.anc.library.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -66,8 +65,6 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private HashMap<String, String> clientDetails;
     private View noHealthRecordLayout;
     private ScrollView profileContactsLayout;
-    private View statusButton;
-    private View fragmentView;
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -273,7 +270,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_profile_contacts, container, false);
         lastContactLayout = fragmentView.findViewById(R.id.last_contact_layout);
         TextView lastContactBottom = lastContactLayout.findViewById(R.id.last_contact_bottom);
         lastContactBottom.setOnClickListener(profileContactsActionHandler);
@@ -287,7 +284,6 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
         noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_layout);
         profileContactsLayout = fragmentView.findViewById(R.id.profile_contacts_layout);
-        statusButton = fragmentView.findViewById(R.id.status_button);
 
         dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
