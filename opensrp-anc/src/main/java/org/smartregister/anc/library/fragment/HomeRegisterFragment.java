@@ -212,10 +212,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                 }
             }.execute();
 
-        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to
-         catchment
-                // TODO Move to catchment
-            }*/ else if (view.getId() == R.id.filter_text_view) {
+        } else if (view.getId() == R.id.filter_text_view) {
             baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }
     }

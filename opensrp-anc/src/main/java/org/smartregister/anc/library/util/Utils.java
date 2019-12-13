@@ -66,6 +66,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 14/03/2018.
  */
@@ -474,7 +476,7 @@ public class Utils extends org.smartregister.util.Utils {
                 return 0;
             }
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, " --> getGestationAgeFromEDDate");
             return 0;
         }
     }

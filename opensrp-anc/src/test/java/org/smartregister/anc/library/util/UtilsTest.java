@@ -343,4 +343,10 @@ public class UtilsTest extends BaseUnitTest {
         }
         return result;
     }
+
+    @Test
+    public void testGetGestationAgeFromEDDateWhenDateisZero() {
+        int gestAge = org.smartregister.anc.library.util.Utils.getGestationAgeFromEDDate("0");
+        Assert.assertEquals(0, gestAge);
+    }
 }

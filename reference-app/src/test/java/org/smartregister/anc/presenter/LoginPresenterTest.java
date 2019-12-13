@@ -29,7 +29,6 @@ import java.lang.ref.WeakReference;
  * Created by ndegwamartin on 27/06/2018.
  */
 public class LoginPresenterTest extends BaseUnitTest {
-
     @Mock
     private ViewTreeObserver viewTreeObserver;
 
@@ -116,7 +115,6 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Test
     public void testAttemptLoginShouldNotCallLoginMethodWithCorrectParametersWhenValidationFails() {
-
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginModel(new BaseLoginModel());//create real model
         presenter.setLoginInteractor(interactor); //set mocked interactor
