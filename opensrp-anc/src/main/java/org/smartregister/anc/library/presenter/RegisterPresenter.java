@@ -12,7 +12,6 @@ import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
 import org.smartregister.anc.library.model.RegisterModel;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
@@ -20,7 +19,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.List;
 
 import timber.log.Timber;
