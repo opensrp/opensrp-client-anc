@@ -149,14 +149,28 @@ actions:
 name: step3_nausea_counsel
 description: Non-pharma measures to relieve nausea and vomiting counseling
 priority: 1
-condition: "global_phys_symptoms.contains('nausea_vomiting')"
+condition: "(global_phys_symptoms != null && !global_phys_symptoms.isEmpty() && global_phys_symptoms.contains('nausea_vomiting'))"
 actions:
   - "isRelevant = true"
 ---
 name: step3_nausea_not_relieved_counsel
 description: Pharmacological treatments for nausea and vomiting counseling
 priority: 1
-condition: "global_phys_symptoms_persist.contains('nausea_vomiting')"
+condition: "(global_phys_symptoms != null && !global_phys_symptoms.isEmpty() && global_phys_symptoms_persist.contains('nausea_vomiting'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_back_pelvic_pain_counsel
+description: Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling
+priority: 1
+condition: "((!global_phys_symptoms.isEmpty() && (global_phys_symptoms.contains('low_back_pain') || global_phys_symptoms.contains('pelvic_pain'))) || (!global_phys_symptoms_persist.isEmpty() && (global_phys_symptoms_persist.contains('low_back_pain') || global_phys_symptoms_persist.contains('pelvic_pain')))) && (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_varicose_oedema_counsel
+description: Non-pharmacological options for varicose veins and oedema counseling
+priority: 1
+condition: "((!global_phys_symptoms.isEmpty() && (global_phys_symptoms.contains('varicose_veins') || global_phys_symptoms.contains('oedema'))) || (!global_phys_symptoms_persist.isEmpty() && (global_phys_symptoms_persist.contains('varicose_veins') || global_phys_symptoms_persist.contains('oedema')))) && (!global_other_sym_vvo.isEmpty() && global_other_sym_vvo.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
@@ -328,6 +342,13 @@ condition: "global_partner_hiv_status == 'dont_know' && (global_hiv_test_partner
 actions:
   - "isRelevant = true"
 ---
+name: step6_hiv_prep
+description: hiv_prep
+priority: 1
+condition: "global_pop_hiv_incidence == true"
+actions:
+  - "isRelevant = true"
+---
 name: step6_gdm_risk_counsel
 description: gdm_risk_counsel
 priority: 1
@@ -338,7 +359,7 @@ actions:
 name: step7_birth_plan_toaster
 description: birth_plan_toaster
 priority: 1
-condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_gravida != '' && global_gravida == 1) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation')"
+condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_gravida != '' && global_gravida == 1) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
 actions:
   - "isRelevant = true"
 ---
@@ -388,6 +409,20 @@ name: step8_ifa_weekly
 description: ifa_weekly
 priority: 1
 condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_deworm
+description: deworm
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
+actions:
+  - "isRelevant = true"
+---
+name: step8_malaria_counsel
+description: malaria prevention counsel
+priority: 1
+condition: "global_pop_malaria == true"
 actions:
   - "isRelevant = true"
 ---
