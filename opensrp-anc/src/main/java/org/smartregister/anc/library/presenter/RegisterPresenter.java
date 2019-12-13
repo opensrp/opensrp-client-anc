@@ -172,7 +172,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         getView().refreshList(FetchStatus.fetched);
         goToClientProfile(baseEntityId);
         getView().hideProgressDialog();
-
     }
 
     private void goToClientProfile(String baseEntityId) {
