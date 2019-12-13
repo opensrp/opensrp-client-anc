@@ -164,7 +164,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     public void onRegistrationSaved(boolean isEdit) {
         getView().refreshList(FetchStatus.fetched);
         getView().hideProgressDialog();
-        Utils.navigateToProfile(getView().getContext(), (HashMap<String, String>) pc.getColumnmaps());
     }
 
 }

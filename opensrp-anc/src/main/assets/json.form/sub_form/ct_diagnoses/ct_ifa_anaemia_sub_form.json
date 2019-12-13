@@ -6,7 +6,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Prescribe daily dose of 120 mg iron and 2.8 mg folic acid",
+      "label": "Prescribe daily dose of 120 mg iron and 2.8 mg folic acid for anaemia ",
       "label_text_style": "bold",
       "options": [
         {

@@ -24,6 +24,33 @@
           "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
+    },
+    {
+      "key": "birth_prep_counsel",
+      "openmrs_entity_parent": "161069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Birth preparedness and complications readiness counseling",
+      "label_info_text": "This includes:\n\n- Skilled birth attendant\n\n- Labour and birth companion\n\n- Location of the closest facility for birth and in case of complications\n\n- Funds for any expenses related to birth and in case of complications\n\n- Supplies and materials necessary to bring to the facility\n\n- Support to look after the home and other children while she's away\n\n- Transport to a facility for birth or in case of a complication\n\n- Identification of compatible blood donors in case of complications",
+      "label_info_title": "Birth preparedness and complications readiness counseling",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "done",
+          "text": "Done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "Not done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
     }
   ]
 }

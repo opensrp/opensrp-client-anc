@@ -6,7 +6,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Prescribe aspirin 75 mg daily until delivery (starting at 12 weeks gestation)",
+      "label": "Prescribe aspirin 75 mg daily until delivery (starting at 12 weeks gestation) for pre-eclampsia risk",
       "label_text_style": "bold",
       "options": [
         {
@@ -106,7 +106,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Prescribe aspirin 75 mg daily until delivery (starting at 12 weeks gestation) and ensure that she continues to take her daily calcium supplement of 1.5 to 2 g until delivery ",
+      "label": "Prescribe aspirin 75 mg daily until delivery (starting at 12 weeks gestation) and ensure that she continues to take her daily calcium supplement of 1.5 to 2 g until delivery for pre-eclampsia risk ",
       "label_text_style": "bold",
       "options": [
         {
