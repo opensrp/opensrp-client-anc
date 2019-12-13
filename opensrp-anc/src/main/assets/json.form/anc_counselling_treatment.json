@@ -547,6 +547,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Caffeine reduction counseling",
+        "label_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.\n\nThis includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 ml serving.",
+        "label_info_title": "Caffeine reduction counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -636,6 +638,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Tobacco cessation counseling",
+        "label_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
+        "label_info_title": "Tobacco cessation counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -725,6 +729,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Second-hand smoke counseling",
+        "label_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
+        "label_info_title": "Second-hand smoke counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -814,6 +820,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Condom counseling",
+        "label_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
+        "label_info_title": "Condom counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -899,6 +907,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Alcohol / substance use counseling",
+        "label_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "label_info_title": "Alcohol / substance use counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -994,6 +1004,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Non-pharma measures to relieve nausea and vomiting counseling",
+        "label_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
+        "label_info_title": "Non-pharma measures to relieve nausea and vomiting counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -1078,6 +1090,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Pharmacological treatments for nausea and vomiting counseling",
+        "label_info_text": "Pharmacological treatments for nausea and vomiting, such as doxylamine and metoclopramide, should be reserved for those pregnant women experiencing distressing symptoms that are not relieved by non-pharmacological options, under the supervision of a medical doctor.",
+        "label_info_title": "Pharmacological treatments for nausea and vomiting counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -1174,6 +1188,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
+        "label_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
+        "label_info_title": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -1258,6 +1274,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Antacid preparations to relieve heartburn counseling",
+        "label_info_text": "Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification. Magnesium carbonate and aluminium hydroxide preparations are probably unlikely to cause harm in recommended dosages.",
+        "label_info_title": "Antacid preparations to relieve heartburn counseling",
         "label_text_style": "bold",
         "options": [
           {
@@ -1354,6 +1372,8 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Non-pharmacological treatment for the relief of leg cramps counseling",
+        "label_info_text": "Non-pharmacological therapies, including muscle stretching, relaxation, heat therapy, dorsiflexion of the foot, and massage can be used for the relief of leg cramps in pregnancy.",
+        "label_info_title": "Non-pharmacological treatment for the relief of leg cramps counseling",
         "label_text_style": "bold",
         "options": [
           {
