@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
@@ -37,11 +38,12 @@ import timber.log.Timber;
 public class ProfileOverviewFragment extends BaseProfileFragment {
     public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
     private List<YamlConfigWrapper> yamlConfigListGlobal;
-
     private Button dueButton;
     private ButtonAlertStatus buttonAlertStatus;
     private String baseEntityId;
     private String contactNo;
+    private View noHealthRecordLayout;
+    private RecyclerView profileOverviewRecycler;
 
     public static ProfileOverviewFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -106,6 +108,14 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             dueButton.setVisibility(View.VISIBLE);
 
             attachRecyclerView(facts);
+
+            if (yamlConfigListGlobal.isEmpty()) {
+                noHealthRecordLayout.setVisibility(View.VISIBLE);
+                profileOverviewRecycler.setVisibility(View.GONE);
+            } else {
+                noHealthRecordLayout.setVisibility(View.GONE);
+                profileOverviewRecycler.setVisibility(View.VISIBLE);
+            }
         } catch (Exception e) {
             Timber.e(e, " --> onResumption");
         }
@@ -114,9 +124,8 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     private void attachRecyclerView(Facts facts) {
         ProfileOverviewAdapter adapter = new ProfileOverviewAdapter(getActivity(), yamlConfigListGlobal, facts);
         adapter.notifyDataSetChanged();
-        RecyclerView recyclerView = getActivity().findViewById(R.id.profile_overview_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
+        profileOverviewRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        profileOverviewRecycler.setAdapter(adapter);
     }
 
     private Iterable<Object> loadFile(String filename) throws IOException {
@@ -126,12 +135,15 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_overview, container, false);
+        noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_profile_overview_layout);
+        profileOverviewRecycler = fragmentView.findViewById(R.id.profile_overview_recycler);
         dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
             dueButton.setEnabled(false);
         }
+
         return fragmentView;
     }
 }
