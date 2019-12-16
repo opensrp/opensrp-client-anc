@@ -230,12 +230,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                     JSONObject form = new JSONObject(jsonString);
                     switch (form.getString(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_TYPE)) {
                         case ConstantsUtils.EventTypeUtils.REGISTRATION:
-                            ((RegisterContract.Presenter) presenter).saveForm(jsonString, false);
+                            ((RegisterContract.Presenter) presenter).saveRegistrationForm(jsonString, false);
                             break;
                         case ConstantsUtils.EventTypeUtils.CLOSE:
                             ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
-                            break;
-                        case ConstantsUtils.EventTypeUtils.SITE_CHARACTERISTICS:
                             break;
                         case ConstantsUtils.EventTypeUtils.QUICK_CHECK:
                             Contact contact = new Contact();
@@ -340,13 +338,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         attentionFlagDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag, null);
         dialogBuilder.setView(attentionFlagDialogView);
 
-        attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attentionFlagAlertDialog.dismiss();
-            }
-        });
-
+        attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(view -> attentionFlagAlertDialog.dismiss());
         attentionFlagAlertDialog = dialogBuilder.create();
 
         return attentionFlagAlertDialog;

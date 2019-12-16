@@ -212,10 +212,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                 }
             }.execute();
 
-        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to
-         catchment
-                // TODO Move to catchment
-            }*/ else if (view.getId() == R.id.filter_text_view) {
+        } else if (view.getId() == R.id.filter_text_view) {
             baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }
     }
@@ -245,7 +242,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
         clientAdapter.setTotalcount(matrixCursor.getCount());
-        Timber.tag("total count here").v("%s", clientAdapter.getTotalcount());
+        Timber.tag("total count here").v("%d", clientAdapter.getTotalcount());
         clientAdapter.setCurrentlimit(20);
         if (clientAdapter.getTotalcount() > 0) {
             clientAdapter.setCurrentlimit(clientAdapter.getTotalcount());

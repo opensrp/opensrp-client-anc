@@ -6,11 +6,12 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
@@ -18,8 +19,10 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PreviousContactsDetailsActivity;
 import org.smartregister.anc.library.activity.PreviousContactsTestsActivity;
+import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.adapter.LastContactAdapter;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
+import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -40,11 +43,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 12/07/2018.
  */
 public class ProfileContactsFragment extends BaseProfileFragment implements ProfileFragmentContract.View {
-    public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
     private List<YamlConfigWrapper> lastContactDetails;
     private List<YamlConfigWrapper> lastContactTests;
     private TextView testsHeader;
@@ -56,6 +60,12 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private ProfileFragmentContract.Presenter presenter;
     private String baseEntityId;
     private String contactNo;
+    private Button dueButton;
+    private ButtonAlertStatus buttonAlertStatus;
+    private HashMap<String, String> clientDetails;
+    private View noHealthRecordLayout;
+    private ScrollView profileContactsLayout;
+    private Utils utils = new Utils();
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -74,7 +84,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     protected void initializePresenter() {
-        if (getActivity() == null) {
+        if (getActivity() == null || getActivity().getIntent() == null) {
             return;
         }
         presenter = new ProfileFragmentPresenter(this);
@@ -87,6 +97,13 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         if (testsDisplayLayout != null) {
             testsDisplayLayout.removeAllViews();
         }
+        if (getActivity() != null) {
+            if (getActivity().getIntent() != null) {
+                clientDetails =
+                        (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            }
+            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+        }
     }
 
     @Override
@@ -96,11 +113,24 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         if (testsDisplayLayout != null) {
             testsDisplayLayout.removeAllViews();
         }
-        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        if (getActivity() != null && getActivity().getIntent() != null) {
+            baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        }
+        setUpAlertStatusButton();
         contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
         initializeLastContactDetails(clientDetails);
+
+        if (lastContactDetails.isEmpty() && lastContactTests.isEmpty()) {
+            noHealthRecordLayout.setVisibility(View.VISIBLE);
+            profileContactsLayout.setVisibility(View.GONE);
+        } else {
+            noHealthRecordLayout.setVisibility(View.GONE);
+            profileContactsLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setUpAlertStatusButton() {
+        Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
     }
 
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {
@@ -144,13 +174,13 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 }
 
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage(), e);
+                Timber.e(e, " --> initializeLastContactDetails");
             }
         }
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = utils.loadRulesFiles(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -229,10 +259,6 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         populateTestDetails(data, facts);
     }
 
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
     private void populateTestDetails(List<YamlConfigWrapper> data, Facts facts) {
         if (data != null && data.size() > 0) {
             for (int position = 0; position < data.size(); position++) {
@@ -258,27 +284,41 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
         testsDisplayLayout = testLayout.findViewById(R.id.test_display_layout);
 
+        noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_layout);
+        profileContactsLayout = fragmentView.findViewById(R.id.profile_contacts_layout);
+
+        dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
+        if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
+            dueButton.setOnClickListener((ProfileActivity) getActivity());
+        } else {
+            dueButton.setEnabled(false);
+        }
+
         return fragmentView;
     }
 
     private void goToPreviousContacts() {
-        Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
+            String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
+                    getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
 
-        this.startActivity(intent);
+            this.startActivity(intent);
+        }
     }
 
     private void goToPreviousContactsTests() {
-        Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
+            String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
+                    getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
 
-        this.startActivity(intent);
+            this.startActivity(intent);
+        }
     }
 
     /**

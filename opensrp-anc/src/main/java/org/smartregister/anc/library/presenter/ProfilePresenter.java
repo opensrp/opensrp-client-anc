@@ -75,6 +75,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
+    public void setBaseEntityRegister(String baseEntityId) {
+        /**
+         * Overrriden because the implemented contract requires it.  It can be used to set the base enitty id for a user.
+         */
+    }
+
+    @Override
     public void onRegistrationSaved(boolean isEdit) {
         this.refreshProfileView(getProfileView().getIntentString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         getProfileView().hideProgressDialog();

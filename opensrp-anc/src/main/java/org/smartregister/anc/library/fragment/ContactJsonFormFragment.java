@@ -161,7 +161,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         if (item.getItemId() == R.id.action_save && getActivity() != null) {
             ((ContactJsonFormActivity) getActivity()).proceedToMainContactPage();
         }
-        
+
         if (item.getItemId() == MENU_NAVIGATION) {
             Toast.makeText(getActivity(), "Right navigation item clicked", Toast.LENGTH_SHORT).show();
             return true;
