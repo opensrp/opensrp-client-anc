@@ -362,7 +362,7 @@ public class UtilsTest extends BaseUnitTest {
     @Test
     public void testGetGestationAgeFromEDDate() {
         int gestAge = org.smartregister.anc.library.util.Utils.getGestationAgeFromEDDate("2020-08-01");
-        Assert.assertThat(gestAge, Matchers.lessThanOrEqualTo(6));
+        Assert.assertThat(gestAge, Matchers.greaterThanOrEqualTo(6));
     }
 
     @Test

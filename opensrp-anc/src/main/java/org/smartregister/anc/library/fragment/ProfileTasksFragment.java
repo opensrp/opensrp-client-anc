@@ -39,15 +39,18 @@ public class ProfileTasksFragment extends BaseProfileFragment {
 
     @Override
     protected void onCreation() {
-        HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+        if (getActivity() != null && getActivity().getIntent() != null) {
+            HashMap<String, String> clientDetails =
+                    (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            if (clientDetails != null) {
+                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+            }
+        }
     }
 
     @Override
     protected void onResumption() {
         Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
-        dueButton.setVisibility(View.VISIBLE);
     }
 
     @Override
