@@ -65,6 +65,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private HashMap<String, String> clientDetails;
     private View noHealthRecordLayout;
     private ScrollView profileContactsLayout;
+    private Utils utils = new Utils();
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -83,7 +84,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     protected void initializePresenter() {
-        if (getActivity() == null) {
+        if (getActivity() == null || getActivity().getIntent() == null) {
             return;
         }
         presenter = new ProfileFragmentPresenter(this);
@@ -96,9 +97,13 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         if (testsDisplayLayout != null) {
             testsDisplayLayout.removeAllViews();
         }
-        clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+        if (getActivity() != null) {
+            if (getActivity().getIntent() != null) {
+                clientDetails =
+                        (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            }
+            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+        }
     }
 
     @Override
@@ -108,7 +113,9 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         if (testsDisplayLayout != null) {
             testsDisplayLayout.removeAllViews();
         }
-        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        if (getActivity() != null && getActivity().getIntent() != null) {
+            baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        }
         setUpAlertStatusButton();
         contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
         initializeLastContactDetails(clientDetails);
@@ -124,7 +131,6 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
     private void setUpAlertStatusButton() {
         Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
-        dueButton.setVisibility(View.VISIBLE);
     }
 
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {
@@ -174,7 +180,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void addOtherRuleObjects(Facts facts) throws IOException {
-        Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
+        Iterable<Object> ruleObjects = utils.loadRulesFiles(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT);
 
         for (Object ruleObject : ruleObjects) {
             List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -253,10 +259,6 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         populateTestDetails(data, facts);
     }
 
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
     private void populateTestDetails(List<YamlConfigWrapper> data, Facts facts) {
         if (data != null && data.size() > 0) {
             for (int position = 0; position < data.size(); position++) {
@@ -296,23 +298,27 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void goToPreviousContacts() {
-        Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), PreviousContactsDetailsActivity.class);
+            String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
+                    getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
 
-        this.startActivity(intent);
+            this.startActivity(intent);
+        }
     }
 
     private void goToPreviousContactsTests() {
-        Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
-        String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
-                getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), PreviousContactsTestsActivity.class);
+            String baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP,
+                    getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
 
-        this.startActivity(intent);
+            this.startActivity(intent);
+        }
     }
 
     /**

@@ -53,6 +53,7 @@ import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -394,7 +395,6 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, Context context, boolean isProfile) {
-
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
@@ -571,12 +571,11 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static Integer getTodayContact(String nextContact) {
-        Integer todayContact = 1;
+        int todayContact = 1;
         try {
             todayContact = Integer.valueOf(nextContact) - 1;
-
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> getTodayContact");
         }
 
         return todayContact;
@@ -640,5 +639,16 @@ public class Utils extends org.smartregister.util.Utils {
         }
 
         return false;
+    }
+
+    /**
+     * Loads yaml files that contain rules for the profile displays
+     *
+     * @param filename {@link String}
+     * @return
+     * @throws IOException
+     */
+    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
     }
 }

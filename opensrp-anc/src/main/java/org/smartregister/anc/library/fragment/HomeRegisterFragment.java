@@ -242,7 +242,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
         clientAdapter.setTotalcount(matrixCursor.getCount());
-        Timber.tag("total count here").v("%s", clientAdapter.getTotalcount());
+        Timber.tag("total count here").v("%d", clientAdapter.getTotalcount());
         clientAdapter.setCurrentlimit(20);
         if (clientAdapter.getTotalcount() > 0) {
             clientAdapter.setCurrentlimit(clientAdapter.getTotalcount());

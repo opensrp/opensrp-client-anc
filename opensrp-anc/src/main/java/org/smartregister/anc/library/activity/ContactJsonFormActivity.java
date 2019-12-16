@@ -42,29 +42,31 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
+        if (getIntent() != null) {
+            formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
+        }
         super.onCreate(savedInstanceState);
     }
 
     public void init(String json) {
         try {
-            mJSONObject = new JSONObject(json);
-            if (!mJSONObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
-                mJSONObject = new JSONObject();
+            setmJSONObject(new JSONObject(json));
+            if (!getmJSONObject().has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
+                setmJSONObject(new JSONObject());
                 throw new JSONException("Form encounter_type not set");
             }
 
             //populate them global values
-            if (mJSONObject.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+            if (getmJSONObject().has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
                 globalValues = new Gson()
-                        .fromJson(mJSONObject.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
+                        .fromJson(getmJSONObject().getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
                                 new TypeToken<HashMap<String, String>>() {
                                 }.getType());
             } else {
                 globalValues = new HashMap<>();
             }
 
-            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues, mJSONObject);
+            rulesEngineFactory = new AncRulesEngineFactory(this, globalValues, getmJSONObject());
             setRulesEngineFactory(rulesEngineFactory);
 
             confirmCloseTitle = getString(com.vijay.jsonwizard.R.string.confirm_form_close);
@@ -143,11 +145,13 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
             @Override
             protected Void doInBackground(Void... nada) {
-                Integer contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
-                Contact contact = getContact();
-                contact.setJsonForm(currentJsonState());
-                contact.setContactNumber(contactNo);
-                ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
+                if (getIntent() != null) {
+                    Integer contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
+                    Contact contact = getContact();
+                    contact.setJsonForm(currentJsonState());
+                    contact.setContactNumber(contactNo);
+                    ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
+                }
                 return null;
             }
 
@@ -181,7 +185,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     @Override
     public void onResume() {
         super.onResume();
-        formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
+        if (getIntent() != null) {
+            formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
+        }
         try {
             ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {

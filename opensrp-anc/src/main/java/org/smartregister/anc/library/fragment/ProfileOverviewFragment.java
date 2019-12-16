@@ -23,7 +23,6 @@ import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +41,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     private String contactNo;
     private View noHealthRecordLayout;
     private RecyclerView profileOverviewRecycler;
+    private Utils utils = new Utils();
 
     public static ProfileOverviewFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -60,12 +60,18 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
 
     @Override
     protected void onCreation() {
-        HashMap<String, String> clientDetails =
-                (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
-        yamlConfigListGlobal = new ArrayList<>();
-        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+        if (getActivity() != null && getActivity().getIntent() != null) {
+            HashMap<String, String> clientDetails =
+                    (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            if (clientDetails != null) {
+                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+                contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+            }
+            yamlConfigListGlobal = new ArrayList<>();
+            baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        } else {
+            Timber.d("getIntent or getActivity might be null");
+        }
     }
 
     @Override
@@ -73,7 +79,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
             Facts facts = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContactFacts(baseEntityId, contactNo, false);
-            Iterable<Object> ruleObjects = loadFile(FilePathUtils.FileUtils.PROFILE_OVERVIEW);
+            Iterable<Object> ruleObjects = utils.loadRulesFiles(FilePathUtils.FileUtils.PROFILE_OVERVIEW);
 
             for (Object ruleObject : ruleObjects) {
                 List<YamlConfigWrapper> yamlConfigList = new ArrayList<>();
@@ -103,7 +109,6 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             }
 
             Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
-            dueButton.setVisibility(View.VISIBLE);
 
             attachRecyclerView(facts);
 
@@ -124,10 +129,6 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         adapter.notifyDataSetChanged();
         profileOverviewRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         profileOverviewRecycler.setAdapter(adapter);
-    }
-
-    private Iterable<Object> loadFile(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
     }
 
     @Override
