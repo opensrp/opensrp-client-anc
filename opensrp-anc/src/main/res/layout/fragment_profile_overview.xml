@@ -4,18 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/no_health_data_recorded_profile_overview_layout"
+        layout="@layout/no_health_data_record" />
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profile_overview_recycler"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:foregroundGravity="top"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/patient_detail_button_footer"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/patient_detail_button_footer" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include layout="@layout/footer_due_button" />
-
 </android.support.constraint.ConstraintLayout>
 

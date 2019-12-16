@@ -316,4 +316,7 @@
     <string name="no_contact_schedule">No contact schedule generated yet</string>
     <string name="hospital_referral_title">Hospital referral recorded</string>
     <string name="back">Back</string>
+    <string name="tab_button_image">Tab button image</string>
+    <string name="tap_button_below">Tap the button below to start/complete a contact</string>
+    <string name="no_health_data_recorded">No health data recorded</string>
 </resources>

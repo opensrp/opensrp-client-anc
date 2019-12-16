@@ -3,7 +3,6 @@ package org.smartregister.anc.library.presenter;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.util.Pair;
-import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -12,7 +11,9 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
 import org.smartregister.anc.library.model.RegisterModel;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
@@ -20,18 +21,19 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by keyamn on 27/06/2018.
  */
 public class RegisterPresenter implements RegisterContract.Presenter, RegisterContract.InteractorCallBack {
-
-    public static final String TAG = RegisterPresenter.class.getName();
-
     private WeakReference<RegisterContract.View> viewReference;
     private RegisterContract.Interactor interactor;
     private RegisterContract.Model model;
+    private String baseEntityId;
 
     public RegisterPresenter(RegisterContract.View view) {
         viewReference = new WeakReference<>(view);
@@ -59,7 +61,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
-
         viewReference = null;//set to null on destroy
         // Inform interactor
         interactor.onDestroy(isChangingConfiguration);
@@ -115,39 +116,33 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void saveForm(String jsonString, boolean isEditMode) {
-
+    public void saveRegistrationForm(String jsonString, boolean isEditMode) {
         try {
-
             getView().showProgressDialog(R.string.saving_dialog_title);
-
             Pair<Client, Event> pair = model.processRegistration(jsonString);
             if (pair == null) {
                 return;
             }
 
             interactor.saveRegistration(pair, jsonString, isEditMode, this);
-
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> saveRegistrationForm");
         }
     }
 
     @Override
     public void closeAncRecord(String jsonString) {
-
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            Log.d("JSONResult", jsonString);
+            Timber.d(jsonString);
             getView().showProgressDialog(jsonString.contains(ConstantsUtils.EventTypeUtils.CLOSE) ? R.string.removing_dialog_title :
                     R.string.saving_dialog_title);
 
             interactor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
-
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> closeAncRecord");
 
         }
     }
@@ -157,7 +152,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         try {
             startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> onUniqueIdFetched");
             getView().displayToast(R.string.error_unable_to_start_form);
         }
     }
@@ -168,9 +163,25 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        getView().refreshList(FetchStatus.fetched);
-        getView().hideProgressDialog();
+    public void setBaseEntityRegister(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
     }
 
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        getView().refreshList(FetchStatus.fetched);
+        goToClientProfile(baseEntityId);
+        getView().hideProgressDialog();
+
+    }
+
+    private void goToClientProfile(String baseEntityId) {
+        if (StringUtils.isNotBlank(baseEntityId)) {
+            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepositoryHelper
+                    .getWomanProfileDetails(baseEntityId);
+            if (womanProfileDetails != null) {
+                Utils.navigateToProfile(getView().getContext(), womanProfileDetails);
+            }
+        }
+    }
 }
