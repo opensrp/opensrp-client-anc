@@ -3,7 +3,6 @@ package org.smartregister.anc.library.interactor;
 import android.content.ContentValues;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
-import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -30,13 +29,12 @@ import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.Date;
 
+import timber.log.Timber;
+
 /**
  * Created by keyman 27/06/2018.
  */
 public class RegisterInteractor implements RegisterContract.Interactor {
-
-
-    public static final String TAG = RegisterInteractor.class.getName();
     private AppExecutors appExecutors;
     private UniqueIdRepository uniqueIdRepository;
     private ECSyncHelper syncHelper;
@@ -67,8 +65,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             appExecutors.mainThread().execute(() -> {
                 if (StringUtils.isBlank(entityId)) {
                     callBack.onNoUniqueId();
-                    PullUniqueIdsServiceJob.scheduleJobImmediately(
-                            PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
+                    PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
                 } else {
                     callBack.onUniqueIdFetched(triple, entityId);
                 }
@@ -83,7 +80,11 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                                  final RegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
             saveRegistration(pair, jsonString, isEditMode);
-            appExecutors.mainThread().execute(() -> callBack.onRegistrationSaved(isEditMode));
+            String baseEntityId = getBaseEntityId(pair);
+            appExecutors.mainThread().execute(() -> {
+                callBack.setBaseEntityRegister(baseEntityId);
+                callBack.onRegistrationSaved(isEditMode);
+            });
         };
 
         appExecutors.diskIO().execute(runnable);
@@ -135,7 +136,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
                 }
             } catch (Exception e) {
-                Log.e(TAG, "", e);
+                Timber.e(e, " --> removeWomanFromANCRegister");
             } finally {
                 Utils.postStickyEvent(new PatientRemovedEvent());
             }
@@ -210,8 +211,18 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> saveRegistration");
         }
+    }
+
+    private String getBaseEntityId(Pair<Client, Event> clientEventPair) {
+        String baseEntityId = "";
+        if (clientEventPair != null) {
+            Client client = clientEventPair.first;
+            baseEntityId = client.getBaseEntityId();
+        }
+
+        return baseEntityId;
     }
 
     public ECSyncHelper getSyncHelper() {

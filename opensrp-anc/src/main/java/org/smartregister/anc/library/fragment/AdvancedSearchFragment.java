@@ -133,7 +133,6 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
     }
 
     private void search() {
-
         String fn = firstName.getText().toString();
         String ln = lastName.getText().toString();
         String id = ancId.getText().toString();

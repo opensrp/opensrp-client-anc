@@ -27,7 +27,6 @@ import java.util.List;
  * Created by keymanc on 11/07/2018.
  */
 public class RegisterPresenterTest extends BaseUnitTest {
-
     @Mock
     private RegisterContract.View view;
 
@@ -192,7 +191,7 @@ public class RegisterPresenterTest extends BaseUnitTest {
         Mockito.doNothing().when(interactor).saveRegistration(ArgumentMatchers.any((Class<Pair<Client, Event>>) (Object) Pair.class),
                 ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean(), ArgumentMatchers.any(RegisterContract.InteractorCallBack.class));
 
-        presenter.saveForm(jsonString, false);
+        presenter.saveRegistrationForm(jsonString, false);
 
         Mockito.verify(view).showProgressDialog(R.string.saving_dialog_title);
         Mockito.verify(model).processRegistration(jsonString);
@@ -233,7 +232,6 @@ public class RegisterPresenterTest extends BaseUnitTest {
     @Test
     public void testOnRegistrationSaved() {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
-
         Mockito.doNothing().when(view).refreshList(ArgumentMatchers.any(FetchStatus.class));
 
         registerPresenter.onRegistrationSaved(false);

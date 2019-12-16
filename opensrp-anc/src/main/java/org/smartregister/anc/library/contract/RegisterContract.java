@@ -34,7 +34,7 @@ public interface RegisterContract {
 
         void startForm(String formName, String entityId, String metadata, String currentLocationId) throws Exception;
 
-        void saveForm(String jsonString, boolean isEditMode);
+        void saveRegistrationForm(String jsonString, boolean isEditMode);
 
         void closeAncRecord(String jsonString);
 
@@ -72,6 +72,8 @@ public interface RegisterContract {
         void onUniqueIdFetched(Triple<String, String, String> triple, String entityId);
 
         void onNoUniqueId();
+
+        void setBaseEntityRegister(String baseEntityId);
 
         void onRegistrationSaved(boolean isEdit);
     }

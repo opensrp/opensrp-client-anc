@@ -46,6 +46,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import timber.log.Timber;
+
 /**
  * Created by keyman on 26/06/2018.
  */
@@ -204,23 +206,13 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                 }
 
                 @Override
-                protected void onPreExecute() {
-
-                    //  showProgressDialog("Saving contact progress...");
-                }
-
-                @Override
                 protected void onPostExecute(Void result) {
-                    // hideProgressDialog();
                     baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
 
                 }
             }.execute();
 
-        } /*else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_SYNC) { // Need to implement move to
-         catchment
-                // TODO Move to catchment
-            }*/ else if (view.getId() == R.id.filter_text_view) {
+        } else if (view.getId() == R.id.filter_text_view) {
             baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }
     }
@@ -250,7 +242,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment
     @Override
     public void recalculatePagination(AdvancedMatrixCursor matrixCursor) {
         clientAdapter.setTotalcount(matrixCursor.getCount());
-        Log.v("total count here", "" + clientAdapter.getTotalcount());
+        Timber.tag("total count here").v("%d", clientAdapter.getTotalcount());
         clientAdapter.setCurrentlimit(20);
         if (clientAdapter.getTotalcount() > 0) {
             clientAdapter.setCurrentlimit(clientAdapter.getTotalcount());
@@ -269,19 +261,15 @@ public class HomeRegisterFragment extends BaseRegisterFragment
             return super.onCreateLoader(id, args);
         } else {
             globalQrSearch = false;
-            switch (id) {
-                case RecyclerViewFragment.LOADER_ID:
-                    // Returns a new CursorLoader
-                    return new CursorLoader(getActivity()) {
-                        @Override
-                        public Cursor loadInBackground() {
-                            return matrixCursor;
-                        }
-                    };
-                default:
-                    // An invalid id was passed in
-                    return null;
-            }
+            if (id == RecyclerViewFragment.LOADER_ID) {// Returns a new CursorLoader
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        return matrixCursor;
+                    }
+                };
+            }// An invalid id was passed in
+            return null;
         }
     }
 }

@@ -63,6 +63,7 @@ public abstract class ConstantsUtils {
     public static final String CONTACT_NO = "contact_no";
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";
+    public static final String CONTINUE = "Continue";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";

@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hamcrest.Matchers;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import org.powermock.modules.junit4.rule.PowerMockRule;
+import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.Context;
@@ -35,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.emory.mathcs.backport.java.util.Collections;
+import timber.log.Timber;
 
 import static org.smartregister.anc.library.util.Utils.getKeyByValue;
 import static org.smartregister.anc.library.util.Utils.getTodayContact;
@@ -342,5 +345,83 @@ public class UtilsTest extends BaseUnitTest {
                 break;
         }
         return result;
+    }
+
+    @Test
+    public void testGetGestationAgeFromEDDateWhenDateisZero() {
+        int gestAge = org.smartregister.anc.library.util.Utils.getGestationAgeFromEDDate("0");
+        Assert.assertEquals(0, gestAge);
+    }
+
+    @Test
+    public void testGetGestationAgeFromEDDateToThrowException() {
+        int gestAge = org.smartregister.anc.library.util.Utils.getGestationAgeFromEDDate("10-12-2020");
+        Assert.assertEquals(0, gestAge);
+    }
+
+    @Test
+    public void testGetGestationAgeFromEDDate() {
+        int gestAge = org.smartregister.anc.library.util.Utils.getGestationAgeFromEDDate("2020-08-01");
+        Assert.assertThat(gestAge, Matchers.greaterThanOrEqualTo(6));
+    }
+
+    @Test
+    public void testGetInProgressDisplayTemplateOnRegister() {
+        try {
+            String displayTemplate = Whitebox.invokeMethod(org.smartregister.anc.library.util.Utils.class, "getDisplayTemplate", RuntimeEnvironment.application, ConstantsUtils.AlertStatusUtils.IN_PROGRESS, false);
+            Assert.assertEquals("CONTACT %1$s\n IN PROGRESS", displayTemplate);
+        } catch (Exception e) {
+            Timber.e(e, " --> testGetDisplayTemplate");
+        }
+    }
+
+    @Test
+    public void testGetInProgressDisplayTemplateOnProfile() {
+        try {
+            String displayTemplate = Whitebox.invokeMethod(org.smartregister.anc.library.util.Utils.class, "getDisplayTemplate", RuntimeEnvironment.application, ConstantsUtils.AlertStatusUtils.IN_PROGRESS, true);
+            Assert.assertEquals("CONTACT %1$s · IN PROGRESS", displayTemplate);
+        } catch (Exception e) {
+            Timber.e(e, " --> testGetDisplayTemplate");
+        }
+    }
+
+    @Test
+    public void testGetNotDueDisplayTemplateOnRegister() {
+        try {
+            String displayTemplate = Whitebox.invokeMethod(org.smartregister.anc.library.util.Utils.class, "getDisplayTemplate", RuntimeEnvironment.application, ConstantsUtils.AlertStatusUtils.NOT_DUE, false);
+            Assert.assertEquals("CONTACT %1$d\n DUE \n %2$s", displayTemplate);
+        } catch (Exception e) {
+            Timber.e(e, " --> testGetDisplayTemplate");
+        }
+    }
+
+    @Test
+    public void testGetNotDueDisplayTemplateOnProfile() {
+        try {
+            String displayTemplate = Whitebox.invokeMethod(org.smartregister.anc.library.util.Utils.class, "getDisplayTemplate", RuntimeEnvironment.application, ConstantsUtils.AlertStatusUtils.NOT_DUE, true);
+            Assert.assertEquals("CONTACT %1$d · DUE · %2$s", displayTemplate);
+        } catch (Exception e) {
+            Timber.e(e, " --> testGetDisplayTemplate");
+        }
+    }
+
+    @Test
+    public void testGetDefaultDisplayTemplateOnRegister() {
+        try {
+            String displayTemplate = Whitebox.invokeMethod(org.smartregister.anc.library.util.Utils.class, "getDisplayTemplate", RuntimeEnvironment.application, ConstantsUtils.AlertStatusUtils.DUE, false);
+            Assert.assertEquals("START\nCONTACT %1$s\n%2$s", displayTemplate);
+        } catch (Exception e) {
+            Timber.e(e, " --> testGetDisplayTemplate");
+        }
+    }
+
+    @Test
+    public void testGetDefaultDisplayTemplateOnProfile() {
+        try {
+            String displayTemplate = Whitebox.invokeMethod(org.smartregister.anc.library.util.Utils.class, "getDisplayTemplate", RuntimeEnvironment.application, ConstantsUtils.AlertStatusUtils.DUE, true);
+            Assert.assertEquals("START · CONTACT %1$s · %2$s", displayTemplate);
+        } catch (Exception e) {
+            Timber.e(e, " --> testGetDisplayTemplate");
+        }
     }
 }
