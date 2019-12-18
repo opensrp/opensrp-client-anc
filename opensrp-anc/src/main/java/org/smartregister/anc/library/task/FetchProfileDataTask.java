@@ -25,7 +25,6 @@ public class FetchProfileDataTask extends AsyncTask<String, Integer, Map<String,
     }
 
     protected void onPostExecute(Map<String, String> client) {
-
         Utils.postStickyEvent(new ClientDetailsFetchedEvent(client, isForEdit));
     }
 }

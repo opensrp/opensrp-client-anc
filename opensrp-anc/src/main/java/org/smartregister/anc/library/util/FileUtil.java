@@ -9,8 +9,6 @@ import java.io.OutputStream;
  * Created by ndegwamartin on 13/11/2018.
  */
 public class FileUtil {
-    public static String TAG = FileUtil.class.getCanonicalName();
-
     public static File createFileFromPath(String fileLocation) {
         return new File(fileLocation);
     }

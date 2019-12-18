@@ -14,19 +14,9 @@ public abstract class BaseContactInteractor {
     }
 
     protected void fetchWomanDetails(final String baseEntityId, final BaseContactContract.InteractorCallback callBack) {
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-
-                final Map<String, String> womanDetails = PatientRepositoryHelper.getWomanProfileDetails(baseEntityId);
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onWomanDetailsFetched(womanDetails);
-                    }
-                });
-            }
+        Runnable runnable = () -> {
+            final Map<String, String> womanDetails = PatientRepositoryHelper.getWomanProfileDetails(baseEntityId);
+            appExecutors.mainThread().execute(() -> callBack.onWomanDetailsFetched(womanDetails));
         };
 
         appExecutors.diskIO().execute(runnable);

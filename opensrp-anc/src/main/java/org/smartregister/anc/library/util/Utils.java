@@ -53,6 +53,7 @@ import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,6 +66,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 14/03/2018.
@@ -377,7 +380,6 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
-
         Intent intent = new Intent(context, ProfileActivity.class);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);
@@ -393,7 +395,6 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, Context context, boolean isProfile) {
-
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
@@ -475,7 +476,7 @@ public class Utils extends org.smartregister.util.Utils {
                 return 0;
             }
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, " --> getGestationAgeFromEDDate");
             return 0;
         }
     }
@@ -570,12 +571,11 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static Integer getTodayContact(String nextContact) {
-        Integer todayContact = 1;
+        int todayContact = 1;
         try {
             todayContact = Integer.valueOf(nextContact) - 1;
-
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> getTodayContact");
         }
 
         return todayContact;
@@ -639,5 +639,16 @@ public class Utils extends org.smartregister.util.Utils {
         }
 
         return false;
+    }
+
+    /**
+     * Loads yaml files that contain rules for the profile displays
+     *
+     * @param filename {@link String}
+     * @return
+     * @throws IOException
+     */
+    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
     }
 }
