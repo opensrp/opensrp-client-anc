@@ -492,8 +492,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "SBP must be equal or greater than 60"
+          "value": "20",
+          "err": "SBP must be equal or greater than 20"
         },
         "v_max": {
           "value": "260",
@@ -568,8 +568,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "DBP must be equal to or greater than 60"
+          "value": "20",
+          "err": "DBP must be equal to or greater than 20"
         },
         "v_max": {
           "value": "260",
@@ -719,8 +719,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "SBP must be equal or greater than 60"
+          "value": "20",
+          "err": "SBP must be equal or greater than 20"
         },
         "v_max": {
           "value": "260",
@@ -776,8 +776,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "DBP must be equal or greater than 60"
+          "value": "20",
+          "err": "DBP must be equal or greater than 20"
         },
         "v_max": {
           "value": "260",
@@ -1269,8 +1269,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "50",
-          "err": "Pulse rate must be equal to or greater than 50"
+          "value": "20",
+          "err": "Pulse rate must be equal to or greater than 20"
         },
         "v_max": {
           "value": "200",
@@ -1328,6 +1328,18 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "20",
+          "err": "Pulse rate must be equal to or greater than 20"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Pulse rate must be equal to or less than 200"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter repeated pulse rate"
