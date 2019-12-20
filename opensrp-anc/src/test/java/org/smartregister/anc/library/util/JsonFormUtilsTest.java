@@ -1,13 +1,13 @@
 package org.smartregister.anc.library.util;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
-
-import junit.framework.Assert;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +26,8 @@ import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
@@ -60,7 +62,7 @@ public class JsonFormUtilsTest {
     private JSONObject formObject;
 
     @Mock
-    private AncLibrary AncLibrary;
+    private AncLibrary ancLibrary;
 
     @Mock
     private Compressor compressor;
@@ -97,6 +99,9 @@ public class JsonFormUtilsTest {
 
     @Mock
     private Photo photo;
+
+    @Mock
+    private Resources resources;
 
     private final String registerFormJsonString = "{\r\n\t\"count\": \"1\",\r\n\t\"encounter_type\": \"ANC Registration\"," +
             "\r\n\t\"entity_id\": \"\",\r\n\t\"relational_id\": \"\",\r\n\t\"metadata\": {\r\n\t\t\"start\": " +
@@ -154,8 +159,6 @@ public class JsonFormUtilsTest {
 
     @Test
     public void testGetFormAsJsonInjectsCurrentLocationIDinFormCorrectly() throws Exception {
-
-
         org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, "random-form-name", DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(null, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
@@ -172,7 +175,6 @@ public class JsonFormUtilsTest {
 
     @Test
     public void testGetFormAsJsonInjectsANCIDInRegisterFormCorrectly() throws Exception {
-
         JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
         JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
@@ -184,7 +186,6 @@ public class JsonFormUtilsTest {
 
     @Test
     public void testGetFormAsJsonInjectsEntityIDinCloseFormCorrectly() throws Exception {
-
         formObject.put(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID, "");
         JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
@@ -197,7 +198,6 @@ public class JsonFormUtilsTest {
 
     @Test
     public void testValidateParametersReturnsCorrectResult() throws Exception {
-
         String jsonFormObjectString = formObject.toString();
         JSONArray jsonFormObjectFields = org.smartregister.anc.library.util.JsonFormUtils.fields(formObject);
 
@@ -217,16 +217,14 @@ public class JsonFormUtilsTest {
     @Test
     @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
     public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParams() throws Exception {
-
-
         String PROVIDER_ID = "dummy-provider-id";
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(ancLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
         PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(bitmap);
 
-        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
 
 
@@ -242,14 +240,11 @@ public class JsonFormUtilsTest {
         org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
 
         Mockito.verify(imageRepository).add(ArgumentMatchers.any(ProfileImage.class));
-
-
     }
 
     @Test
     @PrepareForTest({FormUtils.class, CoreLibrary.class, LocationHelper.class, ImageUtils.class})
     public void testGetAutoPopulatedJsonEditFormStringInjectsValuesCorrectlyInForm() throws Exception {
-
         String firstName = "First Name";
         String lastName = "Last Name";
 
@@ -314,7 +309,35 @@ public class JsonFormUtilsTest {
 
         Assert.assertNotNull(resultJsonFormString);
         JSONAssert.assertEquals(expectedProcessedJson, resultJsonFormString, new CustomComparator(JSONCompareMode.LENIENT, new Customization("step1.fields[key=age]", new AgeValueMatcher())));
-
     }
 
+    @Test
+    public void testGetTemplate() {
+        String template = "Occupation: {occupation}";
+        JsonFormUtils jsonFormUtils = new JsonFormUtils();
+        JsonFormUtils.Template actualTemplate = jsonFormUtils.getTemplate(template);
+        Assert.assertEquals("Occupation", actualTemplate.title);
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, DrishtiApplication.class})
+    public void testGenerateNextContactSchedule() {
+        String edd = "2020-01-10";
+        List<String> contactSchedule = new ArrayList<>();
+        contactSchedule.add("31");
+        contactSchedule.add("35");
+        contactSchedule.add("37");
+        contactSchedule.add("39");
+        contactSchedule.add("40");
+        contactSchedule.add("41");
+
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(ancLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
+
+        JsonFormUtils jsonFormUtils = new JsonFormUtils();
+        List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
+        Assert.assertEquals("Contact 1", contactSummaryModels.get(0).getContactName());
+    }
 }

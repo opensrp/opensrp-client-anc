@@ -819,7 +819,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             for (String contactWeeks : contactSchedule) {
                 contactDates.add(new ContactSummaryModel(String.format(
-                        AncLibrary.getInstance().getApplicationContext().getString(R.string.contact_number),
+                        AncLibrary.getInstance().getContext().getStringResource(R.string.contact_number),
                         contactSequence++),
                         Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
                                 Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),

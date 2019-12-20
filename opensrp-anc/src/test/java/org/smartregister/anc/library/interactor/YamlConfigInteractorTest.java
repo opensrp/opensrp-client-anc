@@ -16,6 +16,7 @@ import org.mockito.junit.MockitoRule;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
@@ -60,7 +61,7 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
     private AncLibrary AncLibrary;
 
     @Mock
-    private android.content.Context context;
+    private Context context;
 
     @Mock
     private DetailsRepository detailsRepository;
@@ -131,8 +132,8 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
 
         PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId)).thenReturn(details);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getApplicationContext()).thenReturn(context);
-        PowerMockito.when(context.getString(R.string.contact_number)).thenReturn("Contact %s number");
+        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %s number");
         PowerMockito.when(AncLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
 
@@ -185,8 +186,8 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
 
         PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId)).thenReturn(details);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getApplicationContext()).thenReturn(context);
-        PowerMockito.when(context.getString(R.string.contact_number)).thenReturn("Contact %s number");
+        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %s number");
         PowerMockito.when(AncLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
         PowerMockito.when(Utils.getListFromString(contactScheduleList)).thenReturn(contactSchedule);
