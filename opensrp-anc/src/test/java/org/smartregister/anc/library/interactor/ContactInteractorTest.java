@@ -25,7 +25,6 @@ import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ContactContract;
-import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;

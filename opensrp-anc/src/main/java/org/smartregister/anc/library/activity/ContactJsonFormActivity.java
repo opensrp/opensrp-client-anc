@@ -2,7 +2,6 @@ package org.smartregister.anc.library.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -22,6 +21,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
+import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 
@@ -141,32 +141,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void onBackPressed() {
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... nada) {
-                if (getIntent() != null) {
-                    Integer contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
-                    Contact contact = getContact();
-                    contact.setJsonForm(currentJsonState());
-                    contact.setContactNumber(contactNo);
-                    ContactJsonFormUtils.persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPreExecute() {
-                // not used
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                ContactJsonFormActivity.this.finish();
-            }
-
-        }.execute();
-
+        new BackPressedPersistPartialTask(getContact(), this, getIntent(), currentJsonState()).execute();
     }
 
     public Contact getContact() {
