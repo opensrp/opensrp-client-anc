@@ -375,9 +375,18 @@ public class AncRulesEngineHelperTest extends BaseUnitTest {
     }
 
     @Test
+    public void testCompareDateWithDurationsAddedAgainstToday() {
+        AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
+        assertEquals(-1, ancRulesEngineHelperSpy.compareDateWithDurationsAddedAgainstToday("31-05-2018", "28d"));
+        assertEquals(-1, ancRulesEngineHelperSpy.compareDateWithDurationsAddedAgainstToday("28-11-2019", "4d"));
+        assertEquals(-1, ancRulesEngineHelperSpy.compareDateWithDurationsAddedAgainstToday("28-11-2018", "2m"));
+        assertEquals(1, ancRulesEngineHelperSpy.compareDateWithDurationsAddedAgainstToday("28-11-2030", "1y"));
+    }
+
+    @Test
     public void testGetRelevance() {
         AncRulesEngineHelper ancRulesEngineHelperSpy = Mockito.spy(ancRulesEngineHelper);
-        boolean isRelevant = ancRulesEngineHelperSpy.getRelevance(new Facts(),"true");
+        boolean isRelevant = ancRulesEngineHelperSpy.getRelevance(new Facts(), "true");
         assertTrue(isRelevant);
     }
 }
