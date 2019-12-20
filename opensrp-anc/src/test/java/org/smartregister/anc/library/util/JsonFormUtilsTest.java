@@ -100,9 +100,6 @@ public class JsonFormUtilsTest {
     @Mock
     private Photo photo;
 
-    @Mock
-    private Resources resources;
-
     private final String registerFormJsonString = "{\r\n\t\"count\": \"1\",\r\n\t\"encounter_type\": \"ANC Registration\"," +
             "\r\n\t\"entity_id\": \"\",\r\n\t\"relational_id\": \"\",\r\n\t\"metadata\": {\r\n\t\t\"start\": " +
             "{\r\n\t\t\t\"openmrs_entity_parent\": \"\",\r\n\t\t\t\"openmrs_entity\": \"concept\"," +
@@ -320,6 +317,23 @@ public class JsonFormUtilsTest {
     }
 
     @Test
+    public void testGetTemplateWithNoParts() {
+        String template = "Occupation Here";
+        JsonFormUtils jsonFormUtils = new JsonFormUtils();
+        JsonFormUtils.Template actualTemplate = jsonFormUtils.getTemplate(template);
+        Assert.assertEquals("Occupation Here", actualTemplate.title);
+        Assert.assertEquals("Yes", actualTemplate.detail);
+    }
+
+    @Test
+    public void testGetTemplateWithOnePart() {
+        String template = "Occupation Here:";
+        JsonFormUtils jsonFormUtils = new JsonFormUtils();
+        JsonFormUtils.Template actualTemplate = jsonFormUtils.getTemplate(template);
+        Assert.assertEquals("Occupation Here", actualTemplate.title);
+    }
+
+    @Test
     @PrepareForTest({AncLibrary.class, DrishtiApplication.class})
     public void testGenerateNextContactSchedule() {
         String edd = "2020-01-10";
@@ -339,5 +353,27 @@ public class JsonFormUtilsTest {
         JsonFormUtils jsonFormUtils = new JsonFormUtils();
         List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
         Assert.assertEquals("Contact 1", contactSummaryModels.get(0).getContactName());
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, DrishtiApplication.class})
+    public void testGenerateNextContactScheduleWithNullOrEmptyEdd() {
+        String edd = "";
+        List<String> contactSchedule = new ArrayList<>();
+        contactSchedule.add("31");
+        contactSchedule.add("35");
+        contactSchedule.add("37");
+        contactSchedule.add("39");
+        contactSchedule.add("40");
+        contactSchedule.add("41");
+
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(ancLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
+
+        JsonFormUtils jsonFormUtils = new JsonFormUtils();
+        List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
+        Assert.assertEquals(0, contactSummaryModels.size());
     }
 }

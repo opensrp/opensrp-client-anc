@@ -813,7 +813,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                                                                  Integer lastContactSequence) {
         List<ContactSummaryModel> contactDates = new ArrayList<>();
         Integer contactSequence = lastContactSequence;
-        if (!TextUtils.isEmpty(edd)) {
+        if (StringUtils.isNotBlank(edd)) {
             LocalDate localDate = new LocalDate(edd);
             LocalDate lmpDate = localDate.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
 
