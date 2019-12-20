@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.util;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 
 import org.apache.commons.lang3.tuple.Triple;
