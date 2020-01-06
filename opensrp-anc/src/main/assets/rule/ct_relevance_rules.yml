@@ -317,14 +317,14 @@ actions:
 name: step6_pe_risk_aspirin
 description: pe_risk_aspirin
 priority: 1
-condition: "global_pop_low_calcium == false"
+condition: "global_preeclampsia_risk == 1 && global_pop_low_calcium == false"
 actions:
   - "isRelevant = true"
 ---
 name: step6_pe_risk_aspirin_calcium
 description: pe_risk_aspirin_calcium
 priority: 1
-condition: "global_pop_low_calcium == true"
+condition: "global_preeclampsia_risk == 1 && global_pop_low_calcium == true"
 actions:
   - "isRelevant = true"
 ---
