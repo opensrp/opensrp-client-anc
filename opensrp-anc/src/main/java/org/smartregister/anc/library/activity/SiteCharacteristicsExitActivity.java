@@ -35,7 +35,7 @@ public class SiteCharacteristicsExitActivity extends BaseActivity implements Vie
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_site_characteristics_home_register) {
-            goToHomeRegisterPage();
+            goToPageAfterSiteCharacteristicsSetup();
         } else if (view.getId() == R.id.txt_title_label) {
             presenter.launchSiteCharacteristicsFormForEdit();
         } else {
