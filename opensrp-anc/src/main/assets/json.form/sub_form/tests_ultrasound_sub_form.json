@@ -584,44 +584,15 @@
       }
     },
     {
-      "key": "select_gest_age_edd",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
-      "label": "Select preferred gestational age:",
+      "key": "select_gest_age_edd_label",
+      "type": "label",
+      "text": "Select preferred gestational age",
       "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
-      "label_info_title": "Select preferred gestational age",
       "label_text_style": "bold",
-      "options": [
-        {
-          "key": "lmp",
-          "text": "Using LMP",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "extra_info": "GA: {lmp_gest_age} <br/> EDD: {lmp_edd}"
-        },
-        {
-          "key": "ultrasound",
-          "text": "Using ultrasound",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "extra_info": "GA: {ultrasound_gest_age} <br> EDD: {ultrasound_edd}"
-        },
-        {
-          "key": "sfh",
-          "text": "Using SFH or abdominal palpation",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "extra_info": "GA: {sfh_gest_age}<br>EDD: {sfh_edd}"
-        }
-      ],
+      "text_color": "#000000",
       "v_required": {
         "value": true,
-        "err": "Please select preferred gestational age"
+        "err": "Select preferred gestational age"
       },
       "relevance": {
         "rules-engine": {
@@ -629,6 +600,276 @@
             "rules-file": "ultrasound_sub_form_relevance_rules.yml"
           }
         }
+      }
+    },
+    {
+      "key": "lmp_gest_age_selection",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "",
+      "display_label": "Preferred Gestational age indicator",
+      "options": [
+        {
+          "key": "lmp",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "text": "Using LMP",
+          "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select preferred gestational age"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_gest_age_selection",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "",
+      "display_label": "Preferred Gestational age indicator",
+      "options": [
+        {
+          "key": "ultrasound",
+          "text": "Using ultrasound",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select preferred gestational age"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "sfh_gest_age_selection",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "",
+      "display_label": "Preferred Gestational age indicator",
+      "options": [
+        {
+          "key": "sfh",
+          "text": "Using SFH or abdominal palpation",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select preferred gestational age"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "lmp_ultrasound_gest_age_selection",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "",
+      "display_label": "Preferred Gestational age indicator",
+      "options": [
+        {
+          "key": "lmp",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "text": "Using LMP",
+          "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
+        },
+        {
+          "key": "ultrasound",
+          "text": "Using ultrasound",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select preferred gestational age"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "sfh_ultrasound_gest_age_selection",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "",
+      "display_label": "Preferred Gestational age indicator",
+      "options": [
+        {
+          "key": "ultrasound",
+          "text": "Using ultrasound",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+        },
+        {
+          "key": "sfh",
+          "text": "Using SFH or abdominal palpation",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "Please select preferred gestational age"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "select_gest_age_edd_all_values",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "select_gest_age_edd_lmp_ultrasound",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "select_gest_age_edd_sfh_ultrasound",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "select_gest_age_edd",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
       },
       "calculation": {
         "rules-engine": {

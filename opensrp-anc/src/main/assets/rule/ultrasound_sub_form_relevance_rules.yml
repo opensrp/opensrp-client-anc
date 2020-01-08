@@ -69,14 +69,14 @@ condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earli
 actions:
   - "isRelevant = true"
 ---
-name: step1_ultrasound_done_early_toaster
+name: global_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1
 condition: "((step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier') && step1_ultrasound_gest_age_wks < 24)"
 actions:
   - "isRelevant = true"
 ---
-name: step2_ultrasound_done_early_toaster
+name: global_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1
 condition: "((step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && step2_ultrasound_gest_age_wks < 24)"
@@ -178,5 +178,89 @@ name: step2_select_gest_age_edd
 description: Select preferred gestational age
 priority: 1
 condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_select_gest_age_edd_label
+description: select_gest_age_edd_label
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_select_gest_age_edd_label
+description: select_gest_age_edd_label
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_sfh_ultrasound_gest_age_selection
+description: sfh_ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'no' && global_ultrasound_done == 'yes' && step2_ultrasound_gest_age_wks >= 24)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_lmp_ultrasound_gest_age_selection
+description: lmp_ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_sfh_gest_age_selection
+description: sfh_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'no' && global_ultrasound_done == 'no'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_ultrasound_gest_age_selection
+description: ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'no' && global_ultrasound_done == 'yes' && (step2_ultrasound_gest_age_wks == '' || step2_ultrasound_gest_age_wks < 24)))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_lmp_gest_age_selection
+description: lmp_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'yes' && global_ultrasound_done == 'no'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sfh_ultrasound_gest_age_selection
+description: sfh_ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'no' && global_ultrasound_done == 'yes' && step1_ultrasound_gest_age_wks >= 24)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lmp_ultrasound_gest_age_selection
+description: lmp_ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sfh_gest_age_selection
+description: sfh_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'no' && global_ultrasound_done == 'no'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_ultrasound_gest_age_selection
+description: ultrasound_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'no' && global_ultrasound_done == 'yes' && (step1_ultrasound_gest_age_wks == '' || step1_ultrasound_gest_age_wks < 24)))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lmp_gest_age_selection
+description: lmp_gest_age_selection
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'yes' && global_ultrasound_done == 'no'))"
 actions:
   - "isRelevant = true"
