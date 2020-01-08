@@ -68,22 +68,14 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     public void goToLastPage() {
 
         if (this instanceof SiteCharacteristicsActivity) {
-            goToPageAfterSiteCharacteristicsSetup();
+            goToHomeRegisterPage();
         } else {
             goToSiteCharacteristicsExitPage();
         }
     }
 
     public void goToHomeRegisterPage() {
-        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass())
-                .putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
-                        getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
-        startActivity(intent);
-        finish();
-    }
-
-    public void goToPageAfterSiteCharacteristicsSetup() {
-        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getLandingPageActivityClass())
+        Intent intent = new Intent(this,AncLibrary.getInstance().getActivityConfiguration().getLandingPageActivityClass())
                 .putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
                         getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
