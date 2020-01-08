@@ -12,11 +12,14 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.view.activity.DrishtiApplication;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 09/04/2018.
@@ -46,14 +49,12 @@ public class AncRepository extends Repository {
         SettingsRepository.onUpgrade(database);
         PartialContactRepositoryHelper.createTable(database);
         PreviousContactRepositoryHelper.createTable(database);
-
         //onUpgrade(database, 1, 2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(AncRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+        Timber.tag(AncRepository.class.getName()).w("Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
         AncLibrary.getInstance().performMigrations(db);
 
@@ -102,7 +103,7 @@ public class AncRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Log.e(TAG, "Database Error. " + e.getMessage());
+            Timber.e(e, "Database Error");
             return null;
         }
 

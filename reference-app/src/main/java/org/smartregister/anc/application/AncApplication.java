@@ -31,6 +31,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
@@ -39,14 +40,11 @@ import static org.smartregister.util.Log.logInfo;
  * Created by ndegwamartin on 21/06/2018.
  */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
-    private static final String TAG = AncApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
-
     private String password;
 
     @Override
     public void onCreate() {
-
         super.onCreate();
 
         mInstance = this;
@@ -56,8 +54,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //Initialize Modules
         CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
-        ConfigurableViewsLibrary.init(context, getRepository());
+        AncLibrary.init(context,BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
+        ConfigurableViewsLibrary.init(context);
 
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
@@ -68,7 +66,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         try {
             Utils.saveLanguage("en");
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> saveLanguage");
         }
 
         //init Job Manager
@@ -175,7 +173,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
             DrishtiSyncScheduler.stop(getApplicationContext());
             context.allSharedPreferences().saveIsSyncInProgress(false);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> cleanUpSyncState");
         }
     }
 

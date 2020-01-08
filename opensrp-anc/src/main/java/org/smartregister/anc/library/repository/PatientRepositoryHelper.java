@@ -11,6 +11,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -23,7 +24,7 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
-public class PatientRepositoryHelper {
+public class PatientRepositoryHelper extends BaseRepository {
     private static final String[] projection =
             new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
                     DBConstantsUtils.KeyUtils.DOB_UNKNOWN, DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,
@@ -124,8 +125,7 @@ public class PatientRepositoryHelper {
                 contentValues.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
             }
         }
-        AncLibrary.getInstance().getRepository().getWritableDatabase()
-                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
+       getMasterRepository().getWritableDatabase().update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{patientDetail.getBaseEntityId()});
     }
 
@@ -138,7 +138,7 @@ public class PatientRepositoryHelper {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.EDD);
         }
-        AncLibrary.getInstance().getRepository().getWritableDatabase()
+        getMasterRepository().getWritableDatabase()
                 .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
@@ -151,7 +151,7 @@ public class PatientRepositoryHelper {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
         }
-        AncLibrary.getInstance().getRepository().getWritableDatabase()
+       getMasterRepository().getWritableDatabase()
                 .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }

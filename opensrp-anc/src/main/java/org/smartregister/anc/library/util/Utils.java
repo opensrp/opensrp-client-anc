@@ -570,6 +570,8 @@ public class Utils extends org.smartregister.util.Utils {
         int todayContact = 1;
         try {
             todayContact = Integer.valueOf(nextContact) - 1;
+        } catch (NumberFormatException nfe) {
+            Timber.e(nfe, " --> getTodayContact");
         } catch (Exception e) {
             Timber.e(e, " --> getTodayContact");
         }

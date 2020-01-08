@@ -112,18 +112,20 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
         try {
             String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
             Timber.d(jsonString);
-            JSONObject form = new JSONObject(jsonString);
-            getProfileView().showProgressDialog(
-                    form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE) ?
-                            R.string.removing_dialog_title : R.string.saving_dialog_title);
+            if (jsonString != null) {
+                JSONObject form = new JSONObject(jsonString);
+                getProfileView().showProgressDialog(
+                        form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE) ?
+                                R.string.removing_dialog_title : R.string.saving_dialog_title);
 
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
-                Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
-                mRegisterInteractor.saveRegistration(values, jsonString, true, this);
-            } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE)) {
-                mRegisterInteractor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
-            } else {
-                getProfileView().hideProgressDialog();
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
+                    Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
+                    mRegisterInteractor.saveRegistration(values, jsonString, true, this);
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE)) {
+                    mRegisterInteractor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
+                } else {
+                    getProfileView().hideProgressDialog();
+                }
             }
         } catch (Exception e) {
             Timber.e(e, " --> processFormDetailsSave");
