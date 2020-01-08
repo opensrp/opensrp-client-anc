@@ -212,7 +212,7 @@ actions:
 name: step2_sfh_gest_age_selection
 description: sfh_gest_age_selection
 priority: 1
-condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'no' && global_ultrasound_done == 'no'))"
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'no' && global_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
 ---
@@ -226,7 +226,7 @@ actions:
 name: step2_lmp_gest_age_selection
 description: lmp_gest_age_selection
 priority: 1
-condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'yes' && global_ultrasound_done == 'no'))"
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
 ---
@@ -247,7 +247,7 @@ actions:
 name: step1_sfh_gest_age_selection
 description: sfh_gest_age_selection
 priority: 1
-condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'no' && global_ultrasound_done == 'no'))"
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'no' && global_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
 ---
@@ -261,6 +261,6 @@ actions:
 name: step1_lmp_gest_age_selection
 description: lmp_gest_age_selection
 priority: 1
-condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == '' || global_ultrasound_done == '' || (global_lmp_known == 'yes' && global_ultrasound_done == 'no'))"
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
