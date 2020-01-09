@@ -391,7 +391,7 @@
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "specify_info": "specify date",
             "specify_widget": "date_picker",
-            "max_date": "today",
+            "max_date": "today-14d",
             "min_date": "today-280d"
           },
           {
