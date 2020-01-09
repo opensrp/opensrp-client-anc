@@ -242,4 +242,15 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         }
         return convertedContactDate;
     }
+
+    /**
+     * Gets the dates string and the duration to be added then does a date comparison with the current date
+     *
+     * @param dateString {@link String}
+     * @param duration   {@link String}
+     * @return comparison {@link Integer}
+     */
+    public int compareDateWithDurationsAddedAgainstToday(String dateString, String duration) {
+        return compareDateAgainstToday(addDuration(dateString, duration));
+    }
 }

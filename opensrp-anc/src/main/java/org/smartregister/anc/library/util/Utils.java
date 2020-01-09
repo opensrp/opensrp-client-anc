@@ -74,7 +74,6 @@ import timber.log.Timber;
  */
 
 public class Utils extends org.smartregister.util.Utils {
-
     public static final SimpleDateFormat DB_DF = new SimpleDateFormat(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
     public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_DATE_FORMAT);
     public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_SUMMARY_DATE_FORMAT);
@@ -83,7 +82,6 @@ public class Utils extends org.smartregister.util.Utils {
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
-    private static final String TAG = "Anc Utils";
     private static final String OTHER_SUFFIX = ", other]";
 
     static {
@@ -248,7 +246,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, " --> proceedToContact");
             Utils.showToast(context,
                     "Error proceeding to contact for client " + personObjectClient.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
         }
@@ -496,11 +494,10 @@ public class Utils extends org.smartregister.util.Utils {
         String result = alertStatus;
 
         if (!TextUtils.isEmpty(lastContactDate)) {
-
             try {
                 result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.AlertStatusUtils.TODAY : alertStatus;
             } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
+                Timber.e(e, " --> processContactDoneToday");
             }
         }
 
@@ -509,7 +506,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
                                                 ButtonAlertStatus buttonAlertStatus) {
-
         dueButton.setVisibility(View.VISIBLE);
         dueButton.setText(buttonAlertStatus.buttonText);
         dueButton.setTag(R.id.GESTATION_AGE, buttonAlertStatus.gestationAge);
