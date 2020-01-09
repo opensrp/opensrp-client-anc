@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
@@ -14,12 +13,13 @@ import org.smartregister.anc.library.util.JsonFormUtils;
 
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 27/08/2018.
  */
 public abstract class BaseActivity extends AppCompatActivity implements SiteCharacteristicsContract.View {
 
-    private static final String TAG = BaseActivity.class.getCanonicalName();
     protected ProgressDialog progressDialog;
     protected SiteCharacteristicsContract.Presenter presenter;
 
@@ -33,12 +33,10 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra("json");
-                Log.d("JSONResult", jsonString);
-
+                Timber.d("JSONResult %s", jsonString);
                 presenter.saveSiteCharacteristics(jsonString);
-
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
 
         }
@@ -76,21 +74,19 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     }
 
     public void goToHomeRegisterPage() {
-        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
-                getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
+        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getLandingPageActivityClass())
+                .putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
+                        getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
-
-        finish();//finish this
+        finish();
     }
 
     public void goToSiteCharacteristicsExitPage() {
-        Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
-                getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
+        Intent intent = new Intent(this, SiteCharacteristicsExitActivity.class)
+                .putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
+                        getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
-
-        finish();//finish this
+        finish();
     }
 
     @Override
@@ -98,11 +94,9 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
         String formMetadata = JsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(this, characteristics);
         try {
-
             JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
-
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
         }
     }
 }
