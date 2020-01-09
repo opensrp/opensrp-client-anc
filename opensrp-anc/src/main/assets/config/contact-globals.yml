@@ -211,3 +211,5 @@ fields:
   - "syph_test_status"
   - "ultrasound"
   - "hepb_positive"
+  - "lmp_known"
+  - "ultrasound_done"
