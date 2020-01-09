@@ -15,6 +15,8 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
@@ -77,7 +79,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                 }
             }
         } catch (JSONException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return facts;

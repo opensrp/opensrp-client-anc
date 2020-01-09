@@ -100,6 +100,7 @@ public class ContactVisit {
             womanDetail.setYellowFlagCount(yellowFlagCount);
             womanDetail.setRedFlagCount(redFlagCount);
             womanDetail.setContactStatus(details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS));
+            womanDetail.setPreviousContactStatus(details.get(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS));
             womanDetail.setReferral(true);
             womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
         }
@@ -147,6 +148,7 @@ public class ContactVisit {
         womanDetail.setNextContact(nextContact);
         womanDetail.setNextContactDate(nextContactVisitDate);
         womanDetail.setContactStatus(ConstantsUtils.AlertStatusUtils.TODAY);
+        womanDetail.setPreviousContactStatus(ConstantsUtils.AlertStatusUtils.TODAY);
         return womanDetail;
     }
 

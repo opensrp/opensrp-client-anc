@@ -519,17 +519,13 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     String key = keys.next();
 
                     if (ConstantsUtils.GLOBAL_PREVIOUS.equals(key)) {
-
                         JSONArray globalPreviousValues = object.getJSONArray(key);
                         globalValueFields = getListValues(globalPreviousValues);
-
                     }
 
                     if (ConstantsUtils.EDITABLE_FIELDS.equals(key)) {
-
                         JSONArray editableFieldValues = object.getJSONArray(key);
                         editableFields = getListValues(editableFieldValues);
-
                     }
 
                     if (key.startsWith(RuleConstant.STEP)) {

@@ -254,6 +254,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'cardview-v7'
         exclude group: 'com.android.support', module: 'support-v4'
     }
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.8'
     annotationProcessor 'com.jakewharton:butterknife:10.2.0'
     implementation 'net.zetetic:android-database-sqlcipher:4.2.0@aar'
     implementation 'commons-validator:commons-validator:1.6'

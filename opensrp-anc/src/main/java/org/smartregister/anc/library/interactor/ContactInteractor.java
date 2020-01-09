@@ -88,7 +88,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     nextContactVisitDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
                 }
 
-
                 PartialContacts partialContacts =
                         new PartialContacts(details, referral, baseEntityId, isFirst).invoke();
                 PartialContactRepositoryHelper partialContactRepositoryHelper = partialContacts.getPartialContactRepositoryHelper();
@@ -178,9 +177,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
 
             }
-            details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
             details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetail.getNextContact().toString());
             details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
+            details.put(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS, womanDetail.getPreviousContactStatus());
         }
     }
 

@@ -45,7 +45,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getViewLayoutId());
-
         findViewById(R.id.btn_profile_registration_info).setOnClickListener(this);
 
         Toolbar toolbar = findViewById(R.id.collapsing_toolbar);
@@ -75,7 +74,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             mProfilePresenter.processFormDetailsSave(data, allSharedPreferences);
-
         }
     }
 
@@ -109,7 +107,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
                 Timber.e(e, "%s  --> startFormForEdit()", this.getClass().getCanonicalName());
             }
         }
-
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
@@ -135,10 +132,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
         }
     }
 
-    public AppBarLayout getProfileAppBarLayout() {
-        return appBarLayout;
-    }
-
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         if (appBarLayoutScrollRange == -1) {
@@ -160,8 +153,16 @@ public abstract class BaseProfileActivity extends SecuredActivity
             progressDialog.setCancelable(false);
             progressDialog.setTitle(getString(saveMessageStringIdentifier));
             progressDialog.setMessage(getString(R.string.please_wait_message));
+            setProgressDialog(progressDialog);
         }
         if (!isFinishing()) progressDialog.show();
     }
 
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
+
+    public void setProgressDialog(ProgressDialog progressDialog) {
+        this.progressDialog = progressDialog;
+    }
 }
