@@ -208,3 +208,129 @@ priority: 1
 condition: "(step2_no_of_fetuses >= 2) || (global_prev_preg_comps.contains('pre_eclampsia_eclampsia') || global_prev_preg_comps.contains('convulsions')) || (global_health_conditions.contains('diabetes') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))"
 actions:
   - "calculation = 1"
+---
+name: step2_lmp_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd': global_lmp_edd]"
+---
+name: step2_ultrasound_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd]"
+---
+name: step2_sfh_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+---
+name: step2_lmp_ultrasound_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd]"
+---
+name: step2_sfh_ultrasound_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+---
+name: step2_select_gest_age_edd_sfh_ultrasound
+description: select_gest_age_edd_sfh_ultrasound
+priority: 1
+condition: "step2_sfh_ultrasound_gest_age_selection != ''"
+actions:
+  - "calculation = step2_sfh_ultrasound_gest_age_selection"
+---
+name: step2_select_gest_age_edd_lmp_ultrasound
+description: select_gest_age_edd_lmp_ultrasound
+priority: 1
+condition: "step2_lmp_ultrasound_gest_age_selection != ''"
+actions:
+  - "calculation = step2_lmp_ultrasound_gest_age_selection"
+---
+name: step2_select_gest_age_edd_all_values
+description: select_gest_age_edd_all_values
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (global_lmp_known == 'yes' && global_ultrasound_done == 'no') ? step2_lmp_gest_age_selection : (global_lmp_known == 'no' && global_ultrasound_done == 'yes' && (step2_ultrasound_gest_age_wks == '' || step2_ultrasound_gest_age_wks < 24)) ? step2_ultrasound_gest_age_selection : step2_sfh_gest_age_selection"
+---
+name: step2_select_gest_age_edd
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step2_sfh_ultrasound_gest_age_selection != '' && step2_sfh_ultrasound_gest_age_selection != 0) ? step2_sfh_ultrasound_gest_age_selection : (step2_select_gest_age_edd_lmp_ultrasound != '' && step2_select_gest_age_edd_lmp_ultrasound != 0) ? step2_select_gest_age_edd_lmp_ultrasound : step2_select_gest_age_edd_all_values"
+---
+name: step1_lmp_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd]"
+---
+name: step1_ultrasound_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd]"
+---
+name: step1_sfh_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+---
+name: step1_lmp_ultrasound_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['lmp_gest_age': global_lmp_gest_age,'lmp_edd':global_lmp_edd, 'ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd]"
+---
+name: step1_sfh_ultrasound_gest_age_selection
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd,'sfh_gest_age':global_sfh_ga_hidden,'sfh_edd':global_sfh_edd]"
+---
+name: step1_select_gest_age_edd_sfh_ultrasound
+description: select_gest_age_edd_sfh_ultrasound
+priority: 1
+condition: "step1_sfh_ultrasound_gest_age_selection != ''"
+actions:
+  - "calculation = step1_sfh_ultrasound_gest_age_selection"
+---
+name: step1_select_gest_age_edd_lmp_ultrasound
+description: select_gest_age_edd_lmp_ultrasound
+priority: 1
+condition: "step1_lmp_ultrasound_gest_age_selection != ''"
+actions:
+  - "calculation = step1_lmp_ultrasound_gest_age_selection"
+---
+name: step1_select_gest_age_edd_all_values
+description: select_gest_age_edd_all_values
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (global_lmp_known == 'yes' && global_ultrasound_done == 'no') ? step1_lmp_gest_age_selection : (global_lmp_known == 'no' && global_ultrasound_done == 'yes' && (step1_ultrasound_gest_age_wks == '' || step1_ultrasound_gest_age_wks < 24)) ? step1_ultrasound_gest_age_selection : step1_sfh_gest_age_selection"
+---
+name: step1_select_gest_age_edd
+description: Gest age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_sfh_ultrasound_gest_age_selection != '' && step1_sfh_ultrasound_gest_age_selection != 0) ? step1_sfh_ultrasound_gest_age_selection : (step1_select_gest_age_edd_lmp_ultrasound != '' && step1_select_gest_age_edd_lmp_ultrasound != 0) ? step1_select_gest_age_edd_lmp_ultrasound : step1_select_gest_age_edd_all_values"
