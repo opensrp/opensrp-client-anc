@@ -20,7 +20,6 @@ import timber.log.Timber;
  */
 public abstract class BaseActivity extends AppCompatActivity implements SiteCharacteristicsContract.View {
 
-    private static final String TAG = BaseActivity.class.getCanonicalName();
     protected ProgressDialog progressDialog;
     protected SiteCharacteristicsContract.Presenter presenter;
 
@@ -37,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
                 Timber.d("JSONResult %s", jsonString);
                 presenter.saveSiteCharacteristics(jsonString);
             } catch (Exception e) {
-                Timber.tag(TAG).e(e);
+                Timber.e(e);
             }
 
         }
@@ -75,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     }
 
     public void goToHomeRegisterPage() {
-        Intent intent = new Intent(this,AncLibrary.getInstance().getActivityConfiguration().getLandingPageActivityClass())
+        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getLandingPageActivityClass())
                 .putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN,
                         getIntent().getBooleanExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, false));
         startActivity(intent);
@@ -97,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
         try {
             JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
         } catch (Exception e) {
-            Timber.tag(TAG).e(e);
+            Timber.e(e);
         }
     }
 }
