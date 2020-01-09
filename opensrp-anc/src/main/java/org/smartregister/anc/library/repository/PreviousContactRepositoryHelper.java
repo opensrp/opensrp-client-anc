@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -16,9 +14,7 @@ import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
-import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;

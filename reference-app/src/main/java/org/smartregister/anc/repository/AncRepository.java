@@ -1,7 +1,6 @@
 package org.smartregister.anc.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -12,7 +11,6 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
-import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
@@ -26,8 +24,6 @@ import timber.log.Timber;
  */
 
 public class AncRepository extends Repository {
-
-    private static final String TAG = AncRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
 

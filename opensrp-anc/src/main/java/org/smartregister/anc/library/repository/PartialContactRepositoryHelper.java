@@ -10,9 +10,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -2,7 +2,6 @@ package org.smartregister.anc.library;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -32,7 +31,6 @@ import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -234,14 +232,14 @@ public class AncLibrary {
 
     public void populateGlobalSettings() {
 
-        Setting setting = getCharactersitics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
-        Setting populationSetting = getCharactersitics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
+        Setting setting = getCharacteristics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
+        Setting populationSetting = getCharacteristics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 
         populateGlobalSettingsCore(setting);
         populateGlobalSettingsCore(populationSetting);
     }
 
-    public Setting getCharactersitics(String characteristics) {
+    public Setting getCharacteristics(String characteristics) {
         return AncLibrary.getInstance().getContext().allSettings().getSetting(characteristics);
     }
 
