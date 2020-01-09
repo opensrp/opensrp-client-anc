@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.activity;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 /**
@@ -9,9 +10,12 @@ import android.support.annotation.NonNull;
 public class ActivityConfiguration {
 
     private Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass;
+    private Class<? extends Activity> landingPageActivityClass;
+
 
     public ActivityConfiguration() {
         setHomeRegisterActivityClass(BaseHomeRegisterActivity.class);
+        setLandingPageActivityClass(BaseHomeRegisterActivity.class);
     }
 
     public Class<? extends BaseHomeRegisterActivity> getHomeRegisterActivityClass() {
@@ -20,5 +24,13 @@ public class ActivityConfiguration {
 
     public void setHomeRegisterActivityClass(@NonNull Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
         this.homeRegisterActivityClass = homeRegisterActivityClass;
+    }
+
+    public Class<? extends Activity> getLandingPageActivityClass() {
+        return landingPageActivityClass;
+    }
+
+    public void setLandingPageActivityClass(Class<? extends Activity> landingPageActivityClass) {
+        this.landingPageActivityClass = landingPageActivityClass;
     }
 }
