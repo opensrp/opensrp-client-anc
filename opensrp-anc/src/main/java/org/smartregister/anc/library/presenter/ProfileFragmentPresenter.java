@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
@@ -15,12 +14,12 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
 public class ProfileFragmentPresenter implements ProfileFragmentContract.Presenter {
-    private static final String TAG = ProfileFragmentPresenter.class.getCanonicalName();
-
     private WeakReference<ProfileFragmentContract.View> mProfileView;
     private ProfileFragmentContract.Interactor mProfileInteractor;
 
@@ -77,7 +76,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                 }
             }
         } catch (JSONException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return facts;

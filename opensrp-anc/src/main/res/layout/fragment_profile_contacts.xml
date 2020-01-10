@@ -14,10 +14,11 @@
     <ScrollView
         android:id="@+id/profile_contacts_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/status_button">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

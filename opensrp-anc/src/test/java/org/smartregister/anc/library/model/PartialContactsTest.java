@@ -1,247 +1,49 @@
-package org.smartregister.anc.library.activity;
+package org.smartregister.anc.library.model;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.util.Pair;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
-import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.android.controller.ActivityController;
-import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.contract.ProfileContract;
-import org.smartregister.anc.library.domain.YamlConfig;
-import org.smartregister.anc.library.model.PartialContact;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.EventClientRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static org.robolectric.Shadows.shadowOf;
-
-public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
-
-    private ActivityController<ContactSummaryFinishActivity> activityController;
-    private ContactSummaryFinishActivity activity;
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, PreviousContactRepositoryHelper.class, PartialContactRepositoryHelper.class, EventClientRepository.class, LocationHelper.class, Pair.class})
+@PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
+public class PartialContactsTest extends BaseUnitTest {
     @Mock
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-
-    @Mock
-    private ProfileContract.Presenter presenter;
-
-    @Mock
-    private TextView textView;
-
-    @Mock
-    private AppBarLayout appBarLayout;
+    private AncLibrary ancLibrary;
 
     @Mock
     private PartialContactRepositoryHelper partialContactRepositoryHelper;
 
-    @Mock
-    private ImageRenderHelper imageRenderHelper;
-
-    @Mock
-    private Intent intent;
-
-    @Mock
-    private MenuItem saveFinishMenuItem;
-
     @Before
-    @Override
     public void setUp() {
-        super.setUp();
-        Intent contactSummaryActivityIntent = new Intent(RuntimeEnvironment.application,
-                ContactSummaryFinishActivity.class);
-        contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, DUMMY_CONTACT_NO);
-        activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class,
-                contactSummaryActivityIntent);
-        activity = activityController.create().resume().get();
+        MockitoAnnotations.initMocks(this);
     }
 
-
-    @Test
-    public void testActivityIsNotNull() {
-        Assert.assertNotNull(activity);
-    }
-
-    @Test
-    public void testActivityStartedWithIntent() {
-        Intent passedIntent = activity.getIntent();
-        Assert.assertNotNull(passedIntent);
-
-    }
-
-    @Test
-    public void testNameViewIsInitialized() {
-
-        TextView nameView = Whitebox.getInternalState(activity, "nameView");
-        Assert.assertNotNull(nameView);
-    }
-
-    @Test
-    public void testAgeViewIsInitialized() {
-
-        TextView ageView = Whitebox.getInternalState(activity, "ageView");
-        Assert.assertNotNull(ageView);
-    }
-
-
-    @Test
-    public void testGestationAgeViewIsInitialized() {
-
-        TextView gestationAgeView = Whitebox.getInternalState(activity, "gestationAgeView");
-        Assert.assertNotNull(gestationAgeView);
-    }
-
-    @Test
-    public void testAncViewIsInitialized() {
-
-        TextView ancIdView = Whitebox.getInternalState(activity, "ancIdView");
-        Assert.assertNotNull(ancIdView);
-    }
-
-    @Test
-    public void testOnDestroyShouldInvokeOnDestroyMethodOfPresenter() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
-
-        spyActivity.onDestroy();
-
-        Mockito.verify(presenter).onDestroy(ArgumentMatchers.anyBoolean());
-    }
-
-    @Test
-    public void testSetProfileNameShouldSetTextViewWithCorrectContent() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Whitebox.setInternalState(spyActivity, "nameView", textView);
-
-        spyActivity.setProfileName(TEST_STRING);
-
-        Mockito.verify(textView).setText(TEST_STRING);
-    }
-
-    @Test
-    public void testSetProfileAgeShouldSetAgeViewWithCorrectContent() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Whitebox.setInternalState(spyActivity, "ageView", textView);
-
-        spyActivity.setProfileAge(TEST_STRING);
-
-        Mockito.verify(textView).setText("AGE " + TEST_STRING);
-    }
-
-    @Test
-    public void testSetProfileGestatonAgeShouldSetGestationAgeViewWithCorrectContent() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Whitebox.setInternalState(spyActivity, "gestationAgeView", textView);
-
-        spyActivity.setProfileGestationAge(TEST_STRING);
-
-        Mockito.verify(textView).setText("GA: " + TEST_STRING + " WEEKS");
-
-        spyActivity.setProfileGestationAge(null);
-
-        Mockito.verify(textView).setText("GA");
-    }
-
-    @Test
-    public void testSetProfileIDShouldSetAncIdViewWithCorrectContent() {
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Whitebox.setInternalState(spyActivity, "ancIdView", textView);
-
-        spyActivity.setProfileID(TEST_STRING);
-
-        Mockito.verify(textView).setText("ID: " + TEST_STRING);
-    }
-
-    @Test
-    public void testOnOffsetChangedShouldSetCorrectValuesForCollapsingBar() {
-
-
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Mockito.doReturn(0).when(appBarLayout).getTotalScrollRange();
-
-        Whitebox.setInternalState(spyActivity, "collapsingToolbarLayout", collapsingToolbarLayout);
-
-
-        spyActivity.onOffsetChanged(appBarLayout, 0);
-
-        Mockito.verify(appBarLayout).getTotalScrollRange();
-
-
-//When app bar collapsed
-        Whitebox.setInternalState(spyActivity, "womanName", TEST_STRING);
-
-        spyActivity.onOffsetChanged(appBarLayout, 0);
-
-        Mockito.verify(collapsingToolbarLayout).setTitle(TEST_STRING);
-
-
-//When app bar maximized
-        Whitebox.setInternalState(spyActivity, "appBarTitleIsShown", true);
-
-        spyActivity.onOffsetChanged(appBarLayout, 10);
-
-        Mockito.verify(collapsingToolbarLayout).setTitle(null);
-
-    }
-
-    @Test
-    public void testSaveAndFinishButtonClickedOpensContactSummarySendPage() {
-
-        Mockito.doReturn(R.id.save_finish_menu_item).when(saveFinishMenuItem).getItemId();
-        activity.onOptionsItemSelected(saveFinishMenuItem);
-
-        Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
-    }
-
-    @Test
-    @Ignore
-    public void testBackButtonClickedOpensMainContactPage() {
-        activity.onBackPressed();
-        Intent expectedIntent = new Intent(activity, MainContactActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
-    }
-
-    @Test
-    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() {
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
-        Mockito.doNothing().when(spyActivity).registerEventBus();
-        Mockito.doReturn(partialContactRepositoryHelper).when(spyActivity).getPartialContactRepository();
-
-
+    public List<PartialContact> getPartialContacts() {
         List<PartialContact> partialContactsList = new ArrayList<>();
 
         PartialContact partialContact = new PartialContact();
@@ -268,56 +70,71 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         partialContact.setType("anc_symptoms_follow_up");
 
         partialContactsList.add(partialContact);
+        return partialContactsList;
+    }
 
-        Mockito.doReturn(partialContactsList).when(partialContactRepositoryHelper).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
+    public Map<String, String> getDetails() {
+        Map<String, String> details = new HashMap<>();
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "4");
+        details.put(ConstantsUtils.REFERRAL, "-3");
+        return details;
+    }
 
-        ReflectionHelpers.callInstanceMethod(spyActivity, "process");
-        List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
 
-        Assert.assertNotNull(list);
-        Assert.assertEquals(39, list.size());
+    @Test
+    public void testPartialContactsInvoke() {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryHelper.class);
+        PowerMockito.mockStatic(PartialContactRepositoryHelper.class);
+        PowerMockito.mockStatic(EventClientRepository.class);
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.mockStatic(Pair.class);
+
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getPartialContactRepositoryHelper()).thenReturn(partialContactRepositoryHelper);
+        PowerMockito.when(partialContactRepositoryHelper.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(getPartialContacts());
+        PartialContacts partialContacts = new PartialContacts(getDetails(), null, DUMMY_BASE_ENTITY_ID, true).invoke();
+
+        Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
+        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(),"anc_profile");
     }
 
     @Test
-    public void testSetProfileImageInvokesImageRenderHelperMethodsWithCorrectParameters() {
+    public void testNotFirstPartialContactsInvoke() {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryHelper.class);
+        PowerMockito.mockStatic(PartialContactRepositoryHelper.class);
+        PowerMockito.mockStatic(EventClientRepository.class);
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.mockStatic(Pair.class);
 
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getPartialContactRepositoryHelper()).thenReturn(partialContactRepositoryHelper);
+        PowerMockito.when(partialContactRepositoryHelper.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(getPartialContacts());
+        PartialContacts partialContacts = new PartialContacts(getDetails(), null, DUMMY_BASE_ENTITY_ID, false).invoke();
 
-        Whitebox.setInternalState(spyActivity, "imageRenderHelper", imageRenderHelper);
-
-        spyActivity.setProfileImage(DUMMY_BASE_ENTITY_ID);
-
-        ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
-
-        Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.ic_woman_with_baby);
-
+        Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
+        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(),"anc_profile");
     }
 
     @Test
-    public void testGetIntentStringInvokesGetStringExtraMethodOfIntentWithCorrectParameters() {
+    public void testReferralPartialContactsInvoke() {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryHelper.class);
+        PowerMockito.mockStatic(PartialContactRepositoryHelper.class);
+        PowerMockito.mockStatic(EventClientRepository.class);
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.mockStatic(Pair.class);
 
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getPartialContactRepositoryHelper()).thenReturn(partialContactRepositoryHelper);
+        PowerMockito.when(partialContactRepositoryHelper.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(getPartialContacts());
+        PartialContacts partialContacts = new PartialContacts(getDetails(), "-3", DUMMY_BASE_ENTITY_ID, false).invoke();
 
-        Mockito.doReturn(intent).when(spyActivity).getIntent();
-
-        spyActivity.getIntentString(TEST_STRING);
-
-        Mockito.verify(intent).getStringExtra(TEST_STRING);
-
-    }
-
-    @After
-    public void tearDown() {
-        destroyController();
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return activity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return activityController;
+        Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
+        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(),"anc_profile");
     }
 }

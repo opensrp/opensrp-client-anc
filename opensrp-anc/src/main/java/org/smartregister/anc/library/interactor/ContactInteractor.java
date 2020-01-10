@@ -88,7 +88,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     nextContactVisitDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
                 }
 
-
                 PartialContacts partialContacts =
                         new PartialContacts(details, referral, baseEntityId, isFirst).invoke();
                 PartialContactRepositoryHelper partialContactRepositoryHelper = partialContacts.getPartialContactRepositoryHelper();
@@ -142,7 +141,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        Integer nextContact =
+        int nextContact =
                 details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ?
                         Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
         nextContact += 1;
@@ -166,20 +165,23 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
         //update woman profile details
-        if (details != null && details.get(ConstantsUtils.REFERRAL) != null) {
-            details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
-            details.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, details.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT));
-            details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, details.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
-        } else {
-            details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
-            details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
-            details.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
-            details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
+        if (details != null) {
+            if (details.get(ConstantsUtils.REFERRAL) != null) {
+                details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
+                details.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, details.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT));
+                details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, details.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
+                details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
+            } else {
+                details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
+                details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, Utils.getDBDateToday());
+                details.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, womanDetail.getYellowFlagCount().toString());
+                details.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetail.getRedFlagCount().toString());
 
+            }
+            details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetail.getNextContact().toString());
+            details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
+            details.put(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS, womanDetail.getPreviousContactStatus());
         }
-        details.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetail.getContactStatus());
-        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetail.getNextContact().toString());
-        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetail.getNextContactDate());
     }
 
     private void addReferralGa(String baseEntityId, Map<String, String> details) {

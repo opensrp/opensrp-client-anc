@@ -383,6 +383,14 @@
         "value": ""
       },
       {
+        "key": "previous_contact_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "contact_status",
+        "type": "hidden",
+        "value": ""
+      },
+      {
         "key": "red_flag_count",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",

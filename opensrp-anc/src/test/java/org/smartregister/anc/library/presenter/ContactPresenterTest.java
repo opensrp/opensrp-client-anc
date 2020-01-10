@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -14,7 +13,6 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.repository.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +33,6 @@ public class ContactPresenterTest extends BaseUnitTest {
     private PartialContactRepositoryHelper partialContactRepositoryHelper;
 
     @Mock
-    private Repository repository;
-
-    @Mock
     private Context context;
 
     private AncLibrary ancLibrary;
@@ -48,7 +43,7 @@ public class ContactPresenterTest extends BaseUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        AncLibrary.init(context, repository, 1);
+        AncLibrary.init(context, 1);
         ancLibrary = Mockito.spy(AncLibrary.getInstance());
 
         presenter = new ContactPresenter(view);

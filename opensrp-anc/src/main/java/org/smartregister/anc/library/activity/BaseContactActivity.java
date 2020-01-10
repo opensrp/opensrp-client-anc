@@ -69,12 +69,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
     protected void setupViews() {
         initializeRecyclerView();
         View cancelButton = findViewById(R.id.undo_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactActionHandler.onClick(v);
-            }
-        });
+        cancelButton.setOnClickListener(v -> contactActionHandler.onClick(v));
         findViewById(R.id.finalize_contact).setOnClickListener(contactActionHandler);
     }
 
@@ -159,29 +154,17 @@ public abstract class BaseContactActivity extends SecuredActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
-                goToMainRegister();
-            }
+        saveButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+            goToMainRegister();
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
-                goToMainRegister();
-            }
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        closeButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+            goToMainRegister();
         });
 
         dialog.show();

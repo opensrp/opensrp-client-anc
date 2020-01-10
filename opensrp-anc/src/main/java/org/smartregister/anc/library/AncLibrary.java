@@ -2,7 +2,6 @@ package org.smartregister.anc.library;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -17,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -31,7 +31,6 @@ import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.repository.Repository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -43,18 +42,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import id.zelory.compressor.Compressor;
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-02
  */
 
 public class AncLibrary {
-
-    private static final String TAG = AncLibrary.class.getCanonicalName();
-
     private static AncLibrary instance;
     private final Context context;
-    private final Repository repository;
     private JsonSpecHelper jsonSpecHelper;
     private PartialContactRepositoryHelper partialContactRepositoryHelper;
     private PreviousContactRepositoryHelper previousContactRepositoryHelper;
@@ -78,9 +74,8 @@ public class AncLibrary {
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
 
-    private AncLibrary(@NonNull Context contextArg, @NonNull Repository repositoryArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = contextArg;
-        repository = repositoryArg;
         this.subscriberInfoIndex = subscriberInfoIndex;
         this.databaseVersion = dbVersion;
         this.activityConfiguration = activityConfiguration;
@@ -99,7 +94,6 @@ public class AncLibrary {
 
     private void setUpEventHandling() {
         try {
-
             EventBusBuilder eventBusBuilder = EventBus.builder()
                     .addIndex(new ANCEventBusIndex());
 
@@ -108,11 +102,9 @@ public class AncLibrary {
             }
 
             eventBusBuilder.installDefaultEventBus();
-
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> setUpEventHandling");
         }
-
     }
 
     private void initializeYamlConfigs() {
@@ -123,22 +115,22 @@ public class AncLibrary {
         yaml = new Yaml(constructor);
     }
 
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion) {
-        init(context, repository, dbVersion, new ActivityConfiguration());
+    public static void init(@NonNull Context context, int dbVersion) {
+        init(context, dbVersion, new ActivityConfiguration());
     }
 
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
-        init(context, repository, dbVersion, activityConfiguration, null);
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
+        init(context, dbVersion, activityConfiguration, null);
     }
 
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         if (instance == null) {
-            instance = new AncLibrary(context, repository, dbVersion, activityConfiguration, subscriberInfoIndex);
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex);
         }
     }
 
-    public static void init(@NonNull Context context, @NonNull Repository repository, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
-        init(context, repository, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
+    public static void init(@NonNull Context context,  int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        init(context, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -165,19 +157,15 @@ public class AncLibrary {
 
     public PartialContactRepositoryHelper getPartialContactRepositoryHelper() {
         if (partialContactRepositoryHelper == null) {
-            partialContactRepositoryHelper = new PartialContactRepositoryHelper(getRepository());
+            partialContactRepositoryHelper = new PartialContactRepositoryHelper();
         }
 
         return partialContactRepositoryHelper;
     }
 
-    public Repository getRepository() {
-        return repository;
-    }
-
     public PreviousContactRepositoryHelper getPreviousContactRepositoryHelper() {
         if (previousContactRepositoryHelper == null) {
-            previousContactRepositoryHelper = new PreviousContactRepositoryHelper(getRepository());
+            previousContactRepositoryHelper = new PreviousContactRepositoryHelper();
         }
 
         return previousContactRepositoryHelper;
@@ -185,14 +173,14 @@ public class AncLibrary {
 
     public EventClientRepository getEventClientRepository() {
         if (eventClientRepository == null) {
-            eventClientRepository = new EventClientRepository(getRepository());
+            eventClientRepository = new EventClientRepository();
         }
         return eventClientRepository;
     }
 
     public UniqueIdRepository getUniqueIdRepository() {
         if (uniqueIdRepository == null) {
-            uniqueIdRepository = new UniqueIdRepository(getRepository());
+            uniqueIdRepository = new UniqueIdRepository();
         }
 
         return uniqueIdRepository;
@@ -229,8 +217,7 @@ public class AncLibrary {
 
     public DetailsRepository getDetailsRepository() {
         if (detailsRepository == null) {
-            detailsRepository = new DetailsRepository();
-            detailsRepository.updateMasterRepository(getRepository());
+            detailsRepository = CoreLibrary.getInstance().context().detailsRepository();
         }
 
         return detailsRepository;
@@ -245,14 +232,14 @@ public class AncLibrary {
 
     public void populateGlobalSettings() {
 
-        Setting setting = getCharactersitics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
-        Setting populationSetting = getCharactersitics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
+        Setting setting = getCharacteristics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
+        Setting populationSetting = getCharacteristics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 
         populateGlobalSettingsCore(setting);
         populateGlobalSettingsCore(populationSetting);
     }
 
-    public Setting getCharactersitics(String characteristics) {
+    public Setting getCharacteristics(String characteristics) {
         return AncLibrary.getInstance().getContext().allSettings().getSetting(characteristics);
     }
 
@@ -280,7 +267,7 @@ public class AncLibrary {
                 }
             }
         } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(" --> populateGlobalSettingsCore");
         }
     }
 

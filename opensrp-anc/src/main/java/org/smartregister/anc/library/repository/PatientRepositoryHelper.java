@@ -7,10 +7,10 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -23,13 +23,13 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
-public class PatientRepositoryHelper {
+public class PatientRepositoryHelper extends BaseRepository {
     private static final String[] projection =
             new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
                     DBConstantsUtils.KeyUtils.DOB_UNKNOWN, DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,
                     DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.ANC_ID,
                     DBConstantsUtils.KeyUtils.REMINDERS, DBConstantsUtils.KeyUtils.HOME_ADDRESS, DBConstantsUtils.KeyUtils.EDD,
-                    DBConstantsUtils.KeyUtils.CONTACT_STATUS, DBConstantsUtils.KeyUtils.NEXT_CONTACT, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                    DBConstantsUtils.KeyUtils.CONTACT_STATUS, DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS, DBConstantsUtils.KeyUtils.NEXT_CONTACT, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
                     DBConstantsUtils.KeyUtils.VISIT_START_DATE, DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
                     DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
 
@@ -68,8 +68,8 @@ public class PatientRepositoryHelper {
                 detailsMap.put(DBConstantsUtils.KeyUtils.HOME_ADDRESS,
                         cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.HOME_ADDRESS)));
                 detailsMap.put(DBConstantsUtils.KeyUtils.EDD, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.EDD)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.CONTACT_STATUS)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.CONTACT_STATUS)));
+                detailsMap.put(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS)));
                 detailsMap.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT,
                         cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
                 detailsMap.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
@@ -120,12 +120,13 @@ public class PatientRepositoryHelper {
             if (!patientDetail.isReferral()) {
                 contentValues
                         .put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, Utils.DB_DF.format(Calendar.getInstance().getTime()));
+                contentValues.put(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS, patientDetail.getContactStatus());
             } else {
                 contentValues.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, patientDetail.getLastContactRecordDate());
+                contentValues.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, patientDetail.getPreviousContactStatus());
             }
         }
-        AncLibrary.getInstance().getRepository().getWritableDatabase()
-                .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
+       getMasterRepository().getWritableDatabase().update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{patientDetail.getBaseEntityId()});
     }
 
@@ -138,7 +139,7 @@ public class PatientRepositoryHelper {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.EDD);
         }
-        AncLibrary.getInstance().getRepository().getWritableDatabase()
+        getMasterRepository().getWritableDatabase()
                 .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
@@ -151,7 +152,7 @@ public class PatientRepositoryHelper {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
         }
-        AncLibrary.getInstance().getRepository().getWritableDatabase()
+       getMasterRepository().getWritableDatabase()
                 .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }

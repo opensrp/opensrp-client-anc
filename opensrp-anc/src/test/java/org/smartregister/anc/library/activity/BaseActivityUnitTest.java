@@ -41,7 +41,7 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
 
         // For areas where the library has been initiated wrongly, this will fix that
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
-        AncLibrary.init(context, repository, 1);
+        AncLibrary.init(context, 1);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 
         //Auto login by default

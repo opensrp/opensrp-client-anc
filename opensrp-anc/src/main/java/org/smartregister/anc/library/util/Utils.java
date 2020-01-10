@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +37,6 @@ import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.activity.BaseContactActivity;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
@@ -74,7 +72,6 @@ import timber.log.Timber;
  */
 
 public class Utils extends org.smartregister.util.Utils {
-
     public static final SimpleDateFormat DB_DF = new SimpleDateFormat(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
     public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_DATE_FORMAT);
     public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_SUMMARY_DATE_FORMAT);
@@ -83,7 +80,6 @@ public class Utils extends org.smartregister.util.Utils {
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
-    private static final String TAG = "Anc Utils";
     private static final String OTHER_SUFFIX = ", other]";
 
     static {
@@ -248,7 +244,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, " --> proceedToContact");
             Utils.showToast(context,
                     "Error proceeding to contact for client " + personObjectClient.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
         }
@@ -320,7 +316,7 @@ public class Utils extends org.smartregister.util.Utils {
             }
             context.startActivity(contactSummaryFinishIntent);
         } catch (Exception e) {
-            Log.e(BaseContactActivity.class.getCanonicalName(), e.getMessage());
+            Timber.e(e);
         }
 
     }
@@ -496,20 +492,22 @@ public class Utils extends org.smartregister.util.Utils {
         String result = alertStatus;
 
         if (!TextUtils.isEmpty(lastContactDate)) {
-
             try {
                 result = DateUtils.isToday(DB_DF.parse(lastContactDate).getTime()) ? ConstantsUtils.AlertStatusUtils.TODAY : alertStatus;
             } catch (ParseException e) {
-                Log.e(TAG, e.getMessage());
+                Timber.e(e, " --> processContactDoneToday");
             }
         }
 
         return result;
     }
 
+    public static void processButtonAlertStatus(Context context, Button dueButton, ButtonAlertStatus buttonAlertStatus) {
+        Utils.processButtonAlertStatus(context, dueButton, null, buttonAlertStatus);
+    }
+
     public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
                                                 ButtonAlertStatus buttonAlertStatus) {
-
         dueButton.setVisibility(View.VISIBLE);
         dueButton.setText(buttonAlertStatus.buttonText);
         dueButton.setTag(R.id.GESTATION_AGE, buttonAlertStatus.gestationAge);
@@ -517,44 +515,37 @@ public class Utils extends org.smartregister.util.Utils {
         if (buttonAlertStatus.buttonAlertStatus != null) {
             switch (buttonAlertStatus.buttonAlertStatus) {
                 case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
-                    contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     break;
                 case ConstantsUtils.AlertStatusUtils.DUE:
-                    contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     break;
                 case ConstantsUtils.AlertStatusUtils.OVERDUE:
-                    contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     break;
                 case ConstantsUtils.AlertStatusUtils.NOT_DUE:
-                    contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
                     break;
                 case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
-                    contactTextView.setVisibility(View.GONE);
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
                     dueButton.setText(context.getString(R.string.due_delivery));
                     break;
                 case ConstantsUtils.AlertStatusUtils.EXPIRED:
-                    contactTextView.setVisibility(View.GONE);
                     dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                     dueButton.setTextColor(context.getResources().getColor(R.color.white));
                     dueButton.setText(context.getString(R.string.due_delivery));
                     break;
                 case ConstantsUtils.AlertStatusUtils.TODAY:
-                    dueButton.setVisibility(View.GONE);
-                    contactTextView.setVisibility(View.VISIBLE);
-                    contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
-                            Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                    contactTextView.setPadding(2, 2, 2, 2);
-
+                    if (contactTextView != null) {
+                        contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
+                                Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                        contactTextView.setPadding(2, 2, 2, 2);
+                    }
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
                     dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
@@ -564,8 +555,15 @@ public class Utils extends org.smartregister.util.Utils {
                 default:
                     dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                     dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                    contactTextView.setVisibility(View.GONE);
                     break;
+            }
+
+            if (contactTextView != null) {
+                contactTextView.setVisibility(View.GONE);
+                if (ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
+                    dueButton.setVisibility(View.GONE);
+                    contactTextView.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -574,6 +572,8 @@ public class Utils extends org.smartregister.util.Utils {
         int todayContact = 1;
         try {
             todayContact = Integer.valueOf(nextContact) - 1;
+        } catch (NumberFormatException nfe) {
+            Timber.e(nfe, " --> getTodayContact");
         } catch (Exception e) {
             Timber.e(e, " --> getTodayContact");
         }

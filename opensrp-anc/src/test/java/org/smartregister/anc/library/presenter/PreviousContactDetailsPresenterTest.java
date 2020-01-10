@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.presenter;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
@@ -17,7 +16,9 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.model.ContactSummaryModel;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
@@ -78,8 +78,8 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.mockStatic(TextUtils.class);
         PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getApplicationContext()).thenReturn(context);
-        PowerMockito.when(AncLibrary.getApplicationContext().getString(any(Integer.class))).thenReturn("Contact %1$d");
+        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
         PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";

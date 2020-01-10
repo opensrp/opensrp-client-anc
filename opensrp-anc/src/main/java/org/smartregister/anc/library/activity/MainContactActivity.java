@@ -2,7 +2,6 @@ package org.smartregister.anc.library.activity;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -38,9 +37,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
+import timber.log.Timber;
 
-    public static final String TAG = MainContactActivity.class.getCanonicalName();
+public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
 
     private TextView patientNameView;
 
@@ -170,7 +169,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             contactAdapter.notifyDataSetChanged();
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, " --> initializeMainContactContainers");
         }
 
     }
@@ -263,15 +262,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 defaultValueFields.addAll(getListValues(defaultValuesArray));
             }
         } catch (JSONException e) {
-            Log.e(TAG, "Error converting file to JsonObject ", e);
+            Timber.e(e, "Error converting file to JsonObject ");
         } catch (Exception e) {
-            Log.e(TAG, "Error reading json from asset file ", e);
+            Timber.e(e, "Error reading json from asset file ");
         }
 
     }
 
     private String getMapValue(String key) {
-
         PreviousContact request = new PreviousContact();
         request.setBaseEntityId(baseEntityId);
         request.setKey(key);
@@ -279,9 +277,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             request.setContactNo(String.valueOf(contactNo - 1));
         }
 
-        PreviousContact previousContact =
-                AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContact(request);
-
+        PreviousContact previousContact = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContact(request);
         return previousContact != null ? previousContact.getValue() : null;
     }
 
@@ -291,9 +287,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             String encounterType = object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
 
             //Do not add defaults for test and CT contact containers unless they are opened
-            if (!ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT_ENCOUNTER_TYPE.equals(encounterType)
-                    && !ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) &&
-                    (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
+            if (!ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) && (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)) {
@@ -340,7 +334,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
-
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
 
@@ -379,7 +372,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
-
         String fieldKey = ContactJsonFormUtils.getObjectKey(jsonObject);
         Object fieldValue = ContactJsonFormUtils.getObjectValue(jsonObject);
         String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
@@ -485,7 +477,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             eventToFileMap.put(getString(R.string.counselling_treatment), ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
             eventToFileMap.put(getString(R.string.symptoms_follow_up), ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> createContacts");
         }
     }
 
@@ -513,7 +505,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             preProcessDefaultValues(object);
             return object.toString();
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> getFormJson");
         }
         return "";
     }
@@ -527,17 +519,13 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     String key = keys.next();
 
                     if (ConstantsUtils.GLOBAL_PREVIOUS.equals(key)) {
-
                         JSONArray globalPreviousValues = object.getJSONArray(key);
                         globalValueFields = getListValues(globalPreviousValues);
-
                     }
 
                     if (ConstantsUtils.EDITABLE_FIELDS.equals(key)) {
-
                         JSONArray editableFieldValues = object.getJSONArray(key);
                         editableFields = getListValues(editableFieldValues);
-
                     }
 
                     if (key.startsWith(RuleConstant.STEP)) {
@@ -552,7 +540,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 getValueMap(object);
             }
         } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> preProcessDefaultValues");
         }
     }
 
