@@ -116,36 +116,41 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         TextView titleLabel = view.findViewById(R.id.title_label);
         titleLabel.setText(getString(R.string.exit_contact_title));
-
         String saveChanges = getString(R.string.save_contact);
-        //For future usage
-        /*
-        Spannable spannable = new SpannableString(saveChanges);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey_blue)), 5,
-                saveChanges.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-*/
-
         Button saveButton = view.findViewById(R.id.save_changes);
         saveButton.setText(saveChanges);
-
         String closeWithoutSaving = getString(R.string.discard_contact);
-
-        //For future usage
-      /*
-        spannable = new SpannableString(closeWithoutSaving);
-        spannable.setSpan(new RelativeSizeSpan(1.3f), 0, 6, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.contact_save_grey)), 7,
-                closeWithoutSaving.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                */
-
         Button closeButton = view.findViewById(R.id.close_without_saving);
         closeButton.setText(closeWithoutSaving);
-
         Button cancel = view.findViewById(R.id.cancel);
 
         final AlertDialog dialog = builder.create();
 
+        updateDialogWindow(dialog);
+        attachSaveButtonAction(saveButton, dialog);
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        attachCloseButtonAction(closeButton, dialog);
+
+        dialog.show();
+    }
+
+    private void attachCloseButtonAction(Button closeButton, AlertDialog dialog) {
+        closeButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+            goToMainRegister();
+        });
+    }
+
+    private void attachSaveButtonAction(Button saveButton, AlertDialog dialog) {
+        saveButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+            goToMainRegister();
+        });
+    }
+
+    private void updateDialogWindow(AlertDialog dialog) {
         Window window = dialog.getWindow();
         if (window != null) {
             WindowManager.LayoutParams param = window.getAttributes();
@@ -153,21 +158,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
             window.setAttributes(param);
             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
-
-        saveButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
-            goToMainRegister();
-        });
-
-        cancel.setOnClickListener(v -> dialog.dismiss());
-        closeButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
-            goToMainRegister();
-        });
-
-        dialog.show();
     }
 
     public void goToMainRegister() {
