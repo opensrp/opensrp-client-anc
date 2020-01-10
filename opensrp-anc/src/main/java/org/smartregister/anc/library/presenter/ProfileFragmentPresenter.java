@@ -20,8 +20,6 @@ import timber.log.Timber;
  * Created by ndegwamartin on 13/07/2018.
  */
 public class ProfileFragmentPresenter implements ProfileFragmentContract.Presenter {
-    private static final String TAG = ProfileFragmentPresenter.class.getCanonicalName();
-
     private WeakReference<ProfileFragmentContract.View> mProfileView;
     private ProfileFragmentContract.Interactor mProfileInteractor;
 

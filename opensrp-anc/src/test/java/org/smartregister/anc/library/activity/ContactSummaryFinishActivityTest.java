@@ -65,9 +65,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     @Mock
     private MenuItem saveFinishMenuItem;
 
-    @Mock
-    private LoadContactSummaryDataTask loadContactSummaryDataTask;
-
     @Before
     @Override
     public void setUp() {
