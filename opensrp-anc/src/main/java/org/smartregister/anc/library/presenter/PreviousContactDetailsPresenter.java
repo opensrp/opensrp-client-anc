@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
@@ -26,11 +25,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
 public class PreviousContactDetailsPresenter implements PreviousContactsDetails.Presenter {
-    private static final String TAG = PreviousContactDetailsPresenter.class.getCanonicalName();
     private JsonFormUtils formUtils = new JsonFormUtils();
 
     private WeakReference<PreviousContactsDetails.View> mProfileView;
@@ -92,7 +92,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
 
             getProfileView().displayPreviousContactSchedule(schedule);
         } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -120,9 +120,10 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
 
         try {
             getProfileView().loadPreviousContactsDetails(filteredContacts);
-        } catch (IOException |
-                ParseException e) {
-            e.printStackTrace();
+        } catch (IOException  e) {
+            Timber.e(e);
+        } catch (ParseException e) {
+            Timber.e(e);
         }
 
     }

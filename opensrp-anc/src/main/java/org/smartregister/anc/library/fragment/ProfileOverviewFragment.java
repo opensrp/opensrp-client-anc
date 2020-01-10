@@ -108,7 +108,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
                 }
             }
 
-            Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
+            Utils.processButtonAlertStatus(getActivity(), dueButton, buttonAlertStatus);
 
             attachRecyclerView(facts);
 

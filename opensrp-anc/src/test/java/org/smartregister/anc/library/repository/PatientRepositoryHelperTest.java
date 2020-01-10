@@ -32,7 +32,6 @@ import java.util.Map;
 @PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, SQLiteDatabase.class})
 public class PatientRepositoryHelperTest {
 
-
     @Mock
     private Context context;
 
@@ -47,7 +46,7 @@ public class PatientRepositoryHelperTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        AncLibrary.init(context, repository, 1);
+        AncLibrary.init(context, 1);
     }
 
     @Test

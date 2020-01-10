@@ -11,6 +11,7 @@ public class WomanDetail {
     private String yellowFlags;
     private String redFlags;
     private String contactStatus;
+    private String previousContactStatus;
     private String lastContactRecordDate;
 
     private Integer yellowFlagCount;
@@ -96,5 +97,13 @@ public class WomanDetail {
 
     public void setLastContactRecordDate(String lastContactRecordDate) {
         this.lastContactRecordDate = lastContactRecordDate;
+    }
+
+    public String getPreviousContactStatus() {
+        return previousContactStatus;
+    }
+
+    public void setPreviousContactStatus(String previousContactStatus) {
+        this.previousContactStatus = previousContactStatus;
     }
 }

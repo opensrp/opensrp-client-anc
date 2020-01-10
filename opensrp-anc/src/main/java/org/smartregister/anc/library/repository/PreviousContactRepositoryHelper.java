@@ -15,10 +15,11 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class PreviousContactRepositoryHelper extends BaseRepository {
     public static final String TABLE_NAME = "previous_contact";
@@ -52,10 +53,6 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
     private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
-
-    public PreviousContactRepositoryHelper(Repository repository) {
-        super(repository);
-    }
 
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
@@ -108,7 +105,7 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
                 dbPreviousContact = getContactResult(mCursor);
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, " --> getPreviousContact");
 
         } finally {
             if (mCursor != null) {
@@ -119,7 +116,6 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
     }
 
     private PreviousContact getContactResult(Cursor cursor) {
-
         PreviousContact previousContact = new PreviousContact();
         previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));

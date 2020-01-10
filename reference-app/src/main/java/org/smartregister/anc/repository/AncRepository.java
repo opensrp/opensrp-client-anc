@@ -1,7 +1,6 @@
 package org.smartregister.anc.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -18,13 +17,13 @@ import org.smartregister.repository.SettingsRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import timber.log.Timber;
+
 /**
  * Created by ndegwamartin on 09/04/2018.
  */
 
 public class AncRepository extends Repository {
-
-    private static final String TAG = AncRepository.class.getCanonicalName();
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
 
@@ -46,14 +45,12 @@ public class AncRepository extends Repository {
         SettingsRepository.onUpgrade(database);
         PartialContactRepositoryHelper.createTable(database);
         PreviousContactRepositoryHelper.createTable(database);
-
         //onUpgrade(database, 1, 2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(AncRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+        Timber.tag(AncRepository.class.getName()).w("Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
         AncLibrary.getInstance().performMigrations(db);
 
@@ -102,7 +99,7 @@ public class AncRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Log.e(TAG, "Database Error. " + e.getMessage());
+            Timber.e(e, "Database Error");
             return null;
         }
 

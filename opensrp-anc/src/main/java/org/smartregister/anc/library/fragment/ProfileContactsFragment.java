@@ -130,7 +130,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     private void setUpAlertStatusButton() {
-        Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
+        Utils.processButtonAlertStatus(getActivity(), dueButton, buttonAlertStatus);
     }
 
     private void initializeLastContactDetails(HashMap<String, String> clientDetails) {

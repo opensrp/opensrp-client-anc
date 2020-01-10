@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,9 +48,7 @@ public class PartialContactRepositoryHelper extends BaseRepository {
             new String[]{ID, TYPE, FORM_JSON, FORM_JSON_DRAFT, CONTACT_NO, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT,
                     UPDATED_AT_COLUMN};
 
-    public PartialContactRepositoryHelper(Repository repository) {
-        super(repository);
-
+    public PartialContactRepositoryHelper() {
         formProcessingOrderMap = ImmutableMap.<String, Integer>builder().put(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, 1)
                 .put(ConstantsUtils.JsonFormUtils.ANC_PROFILE, 2).put(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, 3)
                 .put(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM, 4).put(ConstantsUtils.JsonFormUtils.ANC_TEST, 5)
@@ -142,7 +139,6 @@ public class PartialContactRepositoryHelper extends BaseRepository {
     }
 
     private PartialContact getContactResult(Cursor cursor) {
-
         PartialContact partialContact = new PartialContact();
         partialContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         partialContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));

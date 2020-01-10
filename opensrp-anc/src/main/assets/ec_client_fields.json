@@ -127,6 +127,13 @@
           }
         },
         {
+          "column_name": "previous_contact_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.previous_contact_status"
+          }
+        },
+        {
           "column_name": "next_contact",
           "type": "Client",
           "json_mapping": {

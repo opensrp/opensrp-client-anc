@@ -50,7 +50,7 @@ public class ProfileTasksFragment extends BaseProfileFragment {
 
     @Override
     protected void onResumption() {
-        Utils.processButtonAlertStatus(getActivity(), dueButton, dueButton, buttonAlertStatus);
+        Utils.processButtonAlertStatus(getActivity(), dueButton, buttonAlertStatus);
     }
 
     @Override
