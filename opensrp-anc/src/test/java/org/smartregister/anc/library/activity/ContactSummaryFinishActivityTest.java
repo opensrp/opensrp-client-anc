@@ -26,7 +26,6 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.helper.ImageRenderHelper;
 
