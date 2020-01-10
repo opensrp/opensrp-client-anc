@@ -26,6 +26,7 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.helper.ImageRenderHelper;
 
@@ -63,6 +64,9 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private MenuItem saveFinishMenuItem;
+
+    @Mock
+    private LoadContactSummaryDataTask loadContactSummaryDataTask;
 
     @Before
     @Override
@@ -238,7 +242,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     @Test
     public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
 
         Mockito.doNothing().when(spyActivity).registerEventBus();
@@ -275,7 +278,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         Mockito.doReturn(partialContactsList).when(partialContactRepositoryHelper).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
 
         ReflectionHelpers.callInstanceMethod(spyActivity, "process");
-
         List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
 
         Assert.assertNotNull(list);

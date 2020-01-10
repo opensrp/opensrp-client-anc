@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;

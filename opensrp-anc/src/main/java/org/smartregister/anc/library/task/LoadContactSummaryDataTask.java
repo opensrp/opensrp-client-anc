@@ -1,30 +1,22 @@
 package org.smartregister.anc.library.task;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 
 import org.jeasy.rules.api.Facts;
-import org.json.JSONObject;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
-import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -47,11 +39,10 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
     }
 
 
-
     @Override
     protected Void doInBackground(Void... nada) {
         try {
-           process();
+            ((ContactSummaryFinishActivity) context).process();
         } catch (Exception e) {
             Timber.e(e, "%s --> loadContactSummaryData", this.getClass().getCanonicalName());
         }
@@ -95,32 +86,5 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
         //load profile details
 
         mProfilePresenter.refreshProfileView(baseEntityId);
-    }
-
-    private void process() throws Exception {
-        //Get actual Data
-        JSONObject object;
-
-        List<PartialContact> partialContacts = ((ContactSummaryFinishActivity) context).getPartialContactRepository()
-                .getPartialContacts(intent.getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
-                        intent.getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1));
-
-        if (partialContacts != null && !partialContacts.isEmpty()) {
-            for (PartialContact partialContact : partialContacts) {
-                if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
-                    object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
-                            partialContact.getFormJson());
-                    ContactJsonFormUtils.processRequiredStepsField(facts, object);
-                }
-            }
-        }
-
-        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
-
-        yamlConfigList = new ArrayList<>();
-        for (Object ruleObject : ruleObjects) {
-            YamlConfig yamlConfig = (YamlConfig) ruleObject;
-            yamlConfigList.add(yamlConfig);
-        }
     }
 }

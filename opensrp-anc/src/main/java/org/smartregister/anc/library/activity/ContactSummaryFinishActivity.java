@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.jeasy.rules.api.Facts;
+import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
+import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
@@ -20,6 +22,8 @@ import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.task.FinalizeContactTask;
 import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
@@ -82,6 +86,33 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, yamlConfigList, baseEntityId).execute();
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
+        }
+    }
+
+    public void process() throws Exception {
+        //Get actual Data
+        JSONObject object;
+
+        List<PartialContact> partialContacts = getPartialContactRepository()
+                .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
+                        getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1));
+
+        if (partialContacts != null && !partialContacts.isEmpty()) {
+            for (PartialContact partialContact : partialContacts) {
+                if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
+                    object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
+                            partialContact.getFormJson());
+                    ContactJsonFormUtils.processRequiredStepsField(facts, object);
+                }
+            }
+        }
+
+        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
+
+        yamlConfigList = new ArrayList<>();
+        for (Object ruleObject : ruleObjects) {
+            YamlConfig yamlConfig = (YamlConfig) ruleObject;
+            yamlConfigList.add(yamlConfig);
         }
     }
 
@@ -197,6 +228,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected PreviousContactRepositoryHelper getPreviousCOntactsReposity() {
         return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
+    }
+
+
+    public void setYamlConfigList(List<YamlConfig> yamlConfigList) {
+        this.yamlConfigList = yamlConfigList;
     }
 }
 
