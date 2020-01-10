@@ -139,7 +139,6 @@ public class PartialContactRepositoryHelper extends BaseRepository {
     }
 
     private PartialContact getContactResult(Cursor cursor) {
-
         PartialContact partialContact = new PartialContact();
         partialContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         partialContact.setType(cursor.getString(cursor.getColumnIndex(TYPE)));

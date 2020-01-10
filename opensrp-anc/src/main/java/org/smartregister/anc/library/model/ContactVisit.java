@@ -97,11 +97,11 @@ public class ContactVisit {
                 redFlagCount = Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
             }
 
-            womanDetail.setYellowFlagCount(yellowFlagCount);
-            womanDetail.setRedFlagCount(redFlagCount);
-            womanDetail.setContactStatus(details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS));
-            womanDetail.setPreviousContactStatus(details.get(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS));
             womanDetail.setReferral(true);
+            womanDetail.setRedFlagCount(redFlagCount);
+            womanDetail.setYellowFlagCount(yellowFlagCount);
+            womanDetail.setContactStatus(details.get(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS));
+            womanDetail.setPreviousContactStatus(details.get(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS));
             womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
         }
         PatientRepositoryHelper.updateContactVisitDetails(womanDetail, true);

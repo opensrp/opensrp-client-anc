@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -40,7 +41,7 @@ public class PartialContacts {
             } else {
                 if (referral != null) {
                     partialContactList = partialContactRepositoryHelper
-                            .getPartialContacts(baseEntityId, Integer.valueOf(details.get(ConstantsUtils.REFERRAL)));
+                            .getPartialContacts(baseEntityId, getContactFromReferral(details.get(ConstantsUtils.REFERRAL)));
                 } else {
                     partialContactList = partialContactRepositoryHelper.getPartialContacts(baseEntityId,
                             Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
@@ -50,6 +51,17 @@ public class PartialContacts {
             partialContactList = null;
         }
         return this;
+    }
+
+    private int getContactFromReferral(String referral) {
+        int contactNo = 0;
+        if (StringUtils.isNotBlank(referral) && referral.contains("-")) {
+            String[] referralSplit = referral.split("-");
+            if (referralSplit.length == 2) {
+                contactNo = Integer.parseInt(referralSplit[1]);
+            }
+        }
+        return contactNo;
     }
 }
 

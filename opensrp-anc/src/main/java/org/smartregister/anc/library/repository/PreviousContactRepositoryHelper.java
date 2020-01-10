@@ -116,7 +116,6 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
     }
 
     private PreviousContact getContactResult(Cursor cursor) {
-
         PreviousContact previousContact = new PreviousContact();
         previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));

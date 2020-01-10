@@ -83,7 +83,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected void loadContactSummaryData() {
         try {
-            new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, yamlConfigList, baseEntityId).execute();
+            new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).execute();
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
         }
@@ -230,9 +230,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
     }
 
-
-    public void setYamlConfigList(List<YamlConfig> yamlConfigList) {
-        this.yamlConfigList = yamlConfigList;
+    public List<YamlConfig> getYamlConfigList() {
+        return yamlConfigList;
     }
 }
 

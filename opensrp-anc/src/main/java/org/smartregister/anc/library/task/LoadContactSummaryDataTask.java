@@ -11,13 +11,10 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
-import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
-
-import java.util.List;
 
 import timber.log.Timber;
 
@@ -26,15 +23,13 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
     private Intent intent;
     private ProfileContract.Presenter mProfilePresenter;
     private Facts facts;
-    private List<YamlConfig> yamlConfigList;
     private String baseEntityId;
 
-    public LoadContactSummaryDataTask(Context context, Intent intent, ProfileContract.Presenter mProfilePresenter, Facts facts, List<YamlConfig> yamlConfigList, String baseEntityId) {
+    public LoadContactSummaryDataTask(Context context, Intent intent, ProfileContract.Presenter mProfilePresenter, Facts facts, String baseEntityId) {
         this.context = context;
         this.intent = intent;
         this.mProfilePresenter = mProfilePresenter;
         this.facts = facts;
-        this.yamlConfigList = yamlConfigList;
         this.baseEntityId = baseEntityId;
     }
 
@@ -60,7 +55,6 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-
         String edd = facts.get(DBConstantsUtils.KeyUtils.EDD);
         String contactNo = String.valueOf(intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
 
@@ -73,7 +67,7 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
         }
 
         ContactSummaryFinishAdapter adapter =
-                new ContactSummaryFinishAdapter(context, yamlConfigList, facts);
+                new ContactSummaryFinishAdapter(context, ((ContactSummaryFinishActivity) context).getYamlConfigList(), facts);
         adapter.notifyDataSetChanged();
 
         // set up the RecyclerView
