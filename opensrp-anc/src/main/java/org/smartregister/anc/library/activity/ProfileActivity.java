@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +59,89 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private String phoneNumber;
     private HashMap<String, String> detailMap;
     private String buttonAlertStatus;
+    private Button dueButton;
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
+        registerEventBus();
+    }
+
+    protected void registerEventBus() {
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.profile_overview_due_button) {
+            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+            }
+
+        } else {
+            super.onClick(view);
+        }
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new ProfilePresenter(this);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        getButtonAlertStatus();
+        ageView = findViewById(R.id.textview_detail_two);
+        gestationAgeView = findViewById(R.id.textview_detail_three);
+        ancIdView = findViewById(R.id.textview_detail_one);
+        nameView = findViewById(R.id.textview_name);
+        imageView = findViewById(R.id.imageview_profile);
+        dueButton = findViewById(R.id.profile_overview_due_button);
+        setTitle("");
+    }
+
+    private void getButtonAlertStatus() {
+        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE),
+                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS)) ?
+                        ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
+        ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
+        ProfileTasksFragment profileTasksFragment = ProfileTasksFragment.newInstance(this.getIntent().getExtras());
+
+        adapter.addFragment(profileOverviewFragment, this.getString(R.string.overview));
+        adapter.addFragment(profileContactsFragment, this.getString(R.string.contacts));
+        adapter.addFragment(profileTasksFragment, this.getString(R.string.tasks));
+
+        viewPager.setAdapter(adapter);
+        return viewPager;
+    }
+
+    @Override
+    protected void fetchProfileData() {
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
+    }
+
+    private Activity getActivity() {
+        return this;
+    }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
@@ -176,81 +260,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         super.onPause();
     }
 
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
-        registerEventBus();
-    }
-
-    protected void registerEventBus() {
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.profile_overview_due_button) {
-            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
-            }
-
-        } else {
-            super.onClick(view);
-        }
-    }
-
-    @Override
-    protected void initializePresenter() {
-        presenter = new ProfilePresenter(this);
-    }
-
-    @Override
-    protected void setupViews() {
-        super.setupViews();
-        ageView = findViewById(R.id.textview_detail_two);
-        gestationAgeView = findViewById(R.id.textview_detail_three);
-        ancIdView = findViewById(R.id.textview_detail_one);
-        nameView = findViewById(R.id.textview_name);
-        imageView = findViewById(R.id.imageview_profile);
-        getButtonAlertStatus();
-    }
-
-    private void getButtonAlertStatus() {
-        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE),
-                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS)) ?
-                        ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
-    }
-
-    @Override
-    protected ViewPager setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
-        ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
-        ProfileTasksFragment profileTasksFragment = ProfileTasksFragment.newInstance(this.getIntent().getExtras());
-
-        adapter.addFragment(profileOverviewFragment, this.getString(R.string.overview));
-        adapter.addFragment(profileContactsFragment, this.getString(R.string.contacts));
-        adapter.addFragment(profileTasksFragment, this.getString(R.string.tasks));
-
-        viewPager.setAdapter(adapter);
-        return viewPager;
-    }
-
-    @Override
-    protected void fetchProfileData() {
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
-    }
-
-    private Activity getActivity() {
-        return this;
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
@@ -322,6 +331,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 displayToast(R.string.allow_phone_call_management);
             }
         }
+    }
+
+    public Button getDueButton() {
+        return dueButton;
     }
 }
 
