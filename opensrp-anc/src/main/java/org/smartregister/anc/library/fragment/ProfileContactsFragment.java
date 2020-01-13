@@ -287,7 +287,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_layout);
         profileContactsLayout = fragmentView.findViewById(R.id.profile_contacts_layout);
 
-        dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
+        dueButton = ((ProfileActivity) getActivity()).getDueButton();
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
