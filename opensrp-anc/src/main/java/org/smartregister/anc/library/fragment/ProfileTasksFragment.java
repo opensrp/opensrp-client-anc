@@ -56,7 +56,7 @@ public class ProfileTasksFragment extends BaseProfileFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
-        dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
+        dueButton = ((ProfileActivity) getActivity()).getDueButton();
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
