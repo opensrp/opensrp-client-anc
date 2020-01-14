@@ -25,6 +25,7 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.TasksRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -54,6 +55,7 @@ public class AncLibrary {
     private JsonSpecHelper jsonSpecHelper;
     private PartialContactRepositoryHelper partialContactRepositoryHelper;
     private PreviousContactRepositoryHelper previousContactRepositoryHelper;
+    private TasksRepositoryHelper tasksRepositoryHelper;
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
@@ -129,7 +131,7 @@ public class AncLibrary {
         }
     }
 
-    public static void init(@NonNull Context context,  int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    public static void init(@NonNull Context context, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         init(context, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
     }
 
@@ -169,6 +171,14 @@ public class AncLibrary {
         }
 
         return previousContactRepositoryHelper;
+    }
+
+    public TasksRepositoryHelper getTasksRepositoryHelper() {
+        if (tasksRepositoryHelper == null) {
+            tasksRepositoryHelper = new TasksRepositoryHelper();
+        }
+
+        return tasksRepositoryHelper;
     }
 
     public EventClientRepository getEventClientRepository() {
