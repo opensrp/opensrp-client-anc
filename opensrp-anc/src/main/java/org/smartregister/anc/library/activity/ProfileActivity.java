@@ -9,7 +9,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.adapter.ViewPagerAdapter;
+import org.smartregister.anc.library.adapter.ProfileViewPagerAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
@@ -60,6 +62,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private HashMap<String, String> detailMap;
     private String buttonAlertStatus;
     private Button dueButton;
+    private TextView taskTabCount;
 
     @Override
     protected void onCreation() {
@@ -72,10 +75,23 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
+        getTaskTabCount().setText(getTasksCount(baseEntityId));
     }
 
     protected void registerEventBus() {
         EventBus.getDefault().register(this);
+    }
+
+    public TextView getTaskTabCount() {
+        return taskTabCount;
+    }
+
+    private String getTasksCount(String baseEntityId) {
+        String count = "0";
+        if (StringUtils.isNotBlank(baseEntityId)) {
+
+        }
+        return count;
     }
 
     @Override
@@ -107,6 +123,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         nameView = findViewById(R.id.textview_name);
         imageView = findViewById(R.id.imageview_profile);
         dueButton = findViewById(R.id.profile_overview_due_button);
+        updateTasksTabTitle();
     }
 
     private void getButtonAlertStatus() {
@@ -116,9 +133,17 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                         ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
     }
 
+    protected void updateTasksTabTitle() {
+        ConstraintLayout taskTabTitleLayout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.tasks_tab_title, null);
+        TextView taskTabTitle = taskTabTitleLayout.findViewById(R.id.tasks_title);
+        taskTabTitle.setText(this.getString(R.string.tasks));
+        taskTabCount = taskTabTitleLayout.findViewById(R.id.tasks_count);
+        getTabLayout().getTabAt(2).setCustomView(taskTabTitleLayout);
+    }
+
     @Override
     protected ViewPager setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ProfileViewPagerAdapter adapter = new ProfileViewPagerAdapter(getSupportFragmentManager());
 
         ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
         ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());

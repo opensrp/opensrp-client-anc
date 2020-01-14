@@ -147,6 +147,7 @@
                 app:tabIndicatorHeight="4dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
+                app:tabContentStart="0dp"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator.sub.white" />
 
