@@ -54,7 +54,7 @@ public class TasksRepositoryHelper extends BaseRepository {
         database.execSQL(INDEX_CONTACT_NO);
     }
 
-    public void save(Task task) {
+    public void saveTasks(Task task) {
         if (task == null) return;
         getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
     }

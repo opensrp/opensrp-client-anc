@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.smartregister.anc.library.util.ContactJsonFormUtils.extractItemValue;
 
@@ -134,12 +138,54 @@ public class ContactVisit {
                     JSONObject eventJson = new JSONObject(org.smartregister.anc.library.util.JsonFormUtils.gson.toJson(event));
                     eventJson.put(JsonFormConstants.Properties.DETAILS, JsonFormUtils.getJSONObject(formObject, JsonFormConstants.Properties.DETAILS));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+
+                    processTasks(formObject);
                 }
 
                 //Remove partial contact
                 partialContactRepositoryHelper.deletePartialContact(partialContact.getId());
             }
         }
+    }
+
+    private void processTasks(JSONObject formObject) {
+        try {
+            String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
+            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
+                JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && "Due".equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                    JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
+                    if (stepFields != null && stepFields.length() > 0) {
+                        for (int i = 0; i < stepFields.length(); i++) {
+                            JSONObject field = stepFields.getJSONObject(i);
+                            JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                            if (jsonArray == null || !(jsonArray.length() > 0)) {
+                                saveTasks(field);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> processTasks");
+        }
+    }
+
+    private void saveTasks(JSONObject field) {
+        if (field != null) {
+            String key = field.optString(JsonFormConstants.KEY, "");
+            AncLibrary.getInstance().getTasksRepositoryHelper().saveTasks(getTask(field, key));
+        }
+    }
+
+    @NotNull
+    private Task getTask(JSONObject field, String key) {
+        Task task = new Task();
+        task.setContactNo(String.valueOf(nextContact));
+        task.setBaseEntityId(baseEntityId);
+        task.setKey(key);
+        task.setValue(String.valueOf(field));
+        return task;
     }
 
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {
@@ -195,7 +241,7 @@ public class ContactVisit {
                             continue;
                         }
 
-                        //Do not save empty checkbox values with nothing inside square braces ([])
+                        //Do not saveTasks empty checkbox values with nothing inside square braces ([])
                         if (fieldObject.has(JsonFormConstants.VALUE) &&
                                 !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
                                 !isCheckboxValueEmpty(fieldObject)) {
@@ -260,7 +306,7 @@ public class ContactVisit {
                 JSONObject valueItem = value.getJSONObject(j);
                 JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
                 String result = extractItemValue(valueItem, valueItemJSONArray);
-                // do not save empty checkbox values ([])
+                // do not saveTasks empty checkbox values ([])
                 if (result.startsWith("[") && result.endsWith("]") && result.length() == 2 ||
                         TextUtils.equals("[]", result)) {
                     return;

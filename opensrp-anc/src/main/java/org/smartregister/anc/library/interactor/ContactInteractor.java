@@ -196,7 +196,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                              String referral)
             throws JSONException {
         Event event = eventPair.first;
-        //Here we save state
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
         String currentContactState = getCurrentContactState(baseEntityId);
         if (currentContactState != null && referral == null) {
