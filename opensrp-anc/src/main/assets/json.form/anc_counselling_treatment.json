@@ -3588,7 +3588,7 @@
     ]
   },
   "step8": {
-    "title": "Services & Treatments",
+    "title": "Intimate Partner Violence (IPV)",
     "next": "step9",
     "fields": [
       {
@@ -3622,7 +3622,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -3741,11 +3741,17 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step9": {
+    "title": "Nutrition Supplementation",
+    "next": "step10",
+    "fields": [
       {
         "key": "ifa_high_prev",
         "openmrs_entity_parent": "165355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -3779,7 +3785,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -3811,7 +3817,7 @@
           }
         ],
         "relevance": {
-          "step8:ifa_high_prev": {
+          "step9:ifa_high_prev": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -3830,7 +3836,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:ifa_high_prev_notdone": {
+          "step9:ifa_high_prev_notdone": {
             "ex-checkbox": [
               {
                 "or": [
@@ -3874,7 +3880,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -3910,7 +3916,7 @@
           "err": "Please select and option"
         },
         "relevance": {
-          "step8:ifa_low_prev": {
+          "step9:ifa_low_prev": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -3925,7 +3931,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:ifa_low_prev_notdone": {
+          "step9:ifa_low_prev_notdone": {
             "ex-checkbox": [
               {
                 "or": [
@@ -3969,7 +3975,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4005,7 +4011,7 @@
           "err": "Please select and option"
         },
         "relevance": {
-          "step8:ifa_weekly": {
+          "step9:ifa_weekly": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -4020,7 +4026,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:ifa_weekly_notdone": {
+          "step9:ifa_weekly_notdone": {
             "ex-checkbox": [
               {
                 "or": [
@@ -4042,11 +4048,240 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
       },
+      {
+        "key": "calcium_supp",
+        "openmrs_entity_parent": "165350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
+        "label_info_text": "Advice:\n\n- Divide the total dose into three doses, preferably taken at meal-time\n\n- Iron and calcium should preferably be administered several hours apart rather than concomitantly\n\n[Calcium sources folder]",
+        "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "calcium_supp_notdone",
+        "openmrs_entity_parent": "165350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "step9:calcium_supp": {
+            "type": "string",
+            "ex": "equalTo(., \"not_done\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "calcium_supp_notdone_other",
+        "openmrs_entity_parent": "165350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step9:calcium_supp_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "calcium",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text": "0",
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vita_supp",
+        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+        "label_info_text": "Give a dose of up to 10,000 IU vitamin A per day, or a weekly dose of up to 25,000 IU.\n\nA single dose of a vitamin A supplement greater than 25,000 IU is not recommended as its safety is uncertain. Furthermore, a single dose of a vitamin A supplement greater than 25,000 IU might be teratogenic if consumed between day 15 and day 60 from conception.\n\n[Vitamin A sources folder]",
+        "label_info_title": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vita_supp_notdone",
+        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "step9:vita_supp": {
+            "type": "string",
+            "ex": "equalTo(., \"not_done\")"
+          }
+        }
+      },
+      {
+        "key": "vita_supp_notdone_other",
+        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step9:vita_supp_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "vita",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step10": {
+    "title": "Deworming & Malaria Prophylaxis",
+    "next": "step11",
+    "fields": [
       {
         "key": "deworm",
         "openmrs_entity_parent": "159922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -4075,7 +4310,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -4115,7 +4350,7 @@
           "err": "Please select and option"
         },
         "relevance": {
-          "step8:deworm": {
+          "step10:deworm": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -4130,7 +4365,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:deworm_notdone": {
+          "step10:deworm_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -4145,7 +4380,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4183,7 +4418,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4197,7 +4432,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4212,7 +4447,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step8:iptp_sp1": {
+          "step10:iptp_sp1": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -4255,7 +4490,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4269,7 +4504,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4284,7 +4519,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step8:iptp_sp2": {
+          "step10:iptp_sp2": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -4327,7 +4562,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4341,7 +4576,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4356,7 +4591,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step8:iptp_sp3": {
+          "step10:iptp_sp3": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -4379,7 +4614,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4426,7 +4661,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4440,7 +4675,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:iptp_sp_notdone": {
+          "step10:iptp_sp_notdone": {
             "ex-checkbox": [
               {
                 "or": [
@@ -4460,7 +4695,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4494,7 +4729,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4526,7 +4761,7 @@
           }
         ],
         "relevance": {
-          "step8:malaria_counsel": {
+          "step10:malaria_counsel": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -4541,12 +4776,18 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:malaria_counsel_notdone": {
+          "step10:malaria_counsel_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
         }
-      },
+      }
+    ]
+  },
+  "step11": {
+    "title": "Immunizations",
+    "next": "step12",
+    "fields": [
       {
         "key": "tt1_date",
         "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -4586,7 +4827,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4600,7 +4841,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4616,7 +4857,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4633,7 +4874,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -4682,7 +4923,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4696,7 +4937,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4712,7 +4953,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4729,7 +4970,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -4778,7 +5019,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4792,7 +5033,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4808,7 +5049,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4825,7 +5066,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -4886,7 +5127,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4900,7 +5141,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:tt_dose_notdone": {
+          "step11:tt_dose_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -4917,7 +5158,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4951,7 +5192,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -4994,7 +5235,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -5008,7 +5249,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5024,7 +5265,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5041,7 +5282,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -5088,7 +5329,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -5102,7 +5343,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5118,7 +5359,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5135,7 +5376,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -5182,7 +5423,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -5196,7 +5437,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5212,7 +5453,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5229,7 +5470,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -5286,7 +5527,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
@@ -5304,7 +5545,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:hepb_dose_notdone": {
+          "step11:hepb_dose_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -5321,7 +5562,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -5366,7 +5607,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -5382,7 +5623,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -5399,7 +5640,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -5454,7 +5695,7 @@
           "err": "Reason Flu dose was not done is required"
         },
         "relevance": {
-          "step8:flu_date": {
+          "step11:flu_date": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -5469,7 +5710,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step8:flu_dose_notdone": {
+          "step11:flu_dose_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -5486,237 +5727,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "calcium_supp",
-        "openmrs_entity_parent": "165350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
-        "label_info_text": "Advice:\n\n- Divide the total dose into three doses, preferably taken at meal-time\n\n- Iron and calcium should preferably be administered several hours apart rather than concomitantly\n\n[Calcium sources folder]",
-        "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done",
-            "text": "Done",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "Not done",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select and option"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "calcium_supp_notdone",
-        "openmrs_entity_parent": "165350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "",
-        "type": "check_box",
-        "label": "Reason",
-        "hint": "Reason",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "referred_instead",
-            "text": "Referred instead",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "Other (specify)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "relevance": {
-          "step8:calcium_supp": {
-            "type": "string",
-            "ex": "equalTo(., \"not_done\")"
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please select and option"
-        }
-      },
-      {
-        "key": "calcium_supp_notdone_other",
-        "openmrs_entity_parent": "165350AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Specify",
-        "edit_type": "name",
-        "relevance": {
-          "step8:calcium_supp_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "calcium",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text": "0",
-        "text_color": "#FF0000",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "vita_supp",
-        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
-        "label_info_text": "Give a dose of up to 10,000 IU vitamin A per day, or a weekly dose of up to 25,000 IU.\n\nA single dose of a vitamin A supplement greater than 25,000 IU is not recommended as its safety is uncertain. Furthermore, a single dose of a vitamin A supplement greater than 25,000 IU might be teratogenic if consumed between day 15 and day 60 from conception.\n\n[Vitamin A sources folder]",
-        "label_info_title": "Prescribe a daily dose of up to 10,000 IU vitamin A, or a weekly dose of up to 25,000 IU",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done",
-            "text": "Done",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "Not done",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select and option"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_step_eight_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "vita_supp_notdone",
-        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "",
-        "type": "check_box",
-        "label": "Reason",
-        "hint": "Reason",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "referred_instead",
-            "text": "Referred instead",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "Other (specify)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select and option"
-        },
-        "relevance": {
-          "step8:vita_supp": {
-            "type": "string",
-            "ex": "equalTo(., \"not_done\")"
-          }
-        }
-      },
-      {
-        "key": "vita_supp_notdone_other",
-        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Specify",
-        "edit_type": "name",
-        "relevance": {
-          "step8:vita_supp_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "vita",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#FF0000",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_step_eight_calculation_rules.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
       }
     ]
   },
-  "step9": {
+  "step12": {
     "title": "Not Recommended",
     "fields": [
       {
