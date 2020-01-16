@@ -7,6 +7,7 @@ public class Task {
     private String key;
     private String value;
     private String contactNo;
+    private Long createdAt;
 
     public Task() {
     }
@@ -56,5 +57,13 @@ public class Task {
 
     public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -28,6 +28,7 @@ import org.smartregister.util.JsonFormUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -158,9 +159,11 @@ public class ContactVisit {
                     if (stepFields != null && stepFields.length() > 0) {
                         for (int i = 0; i < stepFields.length(); i++) {
                             JSONObject field = stepFields.getJSONObject(i);
-                            JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                            if (jsonArray == null || !(jsonArray.length() > 0)) {
-                                saveTasks(field);
+                            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                                if (jsonArray == null || !(jsonArray.length() > 0)) {
+                                    saveTasks(field);
+                                }
                             }
                         }
                     }
@@ -181,11 +184,20 @@ public class ContactVisit {
     @NotNull
     private Task getTask(JSONObject field, String key) {
         Task task = new Task();
-        task.setContactNo(String.valueOf(nextContact));
+        task.setContactNo(getCurrentContact());
         task.setBaseEntityId(baseEntityId);
         task.setKey(key);
         task.setValue(String.valueOf(field));
+        task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
+    }
+
+    private String getCurrentContact() {
+        String contact = "0";
+        if (StringUtils.isNotBlank(String.valueOf(nextContact))) {
+            contact = nextContact == 1 ? String.valueOf(nextContact) : String.valueOf(nextContact - 1);
+        }
+        return contact;
     }
 
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {

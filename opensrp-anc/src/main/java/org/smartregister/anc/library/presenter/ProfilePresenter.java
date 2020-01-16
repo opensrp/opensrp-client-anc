@@ -156,4 +156,9 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     public HashMap<String, String> saveFinishForm(Map<String, String> client) {
         return contactInteractor.finalizeContactForm(client);
     }
+
+    @Override
+    public void getTaskCount(String baseEntityId, String contactNo) {
+         getProfileView().setTaskCount(mProfileInteractor.getTaskCount(baseEntityId, contactNo));
+    }
 }

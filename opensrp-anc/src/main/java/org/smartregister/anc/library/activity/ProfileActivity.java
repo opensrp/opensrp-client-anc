@@ -75,37 +75,30 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
-        getTaskTabCount().setText(getTasksCount(baseEntityId));
+        getTasksCount(baseEntityId, getContactNumber());
     }
 
     protected void registerEventBus() {
         EventBus.getDefault().register(this);
     }
 
-    public TextView getTaskTabCount() {
-        return taskTabCount;
-    }
-
-    private String getTasksCount(String baseEntityId) {
+    private String getTasksCount(String baseEntityId, String contactNo) {
         String count = "0";
-        if (StringUtils.isNotBlank(baseEntityId)) {
-
+        if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
+            ((ProfilePresenter) presenter).getTaskCount(baseEntityId, contactNo);
         }
         return count;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.profile_overview_due_button) {
-            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
-            }
-
-        } else {
-            super.onClick(view);
+    private String getContactNumber() {
+        int contact = 0;
+        if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
+            contact = Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+        } else if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.IN_PROGRESS)) {
+            contact = Integer.valueOf(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
         }
+
+        return String.valueOf(contact);
     }
 
     @Override
@@ -138,6 +131,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         TextView taskTabTitle = taskTabTitleLayout.findViewById(R.id.tasks_title);
         taskTabTitle.setText(this.getString(R.string.tasks));
         taskTabCount = taskTabTitleLayout.findViewById(R.id.tasks_count);
+
         getTabLayout().getTabAt(2).setCustomView(taskTabTitleLayout);
     }
 
@@ -155,6 +149,20 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
         viewPager.setAdapter(adapter);
         return viewPager;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.profile_overview_due_button) {
+            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+            }
+
+        } else {
+            super.onClick(view);
+        }
     }
 
     @Override
@@ -344,6 +352,15 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public void setTaskCount(String taskCount) {
+        getTaskTabCount().setText(taskCount);
+    }
+
+    public TextView getTaskTabCount() {
+        return taskTabCount;
     }
 
     @Override

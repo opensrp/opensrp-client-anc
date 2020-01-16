@@ -66,7 +66,34 @@ public class TasksRepositoryHelper extends BaseRepository {
         values.put(BASE_ENTITY_ID, task.getBaseEntityId());
         values.put(VALUE, task.getValue());
         values.put(KEY, task.getKey());
+        values.put(CREATED_AT, task.getCreatedAt());
         return values;
+    }
+
+    public String getTasksCount(String baseEntityId, String contactNo) {
+        int tasksCount = 0;
+        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = null;
+        Cursor mCursor = null;
+        try {
+            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
+                selectionArgs = new String[]{baseEntityId, contactNo};
+            }
+
+            mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
+            if (mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
+                tasksCount = mCursor.getInt(0);
+            }
+        } catch (Exception e) {
+            Timber.e(e, " --> getTasksCount");
+        } finally {
+            if (mCursor != null) {
+                mCursor.close();
+            }
+        }
+
+        return String.valueOf(tasksCount);
     }
 
     /**
