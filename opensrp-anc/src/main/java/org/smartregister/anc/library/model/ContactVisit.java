@@ -161,7 +161,7 @@ public class ContactVisit {
                             JSONObject field = stepFields.getJSONObject(i);
                             if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                                 JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                                if (jsonArray == null || !(jsonArray.length() > 0)) {
+                                if (jsonArray == null || (jsonArray.length() == 0)) {
                                     saveTasks(field);
                                 }
                             }

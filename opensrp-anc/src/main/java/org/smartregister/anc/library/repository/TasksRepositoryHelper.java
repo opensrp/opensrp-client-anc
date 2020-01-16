@@ -70,6 +70,14 @@ public class TasksRepositoryHelper extends BaseRepository {
         return values;
     }
 
+    /**
+     * Gets the count of the tasks for a specific content
+     *
+     * @param baseEntityId {@link String} - The patient's base entity id
+     * @param contactNo    {@link String} - The current contact number
+     * @return taskCount {@link String} - The number of tasks for the patient on the specific contact.
+     * @author dubdabasoduba
+     */
     public String getTasksCount(String baseEntityId, String contactNo) {
         int tasksCount = 0;
         String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
@@ -188,5 +196,15 @@ public class TasksRepositoryHelper extends BaseRepository {
         }
 
         return taskList;
+    }
+
+    /**
+     * This deletes a given task after the finalize button on the contacts pressed
+     *
+     * @param id {@link Long} - The task id
+     * @author dubdabasoduba
+     */
+    public void deleteContactTask(Long id) {
+        getWritableDatabase().delete(TABLE_NAME, "_id=?", new String[]{id.toString()});
     }
 }
