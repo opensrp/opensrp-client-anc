@@ -69,17 +69,31 @@ condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earli
 actions:
   - "isRelevant = true"
 ---
-name: global_ultrasound_done_early_toaster
+name: step1_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1
 condition: "((step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier') && step1_ultrasound_gest_age_wks < 24)"
 actions:
   - "isRelevant = true"
 ---
-name: global_ultrasound_done_early_toaster
+name: step2_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1
 condition: "((step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && step2_ultrasound_gest_age_wks < 24)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_ultrasound_info_toaster
+description: ultrasound info!
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_ultrasound_info_toaster
+description: ultrasound info!
+priority: 1
+condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
