@@ -300,7 +300,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     compressedBitmap.compress(compressFormat, 100, os);
                 } else {
                     throw new IllegalArgumentException(
-                            "Failed to saveTasks static image, could not retrieve image compression format from name " +
+                            "Failed to save static image, could not retrieve image compression format from name " +
                                     absoluteFileName);
                 }
                 // insert into the db
@@ -316,7 +316,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
         } catch (FileNotFoundException e) {
-            Timber.e("Failed to saveTasks static image to disk");
+            Timber.e("Failed to save static image to disk");
         } finally {
             if (os != null) {
                 try {

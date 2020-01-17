@@ -78,7 +78,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     /**
-     * Shows the form exit dialog message if yes is clicked a partial saveTasks of the quick check selection is saved and it
+     * Shows the form exit dialog message if yes is clicked a partial save of the quick check selection is saved and it
      * redirects back to the main register
      *
      * @author dubdabasoduba
@@ -203,7 +203,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 super.save();
             }
         } catch (Exception e) {
-            Timber.e(e, "%s --> saveTasks", this.getClass().getCanonicalName());
+            Timber.e(e, "%s --> save", this.getClass().getCanonicalName());
             this.save(false);
         }
 

@@ -253,7 +253,7 @@ public class ContactVisit {
                             continue;
                         }
 
-                        //Do not saveTasks empty checkbox values with nothing inside square braces ([])
+                        //Do not save empty checkbox values with nothing inside square braces ([])
                         if (fieldObject.has(JsonFormConstants.VALUE) &&
                                 !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
                                 !isCheckboxValueEmpty(fieldObject)) {
@@ -318,7 +318,7 @@ public class ContactVisit {
                 JSONObject valueItem = value.getJSONObject(j);
                 JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
                 String result = extractItemValue(valueItem, valueItemJSONArray);
-                // do not saveTasks empty checkbox values ([])
+                // do not save empty checkbox values ([])
                 if (result.startsWith("[") && result.endsWith("]") && result.length() == 2 ||
                         TextUtils.equals("[]", result)) {
                     return;
