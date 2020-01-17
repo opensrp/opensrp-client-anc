@@ -319,4 +319,5 @@
     <string name="tab_button_image">Tab button image</string>
     <string name="tap_button_below">Tap the button below to start/complete a contact</string>
     <string name="no_health_data_recorded">No health data recorded</string>
+    <string name="tests_tasks_header">Tests</string>
 </resources>

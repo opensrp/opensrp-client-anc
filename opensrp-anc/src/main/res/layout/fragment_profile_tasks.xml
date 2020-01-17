@@ -10,4 +10,23 @@
     <include
         android:id="@+id/no_health_data_recorded_profile_task_layout"
         layout="@layout/no_health_data_record" />
+
+    <TextView
+        android:id="@+id/test_tasks_sub_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/overview_sub_header_bg"
+        android:gravity="start"
+        android:paddingStart="@dimen/contact_drawable_padding"
+        android:paddingTop="@dimen/contact_drawable_padding"
+        android:paddingBottom="@dimen/contact_drawable_padding"
+        android:singleLine="true"
+        android:text="@string/tests_tasks_header"
+        android:textAllCaps="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>
