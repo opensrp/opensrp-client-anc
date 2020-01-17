@@ -82,12 +82,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         EventBus.getDefault().register(this);
     }
 
-    private String getTasksCount(String baseEntityId, String contactNo) {
-        String count = "0";
+    private void getTasksCount(String baseEntityId, String contactNo) {
         if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
             ((ProfilePresenter) presenter).getTaskCount(baseEntityId, contactNo);
         }
-        return count;
     }
 
     private String getContactNumber() {
