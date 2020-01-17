@@ -1,7 +1,11 @@
 package org.smartregister.anc.library.interactor;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
+
+import java.util.List;
 
 /**
  * Created by ndegwamartin on 13/07/2018.
@@ -23,6 +27,11 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
     @Override
     public void refreshProfileView(String baseEntityId, boolean isForEdit) {
         new FetchProfileDataTask(isForEdit).execute(baseEntityId);
+    }
+
+    @Override
+    public List<Task> getContactTasks(String baseEntityId, String contactNo) {
+        return AncLibrary.getInstance().getTasksRepositoryHelper().getTasks(baseEntityId, null);
     }
 
 

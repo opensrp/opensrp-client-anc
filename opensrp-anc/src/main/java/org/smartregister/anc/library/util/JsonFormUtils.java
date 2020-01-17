@@ -186,6 +186,14 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
+    public static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
+
+        JSONObject jsonForm = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(jsonString);
+        JSONArray fields = org.smartregister.anc.library.util.JsonFormUtils.fields(jsonForm);
+
+        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
+    }
+
     @NotNull
     private static String getEntityId(JSONObject jsonForm) {
         String entityId = JsonFormUtils.getString(jsonForm, JsonFormUtils.ENTITY_ID);
@@ -193,6 +201,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             entityId = JsonFormUtils.generateRandomUUIDString();
         }
         return entityId;
+    }
+
+    private static void addLastInteractedWith(JSONArray fields) throws JSONException {
+        JSONObject lastInteractedWith = new JSONObject();
+        lastInteractedWith.put(ConstantsUtils.KeyUtils.KEY, DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH);
+        lastInteractedWith.put(ConstantsUtils.KeyUtils.VALUE, Calendar.getInstance().getTimeInMillis());
+        fields.put(lastInteractedWith);
     }
 
     private static void getDobStrings(JSONArray fields) throws JSONException {
@@ -204,13 +219,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         if (StringUtils.isNotBlank(dobUnKnownString)) {
             dobUnknownObject.put(JsonFormUtils.VALUE, Boolean.valueOf(dobUnKnownString) ? 1 : 0);
         }
-    }
-
-    private static void addLastInteractedWith(JSONArray fields) throws JSONException {
-        JSONObject lastInteractedWith = new JSONObject();
-        lastInteractedWith.put(ConstantsUtils.KeyUtils.KEY, DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH);
-        lastInteractedWith.put(ConstantsUtils.KeyUtils.VALUE, Calendar.getInstance().getTimeInMillis());
-        fields.put(lastInteractedWith);
     }
 
     private static void initializeFirstContactValues(JSONArray fields) throws JSONException {
@@ -235,14 +243,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         formTag.appVersion = BuildConfig.VERSION_CODE;
         formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
         return formTag;
-    }
-
-    public static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
-
-        JSONObject jsonForm = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(jsonString);
-        JSONArray fields = org.smartregister.anc.library.util.JsonFormUtils.fields(jsonForm);
-
-        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
     }
 
     private static void tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {

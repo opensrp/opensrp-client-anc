@@ -108,7 +108,7 @@ public class PartialContactRepositoryHelper extends BaseRepository {
                 dbPartialContact = getContactResult(mCursor);
             }
         } catch (Exception e) {
-            Timber.e(e,"PartialContactRepository --> getPartialContact");
+            Timber.e(e, "PartialContactRepository --> getPartialContact");
 
         } finally {
             if (mCursor != null) {
@@ -184,7 +184,7 @@ public class PartialContactRepositoryHelper extends BaseRepository {
                 return partialContactList;
             }
         } catch (Exception e) {
-            Timber.e(e,"PartialContactRepository --> getPartialContacts");
+            Timber.e(e, "PartialContactRepository --> getPartialContacts");
         } finally {
             if (mCursor != null) {
                 mCursor.close();

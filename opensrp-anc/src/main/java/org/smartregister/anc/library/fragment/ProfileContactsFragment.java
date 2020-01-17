@@ -27,6 +27,7 @@ import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -319,6 +320,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
             this.startActivity(intent);
         }
+    }
+
+    @Override
+    public void setContactTasks(List<Task> contactTasks) {
+        // Implement here
     }
 
     /**

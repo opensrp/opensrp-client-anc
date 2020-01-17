@@ -42,6 +42,7 @@ public interface ProfileContract {
         void setProfileImage(String baseEntityId);
 
         void setPhoneNumber(String phoneNumber);
+
         void setTaskCount(String taskCount);
 
     }

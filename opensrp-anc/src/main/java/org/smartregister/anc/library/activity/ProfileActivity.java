@@ -63,6 +63,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private String buttonAlertStatus;
     private Button dueButton;
     private TextView taskTabCount;
+    private String contactNo;
 
     @Override
     protected void onCreation() {
@@ -75,7 +76,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
-        getTasksCount(baseEntityId, getContactNumber());
+        getTasksCount(baseEntityId, contactNo);
     }
 
     protected void registerEventBus() {
@@ -88,16 +89,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         }
     }
 
-    private String getContactNumber() {
-        int contact = 0;
-        if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
-            contact = Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
-        } else if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.IN_PROGRESS)) {
-            contact = Integer.valueOf(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
-        }
-
-        return String.valueOf(contact);
-    }
 
     @Override
     protected void initializePresenter() {
@@ -119,6 +110,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     private void getButtonAlertStatus() {
         detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        contactNo = String.valueOf(Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
         buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE),
                 ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS)) ?
                         ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
@@ -374,6 +366,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     public Button getDueButton() {
         return dueButton;
+    }
+
+    public ProfilePresenter getProfilePresenter() {
+        return (ProfilePresenter) presenter;
     }
 }
 

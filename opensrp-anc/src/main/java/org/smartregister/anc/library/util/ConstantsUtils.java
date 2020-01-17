@@ -69,6 +69,16 @@ public abstract class ConstantsUtils {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
     }
 
+    public interface TemplateUtils {
+        interface SiteCharacteristics {
+            String teamId = "teamId";
+            String team = "team";
+            String locationId = "locationId";
+            String providerId = "providerId";
+            String revision = "revision";
+        }
+    }
+
     public static class AncRadioButtonOptionTypesUtils {
         public static final String DONE_TODAY = "done_today";
         public static final String DONE_EARLIER = "done_earlier";
@@ -91,7 +101,6 @@ public abstract class ConstantsUtils {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
     }
-
 
     public static class IdentifierUtils {
         public static final String ANC_ID = "ANC_ID";
@@ -254,15 +263,5 @@ public abstract class ConstantsUtils {
 
     public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
-    }
-
-    public interface TemplateUtils {
-        interface SiteCharacteristics {
-            String teamId = "teamId";
-            String team = "team";
-            String locationId = "locationId";
-            String providerId = "providerId";
-            String revision = "revision";
-        }
     }
 }

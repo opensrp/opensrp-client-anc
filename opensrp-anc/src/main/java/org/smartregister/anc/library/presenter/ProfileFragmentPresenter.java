@@ -81,4 +81,9 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
 
         return facts;
     }
+
+    @Override
+    public void getContactTasks(String baseEntityId, String contactNo) {
+        getProfileView().setContactTasks(mProfileInteractor.getContactTasks(baseEntityId, contactNo));
+    }
 }

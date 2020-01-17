@@ -188,6 +188,21 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             Log.e(TAG, e.toString(), e);
         }
         return false;
+    }
+
+    @Override
+    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
+
+        // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
+
+        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
+                allCommonsRepositoryobjects(tableName);
+
+        if (allCommonsRepository != null) {
+            allCommonsRepository.updateSearch(entityId);
+        }
+
+        //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
     }    @Override
     public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
         Event event = eventClient.getEvent();
@@ -220,21 +235,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
     }
 
     @Override
-    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-
-        // Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
-
-        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
-                allCommonsRepositoryobjects(tableName);
-
-        if (allCommonsRepository != null) {
-            allCommonsRepository.updateSearch(entityId);
-        }
-
-        //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
-    }
-
-    @Override
     public String[] getOpenmrsGenIds() {
         /*
         This method is not currently used because the ANC_ID is always a number and does not contain hyphens.
@@ -243,6 +243,8 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
          */
         return new String[]{DBConstantsUtils.KeyUtils.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
     }
+
+
 
     @Override
     public boolean unSync(@Nullable List<Event> events) {
@@ -277,8 +279,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
         return false;
     }
-
-
 
 
     @NonNull
