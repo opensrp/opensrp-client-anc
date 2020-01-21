@@ -8,8 +8,8 @@
         android:id="@+id/expansionHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@android:color/white"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
@@ -29,8 +29,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="@dimen/accordion_content_margin"
+                android:layout_marginRight="@dimen/accordion_content_margin"
                 android:layout_marginBottom="5dp"
                 android:contentDescription="@string/status_icon_display"
                 android:gravity="start|center_vertical"
@@ -70,8 +70,8 @@
         android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -79,6 +79,7 @@
             android:id="@+id/contentView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -114,8 +115,7 @@
                 android:background="@null"
                 android:text="@string/record"
                 android:textAllCaps="true"
-                android:textColor="@color/dialog_button_blue_color"
-                android:visibility="gone" />
+                android:textColor="@color/dialog_button_blue_color" />
         </LinearLayout>
 
     </LinearLayout>

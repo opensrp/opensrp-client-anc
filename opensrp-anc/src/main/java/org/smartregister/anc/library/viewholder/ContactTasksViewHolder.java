@@ -20,7 +20,7 @@ public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
     public RelativeLayout expansionHeaderLayout;
     public ImageView statusImageView;
     public CustomTextView topBarTextView;
-    public LinearLayout contentLayout;
+    public LinearLayout contentLayout, accordionBottomNavigation;
     public LinearLayout contentView;
     public Button undoButton;
     public Button okButton;
@@ -35,6 +35,7 @@ public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
         topBarTextView = itemView.findViewById(R.id.topBarTextView);
         contentLayout = itemView.findViewById(R.id.contentLayout);
         contentView = itemView.findViewById(R.id.contentView);
+        accordionBottomNavigation = itemView.findViewById(R.id.accordion_bottom_navigation);
         undoButton = itemView.findViewById(R.id.undo_button);
         okButton = itemView.findViewById(R.id.ok_button);
         parent = itemView;

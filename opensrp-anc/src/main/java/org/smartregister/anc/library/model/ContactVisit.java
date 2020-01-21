@@ -161,7 +161,7 @@ public class ContactVisit {
                             JSONObject field = stepFields.getJSONObject(i);
                             if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                                 JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                                if (jsonArray == null || (jsonArray.length() == 0)) {
+                                if (jsonArray == null || (jsonArray.length() == 0) || checkTestsStatus(jsonArray)) {
                                     saveTasks(field);
                                 }
                             }
@@ -172,6 +172,27 @@ public class ContactVisit {
         } catch (JSONException e) {
             Timber.e(e, " --> processTasks");
         }
+    }
+
+    private boolean checkTestsStatus(JSONArray valueArray) {
+        boolean isTask = false;
+        try {
+
+            for (int i = 0; i < valueArray.length(); i++) {
+                JSONObject value = valueArray.getJSONObject(i);
+                if (value != null && value.has(JsonFormConstants.INDEX) && 0 == value.getInt(JsonFormConstants.INDEX)) {
+                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
+                    if ((givenValue.length() > 0) && (!givenValue.getString(0).contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY) || !givenValue.getString(0).contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER))) {
+                        isTask = true;
+                    }
+                    break;
+                }
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e, " --> checkTestsStatus");
+        }
+        return isTask;
     }
 
     private void saveTasks(JSONObject field) {

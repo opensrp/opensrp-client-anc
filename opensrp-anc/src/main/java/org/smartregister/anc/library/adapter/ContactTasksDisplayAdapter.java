@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.model.Task;
+import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.viewholder.ContactTasksViewHolder;
 
 import java.util.List;
@@ -24,6 +27,8 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     private List<Task> taskList;
     private LayoutInflater inflater;
     private Context context;
+    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private Utils utils = new Utils();
 
     public ContactTasksDisplayAdapter(List<Task> taskList, Context context) {
         this.taskList = taskList;
@@ -49,6 +54,10 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                 if (StringUtils.isNotBlank(taskText)) {
                     contactTasksViewHolder.topBarTextView.setText(taskText);
                 }
+                updateStatusIcon(taskValue, contactTasksViewHolder);
+                showInfoIcon(taskValue, contactTasksViewHolder);
+                attachContent(taskValue, contactTasksViewHolder);
+                addBottomSection(taskValue, contactTasksViewHolder);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> onBindViewHolder");
@@ -58,5 +67,104 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     @Override
     public int getItemCount() {
         return taskList.size();
+    }
+
+    /**
+     * Update the status image view color and design according to the test status
+     *
+     * @param taskValue              {@link JSONObject}
+     * @param contactTasksViewHolder {@link ContactTasksViewHolder}
+     */
+    private void updateStatusIcon(JSONObject taskValue, ContactTasksViewHolder contactTasksViewHolder) {
+        try {
+            if (taskValue.has(JsonFormConstants.VALUE)) {
+                JSONArray values = taskValue.getJSONArray(JsonFormConstants.VALUE);
+                for (int i = 0; i < values.length(); i++) {
+                    JSONObject valueObject = values.getJSONObject(i);
+                    if (valueObject != null && valueObject.has(JsonFormConstants.VALUES) && valueObject.has(JsonFormConstants.INDEX) && valueObject.getInt(JsonFormConstants.INDEX) == 0) {
+                        JSONArray jsonArray = valueObject.getJSONArray(JsonFormConstants.VALUES);
+                        String status = jsonArray.getString(0);
+                        if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
+                            contactTasksViewHolder.statusImageView.setImageResource(R.drawable.not_done);
+                        } else if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED)) {
+                            contactTasksViewHolder.statusImageView.setImageResource(R.drawable.ordered);
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> updateStatusIcon");
+        }
+    }
+
+    /**
+     * Checks for any extra info widget,  add the necessary tags before the info icon is displayed to enable the icon clicking
+     *
+     * @param taskValue              {@link JSONObject}
+     * @param contactTasksViewHolder {@link ContactTasksViewHolder}
+     */
+    private void showInfoIcon(JSONObject taskValue, ContactTasksViewHolder contactTasksViewHolder) {
+        try {
+            if (taskValue.has(JsonFormConstants.ACCORDION_INFO_TEXT)) {
+                String infoText = taskValue.getString(JsonFormConstants.ACCORDION_INFO_TEXT);
+                String infoTextTitle = taskValue.getString(JsonFormConstants.ACCORDION_INFO_TITLE);
+                if (StringUtils.isNotBlank(infoText)) {
+                    contactTasksViewHolder.accordionInfoIcon.setVisibility(View.VISIBLE);
+                    contactTasksViewHolder.accordionInfoIcon.setTag(R.id.accordion_context, context);
+                    contactTasksViewHolder.accordionInfoIcon.setTag(R.id.accordion_info_title, infoTextTitle);
+                    contactTasksViewHolder.accordionInfoIcon.setTag(R.id.accordion_info_text, infoText);
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> showInfoIcon");
+        }
+    }
+
+    /**
+     * Displays the earlier selctions made on the tests if any
+     *
+     * @param taskValue {@link JSONObject}
+     * @param viewHolder {@link ContactTasksViewHolder}
+     * @throws JSONException {@link JSONException}
+     */
+    private void attachContent(JSONObject taskValue, ContactTasksViewHolder viewHolder) throws JSONException {
+        JSONArray values = new JSONArray();
+        if (taskValue.has(JsonFormConstants.VALUE)) {
+            values = taskValue.getJSONArray(JsonFormConstants.VALUE);
+            if (contactJsonFormUtils.checkValuesContent(values)) {
+                viewHolder.contentLayout.setVisibility(View.VISIBLE);
+                viewHolder.contentView.setVisibility(View.VISIBLE);
+            }
+        }
+        contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
+    }
+
+    private void addBottomSection(JSONObject taskValue, ContactTasksViewHolder contactTasksViewHolder) throws JSONException {
+        JSONObject showBottomSection = taskValue.optJSONObject(JsonFormConstants.BOTTOM_SECTION);
+        boolean showButtons = true;
+        boolean showRecordButton = true;
+        if (showBottomSection != null) {
+            showButtons = showBottomSection.optBoolean(JsonFormConstants.DISPLAY_BOTTOM_SECTION, true);
+            showRecordButton = showBottomSection.optBoolean(JsonFormConstants.DISPLAY_RECORD_BUTTON, true);
+        }
+
+        if (showRecordButton) {
+            contactTasksViewHolder.okButton.setVisibility(View.VISIBLE);
+        }
+
+        if (taskValue.has(JsonFormConstants.VALUE) && taskValue.getJSONArray(JsonFormConstants.VALUE).length() > 0) {
+            JSONArray value = taskValue.optJSONArray(JsonFormConstants.VALUE);
+            if (value != null && contactJsonFormUtils.checkValuesContent(value)) {
+                if (showButtons) {
+                    contactTasksViewHolder.accordionBottomNavigation.setVisibility(View.VISIBLE);
+                    contactTasksViewHolder.undoButton.setVisibility(View.VISIBLE);
+                }
+
+                if (taskValue.has(JsonFormConstants.VALUE)) {
+                    contactTasksViewHolder.undoButton.setVisibility(View.VISIBLE);
+                }
+
+            }
+        }
     }
 }
