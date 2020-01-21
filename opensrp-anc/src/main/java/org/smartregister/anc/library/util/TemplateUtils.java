@@ -3,7 +3,6 @@ package org.smartregister.anc.library.util;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import org.apache.commons.codec.CharEncoding;
 import org.json.JSONException;
 import org.json.JSONObject;
 

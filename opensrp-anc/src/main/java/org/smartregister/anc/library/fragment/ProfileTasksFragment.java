@@ -2,6 +2,8 @@ package org.smartregister.anc.library.fragment;
 
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.Button;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ProfileActivity;
+import org.smartregister.anc.library.adapter.ContactTasksDisplayAdapter;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.model.Task;
@@ -31,10 +34,10 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private ProfileFragmentContract.Presenter presenter;
     private String baseEntityId;
     private List<Task> taskList = new ArrayList<>();
-    private HashMap<String, String> clientDetails;
     private String contactNo;
     private View noHealthRecordLayout;
     private ConstraintLayout tasksLayout;
+    private RecyclerView recyclerView;
 
     public static ProfileTasksFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -62,7 +65,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     @Override
     protected void onCreation() {
         if (getActivity() != null && getActivity().getIntent() != null) {
-            clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             if (clientDetails != null) {
                 buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
@@ -76,8 +79,20 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         if (getActivity() != null && getActivity().getIntent() != null) {
             baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         }
-
         presenter.getContactTasks(baseEntityId, contactNo);
+
+        ContactTasksDisplayAdapter adapter = new ContactTasksDisplayAdapter(getTaskList(), getActivity());
+        adapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     @Override
@@ -85,6 +100,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         View fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
         noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_profile_task_layout);
         tasksLayout = fragmentView.findViewById(R.id.tasks_layout);
+        recyclerView = fragmentView.findViewById(R.id.tasks_display_recyclerview);
 
         dueButton = ((ProfileActivity) getActivity()).getDueButton();
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
@@ -97,11 +113,11 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     @Override
     public void setContactTasks(List<Task> contactTasks) {
-        taskList = contactTasks;
-        toggleViews();
+        toggleViews(contactTasks);
+        setTaskList(contactTasks);
     }
 
-    private void toggleViews() {
+    private void toggleViews(List<Task> taskList) {
         if (taskList.size() > 0) {
             noHealthRecordLayout.setVisibility(View.GONE);
             tasksLayout.setVisibility(View.VISIBLE);

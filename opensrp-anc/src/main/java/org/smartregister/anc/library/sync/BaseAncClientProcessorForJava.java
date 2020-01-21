@@ -203,6 +203,16 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         }
 
         //  Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
+    }
+
+    @Override
+    public String[] getOpenmrsGenIds() {
+        /*
+        This method is not currently used because the ANC_ID is always a number and does not contain hyphens.
+        This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
+        content values for such identifiers
+         */
+        return new String[]{DBConstantsUtils.KeyUtils.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
     }    @Override
     public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
         Event event = eventClient.getEvent();
@@ -234,15 +244,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         }
     }
 
-    @Override
-    public String[] getOpenmrsGenIds() {
-        /*
-        This method is not currently used because the ANC_ID is always a number and does not contain hyphens.
-        This method is used to get the identifiers used by OpenMRS so that we remove the hyphens in the
-        content values for such identifiers
-         */
-        return new String[]{DBConstantsUtils.KeyUtils.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
-    }
 
 
 

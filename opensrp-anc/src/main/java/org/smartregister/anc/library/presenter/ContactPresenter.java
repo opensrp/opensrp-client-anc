@@ -56,16 +56,16 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     private ContactContract.View getView() {
         if (viewReference != null) return viewReference.get();
         else return null;
-    }    @Override
-    public void setBaseEntityId(String baseEntityId) {
-        this.baseEntityId = baseEntityId;
-
-        fetchPatient(baseEntityId);
     }
 
     // Test methods
     public WeakReference<ContactContract.View> getViewReference() {
         return viewReference;
+    }    @Override
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
+
+        fetchPatient(baseEntityId);
     }
 
     public ContactContract.Interactor getInteractor() {
@@ -74,9 +74,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public void setInteractor(ContactContract.Interactor interactor) {
         this.interactor = interactor;
-    }    @Override
-    public boolean baseEntityIdExists() {
-        return StringUtils.isNotBlank(baseEntityId);
     }
 
     public void setModel(ContactContract.Model model) {
@@ -85,19 +82,23 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public Map<String, String> getDetails() {
         return details;
+    }    @Override
+    public boolean baseEntityIdExists() {
+        return StringUtils.isNotBlank(baseEntityId);
     }
 
     public void setDetails(Map<String, String> details) {
         this.details = details;
-    }    @Override
-    public void fetchPatient(String baseEntityId) {
-        interactor.fetchWomanDetails(baseEntityId, this);
     }
 
 
 
 
 
+    @Override
+    public void fetchPatient(String baseEntityId) {
+        interactor.fetchWomanDetails(baseEntityId, this);
+    }
 
 
     @Override

@@ -2,9 +2,11 @@ package org.smartregister.anc.library.listener;
 
 import android.view.View;
 
-public class TaskDisplayClickListener implements View.OnClickListener {
+public class ContactTaskDisplayClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
+        if (view != null) {
 
+        }
     }
 }

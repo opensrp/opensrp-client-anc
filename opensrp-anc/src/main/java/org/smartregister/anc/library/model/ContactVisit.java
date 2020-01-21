@@ -177,7 +177,7 @@ public class ContactVisit {
     private void saveTasks(JSONObject field) {
         if (field != null) {
             String key = field.optString(JsonFormConstants.KEY, "");
-            AncLibrary.getInstance().getTasksRepositoryHelper().saveTasks(getTask(field, key));
+            AncLibrary.getInstance().getContactTasksRepositoryHelper().saveTasks(getTask(field, key));
         }
     }
 

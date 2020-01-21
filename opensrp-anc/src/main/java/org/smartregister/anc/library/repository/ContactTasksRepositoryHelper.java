@@ -15,7 +15,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class TasksRepositoryHelper extends BaseRepository {
+public class ContactTasksRepositoryHelper extends BaseRepository {
     public static final String TABLE_NAME = "contact_tasks";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -166,10 +166,8 @@ public class TasksRepositoryHelper extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysList != null) {
-
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN (?) " + BaseRepository.COLLATE_NOCASE;
                     selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
-
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
                     selectionArgs = new String[]{baseEntityId};
@@ -177,13 +175,9 @@ public class TasksRepositoryHelper extends BaseRepository {
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-
             if (mCursor != null) {
-
                 while (mCursor.moveToNext()) {
-
                     taskList.add(getContactResult(mCursor));
-
                 }
                 return taskList;
             }

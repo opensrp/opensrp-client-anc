@@ -99,9 +99,7 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
             mCursor = getReadableDatabase()
                     .query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor.getCount() > 0) {
-
                 mCursor.moveToFirst();
-
                 dbPreviousContact = getContactResult(mCursor);
             }
         } catch (Exception e) {
@@ -141,10 +139,8 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysList != null) {
-
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN (?) " + BaseRepository.COLLATE_NOCASE;
                     selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
-
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
                     selectionArgs = new String[]{baseEntityId};
@@ -152,13 +148,9 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-
             if (mCursor != null) {
-
                 while (mCursor.moveToNext()) {
-
                     previousContacts.add(getContactResult(mCursor));
-
                 }
                 return previousContacts;
             }
@@ -192,7 +184,6 @@ public class PreviousContactRepositoryHelper extends BaseRepository {
             }
 
             factsCursor = database.rawQuery(selection, selectionArgs);
-
             if (factsCursor != null) {
                 while (factsCursor.moveToNext()) {
                     Facts contactFacts = new Facts();

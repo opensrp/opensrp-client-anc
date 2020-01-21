@@ -10,7 +10,7 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
-import org.smartregister.anc.library.repository.TasksRepositoryHelper;
+import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
@@ -46,7 +46,7 @@ public class AncRepository extends Repository {
         SettingsRepository.onUpgrade(database);
         PartialContactRepositoryHelper.createTable(database);
         PreviousContactRepositoryHelper.createTable(database);
-        TasksRepositoryHelper.createTable(database);
+        ContactTasksRepositoryHelper.createTable(database);
     }
 
     @Override
