@@ -213,7 +213,9 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         content values for such identifiers
          */
         return new String[]{DBConstantsUtils.KeyUtils.ANC_ID, ConstantsUtils.JsonFormKeyUtils.ANC_ID};
-    }    @Override
+    }
+
+    @Override
     public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
         Event event = eventClient.getEvent();
         if (event == null) {
@@ -243,8 +245,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             processVisit(event);
         }
     }
-
-
 
 
     @Override

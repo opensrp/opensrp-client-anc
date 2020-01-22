@@ -67,9 +67,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         if (getActivity() != null && getActivity().getIntent() != null) {
             HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-            if (clientDetails != null) {
-                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
-            }
+            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
         }
     }
 
@@ -80,8 +78,14 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
             baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         }
         presenter.getContactTasks(baseEntityId, contactNo);
+        attachTasksRecyclerView();
+    }
 
-        ContactTasksDisplayAdapter adapter = new ContactTasksDisplayAdapter(getTaskList(), getActivity());
+    /**
+     * Attaches the tasks display adapter to the tasks display recycler view
+     */
+    private void attachTasksRecyclerView() {
+        ContactTasksDisplayAdapter adapter = new ContactTasksDisplayAdapter(getTaskList(), getActivity(), this);
         adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -117,6 +121,16 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         setTaskList(contactTasks);
     }
 
+    @Override
+    public void undoTasks(Task task) {
+        presenter.undoTasks(task);
+    }
+
+    /**
+     * Toggles the views between the recycler view & the 'no health data' section
+     *
+     * @param taskList {@link List}
+     */
     private void toggleViews(List<Task> taskList) {
         if (taskList.size() > 0) {
             noHealthRecordLayout.setVisibility(View.GONE);

@@ -34,6 +34,11 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
         return AncLibrary.getInstance().getContactTasksRepositoryHelper().getTasks(baseEntityId, null);
     }
 
+    @Override
+    public void undoTask(Task task) {
+        AncLibrary.getInstance().getContactTasksRepositoryHelper().saveTasks(task);
+    }
+
 
     public ProfileFragmentContract.View getProfileView() {
         return mProfileFrgamentPresenter.getProfileView();

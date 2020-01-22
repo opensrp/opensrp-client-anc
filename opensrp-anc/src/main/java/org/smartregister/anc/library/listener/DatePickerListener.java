@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.vijay.jsonwizard.utils.DatePickerUtils;
@@ -33,7 +32,7 @@ public class DatePickerListener implements View.OnClickListener {
         //To show current date in the datepicker
         Calendar mcurrentDate = Calendar.getInstance();
 
-        String previouslySelectedDateString = "";
+        String previouslySelectedDateString;
 
         if (view instanceof EditText) {
             previouslySelectedDateString = ((EditText) view).getText().toString();
@@ -53,17 +52,15 @@ public class DatePickerListener implements View.OnClickListener {
         int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog mDatePicker = new DatePickerDialog(context, android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,
-                new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(Calendar.YEAR, selectedyear);
-                        calendar.set(Calendar.MONTH, selectedmonth);
-                        calendar.set(Calendar.DAY_OF_MONTH, selectedday);
+                (datepicker, selectedyear, selectedmonth, selectedday) -> {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, selectedyear);
+                    calendar.set(Calendar.MONTH, selectedmonth);
+                    calendar.set(Calendar.DAY_OF_MONTH, selectedday);
 
-                        String dateString = DateUtil.yyyyMMdd.format(calendar.getTime());
-                        editText.setText(dateString);
+                    String dateString = DateUtil.yyyyMMdd.format(calendar.getTime());
+                    editText.setText(dateString);
 
-                    }
                 }, mYear, mMonth, mDay);
         mDatePicker.getDatePicker().setCalendarViewShown(false);
         if (maxDateToday) {

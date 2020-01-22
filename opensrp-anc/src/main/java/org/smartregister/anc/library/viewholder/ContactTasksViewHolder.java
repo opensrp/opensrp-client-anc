@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.listener.ContactTaskDisplayClickListener;
 
 public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
@@ -24,9 +25,9 @@ public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
     public LinearLayout contentView;
     public Button undoButton;
     public Button okButton;
-    public ContactTaskDisplayClickListener contactTaskDisplayClickListener = new ContactTaskDisplayClickListener();
+    public ContactTaskDisplayClickListener contactTaskDisplayClickListener;
 
-    public ContactTasksViewHolder(@NonNull View itemView) {
+    public ContactTasksViewHolder(@NonNull View itemView, ProfileTasksFragment profileTasksFragment) {
         super(itemView);
         expansionHeaderLayout = itemView.findViewById(R.id.expansionHeader);
         accordionInfoIcon = itemView.findViewById(R.id.accordion_info_icon);
@@ -40,9 +41,13 @@ public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
         okButton = itemView.findViewById(R.id.ok_button);
         parent = itemView;
 
+        contactTaskDisplayClickListener = new ContactTaskDisplayClickListener(profileTasksFragment);
         attachListeners();
     }
 
+    /**
+     * Attaches the click listener to the views on the view holder
+     */
     private void attachListeners() {
         expansionHeaderLayout.setOnClickListener(contactTaskDisplayClickListener);
         accordionInfoIcon.setOnClickListener(contactTaskDisplayClickListener);

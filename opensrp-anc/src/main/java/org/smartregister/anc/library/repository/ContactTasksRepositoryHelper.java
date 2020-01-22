@@ -56,7 +56,12 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
 
     public void saveTasks(Task task) {
         if (task == null) return;
-        getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
+        if (task.getId() != null) {
+            String sqlQuery = ID + " = ? " + BaseRepository.COLLATE_NOCASE;
+            getWritableDatabase().update(TABLE_NAME, createValuesFor(task), sqlQuery, new String[]{String.valueOf(task.getId())});
+        } else {
+            getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
+        }
     }
 
     private ContentValues createValuesFor(Task task) {
@@ -147,7 +152,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         task.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
         task.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
         task.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
-
+        task.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
         return task;
     }
 

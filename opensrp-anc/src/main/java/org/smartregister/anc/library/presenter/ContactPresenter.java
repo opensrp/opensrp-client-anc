@@ -61,15 +61,15 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     // Test methods
     public WeakReference<ContactContract.View> getViewReference() {
         return viewReference;
+    }
+
+    public ContactContract.Interactor getInteractor() {
+        return interactor;
     }    @Override
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
 
         fetchPatient(baseEntityId);
-    }
-
-    public ContactContract.Interactor getInteractor() {
-        return interactor;
     }
 
     public void setInteractor(ContactContract.Interactor interactor) {
@@ -82,15 +82,16 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public Map<String, String> getDetails() {
         return details;
-    }    @Override
-    public boolean baseEntityIdExists() {
-        return StringUtils.isNotBlank(baseEntityId);
     }
 
     public void setDetails(Map<String, String> details) {
         this.details = details;
     }
 
+    @Override
+    public boolean baseEntityIdExists() {
+        return StringUtils.isNotBlank(baseEntityId);
+    }
 
 
 

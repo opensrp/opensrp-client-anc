@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.lang.ref.WeakReference;
@@ -84,5 +85,10 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     @Override
     public void getContactTasks(String baseEntityId, String contactNo) {
         getProfileView().setContactTasks(mProfileInteractor.getContactTasks(baseEntityId, contactNo));
+    }
+
+    @Override
+    public void undoTasks(Task task) {
+        mProfileInteractor.undoTask(task);
     }
 }

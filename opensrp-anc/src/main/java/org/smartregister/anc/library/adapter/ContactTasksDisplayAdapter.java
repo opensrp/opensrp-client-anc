@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.Utils;
@@ -15,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.viewholder.ContactTasksViewHolder;
@@ -29,18 +31,20 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     private Context context;
     private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
     private Utils utils = new Utils();
+    private ProfileTasksFragment profileTasksFragment;
 
-    public ContactTasksDisplayAdapter(List<Task> taskList, Context context) {
+    public ContactTasksDisplayAdapter(List<Task> taskList, Context context, ProfileTasksFragment profileTasksFragment) {
         this.taskList = taskList;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
+        this.profileTasksFragment = profileTasksFragment;
     }
 
     @NonNull
     @Override
     public ContactTasksViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
         View view = inflater.inflate(R.layout.tasks_expansion_panel, viewGroup, false);
-        return new ContactTasksViewHolder(view);
+        return new ContactTasksViewHolder(view, profileTasksFragment);
     }
 
 
@@ -57,7 +61,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                 updateStatusIcon(taskValue, contactTasksViewHolder);
                 showInfoIcon(taskValue, contactTasksViewHolder);
                 attachContent(taskValue, contactTasksViewHolder);
-                addBottomSection(taskValue, contactTasksViewHolder);
+                addBottomSection(taskValue, task, contactTasksViewHolder);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> onBindViewHolder");
@@ -123,7 +127,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     /**
      * Displays the earlier selctions made on the tests if any
      *
-     * @param taskValue {@link JSONObject}
+     * @param taskValue  {@link JSONObject}
      * @param viewHolder {@link ContactTasksViewHolder}
      * @throws JSONException {@link JSONException}
      */
@@ -139,7 +143,15 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
     }
 
-    private void addBottomSection(JSONObject taskValue, ContactTasksViewHolder contactTasksViewHolder) throws JSONException {
+    /**
+     * Displays or hides the bottoms section of the expansion panel depending on some settings or the value attribute
+     *
+     * @param taskValue              {@link JSONObject}
+     * @param task                   {@link Task}
+     * @param contactTasksViewHolder {@link ContactTasksViewHolder}
+     * @throws JSONException
+     */
+    private void addBottomSection(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) throws JSONException {
         JSONObject showBottomSection = taskValue.optJSONObject(JsonFormConstants.BOTTOM_SECTION);
         boolean showButtons = true;
         boolean showRecordButton = true;
@@ -165,6 +177,16 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                 }
 
             }
+        }
+
+        attachUndoFunctionality(taskValue, task, contactTasksViewHolder.undoButton);
+    }
+
+    private void attachUndoFunctionality(JSONObject taskValue, Task task, Button undoButton) {
+        if (undoButton.getVisibility() == View.VISIBLE) {
+            undoButton.setTag(R.id.accordion_jsonObject, taskValue);
+            undoButton.setTag(R.id.accordion_context, context);
+            undoButton.setTag(R.id.task_object, task);
         }
     }
 }

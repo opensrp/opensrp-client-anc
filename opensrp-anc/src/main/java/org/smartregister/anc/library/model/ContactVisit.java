@@ -177,7 +177,6 @@ public class ContactVisit {
     private boolean checkTestsStatus(JSONArray valueArray) {
         boolean isTask = false;
         try {
-
             for (int i = 0; i < valueArray.length(); i++) {
                 JSONObject value = valueArray.getJSONObject(i);
                 if (value != null && value.has(JsonFormConstants.INDEX) && 0 == value.getInt(JsonFormConstants.INDEX)) {
@@ -188,7 +187,6 @@ public class ContactVisit {
                     break;
                 }
             }
-
         } catch (JSONException e) {
             Timber.e(e, " --> checkTestsStatus");
         }

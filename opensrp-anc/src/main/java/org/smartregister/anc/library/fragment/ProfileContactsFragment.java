@@ -327,6 +327,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         // Implement here
     }
 
+    @Override
+    public void undoTasks(Task task) {
+        // Implement here
+    }
+
     /**
      * Handles the Click actions on any of the section in the page.
      */

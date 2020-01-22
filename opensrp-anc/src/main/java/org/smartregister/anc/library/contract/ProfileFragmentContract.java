@@ -17,10 +17,14 @@ public interface ProfileFragmentContract {
         Facts getImmediatePreviousContact(Map<String, String> client, String baseEntityId, String contactNo);
 
         void getContactTasks(String baseEntityId, String contactNo);
+
+        void undoTasks(Task task);
     }
 
     interface View {
         void setContactTasks(List<Task> contactTasks);
+
+        void undoTasks(Task task);
     }
 
     interface Interactor {
@@ -29,5 +33,7 @@ public interface ProfileFragmentContract {
         void refreshProfileView(String baseEntityId, boolean isForEdit);
 
         List<Task> getContactTasks(String baseEntityId, String contactNo);
+
+        void undoTask(Task task);
     }
 }
