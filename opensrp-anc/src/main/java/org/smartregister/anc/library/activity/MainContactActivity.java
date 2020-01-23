@@ -663,16 +663,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         if (contactGlobals != null) {
             Map<String, String> map = new HashMap<>();
-            for (String cg : contactGlobals) {
-                if (formGlobalValues.containsKey(cg)) {
-                    String some = map.get(cg);
+            for (String contactGlobal : contactGlobals) {
+                if (formGlobalValues.containsKey(contactGlobal)) {
+                    String some = map.get(contactGlobal);
 
-                    if (some == null || !some.equals(formGlobalValues.get(cg))) {
-                        map.put(cg, formGlobalValues.get(cg));
+                    if (some == null || !some.equals(formGlobalValues.get(contactGlobal))) {
+                        map.put(contactGlobal, formGlobalValues.get(contactGlobal));
                     }
 
                 } else {
-                    map.put(cg, "");
+                    map.put(contactGlobal, "");
                 }
             }
 
@@ -698,7 +698,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     @Override
-    protected void onCreation() {//Overriden
+    protected void onCreation() {//Overridden
     }
 
     @Override

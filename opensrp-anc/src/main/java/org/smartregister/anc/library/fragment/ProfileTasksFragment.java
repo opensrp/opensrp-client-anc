@@ -126,6 +126,13 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         presenter.undoTasks(task);
     }
 
+    @Override
+    public void refreshTasksList(boolean refresh) {
+        if (refresh) {
+            onResumption();
+        }
+    }
+
     /**
      * Toggles the views between the recycler view & the 'no health data' section
      *

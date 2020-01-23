@@ -332,6 +332,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         // Implement here
     }
 
+    @Override
+    public void refreshTasksList(boolean refresh) {
+        // Implement here
+    }
+
     /**
      * Handles the Click actions on any of the section in the page.
      */

@@ -25,6 +25,8 @@ public interface ProfileFragmentContract {
         void setContactTasks(List<Task> contactTasks);
 
         void undoTasks(Task task);
+
+        void refreshTasksList(boolean refresh);
     }
 
     interface Interactor {

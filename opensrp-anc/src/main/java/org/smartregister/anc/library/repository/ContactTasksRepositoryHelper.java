@@ -54,13 +54,15 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         database.execSQL(INDEX_CONTACT_NO);
     }
 
-    public void saveTasks(Task task) {
-        if (task == null) return;
+    public boolean saveTasks(Task task) {
+        if (task == null) return false;
         if (task.getId() != null) {
             String sqlQuery = ID + " = ? " + BaseRepository.COLLATE_NOCASE;
             getWritableDatabase().update(TABLE_NAME, createValuesFor(task), sqlQuery, new String[]{String.valueOf(task.getId())});
+            return true;
         } else {
             getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
+            return false;
         }
     }
 
