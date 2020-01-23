@@ -74,6 +74,7 @@
     "hepb_positive"
   ],
   "step1": {
+    "display_back_button": "true",
     "title": "Due",
     "fields": [
     ]

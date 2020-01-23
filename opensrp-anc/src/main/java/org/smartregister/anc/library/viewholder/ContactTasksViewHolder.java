@@ -52,6 +52,7 @@ public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
         expansionHeaderLayout.setOnClickListener(contactTaskDisplayClickListener);
         accordionInfoIcon.setOnClickListener(contactTaskDisplayClickListener);
         expansionPanelHeader.setOnClickListener(contactTaskDisplayClickListener);
+        statusImageView.setOnClickListener(contactTaskDisplayClickListener);
         topBarTextView.setOnClickListener(contactTaskDisplayClickListener);
         undoButton.setOnClickListener(contactTaskDisplayClickListener);
         okButton.setOnClickListener(contactTaskDisplayClickListener);

@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.adapter.ContactTasksDisplayAdapter;
@@ -18,6 +25,7 @@ import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
@@ -38,6 +46,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private View noHealthRecordLayout;
     private ConstraintLayout tasksLayout;
     private RecyclerView recyclerView;
+    private HashMap<String, String> clientDetails;
 
     public static ProfileTasksFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -65,7 +74,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     @Override
     protected void onCreation() {
         if (getActivity() != null && getActivity().getIntent() != null) {
-            HashMap<String, String> clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
         }
@@ -131,6 +140,37 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         if (refresh) {
             onResumption();
         }
+    }
+
+    /**
+     * Starts the different tasks forms.
+     *
+     * @param jsonForm {@link JSONObject}
+     */
+    public void startTaskForm(JSONObject jsonForm) {
+        Intent intent = new Intent(getActivity(), JsonFormActivity.class);
+        intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, String.valueOf(jsonForm));
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, clientDetails);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, getForm());
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+    /**
+     * Creates the form object required to display the form.
+     *
+     * @return form {@link Form}
+     */
+    @NotNull
+    private Form getForm() {
+        Form form = new Form();
+        form.setName(getString(R.string.contact_tasks_form));
+        form.setWizard(false);
+        form.setSaveLabel(getString(R.string.save));
+        form.setHideSaveLabel(true);
+        form.setBackIcon(R.drawable.ic_back);
+        return form;
     }
 
     /**

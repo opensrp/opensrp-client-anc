@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.Utils;
@@ -62,6 +61,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                 showInfoIcon(taskValue, contactTasksViewHolder);
                 attachContent(taskValue, contactTasksViewHolder);
                 addBottomSection(taskValue, task, contactTasksViewHolder);
+                attachFormOpenViewTags(taskValue, task, contactTasksViewHolder);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> onBindViewHolder");
@@ -71,6 +71,13 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     @Override
     public int getItemCount() {
         return taskList.size();
+    }
+
+    private void attachFormOpenViewTags(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) {
+        attachViewTags(taskValue, task, contactTasksViewHolder.expansionHeaderLayout);
+        attachViewTags(taskValue, task, contactTasksViewHolder.statusImageView);
+        attachViewTags(taskValue, task, contactTasksViewHolder.expansionPanelHeader);
+        attachViewTags(taskValue, task, contactTasksViewHolder.topBarTextView);
     }
 
     /**
@@ -134,13 +141,15 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     private void attachContent(JSONObject taskValue, ContactTasksViewHolder viewHolder) throws JSONException {
         JSONArray values = new JSONArray();
         if (taskValue.has(JsonFormConstants.VALUE)) {
-            values = taskValue.getJSONArray(JsonFormConstants.VALUE);
-            if (contactJsonFormUtils.checkValuesContent(values)) {
+            values = taskValue.optJSONArray(JsonFormConstants.VALUE);
+            if (values != null && contactJsonFormUtils.checkValuesContent(values)) {
                 viewHolder.contentLayout.setVisibility(View.VISIBLE);
                 viewHolder.contentView.setVisibility(View.VISIBLE);
             }
         }
-        contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
+        if (values != null) {
+            contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
+        }
     }
 
     /**
@@ -179,14 +188,14 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
             }
         }
 
-        attachUndoFunctionality(taskValue, task, contactTasksViewHolder.undoButton);
+        attachViewTags(taskValue, task, contactTasksViewHolder.undoButton);
     }
 
-    private void attachUndoFunctionality(JSONObject taskValue, Task task, Button undoButton) {
-        if (undoButton.getVisibility() == View.VISIBLE) {
-            undoButton.setTag(R.id.accordion_jsonObject, taskValue);
-            undoButton.setTag(R.id.accordion_context, context);
-            undoButton.setTag(R.id.task_object, task);
+    private void attachViewTags(JSONObject taskValue, Task task, View view) {
+        if (view.getVisibility() == View.VISIBLE) {
+            view.setTag(R.id.accordion_jsonObject, taskValue);
+            view.setTag(R.id.accordion_context, context);
+            view.setTag(R.id.task_object, task);
         }
     }
 }
