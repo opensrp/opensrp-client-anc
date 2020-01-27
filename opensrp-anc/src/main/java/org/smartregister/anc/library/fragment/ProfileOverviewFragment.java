@@ -136,7 +136,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_overview, container, false);
         noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_profile_overview_layout);
         profileOverviewRecycler = fragmentView.findViewById(R.id.profile_overview_recycler);
-        dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
+        dueButton = ((ProfileActivity) getActivity()).getDueButton();
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
