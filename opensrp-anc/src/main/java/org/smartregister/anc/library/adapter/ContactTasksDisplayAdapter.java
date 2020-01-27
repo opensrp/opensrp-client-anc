@@ -73,13 +73,6 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         return taskList.size();
     }
 
-    private void attachFormOpenViewTags(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) {
-        attachViewTags(taskValue, task, contactTasksViewHolder.expansionHeaderLayout);
-        attachViewTags(taskValue, task, contactTasksViewHolder.statusImageView);
-        attachViewTags(taskValue, task, contactTasksViewHolder.expansionPanelHeader);
-        attachViewTags(taskValue, task, contactTasksViewHolder.topBarTextView);
-    }
-
     /**
      * Update the status image view color and design according to the test status
      *
@@ -99,6 +92,8 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                             contactTasksViewHolder.statusImageView.setImageResource(R.drawable.not_done);
                         } else if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED)) {
                             contactTasksViewHolder.statusImageView.setImageResource(R.drawable.ordered);
+                        } else if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.DONE_TODAY) || status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.DONE_EARLIER)) {
+                            contactTasksViewHolder.statusImageView.setImageResource(R.drawable.done_today);
                         }
                     }
                 }
@@ -136,7 +131,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
      *
      * @param taskValue  {@link JSONObject}
      * @param viewHolder {@link ContactTasksViewHolder}
-     * @throws JSONException {@link JSONException}
+     * @throws JSONException - Throws this in case the operation of the json object fails.
      */
     private void attachContent(JSONObject taskValue, ContactTasksViewHolder viewHolder) throws JSONException {
         JSONArray values = new JSONArray();
@@ -158,7 +153,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
      * @param taskValue              {@link JSONObject}
      * @param task                   {@link Task}
      * @param contactTasksViewHolder {@link ContactTasksViewHolder}
-     * @throws JSONException
+     * @throws JSONException - Throws this in case the operation of the json object fails.
      */
     private void addBottomSection(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) throws JSONException {
         JSONObject showBottomSection = taskValue.optJSONObject(JsonFormConstants.BOTTOM_SECTION);
@@ -191,6 +186,21 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         attachViewTags(taskValue, task, contactTasksViewHolder.undoButton);
     }
 
+    private void attachFormOpenViewTags(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) {
+        attachViewTags(taskValue, task, contactTasksViewHolder.expansionHeaderLayout);
+        attachViewTags(taskValue, task, contactTasksViewHolder.statusImageView);
+        attachViewTags(taskValue, task, contactTasksViewHolder.expansionPanelHeader);
+        attachViewTags(taskValue, task, contactTasksViewHolder.topBarTextView);
+        attachViewTags(taskValue, task, contactTasksViewHolder.okButton);
+    }
+
+    /**
+     * Adding the necessary tags on the given views
+     *
+     * @param taskValue {@link JSONObject}
+     * @param task      {@link Task}
+     * @param view      {@link View}
+     */
     private void attachViewTags(JSONObject taskValue, Task task, View view) {
         if (view.getVisibility() == View.VISIBLE) {
             view.setTag(R.id.accordion_jsonObject, taskValue);

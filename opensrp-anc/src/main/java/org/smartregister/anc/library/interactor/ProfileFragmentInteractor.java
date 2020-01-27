@@ -35,8 +35,8 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
     }
 
     @Override
-    public void undoTask(Task task) {
-        getProfileView().refreshTasksList(AncLibrary.getInstance().getContactTasksRepositoryHelper().saveTasks(task));
+    public void updateTask(Task task) {
+        getProfileView().refreshTasksList(AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(task));
     }
 
 

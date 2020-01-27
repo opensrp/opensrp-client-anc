@@ -8,15 +8,17 @@ public class Task {
     private String value;
     private String contactNo;
     private Long createdAt;
+    private boolean isUpdated;
 
     public Task() {
     }
 
-    public Task(String baseEntityId, String key, String value, String contactNo) {
+    public Task(String baseEntityId, String key, String value, String contactNo, boolean isUpdated) {
         this.baseEntityId = baseEntityId;
         this.key = key;
         this.value = value;
         this.contactNo = contactNo;
+        this.isUpdated = isUpdated;
     }
 
     public String getKey() {
@@ -65,5 +67,13 @@ public class Task {
 
     public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isUpdated() {
+        return isUpdated;
+    }
+
+    public void setUpdated(boolean updated) {
+        isUpdated = updated;
     }
 }

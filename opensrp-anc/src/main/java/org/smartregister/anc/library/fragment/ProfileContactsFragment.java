@@ -328,7 +328,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     }
 
     @Override
-    public void undoTasks(Task task) {
+    public void updateTask(Task task) {
         // Implement here
     }
 

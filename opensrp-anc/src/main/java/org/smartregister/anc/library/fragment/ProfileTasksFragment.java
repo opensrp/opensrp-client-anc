@@ -15,6 +15,8 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ProfileActivity;
@@ -24,6 +26,7 @@ import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -32,6 +35,8 @@ import org.smartregister.view.fragment.BaseProfileFragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 12/07/2018.
@@ -47,6 +52,8 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private ConstraintLayout tasksLayout;
     private RecyclerView recyclerView;
     private HashMap<String, String> clientDetails;
+    private Task currentTask;
+    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
 
     public static ProfileTasksFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -90,6 +97,24 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         attachTasksRecyclerView();
     }
 
+    @Override
+    public void setContactTasks(List<Task> contactTasks) {
+        toggleViews(contactTasks);
+        setTaskList(contactTasks);
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        presenter.updateTask(task);
+    }
+
+    @Override
+    public void refreshTasksList(boolean refresh) {
+        if (refresh) {
+            onResumption();
+        }
+    }
+
     /**
      * Attaches the tasks display adapter to the tasks display recycler view
      */
@@ -108,37 +133,18 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         this.taskList = taskList;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
-        noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_profile_task_layout);
-        tasksLayout = fragmentView.findViewById(R.id.tasks_layout);
-        recyclerView = fragmentView.findViewById(R.id.tasks_display_recyclerview);
-
-        dueButton = ((ProfileActivity) getActivity()).getDueButton();
-        if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
-            dueButton.setOnClickListener((ProfileActivity) getActivity());
+    /**
+     * Toggles the views between the recycler view & the 'no health data' section
+     *
+     * @param taskList {@link List}
+     */
+    private void toggleViews(List<Task> taskList) {
+        if (taskList.size() > 0) {
+            noHealthRecordLayout.setVisibility(View.GONE);
+            tasksLayout.setVisibility(View.VISIBLE);
         } else {
-            dueButton.setEnabled(false);
-        }
-        return fragmentView;
-    }
-
-    @Override
-    public void setContactTasks(List<Task> contactTasks) {
-        toggleViews(contactTasks);
-        setTaskList(contactTasks);
-    }
-
-    @Override
-    public void undoTasks(Task task) {
-        presenter.undoTasks(task);
-    }
-
-    @Override
-    public void refreshTasksList(boolean refresh) {
-        if (refresh) {
-            onResumption();
+            noHealthRecordLayout.setVisibility(View.VISIBLE);
+            tasksLayout.setVisibility(View.GONE);
         }
     }
 
@@ -147,7 +153,9 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
      *
      * @param jsonForm {@link JSONObject}
      */
-    public void startTaskForm(JSONObject jsonForm) {
+    public void startTaskForm(JSONObject jsonForm, Task task) {
+        setCurrentTask(task);
+
         Intent intent = new Intent(getActivity(), JsonFormActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, String.valueOf(jsonForm));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
@@ -173,18 +181,66 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         return form;
     }
 
-    /**
-     * Toggles the views between the recycler view & the 'no health data' section
-     *
-     * @param taskList {@link List}
-     */
-    private void toggleViews(List<Task> taskList) {
-        if (taskList.size() > 0) {
-            noHealthRecordLayout.setVisibility(View.GONE);
-            tasksLayout.setVisibility(View.VISIBLE);
-        } else {
-            noHealthRecordLayout.setVisibility(View.VISIBLE);
-            tasksLayout.setVisibility(View.GONE);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
+            if (jsonString != null) {
+                JSONObject form = new JSONObject(jsonString);
+                JSONArray accordionValues = createAccordionValues(form);
+                Task newTask = updateTaskValue(accordionValues);
+                updateTask(newTask);
+            }
+        } catch (Exception e) {
+            Timber.e(e, " --> onActivityResult");
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
+        noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_profile_task_layout);
+        tasksLayout = fragmentView.findViewById(R.id.tasks_layout);
+        recyclerView = fragmentView.findViewById(R.id.tasks_display_recyclerview);
+
+        dueButton = ((ProfileActivity) getActivity()).getDueButton();
+        if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
+            dueButton.setOnClickListener((ProfileActivity) getActivity());
+        } else {
+            dueButton.setEnabled(false);
+        }
+        return fragmentView;
+    }
+
+    private JSONArray createAccordionValues(JSONObject form) {
+        JSONArray values = new JSONArray();
+        if (form != null) {
+            JSONArray fields = ContactJsonFormUtils.fields(form, JsonFormConstants.STEP1);
+            values = formUtils.createExpansionPanelValues(fields);
+        }
+        return values;
+    }
+
+    private Task updateTaskValue(JSONArray values) {
+        Task newTask = getCurrentTask();
+        try {
+            if (values != null && values.length() > 0) {
+                JSONObject newValue = new JSONObject(newTask.getValue());
+                newValue.put(JsonFormConstants.VALUE, values);
+                newTask.setValue(String.valueOf(newValue));
+                newTask.setUpdated(true);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> updateTaskValue");
+        }
+        return newTask;
+    }
+
+    public Task getCurrentTask() {
+        return currentTask;
+    }
+
+    public void setCurrentTask(Task currentTask) {
+        this.currentTask = currentTask;
     }
 }

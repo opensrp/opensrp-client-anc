@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.ExpansionPanelValuesModel;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -18,12 +19,14 @@ import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
 public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private ProfileTasksFragment profileTasksFragment;
-    private FormUtils formUtils;
+    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
 
     public ContactTaskDisplayClickListener(ProfileTasksFragment profileTasksFragment) {
         this.profileTasksFragment = profileTasksFragment;
@@ -43,6 +46,39 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     }
 
     /**
+     * Displays the extra info on the expansion panel widget.
+     *
+     * @param view {@link View}
+     */
+    private void infoAlertDialog(View view) {
+        Context context = ((Context) view.getTag(R.id.accordion_context));
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(context, R.style.AppThemeAlertDialog);
+        builderSingle.setTitle((String) view.getTag(R.id.accordion_info_title));
+        builderSingle.setMessage((String) view.getTag(R.id.accordion_info_text));
+        builderSingle.setIcon(com.vijay.jsonwizard.R.drawable.dialog_info_filled);
+        builderSingle.setNegativeButton(context.getResources().getString(R.string.ok),
+                (dialog, which) -> dialog.dismiss());
+
+        builderSingle.show();
+    }
+
+    /**
+     * Intitiates the undo tasks functionality
+     *
+     * @param view {@link View}
+     */
+    private void undoTasksEntries(View view) {
+        Context context = ((Context) view.getTag(R.id.accordion_context));
+        Task task = ((Task) view.getTag(R.id.task_object));
+        JSONObject taskValue = ((JSONObject) view.getTag(R.id.accordion_jsonObject));
+
+        if (context != null && task != null && taskValue != null) {
+            Task newTask = createTask(removeTestResults(taskValue), task);
+            profileTasksFragment.updateTask(newTask);
+        }
+    }
+
+    /**
      * This performs all the necessary calculations to get the form ready for launch. This updates the title,
      * Adds the new form fields
      *
@@ -54,52 +90,83 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         JSONObject taskValue = ((JSONObject) view.getTag(R.id.accordion_jsonObject));
 
         if (context != null && task != null && taskValue != null) {
-            JSONArray subFormFields = loadSubFormFields(taskValue, context);
+            JSONArray taskValues = getExpansionPanelValues(taskValue, task.getKey());
+            Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
+            JSONArray subFormFields = contactJsonFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context), secondaryValuesMap);
             String formTitle = getFormTitle(taskValue);
             JSONObject form = loadTasksForm(context);
             updateFormTitle(form, formTitle);
             updateFormFields(form, subFormFields);
 
-            profileTasksFragment.startTaskForm(form);
+            profileTasksFragment.startTaskForm(form, task);
         }
     }
 
     /**
-     * Updates the form step1 title to match the test header
+     * Creates the new updated tasks with the the new values
      *
-     * @param form  {@link JSONObject}
-     * @param title {@link String}
+     * @param taskValue {@link JSONObject}
+     * @param task      {@link Task}
+     * @return task {@link Task}
      */
-    private void updateFormTitle(JSONObject form, String title) {
-        try {
-            if (form != null && StringUtils.isNotBlank(title)) {
-                if (form.has(JsonFormConstants.STEP1)) {
-                    JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
-                    stepOne.put(JsonFormConstants.STEP_TITLE, title);
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> updateFormTitle");
-        }
+    private Task createTask(JSONObject taskValue, Task task) {
+        Task newTask = new Task();
+        newTask.setId(task.getId());
+        newTask.setBaseEntityId(task.getBaseEntityId());
+        newTask.setKey(task.getKey());
+        newTask.setKey(task.getKey());
+        newTask.setValue(String.valueOf(taskValue));
+        newTask.setUpdated(true);
+        newTask.setContactNo(task.getContactNo());
+        newTask.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+        return newTask;
     }
 
     /**
-     * Add the sub form fields to the main form for loading.
+     * Removes the task values & sets it to empty.
      *
-     * @param form   {@link JSONObject}
-     * @param fields {@link JSONArray}
+     * @param taskValue {@link JSONObject}
+     * @return task {@link JSONObject}
      */
-    private void updateFormFields(JSONObject form, JSONArray fields) {
-        try {
-            if (form != null && fields != null && fields.length() > 0) {
-                if (form.has(JsonFormConstants.STEP1)) {
-                    JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
-                    stepOne.put(JsonFormConstants.FIELDS, fields);
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> updateFormFields");
+    private JSONObject removeTestResults(JSONObject taskValue) {
+        JSONObject task = new JSONObject();
+        if (taskValue != null && taskValue.has(JsonFormConstants.VALUE)) {
+            taskValue.remove(JsonFormConstants.VALUE);
+            task = taskValue;
         }
+        return task;
+    }
+
+    /**
+     * Returns the expansion panel values which were selected from the forms.
+     *
+     * @param taskValue {@link JSONObject}
+     * @param taskKey   {@link String}
+     * @return values {@link JSONArray}
+     */
+    private JSONArray getExpansionPanelValues(JSONObject taskValue, String taskKey) {
+        JSONArray values = new JSONArray();
+        if (taskValue != null && StringUtils.isNotBlank(taskKey)) {
+            JSONArray taskValueArray = new JSONArray();
+            taskValueArray.put(taskValue);
+            values = contactJsonFormUtils.loadExpansionPanelValues(taskValueArray, taskKey);
+        }
+
+        return values;
+    }
+
+    /**
+     * Returns a map of the expansion panel values
+     *
+     * @param secondaryValues {@link JSONArray}
+     * @return expansionPanelValuesMap = {@link Map}
+     */
+    private Map<String, ExpansionPanelValuesModel> getSecondaryValues(JSONArray secondaryValues) {
+        Map<String, ExpansionPanelValuesModel> stringExpansionPanelValuesModelMap = new HashMap<>();
+        if (secondaryValues != null && secondaryValues.length() > 0) {
+            stringExpansionPanelValuesModelMap = contactJsonFormUtils.createSecondaryValuesMap(secondaryValues);
+        }
+        return stringExpansionPanelValuesModelMap;
     }
 
     /**
@@ -150,7 +217,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private JSONObject loadTasksForm(Context context) {
         JSONObject form = new JSONObject();
         try {
-            formUtils = new FormUtils(context);
+            FormUtils formUtils = new FormUtils(context);
             form = formUtils.getFormJson(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
         } catch (Exception e) {
             Timber.e(e, " --> loadTasksForm");
@@ -159,69 +226,40 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     }
 
     /**
-     * Displays the extra info on the expansion panel widget.
+     * Updates the form step1 title to match the test header
      *
-     * @param view {@link View}
+     * @param form  {@link JSONObject}
+     * @param title {@link String}
      */
-    private void infoAlertDialog(View view) {
-        Context context = ((Context) view.getTag(R.id.accordion_context));
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(context, R.style.AppThemeAlertDialog);
-        builderSingle.setTitle((String) view.getTag(R.id.accordion_info_title));
-        builderSingle.setMessage((String) view.getTag(R.id.accordion_info_text));
-        builderSingle.setIcon(com.vijay.jsonwizard.R.drawable.dialog_info_filled);
-        builderSingle.setNegativeButton(context.getResources().getString(R.string.ok),
-                (dialog, which) -> dialog.dismiss());
-
-        builderSingle.show();
-    }
-
-    /**
-     * Intitiates the undo tasks functionality
-     *
-     * @param view {@link View}
-     */
-    private void undoTasksEntries(View view) {
-        Context context = ((Context) view.getTag(R.id.accordion_context));
-        Task task = ((Task) view.getTag(R.id.task_object));
-        JSONObject taskValue = ((JSONObject) view.getTag(R.id.accordion_jsonObject));
-
-        if (context != null && task != null && taskValue != null) {
-            Task newTask = createTask(removeTestResults(taskValue), task);
-            profileTasksFragment.undoTasks(newTask);
+    private void updateFormTitle(JSONObject form, String title) {
+        try {
+            if (form != null && StringUtils.isNotBlank(title)) {
+                if (form.has(JsonFormConstants.STEP1)) {
+                    JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
+                    stepOne.put(JsonFormConstants.STEP_TITLE, title);
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> updateFormTitle");
         }
     }
 
     /**
-     * Creates the new updated tasks with the the new values
+     * Add the sub form fields to the main form for loading.
      *
-     * @param taskValue {@link JSONObject}
-     * @param task      {@link Task}
-     * @return task {@link Task}
+     * @param form   {@link JSONObject}
+     * @param fields {@link JSONArray}
      */
-    private Task createTask(JSONObject taskValue, Task task) {
-        Task newTask = new Task();
-        newTask.setId(task.getId());
-        newTask.setBaseEntityId(task.getBaseEntityId());
-        newTask.setKey(task.getKey());
-        newTask.setKey(task.getKey());
-        newTask.setValue(String.valueOf(taskValue));
-        newTask.setContactNo(task.getContactNo());
-        newTask.setCreatedAt(Calendar.getInstance().getTimeInMillis());
-        return newTask;
-    }
-
-    /**
-     * Removes the task values & sets it to empty.
-     *
-     * @param taskValue {@link JSONObject}
-     * @return task {@link JSONObject}
-     */
-    private JSONObject removeTestResults(JSONObject taskValue) {
-        JSONObject task = new JSONObject();
-        if (taskValue != null && taskValue.has(JsonFormConstants.VALUE)) {
-            taskValue.remove(JsonFormConstants.VALUE);
-            task = taskValue;
+    private void updateFormFields(JSONObject form, JSONArray fields) {
+        try {
+            if (form != null && fields != null && fields.length() > 0) {
+                if (form.has(JsonFormConstants.STEP1)) {
+                    JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
+                    stepOne.put(JsonFormConstants.FIELDS, fields);
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> updateFormFields");
         }
-        return task;
     }
 }

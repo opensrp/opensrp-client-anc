@@ -40,9 +40,7 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
-
     private TextView patientNameView;
-
     private Map<String, Integer> requiredFieldsMap = new HashMap<>();
     private Map<String, String> eventToFileMap = new HashMap<>();
     private Yaml yaml = new Yaml();
@@ -192,14 +190,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         for (Object ruleObject : contactGlobals) {
             Map<String, Object> map = ((Map<String, Object>) ruleObject);
-
             formGlobalKeys.put(map.get(ConstantsUtils.FORM).toString(), (List<String>) map.get(JsonFormConstants.FIELDS));
             globalKeys.addAll((List<String>) map.get(JsonFormConstants.FIELDS));
         }
     }
 
     private void process(String[] mainContactForms) throws Exception {
-
         //Fetch and load previously saved values
         if (contactNo > 1) {
             for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
@@ -463,7 +459,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     }
                 }
             }
-
         }
     }
 

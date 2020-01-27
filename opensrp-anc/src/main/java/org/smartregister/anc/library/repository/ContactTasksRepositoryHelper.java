@@ -22,6 +22,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     public static final String CONTACT_NO = "contact_no";
     public static final String KEY = "key";
     public static final String VALUE = "value";
+    public static final String IS_UPDATED = "is_updated";
     public static final String CREATED_AT = "created_at";
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
             + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -29,6 +30,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
             + BASE_ENTITY_ID + "  VARCHAR NOT NULL, "
             + KEY + "  VARCHAR, "
             + VALUE + "  VARCHAR NOT NULL, "
+            + IS_UPDATED + "  INTEGER NOT NULL, "
             + CREATED_AT + " INTEGER NOT NULL, " +
             "UNIQUE(" + BASE_ENTITY_ID + ", " + CONTACT_NO + ", " + KEY + ", " + VALUE + ") ON CONFLICT REPLACE)";
 
@@ -44,7 +46,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
 
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
@@ -54,7 +56,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         database.execSQL(INDEX_CONTACT_NO);
     }
 
-    public boolean saveTasks(Task task) {
+    public boolean saveOrUpdateTasks(Task task) {
         if (task == null) return false;
         if (task.getId() != null) {
             String sqlQuery = ID + " = ? " + BaseRepository.COLLATE_NOCASE;
@@ -73,6 +75,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         values.put(BASE_ENTITY_ID, task.getBaseEntityId());
         values.put(VALUE, task.getValue());
         values.put(KEY, task.getKey());
+        values.put(IS_UPDATED, task.isUpdated());
         values.put(CREATED_AT, task.getCreatedAt());
         return values;
     }

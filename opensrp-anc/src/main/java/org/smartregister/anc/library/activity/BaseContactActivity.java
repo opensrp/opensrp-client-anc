@@ -32,13 +32,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class BaseContactActivity extends SecuredActivity {
-
     protected ContactAdapter contactAdapter;
-
     protected ContactActionHandler contactActionHandler = new ContactActionHandler();
-
     protected ContactContract.Presenter presenter;
-
     protected Integer contactNo;
 
     @Override
@@ -75,8 +71,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     protected void initializeRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-
-        contactAdapter = new ContactAdapter(this, new ArrayList<Contact>(), contactActionHandler);
+        contactAdapter = new ContactAdapter(this, new ArrayList<>(), contactActionHandler);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);

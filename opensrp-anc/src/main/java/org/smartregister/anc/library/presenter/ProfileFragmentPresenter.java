@@ -88,7 +88,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     }
 
     @Override
-    public void undoTasks(Task task) {
-        mProfileInteractor.undoTask(task);
+    public void updateTask(Task task) {
+        mProfileInteractor.updateTask(task);
     }
 }

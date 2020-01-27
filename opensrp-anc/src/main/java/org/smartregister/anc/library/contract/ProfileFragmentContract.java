@@ -18,13 +18,13 @@ public interface ProfileFragmentContract {
 
         void getContactTasks(String baseEntityId, String contactNo);
 
-        void undoTasks(Task task);
+        void updateTask(Task task);
     }
 
     interface View {
         void setContactTasks(List<Task> contactTasks);
 
-        void undoTasks(Task task);
+        void updateTask(Task task);
 
         void refreshTasksList(boolean refresh);
     }
@@ -36,6 +36,6 @@ public interface ProfileFragmentContract {
 
         List<Task> getContactTasks(String baseEntityId, String contactNo);
 
-        void undoTask(Task task);
+        void updateTask(Task task);
     }
 }

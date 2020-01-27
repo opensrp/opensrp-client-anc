@@ -154,7 +154,7 @@ public class ContactVisit {
             String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
             if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
                 JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
-                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && "Due".equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
                     JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
                     if (stepFields != null && stepFields.length() > 0) {
                         for (int i = 0; i < stepFields.length(); i++) {
@@ -179,10 +179,13 @@ public class ContactVisit {
         try {
             for (int i = 0; i < valueArray.length(); i++) {
                 JSONObject value = valueArray.getJSONObject(i);
-                if (value != null && value.has(JsonFormConstants.INDEX) && 0 == value.getInt(JsonFormConstants.INDEX)) {
+                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
                     JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
-                    if ((givenValue.length() > 0) && (!givenValue.getString(0).contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_TODAY) || !givenValue.getString(0).contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.DONE_EARLIER))) {
-                        isTask = true;
+                    if (givenValue.length() > 0) {
+                        String firstValue = givenValue.getString(0);
+                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
+                            isTask = true;
+                        }
                     }
                     break;
                 }
@@ -196,7 +199,7 @@ public class ContactVisit {
     private void saveTasks(JSONObject field) {
         if (field != null) {
             String key = field.optString(JsonFormConstants.KEY, "");
-            AncLibrary.getInstance().getContactTasksRepositoryHelper().saveTasks(getTask(field, key));
+            AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(getTask(field, key));
         }
     }
 
@@ -207,6 +210,7 @@ public class ContactVisit {
         task.setBaseEntityId(baseEntityId);
         task.setKey(key);
         task.setValue(String.valueOf(field));
+        task.setUpdated(false);
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
     }
