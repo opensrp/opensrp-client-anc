@@ -21,11 +21,12 @@ public class ContactTasksViewHolder extends RecyclerView.ViewHolder {
     public RelativeLayout expansionHeaderLayout;
     public ImageView statusImageView;
     public CustomTextView topBarTextView;
-    public LinearLayout contentLayout, accordionBottomNavigation;
+    public LinearLayout contentLayout;
+    public LinearLayout accordionBottomNavigation;
     public LinearLayout contentView;
     public Button undoButton;
     public Button okButton;
-    public ContactTaskDisplayClickListener contactTaskDisplayClickListener;
+    private ContactTaskDisplayClickListener contactTaskDisplayClickListener;
 
     public ContactTasksViewHolder(@NonNull View itemView, ProfileTasksFragment profileTasksFragment) {
         super(itemView);

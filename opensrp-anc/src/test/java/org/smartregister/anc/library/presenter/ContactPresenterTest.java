@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.RuntimeEnvironment;
 import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
@@ -114,7 +115,7 @@ public class ContactPresenterTest extends BaseUnitTest {
         ContactPresenter contactPresenter = (ContactPresenter) presenter;
         contactPresenter.setModel(model);
 
-        contactPresenter.onWomanDetailsFetched(new HashMap<String, String>());
+        contactPresenter.onWomanDetailsFetched(new HashMap<>());
 
         Assert.assertNull(contactPresenter.getDetails());
 
@@ -223,9 +224,9 @@ public class ContactPresenterTest extends BaseUnitTest {
         Map<String, String> details = new HashMap<>();
         details.put(DUMMY_USERNAME, DUMMY_PASSWORD);
 
-        contactPresenter.finalizeContactForm(details);
+        contactPresenter.finalizeContactForm(details, RuntimeEnvironment.application);
 
-        Mockito.verify(interactor, Mockito.times(1)).finalizeContactForm(details);
+        Mockito.verify(interactor, Mockito.times(1)).finalizeContactForm(details,RuntimeEnvironment.application);
 
     }
 }

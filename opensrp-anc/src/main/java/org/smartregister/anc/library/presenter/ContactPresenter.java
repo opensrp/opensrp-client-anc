@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -73,11 +74,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public void setModel(ContactContract.Model model) {
         this.model = model;
-    }    @Override
-    public void setBaseEntityId(String baseEntityId) {
-        this.baseEntityId = baseEntityId;
-
-        fetchPatient(baseEntityId);
     }
 
     public Map<String, String> getDetails() {
@@ -86,6 +82,11 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public void setDetails(Map<String, String> details) {
         this.details = details;
+    }    @Override
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
+
+        fetchPatient(baseEntityId);
     }
 
 
@@ -154,8 +155,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
 
     @Override
-    public void finalizeContactForm(Map<String, String> details) {
-        interactor.finalizeContactForm(details);
+    public void finalizeContactForm(Map<String, String> details, Context context) {
+        interactor.finalizeContactForm(details, context);
     }
 
 

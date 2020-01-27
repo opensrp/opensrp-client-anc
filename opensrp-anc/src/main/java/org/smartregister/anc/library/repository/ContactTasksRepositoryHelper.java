@@ -202,6 +202,66 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         return taskList;
     }
 
+    public List<Task> getClosedTasks(String baseEntityId, String contactNo) {
+        String orderBy = ID + " DESC ";
+        Cursor mCursor = null;
+        String selection = "";
+        String[] selectionArgs = null;
+        List<Task> taskList = new ArrayList<>();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId, "1", contactNo};
+            }
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            if (mCursor != null) {
+                while (mCursor.moveToNext()) {
+                    taskList.add(getContactResult(mCursor));
+                }
+                return taskList;
+            }
+        } catch (Exception e) {
+            Timber.e(e, " --> getTasks");
+        } finally {
+            if (mCursor != null) {
+                mCursor.close();
+            }
+        }
+
+        return taskList;
+    }
+
+    public List<Task> getOpenTasks(String baseEntityId) {
+        String orderBy = ID + " DESC ";
+        Cursor mCursor = null;
+        String selection = "";
+        String[] selectionArgs = null;
+        List<Task> taskList = new ArrayList<>();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId, "0"};
+            }
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            if (mCursor != null) {
+                while (mCursor.moveToNext()) {
+                    taskList.add(getContactResult(mCursor));
+                }
+                return taskList;
+            }
+        } catch (Exception e) {
+            Timber.e(e, " --> getTasks");
+        } finally {
+            if (mCursor != null) {
+                mCursor.close();
+            }
+        }
+
+        return taskList;
+    }
+
     /**
      * This deletes a given task after the finalize button on the contacts pressed
      *

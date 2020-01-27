@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +31,7 @@ import org.smartregister.anc.library.activity.EditJsonFormActivity;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.model.ContactSummaryModel;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -718,6 +718,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
             contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
             contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
+            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, String.valueOf(getOpenTasks(baseEntityId)));
 
             tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
                     contactVisitEvent);
@@ -750,7 +751,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return Pair.create(contactVisitEvent, updateClientEvent);
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> createContactVisitEvent");
             return null;
         }
 
@@ -762,6 +763,17 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } catch (Exception e) {
             return new LocalDate().toDate();
         }
+    }
+
+    private static JSONArray getOpenTasks(String baseEntityId) {
+        List<Task> openTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getOpenTasks(baseEntityId);
+        JSONArray openTaskArray = new JSONArray();
+        if (openTasks != null && openTasks.size() > 0) {
+            for (Task task : openTasks) {
+                openTaskArray.put(task.getValue());
+            }
+        }
+        return openTaskArray;
     }
 
     protected static Event createUpdateClientDetailsEvent(String baseEntityId) {

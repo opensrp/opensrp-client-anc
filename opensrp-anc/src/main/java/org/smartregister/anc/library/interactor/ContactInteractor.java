@@ -1,30 +1,38 @@
 package org.smartregister.anc.library.interactor;
 
+import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactContract;
+import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.model.ContactVisit;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PartialContacts;
 import org.smartregister.anc.library.model.PreviousContact;
+import org.smartregister.anc.library.model.Task;
+import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.repository.DetailsRepository;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,7 +61,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     @Override
-    public HashMap<String, String> finalizeContactForm(final Map<String, String> details) {
+    public HashMap<String, String> finalizeContactForm(final Map<String, String> details, Context context) {
         if (details != null) {
             try {
                 String referral = details.get(ConstantsUtils.REFERRAL);
@@ -63,6 +71,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 int nextContact;
                 boolean isFirst = false;
                 String nextContactVisitDate;
+
+
                 if (referral == null) {
                     isFirst = TextUtils.equals("1", details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
                     ContactRule contactRule = new ContactRule(gestationAge, isFirst, baseEntityId);
@@ -75,9 +85,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, integerList);
                     addThePreviousContactSchedule(baseEntityId, details, integerList);
-                    AncLibrary.getInstance().getDetailsRepository()
-                            .add(baseEntityId, ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, jsonObject.toString(),
-                                    Calendar.getInstance().getTimeInMillis());
+                    getDetailsRepository().add(baseEntityId, ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, jsonObject.toString(),
+                            Calendar.getInstance().getTimeInMillis());
                     //convert String to LocalDate ;
                     LocalDate localDate = new LocalDate(details.get(DBConstantsUtils.KeyUtils.EDD));
                     nextContactVisitDate =
@@ -86,6 +95,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 } else {
                     nextContact = Integer.parseInt(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
                     nextContactVisitDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
+                }
+
+                if (referral == null) {
+                    createTasksPartialContainer(baseEntityId, context, nextContact - 1);
                 }
 
                 PartialContacts partialContacts =
@@ -105,14 +118,12 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 if (referral == null) {
                     attentionFlagsString = new JSONObject(facts.asMap()).toString();
                 } else {
-                    attentionFlagsString =
-                            AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(baseEntityId)
-                                    .get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
+                    attentionFlagsString = getDetailsRepository().getAllDetailsForClient(baseEntityId)
+                            .get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
                 }
                 addAttentionFlags(baseEntityId, details, new JSONObject(facts.asMap()).toString());
-                AncLibrary.getInstance().getDetailsRepository()
-                        .add(baseEntityId, ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString,
-                                Calendar.getInstance().getTimeInMillis());
+                getDetailsRepository().add(baseEntityId, ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString,
+                        Calendar.getInstance().getTimeInMillis());
 
                 addTheContactDate(baseEntityId, details);
                 updateWomanDetails(details, womanDetail);
@@ -140,12 +151,38 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
     }
 
+    protected DetailsRepository getDetailsRepository() {
+        return AncLibrary.getInstance().getDetailsRepository();
+    }
+
     private int getNextContact(Map<String, String> details) {
         int nextContact =
                 details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ?
                         Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
+    }
+
+    private void createTasksPartialContainer(String baseEntityId, Context context, int contactNo) {
+        try {
+            if (contactNo > 0) {
+                List<Task> doneTasks = getContactTasksRepositoryHelper().getClosedTasks(baseEntityId, String.valueOf(contactNo - 1));
+                if (doneTasks != null && doneTasks.size() > 0) {
+                    JSONArray fields = createFieldsArray(doneTasks);
+
+                    ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+                    JSONObject jsonForm = contactJsonFormUtils.loadTasksForm(context);
+                    if (jsonForm != null) {
+                        contactJsonFormUtils.updateFormFields(jsonForm, fields);
+                    }
+
+                    createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
+                    removeAllDoneTasks(doneTasks);
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> createTasksPartialContainer");
+        }
     }
 
     private void addAttentionFlags(String baseEntityId, Map<String, String> details,
@@ -214,6 +251,36 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         return previousContact;
     }
 
+    protected ContactTasksRepositoryHelper getContactTasksRepositoryHelper() {
+        return AncLibrary.getInstance().getContactTasksRepositoryHelper();
+    }
+
+    @NotNull
+    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
+        JSONArray fields = new JSONArray();
+        for (Task task : doneTasks) {
+            JSONObject field = new JSONObject(task.getValue());
+            fields.put(field);
+        }
+        return fields;
+    }
+
+    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
+        Contact contact = new Contact();
+        contact.setJsonForm(String.valueOf(jsonForm));
+        contact.setContactNumber(contactNo);
+        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+
+        ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+    }
+
+    private void removeAllDoneTasks(List<Task> doneTasks) {
+        for (Task task : doneTasks) {
+            Long taskId = task.getId();
+            getContactTasksRepositoryHelper().deleteContactTask(taskId);
+        }
+    }
+
     private String getCurrentContactState(String baseEntityId) throws JSONException {
         List<PreviousContact> previousContactList = getPreviousContactRepository().getPreviousContacts(baseEntityId, null);
         JSONObject stateObject = null;
@@ -236,4 +303,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         return details.containsKey(DBConstantsUtils.KeyUtils.EDD) && details.get(DBConstantsUtils.KeyUtils.EDD) != null ? Utils
                 .getGestationAgeFromEDDate(details.get(DBConstantsUtils.KeyUtils.EDD)) : 4;
     }
+
+
 }

@@ -14,9 +14,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
-import org.smartregister.util.FormUtils;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -94,9 +92,9 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
             Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
             JSONArray subFormFields = contactJsonFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context), secondaryValuesMap);
             String formTitle = getFormTitle(taskValue);
-            JSONObject form = loadTasksForm(context);
+            JSONObject form = contactJsonFormUtils.loadTasksForm(context);
             updateFormTitle(form, formTitle);
-            updateFormFields(form, subFormFields);
+            contactJsonFormUtils.updateFormFields(form, subFormFields);
 
             profileTasksFragment.startTaskForm(form, task);
         }
@@ -209,23 +207,6 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     }
 
     /**
-     * Loads the main contact tasks form. Returns a JSONObject of the form.
-     *
-     * @param context {@link Context}
-     * @return jsonForm {@link JSONObject}
-     */
-    private JSONObject loadTasksForm(Context context) {
-        JSONObject form = new JSONObject();
-        try {
-            FormUtils formUtils = new FormUtils(context);
-            form = formUtils.getFormJson(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-        } catch (Exception e) {
-            Timber.e(e, " --> loadTasksForm");
-        }
-        return form;
-    }
-
-    /**
      * Updates the form step1 title to match the test header
      *
      * @param form  {@link JSONObject}
@@ -241,25 +222,6 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateFormTitle");
-        }
-    }
-
-    /**
-     * Add the sub form fields to the main form for loading.
-     *
-     * @param form   {@link JSONObject}
-     * @param fields {@link JSONArray}
-     */
-    private void updateFormFields(JSONObject form, JSONArray fields) {
-        try {
-            if (form != null && fields != null && fields.length() > 0) {
-                if (form.has(JsonFormConstants.STEP1)) {
-                    JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
-                    stepOne.put(JsonFormConstants.FIELDS, fields);
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> updateFormFields");
         }
     }
 }

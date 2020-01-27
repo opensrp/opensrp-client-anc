@@ -65,6 +65,7 @@ public abstract class ConstantsUtils {
     public static final String OTHER = "other";
     public static final String CONTINUE = "Continue";
     public static final String DUE = "Due";
+    public static final String OPEN_TEST_TASKS = "open_test_tasks";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
@@ -209,6 +210,7 @@ public abstract class ConstantsUtils {
         public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
+        public static final String OPEN_TEST_TASKS = "open_test_tasks";
     }
 
     public static final class AlertStatusUtils {
