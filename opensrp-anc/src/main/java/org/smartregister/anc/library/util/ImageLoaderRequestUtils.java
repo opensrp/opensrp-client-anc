@@ -17,7 +17,6 @@ import com.android.volley.toolbox.ImageLoader;
  */
 
 public class ImageLoaderRequestUtils {
-
     private static ImageLoaderRequestUtils imageLoaderRequestUtils;
     private final Context context;
     private final ImageLoader imageLoader;
