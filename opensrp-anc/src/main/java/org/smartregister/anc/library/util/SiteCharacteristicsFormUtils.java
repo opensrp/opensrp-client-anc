@@ -18,11 +18,10 @@ public class SiteCharacteristicsFormUtils {
 
         JSONObject ancSiteCharacteristicsTemplate = TemplateUtils.getTemplateAsJson(context, ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         if (ancSiteCharacteristicsTemplate != null) {
-            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.teamId, teamId);
-            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.team, team);
-            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.locationId, locationId);
-            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.providerId, providerId);
-            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.revision, "v1");
+            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.TEAM_ID, teamId);
+            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.TEAM, team);
+            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.LOCATION_ID, locationId);
+            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.PROVIDER_ID, providerId);
         }
 
         return ancSiteCharacteristicsTemplate;

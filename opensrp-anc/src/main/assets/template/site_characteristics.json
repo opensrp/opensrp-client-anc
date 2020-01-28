@@ -22,6 +22,5 @@
       "key": "site_bp_tool"
     }
   ],
-  "type": "SettingConfiguration",
-  "revision": "v1"
-}
+  "type": "SettingConfiguration"
+  }

@@ -73,11 +73,10 @@ public abstract class ConstantsUtils {
 
     public interface TemplateUtils {
         interface SiteCharacteristics {
-            String teamId = "teamId";
-            String team = "team";
-            String locationId = "locationId";
-            String providerId = "providerId";
-            String revision = "revision";
+            String TEAM_ID = "teamId";
+            String TEAM = "team";
+            String LOCATION_ID = "locationId";
+            String PROVIDER_ID = "providerId";
         }
     }
 
@@ -203,7 +202,7 @@ public abstract class ConstantsUtils {
     }
 
     public static final class SyncFiltersUtils {
-        public static final String FILTER_TEAM_ID = "teamId";
+        public static final String FILTER_TEAM_ID = "TEAM_ID";
     }
 
     public static class DetailsKeyUtils {

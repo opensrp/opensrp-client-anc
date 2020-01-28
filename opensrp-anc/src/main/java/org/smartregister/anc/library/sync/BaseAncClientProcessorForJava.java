@@ -288,6 +288,8 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             case ConstantsUtils.EventTypeUtils.CONTACT_VISIT:
                 processVisit(event);
                 break;
+            default:
+                break;
         }
     }
 
