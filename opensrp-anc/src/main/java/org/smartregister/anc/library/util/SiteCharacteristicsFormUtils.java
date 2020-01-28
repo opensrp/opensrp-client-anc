@@ -22,7 +22,6 @@ public class SiteCharacteristicsFormUtils {
             ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.team, team);
             ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.locationId, locationId);
             ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.providerId, providerId);
-            ancSiteCharacteristicsTemplate.put(ConstantsUtils.TemplateUtils.SiteCharacteristics.revision, "v1");
         }
 
         return ancSiteCharacteristicsTemplate;
