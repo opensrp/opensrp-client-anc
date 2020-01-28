@@ -48,8 +48,8 @@ public class SiteCharacteristicsTemplateUtilsTest extends BaseUnitTest {
         PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context, "userService").thenReturn(userService);
         String provider = "Some Provider";
-        String team = "TEAM";
-        String teamId = "TEAM_ID";
+        String team = "team";
+        String teamId = "teamId";
         String locationId = "locations";
 
         PowerMockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(provider);
@@ -59,7 +59,7 @@ public class SiteCharacteristicsTemplateUtilsTest extends BaseUnitTest {
         PowerMockito.when(userService, "getAllSharedPreferences").thenReturn(allSharedPreferences);
         PowerMockito.mockStatic(TemplateUtils.class);
         PowerMockito.when(TemplateUtils.getTemplateAsJson(contextAndroid, ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS)).thenReturn(new JSONObject());
-        String expected = "{\"LOCATION_ID\":\"locations\",\"PROVIDER_ID\":\"Some Provider\",\"TEAM_ID\":\"TEAM_ID\",\"TEAM\":\"TEAM\"}";
+        String expected = "{\"locationId\":\"locations\",\"providerId\":\"Some Provider\",\"teamId\":\"teamId\",\"team\":\"team\"}";
         Assert.assertEquals(expected, SiteCharacteristicsFormUtils.structureFormForRequest(contextAndroid).toString());
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
 
