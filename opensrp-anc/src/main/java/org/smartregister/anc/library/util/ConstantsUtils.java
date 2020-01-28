@@ -66,6 +66,7 @@ public abstract class ConstantsUtils {
     public static final String CONTINUE = "Continue";
     public static final String DUE = "Due";
     public static final String OPEN_TEST_TASKS = "open_test_tasks";
+    public static final String ANDROID_SWITCHER = "android:switcher:";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
@@ -86,16 +87,6 @@ public abstract class ConstantsUtils {
         public static final String ORDERED = "ordered";
         public static final String NOT_DONE = "not_done";
         public static final String DONE = "done";
-
-    }
-
-    public static class AncRadioButtonOptionTextUtils {
-        public static final String DONE_TODAY = "Done today";
-        public static final String DONE_EARLIER = "Done earlier";
-        public static final String ORDERED = "Ordered";
-        public static final String NOT_DONE = "Not done";
-        public static final String DONE = "Done";
-
     }
 
     public static class ConfigurationUtils {
@@ -188,23 +179,6 @@ public abstract class ConstantsUtils {
         public static final String UNDONE_VALUES = "undone_values";
     }
 
-    public static class OpenmrsUtils {
-        public static final String ENTITY = "openmrs_entity";
-        public static final String ENTITY_ID = "openmrs_entity_id";
-    }
-
-    public static class EntityUtils {
-        public static final String PERSON = "person";
-    }
-
-    public static class BooleanIntUtils {
-        public static final int TRUE = 1;
-    }
-
-    public static final class SyncFiltersUtils {
-        public static final String FILTER_TEAM_ID = "TEAM_ID";
-    }
-
     public static class DetailsKeyUtils {
         public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
@@ -238,10 +212,6 @@ public abstract class ConstantsUtils {
         public static final String CLIENT_CLASSIFICATION = "ec_client_classification.json";
         public static final String CLIENT_FIELDS = "ec_client_fields.json";
 
-    }
-
-    public static class JsonFormConstantsUtils {
-        public static final String CONTACT_CONTAINER = "container";
     }
 
     public static class PrefixUtils {

@@ -275,7 +275,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
         } else {
-            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + viewPager.getCurrentItem()); //This might be dirty we maybe can find a better way to do it.
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(ConstantsUtils.ANDROID_SWITCHER + R.id.viewpager + ":" + viewPager.getCurrentItem()); //This might be dirty we maybe can find a better way to do it.
             if (currentFragment instanceof ProfileTasksFragment) {
                 currentFragment.onActivityResult(requestCode, resultCode, data);
             }

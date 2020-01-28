@@ -448,7 +448,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
-        if (!TextUtils.isEmpty(rawString) && rawString != null) {
+        if (StringUtils.isNotBlank(rawString)) {
             String resultString = rawString;
             String[] tokenArray = resultString.trim().split("-");
             ArrayUtils.reverse(tokenArray);

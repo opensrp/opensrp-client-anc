@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -192,13 +193,13 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
     private void processContactTasks(Event event) {
         try {
             String openTasks = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.OPEN_TEST_TASKS);
-            if (openTasks != null) {
+            if (StringUtils.isNotBlank(openTasks)) {
                 JSONArray openTasksArray = new JSONArray(openTasks);
                 String contactNo = getContact(event);
 
                 for (int i = 0; i < openTasksArray.length(); i++) {
                     JSONObject tasks = new JSONObject(openTasksArray.getString(i));
-                    String key = tasks.optString(JsonFormConstants.KEY, "");
+                    String key = tasks.optString(JsonFormConstants.KEY);
 
                     Task task = getTask(tasks, key, event.getBaseEntityId(), contactNo);
                     AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(task);
@@ -266,7 +267,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         }
 
         String eventType = event.getEventType();
-        if (eventType == null) {
+        if (StringUtils.isNotBlank(eventType)) {
             return;
         }
 

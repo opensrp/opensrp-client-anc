@@ -182,7 +182,7 @@ public class ContactVisit {
                 if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
                     JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
                     if (givenValue.length() > 0) {
-                        String firstValue = givenValue.getString(0);
+                        String firstValue = givenValue.optString(0);
                         if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
                             isTask = true;
                         }
@@ -198,7 +198,7 @@ public class ContactVisit {
 
     private void saveTasks(JSONObject field) {
         if (field != null) {
-            String key = field.optString(JsonFormConstants.KEY, "");
+            String key = field.optString(JsonFormConstants.KEY);
             AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(getTask(field, key));
         }
     }

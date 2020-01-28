@@ -53,7 +53,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
             if (taskList != null && taskList.size() > 0) {
                 Task task = taskList.get(position);
                 JSONObject taskValue = new JSONObject(task.getValue());
-                String taskText = taskValue.optString(JsonFormConstants.TEXT, "");
+                String taskText = taskValue.optString(JsonFormConstants.TEXT);
                 if (StringUtils.isNotBlank(taskText)) {
                     contactTasksViewHolder.topBarTextView.setText(taskText);
                 }

@@ -114,43 +114,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         return String.valueOf(tasksCount);
     }
 
-    /**
-     * @param tasksRequest object holding contact request params it MUST contain NON NULL values for key
-     *                     baseEntityId contactNo
-     */
-    public Task getPreviousContact(Task tasksRequest) {
-        String selection = null;
-        String orderBy = ID + " DESC";
-        String[] selectionArgs = null;
-        Task dbPreviousContact = null;
-        Cursor mCursor = null;
-        try {
-            if (StringUtils.isNotBlank(tasksRequest.getBaseEntityId()) &&
-                    StringUtils.isNotBlank(tasksRequest.getKey())) {
-                selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " = ? " + BaseRepository.COLLATE_NOCASE;
-                selectionArgs = new String[]{tasksRequest.getBaseEntityId(), tasksRequest.getKey()};
-            }
-
-            mCursor = getReadableDatabase()
-                    .query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-            if (mCursor.getCount() > 0) {
-
-                mCursor.moveToFirst();
-
-                dbPreviousContact = getContactResult(mCursor);
-            }
-        } catch (Exception e) {
-            Timber.e(e, " --> getPreviousContact");
-
-        } finally {
-            if (mCursor != null) {
-                mCursor.close();
-            }
-        }
-        return dbPreviousContact;
-    }
-
-    private Task getContactResult(Cursor cursor) {
+    private Task getTaskResult(Cursor cursor) {
         Task task = new Task();
         task.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         task.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
@@ -172,7 +136,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         String[] selectionArgs = null;
         List<Task> taskList = new ArrayList<>();
         try {
-            SQLiteDatabase db = getWritableDatabase();
+            SQLiteDatabase db = getReadableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysList != null) {
@@ -187,7 +151,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    taskList.add(getContactResult(mCursor));
+                    taskList.add(getTaskResult(mCursor));
                 }
                 return taskList;
             }
@@ -209,7 +173,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         String[] selectionArgs = null;
         List<Task> taskList = new ArrayList<>();
         try {
-            SQLiteDatabase db = getWritableDatabase();
+            SQLiteDatabase db = getReadableDatabase();
             if (StringUtils.isNotBlank(baseEntityId)) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
                 selectionArgs = new String[]{baseEntityId, "1", contactNo};
@@ -217,7 +181,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    taskList.add(getContactResult(mCursor));
+                    taskList.add(getTaskResult(mCursor));
                 }
                 return taskList;
             }
@@ -239,7 +203,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         String[] selectionArgs = null;
         List<Task> taskList = new ArrayList<>();
         try {
-            SQLiteDatabase db = getWritableDatabase();
+            SQLiteDatabase db = getReadableDatabase();
             if (StringUtils.isNotBlank(baseEntityId)) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
                 selectionArgs = new String[]{baseEntityId, "0"};
@@ -247,7 +211,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    taskList.add(getContactResult(mCursor));
+                    taskList.add(getTaskResult(mCursor));
                 }
                 return taskList;
             }

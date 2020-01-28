@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -14,6 +15,7 @@ import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -185,7 +187,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
-            if (jsonString != null) {
+            if (StringUtils.isNotBlank(jsonString)) {
                 JSONObject form = new JSONObject(jsonString);
                 JSONArray accordionValues = createAccordionValues(form);
                 Task newTask = updateTaskValue(accordionValues);

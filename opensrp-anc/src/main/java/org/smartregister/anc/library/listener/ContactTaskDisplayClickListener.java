@@ -112,7 +112,6 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         newTask.setId(task.getId());
         newTask.setBaseEntityId(task.getBaseEntityId());
         newTask.setKey(task.getKey());
-        newTask.setKey(task.getKey());
         newTask.setValue(String.valueOf(taskValue));
         newTask.setUpdated(true);
         newTask.setContactNo(task.getContactNo());
@@ -201,7 +200,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private String getFormTitle(JSONObject taskValue) {
         String title = "";
         if (taskValue != null && taskValue.has(JsonFormConstants.TEXT)) {
-            title = taskValue.optString(JsonFormConstants.TEXT, "");
+            title = taskValue.optString(JsonFormConstants.TEXT);
         }
         return title;
     }
