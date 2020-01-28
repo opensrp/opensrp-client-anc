@@ -262,7 +262,6 @@ public abstract class ConstantsUtils {
             String team = "team";
             String locationId = "locationId";
             String providerId = "providerId";
-            String revision = "revision";
         }
     }
 }
