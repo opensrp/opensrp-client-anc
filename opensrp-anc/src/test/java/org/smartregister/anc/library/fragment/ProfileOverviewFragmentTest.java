@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.fragment;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -25,10 +24,10 @@ import java.util.HashMap;
 
 import static org.robolectric.shadows.ShadowInstrumentation.getInstrumentation;
 
-public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
+public class ProfileOverviewFragmentTest extends BaseActivityUnitTest {
     private ProfileActivity profileActivity;
     private ActivityController<ProfileActivity> controller;
-    private ProfileTasksFragment profileTasksFragment;
+    private ProfileOverviewFragment profileOverviewFragment;
     private ProfileActivity spyActivity;
 
     @Mock
@@ -49,20 +48,10 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
         profileActivity = controller.get();
 
         spyActivity = Mockito.spy(profileActivity);
-        profileTasksFragment = ProfileTasksFragment.newInstance(spyActivity.getIntent().getExtras());
+        profileOverviewFragment = ProfileOverviewFragment.newInstance(spyActivity.getIntent().getExtras());
 
-        startFragment(profileTasksFragment);
+        startFragment(profileOverviewFragment);
         Whitebox.setInternalState(profileActivity, "presenter", presenter);
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return profileActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 
     private void startFragment(Fragment fragment) {
@@ -76,10 +65,18 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
         getInstrumentation().waitForIdleSync();
     }
 
-    @Test
-    public void testFragmentInstance() {
-        Assert.assertNotNull(profileTasksFragment);
-        Assert.assertEquals(profileTasksFragment.getTaskList().size(), 0);
+    @Override
+    protected Activity getActivity() {
+        return profileActivity;
     }
 
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
+    @Test
+    public void testFragmentInstance() {
+        Assert.assertNotNull(profileOverviewFragment);
+    }
 }

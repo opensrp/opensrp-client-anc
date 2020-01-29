@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -95,7 +94,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         if (getActivity() != null && getActivity().getIntent() != null) {
             baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         }
-        presenter.getContactTasks(baseEntityId, contactNo);
+        getPresenter().getContactTasks(baseEntityId, contactNo);
         attachTasksRecyclerView();
     }
 
@@ -107,7 +106,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     @Override
     public void updateTask(Task task) {
-        presenter.updateTask(task);
+        getPresenter().updateTask(task);
     }
 
     @Override
@@ -244,5 +243,9 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     public void setCurrentTask(Task currentTask) {
         this.currentTask = currentTask;
+    }
+
+    public ProfileFragmentContract.Presenter getPresenter() {
+        return presenter;
     }
 }
