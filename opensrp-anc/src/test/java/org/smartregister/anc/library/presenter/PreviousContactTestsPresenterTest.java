@@ -57,7 +57,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
     private PreviousContactsTests.Presenter previousContactTestPresenter;
 
     @Mock
-    private AncLibrary AncLibrary;
+    private AncLibrary ancLibrary;
 
     @Mock
     private AncRulesEngineHelper rulesEngineHelper;
@@ -78,15 +78,15 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
     @Test
     public void testLoadPreviousContactsTest() throws ParseException, IOException {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         //Create dummy yml configuration settings
         Iterable<Object> testsRuleObjects = new ArrayList<>();
 
         populateYamlConfiRules((ArrayList<Object>) testsRuleObjects);
 
-        PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
-        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
-        PowerMockito.when(AncLibrary.getAncRulesEngineHelper()).thenReturn(rulesEngineHelper);
+        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(ancLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
+        PowerMockito.when(ancLibrary.getAncRulesEngineHelper()).thenReturn(rulesEngineHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
         String lastContactDate = "2019-09-01";

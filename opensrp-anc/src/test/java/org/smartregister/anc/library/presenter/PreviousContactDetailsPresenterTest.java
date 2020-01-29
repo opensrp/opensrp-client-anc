@@ -46,7 +46,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
     private PreviousContactsDetails.View profileView;
 
     @Mock
-    private AncLibrary AncLibrary;
+    private AncLibrary ancLibrary;
 
     @Mock
     private Context context;
@@ -77,10 +77,10 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(TextUtils.class);
         PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
-        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
-        PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
         String edd = "2019-09-01";
@@ -96,8 +96,8 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(TextUtils.class);
         PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
-        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(AncLibrary);
-        PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
 
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
