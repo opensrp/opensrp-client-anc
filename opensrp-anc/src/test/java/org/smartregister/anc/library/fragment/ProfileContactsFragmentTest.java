@@ -36,33 +36,6 @@ public class ProfileContactsFragmentTest extends BaseActivityUnitTest {
     @Before
     public void setUp() {
         super.setUp();
-        Intent testIntent = new Intent();
-        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
-        HashMap<String, String> map = new HashMap<>();
-        map.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.ACTIVE);
-        map.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, "10-12-2018");
-        map.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "3");
-        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
-
-        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
-        profileActivity = controller.get();
-
-        spyActivity = Mockito.spy(profileActivity);
-        profileContactsFragment = ProfileContactsFragment.newInstance(spyActivity.getIntent().getExtras());
-
-        startFragment(profileContactsFragment);
-        Whitebox.setInternalState(profileActivity, "presenter", presenter);
-    }
-
-    private void startFragment(Fragment fragment) {
-        FragmentManager fragmentManager = spyActivity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null);
-        fragmentTransaction.commit();
-
-        getActivity().runOnUiThread(() -> spyActivity.getSupportFragmentManager().executePendingTransactions());
-
-        getInstrumentation().waitForIdleSync();
     }
 
     @Override
@@ -77,6 +50,52 @@ public class ProfileContactsFragmentTest extends BaseActivityUnitTest {
 
     @Test
     public void testFragmentInstance() {
+        Intent testIntent = new Intent();
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        HashMap<String, String> map = new HashMap<>();
+        map.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.ACTIVE);
+        map.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, "10-12-2018");
+        map.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "3");
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
+
+        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
+        profileActivity = controller.get();
+
+        spyActivity = Mockito.spy(profileActivity);
+        Whitebox.setInternalState(profileActivity, "presenter", presenter);
+        profileContactsFragment = ProfileContactsFragment.newInstance(spyActivity.getIntent().getExtras());
+        startFragment(profileContactsFragment);
+        Assert.assertNotNull(profileContactsFragment);
+    }
+
+    private void startFragment(Fragment fragment) {
+        FragmentManager fragmentManager = spyActivity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
+
+        getActivity().runOnUiThread(() -> spyActivity.getSupportFragmentManager().executePendingTransactions());
+
+        getInstrumentation().waitForIdleSync();
+    }
+
+    @Test
+    public void testFragmentInstanceWithNullBundle() {
+        Intent testIntent = new Intent();
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        HashMap<String, String> map = new HashMap<>();
+        map.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.NOT_DUE);
+        map.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, "10-12-2018");
+        map.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "3");
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
+
+        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
+        profileActivity = controller.get();
+
+        spyActivity = Mockito.spy(profileActivity);
+        Whitebox.setInternalState(profileActivity, "presenter", presenter);
+        profileContactsFragment = ProfileContactsFragment.newInstance(null);
+        startFragment(profileContactsFragment);
         Assert.assertNotNull(profileContactsFragment);
     }
 }

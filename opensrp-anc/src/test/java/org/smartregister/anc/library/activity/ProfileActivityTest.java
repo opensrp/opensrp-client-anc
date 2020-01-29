@@ -74,6 +74,16 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(profileActivity, "presenter", presenter);
     }
 
+    @Override
+    protected Activity getActivity() {
+        return profileActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
     @After
     public void tearDown() {
         destroyController();
@@ -82,7 +92,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         Context context = Context.getInstance();
         context.session().expire();
     }
-
 
     @Test
     public void testActivityCreatedSuccesfully() {
@@ -102,7 +111,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         TextView ageView = Whitebox.getInternalState(profileActivity, "ageView");
         Assert.assertNotNull(ageView);
     }
-
 
     @Test
     public void testGestationAgeViewIsInitialized() {
@@ -129,7 +137,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
     }
-
 
     @Test
     public void testOnDestroyShouldInvokeOnDestroyMethodOfPresenter() {
@@ -315,15 +322,5 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.avatar_woman);
 
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return profileActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

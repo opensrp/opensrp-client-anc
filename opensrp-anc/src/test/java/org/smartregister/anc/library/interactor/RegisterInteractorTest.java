@@ -44,11 +44,9 @@ import static org.mockito.Mockito.verify;
 
 public class RegisterInteractorTest extends BaseUnitTest {
 
-    private RegisterContract.Interactor interactor;
-
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-
+    private RegisterContract.Interactor interactor;
     @Captor
     private ArgumentCaptor<Triple<String, String, String>> tripleArgumentCaptor;
 

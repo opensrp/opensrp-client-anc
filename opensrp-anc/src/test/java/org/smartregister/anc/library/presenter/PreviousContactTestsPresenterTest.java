@@ -78,14 +78,14 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
     @Test
     public void testLoadPreviousContactsTest() throws ParseException, IOException {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(AncLibrary);
         //Create dummy yml configuration settings
         Iterable<Object> testsRuleObjects = new ArrayList<>();
 
         populateYamlConfiRules((ArrayList<Object>) testsRuleObjects);
 
         PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
-        PowerMockito.when(AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
+        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
         PowerMockito.when(AncLibrary.getAncRulesEngineHelper()).thenReturn(rulesEngineHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
@@ -114,12 +114,12 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
                 new YamlConfigItem("Ultrasound done date: {ultrasound_date}", "ultrasound_date != ''", null),
                 new YamlConfigItem("Ultrasound not done reason: {ultrasound_notdone}", "ultrasound_notdone != ''", null)));
 
-        List configItem2 =  Collections.unmodifiableList(Arrays.asList(
+        List configItem2 = Collections.unmodifiableList(Arrays.asList(
                 new YamlConfigItem("Syphilis test status: {syph_test_status}", "syph_test_status != ''", null),
                 new YamlConfigItem("Syphilis test done date: {syphilis_test_date}", "syphilis_test_date != ''", null),
                 new YamlConfigItem("Syphilis test type: {syph_test_type}", "syph_test_type != ''", "true")));
 
-        List configItem3 =  Collections.unmodifiableList(Arrays.asList(
+        List configItem3 = Collections.unmodifiableList(Arrays.asList(
                 new YamlConfigItem("Blood type test status: {blood_type_test_status}", "blood_type_test_status != ''", null),
                 new YamlConfigItem("Blood Type: {blood_type}", "blood_type != ''", null),
                 new YamlConfigItem("Blood type test done date: {blood_type_test_date}", "blood_type_test_date != ''", null)));

@@ -28,6 +28,16 @@ public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnit
         baseHomeRegisterActivity = controller.get();
     }
 
+    @Override
+    protected Activity getActivity() {
+        return baseHomeRegisterActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
     @Test
     public void testDisableShiftMode() {
         BottomNavigationHelper spyBottomNavigationHelper = Mockito.mock(BottomNavigationHelper.class);
@@ -56,16 +66,5 @@ public class BottomNavigationHelperDisableShiftModeTest extends BaseActivityUnit
     @After
     public void tearDown() {
         destroyController();
-    }
-
-
-    @Override
-    protected Activity getActivity() {
-        return baseHomeRegisterActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

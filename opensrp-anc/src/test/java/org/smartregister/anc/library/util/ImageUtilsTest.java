@@ -26,19 +26,15 @@ import org.smartregister.util.ImageUtils;
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ImageUtilsTest extends BaseUnitTest {
 
-    private ImageUtils imageUtils;
-
-    @Mock
-    private ImageRepository imageRepository;
-
-    @Mock
-    private CoreLibrary coreLibrary;
-
-    @Mock
-    private Context context;
-
     @Rule
     public PowerMockRule rule = new PowerMockRule();
+    private ImageUtils imageUtils;
+    @Mock
+    private ImageRepository imageRepository;
+    @Mock
+    private CoreLibrary coreLibrary;
+    @Mock
+    private Context context;
 
     @Before
     public void setUp() {

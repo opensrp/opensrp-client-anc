@@ -77,7 +77,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(TextUtils.class);
         PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(AncLibrary);
         PowerMockito.when(AncLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
         PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
@@ -96,7 +96,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.mockStatic(AncLibrary.class);
         PowerMockito.mockStatic(TextUtils.class);
         PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(AncLibrary);
+        PowerMockito.when(org.smartregister.anc.library.AncLibrary.getInstance()).thenReturn(AncLibrary);
         PowerMockito.when(AncLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
 
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;

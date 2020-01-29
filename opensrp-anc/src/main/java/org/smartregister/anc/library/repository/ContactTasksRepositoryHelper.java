@@ -15,6 +15,12 @@ import java.util.List;
 
 import timber.log.Timber;
 
+/**
+ * This class providers helper functions to perform any CRUD functions on the ANC Tasks. This tasks are mainly created from the ANC Tests.
+ * They include test that weren't done & all ordered tests.
+ *
+ * @author dubdabasoduba
+ */
 public class ContactTasksRepositoryHelper extends BaseRepository {
     public static final String TABLE_NAME = "contact_tasks";
     public static final String ID = "_id";
@@ -48,6 +54,12 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
 
     private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
 
+    /**
+     * Creates the contact_tasks table and adds the indexes on the table.
+     *
+     * @param database {@link SQLiteDatabase}
+     * @author dubdabasoduba
+     */
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
         database.execSQL(INDEX_ID);
@@ -56,6 +68,13 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         database.execSQL(INDEX_CONTACT_NO);
     }
 
+    /**
+     * Inserts or updates the tasks into the contact_tasks table. Returns a boolean which is used to refresh the tasks view on the profile pages
+     *
+     * @param task {@link Task}
+     * @return true/false {@link Boolean}
+     * @author dubdabasoduba
+     */
     public boolean saveOrUpdateTasks(Task task) {
         if (task == null) return false;
         if (task.getId() != null) {
@@ -91,7 +110,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     public String getTasksCount(String baseEntityId, String contactNo) {
         int tasksCount = 0;
         String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = null;
+        String[] selectionArgs = new String[]{};
         Cursor mCursor = null;
         try {
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
@@ -99,8 +118,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
             }
 
             mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
-            if (mCursor.getCount() > 0) {
-                mCursor.moveToFirst();
+            if (mCursor != null && mCursor.getCount() > 0) {
                 tasksCount = mCursor.getInt(0);
             }
         } catch (Exception e) {
@@ -126,17 +144,21 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     }
 
     /**
-     * @param baseEntityId is the Base entity Id No to filter by
-     * @param keysList     an optional list of keys to query null otherwise to get all keys for that base entity id
+     * Gets all the tasks for a specific patient using their patient base entity id.
+     * We also provide an optional list of keys to query null otherwise to get all keys for that base entity id
+     *
+     * @param baseEntityId {@link String}
+     * @param keysList     {@link List}
+     * @author dubdabasoduba
      */
     public List<Task> getTasks(String baseEntityId, List<String> keysList) {
         String orderBy = ID + " DESC ";
         Cursor mCursor = null;
         String selection = "";
-        String[] selectionArgs = null;
+        String[] selectionArgs = new String[]{};
         List<Task> taskList = new ArrayList<>();
         try {
-            SQLiteDatabase db = getReadableDatabase();
+            SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysList != null) {
@@ -148,7 +170,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
                 }
             }
 
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            mCursor = sqLiteDatabase.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     taskList.add(getTaskResult(mCursor));
@@ -166,19 +188,27 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         return taskList;
     }
 
+    /**
+     * Gets all the closed or updated tasks. We fetch this using the baseEntityId,contact number & the is updated flag
+     *
+     * @param baseEntityId {@link String}
+     * @param contactNo    {@link String}
+     * @return tasksList {@link List}
+     * @author dubdabasoduba
+     */
     public List<Task> getClosedTasks(String baseEntityId, String contactNo) {
         String orderBy = ID + " DESC ";
         Cursor mCursor = null;
         String selection = "";
-        String[] selectionArgs = null;
+        String[] selectionArgs = new String[]{};
         List<Task> taskList = new ArrayList<>();
         try {
-            SQLiteDatabase db = getReadableDatabase();
+            SQLiteDatabase sqLiteDatabase = getReadableDatabase();
             if (StringUtils.isNotBlank(baseEntityId)) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
                 selectionArgs = new String[]{baseEntityId, "1", contactNo};
             }
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            mCursor = sqLiteDatabase.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     taskList.add(getTaskResult(mCursor));
@@ -196,19 +226,26 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         return taskList;
     }
 
+    /**
+     * Gets all the closed or updated tasks. We fetch this using the baseEntityId & the is updated flag
+     *
+     * @param baseEntityId {@link String}
+     * @return tasksList {@link List}
+     * @author dubdabasoduba
+     */
     public List<Task> getOpenTasks(String baseEntityId) {
         String orderBy = ID + " DESC ";
         Cursor mCursor = null;
         String selection = "";
-        String[] selectionArgs = null;
+        String[] selectionArgs = new String[]{};
         List<Task> taskList = new ArrayList<>();
         try {
-            SQLiteDatabase db = getReadableDatabase();
+            SQLiteDatabase sqLiteDatabase = getReadableDatabase();
             if (StringUtils.isNotBlank(baseEntityId)) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
                 selectionArgs = new String[]{baseEntityId, "0"};
             }
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            mCursor = sqLiteDatabase.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     taskList.add(getTaskResult(mCursor));

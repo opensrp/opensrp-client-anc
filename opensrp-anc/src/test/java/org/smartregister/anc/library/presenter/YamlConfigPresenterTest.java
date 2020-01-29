@@ -85,22 +85,22 @@ public class YamlConfigPresenterTest extends BaseUnitTest {
 
     @Test
     public void testLoadContactsWithNormalInput() {
-        presenter.loadUpcomingContacts(baseEntityId,"");
-        Mockito.verify(interactor).fetchUpcomingContacts(Mockito.eq(baseEntityId),Mockito.anyString(),
+        presenter.loadUpcomingContacts(baseEntityId, "");
+        Mockito.verify(interactor).fetchUpcomingContacts(Mockito.eq(baseEntityId), Mockito.anyString(),
                 Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadContactsWithNullInput() {
-        presenter.loadUpcomingContacts(null,"");
-        Mockito.verify(interactor, Mockito.never()).fetchUpcomingContacts(Mockito.eq(baseEntityId),Mockito.anyString(),
+        presenter.loadUpcomingContacts(null, "");
+        Mockito.verify(interactor, Mockito.never()).fetchUpcomingContacts(Mockito.eq(baseEntityId), Mockito.anyString(),
                 Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 
     @Test
     public void testLoadContactsWithEmptyInput() {
-        presenter.loadUpcomingContacts("","");
-        Mockito.verify(interactor, Mockito.never()).fetchUpcomingContacts(Mockito.eq(baseEntityId),Mockito.anyString(),
+        presenter.loadUpcomingContacts("", "");
+        Mockito.verify(interactor, Mockito.never()).fetchUpcomingContacts(Mockito.eq(baseEntityId), Mockito.anyString(),
                 Mockito.any(ContactSummarySendContract.InteractorCallback.class));
     }
 

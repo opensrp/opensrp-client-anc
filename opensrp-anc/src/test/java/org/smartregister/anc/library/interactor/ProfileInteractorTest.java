@@ -16,15 +16,12 @@ import org.smartregister.anc.library.presenter.ProfilePresenter;
  */
 public class ProfileInteractorTest extends BaseUnitTest {
 
+    private static final String FIELD_PROFILE_PRESENTER = "mProfilePresenter";
     private ProfileContract.Interactor interactor;
-
     @Mock
     private ProfileContract.Presenter presenter;
-
     @Mock
     private ProfileContract.View view;
-
-    private static final String FIELD_PROFILE_PRESENTER = "mProfilePresenter";
 
     @Before
     public void setUp() {

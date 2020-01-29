@@ -43,6 +43,25 @@ public class PartialContactsTest extends BaseUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    @Test
+    public void testPartialContactsInvoke() {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryHelper.class);
+        PowerMockito.mockStatic(PartialContactRepositoryHelper.class);
+        PowerMockito.mockStatic(EventClientRepository.class);
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.mockStatic(Pair.class);
+
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getPartialContactRepositoryHelper()).thenReturn(partialContactRepositoryHelper);
+        PowerMockito.when(partialContactRepositoryHelper.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(getPartialContacts());
+        PartialContacts partialContacts = new PartialContacts(getDetails(), null, DUMMY_BASE_ENTITY_ID, true).invoke();
+
+        Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
+        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(), "anc_profile");
+    }
+
     public List<PartialContact> getPartialContacts() {
         List<PartialContact> partialContactsList = new ArrayList<>();
 
@@ -80,26 +99,6 @@ public class PartialContactsTest extends BaseUnitTest {
         return details;
     }
 
-
-    @Test
-    public void testPartialContactsInvoke() {
-        PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
-        PowerMockito.mockStatic(PreviousContactRepositoryHelper.class);
-        PowerMockito.mockStatic(PartialContactRepositoryHelper.class);
-        PowerMockito.mockStatic(EventClientRepository.class);
-        PowerMockito.mockStatic(LocationHelper.class);
-        PowerMockito.mockStatic(Pair.class);
-
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
-        PowerMockito.when(ancLibrary.getPartialContactRepositoryHelper()).thenReturn(partialContactRepositoryHelper);
-        PowerMockito.when(partialContactRepositoryHelper.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(getPartialContacts());
-        PartialContacts partialContacts = new PartialContacts(getDetails(), null, DUMMY_BASE_ENTITY_ID, true).invoke();
-
-        Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
-        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(),"anc_profile");
-    }
-
     @Test
     public void testNotFirstPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
@@ -116,7 +115,7 @@ public class PartialContactsTest extends BaseUnitTest {
         PartialContacts partialContacts = new PartialContacts(getDetails(), null, DUMMY_BASE_ENTITY_ID, false).invoke();
 
         Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
-        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(),"anc_profile");
+        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(), "anc_profile");
     }
 
     @Test
@@ -135,6 +134,6 @@ public class PartialContactsTest extends BaseUnitTest {
         PartialContacts partialContacts = new PartialContacts(getDetails(), "-3", DUMMY_BASE_ENTITY_ID, false).invoke();
 
         Assert.assertEquals(partialContacts.getPartialContactList().size(), 3);
-        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(),"anc_profile");
+        Assert.assertEquals(partialContacts.getPartialContactList().get(0).getType(), "anc_profile");
     }
 }

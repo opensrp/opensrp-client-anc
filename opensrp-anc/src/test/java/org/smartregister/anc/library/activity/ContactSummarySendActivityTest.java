@@ -21,9 +21,9 @@ import static org.robolectric.Shadows.shadowOf;
 
 public class ContactSummarySendActivityTest extends BaseUnitTest {
 
+    private final String baseEntityId = UUID.randomUUID().toString();
     private ActivityController<ContactSummarySendActivity> activityController;
     private ContactSummarySendActivity activity;
-    private final String baseEntityId = UUID.randomUUID().toString();
 
     @Before
     public void setUp() {
@@ -49,6 +49,7 @@ public class ContactSummarySendActivityTest extends BaseUnitTest {
         Assert.assertNotNull(passedIntent);
 
     }
+
     @Test
     public void testDisplayWomansName() {
         activity = activityController.create().get();

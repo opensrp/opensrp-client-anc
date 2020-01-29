@@ -37,6 +37,20 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
     @Before
     public void setUp() {
         super.setUp();
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return profileActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
+    @Test
+    public void testFragmentInstance() {
         Intent testIntent = new Intent();
         testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         HashMap<String, String> map = new HashMap<>();
@@ -49,20 +63,11 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
         profileActivity = controller.get();
 
         spyActivity = Mockito.spy(profileActivity);
-        profileTasksFragment = ProfileTasksFragment.newInstance(spyActivity.getIntent().getExtras());
-
-        startFragment(profileTasksFragment);
         Whitebox.setInternalState(profileActivity, "presenter", presenter);
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return profileActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
+        profileTasksFragment = ProfileTasksFragment.newInstance(spyActivity.getIntent().getExtras());
+        startFragment(profileTasksFragment);
+        Assert.assertNotNull(profileTasksFragment);
+        Assert.assertEquals(profileTasksFragment.getTaskList().size(), 0);
     }
 
     private void startFragment(Fragment fragment) {
@@ -77,7 +82,22 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testFragmentInstance() {
+    public void testFragmentInstanceWithNullBundle() {
+        Intent testIntent = new Intent();
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
+        HashMap<String, String> map = new HashMap<>();
+        map.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.NOT_DUE);
+        map.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, "10-12-2018");
+        map.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "3");
+        testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
+
+        controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
+        profileActivity = controller.get();
+
+        spyActivity = Mockito.spy(profileActivity);
+        Whitebox.setInternalState(profileActivity, "presenter", presenter);
+        profileTasksFragment = ProfileTasksFragment.newInstance(null);
+        startFragment(profileTasksFragment);
         Assert.assertNotNull(profileTasksFragment);
         Assert.assertEquals(profileTasksFragment.getTaskList().size(), 0);
     }

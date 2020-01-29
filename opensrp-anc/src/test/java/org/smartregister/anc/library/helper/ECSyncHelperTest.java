@@ -26,9 +26,8 @@ import java.util.List;
  */
 public class ECSyncHelperTest extends BaseActivityUnitTest {
 
-    private ECSyncHelper syncHelper;
     private static final String EVENT_CLIENT_REPOSITORY = "eventClientRepository";
-
+    private ECSyncHelper syncHelper;
     @Mock
     private EventClientRepository eventClientRepository;
 

@@ -90,7 +90,7 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         Assert.assertEquals(details, contactPresenter.getDetails());
 
-        Mockito.verify(model).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.verify(model).extractPatientName(Mockito.anyMap());
         Mockito.verify(view).displayPatientName(patientName);
 
     }
@@ -105,7 +105,7 @@ public class ContactPresenterTest extends BaseUnitTest {
         Assert.assertNull(contactPresenter.getDetails());
 
 
-        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.anyMap());
         Mockito.verify(view, Mockito.times(0)).displayPatientName(Mockito.anyString());
     }
 
@@ -119,7 +119,7 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         Assert.assertNull(contactPresenter.getDetails());
 
-        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.anyMap());
         Mockito.verify(view, Mockito.times(0)).displayPatientName(Mockito.anyString());
 
     }
@@ -131,11 +131,11 @@ public class ContactPresenterTest extends BaseUnitTest {
         ((ContactPresenter) presenter).setDetails(Mockito.mock(Map.class));
 
         String patientName = "Patient Name";
-        Mockito.doReturn(patientName).when(model).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.doReturn(patientName).when(model).extractPatientName(Mockito.anyMap());
 
         String actualPatientName = presenter.getPatientName();
 
-        Mockito.verify(model).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.verify(model).extractPatientName(Mockito.anyMap());
 
         Assert.assertEquals(patientName, actualPatientName);
 
@@ -148,7 +148,7 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         String actualPatientName = presenter.getPatientName();
 
-        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.anyMap());
 
         Assert.assertEquals("", actualPatientName);
 
@@ -161,7 +161,7 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         String actualPatientName = presenter.getPatientName();
 
-        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.<String, String>anyMap());
+        Mockito.verify(model, Mockito.times(0)).extractPatientName(Mockito.anyMap());
 
         Assert.assertEquals("", actualPatientName);
 
@@ -226,7 +226,7 @@ public class ContactPresenterTest extends BaseUnitTest {
 
         contactPresenter.finalizeContactForm(details, RuntimeEnvironment.application);
 
-        Mockito.verify(interactor, Mockito.times(1)).finalizeContactForm(details,RuntimeEnvironment.application);
+        Mockito.verify(interactor, Mockito.times(1)).finalizeContactForm(details, RuntimeEnvironment.application);
 
     }
 }
