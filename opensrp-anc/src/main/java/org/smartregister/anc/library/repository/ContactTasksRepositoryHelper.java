@@ -119,6 +119,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
 
             mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
             if (mCursor != null && mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
                 tasksCount = mCursor.getInt(0);
             }
         } catch (Exception e) {

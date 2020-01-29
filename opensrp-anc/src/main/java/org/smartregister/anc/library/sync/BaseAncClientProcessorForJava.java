@@ -267,7 +267,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         }
 
         String eventType = event.getEventType();
-        if (StringUtils.isNotBlank(eventType)) {
+        if (StringUtils.isBlank(eventType)) {
             return;
         }
 
