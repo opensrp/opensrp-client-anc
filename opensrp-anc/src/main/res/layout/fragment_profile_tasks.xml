@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.BaseHomeRegisterActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <include
         android:id="@+id/no_health_data_recorded_profile_task_layout"
         layout="@layout/no_health_data_record" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/tasks_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/test_tasks_sub_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/overview_sub_header_bg"
+            android:gravity="start"
+            android:paddingStart="@dimen/contact_drawable_padding"
+            android:paddingTop="@dimen/contact_drawable_padding"
+            android:paddingEnd="@dimen/contact_drawable_padding"
+            android:paddingBottom="@dimen/contact_drawable_padding"
+            android:singleLine="true"
+            android:text="@string/tests_tasks_header"
+            android:textAllCaps="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/dark_grey"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tasks_display_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foregroundGravity="top"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test_tasks_sub_header" />
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

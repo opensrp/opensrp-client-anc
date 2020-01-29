@@ -86,7 +86,7 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         Mockito.verify(model).countSelect(AdvancedSearchPresenter.TABLE_NAME, mainCondition);
         Mockito.verify(model).mainSelect(AdvancedSearchPresenter.TABLE_NAME, mainCondition);
         Mockito.verify(view).initializeQueryParams(AdvancedSearchPresenter.TABLE_NAME, countSelect, mainSelect);
-        Mockito.verify(view).initializeAdapter(Mockito.<View>anySet());
+        Mockito.verify(view).initializeAdapter(Mockito.anySet());
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
         Mockito.verify(view).hideProgressView();

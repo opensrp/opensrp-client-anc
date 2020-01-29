@@ -21,8 +21,7 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
         setUpViews(view);
         return view;
@@ -30,12 +29,7 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
 
     private void setUpViews(View views) {
         mToolbar = views.findViewById(R.id.library_toolbar);
-        mToolbar.findViewById(R.id.close_library).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        mToolbar.findViewById(R.id.close_library).setOnClickListener(view -> onBackPressed());
     }
 
     public void onBackPressed() {

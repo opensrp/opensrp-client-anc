@@ -22,7 +22,6 @@ import java.util.Date;
 @RunWith(RobolectricTestRunner.class)
 @Config(application = AncTestApplication.class, shadows = {MyShadowActivity.class})
 public abstract class BaseUnitTest {
-    public static int ASYNC_TIMEOUT = 1000;
     protected static final String DUMMY_USERNAME = "myusername";
     protected static final String DUMMY_PASSWORD = "mypassword";
     protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
@@ -294,6 +293,7 @@ public abstract class BaseUnitTest {
             "      ]\n" +
             "   }\n" +
             "}";
+    public static int ASYNC_TIMEOUT = 1000;
 
     protected JSONObject getMainJsonObject(String filePath) throws Exception {
         Context context = RuntimeEnvironment.application;

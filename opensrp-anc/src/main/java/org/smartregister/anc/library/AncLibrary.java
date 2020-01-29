@@ -22,6 +22,7 @@ import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
+import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
@@ -54,6 +55,7 @@ public class AncLibrary {
     private JsonSpecHelper jsonSpecHelper;
     private PartialContactRepositoryHelper partialContactRepositoryHelper;
     private PreviousContactRepositoryHelper previousContactRepositoryHelper;
+    private ContactTasksRepositoryHelper contactTasksRepositoryHelper;
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
@@ -129,7 +131,7 @@ public class AncLibrary {
         }
     }
 
-    public static void init(@NonNull Context context,  int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+    public static void init(@NonNull Context context, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         init(context, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
     }
 
@@ -169,6 +171,14 @@ public class AncLibrary {
         }
 
         return previousContactRepositoryHelper;
+    }
+
+    public ContactTasksRepositoryHelper getContactTasksRepositoryHelper() {
+        if (contactTasksRepositoryHelper == null) {
+            contactTasksRepositoryHelper = new ContactTasksRepositoryHelper();
+        }
+
+        return contactTasksRepositoryHelper;
     }
 
     public EventClientRepository getEventClientRepository() {

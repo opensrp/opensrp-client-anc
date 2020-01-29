@@ -15,12 +15,10 @@ import org.smartregister.anc.library.interactor.PopulationCharacteristicsInterac
  */
 public class PopulationCharacteristicsPresenterTest extends BaseUnitTest {
 
+    private static final String FIELD_INTERACTOR = "interactor";
     private PopulationCharacteristicsContract.Presenter presenter;
-
     @Mock
     private PopulationCharacteristicsContract.View view;
-
-    private static final String FIELD_INTERACTOR = "interactor";
 
     @Before
     public void setUp() {

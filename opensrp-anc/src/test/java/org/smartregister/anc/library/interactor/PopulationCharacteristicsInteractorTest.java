@@ -15,13 +15,10 @@ import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
  */
 public class PopulationCharacteristicsInteractorTest extends BaseUnitTest {
 
+    private static final String FIELD_PRESENTER = "presenter";
     private BaseCharacteristicsContract.Interactor interactor;
-
     @Mock
     private PopulationCharacteristicsContract.Presenter presenter;
-
-
-    private static final String FIELD_PRESENTER = "presenter";
 
     @Before
     public void setUp() {

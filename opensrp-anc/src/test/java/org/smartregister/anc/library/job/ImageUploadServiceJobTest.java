@@ -45,7 +45,7 @@ public class ImageUploadServiceJobTest extends BaseUnitTest {
         Mockito.doReturn(context).when(imageSyncServiceJobSpy).getApplicationContext();
         Mockito.doReturn(componentName).when(context).startService(ArgumentMatchers.any(Intent.class));
 
-        Whitebox.invokeMethod(imageSyncServiceJobSpy,"onRunJob", (Object) null);
+        Whitebox.invokeMethod(imageSyncServiceJobSpy, "onRunJob", (Object) null);
 
         Mockito.verify(context).startService(intent.capture());
 

@@ -40,9 +40,7 @@ import java.util.Set;
 import timber.log.Timber;
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
-
     private TextView patientNameView;
-
     private Map<String, Integer> requiredFieldsMap = new HashMap<>();
     private Map<String, String> eventToFileMap = new HashMap<>();
     private Yaml yaml = new Yaml();
@@ -192,14 +190,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         for (Object ruleObject : contactGlobals) {
             Map<String, Object> map = ((Map<String, Object>) ruleObject);
-
             formGlobalKeys.put(map.get(ConstantsUtils.FORM).toString(), (List<String>) map.get(JsonFormConstants.FIELDS));
             globalKeys.addAll((List<String>) map.get(JsonFormConstants.FIELDS));
         }
     }
 
     private void process(String[] mainContactForms) throws Exception {
-
         //Fetch and load previously saved values
         if (contactNo > 1) {
             for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
@@ -463,7 +459,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     }
                 }
             }
-
         }
     }
 
@@ -663,16 +658,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         if (contactGlobals != null) {
             Map<String, String> map = new HashMap<>();
-            for (String cg : contactGlobals) {
-                if (formGlobalValues.containsKey(cg)) {
-                    String some = map.get(cg);
+            for (String contactGlobal : contactGlobals) {
+                if (formGlobalValues.containsKey(contactGlobal)) {
+                    String some = map.get(contactGlobal);
 
-                    if (some == null || !some.equals(formGlobalValues.get(cg))) {
-                        map.put(cg, formGlobalValues.get(cg));
+                    if (some == null || !some.equals(formGlobalValues.get(contactGlobal))) {
+                        map.put(contactGlobal, formGlobalValues.get(contactGlobal));
                     }
 
                 } else {
-                    map.put(cg, "");
+                    map.put(contactGlobal, "");
                 }
             }
 
@@ -698,7 +693,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     @Override
-    protected void onCreation() {//Overriden
+    protected void onCreation() {//Overridden
     }
 
     @Override

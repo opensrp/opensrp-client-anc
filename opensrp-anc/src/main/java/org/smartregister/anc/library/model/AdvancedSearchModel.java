@@ -44,15 +44,15 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
         return editMap;
     }
 
-    private void addMapValuesCheckingLocals(String field, boolean isLocal, Map<String, String> editMap, String key, String globalField, String keyToMapTo) {
-        if (StringUtils.isNotBlank(field)) {
-            editMap.put(isLocal ? key : globalField, isLocal ? field : keyToMapTo + ":" + field);
-        }
-    }
-
     private void addMapValues(String field, boolean isLocal, Map<String, String> editMap, String key, String globalField) {
         if (StringUtils.isNotBlank(field)) {
             editMap.put(isLocal ? key : globalField, field);
+        }
+    }
+
+    private void addMapValuesCheckingLocals(String field, boolean isLocal, Map<String, String> editMap, String key, String globalField, String keyToMapTo) {
+        if (StringUtils.isNotBlank(field)) {
+            editMap.put(isLocal ? key : globalField, isLocal ? field : keyToMapTo + ":" + field);
         }
     }
 

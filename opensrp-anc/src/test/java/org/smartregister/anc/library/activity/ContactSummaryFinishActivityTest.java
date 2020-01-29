@@ -75,6 +75,15 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         activity = activityController.create().resume().get();
     }
 
+    @Override
+    protected Activity getActivity() {
+        return activity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return activityController;
+    }
 
     @Test
     public void testActivityIsNotNull() {
@@ -101,7 +110,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         TextView ageView = Whitebox.getInternalState(activity, "ageView");
         Assert.assertNotNull(ageView);
     }
-
 
     @Test
     public void testGestationAgeViewIsInitialized() {
@@ -309,15 +317,5 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     @After
     public void tearDown() {
         destroyController();
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return activity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return activityController;
     }
 }

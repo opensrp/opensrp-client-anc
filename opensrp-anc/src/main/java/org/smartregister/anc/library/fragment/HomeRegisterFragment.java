@@ -2,32 +2,24 @@ package org.smartregister.anc.library.fragment;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jeasy.rules.api.Facts;
-import org.json.JSONObject;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
-import org.smartregister.anc.library.domain.AttentionFlag;
-import org.smartregister.anc.library.domain.YamlConfig;
-import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.event.SyncEvent;
 import org.smartregister.anc.library.helper.DBQueryHelper;
 import org.smartregister.anc.library.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.library.provider.RegisterProvider;
+import org.smartregister.anc.library.task.AttentionFlagsTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
@@ -39,9 +31,7 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -52,14 +42,11 @@ import timber.log.Timber;
  * Created by keyman on 26/06/2018.
  */
 
-public class HomeRegisterFragment extends BaseRegisterFragment
-        implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
-
+public class HomeRegisterFragment extends BaseRegisterFragment implements RegisterFragmentContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
-    private static final String TAG = HomeRegisterFragment.class.getCanonicalName();
 
     @Override
     protected void initializePresenter() {
@@ -157,61 +144,8 @@ public class HomeRegisterFragment extends BaseRegisterFragment
                     Utils.proceedToContact(baseEntityId, (HashMap<String, String>) pc.getColumnmaps(), getActivity());
                 }
             }
-
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-            new AsyncTask<Void, Void, Void>() {
-                private List<AttentionFlag> attentionFlagList = new ArrayList<>();
-
-                @Override
-                protected Void doInBackground(Void... nada) {
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(
-                                AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId())
-                                        .get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS));
-
-                        Facts facts = new Facts();
-
-
-                        Iterator<String> keys = jsonObject.keys();
-
-                        while (keys.hasNext()) {
-                            String key = keys.next();
-                            facts.put(key, jsonObject.get(key));
-                        }
-
-                        Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
-
-                        for (Object ruleObject : ruleObjects) {
-                            YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
-
-                            for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
-                                if (AncLibrary.getInstance().getAncRulesEngineHelper()
-                                        .getRelevance(facts, yamlConfigItem.getRelevance())) {
-
-                                    attentionFlagList
-                                            .add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts),
-                                                    attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.RED)));
-
-                                }
-
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
-
-                }
-            }.execute();
-
+            new AttentionFlagsTask(baseHomeRegisterActivity, pc).execute();
         } else if (view.getId() == R.id.filter_text_view) {
             baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }

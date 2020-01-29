@@ -53,8 +53,8 @@ public class AncRulesEngineFactoryTest extends BaseUnitTest {
 
     @Test
     public void testInitializeFacts() {
-        globalValues.put("pallor","yes");
-        globalValues.put("select-rule","step2_accordion_hiv");
+        globalValues.put("pallor", "yes");
+        globalValues.put("select-rule", "step2_accordion_hiv");
         Whitebox.setInternalState(ancRulesEngineFactory, "globalValues", globalValues);
         Whitebox.setInternalState(ancRulesEngineFactory, "selectedRuleName", "Test");
         Facts facts = ancRulesEngineFactory.initializeFacts(new Facts());

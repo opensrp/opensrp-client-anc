@@ -64,9 +64,21 @@ public abstract class ConstantsUtils {
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";
     public static final String CONTINUE = "Continue";
+    public static final String DUE = "Due";
+    public static final String OPEN_TEST_TASKS = "open_test_tasks";
+    public static final String ANDROID_SWITCHER = "android:switcher:";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
+    }
+
+    public interface TemplateUtils {
+        interface SiteCharacteristics {
+            String TEAM_ID = "teamId";
+            String TEAM = "team";
+            String LOCATION_ID = "locationId";
+            String PROVIDER_ID = "providerId";
+        }
     }
 
     public static class AncRadioButtonOptionTypesUtils {
@@ -75,23 +87,12 @@ public abstract class ConstantsUtils {
         public static final String ORDERED = "ordered";
         public static final String NOT_DONE = "not_done";
         public static final String DONE = "done";
-
-    }
-
-    public static class AncRadioButtonOptionTextUtils {
-        public static final String DONE_TODAY = "Done today";
-        public static final String DONE_EARLIER = "Done earlier";
-        public static final String ORDERED = "Ordered";
-        public static final String NOT_DONE = "Not done";
-        public static final String DONE = "Done";
-
     }
 
     public static class ConfigurationUtils {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";
     }
-
 
     public static class IdentifierUtils {
         public static final String ANC_ID = "ANC_ID";
@@ -119,6 +120,7 @@ public abstract class ConstantsUtils {
         public static final String ANC_COUNSELLING_TREATMENT_ENCOUNTER_TYPE = "Counselling and Treatment";
         public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
         public static final String ANC_QUICK_CHECK = "anc_quick_check";
+        public static final String ANC_TEST_TASKS = "anc_test_tasks";
     }
 
     public static class JsonFormKeyUtils {
@@ -177,27 +179,11 @@ public abstract class ConstantsUtils {
         public static final String UNDONE_VALUES = "undone_values";
     }
 
-    public static class OpenmrsUtils {
-        public static final String ENTITY = "openmrs_entity";
-        public static final String ENTITY_ID = "openmrs_entity_id";
-    }
-
-    public static class EntityUtils {
-        public static final String PERSON = "person";
-    }
-
-    public static class BooleanIntUtils {
-        public static final int TRUE = 1;
-    }
-
-    public static final class SyncFiltersUtils {
-        public static final String FILTER_TEAM_ID = "teamId";
-    }
-
     public static class DetailsKeyUtils {
         public static final String CONTACT_SCHEDULE = "contact_schedule";
         public static final String ATTENTION_FLAG_FACTS = "attention_flag_facts";
         public static final String PREVIOUS_CONTACTS = "previous_contacts";
+        public static final String OPEN_TEST_TASKS = "open_test_tasks";
     }
 
     public static final class AlertStatusUtils {
@@ -228,10 +214,6 @@ public abstract class ConstantsUtils {
 
     }
 
-    public static class JsonFormConstantsUtils {
-        public static final String CONTACT_CONTAINER = "container";
-    }
-
     public static class PrefixUtils {
         public static final String PREVIOUS = "previous_";
     }
@@ -254,14 +236,5 @@ public abstract class ConstantsUtils {
 
     public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
-    }
-
-    public interface TemplateUtils {
-        interface SiteCharacteristics {
-            String teamId = "teamId";
-            String team = "team";
-            String locationId = "locationId";
-            String providerId = "providerId";
-        }
     }
 }

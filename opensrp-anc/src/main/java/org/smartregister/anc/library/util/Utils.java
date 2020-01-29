@@ -431,6 +431,33 @@ public class Utils extends org.smartregister.util.Utils {
         return buttonAlertStatus;
     }
 
+    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
+        try {
+            if (!"0".equals(expectedDeliveryDate)) {
+                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+                LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
+                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
+                return weeks.getWeeks();
+            } else {
+                return 0;
+            }
+        } catch (IllegalArgumentException e) {
+            Timber.e(e, " --> getGestationAgeFromEDDate");
+            return 0;
+        }
+    }
+
+    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
+        if (StringUtils.isNotBlank(rawString)) {
+            String resultString = rawString;
+            String[] tokenArray = resultString.trim().split("-");
+            ArrayUtils.reverse(tokenArray);
+            resultString = StringUtils.join(tokenArray, outputSeparator);
+            return resultString;
+        }
+        return "";
+    }
+
     private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
         String displayTemplate;
         if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
@@ -459,33 +486,6 @@ public class Utils extends org.smartregister.util.Utils {
             }
         }
         return displayTemplate;
-    }
-
-    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
-        try {
-            if (!"0".equals(expectedDeliveryDate)) {
-                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-                LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
-                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
-                return weeks.getWeeks();
-            } else {
-                return 0;
-            }
-        } catch (IllegalArgumentException e) {
-            Timber.e(e, " --> getGestationAgeFromEDDate");
-            return 0;
-        }
-    }
-
-    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
-        if (!TextUtils.isEmpty(rawString) && rawString != null) {
-            String resultString = rawString;
-            String[] tokenArray = resultString.trim().split("-");
-            ArrayUtils.reverse(tokenArray);
-            resultString = StringUtils.join(tokenArray, outputSeparator);
-            return resultString;
-        }
-        return "";
     }
 
     public static String processContactDoneToday(String lastContactDate, String alertStatus) {

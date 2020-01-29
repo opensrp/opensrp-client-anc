@@ -120,7 +120,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
 
         try {
             getProfileView().loadPreviousContactsDetails(filteredContacts);
-        } catch (IOException  e) {
+        } catch (IOException e) {
             Timber.e(e);
         } catch (ParseException e) {
             Timber.e(e);

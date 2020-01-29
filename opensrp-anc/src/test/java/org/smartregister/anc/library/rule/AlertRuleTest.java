@@ -14,8 +14,8 @@ import org.smartregister.anc.library.util.ConstantsUtils;
  * Created by ndegwamartin on 08/11/2018.
  */
 public class AlertRuleTest extends BaseUnitTest {
-    private AlertRule alertRule;
     private static final String ALERT_RULE_FIELD_TODAY_DATE = "todayDate";
+    private AlertRule alertRule;
 
     @Before
     public void setUp() {

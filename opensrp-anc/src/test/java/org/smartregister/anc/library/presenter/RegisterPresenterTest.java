@@ -50,7 +50,7 @@ public class RegisterPresenterTest extends BaseUnitTest {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
         registerPresenter.setModel(model);
 
-        Mockito.doNothing().when(model).registerViewConfigurations(ArgumentMatchers.<String>anyList());
+        Mockito.doNothing().when(model).registerViewConfigurations(ArgumentMatchers.anyList());
         registerPresenter.registerViewConfigurations(null);
         Mockito.verify(model).registerViewConfigurations(null);
 
@@ -70,7 +70,7 @@ public class RegisterPresenterTest extends BaseUnitTest {
         RegisterPresenter registerPresenter = (RegisterPresenter) presenter;
         registerPresenter.setModel(model);
 
-        Mockito.doNothing().when(model).unregisterViewConfiguration(ArgumentMatchers.<String>anyList());
+        Mockito.doNothing().when(model).unregisterViewConfiguration(ArgumentMatchers.anyList());
         registerPresenter.unregisterViewConfiguration(null);
         Mockito.verify(model).unregisterViewConfiguration(null);
 
