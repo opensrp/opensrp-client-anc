@@ -18,7 +18,6 @@ import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.task.FinalizeContactTask;
 import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -229,10 +228,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         //Overriden
-    }
-
-    protected PreviousContactRepositoryHelper getPreviousCOntactsReposity() {
-        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
     }
 
     public List<YamlConfig> getYamlConfigList() {

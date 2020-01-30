@@ -247,7 +247,7 @@ actions:
 name: step5_hypertension_counsel
 description: Hypertension counseling
 priority: 1
-condition: "global_hypertension == 1 && global_health_conditions.contains('hypertension')"
+condition: "global_hypertension == 1 || global_health_conditions.contains('hypertension')"
 actions:
   - "isRelevant = true"
 ---

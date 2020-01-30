@@ -76,8 +76,8 @@ public class AncLibrary {
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
 
-    private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
-        this.context = contextArg;
+    private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        this.context = context;
         this.subscriberInfoIndex = subscriberInfoIndex;
         this.databaseVersion = dbVersion;
         this.activityConfiguration = activityConfiguration;
