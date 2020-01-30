@@ -62,8 +62,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1);
         @SuppressWarnings("unchecked") Map<String, String> womanDetails =
                 (Map<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KeyUtils.DOB)));
-
+        if (womanDetails != null && womanDetails.size() > 0) {
+            womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KeyUtils.DOB)));
+        }
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
         }
@@ -205,8 +206,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             //Get invisible required fields saved with the last contact visit
             for (String key : eventToFileMap.keySet()) {
-                String prevKey = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
-                        key.toLowerCase().replace(" ", "_");
+                String prevKey = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + key.toLowerCase().replace(" ", "_");
                 String invisibleFields = getMapValue(prevKey);
                 if (invisibleFields != null && invisibleFields.length() > 2) {
                     String toSplit = invisibleFields.substring(1, invisibleFields.length() - 1);
