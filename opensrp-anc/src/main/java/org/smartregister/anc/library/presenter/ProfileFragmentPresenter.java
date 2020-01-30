@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.lang.ref.WeakReference;
@@ -55,8 +56,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-            facts = AncLibrary.getInstance().getPreviousContactRepositoryHelper()
-                    .getPreviousContactFacts(baseEntityId, contactNo, true);
+            facts = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContactFacts(baseEntityId, contactNo, true);
 
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
@@ -80,5 +80,15 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         }
 
         return facts;
+    }
+
+    @Override
+    public void getContactTasks(String baseEntityId, String contactNo) {
+        getProfileView().setContactTasks(mProfileInteractor.getContactTasks(baseEntityId, contactNo));
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        mProfileInteractor.updateTask(task);
     }
 }

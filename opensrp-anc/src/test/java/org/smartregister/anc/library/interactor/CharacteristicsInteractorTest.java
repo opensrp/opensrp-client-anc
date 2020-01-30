@@ -49,9 +49,9 @@ public class CharacteristicsInteractorTest extends BaseUnitTest {
                 "  \"_rev\": \"v1\",\n" +
                 "  \"type\": \"SettingConfiguration\",\n" +
                 "  \"identifier\": \"site_characteristics\",\n" +
-                "  \"locationId\": \"\",\n" +
-                "  \"providerId\": \"\",\n" +
-                "  \"teamId\": \"\",\n" +
+                "  \"LOCATION_ID\": \"\",\n" +
+                "  \"PROVIDER_ID\": \"\",\n" +
+                "  \"TEAM_ID\": \"\",\n" +
                 "  \"dateCreated\": \"1970-10-04T10:17:09.993+03:00\",\n" +
                 "  \"serverVersion\": 1,\n" +
                 "  \"settings\": [\n" +

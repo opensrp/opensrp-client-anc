@@ -37,27 +37,20 @@ import org.smartregister.view.activity.DrishtiApplication;
 })
 public class ImageRenderHelperTest extends BaseUnitTest {
 
-    private ImageRenderHelper imageRenderHelper;
-
-    @Mock
-    private ImageView imageView;
-
-    private Photo photo;
-
-    @Mock
-    private OpenSRPImageLoader openSRPImageLoader;
-
-    @Mock
-    private Bitmap bitmap;
-
-    @Mock
-    private Context context;
-
-    @Mock
-    private Drawable drawable;
-
     @Rule
     public PowerMockRule rule = new PowerMockRule();
+    private ImageRenderHelper imageRenderHelper;
+    @Mock
+    private ImageView imageView;
+    private Photo photo;
+    @Mock
+    private OpenSRPImageLoader openSRPImageLoader;
+    @Mock
+    private Bitmap bitmap;
+    @Mock
+    private Context context;
+    @Mock
+    private Drawable drawable;
 
     @Before
     public void setUp() {

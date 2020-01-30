@@ -85,7 +85,7 @@ public class PatientRepositoryHelper extends BaseRepository {
             }
             return detailsMap;
         } catch (Exception e) {
-            Timber.e(e,  "%s ==> getWomanProfileDetails()", PatientRepositoryHelper.class.getCanonicalName());
+            Timber.e(e, "%s ==> getWomanProfileDetails()", PatientRepositoryHelper.class.getCanonicalName());
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -126,8 +126,8 @@ public class PatientRepositoryHelper extends BaseRepository {
                 contentValues.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, patientDetail.getPreviousContactStatus());
             }
         }
-       getMasterRepository().getWritableDatabase().update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
-                        new String[]{patientDetail.getBaseEntityId()});
+        getMasterRepository().getWritableDatabase().update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
+                new String[]{patientDetail.getBaseEntityId()});
     }
 
     public static void updateEDDDate(String baseEntityId, String edd) {
@@ -152,7 +152,7 @@ public class PatientRepositoryHelper extends BaseRepository {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
         }
-       getMasterRepository().getWritableDatabase()
+        getMasterRepository().getWritableDatabase()
                 .update(DBConstantsUtils.WOMAN_TABLE_NAME, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }

@@ -15,34 +15,34 @@ import org.smartregister.anc.library.fragment.ProfileOverviewFragment;
 
 import java.util.List;
 
-public class ViewPagerAdapterTest extends BaseUnitTest {
+public class ProfileViewPagerAdapterTest extends BaseUnitTest {
     @Mock
     private ProfileOverviewFragment profileOverviewFragment;
     @Mock
     private ProfileContactsFragment profileContactsFragment;
     @Mock
     private FragmentManager mFragmentManager;
-    private ViewPagerAdapter mViewPagerAdapter;
+    private ProfileViewPagerAdapter mProfileViewPagerAdapter;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager);
+        mProfileViewPagerAdapter = new ProfileViewPagerAdapter(mFragmentManager);
     }
 
     @Test
     public void testGetItemCountInvokesGetSizeMethodOfDataList() {
-        mViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
-        mViewPagerAdapter.addFragment(profileContactsFragment, "Profile Contact");
-        Assert.assertEquals(2, mViewPagerAdapter.getCount());
+        mProfileViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
+        mProfileViewPagerAdapter.addFragment(profileContactsFragment, "Profile Contact");
+        Assert.assertEquals(2, mProfileViewPagerAdapter.getCount());
     }
 
     @Test
     public void testAddFragment() {
-        mViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
-        mViewPagerAdapter.addFragment(profileContactsFragment, "Profile Contact");
-        List<Fragment> fragmentList = Whitebox.getInternalState(mViewPagerAdapter, "mFragmentList");
-        List<String> fragmentTitles = Whitebox.getInternalState(mViewPagerAdapter, "mFragmentTitleList");
+        mProfileViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
+        mProfileViewPagerAdapter.addFragment(profileContactsFragment, "Profile Contact");
+        List<Fragment> fragmentList = Whitebox.getInternalState(mProfileViewPagerAdapter, "mFragmentList");
+        List<String> fragmentTitles = Whitebox.getInternalState(mProfileViewPagerAdapter, "mFragmentTitleList");
 
         Assert.assertNotNull(fragmentList);
         Assert.assertNotNull(fragmentTitles);
@@ -53,16 +53,16 @@ public class ViewPagerAdapterTest extends BaseUnitTest {
 
     @Test
     public void testGetPageTitle() {
-        mViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
-        String title = String.valueOf(mViewPagerAdapter.getPageTitle(0));
+        mProfileViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
+        String title = String.valueOf(mProfileViewPagerAdapter.getPageTitle(0));
 
         Assert.assertEquals("Profile Overview", title);
     }
 
     @Test
     public void testGetItem() {
-        mViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
-        Fragment fragment = mViewPagerAdapter.getItem(0);
+        mProfileViewPagerAdapter.addFragment(profileOverviewFragment, "Profile Overview");
+        Fragment fragment = mProfileViewPagerAdapter.getItem(0);
 
         Assert.assertNotNull(fragment);
         Assert.assertEquals(profileOverviewFragment, fragment);

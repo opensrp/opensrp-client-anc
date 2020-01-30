@@ -34,6 +34,16 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
         populationCharacteristicsActivity = controller.get();
     }
 
+    @Override
+    protected Activity getActivity() {
+        return populationCharacteristicsActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
     @Test
     public void testActivityCreatedSuccesfully() {
         Assert.assertNotNull(populationCharacteristicsActivity);
@@ -56,15 +66,5 @@ public class PopulationCharacteristicsActivityTest extends BaseActivityUnitTest 
     @After
     public void tearDown() {
         destroyController();
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return populationCharacteristicsActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

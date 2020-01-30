@@ -3,7 +3,6 @@ package org.smartregister.anc.library.util;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import org.apache.commons.codec.CharEncoding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import timber.log.Timber;
 
@@ -26,7 +26,7 @@ public class TemplateUtils {
 
             inputStream = context.getAssets().open("template" + locale + "/" + templateName + ".json");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, CharEncoding.UTF_8));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
             String jsonString;
             stringBuilder = new StringBuilder();

@@ -19,8 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-@PrepareForTest ({CoreLibrary.class, Context.class})
-@RunWith (PowerMockRunner.class)
+@PrepareForTest({CoreLibrary.class, Context.class})
+@RunWith(PowerMockRunner.class)
 public class MeModelTest extends BaseUnitTest {
     private MeContract.Model model;
 

@@ -45,6 +45,15 @@ public class LastContactAllTestsResultsDialogAdapterTest extends BaseUnitTest {
         Assert.assertEquals(2, lastContactAllTestsResultsDialogAdapter.getItemCount());
     }
 
+    private List<TestResults> getTestResults() {
+        List<TestResults> testResults = new ArrayList<>();
+        TestResults testResult1 = new TestResults("12", "2019-01-01", "Not Sure");
+        TestResults testResult2 = new TestResults("113", "2019-04-01", "Very positive");
+        testResults.add(testResult1);
+        testResults.add(testResult2);
+        return testResults;
+    }
+
     @Test
     public void testOnBindViewHolder() {
         LinearLayout viewGroup = new LinearLayout(RuntimeEnvironment.application);
@@ -54,14 +63,5 @@ public class LastContactAllTestsResultsDialogAdapterTest extends BaseUnitTest {
 
         Whitebox.setInternalState(lastContactAllTestsResultsDialogAdapter, "mData", getTestResults());
         lastContactAllTestsResultsDialogAdapter.onBindViewHolder(viewHolder, 0);
-    }
-
-    private List<TestResults> getTestResults() {
-        List<TestResults> testResults = new ArrayList<>();
-        TestResults testResult1 = new TestResults("12", "2019-01-01", "Not Sure");
-        TestResults testResult2 = new TestResults("113", "2019-04-01", "Very positive");
-        testResults.add(testResult1);
-        testResults.add(testResult2);
-        return testResults;
     }
 }

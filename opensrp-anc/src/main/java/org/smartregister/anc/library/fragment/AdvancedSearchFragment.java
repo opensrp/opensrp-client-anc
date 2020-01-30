@@ -520,18 +520,15 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         setDatePicker(edd);
         setDatePicker(dob);
 
-        qrCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() == null) {
-                    return;
-                }
-                BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
-                baseRegisterActivity.startQrCodeScanner();
-
-                ((BaseHomeRegisterActivity) getActivity()).setAdvancedSearch(true);
-                ((BaseHomeRegisterActivity) getActivity()).setAdvancedSearchFormData(createSelectedFieldMap());
+        qrCodeButton.setOnClickListener(view1 -> {
+            if (getActivity() == null) {
+                return;
             }
+            BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
+            baseRegisterActivity.startQrCodeScanner();
+
+            ((BaseHomeRegisterActivity) getActivity()).setAdvancedSearch(true);
+            ((BaseHomeRegisterActivity) getActivity()).setAdvancedSearchFormData(createSelectedFieldMap());
         });
 
         resetForm();

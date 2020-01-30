@@ -76,6 +76,16 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         baseHomeRegisterActivity = controller.get();
     }
 
+    @Override
+    protected Activity getActivity() {
+        return baseHomeRegisterActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
     @After
     public void tearDown() {
         destroyController();
@@ -103,7 +113,6 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Assert.assertTrue(fragments[2] instanceof MeFragment);
         Assert.assertTrue(fragments[3] instanceof LibraryFragment);
     }
-
 
     @Test
     public void testInitializePresenterInstantiatesPresenterCorrectly() {
@@ -247,15 +256,5 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Assert.assertEquals(Whitebox.getInternalState(baseHomeRegisterActivitySpy, "advancedSearchQrText"), "");
         Assert.assertFalse(Whitebox.getInternalState(baseHomeRegisterActivitySpy, "isAdvancedSearch"));
         Assert.assertEquals(Whitebox.getInternalState(baseHomeRegisterActivitySpy, "advancedSearchFormData"), new HashMap<>());
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return baseHomeRegisterActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

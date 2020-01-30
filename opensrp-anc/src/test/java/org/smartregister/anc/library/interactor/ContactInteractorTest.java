@@ -21,6 +21,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
@@ -56,11 +57,9 @@ import timber.log.Timber;
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ContactInteractorTest extends BaseUnitTest {
 
-    private ContactContract.Interactor interactor;
-
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-
+    private ContactContract.Interactor interactor;
     @Captor
     private ArgumentCaptor<Map<String, String>> detailsArgumentCaptor;
 
@@ -160,7 +159,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
         PowerMockito.mockStatic(PatientRepositoryHelper.class);
         ContactInteractor contactInteractor = (ContactInteractor) interactor;
-        contactInteractor.finalizeContactForm(details);
+        contactInteractor.finalizeContactForm(details, RuntimeEnvironment.application);
 
         Assert.assertNotNull(contactInteractor);
     }
@@ -210,7 +209,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
             PowerMockito.mockStatic(PatientRepositoryHelper.class);
             ContactInteractor contactInteractor = (ContactInteractor) interactor;
-            HashMap<String, String> contactDetails =  contactInteractor.finalizeContactForm(details);
+            HashMap<String, String> contactDetails = contactInteractor.finalizeContactForm(details, RuntimeEnvironment.application);
 
             Assert.assertNotNull(contactInteractor);
             Assert.assertNotNull(contactDetails);

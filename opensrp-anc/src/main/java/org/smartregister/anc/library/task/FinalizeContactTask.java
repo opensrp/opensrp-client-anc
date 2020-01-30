@@ -36,7 +36,7 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
             if (contactNo < 0) {
                 womanProfileDetails.put(ConstantsUtils.REFERRAL, String.valueOf(contactNo));
             }
-            newWomanProfileDetails = mProfilePresenter.saveFinishForm(womanProfileDetails);
+            newWomanProfileDetails = mProfilePresenter.saveFinishForm(womanProfileDetails, context);
         } catch (Exception e) {
             Timber.e(e);
         }

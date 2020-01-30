@@ -47,7 +47,7 @@ public class CharacteristicsPresenterTest extends BaseUnitTest {
         CharacteristicsPresenter presenterSpy = Mockito.spy(presenter);
         Mockito.doReturn(ImmutableMap.of(TEST_STRING, TEST_STRING)).when(presenterSpy).getSettingsMapByType(ArgumentMatchers.anyString());
         presenterSpy.launchSiteCharacteristicsFormForEdit();
-        Mockito.verify(view).launchSiteCharacteristicsSettingsFormForEdit(ArgumentMatchers.<String, String>anyMap());
+        Mockito.verify(view).launchSiteCharacteristicsSettingsFormForEdit(ArgumentMatchers.anyMap());
     }
 
     @Test

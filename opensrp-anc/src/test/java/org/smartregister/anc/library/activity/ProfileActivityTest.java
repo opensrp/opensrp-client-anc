@@ -65,12 +65,23 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         HashMap<String, String> map = new HashMap<>();
         map.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, ConstantsUtils.AlertStatusUtils.ACTIVE);
         map.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, "10-12-2018");
+        map.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "3");
         testIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
 
         controller = Robolectric.buildActivity(ProfileActivity.class, testIntent).create().start().resume();
 
         profileActivity = controller.get();
         Whitebox.setInternalState(profileActivity, "presenter", presenter);
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return profileActivity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
     }
 
     @After
@@ -81,7 +92,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         Context context = Context.getInstance();
         context.session().expire();
     }
-
 
     @Test
     public void testActivityCreatedSuccesfully() {
@@ -101,7 +111,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
         TextView ageView = Whitebox.getInternalState(profileActivity, "ageView");
         Assert.assertNotNull(ageView);
     }
-
 
     @Test
     public void testGestationAgeViewIsInitialized() {
@@ -128,7 +137,6 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(presenter).refreshProfileView(DUMMY_BASE_ENTITY_ID);
     }
-
 
     @Test
     public void testOnDestroyShouldInvokeOnDestroyMethodOfPresenter() {
@@ -314,15 +322,5 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.avatar_woman);
 
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return profileActivity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.util.Pair;
 
@@ -153,7 +154,12 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
-    public HashMap<String, String> saveFinishForm(Map<String, String> client) {
-        return contactInteractor.finalizeContactForm(client);
+    public HashMap<String, String> saveFinishForm(Map<String, String> client, Context context) {
+        return contactInteractor.finalizeContactForm(client, context);
+    }
+
+    @Override
+    public void getTaskCount(String baseEntityId, String contactNo) {
+        getProfileView().setTaskCount(mProfileInteractor.getTaskCount(baseEntityId, contactNo));
     }
 }

@@ -38,6 +38,16 @@ public class SiteCharacteristicsEnterActivityTest extends BaseActivityUnitTest {
         activity = controller.get();
     }
 
+    @Override
+    protected Activity getActivity() {
+        return activity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
     @Test
     public void testActivityIsInstantiatedCorrectly() {
         Assert.assertNotNull(activity);
@@ -52,15 +62,5 @@ public class SiteCharacteristicsEnterActivityTest extends BaseActivityUnitTest {
         spyActivity.onClick(new View(RuntimeEnvironment.application));
 
         Mockito.verify(presenter).launchSiteCharacteristicsForm();
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return activity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

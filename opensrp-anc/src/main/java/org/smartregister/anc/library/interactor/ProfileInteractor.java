@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.interactor;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
 
@@ -23,6 +24,11 @@ public class ProfileInteractor implements ProfileContract.Interactor {
     @Override
     public void refreshProfileView(String baseEntityId, boolean isForEdit) {
         new FetchProfileDataTask(isForEdit).execute(baseEntityId);
+    }
+
+    @Override
+    public String getTaskCount(String baseEntityId, String contactNo) {
+        return AncLibrary.getInstance().getContactTasksRepositoryHelper().getTasksCount(baseEntityId, contactNo);
     }
 
 

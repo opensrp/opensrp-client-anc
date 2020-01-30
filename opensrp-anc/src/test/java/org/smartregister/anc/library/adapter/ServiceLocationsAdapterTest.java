@@ -27,7 +27,7 @@ public class ServiceLocationsAdapterTest extends BaseUnitTest {
 
     @Test
     public void testGetCount() {
-        locationNames.addAll(ArgumentMatchers.<String>anyList());
+        locationNames.addAll(ArgumentMatchers.anyList());
         Assert.assertNotNull(locationNames);
 
         int size = serviceLocationsAdapter.getCount();
@@ -36,7 +36,7 @@ public class ServiceLocationsAdapterTest extends BaseUnitTest {
 
     @Test
     public void testGetLocationNames() {
-        locationNames.addAll(ArgumentMatchers.<String>anyList());
+        locationNames.addAll(ArgumentMatchers.anyList());
         Assert.assertNotNull(locationNames);
 
         ArrayList<String> arrayList = serviceLocationsAdapter.getLocationNames();

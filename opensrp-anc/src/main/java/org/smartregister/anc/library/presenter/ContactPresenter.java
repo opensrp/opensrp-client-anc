@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -51,11 +52,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
         String patientName = model.extractPatientName(womanDetails);
         getView().displayPatientName(patientName);
 
-    }    @Override
-    public void setBaseEntityId(String baseEntityId) {
-        this.baseEntityId = baseEntityId;
-
-        fetchPatient(baseEntityId);
     }
 
     private ContactContract.View getView() {
@@ -66,9 +62,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     // Test methods
     public WeakReference<ContactContract.View> getViewReference() {
         return viewReference;
-    }    @Override
-    public boolean baseEntityIdExists() {
-        return StringUtils.isNotBlank(baseEntityId);
     }
 
     public ContactContract.Interactor getInteractor() {
@@ -77,9 +70,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public void setInteractor(ContactContract.Interactor interactor) {
         this.interactor = interactor;
-    }    @Override
-    public void fetchPatient(String baseEntityId) {
-        interactor.fetchWomanDetails(baseEntityId, this);
     }
 
     public void setModel(ContactContract.Model model) {
@@ -92,14 +82,35 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public void setDetails(Map<String, String> details) {
         this.details = details;
-    }    @Override
+    }
+
+    @Override
+    public void setBaseEntityId(String baseEntityId) {
+        this.baseEntityId = baseEntityId;
+
+        fetchPatient(baseEntityId);
+    }
+
+
+    @Override
+    public boolean baseEntityIdExists() {
+        return StringUtils.isNotBlank(baseEntityId);
+    }
+
+
+    @Override
+    public void fetchPatient(String baseEntityId) {
+        interactor.fetchWomanDetails(baseEntityId, this);
+    }
+
+
+    @Override
     public String getPatientName() {
         if (details == null || details.isEmpty()) {
             return "";
         }
         return model.extractPatientName(details);
     }
-
 
 
     @Override
@@ -132,7 +143,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
 
-
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
         viewReference = null;//set to null on destroy
@@ -144,12 +154,10 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
     }
 
 
-
     @Override
-    public void finalizeContactForm(Map<String, String> details) {
-        interactor.finalizeContactForm(details);
+    public void finalizeContactForm(Map<String, String> details, Context context) {
+        interactor.finalizeContactForm(details, context);
     }
-
 
 
     public void deleteDraft(String baseEntityId) {

@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +31,7 @@ import org.smartregister.anc.library.activity.EditJsonFormActivity;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.model.ContactSummaryModel;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -186,6 +186,14 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
+    public static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
+
+        JSONObject jsonForm = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(jsonString);
+        JSONArray fields = org.smartregister.anc.library.util.JsonFormUtils.fields(jsonForm);
+
+        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
+    }
+
     @NotNull
     private static String getEntityId(JSONObject jsonForm) {
         String entityId = JsonFormUtils.getString(jsonForm, JsonFormUtils.ENTITY_ID);
@@ -193,6 +201,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             entityId = JsonFormUtils.generateRandomUUIDString();
         }
         return entityId;
+    }
+
+    private static void addLastInteractedWith(JSONArray fields) throws JSONException {
+        JSONObject lastInteractedWith = new JSONObject();
+        lastInteractedWith.put(ConstantsUtils.KeyUtils.KEY, DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH);
+        lastInteractedWith.put(ConstantsUtils.KeyUtils.VALUE, Calendar.getInstance().getTimeInMillis());
+        fields.put(lastInteractedWith);
     }
 
     private static void getDobStrings(JSONArray fields) throws JSONException {
@@ -204,13 +219,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         if (StringUtils.isNotBlank(dobUnKnownString)) {
             dobUnknownObject.put(JsonFormUtils.VALUE, Boolean.valueOf(dobUnKnownString) ? 1 : 0);
         }
-    }
-
-    private static void addLastInteractedWith(JSONArray fields) throws JSONException {
-        JSONObject lastInteractedWith = new JSONObject();
-        lastInteractedWith.put(ConstantsUtils.KeyUtils.KEY, DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH);
-        lastInteractedWith.put(ConstantsUtils.KeyUtils.VALUE, Calendar.getInstance().getTimeInMillis());
-        fields.put(lastInteractedWith);
     }
 
     private static void initializeFirstContactValues(JSONArray fields) throws JSONException {
@@ -235,14 +243,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         formTag.appVersion = BuildConfig.VERSION_CODE;
         formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
         return formTag;
-    }
-
-    public static Triple<Boolean, JSONObject, JSONArray> validateParameters(String jsonString) {
-
-        JSONObject jsonForm = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(jsonString);
-        JSONArray fields = org.smartregister.anc.library.util.JsonFormUtils.fields(jsonForm);
-
-        return Triple.of(jsonForm != null && fields != null, jsonForm, fields);
     }
 
     private static void tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
@@ -718,6 +718,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
             contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
             contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
+            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, String.valueOf(getOpenTasks(baseEntityId)));
 
             tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
                     contactVisitEvent);
@@ -750,7 +751,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return Pair.create(contactVisitEvent, updateClientEvent);
 
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, " --> createContactVisitEvent");
             return null;
         }
 
@@ -762,6 +763,17 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } catch (Exception e) {
             return new LocalDate().toDate();
         }
+    }
+
+    private static JSONArray getOpenTasks(String baseEntityId) {
+        List<Task> openTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getOpenTasks(baseEntityId);
+        JSONArray openTaskArray = new JSONArray();
+        if (openTasks != null && openTasks.size() > 0) {
+            for (Task task : openTasks) {
+                openTaskArray.put(task.getValue());
+            }
+        }
+        return openTaskArray;
     }
 
     protected static Event createUpdateClientDetailsEvent(String baseEntityId) {
