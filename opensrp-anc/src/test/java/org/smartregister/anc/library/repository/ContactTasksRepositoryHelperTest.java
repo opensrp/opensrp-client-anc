@@ -83,6 +83,12 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
         }
     }
 
+    private Task getTask() {
+        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true);
+        task.setId(Long.valueOf(1));
+        return task;
+    }
+
     @PrepareForTest({ContentValues.class})
     @Test
     public void testSaveTasks() {
@@ -134,7 +140,6 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             PowerMockito.when(mCursor.getCount()).thenReturn(1);
             PowerMockito.when(mCursor.getInt(0)).thenReturn(1);
             Assert.assertEquals("1", contactTasksRepositoryHelper.getTasksCount(DUMMY_BASE_ENTITY_ID, "2"));
-
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCount");
         }
@@ -154,7 +159,6 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
 
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
             Assert.assertEquals("0", contactTasksRepositoryHelper.getTasksCount(null, null));
-
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCountWithNullVariables");
         }
@@ -187,7 +191,6 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             });
 
             Assert.assertEquals(2, contactTasksRepositoryHelper.getTasks(DUMMY_BASE_ENTITY_ID, null).size());
-
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCountWithNullVariables");
         }
@@ -220,7 +223,6 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             });
 
             Assert.assertEquals(3, contactTasksRepositoryHelper.getOpenTasks(DUMMY_BASE_ENTITY_ID).size());
-
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCountWithNullVariables");
         }
@@ -253,16 +255,8 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             });
 
             Assert.assertEquals(1, contactTasksRepositoryHelper.getClosedTasks(DUMMY_BASE_ENTITY_ID, "2").size());
-
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCountWithNullVariables");
         }
-    }
-
-
-    private Task getTask() {
-        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true);
-        task.setId(Long.valueOf(1));
-        return task;
     }
 }

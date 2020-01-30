@@ -119,6 +119,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
 
             mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
             if (mCursor != null && mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
                 tasksCount = mCursor.getInt(0);
             }
         } catch (Exception e) {
@@ -130,17 +131,6 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         }
 
         return String.valueOf(tasksCount);
-    }
-
-    private Task getTaskResult(Cursor cursor) {
-        Task task = new Task();
-        task.setId(cursor.getLong(cursor.getColumnIndex(ID)));
-        task.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
-        task.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
-        task.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
-        task.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
-        task.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
-        return task;
     }
 
     /**
@@ -186,6 +176,17 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         }
 
         return taskList;
+    }
+
+    private Task getTaskResult(Cursor cursor) {
+        Task task = new Task();
+        task.setId(cursor.getLong(cursor.getColumnIndex(ID)));
+        task.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
+        task.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
+        task.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
+        task.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
+        task.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
+        return task;
     }
 
     /**

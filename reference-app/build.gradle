@@ -68,7 +68,7 @@ android {
         versionName generateVersionName()
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
-        buildConfigField "String", "SYNC_TYPE", '"TEAM_ID"'
+        buildConfigField "String", "SYNC_TYPE", '"teamId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
@@ -266,7 +266,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
     implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-    implementation 'id.zelory:compressor:1.0.4'
+    implementation 'id.zelory:compressor:2.1.0'
     implementation('com.android.support:design:28.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'

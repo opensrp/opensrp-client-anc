@@ -85,7 +85,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
         populateYamlConfiRules((ArrayList<Object>) testsRuleObjects);
 
         PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
-        PowerMockito.when(ancLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
+        PowerMockito.when(AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
         PowerMockito.when(ancLibrary.getAncRulesEngineHelper()).thenReturn(rulesEngineHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";

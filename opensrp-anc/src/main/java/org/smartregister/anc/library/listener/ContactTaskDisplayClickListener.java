@@ -214,8 +214,8 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private void updateFormTitle(JSONObject form, String title) {
         try {
             if (form != null && StringUtils.isNotBlank(title) && form.has(JsonFormConstants.STEP1)) {
-                    JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
-                    stepOne.put(JsonFormConstants.STEP_TITLE, title);
+                JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
+                stepOne.put(JsonFormConstants.STEP_TITLE, title);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateFormTitle");

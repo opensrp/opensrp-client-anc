@@ -82,14 +82,14 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     public void setDetails(Map<String, String> details) {
         this.details = details;
-    }    @Override
+    }
+
+    @Override
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
 
         fetchPatient(baseEntityId);
     }
-
-
 
 
     @Override
