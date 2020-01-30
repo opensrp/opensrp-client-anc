@@ -4,23 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.TextView;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.model.PreviousContact;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.repository.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,21 +23,6 @@ import timber.log.Timber;
 public class MainActivityTest extends BaseActivityUnitTest {
     private ActivityController<MainContactActivity> activityController;
     private MainContactActivity activity;
-
-    @Mock
-    private AncLibrary ancLibrary;
-
-    @Mock
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
-
-    @Mock
-    private PreviousContact previousContact;
-
-    @Mock
-    private Repository repository;
-
-    @Mock
-    private SQLiteDatabase sqLiteDatabase;
 
     @Before
     @Override
@@ -172,7 +150,6 @@ public class MainActivityTest extends BaseActivityUnitTest {
             JSONObject physicalExamJson = new JSONObject(physicalExam);
 
             Whitebox.invokeMethod(activity, "preProcessDefaultValues", physicalExamJson);
-
         } catch (JSONException e) {
             Timber.e(e, " --> testPreProcessDefaultValues");
         } catch (Exception e) {
