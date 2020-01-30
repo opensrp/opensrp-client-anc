@@ -10,7 +10,6 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
-import org.smartregister.configurableviews.model.View;
 import org.smartregister.domain.Response;
 import org.smartregister.domain.ResponseStatus;
 

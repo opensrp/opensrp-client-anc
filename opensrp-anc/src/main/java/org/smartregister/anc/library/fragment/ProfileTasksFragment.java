@@ -116,6 +116,10 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         }
     }
 
+    public ProfileFragmentContract.Presenter getPresenter() {
+        return presenter;
+    }
+
     /**
      * Attaches the tasks display adapter to the tasks display recycler view
      */
@@ -243,9 +247,5 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     public void setCurrentTask(Task currentTask) {
         this.currentTask = currentTask;
-    }
-
-    public ProfileFragmentContract.Presenter getPresenter() {
-        return presenter;
     }
 }
