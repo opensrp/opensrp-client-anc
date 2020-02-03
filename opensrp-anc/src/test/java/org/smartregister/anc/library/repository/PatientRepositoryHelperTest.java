@@ -32,16 +32,13 @@ import java.util.Map;
 @PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, SQLiteDatabase.class})
 public class PatientRepositoryHelperTest {
 
+    protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     @Mock
     private Context context;
-
     @Mock
     private Repository repository;
-
     @Mock
     private SQLiteDatabase sqLiteDatabase;
-
-    protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
 
     @Before
     public void setUp() {
@@ -69,9 +66,9 @@ public class PatientRepositoryHelperTest {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(spy.getMasterRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);
-        PowerMockito.when(spy.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
-        spy.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
+        PowerMockito.when(PatientRepositoryHelper.getMasterRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(PatientRepositoryHelper.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
+        PatientRepositoryHelper.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
         Mockito.verify(sqLiteDatabase, Mockito.times(1)).update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}));
     }
 }

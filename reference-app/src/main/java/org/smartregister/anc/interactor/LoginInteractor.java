@@ -16,9 +16,6 @@ import java.util.concurrent.TimeUnit;
  * Created by ndegwamartin on 26/06/2018.
  */
 public class LoginInteractor extends BaseLoginInteractor implements BaseLoginContract.Interactor {
-
-    public static final String TAG = LoginInteractor.class.getCanonicalName();
-
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
     }
@@ -27,15 +24,12 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     protected void scheduleJobsPeriodically() {
         SyncServiceJob.scheduleJob(SyncServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.DATA_SYNC_DURATION_MINUTES),
                 getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
-
         PullUniqueIdsServiceJob
                 .scheduleJob(PullUniqueIdsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.PULL_UNIQUE_IDS_MINUTES),
                         getFlexValue(BuildConfig.PULL_UNIQUE_IDS_MINUTES));
-
         ImageUploadServiceJob
                 .scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES),
                         getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
-
         SyncSettingsServiceJob
                 .scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
                         getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));

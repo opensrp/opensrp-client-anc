@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 
@@ -29,6 +30,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         this.contacts = contacts;
     }
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_card_item, parent, false);

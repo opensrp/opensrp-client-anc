@@ -13,7 +13,7 @@ public class YamlConfigModelTest {
     private ContactSummaryModel model;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         model = new ContactSummaryModel();
     }
 

@@ -431,6 +431,33 @@ public class Utils extends org.smartregister.util.Utils {
         return buttonAlertStatus;
     }
 
+    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
+        try {
+            if (!"0".equals(expectedDeliveryDate)) {
+                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
+                LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
+                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
+                return weeks.getWeeks();
+            } else {
+                return 0;
+            }
+        } catch (IllegalArgumentException e) {
+            Timber.e(e, " --> getGestationAgeFromEDDate");
+            return 0;
+        }
+    }
+
+    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
+        if (StringUtils.isNotBlank(rawString)) {
+            String resultString = rawString;
+            String[] tokenArray = resultString.trim().split("-");
+            ArrayUtils.reverse(tokenArray);
+            resultString = StringUtils.join(tokenArray, outputSeparator);
+            return resultString;
+        }
+        return "";
+    }
+
     private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
         String displayTemplate;
         if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
@@ -461,33 +488,6 @@ public class Utils extends org.smartregister.util.Utils {
         return displayTemplate;
     }
 
-    public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
-        try {
-            if (!"0".equals(expectedDeliveryDate)) {
-                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
-                LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
-                Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
-                return weeks.getWeeks();
-            } else {
-                return 0;
-            }
-        } catch (IllegalArgumentException e) {
-            Timber.e(e, " --> getGestationAgeFromEDDate");
-            return 0;
-        }
-    }
-
-    public static String reverseHyphenSeperatedValues(String rawString, String outputSeparator) {
-        if (!TextUtils.isEmpty(rawString) && rawString != null) {
-            String resultString = rawString;
-            String[] tokenArray = resultString.trim().split("-");
-            ArrayUtils.reverse(tokenArray);
-            resultString = StringUtils.join(tokenArray, outputSeparator);
-            return resultString;
-        }
-        return "";
-    }
-
     public static String processContactDoneToday(String lastContactDate, String alertStatus) {
         String result = alertStatus;
 
@@ -508,61 +508,63 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
                                                 ButtonAlertStatus buttonAlertStatus) {
-        dueButton.setVisibility(View.VISIBLE);
-        dueButton.setText(buttonAlertStatus.buttonText);
-        dueButton.setTag(R.id.GESTATION_AGE, buttonAlertStatus.gestationAge);
+        if (dueButton != null) {
+            dueButton.setVisibility(View.VISIBLE);
+            dueButton.setText(buttonAlertStatus.buttonText);
+            dueButton.setTag(R.id.GESTATION_AGE, buttonAlertStatus.gestationAge);
 
-        if (buttonAlertStatus.buttonAlertStatus != null) {
-            switch (buttonAlertStatus.buttonAlertStatus) {
-                case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
-                    dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                    break;
-                case ConstantsUtils.AlertStatusUtils.DUE:
-                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                    break;
-                case ConstantsUtils.AlertStatusUtils.OVERDUE:
-                    dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                    break;
-                case ConstantsUtils.AlertStatusUtils.NOT_DUE:
-                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                    break;
-                case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
-                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                    dueButton.setText(context.getString(R.string.due_delivery));
-                    break;
-                case ConstantsUtils.AlertStatusUtils.EXPIRED:
-                    dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                    dueButton.setText(context.getString(R.string.due_delivery));
-                    break;
-                case ConstantsUtils.AlertStatusUtils.TODAY:
-                    if (contactTextView != null) {
-                        contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
+            if (buttonAlertStatus.buttonAlertStatus != null) {
+                switch (buttonAlertStatus.buttonAlertStatus) {
+                    case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
+                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        break;
+                    case ConstantsUtils.AlertStatusUtils.DUE:
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        break;
+                    case ConstantsUtils.AlertStatusUtils.OVERDUE:
+                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        break;
+                    case ConstantsUtils.AlertStatusUtils.NOT_DUE:
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                        break;
+                    case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setText(context.getString(R.string.due_delivery));
+                        break;
+                    case ConstantsUtils.AlertStatusUtils.EXPIRED:
+                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        dueButton.setText(context.getString(R.string.due_delivery));
+                        break;
+                    case ConstantsUtils.AlertStatusUtils.TODAY:
+                        if (contactTextView != null) {
+                            contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
+                                    Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                            contactTextView.setPadding(2, 2, 2, 2);
+                        }
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                        dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
                                 Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                        contactTextView.setPadding(2, 2, 2, 2);
-                    }
-                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                    dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
-                            Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                    break;
-                default:
-                    dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                    dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                    break;
-            }
+                        break;
+                    default:
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        break;
+                }
 
-            if (contactTextView != null) {
-                contactTextView.setVisibility(View.GONE);
-                if (ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
-                    dueButton.setVisibility(View.GONE);
-                    contactTextView.setVisibility(View.VISIBLE);
+                if (contactTextView != null) {
+                    contactTextView.setVisibility(View.GONE);
+                    if (ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
+                        dueButton.setVisibility(View.GONE);
+                        contactTextView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }

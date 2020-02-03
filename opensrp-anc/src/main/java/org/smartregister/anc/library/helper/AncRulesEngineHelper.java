@@ -187,15 +187,13 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return result;
     }
 
-    /**
-     * Compares date against today's date
-     *
-     * @param theDate passed as first date to first date
-     * @return -1 if date is before today, 0 if equal, 1 if date is greater than today's date and -2
-     * otherwise
-     */
-    public int compareDateAgainstToday(String theDate) {
-        return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
+    public boolean compareDateAgainstContactDate(String firstDate, String contactDate) throws ParseException {
+        int comparisonValue = compareTwoDates(firstDate, convertContactDateToTestDate(contactDate));
+        boolean isLessOrEqual = false;
+        if (comparisonValue == -1 || comparisonValue == 0) {
+            isLessOrEqual = true;
+        }
+        return isLessOrEqual;
     }
 
     /**
@@ -222,15 +220,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return -2;
     }
 
-    public boolean compareDateAgainstContactDate(String firstDate, String contactDate) throws ParseException {
-        int comparisonValue = compareTwoDates(firstDate, convertContactDateToTestDate(contactDate));
-        boolean isLessOrEqual = false;
-        if (comparisonValue == -1 || comparisonValue == 0) {
-            isLessOrEqual = true;
-        }
-        return isLessOrEqual;
-    }
-
     public String convertContactDateToTestDate(String contactDate) throws ParseException {
         String convertedContactDate = "";
         if (!TextUtils.isEmpty(contactDate)) {
@@ -252,5 +241,16 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
      */
     public int compareDateWithDurationsAddedAgainstToday(String dateString, String duration) {
         return compareDateAgainstToday(addDuration(dateString, duration));
+    }
+
+    /**
+     * Compares date against today's date
+     *
+     * @param theDate passed as first date to first date
+     * @return -1 if date is before today, 0 if equal, 1 if date is greater than today's date and -2
+     * otherwise
+     */
+    public int compareDateAgainstToday(String theDate) {
+        return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
     }
 }

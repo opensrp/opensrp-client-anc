@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.common.collect.ImmutableMap;
@@ -649,5 +650,39 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * Loads the main contact tasks form. Returns a JSONObject of the form.
+     *
+     * @param context {@link Context}
+     * @return jsonForm {@link JSONObject}
+     */
+    public JSONObject loadTasksForm(Context context) {
+        JSONObject form = new JSONObject();
+        try {
+            org.smartregister.util.FormUtils formUtils = new org.smartregister.util.FormUtils(context);
+            form = formUtils.getFormJson(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+        } catch (Exception e) {
+            Timber.e(e, " --> loadTasksForm");
+        }
+        return form;
+    }
+
+    /**
+     * Add the sub form fields to the main form for loading.
+     *
+     * @param form   {@link JSONObject}
+     * @param fields {@link JSONArray}
+     */
+    public void updateFormFields(JSONObject form, JSONArray fields) {
+        try {
+            if (form != null && fields != null && fields.length() > 0 && form.has(JsonFormConstants.STEP1)) {
+                JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
+                stepOne.put(JsonFormConstants.FIELDS, fields);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> updateFormFields");
+        }
     }
 }

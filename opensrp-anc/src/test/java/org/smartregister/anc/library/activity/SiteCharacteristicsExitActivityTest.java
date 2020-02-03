@@ -40,6 +40,16 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
         activity = controller.get();
     }
 
+    @Override
+    protected Activity getActivity() {
+        return activity;
+    }
+
+    @Override
+    protected ActivityController getActivityController() {
+        return controller;
+    }
+
     @Test
     public void testActivityIsInstantiatedCorrectly() {
         Assert.assertNotNull(activity);
@@ -71,15 +81,5 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
         spyActivity.onClick(view);
 
         Mockito.verify(spyActivity).goToHomeRegisterPage();
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return activity;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return controller;
     }
 }

@@ -173,10 +173,4 @@
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
-    <include
-        android:id="@+id/status_button"
-        layout="@layout/footer_due_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_contacts_layout" />
 </android.support.constraint.ConstraintLayout>

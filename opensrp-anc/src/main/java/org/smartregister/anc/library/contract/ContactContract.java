@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.contract;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 import org.smartregister.anc.library.domain.Contact;
 
@@ -34,7 +36,7 @@ public interface ContactContract {
 
         void onDestroy(boolean isChangingConfiguration);
 
-        void finalizeContactForm(Map<String, String> details);
+        void finalizeContactForm(Map<String, String> details, Context context);
 
         void deleteDraft(String baseEntityId);
 
@@ -50,7 +52,7 @@ public interface ContactContract {
     }
 
     interface Interactor extends BaseContactContract.Interactor {
-        HashMap<String, String> finalizeContactForm(Map<String, String> details);
+        HashMap<String, String> finalizeContactForm(Map<String, String> details, Context context);
 
         int getGestationAge(Map<String, String> details);
     }

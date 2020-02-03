@@ -50,6 +50,17 @@ public class ContactSummaryAdapterTest extends BaseUnitTest {
         Assert.assertEquals(1, adapter.getItemCount());
     }
 
+    private List<ContactSummaryModel> getContactSummaryModel() {
+        List<ContactSummaryModel> contactSummaryModels = new ArrayList<>();
+        ContactSummaryModel contactSummaryModel = new ContactSummaryModel();
+        contactSummaryModel.setContactDate("2019-01-01");
+        contactSummaryModel.setContactName("Contact 1");
+        contactSummaryModel.setContactWeeks("23");
+        contactSummaryModel.setLocalDate(new Date());
+        contactSummaryModels.add(contactSummaryModel);
+        return contactSummaryModels;
+    }
+
     @Test
     public void testOnBindViewHolder() {
         LinearLayout viewGroup = new LinearLayout(RuntimeEnvironment.application);
@@ -60,16 +71,5 @@ public class ContactSummaryAdapterTest extends BaseUnitTest {
         getContactSummaryModel();
         adapter.setContactDates(getContactSummaryModel());
         adapter.onBindViewHolder(viewHolder, 0);
-    }
-
-    private List<ContactSummaryModel> getContactSummaryModel() {
-        List<ContactSummaryModel> contactSummaryModels = new ArrayList<>();
-        ContactSummaryModel contactSummaryModel = new ContactSummaryModel();
-        contactSummaryModel.setContactDate("2019-01-01");
-        contactSummaryModel.setContactName("Contact 1");
-        contactSummaryModel.setContactWeeks("23");
-        contactSummaryModel.setLocalDate(new Date());
-        contactSummaryModels.add(contactSummaryModel);
-        return contactSummaryModels;
     }
 }

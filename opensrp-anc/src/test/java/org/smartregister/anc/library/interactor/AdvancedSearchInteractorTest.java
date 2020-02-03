@@ -52,7 +52,7 @@ public class AdvancedSearchInteractorTest extends BaseUnitTest {
         Response<String> response = new Response<>(ResponseStatus.success, payload);
 
         String fullURL = baseUrl + AdvancedSearchInteractor.SEARCH_URL +
-		        "?identifier=OpenSRP_ID%3A12345678&one=1&two=2&three=3";
+                "?identifier=OpenSRP_ID%3A12345678&one=1&two=2&three=3";
         Mockito.doReturn(baseUrl).when(configuration).dristhiBaseURL();
         Mockito.doReturn(response).when(httpAgent).fetch(fullURL);
         Assert.assertNotNull(editMap.get(BaseUnitTest.GLOBAL_IDENTIFIER));

@@ -9,12 +9,16 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.adapter.ViewPagerAdapter;
+import org.smartregister.anc.library.adapter.ProfileViewPagerAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
@@ -58,6 +62,109 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private String phoneNumber;
     private HashMap<String, String> detailMap;
     private String buttonAlertStatus;
+    private Button dueButton;
+    private TextView taskTabCount;
+    private String contactNo;
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
+        registerEventBus();
+        getTasksCount(baseEntityId, contactNo);
+    }
+
+    protected void registerEventBus() {
+        EventBus.getDefault().register(this);
+    }
+
+    private void getTasksCount(String baseEntityId, String contactNo) {
+        if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
+            ((ProfilePresenter) presenter).getTaskCount(baseEntityId, contactNo);
+        }
+    }
+
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new ProfilePresenter(this);
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        getButtonAlertStatus();
+        ageView = findViewById(R.id.textview_detail_two);
+        gestationAgeView = findViewById(R.id.textview_detail_three);
+        ancIdView = findViewById(R.id.textview_detail_one);
+        nameView = findViewById(R.id.textview_name);
+        imageView = findViewById(R.id.imageview_profile);
+        dueButton = findViewById(R.id.profile_overview_due_button);
+        updateTasksTabTitle();
+    }
+
+    private void getButtonAlertStatus() {
+        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        contactNo = String.valueOf(Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE),
+                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS)) ?
+                        ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
+    }
+
+    protected void updateTasksTabTitle() {
+        ConstraintLayout taskTabTitleLayout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.tasks_tab_title, null);
+        TextView taskTabTitle = taskTabTitleLayout.findViewById(R.id.tasks_title);
+        taskTabTitle.setText(this.getString(R.string.tasks));
+        taskTabCount = taskTabTitleLayout.findViewById(R.id.tasks_count);
+
+        getTabLayout().getTabAt(2).setCustomView(taskTabTitleLayout);
+    }
+
+    @Override
+    protected ViewPager setupViewPager(ViewPager viewPager) {
+        ProfileViewPagerAdapter adapter = new ProfileViewPagerAdapter(getSupportFragmentManager());
+
+        ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
+        ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
+        ProfileTasksFragment profileTasksFragment = ProfileTasksFragment.newInstance(this.getIntent().getExtras());
+
+        adapter.addFragment(profileOverviewFragment, this.getString(R.string.overview));
+        adapter.addFragment(profileContactsFragment, this.getString(R.string.contacts));
+        adapter.addFragment(profileTasksFragment, this.getString(R.string.tasks));
+
+        viewPager.setAdapter(adapter);
+        return viewPager;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.profile_overview_due_button) {
+            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+            }
+
+        } else {
+            super.onClick(view);
+        }
+    }
+
+    @Override
+    protected void fetchProfileData() {
+        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+        ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
+    }
+
+    private Activity getActivity() {
+        return this;
+    }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
@@ -167,6 +274,11 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
+        } else {
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(ConstantsUtils.ANDROID_SWITCHER + R.id.viewpager + ":" + viewPager.getCurrentItem()); //This might be dirty we maybe can find a better way to do it.
+            if (currentFragment instanceof ProfileTasksFragment) {
+                currentFragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 
@@ -174,81 +286,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     public void onPause() {
         EventBus.getDefault().unregister(this);
         super.onPause();
-    }
-
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
-        registerEventBus();
-    }
-
-    protected void registerEventBus() {
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.profile_overview_due_button) {
-            String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-
-            if (StringUtils.isNotBlank(baseEntityId)) {
-                Utils.proceedToContact(baseEntityId, detailMap, getActivity());
-            }
-
-        } else {
-            super.onClick(view);
-        }
-    }
-
-    @Override
-    protected void initializePresenter() {
-        presenter = new ProfilePresenter(this);
-    }
-
-    @Override
-    protected void setupViews() {
-        super.setupViews();
-        ageView = findViewById(R.id.textview_detail_two);
-        gestationAgeView = findViewById(R.id.textview_detail_three);
-        ancIdView = findViewById(R.id.textview_detail_one);
-        nameView = findViewById(R.id.textview_name);
-        imageView = findViewById(R.id.imageview_profile);
-        getButtonAlertStatus();
-    }
-
-    private void getButtonAlertStatus() {
-        detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        buttonAlertStatus = Utils.processContactDoneToday(detailMap.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE),
-                ConstantsUtils.AlertStatusUtils.ACTIVE.equals(detailMap.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS)) ?
-                        ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "");
-    }
-
-    @Override
-    protected ViewPager setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        ProfileOverviewFragment profileOverviewFragment = ProfileOverviewFragment.newInstance(this.getIntent().getExtras());
-        ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
-        ProfileTasksFragment profileTasksFragment = ProfileTasksFragment.newInstance(this.getIntent().getExtras());
-
-        adapter.addFragment(profileOverviewFragment, this.getString(R.string.overview));
-        adapter.addFragment(profileContactsFragment, this.getString(R.string.contacts));
-        adapter.addFragment(profileTasksFragment, this.getString(R.string.tasks));
-
-        viewPager.setAdapter(adapter);
-        return viewPager;
-    }
-
-    @Override
-    protected void fetchProfileData() {
-        String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        ((ProfilePresenter) presenter).fetchProfileData(baseEntityId);
-    }
-
-    private Activity getActivity() {
-        return this;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -314,6 +351,15 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
+    public void setTaskCount(String taskCount) {
+        getTaskTabCount().setText(taskCount);
+    }
+
+    public TextView getTaskTabCount() {
+        return taskTabCount;
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -322,6 +368,14 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 displayToast(R.string.allow_phone_call_management);
             }
         }
+    }
+
+    public Button getDueButton() {
+        return dueButton;
+    }
+
+    public ProfilePresenter getProfilePresenter() {
+        return (ProfilePresenter) presenter;
     }
 }
 

@@ -81,6 +81,27 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         Mockito.verify(view).filterandSortInInitializeQueries();
     }
 
+    private String countSelect(String tableName, String mainCondition) {
+        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
+        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
+        return countQueryBuilder.mainCondition(mainCondition);
+    }
+
+    private String mainSelect(String tableName, String mainCondition) {
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        String[] columns = new String[]{
+                tableName + ".relationalid",
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+                tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME,
+                tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
+                tableName + "." + DBConstantsUtils.KeyUtils.DOB,
+                tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED};
+        queryBUilder.SelectInitiateMainTable(tableName, columns);
+        return queryBUilder.mainCondition(mainCondition);
+    }
+
     @Test
     public void testViewConfiguration() {
         RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
@@ -181,26 +202,5 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
         Mockito.verify(model).getJsonArray(response);
         Mockito.verify(view).showNotFoundPopup(BaseUnitTest.WHO_ANC_ID);
-    }
-
-    private String countSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
-        return countQueryBuilder.mainCondition(mainCondition);
-    }
-
-    private String mainSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        String[] columns = new String[]{
-                tableName + ".relationalid",
-                tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
-                tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
-                tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME,
-                tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
-                tableName + "." + DBConstantsUtils.KeyUtils.DOB,
-                tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED};
-        queryBUilder.SelectInitiateMainTable(tableName, columns);
-        return queryBUilder.mainCondition(mainCondition);
     }
 }

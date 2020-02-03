@@ -17,13 +17,11 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 
 public class CopyToClipboardDialogTest extends BaseUnitTest {
 
+    private final String RANDOM_TEST_STRING = "Random Test String";
     @Mock
     private View view;
-
     @Mock
     private Bundle bundle;
-
-    private final String RANDOM_TEST_STRING = "Random Test String";
 
     @Test
     public void callingConstructorInstantiatesDialogCorrectly() {

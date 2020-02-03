@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,11 +28,14 @@ import org.smartregister.util.JsonFormUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.smartregister.anc.library.util.ContactJsonFormUtils.extractItemValue;
 
@@ -134,12 +139,88 @@ public class ContactVisit {
                     JSONObject eventJson = new JSONObject(org.smartregister.anc.library.util.JsonFormUtils.gson.toJson(event));
                     eventJson.put(JsonFormConstants.Properties.DETAILS, JsonFormUtils.getJSONObject(formObject, JsonFormConstants.Properties.DETAILS));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+
+                    processTasks(formObject);
                 }
 
                 //Remove partial contact
                 partialContactRepositoryHelper.deletePartialContact(partialContact.getId());
             }
         }
+    }
+
+    private void processTasks(JSONObject formObject) {
+        try {
+            String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
+            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
+                JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                    JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
+                    if (stepFields != null && stepFields.length() > 0) {
+                        for (int i = 0; i < stepFields.length(); i++) {
+                            JSONObject field = stepFields.getJSONObject(i);
+                            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                                if (jsonArray == null || (jsonArray.length() == 0) || checkTestsStatus(jsonArray)) {
+                                    saveTasks(field);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> processTasks");
+        }
+    }
+
+    private boolean checkTestsStatus(JSONArray valueArray) {
+        boolean isTask = false;
+        try {
+            for (int i = 0; i < valueArray.length(); i++) {
+                JSONObject value = valueArray.getJSONObject(i);
+                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
+                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
+                    if (givenValue.length() > 0) {
+                        String firstValue = givenValue.optString(0);
+                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
+                            isTask = true;
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> checkTestsStatus");
+        }
+        return isTask;
+    }
+
+    private void saveTasks(JSONObject field) {
+        if (field != null) {
+            String key = field.optString(JsonFormConstants.KEY);
+            AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(getTask(field, key));
+        }
+    }
+
+    @NotNull
+    private Task getTask(JSONObject field, String key) {
+        Task task = new Task();
+        task.setContactNo(getCurrentContact());
+        task.setBaseEntityId(baseEntityId);
+        task.setKey(key);
+        task.setValue(String.valueOf(field));
+        task.setUpdated(false);
+        task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+        return task;
+    }
+
+    private String getCurrentContact() {
+        String contact = "0";
+        if (StringUtils.isNotBlank(String.valueOf(nextContact))) {
+            contact = nextContact == 1 ? String.valueOf(nextContact) : String.valueOf(nextContact - 1);
+        }
+        return contact;
     }
 
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {

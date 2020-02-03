@@ -18,7 +18,6 @@ import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.anc.library.task.FinalizeContactTask;
 import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -36,6 +35,7 @@ import timber.log.Timber;
  * Created by ndegwamartin on 10/07/2018.
  */
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
+    public MenuItem saveFinishMenuItem;
     private TextView nameView;
     private TextView ageView;
     private TextView gestationAgeView;
@@ -46,7 +46,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
     private int contactNo;
-    public MenuItem saveFinishMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +88,16 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected int getViewLayoutId() {
+        return R.layout.activity_contact_summary_finish;
+    }
+
     public void process() throws Exception {
         //Get actual Data
         JSONObject object;
@@ -118,16 +127,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     public PartialContactRepositoryHelper getPartialContactRepository() {
         return AncLibrary.getInstance().getPartialContactRepositoryHelper();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected int getViewLayoutId() {
-        return R.layout.activity_contact_summary_finish;
     }
 
     @Override
@@ -211,6 +210,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     @Override
+    public void setTaskCount(String taskCount) {
+        // Implement here
+    }
+
+    @Override
     public void displayToast(int stringID) {
         Utils.showShortToast(this, this.getString(stringID));
     }
@@ -224,10 +228,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         //Overriden
-    }
-
-    protected PreviousContactRepositoryHelper getPreviousCOntactsReposity() {
-        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
     }
 
     public List<YamlConfig> getYamlConfigList() {

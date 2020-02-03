@@ -22,14 +22,12 @@ import org.smartregister.view.activity.DrishtiApplication;
  */
 
 public abstract class BaseActivityUnitTest extends BaseUnitTest {
+    public Context context;
     @Mock
     private Repository repository;
-
     @Mock
     private FormDataRepository formDataRepository;
 
-    public Context context;
-    
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 

@@ -27,6 +27,7 @@ import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -287,7 +288,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_layout);
         profileContactsLayout = fragmentView.findViewById(R.id.profile_contacts_layout);
 
-        dueButton = fragmentView.findViewById(R.id.profile_overview_due_button);
+        dueButton = ((ProfileActivity) getActivity()).getDueButton();
         if (!ConstantsUtils.AlertStatusUtils.TODAY.equals(buttonAlertStatus.buttonAlertStatus)) {
             dueButton.setOnClickListener((ProfileActivity) getActivity());
         } else {
@@ -319,6 +320,21 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
             this.startActivity(intent);
         }
+    }
+
+    @Override
+    public void setContactTasks(List<Task> contactTasks) {
+        // Implement here
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        // Implement here
+    }
+
+    @Override
+    public void refreshTasksList(boolean refresh) {
+        // Implement here
     }
 
     /**

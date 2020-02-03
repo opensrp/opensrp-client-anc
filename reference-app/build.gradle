@@ -20,7 +20,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 2
-ext.versionPatch = 8
+ext.versionPatch = 11
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -221,7 +221,7 @@ tasks.withType(Test) {
 dependencies {
     def powerMockVersion = '2.0.4'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:1.7.7-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.13-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -232,7 +232,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.8.16-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.8.22-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -266,7 +266,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
     implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-    implementation 'id.zelory:compressor:1.0.4'
+    implementation 'id.zelory:compressor:2.1.0'
     implementation('com.android.support:design:28.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
