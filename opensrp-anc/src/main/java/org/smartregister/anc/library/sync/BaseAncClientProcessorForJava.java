@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -33,6 +32,7 @@ import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.sync.MiniClientProcessorForJava;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,9 +48,6 @@ import timber.log.Timber;
 
 public class BaseAncClientProcessorForJava extends ClientProcessorForJava implements MiniClientProcessorForJava {
 
-    private static final String TAG = BaseAncClientProcessorForJava.class.getCanonicalName();
-    private static BaseAncClientProcessorForJava instance;
-
     private HashSet<String> eventTypes = new HashSet<>();
 
     public BaseAncClientProcessorForJava(Context context) {
@@ -62,7 +59,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             instance = new BaseAncClientProcessorForJava(context);
         }
 
-        return instance;
+        return (BaseAncClientProcessorForJava) instance;
     }
 
     @Override
@@ -169,7 +166,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                 return true;
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         }
         return false;
     }
