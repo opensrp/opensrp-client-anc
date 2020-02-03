@@ -1,62 +1,13 @@
 {
   "bindobjects": [
     {
-      "name": "ec_mother",
+      "name": "ec_mother_details",
       "columns": [
         {
           "column_name": "base_entity_id",
           "type": "Client",
           "json_mapping": {
             "field": "baseEntityId"
-          }
-        },
-        {
-          "column_name": "register_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "identifiers.ANC_ID"
-          }
-        },
-        {
-          "column_name": "first_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "firstName"
-          }
-        },
-        {
-          "column_name": "last_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "lastName"
-          }
-        },
-        {
-          "column_name": "dob",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdate"
-          }
-        },
-        {
-          "column_name": "dob_unknown",
-          "type": "Client",
-          "json_mapping": {
-            "field": "birthdateApprox"
-          }
-        },
-        {
-          "column_name": "last_interacted_with",
-          "type": "Event",
-          "json_mapping": {
-            "field": "version"
-          }
-        },
-        {
-          "column_name": "date_removed",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.dateRemoved"
           }
         },
         {
@@ -89,13 +40,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "home_address",
-          "type": "Client",
-          "json_mapping": {
-            "field": "addresses.address2"
           }
         },
         {
@@ -159,6 +103,74 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.visit_start_date"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_client",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "register_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.ANC_ID"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "firstName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdate"
+          }
+        },
+        {
+          "column_name": "dob_unknown",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdateApprox"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
+          }
+        },
+        {
+          "column_name": "home_address",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address2"
           }
         }
       ]

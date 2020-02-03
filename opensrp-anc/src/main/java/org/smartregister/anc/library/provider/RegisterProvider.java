@@ -117,14 +117,14 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     }
 
     /*
-    private void adjustLayoutParams(View view, TextView details) {
+    private void adjustLayoutParams(View view, TextView DETAILS) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         view.setLayoutParams(params);
 
-        params = details.getLayoutParams();
+        params = DETAILS.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        details.setLayoutParams(params);
+        DETAILS.setLayoutParams(params);
     }
 */
 

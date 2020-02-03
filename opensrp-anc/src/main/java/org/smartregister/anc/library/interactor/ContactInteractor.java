@@ -164,7 +164,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
-        //update woman profile details
+        //update woman profile DETAILS
         if (details != null) {
             if (details.get(ConstantsUtils.REFERRAL) != null) {
                 details.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));

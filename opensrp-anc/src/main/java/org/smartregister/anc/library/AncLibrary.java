@@ -25,6 +25,7 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.RegisterRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -60,7 +61,7 @@ public class AncLibrary {
 
     private ECSyncHelper ecSyncHelper;
     private AncRulesEngineHelper ancRulesEngineHelper;
-
+    private RegisterRepository registerRepository;
     private ClientProcessorForJava clientProcessorForJava;
     private JSONObject defaultContactFormGlobals = new JSONObject();
 
@@ -86,6 +87,24 @@ public class AncLibrary {
 
         //initialize configs processor
         initializeYamlConfigs();
+
+        setRegisterRepository(new RegisterRepository());
+    }
+
+    private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, RegisterRepository registerRepository) {
+        this.context = contextArg;
+        this.subscriberInfoIndex = subscriberInfoIndex;
+        this.databaseVersion = dbVersion;
+        this.activityConfiguration = activityConfiguration;
+
+        //Initialize JsonSpec Helper
+        this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
+        setUpEventHandling();
+
+        //initialize configs processor
+        initializeYamlConfigs();
+
+        this.registerRepository = registerRepository;
     }
 
     public android.content.Context getApplicationContext() {
@@ -292,5 +311,13 @@ public class AncLibrary {
     @NonNull
     public ActivityConfiguration getActivityConfiguration() {
         return activityConfiguration;
+    }
+
+    public RegisterRepository getRegisterRepository() {
+        return registerRepository;
+    }
+
+    public void setRegisterRepository(RegisterRepository registerRepository) {
+        this.registerRepository = registerRepository;
     }
 }

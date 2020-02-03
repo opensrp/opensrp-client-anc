@@ -188,7 +188,9 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             Log.e(TAG, e.toString(), e);
         }
         return false;
-    }    @Override
+    }
+
+    @Override
     public void processEventClient(@NonNull EventClient eventClient, @NonNull List<Event> unsyncEvents, @Nullable ClientClassification clientClassification) throws Exception {
         Event event = eventClient.getEvent();
         if (event == null) {
@@ -277,8 +279,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
         return false;
     }
-
-
 
 
     @NonNull

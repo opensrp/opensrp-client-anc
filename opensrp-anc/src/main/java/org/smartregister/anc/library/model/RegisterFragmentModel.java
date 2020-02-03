@@ -62,18 +62,20 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
     public String mainSelect(String tableName, String mainCondition) {
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        String[] columns = new String[]{tableName + ".relationalid", tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
+        String[] columns = new String[]{tableName + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
                 tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME, tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
-                tableName + "." + DBConstantsUtils.KeyUtils.DOB, tableName + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
-                tableName + "." + DBConstantsUtils.KeyUtils.ALT_NAME, tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
-                tableName + "." + DBConstantsUtils.KeyUtils.EDD, tableName + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
-                tableName + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, tableName + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
-                tableName + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, tableName + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
-                tableName + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
-        queryBUilder.SelectInitiateMainTable(tableName, columns);
-        return queryBUilder.mainCondition(mainCondition);
+                tableName + "." + DBConstantsUtils.KeyUtils.DOB, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME, tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
+                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
+        queryBuilder.SelectInitiateMainTable(tableName, columns);
+        queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable()
+                + " on "+AncLibrary.getInstance().getRegisterRepository().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + ".base_entity_id ");
+        return queryBuilder.mainCondition(mainCondition);
     }
 
     @Override
