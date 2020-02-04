@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.model.LibraryContent;
 import org.smartregister.anc.library.viewholder.LibraryContentViewHolder;
 
@@ -29,7 +30,7 @@ public class LibraryContentAdapter extends RecyclerView.Adapter<LibraryContentVi
     @Override
     public LibraryContentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = inflater.inflate(R.layout.library_items_row, viewGroup, false);
-        return new LibraryContentViewHolder(view,  activity);
+        return new LibraryContentViewHolder(view, activity);
     }
 
     @Override

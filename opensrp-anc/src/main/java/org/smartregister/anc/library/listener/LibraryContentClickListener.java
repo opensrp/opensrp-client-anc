@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.LibraryContentActivity;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -23,6 +24,8 @@ public class LibraryContentClickListener implements View.OnClickListener {
             String headerText = header.getText().toString();
 
             if (activity != null) {
+                ((BaseHomeRegisterActivity) activity).setLibrary(true);
+
                 Intent intent = new Intent(activity, LibraryContentActivity.class);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.LIBRARY_HEADER, headerText);
                 activity.startActivity(intent);

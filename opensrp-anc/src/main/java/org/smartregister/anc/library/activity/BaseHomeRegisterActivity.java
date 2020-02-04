@@ -69,6 +69,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     private AlertDialog attentionFlagAlertDialog;
     private View attentionFlagDialogView;
     private boolean isAdvancedSearch = false;
+    private boolean isLibrary = false;
     private String advancedSearchQrText = "";
     private HashMap<String, String> advancedSearchFormData = new HashMap<>();
 
@@ -263,6 +264,9 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
         if (isAdvancedSearchEnabled()) {
             switchToAdvancedSearchFromBarcode();
+        }
+        if (isLibrary()) {
+            switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
         }
     }
 
@@ -478,5 +482,13 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
         this.advancedSearchFormData = advancedSearchFormData;
+    }
+
+    public boolean isLibrary() {
+        return isLibrary;
+    }
+
+    public void setLibrary(boolean library) {
+        isLibrary = library;
     }
 }

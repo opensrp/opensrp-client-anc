@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.adapter.LibraryContentAdapter;
 import org.smartregister.anc.library.model.LibraryContent;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -25,6 +26,9 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() != null) {
+            ((BaseHomeRegisterActivity) getActivity()).setLibrary(false);
+        }
     }
 
     @Nullable

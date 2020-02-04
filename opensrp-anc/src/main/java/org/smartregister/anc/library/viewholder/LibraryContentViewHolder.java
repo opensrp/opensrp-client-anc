@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.listener.LibraryContentClickListener;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
