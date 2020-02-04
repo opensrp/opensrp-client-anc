@@ -16,6 +16,7 @@ public class LibraryContentActivity extends AppCompatActivity {
     private View libraryBirthAndEmergency;
     private View libraryPhysicalActivityContent;
     private View libraryBalanceNutritionContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

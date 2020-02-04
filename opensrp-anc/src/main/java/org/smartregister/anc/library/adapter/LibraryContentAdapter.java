@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.model.LibraryContent;
 import org.smartregister.anc.library.viewholder.LibraryContentViewHolder;
 

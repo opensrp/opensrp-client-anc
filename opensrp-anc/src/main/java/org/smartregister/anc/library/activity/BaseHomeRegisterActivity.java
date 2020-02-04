@@ -304,12 +304,20 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
     }
 
+    public boolean isLibrary() {
+        return isLibrary;
+    }
+
     private void setAdvancedFragmentSearchTerm(String searchTerm) {
         mBaseFragment.setUniqueID(searchTerm);
     }
 
     private void setFormData(HashMap<String, String> formData) {
         mBaseFragment.setAdvancedSearchFormData(formData);
+    }
+
+    public void setLibrary(boolean library) {
+        isLibrary = library;
     }
 
     public boolean isMeItemEnabled() {
@@ -346,14 +354,6 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(view -> attentionFlagAlertDialog.dismiss());
         attentionFlagAlertDialog = dialogBuilder.create();
         setAttentionFlagAlertDialog(attentionFlagAlertDialog);
-    }
-
-    public AlertDialog getAttentionFlagAlertDialog() {
-        return attentionFlagAlertDialog;
-    }
-
-    public void setAttentionFlagAlertDialog(AlertDialog attentionFlagAlertDialog) {
-        this.attentionFlagAlertDialog = attentionFlagAlertDialog;
     }
 
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
@@ -436,6 +436,14 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         getAttentionFlagAlertDialog().show();
     }
 
+    public AlertDialog getAttentionFlagAlertDialog() {
+        return attentionFlagAlertDialog;
+    }
+
+    public void setAttentionFlagAlertDialog(AlertDialog attentionFlagAlertDialog) {
+        this.attentionFlagAlertDialog = attentionFlagAlertDialog;
+    }
+
     @Override
     public void onPause() {
         EventBus.getDefault().unregister(this);
@@ -482,13 +490,5 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
         this.advancedSearchFormData = advancedSearchFormData;
-    }
-
-    public boolean isLibrary() {
-        return isLibrary;
-    }
-
-    public void setLibrary(boolean library) {
-        isLibrary = library;
     }
 }

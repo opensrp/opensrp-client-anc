@@ -39,16 +39,20 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
         return rootLayout;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        attachLayoutContentAdapter();
-    }
-
     private void setUpViews(View rootLayout) {
         mToolbar = rootLayout.findViewById(R.id.library_toolbar);
         mToolbar.findViewById(R.id.close_library).setOnClickListener(view -> onBackPressed());
         contentLayout = rootLayout.findViewById(R.id.layout_attach_recycler_view);
+    }
+
+    public void onBackPressed() {
+        ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        attachLayoutContentAdapter();
     }
 
     private void attachLayoutContentAdapter() {
@@ -70,9 +74,5 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
             libraryContents.add(physicalActivity);
         }
         return libraryContents;
-    }
-
-    public void onBackPressed() {
-        ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
     }
 }

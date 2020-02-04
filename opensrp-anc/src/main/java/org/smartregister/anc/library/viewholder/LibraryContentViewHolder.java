@@ -8,16 +8,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.listener.LibraryContentClickListener;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 public class LibraryContentViewHolder extends RecyclerView.ViewHolder {
     public View parent;
+    public CustomFontTextView contentHeader;
     private RelativeLayout contentLayout;
     private ImageView attachIcon;
     private ImageView openContentIcon;
-    public CustomFontTextView contentHeader;
     private LibraryContentClickListener libraryContentClickListener;
 
     public LibraryContentViewHolder(@NonNull View itemView, Activity activity) {
