@@ -271,61 +271,60 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
-        if (StringUtils.isBlank(imageLocation)) {
-            return;
-        }
-
-        File file = FileUtil.createFileFromPath(imageLocation);
-
-        if (!file.exists()) {
-            return;
-        }
-
-        Bitmap compressedBitmap = AncLibrary.getInstance().getCompressor().compressToBitmap(file);
-
-        if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
-            return;
-        }
-
-        OutputStream os = null;
+        OutputStream outputStream = null;
         try {
+            if (StringUtils.isBlank(imageLocation)) {
+                return;
+            }
 
-            if (entityId != null && !entityId.isEmpty()) {
+            File file = FileUtil.createFileFromPath(imageLocation);
+            if (!file.exists()) {
+                return;
+            }
+
+            Bitmap compressedBitmap = AncLibrary.getInstance().getCompressor().compressToBitmap(file);
+            if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+                return;
+            }
+
+            if (!entityId.isEmpty()) {
                 final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
 
                 File outputFile = FileUtil.createFileFromPath(absoluteFileName);
-                os = FileUtil.createFileOutputStream(outputFile);
+                outputStream = FileUtil.createFileOutputStream(outputFile);
                 Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-                if (compressFormat != null) {
-                    compressedBitmap.compress(compressFormat, 100, os);
-                } else {
-                    throw new IllegalArgumentException(
-                            "Failed to save static image, could not retrieve image compression format from name " +
-                                    absoluteFileName);
-                }
+                compressedBitmap.compress(compressFormat, 100, outputStream);
                 // insert into the db
-                ProfileImage profileImage = new ProfileImage();
-                profileImage.setImageid(UUID.randomUUID().toString());
-                profileImage.setAnmId(providerId);
-                profileImage.setEntityID(entityId);
-                profileImage.setFilepath(absoluteFileName);
-                profileImage.setFilecategory(ConstantsUtils.FileCategoryUtils.PROFILE_PIC);
-                profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+                ProfileImage profileImage = getProfileImage(providerId, entityId, absoluteFileName);
                 ImageRepository imageRepo = AncLibrary.getInstance().getContext().imageRepository();
                 imageRepo.add(profileImage);
             }
 
         } catch (FileNotFoundException e) {
             Timber.e("Failed to save static image to disk");
+        } catch (Exception e) {
+            Timber.e(e, " --> saveImage");
         } finally {
-            if (os != null) {
+            if (outputStream != null) {
                 try {
-                    os.close();
+                    outputStream.close();
                 } catch (IOException e) {
                     Timber.e("Failed to close static images output stream after attempting to write image");
                 }
             }
         }
+    }
+
+    @NotNull
+    private static ProfileImage getProfileImage(String providerId, String entityId, String absoluteFileName) {
+        ProfileImage profileImage = new ProfileImage();
+        profileImage.setImageid(UUID.randomUUID().toString());
+        profileImage.setAnmId(providerId);
+        profileImage.setEntityID(entityId);
+        profileImage.setFilepath(absoluteFileName);
+        profileImage.setFilecategory(ConstantsUtils.FileCategoryUtils.PROFILE_PIC);
+        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+        return profileImage;
     }
 
     public static String getString(String jsonString, String field) {
