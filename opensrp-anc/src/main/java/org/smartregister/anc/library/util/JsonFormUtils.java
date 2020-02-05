@@ -271,6 +271,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
+        OutputStream os = null;
+        try {
         if (StringUtils.isBlank(imageLocation)) {
             return;
         }
@@ -282,13 +284,9 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
 
         Bitmap compressedBitmap = AncLibrary.getInstance().getCompressor().compressToBitmap(file);
-
         if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
             return;
         }
-
-        OutputStream os = null;
-        try {
 
             if (entityId != null && !entityId.isEmpty()) {
                 final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";

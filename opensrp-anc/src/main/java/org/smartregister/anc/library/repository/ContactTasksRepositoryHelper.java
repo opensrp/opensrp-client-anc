@@ -109,12 +109,12 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
      */
     public String getTasksCount(String baseEntityId, String contactNo) {
         int tasksCount = 0;
-        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{};
         Cursor mCursor = null;
         try {
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-                selectionArgs = new String[]{baseEntityId, contactNo};
+                selectionArgs = new String[]{baseEntityId, contactNo, "0"};
             }
 
             mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
@@ -134,7 +134,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     }
 
     /**
-     * Gets all the tasks for a specific patient using their patient base entity id.
+     * Gets all the tasks for a specific patient using their patient base entity id and the update status. We should only display the not done/ordered tasks
      * We also provide an optional list of keys to query null otherwise to get all keys for that base entity id
      *
      * @param baseEntityId {@link String}
@@ -186,7 +186,23 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         task.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
         task.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
         task.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
+        task.setUpdated(updateBooleanValue(cursor.getString(cursor.getColumnIndex(IS_UPDATED))));
         return task;
+    }
+
+    /**
+     * Since the {@link Boolean#parseBoolean(String)} only expects "true" or "false" string we have to convert "1" & "0"
+     * to a boolean using this function
+     *
+     * @param isUpdated {@link String}
+     * @return isUpdate {@link Boolean}
+     */
+    private boolean updateBooleanValue(String isUpdated) {
+        boolean isUpdate = false;
+        if (isUpdated.equals("1")) {
+            isUpdate = true;
+        }
+        return isUpdate;
     }
 
     /**
@@ -217,7 +233,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
                 return taskList;
             }
         } catch (Exception e) {
-            Timber.e(e, " --> getTasks");
+            Timber.e(e, " --> getClosedTasks");
         } finally {
             if (mCursor != null) {
                 mCursor.close();
@@ -254,7 +270,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
                 return taskList;
             }
         } catch (Exception e) {
-            Timber.e(e, " --> getTasks");
+            Timber.e(e, " --> getOpenTasks");
         } finally {
             if (mCursor != null) {
                 mCursor.close();

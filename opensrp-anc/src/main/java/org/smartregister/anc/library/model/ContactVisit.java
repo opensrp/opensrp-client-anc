@@ -55,6 +55,7 @@ public class ContactVisit {
             Arrays.asList(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
+    private Map<String, Long> currentClientTasks;
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepositoryHelper partialContactRepositoryHelper,
@@ -84,8 +85,8 @@ public class ContactVisit {
         facts = new Facts();
         formSubmissionIDs = new ArrayList<>();
 
-        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts,
-                formSubmissionIDs);
+        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts, formSubmissionIDs);
+        getCurrentClientsTasks(baseEntityId);
 
         womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
 
@@ -111,6 +112,25 @@ public class ContactVisit {
         }
         PatientRepositoryHelper.updateContactVisitDetails(womanDetail, true);
         return this;
+    }
+
+    /**
+     * Returns a {@link Map} of the tasks keys and task id.  These are used to delete the tasks in case a test with the same key is completed doing the current contact.
+     *
+     * @param baseEntityId {@link String} Client's base entity id.
+     */
+    private void getCurrentClientsTasks(String baseEntityId) {
+        List<Task> tasksList = AncLibrary.getInstance().getContactTasksRepositoryHelper().getTasks(baseEntityId, null);
+        if (tasksList != null && tasksList.size() > 0) {
+            Map<String, Long> tasksMap = new HashMap<>();
+            for (int i = 0; i < tasksList.size(); i++) {
+                Task task = tasksList.get(i);
+                if (task != null) {
+                    tasksMap.put(task.getKey(), task.getId());
+                }
+            }
+            setCurrentClientTasks(tasksMap);
+        }
     }
 
     private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepositoryHelper partialContactRepositoryHelper,
@@ -161,8 +181,22 @@ public class ContactVisit {
                             JSONObject field = stepFields.getJSONObject(i);
                             if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                                 JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                                if (jsonArray == null || (jsonArray.length() == 0) || checkTestsStatus(jsonArray)) {
+                                if (jsonArray == null || (jsonArray.length() == 0)) {
                                     saveTasks(field);
+                                } else {
+                                    String key = field.optString(JsonFormConstants.KEY);
+                                    if (StringUtils.isNotBlank(key)) {
+                                        if (checkTestsStatus(jsonArray)) {
+                                            if (!getCurrentClientTasks().containsKey(key)) {
+                                                saveTasks(field);
+                                            }
+                                        } else {
+                                            Long tasksId = getCurrentClientTasks().get(key);
+                                            if (tasksId != null) {
+                                                AncLibrary.getInstance().getContactTasksRepositoryHelper().deleteContactTask(tasksId);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -174,6 +208,12 @@ public class ContactVisit {
         }
     }
 
+    /**
+     * Checks where a test qualifies to be a tasks.  This happens in case a test is marked as ordered or not done;
+     *
+     * @param valueArray {@link JSONArray} the expansion panel values
+     * @return isTasks {@link Boolean} true/false if true then it means the test qualifies to be a task.
+     */
     private boolean checkTestsStatus(JSONArray valueArray) {
         boolean isTask = false;
         try {
@@ -366,5 +406,13 @@ public class ContactVisit {
 
     protected PreviousContactRepositoryHelper getPreviousContactRepository() {
         return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
+    }
+
+    public Map<String, Long> getCurrentClientTasks() {
+        return currentClientTasks;
+    }
+
+    public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
+        this.currentClientTasks = currentClientTasks;
     }
 }
