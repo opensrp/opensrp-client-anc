@@ -133,8 +133,8 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
 
             Mockito.doReturn(repository).when(drishtiApplication).getRepository();
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
-            String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-            String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "2"};
+            String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE+ " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+            String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "2","0"};
 
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
             PowerMockito.when(mCursor.getCount()).thenReturn(1);
@@ -154,7 +154,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
 
             Mockito.doReturn(repository).when(drishtiApplication).getRepository();
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
-            String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
+            String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE+ " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
             String[] selectionArgs = new String[]{null, null};
 
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);

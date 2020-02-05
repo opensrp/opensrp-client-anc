@@ -199,7 +199,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
      */
     private boolean updateBooleanValue(String isUpdated) {
         boolean isUpdate = false;
-        if (isUpdated.equals("1")) {
+        if (isUpdated != null && isUpdated.equals("1")) {
             isUpdate = true;
         }
         return isUpdate;

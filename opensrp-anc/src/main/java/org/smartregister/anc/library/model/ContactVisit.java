@@ -85,11 +85,10 @@ public class ContactVisit {
         facts = new Facts();
         formSubmissionIDs = new ArrayList<>();
 
-        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts, formSubmissionIDs);
         getCurrentClientsTasks(baseEntityId);
+        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts, formSubmissionIDs);
 
         womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
-
         processAttentionFlags(womanDetail, facts);
 
         if (referral != null) {
@@ -181,10 +180,12 @@ public class ContactVisit {
                             JSONObject field = stepFields.getJSONObject(i);
                             if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                                 JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                                String key = field.optString(JsonFormConstants.KEY);
                                 if (jsonArray == null || (jsonArray.length() == 0)) {
-                                    saveTasks(field);
+                                    if (!getCurrentClientTasks().containsKey(key)) {
+                                        saveTasks(field);
+                                    }
                                 } else {
-                                    String key = field.optString(JsonFormConstants.KEY);
                                     if (StringUtils.isNotBlank(key)) {
                                         if (checkTestsStatus(jsonArray)) {
                                             if (!getCurrentClientTasks().containsKey(key)) {
