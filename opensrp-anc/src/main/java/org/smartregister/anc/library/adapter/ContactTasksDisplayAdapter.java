@@ -46,7 +46,6 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         return new ContactTasksViewHolder(view, profileTasksFragment);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ContactTasksViewHolder contactTasksViewHolder, int position) {
         try {
