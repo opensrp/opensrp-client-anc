@@ -231,7 +231,7 @@ public class AncLibrary {
 
     public Compressor getCompressor() {
         if (compressor == null) {
-            compressor = Compressor.getDefault(getApplicationContext());
+            compressor = new Compressor(getApplicationContext());
         }
         return compressor;
     }

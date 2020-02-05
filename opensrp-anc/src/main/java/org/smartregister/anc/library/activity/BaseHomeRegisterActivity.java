@@ -69,6 +69,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     private AlertDialog attentionFlagAlertDialog;
     private View attentionFlagDialogView;
     private boolean isAdvancedSearch = false;
+    private boolean isLibrary = false;
     private String advancedSearchQrText = "";
     private HashMap<String, String> advancedSearchFormData = new HashMap<>();
 
@@ -202,16 +203,17 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         if (requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
-                Timber.d(barcode.displayValue);
+                if (barcode != null) {
+                    Timber.d(barcode.displayValue);
 
-                Fragment fragment = findFragmentByPosition(currentPage);
-                if (fragment instanceof AdvancedSearchFragment) {
-                    advancedSearchQrText = barcode.displayValue;
-                } else {
-                    mBaseFragment.onQRCodeSucessfullyScanned(barcode.displayValue);
-                    mBaseFragment.setSearchTerm(barcode.displayValue);
+                    Fragment fragment = findFragmentByPosition(currentPage);
+                    if (fragment instanceof AdvancedSearchFragment) {
+                        advancedSearchQrText = barcode.displayValue;
+                    } else {
+                        mBaseFragment.onQRCodeSucessfullyScanned(barcode.displayValue);
+                        mBaseFragment.setSearchTerm(barcode.displayValue);
+                    }
                 }
-
             } else {
                 Timber.i("NO RESULT FOR QR CODE");
             }
@@ -263,6 +265,9 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         if (isAdvancedSearchEnabled()) {
             switchToAdvancedSearchFromBarcode();
         }
+        if (isLibrary()) {
+            switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
+        }
     }
 
     @Override
@@ -299,12 +304,20 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
     }
 
+    public boolean isLibrary() {
+        return isLibrary;
+    }
+
     private void setAdvancedFragmentSearchTerm(String searchTerm) {
         mBaseFragment.setUniqueID(searchTerm);
     }
 
     private void setFormData(HashMap<String, String> formData) {
         mBaseFragment.setAdvancedSearchFormData(formData);
+    }
+
+    public void setLibrary(boolean library) {
+        isLibrary = library;
     }
 
     public boolean isMeItemEnabled() {
@@ -332,7 +345,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     }
 
     @NonNull
-    protected AlertDialog createAttentionFlagsAlertDialog() {
+    protected void createAttentionFlagsAlertDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         attentionFlagDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag, null);
@@ -340,8 +353,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
         attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(view -> attentionFlagAlertDialog.dismiss());
         attentionFlagAlertDialog = dialogBuilder.create();
-
-        return attentionFlagAlertDialog;
+        setAttentionFlagAlertDialog(attentionFlagAlertDialog);
     }
 
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
@@ -421,7 +433,15 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         ((View) redFlagsContainer.getParent()).setVisibility(redFlagCount > 0 ? View.VISIBLE : View.GONE);
         ((View) yellowFlagsContainer.getParent()).setVisibility(yellowFlagCount > 0 ? View.VISIBLE : View.GONE);
 
-        attentionFlagAlertDialog.show();
+        getAttentionFlagAlertDialog().show();
+    }
+
+    public AlertDialog getAttentionFlagAlertDialog() {
+        return attentionFlagAlertDialog;
+    }
+
+    public void setAttentionFlagAlertDialog(AlertDialog attentionFlagAlertDialog) {
+        this.attentionFlagAlertDialog = attentionFlagAlertDialog;
     }
 
     @Override
