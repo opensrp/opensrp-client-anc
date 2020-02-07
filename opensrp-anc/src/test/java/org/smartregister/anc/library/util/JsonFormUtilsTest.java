@@ -31,6 +31,7 @@ import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
@@ -57,6 +58,7 @@ import id.zelory.compressor.Compressor;
         "org.powermock.*",
         "org.mockito.*",
 })
+@PrepareForTest(LocationHelper.class)
 public class JsonFormUtilsTest {
     private static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     private static final String DUMMY_LOCATION_ID = "dummy-location-id-2018";
@@ -461,5 +463,24 @@ public class JsonFormUtilsTest {
         JsonFormUtils jsonFormUtils = new JsonFormUtils();
         List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
         Assert.assertEquals(0, contactSummaryModels.size());
+    }
+
+    @Test
+    public void testGetChildLocationIdShouldReturnCorrectValue() {
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        PowerMockito.when(locationHelper.getOpenMrsLocationId("here")).thenReturn("123-3423");
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("here");
+        Assert.assertEquals("123-3423", JsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
+    }
+
+    @Test
+    public void testGetChildLocationIdShouldReturnNullWhenCurrentLocalityIdBlank() {
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("");
+        Assert.assertNull(JsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
     }
 }
