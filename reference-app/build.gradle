@@ -20,7 +20,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 2
-ext.versionPatch = 11
+ext.versionPatch = 12
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -111,10 +111,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc-preview.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://anc-indonesia-preview.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
@@ -221,7 +221,7 @@ tasks.withType(Test) {
 dependencies {
     def powerMockVersion = '2.0.4'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:1.7.13-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.1702-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
