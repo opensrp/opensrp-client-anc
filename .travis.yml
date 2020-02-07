@@ -49,4 +49,4 @@ deploy:
   github_token: "$GITHUB_TOKEN"
   local_dir: opensrp-anc/build/docs/javadoc/
   on:
-    branch: travis-deploy-javadoc
+    branch: master
