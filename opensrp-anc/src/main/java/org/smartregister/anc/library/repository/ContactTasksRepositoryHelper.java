@@ -103,23 +103,22 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
      * Gets the count of the tasks for a specific content
      *
      * @param baseEntityId {@link String} - The patient's base entity id
-     * @param contactNo    {@link String} - The current contact number
      * @return taskCount {@link String} - The number of tasks for the patient on the specific contact.
      * @author dubdabasoduba
      */
-    public String getTasksCount(String baseEntityId, String contactNo) {
+    public String getTasksCount(String baseEntityId) {
         int tasksCount = 0;
-        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{};
         Cursor mCursor = null;
         try {
-            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-                selectionArgs = new String[]{baseEntityId, contactNo, "0"};
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selectionArgs = new String[]{baseEntityId, "0"};
             }
 
             mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
             if (mCursor != null && mCursor.getCount() > 0) {
-                mCursor.moveToFirst();
+                mCursor.moveToNext();
                 tasksCount = mCursor.getInt(0);
             }
         } catch (Exception e) {

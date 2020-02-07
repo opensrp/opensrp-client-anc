@@ -77,16 +77,16 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
-        getTasksCount(baseEntityId, contactNo);
+        getTasksCount(baseEntityId);
     }
 
     protected void registerEventBus() {
         EventBus.getDefault().register(this);
     }
 
-    private void getTasksCount(String baseEntityId, String contactNo) {
+    private void getTasksCount(String baseEntityId) {
         if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-            ((ProfilePresenter) presenter).getTaskCount(baseEntityId, contactNo);
+            ((ProfilePresenter) presenter).getTaskCount(baseEntityId);
         }
     }
 

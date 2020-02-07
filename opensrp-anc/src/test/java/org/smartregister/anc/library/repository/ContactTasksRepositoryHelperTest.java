@@ -139,7 +139,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
             PowerMockito.when(mCursor.getCount()).thenReturn(1);
             PowerMockito.when(mCursor.getInt(0)).thenReturn(1);
-            Assert.assertEquals("1", contactTasksRepositoryHelper.getTasksCount(DUMMY_BASE_ENTITY_ID, "2"));
+            Assert.assertEquals("1", contactTasksRepositoryHelper.getTasksCount(DUMMY_BASE_ENTITY_ID));
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCount");
         }
@@ -158,7 +158,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             String[] selectionArgs = new String[]{null, null};
 
             PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
-            Assert.assertEquals("0", contactTasksRepositoryHelper.getTasksCount(null, null));
+            Assert.assertEquals("0", contactTasksRepositoryHelper.getTasksCount(null));
         } catch (Exception e) {
             Timber.e(e, " --> testTasksCountWithNullVariables");
         }

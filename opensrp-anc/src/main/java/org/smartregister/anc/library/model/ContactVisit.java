@@ -55,7 +55,7 @@ public class ContactVisit {
             Arrays.asList(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
-    private Map<String, Long> currentClientTasks;
+    private Map<String, Long> currentClientTasks = new HashMap<>();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepositoryHelper partialContactRepositoryHelper,
@@ -182,11 +182,11 @@ public class ContactVisit {
                                 JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
                                 String key = field.optString(JsonFormConstants.KEY);
                                 if (jsonArray == null || (jsonArray.length() == 0)) {
-                                    if (!getCurrentClientTasks().containsKey(key)) {
+                                    if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
                                         saveTasks(field);
                                     }
                                 } else {
-                                    if (StringUtils.isNotBlank(key)) {
+                                    if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
                                         if (checkTestsStatus(jsonArray)) {
                                             if (!getCurrentClientTasks().containsKey(key)) {
                                                 saveTasks(field);
