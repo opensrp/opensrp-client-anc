@@ -1,65 +1,52 @@
 language: android
-# sudo set to required because of an issue with how TravisCI handles builds in Docker containers https://github.com/travis-ci/travis-ci/issues/3695.
-# Setting sudo to required prevents Travis from testing the project in a Docker container.
 sudo: required
 jdk: oraclejdk8
 dist: precise
-
-before_cache:
-  -rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-  -rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+before_cache: "-rm -f $HOME/.gradle/caches/modules-2/modules-2.lock -rm -fr $HOME/.gradle/caches/*/plugin-resolution/"
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 env:
   matrix:
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+  - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
   global:
-    # wait up to 10 minutes for adb to connect to emulator
-    - MALLOC_ARENA_MAX=2
-    - ADB_INSTALL_TIMEOUT=20 #increment timeout to 20 mins
-
+  - MALLOC_ARENA_MAX=2
+  - ADB_INSTALL_TIMEOUT=20
+  - secure: RVcamiw0770huKN9Ih2Cg0lwwzdJvSwsWW90jVx0L1BZ90eD2mEzOu4yiaWc8eqYCeO71ghcegqhFqK6jzossJmMvTsDYorevTyCcpp+F/rvZyyP9BMIjU3I2+qZ1sgBiAnDb54fyEIZGig6QLo76hmTJYhJFuRlxgDAn4DPf9QLJInyaajEzCpcLnojfrs5/BaBHy9DukrpSvyzNTktzAhkfnd1e362v6SFMc5ckFNPA/48klBp7ceXaRWuS2aP+dcKxKbUAG77k6vOQ21tnUjXWSrBuV8K37+UQZmA7HnwMeBRm/hYYfC8VaxPg3JjTGfQSZXE+YOnp29Or2cIaixcZhGNYXvyy8xeJwQbowFnAKSL4P7JrBDUKXVxs1V0OkJ+cGa5FsvDNuhlcKYTMR1utoqR8LuKv4vC4/0G+RLltmuAQ/epPqHS1IgeuEq9J66N6schBIY4QcihdlpBCeRCnfAN5rCosKfywYhI5KshWIUFwutVcrcbpSN8pQ6QcSupzzjOP8hwTjh3moxaxMoKpkmhaU2RUalUpcm7ACq5J1GqcAEzXQxeU/H94in9TAys/weHMyskg2x4SPQ2Pgfm+sHcpssTRqv3UiSRs6voewQf6YIeT3D0TJVVqPiqxcVFWIGoNxqYrvu9J6Gzdyi8PJxWP1t8ToaeDFCDH1s=
 android:
   components:
-    # tools required
-    - tools
-    # The BuildTools version used by your project
-    - build-tools-28.0.3
-    - build-tools-29.0.2
-    # The SDK version used to compile your projects
-    - android-22
-    - android-28
-    - android-29
-    # Additional components
-    - extra-google-m2repository
-    - extra-android-m2repository
-
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-22
-
+  - tools
+  - build-tools-28.0.3
+  - build-tools-29.0.2
+  - android-22
+  - android-28
+  - android-29
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-22
 before_script:
-  # Emulator Management: Create, Start and Wait
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
+- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+- emulator -avd test -no-skin -no-audio -no-window &
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
 script:
-  - echo "Travis branch is $TRAVIS_BRANCH"
-  - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
-  - chmod 755 gradlew
-  - ls -la
-  # jacocoTestReport is supposed to run both local and instrumented tests on all the modules
-  # Gradle issue running composite tasks in order https://github.com/gradle/gradle/issues/3300
-  - travis_wait ./gradlew clean --stacktrace
-  - travis_wait ./gradlew jacocoTestReport --stacktrace
-  - travis_wait ./gradlew jacocoFullReport --stacktrace
-  - travis_wait ./gradlew coveralls --stacktrace
-
+- echo "Travis branch is $TRAVIS_BRANCH"
+- echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
+- chmod 755 gradlew
+- ls -la
+- travis_wait ./gradlew clean --stacktrace
+- travis_wait ./gradlew jacocoTestReport --stacktrace
+- travis_wait ./gradlew jacocoFullReport --stacktrace
+- travis_wait ./gradlew coveralls --stacktrace
+- travis_wait ./gradlew javadoc
 notifications:
   slack:
     secure: fAiZ4yA7DM6nUKh7nqsCTqZBb03VEAvi5NcRu5mNh5coNn/50XNeZl+qpv7Dw70Ef85Y/k68uc6KwTGVqPXEmVq9Hk3e7lqpBNN8rufvgCYDDGPmywBmU5BhSeykKo0Ee7llM3mRR/EipjIWw1+YvMcS3hCoygf/UlMDDhG0Jo0=
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: "$GITHUB_TOKEN"
+  local_dir: opensrp-anc/build/docs/javadoc/
+  on:
+    branch: travis-deploy-javadoc
