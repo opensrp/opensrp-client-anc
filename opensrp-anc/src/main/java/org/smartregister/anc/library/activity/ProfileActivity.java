@@ -90,6 +90,10 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
+    }
 
     @Override
     protected void initializePresenter() {
