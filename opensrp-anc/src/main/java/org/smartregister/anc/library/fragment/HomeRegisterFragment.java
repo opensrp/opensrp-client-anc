@@ -5,10 +5,12 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
@@ -25,6 +27,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -47,6 +50,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
+    private String detailsCondition = "";
 
     @Override
     protected void initializePresenter() {
@@ -111,6 +115,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     @Override
     protected String getMainCondition() {
         return DBQueryHelper.getHomePatientRegisterCondition();
+    }
+
+    protected String getDetailsCondition() {
+        return detailsCondition;
     }
 
     @Override
@@ -192,7 +200,17 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         final AdvancedMatrixCursor matrixCursor = ((RegisterFragmentPresenter) presenter).getMatrixCursor();
         if (!globalQrSearch || matrixCursor == null) {
-            return super.onCreateLoader(id, args);
+            if (id == LOADER_ID) {
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        String query = filterAndSortQuery();
+                        return commonRepository().rawCustomQueryForAdapter(query);
+                    }
+                };
+            } else {
+                return null;
+            }
         } else {
             globalQrSearch = false;
             if (id == RecyclerViewFragment.LOADER_ID) {// Returns a new CursorLoader
@@ -205,6 +223,43 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             }// An invalid id was passed in
             return null;
         }
+    }
+
+    private String filterAndSortQuery() {
+        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = AncLibrary.getInstance().getRegisterRepository().getObjectIdsQuery(mainCondition, filters, detailsCondition);
+                sql = sqb.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+
+                List<String> ids = commonRepository().findSearchIds(sql);
+                clientAdapter.setTotalcount(ids.size());
+                query = AncLibrary.getInstance().getRegisterRepository().mainRegisterQuery() + " where _id IN (%s)";
+
+                String joinedIds = "'" + StringUtils.join(ids, "','") + "'";
+                return query.replace("%s", joinedIds);
+            } else {
+                if (!TextUtils.isEmpty(filters) && TextUtils.isEmpty(Sortqueries)) {
+                    sqb.addCondition(filters);
+                    query = sqb.orderbyCondition(Sortqueries);
+                    query = sqb.Endquery(sqb.addlimitandOffset(query
+                            , clientAdapter.getCurrentlimit()
+                            , clientAdapter.getCurrentoffset()));
+                }
+                return query;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return query;
+    }
+
+    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode, String detailsCondition) {
+        this.detailsCondition = detailsCondition;
+        super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 }
 

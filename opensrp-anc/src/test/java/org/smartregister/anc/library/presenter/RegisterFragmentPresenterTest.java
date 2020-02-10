@@ -63,8 +63,8 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         registerFragmentPresenter.setModel(model);
 
         String mainCondition = "anc_id is not null";
-        String countSelect = countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
-        String mainSelect = mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
+        String countSelect = countSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, mainCondition);
+        String mainSelect = mainSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, mainCondition);
 
         Mockito.doReturn(countSelect).when(model).countSelect(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
         Mockito.doReturn(mainSelect).when(model).mainSelect(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
@@ -72,10 +72,10 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
 
         registerFragmentPresenter.initializeQueries("anc_id is not null");
 
-        Mockito.verify(model).countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
-        Mockito.verify(model).mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
+        Mockito.verify(model).countSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, mainCondition);
+        Mockito.verify(model).mainSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, mainCondition);
 
-        Mockito.verify(view).initializeQueryParams(DBConstantsUtils.WOMAN_TABLE_NAME, countSelect, mainSelect);
+        Mockito.verify(view).initializeQueryParams(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, countSelect, mainSelect);
         Mockito.verify(view).initializeAdapter(ArgumentMatchers.any((Class<Set<View>>) (Object) Set.class));
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();

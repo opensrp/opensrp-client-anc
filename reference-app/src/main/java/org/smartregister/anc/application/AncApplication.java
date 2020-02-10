@@ -54,7 +54,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //Initialize Modules
         CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-        AncLibrary.init(context,BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);
 
         SyncStatusBroadcastReceiver.init(this);
@@ -88,25 +88,37 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
             for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields());
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields());
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
             }
         }
         return commonFtsObject;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{DBConstantsUtils.WOMAN_TABLE_NAME};
+        return new String[]{DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME};
     }
 
-    private static String[] getFtsSearchFields() {
-        return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
+    private static String[] getFtsSearchFields(String tableName) {
+        if (tableName.equals(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
+        } else if (tableName.equals(DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
+        } else {
+            return null;
+        }
 
     }
 
-    private static String[] getFtsSortFields() {
-        return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
-                DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, DBConstantsUtils.KeyUtils.DATE_REMOVED};
+    private static String[] getFtsSortFields(String tableName) {
+        if (tableName.equals(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
+                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, DBConstantsUtils.KeyUtils.DATE_REMOVED};
+        } else if (tableName.equals(DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
+        } else {
+            return null;
+        }
     }
 
     public static synchronized AncApplication getInstance() {

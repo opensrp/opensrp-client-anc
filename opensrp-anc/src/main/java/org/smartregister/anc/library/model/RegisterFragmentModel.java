@@ -74,7 +74,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
                 AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
         queryBuilder.SelectInitiateMainTable(tableName, columns);
         queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable()
-                + " on "+AncLibrary.getInstance().getRegisterRepository().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + ".base_entity_id ");
+                + " on " + AncLibrary.getInstance().getRegisterRepository().getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " ");
         return queryBuilder.mainCondition(mainCondition);
     }
 
