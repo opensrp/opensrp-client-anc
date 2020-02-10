@@ -242,11 +242,10 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         String query = "";
         try {
             if (isValidFilterForFts(commonRepository())) {
-                String sql = AncLibrary.getInstance().getRegisterRepository().getObjectIdsQuery(mainCondition, filters);
+                String sql = AncLibrary.getInstance().getRegisterRepository().getObjectIdsQuery(mainCondition, filters) + (StringUtils.isBlank(getDefaultSortQuery()) ? "" : " order by " + getDefaultSortQuery());
                 sql = sqb.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
-
                 List<String> ids = commonRepository().findSearchIds(sql);
-                query = AncLibrary.getInstance().getRegisterRepository().mainRegisterQuery() + " where _id IN (%s)";
+                query = AncLibrary.getInstance().getRegisterRepository().mainRegisterQuery() + " where _id IN (%s) " + (StringUtils.isBlank(getDefaultSortQuery()) ? "" : " order by " + getDefaultSortQuery());
 
                 String joinedIds = "'" + StringUtils.join(ids, "','") + "'";
                 return query.replace("%s", joinedIds);
