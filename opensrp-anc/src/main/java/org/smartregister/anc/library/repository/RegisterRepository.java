@@ -1,59 +1,65 @@
 package org.smartregister.anc.library.repository;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 public class RegisterRepository {
 
     public String getObjectIdsQuery(String mainCondition, String filters) {
+        String strMainCondition = "";
+        String strFilters = "";
         if (!filters.isEmpty()) {
-            filters = String.format(" AND ec_client_search.phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" AND " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
         }
-        if(StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)){
-            filters = String.format(" where ec_client_search.phrase MATCH '*%s*'", filters);
+        if (StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)) {
+            strFilters = String.format(" where " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
         }
 
         if (!StringUtils.isBlank(mainCondition)) {
-            mainCondition = " where " + mainCondition;
+            strMainCondition = " where " + mainCondition;
         }
 
-        return "select ec_client_search.object_id from ec_client_search join ec_mother_details on ec_client_search.object_id =  ec_mother_details.id " + mainCondition + filters;
+        return "select " + getDemographicTable() + "." + "object_id from " + CommonFtsObject.searchTableName(getDemographicTable()) + " ec_client  " +
+                "join " + getDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
     public String getCountExecuteQuery(String mainCondition, String filters) {
+        String strMainCondition = "";
+        String strFilters = "";
         if (!filters.isEmpty()) {
-            filters = String.format(" AND ec_client_search.phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" AND " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
         }
-        if(StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)){
-            filters = String.format(" where ec_client_search.phrase MATCH '*%s*'", filters);
+        if (StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)) {
+            strFilters = String.format(" where " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
         }
 
         if (!StringUtils.isBlank(mainCondition)) {
-            mainCondition = " where " + mainCondition;
+            strMainCondition = " where " + mainCondition;
         }
 
-        return "select count(ec_client_search.object_id) from ec_client_search join ec_mother_details on ec_client_search.object_id =  ec_mother_details.id " + mainCondition + filters;
+        return "select count(" + getDemographicTable() + "." + "object_id) from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
+                "join " + getDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
     public String[] mainColumns() {
         return new String[]{getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
                 getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
                 getDemographicTable() + "." + DBConstantsUtils.KeyUtils.LAST_NAME, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ANC_ID,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.DOB, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
-                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
-                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
-                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
-                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
-                AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.DOB, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
     }
 
     public String mainRegisterQuery() {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         queryBuilder.SelectInitiateMainTable(getDemographicTable(), mainColumns());
-        queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable()
-                + " on " + AncLibrary.getInstance().getRegisterRepository().getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " ");
+        queryBuilder.customJoin(" join " + getDetailsTable()
+                + " on " + getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " ");
         return queryBuilder.getSelectquery();
     }
 
