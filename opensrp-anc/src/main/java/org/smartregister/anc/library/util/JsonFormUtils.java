@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jeasy.rules.api.Facts;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -249,12 +250,26 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
         event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(providerId));
-        event.setChildLocationId(LocationHelper.getInstance().getChildLocationId());
+        event.setChildLocationId(getChildLocationId(event.getLocationId(), allSharedPreferences));
         event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
         event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
         //event.setVersion(BuildConfig.EVENT_VERSION);
         event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
         event.setClientDatabaseVersion(AncLibrary.getInstance().getDatabaseVersion());
+    }
+
+    @Nullable
+    public static String getChildLocationId(@NonNull String defaultLocationId, @NonNull AllSharedPreferences allSharedPreferences) {
+        String currentLocality = allSharedPreferences.fetchCurrentLocality();
+
+        if (StringUtils.isNotBlank(currentLocality)) {
+            String currentLocalityId = LocationHelper.getInstance().getOpenMrsLocationId(currentLocality);
+            if (StringUtils.isNotBlank(currentLocalityId) && !defaultLocationId.equals(currentLocalityId)) {
+                return currentLocalityId;
+            }
+        }
+
+        return null;
     }
 
     public static void mergeAndSaveClient(Client baseClient) throws Exception {
