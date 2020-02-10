@@ -177,6 +177,7 @@ public abstract class ConstantsUtils {
         public static final String FORM_NAME = "form_name";
         public static final String CLIENT_MAP = "client_map";
         public static final String UNDONE_VALUES = "undone_values";
+        public static final String LIBRARY_HEADER = "library_header";
     }
 
     public static class DetailsKeyUtils {
