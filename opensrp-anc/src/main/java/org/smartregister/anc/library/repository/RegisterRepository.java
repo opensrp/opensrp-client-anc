@@ -11,17 +11,17 @@ public class RegisterRepository {
         String strMainCondition = "";
         String strFilters = "";
         if (!filters.isEmpty()) {
-            strFilters = String.format(" AND " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" AND " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
         }
         if (StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)) {
-            strFilters = String.format(" where " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" where " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
         }
 
         if (!StringUtils.isBlank(mainCondition)) {
             strMainCondition = " where " + mainCondition;
         }
 
-        return "select " + getDemographicTable() + "." + "object_id from " + CommonFtsObject.searchTableName(getDemographicTable()) + " ec_client  " +
+        return "select " + getDemographicTable() + "." + "object_id from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
                 "join " + getDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
