@@ -50,7 +50,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
-    private String detailsCondition = "";
 
     @Override
     protected void initializePresenter() {
@@ -115,10 +114,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     @Override
     protected String getMainCondition() {
         return DBQueryHelper.getHomePatientRegisterCondition();
-    }
-
-    protected String getDetailsCondition() {
-        return detailsCondition;
     }
 
     @Override
@@ -228,7 +223,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     @Override
     public void countExecute() {
         try {
-            String sql = AncLibrary.getInstance().getRegisterRepository().getCountExecuteQuery(mainCondition, filters, detailsCondition);
+            String sql = AncLibrary.getInstance().getRegisterRepository().getCountExecuteQuery(mainCondition, filters);
             Timber.i(sql);
             int totalCount = commonRepository().countSearchIds(sql);
             clientAdapter.setTotalcount(totalCount);
@@ -247,7 +242,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         String query = "";
         try {
             if (isValidFilterForFts(commonRepository())) {
-                String sql = AncLibrary.getInstance().getRegisterRepository().getObjectIdsQuery(mainCondition, filters, detailsCondition);
+                String sql = AncLibrary.getInstance().getRegisterRepository().getObjectIdsQuery(mainCondition, filters);
                 sql = sqb.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
 
                 List<String> ids = commonRepository().findSearchIds(sql);
@@ -270,11 +265,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
 
         return query;
-    }
-
-    public void filter(String filterString, String joinTableString, String mainConditionString, boolean qrCode, String detailsCondition) {
-        this.detailsCondition = detailsCondition;
-        super.filter(filterString, joinTableString, mainConditionString, qrCode);
     }
 }
 

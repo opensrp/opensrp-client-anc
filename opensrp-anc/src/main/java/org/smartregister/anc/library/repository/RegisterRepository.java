@@ -7,36 +7,34 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 
 public class RegisterRepository {
 
-    public String getObjectIdsQuery(String mainCondition, String filters, String detailsCondition) {
+    public String getObjectIdsQuery(String mainCondition, String filters) {
         if (!filters.isEmpty()) {
-            filters = String.format(" AND ec_client_search.phrase MATCH '%s'", filters);
+            filters = String.format(" AND ec_client_search.phrase MATCH '*%s*'", filters);
         }
-        if (!StringUtils.isBlank(mainCondition)) {
-            mainCondition = " AND " + mainCondition;
+        if(StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)){
+            filters = String.format(" where ec_client_search.phrase MATCH '*%s*'", filters);
         }
 
-        if (!StringUtils.isBlank(detailsCondition)) {
-            detailsCondition = " where " + detailsCondition;
-        } else {
-            detailsCondition = "";
+        if (!StringUtils.isBlank(mainCondition)) {
+            mainCondition = " where " + mainCondition;
         }
-        return "select ec_client_search.object_id from ec_client_search where ec_client_search.object_id IN (select object_id from ec_mother_details_search " + detailsCondition + ") " + mainCondition + filters;
+
+        return "select ec_client_search.object_id from ec_client_search join ec_mother_details on ec_client_search.object_id =  ec_mother_details.id " + mainCondition + filters;
     }
 
-    public String getCountExecuteQuery(String mainCondition, String filters, String detailsCondition) {
+    public String getCountExecuteQuery(String mainCondition, String filters) {
         if (!filters.isEmpty()) {
-            filters = String.format(" AND ec_client_search.phrase MATCH '%s'", filters);
+            filters = String.format(" AND ec_client_search.phrase MATCH '*%s*'", filters);
         }
-        if (!StringUtils.isBlank(mainCondition)) {
-            mainCondition = " AND " + mainCondition;
+        if(StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)){
+            filters = String.format(" where ec_client_search.phrase MATCH '*%s*'", filters);
         }
 
-        if (!StringUtils.isBlank(detailsCondition)) {
-            detailsCondition = " where " + detailsCondition;
-        } else {
-            detailsCondition = "";
+        if (!StringUtils.isBlank(mainCondition)) {
+            mainCondition = " where " + mainCondition;
         }
-        return "select count(ec_client_search.object_id) from ec_client_search where ec_client_search.object_id IN (select object_id from ec_mother_details_search " + detailsCondition + ") " + mainCondition + filters;
+
+        return "select count(ec_client_search.object_id) from ec_client_search join ec_mother_details on ec_client_search.object_id =  ec_mother_details.id " + mainCondition + filters;
     }
 
     public String[] mainColumns() {
