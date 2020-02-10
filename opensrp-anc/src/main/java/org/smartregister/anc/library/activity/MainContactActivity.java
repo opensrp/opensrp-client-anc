@@ -309,6 +309,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
+    private List<String> getListValues(JSONArray jsonArray) {
+        if (jsonArray != null) {
+            return AncLibrary.getInstance().getGsonInstance()
+                    .fromJson(jsonArray.toString(), new TypeToken<List<String>>() {
+                    }.getType());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
     private boolean getFieldVisibility(JSONObject field) {
         boolean isVisible = true;
         try {
@@ -323,16 +333,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             Timber.e(e, " --> getFieldVisibility");
         }
         return isVisible;
-    }
-
-    private List<String> getListValues(JSONArray jsonArray) {
-        if (jsonArray != null) {
-            return AncLibrary.getInstance().getGsonInstance()
-                    .fromJson(jsonArray.toString(), new TypeToken<List<String>>() {
-                    }.getType());
-        } else {
-            return new ArrayList<>();
-        }
     }
 
     private void updateFieldRequiredCount(JSONObject object, JSONObject fieldObject, boolean isRequiredField) throws JSONException {

@@ -220,7 +220,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         List<Task> taskList = new ArrayList<>();
         try {
             SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            if (StringUtils.isNotBlank(baseEntityId)) {
+            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
                 selectionArgs = new String[]{baseEntityId, "1", contactNo};
             }

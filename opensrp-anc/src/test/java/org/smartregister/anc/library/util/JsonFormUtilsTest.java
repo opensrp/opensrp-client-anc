@@ -274,7 +274,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
 
-        org.smartregister.anc.library.util.JsonFormUtils.saveImage(null, null, "filepath/images/folder/location.jpg");
+        JsonFormUtils.saveImage(null, null, "filepath/images/folder/location.jpg");
         Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
@@ -324,7 +324,8 @@ public class JsonFormUtilsTest {
         PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
-        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
     @Test
