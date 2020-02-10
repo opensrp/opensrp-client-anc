@@ -23,6 +23,22 @@ public class RegisterRepository {
         return "select ec_client_search.object_id from ec_client_search where ec_client_search.object_id IN (select object_id from ec_mother_details_search " + detailsCondition + ") " + mainCondition + filters;
     }
 
+    public String getCountExecuteQuery(String mainCondition, String filters, String detailsCondition) {
+        if (!filters.isEmpty()) {
+            filters = String.format(" AND ec_client_search.phrase MATCH '%s'", filters);
+        }
+        if (!StringUtils.isBlank(mainCondition)) {
+            mainCondition = " AND " + mainCondition;
+        }
+
+        if (!StringUtils.isBlank(detailsCondition)) {
+            detailsCondition = " where " + detailsCondition;
+        } else {
+            detailsCondition = "";
+        }
+        return "select count(ec_client_search.object_id) from ec_client_search where ec_client_search.object_id IN (select object_id from ec_mother_details_search " + detailsCondition + ") " + mainCondition + filters;
+    }
+
     public String[] mainColumns() {
         return new String[]{getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
                 getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,

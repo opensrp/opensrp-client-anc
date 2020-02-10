@@ -225,6 +225,22 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
     }
 
+    @Override
+    public void countExecute() {
+        try {
+            String sql = AncLibrary.getInstance().getRegisterRepository().getCountExecuteQuery(mainCondition, filters, detailsCondition);
+            Timber.i(sql);
+            int totalCount = commonRepository().countSearchIds(sql);
+            clientAdapter.setTotalcount(totalCount);
+            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+
     private String filterAndSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -235,7 +251,6 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 sql = sqb.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
 
                 List<String> ids = commonRepository().findSearchIds(sql);
-                clientAdapter.setTotalcount(ids.size());
                 query = AncLibrary.getInstance().getRegisterRepository().mainRegisterQuery() + " where _id IN (%s)";
 
                 String joinedIds = "'" + StringUtils.join(ids, "','") + "'";

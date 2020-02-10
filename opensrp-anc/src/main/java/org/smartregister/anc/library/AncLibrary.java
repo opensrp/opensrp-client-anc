@@ -89,8 +89,6 @@ public class AncLibrary {
 
         //initialize configs processor
         initializeYamlConfigs();
-
-        setRegisterRepository(new RegisterRepository());
     }
 
     private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, RegisterRepository registerRepository) {
@@ -98,6 +96,7 @@ public class AncLibrary {
         this.subscriberInfoIndex = subscriberInfoIndex;
         this.databaseVersion = dbVersion;
         this.activityConfiguration = activityConfiguration;
+        this.registerRepository = registerRepository;
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
@@ -147,6 +146,12 @@ public class AncLibrary {
     public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         if (instance == null) {
             instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        }
+    }
+
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterRepository registerRepository) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerRepository);
         }
     }
 
@@ -324,6 +329,9 @@ public class AncLibrary {
     }
 
     public RegisterRepository getRegisterRepository() {
+        if (registerRepository == null) {
+            registerRepository = new RegisterRepository();
+        }
         return registerRepository;
     }
 
