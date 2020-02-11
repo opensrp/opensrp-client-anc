@@ -26,7 +26,7 @@ import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.repository.PatientRepositoryHelper;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
-import org.smartregister.anc.library.repository.RegisterRepository;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -63,7 +63,7 @@ public class AncLibrary {
 
     private ECSyncHelper ecSyncHelper;
     private AncRulesEngineHelper ancRulesEngineHelper;
-    private RegisterRepository registerRepository;
+    private RegisterQueryProvider registerQueryProvider;
     private ClientProcessorForJava clientProcessorForJava;
     private JSONObject defaultContactFormGlobals = new JSONObject();
 
@@ -91,12 +91,12 @@ public class AncLibrary {
         initializeYamlConfigs();
     }
 
-    private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, RegisterRepository registerRepository) {
+    private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, RegisterQueryProvider registerQueryProvider) {
         this.context = contextArg;
         this.subscriberInfoIndex = subscriberInfoIndex;
         this.databaseVersion = dbVersion;
         this.activityConfiguration = activityConfiguration;
-        this.registerRepository = registerRepository;
+        this.registerQueryProvider = registerQueryProvider;
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
@@ -105,34 +105,7 @@ public class AncLibrary {
         //initialize configs processor
         initializeYamlConfigs();
 
-        this.registerRepository = registerRepository;
-    }
-
-    public android.content.Context getApplicationContext() {
-        return context.applicationContext();
-    }
-
-    private void setUpEventHandling() {
-        try {
-            EventBusBuilder eventBusBuilder = EventBus.builder()
-                    .addIndex(new ANCEventBusIndex());
-
-            if (subscriberInfoIndex != null) {
-                eventBusBuilder.addIndex(subscriberInfoIndex);
-            }
-
-            eventBusBuilder.installDefaultEventBus();
-        } catch (Exception e) {
-            Timber.e(e, " --> setUpEventHandling");
-        }
-    }
-
-    private void initializeYamlConfigs() {
-        Constructor constructor = new Constructor(YamlConfig.class);
-        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
-        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
+        this.registerQueryProvider = registerQueryProvider;
     }
 
     public static void init(@NonNull Context context, int dbVersion) {
@@ -149,9 +122,9 @@ public class AncLibrary {
         }
     }
 
-    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterRepository registerRepository) {
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
         if (instance == null) {
-            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerRepository);
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider);
         }
     }
 
@@ -179,6 +152,33 @@ public class AncLibrary {
      */
     public static void performMigrations(@NonNull SQLiteDatabase database) {
         PatientRepositoryHelper.performMigrations(database);
+    }
+
+    public android.content.Context getApplicationContext() {
+        return context.applicationContext();
+    }
+
+    private void setUpEventHandling() {
+        try {
+            EventBusBuilder eventBusBuilder = EventBus.builder()
+                    .addIndex(new ANCEventBusIndex());
+
+            if (subscriberInfoIndex != null) {
+                eventBusBuilder.addIndex(subscriberInfoIndex);
+            }
+
+            eventBusBuilder.installDefaultEventBus();
+        } catch (Exception e) {
+            Timber.e(e, " --> setUpEventHandling");
+        }
+    }
+
+    private void initializeYamlConfigs() {
+        Constructor constructor = new Constructor(YamlConfig.class);
+        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
+        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
+        constructor.addTypeDescription(customTypeDescription);
+        yaml = new Yaml(constructor);
     }
 
     public PartialContactRepositoryHelper getPartialContactRepositoryHelper() {
@@ -328,14 +328,14 @@ public class AncLibrary {
         return activityConfiguration;
     }
 
-    public RegisterRepository getRegisterRepository() {
-        if (registerRepository == null) {
-            registerRepository = new RegisterRepository();
+    public RegisterQueryProvider getRegisterQueryProvider() {
+        if (registerQueryProvider == null) {
+            registerQueryProvider = new RegisterQueryProvider();
         }
-        return registerRepository;
+        return registerQueryProvider;
     }
 
-    public void setRegisterRepository(RegisterRepository registerRepository) {
-        this.registerRepository = registerRepository;
+    public void setRegisterQueryProvider(RegisterQueryProvider registerQueryProvider) {
+        this.registerQueryProvider = registerQueryProvider;
     }
 }
