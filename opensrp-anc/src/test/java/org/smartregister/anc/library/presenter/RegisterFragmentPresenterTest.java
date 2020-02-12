@@ -15,6 +15,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
@@ -59,6 +60,9 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testInitializeQueries() {
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+        Mockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
+
         RegisterFragmentPresenter registerFragmentPresenter = (RegisterFragmentPresenter) presenter;
         registerFragmentPresenter.setModel(model);
 
@@ -79,6 +83,8 @@ public class RegisterFragmentPresenterTest extends BaseUnitTest {
         Mockito.verify(view).initializeAdapter(ArgumentMatchers.any((Class<Set<View>>) (Object) Set.class));
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
+
     }
 
     private String countSelect(String tableName, String mainCondition) {
