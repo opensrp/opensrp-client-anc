@@ -60,20 +60,15 @@ public class AncLibrary {
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
-
     private ECSyncHelper ecSyncHelper;
     private AncRulesEngineHelper ancRulesEngineHelper;
     private RegisterQueryProvider registerQueryProvider;
     private ClientProcessorForJava clientProcessorForJava;
     private JSONObject defaultContactFormGlobals = new JSONObject();
-
     private Compressor compressor;
     private Gson gson;
-
     private Yaml yaml;
-
     private SubscriberInfoIndex subscriberInfoIndex;
-
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
 
@@ -89,23 +84,6 @@ public class AncLibrary {
 
         //initialize configs processor
         initializeYamlConfigs();
-    }
-
-    private AncLibrary(@NonNull Context contextArg, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, RegisterQueryProvider registerQueryProvider) {
-        this.context = contextArg;
-        this.subscriberInfoIndex = subscriberInfoIndex;
-        this.databaseVersion = dbVersion;
-        this.activityConfiguration = activityConfiguration;
-        this.registerQueryProvider = registerQueryProvider;
-
-        //Initialize JsonSpec Helper
-        this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
-        setUpEventHandling();
-
-        //initialize configs processor
-        initializeYamlConfigs();
-
-        this.registerQueryProvider = registerQueryProvider;
     }
 
     public static void init(@NonNull Context context, int dbVersion) {
@@ -265,7 +243,6 @@ public class AncLibrary {
     }
 
     public void populateGlobalSettings() {
-
         Setting setting = getCharacteristics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         Setting populationSetting = getCharacteristics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 
