@@ -156,9 +156,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        int nextContact =
-                details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ?
-                        Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
+        int nextContact = details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }

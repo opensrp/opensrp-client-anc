@@ -311,13 +311,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 compressedBitmap.compress(compressFormat, 100, outputStream);
                 // insert into the db
                 ProfileImage profileImage = getProfileImage(providerId, entityId, absoluteFileName);
-                ImageRepository imageRepo = AncLibrary.getInstance().getContext().imageRepository();
-                imageRepo.add(profileImage);
+                ImageRepository imageRepository = AncLibrary.getInstance().getContext().imageRepository();
+                imageRepository.add(profileImage);
             }
 
         } catch (FileNotFoundException e) {
             Timber.e("Failed to save static image to disk");
-        } catch (Exception e) {
+        } catch (IOException e) {
             Timber.e(e, " --> saveImage");
         } finally {
             if (outputStream != null) {
@@ -529,11 +529,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences,
-                                                                           String jsonString, String providerId) {
-
+    public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
         try {
-
             boolean isDeath = false;
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 
@@ -576,27 +573,25 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
 
-            if (metadata != null) {
-                Iterator<?> keys = metadata.keys();
+            Iterator<?> keys = metadata.keys();
 
-                while (keys.hasNext()) {
-                    String key = (String) keys.next();
-                    JSONObject jsonObject = org.smartregister.anc.library.util.JsonFormUtils.getJSONObject(metadata, key);
-                    String value = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.VALUE);
-                    if (StringUtils.isNotBlank(value)) {
-                        String entityVal = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY);
-                        if (entityVal != null) {
-                            if (entityVal.equals(org.smartregister.anc.library.util.JsonFormUtils.CONCEPT)) {
-                                org.smartregister.anc.library.util.JsonFormUtils.addToJSONObject(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.KEY, key);
-                                org.smartregister.anc.library.util.JsonFormUtils.addObservation(event, jsonObject);
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                JSONObject jsonObject = JsonFormUtils.getJSONObject(metadata, key);
+                String value = JsonFormUtils.getString(jsonObject, JsonFormUtils.VALUE);
+                if (StringUtils.isNotBlank(value)) {
+                    String entityVal = JsonFormUtils.getString(jsonObject, JsonFormUtils.OPENMRS_ENTITY);
+                    if (entityVal != null) {
+                        if (entityVal.equals(JsonFormUtils.CONCEPT)) {
+                            JsonFormUtils.addToJSONObject(jsonObject, JsonFormUtils.KEY, key);
+                            JsonFormUtils.addObservation(event, jsonObject);
 
-                            } else if (entityVal.equals(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER)) {
-                                String entityIdVal = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY_ID);
-                                if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
-                                    Date eDate = org.smartregister.anc.library.util.JsonFormUtils.formatDate(value, false);
-                                    if (eDate != null) {
-                                        event.setEventDate(eDate);
-                                    }
+                        } else if (entityVal.equals(JsonFormUtils.ENCOUNTER)) {
+                            String entityIdVal = JsonFormUtils.getString(jsonObject, JsonFormUtils.OPENMRS_ENTITY_ID);
+                            if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
+                                Date eDate = JsonFormUtils.formatDate(value, false);
+                                if (eDate != null) {
+                                    event.setEventDate(eDate);
                                 }
                             }
                         }
@@ -614,7 +609,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
 
             return Triple.of(isDeath, event, updateChildDetailsEvent);
-
         } catch (Exception e) {
             Timber.e(e, "JsonFormUtils --> saveRemovedFromANCRegister");
         }
