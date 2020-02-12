@@ -72,6 +72,12 @@ public class AncLibrary {
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
 
+
+    private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
+        this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        this.registerQueryProvider = registerQueryProvider;
+    }
+
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = context;
         this.subscriberInfoIndex = subscriberInfoIndex;
@@ -85,6 +91,7 @@ public class AncLibrary {
         //initialize configs processor
         initializeYamlConfigs();
     }
+
 
     public static void init(@NonNull Context context, int dbVersion) {
         init(context, dbVersion, new ActivityConfiguration());
