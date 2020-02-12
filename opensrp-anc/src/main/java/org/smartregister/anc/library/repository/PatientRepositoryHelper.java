@@ -150,7 +150,6 @@ public class PatientRepositoryHelper extends BaseRepository {
         ContentValues contentValues = new ContentValues();
         if (edd != null) {
             contentValues.put(DBConstantsUtils.KeyUtils.EDD, edd);
-            //contentValues.put(DBConstants.KEY.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.EDD);
         }
