@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.google.gms:google-services:4.3.3'
     }
 }
@@ -20,7 +20,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 2
-ext.versionPatch = 11
+ext.versionPatch = 12
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -111,7 +111,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
             resValue "string", 'opensrp_url', '"https://anc-preview.smartregister.org/opensrp/"'
@@ -221,7 +221,7 @@ tasks.withType(Test) {
 dependencies {
     def powerMockVersion = '2.0.4'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:1.7.13-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.17-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'

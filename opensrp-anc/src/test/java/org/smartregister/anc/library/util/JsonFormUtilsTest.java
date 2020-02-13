@@ -39,6 +39,8 @@ import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -223,6 +225,107 @@ public class JsonFormUtilsTest {
         org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
 
         Mockito.verify(imageRepository).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereFileExistsISFalse() throws Exception {
+        String PROVIDER_ID = "dummy-provider-id";
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(bitmap);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(false);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
+
+        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereProviderIdAndEntityIdIsNull() throws Exception {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(null);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(true);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
+
+        JsonFormUtils.saveImage(null, null, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereFileNotFoundIsThrown() throws Exception {
+        String PROVIDER_ID = "dummy-provider-id";
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(bitmap);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(true);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
+
+        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereCompressToBitmapException() throws Exception {
+        String PROVIDER_ID = "dummy-provider-id";
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenThrow(IOException.class);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(true);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
+        JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
     @Test
