@@ -317,14 +317,14 @@ actions:
 name: step6_pe_risk_aspirin
 description: pe_risk_aspirin
 priority: 1
-condition: "global_preeclampsia_risk == 1 && global_pop_low_calcium == false"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && global_preeclampsia_risk == 1 && global_pop_low_calcium == false"
 actions:
   - "isRelevant = true"
 ---
 name: step6_pe_risk_aspirin_calcium
 description: pe_risk_aspirin_calcium
 priority: 1
-condition: "global_preeclampsia_risk == 1 && global_pop_low_calcium == true"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && global_preeclampsia_risk == 1 && global_pop_low_calcium == true"
 actions:
   - "isRelevant = true"
 ---
@@ -374,6 +374,13 @@ name: step7_gbs_agent_counsel
 description: gbs_agent_counsel
 priority: 1
 condition: "global_urine_culture != '' && global_urine_culture == 'positive_gbs'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_breastfeed_counsel
+description: breastfeed_counsel
+priority: 1
+condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
 actions:
   - "isRelevant = true"
 ---
