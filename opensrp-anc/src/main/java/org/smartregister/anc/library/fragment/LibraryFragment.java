@@ -46,6 +46,7 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
     }
 
     public void onBackPressed() {
+        ((BaseHomeRegisterActivity) getActivity()).setLibrary(false);
         ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
     }
 

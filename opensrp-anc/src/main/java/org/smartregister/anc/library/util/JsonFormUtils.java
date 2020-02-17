@@ -915,4 +915,35 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         public String title = "";
         public String detail = "";
     }
+
+    /**
+     * Gets an expansion panel {@link JSONObject} value then check whether the test/tasks was `ordered` or `not done`.
+     * If any either of this is selected then we mark it as not complete.
+     *
+     * @param field {@link JSONObject}
+     * @return isComplete {@link Boolean}
+     */
+    public static boolean checkIfTaskIsComplete(JSONObject field) {
+        boolean isComplete = true;
+        try {
+            if (field != null && field.has(JsonFormConstants.VALUE)) {
+                JSONArray value = field.getJSONArray(JsonFormConstants.VALUE);
+                if (value.length() > 1) {
+                    JSONObject valueField = value.getJSONObject(0);
+                    if (valueField != null && valueField.has(JsonFormConstants.VALUES)) {
+                        JSONArray values = valueField.getJSONArray(JsonFormConstants.VALUES);
+                        if (values.length() > 0) {
+                            String selectedValue = values.getString(0);
+                            if (selectedValue.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED) || selectedValue.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
+                                isComplete = false;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> checkIfTaskIsComplete");
+        }
+        return isComplete;
+    }
 }

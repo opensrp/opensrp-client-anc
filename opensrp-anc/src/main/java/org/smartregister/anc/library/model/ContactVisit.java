@@ -252,6 +252,7 @@ public class ContactVisit {
         task.setKey(key);
         task.setValue(String.valueOf(field));
         task.setUpdated(false);
+        task.setComplete(org.smartregister.anc.library.util.JsonFormUtils.checkIfTaskIsComplete(field));
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
     }

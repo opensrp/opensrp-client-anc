@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
@@ -23,6 +26,7 @@ import org.smartregister.anc.library.adapter.ContactAdapter;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -30,6 +34,10 @@ import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import timber.log.Timber;
 
 public abstract class BaseContactActivity extends SecuredActivity {
     protected ContactAdapter contactAdapter;
@@ -84,23 +92,86 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     private void formStartActions(JSONObject form, Contact contact, Intent intent) {
-        //partial contact exists?
+        try {
+            intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getUpdatedTestForm(form, contact, getPartialContact(contact)));
+            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
+                    getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
+            intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
+            startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        } catch (JSONException e) {
+            Timber.e(e, " --> formStartActions");
+        }
+    }
+
+    @NotNull
+    private PartialContact getPartialContact(Contact contact) {
         PartialContact partialContactRequest = new PartialContact();
         partialContactRequest.setBaseEntityId(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         partialContactRequest.setContactNo(contact.getContactNumber());
         partialContactRequest.setType(contact.getFormName());
+        return partialContactRequest;
+    }
 
-        intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getFormJson(partialContactRequest, form));
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
-                getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
-        intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    private String getUpdatedTestForm(JSONObject form, Contact contact, PartialContact partialContactRequest) throws JSONException {
+        if (ConstantsUtils.JsonFormUtils.ANC_TEST.equals(contact.getFormName()) && contact.getContactNumber() > 1) {
+            List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), String.valueOf(contact.getContactNumber() - 1));
+            form = removeDueTests(new JSONObject(getFormJson(partialContactRequest, form)), currentTasks);
+        }
+        return String.valueOf(form);
+    }
+
+
+    private JSONObject removeDueTests(JSONObject formObject, List<Task> taskList) {
+        JSONObject form = new JSONObject();
+        try {
+            Map<String, JSONObject> keys = taskHashMap(taskList);
+            if (formObject != null && taskList != null && taskList.size() > 0 && formObject.has(JsonFormConstants.STEP1)) {
+                JSONObject dueStep = formObject.getJSONObject(JsonFormConstants.STEP1);
+                if (dueStep.has(JsonFormConstants.FIELDS)) {
+                    JSONArray fields = dueStep.getJSONArray(JsonFormConstants.FIELDS);
+                    for (int i = 0; i < fields.length(); i++) {
+                        JSONObject field = fields.getJSONObject(i);
+                        if (field != null && field.has(JsonFormConstants.KEY)) {
+                            String fieldKey = field.getString(JsonFormConstants.KEY);
+                            if (keys.containsKey(fieldKey) && JsonFormUtils.checkIfTaskIsComplete(keys.get(fieldKey))) {
+                                fields.remove(i);
+                            }
+                        }
+                    }
+
+                    dueStep.put(JsonFormConstants.FIELDS, fields);
+                    form = formObject;
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> removeDueTests");
+        }
+
+        return form;
     }
 
     protected abstract String getFormJson(PartialContact partialContactRequest, JSONObject jsonForm);
+
+    private Map<String, JSONObject> taskHashMap(List<Task> taskList) {
+        Map<String, JSONObject> taskMap = new HashMap<>();
+        try {
+            if (taskList != null && taskList.size() > 0) {
+                for (int i = 0; i < taskList.size(); i++) {
+                    Task task = taskList.get(i);
+                    String taskKey = task.getKey();
+                    JSONObject taskValue = new JSONObject(task.getValue());
+                    taskMap.put(taskKey, taskValue);
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> taskHashMap");
+        }
+
+        return taskMap;
+    }
 
     private void displayContactSaveDialog() {
         LayoutInflater inflater = getLayoutInflater();

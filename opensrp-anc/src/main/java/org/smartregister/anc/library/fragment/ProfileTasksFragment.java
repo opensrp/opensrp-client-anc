@@ -236,6 +236,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
                 newValue.put(JsonFormConstants.VALUE, values);
                 newTask.setValue(String.valueOf(newValue));
                 newTask.setUpdated(true);
+                newTask.setComplete(JsonFormUtils.checkIfTaskIsComplete(newValue));
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateTaskValue");

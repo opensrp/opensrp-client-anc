@@ -6,7 +6,6 @@ import android.util.Log;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
@@ -15,15 +14,9 @@ import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.interactor.ContactInteractor;
 import org.smartregister.anc.library.model.ContactModel;
-import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import timber.log.Timber;
 
 public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallback {
 
@@ -137,11 +130,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                 }
 
                 if (form != null) {
-                    if (ConstantsUtils.JsonFormUtils.ANC_TEST.equals(contact.getFormName()) && contact.getContactNumber() > 1) {
-                        List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(baseEntityId, String.valueOf(contact.getContactNumber() - 1));
-                        removeDueTests(form, currentTasks);
-                    }
-
                     form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
                     getView().startFormActivity(form, contact);
                 }
@@ -153,48 +141,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             getView().displayToast(R.string.error_unable_to_start_form);
         }
     }
-
-    private void removeDueTests(JSONObject formObject, List<Task> taskList) {
-        try {
-            Map<String, JSONObject> keys = taskHashMap(taskList);
-            if (formObject != null && taskList != null && taskList.size() > 0 && formObject.has(JsonFormConstants.STEP1)) {
-                JSONObject dueStep = formObject.getJSONObject(JsonFormConstants.STEP1);
-                if (dueStep.has(JsonFormConstants.FIELDS)) {
-                    JSONArray fields = dueStep.getJSONArray(JsonFormConstants.FIELDS);
-                    for (int i = 0; i < fields.length(); i++) {
-                        JSONObject field = fields.getJSONObject(i);
-                        if (field != null && field.has(JsonFormConstants.KEY)) {
-                            String fieldKey = field.getString(JsonFormConstants.KEY);
-                            if (keys.containsKey(fieldKey)) {
-                                fields.remove(i);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> removeDueTests");
-        }
-    }
-
-    private Map<String, JSONObject> taskHashMap(List<Task> taskList) {
-        Map<String, JSONObject> taskMap = new HashMap<>();
-        try {
-            if (taskList != null && taskList.size() > 0) {
-                for (int i = 0; i < taskList.size(); i++) {
-                    Task task = taskList.get(i);
-                    String taskKey = task.getKey();
-                    JSONObject taskValue = new JSONObject(task.getValue());
-                    taskMap.put(taskKey, taskValue);
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> taskHashMap");
-        }
-
-        return taskMap;
-    }
-
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
