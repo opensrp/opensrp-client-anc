@@ -185,7 +185,7 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
     }
 
     private Task getTask() {
-        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true);
+        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true, true);
         task.setId(Long.valueOf(1));
         return task;
     }
