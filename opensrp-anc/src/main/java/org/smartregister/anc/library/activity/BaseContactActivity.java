@@ -93,7 +93,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
     private void formStartActions(JSONObject form, Contact contact, Intent intent) {
         try {
-            intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getUpdatedTestForm(form, contact, getPartialContact(contact)));
+            intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getUpdatedForm(form, contact, getPartialContact(contact)));
             intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
             intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
                     getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
@@ -106,6 +106,17 @@ public abstract class BaseContactActivity extends SecuredActivity {
         }
     }
 
+    private String getUpdatedForm(JSONObject form, Contact contact, PartialContact partialContactRequest) throws JSONException {
+        JSONObject jsonForm;
+        if (ConstantsUtils.JsonFormUtils.ANC_TEST.equals(contact.getFormName()) && contact.getContactNumber() > 1) {
+            List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), String.valueOf(contact.getContactNumber() - 1));
+            jsonForm = removeDueTests(new JSONObject(getFormJson(partialContactRequest, form)), currentTasks);
+        } else {
+            jsonForm = form;
+        }
+        return String.valueOf(jsonForm);
+    }
+
     @NotNull
     private PartialContact getPartialContact(Contact contact) {
         PartialContact partialContactRequest = new PartialContact();
@@ -114,16 +125,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
         partialContactRequest.setType(contact.getFormName());
         return partialContactRequest;
     }
-
-    private String getUpdatedTestForm(JSONObject form, Contact contact, PartialContact partialContactRequest) throws JSONException {
-        JSONObject jsonForm = new JSONObject();
-        if (ConstantsUtils.JsonFormUtils.ANC_TEST.equals(contact.getFormName()) && contact.getContactNumber() > 1) {
-            List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), String.valueOf(contact.getContactNumber() - 1));
-            jsonForm = removeDueTests(new JSONObject(getFormJson(partialContactRequest, form)), currentTasks);
-        }
-        return String.valueOf(jsonForm);
-    }
-
 
     private JSONObject removeDueTests(JSONObject formObject, List<Task> taskList) {
         JSONObject form = new JSONObject();
