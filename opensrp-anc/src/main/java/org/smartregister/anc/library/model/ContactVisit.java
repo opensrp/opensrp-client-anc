@@ -282,7 +282,6 @@ public class ContactVisit {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
                 if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
                     Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
                     requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
@@ -352,14 +351,10 @@ public class ContactVisit {
      */
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
-            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
-                    object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)
-                            .toLowerCase().replace(" ", "_");
-            savePreviousContactItem(baseEntityId, new JSONObject()
-                    .put(JsonFormConstants.KEY, key)
+            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
+            savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
                     .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
                     .put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo));
-
         }
     }
 

@@ -112,7 +112,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), String.valueOf(contact.getContactNumber() - 1));
             jsonForm = removeDueTests(new JSONObject(getFormJson(partialContactRequest, form)), currentTasks);
         } else {
-            jsonForm = form;
+            jsonForm = new JSONObject(getFormJson(partialContactRequest, form));
         }
         return String.valueOf(jsonForm);
     }
@@ -147,6 +147,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
                     dueStep.put(JsonFormConstants.FIELDS, fields);
                     form = formObject;
                 }
+            } else {
+                form = formObject;
             }
         } catch (JSONException e) {
             Timber.e(e, " --> removeDueTests");

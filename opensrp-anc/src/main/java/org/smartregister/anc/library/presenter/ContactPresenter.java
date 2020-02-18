@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ContactContract;
@@ -122,7 +123,8 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             Contact contact = (Contact) tag;
             getView().loadGlobals(contact);
             try {
-                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, locationId);
                 if (contact.getGlobals() != null) {
                     for (Map.Entry<String, String> entry : contact.getGlobals().entrySet()) {
                         defaultGlobals.put(entry.getKey(), entry.getValue());

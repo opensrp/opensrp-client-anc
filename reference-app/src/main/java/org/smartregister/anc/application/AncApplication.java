@@ -54,7 +54,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         //Initialize Modules
         CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-        AncLibrary.init(context,BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);
 
         SyncStatusBroadcastReceiver.init(this);
