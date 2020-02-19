@@ -231,7 +231,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private Task updateTaskValue(JSONArray values) {
         Task newTask = getCurrentTask();
         try {
-            if (values != null && values.length() > 0) {
+            if (values != null && values.length() > 0 && newTask != null) {
                 JSONObject newValue = new JSONObject(newTask.getValue());
                 newValue.put(JsonFormConstants.VALUE, values);
                 newTask.setValue(String.valueOf(newValue));

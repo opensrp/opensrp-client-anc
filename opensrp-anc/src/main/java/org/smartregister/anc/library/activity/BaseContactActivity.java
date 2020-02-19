@@ -107,13 +107,11 @@ public abstract class BaseContactActivity extends SecuredActivity {
     }
 
     private String getUpdatedForm(JSONObject form, Contact contact, PartialContact partialContactRequest) throws JSONException {
-        JSONObject jsonForm;
+        JSONObject jsonForm = new JSONObject(getFormJson(partialContactRequest, form));
         if (ConstantsUtils.JsonFormUtils.ANC_TEST.equals(contact.getFormName()) && contact.getContactNumber() > 1) {
             List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), String.valueOf(contact.getContactNumber() - 1));
-            jsonForm = removeDueTests(new JSONObject(getFormJson(partialContactRequest, form)), currentTasks);
-        } else {
-            jsonForm = new JSONObject(getFormJson(partialContactRequest, form));
-        }
+            jsonForm = removeDueTests(jsonForm, currentTasks);
+        } 
         return String.valueOf(jsonForm);
     }
 
