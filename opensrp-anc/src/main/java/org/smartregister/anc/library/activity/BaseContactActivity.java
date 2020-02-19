@@ -111,7 +111,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
         if (ConstantsUtils.JsonFormUtils.ANC_TEST.equals(contact.getFormName()) && contact.getContactNumber() > 1) {
             List<Task> currentTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getClosedTasks(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), String.valueOf(contact.getContactNumber() - 1));
             jsonForm = removeDueTests(jsonForm, currentTasks);
-        } 
+        }
         return String.valueOf(jsonForm);
     }
 
