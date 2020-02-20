@@ -2,7 +2,6 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -10,7 +9,6 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
@@ -18,14 +16,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,12 +29,6 @@ import timber.log.Timber;
 public class MainContactActivityTest extends BaseActivityUnitTest {
     private ActivityController<MainContactActivity> activityController;
     private MainContactActivity activity;
-
-    @Mock
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
-
-    @Mock
-    private AncLibrary instance;
 
     @Before
     @Override
