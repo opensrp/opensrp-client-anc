@@ -275,8 +275,8 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
         ProfileTasksFragment profileTasksFragmentSpy = Mockito.spy(profileTasksFragment);
         profileTasksFragmentSpy.setCurrentTask(getTask());
 
-        profileTasksFragmentSpy.onActivityResult(1213,1233, testIntent);
-        Mockito.verify(profileTasksFragmentSpy,Mockito.times(1)).getPresenter();
+        profileTasksFragmentSpy.onActivityResult(1213, 1233, testIntent);
+        Mockito.verify(profileTasksFragmentSpy, Mockito.times(1)).getPresenter();
     }
 
     @Test
@@ -302,8 +302,8 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
         ProfileTasksFragment profileTasksFragmentSpy = Mockito.spy(profileTasksFragment);
         profileTasksFragmentSpy.setCurrentTask(getTask());
 
-        profileTasksFragmentSpy.startTaskForm(new JSONObject(taskForm), getTask() );
+        profileTasksFragmentSpy.startTaskForm(new JSONObject(taskForm), getTask());
         String taskKey = profileTasksFragmentSpy.getCurrentTask().getKey();
-        Assert.assertEquals(taskKey,"myTask");
+        Assert.assertEquals(taskKey, "myTask");
     }
 }

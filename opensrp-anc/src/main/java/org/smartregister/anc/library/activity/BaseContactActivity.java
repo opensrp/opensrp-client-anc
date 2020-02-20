@@ -124,6 +124,8 @@ public abstract class BaseContactActivity extends SecuredActivity {
         return partialContactRequest;
     }
 
+    protected abstract String getFormJson(PartialContact partialContactRequest, JSONObject jsonForm);
+
     private JSONObject removeDueTests(JSONObject formObject, List<Task> taskList) {
         JSONObject form = new JSONObject();
         try {
@@ -154,8 +156,6 @@ public abstract class BaseContactActivity extends SecuredActivity {
 
         return form;
     }
-
-    protected abstract String getFormJson(PartialContact partialContactRequest, JSONObject jsonForm);
 
     private Map<String, JSONObject> taskHashMap(List<Task> taskList) {
         Map<String, JSONObject> taskMap = new HashMap<>();

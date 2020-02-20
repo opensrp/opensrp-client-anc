@@ -236,10 +236,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     }
 
-    public List<PartialContact> getPartialContacts() {
-        return AncLibrary.getInstance().getPartialContactRepositoryHelper().getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
-    }
-
     public Iterable<Object> readYaml(String filename) throws IOException {
         InputStreamReader inputStreamReader =
                 new InputStreamReader(this.getAssets().open((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename)));
@@ -278,6 +274,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         PreviousContact previousContact = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContact(request);
         return previousContact != null ? previousContact.getValue() : null;
+    }
+
+    public List<PartialContact> getPartialContacts() {
+        return AncLibrary.getInstance().getPartialContactRepositoryHelper().getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
     }
 
     private void processRequiredStepsField(JSONObject object) throws Exception {
