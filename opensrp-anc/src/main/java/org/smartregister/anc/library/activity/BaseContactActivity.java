@@ -222,20 +222,27 @@ public abstract class BaseContactActivity extends SecuredActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
 
-        saveButton.setOnClickListener(v -> {
-            dialog.dismiss();
-            presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
-            goToMainRegister();
-        });
+        onSave(saveButton, dialog);
+        onCancel(closeButton, cancel, dialog);
 
+        dialog.show();
+    }
+
+    private void onCancel(Button closeButton, Button cancel, AlertDialog dialog) {
         cancel.setOnClickListener(v -> dialog.dismiss());
         closeButton.setOnClickListener(v -> {
             dialog.dismiss();
             presenter.deleteDraft(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
             goToMainRegister();
         });
+    }
 
-        dialog.show();
+    private void onSave(Button saveButton, AlertDialog dialog) {
+        saveButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            presenter.saveFinalJson(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+            goToMainRegister();
+        });
     }
 
     public void goToMainRegister() {
