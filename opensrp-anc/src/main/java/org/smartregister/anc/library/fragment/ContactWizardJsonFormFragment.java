@@ -2,7 +2,9 @@ package org.smartregister.anc.library.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.view.Gravity;
@@ -22,13 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.JsonWizardFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.presenter.ContactJsonFormFragmentPresenter;
+import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -42,15 +45,15 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
-public class ContactJsonFormFragment extends JsonWizardFormFragment {
-    public static final String TAG = ContactJsonFormFragment.class.getName();
+public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
+    public static final String TAG = ContactWizardJsonFormFragment.class.getName();
     private static final int MENU_NAVIGATION = 100001;
     private boolean savePartial = false;
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
 
     public static JsonWizardFormFragment getFormFragment(String stepName) {
-        ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
+        ContactWizardJsonFormFragment jsonFormFragment = new ContactWizardJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString(DBConstantsUtils.KeyUtils.STEPNAME, stepName);
         jsonFormFragment.setArguments(bundle);
@@ -142,6 +145,14 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (!getJsonApi().isPreviousPressed()) {
+            skipStepsOnNextPressed();
+        } else {
+            skipStepOnPreviousPressed();
+        }
+        if (((ContactJsonFormActivity) getActivity()).getProgressDialog() != null && ((ContactJsonFormActivity) getActivity()).getProgressDialog().isShowing()) {
+            ((ContactJsonFormActivity) getActivity()).getProgressDialog().dismiss();
+        }
     }
 
     @Override
@@ -169,14 +180,19 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         return false;
     }
 
+    /*@Override
+    public void transactThis(JsonFormFragment next) {
+        new NextProgressDialogTask(getActivity(), next).execute();
+    }*/
+
     @Override
     protected ContactJsonFormFragmentViewState createViewState() {
         return new ContactJsonFormFragmentViewState();
     }
 
     @Override
-    protected ContactJsonFormFragmentPresenter createPresenter() {
-        return new ContactJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
+    protected ContactWizardJsonFormFragmentPresenter createPresenter() {
+        return new ContactWizardJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
     }
 
     @Override
@@ -317,6 +333,15 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
+    @Override
+    public void showDialog() {
+        ((ContactJsonFormActivity) getActivity()).setProgressDialog(new ProgressDialog(getContext()));
+        ((ContactJsonFormActivity) getActivity()).getProgressDialog().setCancelable(false);
+        ((ContactJsonFormActivity) getActivity()).getProgressDialog().setTitle(getContext().getString(com.vijay.jsonwizard.R.string.loading));
+        ((ContactJsonFormActivity) getActivity()).getProgressDialog().setMessage(getContext().getString(com.vijay.jsonwizard.R.string.loading_form_message));
+        ((ContactJsonFormActivity) getActivity()).getProgressDialog().show();
+    }
+
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -324,17 +349,22 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
-                    next();
+                    new Handler().post(() -> {
+                        showDialog();
+                        next();
+                    });
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
-                        next();
+                        new Handler().post(() -> {
+                            showDialog();
+                            next();
+                        });
                     } else {
                         savePartial = true;
                         save();
                     }
                 }
-
             } else if (view.getId() == com.vijay.jsonwizard.R.id.previous ||
                     view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
