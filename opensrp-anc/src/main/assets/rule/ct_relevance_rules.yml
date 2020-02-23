@@ -443,14 +443,14 @@ actions:
 name: step10_iptp_sp2
 description: iptp_sp2
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done')"
+condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp3
 description: iptp_sp3
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done')"
+condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
