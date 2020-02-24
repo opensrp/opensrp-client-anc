@@ -267,6 +267,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
         if (isLibrary()) {
             switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_library);
         }
     }
 
