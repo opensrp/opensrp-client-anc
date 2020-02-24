@@ -36,9 +36,9 @@ script:
 - chmod 755 gradlew
 - ls -la
 - travis_wait ./gradlew clean --stacktrace
-- travis_wait ./gradlew jacocoTestReport --stacktrace
-- travis_wait ./gradlew jacocoFullReport --stacktrace
-- travis_wait ./gradlew coveralls --stacktrace
+- travis_wait 40 ./gradlew jacocoTestReport --stacktrace
+- travis_wait 40 ./gradlew jacocoFullReport --stacktrace
+- travis_wait 40 ./gradlew coveralls --stacktrace
 - travis_wait ./gradlew javadoc
 notifications:
   slack:
