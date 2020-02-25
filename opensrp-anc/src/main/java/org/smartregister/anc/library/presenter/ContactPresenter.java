@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ContactContract;
@@ -115,24 +116,25 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
     @Override
     public void startForm(Object tag) {
-
         try {
-            if (tag == null || !(tag instanceof Contact)) {
+            if (!(tag instanceof Contact) && getView() == null) {
                 return;
             }
-
             Contact contact = (Contact) tag;
             getView().loadGlobals(contact);
             try {
-                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, null);
+                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+                JSONObject form = model.getFormAsJson(contact.getFormName(), baseEntityId, locationId);
                 if (contact.getGlobals() != null) {
                     for (Map.Entry<String, String> entry : contact.getGlobals().entrySet()) {
                         defaultGlobals.put(entry.getKey(), entry.getValue());
                     }
                 }
 
-                form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
-                getView().startFormActivity(form, contact);
+                if (form != null) {
+                    form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
+                    getView().startFormActivity(form, contact);
+                }
             } catch (JSONException e) {
                 Log.e(TAG, Log.getStackTraceString(e));
             }
@@ -141,7 +143,6 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
             getView().displayToast(R.string.error_unable_to_start_form);
         }
     }
-
 
     @Override
     public void onDestroy(boolean isChangingConfiguration) {

@@ -102,7 +102,6 @@ public class ContactInteractorTest extends BaseUnitTest {
 
     @Test
     public void testFetchWomanDetails() {
-
         String baseEntityId = UUID.randomUUID().toString();
         ContactContract.InteractorCallback callBack = Mockito.mock(ContactContract.InteractorCallback.class);
 
@@ -120,15 +119,10 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
 
         PowerMockito.mockStatic(PatientRepositoryHelper.class);
-
-        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId))
-                .thenReturn(details);
-
+        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId)).thenReturn(details);
 
         interactor.fetchWomanDetails(baseEntityId, callBack);
-
         Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onWomanDetailsFetched(detailsArgumentCaptor.capture());
-
         Assert.assertEquals(details, detailsArgumentCaptor.getValue());
     }
 
