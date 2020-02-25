@@ -220,17 +220,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         JSONObject object;
         List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
+        List<PartialContact> partialContacts = getPartialContacts();
 
-        List<PartialContact> partialContacts = AncLibrary.getInstance().getPartialContactRepositoryHelper()
-                .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
-
-        for (PartialContact partialContact : partialContacts) {
-            if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
-                object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
-                        partialContact.getFormJson());
-                processRequiredStepsField(object);
-                if (object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
-                    partialForms.remove(eventToFileMap.get(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)));
+        if (partialContacts != null && partialContacts.size() > 0) {
+            for (PartialContact partialContact : partialContacts) {
+                if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
+                    object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
+                    processRequiredStepsField(object);
+                    if (object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
+                        partialForms.remove(eventToFileMap.get(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)));
+                    }
                 }
             }
         }
@@ -275,6 +274,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         PreviousContact previousContact = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContact(request);
         return previousContact != null ? previousContact.getValue() : null;
+    }
+
+    public List<PartialContact> getPartialContacts() {
+        return AncLibrary.getInstance().getPartialContactRepositoryHelper().getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
     }
 
     private void processRequiredStepsField(JSONObject object) throws Exception {
