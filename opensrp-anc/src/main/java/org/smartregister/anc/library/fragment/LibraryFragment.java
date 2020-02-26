@@ -41,13 +41,7 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
 
     private void setUpViews(View rootLayout) {
         mToolbar = rootLayout.findViewById(R.id.library_toolbar);
-        mToolbar.findViewById(R.id.close_library).setOnClickListener(view -> onBackPressed());
         contentLayout = rootLayout.findViewById(R.id.layout_attach_recycler_view);
-    }
-
-    public void onBackPressed() {
-        ((BaseHomeRegisterActivity) getActivity()).setLibrary(false);
-        ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
     }
 
     @Override
