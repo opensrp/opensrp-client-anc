@@ -7,13 +7,6 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
-env:
-  matrix:
-  - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-  global:
-  - MALLOC_ARENA_MAX=2
-  - ADB_INSTALL_TIMEOUT=20
-  - secure: RVcamiw0770huKN9Ih2Cg0lwwzdJvSwsWW90jVx0L1BZ90eD2mEzOu4yiaWc8eqYCeO71ghcegqhFqK6jzossJmMvTsDYorevTyCcpp+F/rvZyyP9BMIjU3I2+qZ1sgBiAnDb54fyEIZGig6QLo76hmTJYhJFuRlxgDAn4DPf9QLJInyaajEzCpcLnojfrs5/BaBHy9DukrpSvyzNTktzAhkfnd1e362v6SFMc5ckFNPA/48klBp7ceXaRWuS2aP+dcKxKbUAG77k6vOQ21tnUjXWSrBuV8K37+UQZmA7HnwMeBRm/hYYfC8VaxPg3JjTGfQSZXE+YOnp29Or2cIaixcZhGNYXvyy8xeJwQbowFnAKSL4P7JrBDUKXVxs1V0OkJ+cGa5FsvDNuhlcKYTMR1utoqR8LuKv4vC4/0G+RLltmuAQ/epPqHS1IgeuEq9J66N6schBIY4QcihdlpBCeRCnfAN5rCosKfywYhI5KshWIUFwutVcrcbpSN8pQ6QcSupzzjOP8hwTjh3moxaxMoKpkmhaU2RUalUpcm7ACq5J1GqcAEzXQxeU/H94in9TAys/weHMyskg2x4SPQ2Pgfm+sHcpssTRqv3UiSRs6voewQf6YIeT3D0TJVVqPiqxcVFWIGoNxqYrvu9J6Gzdyi8PJxWP1t8ToaeDFCDH1s=
 android:
   components:
   - tools
@@ -25,11 +18,6 @@ android:
   - extra-google-m2repository
   - extra-android-m2repository
   - sys-img-armeabi-v7a-android-22
-before_script:
-- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-- emulator -avd test -no-skin -no-audio -no-window &
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
 script:
 - echo "Travis branch is $TRAVIS_BRANCH"
 - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"

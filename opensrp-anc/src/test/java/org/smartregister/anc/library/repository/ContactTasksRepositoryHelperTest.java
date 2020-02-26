@@ -290,7 +290,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             }
         });
 
-        Assert.assertEquals(1, contactTasksRepositoryHelper.getClosedTasks(DUMMY_BASE_ENTITY_ID, "2").size());
+        Assert.assertEquals(1, contactTasksRepositoryHelper.getClosedTasks(DUMMY_BASE_ENTITY_ID).size());
     }
 
     @Test
@@ -308,7 +308,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks(null, null).size());
+        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks(null).size());
     }
 
     @Test
@@ -326,7 +326,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks("", "").size());
+        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks("").size());
     }
 
     @Test

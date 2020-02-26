@@ -164,7 +164,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     private void createTasksPartialContainer(String baseEntityId, Context context, int contactNo) {
         try {
             if (contactNo > 0) {
-                List<Task> doneTasks = getContactTasksRepositoryHelper().getClosedTasks(baseEntityId, String.valueOf(contactNo - 1));
+                List<Task> doneTasks = getContactTasksRepositoryHelper().getClosedTasks(baseEntityId);
                 if (doneTasks != null && doneTasks.size() > 0) {
                     JSONArray fields = createFieldsArray(doneTasks);
 
