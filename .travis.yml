@@ -17,32 +17,26 @@ env:
 android:
   components:
   - tools
-  - build-tools-28.0.3
   - build-tools-29.0.2
-  - android-22
-  - android-28
   - android-29
-  - extra-google-m2repository
-  - extra-android-m2repository
-  - sys-img-armeabi-v7a-android-22
-before_script:
-- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-- emulator -avd test -no-skin -no-audio -no-window &
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
+
 script:
-- echo "Travis branch is $TRAVIS_BRANCH"
-- echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
-- chmod 755 gradlew
-- ls -la
-- travis_wait ./gradlew clean --stacktrace
-- travis_wait 40 ./gradlew jacocoTestReport --stacktrace
-- travis_wait 40 ./gradlew jacocoFullReport --stacktrace
-- travis_wait 40 ./gradlew coveralls --stacktrace
-- travis_wait ./gradlew javadoc
+  - echo "Travis branch is $TRAVIS_BRANCH"
+  - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
+  - chmod 755 gradlew
+  - ls -la
+  # jacocoTestReport is supposed to run both local and instrumented tests on all the modules
+  # Gradle issue running composite tasks in order https://github.com/gradle/gradle/issues/3300
+  - travis_wait ./gradlew clean --stacktrace
+  - travis_wait ./gradlew build --stacktrace
+  - travis_wait ./gradlew :opensrp-opd:jacocoTestReport --stacktrace
+  - travis_wait ./gradlew :opensrp-opd:coveralls
+  - travis_wait ./gradlew javadoc
+
 notifications:
   slack:
     secure: fAiZ4yA7DM6nUKh7nqsCTqZBb03VEAvi5NcRu5mNh5coNn/50XNeZl+qpv7Dw70Ef85Y/k68uc6KwTGVqPXEmVq9Hk3e7lqpBNN8rufvgCYDDGPmywBmU5BhSeykKo0Ee7llM3mRR/EipjIWw1+YvMcS3hCoygf/UlMDDhG0Jo0=
+
 deploy:
   provider: pages
   skip_cleanup: true
