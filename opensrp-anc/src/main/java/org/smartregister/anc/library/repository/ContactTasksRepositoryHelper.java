@@ -29,6 +29,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String IS_UPDATED = "is_updated";
+    public static final String IS_COMPLETE = "is_complete";
     public static final String CREATED_AT = "created_at";
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
             + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
@@ -37,6 +38,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
             + KEY + "  VARCHAR, "
             + VALUE + "  VARCHAR NOT NULL, "
             + IS_UPDATED + "  INTEGER NOT NULL, "
+            + IS_COMPLETE + "  INTEGER DEFAULT 1 NOT NULL, "
             + CREATED_AT + " INTEGER NOT NULL, " +
             "UNIQUE(" + BASE_ENTITY_ID + ", " + CONTACT_NO + ", " + KEY + ", " + VALUE + ") ON CONFLICT REPLACE)";
 
@@ -52,7 +54,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
 
     /**
      * Creates the contact_tasks table and adds the indexes on the table.
@@ -95,6 +97,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         values.put(VALUE, task.getValue());
         values.put(KEY, task.getKey());
         values.put(IS_UPDATED, task.isUpdated());
+        values.put(IS_COMPLETE, task.isComplete());
         values.put(CREATED_AT, task.getCreatedAt());
         return values;
     }
@@ -103,23 +106,22 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
      * Gets the count of the tasks for a specific content
      *
      * @param baseEntityId {@link String} - The patient's base entity id
-     * @param contactNo    {@link String} - The current contact number
      * @return taskCount {@link String} - The number of tasks for the patient on the specific contact.
      * @author dubdabasoduba
      */
-    public String getTasksCount(String baseEntityId, String contactNo) {
+    public String getTasksCount(String baseEntityId) {
         int tasksCount = 0;
-        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{};
         Cursor mCursor = null;
         try {
-            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-                selectionArgs = new String[]{baseEntityId, contactNo};
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selectionArgs = new String[]{baseEntityId, "0"};
             }
 
             mCursor = getReadableDatabase().rawQuery(sqlQuery, selectionArgs);
             if (mCursor != null && mCursor.getCount() > 0) {
-                mCursor.moveToFirst();
+                mCursor.moveToNext();
                 tasksCount = mCursor.getInt(0);
             }
         } catch (Exception e) {
@@ -134,7 +136,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     }
 
     /**
-     * Gets all the tasks for a specific patient using their patient base entity id.
+     * Gets all the tasks for a specific patient using their patient base entity id and the update status. We should only display the not done/ordered tasks
      * We also provide an optional list of keys to query null otherwise to get all keys for that base entity id
      *
      * @param baseEntityId {@link String}
@@ -186,7 +188,24 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         task.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
         task.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
         task.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
+        task.setUpdated(updateBooleanValue(cursor.getString(cursor.getColumnIndex(IS_UPDATED))));
+        task.setComplete(updateBooleanValue(cursor.getString(cursor.getColumnIndex(IS_COMPLETE))));
         return task;
+    }
+
+    /**
+     * Since the {@link Boolean#parseBoolean(String)} only expects "true" or "false" string we have to convert "1" & "0"
+     * to a boolean using this function
+     *
+     * @param isUpdated {@link String}
+     * @return isUpdate {@link Boolean}
+     */
+    private boolean updateBooleanValue(String isUpdated) {
+        boolean isUpdate = false;
+        if (isUpdated != null && isUpdated.equals("1")) {
+            isUpdate = true;
+        }
+        return isUpdate;
     }
 
     /**
@@ -205,7 +224,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         List<Task> taskList = new ArrayList<>();
         try {
             SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            if (StringUtils.isNotBlank(baseEntityId)) {
+            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
                 selectionArgs = new String[]{baseEntityId, "1", contactNo};
             }
@@ -217,7 +236,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
                 return taskList;
             }
         } catch (Exception e) {
-            Timber.e(e, " --> getTasks");
+            Timber.e(e, " --> getClosedTasks");
         } finally {
             if (mCursor != null) {
                 mCursor.close();
@@ -254,7 +273,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
                 return taskList;
             }
         } catch (Exception e) {
-            Timber.e(e, " --> getTasks");
+            Timber.e(e, " --> getOpenTasks");
         } finally {
             if (mCursor != null) {
                 mCursor.close();

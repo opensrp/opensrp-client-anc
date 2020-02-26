@@ -59,20 +59,14 @@ public class AncLibrary {
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
-
     private ECSyncHelper ecSyncHelper;
     private AncRulesEngineHelper ancRulesEngineHelper;
-
     private ClientProcessorForJava clientProcessorForJava;
     private JSONObject defaultContactFormGlobals = new JSONObject();
-
     private Compressor compressor;
     private Gson gson;
-
     private Yaml yaml;
-
     private SubscriberInfoIndex subscriberInfoIndex;
-
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
 
@@ -96,8 +90,7 @@ public class AncLibrary {
 
     private void setUpEventHandling() {
         try {
-            EventBusBuilder eventBusBuilder = EventBus.builder()
-                    .addIndex(new ANCEventBusIndex());
+            EventBusBuilder eventBusBuilder = EventBus.builder().addIndex(new ANCEventBusIndex());
 
             if (subscriberInfoIndex != null) {
                 eventBusBuilder.addIndex(subscriberInfoIndex);
@@ -212,7 +205,7 @@ public class AncLibrary {
 
     public Compressor getCompressor() {
         if (compressor == null) {
-            compressor = Compressor.getDefault(getApplicationContext());
+            compressor = new Compressor(getApplicationContext());
         }
         return compressor;
     }
@@ -241,7 +234,6 @@ public class AncLibrary {
     }
 
     public void populateGlobalSettings() {
-
         Setting setting = getCharacteristics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         Setting populationSetting = getCharacteristics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 

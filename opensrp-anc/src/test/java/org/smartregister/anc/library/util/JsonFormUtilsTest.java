@@ -31,6 +31,7 @@ import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.ImageRepository;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
@@ -38,6 +39,8 @@ import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +58,7 @@ import id.zelory.compressor.Compressor;
         "org.powermock.*",
         "org.mockito.*",
 })
+@PrepareForTest(LocationHelper.class)
 public class JsonFormUtilsTest {
     private static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     private static final String DUMMY_LOCATION_ID = "dummy-location-id-2018";
@@ -224,6 +228,107 @@ public class JsonFormUtilsTest {
     }
 
     @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereFileExistsISFalse() throws Exception {
+        String PROVIDER_ID = "dummy-provider-id";
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(bitmap);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(false);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
+
+        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereProviderIdAndEntityIdIsNull() throws Exception {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(null);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(true);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
+
+        JsonFormUtils.saveImage(null, null, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereFileNotFoundIsThrown() throws Exception {
+        String PROVIDER_ID = "dummy-provider-id";
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenReturn(bitmap);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(true);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
+
+        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
+    @PrepareForTest({AncLibrary.class, FileUtil.class, DrishtiApplication.class})
+    public void testSaveImageInvokesSaveStaticImageToDiskWithCorrectParamsWhereCompressToBitmapException() throws Exception {
+        String PROVIDER_ID = "dummy-provider-id";
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getCompressor()).thenReturn(compressor);
+        PowerMockito.when(compressor.compressToBitmap(ArgumentMatchers.any(File.class))).thenThrow(IOException.class);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.imageRepository()).thenReturn(imageRepository);
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getAppDir()).thenReturn("/images");
+
+
+        PowerMockito.mockStatic(FileUtil.class);
+        PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
+        PowerMockito.when(file.exists()).thenReturn(true);
+        PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
+        JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
+    }
+
+    @Test
     @PrepareForTest({FormUtils.class, CoreLibrary.class, LocationHelper.class, ImageUtils.class})
     public void testGetAutoPopulatedJsonEditFormStringInjectsValuesCorrectlyInForm() throws Exception {
         String firstName = "First Name";
@@ -359,5 +464,24 @@ public class JsonFormUtilsTest {
         JsonFormUtils jsonFormUtils = new JsonFormUtils();
         List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
         Assert.assertEquals(0, contactSummaryModels.size());
+    }
+
+    @Test
+    public void testGetChildLocationIdShouldReturnCorrectValue() {
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        PowerMockito.when(locationHelper.getOpenMrsLocationId("here")).thenReturn("123-3423");
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("here");
+        Assert.assertEquals("123-3423", JsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
+    }
+
+    @Test
+    public void testGetChildLocationIdShouldReturnNullWhenCurrentLocalityIdBlank() {
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("");
+        Assert.assertNull(JsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
     }
 }

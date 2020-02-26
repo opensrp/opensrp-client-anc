@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.jeasy.rules.api.Facts;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -249,12 +250,26 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
         event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(providerId));
-        event.setChildLocationId(LocationHelper.getInstance().getChildLocationId());
+        event.setChildLocationId(getChildLocationId(event.getLocationId(), allSharedPreferences));
         event.setTeam(allSharedPreferences.fetchDefaultTeam(providerId));
         event.setTeamId(allSharedPreferences.fetchDefaultTeamId(providerId));
         //event.setVersion(BuildConfig.EVENT_VERSION);
         event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
         event.setClientDatabaseVersion(AncLibrary.getInstance().getDatabaseVersion());
+    }
+
+    @Nullable
+    public static String getChildLocationId(@NonNull String defaultLocationId, @NonNull AllSharedPreferences allSharedPreferences) {
+        String currentLocality = allSharedPreferences.fetchCurrentLocality();
+
+        if (StringUtils.isNotBlank(currentLocality)) {
+            String currentLocalityId = LocationHelper.getInstance().getOpenMrsLocationId(currentLocality);
+            if (StringUtils.isNotBlank(currentLocalityId) && !defaultLocationId.equals(currentLocalityId)) {
+                return currentLocalityId;
+            }
+        }
+
+        return null;
     }
 
     public static void mergeAndSaveClient(Client baseClient) throws Exception {
@@ -271,61 +286,60 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     public static void saveImage(String providerId, String entityId, String imageLocation) {
-        if (StringUtils.isBlank(imageLocation)) {
-            return;
-        }
-
-        File file = FileUtil.createFileFromPath(imageLocation);
-
-        if (!file.exists()) {
-            return;
-        }
-
-        Bitmap compressedBitmap = AncLibrary.getInstance().getCompressor().compressToBitmap(file);
-
-        if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
-            return;
-        }
-
-        OutputStream os = null;
+        OutputStream outputStream = null;
         try {
+            if (StringUtils.isBlank(imageLocation)) {
+                return;
+            }
 
-            if (entityId != null && !entityId.isEmpty()) {
+            File file = FileUtil.createFileFromPath(imageLocation);
+            if (!file.exists()) {
+                return;
+            }
+
+            Bitmap compressedBitmap = AncLibrary.getInstance().getCompressor().compressToBitmap(file);
+            if (compressedBitmap == null || StringUtils.isBlank(providerId) || StringUtils.isBlank(entityId)) {
+                return;
+            }
+
+            if (!entityId.isEmpty()) {
                 final String absoluteFileName = DrishtiApplication.getAppDir() + File.separator + entityId + ".JPEG";
 
                 File outputFile = FileUtil.createFileFromPath(absoluteFileName);
-                os = FileUtil.createFileOutputStream(outputFile);
+                outputStream = FileUtil.createFileOutputStream(outputFile);
                 Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-                if (compressFormat != null) {
-                    compressedBitmap.compress(compressFormat, 100, os);
-                } else {
-                    throw new IllegalArgumentException(
-                            "Failed to save static image, could not retrieve image compression format from name " +
-                                    absoluteFileName);
-                }
+                compressedBitmap.compress(compressFormat, 100, outputStream);
                 // insert into the db
-                ProfileImage profileImage = new ProfileImage();
-                profileImage.setImageid(UUID.randomUUID().toString());
-                profileImage.setAnmId(providerId);
-                profileImage.setEntityID(entityId);
-                profileImage.setFilepath(absoluteFileName);
-                profileImage.setFilecategory(ConstantsUtils.FileCategoryUtils.PROFILE_PIC);
-                profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
-                ImageRepository imageRepo = AncLibrary.getInstance().getContext().imageRepository();
-                imageRepo.add(profileImage);
+                ProfileImage profileImage = getProfileImage(providerId, entityId, absoluteFileName);
+                ImageRepository imageRepository = AncLibrary.getInstance().getContext().imageRepository();
+                imageRepository.add(profileImage);
             }
 
         } catch (FileNotFoundException e) {
             Timber.e("Failed to save static image to disk");
+        } catch (IOException e) {
+            Timber.e(e, " --> saveImage");
         } finally {
-            if (os != null) {
+            if (outputStream != null) {
                 try {
-                    os.close();
+                    outputStream.close();
                 } catch (IOException e) {
                     Timber.e("Failed to close static images output stream after attempting to write image");
                 }
             }
         }
+    }
+
+    @NotNull
+    private static ProfileImage getProfileImage(String providerId, String entityId, String absoluteFileName) {
+        ProfileImage profileImage = new ProfileImage();
+        profileImage.setImageid(UUID.randomUUID().toString());
+        profileImage.setAnmId(providerId);
+        profileImage.setEntityID(entityId);
+        profileImage.setFilepath(absoluteFileName);
+        profileImage.setFilecategory(ConstantsUtils.FileCategoryUtils.PROFILE_PIC);
+        profileImage.setSyncStatus(ImageRepository.TYPE_Unsynced);
+        return profileImage;
     }
 
     public static String getString(String jsonString, String field) {
@@ -515,11 +529,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences,
-                                                                           String jsonString, String providerId) {
-
+    public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
         try {
-
             boolean isDeath = false;
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 
@@ -562,27 +573,25 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
             }
 
-            if (metadata != null) {
-                Iterator<?> keys = metadata.keys();
+            Iterator<?> keys = metadata.keys();
 
-                while (keys.hasNext()) {
-                    String key = (String) keys.next();
-                    JSONObject jsonObject = org.smartregister.anc.library.util.JsonFormUtils.getJSONObject(metadata, key);
-                    String value = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.VALUE);
-                    if (StringUtils.isNotBlank(value)) {
-                        String entityVal = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY);
-                        if (entityVal != null) {
-                            if (entityVal.equals(org.smartregister.anc.library.util.JsonFormUtils.CONCEPT)) {
-                                org.smartregister.anc.library.util.JsonFormUtils.addToJSONObject(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.KEY, key);
-                                org.smartregister.anc.library.util.JsonFormUtils.addObservation(event, jsonObject);
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                JSONObject jsonObject = JsonFormUtils.getJSONObject(metadata, key);
+                String value = JsonFormUtils.getString(jsonObject, JsonFormUtils.VALUE);
+                if (StringUtils.isNotBlank(value)) {
+                    String entityVal = JsonFormUtils.getString(jsonObject, JsonFormUtils.OPENMRS_ENTITY);
+                    if (entityVal != null) {
+                        if (entityVal.equals(JsonFormUtils.CONCEPT)) {
+                            JsonFormUtils.addToJSONObject(jsonObject, JsonFormUtils.KEY, key);
+                            JsonFormUtils.addObservation(event, jsonObject);
 
-                            } else if (entityVal.equals(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER)) {
-                                String entityIdVal = org.smartregister.anc.library.util.JsonFormUtils.getString(jsonObject, org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY_ID);
-                                if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
-                                    Date eDate = org.smartregister.anc.library.util.JsonFormUtils.formatDate(value, false);
-                                    if (eDate != null) {
-                                        event.setEventDate(eDate);
-                                    }
+                        } else if (entityVal.equals(JsonFormUtils.ENCOUNTER)) {
+                            String entityIdVal = JsonFormUtils.getString(jsonObject, JsonFormUtils.OPENMRS_ENTITY_ID);
+                            if (entityIdVal.equals(FormEntityConstants.Encounter.encounter_date.name())) {
+                                Date eDate = JsonFormUtils.formatDate(value, false);
+                                if (eDate != null) {
+                                    event.setEventDate(eDate);
                                 }
                             }
                         }
@@ -600,7 +609,6 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
 
             return Triple.of(isDeath, event, updateChildDetailsEvent);
-
         } catch (Exception e) {
             Timber.e(e, "JsonFormUtils --> saveRemovedFromANCRegister");
         }
@@ -819,6 +827,37 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
         inputStream.close();
         return new JSONObject(stringBuilder.toString());
+    }
+
+    /**
+     * Gets an expansion panel {@link JSONObject} value then check whether the test/tasks was `ordered` or `not done`.
+     * If any either of this is selected then we mark it as not complete.
+     *
+     * @param field {@link JSONObject}
+     * @return isComplete {@link Boolean}
+     */
+    public static boolean checkIfTaskIsComplete(JSONObject field) {
+        boolean isComplete = true;
+        try {
+            if (field != null && field.has(JsonFormConstants.VALUE)) {
+                JSONArray value = field.getJSONArray(JsonFormConstants.VALUE);
+                if (value.length() > 1) {
+                    JSONObject valueField = value.getJSONObject(0);
+                    if (valueField != null && valueField.has(JsonFormConstants.VALUES)) {
+                        JSONArray values = valueField.getJSONArray(JsonFormConstants.VALUES);
+                        if (values.length() > 0) {
+                            String selectedValue = values.getString(0);
+                            if (selectedValue.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED) || selectedValue.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
+                                isComplete = false;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> checkIfTaskIsComplete");
+        }
+        return isComplete;
     }
 
     public List<ContactSummaryModel> generateNextContactSchedule(String edd, List<String> contactSchedule,

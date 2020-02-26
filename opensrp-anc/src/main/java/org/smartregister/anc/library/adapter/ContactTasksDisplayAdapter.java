@@ -46,7 +46,6 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         return new ContactTasksViewHolder(view, profileTasksFragment);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ContactTasksViewHolder contactTasksViewHolder, int position) {
         try {
@@ -59,8 +58,9 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                 }
                 updateStatusIcon(taskValue, contactTasksViewHolder);
                 showInfoIcon(taskValue, contactTasksViewHolder);
-                attachContent(taskValue, contactTasksViewHolder);
-                addBottomSection(taskValue, task, contactTasksViewHolder);
+                if (task.isUpdated()) {
+                    attachContent(taskValue, contactTasksViewHolder);
+                }
                 attachFormOpenViewTags(taskValue, task, contactTasksViewHolder);
             }
         } catch (JSONException e) {
@@ -145,45 +145,6 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         if (values != null) {
             contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
         }
-    }
-
-    /**
-     * Displays or hides the bottoms section of the expansion panel depending on some settings or the value attribute
-     *
-     * @param taskValue              {@link JSONObject}
-     * @param task                   {@link Task}
-     * @param contactTasksViewHolder {@link ContactTasksViewHolder}
-     * @throws JSONException - Throws this in case the operation of the json object fails.
-     */
-    private void addBottomSection(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) throws JSONException {
-        JSONObject showBottomSection = taskValue.optJSONObject(JsonFormConstants.BOTTOM_SECTION);
-        boolean showButtons = true;
-        boolean showRecordButton = true;
-        if (showBottomSection != null) {
-            showButtons = showBottomSection.optBoolean(JsonFormConstants.DISPLAY_BOTTOM_SECTION, true);
-            showRecordButton = showBottomSection.optBoolean(JsonFormConstants.DISPLAY_RECORD_BUTTON, true);
-        }
-
-        if (showRecordButton) {
-            contactTasksViewHolder.okButton.setVisibility(View.VISIBLE);
-        }
-
-        if (taskValue.has(JsonFormConstants.VALUE) && taskValue.getJSONArray(JsonFormConstants.VALUE).length() > 0) {
-            JSONArray value = taskValue.optJSONArray(JsonFormConstants.VALUE);
-            if (value != null && contactJsonFormUtils.checkValuesContent(value)) {
-                if (showButtons) {
-                    contactTasksViewHolder.accordionBottomNavigation.setVisibility(View.VISIBLE);
-                    contactTasksViewHolder.undoButton.setVisibility(View.VISIBLE);
-                }
-
-                if (taskValue.has(JsonFormConstants.VALUE)) {
-                    contactTasksViewHolder.undoButton.setVisibility(View.VISIBLE);
-                }
-
-            }
-        }
-
-        attachViewTags(taskValue, task, contactTasksViewHolder.undoButton);
     }
 
     private void attachFormOpenViewTags(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) {

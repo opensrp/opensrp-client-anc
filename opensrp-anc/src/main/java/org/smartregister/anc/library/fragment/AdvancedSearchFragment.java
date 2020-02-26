@@ -252,33 +252,24 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        switch (id) {
-            case RecyclerViewFragment.LOADER_ID:
-                // Returns a new CursorLoader
-                return new CursorLoader(getActivity()) {
-                    @Override
-                    public Cursor loadInBackground() {
-                        AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
-                        if (isLocal || matrixCursor == null) {
-                            String query = filterAndSortQuery();
-                            Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    hideProgressView();
-                                }
-                            });
+        if (id == RecyclerViewFragment.LOADER_ID) {// Returns a new CursorLoader
+            return new CursorLoader(getActivity()) {
+                @Override
+                public Cursor loadInBackground() {
+                    AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
+                    if (isLocal || matrixCursor == null) {
+                        String query = filterAndSortQuery();
+                        Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
+                        getActivity().runOnUiThread(() -> hideProgressView());
 
-                            return cursor;
-                        } else {
-                            return matrixCursor;
-                        }
+                        return cursor;
+                    } else {
+                        return matrixCursor;
                     }
-                };
-            default:
-                // An invalid id was passed in
-                return null;
-        }
+                }
+            };
+        }// An invalid id was passed in
+        return null;
     }
 
     @Override

@@ -220,17 +220,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         JSONObject object;
         List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
+        List<PartialContact> partialContacts = getPartialContacts();
 
-        List<PartialContact> partialContacts = AncLibrary.getInstance().getPartialContactRepositoryHelper()
-                .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
-
-        for (PartialContact partialContact : partialContacts) {
-            if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
-                object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
-                        partialContact.getFormJson());
-                processRequiredStepsField(object);
-                if (object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
-                    partialForms.remove(eventToFileMap.get(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)));
+        if (partialContacts != null && partialContacts.size() > 0) {
+            for (PartialContact partialContact : partialContacts) {
+                if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
+                    object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
+                    processRequiredStepsField(object);
+                    if (object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
+                        partialForms.remove(eventToFileMap.get(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)));
+                    }
                 }
             }
         }
@@ -277,6 +276,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         return previousContact != null ? previousContact.getValue() : null;
     }
 
+    public List<PartialContact> getPartialContacts() {
+        return AncLibrary.getInstance().getPartialContactRepositoryHelper().getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
+    }
+
     private void processRequiredStepsField(JSONObject object) throws Exception {
         if (object != null && object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
             //initialize required fields map
@@ -288,8 +291,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
-                return;
             }
+
             Iterator<String> keys = object.keys();
             while (keys.hasNext()) {
                 String key = keys.next();
@@ -298,8 +301,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         ContactJsonFormUtils.processSpecialWidgets(fieldObject);
-                        boolean isFieldVisible = !fieldObject.has(JsonFormConstants.IS_VISIBLE) ||
-                                fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE);
+                        boolean isFieldVisible = getFieldVisibility(fieldObject);
                         boolean isRequiredField = isFieldVisible && org.smartregister.anc.library.util.JsonFormUtils.isFieldRequired(fieldObject);
                         updateFieldRequiredCount(object, fieldObject, isRequiredField);
                         updateFormGlobalValues(fieldObject);
@@ -318,6 +320,22 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         } else {
             return new ArrayList<>();
         }
+    }
+
+    private boolean getFieldVisibility(JSONObject field) {
+        boolean isVisible = true;
+        try {
+            if (field != null && field.has(JsonFormConstants.TYPE) && !JsonFormConstants.HIDDEN.equals(field.getString(JsonFormConstants.TYPE))) {
+                if (field.has(JsonFormConstants.IS_VISIBLE) && !field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                    isVisible = false;
+                }
+            } else {
+                isVisible = false;
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> getFieldVisibility");
+        }
+        return isVisible;
     }
 
     private void updateFieldRequiredCount(JSONObject object, JSONObject fieldObject, boolean isRequiredField) throws JSONException {

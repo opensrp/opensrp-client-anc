@@ -10,9 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/characteristics_drawable_padding"
+        android:layout_marginEnd="@dimen/characteristics_drawable_padding"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_cross_white" />
+        android:src="@drawable/ic_cross_white"
+        android:contentDescription="The cancel icon" />
 
     <TextView
         android:id="@+id/library_toolbar_title"

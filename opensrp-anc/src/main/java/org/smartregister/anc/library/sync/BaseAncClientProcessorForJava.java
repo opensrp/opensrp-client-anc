@@ -22,6 +22,7 @@ import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
@@ -232,6 +233,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         task.setKey(key);
         task.setValue(String.valueOf(field));
         task.setUpdated(false);
+        task.setComplete(JsonFormUtils.checkIfTaskIsComplete(field));
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
     }
