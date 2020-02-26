@@ -9,11 +9,10 @@
         android:id="@+id/coordinate_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp"
-        tools:context=".activity.ProfileActivity"
         app:layout_constraintBottom_toTopOf="@+id/status_button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        tools:context=".activity.ProfileActivity">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/collapsing_toolbar_appbarlayout"
@@ -142,26 +141,35 @@
                 android:id="@+id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                app:tabContentStart="0dp"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="#E2E363"
                 app:tabIndicatorHeight="4dp"
                 app:tabMaxWidth="0dp"
                 app:tabMode="fixed"
-                app:tabContentStart="0dp"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/CustomFontTextViewStyle.tabIndicator.sub.white" />
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/collapsing_toolbar_appbarlayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constrainedHeight="true"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:textAlignment="center" />
+        </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 
     <include

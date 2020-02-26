@@ -180,8 +180,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
-                        .getPreference(AllConstants.CURRENT_LOCATION_ID);
+                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
@@ -267,6 +266,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
         if (isLibrary()) {
             switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_library);
         }
     }
 
