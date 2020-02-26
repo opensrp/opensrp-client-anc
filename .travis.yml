@@ -29,8 +29,8 @@ script:
   # Gradle issue running composite tasks in order https://github.com/gradle/gradle/issues/3300
   - travis_wait ./gradlew clean --stacktrace
   - travis_wait ./gradlew build --stacktrace
-  - travis_wait ./gradlew :opensrp-opd:jacocoTestReport --stacktrace
-  - travis_wait ./gradlew :opensrp-opd:coveralls
+  - travis_wait ./gradlew :opensrp-anc:jacocoTestReport --stacktrace
+  - travis_wait ./gradlew :opensrp-anc:coveralls
   - travis_wait ./gradlew javadoc
 
 notifications:
