@@ -36,7 +36,6 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     private static final String TABLE_NAME = "contact_tasks";
     private static final String ID = "_id";
     private static final String BASE_ENTITY_ID = "base_entity_id";
-    private static final String CONTACT_NO = "contact_no";
     private static final String KEY = "key";
     private static final String VALUE = "value";
     private static final String IS_UPDATED = "is_updated";
