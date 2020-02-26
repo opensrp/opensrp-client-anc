@@ -31,6 +31,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({AncLibrary.class, SQLiteDatabase.class, DrishtiApplication.class})
 public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
+    public static final String IS_COMPLETE = "is_complete";
     protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     private static final String TABLE_NAME = "contact_tasks";
     private static final String ID = "_id";
@@ -78,7 +79,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     }
 
     private Task getTask() {
-        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true);
+        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true, true);
         task.setId(Long.valueOf(1));
         return task;
     }
@@ -177,7 +178,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID};
 
@@ -205,7 +206,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetTasksWithNullVariables() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID};
 
@@ -223,7 +224,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetOpenTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
@@ -250,7 +251,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetOpenTasksWithNullVariables() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
@@ -267,7 +268,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetClosedTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
 
@@ -295,7 +296,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetClosedTasksWithNullBaseEntityIdAndContactNo() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
 
@@ -313,7 +314,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetClosedTasksWithEmptyBaseEntityIdAndContactNo() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
 
