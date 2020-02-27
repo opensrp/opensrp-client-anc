@@ -246,7 +246,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         if (allCommonsRepository != null) {
             allCommonsRepository.updateSearch(entityId);
 
-            if (getClosedAnc().size() > 0 && getClosedAnc().containsKey(entityId)) {
+           /* if (getClosedAnc().size() > 0 && getClosedAnc().containsKey(entityId)) {
                 boolean isUpdated;
                 contentValues.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, getClosedAnc().get(entityId));
                 int recordsUpdated = AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(tableName), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?", new String[]{entityId});
@@ -257,7 +257,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                         AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().endTransaction();
                     }
                 }
-            }
+            }*/
         }
     }
 
@@ -293,7 +293,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                 //iterate through the events
                 if (client != null) {
                     processEvent(event, client, clientClassification);
-                    checkClosedAncRecords(event);
+                    //checkClosedAncRecords(event);
                 }
                 break;
             case ConstantsUtils.EventTypeUtils.CONTACT_VISIT:
