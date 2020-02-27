@@ -247,7 +247,6 @@ public class ContactVisit {
     @NotNull
     private Task getTask(JSONObject field, String key) {
         Task task = new Task();
-        task.setContactNo(getCurrentContact());
         task.setBaseEntityId(baseEntityId);
         task.setKey(key);
         task.setValue(String.valueOf(field));
