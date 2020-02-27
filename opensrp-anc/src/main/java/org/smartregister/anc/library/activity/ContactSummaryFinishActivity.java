@@ -16,8 +16,8 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.task.FinalizeContactTask;
 import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -125,8 +125,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    public PartialContactRepositoryHelper getPartialContactRepository() {
-        return AncLibrary.getInstance().getPartialContactRepositoryHelper();
+    public PartialContactRepository getPartialContactRepository() {
+        return AncLibrary.getInstance().getPartialContactRepository();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         // When user click home menu item then quit this activity.
         if (itemId == android.R.id.home) {
-            PatientRepositoryHelper.updateEDDDate(baseEntityId, null); //Reset EDD
+            PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
             super.onBackPressed();
         } else {
             saveFinishForm();

@@ -28,7 +28,7 @@ public class ProfileInteractor implements ProfileContract.Interactor {
 
     @Override
     public String getTaskCount(String baseEntityId) {
-        return AncLibrary.getInstance().getContactTasksRepositoryHelper().getTasksCount(baseEntityId);
+        return AncLibrary.getInstance().getContactTasksRepository().getTasksCount(baseEntityId);
     }
 
 

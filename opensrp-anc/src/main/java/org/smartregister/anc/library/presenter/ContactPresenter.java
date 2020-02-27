@@ -162,12 +162,12 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
 
 
     public void deleteDraft(String baseEntityId) {
-        getAncLibrary().getPartialContactRepositoryHelper().deleteDraftJson(baseEntityId);
+        getAncLibrary().getPartialContactRepository().deleteDraftJson(baseEntityId);
     }
 
     @Override
     public void saveFinalJson(String baseEntityId) {
-        getAncLibrary().getPartialContactRepositoryHelper().saveFinalJson(baseEntityId);
+        getAncLibrary().getPartialContactRepository().saveFinalJson(baseEntityId);
     }
 
     @Override

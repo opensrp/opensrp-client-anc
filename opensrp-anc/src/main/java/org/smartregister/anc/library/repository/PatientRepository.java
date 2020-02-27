@@ -23,7 +23,7 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 14/07/2018.
  */
-public class PatientRepositoryHelper extends BaseRepository {
+public class PatientRepository extends BaseRepository {
     private static final String[] projection =
             new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
                     DBConstantsUtils.KeyUtils.DOB_UNKNOWN, DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,
@@ -85,7 +85,7 @@ public class PatientRepositoryHelper extends BaseRepository {
             }
             return detailsMap;
         } catch (Exception e) {
-            Timber.e(e, "%s ==> getWomanProfileDetails()", PatientRepositoryHelper.class.getCanonicalName());
+            Timber.e(e, "%s ==> getWomanProfileDetails()", PatientRepository.class.getCanonicalName());
         } finally {
             if (cursor != null) {
                 cursor.close();

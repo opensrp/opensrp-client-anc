@@ -13,6 +13,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +25,7 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -37,6 +39,7 @@ import org.smartregister.sync.MiniClientProcessorForJava;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +51,8 @@ import timber.log.Timber;
  */
 
 public class BaseAncClientProcessorForJava extends ClientProcessorForJava implements MiniClientProcessorForJava {
-
     private HashSet<String> eventTypes = new HashSet<>();
+    private Map<String, String> closedAnc = new HashMap<>();
 
     public BaseAncClientProcessorForJava(Context context) {
         super(context);
@@ -142,6 +145,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             }
 
         */
+
     private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
                            Event event, String registeredAnm) {
         try {
@@ -151,17 +155,11 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             if (providerId.equals(registeredAnm)) {
                 ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
                 ecSyncHelper.deleteClient(baseEntityId);
-                //  Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
-                // Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
-
                 detailsRepository.deleteDetails(baseEntityId);
-                // Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
 
                 for (Table bindObject : bindObjects) {
                     String tableName = bindObject.name;
-
                     deleteCase(tableName, baseEntityId);
-                    //    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
                 }
 
                 return true;
@@ -170,6 +168,10 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             Timber.e(e);
         }
         return false;
+    }
+
+    public Map<String, String> getClosedAnc() {
+        return closedAnc;
     }
 
     private void processPreviousContacts(Event event) {
@@ -182,7 +184,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         if (previousContactMap != null) {
             String contactNo = getContact(event);
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
-                AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(
+                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(
                         new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
             }
         }
@@ -200,7 +202,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                     String key = tasks.optString(JsonFormConstants.KEY);
 
                     Task task = getTask(tasks, key, event.getBaseEntityId(), contactNo);
-                    AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(task);
+                    AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(task);
                 }
             }
         } catch (JSONException e) {
@@ -239,11 +241,23 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
-                allCommonsRepositoryobjects(tableName);
+        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().allCommonsRepositoryobjects(tableName);
 
         if (allCommonsRepository != null) {
             allCommonsRepository.updateSearch(entityId);
+
+            if (getClosedAnc().size() > 0 && getClosedAnc().containsKey(entityId)) {
+                boolean isUpdated;
+                contentValues.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, getClosedAnc().get(entityId));
+                int recordsUpdated = AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(tableName), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?", new String[]{entityId});
+                isUpdated = recordsUpdated > 0;
+
+                if (!isUpdated) {
+                    if (AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().inTransaction()) {
+                        AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().endTransaction();
+                    }
+                }
+            }
         }
     }
 
@@ -268,20 +282,18 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         if (StringUtils.isBlank(eventType)) {
             return;
         }
-
+        Client client = eventClient.getClient();
         switch (eventType) {
             case ConstantsUtils.EventTypeUtils.CLOSE:
-                unsyncEvents.add(event);
-                break;
             case ConstantsUtils.EventTypeUtils.REGISTRATION:
             case ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION:
                 if (clientClassification == null) {
                     return;
                 }
-                Client client = eventClient.getClient();
                 //iterate through the events
                 if (client != null) {
                     processEvent(event, client, clientClassification);
+                    checkClosedAncRecords(event);
                 }
                 break;
             case ConstantsUtils.EventTypeUtils.CONTACT_VISIT:
@@ -289,6 +301,15 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                 break;
             default:
                 break;
+        }
+    }
+
+    private void checkClosedAncRecords(Event event) {
+        if (event != null && ConstantsUtils.EventTypeUtils.CLOSE.equals(event.getEntityType())) {
+            DateTime eventDate = event.getEventDate();
+            String clientBaseEntityId = event.getBaseEntityId();
+
+            closedAnc.put(clientBaseEntityId, eventDate.toString());
         }
     }
 

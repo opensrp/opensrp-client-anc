@@ -21,7 +21,7 @@ import timber.log.Timber;
  *
  * @author dubdabasoduba
  */
-public class ContactTasksRepositoryHelper extends BaseRepository {
+public class ContactTasksRepository extends BaseRepository {
     public static final String TABLE_NAME = "contact_tasks";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
