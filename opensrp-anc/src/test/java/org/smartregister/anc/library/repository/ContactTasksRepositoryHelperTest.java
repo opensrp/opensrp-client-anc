@@ -36,7 +36,6 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     private static final String TABLE_NAME = "contact_tasks";
     private static final String ID = "_id";
     private static final String BASE_ENTITY_ID = "base_entity_id";
-    private static final String CONTACT_NO = "contact_no";
     private static final String KEY = "key";
     private static final String VALUE = "value";
     private static final String IS_UPDATED = "is_updated";
@@ -178,7 +177,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID};
 
@@ -206,7 +205,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetTasksWithNullVariables() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID};
 
@@ -224,7 +223,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetOpenTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
@@ -251,7 +250,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetOpenTasksWithNullVariables() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
@@ -268,9 +267,9 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @Test
     public void testGetClosedTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
-        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1"};
 
         ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
@@ -290,15 +289,15 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             }
         });
 
-        Assert.assertEquals(1, contactTasksRepositoryHelper.getClosedTasks(DUMMY_BASE_ENTITY_ID, "2").size());
+        Assert.assertEquals(1, contactTasksRepositoryHelper.getClosedTasks(DUMMY_BASE_ENTITY_ID).size());
     }
 
     @Test
     public void testGetClosedTasksWithNullBaseEntityIdAndContactNo() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
-        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1"};
 
         ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
@@ -308,15 +307,15 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks(null, null).size());
+        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks(null).size());
     }
 
     @Test
     public void testGetClosedTasksWithEmptyBaseEntityIdAndContactNo() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
-        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1"};
 
         ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
@@ -326,7 +325,7 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
         PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks("", "").size());
+        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks("").size());
     }
 
     @Test

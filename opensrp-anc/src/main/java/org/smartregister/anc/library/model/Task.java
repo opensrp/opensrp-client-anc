@@ -6,7 +6,6 @@ public class Task {
     private String baseEntityId;
     private String key;
     private String value;
-    private String contactNo;
     private Long createdAt;
     private boolean isUpdated;
     private boolean isComplete;
@@ -18,7 +17,6 @@ public class Task {
         this.baseEntityId = baseEntityId;
         this.key = key;
         this.value = value;
-        this.contactNo = contactNo;
         this.isUpdated = isUpdated;
         this.isComplete = isComplete;
     }
@@ -53,14 +51,6 @@ public class Task {
 
     public void setBaseEntityId(String baseEntityId) {
         this.baseEntityId = baseEntityId;
-    }
-
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
     }
 
     public Long getCreatedAt() {

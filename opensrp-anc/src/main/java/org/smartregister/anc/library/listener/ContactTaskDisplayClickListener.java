@@ -116,7 +116,6 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         newTask.setValue(String.valueOf(taskValue));
         newTask.setUpdated(true);
         newTask.setComplete(JsonFormUtils.checkIfTaskIsComplete(taskValue));
-        newTask.setContactNo(task.getContactNo());
         newTask.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return newTask;
     }
