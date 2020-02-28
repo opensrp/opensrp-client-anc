@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -177,5 +178,10 @@ public class MainContactActivityTest extends BaseActivityUnitTest {
         Integer numberRequired = requiredFieldsMap.get("Physical Exam");
         Assert.assertTrue(requiredFieldsMap.containsKey("Physical Exam"));
         Assert.assertEquals(Integer.valueOf(9), numberRequired);
+    }
+
+    @After
+    public void tearDown() {
+        destroyController();
     }
 }

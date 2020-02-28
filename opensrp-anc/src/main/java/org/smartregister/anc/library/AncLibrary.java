@@ -22,10 +22,10 @@ import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
-import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
@@ -54,9 +54,9 @@ public class AncLibrary {
     private static AncLibrary instance;
     private final Context context;
     private JsonSpecHelper jsonSpecHelper;
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
-    private ContactTasksRepositoryHelper contactTasksRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
+    private PreviousContactRepository previousContactRepository;
+    private ContactTasksRepository contactTasksRepository;
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
@@ -136,7 +136,7 @@ public class AncLibrary {
      * are already managed instead of writing new code to manage them.
      */
     public static void performMigrations(@NonNull SQLiteDatabase database) {
-        PatientRepositoryHelper.performMigrations(database);
+        PatientRepository.performMigrations(database);
     }
 
     public android.content.Context getApplicationContext() {
@@ -166,28 +166,29 @@ public class AncLibrary {
         yaml = new Yaml(constructor);
     }
 
-    public PartialContactRepositoryHelper getPartialContactRepositoryHelper() {
-        if (partialContactRepositoryHelper == null) {
-            partialContactRepositoryHelper = new PartialContactRepositoryHelper();
+
+    public PartialContactRepository getPartialContactRepository() {
+        if (partialContactRepository == null) {
+            partialContactRepository = new PartialContactRepository();
         }
 
-        return partialContactRepositoryHelper;
+        return partialContactRepository;
     }
 
-    public PreviousContactRepositoryHelper getPreviousContactRepositoryHelper() {
-        if (previousContactRepositoryHelper == null) {
-            previousContactRepositoryHelper = new PreviousContactRepositoryHelper();
+    public PreviousContactRepository getPreviousContactRepository() {
+        if (previousContactRepository == null) {
+            previousContactRepository = new PreviousContactRepository();
         }
 
-        return previousContactRepositoryHelper;
+        return previousContactRepository;
     }
 
-    public ContactTasksRepositoryHelper getContactTasksRepositoryHelper() {
-        if (contactTasksRepositoryHelper == null) {
-            contactTasksRepositoryHelper = new ContactTasksRepositoryHelper();
+    public ContactTasksRepository getContactTasksRepository() {
+        if (contactTasksRepository == null) {
+            contactTasksRepository = new ContactTasksRepository();
         }
 
-        return contactTasksRepositoryHelper;
+        return contactTasksRepository;
     }
 
     public EventClientRepository getEventClientRepository() {

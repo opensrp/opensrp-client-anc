@@ -33,7 +33,7 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
@@ -731,7 +731,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
                     contactVisitEvent);
 
-            PatientRepositoryHelper.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
+            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
 
 
             //Update client
@@ -774,7 +774,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static JSONArray getOpenTasks(String baseEntityId) {
-        List<Task> openTasks = AncLibrary.getInstance().getContactTasksRepositoryHelper().getOpenTasks(baseEntityId);
+        List<Task> openTasks = AncLibrary.getInstance().getContactTasksRepository().getOpenTasks(baseEntityId);
         JSONArray openTaskArray = new JSONArray();
         if (openTasks != null && openTasks.size() > 0) {
             for (Task task : openTasks) {

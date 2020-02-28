@@ -69,13 +69,13 @@ public class ContactJsonFormUtils extends FormUtils {
         partialContact.setType(contact.getFormName());
 
         partialContact.setFormJsonDraft(contact.getJsonForm());
-        AncLibrary.getInstance().getPartialContactRepositoryHelper().savePartialContact(partialContact);
+        AncLibrary.getInstance().getPartialContactRepository().savePartialContact(partialContact);
     }
 
     public static JSONObject getFormJsonCore(PartialContact partialContactRequest, JSONObject form) throws JSONException {
         //partial contact exists?
 
-        PartialContact partialContact = AncLibrary.getInstance().getPartialContactRepositoryHelper()
+        PartialContact partialContact = AncLibrary.getInstance().getPartialContactRepository()
                 .getPartialContact(partialContactRequest);
 
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();

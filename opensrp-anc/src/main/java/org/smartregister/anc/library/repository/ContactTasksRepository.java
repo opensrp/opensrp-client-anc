@@ -21,7 +21,7 @@ import timber.log.Timber;
  *
  * @author dubdabasoduba
  */
-public class ContactTasksRepositoryHelper extends BaseRepository {
+public class ContactTasksRepository extends BaseRepository {
     public static final String TABLE_NAME = "contact_tasks";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
@@ -73,14 +73,17 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
      */
     public boolean saveOrUpdateTasks(Task task) {
         if (task == null) return false;
-        if (task.getId() != null) {
-            String sqlQuery = ID + " = ? " + BaseRepository.COLLATE_NOCASE;
-            getWritableDatabase().update(TABLE_NAME, createValuesFor(task), sqlQuery, new String[]{String.valueOf(task.getId())});
-            return true;
-        } else {
-            getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
-            return false;
+        if (StringUtils.isNoneBlank(task.getBaseEntityId())) {
+            if (task.getId() != null) {
+                String sqlQuery = ID + " = ? " + BaseRepository.COLLATE_NOCASE;
+                getWritableDatabase().update(TABLE_NAME, createValuesFor(task), sqlQuery, new String[]{String.valueOf(task.getId())});
+                return true;
+            } else {
+                getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
+                return false;
+            }
         }
+        return false;
     }
 
     private ContentValues createValuesFor(Task task) {

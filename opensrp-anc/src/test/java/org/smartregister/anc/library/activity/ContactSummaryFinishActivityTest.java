@@ -25,7 +25,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.model.PartialContact;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.helper.ImageRenderHelper;
 
@@ -51,7 +51,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     private AppBarLayout appBarLayout;
 
     @Mock
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
 
     @Mock
     private ImageRenderHelper imageRenderHelper;
@@ -247,7 +247,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
 
         Mockito.doNothing().when(spyActivity).registerEventBus();
-        Mockito.doReturn(partialContactRepositoryHelper).when(spyActivity).getPartialContactRepository();
+        Mockito.doReturn(partialContactRepository).when(spyActivity).getPartialContactRepository();
 
 
         List<PartialContact> partialContactsList = new ArrayList<>();
@@ -277,7 +277,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
         partialContactsList.add(partialContact);
 
-        Mockito.doReturn(partialContactsList).when(partialContactRepositoryHelper).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
+        Mockito.doReturn(partialContactsList).when(partialContactRepository).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
 
         ReflectionHelpers.callInstanceMethod(spyActivity, "process");
         List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");

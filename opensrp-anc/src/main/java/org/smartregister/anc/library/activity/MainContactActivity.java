@@ -272,12 +272,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             request.setContactNo(String.valueOf(contactNo - 1));
         }
 
-        PreviousContact previousContact = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContact(request);
+        PreviousContact previousContact = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContact(request);
         return previousContact != null ? previousContact.getValue() : null;
     }
 
     public List<PartialContact> getPartialContacts() {
-        return AncLibrary.getInstance().getPartialContactRepositoryHelper().getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
+        return AncLibrary.getInstance().getPartialContactRepository().getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contactNo);
     }
 
     private void processRequiredStepsField(JSONObject object) throws Exception {
