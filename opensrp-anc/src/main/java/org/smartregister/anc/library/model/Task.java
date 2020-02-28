@@ -13,7 +13,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(String baseEntityId, String key, String value, String contactNo, boolean isUpdated, boolean isComplete) {
+    public Task(String baseEntityId, String key, String value, boolean isUpdated, boolean isComplete) {
         this.baseEntityId = baseEntityId;
         this.key = key;
         this.value = value;

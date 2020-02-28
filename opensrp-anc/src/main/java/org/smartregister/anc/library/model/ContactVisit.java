@@ -256,14 +256,6 @@ public class ContactVisit {
         return task;
     }
 
-    private String getCurrentContact() {
-        String contact = "0";
-        if (StringUtils.isNotBlank(String.valueOf(nextContact))) {
-            contact = nextContact == 1 ? String.valueOf(nextContact) : String.valueOf(nextContact - 1);
-        }
-        return contact;
-    }
-
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {
         WomanDetail womanDetail = new WomanDetail();
         womanDetail.setBaseEntityId(baseEntityId);
