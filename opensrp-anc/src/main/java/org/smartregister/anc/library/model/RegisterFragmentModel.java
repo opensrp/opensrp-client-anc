@@ -233,6 +233,6 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
     }
 
     private RegisterQueryProvider getRegisterQueryProvider() {
-        return getRegisterQueryProvider();
+        return AncLibrary.getInstance().getRegisterQueryProvider();
     }
 }
