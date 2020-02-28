@@ -1,46 +1,8 @@
 package org.smartregister.anc.library.interactor;
 
-import org.jeasy.rules.api.Facts;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.smartregister.Context;
-import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.contract.ContactSummarySendContract;
-import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
-import org.smartregister.anc.library.repository.RegisterQueryProvider;
-import org.smartregister.anc.library.util.AppExecutors;
-import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.Utils;
-import org.smartregister.repository.DetailsRepository;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.Executors;
-
 //@RunWith(PowerMockRunner.class)
 //@PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, Utils.class})
-public class YamlConfigInteractorTest  {
+public class YamlConfigInteractorTest {
 
 //    private final String baseEntityId = UUID.randomUUID().toString();
 //    @Rule

@@ -34,7 +34,6 @@ import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.view.LocationPickerView;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -208,7 +207,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
                 ArgumentMatchers.eq(TEST_STRING), ArgumentMatchers.eq(locationPickerView));*/
         // Todo Use thhe location picker functionality is added on the me page
         Mockito.verify(registerPresenter).startForm(TEST_STRING, TEST_STRING,
-                TEST_STRING, (String)null);
+                TEST_STRING, (String) null);
     }
 
     @Test
@@ -218,7 +217,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "mBaseFragment", homeRegisterFragment);
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
         baseHomeRegisterActivitySpy.startRegistration();
-        Mockito.verify(registerPresenter).startForm("anc_register", null, null,(String) null);
+        Mockito.verify(registerPresenter).startForm("anc_register", null, null, (String) null);
     }
 
     @Test()
