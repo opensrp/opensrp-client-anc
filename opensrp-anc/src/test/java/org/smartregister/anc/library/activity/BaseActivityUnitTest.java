@@ -13,6 +13,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.FormDataRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -27,6 +28,8 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
     private Repository repository;
     @Mock
     private FormDataRepository formDataRepository;
+    @Mock
+    private CoreLibrary coreLibrary;
 
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -34,8 +37,11 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
         context = Mockito.spy(Context.getInstance());
         context.updateApplicationContext(RuntimeEnvironment.application);
         ReflectionHelpers.setField(context, "formDataRepository", formDataRepository);
-
-        CoreLibrary.init(context);
+        //CoreLibrary.getInstance().context().allSharedPreferences()
+        Mockito.doReturn(Mockito.mock(AllSharedPreferences.class)).when(context).allSharedPreferences();
+        ReflectionHelpers.setStaticField(CoreLibrary.class, "instance", coreLibrary);
+        Mockito.when(coreLibrary.context()).thenReturn(context);
+//        CoreLibrary.init(context);
 
         // For areas where the library has been initiated wrongly, this will fix that
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
@@ -70,6 +76,5 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
     protected abstract Activity getActivity();
 
     protected abstract ActivityController getActivityController();
-
 
 }

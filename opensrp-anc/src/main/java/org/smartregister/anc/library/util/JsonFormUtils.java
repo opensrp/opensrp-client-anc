@@ -176,7 +176,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils
-                    .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.WOMAN_TABLE_NAME);
+                    .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
 
             tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
@@ -557,7 +557,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
             Event event = (Event) new Event().withBaseEntityId(entityId) //should be different for main and subform
                     .withEventDate(encounterDate).withEventType(encounterType).withLocationId(encounterLocation)
-                    .withProviderId(providerId).withEntityType(DBConstantsUtils.WOMAN_TABLE_NAME)
+                    .withProviderId(providerId).withEntityType(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)
                     .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString()).withDateCreated(new Date());
             tagSyncMetadata(allSharedPreferences, event);
 
@@ -604,7 +604,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     (Event) new Event().withBaseEntityId(entityId) //should be different for main and subform
                             .withEventDate(encounterDate).withEventType(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)
                             .withLocationId(encounterLocation).withProviderId(providerId)
-                            .withEntityType(DBConstantsUtils.WOMAN_TABLE_NAME).withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                            .withEntityType(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME).withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
                             .withDateCreated(new Date());
             tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
 
@@ -787,7 +787,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     protected static Event createUpdateClientDetailsEvent(String baseEntityId) {
 
         Event updateChildDetailsEvent = (Event) new Event().withBaseEntityId(baseEntityId).withEventDate(new Date())
-                .withEventType(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION).withEntityType(DBConstantsUtils.WOMAN_TABLE_NAME)
+                .withEventType(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION).withEntityType(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)
                 .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString()).withDateCreated(new Date());
 
         JsonFormUtils
@@ -810,7 +810,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         FormTag formTag = getFormTag(allSharedPreferences);
         Event baseEvent = org.smartregister.util.JsonFormUtils
-                .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.WOMAN_TABLE_NAME);
+                .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
 
         tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 

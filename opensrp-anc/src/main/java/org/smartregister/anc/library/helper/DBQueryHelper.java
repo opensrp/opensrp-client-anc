@@ -8,6 +8,6 @@ import org.smartregister.anc.library.util.DBConstantsUtils;
 
 public class DBQueryHelper {
     public static final String getHomePatientRegisterCondition() {
-        return DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL ";
+        return DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL";
     }
 }

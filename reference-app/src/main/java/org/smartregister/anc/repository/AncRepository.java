@@ -53,8 +53,6 @@ public class AncRepository extends Repository {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.tag(AncRepository.class.getName()).w("Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 
-        AncLibrary.getInstance().performMigrations(db);
-
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
