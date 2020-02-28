@@ -237,13 +237,13 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
 
     private String filterAndSortQuery() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
+        SmartRegisterQueryBuilder registerQueryBuilder = new SmartRegisterQueryBuilder(mainSelect);
 
         String query = "";
         try {
             if (isValidFilterForFts(commonRepository())) {
                 String sql = AncLibrary.getInstance().getRegisterQueryProvider().getObjectIdsQuery(mainCondition, filters) + (StringUtils.isBlank(getDefaultSortQuery()) ? "" : " order by " + getDefaultSortQuery());
-                sql = sqb.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+                sql = registerQueryBuilder.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 List<String> ids = commonRepository().findSearchIds(sql);
                 query = AncLibrary.getInstance().getRegisterQueryProvider().mainRegisterQuery() + " where _id IN (%s) " + (StringUtils.isBlank(getDefaultSortQuery()) ? "" : " order by " + getDefaultSortQuery());
 
@@ -251,9 +251,9 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 return query.replace("%s", joinedIds);
             } else {
                 if (!TextUtils.isEmpty(filters) && TextUtils.isEmpty(Sortqueries)) {
-                    sqb.addCondition(filters);
-                    query = sqb.orderbyCondition(Sortqueries);
-                    query = sqb.Endquery(sqb.addlimitandOffset(query
+                    registerQueryBuilder.addCondition(filters);
+                    query = registerQueryBuilder.orderbyCondition(Sortqueries);
+                    query = registerQueryBuilder.Endquery(registerQueryBuilder.addlimitandOffset(query
                             , clientAdapter.getCurrentlimit()
                             , clientAdapter.getCurrentoffset()));
                 }

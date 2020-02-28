@@ -14,22 +14,22 @@ public class RegisterQueryProvider {
         String strFilters = getFilter(filters);
 
         if (StringUtils.isNotBlank(strFilters) && StringUtils.isBlank(strMainCondition)) {
-            strFilters = String.format(" where " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" where " + getDemographicTable() + "." + CommonFtsObject.phraseColumn + " MATCH '*%s*'", filters);
         }
 
-        return "select " + getDemographicTable() + "." + "object_id from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
-                "join " + getDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
+        return "select " + getDemographicTable() + "." + CommonFtsObject.idColumn + " from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
+                "join " + getDetailsTable() + " on " + getDemographicTable() + "." + CommonFtsObject.idColumn + " =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
     private String getFilter(String filters) {
         if (StringUtils.isNotBlank(filters)) {
-            return String.format(" AND " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+            return String.format(" AND " + getDemographicTable() + "." + CommonFtsObject.phraseColumn + " MATCH '*%s*'", filters);
         }
         return "";
     }
 
     private String getMainCondition(String mainCondition) {
-        if (!StringUtils.isBlank(mainCondition)) {
+        if (StringUtils.isNotBlank(mainCondition)) {
             return " where " + mainCondition;
         }
         return "";
@@ -40,13 +40,13 @@ public class RegisterQueryProvider {
         String strFilters = getFilter(filters);
 
         if (StringUtils.isNotBlank(filters) && StringUtils.isBlank(mainCondition)) {
-            strFilters = String.format(" where " + CommonFtsObject.searchTableName(getDemographicTable()) + ".phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" where " + CommonFtsObject.searchTableName(getDemographicTable()) + "." + CommonFtsObject.phraseColumn + " MATCH '*%s*'", filters);
         }
 
         String strMainCondition = getMainCondition(mainCondition);
 
-        return "select count(" + getDemographicTable() + "." + "object_id) from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
-                "join " + getDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
+        return "select count(" + getDemographicTable() + "." + CommonFtsObject.idColumn + ") from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
+                "join " + getDetailsTable() + " on " + getDemographicTable() + "." + CommonFtsObject.idColumn + " =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
     public String[] mainColumns() {
