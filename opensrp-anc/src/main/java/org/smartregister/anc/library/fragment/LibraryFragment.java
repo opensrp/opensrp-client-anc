@@ -14,7 +14,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.adapter.LibraryContentAdapter;
 import org.smartregister.anc.library.model.LibraryContent;
-import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;

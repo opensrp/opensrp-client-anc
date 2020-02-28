@@ -2,6 +2,7 @@ package org.smartregister.anc.library.fragment;
 
 import android.app.Activity;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -52,5 +53,10 @@ public class NoMatchDialogFragmentTest extends BaseActivityUnitTest {
         NoMatchDialogFragment noMatchDialogFragment = NoMatchDialogFragment.launchDialog(activity, "", "11234");
         Assert.assertNotNull(noMatchDialogFragment);
 
+    }
+
+    @After
+    public void tearDown() {
+        destroyController();
     }
 }

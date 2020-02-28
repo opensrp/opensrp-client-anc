@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-import junit.framework.Assert;
-
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -81,5 +81,9 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
         spyActivity.onClick(view);
 
         Mockito.verify(spyActivity).goToHomeRegisterPage();
+    }
+    @After
+    public void tearDown() {
+        destroyController();
     }
 }

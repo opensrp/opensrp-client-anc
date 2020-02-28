@@ -20,6 +20,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
@@ -48,7 +49,6 @@ import timber.log.Timber;
  */
 
 public class BaseAncClientProcessorForJava extends ClientProcessorForJava implements MiniClientProcessorForJava {
-
     private HashSet<String> eventTypes = new HashSet<>();
 
     public BaseAncClientProcessorForJava(Context context) {
@@ -84,13 +84,37 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
     private void processVisit(Event event) {
         //Attention flags
-        AncLibrary.getInstance().getDetailsRepository()
+        getDetailsRepository()
                 .add(event.getBaseEntityId(), ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS,
                         event.getDetails().get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS),
                         Calendar.getInstance().getTimeInMillis());
         processPreviousContacts(event);
         processContactTasks(event);
 
+    }
+
+    private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
+                           Event event, String registeredAnm) {
+        try {
+            String baseEntityId = event.getBaseEntityId();
+            String providerId = event.getProviderId();
+
+            if (providerId.equals(registeredAnm)) {
+                ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
+                ecSyncHelper.deleteClient(baseEntityId);
+                detailsRepository.deleteDetails(baseEntityId);
+
+                for (Table bindObject : bindObjects) {
+                    String tableName = bindObject.name;
+                    deleteCase(tableName, baseEntityId);
+                }
+
+                return true;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return false;
     }
 
     /*
@@ -142,47 +166,20 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             }
 
         */
-    private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
-                           Event event, String registeredAnm) {
-        try {
-            String baseEntityId = event.getBaseEntityId();
-            String providerId = event.getProviderId();
 
-            if (providerId.equals(registeredAnm)) {
-                ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
-                ecSyncHelper.deleteClient(baseEntityId);
-                //  Log.d(getClass().getName(), "EVENT_DELETED: " + eventDeleted);
-                // Log.d(getClass().getName(), "ClIENT_DELETED: " + clientDeleted);
-
-                detailsRepository.deleteDetails(baseEntityId);
-                // Log.d(getClass().getName(), "DETAILS_DELETED: " + detailsDeleted);
-
-                for (Table bindObject : bindObjects) {
-                    String tableName = bindObject.name;
-
-                    deleteCase(tableName, baseEntityId);
-                    //    Log.d(getClass().getName(), "CASE_DELETED: " + caseDeleted);
-                }
-
-                return true;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        return false;
+    public DetailsRepository getDetailsRepository() {
+        return AncLibrary.getInstance().getDetailsRepository();
     }
 
     private void processPreviousContacts(Event event) {
         //Previous contact state
         String previousContactsRaw = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS);
-        Map<String, String> previousContactMap = AncLibrary.getInstance().getGsonInstance()
-                .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
-                }.getType());
+        Map<String, String> previousContactMap = getPreviousContactMap(previousContactsRaw);
 
         if (previousContactMap != null) {
             String contactNo = getContact(event);
             for (Map.Entry<String, String> entry : previousContactMap.entrySet()) {
-                AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(
+                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(
                         new PreviousContact(event.getBaseEntityId(), entry.getKey(), entry.getValue(), contactNo));
             }
         }
@@ -200,12 +197,17 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                     String key = tasks.optString(JsonFormConstants.KEY);
 
                     Task task = getTask(tasks, key, event.getBaseEntityId(), contactNo);
-                    AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(task);
+                    getContactTasksRepository().saveOrUpdateTasks(task);
                 }
             }
         } catch (JSONException e) {
             Timber.e(e, " --> processContactTasks");
         }
+    }
+
+    public Map<String, String> getPreviousContactMap(String previousContactsRaw) {
+        return AncLibrary.getInstance().getGsonInstance().fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
+        }.getType());
     }
 
     @NotNull
@@ -237,10 +239,13 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return task;
     }
 
+    public ContactTasksRepository getContactTasksRepository() {
+        return AncLibrary.getInstance().getContactTasksRepository();
+    }
+
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
-                allCommonsRepositoryobjects(tableName);
+        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().allCommonsRepositoryobjects(tableName);
 
         if (allCommonsRepository != null) {
             allCommonsRepository.updateSearch(entityId);
@@ -268,17 +273,14 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         if (StringUtils.isBlank(eventType)) {
             return;
         }
-
+        Client client = eventClient.getClient();
         switch (eventType) {
             case ConstantsUtils.EventTypeUtils.CLOSE:
-                unsyncEvents.add(event);
-                break;
             case ConstantsUtils.EventTypeUtils.REGISTRATION:
             case ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION:
                 if (clientClassification == null) {
                     return;
                 }
-                Client client = eventClient.getClient();
                 //iterate through the events
                 if (client != null) {
                     processEvent(event, client, clientClassification);
@@ -291,7 +293,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                 break;
         }
     }
-
 
     @Override
     public boolean unSync(@Nullable List<Event> events) {

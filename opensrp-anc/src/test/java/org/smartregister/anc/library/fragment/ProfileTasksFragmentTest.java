@@ -13,6 +13,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -305,5 +306,10 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
         profileTasksFragmentSpy.startTaskForm(new JSONObject(taskForm), getTask());
         String taskKey = profileTasksFragmentSpy.getCurrentTask().getKey();
         Assert.assertEquals(taskKey, "myTask");
+    }
+
+    @After
+    public void tearDown() {
+        destroyController();
     }
 }

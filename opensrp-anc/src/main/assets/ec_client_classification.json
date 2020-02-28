@@ -8,7 +8,7 @@
           {
             "field": "eventType",
             "field_value": "ANC Close",
-            "creates_case": [
+            "closes_case": [
               "ec_mother"
             ]
           },

@@ -56,7 +56,7 @@
           "column_name": "date_removed",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.dateRemoved"
+            "field": "attributes.date_removed"
           }
         },
         {
