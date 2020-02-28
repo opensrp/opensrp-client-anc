@@ -25,7 +25,6 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     public static final String TABLE_NAME = "contact_tasks";
     public static final String ID = "_id";
     public static final String BASE_ENTITY_ID = "base_entity_id";
-    public static final String CONTACT_NO = "contact_no";
     public static final String KEY = "key";
     public static final String VALUE = "value";
     public static final String IS_UPDATED = "is_updated";
@@ -33,14 +32,13 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     public static final String CREATED_AT = "created_at";
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
             + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
-            + CONTACT_NO + "  VARCHAR NOT NULL, "
             + BASE_ENTITY_ID + "  VARCHAR NOT NULL, "
             + KEY + "  VARCHAR, "
             + VALUE + "  VARCHAR NOT NULL, "
             + IS_UPDATED + "  INTEGER NOT NULL, "
             + IS_COMPLETE + "  INTEGER DEFAULT 1 NOT NULL, "
             + CREATED_AT + " INTEGER NOT NULL, " +
-            "UNIQUE(" + BASE_ENTITY_ID + ", " + CONTACT_NO + ", " + KEY + ", " + VALUE + ") ON CONFLICT REPLACE)";
+            "UNIQUE(" + BASE_ENTITY_ID + ", " + KEY + ", " + VALUE + ") ON CONFLICT REPLACE)";
 
     private static final String INDEX_ID =
             "CREATE INDEX " + TABLE_NAME + "_" + ID + "_index ON " + TABLE_NAME + "(" + ID + " COLLATE NOCASE);";
@@ -51,10 +49,7 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     private static final String INDEX_KEY = "CREATE INDEX " + TABLE_NAME + "_" + KEY +
             "_index ON " + TABLE_NAME + "(" + KEY + " COLLATE NOCASE);";
 
-    private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
-            "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
-
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+    private String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
 
     /**
      * Creates the contact_tasks table and adds the indexes on the table.
@@ -67,7 +62,6 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         database.execSQL(INDEX_ID);
         database.execSQL(INDEX_BASE_ENTITY_ID);
         database.execSQL(INDEX_KEY);
-        database.execSQL(INDEX_CONTACT_NO);
     }
 
     /**
@@ -92,7 +86,6 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
     private ContentValues createValuesFor(Task task) {
         ContentValues values = new ContentValues();
         values.put(ID, task.getId());
-        values.put(CONTACT_NO, task.getContactNo());
         values.put(BASE_ENTITY_ID, task.getBaseEntityId());
         values.put(VALUE, task.getValue());
         values.put(KEY, task.getKey());
@@ -186,7 +179,6 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         task.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
         task.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
         task.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
-        task.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
         task.setCreatedAt(cursor.getLong(cursor.getColumnIndex(CREATED_AT)));
         task.setUpdated(updateBooleanValue(cursor.getString(cursor.getColumnIndex(IS_UPDATED))));
         task.setComplete(updateBooleanValue(cursor.getString(cursor.getColumnIndex(IS_COMPLETE))));
@@ -212,11 +204,10 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
      * Gets all the closed or updated tasks. We fetch this using the baseEntityId,contact number & the is updated flag
      *
      * @param baseEntityId {@link String}
-     * @param contactNo    {@link String}
      * @return tasksList {@link List}
      * @author dubdabasoduba
      */
-    public List<Task> getClosedTasks(String baseEntityId, String contactNo) {
+    public List<Task> getClosedTasks(String baseEntityId) {
         String orderBy = ID + " DESC ";
         Cursor mCursor = null;
         String selection = "";
@@ -224,9 +215,9 @@ public class ContactTasksRepositoryHelper extends BaseRepository {
         List<Task> taskList = new ArrayList<>();
         try {
             SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-                selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-                selectionArgs = new String[]{baseEntityId, "1", contactNo};
+            if (StringUtils.isNotBlank(baseEntityId)) {
+                selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+                selectionArgs = new String[]{baseEntityId, "1"};
             }
             mCursor = sqLiteDatabase.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null) {

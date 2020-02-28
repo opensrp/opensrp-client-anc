@@ -228,7 +228,6 @@ private void processPreviousContacts(Event event) {
     @NotNull
     private Task getTask(JSONObject field, String key, String baseEntityId, String contactNo) {
         Task task = new Task();
-        task.setContactNo(contactNo);
         task.setBaseEntityId(baseEntityId);
         task.setKey(key);
         task.setValue(String.valueOf(field));

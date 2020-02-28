@@ -111,8 +111,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
         HashMap<String, String> client =
                 (HashMap<String, String>) getIntent().getExtras().get(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         if (client != null) {
-            String contactNo = client.get(ConstantsUtils.REFERRAL);
-            return contactNo;
+            return client.get(ConstantsUtils.REFERRAL);
         }
         return null;
     }
@@ -131,7 +130,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
     }
 
     public String getEntityId() {
-        String entityId = getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        return entityId;
+        return getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
     }
 }
