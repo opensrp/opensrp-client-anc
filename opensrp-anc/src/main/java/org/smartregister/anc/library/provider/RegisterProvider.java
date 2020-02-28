@@ -116,18 +116,6 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         return new FooterViewHolder(view);
     }
 
-    /*
-    private void adjustLayoutParams(View view, TextView DETAILS) {
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        view.setLayoutParams(params);
-
-        params = DETAILS.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        DETAILS.setLayoutParams(params);
-    }
-*/
-
     @Override
     public boolean isFooterViewHolder(RecyclerView.ViewHolder viewHolder) {
         return viewHolder instanceof FooterViewHolder;

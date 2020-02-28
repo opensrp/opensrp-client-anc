@@ -689,7 +689,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
 
-            //Inject some form defaults from client DETAILS
+            //Inject some form defaults from client details
             map.put(ConstantsUtils.KeyUtils.CONTACT_NO, contactNo.toString());
             map.put(ConstantsUtils.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
             map.put(ConstantsUtils.AGE, womanAge);

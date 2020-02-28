@@ -131,14 +131,6 @@ public class AncLibrary {
         return instance;
     }
 
-    /**
-     * This method should be called in onUpgrade method of the Repository class where the migrations
-     * are already managed instead of writing new code to manage them.
-     */
-    public static void performMigrations(@NonNull SQLiteDatabase database) {
-        PatientRepository.performMigrations(database);
-    }
-
     public android.content.Context getApplicationContext() {
         return context.applicationContext();
     }
