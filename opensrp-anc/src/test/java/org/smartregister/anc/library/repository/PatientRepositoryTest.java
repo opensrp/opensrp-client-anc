@@ -59,7 +59,6 @@ public class PatientRepositoryTest {
     @PrepareForTest({ContentValues.class})
     @Test
     public void testUpdateWomanDetailsInvokesUpdateMethodOfWritableDatabase() {
-        PatientRepository spy = PowerMockito.spy(new PatientRepository());
         PowerMockito.mockStatic(ContentValues.class);
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
