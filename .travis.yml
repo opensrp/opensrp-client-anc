@@ -60,16 +60,16 @@ script:
   - chmod 755 gradlew
   - ls -la
   #Run jacocoTestReport -> Runs all unit tests & instrumentation tests
-  - travis_wait ./gradlew clean :opensrp-anc:jacocoTestReport coveralls --stacktrace
+  - travis_wait ./gradlew :opensrp-anc:clean jacocoTestReport jacocoFullReport coveralls --stacktrace
   # Generate javadoc
-#  - ./gradlew javadoc
+  - ./gradlew javadoc
 notifications:
   slack:
     secure: fAiZ4yA7DM6nUKh7nqsCTqZBb03VEAvi5NcRu5mNh5coNn/50XNeZl+qpv7Dw70Ef85Y/k68uc6KwTGVqPXEmVq9Hk3e7lqpBNN8rufvgCYDDGPmywBmU5BhSeykKo0Ee7llM3mRR/EipjIWw1+YvMcS3hCoygf/UlMDDhG0Jo0=
-#deploy:
-#  provider: pages
-#  skip_cleanup: true
-#  github_token: $GITHUB_TOKEN
-#  local_dir: opensrp-anc/build/docs/javadoc/
-#  on:
-#    branch: master
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: opensrp-anc/build/docs/javadoc/
+  on:
+    branch: master
