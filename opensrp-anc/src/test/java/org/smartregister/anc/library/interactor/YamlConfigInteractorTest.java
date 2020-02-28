@@ -22,8 +22,8 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -38,7 +38,7 @@ import java.util.UUID;
 import java.util.concurrent.Executors;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, Utils.class})
+@PrepareForTest({PatientRepository.class, AncLibrary.class, Utils.class})
 public class YamlConfigInteractorTest extends BaseUnitTest {
 
     private final String baseEntityId = UUID.randomUUID().toString();
@@ -61,7 +61,7 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
     private DetailsRepository detailsRepository;
 
     @Mock
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
+    private PreviousContactRepository previousContactRepository;
 
 
     @Before
@@ -85,9 +85,9 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
         details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PatientRepository.class);
 
-        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId))
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId))
                 .thenReturn(details);
 
         summaryInteractor.fetchWomanDetails(baseEntityId, callBack);
@@ -121,18 +121,18 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PatientRepository.class);
         PowerMockito.mockStatic(Utils.class);
 
-        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId)).thenReturn(details);
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %s number");
         PowerMockito.when(ancLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);
 
-        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
-        PowerMockito.when(previousContactRepositoryHelper.getImmediatePreviousSchedule(baseEntityId, "1")).thenReturn(facts);
+        PowerMockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        PowerMockito.when(previousContactRepository.getImmediatePreviousSchedule(baseEntityId, "1")).thenReturn(facts);
         PowerMockito.when(Utils.getListFromString(contactScheduleList)).thenReturn(contactSchedule);
 
         summaryInteractorSpy.fetchUpcomingContacts(baseEntityId, "-2", callBack);
@@ -175,10 +175,10 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PatientRepository.class);
         PowerMockito.mockStatic(Utils.class);
 
-        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId)).thenReturn(details);
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %s number");
@@ -220,10 +220,10 @@ public class YamlConfigInteractorTest extends BaseUnitTest {
         facts.put(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, contactScheduleList);
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(PatientRepository.class);
         PowerMockito.mockStatic(Utils.class);
 
-        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId)).thenReturn(details);
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         PowerMockito.when(ancLibrary.getDetailsRepository()).thenReturn(detailsRepository);
         PowerMockito.when(detailsRepository.getAllDetailsForClient(baseEntityId)).thenReturn(details);

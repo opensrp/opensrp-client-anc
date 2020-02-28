@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,5 +98,10 @@ public class ProfileOverviewFragmentTest extends BaseActivityUnitTest {
         profileOverviewFragment = ProfileOverviewFragment.newInstance(null);
         startFragment(profileOverviewFragment);
         Assert.assertNotNull(profileOverviewFragment);
+    }
+
+    @After
+    public void tearDown() {
+        destroyController();
     }
 }

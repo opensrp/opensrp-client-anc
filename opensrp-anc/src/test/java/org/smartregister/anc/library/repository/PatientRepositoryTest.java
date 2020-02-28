@@ -29,8 +29,8 @@ import java.util.Map;
  */
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, SQLiteDatabase.class})
-public class PatientRepositoryHelperTest {
+@PrepareForTest({PatientRepository.class, AncLibrary.class, SQLiteDatabase.class})
+public class PatientRepositoryTest {
 
     protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     @Mock
@@ -48,10 +48,10 @@ public class PatientRepositoryHelperTest {
 
     @Test
     public void testPatientRepositoryInstantiatesCorrectly() {
-        PatientRepositoryHelper patientRepositoryHelper = new PatientRepositoryHelper();
-        Assert.assertNotNull(patientRepositoryHelper);
+        PatientRepository patientRepository = new PatientRepository();
+        Assert.assertNotNull(patientRepository);
 
-        Map<String, String> womanProfileDetails = PatientRepositoryHelper.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
+        Map<String, String> womanProfileDetails = PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
         Assert.assertNull(womanProfileDetails);
 
     }
@@ -59,16 +59,15 @@ public class PatientRepositoryHelperTest {
     @PrepareForTest({ContentValues.class})
     @Test
     public void testUpdateWomanDetailsInvokesUpdateMethodOfWritableDatabase() {
-        PatientRepositoryHelper spy = PowerMockito.spy(new PatientRepositoryHelper());
         PowerMockito.mockStatic(ContentValues.class);
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(PatientRepositoryHelper.getMasterRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);
-        PowerMockito.when(PatientRepositoryHelper.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
-        PatientRepositoryHelper.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
+        PowerMockito.when(PatientRepository.getMasterRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(PatientRepository.getMasterRepository().getWritableDatabase().update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}))).thenReturn(1);
+        PatientRepository.updateWomanAlertStatus(DUMMY_BASE_ENTITY_ID, ConstantsUtils.AlertStatusUtils.IN_PROGRESS);
         Mockito.verify(sqLiteDatabase, Mockito.times(1)).update(ArgumentMatchers.anyString(), ArgumentMatchers.any(ContentValues.class), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new String[]{DUMMY_BASE_ENTITY_ID}));
     }
 }

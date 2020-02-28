@@ -9,7 +9,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -47,7 +47,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
         Runnable runnable = () -> {
             try {
-                Map<String, String> details = PatientRepositoryHelper.getWomanProfileDetails(entityId);
+                Map<String, String> details = PatientRepository.getWomanProfileDetails(entityId);
 
                 Map<String, String> clientDetails =
                         AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
@@ -71,7 +71,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     int previousContact = getPreviousContactNo(referralContactNo);
                     if (previousContact > 0) {
                         Facts facts =
-                                AncLibrary.getInstance().getPreviousContactRepositoryHelper()
+                                AncLibrary.getInstance().getPreviousContactRepository()
                                         .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
                         if (facts != null && facts.asMap().containsKey(ConstantsUtils.CONTACT_SCHEDULE)) {
                             String schedule = (String) facts.asMap().get(ConstantsUtils.CONTACT_SCHEDULE);

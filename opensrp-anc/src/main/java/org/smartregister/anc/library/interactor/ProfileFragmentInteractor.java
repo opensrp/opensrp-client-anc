@@ -31,12 +31,12 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
 
     @Override
     public List<Task> getContactTasks(String baseEntityId, String contactNo) {
-        return AncLibrary.getInstance().getContactTasksRepositoryHelper().getTasks(baseEntityId, null);
+        return AncLibrary.getInstance().getContactTasksRepository().getTasks(baseEntityId, null);
     }
 
     @Override
     public void updateTask(Task task) {
-        getProfileView().refreshTasksList(AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(task));
+        getProfileView().refreshTasksList(AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(task));
     }
 
 

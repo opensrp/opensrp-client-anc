@@ -15,9 +15,9 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -45,7 +45,7 @@ public class ContactVisit {
     private String baseEntityId;
     private int nextContact;
     private String nextContactVisitDate;
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
     private List<PartialContact> partialContactList;
     private Facts facts;
     private List<String> formSubmissionIDs;
@@ -58,14 +58,14 @@ public class ContactVisit {
     private Map<String, Long> currentClientTasks = new HashMap<>();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
-                        String nextContactVisitDate, PartialContactRepositoryHelper partialContactRepositoryHelper,
+                        String nextContactVisitDate, PartialContactRepository partialContactRepository,
                         List<PartialContact> partialContactList) {
         this.details = details;
         this.referral = referral;
         this.baseEntityId = baseEntityId;
         this.nextContact = nextContact;
         this.nextContactVisitDate = nextContactVisitDate;
-        this.partialContactRepositoryHelper = partialContactRepositoryHelper;
+        this.partialContactRepository = partialContactRepository;
         this.partialContactList = partialContactList;
     }
 
@@ -86,7 +86,7 @@ public class ContactVisit {
         formSubmissionIDs = new ArrayList<>();
 
         getCurrentClientsTasks(baseEntityId);
-        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts, formSubmissionIDs);
+        updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts, formSubmissionIDs);
 
         womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
         processAttentionFlags(womanDetail, facts);
@@ -109,7 +109,7 @@ public class ContactVisit {
             womanDetail.setPreviousContactStatus(details.get(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS));
             womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
         }
-        PatientRepositoryHelper.updateContactVisitDetails(womanDetail, true);
+        PatientRepository.updateContactVisitDetails(womanDetail, true);
         return this;
     }
 
@@ -119,7 +119,7 @@ public class ContactVisit {
      * @param baseEntityId {@link String} Client's base entity id.
      */
     private void getCurrentClientsTasks(String baseEntityId) {
-        List<Task> tasksList = AncLibrary.getInstance().getContactTasksRepositoryHelper().getTasks(baseEntityId, null);
+        List<Task> tasksList = AncLibrary.getInstance().getContactTasksRepository().getTasks(baseEntityId, null);
         if (tasksList != null && tasksList.size() > 0) {
             Map<String, Long> tasksMap = new HashMap<>();
             for (int i = 0; i < tasksList.size(); i++) {
@@ -132,7 +132,7 @@ public class ContactVisit {
         }
     }
 
-    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepositoryHelper partialContactRepositoryHelper,
+    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepository partialContactRepository,
                                                   List<PartialContact> partialContactList, Facts facts, List<String> formSubmissionIDs) throws Exception {
         if (partialContactList != null) {
             Collections.sort(partialContactList, (firstPartialContact, secondPartialContact) -> firstPartialContact.getSortOrder().compareTo(secondPartialContact.getSortOrder()));
@@ -163,7 +163,7 @@ public class ContactVisit {
                 }
 
                 //Remove partial contact
-                partialContactRepositoryHelper.deletePartialContact(partialContact.getId());
+                partialContactRepository.deletePartialContact(partialContact.getId());
             }
         }
     }
@@ -194,7 +194,7 @@ public class ContactVisit {
                                         } else {
                                             Long tasksId = getCurrentClientTasks().get(key);
                                             if (tasksId != null) {
-                                                AncLibrary.getInstance().getContactTasksRepositoryHelper().deleteContactTask(tasksId);
+                                                AncLibrary.getInstance().getContactTasksRepository().deleteContactTask(tasksId);
                                             }
                                         }
                                     }
@@ -240,14 +240,13 @@ public class ContactVisit {
     private void saveTasks(JSONObject field) {
         if (field != null) {
             String key = field.optString(JsonFormConstants.KEY);
-            AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(getTask(field, key));
+            AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(getTask(field, key));
         }
     }
 
     @NotNull
     private Task getTask(JSONObject field, String key) {
         Task task = new Task();
-        task.setContactNo(getCurrentContact());
         task.setBaseEntityId(baseEntityId);
         task.setKey(key);
         task.setValue(String.valueOf(field));
@@ -255,14 +254,6 @@ public class ContactVisit {
         task.setComplete(org.smartregister.anc.library.util.JsonFormUtils.checkIfTaskIsComplete(field));
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
-    }
-
-    private String getCurrentContact() {
-        String contact = "0";
-        if (StringUtils.isNotBlank(String.valueOf(nextContact))) {
-            contact = nextContact == 1 ? String.valueOf(nextContact) : String.valueOf(nextContact - 1);
-        }
-        return contact;
     }
 
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {
@@ -322,7 +313,7 @@ public class ContactVisit {
                                 !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
                                 !isCheckboxValueEmpty(fieldObject)) {
 
-                            fieldObject.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
+                            fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
                             savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
@@ -331,7 +322,7 @@ public class ContactVisit {
                             JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
-                                secondaryValuesJSONObject.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
+                                secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
                                 savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
@@ -354,7 +345,7 @@ public class ContactVisit {
             String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
             savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
                     .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
-                    .put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo));
+                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
         }
     }
 
@@ -386,7 +377,7 @@ public class ContactVisit {
                 JSONObject itemToSave = new JSONObject();
                 itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
                 itemToSave.put(JsonFormConstants.VALUE, result);
-                itemToSave.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
+                itemToSave.put(PreviousContactRepository.CONTACT_NO, contactNo);
                 savePreviousContactItem(baseEntityId, itemToSave);
             }
         }
@@ -397,12 +388,12 @@ public class ContactVisit {
         previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
         previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
         previousContact.setBaseEntityId(baseEntityId);
-        previousContact.setContactNo(fieldObject.getString(PreviousContactRepositoryHelper.CONTACT_NO));
+        previousContact.setContactNo(fieldObject.getString(PreviousContactRepository.CONTACT_NO));
         getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
-    protected PreviousContactRepositoryHelper getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 
     public Map<String, Long> getCurrentClientTasks() {

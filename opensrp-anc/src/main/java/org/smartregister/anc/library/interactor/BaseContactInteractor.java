@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.interactor;
 
 import org.smartregister.anc.library.contract.BaseContactContract;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.AppExecutors;
 
 import java.util.Map;
@@ -15,7 +15,7 @@ public abstract class BaseContactInteractor {
 
     protected void fetchWomanDetails(final String baseEntityId, final BaseContactContract.InteractorCallback callBack) {
         Runnable runnable = () -> {
-            final Map<String, String> womanDetails = PatientRepositoryHelper.getWomanProfileDetails(baseEntityId);
+            final Map<String, String> womanDetails = PatientRepository.getWomanProfileDetails(baseEntityId);
             appExecutors.mainThread().execute(() -> callBack.onWomanDetailsFetched(womanDetails));
         };
 
