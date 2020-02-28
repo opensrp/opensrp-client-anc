@@ -2,6 +2,7 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 
+import org.junit.After;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -76,6 +77,11 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
     protected abstract Activity getActivity();
 
     protected abstract ActivityController getActivityController();
+
+//    @After
+//    public void tearDown() {
+//        destroyController();
+//    }
 
 
 }

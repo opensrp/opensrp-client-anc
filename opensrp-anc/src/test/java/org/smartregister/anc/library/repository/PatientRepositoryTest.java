@@ -31,7 +31,7 @@ import java.util.Map;
  */
 
 @RunWith(RobolectricTestRunner.class)
-public class PatientRepositoryHelperTest {
+public class PatientRepositoryTest {
 
     protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
 
@@ -68,10 +68,10 @@ public class PatientRepositoryHelperTest {
 
     @Test
     public void testPatientRepositoryInstantiatesCorrectly() {
-        PatientRepositoryHelper patientRepositoryHelper = new PatientRepositoryHelper();
+        PatientRepository patientRepositoryHelper = new PatientRepository();
         Assert.assertNotNull(patientRepositoryHelper);
 
-        Map<String, String> womanProfileDetails = PatientRepositoryHelper.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
+        Map<String, String> womanProfileDetails = PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
         Assert.assertNull(womanProfileDetails);
 
     }
@@ -104,7 +104,7 @@ public class PatientRepositoryHelperTest {
         PowerMockito.when(cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PHONE_NUMBER)))
                 .thenReturn("020-234-234");
 
-        Map<String, String> expectedMap = PatientRepositoryHelper.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
+        Map<String, String> expectedMap = PatientRepository.getWomanProfileDetails(DUMMY_BASE_ENTITY_ID);
         Assert.assertEquals("Mary", expectedMap.get(DBConstantsUtils.KeyUtils.FIRST_NAME));
         Assert.assertEquals("Mary", expectedMap.get(DBConstantsUtils.KeyUtils.LAST_NAME));
         Assert.assertEquals("234-234", expectedMap.get(DBConstantsUtils.KeyUtils.ANC_ID));
@@ -122,7 +122,7 @@ public class PatientRepositoryHelperTest {
         womanDetail.setRedFlags("234");
         womanDetail.setNextContact(2);
         womanDetail.setYellowFlagCount(2);
-        PatientRepositoryHelper.updateContactVisitDetails(womanDetail, true);
+        PatientRepository.updateContactVisitDetails(womanDetail, true);
         Mockito.verify(sqLiteDatabase).update(Mockito.eq("ec_mother_details"), (ContentValues) updateContactVisitDetailArgumentCaptor.capture(),
                 (String) updateContactVisitDetailArgumentCaptor.capture(), (String[]) updateContactVisitDetailArgumentCaptor.capture());
         ContentValues result = (ContentValues) updateContactVisitDetailArgumentCaptor.getAllValues().get(0);
@@ -136,7 +136,7 @@ public class PatientRepositoryHelperTest {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
         PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
         PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
-        PatientRepositoryHelper.updateWomanAlertStatus("123-23", "red");
+        PatientRepository.updateWomanAlertStatus("123-23", "red");
         Mockito.verify(sqLiteDatabase).update(Mockito.eq("ec_mother_details"), (ContentValues) updateWomanAlertStatusArgumentCaptor.capture(),
                 (String) updateWomanAlertStatusArgumentCaptor.capture(), (String[]) updateWomanAlertStatusArgumentCaptor.capture());
         ContentValues result = (ContentValues) updateWomanAlertStatusArgumentCaptor.getAllValues().get(0);
@@ -148,7 +148,7 @@ public class PatientRepositoryHelperTest {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
         PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
         PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
-        PatientRepositoryHelper.updateEDDDate("123-23", null);
+        PatientRepository.updateEDDDate("123-23", null);
         Mockito.verify(sqLiteDatabase).update(Mockito.eq("ec_mother_details"), (ContentValues) updateEDDDateArgumentCaptor.capture(),
                 (String) updateEDDDateArgumentCaptor.capture(), (String[]) updateEDDDateArgumentCaptor.capture());
         ContentValues result = (ContentValues) updateEDDDateArgumentCaptor.getAllValues().get(0);
@@ -160,7 +160,7 @@ public class PatientRepositoryHelperTest {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
         PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
         PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
-        PatientRepositoryHelper.updateContactVisitStartDate("123-23", null);
+        PatientRepository.updateContactVisitStartDate("123-23", null);
         Mockito.verify(sqLiteDatabase).update(Mockito.eq("ec_mother_details"), (ContentValues) updateContactVisitStartDate.capture(),
                 (String) updateContactVisitStartDate.capture(), (String[]) updateEDDDateArgumentCaptor.capture());
         ContentValues result = (ContentValues) updateContactVisitStartDate.getAllValues().get(0);

@@ -47,7 +47,6 @@ public class PartialContactsTest extends BaseUnitTest {
     @Test
     public void testPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepository.class);
         PowerMockito.mockStatic(PreviousContactRepository.class);
         PowerMockito.mockStatic(PartialContactRepository.class);
         PowerMockito.mockStatic(EventClientRepository.class);
@@ -104,7 +103,6 @@ public class PartialContactsTest extends BaseUnitTest {
     @Test
     public void testNotFirstPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepository.class);
         PowerMockito.mockStatic(PreviousContactRepository.class);
         PowerMockito.mockStatic(PartialContactRepository.class);
         PowerMockito.mockStatic(EventClientRepository.class);
@@ -123,7 +121,6 @@ public class PartialContactsTest extends BaseUnitTest {
     @Test
     public void testReferralPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepository.class);
         PowerMockito.mockStatic(PreviousContactRepository.class);
         PowerMockito.mockStatic(PartialContactRepository.class);
         PowerMockito.mockStatic(EventClientRepository.class);
