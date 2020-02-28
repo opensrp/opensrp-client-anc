@@ -196,7 +196,7 @@ private void processPreviousContacts(Event event) {
                     JSONObject tasks = new JSONObject(openTasksArray.getString(i));
                     String key = tasks.optString(JsonFormConstants.KEY);
 
-                    Task task = getTask(tasks, key, event.getBaseEntityId(), contactNo);
+                    Task task = getTask(tasks, key, event.getBaseEntityId());
                     getContactTasksRepository().saveOrUpdateTasks(task);
                 }
             }
@@ -228,7 +228,7 @@ private void processPreviousContacts(Event event) {
     }
 
     @NotNull
-    private Task getTask(JSONObject field, String key, String baseEntityId, String contactNo) {
+    private Task getTask(JSONObject field, String key, String baseEntityId) {
         Task task = new Task();
         task.setBaseEntityId(baseEntityId);
         task.setKey(key);
