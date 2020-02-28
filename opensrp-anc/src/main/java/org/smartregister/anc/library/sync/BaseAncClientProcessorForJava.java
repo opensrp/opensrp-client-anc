@@ -13,7 +13,6 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,11 +20,11 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -39,7 +38,6 @@ import org.smartregister.sync.MiniClientProcessorForJava;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +50,6 @@ import timber.log.Timber;
 
 public class BaseAncClientProcessorForJava extends ClientProcessorForJava implements MiniClientProcessorForJava {
     private HashSet<String> eventTypes = new HashSet<>();
-    private Map<String, String> closedAnc = new HashMap<>();
 
     public BaseAncClientProcessorForJava(Context context) {
         super(context);
@@ -87,13 +84,37 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
     private void processVisit(Event event) {
         //Attention flags
-        AncLibrary.getInstance().getDetailsRepository()
+        getDetailsRepository()
                 .add(event.getBaseEntityId(), ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS,
                         event.getDetails().get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS),
                         Calendar.getInstance().getTimeInMillis());
         processPreviousContacts(event);
         processContactTasks(event);
 
+    }
+
+    private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
+                           Event event, String registeredAnm) {
+        try {
+            String baseEntityId = event.getBaseEntityId();
+            String providerId = event.getProviderId();
+
+            if (providerId.equals(registeredAnm)) {
+                ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
+                ecSyncHelper.deleteClient(baseEntityId);
+                detailsRepository.deleteDetails(baseEntityId);
+
+                for (Table bindObject : bindObjects) {
+                    String tableName = bindObject.name;
+                    deleteCase(tableName, baseEntityId);
+                }
+
+                return true;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return false;
     }
 
     /*
@@ -146,40 +167,14 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
 
         */
 
-    private boolean unSync(ECSyncHelper ecSyncHelper, DetailsRepository detailsRepository, List<Table> bindObjects,
-                           Event event, String registeredAnm) {
-        try {
-            String baseEntityId = event.getBaseEntityId();
-            String providerId = event.getProviderId();
-
-            if (providerId.equals(registeredAnm)) {
-                ecSyncHelper.deleteEventsByBaseEntityId(baseEntityId);
-                ecSyncHelper.deleteClient(baseEntityId);
-                detailsRepository.deleteDetails(baseEntityId);
-
-                for (Table bindObject : bindObjects) {
-                    String tableName = bindObject.name;
-                    deleteCase(tableName, baseEntityId);
-                }
-
-                return true;
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        return false;
-    }
-
-    public Map<String, String> getClosedAnc() {
-        return closedAnc;
+    public DetailsRepository getDetailsRepository() {
+        return AncLibrary.getInstance().getDetailsRepository();
     }
 
     private void processPreviousContacts(Event event) {
         //Previous contact state
         String previousContactsRaw = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS);
-        Map<String, String> previousContactMap = AncLibrary.getInstance().getGsonInstance()
-                .fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
-                }.getType());
+        Map<String, String> previousContactMap = getPreviousContactMap(previousContactsRaw);
 
         if (previousContactMap != null) {
             String contactNo = getContact(event);
@@ -202,12 +197,17 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                     String key = tasks.optString(JsonFormConstants.KEY);
 
                     Task task = getTask(tasks, key, event.getBaseEntityId(), contactNo);
-                    AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(task);
+                    getContactTasksRepository().saveOrUpdateTasks(task);
                 }
             }
         } catch (JSONException e) {
             Timber.e(e, " --> processContactTasks");
         }
+    }
+
+    public Map<String, String> getPreviousContactMap(String previousContactsRaw) {
+        return AncLibrary.getInstance().getGsonInstance().fromJson(previousContactsRaw, new TypeToken<Map<String, String>>() {
+        }.getType());
     }
 
     @NotNull
@@ -239,25 +239,16 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return task;
     }
 
+    public ContactTasksRepository getContactTasksRepository() {
+        return AncLibrary.getInstance().getContactTasksRepository();
+    }
+
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
         AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().allCommonsRepositoryobjects(tableName);
 
         if (allCommonsRepository != null) {
             allCommonsRepository.updateSearch(entityId);
-
-           /* if (getClosedAnc().size() > 0 && getClosedAnc().containsKey(entityId)) {
-                boolean isUpdated;
-                contentValues.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, getClosedAnc().get(entityId));
-                int recordsUpdated = AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().update(CommonFtsObject.searchTableName(tableName), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?", new String[]{entityId});
-                isUpdated = recordsUpdated > 0;
-
-                if (!isUpdated) {
-                    if (AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().inTransaction()) {
-                        AncLibrary.getInstance().getEventClientRepository().getWritableDatabase().endTransaction();
-                    }
-                }
-            }*/
         }
     }
 
@@ -293,7 +284,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                 //iterate through the events
                 if (client != null) {
                     processEvent(event, client, clientClassification);
-                    //checkClosedAncRecords(event);
                 }
                 break;
             case ConstantsUtils.EventTypeUtils.CONTACT_VISIT:
@@ -303,16 +293,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
                 break;
         }
     }
-
-    private void checkClosedAncRecords(Event event) {
-        if (event != null && ConstantsUtils.EventTypeUtils.CLOSE.equals(event.getEntityType())) {
-            DateTime eventDate = event.getEventDate();
-            String clientBaseEntityId = event.getBaseEntityId();
-
-            closedAnc.put(clientBaseEntityId, eventDate.toString());
-        }
-    }
-
 
     @Override
     public boolean unSync(@Nullable List<Event> events) {
