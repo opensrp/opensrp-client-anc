@@ -18,7 +18,7 @@ public interface ProfileFragmentContract {
 
         void getContactTasks(String baseEntityId, String contactNo);
 
-        void updateTask(Task task);
+        void updateTask(Task task, String contactNo);
     }
 
     interface View {
@@ -36,6 +36,6 @@ public interface ProfileFragmentContract {
 
         List<Task> getContactTasks(String baseEntityId, String contactNo);
 
-        void updateTask(Task task);
+        void updateTask(Task task, String contactNo);
     }
 }

@@ -471,7 +471,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 JSONObject item = accordionValue.getJSONObject(count);
                 JSONArray itemValueJSONArray = item.optJSONArray(JsonFormConstants.VALUES);
                 if (itemValueJSONArray != null) {
-                    String itemValue = ContactJsonFormUtils.extractItemValue(item, itemValueJSONArray);
+                    String type = item.optString(JsonFormConstants.TYPE);
+                    String itemValue = ContactJsonFormUtils.extractItemValue(type, itemValueJSONArray);
                     if (globalKeys.contains(item.getString(JsonFormConstants.KEY))) {
                         formGlobalValues.put(item.getString(JsonFormConstants.KEY), itemValue);
                     }

@@ -88,7 +88,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     }
 
     @Override
-    public void updateTask(Task task) {
-        mProfileInteractor.updateTask(task);
+    public void updateTask(Task task, String contactNo) {
+        mProfileInteractor.updateTask(task, contactNo);
     }
 }

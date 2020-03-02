@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusBuilder;
 import org.greenrobot.eventbus.meta.SubscriberInfoIndex;
@@ -24,7 +22,6 @@ import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
