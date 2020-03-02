@@ -2,6 +2,7 @@ package org.smartregister.anc.library.activity;
 
 import android.content.Intent;
 import android.widget.TextView;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -2,7 +2,6 @@ package org.smartregister.anc.library.interactor;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +10,7 @@ import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ import timber.log.Timber;
 public class ProfileFragmentInteractor implements ProfileFragmentContract.Interactor {
     private ProfileFragmentContract.Presenter mProfileFrgamentPresenter;
     private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private Utils utils = new Utils();
 
     public ProfileFragmentInteractor(ProfileFragmentContract.Presenter presenter) {
         this.mProfileFrgamentPresenter = presenter;
@@ -48,6 +49,7 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
     public void updateTask(Task task, String contactNo) {
         getProfileView().refreshTasksList(AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(task));
         savePreviousTaskDetails(contactNo, task);
+        createTaskPartialForm(task, contactNo);
     }
 
     public ProfileFragmentContract.View getProfileView() {
@@ -71,5 +73,10 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
         } catch (JSONException e) {
             Timber.e(e, " --> savePreviousTestDetails");
         }
+    }
+
+    private void createTaskPartialForm(Task task, String contactNo) {
+        List<Task> doneTasks = utils.getContactTasksRepositoryHelper().getClosedTasks(task.getBaseEntityId());
+        utils.createTasksPartialContainer(task.getBaseEntityId(), getProfileView().getContext(), Integer.parseInt(contactNo) + 1, doneTasks);
     }
 }

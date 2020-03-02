@@ -8,6 +8,11 @@ public class DBConstantsUtils {
     public static final String DEMOGRAPHIC_TABLE_NAME = "ec_client";
     public static final String WOMAN_DETAILS_TABLE_NAME = "ec_mother_details";
 
+    public interface RegisterTable {
+        String DEMOGRAPHIC = "ec_client";
+        String DETAILS = "ec_mother_details";
+    }
+
     public static final class KeyUtils {
         public static final String ID = "_ID";
         public static final String ID_LOWER_CASE = "_id";
@@ -38,10 +43,5 @@ public class DBConstantsUtils {
         public static final String LAST_CONTACT_RECORD_DATE = "last_contact_record_date";
         public static final String RELATIONAL_ID = "relationalid";
         public static final String VISIT_START_DATE = "visit_start_date";
-    }
-
-    public interface RegisterTable {
-        String DEMOGRAPHIC = "ec_client";
-        String DETAILS = "ec_mother_details";
     }
 }

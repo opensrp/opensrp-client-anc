@@ -82,6 +82,7 @@ public class SiteCharacteristicsExitActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(spyActivity).goToHomeRegisterPage();
     }
+
     @After
     public void tearDown() {
         destroyController();

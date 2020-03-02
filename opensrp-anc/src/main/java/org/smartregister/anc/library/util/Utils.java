@@ -28,11 +28,13 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jeasy.rules.api.Facts;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
@@ -47,6 +49,8 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
 import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.model.Task;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.view.activity.DrishtiApplication;
@@ -652,5 +656,59 @@ public class Utils extends org.smartregister.util.Utils {
      */
     public Iterable<Object> loadRulesFiles(String filename) throws IOException {
         return AncLibrary.getInstance().readYaml(filename);
+    }
+
+    /**
+     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
+     *
+     * @param baseEntityId {@link String} - The patient base entity id
+     * @param context      {@link Context} - application context
+     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
+     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
+     */
+    public void createTasksPartialContainer(String baseEntityId, Context context, int contactNo, List<Task> doneTasks) {
+        try {
+            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
+                JSONArray fields = createFieldsArray(doneTasks);
+
+                ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+                JSONObject jsonForm = contactJsonFormUtils.loadTasksForm(context);
+                if (jsonForm != null) {
+                    contactJsonFormUtils.updateFormFields(jsonForm, fields);
+                }
+
+                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> createTasksPartialContainer");
+        }
+    }
+
+    @NotNull
+    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
+        JSONArray fields = new JSONArray();
+        for (Task task : doneTasks) {
+            JSONObject field = new JSONObject(task.getValue());
+            fields.put(field);
+        }
+        return fields;
+    }
+
+    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
+        Contact contact = new Contact();
+        contact.setJsonForm(String.valueOf(jsonForm));
+        contact.setContactNumber(contactNo);
+        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+
+        ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+    }
+
+    /**
+     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
+     *
+     * @return contactTasksRepository
+     */
+    public ContactTasksRepository getContactTasksRepositoryHelper() {
+        return AncLibrary.getInstance().getContactTasksRepository();
     }
 }

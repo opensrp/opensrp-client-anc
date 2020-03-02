@@ -85,7 +85,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             process(new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
-                    ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT});
+                    ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS});
 
             List<Contact> contacts = new ArrayList<>();
 
@@ -215,6 +215,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             //Make profile always complete on second contact onwards
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS, 0);
 
         }
 

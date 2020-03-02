@@ -119,11 +119,6 @@ public class BaseAncClientProcessorForJavaTest extends BaseUnitTest {
     }
 
     @NotNull
-    private Client getClient() {
-        return new Client("test-base-entity-id", "Ben", "simon", "tenx", new DateTime("2009-12-11T00:00:00.000Z"), null, true, false, "M");
-    }
-
-    @NotNull
     private Event getEvent(Map<String, String> details) {
         Event event = new Event();
         event.setBaseEntityId("test-base-entity-id");
@@ -131,5 +126,10 @@ public class BaseAncClientProcessorForJavaTest extends BaseUnitTest {
         event.setEntityType("ec_woman");
         event.setDetails(details);
         return event;
+    }
+
+    @NotNull
+    private Client getClient() {
+        return new Client("test-base-entity-id", "Ben", "simon", "tenx", new DateTime("2009-12-11T00:00:00.000Z"), null, true, false, "M");
     }
 }

@@ -251,6 +251,38 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
     }
 
     @Override
+    public void countExecute() {
+        Cursor cursor = null;
+
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            String query = "";
+
+            sqb.addCondition(filters);
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(query);
+
+            Log.i(getClass().getName(), query);
+            cursor = commonRepository().rawCustomQueryForAdapter(query);
+            cursor.moveToFirst();
+            clientAdapter.setTotalcount(cursor.getInt(0));
+            Log.v("total count here", "" + clientAdapter.getTotalcount());
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.toString(), e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        updateMatchingResults(clientAdapter.getTotalcount());
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if (id == RecyclerViewFragment.LOADER_ID) {// Returns a new CursorLoader
             return new CursorLoader(getActivity()) {
@@ -356,38 +388,6 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         } else {
             ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
         }
-    }
-
-    @Override
-    public void countExecute() {
-        Cursor cursor = null;
-
-        try {
-            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-            String query = "";
-
-            sqb.addCondition(filters);
-            query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(query);
-
-            Log.i(getClass().getName(), query);
-            cursor = commonRepository().rawCustomQueryForAdapter(query);
-            cursor.moveToFirst();
-            clientAdapter.setTotalcount(cursor.getInt(0));
-            Log.v("total count here", "" + clientAdapter.getTotalcount());
-
-            clientAdapter.setCurrentlimit(20);
-            clientAdapter.setCurrentoffset(0);
-
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-        updateMatchingResults(clientAdapter.getTotalcount());
     }
 
     @Override

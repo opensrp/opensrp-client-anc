@@ -6,28 +6,23 @@ import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
-import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactContract;
-import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.model.ContactVisit;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PartialContacts;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -45,6 +40,7 @@ import timber.log.Timber;
  * Created by keyman 30/07/2018.
  */
 public class ContactInteractor extends BaseContactInteractor implements ContactContract.Interactor {
+    private Utils utils = new Utils();
 
     public ContactInteractor() {
         this(new AppExecutors());
@@ -98,7 +94,9 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 }
 
                 if (referral == null) {
-                    createTasksPartialContainer(baseEntityId, context, nextContact - 1);
+                    List<Task> doneTasks = utils.getContactTasksRepositoryHelper().getClosedTasks(baseEntityId);
+                    utils.createTasksPartialContainer(baseEntityId, context, nextContact - 1, doneTasks);
+                    removeAllDoneTasks(doneTasks);
                 }
 
                 PartialContacts partialContacts =
@@ -161,25 +159,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         return nextContact;
     }
 
-    private void createTasksPartialContainer(String baseEntityId, Context context, int contactNo) {
-        try {
-            if (contactNo > 0) {
-                List<Task> doneTasks = getContactTasksRepositoryHelper().getClosedTasks(baseEntityId);
-                if (doneTasks != null && doneTasks.size() > 0) {
-                    JSONArray fields = createFieldsArray(doneTasks);
-
-                    ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
-                    JSONObject jsonForm = contactJsonFormUtils.loadTasksForm(context);
-                    if (jsonForm != null) {
-                        contactJsonFormUtils.updateFormFields(jsonForm, fields);
-                    }
-
-                    createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
-                    removeAllDoneTasks(doneTasks);
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> createTasksPartialContainer");
+    private void removeAllDoneTasks(List<Task> doneTasks) {
+        for (Task task : doneTasks) {
+            Long taskId = task.getId();
+            utils.getContactTasksRepositoryHelper().deleteContactTask(taskId);
         }
     }
 
@@ -247,36 +230,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         previousContact.setContactNo(contactNo);
         return previousContact;
-    }
-
-    protected ContactTasksRepository getContactTasksRepositoryHelper() {
-        return AncLibrary.getInstance().getContactTasksRepository();
-    }
-
-    @NotNull
-    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
-        JSONArray fields = new JSONArray();
-        for (Task task : doneTasks) {
-            JSONObject field = new JSONObject(task.getValue());
-            fields.put(field);
-        }
-        return fields;
-    }
-
-    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
-        Contact contact = new Contact();
-        contact.setJsonForm(String.valueOf(jsonForm));
-        contact.setContactNumber(contactNo);
-        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-
-        ContactJsonFormUtils.persistPartial(baseEntityId, contact);
-    }
-
-    private void removeAllDoneTasks(List<Task> doneTasks) {
-        for (Task task : doneTasks) {
-            Long taskId = task.getId();
-            getContactTasksRepositoryHelper().deleteContactTask(taskId);
-        }
     }
 
     private String getCurrentContactState(String baseEntityId) throws JSONException {
