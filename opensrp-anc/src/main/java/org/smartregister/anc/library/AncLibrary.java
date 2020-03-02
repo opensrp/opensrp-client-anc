@@ -23,6 +23,7 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -58,6 +59,7 @@ public class AncLibrary {
     private DetailsRepository detailsRepository;
     private ECSyncHelper ecSyncHelper;
     private AncRulesEngineHelper ancRulesEngineHelper;
+    private RegisterQueryProvider registerQueryProvider;
     private ClientProcessorForJava clientProcessorForJava;
     private JSONObject defaultContactFormGlobals = new JSONObject();
     private Compressor compressor;
@@ -66,6 +68,12 @@ public class AncLibrary {
     private SubscriberInfoIndex subscriberInfoIndex;
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
+
+
+    private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
+        this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        this.registerQueryProvider = registerQueryProvider;
+    }
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = context;
@@ -81,31 +89,6 @@ public class AncLibrary {
         initializeYamlConfigs();
     }
 
-    public android.content.Context getApplicationContext() {
-        return context.applicationContext();
-    }
-
-    private void setUpEventHandling() {
-        try {
-            EventBusBuilder eventBusBuilder = EventBus.builder().addIndex(new ANCEventBusIndex());
-
-            if (subscriberInfoIndex != null) {
-                eventBusBuilder.addIndex(subscriberInfoIndex);
-            }
-
-            eventBusBuilder.installDefaultEventBus();
-        } catch (Exception e) {
-            Timber.e(e, " --> setUpEventHandling");
-        }
-    }
-
-    private void initializeYamlConfigs() {
-        Constructor constructor = new Constructor(YamlConfig.class);
-        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
-        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
-    }
 
     public static void init(@NonNull Context context, int dbVersion) {
         init(context, dbVersion, new ActivityConfiguration());
@@ -118,6 +101,12 @@ public class AncLibrary {
     public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         if (instance == null) {
             instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        }
+    }
+
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider);
         }
     }
 
@@ -139,13 +128,33 @@ public class AncLibrary {
         return instance;
     }
 
-    /**
-     * This method should be called in onUpgrade method of the Repository class where the migrations
-     * are already managed instead of writing new code to manage them.
-     */
-    public static void performMigrations(@NonNull SQLiteDatabase database) {
-        PatientRepository.performMigrations(database);
+    public android.content.Context getApplicationContext() {
+        return context.applicationContext();
     }
+
+    private void setUpEventHandling() {
+        try {
+            EventBusBuilder eventBusBuilder = EventBus.builder()
+                    .addIndex(new ANCEventBusIndex());
+
+            if (subscriberInfoIndex != null) {
+                eventBusBuilder.addIndex(subscriberInfoIndex);
+            }
+
+            eventBusBuilder.installDefaultEventBus();
+        } catch (Exception e) {
+            Timber.e(e, " --> setUpEventHandling");
+        }
+    }
+
+    private void initializeYamlConfigs() {
+        Constructor constructor = new Constructor(YamlConfig.class);
+        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
+        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
+        constructor.addTypeDescription(customTypeDescription);
+        yaml = new Yaml(constructor);
+    }
+
 
     public PartialContactRepository getPartialContactRepository() {
         if (partialContactRepository == null) {
@@ -291,5 +300,16 @@ public class AncLibrary {
     @NonNull
     public ActivityConfiguration getActivityConfiguration() {
         return activityConfiguration;
+    }
+
+    public RegisterQueryProvider getRegisterQueryProvider() {
+        if (registerQueryProvider == null) {
+            registerQueryProvider = new RegisterQueryProvider();
+        }
+        return registerQueryProvider;
+    }
+
+    public void setRegisterQueryProvider(RegisterQueryProvider registerQueryProvider) {
+        this.registerQueryProvider = registerQueryProvider;
     }
 }

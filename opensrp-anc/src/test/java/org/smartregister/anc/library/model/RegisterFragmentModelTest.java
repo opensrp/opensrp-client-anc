@@ -3,8 +3,14 @@ package org.smartregister.anc.library.model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.smartregister.anc.library.activity.BaseUnitTest;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.model.Field;
@@ -13,9 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class RegisterFragmentModelTest extends BaseUnitTest {
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(AncLibrary.class)
+public class RegisterFragmentModelTest {
 
     private RegisterFragmentContract.Model model;
+
+    @Mock
+    private AncLibrary ancLibrary;
 
     @Before
     public void setUp() {
@@ -26,15 +38,15 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
     public void testCountSelect() {
 
         String mainCondition = "register_id is not null";
-        String sql = "SELECT COUNT(*) FROM " + DBConstantsUtils.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
+        String sql = "SELECT COUNT(*) FROM " + DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME + " WHERE " + mainCondition + " ";
 
         // With main condition
-        String countSelect = model.countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
+        String countSelect = model.countSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, mainCondition);
         Assert.assertEquals(countSelect, sql);
 
         // Without main condition
-        sql = "SELECT COUNT(*) FROM " + DBConstantsUtils.WOMAN_TABLE_NAME;
-        countSelect = model.countSelect(DBConstantsUtils.WOMAN_TABLE_NAME, "");
+        sql = "SELECT COUNT(*) FROM " + DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME;
+        countSelect = model.countSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, "");
         Assert.assertEquals(countSelect, sql);
 
     }
@@ -42,18 +54,29 @@ public class RegisterFragmentModelTest extends BaseUnitTest {
     @Test
     public void testMainSelect() {
 
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
+
         String mainCondition = "register_id is not null";
-        String sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstantsUtils.WOMAN_TABLE_NAME + " WHERE " + mainCondition + " ";
+        String sqlQueryWithMainCondition = "Select ec_client.id as _id , ec_client.relationalid , ec_client.last_interacted_with , ec_client.base_entity_id , ec_client.first_name , " +
+                "ec_client.last_name , ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_name , ec_client.date_removed , " +
+                "ec_mother_details.edd , ec_mother_details.red_flag_count , ec_mother_details.yellow_flag_count , ec_mother_details.contact_status , " +
+                "ec_mother_details.next_contact , ec_mother_details.next_contact_date , ec_mother_details.last_contact_record_date FROM " + DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME + "  " +
+                "join ec_mother_details on ec_client.base_entity_id= ec_mother_details.base_entity_id WHERE " + mainCondition + " ";
 
-        // With main condition
-        String mainSelect = model.mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, mainCondition);
-        Assert.assertEquals(mainSelect, sql);
 
-        sql = "Select ec_mother.id as _id , ec_mother.relationalid , ec_mother.last_interacted_with , ec_mother.base_entity_id , ec_mother.first_name , ec_mother.last_name , ec_mother.register_id , ec_mother.dob , ec_mother.phone_number , ec_mother.alt_name , ec_mother.date_removed , ec_mother.edd , ec_mother.red_flag_count , ec_mother.yellow_flag_count , ec_mother.contact_status , ec_mother.next_contact , ec_mother.next_contact_date , ec_mother.last_contact_record_date FROM " + DBConstantsUtils.WOMAN_TABLE_NAME;
+        String mainSelect = model.mainSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, mainCondition);
+        Assert.assertEquals(mainSelect, sqlQueryWithMainCondition);
 
-        // Without main condition
-        mainSelect = model.mainSelect(DBConstantsUtils.WOMAN_TABLE_NAME, "");
-        Assert.assertEquals(mainSelect, sql);
+        String sqlQueryWithOutMainCondition = "Select ec_client.id as _id , ec_client.relationalid , ec_client.last_interacted_with , ec_client.base_entity_id , ec_client.first_name , " +
+                "ec_client.last_name , ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_name , ec_client.date_removed , " +
+                "ec_mother_details.edd , ec_mother_details.red_flag_count , ec_mother_details.yellow_flag_count , ec_mother_details.contact_status , " +
+                "ec_mother_details.next_contact , ec_mother_details.next_contact_date , ec_mother_details.last_contact_record_date FROM " + DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME + "  " +
+                "join ec_mother_details on ec_client.base_entity_id= ec_mother_details.base_entity_id";
+
+        mainSelect = model.mainSelect(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, "");
+        Assert.assertEquals(mainSelect, sqlQueryWithOutMainCondition);
     }
 
     @Test

@@ -171,7 +171,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return AncLibrary.getInstance().getDetailsRepository();
     }
 
-    private void processPreviousContacts(Event event) {
+private void processPreviousContacts(Event event) {
         //Previous contact state
         String previousContactsRaw = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS);
         Map<String, String> previousContactMap = getPreviousContactMap(previousContactsRaw);
