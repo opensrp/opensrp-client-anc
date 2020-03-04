@@ -17,6 +17,7 @@ import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
@@ -254,7 +255,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
      * @author dubdabasoduba
      */
     public void proceedToMainContactPage() {
-        Intent intent = new Intent(this, MainContactActivity.class);
+        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getMainContactActivityClass());
 
         int contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);

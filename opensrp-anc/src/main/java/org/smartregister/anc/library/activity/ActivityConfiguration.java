@@ -11,11 +11,13 @@ public class ActivityConfiguration {
 
     private Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass;
     private Class<? extends Activity> landingPageActivityClass;
+    private Class<? extends Activity> mainContactActivityClass;
 
 
     public ActivityConfiguration() {
         setHomeRegisterActivityClass(BaseHomeRegisterActivity.class);
-        setLandingPageActivityClass(BaseHomeRegisterActivity.class);
+        setLandingPageActivityClass(getHomeRegisterActivityClass());
+        setMainContactActivityClass(MainContactActivity.class);
     }
 
     public Class<? extends BaseHomeRegisterActivity> getHomeRegisterActivityClass() {
@@ -32,5 +34,13 @@ public class ActivityConfiguration {
 
     public void setLandingPageActivityClass(Class<? extends Activity> landingPageActivityClass) {
         this.landingPageActivityClass = landingPageActivityClass;
+    }
+
+    public Class<? extends Activity> getMainContactActivityClass() {
+        return mainContactActivityClass;
+    }
+
+    public void setMainContactActivityClass(Class<? extends Activity> mainContactActivityClass) {
+        this.mainContactActivityClass = mainContactActivityClass;
     }
 }
