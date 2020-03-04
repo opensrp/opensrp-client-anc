@@ -83,11 +83,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         try {
 
             requiredFieldsMap.clear();
-            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
             loadContactGlobalsConfig();
 
             process(contactForms);
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
             List<Contact> contacts = new ArrayList<>();
 
@@ -217,6 +217,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             //Make profile always complete on second contact onwards
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
         }
 
