@@ -53,6 +53,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private String baseEntityId;
     private String womanAge = "";
     private List<String> invisibleRequiredFields = new ArrayList<>();
+    private String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
+            ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
+            ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
 
     @Override
     protected void onResume() {
@@ -80,12 +83,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         try {
 
             requiredFieldsMap.clear();
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
             loadContactGlobalsConfig();
 
-            process(new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
-                    ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
-                    ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS});
+            process(contactForms);
 
             List<Contact> contacts = new ArrayList<>();
 
@@ -176,8 +178,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private int getRequiredCountTotal() {
         int count = -1;
         Set<Map.Entry<String, Integer>> entries = requiredFieldsMap.entrySet();
-        //We count required fields for all the 6 contact forms
-        if (entries.size() == 6) {
+        //We count required fields for all the contact forms
+        if (entries.size() == contactForms.length) {
             count++;
             for (Map.Entry<String, Integer> entry : entries) {
                 count += entry.getValue();
@@ -215,7 +217,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             //Make profile always complete on second contact onwards
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
-            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS, 0);
 
         }
 
@@ -292,6 +293,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+            }
+
+            if (ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE.equals(encounterType)) {
+                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
             }
 
             Iterator<String> keys = object.keys();
