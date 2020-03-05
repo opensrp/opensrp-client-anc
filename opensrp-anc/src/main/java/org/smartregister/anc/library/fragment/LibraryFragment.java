@@ -47,6 +47,9 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
     public void onResume() {
         super.onResume();
         attachLayoutContentAdapter();
+        if (getActivity() != null) {
+            ((BaseHomeRegisterActivity) getActivity()).setLibrary(false);
+        }
     }
 
     private void attachLayoutContentAdapter() {

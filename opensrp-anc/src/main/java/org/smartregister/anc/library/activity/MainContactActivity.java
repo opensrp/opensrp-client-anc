@@ -2,6 +2,7 @@ package org.smartregister.anc.library.activity;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -83,7 +84,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         try {
 
             requiredFieldsMap.clear();
-
             loadContactGlobalsConfig();
 
             process(contactForms);
@@ -112,9 +112,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             profile.setBackground(R.drawable.profile_bg);
             profile.setActionBarBackground(R.color.contact_profile_actionbar);
             profile.setNavigationBackground(R.color.contact_profile_navigation);
-            if (requiredFieldsMap.containsKey(profile.getName())) {
-                profile.setRequiredFields(requiredFieldsMap.get(profile.getName()));
-            }
+            setRequiredFields(profile);
             profile.setFormName(ConstantsUtils.JsonFormUtils.ANC_PROFILE);
             contacts.add(profile);
 
@@ -124,9 +122,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
             symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
             symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
-            if (requiredFieldsMap.containsKey(symptomsAndFollowUp.getName())) {
-                symptomsAndFollowUp.setRequiredFields(requiredFieldsMap.get(symptomsAndFollowUp.getName()));
-            }
+            setRequiredFields(symptomsAndFollowUp);
             symptomsAndFollowUp.setFormName(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
             contacts.add(symptomsAndFollowUp);
 
@@ -136,9 +132,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             physicalExam.setBackground(R.drawable.physical_exam_bg);
             physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
             physicalExam.setNavigationBackground(R.color.contact_exam_navigation);
-            if (requiredFieldsMap.containsKey(physicalExam.getName())) {
-                physicalExam.setRequiredFields(requiredFieldsMap.get(physicalExam.getName()));
-            }
+            setRequiredFields(physicalExam);
             physicalExam.setFormName(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM);
             contacts.add(physicalExam);
 
@@ -148,9 +142,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             tests.setBackground(R.drawable.tests_bg);
             tests.setActionBarBackground(R.color.contact_tests_actionbar);
             tests.setNavigationBackground(R.color.contact_tests_navigation);
-            if (requiredFieldsMap.containsKey(tests.getName())) {
-                tests.setRequiredFields(requiredFieldsMap.get(tests.getName()));
-            }
+            setRequiredFields(tests);
             tests.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST);
             contacts.add(tests);
 
@@ -160,9 +152,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
             counsellingAndTreatment.setActionBarBackground(R.color.contact_counselling_actionbar);
             counsellingAndTreatment.setNavigationBackground(R.color.contact_counselling_navigation);
-            if (requiredFieldsMap.containsKey(counsellingAndTreatment.getName())) {
-                counsellingAndTreatment.setRequiredFields(requiredFieldsMap.get(counsellingAndTreatment.getName()));
-            }
+            setRequiredFields(counsellingAndTreatment);
             counsellingAndTreatment.setFormName(ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
             contacts.add(counsellingAndTreatment);
 
@@ -173,6 +163,31 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             Timber.e(e, " --> initializeMainContactContainers");
         }
 
+    }
+
+    private void setRequiredFields(Contact contact) {
+        if (requiredFieldsMap.containsKey(contact.getName())) {
+            contact.setRequiredFields(requiredFieldsMap.get(contact.getName()));
+        }
+    }
+
+    @Override
+    public void startForms(View view) {
+        Contact contact = (Contact) view.getTag();
+        try {
+            if (contact != null) {
+                loadContactGlobalsConfig();
+                process(contactForms);
+
+                setRequiredFields(contact);
+                view.setTag(contact);
+                super.startForms(view);
+            }
+        } catch (IOException e) {
+            Timber.e(e, " --> startForms");
+        } catch (Exception e) {
+            Timber.e(e, " --> startForms");
+        }
     }
 
     private int getRequiredCountTotal() {
