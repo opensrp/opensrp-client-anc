@@ -269,6 +269,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         contact.setContactNumber(contactNo);
         ContactJsonFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
+        this.finish();
     }
 
     /**
