@@ -47,43 +47,11 @@ public class PatientRepository extends BaseRepository {
                             getRegisterQueryProvider().getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?";
             cursor = db.rawQuery(query, new String[]{baseEntityId});
             if (cursor != null && cursor.moveToFirst()) {
+                int columnCount = cursor.getColumnCount();
                 detailsMap = new HashMap<>();
-                detailsMap.put(DBConstantsUtils.KeyUtils.FIRST_NAME,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.FIRST_NAME)));
-                detailsMap
-                        .put(DBConstantsUtils.KeyUtils.LAST_NAME, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_NAME)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.ANC_ID, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ANC_ID)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.DOB, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.DOB)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.DOB_UNKNOWN,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.DOB_UNKNOWN)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.ID_LOWER_CASE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.PHONE_NUMBER,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PHONE_NUMBER)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.ALT_NAME, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_NAME)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER)));
-                detailsMap
-                        .put(DBConstantsUtils.KeyUtils.REMINDERS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.REMINDERS)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.HOME_ADDRESS,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.HOME_ADDRESS)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.EDD, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.EDD)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.CONTACT_STATUS)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS, cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.VISIT_START_DATE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.VISIT_START_DATE)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT)));
-                detailsMap.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
-                        cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE)));
+                for (int i = 0; i < columnCount; i++) {
+                    detailsMap.put(cursor.getColumnName(i), cursor.getString(cursor.getColumnIndex(cursor.getColumnName(i))));
+                }
             }
             return detailsMap;
         } catch (Exception e) {
