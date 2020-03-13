@@ -139,6 +139,7 @@ public abstract class ConstantsUtils {
         public static final String ANC_ID = "anc_id";
         public static final String STEP1 = "step1";
         public static final String FIELDS = "fields";
+        public static final String VILLAGE = "village";
     }
 
     public static class JsonFormExtraUtils {

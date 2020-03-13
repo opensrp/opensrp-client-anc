@@ -559,7 +559,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.ANC_ID)) {
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(DBConstantsUtils.KeyUtils.ANC_ID).replace("-", ""));
         } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.VILLAGE)) {
-            reverseLocationTree(jsonObject, womanClient.get(DBConstantsUtils.KeyUtils.VILLAGE));
+            reverseLocationTree(jsonObject, womanClient.get(ConstantsUtils.JsonFormKeyUtils.VILLAGE));
         } else if (womanClient.containsKey(jsonObject.getString(JsonFormUtils.KEY))) {
             jsonObject.put(JsonFormUtils.READ_ONLY, false);
             jsonObject.put(JsonFormUtils.VALUE, womanClient.get(jsonObject.getString(JsonFormUtils.KEY)));
