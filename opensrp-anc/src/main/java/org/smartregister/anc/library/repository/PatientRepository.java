@@ -36,13 +36,13 @@ public class PatientRepository extends BaseRepository {
 
             String query =
                     "SELECT " + StringUtils.join(projection, ",") + " FROM " + getRegisterQueryProvider().getDemographicTable() + " join " + getRegisterQueryProvider().getDetailsTable() +
-                            " on " + getRegisterQueryProvider().getDemographicTable() + ".base_entity_id = " + getRegisterQueryProvider().getDetailsTable() + ".base_entity_id WHERE " +
+                            " on " + getRegisterQueryProvider().getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = " + getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " WHERE " +
                             getRegisterQueryProvider().getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?";
             cursor = db.rawQuery(query, new String[]{baseEntityId});
             if (cursor != null && cursor.moveToFirst()) {
                 detailsMap = new HashMap<>();
-                for (String column : projection) {
-                    String columnName = column.split("\\.").length == 2 ? column.split("\\.")[1] : column.split("\\.")[0];
+                for (int count = 0; count < projection.length; count++) {
+                    String columnName = cursor.getColumnName(count);
                     detailsMap.put(columnName, cursor.getString(cursor.getColumnIndex(columnName)));
                 }
             }
