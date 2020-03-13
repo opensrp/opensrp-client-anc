@@ -82,12 +82,21 @@ public class ContactSummarySendActivity extends AppCompatActivity
     @Override
     public void goToClientProfile() {
         finish();
-        HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getEntityId());
+        HashMap<String, String> womanProfileDetails = getWomanProfileDetails();
         if (womanProfileDetails != null) {
             Utils.navigateToProfile(this, womanProfileDetails);
         } else {
             Timber.e("Make sure the person object was fetched successfully");
         }
+    }
+
+    /**
+     * Get the woman details using the {@link PatientRepository}
+     *
+     * @return womanDetails {@link HashMap<>}
+     */
+    public HashMap<String, String> getWomanProfileDetails() {
+        return (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getEntityId());
     }
 
     @Override
