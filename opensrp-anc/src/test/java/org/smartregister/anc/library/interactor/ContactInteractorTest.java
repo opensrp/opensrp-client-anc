@@ -142,7 +142,6 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "1");
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepository.class);
 
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
@@ -157,7 +156,6 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(
                 ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(ConstantsUtils.RulesFileUtils.CONTACT_RULES))).thenReturn(integerList);
 
-        PowerMockito.mockStatic(PatientRepository.class);
         ContactInteractor contactInteractor = (ContactInteractor) interactor;
         contactInteractor.finalizeContactForm(details, RuntimeEnvironment.application);
 
@@ -181,7 +179,6 @@ public class ContactInteractorTest extends BaseUnitTest {
 
 
             PowerMockito.mockStatic(AncLibrary.class);
-            PowerMockito.mockStatic(PatientRepository.class);
             PowerMockito.mockStatic(PreviousContactRepository.class);
             PowerMockito.mockStatic(PartialContactRepository.class);
             PowerMockito.mockStatic(EventClientRepository.class);
@@ -208,7 +205,6 @@ public class ContactInteractorTest extends BaseUnitTest {
             PowerMockito.when(userService.getAllSharedPreferences()).thenReturn(allSharedPreferences);
             PowerMockito.when(eventClientRepository.getClientByBaseEntityId(DUMMY_BASE_ENTITY_ID)).thenReturn(new JSONObject("{\"attributes\":{\"age\":\"19\",\"contact_status\":\"today\",\"edd\":\"0\",\"last_contact_record_date\":\"2019-10-24\",\"next_contact\":\"2\",\"next_contact_date\":\"-0001-05-22\",\"red_flag_count\":\"15\",\"yellow_flag_count\":\"10\"}}"));
 
-            PowerMockito.mockStatic(PatientRepository.class);
             ContactInteractor contactInteractor = (ContactInteractor) interactor;
             HashMap<String, String> contactDetails = contactInteractor.finalizeContactForm(details, RuntimeEnvironment.application);
 
