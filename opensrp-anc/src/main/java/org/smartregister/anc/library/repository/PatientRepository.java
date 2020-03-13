@@ -41,8 +41,9 @@ public class PatientRepository extends BaseRepository {
             cursor = db.rawQuery(query, new String[]{baseEntityId});
             if (cursor != null && cursor.moveToFirst()) {
                 detailsMap = new HashMap<>();
-                for (String s : projection) {
-                    detailsMap.put(s, cursor.getString(cursor.getColumnIndex(s)));
+                for (String column : projection) {
+                    String columnName = column.split("\\.").length == 2 ? column.split("\\.")[1] : column.split("\\.")[0];
+                    detailsMap.put(columnName, cursor.getString(cursor.getColumnIndex(columnName)));
                 }
             }
             return detailsMap;

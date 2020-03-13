@@ -163,7 +163,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                                            @NonNull String defaultFacilityString,
                                            @NonNull String entireTreeString) {
         AncMetadata ancMetadata = AncLibrary.getInstance().getAncMetadata();
-        if(!ancMetadata.getFieldsWithLocationHierarchy().isEmpty()) {
+        if (!ancMetadata.getFieldsWithLocationHierarchy().isEmpty()) {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject widget = fields.optJSONObject(i);
                 if (ancMetadata.getFieldsWithLocationHierarchy().contains(widget.optString(JsonFormConstants.KEY))) {
@@ -526,16 +526,15 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
     private static void reverseLocationTree(@NonNull JSONObject jsonObject, @Nullable String entity) throws JSONException {
         List<String> entityHierarchy = null;
         if (entity != null) {
-            if (entity.equalsIgnoreCase("other")) {
+            if (ConstantsUtils.OTHER.equalsIgnoreCase(entity)) {
                 entityHierarchy = new ArrayList<>();
                 entityHierarchy.add(entity);
             } else {
                 String locationId = LocationHelper.getInstance().getOpenMrsLocationId(entity);
-                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, true);
+                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, false);
             }
         }
-
-        ArrayList<String> allLevels = AncLibrary.getInstance().getAncMetadata().getLocationLevels();
+        ArrayList<String> allLevels = AncLibrary.getInstance().getAncMetadata().getHealthFacilityLevels();
         List<FormLocation> entireTree = LocationHelper.getInstance().generateLocationHierarchyTree(true, allLevels);
         String entireTreeString = AssetHandler.javaToJsonString(entireTree, new TypeToken<List<FormLocation>>() {
         }.getType());
