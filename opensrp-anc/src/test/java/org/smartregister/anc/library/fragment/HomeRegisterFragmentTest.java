@@ -61,10 +61,7 @@ public class HomeRegisterFragmentTest extends BaseUnitTest {
         Mockito.when(clientAdapter.getCurrentlimit()).thenReturn(10);
         Mockito.when(clientAdapter.getCurrentoffset()).thenReturn(1);
         String result = WhiteboxImpl.invokeMethod(homeRegisterFragment, "filterAndSortQuery");
-        String expected = "Select ec_client.id as _id , ec_client.relationalid , ec_client.last_interacted_with , ec_client.base_entity_id , ec_client.first_name , ec_client.last_name , " +
-                "ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_name , ec_client.date_removed , ec_mother_details.edd , ec_mother_details.red_flag_count , " +
-                "ec_mother_details.yellow_flag_count , ec_mother_details.contact_status , ec_mother_details.next_contact , ec_mother_details.next_contact_date , ec_mother_details.last_contact_record_date " +
-                "FROM ec_client  join ec_mother_details on ec_client.base_entity_id= ec_mother_details.base_entity_id  where _id IN ('2323-23','546456-234')  order by last_interacted_with DESC";
+        String expected = "Select ec_client.id as _id , first_name , last_name , dob , dob_unknown , ec_mother_details.phone_number , ec_mother_details.alt_name , ec_mother_details.alt_phone_number , ec_client.base_entity_id , register_id , ec_mother_details.reminders , home_address , ec_mother_details.edd , ec_mother_details.contact_status , ec_mother_details.previous_contact_status , ec_mother_details.next_contact , ec_mother_details.next_contact_date , ec_mother_details.visit_start_date , ec_mother_details.red_flag_count , ec_mother_details.yellow_flag_count , ec_mother_details.last_contact_record_date , ec_client.relationalid FROM ec_client  join ec_mother_details on ec_client.base_entity_id= ec_mother_details.base_entity_id  where _id IN ('2323-23','546456-234')  order by last_interacted_with DESC";
         Assert.assertEquals(expected, result);
     }
 }
