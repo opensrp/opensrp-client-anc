@@ -163,7 +163,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                                            @NonNull String defaultFacilityString,
                                            @NonNull String entireTreeString) {
         AncMetadata ancMetadata = AncLibrary.getInstance().getAncMetadata();
-        if (!ancMetadata.getFieldsWithLocationHierarchy().isEmpty()) {
+        if (ancMetadata.getFieldsWithLocationHierarchy() != null && !ancMetadata.getFieldsWithLocationHierarchy().isEmpty()) {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject widget = fields.optJSONObject(i);
                 if (ancMetadata.getFieldsWithLocationHierarchy().contains(widget.optString(JsonFormConstants.KEY))) {
@@ -576,7 +576,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 entityHierarchy.add(entity);
             } else {
                 String locationId = LocationHelper.getInstance().getOpenMrsLocationId(entity);
-                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, false);
+                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, true);
             }
         }
         ArrayList<String> allLevels = AncLibrary.getInstance().getAncMetadata().getHealthFacilityLevels();
