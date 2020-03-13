@@ -43,6 +43,5 @@ public class DBConstantsUtils {
         public static final String LAST_CONTACT_RECORD_DATE = "last_contact_record_date";
         public static final String RELATIONAL_ID = "relationalid";
         public static final String VISIT_START_DATE = "visit_start_date";
-        public static final String VILLAGE = "village";
     }
 }
