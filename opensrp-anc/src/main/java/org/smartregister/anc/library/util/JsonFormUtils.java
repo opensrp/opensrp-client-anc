@@ -449,6 +449,8 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 lpv.init();
             }
 
+            addWomanRegisterHierarchyQuestions(form);
+
             Timber.d("Form is %s", form.toString());
             if (form != null) {
                 form.put(JsonFormUtils.ENTITY_ID, womanClient.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
@@ -489,6 +491,49 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return null;
         }
     }
+
+    public static void addWomanRegisterHierarchyQuestions(JSONObject form) {
+        try {
+            JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
+            ArrayList<String> allLevels = new ArrayList<>();
+            allLevels.add("Country");
+            allLevels.add("Province");
+            allLevels.add("District");
+            allLevels.add("City/Town");
+            allLevels.add("Health Facility");
+            allLevels.add(Utils.HOME_ADDRESS);
+
+
+            ArrayList<String> healthFacilities = new ArrayList<>();
+            healthFacilities.add(Utils.HOME_ADDRESS);
+
+
+            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities =
+                    LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+
+            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, new TypeToken<List<String>>() {
+            }.getType());
+
+            String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
+            }.getType());
+
+            for (int i = 0; i < questions.length(); i++) {
+                if (questions.getJSONObject(i).getString(ConstantsUtils.KeyUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.HOME_ADDRESS)) {
+                    if (StringUtils.isNotBlank(upToFacilitiesString)) {
+                        questions.getJSONObject(i).put(ConstantsUtils.KeyUtils.TREE, new JSONArray(upToFacilitiesString));
+                    }
+                    if (StringUtils.isNotBlank(defaultFacilityString)) {
+                        questions.getJSONObject(i).put(ConstantsUtils.KeyUtils.DEFAULT, defaultFacilityString);
+                    }
+                }
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e, "JsonFormUtils --> addWomanRegisterHierarchyQuestions");
+        }
+    }
+
 
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
             throws JSONException {

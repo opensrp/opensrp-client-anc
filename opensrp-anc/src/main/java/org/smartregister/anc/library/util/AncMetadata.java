@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AncMetadata {
