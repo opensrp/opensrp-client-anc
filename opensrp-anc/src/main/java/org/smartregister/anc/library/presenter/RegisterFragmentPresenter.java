@@ -2,13 +2,13 @@ package org.smartregister.anc.library.presenter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.interactor.AdvancedSearchInteractor;
 import org.smartregister.anc.library.model.RegisterFragmentModel;
-import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
@@ -59,7 +59,7 @@ public class RegisterFragmentPresenter
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = DBConstantsUtils.WOMAN_TABLE_NAME;
+        String tableName = AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable();
 
         String countSelect = model.countSelect(tableName, mainCondition);
         String mainSelect = model.mainSelect(tableName, mainCondition);

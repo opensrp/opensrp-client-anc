@@ -9,28 +9,30 @@
             "field": "eventType",
             "field_value": "ANC Close",
             "closes_case": [
-              "ec_mother"
+              "ec_client"
             ]
           },
           {
             "field": "eventType",
             "field_value": "ANC Registration",
             "creates_case": [
-              "ec_mother"
+              "ec_client",
+              "ec_mother_details"
             ]
           },
           {
             "field": "eventType",
             "field_value": "Update ANC Registration",
             "creates_case": [
-              "ec_mother"
+              "ec_client",
+              "ec_mother_details"
             ]
           },
           {
             "field": "eventType",
             "field_value": "Visit",
             "creates_case": [
-              "ec_mother"
+              "ec_mother_details"
             ]
           }
         ]

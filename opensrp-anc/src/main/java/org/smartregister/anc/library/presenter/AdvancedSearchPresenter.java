@@ -18,7 +18,7 @@ import java.util.Map;
 public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         implements AdvancedSearchContract.Presenter, AdvancedSearchContract.InteractorCallBack {
 
-    public static final String TABLE_NAME = DBConstantsUtils.WOMAN_TABLE_NAME;
+    public static final String TABLE_NAME = DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME;
     private WeakReference<AdvancedSearchContract.View> viewReference;
     private AdvancedSearchContract.Model model;
 
