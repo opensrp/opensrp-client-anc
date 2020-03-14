@@ -166,7 +166,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void setRequiredFields(Contact contact) {
-        if (requiredFieldsMap.containsKey(contact.getName())) {
+        if (requiredFieldsMap != null && contact != null && requiredFieldsMap.containsKey(contact.getName())) {
             contact.setRequiredFields(requiredFieldsMap.get(contact.getName()));
         }
     }
@@ -184,8 +184,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 super.startForms(view);
             }
         } catch (IOException e) {
-            Timber.e(e, " --> startForms");
-        } catch (Exception e) {
             Timber.e(e, " --> startForms");
         }
     }
@@ -213,45 +211,48 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
-    private void process(String[] mainContactForms) throws Exception {
+    private void process(String[] mainContactForms) {
         //Fetch and load previously saved values
-        if (contactNo > 1) {
-            for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
-                if (eventToFileMap.containsValue(formEventType)) {
-                    updateGlobalValuesWithDefaults(formEventType);
+        try {
+            if (contactNo > 1) {
+                for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
+                    if (eventToFileMap.containsValue(formEventType)) {
+                        updateGlobalValuesWithDefaults(formEventType);
+                    }
                 }
-            }
-            //Get invisible required fields saved with the last contact visit
-            for (String key : eventToFileMap.keySet()) {
-                String prevKey = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + key.toLowerCase().replace(" ", "_");
-                String invisibleFields = getMapValue(prevKey);
-                if (invisibleFields != null && invisibleFields.length() > 2) {
-                    String toSplit = invisibleFields.substring(1, invisibleFields.length() - 1);
-                    invisibleRequiredFields.addAll(Arrays.asList(toSplit.split(",")));
+                //Get invisible required fields saved with the last contact visit
+                for (String key : eventToFileMap.keySet()) {
+                    String prevKey = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + key.toLowerCase().replace(" ", "_");
+                    String invisibleFields = getMapValue(prevKey);
+                    if (invisibleFields != null && invisibleFields.length() > 2) {
+                        String toSplit = invisibleFields.substring(1, invisibleFields.length() - 1);
+                        invisibleRequiredFields.addAll(Arrays.asList(toSplit.split(",")));
+                    }
                 }
+                //Make profile always complete on second contact onwards
+                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
+
             }
-            //Make profile always complete on second contact onwards
-            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
-            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
-        }
+            JSONObject object;
+            List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
+            List<PartialContact> partialContacts = getPartialContacts();
 
-        JSONObject object;
-        List<String> partialForms = new ArrayList<>(Arrays.asList(mainContactForms));
-        List<PartialContact> partialContacts = getPartialContacts();
-
-        if (partialContacts != null && partialContacts.size() > 0) {
-            for (PartialContact partialContact : partialContacts) {
-                if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
-                    object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
-                    processRequiredStepsField(object);
-                    if (object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
-                        partialForms.remove(eventToFileMap.get(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)));
+            if (partialContacts != null && partialContacts.size() > 0) {
+                for (PartialContact partialContact : partialContacts) {
+                    if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
+                        object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() : partialContact.getFormJson());
+                        processRequiredStepsField(object);
+                        if (object.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)) {
+                            partialForms.remove(eventToFileMap.get(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)));
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+            Timber.e(e, " --> process");
         }
-
     }
 
     public Iterable<Object> readYaml(String filename) throws IOException {

@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +46,8 @@ import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class AdvancedSearchFragment extends HomeRegisterFragment
         implements AdvancedSearchContract.View, RegisterFragmentContract.View {
@@ -218,7 +219,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             query = sqb.Endquery(
                     sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e, " --> filterAndSortQuery");
         }
 
         return query;
@@ -262,17 +263,17 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             query = sqb.orderbyCondition(Sortqueries);
             query = sqb.Endquery(query);
 
-            Log.i(getClass().getName(), query);
+            Timber.i(query);
             cursor = commonRepository().rawCustomQueryForAdapter(query);
             cursor.moveToFirst();
             clientAdapter.setTotalcount(cursor.getInt(0));
-            Log.v("total count here", "" + clientAdapter.getTotalcount());
+            Timber.v(String.valueOf(clientAdapter.getTotalcount()));
 
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
 
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e, " --> countExecute");
         } finally {
             if (cursor != null) {
                 cursor.close();
