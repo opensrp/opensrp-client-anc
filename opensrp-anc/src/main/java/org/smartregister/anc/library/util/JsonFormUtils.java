@@ -253,11 +253,13 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     fields.optJSONObject(i).optString(JsonFormConstants.TYPE).equals(JsonFormConstants.TREE))
                 try {
                     String rawValue = fields.optJSONObject(i).optString(JsonFormConstants.VALUE);
-                    JSONArray valueArray = new JSONArray(rawValue);
-                    if (valueArray.length() > 0) {
-                        String lastLocationName = valueArray.optString(valueArray.length() - 1);
-                        String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lastLocationName);
-                        fields.optJSONObject(i).put(JsonFormConstants.VALUE, lastLocationId);
+                    if(StringUtils.isNotBlank(rawValue)) {
+                        JSONArray valueArray = new JSONArray(rawValue);
+                        if (valueArray.length() > 0) {
+                            String lastLocationName = valueArray.optString(valueArray.length() - 1);
+                            String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lastLocationName);
+                            fields.optJSONObject(i).put(JsonFormConstants.VALUE, lastLocationId);
+                        }
                     }
                 } catch (NullPointerException e) {
                     Timber.e(e);
