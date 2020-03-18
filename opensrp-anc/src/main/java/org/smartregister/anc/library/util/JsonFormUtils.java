@@ -578,7 +578,7 @@ public class JsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 entityHierarchy.add(entity);
             } else {
                 String locationId = LocationHelper.getInstance().getOpenMrsLocationId(entity);
-                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, true);
+                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, false);
             }
         }
         ArrayList<String> allLevels = AncLibrary.getInstance().getAncMetadata().getHealthFacilityLevels();
