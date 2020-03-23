@@ -275,8 +275,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 JSONArray defaultValuesArray = mainJson.getJSONArray(ConstantsUtils.DEFAULT_VALUES);
                 defaultValueFields.addAll(getListValues(defaultValuesArray));
             }
-        } catch (JSONException e) {
-            Timber.e(e, "Error converting file to JsonObject ");
         } catch (Exception e) {
             Timber.e(e, "Error reading json from asset file ");
         }

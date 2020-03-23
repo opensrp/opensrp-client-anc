@@ -252,36 +252,40 @@ public class ContactVisit {
                 if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
                     JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
                     if (stepFields != null && stepFields.length() > 0) {
-                        for (int i = 0; i < stepFields.length(); i++) {
-                            JSONObject field = stepFields.getJSONObject(i);
-                            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
-                                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                                String key = field.optString(JsonFormConstants.KEY);
-                                if (jsonArray == null || (jsonArray.length() == 0)) {
-                                    if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
-                                        saveTasks(field);
-                                    }
-                                } else {
-                                    if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
-                                        if (checkTestsStatus(jsonArray)) {
-                                            if (!getCurrentClientTasks().containsKey(key)) {
-                                                saveTasks(field);
-                                            }
-                                        } else {
-                                            Long tasksId = getCurrentClientTasks().get(key);
-                                            if (tasksId != null) {
-                                                AncLibrary.getInstance().getContactTasksRepository().deleteContactTask(tasksId);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        saveOrDeleteTasks(stepFields);
                     }
                 }
             }
         } catch (JSONException e) {
             Timber.e(e, " --> processTasks");
+        }
+    }
+
+    private void saveOrDeleteTasks(@NotNull JSONArray stepFields) throws JSONException {
+        for (int i = 0; i < stepFields.length(); i++) {
+            JSONObject field = stepFields.getJSONObject(i);
+            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                String key = field.optString(JsonFormConstants.KEY);
+                if (jsonArray == null || (jsonArray.length() == 0)) {
+                    if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
+                        saveTasks(field);
+                    }
+                } else {
+                    if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
+                        if (checkTestsStatus(jsonArray)) {
+                            if (!getCurrentClientTasks().containsKey(key)) {
+                                saveTasks(field);
+                            }
+                        } else {
+                            Long tasksId = getCurrentClientTasks().get(key);
+                            if (tasksId != null) {
+                                AncLibrary.getInstance().getContactTasksRepository().deleteContactTask(tasksId);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

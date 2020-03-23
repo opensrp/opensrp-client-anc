@@ -257,7 +257,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
         try {
             SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-            String query = "";
+            String query;
 
             sqb.addCondition(filters);
             query = sqb.orderbyCondition(Sortqueries);
