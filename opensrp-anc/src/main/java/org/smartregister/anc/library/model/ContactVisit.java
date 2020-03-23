@@ -37,8 +37,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.anc.library.util.ContactJsonFormUtils.extractItemValue;
-
 public class ContactVisit {
     private Map<String, String> details;
     private String referral;
@@ -56,6 +54,7 @@ public class ContactVisit {
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
     private Map<String, Long> currentClientTasks = new HashMap<>();
+    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -168,94 +167,6 @@ public class ContactVisit {
         }
     }
 
-    private void processTasks(JSONObject formObject) {
-        try {
-            String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
-            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
-                JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
-                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
-                    JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
-                    if (stepFields != null && stepFields.length() > 0) {
-                        for (int i = 0; i < stepFields.length(); i++) {
-                            JSONObject field = stepFields.getJSONObject(i);
-                            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
-                                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                                String key = field.optString(JsonFormConstants.KEY);
-                                if (jsonArray == null || (jsonArray.length() == 0)) {
-                                    if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
-                                        saveTasks(field);
-                                    }
-                                } else {
-                                    if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
-                                        if (checkTestsStatus(jsonArray)) {
-                                            if (!getCurrentClientTasks().containsKey(key)) {
-                                                saveTasks(field);
-                                            }
-                                        } else {
-                                            Long tasksId = getCurrentClientTasks().get(key);
-                                            if (tasksId != null) {
-                                                AncLibrary.getInstance().getContactTasksRepository().deleteContactTask(tasksId);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> processTasks");
-        }
-    }
-
-    /**
-     * Checks where a test qualifies to be a tasks.  This happens in case a test is marked as ordered or not done;
-     *
-     * @param valueArray {@link JSONArray} the expansion panel values
-     * @return isTasks {@link Boolean} true/false if true then it means the test qualifies to be a task.
-     */
-    private boolean checkTestsStatus(JSONArray valueArray) {
-        boolean isTask = false;
-        try {
-            for (int i = 0; i < valueArray.length(); i++) {
-                JSONObject value = valueArray.getJSONObject(i);
-                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
-                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
-                    if (givenValue.length() > 0) {
-                        String firstValue = givenValue.optString(0);
-                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
-                            isTask = true;
-                        }
-                    }
-                    break;
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> checkTestsStatus");
-        }
-        return isTask;
-    }
-
-    private void saveTasks(JSONObject field) {
-        if (field != null) {
-            String key = field.optString(JsonFormConstants.KEY);
-            AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(getTask(field, key));
-        }
-    }
-
-    @NotNull
-    private Task getTask(JSONObject field, String key) {
-        Task task = new Task();
-        task.setBaseEntityId(baseEntityId);
-        task.setKey(key);
-        task.setValue(String.valueOf(field));
-        task.setUpdated(false);
-        task.setComplete(org.smartregister.anc.library.util.JsonFormUtils.checkIfTaskIsComplete(field));
-        task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
-        return task;
-    }
-
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {
         WomanDetail womanDetail = new WomanDetail();
         womanDetail.setBaseEntityId(baseEntityId);
@@ -314,7 +225,7 @@ public class ContactVisit {
                                 !isCheckboxValueEmpty(fieldObject)) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                            savePreviousContactItem(baseEntityId, fieldObject);
+                            contactJsonFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
                         if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES) &&
@@ -323,7 +234,7 @@ public class ContactVisit {
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
                                 secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                                savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
+                                contactJsonFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
                     }
@@ -331,6 +242,51 @@ public class ContactVisit {
             }
         }
 
+    }
+
+    private void processTasks(JSONObject formObject) {
+        try {
+            String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
+            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
+                JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                    JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
+                    if (stepFields != null && stepFields.length() > 0) {
+                        saveOrDeleteTasks(stepFields);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> processTasks");
+        }
+    }
+
+    private void saveOrDeleteTasks(@NotNull JSONArray stepFields) throws JSONException {
+        for (int i = 0; i < stepFields.length(); i++) {
+            JSONObject field = stepFields.getJSONObject(i);
+            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                String key = field.optString(JsonFormConstants.KEY);
+                if (jsonArray == null || (jsonArray.length() == 0)) {
+                    if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
+                        saveTasks(field);
+                    }
+                } else {
+                    if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
+                        if (checkTestsStatus(jsonArray)) {
+                            if (!getCurrentClientTasks().containsKey(key)) {
+                                saveTasks(field);
+                            }
+                        } else {
+                            Long tasksId = getCurrentClientTasks().get(key);
+                            if (tasksId != null) {
+                                AncLibrary.getInstance().getContactTasksRepository().deleteContactTask(tasksId);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /***
@@ -343,9 +299,22 @@ public class ContactVisit {
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
             String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
-            savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
+            contactJsonFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
                     .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
                     .put(PreviousContactRepository.CONTACT_NO, contactNo));
+        }
+    }
+
+    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo) throws JSONException {
+        if (fieldObject != null) {
+            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
+            if (value == null) {
+                return;
+            }
+            for (int j = 0; j < value.length(); j++) {
+                JSONObject valueItem = value.getJSONObject(j);
+                contactJsonFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
+            }
         }
     }
 
@@ -358,49 +327,62 @@ public class ContactVisit {
                 && currentValue.startsWith("[") && currentValue.endsWith("]"));
     }
 
-    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo)
-            throws JSONException {
-        if (fieldObject != null) {
-            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
-            if (value == null) {
-                return;
-            }
-            for (int j = 0; j < value.length(); j++) {
-                JSONObject valueItem = value.getJSONObject(j);
-                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
-                String result = extractItemValue(valueItem, valueItemJSONArray);
-                // do not save empty checkbox values ([])
-                if (result.startsWith("[") && result.endsWith("]") && result.length() == 2 ||
-                        TextUtils.equals("[]", result)) {
-                    return;
-                }
-                JSONObject itemToSave = new JSONObject();
-                itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
-                itemToSave.put(JsonFormConstants.VALUE, result);
-                itemToSave.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                savePreviousContactItem(baseEntityId, itemToSave);
-            }
-        }
-    }
-
-    private void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws JSONException {
-        PreviousContact previousContact = new PreviousContact();
-        previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
-        previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
-        previousContact.setBaseEntityId(baseEntityId);
-        previousContact.setContactNo(fieldObject.getString(PreviousContactRepository.CONTACT_NO));
-        getPreviousContactRepository().savePreviousContact(previousContact);
-    }
-
-    protected PreviousContactRepository getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepository();
-    }
-
     public Map<String, Long> getCurrentClientTasks() {
         return currentClientTasks;
     }
 
+    private void saveTasks(JSONObject field) {
+        if (field != null) {
+            String key = field.optString(JsonFormConstants.KEY);
+            AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(getTask(field, key));
+        }
+    }
+
+    /**
+     * Checks where a test qualifies to be a tasks.  This happens in case a test is marked as ordered or not done;
+     *
+     * @param valueArray {@link JSONArray} the expansion panel values
+     * @return isTasks {@link Boolean} true/false if true then it means the test qualifies to be a task.
+     */
+    private boolean checkTestsStatus(JSONArray valueArray) {
+        boolean isTask = false;
+        try {
+            for (int i = 0; i < valueArray.length(); i++) {
+                JSONObject value = valueArray.getJSONObject(i);
+                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
+                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
+                    if (givenValue.length() > 0) {
+                        String firstValue = givenValue.optString(0);
+                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
+                            isTask = true;
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> checkTestsStatus");
+        }
+        return isTask;
+    }
+
+    @NotNull
+    private Task getTask(JSONObject field, String key) {
+        Task task = new Task();
+        task.setBaseEntityId(baseEntityId);
+        task.setKey(key);
+        task.setValue(String.valueOf(field));
+        task.setUpdated(false);
+        task.setComplete(org.smartregister.anc.library.util.JsonFormUtils.checkIfTaskIsComplete(field));
+        task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+        return task;
+    }
+
     public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
         this.currentClientTasks = currentClientTasks;
+    }
+
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 }

@@ -108,7 +108,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     @Override
     public void updateTask(Task task) {
-        getPresenter().updateTask(task);
+        getPresenter().updateTask(task, contactNo);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.contract;
 
+import android.content.Context;
+
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.model.Task;
 
@@ -18,7 +20,7 @@ public interface ProfileFragmentContract {
 
         void getContactTasks(String baseEntityId, String contactNo);
 
-        void updateTask(Task task);
+        void updateTask(Task task, String contactNo);
     }
 
     interface View {
@@ -27,6 +29,8 @@ public interface ProfileFragmentContract {
         void updateTask(Task task);
 
         void refreshTasksList(boolean refresh);
+
+        Context getContext();
     }
 
     interface Interactor {
@@ -36,6 +40,6 @@ public interface ProfileFragmentContract {
 
         List<Task> getContactTasks(String baseEntityId, String contactNo);
 
-        void updateTask(Task task);
+        void updateTask(Task task, String contactNo);
     }
 }

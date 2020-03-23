@@ -254,6 +254,10 @@ public abstract class BaseContactActivity extends SecuredActivity {
         return this;
     }
 
+    public void startForms(View view) {
+        presenter.startForm(view.getTag());
+    }
+
     ////////////////////////////////////////////////////////////////
     // Inner classesC
     ////////////////////////////////////////////////////////////////
@@ -266,7 +270,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             if (i == R.id.undo_button) {
                 displayContactSaveDialog();
             } else if (i == R.id.card_layout) {
-                presenter.startForm(view.getTag());
+                startForms(view);
             } else if (i == R.id.finalize_contact) {
                 Utils.finalizeForm(getActivity(),
                         (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP),

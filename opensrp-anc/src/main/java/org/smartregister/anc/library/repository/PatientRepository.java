@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
-import android.support.annotation.NonNull;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -101,6 +100,10 @@ public class PatientRepository extends BaseRepository {
         return DrishtiApplication.getInstance().getRepository();
     }
 
+    private static RegisterQueryProvider getRegisterQueryProvider() {
+        return AncLibrary.getInstance().getRegisterQueryProvider();
+    }
+
     public static void updateWomanAlertStatus(String baseEntityId, String alertStatus) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, alertStatus);
@@ -169,10 +172,6 @@ public class PatientRepository extends BaseRepository {
         getMasterRepository().getWritableDatabase()
                 .update(getRegisterQueryProvider().getDetailsTable(), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
-    }
-
-    private static RegisterQueryProvider getRegisterQueryProvider() {
-        return AncLibrary.getInstance().getRegisterQueryProvider();
     }
 
 }
