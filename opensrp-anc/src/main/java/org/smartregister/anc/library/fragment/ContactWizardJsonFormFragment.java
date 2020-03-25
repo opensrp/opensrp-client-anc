@@ -177,11 +177,6 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         return false;
     }
 
-    /*@Override
-    public void transactThis(JsonFormFragment next) {
-        new NextProgressDialogTask(getActivity(), next).execute();
-    }*/
-
     @Override
     protected ContactJsonFormFragmentViewState createViewState() {
         return new ContactJsonFormFragmentViewState();
@@ -338,7 +333,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
 
     @Override
     public ContactWizardJsonFormFragment getJsonFormFragment() {
-        return  formFragment;
+        return formFragment;
     }
 
     private class BottomNavigationListener implements View.OnClickListener {
@@ -348,7 +343,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
-                   new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
+                    new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
