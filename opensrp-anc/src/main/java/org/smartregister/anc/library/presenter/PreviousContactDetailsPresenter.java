@@ -8,7 +8,7 @@ import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.interactor.PreviousContactsDetailsInteractor;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.JsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -128,7 +128,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
 
     }
 
-    private PreviousContactRepositoryHelper getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
+    private PreviousContactRepository getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 }

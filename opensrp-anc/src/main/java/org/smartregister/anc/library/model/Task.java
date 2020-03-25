@@ -6,19 +6,19 @@ public class Task {
     private String baseEntityId;
     private String key;
     private String value;
-    private String contactNo;
     private Long createdAt;
     private boolean isUpdated;
+    private boolean isComplete;
 
     public Task() {
     }
 
-    public Task(String baseEntityId, String key, String value, String contactNo, boolean isUpdated) {
+    public Task(String baseEntityId, String key, String value, boolean isUpdated, boolean isComplete) {
         this.baseEntityId = baseEntityId;
         this.key = key;
         this.value = value;
-        this.contactNo = contactNo;
         this.isUpdated = isUpdated;
+        this.isComplete = isComplete;
     }
 
     public String getKey() {
@@ -53,14 +53,6 @@ public class Task {
         this.baseEntityId = baseEntityId;
     }
 
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
-    }
-
     public Long getCreatedAt() {
         return createdAt;
     }
@@ -75,5 +67,13 @@ public class Task {
 
     public void setUpdated(boolean updated) {
         isUpdated = updated;
+    }
+
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    public void setComplete(boolean complete) {
+        isComplete = complete;
     }
 }

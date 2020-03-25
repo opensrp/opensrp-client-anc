@@ -8,9 +8,9 @@ import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
-import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
@@ -44,16 +44,14 @@ public class AncRepository extends Repository {
 
         UniqueIdRepository.createTable(database);
         SettingsRepository.onUpgrade(database);
-        PartialContactRepositoryHelper.createTable(database);
-        PreviousContactRepositoryHelper.createTable(database);
-        ContactTasksRepositoryHelper.createTable(database);
+        PartialContactRepository.createTable(database);
+        PreviousContactRepository.createTable(database);
+        ContactTasksRepository.createTable(database);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.tag(AncRepository.class.getName()).w("Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
-
-        AncLibrary.getInstance().performMigrations(db);
 
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {

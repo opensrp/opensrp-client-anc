@@ -8,7 +8,6 @@
         android:id="@+id/no_health_data_recorded_profile_overview_layout"
         layout="@layout/no_health_data_record" />
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profile_overview_recycler"
         android:visibility="gone"

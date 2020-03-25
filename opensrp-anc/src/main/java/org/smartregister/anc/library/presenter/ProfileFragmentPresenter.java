@@ -56,7 +56,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
-            facts = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContactFacts(baseEntityId, contactNo, true);
+            facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, true);
 
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
@@ -88,7 +88,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
     }
 
     @Override
-    public void updateTask(Task task) {
-        mProfileInteractor.updateTask(task);
+    public void updateTask(Task task, String contactNo) {
+        mProfileInteractor.updateTask(task, contactNo);
     }
 }

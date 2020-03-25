@@ -37,7 +37,7 @@ import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.anc.library.fragment.SortFilterFragment;
 import org.smartregister.anc.library.presenter.RegisterPresenter;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -180,8 +180,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
-                        .getPreference(AllConstants.CURRENT_LOCATION_ID);
+                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
@@ -242,7 +241,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                             contact.setContactNumber(getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0));
                             ContactJsonFormUtils
                                     .persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
-                            PatientRepositoryHelper
+                            PatientRepository
                                     .updateContactVisitStartDate(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
                                             Utils.getDBDateToday());
                             break;
@@ -267,6 +266,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
         if (isLibrary()) {
             switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_library);
         }
     }
 

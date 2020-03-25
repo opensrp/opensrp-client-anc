@@ -30,12 +30,12 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({AncLibrary.class, SQLiteDatabase.class, DrishtiApplication.class})
-public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
+public class ContactTasksRepositoryTest extends BaseUnitTest {
+    public static final String IS_COMPLETE = "is_complete";
     protected static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     private static final String TABLE_NAME = "contact_tasks";
     private static final String ID = "_id";
     private static final String BASE_ENTITY_ID = "base_entity_id";
-    private static final String CONTACT_NO = "contact_no";
     private static final String KEY = "key";
     private static final String VALUE = "value";
     private static final String IS_UPDATED = "is_updated";
@@ -62,23 +62,23 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @PrepareForTest({ContentValues.class})
     @Test
     public void testUpdateTasks() throws Exception {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         PowerMockito.mockStatic(ContentValues.class);
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getWritableDatabase()).thenReturn(sqLiteDatabase);
-        ContentValues contentValues = Whitebox.invokeMethod(contactTasksRepositoryHelper, "createValuesFor", getTask());
+        PowerMockito.when(contactTasksRepository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+        ContentValues contentValues = Whitebox.invokeMethod(contactTasksRepository, "createValuesFor", getTask());
         String sqlQuery = ID + " = ? " + BaseRepository.COLLATE_NOCASE;
 
-        PowerMockito.when(contactTasksRepositoryHelper.getWritableDatabase().update(TABLE_NAME, contentValues, sqlQuery, new String[]{String.valueOf(getTask().getId())})).thenReturn(1);
-        Assert.assertTrue(contactTasksRepositoryHelper.saveOrUpdateTasks(getTask()));
+        PowerMockito.when(contactTasksRepository.getWritableDatabase().update(TABLE_NAME, contentValues, sqlQuery, new String[]{String.valueOf(getTask().getId())})).thenReturn(1);
+        Assert.assertTrue(contactTasksRepository.saveOrUpdateTasks(getTask()));
     }
 
     private Task getTask() {
-        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), "2", true);
+        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), true, true);
         task.setId(Long.valueOf(1));
         return task;
     }
@@ -86,109 +86,109 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
     @PrepareForTest({ContentValues.class})
     @Test
     public void testSaveTasks() throws Exception {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         PowerMockito.mockStatic(ContentValues.class);
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getWritableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getWritableDatabase()).thenReturn(sqLiteDatabase);
         Task task = getTask();
         task.setId(null);
-        ContentValues contentValues = Whitebox.invokeMethod(contactTasksRepositoryHelper, "createValuesFor", task);
+        ContentValues contentValues = Whitebox.invokeMethod(contactTasksRepository, "createValuesFor", task);
 
-        PowerMockito.when(contactTasksRepositoryHelper.getWritableDatabase().insert(TABLE_NAME, null, contentValues)).thenReturn((long) 0);
-        Assert.assertFalse(contactTasksRepositoryHelper.saveOrUpdateTasks(task));
+        PowerMockito.when(contactTasksRepository.getWritableDatabase().insert(TABLE_NAME, null, contentValues)).thenReturn((long) 0);
+        Assert.assertFalse(contactTasksRepository.saveOrUpdateTasks(task));
     }
 
     @Test
     public void testSaveOrUpdateWithNullTasks() {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
-        Assert.assertFalse(contactTasksRepositoryHelper.saveOrUpdateTasks(null));
+        Assert.assertFalse(contactTasksRepository.saveOrUpdateTasks(null));
     }
 
     @Test
     public void testTasksCount() {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
         String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
         PowerMockito.when(mCursor.getCount()).thenReturn(1);
         PowerMockito.when(mCursor.getInt(0)).thenReturn(1);
-        Assert.assertEquals("1", contactTasksRepositoryHelper.getTasksCount(DUMMY_BASE_ENTITY_ID));
+        Assert.assertEquals("1", contactTasksRepository.getTasksCount(DUMMY_BASE_ENTITY_ID));
     }
 
     @Test
     public void testTasksCountWithNullVariables() {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
         String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{null, null};
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
-        Assert.assertEquals("0", contactTasksRepositoryHelper.getTasksCount(null));
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
+        Assert.assertEquals("0", contactTasksRepository.getTasksCount(null));
     }
 
     @Test
     public void testTasksCountWithNullCursor() {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
         String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{null, null};
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(null);
-        Assert.assertEquals("0", contactTasksRepositoryHelper.getTasksCount(null));
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(null);
+        Assert.assertEquals("0", contactTasksRepository.getTasksCount(null));
     }
 
     @Test
     public void testTasksCountWithZeroItems() {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
         String sqlQuery = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().rawQuery(sqlQuery, selectionArgs)).thenReturn(mCursor);
         PowerMockito.when(mCursor.getCount()).thenReturn(0);
         PowerMockito.when(mCursor.getInt(0)).thenReturn(0);
-        Assert.assertEquals("0", contactTasksRepositoryHelper.getTasksCount(DUMMY_BASE_ENTITY_ID));
+        Assert.assertEquals("0", contactTasksRepository.getTasksCount(DUMMY_BASE_ENTITY_ID));
     }
 
     @Test
     public void testGetTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(mCursor);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(mCursor);
         PowerMockito.when(mCursor.moveToNext()).then(new Answer<Object>() {
             int count = 0;
 
@@ -199,35 +199,35 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             }
         });
 
-        Assert.assertEquals(2, contactTasksRepositoryHelper.getTasks(DUMMY_BASE_ENTITY_ID, null).size());
+        Assert.assertEquals(2, contactTasksRepository.getTasks(DUMMY_BASE_ENTITY_ID, null).size());
     }
 
     @Test
     public void testGetTasksWithNullVariables() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getTasks(null, null).size());
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
+        Assert.assertEquals(0, contactTasksRepository.getTasks(null, null).size());
     }
 
     @Test
     public void testGetOpenTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
@@ -244,41 +244,41 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             }
         });
 
-        Assert.assertEquals(3, contactTasksRepositoryHelper.getOpenTasks(DUMMY_BASE_ENTITY_ID).size());
+        Assert.assertEquals(3, contactTasksRepository.getOpenTasks(DUMMY_BASE_ENTITY_ID).size());
     }
 
     @Test
     public void testGetOpenTasksWithNullVariables() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
         String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
         String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "0"};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
         PowerMockito.when(repository.getReadableDatabase()).thenReturn(sqLiteDatabase);
         PowerMockito.when(sqLiteDatabase.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getOpenTasks(null).size());
+        Assert.assertEquals(0, contactTasksRepository.getOpenTasks(null).size());
     }
 
     @Test
     public void testGetClosedTasks() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
-        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1"};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(mCursor);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(mCursor);
         PowerMockito.when(mCursor.moveToNext()).then(new Answer<Object>() {
             int count = 0;
 
@@ -289,56 +289,56 @@ public class ContactTasksRepositoryHelperTest extends BaseUnitTest {
             }
         });
 
-        Assert.assertEquals(1, contactTasksRepositoryHelper.getClosedTasks(DUMMY_BASE_ENTITY_ID, "2").size());
+        Assert.assertEquals(1, contactTasksRepository.getClosedTasks(DUMMY_BASE_ENTITY_ID).size());
     }
 
     @Test
     public void testGetClosedTasksWithNullBaseEntityIdAndContactNo() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
-        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1"};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks(null, null).size());
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
+        Assert.assertEquals(0, contactTasksRepository.getClosedTasks(null).size());
     }
 
     @Test
     public void testGetClosedTasksWithEmptyBaseEntityIdAndContactNo() {
         String orderBy = ID + " DESC ";
-        String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, IS_UPDATED, BASE_ENTITY_ID, CREATED_AT};
-        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + CONTACT_NO + " = ? " + BaseRepository.COLLATE_NOCASE;
-        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1", "2"};
+        String[] projectionArgs = new String[]{ID, KEY, VALUE, IS_UPDATED, IS_COMPLETE, BASE_ENTITY_ID, CREATED_AT};
+        String selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + IS_UPDATED + " = ? " + BaseRepository.COLLATE_NOCASE;
+        String[] selectionArgs = new String[]{DUMMY_BASE_ENTITY_ID, "1"};
 
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = PowerMockito.spy(new ContactTasksRepositoryHelper());
+        ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
         Mockito.doReturn(repository).when(drishtiApplication).getRepository();
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
 
-        PowerMockito.when(contactTasksRepositoryHelper.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
-        Assert.assertEquals(0, contactTasksRepositoryHelper.getClosedTasks("", "").size());
+        PowerMockito.when(contactTasksRepository.getReadableDatabase().query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null)).thenReturn(null);
+        Assert.assertEquals(0, contactTasksRepository.getClosedTasks("").size());
     }
 
     @Test
     public void testUpdateBooleanValueWith1() throws Exception {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = new ContactTasksRepositoryHelper();
-        boolean isBoolean = Whitebox.invokeMethod(contactTasksRepositoryHelper, "updateBooleanValue", "1");
+        ContactTasksRepository contactTasksRepository = new ContactTasksRepository();
+        boolean isBoolean = Whitebox.invokeMethod(contactTasksRepository, "updateBooleanValue", "1");
         Assert.assertTrue(isBoolean);
     }
 
     @Test
     public void testUpdateBooleanValueWithZeroValue() throws Exception {
-        ContactTasksRepositoryHelper contactTasksRepositoryHelper = new ContactTasksRepositoryHelper();
-        boolean isBoolean = Whitebox.invokeMethod(contactTasksRepositoryHelper, "updateBooleanValue", "0");
+        ContactTasksRepository contactTasksRepository = new ContactTasksRepository();
+        boolean isBoolean = Whitebox.invokeMethod(contactTasksRepository, "updateBooleanValue", "0");
         Assert.assertFalse(isBoolean);
     }
 }

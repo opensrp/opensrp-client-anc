@@ -2,13 +2,13 @@ package org.smartregister.anc.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -50,7 +50,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private List<Task> taskList = new ArrayList<>();
     private String contactNo;
     private View noHealthRecordLayout;
-    private ConstraintLayout tasksLayout;
+    private TextView tasksLayoutHeader;
     private RecyclerView recyclerView;
     private HashMap<String, String> clientDetails;
     private Task currentTask;
@@ -108,7 +108,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     @Override
     public void updateTask(Task task) {
-        getPresenter().updateTask(task);
+        getPresenter().updateTask(task, contactNo);
     }
 
     @Override
@@ -148,10 +148,12 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private void toggleViews(List<Task> taskList) {
         if (taskList.size() > 0) {
             noHealthRecordLayout.setVisibility(View.GONE);
-            tasksLayout.setVisibility(View.VISIBLE);
+            tasksLayoutHeader.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
             noHealthRecordLayout.setVisibility(View.VISIBLE);
-            tasksLayout.setVisibility(View.GONE);
+            tasksLayoutHeader.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
         }
     }
 
@@ -207,7 +209,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile_tasks, container, false);
         noHealthRecordLayout = fragmentView.findViewById(R.id.no_health_data_recorded_profile_task_layout);
-        tasksLayout = fragmentView.findViewById(R.id.tasks_layout);
+        tasksLayoutHeader = fragmentView.findViewById(R.id.test_tasks_sub_header);
         recyclerView = fragmentView.findViewById(R.id.tasks_display_recyclerview);
 
         dueButton = ((ProfileActivity) getActivity()).getDueButton();
@@ -231,11 +233,12 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private Task updateTaskValue(JSONArray values) {
         Task newTask = getCurrentTask();
         try {
-            if (values != null && values.length() > 0) {
+            if (values != null && values.length() > 0 && newTask != null) {
                 JSONObject newValue = new JSONObject(newTask.getValue());
                 newValue.put(JsonFormConstants.VALUE, values);
                 newTask.setValue(String.valueOf(newValue));
                 newTask.setUpdated(true);
+                newTask.setComplete(JsonFormUtils.checkIfTaskIsComplete(newValue));
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateTaskValue");

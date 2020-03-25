@@ -2,7 +2,7 @@ package org.smartregister.anc.library.model;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 
@@ -14,7 +14,7 @@ public class PartialContacts {
     private String referral;
     private String baseEntityId;
     private boolean isFirst;
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
     private List<PartialContact> partialContactList;
 
     public PartialContacts(Map<String, String> details, String referral, String baseEntityId, boolean isFirst) {
@@ -24,8 +24,8 @@ public class PartialContacts {
         this.isFirst = isFirst;
     }
 
-    public PartialContactRepositoryHelper getPartialContactRepositoryHelper() {
-        return partialContactRepositoryHelper;
+    public PartialContactRepository getPartialContactRepository() {
+        return partialContactRepository;
     }
 
     public List<PartialContact> getPartialContactList() {
@@ -33,17 +33,17 @@ public class PartialContacts {
     }
 
     public PartialContacts invoke() {
-        partialContactRepositoryHelper = AncLibrary.getInstance().getPartialContactRepositoryHelper();
+        partialContactRepository = AncLibrary.getInstance().getPartialContactRepository();
 
-        if (partialContactRepositoryHelper != null) {
+        if (partialContactRepository != null) {
             if (isFirst) {
-                partialContactList = partialContactRepositoryHelper.getPartialContacts(baseEntityId, 1);
+                partialContactList = partialContactRepository.getPartialContacts(baseEntityId, 1);
             } else {
                 if (referral != null) {
-                    partialContactList = partialContactRepositoryHelper
+                    partialContactList = partialContactRepository
                             .getPartialContacts(baseEntityId, getContactFromReferral(details.get(ConstantsUtils.REFERRAL)));
                 } else {
-                    partialContactList = partialContactRepositoryHelper.getPartialContacts(baseEntityId,
+                    partialContactList = partialContactRepository.getPartialContacts(baseEntityId,
                             Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
                 }
             }

@@ -131,7 +131,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 if (getAllCommonsRepository() != null) {
                     ContentValues values = new ContentValues();
                     values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                    getAllCommonsRepository().update(DBConstantsUtils.WOMAN_TABLE_NAME, values, baseEntityId);
+                    getAllCommonsRepository().update(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, values, baseEntityId);
                     getAllCommonsRepository().updateSearch(baseEntityId);
 
                 }
@@ -148,7 +148,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public AllCommonsRepository getAllCommonsRepository() {
         if (allCommonsRepository == null) {
             allCommonsRepository =
-                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstantsUtils.WOMAN_TABLE_NAME);
+                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
         }
         return allCommonsRepository;
     }

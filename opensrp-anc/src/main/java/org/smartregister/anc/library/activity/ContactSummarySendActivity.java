@@ -18,12 +18,15 @@ import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.interactor.ContactSummaryInteractor;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.presenter.ContactSummaryPresenter;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.HashMap;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class ContactSummarySendActivity extends AppCompatActivity
         implements ContactSummarySendContract.View, View.OnClickListener {
@@ -36,6 +39,7 @@ public class ContactSummarySendActivity extends AppCompatActivity
     private TextView recordedContactTextView;
     private TextView contactScheduleHeadingTextView;
     private RecyclerView contactDatesRecyclerView;
+    private HashMap<String, String> womanDetails;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +49,9 @@ public class ContactSummarySendActivity extends AppCompatActivity
         contactSummaryPresenter = new ContactSummaryPresenter(new ContactSummaryInteractor());
         contactSummaryPresenter.attachView(this);
         imageRenderHelper = new ImageRenderHelper(this);
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            womanDetails = (HashMap<String, String>) getIntent().getExtras().getSerializable(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        }
 
     }
 
@@ -75,8 +82,21 @@ public class ContactSummarySendActivity extends AppCompatActivity
     @Override
     public void goToClientProfile() {
         finish();
-        Utils.navigateToProfile(this,
-                (HashMap<String, String>) getIntent().getExtras().getSerializable(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
+        HashMap<String, String> womanProfileDetails = getWomanProfileDetails();
+        if (womanProfileDetails != null) {
+            Utils.navigateToProfile(this, womanProfileDetails);
+        } else {
+            Timber.e("Make sure the person object was fetched successfully");
+        }
+    }
+
+    /**
+     * Get the woman details using the {@link PatientRepository}
+     *
+     * @return womanDetails {@link HashMap<>}
+     */
+    public HashMap<String, String> getWomanProfileDetails() {
+        return (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getEntityId());
     }
 
     @Override
@@ -108,13 +128,14 @@ public class ContactSummarySendActivity extends AppCompatActivity
     }
 
     public String getReferredContactNo() {
-        HashMap<String, String> client =
-                (HashMap<String, String>) getIntent().getExtras().get(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        if (client != null) {
-            String contactNo = client.get(ConstantsUtils.REFERRAL);
-            return contactNo;
+        if (womanDetails != null) {
+            return womanDetails.get(ConstantsUtils.REFERRAL);
         }
         return null;
+    }
+
+    public String getEntityId() {
+        return getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
     }
 
     @Override
@@ -128,10 +149,5 @@ public class ContactSummarySendActivity extends AppCompatActivity
         contactSummaryPresenter.loadWoman(getEntityId());
         contactSummaryPresenter.loadUpcomingContacts(getEntityId(), getReferredContactNo());
         contactSummaryPresenter.showWomanProfileImage(getEntityId());
-    }
-
-    public String getEntityId() {
-        String entityId = getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        return entityId;
     }
 }

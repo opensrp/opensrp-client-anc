@@ -8,7 +8,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.activity.ContactSummarySendActivity;
 import org.smartregister.anc.library.contract.ProfileContract;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... nada) {
         try {
-            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepositoryHelper
+            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
                     .getWomanProfileDetails(intent.getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
             int contactNo = intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO);
             if (contactNo < 0) {

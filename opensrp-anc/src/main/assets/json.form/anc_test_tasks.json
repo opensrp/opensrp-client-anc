@@ -54,25 +54,6 @@
       "value": ""
     }
   },
-  "global_previous": [
-    "blood_type_test_status",
-    "hiv_test_partner_result",
-    "hiv_test_status",
-    "hiv_test_result",
-    "hiv_test_partner_status",
-    "hepb_test_status",
-    "hepc_test_status",
-    "syph_test_status",
-    "tb_screening_status",
-    "hiv_positive",
-    "urine_test_status",
-    "hb_test_status",
-    "syphilis_positive",
-    "hepc_positive",
-    "syph_test_status",
-    "ultrasound",
-    "hepb_positive"
-  ],
   "step1": {
     "display_back_button": "true",
     "title": "Due",

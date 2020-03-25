@@ -11,7 +11,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
 import org.smartregister.anc.library.model.RegisterModel;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
@@ -176,8 +176,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     private void goToClientProfile(String baseEntityId) {
         if (StringUtils.isNotBlank(baseEntityId)) {
-            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepositoryHelper
-                    .getWomanProfileDetails(baseEntityId);
+            HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository.getWomanProfileDetails(baseEntityId);
             if (womanProfileDetails != null) {
                 Utils.navigateToProfile(getView().getContext(), womanProfileDetails);
             }

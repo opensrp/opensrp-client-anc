@@ -44,7 +44,7 @@ actions:
 name: step1_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "(global_previous_syphilis_positive == 0 || global_previous_syphilis_positive == '') && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
+condition: "(global_previous_syphilis_positive == 0 || global_previous_syphilis_positive == '') && (global_contact_no == 1 || (global_contact_no > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 29)))"
 actions:
   - "isRelevant = true"
 ---
@@ -58,7 +58,7 @@ actions:
 name: step1_accordion_urine
 description: urine accordion
 priority: 1
-condition: "global_contact_no == 1  || ((global_contact_no > 1 || (global_gest_age_openmrs != '' && (global_gest_age_openmrs > 26  || global_gest_age_openmrs > 34))  )  && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 26  || global_gest_age_openmrs == 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
+condition: "global_contact_no == 1  || ((global_contact_no > 1 || (global_gest_age_openmrs != '' && (global_gest_age_openmrs > 26  || global_gest_age_openmrs > 34))) && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 26  || global_gest_age_openmrs == 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
 actions:
   - "isRelevant = true"
 ---

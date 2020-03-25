@@ -29,7 +29,7 @@ public class BackPressedPersistPartialTask extends AsyncTask<Void, Void, Void> {
             Contact currentContact = contact;
             currentContact.setJsonForm(currentJsonState);
             currentContact.setContactNumber(contactNo);
-            ContactJsonFormUtils.persistPartial(intent.getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
+            ContactJsonFormUtils.persistPartial(intent.getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), currentContact);
         }
         return null;
     }

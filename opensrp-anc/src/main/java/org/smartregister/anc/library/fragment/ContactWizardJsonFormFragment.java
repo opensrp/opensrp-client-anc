@@ -223,29 +223,31 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     }
 
     private void displayReferralDialog() {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.alert_referral_dialog, null);
+        if (getActivity() != null) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.alert_referral_dialog, null);
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setView(view);
 
-        Button yes = view.findViewById(R.id.refer_yes);
-        final Button no = view.findViewById(R.id.refer_no);
+            Button yes = view.findViewById(R.id.refer_yes);
+            final Button no = view.findViewById(R.id.refer_no);
 
-        final AlertDialog dialog = builder.create();
+            final AlertDialog dialog = builder.create();
 
-        Window window = dialog.getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams param = window.getAttributes();
-            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-            window.setAttributes(param);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams param = window.getAttributes();
+                param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                window.setAttributes(param);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            }
+
+            yes.setOnClickListener(v -> goToContactFinalize(dialog));
+            no.setOnClickListener(v -> goToContactFinalize(dialog));
+
+            dialog.show();
         }
-
-        yes.setOnClickListener(v -> goToContactFinalize(dialog));
-        no.setOnClickListener(v -> goToContactFinalize(dialog));
-
-        dialog.show();
     }
 
     /**

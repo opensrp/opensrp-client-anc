@@ -23,7 +23,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
     private Context context;
 
     @Mock
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
+    private PreviousContactRepository previousContactRepository;
 
     @Captor
     private ArgumentCaptor<List<ContactSummaryModel>> schedulesArgs;
@@ -80,13 +80,13 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
         PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
-        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
         String edd = "2019-09-01";
         Facts facts = new Facts();
         facts.put(ConstantsUtils.CONTACT_SCHEDULE, "[30, 34, 36, 38, 40, 41]");
-        Mockito.doReturn(facts).when(previousContactRepositoryHelper).getImmediatePreviousSchedule(baseEntityId, contactNo);
+        Mockito.doReturn(facts).when(previousContactRepository).getImmediatePreviousSchedule(baseEntityId, contactNo);
         previousContactPresenter.loadPreviousContactSchedule(baseEntityId, contactNo, edd);
         verify(profileView, atLeastOnce()).displayPreviousContactSchedule(schedulesArgs.capture());
     }
@@ -97,13 +97,13 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
         PowerMockito.mockStatic(TextUtils.class);
         PowerMockito.when(!TextUtils.isEmpty(null)).thenReturn(true);
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
-        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
         String contactNo = "1";
         List<PreviousContactsSummaryModel> allContactsFacts = new ArrayList<>();
         populatePreviousContacts(allContactsFacts);
-        Mockito.doReturn(allContactsFacts).when(previousContactRepositoryHelper).getPreviousContactsFacts(baseEntityId);
+        Mockito.doReturn(allContactsFacts).when(previousContactRepository).getPreviousContactsFacts(baseEntityId);
         previousContactPresenter.loadPreviousContacts(baseEntityId, contactNo);
         verify(profileView, atLeastOnce()).loadPreviousContactsDetails(filteredContacts.capture());
     }

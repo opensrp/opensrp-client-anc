@@ -14,7 +14,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.adapter.LibraryContentAdapter;
 import org.smartregister.anc.library.model.LibraryContent;
-import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,18 +40,16 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
 
     private void setUpViews(View rootLayout) {
         mToolbar = rootLayout.findViewById(R.id.library_toolbar);
-        mToolbar.findViewById(R.id.close_library).setOnClickListener(view -> onBackPressed());
         contentLayout = rootLayout.findViewById(R.id.layout_attach_recycler_view);
-    }
-
-    public void onBackPressed() {
-        ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         attachLayoutContentAdapter();
+        if (getActivity() != null) {
+            ((BaseHomeRegisterActivity) getActivity()).setLibrary(false);
+        }
     }
 
     private void attachLayoutContentAdapter() {

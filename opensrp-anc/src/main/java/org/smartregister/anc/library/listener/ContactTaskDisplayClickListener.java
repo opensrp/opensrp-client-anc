@@ -15,6 +15,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.JsonFormUtils;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -114,7 +115,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         newTask.setKey(task.getKey());
         newTask.setValue(String.valueOf(taskValue));
         newTask.setUpdated(true);
-        newTask.setContactNo(task.getContactNo());
+        newTask.setComplete(JsonFormUtils.checkIfTaskIsComplete(taskValue));
         newTask.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return newTask;
     }
