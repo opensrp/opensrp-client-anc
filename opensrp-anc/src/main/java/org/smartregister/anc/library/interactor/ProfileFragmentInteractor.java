@@ -9,7 +9,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import timber.log.Timber;
  */
 public class ProfileFragmentInteractor implements ProfileFragmentContract.Interactor {
     private ProfileFragmentContract.Presenter mProfileFrgamentPresenter;
-    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
     private Utils utils = new Utils();
 
     public ProfileFragmentInteractor(ProfileFragmentContract.Presenter presenter) {
@@ -65,7 +65,7 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
                     for (int i = 0; i < value.length(); i++) {
                         JSONObject valueObject = value.getJSONObject(i);
                         if (valueObject != null && valueObject.has(JsonFormConstants.KEY) && valueObject.has(JsonFormConstants.TYPE) && valueObject.has(JsonFormConstants.VALUES)) {
-                            contactJsonFormUtils.saveExpansionPanelValues(task.getBaseEntityId(), contactNo, valueObject);
+                            ANCFormUtils.saveExpansionPanelValues(task.getBaseEntityId(), contactNo, valueObject);
                         }
                     }
                 }

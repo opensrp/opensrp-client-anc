@@ -24,7 +24,7 @@ import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.DetailsRepository;
@@ -129,10 +129,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     addReferralGa(baseEntityId, details);
                 }
 
-                Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
+                Pair<Event, Event> eventPair = ANCJsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
                 if (eventPair != null) {
                     createEvent(baseEntityId, new JSONObject(facts.asMap()).toString(), eventPair, referral);
-                    JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
+                    JSONObject updateClientEventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(eventPair.second));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
             } catch (Exception e) {
@@ -219,7 +219,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         if (currentContactState != null && referral == null) {
             event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
-        JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+        JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
         AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
     }
 

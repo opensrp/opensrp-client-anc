@@ -13,7 +13,7 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 public class ContactSummaryInteractor extends BaseContactInteractor implements ContactSummarySendContract.Interactor {
 
-    private JsonFormUtils formUtils = new JsonFormUtils();
+    private ANCJsonFormUtils formUtils = new ANCJsonFormUtils();
 
     public ContactSummaryInteractor() {
         this(new AppExecutors());

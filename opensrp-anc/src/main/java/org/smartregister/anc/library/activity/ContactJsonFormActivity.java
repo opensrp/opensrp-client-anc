@@ -23,7 +23,7 @@ import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +164,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         }
         try {
-            ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
+            ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
             Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
@@ -264,9 +264,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
-        contact.setJsonForm(contactJsonFormUtils.addFormDetails(currentJsonState()));
+        contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
-        ContactJsonFormUtils.persistPartial(baseEntityId, getContact());
+        ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
     }
 

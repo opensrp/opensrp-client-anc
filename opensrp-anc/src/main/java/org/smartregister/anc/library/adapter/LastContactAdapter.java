@@ -17,14 +17,14 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 
 import java.util.List;
 
 public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.ViewHolder> {
     private List<LastContactDetailsWrapper> lastContactDetailsList;
     private LayoutInflater inflater;
-    private JsonFormUtils formUtils = new JsonFormUtils();
+    private ANCJsonFormUtils formUtils = new ANCJsonFormUtils();
     private Context context;
 
     public LastContactAdapter(List<LastContactDetailsWrapper> lastContactDetailsList, Context context) {

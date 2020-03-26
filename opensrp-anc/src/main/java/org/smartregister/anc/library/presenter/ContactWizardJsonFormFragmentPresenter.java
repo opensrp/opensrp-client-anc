@@ -12,7 +12,7 @@ import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 
 /**
  * Created by keyman on 04/08/18.
@@ -71,7 +71,7 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
         if (JsonFormConstants.CONTENT_INFO.equals(type) && specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
             NativeRadioButtonFactory.showDateDialog(view);
         } else if (JsonFormConstants.CONTENT_INFO.equals(type) && !specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
-            ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
+            ANCFormUtils formUtils = new ANCFormUtils();
             formUtils.showGenericDialog(view);
         } else if (view.getId() == com.vijay.jsonwizard.R.id.label_edit_button) {
             setRadioViewsEditable(view);

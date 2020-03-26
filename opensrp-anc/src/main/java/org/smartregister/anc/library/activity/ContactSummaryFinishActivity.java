@@ -21,7 +21,7 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.task.FinalizeContactTask;
 import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
@@ -111,7 +111,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
                 if (partialContact.getFormJsonDraft() != null || partialContact.getFormJson() != null) {
                     object = new JSONObject(partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
                             partialContact.getFormJson());
-                    ContactJsonFormUtils.processRequiredStepsField(facts, object);
+                    ANCFormUtils.processRequiredStepsField(facts, object);
                 }
             }
         }
