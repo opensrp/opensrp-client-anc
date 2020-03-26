@@ -22,7 +22,7 @@ import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
@@ -147,16 +147,16 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Pair<Client, Event> pair = Pair.create(client, event);
 
-        JSONObject clientObject = new JSONObject(JsonFormUtils.gson.toJson(client));
-        JSONObject eventObject = new JSONObject(JsonFormUtils.gson.toJson(event));
+        JSONObject clientObject = new JSONObject(ANCJsonFormUtils.gson.toJson(client));
+        JSONObject eventObject = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
 
         String jsonString = "{'json':'string'}";
 
         long timestamp = new Date().getTime();
 
         List<EventClient> eventClients = new ArrayList<>();
-        EventClient eventClient = new EventClient(JsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
-                JsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
+        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
+                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
         eventClients.add(eventClient);
 
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
@@ -222,16 +222,16 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Pair<Client, Event> pair = Pair.create(client, event);
 
-        JSONObject clientObject = new JSONObject(JsonFormUtils.gson.toJson(client));
-        JSONObject eventObject = new JSONObject(JsonFormUtils.gson.toJson(event));
+        JSONObject clientObject = new JSONObject(ANCJsonFormUtils.gson.toJson(client));
+        JSONObject eventObject = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
 
         String jsonString = "{\"" + DBConstantsUtils.KeyUtils.ANC_ID + "\":\"" + originalAncId + "\"}";
 
         long timestamp = new Date().getTime();
 
         List<EventClient> eventClients = new ArrayList<>();
-        EventClient eventClient = new EventClient(JsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
-                JsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
+        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
+                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
         eventClients.add(eventClient);
 
         JSONObject orginalClientObject = clientObject;

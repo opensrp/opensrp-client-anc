@@ -18,7 +18,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ContactJsonFormUtilsTest extends BaseUnitTest {
+public class ANCFormUtilsTest extends BaseUnitTest {
 
     private JSONArray accordionValuesJson;
 
@@ -52,25 +52,25 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetKeyWhenObjectIsEmpty() throws Exception {
-        String itemKey = ContactJsonFormUtils.getObjectKey(new JSONObject());
+        String itemKey = ANCFormUtils.getObjectKey(new JSONObject());
         Assert.assertNull(itemKey);
     }
 
     @Test(expected = NullPointerException.class)
     public void testGetKeyWhenObjectIsNull() throws Exception {
-        String itemKey = ContactJsonFormUtils.getObjectKey(null);
+        String itemKey = ANCFormUtils.getObjectKey(null);
         Assert.assertNull(itemKey);
     }
 
     @Test
     public void testCleanValue() {
-        String result = ContactJsonFormUtils.cleanValue("[one, two, three]");
+        String result = ANCFormUtils.cleanValue("[one, two, three]");
         assertEquals(result, "one, two, three");
     }
 
     @Test
     public void testCleanValueWithoutFirstSquareBrace() {
-        String result = ContactJsonFormUtils.cleanValue("one, two, three");
+        String result = ANCFormUtils.cleanValue("one, two, three");
         assertEquals(result, "one, two, three");
     }
 
@@ -78,7 +78,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     public void testValueConverter() {
         String actual = "Done today";
         String entry = "[done_today]";
-        String expected = ContactJsonFormUtils.keyToValueConverter(entry);
+        String expected = ANCFormUtils.keyToValueConverter(entry);
         assertEquals(expected, actual);
     }
 
@@ -86,21 +86,21 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     public void testValueConverterWithEmptyString() {
         String actual = "";
         String entry = "";
-        String expected = ContactJsonFormUtils.keyToValueConverter(entry);
+        String expected = ANCFormUtils.keyToValueConverter(entry);
         assertEquals(expected, actual);
     }
 
     @Test
     public void testValueConverterWithNullInput() {
         String actual = "";
-        String expected = ContactJsonFormUtils.keyToValueConverter(null);
+        String expected = ANCFormUtils.keyToValueConverter(null);
         assertEquals(expected, actual);
     }
 
     @Test
     public void testRemoveKeyPrefix() {
         String actual = "hiv_positive";
-        String result = ContactJsonFormUtils.removeKeyPrefix("step1_hiv_positive", "step1");
+        String result = ANCFormUtils.removeKeyPrefix("step1_hiv_positive", "step1");
         assertEquals(result, actual);
     }
 
@@ -108,63 +108,63 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     public void testGetListValues() {
         String actual = "one, two, three";
         List<String> list = Arrays.asList(new String[]{"one", "two", "three"});
-        String result = ContactJsonFormUtils.getListValuesAsString(list);
+        String result = ANCFormUtils.getListValuesAsString(list);
         assertEquals(result, actual);
     }
 
     @Test
     public void testGetListValuesWithNullInput() {
         String actual = "";
-        String result = ContactJsonFormUtils.getListValuesAsString(null);
+        String result = ANCFormUtils.getListValuesAsString(null);
         assertEquals(result, actual);
     }
 
     @Test
     public void testObtainValueFromAncRadioButtons() throws JSONException {
         String actual = "done_today";
-        String result = ContactJsonFormUtils.obtainValue("ultrasound", accordionValuesJson);
+        String result = ANCFormUtils.obtainValue("ultrasound", accordionValuesJson);
         assertEquals(result, actual);
     }
 
     @Test
     public void testObtainValueFromDatePicker() throws JSONException {
         String actual = "08-04-2019";
-        String result = ContactJsonFormUtils.obtainValue("blood_type_test_date", accordionValuesJson);
+        String result = ANCFormUtils.obtainValue("blood_type_test_date", accordionValuesJson);
         assertEquals(result, actual);
     }
 
     @Test
     public void testObtainValueFromNativeRadioButton() throws JSONException {
         String actual = "ab";
-        String result = ContactJsonFormUtils.obtainValue("blood_type", accordionValuesJson);
+        String result = ANCFormUtils.obtainValue("blood_type", accordionValuesJson);
         assertEquals(result, actual);
     }
 
     @Test
     public void testObtainValueFromCheckbox() throws JSONException {
         String actual = "[stock_out, expired_stock, other]";
-        String result = ContactJsonFormUtils.obtainValue("urine_test_notdone", accordionValuesJson);
+        String result = ANCFormUtils.obtainValue("urine_test_notdone", accordionValuesJson);
         assertEquals(result, actual);
     }
 
     @Test
     public void testObtainValueFromNumberSelector() throws JSONException {
         String actual = "1";
-        String result = ContactJsonFormUtils.obtainValue("no_of_fetuses", accordionValuesJson);
+        String result = ANCFormUtils.obtainValue("no_of_fetuses", accordionValuesJson);
         assertEquals(result, actual);
     }
 
     @Test
     public void testObtainValueFromHiddenValues() throws JSONException {
         String actual = "39 weeks 6 days";
-        String result = ContactJsonFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
+        String result = ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
         assertEquals(result, actual);
     }
 
     @Test
     public void testFilterCheckboxValuesWhenFilterOptionsValuesAreDefineAsArray() throws Exception {
         JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
-        ContactJsonFormUtils.processCheckboxFilteredItems(mainObject);
+        ANCFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepOneBehaviourPersist = mainObject.getJSONObject("step1").getJSONArray("fields").getJSONObject(0);
         JSONArray checkBoxOptions = stepOneBehaviourPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
@@ -178,7 +178,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     @Test
     public void testFilterCheckboxValuesWhenFilterOptionsValueIsNotNone() throws Exception {
         JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
-        ContactJsonFormUtils.processCheckboxFilteredItems(mainObject);
+        ANCFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepTwoBehaviourPersist = mainObject.getJSONObject("step2").getJSONArray("fields").getJSONObject(0);
         JSONArray checkBoxOptions = stepTwoBehaviourPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
@@ -191,7 +191,7 @@ public class ContactJsonFormUtilsTest extends BaseUnitTest {
     @Test
     public void testFilterCheckboxValuesWhenFilterOptionSourceIsDefined() throws Exception {
         JSONObject mainObject = getMainJsonObject("json_test_forms/test_checkbox_filter_json_form");
-        ContactJsonFormUtils.processCheckboxFilteredItems(mainObject);
+        ANCFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepThreePhysSymptomsPersist = mainObject.getJSONObject("step3").getJSONArray("fields").getJSONObject(0);
         JSONArray checkBoxOptions = stepThreePhysSymptomsPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);

@@ -7,7 +7,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
@@ -151,7 +151,7 @@ public class ContactTasksRepository extends BaseRepository {
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysList != null) {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN (?) " + BaseRepository.COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId, ContactJsonFormUtils.getListValuesAsString(keysList)};
+                    selectionArgs = new String[]{baseEntityId, ANCFormUtils.getListValuesAsString(keysList)};
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
                     selectionArgs = new String[]{baseEntityId};

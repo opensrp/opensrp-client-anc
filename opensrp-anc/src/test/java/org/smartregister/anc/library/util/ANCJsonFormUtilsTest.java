@@ -27,6 +27,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.model.ContactSummaryModel;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
@@ -59,7 +60,7 @@ import id.zelory.compressor.Compressor;
         "org.mockito.*",
 })
 @PrepareForTest(LocationHelper.class)
-public class JsonFormUtilsTest {
+public class ANCJsonFormUtilsTest {
     private static final String DUMMY_BASE_ENTITY_ID = "00ts-ime-hcla-0tib-0eht-ma0i";
     private static final String DUMMY_LOCATION_ID = "dummy-location-id-2018";
     private final String registerFormJsonString = "{\r\n\t\"count\": \"1\",\r\n\t\"encounter_type\": \"ANC Registration\"," +
@@ -89,6 +90,8 @@ public class JsonFormUtilsTest {
             "\"openmrs_entity_id\":\"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_entity_parent\":\"\"}}," +
             "\"count\":\"1\",\"entity_id\":\"00ts-ime-hcla-0tib-0eht-ma0i\",\"relational_id\":\"\",\"encounter_type\":\"Update ANC Registration\",\"step1\":{\"title\":\"ANC Registration\",\"fields\":[{\"uploadButtonText\":\"Take a picture of the woman\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"openmrs_entity_parent\":\"\",\"type\":\"choose_image\",\"value\":\"\\/images\\/00ts-ime-hcla-0tib-0eht-ma0i\",\"key\":\"wom_image\"},{\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"openmrs_entity_parent\":\"\",\"type\":\"edit_text\",\"value\":\"2018-10-19\",\"key\":\"edd\"},{\"openmrs_entity\":\"person_identifier\",\"hint\":\"ANC ID *\",\"openmrs_entity_id\":\"ANC_ID\",\"v_required\":{\"err\":\"Please enter the Woman's ANC ID\",\"value\":\"true\"},\"barcode_type\":\"qrcode\",\"openmrs_entity_parent\":\"\",\"v_numeric\":{\"err\":\"Please enter a valid ANC ID\",\"value\":\"true\"},\"type\":\"barcode\",\"value\":\"00tsimehcla0tib0ehtma0i\",\"key\":\"anc_id\",\"scanButtonText\":\"Scan QR Code\"},{\"openmrs_entity\":\"person\",\"read_only\":false,\"hint\":\"First name *\",\"openmrs_entity_id\":\"first_name\",\"edit_type\":\"name\",\"v_required\":{\"err\":\"Please enter the first name\",\"value\":\"true\"},\"openmrs_entity_parent\":\"\",\"type\":\"edit_text\",\"value\":\"First Name\",\"key\":\"first_name\",\"v_regex\":{\"err\":\"Please enter a valid name\",\"value\":\"[A-Za-z]\"}},{\"openmrs_entity\":\"person\",\"read_only\":false,\"hint\":\"Last name *\",\"openmrs_entity_id\":\"last_name\",\"edit_type\":\"name\",\"v_required\":{\"err\":\"Please enter the last name\",\"value\":\"true\"},\"openmrs_entity_parent\":\"\",\"type\":\"edit_text\",\"value\":\"Last Name\",\"key\":\"last_name\",\"v_regex\":{\"err\":\"Please enter a valid name\",\"value\":\"[A-Za-z]\"}},{\"openmrs_entity\":\"person\",\"openmrs_entity_id\":\"gender\",\"openmrs_entity_parent\":\"\",\"type\":\"hidden\",\"value\":\"female\",\"key\":\"gender\"},{\"max_date\":\"today-15y\",\"openmrs_entity_id\":\"birthdate\",\"openmrs_entity_parent\":\"\",\"type\":\"date_picker\",\"relevance\":{\"step1:dob_unknown\":{\"ex-checkbox\":[{\"not\":[\"dob_unknown\"]}]}},\"duration\":{\"label\":\"Age\"},\"expanded\":false,\"openmrs_entity\":\"person\",\"min_date\":\"today-49y\",\"hint\":\"Date of birth (DOB) *\",\"v_required\":{\"err\":\"Please enter the date of birth\",\"value\":\"true\"},\"value\":\"09-08-1995\",\"key\":\"dob\"},{\"openmrs_entity\":\"person\",\"read_only\":false,\"openmrs_entity_id\":\"birthdateApprox\",\"options\":[{\"text_size\":\"18px\",\"text\":\"DOB unknown?\",\"value\":\"false\",\"key\":\"dob_unknown\"}],\"openmrs_entity_parent\":\"\",\"label\":\"\",\"type\":\"check_box\",\"key\":\"dob_unknown\"},{\"v_min\":{\"err\":\"Age must be equal or greater than 15\",\"value\":\"15\"},\"openmrs_entity_id\":\"age\",\"openmrs_entity_parent\":\"\",\"type\":\"edit_text\",\"relevance\":{\"step1:dob_unknown\":{\"ex-checkbox\":[{\"and\":[\"dob_unknown\"]}]}},\"v_max\":{\"err\":\"Age must be equal or less than 49\",\"value\":\"49\"},\"openmrs_entity\":\"person_attribute\",\"read_only\":false,\"hint\":\"Age *\",\"v_required\":{\"err\":\"Please enter the woman's age\",\"value\":true},\"v_numeric\":{\"err\":\"Number must begin with 0 and must be a total of 10 digits in length\",\"value\":\"true\"},\"value\":23" +
             ",\"key\":\"age\"},{\"openmrs_data_type\":\"text\",\"openmrs_entity\":\"person_attribute\",\"hint\":\"Home address *\",\"openmrs_entity_id\":\"home_address\",\"v_required\":{\"err\":\"Please enter the woman's home address\",\"value\":\"true\"},\"openmrs_entity_parent\":\"\",\"type\":\"edit_text\",\"value\":\"Roysambu\",\"key\":\"home_address\",\"v_regex\":{\"err\":\"Please enter a valid name\",\"value\":\"[A-Za-z0-9]\"}},{\"openmrs_entity\":\"person_attribute\",\"hint\":\"Mobile phone number *\",\"openmrs_entity_id\":\"phone_number\",\"v_required\":{\"err\":\"Please specify the woman's phone number\",\"value\":true},\"openmrs_entity_parent\":\"\",\"v_numeric\":{\"err\":\"Number must be a total of 10 digits in length\",\"value\":\"true\"},\"type\":\"edit_text\",\"key\":\"phone_number\",\"v_regex\":{\"err\":\"Number must be a total of 10 digits in length\",\"value\":\"([0-9]{10})\"}},{\"openmrs_data_type\":\"select one\",\"openmrs_entity\":\"person_attribute\",\"hint\":\"Reminders throughout pregnancy? *\",\"values\":[\"Yes\",\"No\"],\"openmrs_entity_id\":\"reminders\",\"v_required\":{\"err\":\"Please select whether the woman has agreed to receiving reminder notifications\",\"value\":true},\"openmrs_entity_parent\":\"\",\"type\":\"spinner\",\"label_info_text\":\"Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?\",\"key\":\"reminders\"},{\"look_up\":\"true\",\"openmrs_entity\":\"person_attribute\",\"hint\":\"Alternate contact name\",\"openmrs_entity_id\":\"alt_name\",\"edit_type\":\"name\",\"openmrs_entity_parent\":\"\",\"type\":\"edit_text\",\"entity_id\":\"\",\"key\":\"alt_name\",\"v_regex\":{\"err\":\"Please enter a valid VHT name\",\"value\":\"[A-Za-z]\"}},{\"openmrs_entity\":\"person_attribute\",\"hint\":\"Alternate contact phone number\",\"openmrs_entity_id\":\"alt_phone_number\",\"openmrs_entity_parent\":\"\",\"v_numeric\":{\"err\":\"Number must be a total of 10 digits in length\",\"value\":\"true\"},\"type\":\"edit_text\",\"key\":\"alt_phone_number\",\"v_regex\":{\"err\":\"Number must be a total of 10 digits in length\",\"value\":\"([0-9]{10})\"}},{\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"next_contact\",\"openmrs_entity_parent\":\"\",\"type\":\"hidden\",\"value\":\"\",\"key\":\"next_contact\"},{\"openmrs_entity\":\"person_attribute\",\"read_only\":false,\"openmrs_entity_id\":\"next_contact_date\",\"openmrs_entity_parent\":\"\",\"type\":\"hidden\",\"value\":\"2018-08-09\",\"key\":\"next_contact_date\"}]}}";
+    private String siteCharacteristics = "{\"count\":\"1\",\"display_scroll_bars\":true,\"encounter_type\":\"Site Characteristics\",\"entity_id\":\"\",\"relational_id\":\"\",\"metadata\":{\"start\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"start\",\"openmrs_entity_id\":\"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"end\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"end\",\"openmrs_entity_id\":\"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"today\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"encounter\",\"openmrs_entity_id\":\"encounter_date\"},\"deviceid\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"deviceid\",\"openmrs_entity_id\":\"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"subscriberid\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"subscriberid\",\"openmrs_entity_id\":\"163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"simserial\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"simserial\",\"openmrs_entity_id\":\"163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"phonenumber\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"phonenumber\",\"openmrs_entity_id\":\"163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"encounter_location\":\"\",\"look_up\":{\"entity_id\":\"\",\"value\":\"\"}},\"step1\":{\"title\":\"Site Characteristics\",\"fields\":[{\"key\":\"label_site_ipv_assess\",\"type\":\"label\",\"text\":\"1. Are all of the following in place at your facility:\",\"text_size\":\"22px\",\"text_color\":\"black\",\"v_required\":{\"value\":true,\"err\":\"Please select where stock was issued\"}},{\"key\":\"site_ipv_assess\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"openmrs_data_type\":\"select one\",\"label\":\"a. A protocol or standard operating procedure for Intimate Partner Violence (IPV)<br><br>b. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond <br><br>c. A private setting<br> <br>d. A way to ensure confidentiality<br><br>e. Time to allow for appropriate disclosure<br> <br>f. A system for referral in place.\",\"type\":\"native_radio\",\"options\":[{\"key\":\"1\",\"text\":\"Yes\"},{\"key\":\"0\",\"text\":\"No\"}],\"value\":\"\",\"v_required\":{\"value\":\"false\",\"err\":\"Please select where stock was issued\"}},{\"key\":\"site_anc_hiv\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"openmrs_data_type\":\"select one\",\"label\":\"2. Is the HIV prevalence consistently greater than 1% in pregnant women attending antenatal clinics at your facility?\",\"type\":\"native_radio\",\"options\":[{\"key\":\"1\",\"text\":\"Yes\"},{\"key\":\"0\",\"text\":\"No\"}],\"value\":\"\",\"v_required\":{\"value\":\"true\",\"err\":\"Please select where stock was issued\"}},{\"key\":\"site_ultrasound\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"openmrs_data_type\":\"select one\",\"type\":\"native_radio\",\"label\":\"3. Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?\",\"options\":[{\"key\":\"1\",\"text\":\"Yes\"},{\"key\":\"0\",\"text\":\"No\"}],\"value\":\"\",\"v_required\":{\"value\":\"true\",\"err\":\"Please select where stock was issued\"}},{\"key\":\"site_bp_tool\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\",\"openmrs_data_type\":\"select one\",\"type\":\"native_radio\",\"label\":\"4. Does your facility use an automated blood pressure (BP) measurement tool?\",\"options\":[{\"key\":\"1\",\"text\":\"Yes\"},{\"key\":\"0\",\"text\":\"No\"}],\"value\":\"\",\"v_required\":{\"value\":\"true\",\"err\":\"Please select where stock was issued\"}}]}}";
+    private String closeAnc = "{\"count\":\"1\",\"encounter_type\":\"ANC Close\",\"entity_id\":\"11f0463d-e4a3-42b6-a99b-fd3fd898799f\",\"metadata\":{\"start\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"start\",\"openmrs_entity_id\":\"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"value\":\"2020-03-27 00:11:58\"},\"end\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"end\",\"openmrs_entity_id\":\"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"value\":\"2020-03-27 00:12:23\"},\"today\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"encounter\",\"openmrs_entity_id\":\"encounter_date\",\"value\":\"27-03-2020\"},\"deviceid\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"deviceid\",\"openmrs_entity_id\":\"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"value\":\"358240051111110\"},\"subscriberid\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"subscriberid\",\"openmrs_entity_id\":\"163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"value\":\"310260000000000\"},\"simserial\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"simserial\",\"openmrs_entity_id\":\"163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"value\":\"89014103211118510720\"},\"phonenumber\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_data_type\":\"phonenumber\",\"openmrs_entity_id\":\"163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"value\":\"+15555215554\"},\"encounter_location\":\"\"},\"step1\":{\"title\":\"Close ANC Record\",\"fields\":[{\"key\":\"anc_close_reason\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"spinner\",\"hint\":\"Reason?\",\"values\":[\"Live birth\",\"Stillbirth\",\"Miscarriage\",\"Abortion\",\"Woman died\",\"Moved away\",\"False pregnancy\",\"Lost to follow-up\",\"Wrong entry\",\"Other\"],\"openmrs_choice_ids\":{\"Live birth\":\"151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Stillbirth\":\"125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Miscarriage\":\"48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Abortion\":\"50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Woman Died\":\"160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Lost to follow-up\":\"5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Moved away\":\"160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"False Pregnancy\":\"128299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Wrong entry\":\"165246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Other\":\"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"v_required\":{\"value\":\"true\",\"err\":\"Please select one option\"},\"step\":\"step1\",\"is-rule-check\":true,\"value\":\"Live birth\"},{\"key\":\"delivery_date\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"date_picker\",\"hint\":\"Delivery date\",\"expanded\":false,\"max_date\":\"today\",\"v_required\":{\"value\":\"true\",\"err\":\"Please enter the date of delivery\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":\"27-03-2020\"},{\"key\":\"delivery_place\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"spinner\",\"hint\":\"Place of delivery?\",\"values\":[\"Health facility\",\"Home\",\"Other\"],\"openmrs_choice_ids\":{\"Health facility\":\"1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Home\":\"1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Other\":\"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"v_required\":{\"value\":\"true\",\"err\":\"Place of delivery is required\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":\"Home\"},{\"key\":\"preterm\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"edit_text\",\"hidden\":true,\"v_numeric\":{\"value\":\"true\",\"err\":\"Number must be a number\"},\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_calculations_rules.yml\"}}},\"is_visible\":false},{\"key\":\"delivery_mode\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"spinner\",\"hint\":\"Delivery mode\",\"values\":[\"Normal\",\"Forceps or Vacuum\",\"C-section\"],\"openmrs_choice_ids\":{\"Normal\":\"1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Forceps or Vacuum\":\"118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"C-section\":\"1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"v_required\":{\"value\":\"false\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":\"Forceps or Vacuum\"},{\"key\":\"birthweight\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"edit_text\",\"hint\":\"Birth weight (kg)\",\"v_required\":{\"value\":false,\"err\":\"Please enter the child's weight at birth\"},\"v_min\":{\"value\":\"0.1\",\"err\":\"Birth weight must be greater than 0\"},\"v_max\":{\"value\":\"10\",\"err\":\"Birth weight must be less than or equal to 10\"},\"v_numeric\":{\"value\":\"true\",\"err\":\"Please enter a valid weight between 1 and 10\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":\"5\"},{\"key\":\"exclusive_bf\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"spinner\",\"hint\":\"Exclusively breastfeeding?\",\"values\":[\"Yes\",\"No\"],\"openmrs_choice_ids\":{\"Yes\":\"1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"No\":\"1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"v_required\":{\"value\":\"false\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":\"Yes\"},{\"key\":\"ppfp_method\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"spinner\",\"hint\":\"Postpartum FP method?\",\"values\":[\"None\",\"Exclusive breastfeeding\",\"OCP\",\"Condom\",\"Female sterilization\",\"Male sterilization\",\"IUD\",\"Abstinence\",\"Other\"],\"openmrs_choice_ids\":{\"None\":\"1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Exclusive breastfeeding\":\"5526AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"OCP\":\"780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Condom\":\"190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Female sterlization\":\"5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Male sterlization\":\"1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"IUD\":\"136452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Abstinence\":\"159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Forceps or Vacuum\":\"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"v_required\":{\"value\":\"false\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":\"OCP\"},{\"key\":\"delivery_complications\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"check_box\",\"label\":\"Any delivery complications?\",\"hint\":\"Any delivery complications?\",\"label_text_style\":\"bold\",\"exclusive\":[\"None\"],\"options\":[{\"key\":\"None\",\"text\":\"None\",\"value\":true,\"openmrs_choice_id\":\"1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Postpartum haemorrhage\",\"text\":\"Postpartum haemorrhage\",\"value\":false,\"openmrs_choice_id\":\"230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Antepartum haemorrhage\",\"text\":\"Antepartum haemorrhage\",\"value\":false,\"openmrs_choice_id\":\"228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Placenta praevia\",\"text\":\"Placenta praevia\",\"value\":false,\"openmrs_choice_id\":\"114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Placental abruption\",\"text\":\"Placental abruption\",\"value\":false,\"openmrs_choice_id\":\"130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Cord prolapse\",\"text\":\"Cord prolapse\",\"value\":false,\"openmrs_choice_id\":\"128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Obstructed labour\",\"text\":\"Obstructed labour\",\"value\":false,\"openmrs_choice_id\":\"141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Abnormal presentation\",\"text\":\"Abnormal presentation\",\"value\":false,\"openmrs_choice_id\":\"150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Pre-eclampsia\",\"text\":\"Pre-eclampsia\",\"value\":false,\"openmrs_choice_id\":\"160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Eclampsia\",\"text\":\"Eclampsia\",\"value\":false,\"openmrs_choice_id\":\"129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Perineal tear (2nd, 3rd or 4th degree)\",\"text\":\"Perineal tear (2nd, 3rd or 4th degree)\",\"value\":false,\"openmrs_choice_id\":\"165247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"Other\",\"text\":\"Other\",\"value\":false,\"openmrs_choice_id\":\"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}],\"v_required\":{\"value\":\"false\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":true,\"value\":[\"None\"]},{\"key\":\"miscarriage_abortion_date\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"date_picker\",\"hint\":\"Date of miscarriage\\/abortion\",\"expanded\":false,\"max_date\":\"today\",\"v_required\":{\"value\":\"true\",\"err\":\"Please enter the date of miscarriage\\/abortion\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":false},{\"key\":\"miscarriage_abortion_ga\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"miscarriage_abortion_ga\",\"type\":\"hidden\",\"v_numeric\":{\"value\":\"true\",\"err\":\"Number must be a number\"},\"v_required\":{\"value\":false},\"calculation\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_calculations_rules.yml\"}}},\"value\":\"0\"},{\"key\":\"death_date\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"date_picker\",\"hint\":\"Date of death\",\"expanded\":false,\"duration\":{\"label\":\"Yrs\"},\"max_date\":\"today\",\"v_required\":{\"value\":\"true\",\"err\":\"Please enter the date of death\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"is_visible\":false},{\"key\":\"death_cause\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_data_type\":\"select one\",\"type\":\"spinner\",\"hint\":\"Cause of death?\",\"values\":[\"Unknown\",\"Abortion-related complications\",\"Obstructed labour\",\"Pre-eclampsia\",\"Eclampsia\",\"Postpartum haemorrhage\",\"Antepartum haemorrhage \",\"Placental abruption\",\"Infection\",\"Other\"],\"v_required\":{\"value\":\"true\",\"err\":\"Please enter the date of death\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"anc_close_relevance_rules.yml\"}}},\"openmrs_choice_ids\":{\"Unknown\":\"1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Abortion-related complications\":\"122299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Obstructed labour\":\"141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Pre-eclampsia\":\"129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Eclampsia\":\"118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Postpartum haemorrhage\":\"230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Antepartum haemorrhage\":\"228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Placental abruption\":\"130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Infection\":\"130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"Other\":\"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},\"is_visible\":false}]},\"invisible_required_fields\":\"[miscarriage_abortion_date, death_cause, death_date]\",\"details\":{\"appVersionName\":\"1.7.28-SNAPSHOT\",\"formVersion\":\"\"}}";
     private JSONObject formObject;
     @Mock
     private AncLibrary ancLibrary;
@@ -116,6 +119,8 @@ public class JsonFormUtilsTest {
     private LocationHelper locationHelper;
     @Mock
     private Photo photo;
+    @Mock
+    private AllSharedPreferences allSharedPreferences;
 
     @Before
     public void setUp() throws JSONException {
@@ -128,65 +133,65 @@ public class JsonFormUtilsTest {
 
 
         JSONObject fieldObject = new JSONObject();
-        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.KEY, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
-        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.VALUE, "");
-        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY, "");
-        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY_ID, "");
-        fieldObject.put(org.smartregister.anc.library.util.JsonFormUtils.OPENMRS_ENTITY_PARENT, "");
+        fieldObject.put(ANCJsonFormUtils.KEY, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
+        fieldObject.put(ANCJsonFormUtils.VALUE, "");
+        fieldObject.put(ANCJsonFormUtils.OPENMRS_ENTITY, "");
+        fieldObject.put(ANCJsonFormUtils.OPENMRS_ENTITY_ID, "");
+        fieldObject.put(ANCJsonFormUtils.OPENMRS_ENTITY_PARENT, "");
 
         fieldsObject.put(fieldObject);
         JSONObject step1Object = new JSONObject();
-        step1Object.put(org.smartregister.anc.library.util.JsonFormUtils.FIELDS, fieldsObject);
+        step1Object.put(ANCJsonFormUtils.FIELDS, fieldsObject);
 
-        formObject.put(org.smartregister.anc.library.util.JsonFormUtils.METADATA, metadataObject);
-        formObject.put(org.smartregister.anc.library.util.JsonFormUtils.STEP1, step1Object);
+        formObject.put(ANCJsonFormUtils.METADATA, metadataObject);
+        formObject.put(ANCJsonFormUtils.STEP1, step1Object);
     }
 
     @Test
     public void testGetFormAsJsonInjectsCurrentLocationIDinFormCorrectly() throws Exception {
-        org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, "random-form-name", DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        ANCJsonFormUtils.getFormAsJson(formObject, "random-form-name", DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(null, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = ANCJsonFormUtils.getFormAsJson(null, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
         Assert.assertNull(resultObject);
 
-        resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        resultObject = ANCJsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
-        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, DBConstantsUtils.KeyUtils.ANC_ID);
+        JSONArray field = ANCJsonFormUtils.fields(resultObject);
+        ANCJsonFormUtils.getFieldJSONObject(field, DBConstantsUtils.KeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_LOCATION_ID, resultObject.getJSONObject(org.smartregister.anc.library.util.JsonFormUtils.METADATA).get(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_LOCATION));
+        Assert.assertEquals(DUMMY_LOCATION_ID, resultObject.getJSONObject(ANCJsonFormUtils.METADATA).get(ANCJsonFormUtils.ENCOUNTER_LOCATION));
     }
 
     @Test
     public void testGetFormAsJsonInjectsANCIDInRegisterFormCorrectly() throws Exception {
-        JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        JSONObject resultObject = ANCJsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_REGISTER, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
-        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
+        JSONArray field = ANCJsonFormUtils.fields(resultObject);
+        ANCJsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID).get(org.smartregister.anc.library.util.JsonFormUtils.VALUE));
+        Assert.assertEquals(DUMMY_BASE_ENTITY_ID.replaceAll("-", ""), ANCJsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID).get(ANCJsonFormUtils.VALUE));
     }
 
     @Test
     public void testGetFormAsJsonInjectsEntityIDinCloseFormCorrectly() throws Exception {
-        formObject.put(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID, "");
-        JSONObject resultObject = org.smartregister.anc.library.util.JsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
+        formObject.put(ANCJsonFormUtils.ENTITY_ID, "");
+        JSONObject resultObject = ANCJsonFormUtils.getFormAsJson(formObject, ConstantsUtils.JsonFormUtils.ANC_CLOSE, DUMMY_BASE_ENTITY_ID, DUMMY_LOCATION_ID);
 
-        JSONArray field = org.smartregister.anc.library.util.JsonFormUtils.fields(resultObject);
-        org.smartregister.anc.library.util.JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
+        JSONArray field = ANCJsonFormUtils.fields(resultObject);
+        ANCJsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
 
         Assert.assertNotNull(resultObject);
-        Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultObject.getString(org.smartregister.anc.library.util.JsonFormUtils.ENTITY_ID));
+        Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultObject.getString(ANCJsonFormUtils.ENTITY_ID));
     }
 
     @Test
     public void testValidateParametersReturnsCorrectResult() throws Exception {
         String jsonFormObjectString = formObject.toString();
-        JSONArray jsonFormObjectFields = org.smartregister.anc.library.util.JsonFormUtils.fields(formObject);
+        JSONArray jsonFormObjectFields = ANCJsonFormUtils.fields(formObject);
 
-        Triple<Boolean, JSONObject, JSONArray> validatedResult = org.smartregister.anc.library.util.JsonFormUtils.validateParameters(jsonFormObjectString);
+        Triple<Boolean, JSONObject, JSONArray> validatedResult = ANCJsonFormUtils.validateParameters(jsonFormObjectString);
 
         Assert.assertNotNull(validatedResult);
         Assert.assertTrue(validatedResult.getLeft());
@@ -222,7 +227,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
 
-        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        ANCJsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
 
         Mockito.verify(imageRepository).add(ArgumentMatchers.any(ProfileImage.class));
     }
@@ -249,7 +254,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(file.exists()).thenReturn(false);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
 
-        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        ANCJsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
         Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
@@ -274,7 +279,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenReturn(outputStream);
 
-        JsonFormUtils.saveImage(null, null, "filepath/images/folder/location.jpg");
+        ANCJsonFormUtils.saveImage(null, null, "filepath/images/folder/location.jpg");
         Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
@@ -300,7 +305,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
 
-        org.smartregister.anc.library.util.JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        ANCJsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
         Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
@@ -324,7 +329,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(FileUtil.createFileFromPath(ArgumentMatchers.anyString())).thenReturn(file);
         PowerMockito.when(file.exists()).thenReturn(true);
         PowerMockito.when(FileUtil.createFileOutputStream(file)).thenThrow(FileNotFoundException.class);
-        JsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
+        ANCJsonFormUtils.saveImage(PROVIDER_ID, DUMMY_BASE_ENTITY_ID, "filepath/images/folder/location.jpg");
         Mockito.verify(imageRepository, Mockito.times(0)).add(ArgumentMatchers.any(ProfileImage.class));
     }
 
@@ -391,7 +396,7 @@ public class JsonFormUtilsTest {
         JSONObject registerForm = new JSONObject(registerFormJsonString);
         PowerMockito.when(formUtils.getFormJson(ConstantsUtils.JsonFormUtils.ANC_REGISTER)).thenReturn(registerForm);
 
-        String resultJsonFormString = org.smartregister.anc.library.util.JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(applicationContext, details);
+        String resultJsonFormString = ANCJsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(applicationContext, details);
 
         Assert.assertNotNull(resultJsonFormString);
         JSONAssert.assertEquals(expectedProcessedJson, resultJsonFormString, new CustomComparator(JSONCompareMode.LENIENT, new Customization("step1.fields[key=age]", new AgeValueMatcher())));
@@ -400,16 +405,16 @@ public class JsonFormUtilsTest {
     @Test
     public void testGetTemplate() {
         String template = "Occupation: {occupation}";
-        JsonFormUtils jsonFormUtils = new JsonFormUtils();
-        JsonFormUtils.Template actualTemplate = jsonFormUtils.getTemplate(template);
+        ANCJsonFormUtils ANCJsonFormUtils = new ANCJsonFormUtils();
+        ANCJsonFormUtils.Template actualTemplate = ANCJsonFormUtils.getTemplate(template);
         Assert.assertEquals("Occupation", actualTemplate.title);
     }
 
     @Test
     public void testGetTemplateWithNoParts() {
         String template = "Occupation Here";
-        JsonFormUtils jsonFormUtils = new JsonFormUtils();
-        JsonFormUtils.Template actualTemplate = jsonFormUtils.getTemplate(template);
+        ANCJsonFormUtils ANCJsonFormUtils = new ANCJsonFormUtils();
+        ANCJsonFormUtils.Template actualTemplate = ANCJsonFormUtils.getTemplate(template);
         Assert.assertEquals("Occupation Here", actualTemplate.title);
         Assert.assertEquals("Yes", actualTemplate.detail);
     }
@@ -417,8 +422,8 @@ public class JsonFormUtilsTest {
     @Test
     public void testGetTemplateWithOnePart() {
         String template = "Occupation Here:";
-        JsonFormUtils jsonFormUtils = new JsonFormUtils();
-        JsonFormUtils.Template actualTemplate = jsonFormUtils.getTemplate(template);
+        ANCJsonFormUtils ANCJsonFormUtils = new ANCJsonFormUtils();
+        ANCJsonFormUtils.Template actualTemplate = ANCJsonFormUtils.getTemplate(template);
         Assert.assertEquals("Occupation Here", actualTemplate.title);
     }
 
@@ -439,8 +444,8 @@ public class JsonFormUtilsTest {
         PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
 
-        JsonFormUtils jsonFormUtils = new JsonFormUtils();
-        List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
+        ANCJsonFormUtils ANCJsonFormUtils = new ANCJsonFormUtils();
+        List<ContactSummaryModel> contactSummaryModels = ANCJsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
         Assert.assertEquals("Contact 1", contactSummaryModels.get(0).getContactName());
     }
 
@@ -461,8 +466,8 @@ public class JsonFormUtilsTest {
         PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
         PowerMockito.when(context.getStringResource(R.string.contact_number)).thenReturn("Contact %1$d");
 
-        JsonFormUtils jsonFormUtils = new JsonFormUtils();
-        List<ContactSummaryModel> contactSummaryModels = jsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
+        ANCJsonFormUtils ANCJsonFormUtils = new ANCJsonFormUtils();
+        List<ContactSummaryModel> contactSummaryModels = ANCJsonFormUtils.generateNextContactSchedule(edd, contactSchedule, 1);
         Assert.assertEquals(0, contactSummaryModels.size());
     }
 
@@ -473,7 +478,7 @@ public class JsonFormUtilsTest {
         PowerMockito.when(locationHelper.getOpenMrsLocationId("here")).thenReturn("123-3423");
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
         Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("here");
-        Assert.assertEquals("123-3423", JsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
+        Assert.assertEquals("123-3423", ANCJsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
     }
 
     @Test
@@ -482,6 +487,59 @@ public class JsonFormUtilsTest {
         PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
         Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("");
-        Assert.assertNull(JsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
+        Assert.assertNull(ANCJsonFormUtils.getChildLocationId("234-23", allSharedPreferences));
+    }
+
+    @Test
+    public void testProcessSiteCharacteristics() {
+        Map<String, String> settings = ANCJsonFormUtils.processSiteCharacteristics(siteCharacteristics);
+        Assert.assertNotNull(settings);
+        Assert.assertEquals(4, settings.size());
+        Assert.assertEquals("0", settings.get("site_bp_tool"));
+    }
+
+    @Test
+    @PrepareForTest({FormUtils.class})
+    public void testGetAutoPopulatedSiteCharacteristicsEditFormString() throws Exception {
+        PowerMockito.mockStatic(FormUtils.class);
+        PowerMockito.when(FormUtils.getInstance(applicationContext)).thenReturn(formUtils);
+        PowerMockito.when(formUtils.getFormJson(ConstantsUtils.JsonFormUtils.ANC_SITE_CHARACTERISTICS)).thenReturn(new JSONObject(siteCharacteristics));
+
+        Map<String, String> settings = ANCJsonFormUtils.processSiteCharacteristics(siteCharacteristics);
+        Assert.assertNotNull(settings);
+
+        String siteSettings = ANCJsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(applicationContext, settings);
+        Assert.assertNotNull(siteSettings);
+    }
+
+    @Test
+    @PrepareForTest({LocationHelper.class, AncLibrary.class})
+    public void testSaveRemovedFromANCRegister() {
+        String providerId = "demo";
+
+        AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
+        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("locality");
+
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        PowerMockito.when(locationHelper.getOpenMrsLocationId("locality")).thenReturn("821a7e48-2592-46be-99d6-d29bc4e58839");
+
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getDatabaseVersion()).thenReturn(2);
+
+        Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
+        Mockito.when(allSharedPreferences.fetchDefaultLocalityId(providerId)).thenReturn("4fca717e-6072-472e-82f6-bfe3907def66");
+        Mockito.when(allSharedPreferences.fetchDefaultTeam(providerId)).thenReturn("bukesa");
+        Mockito.when(allSharedPreferences.fetchDefaultTeamId(providerId)).thenReturn("39305854-5db8-4538-a367-8d4b7118f9af");
+
+        Triple<Boolean, Event, Event> eventEventTriple = ANCJsonFormUtils.saveRemovedFromANCRegister(allSharedPreferences, closeAnc, providerId);
+        Assert.assertNotNull(eventEventTriple);
+        Assert.assertFalse(eventEventTriple.getLeft());
+        Assert.assertNotNull(eventEventTriple.getMiddle());
+        Assert.assertEquals("ANC Close", eventEventTriple.getMiddle().getEventType());
+
+        Assert.assertNotNull(eventEventTriple.getRight());
+        Assert.assertEquals("Update ANC Registration", eventEventTriple.getRight().getEventType());
     }
 }

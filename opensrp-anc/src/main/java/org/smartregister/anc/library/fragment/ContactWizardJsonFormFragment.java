@@ -31,7 +31,7 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
 import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
@@ -262,7 +262,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
                 contact.setContactNumber(Integer.parseInt("-" + contact.getContactNumber()));
             }
             contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
-            ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+            ANCFormUtils.persistPartial(baseEntityId, contact);
         }
 
         Utils.finalizeForm(getActivity(),

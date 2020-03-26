@@ -38,7 +38,7 @@ import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.CopyToClipboardDialog;
 import org.smartregister.repository.AllSharedPreferences;
@@ -246,7 +246,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                         continueToContact();
                         break;
                     case CLOSE_ANC_RECORD:
-                        JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
+                        ANCJsonFormUtils.launchANCCloseForm(ProfileActivity.this);
                         break;
                     default:
                         if (textClicked.startsWith(ConstantsUtils.CONTINUE)) {
@@ -287,7 +287,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
         } else {
             Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(ConstantsUtils.ANDROID_SWITCHER + R.id.viewpager + ":" + viewPager.getCurrentItem()); //This might be dirty we maybe can find a better way to do it.
@@ -306,9 +306,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
-            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
+            String formMetadata = ANCJsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
-                JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+                ANCJsonFormUtils.startFormForEdit(this, ANCJsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
             } catch (Exception e) {
                 Timber.e(e, " --> startFormForEdit");
             }

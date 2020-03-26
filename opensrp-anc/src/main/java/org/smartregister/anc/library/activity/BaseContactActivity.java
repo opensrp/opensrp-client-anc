@@ -28,7 +28,7 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -100,7 +100,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
             intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
-            startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+            startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(e, " --> formStartActions");
         }
@@ -138,7 +138,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
                         JSONObject field = fields.getJSONObject(i);
                         if (field != null && field.has(JsonFormConstants.KEY)) {
                             String fieldKey = field.getString(JsonFormConstants.KEY);
-                            if (keys.containsKey(fieldKey) && JsonFormUtils.checkIfTaskIsComplete(keys.get(fieldKey))) {
+                            if (keys.containsKey(fieldKey) && ANCJsonFormUtils.checkIfTaskIsComplete(keys.get(fieldKey))) {
                                 fields.remove(i);
                             }
                         }

@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 
 public class BackPressedPersistPartialTask extends AsyncTask<Void, Void, Void> {
     private Contact contact;
@@ -29,7 +29,7 @@ public class BackPressedPersistPartialTask extends AsyncTask<Void, Void, Void> {
             Contact currentContact = contact;
             currentContact.setJsonForm(currentJsonState);
             currentContact.setContactNumber(contactNo);
-            ContactJsonFormUtils.persistPartial(intent.getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), currentContact);
+            ANCFormUtils.persistPartial(intent.getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), currentContact);
         }
         return null;
     }
