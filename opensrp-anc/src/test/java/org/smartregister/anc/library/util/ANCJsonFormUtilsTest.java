@@ -119,8 +119,6 @@ public class ANCJsonFormUtilsTest {
     private LocationHelper locationHelper;
     @Mock
     private Photo photo;
-    @Mock
-    private AllSharedPreferences allSharedPreferences;
 
     @Before
     public void setUp() throws JSONException {
