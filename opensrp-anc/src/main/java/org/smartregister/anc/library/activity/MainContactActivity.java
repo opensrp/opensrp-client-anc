@@ -175,29 +175,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     }
 
-    private void setRequiredFields(Contact contact) {
-        if (requiredFieldsMap != null && contact != null && requiredFieldsMap.containsKey(contact.getName())) {
-            contact.setRequiredFields(requiredFieldsMap.get(contact.getName()));
-        }
-    }
-
-    @Override
-    public void startForms(View view) {
-        Contact contact = (Contact) view.getTag();
-        try {
-            if (contact != null) {
-                loadContactGlobalsConfig();
-                process(contactForms);
-
-                setRequiredFields(contact);
-                view.setTag(contact);
-                super.startForms(view);
-            }
-        } catch (IOException e) {
-            Timber.e(e, " --> startForms");
-        }
-    }
-
     private int getRequiredCountTotal() {
         int count = -1;
         Set<Map.Entry<String, Integer>> entries = requiredFieldsMap.entrySet();
@@ -262,6 +239,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         } catch (Exception e) {
             Timber.e(e, " --> process");
+        }
+    }
+
+    private void setRequiredFields(Contact contact) {
+        if (requiredFieldsMap != null && contact != null && requiredFieldsMap.containsKey(contact.getName())) {
+            contact.setRequiredFields(requiredFieldsMap.get(contact.getName()));
         }
     }
 
@@ -567,6 +550,23 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             Timber.e(e, " --> getFormJson");
         }
         return "";
+    }
+
+    @Override
+    public void startForms(View view) {
+        Contact contact = (Contact) view.getTag();
+        try {
+            if (contact != null) {
+                loadContactGlobalsConfig();
+                process(contactForms);
+
+                setRequiredFields(contact);
+                view.setTag(contact);
+                super.startForms(view);
+            }
+        } catch (IOException e) {
+            Timber.e(e, " --> startForms");
+        }
     }
 
     private void preProcessDefaultValues(JSONObject object) {

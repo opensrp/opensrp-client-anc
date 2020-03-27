@@ -30,8 +30,6 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import java.util.Locale;
-
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
@@ -123,10 +121,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         }
     }
 
-    public static synchronized AncApplication getInstance() {
-        return (AncApplication) DrishtiApplication.mInstance;
-    }
-
     @Override
     public void logoutCurrentUser() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -156,6 +150,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return repository;
     }
 
+    public static synchronized AncApplication getInstance() {
+        return (AncApplication) DrishtiApplication.mInstance;
+    }
+
     public String getPassword() {
         if (password == null) {
             String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
@@ -168,10 +166,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public ClientProcessorForJava getClientProcessor() {
         return BaseAncClientProcessorForJava.getInstance(this);
-    }
-
-    public Context getContext() {
-        return context;
     }
 
     @Override
@@ -189,6 +183,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         } catch (Exception e) {
             Timber.e(e, " --> cleanUpSyncState");
         }
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     @Override

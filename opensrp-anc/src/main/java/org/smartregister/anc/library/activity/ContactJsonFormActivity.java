@@ -172,7 +172,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         }
         try {
-            ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
+            org.smartregister.anc.library.util.ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
             Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
@@ -274,7 +274,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         Contact contact = getContact();
         contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
-        ANCFormUtils.persistPartial(baseEntityId, getContact());
+        org.smartregister.anc.library.util.ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
         this.finish();
     }
