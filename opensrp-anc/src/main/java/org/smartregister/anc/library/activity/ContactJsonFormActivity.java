@@ -39,7 +39,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +172,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         }
         try {
-            org.smartregister.anc.library.util.ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
+            ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
             Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
@@ -272,9 +272,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
-        contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
+        contact.setJsonForm(ancFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
-        org.smartregister.anc.library.util.ANCFormUtils.persistPartial(baseEntityId, getContact());
+        ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
         this.finish();
     }
