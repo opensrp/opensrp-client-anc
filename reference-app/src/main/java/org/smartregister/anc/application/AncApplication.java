@@ -30,6 +30,8 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
+import java.util.Locale;
+
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
@@ -203,6 +205,4 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         logoutCurrentUser();
     }
-
-
 }

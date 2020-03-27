@@ -138,7 +138,7 @@
                     android:background="@color/me_page_line_separator" />
 
                 <RelativeLayout
-                    android:id="@+id/rlIconLang"
+                    android:id="@+id/language_switcher_section"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginStart="@dimen/me_page_initials_background_margin"
@@ -154,7 +154,7 @@
                         android:layout_marginEnd="@dimen/me_page_initials_background_margin"
                         android:contentDescription="@string/section_icon"
                         android:gravity="center"
-                        android:src="@drawable/ic_nav_language" />
+                        android:src="@drawable/ic_language" />
 
                     <TextView
                         android:id="@+id/language_switcher_text"
