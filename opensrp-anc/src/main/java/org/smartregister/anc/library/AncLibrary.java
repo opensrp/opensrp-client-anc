@@ -296,7 +296,6 @@ public class AncLibrary {
                         if (value != null && !value.equals(nullObject)) {
                             defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
                         } else {
-
                             defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
                         }
                     }
