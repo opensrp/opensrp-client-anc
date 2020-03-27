@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.model;
 
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ public class SiteCharacteristicModel implements SiteCharacteristicsContract.Mode
 
     @Override
     public Map<String, String> processSiteCharacteristics(String jsonString) {
-        return JsonFormUtils.processSiteCharacteristics(jsonString);
+        return ANCJsonFormUtils.processSiteCharacteristics(jsonString);
     }
 
 }

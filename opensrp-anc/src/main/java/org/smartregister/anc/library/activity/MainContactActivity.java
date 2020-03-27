@@ -20,8 +20,9 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.presenter.ContactPresenter;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -270,7 +271,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private void updateGlobalValuesWithDefaults(final String formEventType) {
         JSONObject mainJson;
         try {
-            mainJson = org.smartregister.anc.library.util.JsonFormUtils.readJsonFromAsset(getApplicationContext(), "json.form/" + formEventType);
+            mainJson = ANCJsonFormUtils.readJsonFromAsset(getApplicationContext(), "json.form/" + formEventType);
             if (mainJson.has(ConstantsUtils.DEFAULT_VALUES)) {
                 JSONArray defaultValuesArray = mainJson.getJSONArray(ConstantsUtils.DEFAULT_VALUES);
                 defaultValueFields.addAll(getListValues(defaultValuesArray));
@@ -321,9 +322,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
-                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+                        ANCFormUtils.processSpecialWidgets(fieldObject);
                         boolean isFieldVisible = getFieldVisibility(fieldObject);
-                        boolean isRequiredField = isFieldVisible && org.smartregister.anc.library.util.JsonFormUtils.isFieldRequired(fieldObject);
+                        boolean isRequiredField = isFieldVisible && ANCJsonFormUtils.isFieldRequired(fieldObject);
                         updateFieldRequiredCount(object, fieldObject, isRequiredField);
                         updateFormGlobalValues(fieldObject);
                         checkRequiredForSubForms(fieldObject, object);
@@ -376,14 +377,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     fieldObject.getString(JsonFormConstants.VALUE));//Normal value
             processAbnormalValues(formGlobalValues, fieldObject);
 
-            String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
+            String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
             if (fieldObject.has(secKey)) {
                 formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
             }
 
             if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES)) {
                 fieldObject.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES,
-                        ContactJsonFormUtils.sortSecondaryValues(fieldObject));//sort and reset
+                        ANCFormUtils.sortSecondaryValues(fieldObject));//sort and reset
                 JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                 for (int j = 0; j < secondaryValues.length(); j++) {
                     JSONObject jsonObject = secondaryValues.getJSONObject(j);
@@ -407,8 +408,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
-        String fieldKey = ContactJsonFormUtils.getObjectKey(jsonObject);
-        Object fieldValue = ContactJsonFormUtils.getObjectValue(jsonObject);
+        String fieldKey = ANCFormUtils.getObjectKey(jsonObject);
+        Object fieldValue = ANCFormUtils.getObjectValue(jsonObject);
         String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
                 fieldKey.substring(0, fieldKey.indexOf(ConstantsUtils.SuffixUtils.OTHER)) + ConstantsUtils.SuffixUtils.VALUE : "";
         String fieldKeyOtherValue = fieldKey + ConstantsUtils.SuffixUtils.VALUE;
@@ -419,7 +420,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).split("\\s*,\\s*")));
             tempList.remove(tempList.size() - 1);
             tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue)));
-            facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
+            facts.put(fieldKeySecondary, ANCFormUtils.getListValuesAsString(tempList));
 
         } else {
             facts.put(fieldKey, fieldValue.toString());
@@ -435,7 +436,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 null) {
 
             formGlobalValues
-                    .put(ContactJsonFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
+                    .put(ANCFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
             processAbnormalValues(formGlobalValues, fieldObject);
         }
     }
@@ -493,7 +494,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 JSONArray itemValueJSONArray = item.optJSONArray(JsonFormConstants.VALUES);
                 if (itemValueJSONArray != null) {
                     String type = item.optString(JsonFormConstants.TYPE);
-                    String itemValue = ContactJsonFormUtils.extractItemValue(type, itemValueJSONArray);
+                    String itemValue = ANCFormUtils.extractItemValue(type, itemValueJSONArray);
                     if (globalKeys.contains(item.getString(JsonFormConstants.KEY))) {
                         formGlobalValues.put(item.getString(JsonFormConstants.KEY), itemValue);
                     }
@@ -536,7 +537,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     @Override
     protected String getFormJson(PartialContact partialContactRequest, JSONObject form) {
         try {
-            JSONObject object = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form);
+            JSONObject object = ANCFormUtils.getFormJsonCore(partialContactRequest, form);
             preProcessDefaultValues(object);
             return object.toString();
         } catch (Exception e) {

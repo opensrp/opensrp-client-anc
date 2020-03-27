@@ -225,7 +225,7 @@ public class Utils extends org.smartregister.util.Utils {
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 
-            String processedForm = ContactJsonFormUtils.getFormJsonCore(partialContactRequest, form).toString();
+            String processedForm = ANCFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 
             if (hasPendingRequiredFields(new JSONObject(processedForm))) {
                 intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, processedForm);
@@ -235,7 +235,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
                 Activity activity = (Activity) context;
-                activity.startActivityForResult(intent, org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+                activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
                 intent = new Intent(context, MainContactActivity.class);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
@@ -272,9 +272,9 @@ public class Utils extends org.smartregister.util.Utils {
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
-                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+                        ANCFormUtils.processSpecialWidgets(fieldObject);
 
-                        boolean isRequiredField = org.smartregister.anc.library.util.JsonFormUtils.isFieldRequired(fieldObject);
+                        boolean isRequiredField = ANCJsonFormUtils.isFieldRequired(fieldObject);
                         //Do not check for required for fields that are invisible
                         if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
                             isRequiredField = false;
@@ -349,7 +349,7 @@ public class Utils extends org.smartregister.util.Utils {
             }
         }
 
-        return ContactJsonFormUtils.keyToValueConverter(value);
+        return ANCFormUtils.keyToValueConverter(value);
     }
 
     private static String cleanValueResult(String result) {
@@ -671,10 +671,10 @@ public class Utils extends org.smartregister.util.Utils {
             if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
                 JSONArray fields = createFieldsArray(doneTasks);
 
-                ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
-                JSONObject jsonForm = contactJsonFormUtils.loadTasksForm(context);
+                ANCFormUtils ANCFormUtils = new ANCFormUtils();
+                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
                 if (jsonForm != null) {
-                    contactJsonFormUtils.updateFormFields(jsonForm, fields);
+                    ANCFormUtils.updateFormFields(jsonForm, fields);
                 }
 
                 createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
@@ -700,7 +700,7 @@ public class Utils extends org.smartregister.util.Utils {
         contact.setContactNumber(contactNo);
         contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
 
-        ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+        ANCFormUtils.persistPartial(baseEntityId, contact);
     }
 
     /**

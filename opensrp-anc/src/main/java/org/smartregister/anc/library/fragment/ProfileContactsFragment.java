@@ -32,7 +32,7 @@ import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
@@ -57,7 +57,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private LinearLayout testLayout;
     private LinearLayout testsDisplayLayout;
     private ProfileContactsActionHandler profileContactsActionHandler = new ProfileContactsActionHandler();
-    private JsonFormUtils formUtils = new JsonFormUtils();
+    private ANCJsonFormUtils formUtils = new ANCJsonFormUtils();
     private ProfileFragmentContract.Presenter presenter;
     private String baseEntityId;
     private String contactNo;

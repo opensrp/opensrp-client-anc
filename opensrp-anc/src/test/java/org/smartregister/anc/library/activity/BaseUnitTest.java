@@ -10,7 +10,7 @@ import org.robolectric.annotation.Config;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.application.AncTestApplication;
 import org.smartregister.anc.library.shadows.MyShadowActivity;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -297,6 +297,6 @@ public abstract class BaseUnitTest {
 
     protected JSONObject getMainJsonObject(String filePath) throws Exception {
         Context context = RuntimeEnvironment.application;
-        return JsonFormUtils.readJsonFromAsset(context, filePath);
+        return ANCJsonFormUtils.readJsonFromAsset(context, filePath);
     }
 }
