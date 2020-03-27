@@ -9,7 +9,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 
 import java.util.Map;
 
@@ -30,7 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+        if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra("json");
                 Timber.d("JSONResult %s", jsonString);
@@ -44,7 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     @Override
     public void launchSiteCharacteristicsSettingsForm() {
-        JsonFormUtils.launchSiteCharacteristicsForm(this);
+        ANCJsonFormUtils.launchSiteCharacteristicsForm(this);
     }
 
     public void showProgressDialog(int saveMessageStringIdentifier) {
@@ -92,9 +92,9 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
     @Override
     public void launchSiteCharacteristicsSettingsFormForEdit(Map<String, String> characteristics) {
 
-        String formMetadata = JsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(this, characteristics);
+        String formMetadata = ANCJsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(this, characteristics);
         try {
-            JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+            ANCJsonFormUtils.startFormForEdit(this, ANCJsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
         } catch (Exception e) {
             Timber.e(e);
         }
