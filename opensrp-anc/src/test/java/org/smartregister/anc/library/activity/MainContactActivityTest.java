@@ -72,14 +72,12 @@ public class MainContactActivityTest extends BaseActivityUnitTest {
     @Test
     public void testGetRequiredCountTotal() {
         try {
-            Intent intent = new Intent(RuntimeEnvironment.application,
-                    MainContactActivity.class);
+            Intent intent = new Intent(RuntimeEnvironment.application, MainContactActivity.class);
             intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 3);
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, new HashMap<>());
             intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, ConstantsUtils.JsonFormUtils.ANC_PROFILE);
-            activityController = Robolectric.buildActivity(MainContactActivity.class,
-                    intent);
+            activityController = Robolectric.buildActivity(MainContactActivity.class, intent);
             activity = activityController.create().resume().get();
             Assert.assertNotNull(activity);
 
@@ -90,10 +88,11 @@ public class MainContactActivityTest extends BaseActivityUnitTest {
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, 1);
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, 10);
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM, 7);
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST, 2);
             Whitebox.setInternalState(activity, "requiredFieldsMap", requiredFieldsMap);
 
             int requiredFields = Whitebox.invokeMethod(activity, "getRequiredCountTotal");
-            Assert.assertEquals(32, requiredFields);
+            Assert.assertEquals(34, requiredFields);
         } catch (Exception e) {
             Timber.e(e, " --> testGetRequiredCountTotal");
         }

@@ -23,7 +23,7 @@ import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
@@ -171,7 +171,7 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return AncLibrary.getInstance().getDetailsRepository();
     }
 
-private void processPreviousContacts(Event event) {
+    private void processPreviousContacts(Event event) {
         //Previous contact state
         String previousContactsRaw = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS);
         Map<String, String> previousContactMap = getPreviousContactMap(previousContactsRaw);
@@ -234,7 +234,7 @@ private void processPreviousContacts(Event event) {
         task.setKey(key);
         task.setValue(String.valueOf(field));
         task.setUpdated(false);
-        task.setComplete(JsonFormUtils.checkIfTaskIsComplete(field));
+        task.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(field));
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
     }

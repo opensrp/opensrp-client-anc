@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.model.PreviousContact;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +31,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-public class ContactJsonFormUtils extends FormUtils {
+public class ANCFormUtils extends FormUtils {
 
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
@@ -37,26 +39,29 @@ public class ContactJsonFormUtils extends FormUtils {
             JSONObject valueItem = value.getJSONObject(j);
             if (valueItem.getString(JsonFormConstants.KEY).equals(key)) {
                 JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
-                result = extractItemValue(valueItem, valueItemJSONArray);
+                String type = valueItem.optString(JsonFormConstants.TYPE);
+                result = extractItemValue(type, valueItemJSONArray);
                 break;
             }
         }
         return result;
     }
 
-    public static String extractItemValue(JSONObject valueItem, JSONArray valueItemJSONArray) throws JSONException {
-        String result;
-        switch (valueItem.getString(JsonFormConstants.TYPE)) {
-            case JsonFormConstants.EXTENDED_RADIO_BUTTON:
-            case JsonFormConstants.NATIVE_RADIO_BUTTON:
-                result = valueItemJSONArray.getString(0).split(":")[0];
-                break;
-            case JsonFormConstants.CHECK_BOX:
-                result = formatCheckboxValues(new StringBuilder("["), valueItemJSONArray, 0) + "]";
-                break;
-            default:
-                result = valueItemJSONArray.getString(0);
-                break;
+    public static String extractItemValue(String type, JSONArray valueItemJSONArray) throws JSONException {
+        String result = "";
+        if (StringUtils.isNoneBlank(type)) {
+            switch (type) {
+                case JsonFormConstants.EXTENDED_RADIO_BUTTON:
+                case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                    result = valueItemJSONArray.getString(0).split(":")[0];
+                    break;
+                case JsonFormConstants.CHECK_BOX:
+                    result = formatCheckboxValues(new StringBuilder("["), valueItemJSONArray, 0) + "]";
+                    break;
+                default:
+                    result = valueItemJSONArray.getString(0);
+                    break;
+            }
         }
         return result;
     }
@@ -129,7 +134,7 @@ public class ContactJsonFormUtils extends FormUtils {
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
 
-                    jsonObject.put(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY, ContactJsonFormUtils.getSecondaryKey(widget));
+                    jsonObject.put(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY, ANCFormUtils.getSecondaryKey(widget));
                     getRealSecondaryValue(jsonObject);
 
                     if (jsonObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES)) {
@@ -145,7 +150,7 @@ public class ContactJsonFormUtils extends FormUtils {
         }
 
         if (valueList.size() > 0) {
-            widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
+            widget.put(ANCFormUtils.getSecondaryKey(widget), ANCFormUtils.getListValuesAsString(valueList));
         }
     }
 
@@ -155,8 +160,8 @@ public class ContactJsonFormUtils extends FormUtils {
         if (widget.has(JsonFormConstants.VALUE)) {
             widget.remove(JsonFormConstants.VALUE);
         }
-        if (widget.has(ContactJsonFormUtils.getSecondaryKey(widget))) {
-            widget.remove(ContactJsonFormUtils.getSecondaryKey(widget));
+        if (widget.has(ANCFormUtils.getSecondaryKey(widget))) {
+            widget.remove(ANCFormUtils.getSecondaryKey(widget));
         }
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -174,7 +179,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
         if (keyList.size() > 0) {
             widget.put(JsonFormConstants.VALUE, keyList);
-            widget.put(ContactJsonFormUtils.getSecondaryKey(widget), ContactJsonFormUtils.getListValuesAsString(valueList));
+            widget.put(ANCFormUtils.getSecondaryKey(widget), ANCFormUtils.getListValuesAsString(valueList));
         }
     }
 
@@ -183,7 +188,7 @@ public class ContactJsonFormUtils extends FormUtils {
         itemField.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES, new JSONArray());
 
         String keystone = itemField.has(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) ?
-                itemField.getString(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) : ContactJsonFormUtils.getSecondaryKey(itemField);
+                itemField.getString(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) : ANCFormUtils.getSecondaryKey(itemField);
         itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(new JSONObject(ImmutableMap.of(JsonFormConstants.KEY, keystone, JsonFormConstants.VALUE, itemField.getString(JsonFormConstants.TEXT))));
 
         setSecondaryValues(itemField, secondaryValues);
@@ -212,8 +217,8 @@ public class ContactJsonFormUtils extends FormUtils {
 
     private static void setItemSecondaryValues(JSONObject itemField, JSONObject secValue, List<String> keyList, List<String> valueList) throws JSONException {
         JSONObject secValueJsonObject = new JSONObject(ImmutableMap
-                .of(JsonFormConstants.KEY, ContactJsonFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE,
-                        ContactJsonFormUtils.getListValuesAsString(valueList)));
+                .of(JsonFormConstants.KEY, ANCFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE,
+                        ANCFormUtils.getListValuesAsString(valueList)));
         itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(secValueJsonObject);
 
         secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
@@ -299,7 +304,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
-                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+                        ANCFormUtils.processSpecialWidgets(fieldObject);
 
                         String fieldKey = getObjectKey(fieldObject);
                         //Do not add to facts values from expansion panels since they are processed separately
@@ -307,8 +312,8 @@ public class ContactJsonFormUtils extends FormUtils {
                                 && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
 
                             facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
-                            ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
-                            String secKey = ContactJsonFormUtils.getSecondaryKey(fieldObject);
+                            ANCFormUtils.processAbnormalValues(facts, fieldObject);
+                            String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
 
                             if (fieldObject.has(secKey)) {
                                 facts.put(secKey, fieldObject.getString(secKey)); //Normal value secondary key
@@ -334,7 +339,7 @@ public class ContactJsonFormUtils extends FormUtils {
                 fieldObject.getString(ConstantsUtils.KeyUtils.KEY).replace(ConstantsUtils.SuffixUtils.OTHER, ConstantsUtils.SuffixUtils.VALUE)) != null) {
 
             facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
-            ContactJsonFormUtils.processAbnormalValues(facts, fieldObject);
+            ANCFormUtils.processAbnormalValues(facts, fieldObject);
             // in complex expression of other where more than one other option is defined e.g. surgeries for profile has 2 items
             //To specify other for: gynecology surgery and the normal other fields with edit text
         } else if (fieldObject.has(ConstantsUtils.OTHER_FOR) && !TextUtils.isEmpty(fieldObject.getString(ConstantsUtils.OTHER_FOR))) {
@@ -362,7 +367,7 @@ public class ContactJsonFormUtils extends FormUtils {
 
             for (int j = 0; j < secondaryValues.length(); j++) {
                 JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                ContactJsonFormUtils.processAbnormalValues(facts, jsonObject);
+                ANCFormUtils.processAbnormalValues(facts, jsonObject);
             }
         }
     }
@@ -464,7 +469,7 @@ public class ContactJsonFormUtils extends FormUtils {
                     new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).toString().split("\\s*,\\s*")));
             tempList.remove(tempList.size() - 1);
             tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue).toString()));
-            facts.put(fieldKeySecondary, ContactJsonFormUtils.getListValuesAsString(tempList));
+            facts.put(fieldKeySecondary, ANCFormUtils.getListValuesAsString(tempList));
 
         } else {
             facts.put(fieldKey, fieldValue);
@@ -650,6 +655,54 @@ public class ContactJsonFormUtils extends FormUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * Extract the expansion panel {@link com.vijay.jsonwizard.widgets.ExpansionPanelFactory} widget values from the value object {@link JSONObject}
+     *
+     * @param baseEntityId {@link String} - patient base entity id
+     * @param contactNo    {@link String} - previous contact number
+     * @param valueItem    {@link String} - expansion panel value object
+     * @throws JSONException
+     */
+    public void saveExpansionPanelValues(String baseEntityId, String contactNo, JSONObject valueItem) throws JSONException {
+        String result = "";
+        if (valueItem.has(JsonFormConstants.TYPE) && valueItem.has(JsonFormConstants.VALUES)) {
+            String type = valueItem.optString(JsonFormConstants.TYPE);
+            JSONArray values = valueItem.optJSONArray(JsonFormConstants.VALUES);
+            result = extractItemValue(type, values);
+        }
+
+        // do not save empty checkbox values ([])
+        if (result.startsWith("[") && result.endsWith("]") && result.length() == 2 ||
+                TextUtils.equals("[]", result)) {
+            return;
+        }
+        JSONObject itemToSave = new JSONObject();
+        itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
+        itemToSave.put(JsonFormConstants.VALUE, result);
+        itemToSave.put(PreviousContactRepository.CONTACT_NO, contactNo);
+        savePreviousContactItem(baseEntityId, itemToSave);
+    }
+
+    /**
+     * Creates a Previous Contact object {@link PreviousContact} and saves it in the previous contact table {@link PreviousContactRepository} which holds the previous contact's data
+     *
+     * @param baseEntityId {@link String}
+     * @param fieldObject  {@link JSONObject}
+     * @throws JSONException
+     */
+    public void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws JSONException {
+        PreviousContact previousContact = new PreviousContact();
+        previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
+        previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
+        previousContact.setBaseEntityId(baseEntityId);
+        previousContact.setContactNo(fieldObject.getString(PreviousContactRepository.CONTACT_NO));
+        getPreviousContactRepository().savePreviousContact(previousContact);
+    }
+
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 
     /**

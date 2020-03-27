@@ -15,7 +15,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 /**
  * Created by ndegwamartin on 04/07/2018.
  */
-public class ContactJsonFormFragmentViewStateTest extends BaseUnitTest {
+public class ContactWizardJsonFormFragmentViewStateTest extends BaseUnitTest {
     @Mock
     private Parcel parcel;
 

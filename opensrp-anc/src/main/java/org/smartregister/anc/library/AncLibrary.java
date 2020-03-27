@@ -103,6 +103,32 @@ public class AncLibrary {
         initializeYamlConfigs();
     }
 
+    public android.content.Context getApplicationContext() {
+        return context.applicationContext();
+    }
+
+    private void setUpEventHandling() {
+        try {
+            EventBusBuilder eventBusBuilder = EventBus.builder()
+                    .addIndex(new ANCEventBusIndex());
+
+            if (subscriberInfoIndex != null) {
+                eventBusBuilder.addIndex(subscriberInfoIndex);
+            }
+
+            eventBusBuilder.installDefaultEventBus();
+        } catch (Exception e) {
+            Timber.e(e, " --> setUpEventHandling");
+        }
+    }
+
+    private void initializeYamlConfigs() {
+        Constructor constructor = new Constructor(YamlConfig.class);
+        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
+        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
+        constructor.addTypeDescription(customTypeDescription);
+        yaml = new Yaml(constructor);
+    }
 
     public static void init(@NonNull Context context, int dbVersion) {
         init(context, dbVersion, new ActivityConfiguration());
@@ -147,34 +173,6 @@ public class AncLibrary {
         }
         return instance;
     }
-
-    public android.content.Context getApplicationContext() {
-        return context.applicationContext();
-    }
-
-    private void setUpEventHandling() {
-        try {
-            EventBusBuilder eventBusBuilder = EventBus.builder()
-                    .addIndex(new ANCEventBusIndex());
-
-            if (subscriberInfoIndex != null) {
-                eventBusBuilder.addIndex(subscriberInfoIndex);
-            }
-
-            eventBusBuilder.installDefaultEventBus();
-        } catch (Exception e) {
-            Timber.e(e, " --> setUpEventHandling");
-        }
-    }
-
-    private void initializeYamlConfigs() {
-        Constructor constructor = new Constructor(YamlConfig.class);
-        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
-        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
-    }
-
 
     public PartialContactRepository getPartialContactRepository() {
         if (partialContactRepository == null) {

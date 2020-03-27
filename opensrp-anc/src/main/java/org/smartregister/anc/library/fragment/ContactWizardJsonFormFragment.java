@@ -28,9 +28,10 @@ import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.presenter.ContactJsonFormFragmentPresenter;
+import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
+import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
@@ -42,15 +43,16 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 30/06/2018.
  */
-public class ContactJsonFormFragment extends JsonWizardFormFragment {
-    public static final String TAG = ContactJsonFormFragment.class.getName();
+public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
+    public static final String TAG = ContactWizardJsonFormFragment.class.getName();
     private static final int MENU_NAVIGATION = 100001;
     private boolean savePartial = false;
     private TextView contactTitle;
     private BottomNavigationListener navigationListener = new BottomNavigationListener();
+    private ContactWizardJsonFormFragment formFragment;
 
     public static JsonWizardFormFragment getFormFragment(String stepName) {
-        ContactJsonFormFragment jsonFormFragment = new ContactJsonFormFragment();
+        ContactWizardJsonFormFragment jsonFormFragment = new ContactWizardJsonFormFragment();
         Bundle bundle = new Bundle();
         bundle.putString(DBConstantsUtils.KeyUtils.STEPNAME, stepName);
         jsonFormFragment.setArguments(bundle);
@@ -142,6 +144,12 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (!getJsonApi().isPreviousPressed()) {
+            skipStepsOnNextPressed();
+        } else {
+            skipStepOnPreviousPressed();
+        }
+        setJsonFormFragment(this);
     }
 
     @Override
@@ -175,8 +183,8 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     @Override
-    protected ContactJsonFormFragmentPresenter createPresenter() {
-        return new ContactJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
+    protected ContactWizardJsonFormFragmentPresenter createPresenter() {
+        return new ContactWizardJsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
     }
 
     @Override
@@ -210,29 +218,31 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
     }
 
     private void displayReferralDialog() {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.alert_referral_dialog, null);
+        if (getActivity() != null) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.alert_referral_dialog, null);
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setView(view);
 
-        Button yes = view.findViewById(R.id.refer_yes);
-        final Button no = view.findViewById(R.id.refer_no);
+            Button yes = view.findViewById(R.id.refer_yes);
+            final Button no = view.findViewById(R.id.refer_no);
 
-        final AlertDialog dialog = builder.create();
+            final AlertDialog dialog = builder.create();
 
-        Window window = dialog.getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams param = window.getAttributes();
-            param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-            window.setAttributes(param);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams param = window.getAttributes();
+                param.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                window.setAttributes(param);
+                window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            }
+
+            yes.setOnClickListener(v -> goToContactFinalize(dialog));
+            no.setOnClickListener(v -> goToContactFinalize(dialog));
+
+            dialog.show();
         }
-
-        yes.setOnClickListener(v -> goToContactFinalize(dialog));
-        no.setOnClickListener(v -> goToContactFinalize(dialog));
-
-        dialog.show();
     }
 
     /**
@@ -252,7 +262,7 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
                 contact.setContactNumber(Integer.parseInt("-" + contact.getContactNumber()));
             }
             contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
-            ContactJsonFormUtils.persistPartial(baseEntityId, contact);
+            ANCFormUtils.persistPartial(baseEntityId, contact);
         }
 
         Utils.finalizeForm(getActivity(),
@@ -317,6 +327,15 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
+    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
+        this.formFragment = formFragment;
+    }
+
+    @Override
+    public ContactWizardJsonFormFragment getJsonFormFragment() {
+        return formFragment;
+    }
+
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -324,17 +343,16 @@ public class ContactJsonFormFragment extends JsonWizardFormFragment {
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
-                    next();
+                    new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
-                        next();
+                        new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
                     } else {
                         savePartial = true;
                         save();
                     }
                 }
-
             } else if (view.getId() == com.vijay.jsonwizard.R.id.previous ||
                     view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;

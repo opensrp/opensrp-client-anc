@@ -2,20 +2,21 @@ package org.smartregister.anc.library.activity;
 
 import android.content.Intent;
 import android.widget.TextView;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.HashMap;
 import java.util.UUID;
-
-import static org.robolectric.Shadows.shadowOf;
 
 public class ContactSummarySendActivityTest extends BaseUnitTest {
 
@@ -59,9 +60,12 @@ public class ContactSummarySendActivityTest extends BaseUnitTest {
     @Test
     public void testGoToClientButtonClicked() {
         activity = activityController.create().get();
-        activity.findViewById(R.id.button_go_to_client_profile).performClick();
-        Intent expectedIntent = new Intent(activity, ProfileActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        ContactSummarySendActivity contactSummarySendActivitySpy = Mockito.spy(activity);
+        Mockito.doReturn(new HashMap<>()).when(contactSummarySendActivitySpy).getWomanProfileDetails();
+
+        contactSummarySendActivitySpy.goToClientProfile();
+        Intent expectedIntent = new Intent(contactSummarySendActivitySpy, ProfileActivity.class);
+        Intent actual = Shadows.shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
 

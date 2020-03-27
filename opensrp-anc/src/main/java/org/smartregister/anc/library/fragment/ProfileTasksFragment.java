@@ -27,9 +27,9 @@ import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
@@ -54,7 +54,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private RecyclerView recyclerView;
     private HashMap<String, String> clientDetails;
     private Task currentTask;
-    private ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
+    private ANCFormUtils formUtils = new ANCFormUtils();
 
     public static ProfileTasksFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
@@ -108,7 +108,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
 
     @Override
     public void updateTask(Task task) {
-        getPresenter().updateTask(task);
+        getPresenter().updateTask(task, contactNo);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, clientDetails);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, getForm());
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     /**
@@ -224,7 +224,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private JSONArray createAccordionValues(JSONObject form) {
         JSONArray values = new JSONArray();
         if (form != null) {
-            JSONArray fields = ContactJsonFormUtils.fields(form, JsonFormConstants.STEP1);
+            JSONArray fields = ANCFormUtils.fields(form, JsonFormConstants.STEP1);
             values = formUtils.createExpansionPanelValues(fields);
         }
         return values;
@@ -238,7 +238,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
                 newValue.put(JsonFormConstants.VALUE, values);
                 newTask.setValue(String.valueOf(newValue));
                 newTask.setUpdated(true);
-                newTask.setComplete(JsonFormUtils.checkIfTaskIsComplete(newValue));
+                newTask.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(newValue));
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateTaskValue");

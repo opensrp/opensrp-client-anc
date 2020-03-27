@@ -76,6 +76,7 @@ public class SiteCharacteristicsActivityTest extends BaseActivityUnitTest {
 
         Mockito.verify(presenter).launchSiteCharacteristicsFormForEdit();
     }
+
     @After
     public void tearDown() {
         destroyController();

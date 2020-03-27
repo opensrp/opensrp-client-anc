@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.viewholder.ContactTasksViewHolder;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     private List<Task> taskList;
     private LayoutInflater inflater;
     private Context context;
-    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
     private Utils utils = new Utils();
     private ProfileTasksFragment profileTasksFragment;
 
@@ -137,13 +137,13 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         JSONArray values = new JSONArray();
         if (taskValue.has(JsonFormConstants.VALUE)) {
             values = taskValue.optJSONArray(JsonFormConstants.VALUE);
-            if (values != null && contactJsonFormUtils.checkValuesContent(values)) {
+            if (values != null && ANCFormUtils.checkValuesContent(values)) {
                 viewHolder.contentLayout.setVisibility(View.VISIBLE);
                 viewHolder.contentView.setVisibility(View.VISIBLE);
             }
         }
         if (values != null) {
-            contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
+            ANCFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
         }
     }
 

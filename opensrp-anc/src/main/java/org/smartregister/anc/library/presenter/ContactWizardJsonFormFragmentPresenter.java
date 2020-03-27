@@ -10,18 +10,18 @@ import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
-import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
+import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 
 /**
  * Created by keyman on 04/08/18.
  */
-public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPresenter {
+public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragmentPresenter {
 
-    public static final String TAG = ContactJsonFormFragmentPresenter.class.getName();
+    public static final String TAG = ContactWizardJsonFormFragmentPresenter.class.getName();
 
-    public ContactJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
+    public ContactWizardJsonFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
     }
 
@@ -34,7 +34,7 @@ public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPres
     @Override
     protected boolean moveToNextWizardStep() {
         if (!"".equals(mStepDetails.optString(JsonFormConstants.NEXT))) {
-            JsonFormFragment next = ContactJsonFormFragment.getFormFragment(mStepDetails.optString(ConstantsUtils.NEXT));
+            JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(mStepDetails.optString(ConstantsUtils.NEXT));
             getView().hideKeyBoard();
             getView().transactThis(next);
             return true;
@@ -71,7 +71,7 @@ public class ContactJsonFormFragmentPresenter extends JsonWizardFormFragmentPres
         if (JsonFormConstants.CONTENT_INFO.equals(type) && specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
             NativeRadioButtonFactory.showDateDialog(view);
         } else if (JsonFormConstants.CONTENT_INFO.equals(type) && !specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
-            ContactJsonFormUtils formUtils = new ContactJsonFormUtils();
+            ANCFormUtils formUtils = new ANCFormUtils();
             formUtils.showGenericDialog(view);
         } else if (view.getId() == com.vijay.jsonwizard.R.id.label_edit_button) {
             setRadioViewsEditable(view);
