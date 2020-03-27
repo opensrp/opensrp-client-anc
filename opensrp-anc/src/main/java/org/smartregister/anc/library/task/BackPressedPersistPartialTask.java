@@ -6,8 +6,8 @@ import android.os.AsyncTask;
 
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 public class BackPressedPersistPartialTask extends AsyncTask<Void, Void, Void> {
     private Contact contact;

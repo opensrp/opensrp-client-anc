@@ -30,8 +30,8 @@ import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
 import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
@@ -217,6 +217,15 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
 
     }
 
+    @Override
+    public ContactWizardJsonFormFragment getJsonFormFragment() {
+        return formFragment;
+    }
+
+    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
+        this.formFragment = formFragment;
+    }
+
     private void displayReferralDialog() {
         if (getActivity() != null) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -325,15 +334,6 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             proceedButton.setVisibility(View.GONE);
             referButton.setVisibility(View.GONE);
         }
-    }
-
-    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
-        this.formFragment = formFragment;
-    }
-
-    @Override
-    public ContactWizardJsonFormFragment getJsonFormFragment() {
-        return formFragment;
     }
 
     private class BottomNavigationListener implements View.OnClickListener {

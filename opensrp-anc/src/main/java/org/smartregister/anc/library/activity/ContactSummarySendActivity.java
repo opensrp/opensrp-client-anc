@@ -99,6 +99,10 @@ public class ContactSummarySendActivity extends AppCompatActivity
         return (HashMap<String, String>) PatientRepository.getWomanProfileDetails(getEntityId());
     }
 
+    public String getEntityId() {
+        return getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+    }
+
     @Override
     public void displayPatientName(String fullName) {
         womanNameTextView.setText(fullName);
@@ -132,10 +136,6 @@ public class ContactSummarySendActivity extends AppCompatActivity
             return womanDetails.get(ConstantsUtils.REFERRAL);
         }
         return null;
-    }
-
-    public String getEntityId() {
-        return getIntent().getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
     }
 
     @Override

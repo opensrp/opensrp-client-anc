@@ -22,8 +22,8 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -164,7 +164,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         }
         try {
-            ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
+            org.smartregister.anc.library.util.ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
             Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
@@ -266,7 +266,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         Contact contact = getContact();
         contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
-        ANCFormUtils.persistPartial(baseEntityId, getContact());
+        org.smartregister.anc.library.util.ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
     }
 
