@@ -213,7 +213,7 @@ public class ContactVisit {
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
-                        org.smartregister.anc.library.util.ANCFormUtils.processSpecialWidgets(fieldObject);
+                        ANCFormUtils.processSpecialWidgets(fieldObject);
 
                         if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.EXPANSION_PANEL)) {
                             saveExpansionPanelPreviousValues(baseEntityId, fieldObject, contactNo);
