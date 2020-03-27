@@ -29,6 +29,7 @@ public class RegisterQueryProvider {
     }
 
     private String getFilter(String filters) {
+
         if (StringUtils.isNotBlank(filters)) {
             return String.format(" AND " + getDemographicTable() + "." + CommonFtsObject.phraseColumn + " MATCH '*%s*'", filters);
         }
@@ -42,6 +43,7 @@ public class RegisterQueryProvider {
     public String getDetailsTable() {
         return DBConstantsUtils.RegisterTable.DETAILS;
     }
+
 
     public String getCountExecuteQuery(String mainCondition, String filters) {
 
