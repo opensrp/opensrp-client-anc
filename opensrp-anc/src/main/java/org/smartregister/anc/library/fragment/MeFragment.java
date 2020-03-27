@@ -12,9 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.library.activity.SiteCharacteristicsActivity;
+import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.presenter.MePresenter;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.util.LangUtils;
@@ -46,16 +48,25 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         mePopCharacteristicsSection = view.findViewById(R.id.me_pop_characteristics_section);
         siteCharacteristicsSection = view.findViewById(R.id.site_characteristics_section);
 
-        languageSwitcherSection = view.findViewById(R.id.language_switcher_section);
-        languageSwitcherText = languageSwitcherSection.findViewById(R.id.language_switcher_text);
-        registerLanguageSwitcher();
+        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KEY.LANGUAGE_SWITCHING_ENABLED)) {
+            languageSwitcherSection = view.findViewById(R.id.language_switcher_section);
+            languageSwitcherSection.setVisibility(View.VISIBLE);
+
+            View meLanguageSwitcherSeparator = view.findViewById(R.id.me_language_switcher_separator);
+            meLanguageSwitcherSeparator.setVisibility(View.VISIBLE);
+
+            languageSwitcherText = languageSwitcherSection.findViewById(R.id.language_switcher_text);
+            registerLanguageSwitcher();
+        }
     }
 
     protected void setClickListeners() {
         super.setClickListeners();
         mePopCharacteristicsSection.setOnClickListener(meFragmentActionHandler);
         siteCharacteristicsSection.setOnClickListener(meFragmentActionHandler);
-        languageSwitcherSection.setOnClickListener(meFragmentActionHandler);
+        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KEY.LANGUAGE_SWITCHING_ENABLED)) {
+            languageSwitcherSection.setOnClickListener(meFragmentActionHandler);
+        }
     }
 
     private void registerLanguageSwitcher() {
@@ -86,7 +97,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 Intent intent = getActivity().getIntent();
                 getActivity().finish();
                 getActivity().startActivity(intent);
-                notifyAppContextChange();
+               AncLibrary.getInstance().notifyAppContextChange();
             });
 
             AlertDialog dialog = builder.create();
@@ -94,12 +105,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         }
     }
 
-    public void notifyAppContextChange() {
-        if (getActivity() != null) {
-            Locale current = getActivity().getResources().getConfiguration().locale;
-            Utils.saveLanguage(current.getLanguage());
-        }
-    }
+
 
     protected void initializePresenter() {
         presenter = new MePresenter(this);

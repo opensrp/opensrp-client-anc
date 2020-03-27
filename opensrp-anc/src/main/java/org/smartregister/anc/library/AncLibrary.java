@@ -28,12 +28,14 @@ import org.smartregister.anc.library.util.AncMetadata;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.util.AppProperties;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
@@ -41,6 +43,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Locale;
 
 import id.zelory.compressor.Compressor;
 import timber.log.Timber;
@@ -342,6 +345,7 @@ public class AncLibrary {
         this.registerQueryProvider = registerQueryProvider;
     }
 
+
     public AncMetadata getAncMetadata() {
         return ancMetadata;
     }
@@ -351,5 +355,16 @@ public class AncLibrary {
             appExecutors = new AppExecutors();
         }
         return appExecutors;
+    }
+
+    public AppProperties getProperties() {
+        return CoreLibrary.getInstance().context().getAppProperties();
+    }
+
+    public void notifyAppContextChange() {
+        if (getApplicationContext() != null) {
+            Locale current = getApplicationContext().getResources().getConfiguration().locale;
+            Utils.saveLanguage(current.getLanguage());
+        }
     }
 }

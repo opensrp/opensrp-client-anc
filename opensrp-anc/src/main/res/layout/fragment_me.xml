@@ -144,7 +144,8 @@
                     android:layout_marginStart="@dimen/me_page_initials_background_margin"
                     android:layout_marginLeft="@dimen/me_page_initials_background_margin"
                     android:layout_marginEnd="@dimen/me_page_initials_background_margin"
-                    android:layout_marginRight="@dimen/me_page_initials_background_margin">
+                    android:layout_marginRight="@dimen/me_page_initials_background_margin"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/language_switcher_image"
@@ -188,7 +189,8 @@
                     android:id="@+id/me_language_switcher_separator"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/me_page_line_separator" />
+                    android:background="@color/me_page_line_separator"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:id="@+id/me_pop_characteristics_section"
