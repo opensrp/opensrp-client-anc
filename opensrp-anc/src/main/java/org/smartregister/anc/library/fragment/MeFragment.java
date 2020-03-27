@@ -47,7 +47,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         mePopCharacteristicsSection = view.findViewById(R.id.me_pop_characteristics_section);
         siteCharacteristicsSection = view.findViewById(R.id.site_characteristics_section);
 
-        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KEY.LANGUAGE_SWITCHING_ENABLED)) {
+        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.keyUtils.LANGUAGE_SWITCHING_ENABLED)) {
             languageSwitcherSection = view.findViewById(R.id.language_switcher_section);
             languageSwitcherSection.setVisibility(View.VISIBLE);
 
@@ -63,7 +63,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         super.setClickListeners();
         mePopCharacteristicsSection.setOnClickListener(meFragmentActionHandler);
         siteCharacteristicsSection.setOnClickListener(meFragmentActionHandler);
-        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KEY.LANGUAGE_SWITCHING_ENABLED)) {
+        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.keyUtils.LANGUAGE_SWITCHING_ENABLED)) {
             languageSwitcherSection.setOnClickListener(meFragmentActionHandler);
         }
     }

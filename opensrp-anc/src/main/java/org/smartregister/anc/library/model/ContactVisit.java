@@ -55,7 +55,7 @@ public class ContactVisit {
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
     private Map<String, Long> currentClientTasks = new HashMap<>();
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -149,7 +149,7 @@ public class ContactVisit {
                     }
 
                     //process attention flags
-                    org.smartregister.anc.library.util.ANCFormUtils.processRequiredStepsField(facts, formObject);
+                    ANCFormUtils.processRequiredStepsField(facts, formObject);
 
                     //process events
                     Event event = ANCJsonFormUtils.processContactFormEvent(formObject, baseEntityId);
@@ -226,7 +226,7 @@ public class ContactVisit {
                                 !isCheckboxValueEmpty(fieldObject)) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                            ANCFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
+                            ancFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
                         if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES) &&
@@ -235,7 +235,7 @@ public class ContactVisit {
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
                                 secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                                ANCFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
+                                ancFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
                     }
@@ -272,7 +272,7 @@ public class ContactVisit {
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
             String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
-            ANCFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
+            ancFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
                     .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
                     .put(PreviousContactRepository.CONTACT_NO, contactNo));
         }
@@ -286,7 +286,7 @@ public class ContactVisit {
             }
             for (int j = 0; j < value.length(); j++) {
                 JSONObject valueItem = value.getJSONObject(j);
-                ANCFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
+                ancFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
             }
         }
     }
