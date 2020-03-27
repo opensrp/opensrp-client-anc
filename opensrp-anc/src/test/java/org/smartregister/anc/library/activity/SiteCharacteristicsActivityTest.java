@@ -3,8 +3,8 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.view.View;
 
-import junit.framework.Assert;
-
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -75,5 +75,10 @@ public class SiteCharacteristicsActivityTest extends BaseActivityUnitTest {
         spyActivity.onClick(new View(RuntimeEnvironment.application));
 
         Mockito.verify(presenter).launchSiteCharacteristicsFormForEdit();
+    }
+
+    @After
+    public void tearDown() {
+        destroyController();
     }
 }

@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.Map;
@@ -43,7 +43,7 @@ public abstract class BaseContactModel {
         if (form == null) {
             return null;
         }
-        return JsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
+        return ANCJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
     private FormUtils getFormUtils() {

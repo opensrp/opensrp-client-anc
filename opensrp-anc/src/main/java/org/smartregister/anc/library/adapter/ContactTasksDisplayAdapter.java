@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.viewholder.ContactTasksViewHolder;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
     private List<Task> taskList;
     private LayoutInflater inflater;
     private Context context;
-    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
     private Utils utils = new Utils();
     private ProfileTasksFragment profileTasksFragment;
 
@@ -46,7 +46,6 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         return new ContactTasksViewHolder(view, profileTasksFragment);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ContactTasksViewHolder contactTasksViewHolder, int position) {
         try {
@@ -59,8 +58,9 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
                 }
                 updateStatusIcon(taskValue, contactTasksViewHolder);
                 showInfoIcon(taskValue, contactTasksViewHolder);
-                attachContent(taskValue, contactTasksViewHolder);
-                addBottomSection(taskValue, task, contactTasksViewHolder);
+                if (task.isUpdated()) {
+                    attachContent(taskValue, contactTasksViewHolder);
+                }
                 attachFormOpenViewTags(taskValue, task, contactTasksViewHolder);
             }
         } catch (JSONException e) {
@@ -137,53 +137,14 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
         JSONArray values = new JSONArray();
         if (taskValue.has(JsonFormConstants.VALUE)) {
             values = taskValue.optJSONArray(JsonFormConstants.VALUE);
-            if (values != null && contactJsonFormUtils.checkValuesContent(values)) {
+            if (values != null && ANCFormUtils.checkValuesContent(values)) {
                 viewHolder.contentLayout.setVisibility(View.VISIBLE);
                 viewHolder.contentView.setVisibility(View.VISIBLE);
             }
         }
         if (values != null) {
-            contactJsonFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
+            ANCFormUtils.addValuesDisplay(utils.createExpansionPanelChildren(values), viewHolder.contentView, context);
         }
-    }
-
-    /**
-     * Displays or hides the bottoms section of the expansion panel depending on some settings or the value attribute
-     *
-     * @param taskValue              {@link JSONObject}
-     * @param task                   {@link Task}
-     * @param contactTasksViewHolder {@link ContactTasksViewHolder}
-     * @throws JSONException - Throws this in case the operation of the json object fails.
-     */
-    private void addBottomSection(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) throws JSONException {
-        JSONObject showBottomSection = taskValue.optJSONObject(JsonFormConstants.BOTTOM_SECTION);
-        boolean showButtons = true;
-        boolean showRecordButton = true;
-        if (showBottomSection != null) {
-            showButtons = showBottomSection.optBoolean(JsonFormConstants.DISPLAY_BOTTOM_SECTION, true);
-            showRecordButton = showBottomSection.optBoolean(JsonFormConstants.DISPLAY_RECORD_BUTTON, true);
-        }
-
-        if (showRecordButton) {
-            contactTasksViewHolder.okButton.setVisibility(View.VISIBLE);
-        }
-
-        if (taskValue.has(JsonFormConstants.VALUE) && taskValue.getJSONArray(JsonFormConstants.VALUE).length() > 0) {
-            JSONArray value = taskValue.optJSONArray(JsonFormConstants.VALUE);
-            if (value != null && contactJsonFormUtils.checkValuesContent(value)) {
-                if (showButtons) {
-                    contactTasksViewHolder.accordionBottomNavigation.setVisibility(View.VISIBLE);
-                    contactTasksViewHolder.undoButton.setVisibility(View.VISIBLE);
-                }
-
-                if (taskValue.has(JsonFormConstants.VALUE)) {
-                    contactTasksViewHolder.undoButton.setVisibility(View.VISIBLE);
-                }
-
-            }
-        }
-
-        attachViewTags(taskValue, task, contactTasksViewHolder.undoButton);
     }
 
     private void attachFormOpenViewTags(JSONObject taskValue, Task task, ContactTasksViewHolder contactTasksViewHolder) {

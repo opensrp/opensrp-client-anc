@@ -27,7 +27,7 @@ public interface ProfileContract {
 
         HashMap<String, String> saveFinishForm(Map<String, String> client, Context context);
 
-        void getTaskCount(String baseEntityId, String contactNo);
+        void getTaskCount(String baseEntityId);
     }
 
     interface View extends BaseProfileContract.View {
@@ -54,6 +54,6 @@ public interface ProfileContract {
 
         void refreshProfileView(String baseEntityId, boolean isForEdit);
 
-        String getTaskCount(String baseEntityId, String contactNo);
+        String getTaskCount(String baseEntityId);
     }
 }

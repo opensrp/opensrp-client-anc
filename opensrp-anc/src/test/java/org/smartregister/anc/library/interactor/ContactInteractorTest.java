@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -15,8 +14,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -29,9 +27,10 @@ import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -53,13 +52,12 @@ import java.util.concurrent.Executors;
 import timber.log.Timber;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepositoryHelper.class, AncLibrary.class, PreviousContactRepositoryHelper.class, PartialContactRepositoryHelper.class, EventClientRepository.class, LocationHelper.class, Pair.class})
+@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepository.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ContactInteractorTest extends BaseUnitTest {
 
-    @Rule
-    public MockitoRule rule = MockitoJUnit.rule();
     private ContactContract.Interactor interactor;
+
     @Captor
     private ArgumentCaptor<Map<String, String>> detailsArgumentCaptor;
 
@@ -76,13 +74,13 @@ public class ContactInteractorTest extends BaseUnitTest {
     private DetailsRepository detailsRepository;
 
     @Mock
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
+    private PreviousContactRepository previousContactRepository;
 
     @Mock
     private EventClientRepository eventClientRepository;
 
     @Mock
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
 
     @Mock
     private AllSharedPreferences allSharedPreferences;
@@ -100,12 +98,12 @@ public class ContactInteractorTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         interactor = new ContactInteractor(new AppExecutors(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor()));
     }
 
     @Test
     public void testFetchWomanDetails() {
-
         String baseEntityId = UUID.randomUUID().toString();
         ContactContract.InteractorCallback callBack = Mockito.mock(ContactContract.InteractorCallback.class);
 
@@ -116,16 +114,17 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.FIRST_NAME, firstName);
         details.put(DBConstantsUtils.KeyUtils.LAST_NAME, lastName);
 
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
+        PowerMockito.mockStatic(AncLibrary.class);
 
-        PowerMockito.when(PatientRepositoryHelper.getWomanProfileDetails(baseEntityId))
-                .thenReturn(details);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
 
+        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
+
+        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.when(PatientRepository.getWomanProfileDetails(baseEntityId)).thenReturn(details);
 
         interactor.fetchWomanDetails(baseEntityId, callBack);
-
         Mockito.verify(callBack, Mockito.timeout(ASYNC_TIMEOUT)).onWomanDetailsFetched(detailsArgumentCaptor.capture());
-
         Assert.assertEquals(details, detailsArgumentCaptor.getValue());
     }
 
@@ -143,12 +142,12 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "1");
 
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
 
         PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
         PowerMockito.when(ancLibrary.getAncRulesEngineHelper()).thenReturn(ancRulesEngineHelper);
         PowerMockito.when(ancLibrary.getDetailsRepository()).thenReturn(detailsRepository);
-        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
         Mockito.doNothing().when(detailsRepository).add(ArgumentMatchers.eq(details.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)), ArgumentMatchers.eq(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE), ArgumentMatchers.anyString(), ArgumentMatchers.anyLong());
 
@@ -157,7 +156,6 @@ public class ContactInteractorTest extends BaseUnitTest {
         PowerMockito.when(
                 ancRulesEngineHelper.getContactVisitSchedule(ArgumentMatchers.any(ContactRule.class), ArgumentMatchers.eq(ConstantsUtils.RulesFileUtils.CONTACT_RULES))).thenReturn(integerList);
 
-        PowerMockito.mockStatic(PatientRepositoryHelper.class);
         ContactInteractor contactInteractor = (ContactInteractor) interactor;
         contactInteractor.finalizeContactForm(details, RuntimeEnvironment.application);
 
@@ -181,19 +179,19 @@ public class ContactInteractorTest extends BaseUnitTest {
 
 
             PowerMockito.mockStatic(AncLibrary.class);
-            PowerMockito.mockStatic(PatientRepositoryHelper.class);
-            PowerMockito.mockStatic(PreviousContactRepositoryHelper.class);
-            PowerMockito.mockStatic(PartialContactRepositoryHelper.class);
+            PowerMockito.mockStatic(PreviousContactRepository.class);
+            PowerMockito.mockStatic(PartialContactRepository.class);
             PowerMockito.mockStatic(EventClientRepository.class);
             PowerMockito.mockStatic(LocationHelper.class);
             PowerMockito.mockStatic(Pair.class);
 
             PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+            PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
             PowerMockito.when(ancLibrary.getDetailsRepository()).thenReturn(detailsRepository);
-            PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+            PowerMockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
             PowerMockito.when(ancLibrary.getEventClientRepository()).thenReturn(eventClientRepository);
-            PowerMockito.when(ancLibrary.getPartialContactRepositoryHelper()).thenReturn(partialContactRepositoryHelper);
-            PowerMockito.when(partialContactRepositoryHelper.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(partialContactList);
+            PowerMockito.when(ancLibrary.getPartialContactRepository()).thenReturn(partialContactRepository);
+            PowerMockito.when(partialContactRepository.getPartialContacts(ArgumentMatchers.anyString(), ArgumentMatchers.anyInt())).thenReturn(partialContactList);
             PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
             PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
             PowerMockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn("demo");
@@ -207,7 +205,6 @@ public class ContactInteractorTest extends BaseUnitTest {
             PowerMockito.when(userService.getAllSharedPreferences()).thenReturn(allSharedPreferences);
             PowerMockito.when(eventClientRepository.getClientByBaseEntityId(DUMMY_BASE_ENTITY_ID)).thenReturn(new JSONObject("{\"attributes\":{\"age\":\"19\",\"contact_status\":\"today\",\"edd\":\"0\",\"last_contact_record_date\":\"2019-10-24\",\"next_contact\":\"2\",\"next_contact_date\":\"-0001-05-22\",\"red_flag_count\":\"15\",\"yellow_flag_count\":\"10\"}}"));
 
-            PowerMockito.mockStatic(PatientRepositoryHelper.class);
             ContactInteractor contactInteractor = (ContactInteractor) interactor;
             HashMap<String, String> contactDetails = contactInteractor.finalizeContactForm(details, RuntimeEnvironment.application);
 

@@ -5,10 +5,12 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
@@ -25,6 +27,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -189,10 +192,35 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     }
 
     @Override
+    public void countExecute() {
+        try {
+            String sql = AncLibrary.getInstance().getRegisterQueryProvider().getCountExecuteQuery(mainCondition, filters);
+            Timber.i(sql);
+            int totalCount = commonRepository().countSearchIds(sql);
+            clientAdapter.setTotalcount(totalCount);
+            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         final AdvancedMatrixCursor matrixCursor = ((RegisterFragmentPresenter) presenter).getMatrixCursor();
         if (!globalQrSearch || matrixCursor == null) {
-            return super.onCreateLoader(id, args);
+            if (id == LOADER_ID) {
+                return new CursorLoader(getActivity()) {
+                    @Override
+                    public Cursor loadInBackground() {
+                        String query = filterAndSortQuery();
+                        return commonRepository().rawCustomQueryForAdapter(query);
+                    }
+                };
+            } else {
+                return null;
+            }
         } else {
             globalQrSearch = false;
             if (id == RecyclerViewFragment.LOADER_ID) {// Returns a new CursorLoader
@@ -205,6 +233,36 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
             }// An invalid id was passed in
             return null;
         }
+    }
+
+    private String filterAndSortQuery() {
+        SmartRegisterQueryBuilder registerQueryBuilder = new SmartRegisterQueryBuilder(mainSelect);
+
+        String query = "";
+        try {
+            if (isValidFilterForFts(commonRepository())) {
+                String sql = AncLibrary.getInstance().getRegisterQueryProvider().getObjectIdsQuery(mainCondition, filters) + (StringUtils.isBlank(getDefaultSortQuery()) ? "" : " order by " + getDefaultSortQuery());
+                sql = registerQueryBuilder.addlimitandOffset(sql, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
+                List<String> ids = commonRepository().findSearchIds(sql);
+                query = AncLibrary.getInstance().getRegisterQueryProvider().mainRegisterQuery() + " where _id IN (%s) " + (StringUtils.isBlank(getDefaultSortQuery()) ? "" : " order by " + getDefaultSortQuery());
+
+                String joinedIds = "'" + StringUtils.join(ids, "','") + "'";
+                return query.replace("%s", joinedIds);
+            } else {
+                if (!TextUtils.isEmpty(filters) && TextUtils.isEmpty(Sortqueries)) {
+                    registerQueryBuilder.addCondition(filters);
+                    query = registerQueryBuilder.orderbyCondition(Sortqueries);
+                    query = registerQueryBuilder.Endquery(registerQueryBuilder.addlimitandOffset(query
+                            , clientAdapter.getCurrentlimit()
+                            , clientAdapter.getCurrentoffset()));
+                }
+                return query;
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        return query;
     }
 }
 

@@ -38,7 +38,7 @@ import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.CopyToClipboardDialog;
 import org.smartregister.repository.AllSharedPreferences;
@@ -77,19 +77,18 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
-        getTasksCount(baseEntityId, contactNo);
+        getTasksCount(baseEntityId);
     }
 
     protected void registerEventBus() {
         EventBus.getDefault().register(this);
     }
 
-    private void getTasksCount(String baseEntityId, String contactNo) {
+    private void getTasksCount(String baseEntityId) {
         if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
-            ((ProfilePresenter) presenter).getTaskCount(baseEntityId, contactNo);
+            ((ProfilePresenter) presenter).getTaskCount(baseEntityId);
         }
     }
-
 
     @Override
     protected void initializePresenter() {
@@ -167,6 +166,47 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
+    public void onBackPressed() {
+        Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchPhoneDialer(phoneNumber);
+            } else {
+                displayToast(R.string.allow_phone_call_management);
+            }
+        }
+    }
+
+    protected void launchPhoneDialer(String phoneNumber) {
+        if (isPermissionGranted()) {
+            try {
+                Intent intent = getTelephoneIntent(phoneNumber);
+                startActivity(intent);
+            } catch (Exception e) {
+                Timber.i("No dial application so we launch copy to clipboard...");
+                CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(this, R.style.copy_clipboard_dialog);
+                copyToClipboardDialog.setContent(phoneNumber);
+                copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                copyToClipboardDialog.show();
+            }
+        }
+    }
+
+    protected boolean isPermissionGranted() {
+        return PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE,
+                PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
+    }
+
+    @NonNull
+    protected Intent getTelephoneIntent(String phoneNumber) {
+        return new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         // When user click home menu item then quit this activity.
@@ -206,7 +246,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                         continueToContact();
                         break;
                     case CLOSE_ANC_RECORD:
-                        JsonFormUtils.launchANCCloseForm(ProfileActivity.this);
+                        ANCJsonFormUtils.launchANCCloseForm(ProfileActivity.this);
                         break;
                     default:
                         if (textClicked.startsWith(ConstantsUtils.CONTINUE)) {
@@ -221,21 +261,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         builderSingle.show();
     }
 
-    protected void launchPhoneDialer(String phoneNumber) {
-        if (isPermissionGranted()) {
-            try {
-                Intent intent = getTelephoneIntent(phoneNumber);
-                startActivity(intent);
-            } catch (Exception e) {
-                Timber.i("No dial application so we launch copy to clipboard...");
-                CopyToClipboardDialog copyToClipboardDialog = new CopyToClipboardDialog(this, R.style.copy_clipboard_dialog);
-                copyToClipboardDialog.setContent(phoneNumber);
-                copyToClipboardDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                copyToClipboardDialog.show();
-            }
-        }
-    }
-
     private void continueToContact() {
         if (!buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
             String baseEntityId = detailMap.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
@@ -244,16 +269,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
                 Utils.proceedToContact(baseEntityId, detailMap, ProfileActivity.this);
             }
         }
-    }
-
-    protected boolean isPermissionGranted() {
-        return PermissionUtils.isPermissionGranted(this, Manifest.permission.READ_PHONE_STATE,
-                PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE);
-    }
-
-    @NonNull
-    protected Intent getTelephoneIntent(String phoneNumber) {
-        return new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
     }
 
     @Override
@@ -272,7 +287,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
         } else {
             Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(ConstantsUtils.ANDROID_SWITCHER + R.id.viewpager + ":" + viewPager.getCurrentItem()); //This might be dirty we maybe can find a better way to do it.
@@ -291,9 +306,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
-            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
+            String formMetadata = ANCJsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
-                JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+                ANCJsonFormUtils.startFormForEdit(this, ANCJsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
             } catch (Exception e) {
                 Timber.e(e, " --> startFormForEdit");
             }
@@ -357,17 +372,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     public TextView getTaskTabCount() {
         return taskTabCount;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                launchPhoneDialer(phoneNumber);
-            } else {
-                displayToast(R.string.allow_phone_call_management);
-            }
-        }
     }
 
     public Button getDueButton() {

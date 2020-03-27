@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusBuilder;
 import org.greenrobot.eventbus.meta.SubscriberInfoIndex;
@@ -22,10 +20,10 @@ import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
-import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -53,28 +51,29 @@ public class AncLibrary {
     private static AncLibrary instance;
     private final Context context;
     private JsonSpecHelper jsonSpecHelper;
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
-    private ContactTasksRepositoryHelper contactTasksRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
+    private PreviousContactRepository previousContactRepository;
+    private ContactTasksRepository contactTasksRepository;
     private EventClientRepository eventClientRepository;
     private UniqueIdRepository uniqueIdRepository;
     private DetailsRepository detailsRepository;
-
     private ECSyncHelper ecSyncHelper;
     private AncRulesEngineHelper ancRulesEngineHelper;
-
+    private RegisterQueryProvider registerQueryProvider;
     private ClientProcessorForJava clientProcessorForJava;
     private JSONObject defaultContactFormGlobals = new JSONObject();
-
     private Compressor compressor;
     private Gson gson;
-
     private Yaml yaml;
-
     private SubscriberInfoIndex subscriberInfoIndex;
-
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
+
+
+    private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
+        this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        this.registerQueryProvider = registerQueryProvider;
+    }
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         this.context = context;
@@ -131,6 +130,12 @@ public class AncLibrary {
         }
     }
 
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider);
+        }
+    }
+
     public static void init(@NonNull Context context, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
         init(context, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
     }
@@ -149,36 +154,28 @@ public class AncLibrary {
         return instance;
     }
 
-    /**
-     * This method should be called in onUpgrade method of the Repository class where the migrations
-     * are already managed instead of writing new code to manage them.
-     */
-    public static void performMigrations(@NonNull SQLiteDatabase database) {
-        PatientRepositoryHelper.performMigrations(database);
-    }
-
-    public PartialContactRepositoryHelper getPartialContactRepositoryHelper() {
-        if (partialContactRepositoryHelper == null) {
-            partialContactRepositoryHelper = new PartialContactRepositoryHelper();
+    public PartialContactRepository getPartialContactRepository() {
+        if (partialContactRepository == null) {
+            partialContactRepository = new PartialContactRepository();
         }
 
-        return partialContactRepositoryHelper;
+        return partialContactRepository;
     }
 
-    public PreviousContactRepositoryHelper getPreviousContactRepositoryHelper() {
-        if (previousContactRepositoryHelper == null) {
-            previousContactRepositoryHelper = new PreviousContactRepositoryHelper();
+    public PreviousContactRepository getPreviousContactRepository() {
+        if (previousContactRepository == null) {
+            previousContactRepository = new PreviousContactRepository();
         }
 
-        return previousContactRepositoryHelper;
+        return previousContactRepository;
     }
 
-    public ContactTasksRepositoryHelper getContactTasksRepositoryHelper() {
-        if (contactTasksRepositoryHelper == null) {
-            contactTasksRepositoryHelper = new ContactTasksRepositoryHelper();
+    public ContactTasksRepository getContactTasksRepository() {
+        if (contactTasksRepository == null) {
+            contactTasksRepository = new ContactTasksRepository();
         }
 
-        return contactTasksRepositoryHelper;
+        return contactTasksRepository;
     }
 
     public EventClientRepository getEventClientRepository() {
@@ -212,7 +209,7 @@ public class AncLibrary {
 
     public Compressor getCompressor() {
         if (compressor == null) {
-            compressor = Compressor.getDefault(getApplicationContext());
+            compressor = new Compressor(getApplicationContext());
         }
         return compressor;
     }
@@ -241,7 +238,6 @@ public class AncLibrary {
     }
 
     public void populateGlobalSettings() {
-
         Setting setting = getCharacteristics(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         Setting populationSetting = getCharacteristics(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
 
@@ -302,5 +298,16 @@ public class AncLibrary {
     @NonNull
     public ActivityConfiguration getActivityConfiguration() {
         return activityConfiguration;
+    }
+
+    public RegisterQueryProvider getRegisterQueryProvider() {
+        if (registerQueryProvider == null) {
+            registerQueryProvider = new RegisterQueryProvider();
+        }
+        return registerQueryProvider;
+    }
+
+    public void setRegisterQueryProvider(RegisterQueryProvider registerQueryProvider) {
+        this.registerQueryProvider = registerQueryProvider;
     }
 }

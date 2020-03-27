@@ -20,7 +20,7 @@ import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.SecuredActivity;
@@ -72,7 +72,7 @@ public abstract class BaseProfileActivity extends SecuredActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             mProfilePresenter.processFormDetailsSave(data, allSharedPreferences);
         }
     }
@@ -100,9 +100,9 @@ public abstract class BaseProfileActivity extends SecuredActivity
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void startFormForEdit(ClientDetailsFetchedEvent event) {
         if (event != null && event.isEditMode()) {
-            String formMetadata = JsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
+            String formMetadata = ANCJsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
-                JsonFormUtils.startFormForEdit(this, JsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
+                ANCJsonFormUtils.startFormForEdit(this, ANCJsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
             } catch (Exception e) {
                 Timber.e(e, "%s  --> startFormForEdit()", this.getClass().getCanonicalName());
             }

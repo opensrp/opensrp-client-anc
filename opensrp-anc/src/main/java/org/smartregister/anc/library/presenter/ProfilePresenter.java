@@ -14,7 +14,7 @@ import org.smartregister.anc.library.interactor.ProfileInteractor;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -116,13 +116,13 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
             if (jsonString != null) {
                 JSONObject form = new JSONObject(jsonString);
                 getProfileView().showProgressDialog(
-                        form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE) ?
+                        form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE) ?
                                 R.string.removing_dialog_title : R.string.saving_dialog_title);
 
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
-                    Pair<Client, Event> values = JsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
+                if (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
+                    Pair<Client, Event> values = ANCJsonFormUtils.processRegistrationForm(allSharedPreferences, jsonString);
                     mRegisterInteractor.saveRegistration(values, jsonString, true, this);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE)) {
+                } else if (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.CLOSE)) {
                     mRegisterInteractor.removeWomanFromANCRegister(jsonString, allSharedPreferences.fetchRegisteredANM());
                 } else {
                     getProfileView().hideProgressDialog();
@@ -159,7 +159,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
-    public void getTaskCount(String baseEntityId, String contactNo) {
-        getProfileView().setTaskCount(mProfileInteractor.getTaskCount(baseEntityId, contactNo));
+    public void getTaskCount(String baseEntityId) {
+        getProfileView().setTaskCount(mProfileInteractor.getTaskCount(baseEntityId));
     }
 }

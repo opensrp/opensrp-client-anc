@@ -9,11 +9,11 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 public class ContactSummaryInteractor extends BaseContactInteractor implements ContactSummarySendContract.Interactor {
 
-    private JsonFormUtils formUtils = new JsonFormUtils();
+    private ANCJsonFormUtils formUtils = new ANCJsonFormUtils();
 
     public ContactSummaryInteractor() {
         this(new AppExecutors());
@@ -47,7 +47,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
 
         Runnable runnable = () -> {
             try {
-                Map<String, String> details = PatientRepositoryHelper.getWomanProfileDetails(entityId);
+                Map<String, String> details = PatientRepository.getWomanProfileDetails(entityId);
 
                 Map<String, String> clientDetails =
                         AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(entityId);
@@ -71,7 +71,7 @@ public class ContactSummaryInteractor extends BaseContactInteractor implements C
                     int previousContact = getPreviousContactNo(referralContactNo);
                     if (previousContact > 0) {
                         Facts facts =
-                                AncLibrary.getInstance().getPreviousContactRepositoryHelper()
+                                AncLibrary.getInstance().getPreviousContactRepository()
                                         .getImmediatePreviousSchedule(entityId, String.valueOf(previousContact));
                         if (facts != null && facts.asMap().containsKey(ConstantsUtils.CONTACT_SCHEDULE)) {
                             String schedule = (String) facts.asMap().get(ConstantsUtils.CONTACT_SCHEDULE);

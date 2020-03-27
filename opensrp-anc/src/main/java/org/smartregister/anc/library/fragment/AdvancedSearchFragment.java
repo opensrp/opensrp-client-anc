@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +46,8 @@ import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import timber.log.Timber;
 
 public class AdvancedSearchFragment extends HomeRegisterFragment
         implements AdvancedSearchContract.View, RegisterFragmentContract.View {
@@ -218,7 +219,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             query = sqb.Endquery(
                     sqb.addlimitandOffset(query, clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset()));
         } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
+            Timber.e(e, " --> filterAndSortQuery");
         }
 
         return query;
@@ -251,34 +252,57 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        switch (id) {
-            case RecyclerViewFragment.LOADER_ID:
-                // Returns a new CursorLoader
-                return new CursorLoader(getActivity()) {
-                    @Override
-                    public Cursor loadInBackground() {
-                        AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
-                        if (isLocal || matrixCursor == null) {
-                            String query = filterAndSortQuery();
-                            Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    hideProgressView();
-                                }
-                            });
+    public void countExecute() {
+        Cursor cursor = null;
 
-                            return cursor;
-                        } else {
-                            return matrixCursor;
-                        }
-                    }
-                };
-            default:
-                // An invalid id was passed in
-                return null;
+        try {
+            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
+            String query;
+
+            sqb.addCondition(filters);
+            query = sqb.orderbyCondition(Sortqueries);
+            query = sqb.Endquery(query);
+
+            Timber.i(query);
+            cursor = commonRepository().rawCustomQueryForAdapter(query);
+            cursor.moveToFirst();
+            clientAdapter.setTotalcount(cursor.getInt(0));
+            Timber.v(String.valueOf(clientAdapter.getTotalcount()));
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+
+        } catch (Exception e) {
+            Timber.e(e, " --> countExecute");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
+
+        updateMatchingResults(clientAdapter.getTotalcount());
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        if (id == RecyclerViewFragment.LOADER_ID) {// Returns a new CursorLoader
+            return new CursorLoader(getActivity()) {
+                @Override
+                public Cursor loadInBackground() {
+                    AdvancedMatrixCursor matrixCursor = ((AdvancedSearchPresenter) presenter).getMatrixCursor();
+                    if (isLocal || matrixCursor == null) {
+                        String query = filterAndSortQuery();
+                        Cursor cursor = commonRepository().rawCustomQueryForAdapter(query);
+                        getActivity().runOnUiThread(() -> hideProgressView());
+
+                        return cursor;
+                    } else {
+                        return matrixCursor;
+                    }
+                }
+            };
+        }// An invalid id was passed in
+        return null;
     }
 
     @Override
@@ -365,38 +389,6 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         } else {
             ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
         }
-    }
-
-    @Override
-    public void countExecute() {
-        Cursor cursor = null;
-
-        try {
-            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
-            String query = "";
-
-            sqb.addCondition(filters);
-            query = sqb.orderbyCondition(Sortqueries);
-            query = sqb.Endquery(query);
-
-            Log.i(getClass().getName(), query);
-            cursor = commonRepository().rawCustomQueryForAdapter(query);
-            cursor.moveToFirst();
-            clientAdapter.setTotalcount(cursor.getInt(0));
-            Log.v("total count here", "" + clientAdapter.getTotalcount());
-
-            clientAdapter.setCurrentlimit(20);
-            clientAdapter.setCurrentoffset(0);
-
-        } catch (Exception e) {
-            Log.e(getClass().getName(), e.toString(), e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-        updateMatchingResults(clientAdapter.getTotalcount());
     }
 
     @Override

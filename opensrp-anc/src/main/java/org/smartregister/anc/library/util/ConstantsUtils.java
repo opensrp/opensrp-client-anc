@@ -121,6 +121,7 @@ public abstract class ConstantsUtils {
         public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
         public static final String ANC_QUICK_CHECK = "anc_quick_check";
         public static final String ANC_TEST_TASKS = "anc_test_tasks";
+        public static final String ANC_TEST_TASKS_ENCOUNTER_TYPE = "Contact Tasks";
     }
 
     public static class JsonFormKeyUtils {
@@ -177,6 +178,7 @@ public abstract class ConstantsUtils {
         public static final String FORM_NAME = "form_name";
         public static final String CLIENT_MAP = "client_map";
         public static final String UNDONE_VALUES = "undone_values";
+        public static final String LIBRARY_HEADER = "library_header";
     }
 
     public static class DetailsKeyUtils {

@@ -23,7 +23,7 @@ import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.location.helper.LocationHelper;
@@ -654,7 +654,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Assert.assertTrue(DateUtils.isSameDay(new Date(), event.getDateCreated()));
 
         Assert.assertEquals("1723154", client.getIdentifier("ANC_ID"));
-        Assert.assertEquals(JsonFormUtils.formatDate("25-07-2003", true), client.getBirthdate());
+        Assert.assertEquals(ANCJsonFormUtils.formatDate("25-07-2003", true), client.getBirthdate());
         Assert.assertEquals("Test_First_Name", client.getFirstName());
         Assert.assertEquals("Test_Last_Name", client.getLastName());
         Assert.assertEquals("female", client.getGender());
@@ -665,7 +665,7 @@ public class RegisterModelTest extends BaseUnitTest {
 
         Assert.assertEquals("ANC Registration", event.getEventType());
         Assert.assertEquals("ec_woman", event.getEntityType());
-        Assert.assertEquals(JsonFormUtils.formatDate("25-07-2018", true), event.getEventDate());
+        Assert.assertEquals(ANCJsonFormUtils.formatDate("25-07-2018", true), event.getEventDate());
     }
 
     @Test
@@ -681,7 +681,7 @@ public class RegisterModelTest extends BaseUnitTest {
         JSONObject jsonInMock = new JSONObject(json);
 
         Assert.assertNotEquals(currentLocationId,
-                jsonInMock.getJSONObject(JsonFormUtils.METADATA).getString(JsonFormUtils.ENCOUNTER_LOCATION));
+                jsonInMock.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));
         Assert.assertNotEquals(entityId, entityId(jsonInMock));
 
         Mockito.doReturn(jsonInMock).when(formUtils).getFormJson(formName);
@@ -691,7 +691,7 @@ public class RegisterModelTest extends BaseUnitTest {
         Mockito.verify(formUtils).getFormJson(formName);
 
         Assert.assertEquals(currentLocationId,
-                actualJson.getJSONObject(JsonFormUtils.METADATA).getString(JsonFormUtils.ENCOUNTER_LOCATION));
+                actualJson.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));
 
         Assert.assertEquals(entityId, entityId(actualJson));
 
@@ -699,9 +699,9 @@ public class RegisterModelTest extends BaseUnitTest {
     }
 
     private String entityId(JSONObject jsonObject) {
-        JSONArray field = JsonFormUtils.fields(jsonObject);
-        JSONObject ancId = JsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
-        return JsonFormUtils.getString(ancId, JsonFormUtils.VALUE);
+        JSONArray field = ANCJsonFormUtils.fields(jsonObject);
+        JSONObject ancId = ANCJsonFormUtils.getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
+        return ANCJsonFormUtils.getString(ancId, ANCJsonFormUtils.VALUE);
     }
 
     @PrepareForTest({CoreLibrary.class, Context.class})

@@ -37,9 +37,10 @@ import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.anc.library.fragment.SortFilterFragment;
 import org.smartregister.anc.library.presenter.RegisterPresenter;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -69,6 +70,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     private AlertDialog attentionFlagAlertDialog;
     private View attentionFlagDialogView;
     private boolean isAdvancedSearch = false;
+    private boolean isLibrary = false;
     private String advancedSearchQrText = "";
     private HashMap<String, String> advancedSearchFormData = new HashMap<>();
 
@@ -179,8 +181,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
-                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
-                        .getPreference(AllConstants.CURRENT_LOCATION_ID);
+                String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
                 ((RegisterPresenter) presenter).startForm(formName, entityId, metaData, locationId);
             }
         } catch (Exception e) {
@@ -194,7 +195,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void startFormActivity(JSONObject form) {
         Intent intent = new Intent(this, JsonFormActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
-        startActivityForResult(intent, org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
     @Override
@@ -202,16 +203,17 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         if (requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
-                Timber.d(barcode.displayValue);
+                if (barcode != null) {
+                    Timber.d(barcode.displayValue);
 
-                Fragment fragment = findFragmentByPosition(currentPage);
-                if (fragment instanceof AdvancedSearchFragment) {
-                    advancedSearchQrText = barcode.displayValue;
-                } else {
-                    mBaseFragment.onQRCodeSucessfullyScanned(barcode.displayValue);
-                    mBaseFragment.setSearchTerm(barcode.displayValue);
+                    Fragment fragment = findFragmentByPosition(currentPage);
+                    if (fragment instanceof AdvancedSearchFragment) {
+                        advancedSearchQrText = barcode.displayValue;
+                    } else {
+                        mBaseFragment.onQRCodeSucessfullyScanned(barcode.displayValue);
+                        mBaseFragment.setSearchTerm(barcode.displayValue);
+                    }
                 }
-
             } else {
                 Timber.i("NO RESULT FOR QR CODE");
             }
@@ -222,13 +224,13 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
-        if (requestCode == org.smartregister.anc.library.util.JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(ConstantsUtils.JsonFormExtraUtils.JSON);
                 Timber.d(jsonString);
                 if (StringUtils.isNotBlank(jsonString)) {
                     JSONObject form = new JSONObject(jsonString);
-                    switch (form.getString(org.smartregister.anc.library.util.JsonFormUtils.ENCOUNTER_TYPE)) {
+                    switch (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE)) {
                         case ConstantsUtils.EventTypeUtils.REGISTRATION:
                             ((RegisterContract.Presenter) presenter).saveRegistrationForm(jsonString, false);
                             break;
@@ -238,9 +240,9 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                         case ConstantsUtils.EventTypeUtils.QUICK_CHECK:
                             Contact contact = new Contact();
                             contact.setContactNumber(getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0));
-                            ContactJsonFormUtils
+                            ANCFormUtils
                                     .persistPartial(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID), contact);
-                            PatientRepositoryHelper
+                            PatientRepository
                                     .updateContactVisitStartDate(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
                                             Utils.getDBDateToday());
                             break;
@@ -262,6 +264,10 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
         if (isAdvancedSearchEnabled()) {
             switchToAdvancedSearchFromBarcode();
+        }
+        if (isLibrary()) {
+            switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
+            setSelectedBottomBarMenuItem(org.smartregister.R.id.action_library);
         }
     }
 
@@ -299,12 +305,20 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
     }
 
+    public boolean isLibrary() {
+        return isLibrary;
+    }
+
     private void setAdvancedFragmentSearchTerm(String searchTerm) {
         mBaseFragment.setUniqueID(searchTerm);
     }
 
     private void setFormData(HashMap<String, String> formData) {
         mBaseFragment.setAdvancedSearchFormData(formData);
+    }
+
+    public void setLibrary(boolean library) {
+        isLibrary = library;
     }
 
     public boolean isMeItemEnabled() {
@@ -327,12 +341,12 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel).toUpperCase(),
                 (dialog, which) -> dialog.dismiss());
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.record_birth).toUpperCase(),
-                (dialog, which) -> org.smartregister.anc.library.util.JsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this));
+                (dialog, which) -> ANCJsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this));
         return alertDialog;
     }
 
     @NonNull
-    protected AlertDialog createAttentionFlagsAlertDialog() {
+    protected void createAttentionFlagsAlertDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         attentionFlagDialogView = LayoutInflater.from(this).inflate(R.layout.alert_dialog_attention_flag, null);
@@ -340,8 +354,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
         attentionFlagDialogView.findViewById(R.id.closeButton).setOnClickListener(view -> attentionFlagAlertDialog.dismiss());
         attentionFlagAlertDialog = dialogBuilder.create();
-
-        return attentionFlagAlertDialog;
+        setAttentionFlagAlertDialog(attentionFlagAlertDialog);
     }
 
     public void updateSortAndFilter(List<Field> filterList, Field sortField) {
@@ -421,7 +434,15 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         ((View) redFlagsContainer.getParent()).setVisibility(redFlagCount > 0 ? View.VISIBLE : View.GONE);
         ((View) yellowFlagsContainer.getParent()).setVisibility(yellowFlagCount > 0 ? View.VISIBLE : View.GONE);
 
-        attentionFlagAlertDialog.show();
+        getAttentionFlagAlertDialog().show();
+    }
+
+    public AlertDialog getAttentionFlagAlertDialog() {
+        return attentionFlagAlertDialog;
+    }
+
+    public void setAttentionFlagAlertDialog(AlertDialog attentionFlagAlertDialog) {
+        this.attentionFlagAlertDialog = attentionFlagAlertDialog;
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -59,7 +59,7 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
         String contactNo = String.valueOf(intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
 
         if (edd != null && ((ContactSummaryFinishActivity) context).saveFinishMenuItem != null) {
-            PatientRepositoryHelper.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
+            PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
             ((ContactSummaryFinishActivity) context).saveFinishMenuItem.setEnabled(true);
 
         } else if (edd == null && contactNo.contains("-")) {

@@ -19,11 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
-import org.smartregister.anc.library.fragment.ContactJsonFormFragment;
+import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     protected void initializeFormFragmentCore() {
         JsonWizardFormFragment contactJsonFormFragment =
-                ContactJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+                ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
 
         getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
                 .commit();
@@ -164,7 +164,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
             formName = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME);
         }
         try {
-            ContactJsonFormUtils.processCheckboxFilteredItems(mJSONObject);
+            ANCFormUtils.processCheckboxFilteredItems(mJSONObject);
         } catch (JSONException e) {
             Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
@@ -185,7 +185,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         boolean other = false;
 
         Fragment fragment = getVisibleFragment();
-        if (fragment instanceof ContactJsonFormFragment) {
+        if (fragment instanceof ContactWizardJsonFormFragment) {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject jsonObject = fields.getJSONObject(i);
                 if (jsonObject != null && jsonObject.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_SIGNS)) {
@@ -206,7 +206,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                 }
             }
 
-            ((ContactJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
+            ((ContactWizardJsonFormFragment) fragment).displayQuickCheckBottomReferralButtons(none, other);
         }
     }
 
@@ -264,9 +264,9 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
-        contact.setJsonForm(contactJsonFormUtils.addFormDetails(currentJsonState()));
+        contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
-        ContactJsonFormUtils.persistPartial(baseEntityId, getContact());
+        ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
     }
 

@@ -15,11 +15,12 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -37,15 +38,13 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.anc.library.util.ContactJsonFormUtils.extractItemValue;
-
 public class ContactVisit {
     private Map<String, String> details;
     private String referral;
     private String baseEntityId;
     private int nextContact;
     private String nextContactVisitDate;
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
     private List<PartialContact> partialContactList;
     private Facts facts;
     private List<String> formSubmissionIDs;
@@ -55,16 +54,18 @@ public class ContactVisit {
             Arrays.asList(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
+    private Map<String, Long> currentClientTasks = new HashMap<>();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
-                        String nextContactVisitDate, PartialContactRepositoryHelper partialContactRepositoryHelper,
+                        String nextContactVisitDate, PartialContactRepository partialContactRepository,
                         List<PartialContact> partialContactList) {
         this.details = details;
         this.referral = referral;
         this.baseEntityId = baseEntityId;
         this.nextContact = nextContact;
         this.nextContactVisitDate = nextContactVisitDate;
-        this.partialContactRepositoryHelper = partialContactRepositoryHelper;
+        this.partialContactRepository = partialContactRepository;
         this.partialContactList = partialContactList;
     }
 
@@ -84,11 +85,10 @@ public class ContactVisit {
         facts = new Facts();
         formSubmissionIDs = new ArrayList<>();
 
-        updateEventAndRequiredStepsField(baseEntityId, partialContactRepositoryHelper, partialContactList, facts,
-                formSubmissionIDs);
+        getCurrentClientsTasks(baseEntityId);
+        updateEventAndRequiredStepsField(baseEntityId, partialContactRepository, partialContactList, facts, formSubmissionIDs);
 
         womanDetail = getWomanDetail(baseEntityId, nextContactVisitDate, nextContact);
-
         processAttentionFlags(womanDetail, facts);
 
         if (referral != null) {
@@ -109,17 +109,36 @@ public class ContactVisit {
             womanDetail.setPreviousContactStatus(details.get(DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS));
             womanDetail.setLastContactRecordDate(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
         }
-        PatientRepositoryHelper.updateContactVisitDetails(womanDetail, true);
+        PatientRepository.updateContactVisitDetails(womanDetail, true);
         return this;
     }
 
-    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepositoryHelper partialContactRepositoryHelper,
+    /**
+     * Returns a {@link Map} of the tasks keys and task id.  These are used to delete the tasks in case a test with the same key is completed doing the current contact.
+     *
+     * @param baseEntityId {@link String} Client's base entity id.
+     */
+    private void getCurrentClientsTasks(String baseEntityId) {
+        List<Task> tasksList = AncLibrary.getInstance().getContactTasksRepository().getTasks(baseEntityId, null);
+        if (tasksList != null && tasksList.size() > 0) {
+            Map<String, Long> tasksMap = new HashMap<>();
+            for (int i = 0; i < tasksList.size(); i++) {
+                Task task = tasksList.get(i);
+                if (task != null) {
+                    tasksMap.put(task.getKey(), task.getId());
+                }
+            }
+            setCurrentClientTasks(tasksMap);
+        }
+    }
+
+    private void updateEventAndRequiredStepsField(String baseEntityId, PartialContactRepository partialContactRepository,
                                                   List<PartialContact> partialContactList, Facts facts, List<String> formSubmissionIDs) throws Exception {
         if (partialContactList != null) {
             Collections.sort(partialContactList, (firstPartialContact, secondPartialContact) -> firstPartialContact.getSortOrder().compareTo(secondPartialContact.getSortOrder()));
 
             for (PartialContact partialContact : partialContactList) {
-                JSONObject formObject = org.smartregister.anc.library.util.JsonFormUtils.toJSONObject(
+                JSONObject formObject = ANCJsonFormUtils.toJSONObject(
                         partialContact.getFormJsonDraft() != null ? partialContact.getFormJsonDraft() :
                                 partialContact.getFormJson());
 
@@ -130,13 +149,13 @@ public class ContactVisit {
                     }
 
                     //process attention flags
-                    ContactJsonFormUtils.processRequiredStepsField(facts, formObject);
+                    ANCFormUtils.processRequiredStepsField(facts, formObject);
 
                     //process events
-                    Event event = org.smartregister.anc.library.util.JsonFormUtils.processContactFormEvent(formObject, baseEntityId);
+                    Event event = ANCJsonFormUtils.processContactFormEvent(formObject, baseEntityId);
                     formSubmissionIDs.add(event.getFormSubmissionId());
 
-                    JSONObject eventJson = new JSONObject(org.smartregister.anc.library.util.JsonFormUtils.gson.toJson(event));
+                    JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
                     eventJson.put(JsonFormConstants.Properties.DETAILS, JsonFormUtils.getJSONObject(formObject, JsonFormConstants.Properties.DETAILS));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
 
@@ -144,83 +163,9 @@ public class ContactVisit {
                 }
 
                 //Remove partial contact
-                partialContactRepositoryHelper.deletePartialContact(partialContact.getId());
+                partialContactRepository.deletePartialContact(partialContact.getId());
             }
         }
-    }
-
-    private void processTasks(JSONObject formObject) {
-        try {
-            String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
-            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
-                JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
-                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
-                    JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
-                    if (stepFields != null && stepFields.length() > 0) {
-                        for (int i = 0; i < stepFields.length(); i++) {
-                            JSONObject field = stepFields.getJSONObject(i);
-                            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
-                                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
-                                if (jsonArray == null || (jsonArray.length() == 0) || checkTestsStatus(jsonArray)) {
-                                    saveTasks(field);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> processTasks");
-        }
-    }
-
-    private boolean checkTestsStatus(JSONArray valueArray) {
-        boolean isTask = false;
-        try {
-            for (int i = 0; i < valueArray.length(); i++) {
-                JSONObject value = valueArray.getJSONObject(i);
-                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
-                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
-                    if (givenValue.length() > 0) {
-                        String firstValue = givenValue.optString(0);
-                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
-                            isTask = true;
-                        }
-                    }
-                    break;
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> checkTestsStatus");
-        }
-        return isTask;
-    }
-
-    private void saveTasks(JSONObject field) {
-        if (field != null) {
-            String key = field.optString(JsonFormConstants.KEY);
-            AncLibrary.getInstance().getContactTasksRepositoryHelper().saveOrUpdateTasks(getTask(field, key));
-        }
-    }
-
-    @NotNull
-    private Task getTask(JSONObject field, String key) {
-        Task task = new Task();
-        task.setContactNo(getCurrentContact());
-        task.setBaseEntityId(baseEntityId);
-        task.setKey(key);
-        task.setValue(String.valueOf(field));
-        task.setUpdated(false);
-        task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
-        return task;
-    }
-
-    private String getCurrentContact() {
-        String contact = "0";
-        if (StringUtils.isNotBlank(String.valueOf(nextContact))) {
-            contact = nextContact == 1 ? String.valueOf(nextContact) : String.valueOf(nextContact - 1);
-        }
-        return contact;
     }
 
     private WomanDetail getWomanDetail(String baseEntityId, String nextContactVisitDate, Integer nextContact) {
@@ -240,7 +185,6 @@ public class ContactVisit {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
                 if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
                     Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
                     requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
@@ -269,7 +213,7 @@ public class ContactVisit {
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
-                        ContactJsonFormUtils.processSpecialWidgets(fieldObject);
+                        ANCFormUtils.processSpecialWidgets(fieldObject);
 
                         if (fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.EXPANSION_PANEL)) {
                             saveExpansionPanelPreviousValues(baseEntityId, fieldObject, contactNo);
@@ -281,8 +225,8 @@ public class ContactVisit {
                                 !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
                                 !isCheckboxValueEmpty(fieldObject)) {
 
-                            fieldObject.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
-                            savePreviousContactItem(baseEntityId, fieldObject);
+                            fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
+                            ANCFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
                         if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES) &&
@@ -290,8 +234,8 @@ public class ContactVisit {
                             JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
-                                secondaryValuesJSONObject.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
-                                savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
+                                secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
+                                ANCFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
                     }
@@ -299,6 +243,51 @@ public class ContactVisit {
             }
         }
 
+    }
+
+    private void processTasks(JSONObject formObject) {
+        try {
+            String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
+            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
+                JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                    JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
+                    if (stepFields != null && stepFields.length() > 0) {
+                        saveOrDeleteTasks(stepFields);
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> processTasks");
+        }
+    }
+
+    private void saveOrDeleteTasks(@NotNull JSONArray stepFields) throws JSONException {
+        for (int i = 0; i < stepFields.length(); i++) {
+            JSONObject field = stepFields.getJSONObject(i);
+            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+                String key = field.optString(JsonFormConstants.KEY);
+                if (jsonArray == null || (jsonArray.length() == 0)) {
+                    if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
+                        saveTasks(field);
+                    }
+                } else {
+                    if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
+                        if (checkTestsStatus(jsonArray)) {
+                            if (!getCurrentClientTasks().containsKey(key)) {
+                                saveTasks(field);
+                            }
+                        } else {
+                            Long tasksId = getCurrentClientTasks().get(key);
+                            if (tasksId != null) {
+                                AncLibrary.getInstance().getContactTasksRepository().deleteContactTask(tasksId);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /***
@@ -310,14 +299,23 @@ public class ContactVisit {
      */
     private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
         if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
-            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" +
-                    object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE)
-                            .toLowerCase().replace(" ", "_");
-            savePreviousContactItem(baseEntityId, new JSONObject()
-                    .put(JsonFormConstants.KEY, key)
+            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
+            ANCFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
                     .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
-                    .put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo));
+                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
+        }
+    }
 
+    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo) throws JSONException {
+        if (fieldObject != null) {
+            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
+            if (value == null) {
+                return;
+            }
+            for (int j = 0; j < value.length(); j++) {
+                JSONObject valueItem = value.getJSONObject(j);
+                ANCFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
+            }
         }
     }
 
@@ -330,41 +328,62 @@ public class ContactVisit {
                 && currentValue.startsWith("[") && currentValue.endsWith("]"));
     }
 
-    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo)
-            throws JSONException {
-        if (fieldObject != null) {
-            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
-            if (value == null) {
-                return;
-            }
-            for (int j = 0; j < value.length(); j++) {
-                JSONObject valueItem = value.getJSONObject(j);
-                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
-                String result = extractItemValue(valueItem, valueItemJSONArray);
-                // do not save empty checkbox values ([])
-                if (result.startsWith("[") && result.endsWith("]") && result.length() == 2 ||
-                        TextUtils.equals("[]", result)) {
-                    return;
-                }
-                JSONObject itemToSave = new JSONObject();
-                itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
-                itemToSave.put(JsonFormConstants.VALUE, result);
-                itemToSave.put(PreviousContactRepositoryHelper.CONTACT_NO, contactNo);
-                savePreviousContactItem(baseEntityId, itemToSave);
-            }
+    public Map<String, Long> getCurrentClientTasks() {
+        return currentClientTasks;
+    }
+
+    private void saveTasks(JSONObject field) {
+        if (field != null) {
+            String key = field.optString(JsonFormConstants.KEY);
+            AncLibrary.getInstance().getContactTasksRepository().saveOrUpdateTasks(getTask(field, key));
         }
     }
 
-    private void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws JSONException {
-        PreviousContact previousContact = new PreviousContact();
-        previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
-        previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
-        previousContact.setBaseEntityId(baseEntityId);
-        previousContact.setContactNo(fieldObject.getString(PreviousContactRepositoryHelper.CONTACT_NO));
-        getPreviousContactRepository().savePreviousContact(previousContact);
+    /**
+     * Checks where a test qualifies to be a tasks.  This happens in case a test is marked as ordered or not done;
+     *
+     * @param valueArray {@link JSONArray} the expansion panel values
+     * @return isTasks {@link Boolean} true/false if true then it means the test qualifies to be a task.
+     */
+    private boolean checkTestsStatus(JSONArray valueArray) {
+        boolean isTask = false;
+        try {
+            for (int i = 0; i < valueArray.length(); i++) {
+                JSONObject value = valueArray.getJSONObject(i);
+                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
+                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
+                    if (givenValue.length() > 0) {
+                        String firstValue = givenValue.optString(0);
+                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
+                            isTask = true;
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> checkTestsStatus");
+        }
+        return isTask;
     }
 
-    protected PreviousContactRepositoryHelper getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
+    @NotNull
+    private Task getTask(JSONObject field, String key) {
+        Task task = new Task();
+        task.setBaseEntityId(baseEntityId);
+        task.setKey(key);
+        task.setValue(String.valueOf(field));
+        task.setUpdated(false);
+        task.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(field));
+        task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+        return task;
+    }
+
+    public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
+        this.currentClientTasks = currentClientTasks;
+    }
+
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 }

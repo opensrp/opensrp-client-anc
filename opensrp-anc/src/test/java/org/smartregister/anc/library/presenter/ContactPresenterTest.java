@@ -12,7 +12,7 @@ import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ContactContract;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class ContactPresenterTest extends BaseUnitTest {
     private ContactContract.Model model;
 
     @Mock
-    private PartialContactRepositoryHelper partialContactRepositoryHelper;
+    private PartialContactRepository partialContactRepository;
 
     @Mock
     private Context context;
@@ -191,12 +191,12 @@ public class ContactPresenterTest extends BaseUnitTest {
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 
         Mockito.doReturn(ancLibrary).when(contactPresenter).getAncLibrary();
-        Mockito.doReturn(partialContactRepositoryHelper).when(ancLibrary).getPartialContactRepositoryHelper();
-        Mockito.doNothing().when(partialContactRepositoryHelper).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
+        Mockito.doReturn(partialContactRepository).when(ancLibrary).getPartialContactRepository();
+        Mockito.doNothing().when(partialContactRepository).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
 
         contactPresenter.deleteDraft(DUMMY_BASE_ENTITY_ID);
 
-        Mockito.verify(partialContactRepositoryHelper, Mockito.times(1)).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
+        Mockito.verify(partialContactRepository, Mockito.times(1)).deleteDraftJson(DUMMY_BASE_ENTITY_ID);
     }
 
 
@@ -206,13 +206,13 @@ public class ContactPresenterTest extends BaseUnitTest {
         ContactPresenter contactPresenter = Mockito.spy((ContactPresenter) presenter);
 
         Mockito.doReturn(ancLibrary).when(contactPresenter).getAncLibrary();
-        Mockito.doReturn(partialContactRepositoryHelper).when(ancLibrary).getPartialContactRepositoryHelper();
-        Mockito.doNothing().when(partialContactRepositoryHelper).saveFinalJson(DUMMY_BASE_ENTITY_ID);
+        Mockito.doReturn(partialContactRepository).when(ancLibrary).getPartialContactRepository();
+        Mockito.doNothing().when(partialContactRepository).saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
 
         contactPresenter.saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
-        Mockito.verify(partialContactRepositoryHelper, Mockito.times(1)).saveFinalJson(DUMMY_BASE_ENTITY_ID);
+        Mockito.verify(partialContactRepository, Mockito.times(1)).saveFinalJson(DUMMY_BASE_ENTITY_ID);
 
     }
 

@@ -15,7 +15,7 @@ import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -94,7 +94,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public void removeWomanFromANCRegister(final String closeFormJsonString, final String providerId) {
         Runnable runnable = () -> {
             try {
-                Triple<Boolean, Event, Event> triple = JsonFormUtils
+                Triple<Boolean, Event, Event> triple = ANCJsonFormUtils
                         .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
 
                 if (triple == null) {
@@ -119,19 +119,19 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 getSyncHelper().addClient(baseEntityId, client);
 
                 //Add Remove Event for child to flag for Server delete
-                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+                JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
                 getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
 
                 //Update Child Entity to include death date
                 JSONObject eventJsonUpdateChildEvent =
-                        new JSONObject(JsonFormUtils.gson.toJson(updateChildDetailsEvent));
+                        new JSONObject(ANCJsonFormUtils.gson.toJson(updateChildDetailsEvent));
                 getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
 
                 //Update REGISTER and FTS Tables
                 if (getAllCommonsRepository() != null) {
                     ContentValues values = new ContentValues();
                     values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                    getAllCommonsRepository().update(DBConstantsUtils.WOMAN_TABLE_NAME, values, baseEntityId);
+                    getAllCommonsRepository().update(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, values, baseEntityId);
                     getAllCommonsRepository().updateSearch(baseEntityId);
 
                 }
@@ -148,7 +148,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public AllCommonsRepository getAllCommonsRepository() {
         if (allCommonsRepository == null) {
             allCommonsRepository =
-                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstantsUtils.WOMAN_TABLE_NAME);
+                    AncLibrary.getInstance().getContext().allCommonsRepositoryobjects(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
         }
         return allCommonsRepository;
     }
@@ -163,16 +163,16 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             Event baseEvent = pair.second;
 
             if (baseClient != null) {
-                JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
+                JSONObject clientJson = new JSONObject(ANCJsonFormUtils.gson.toJson(baseClient));
                 if (isEditMode) {
-                    JsonFormUtils.mergeAndSaveClient(baseClient);
+                    ANCJsonFormUtils.mergeAndSaveClient(baseClient);
                 } else {
                     getSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
                 }
             }
 
             if (baseEvent != null) {
-                JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+                JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(baseEvent));
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
             }
 
@@ -181,7 +181,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 if (baseClient != null) {
                     String newOpenSRPId = baseClient.getIdentifier(ConstantsUtils.ClientUtils.ANC_ID).replace("-", "");
                     String currentOpenSRPId =
-                            JsonFormUtils.getString(jsonString, ConstantsUtils.CURRENT_OPENSRP_ID).replace("-", "");
+                            ANCJsonFormUtils.getString(jsonString, ConstantsUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         // TODO: The new ID should be closed in the unique_ids repository
@@ -199,8 +199,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             }
 
             if (baseClient != null || baseEvent != null) {
-                String imageLocation = JsonFormUtils.getFieldValue(jsonString, ConstantsUtils.WOM_IMAGE);
-                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+                String imageLocation = ANCJsonFormUtils.getFieldValue(jsonString, ConstantsUtils.WOM_IMAGE);
+                ANCJsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);

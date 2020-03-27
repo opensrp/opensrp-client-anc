@@ -3583,7 +3583,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -4438,26 +4445,6 @@
         }
       },
       {
-        "key": "iptp_sp1_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Date IPTp-SP dose 1 was given.",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "step10:iptp_sp1": {
-            "type": "string",
-            "ex": "equalTo(., \"done\")"
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Enter date that IPTp-SP dose 1 was given."
-        }
-      },
-      {
         "key": "iptp_sp2",
         "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -4510,26 +4497,6 @@
         }
       },
       {
-        "key": "iptp_sp2_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Date IPTp-SP dose 2 was given.",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "step10:iptp_sp2": {
-            "type": "string",
-            "ex": "equalTo(., \"done\")"
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Enter date that IPTp-SP dose 2 was given."
-        }
-      },
-      {
         "key": "iptp_sp3",
         "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -4579,26 +4546,6 @@
               "rules-file": "ct_calculation_rules.yml"
             }
           }
-        }
-      },
-      {
-        "key": "iptp_sp3_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Date IPTp-SP dose 3 was given.",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "step10:iptp_sp3": {
-            "type": "string",
-            "ex": "equalTo(., \"done\")"
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Enter date that IPTp-SP dose 3 was given."
         }
       },
       {

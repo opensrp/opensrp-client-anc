@@ -33,7 +33,6 @@ import timber.log.Timber;
  * Created by ndegwamartin on 12/07/2018.
  */
 public class ProfileOverviewFragment extends BaseProfileFragment {
-    public static final String TAG = ProfileOverviewFragment.class.getCanonicalName();
     private List<YamlConfigWrapper> yamlConfigListGlobal;
     private Button dueButton;
     private ButtonAlertStatus buttonAlertStatus;
@@ -44,12 +43,12 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     private Utils utils = new Utils();
 
     public static ProfileOverviewFragment newInstance(Bundle bundle) {
-        Bundle args = bundle;
+        Bundle bundles = bundle;
         ProfileOverviewFragment fragment = new ProfileOverviewFragment();
-        if (args == null) {
-            args = new Bundle();
+        if (bundles == null) {
+            bundles = new Bundle();
         }
-        fragment.setArguments(args);
+        fragment.setArguments(bundles);
         return fragment;
     }
 
@@ -78,7 +77,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     protected void onResumption() {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
-            Facts facts = AncLibrary.getInstance().getPreviousContactRepositoryHelper().getPreviousContactFacts(baseEntityId, contactNo, false);
+            Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, false);
             Iterable<Object> ruleObjects = utils.loadRulesFiles(FilePathUtils.FileUtils.PROFILE_OVERVIEW);
 
             for (Object ruleObject : ruleObjects) {

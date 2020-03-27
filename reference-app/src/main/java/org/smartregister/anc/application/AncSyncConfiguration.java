@@ -6,6 +6,8 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.List;
+
 /**
  * Created by samuelgithengi on 10/19/18.
  */
@@ -55,5 +57,15 @@ public class AncSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean updateClientDetailsTable() {
         return true;
+    }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return null;
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return null;
     }
 }

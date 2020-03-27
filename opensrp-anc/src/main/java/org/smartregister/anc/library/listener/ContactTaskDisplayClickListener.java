@@ -14,7 +14,8 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
+import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import timber.log.Timber;
 
 public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private ProfileTasksFragment profileTasksFragment;
-    private ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
+    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
 
     public ContactTaskDisplayClickListener(ProfileTasksFragment profileTasksFragment) {
         this.profileTasksFragment = profileTasksFragment;
@@ -90,11 +91,11 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         if (context != null && task != null && taskValue != null) {
             JSONArray taskValues = getExpansionPanelValues(taskValue, task.getKey());
             Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
-            JSONArray subFormFields = contactJsonFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context), secondaryValuesMap);
+            JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context), secondaryValuesMap);
             String formTitle = getFormTitle(taskValue);
-            JSONObject form = contactJsonFormUtils.loadTasksForm(context);
+            JSONObject form = ANCFormUtils.loadTasksForm(context);
             updateFormTitle(form, formTitle);
-            contactJsonFormUtils.updateFormFields(form, subFormFields);
+            ANCFormUtils.updateFormFields(form, subFormFields);
 
             profileTasksFragment.startTaskForm(form, task);
         }
@@ -114,7 +115,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         newTask.setKey(task.getKey());
         newTask.setValue(String.valueOf(taskValue));
         newTask.setUpdated(true);
-        newTask.setContactNo(task.getContactNo());
+        newTask.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(taskValue));
         newTask.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return newTask;
     }
@@ -146,7 +147,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         if (taskValue != null && StringUtils.isNotBlank(taskKey)) {
             JSONArray taskValueArray = new JSONArray();
             taskValueArray.put(taskValue);
-            values = contactJsonFormUtils.loadExpansionPanelValues(taskValueArray, taskKey);
+            values = ANCFormUtils.loadExpansionPanelValues(taskValueArray, taskKey);
         }
 
         return values;
@@ -161,7 +162,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private Map<String, ExpansionPanelValuesModel> getSecondaryValues(JSONArray secondaryValues) {
         Map<String, ExpansionPanelValuesModel> stringExpansionPanelValuesModelMap = new HashMap<>();
         if (secondaryValues != null && secondaryValues.length() > 0) {
-            stringExpansionPanelValuesModelMap = contactJsonFormUtils.createSecondaryValuesMap(secondaryValues);
+            stringExpansionPanelValuesModelMap = ANCFormUtils.createSecondaryValuesMap(secondaryValues);
         }
         return stringExpansionPanelValuesModelMap;
     }
@@ -178,7 +179,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         try {
             if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
                 String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
-                JSONObject subForm = ContactJsonFormUtils.getSubFormJson(subFormName, "", context);
+                JSONObject subForm = ANCFormUtils.getSubFormJson(subFormName, "", context);
                 if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
                     fields = subForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
                 }

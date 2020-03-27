@@ -22,7 +22,7 @@ import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.FilePathUtils;
 
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
     private AncRulesEngineHelper rulesEngineHelper;
 
     @Mock
-    private PreviousContactRepositoryHelper previousContactRepositoryHelper;
+    private PreviousContactRepository previousContactRepository;
 
     @Captor
     private ArgumentCaptor<List<LastContactDetailsWrapper>> listArgumentCaptor;
@@ -84,7 +84,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
 
         populateYamlConfiRules((ArrayList<Object>) testsRuleObjects);
 
-        PowerMockito.when(ancLibrary.getPreviousContactRepositoryHelper()).thenReturn(previousContactRepositoryHelper);
+        PowerMockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
         PowerMockito.when(AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.PROFILE_LAST_CONTACT_TEST)).thenReturn(testsRuleObjects);
         PowerMockito.when(ancLibrary.getAncRulesEngineHelper()).thenReturn(rulesEngineHelper);
         String baseEntityId = BaseUnitTest.DUMMY_BASE_ENTITY_ID;
@@ -101,7 +101,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
         previousContactFacts.put("vita_supp", "done");
         previousContactFacts.put("tobacco_user", "no");
 
-        Mockito.doReturn(previousContactFacts).when(previousContactRepositoryHelper).getPreviousContactTestsFacts(baseEntityId);
+        Mockito.doReturn(previousContactFacts).when(previousContactRepository).getPreviousContactTestsFacts(baseEntityId);
 
         previousContactTestPresenter.loadPreviousContactsTest(baseEntityId, contactNo, lastContactDate);
         //Verify that the recyclerview adapter is refreshed with new data

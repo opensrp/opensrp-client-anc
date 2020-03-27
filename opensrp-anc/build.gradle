@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.google.gms:google-services:4.3.3'
     }
 }
@@ -140,7 +140,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation('org.smartregister:opensrp-client-native-form:1.7.13-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.28-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -151,7 +151,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.8.22-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.9.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -164,7 +164,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
     }
-    implementation('org.smartregister:opensrp-client-configurable-views:1.1.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-configurable-views:1.1.5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -190,7 +190,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
     implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-    implementation 'id.zelory:compressor:1.0.4'
+    implementation 'id.zelory:compressor:2.1.0'
     implementation('com.android.support:design:28.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'

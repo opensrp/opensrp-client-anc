@@ -6,30 +6,25 @@ import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
-import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDate;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactContract;
-import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.domain.WomanDetail;
 import org.smartregister.anc.library.model.ContactVisit;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PartialContacts;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ContactJsonFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.JsonFormUtils;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.repository.DetailsRepository;
@@ -45,6 +40,7 @@ import timber.log.Timber;
  * Created by keyman 30/07/2018.
  */
 public class ContactInteractor extends BaseContactInteractor implements ContactContract.Interactor {
+    private Utils utils = new Utils();
 
     public ContactInteractor() {
         this(new AppExecutors());
@@ -98,17 +94,19 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 }
 
                 if (referral == null) {
-                    createTasksPartialContainer(baseEntityId, context, nextContact - 1);
+                    List<Task> doneTasks = utils.getContactTasksRepositoryHelper().getClosedTasks(baseEntityId);
+                    utils.createTasksPartialContainer(baseEntityId, context, nextContact - 1, doneTasks);
+                    removeAllDoneTasks(doneTasks);
                 }
 
                 PartialContacts partialContacts =
                         new PartialContacts(details, referral, baseEntityId, isFirst).invoke();
-                PartialContactRepositoryHelper partialContactRepositoryHelper = partialContacts.getPartialContactRepositoryHelper();
+                PartialContactRepository partialContactRepository = partialContacts.getPartialContactRepository();
                 List<PartialContact> partialContactList = partialContacts.getPartialContactList();
 
                 ContactVisit contactVisit =
                         new ContactVisit(details, referral, baseEntityId, nextContact, nextContactVisitDate,
-                                partialContactRepositoryHelper, partialContactList).invoke();
+                                partialContactRepository, partialContactList).invoke();
                 Facts facts = contactVisit.getFacts();
                 List<String> formSubmissionIDs = contactVisit.getFormSubmissionIDs();
                 WomanDetail womanDetail = contactVisit.getWomanDetail();
@@ -131,10 +129,10 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     addReferralGa(baseEntityId, details);
                 }
 
-                Pair<Event, Event> eventPair = JsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
+                Pair<Event, Event> eventPair = ANCJsonFormUtils.createContactVisitEvent(formSubmissionIDs, details);
                 if (eventPair != null) {
                     createEvent(baseEntityId, new JSONObject(facts.asMap()).toString(), eventPair, referral);
-                    JSONObject updateClientEventJson = new JSONObject(JsonFormUtils.gson.toJson(eventPair.second));
+                    JSONObject updateClientEventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(eventPair.second));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
             } catch (Exception e) {
@@ -148,7 +146,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE);
         previousContact.setValue(String.valueOf(integerList));
-        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     protected DetailsRepository getDetailsRepository() {
@@ -156,32 +154,15 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     private int getNextContact(Map<String, String> details) {
-        int nextContact =
-                details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ?
-                        Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
+        int nextContact = details.containsKey(DBConstantsUtils.KeyUtils.NEXT_CONTACT) && details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT) != null ? Integer.valueOf(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)) : 1;
         nextContact += 1;
         return nextContact;
     }
 
-    private void createTasksPartialContainer(String baseEntityId, Context context, int contactNo) {
-        try {
-            if (contactNo > 0) {
-                List<Task> doneTasks = getContactTasksRepositoryHelper().getClosedTasks(baseEntityId, String.valueOf(contactNo - 1));
-                if (doneTasks != null && doneTasks.size() > 0) {
-                    JSONArray fields = createFieldsArray(doneTasks);
-
-                    ContactJsonFormUtils contactJsonFormUtils = new ContactJsonFormUtils();
-                    JSONObject jsonForm = contactJsonFormUtils.loadTasksForm(context);
-                    if (jsonForm != null) {
-                        contactJsonFormUtils.updateFormFields(jsonForm, fields);
-                    }
-
-                    createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
-                    removeAllDoneTasks(doneTasks);
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> createTasksPartialContainer");
+    private void removeAllDoneTasks(List<Task> doneTasks) {
+        for (Task task : doneTasks) {
+            Long taskId = task.getId();
+            utils.getContactTasksRepositoryHelper().deleteContactTask(taskId);
         }
     }
 
@@ -190,14 +171,14 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
         previousContact.setValue(attentionFlagsString);
-        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void addTheContactDate(String baseEntityId, Map<String, String> details) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
         previousContact.setKey(ConstantsUtils.CONTACT_DATE);
         previousContact.setValue(Utils.getDBDateToday());
-        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void updateWomanDetails(Map<String, String> details, WomanDetail womanDetail) {
@@ -226,7 +207,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         previousContact.setKey(ConstantsUtils.GEST_AGE_OPENMRS);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
         previousContact.setValue(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
-        AncLibrary.getInstance().getPreviousContactRepositoryHelper().savePreviousContact(previousContact);
+        AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
     }
 
     private void createEvent(String baseEntityId, String attentionFlagsString, Pair<Event, Event> eventPair,
@@ -238,7 +219,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         if (currentContactState != null && referral == null) {
             event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
-        JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(event));
+        JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
         AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
     }
 
@@ -249,36 +230,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         previousContact.setContactNo(contactNo);
         return previousContact;
-    }
-
-    protected ContactTasksRepositoryHelper getContactTasksRepositoryHelper() {
-        return AncLibrary.getInstance().getContactTasksRepositoryHelper();
-    }
-
-    @NotNull
-    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
-        JSONArray fields = new JSONArray();
-        for (Task task : doneTasks) {
-            JSONObject field = new JSONObject(task.getValue());
-            fields.put(field);
-        }
-        return fields;
-    }
-
-    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
-        Contact contact = new Contact();
-        contact.setJsonForm(String.valueOf(jsonForm));
-        contact.setContactNumber(contactNo);
-        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-
-        ContactJsonFormUtils.persistPartial(baseEntityId, contact);
-    }
-
-    private void removeAllDoneTasks(List<Task> doneTasks) {
-        for (Task task : doneTasks) {
-            Long taskId = task.getId();
-            getContactTasksRepositoryHelper().deleteContactTask(taskId);
-        }
     }
 
     private String getCurrentContactState(String baseEntityId) throws JSONException {
@@ -295,8 +246,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
         return stateObject != null ? stateObject.toString() : null;
     }
 
-    protected PreviousContactRepositoryHelper getPreviousContactRepository() {
-        return AncLibrary.getInstance().getPreviousContactRepositoryHelper();
+    protected PreviousContactRepository getPreviousContactRepository() {
+        return AncLibrary.getInstance().getPreviousContactRepository();
     }
 
     public int getGestationAge(Map<String, String> details) {
