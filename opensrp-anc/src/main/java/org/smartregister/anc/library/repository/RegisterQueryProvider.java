@@ -21,14 +21,14 @@ public class RegisterQueryProvider {
                 "join " + getDetailsTable() + " on " + getDemographicTable() + "." + CommonFtsObject.idColumn + " =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
-    private String getFilter(String filters) {
+    public String getFilter(String filters) {
         if (StringUtils.isNotBlank(filters)) {
             return String.format(" AND " + getDemographicTable() + "." + CommonFtsObject.phraseColumn + " MATCH '*%s*'", filters);
         }
         return "";
     }
 
-    private String getMainCondition(String mainCondition) {
+    public String getMainCondition(String mainCondition) {
         if (StringUtils.isNotBlank(mainCondition)) {
             return " where " + mainCondition;
         }
