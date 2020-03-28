@@ -805,7 +805,22 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         try {
             String baseEntityId = womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
 
+
             Event contactVisitEvent = Utils.createContactVisitEvent(formSubmissionIDs, womanDetails, String.valueOf(getOpenTasks(baseEntityId)));
+
+            String currentContactNo;
+            if (womanDetails.get(ConstantsUtils.REFERRAL) == null) {
+                currentContactNo = ConstantsUtils.CONTACT + " " + contactNo;
+            } else {
+                currentContactNo = ConstantsUtils.CONTACT + " " + womanDetails.get(ConstantsUtils.REFERRAL);
+            }
+            contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
+            contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
+            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, String.valueOf(getOpenTasks(baseEntityId)));
+
+            tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(), contactVisitEvent);
+
+            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
 
             //Update client
             EventClientRepository db = AncLibrary.getInstance().getEventClientRepository();
