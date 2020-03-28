@@ -113,6 +113,12 @@ public class PatientRepository extends BaseRepository {
         updateLastInteractedWith(baseEntityId);
     }
 
+    public static void updatePatient(String baseEntityId, ContentValues contentValues, String detailsTable) {
+        getMasterRepository().getWritableDatabase()
+                .update(detailsTable, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
+                        new String[]{baseEntityId});
+    }
+
     private static void updateLastInteractedWith(String baseEntityId) {
         ContentValues lastInteractedWithContentValue = new ContentValues();
 
@@ -153,12 +159,6 @@ public class PatientRepository extends BaseRepository {
             contentValues.putNull(DBConstantsUtils.KeyUtils.EDD);
         }
         updatePatient(baseEntityId, contentValues, getRegisterQueryProvider().getDetailsTable());
-    }
-
-    public static void updatePatient(String baseEntityId, ContentValues contentValues, String detailsTable) {
-        getMasterRepository().getWritableDatabase()
-                .update(detailsTable, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
-                        new String[]{baseEntityId});
     }
 
     public static void updateContactVisitStartDate(String baseEntityId, String contactVisitStartDate) {
