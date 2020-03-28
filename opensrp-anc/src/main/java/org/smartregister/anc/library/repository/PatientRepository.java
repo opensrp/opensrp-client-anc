@@ -108,9 +108,7 @@ public class PatientRepository extends BaseRepository {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, alertStatus);
 
-        getMasterRepository().getWritableDatabase()
-                .update(getRegisterQueryProvider().getDetailsTable(), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
-                        new String[]{baseEntityId});
+        updatePatient(baseEntityId, contentValues, getRegisterQueryProvider().getDetailsTable());
 
         updateLastInteractedWith(baseEntityId);
     }
@@ -120,8 +118,7 @@ public class PatientRepository extends BaseRepository {
 
         lastInteractedWithContentValue.put(DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, Calendar.getInstance().getTimeInMillis());
 
-        getMasterRepository().getWritableDatabase().update(getRegisterQueryProvider().getDemographicTable(), lastInteractedWithContentValue, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
-                new String[]{baseEntityId});
+        updatePatient(baseEntityId, lastInteractedWithContentValue, getRegisterQueryProvider().getDemographicTable());
     }
 
     public static void updateContactVisitDetails(WomanDetail patientDetail, boolean isFinalize) {
@@ -142,8 +139,7 @@ public class PatientRepository extends BaseRepository {
             }
         }
 
-        getMasterRepository().getWritableDatabase().update(getRegisterQueryProvider().getDetailsTable(), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
-                new String[]{patientDetail.getBaseEntityId()});
+        updatePatient(patientDetail.getBaseEntityId(), contentValues, getRegisterQueryProvider().getDetailsTable());
 
         updateLastInteractedWith(patientDetail.getBaseEntityId());
     }
@@ -156,8 +152,12 @@ public class PatientRepository extends BaseRepository {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.EDD);
         }
+        updatePatient(baseEntityId, contentValues, getRegisterQueryProvider().getDetailsTable());
+    }
+
+    public static void updatePatient(String baseEntityId, ContentValues contentValues, String detailsTable) {
         getMasterRepository().getWritableDatabase()
-                .update(getRegisterQueryProvider().getDetailsTable(), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
+                .update(detailsTable, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
 
@@ -169,9 +169,7 @@ public class PatientRepository extends BaseRepository {
         } else {
             contentValues.putNull(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
         }
-        getMasterRepository().getWritableDatabase()
-                .update(getRegisterQueryProvider().getDetailsTable(), contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
-                        new String[]{baseEntityId});
+        updatePatient(baseEntityId, contentValues, getRegisterQueryProvider().getDetailsTable());
     }
 
 }

@@ -728,8 +728,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
             contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, String.valueOf(getOpenTasks(baseEntityId)));
 
-            tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
-                    contactVisitEvent);
+            tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(), contactVisitEvent);
 
             PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
 
@@ -738,17 +737,18 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             EventClientRepository db = AncLibrary.getInstance().getEventClientRepository();
             JSONObject clientForm = db.getClientByBaseEntityId(baseEntityId);
 
-            JSONObject attributes = clientForm.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-            attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, contactNo);
-            attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
-            attributes.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
-                    womanDetails.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
-            attributes.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetails.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS));
-            attributes.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, womanDetails.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT));
-            attributes.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetails.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
-            attributes.put(DBConstantsUtils.KeyUtils.EDD, womanDetails.get(DBConstantsUtils.KeyUtils.EDD));
-            clientForm.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
-
+            if (clientForm.has(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES)) {
+                JSONObject attributes = clientForm.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
+                attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, contactNo);
+                attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
+                attributes.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
+                        womanDetails.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
+                attributes.put(DBConstantsUtils.KeyUtils.CONTACT_STATUS, womanDetails.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS));
+                attributes.put(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, womanDetails.get(DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT));
+                attributes.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetails.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
+                attributes.put(DBConstantsUtils.KeyUtils.EDD, womanDetails.get(DBConstantsUtils.KeyUtils.EDD));
+                clientForm.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
+            }
             FormTag formTag = getFormTag(AncLibrary.getInstance().getContext().allSharedPreferences());
             formTag.childLocationId = LocationHelper.getInstance().getChildLocationId();
             formTag.locationId = LocationHelper.getInstance().getParentLocationId();
