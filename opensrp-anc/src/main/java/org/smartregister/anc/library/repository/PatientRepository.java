@@ -27,6 +27,12 @@ public class PatientRepository extends BaseRepository {
 
     private static final String[] projection = getRegisterQueryProvider().mainColumns();
 
+    /**
+     * Provides all woman details needed for display and/or editing
+     *
+     * @param baseEntityId
+     * @return
+     */
     public static Map<String, String> getWomanProfileDetails(String baseEntityId) {
         Cursor cursor = null;
 

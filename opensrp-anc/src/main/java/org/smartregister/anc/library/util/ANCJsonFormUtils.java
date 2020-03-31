@@ -112,7 +112,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 entityId = entityId.replace("-", "");
             }
 
-            addRegLocHierarchyQuestions(form);
+            addRegistrationLocationHierarchyQuestions(form);
             // Inject opensrp id into the form
             JSONArray field = ANCJsonFormUtils.fields(form);
             JSONObject ancId = getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
@@ -134,9 +134,9 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return form;
     }
 
-    private static void addRegLocHierarchyQuestions(@NonNull JSONObject form) {
+    private static void addRegistrationLocationHierarchyQuestions(@NonNull JSONObject form) {
         try {
-            JSONArray fields = form.getJSONObject(JsonFormConstants.STEP1).getJSONArray(JsonFormConstants.FIELDS);
+            JSONArray fields = com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(form);
             AncMetadata metadata = AncLibrary.getInstance().getAncMetadata();
             ArrayList<String> allLevels = metadata.getLocationLevels();
             ArrayList<String> healthFacilities = metadata.getHealthFacilityLevels();
