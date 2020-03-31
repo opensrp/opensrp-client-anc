@@ -221,12 +221,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String entityId = getEntityId(jsonForm);
             String encounterType = ANCJsonFormUtils.getString(jsonForm, ENCOUNTER_TYPE);
             JSONObject metadata = ANCJsonFormUtils.getJSONObject(jsonForm, METADATA);
-
-            // String lastLocationName = null;
-            // String lastLocationId = null;
-            // TODO Replace values for location questions with their corresponding location IDs
-
-
             addLastInteractedWith(fields);
             getDobStrings(fields);
             initializeFirstContactValues(fields);

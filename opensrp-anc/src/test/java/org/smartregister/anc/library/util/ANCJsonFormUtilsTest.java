@@ -2,6 +2,8 @@ package org.smartregister.anc.library.util;
 
 import android.graphics.Bitmap;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +20,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.internal.WhiteboxImpl;
+import org.robolectric.util.ReflectionHelpers;
 import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -44,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -539,5 +544,81 @@ public class ANCJsonFormUtilsTest {
 
         Assert.assertNotNull(eventEventTriple.getRight());
         Assert.assertEquals("Update ANC Registration", eventEventTriple.getRight().getEventType());
+    }
+
+    @Test
+    public void testProcessLocationFieldsShouldUpdateValueWithOpenmrsId() throws JSONException {
+        PowerMockito.mockStatic(LocationHelper.class);
+        Mockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        Mockito.doReturn("232-121").when(locationHelper).getOpenMrsLocationId("locationA");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.TREE);
+        jsonObject.put(JsonFormConstants.VALUE, "[locationA]");
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(jsonObject);
+        ANCJsonFormUtils.processLocationFields(jsonArray);
+        Assert.assertEquals("232-121", jsonArray.optJSONObject(0).optString(JsonFormConstants.VALUE));
+    }
+
+    @Test
+    public void testReverseLocationTreeShouldPopulateValueAndTreeWithCorrectValues() throws Exception {
+        ArrayList<String> healthFacilities = new ArrayList<>();
+        healthFacilities.add("Country");
+        healthFacilities.add("Province");
+        String entity = "232-432-3232";
+        List<String> entityHierarchy = new ArrayList<>();
+        entityHierarchy.add("Kenya");
+        entityHierarchy.add("Central");
+        PowerMockito.mockStatic(LocationHelper.class);
+        Mockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        Mockito.doReturn("locationA").when(locationHelper).getOpenMrsLocationId(entity);
+        Mockito.doReturn(entityHierarchy).when(locationHelper).getOpenMrsLocationHierarchy("locationA", false);
+        AncMetadata ancMetadata = new AncMetadata();
+        ancMetadata.setHealthFacilityLevels(healthFacilities);
+        List<FormLocation> entireTree = new ArrayList<>();
+        FormLocation formLocationCountry = new FormLocation();
+        formLocationCountry.level = "Country";
+        formLocationCountry.name = "Kenya";
+        formLocationCountry.key = "0";
+        FormLocation formLocationProvince = new FormLocation();
+        formLocationProvince.level = "Province";
+        formLocationProvince.name = "Central";
+        formLocationProvince.key = "1";
+        List<FormLocation> entireTreeCountryNode = new ArrayList<>();
+        entireTreeCountryNode.add(formLocationProvince);
+        formLocationCountry.nodes = entireTreeCountryNode;
+        entireTree.add(formLocationCountry);
+        Mockito.doReturn(entireTree).when(locationHelper).generateLocationHierarchyTree(true, healthFacilities);//OpenMrsLocationHierarchy("locationA", false);
+        Mockito.when(ancLibrary.getAncMetadata()).thenReturn(ancMetadata);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+        JSONObject jsonObject = new JSONObject();
+        WhiteboxImpl.invokeMethod(ANCJsonFormUtils.class, "reverseLocationTree", jsonObject, entity);
+        Assert.assertTrue(jsonObject.has(ANCJsonFormUtils.VALUE));
+        Assert.assertTrue(jsonObject.has(JsonFormConstants.TREE));
+        String expectedTree = "[{\"nodes\":[{\"level\":\"Province\",\"name\":\"Central\",\"key\":\"1\"}],\"level\":\"Country\",\"name\":\"Kenya\",\"key\":\"0\"}]";
+        String expectedValue = "[\"Kenya\",\"Central\"]";
+        Assert.assertEquals(expectedValue, jsonObject.optString(ANCJsonFormUtils.VALUE));
+        Assert.assertEquals(expectedTree, jsonObject.optString(JsonFormConstants.TREE));
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
+    }
+
+    @Test
+    public void testUpdateLocationStringShouldPopulateTreeAndDefaultAttribute() throws Exception {
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormConstants.KEY, "village");
+        jsonArray.put(jsonObject);
+        String hierarchyString = "[\"Kenya\",\"Central\"]";
+        String entireTree = "[{\"nodes\":[{\"level\":\"Province\",\"name\":\"Central\",\"key\":\"1\"}],\"level\":\"Country\",\"name\":\"Kenya\",\"key\":\"0\"}]";
+        AncMetadata ancMetadata = new AncMetadata();
+        ancMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
+        Mockito.when(ancLibrary.getAncMetadata()).thenReturn(ancMetadata);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+        WhiteboxImpl.invokeMethod(ANCJsonFormUtils.class, "updateLocationTree", jsonArray, hierarchyString, hierarchyString, entireTree);
+        Assert.assertTrue(jsonObject.has(JsonFormConstants.TREE));
+        Assert.assertTrue(jsonObject.has(JsonFormConstants.DEFAULT));
+        Assert.assertEquals(hierarchyString, jsonObject.optString(JsonFormConstants.DEFAULT));
+        Assert.assertEquals(entireTree, jsonObject.optString(JsonFormConstants.TREE));
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
     }
 }
