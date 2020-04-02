@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -96,7 +97,8 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static void saveLanguage(String language) {
         Utils.getAllSharedPreferences().saveLanguagePreference(language);
-        setLocale(new Locale(language));
+        Locale.setDefault(new Locale(language));
+        NativeFormLangUtils.setLocale(new Locale(language));
     }
 
     public static void setLocale(Locale locale) {
@@ -105,8 +107,10 @@ public class Utils extends org.smartregister.util.Utils {
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             configuration.setLocale(locale);
+            Locale.setDefault(locale);
             AncLibrary.getInstance().getApplicationContext().createConfigurationContext(configuration);
         } else {
+            Locale.setDefault(locale);
             configuration.locale = locale;
             resources.updateConfiguration(configuration, displayMetrics);
         }
@@ -242,6 +246,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
+                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 Activity activity = (Activity) context;
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
@@ -251,6 +256,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                         Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 context.startActivity(intent);
             }
 
