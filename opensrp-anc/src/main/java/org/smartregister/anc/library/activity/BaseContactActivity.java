@@ -100,6 +100,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
             intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
+            intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
             startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(e, " --> formStartActions");

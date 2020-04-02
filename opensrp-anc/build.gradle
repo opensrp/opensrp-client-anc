@@ -140,7 +140,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation('org.smartregister:opensrp-client-native-form:1.7.28-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.3004-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -177,7 +177,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife:10.2.0'
     implementation 'net.zetetic:android-database-sqlcipher:4.2.0@aar'
     implementation 'commons-validator:commons-validator:1.6'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
         transitive = true
     }
     implementation 'com.google.code.gson:gson:2.8.6'
