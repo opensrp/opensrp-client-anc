@@ -98,7 +98,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static void saveLanguage(String language) {
         Utils.getAllSharedPreferences().saveLanguagePreference(language);
         Locale.setDefault(new Locale(language));
-        NativeFormLangUtils.setLocale(new Locale(language));
+        //NativeFormLangUtils.setLocale(new Locale(language));
     }
 
     public static void setLocale(Locale locale) {
