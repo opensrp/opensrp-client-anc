@@ -125,7 +125,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (StringUtils.isNotBlank(entityId)) {
                 // Inject entity id into the remove form
                 form.remove(ANCJsonFormUtils.ENTITY_ID);
-                form.put(ANCJsonFormUtils.ENTITY_ID, entityId);
+                form.put(ENTITY_ID, entityId);
             }
         } else {
             Timber.tag(TAG).w("Unsupported form requested for launch %s", formName);
@@ -857,15 +857,15 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static Event processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-        JSONArray fields = ANCJsonFormUtils.getMultiStepFormFields(jsonForm);
+        JSONArray fields = getMultiStepFormFields(jsonForm);
 
-        String entityId = ANCJsonFormUtils.getString(jsonForm, ANCJsonFormUtils.ENTITY_ID);
+        String entityId = getString(jsonForm, ANCJsonFormUtils.ENTITY_ID);
         if (StringUtils.isBlank(entityId)) {
             entityId = baseEntityId;
         }
 
-        String encounterType = ANCJsonFormUtils.getString(jsonForm, ENCOUNTER_TYPE);
-        JSONObject metadata = ANCJsonFormUtils.getJSONObject(jsonForm, METADATA);
+        String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+        JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
         FormTag formTag = getFormTag(allSharedPreferences);
         Event baseEvent = org.smartregister.util.JsonFormUtils
