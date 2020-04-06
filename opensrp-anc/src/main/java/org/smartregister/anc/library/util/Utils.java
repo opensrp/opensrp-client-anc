@@ -201,7 +201,6 @@ public class Utils extends org.smartregister.util.Utils {
         try {
 
             Intent intent = new Intent(context.getApplicationContext(), ContactJsonFormActivity.class);
-
             Contact quickCheck = new Contact();
             quickCheck.setName(context.getResources().getString(R.string.quick_check));
             quickCheck.setFormName(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK);
@@ -211,6 +210,7 @@ public class Utils extends org.smartregister.util.Utils {
             quickCheck.setBackIcon(R.drawable.ic_clear);
             quickCheck.setWizard(false);
             quickCheck.setHideSaveLabel(true);
+
 
             //partial contact exists?
             PartialContact partialContactRequest = new PartialContact();
@@ -223,6 +223,10 @@ public class Utils extends org.smartregister.util.Utils {
 
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
+
+            JSONObject globals = new JSONObject();
+            globals.put(ConstantsUtils.CONTACT_NO, personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+            form.put(ConstantsUtils.GLOBAL, globals);
 
             String processedForm = ANCFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 

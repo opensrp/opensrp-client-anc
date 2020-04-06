@@ -70,6 +70,7 @@ public abstract class ConstantsUtils {
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
+        String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
     }
 
     public interface TemplateUtils {
