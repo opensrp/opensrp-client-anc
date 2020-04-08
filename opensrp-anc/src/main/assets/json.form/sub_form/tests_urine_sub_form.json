@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "161156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "Urine test",
+      "label": "{{tests_urine_sub_form.step1.urine_test_status.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -45,7 +45,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Urine test status is required"
+        "err": "{{tests_urine_sub_form.step1.urine_test_status.v_required.err}}"
       }
     },
     {
@@ -54,26 +54,26 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Reason",
+      "label": "{{tests_urine_sub_form.step1.urine_test_notdone.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "stock_out",
-          "text": "Stock out",
+          "text": "{{tests_urine_sub_form.step1.urine_test_notdone.options.stock_out.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "expired_stock",
-          "text": "Expired stock",
+          "text": "{{tests_urine_sub_form.step1.urine_test_notdone.options.expired_stock.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "{{tests_urine_sub_form.step1.urine_test_notdone.options.other.text}}",
           "openmrs_entity_parent": "161156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -88,7 +88,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Reason for urine test not done is required"
+        "err": "{{tests_urine_sub_form.step1.urine_test_notdone.v_required.err}}"
       }
     },
     {
@@ -105,7 +105,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Specify",
+      "hint": "{{tests_urine_sub_form.step1.urine_test_notdone_other.hint}}",
       "edit_type": "name",
       "relevance": {
         "rules-engine": {
@@ -137,7 +137,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Urine test date",
+      "hint": "{{tests_urine_sub_form.step1.urine_test_date.hint}}",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -156,7 +156,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Select the date of the urine test.."
+        "err": "{{tests_urine_sub_form.step1.urine_test_date.v_required.err}}"
       }
     },
     {
@@ -165,28 +165,28 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Urine test type",
+      "label": "{{tests_urine_sub_form.step1.urine_test_type.label}}",
       "label_info_text": "Midstream urine culture is the preferred method for testing for asymptomatic bacteriuria (ASB) in pregnancy. If culture is not available, midstream urine Gram-staining is recommended over dipstick.",
       "label_info_title": "Urine test",
       "label_text_style": "bold",
       "options": [
         {
           "key": "midstream_urine_culture",
-          "text": "Midstream urine culture (recommended)",
+          "text": "{{tests_urine_sub_form.step1.urine_test_type.options.midstream_urine_culture.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "midstream_urine_gram",
-          "text": "Midstream urine Gram-staining",
+          "text": "{{tests_urine_sub_form.step1.urine_test_type.options.midstream_urine_gram.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "urine_dipstick",
-          "text": "Urine dipstick",
+          "text": "{{tests_urine_sub_form.step1.urine_test_type.options.urine_dipstick.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -201,7 +201,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Urine test type is required"
+        "err": "{{tests_urine_sub_form.step1.urine_test_type.v_required.err}}"
       }
     },
     {
@@ -210,26 +210,26 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Midstream urine culture (recommended)",
+      "label": "{{tests_urine_sub_form.step1.urine_culture.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "positive_any",
-          "text": "Positive - any agent",
+          "text": "{{tests_urine_sub_form.step1.urine_culture.options.positive_any.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "positive_gbs",
-          "text": "Positive - Group B Streptococcus (GBS)",
+          "text": "{{tests_urine_sub_form.step1.urine_culture.options.positive_gbs.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
-          "text": "Negative",
+          "text": "{{tests_urine_sub_form.step1.urine_culture.options.negative.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -237,7 +237,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Urine culture is required"
+        "err": "{{tests_urine_sub_form.step1.urine_culture.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -253,19 +253,19 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Midstream urine Gram-staining ",
+      "label": "{{tests_urine_sub_form.step1.urine_gram_stain.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "positive",
-          "text": "Positive",
+          "text": "{{tests_urine_sub_form.step1.urine_gram_stain.options.positive.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
-          "text": "Negative",
+          "text": "{{tests_urine_sub_form.step1.urine_gram_stain.options.negative.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -273,7 +273,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Midstream urine Gram-staining is required"
+        "err": "{{tests_urine_sub_form.step1.urine_gram_stain.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -289,40 +289,40 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "161440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Urine dipstick result - nitrites",
+      "label": "{{tests_urine_sub_form.step1.urine_nitrites.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "none",
-          "text": "None",
+          "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.none.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+",
-          "text": "+",
+          "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.+.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++",
-          "text": "++",
+          "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+++",
-          "text": "+++",
+          "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.+++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++++",
-          "text": "++++",
+          "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.++++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -330,7 +330,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Urine dipstick results is required"
+        "err": "{{tests_urine_sub_form.step1.urine_nitrites.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -346,40 +346,40 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "161441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Urine dipstick result - leukocytes",
+      "label": "{{tests_urine_sub_form.step1.urine_leukocytes.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "none",
-          "text": "None",
+          "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.none.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+",
-          "text": "+",
+          "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.+.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++",
-          "text": "++",
+          "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+++",
-          "text": "+++",
+          "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.+++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++++",
-          "text": "++++",
+          "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.++++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -387,7 +387,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Urine dipstick results - leukocytes is required"
+        "err": "{{tests_urine_sub_form.step1.urine_leukocytes.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -403,40 +403,40 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Urine dipstick result - protein",
+      "label": "{{tests_urine_sub_form.step1.urine_protein.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "none",
-          "text": "None",
+          "text": "{{tests_urine_sub_form.step1.urine_protein.options.none.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+",
-          "text": "+",
+          "text": "{{tests_urine_sub_form.step1.urine_protein.options.+.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++",
-          "text": "++",
+          "text": "{{tests_urine_sub_form.step1.urine_protein.options.++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+++",
-          "text": "+++",
+          "text": "{{tests_urine_sub_form.step1.urine_protein.options.+++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++++",
-          "text": "++++",
+          "text": "{{tests_urine_sub_form.step1.urine_protein.options.++++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -444,7 +444,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Field urine protein is required"
+        "err": "{{tests_urine_sub_form.step1.urine_protein.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -460,40 +460,40 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Urine dipstick result - glucose",
+      "label": "{{tests_urine_sub_form.step1.urine_glucose.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "none",
-          "text": "None",
+          "text": "{{tests_urine_sub_form.step1.urine_glucose.options.none.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+",
-          "text": "+",
+          "text": "{{tests_urine_sub_form.step1.urine_glucose.options.+.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++",
-          "text": "++",
+          "text": "{{tests_urine_sub_form.step1.urine_glucose.options.++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "+++",
-          "text": "+++",
+          "text": "{{tests_urine_sub_form.step1.urine_glucose.options.+++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "++++",
-          "text": "++++",
+          "text": "{{tests_urine_sub_form.step1.urine_glucose.options.++++.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -501,7 +501,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Field urine glucose is required"
+        "err": "{{tests_urine_sub_form.step1.urine_glucose.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -531,9 +531,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Gestational diabetes mellitus (GDM) risk counseling",
-      "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n\n - Reasserting dietary interventions\n\n- Reasserting physical activity during pregnancy",
-      "toaster_info_title": "Gestational diabetes mellitus (GDM) risk counseling",
+      "text": "{{tests_urine_sub_form.step1.gdm_risk_toaster.text}}",
+      "toaster_info_text": "{{tests_urine_sub_form.step1.gdm_risk_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_urine_sub_form.step1.gdm_risk_toaster.toaster_info_title}}",
       "toaster_type": "warning",
       "relevance": {
         "rules-engine": {
@@ -565,9 +565,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
-      "toaster_info_text": "A woman is considered to have ASB if she has one of the following test results:\n\n- Positive culture (> 100,000 bacteria/mL)\n- Gram-staining positive\n- Urine dipstick test positive (nitrites or leukocytes)\n\nSeven-day antibiotic regimen is recommended for all pregnant women with asymptomatic bacteriuria (ASB) to prevent persistent bacteriuria, preterm birth and low birth weight.",
-      "toaster_info_title": "Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)",
+      "text": "{{tests_urine_sub_form.step1.asb_positive_toaster.text}}",
+      "toaster_info_text": "{{tests_urine_sub_form.step1.asb_positive_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_urine_sub_form.step1.asb_positive_toaster.toaster_info_title}}",
       "toaster_type": "warning",
       "relevance": {
         "rules-engine": {
@@ -583,9 +583,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
-      "toaster_info_text": "Pregnant women with Group B Streptococcus (GBS) colonization should receive intrapartum antibiotic administration to prevent early neonatal GBS infection.",
-      "toaster_info_title": "Intrapartum antibiotic to prevent early neonatal Group B Streptococcus (GBS) infection counseling",
+      "text": "{{tests_urine_sub_form.step1.gbs_agent_note.text}}",
+      "toaster_info_text": "{{tests_urine_sub_form.step1.gbs_agent_note.toaster_info_text}}",
+      "toaster_info_title": "{{tests_urine_sub_form.step1.gbs_agent_note.toaster_info_title}}",
       "toaster_type": "warning",
       "relevance": {
         "rules-engine": {
@@ -595,5 +595,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "tests_urine_sub_form"
 }

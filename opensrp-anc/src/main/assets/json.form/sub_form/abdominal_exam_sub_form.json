@@ -6,13 +6,13 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "1125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Abdominal exam: abnormal",
+      "label": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "options": [
         {
           "key": "mass_tumour",
-          "text": "Mass/tumour",
+          "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.mass_tumour.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -20,7 +20,7 @@
         },
         {
           "key": "superficial_palpation_pain",
-          "text": "Pain on superficial palpation",
+          "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.superficial_palpation_pain.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -28,7 +28,7 @@
         },
         {
           "key": "deep_palpation_pain",
-          "text": "Pain on deep palpation",
+          "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.deep_palpation_pain.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -36,7 +36,7 @@
         },
         {
           "key": "painful_decompression",
-          "text": "Painful decompression",
+          "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.painful_decompression.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "127866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -44,7 +44,7 @@
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.other.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -58,10 +58,10 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Specify",
+      "hint": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal_other.hint}}",
       "v_regex": {
         "value": "[A-Za-z\\s\\.\\-]*",
-        "err": "Please enter valid content"
+        "err": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal_other.v_regex.err}}"
       },
       "relevance": {
         "step3:abdominal_exam_abnormal": {
@@ -75,5 +75,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "abdominal_exam_sub_form"
 }
