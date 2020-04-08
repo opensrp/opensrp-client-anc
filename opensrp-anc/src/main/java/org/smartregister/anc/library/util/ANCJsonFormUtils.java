@@ -620,9 +620,9 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Intent intent = new Intent(activity, JsonFormActivity.class);
             JSONObject form = FormUtils.getInstance(activity).getFormJson(ConstantsUtils.JsonFormUtils.ANC_CLOSE);
             if (form != null) {
-                form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID,
-                        activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+                form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID, activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, form.toString());
+                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
