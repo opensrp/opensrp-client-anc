@@ -95,27 +95,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static void saveLanguage(String language) {
         Utils.getAllSharedPreferences().saveLanguagePreference(language);
-        Locale.setDefault(new Locale(language));
-        //NativeFormLangUtils.setLocale(new Locale(language));
-    }
-
-    public static void setLocale(Locale locale) {
-        Resources resources = AncLibrary.getInstance().getApplicationContext().getResources();
-        Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLocale(locale);
-            Locale.setDefault(locale);
-            AncLibrary.getInstance().getApplicationContext().createConfigurationContext(configuration);
-        } else {
-            Locale.setDefault(locale);
-            configuration.locale = locale;
-            resources.updateConfiguration(configuration, displayMetrics);
-        }
-    }
-
-    public static String getLanguage() {
-        return Utils.getAllSharedPreferences().fetchLanguagePreference();
     }
 
     public static void postEvent(BaseEvent event) {
