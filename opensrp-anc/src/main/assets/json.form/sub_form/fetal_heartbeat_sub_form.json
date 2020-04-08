@@ -4,7 +4,7 @@
       "key": "fetal_heart_rate_label",
       "type": "label",
       "label_text_style": "bold",
-      "text": "Fetal heart rate (bpm)",
+      "text": "{{fetal_heartbeat_sub_form.step1.fetal_heart_rate_label.text}}",
       "text_color": "#000000",
       "v_required": {
         "value": false
@@ -20,7 +20,7 @@
       "edit_type": "number",
       "v_required": {
         "value": "false",
-        "err": "Please enter the fetal heart rate"
+        "err": "{{fetal_heartbeat_sub_form.step1.fetal_heart_rate.v_required.err}}"
       },
       "v_min": {
         "value": "80",
@@ -35,5 +35,7 @@
         "err": "Enter a valid sfh"
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "fetal_heartbeat_sub_form"
 }

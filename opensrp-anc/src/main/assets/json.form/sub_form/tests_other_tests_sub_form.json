@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "165398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "Other test",
+      "label": "{{tests_other_tests_sub_form.step1.other_test.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -45,7 +45,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165398AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Which test?",
+      "hint": "{{tests_other_tests_sub_form.step1.other_test_name.hint}}",
       "edit_type": "name",
       "relevance": {
         "rules-engine": {
@@ -77,7 +77,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Test date",
+      "hint": "{{tests_other_tests_sub_form.step1.other_test_date.hint}}",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -100,7 +100,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Test result?",
+      "hint": "{{tests_other_tests_sub_form.step1.other_test_result.hint}}",
       "edit_type": "name",
       "relevance": {
         "rules-engine": {
@@ -110,5 +110,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "tests_other_tests_sub_form"
 }
