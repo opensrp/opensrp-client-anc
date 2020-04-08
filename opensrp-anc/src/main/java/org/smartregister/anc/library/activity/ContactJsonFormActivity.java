@@ -23,8 +23,8 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +142,14 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void onBackPressed() {
+        if (getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE).equals(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE)) {
+            ContactWizardJsonFormFragment contactWizardJsonFormFragment = (ContactWizardJsonFormFragment) getVisibleFragment();
+            contactWizardJsonFormFragment.getPresenter().validateAndWriteValues();
+            Intent intent = new Intent();
+            intent.putExtra("formInvalidFields",
+                    getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
+            setResult(RESULT_OK, intent);
+        }
         new BackPressedPersistPartialTask(getContact(), this, getIntent(), currentJsonState()).execute();
     }
 

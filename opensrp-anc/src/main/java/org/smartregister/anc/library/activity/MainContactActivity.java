@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -20,9 +21,9 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.presenter.ContactPresenter;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -58,6 +59,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
             ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
             ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
+    private String formInvalidFields = null;
 
     @Override
     protected void onResume() {
@@ -89,6 +91,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             process(contactForms);
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
+
+            if (StringUtils.isNotBlank(formInvalidFields) && contactNo > 1) {
+                String[] pair = formInvalidFields.split(":");
+                if (ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(pair[0]))
+                    requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
+            }
 
             List<Contact> contacts = new ArrayList<>();
 
@@ -760,5 +768,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         super.onPause();
         formGlobalValues.clear();
         invisibleRequiredFields.clear();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && data != null) {
+            formInvalidFields = data.getStringExtra("formInvalidFields");
+        }
     }
 }
