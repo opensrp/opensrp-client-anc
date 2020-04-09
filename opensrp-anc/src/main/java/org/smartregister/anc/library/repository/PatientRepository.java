@@ -113,9 +113,9 @@ public class PatientRepository extends BaseRepository {
         updateLastInteractedWith(baseEntityId);
     }
 
-    public static void updatePatient(String baseEntityId, ContentValues contentValues, String detailsTable) {
+    public static void updatePatient(String baseEntityId, ContentValues contentValues, String table) {
         getMasterRepository().getWritableDatabase()
-                .update(detailsTable, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
+                .update(table, contentValues, DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ?",
                         new String[]{baseEntityId});
     }
 

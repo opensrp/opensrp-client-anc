@@ -4,16 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
-import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -45,6 +41,7 @@ import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.activity.MainContactActivity;
 import org.smartregister.anc.library.activity.ProfileActivity;
+import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
@@ -67,7 +64,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -695,5 +691,9 @@ public class Utils extends org.smartregister.util.Utils {
      */
     public ContactTasksRepository getContactTasksRepositoryHelper() {
         return AncLibrary.getInstance().getContactTasksRepository();
+    }
+
+    public static Boolean enableLanguageSwitching() {
+        return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
     }
 }

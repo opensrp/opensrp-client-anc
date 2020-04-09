@@ -16,8 +16,8 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.library.activity.SiteCharacteristicsActivity;
-import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.presenter.MePresenter;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.MeContract;
@@ -47,7 +47,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         mePopCharacteristicsSection = view.findViewById(R.id.me_pop_characteristics_section);
         siteCharacteristicsSection = view.findViewById(R.id.site_characteristics_section);
 
-        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.keyUtils.LANGUAGE_SWITCHING_ENABLED)) {
+        if (Utils.enableLanguageSwitching()) {
             languageSwitcherSection = view.findViewById(R.id.language_switcher_section);
             languageSwitcherSection.setVisibility(View.VISIBLE);
 
@@ -63,7 +63,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         super.setClickListeners();
         mePopCharacteristicsSection.setOnClickListener(meFragmentActionHandler);
         siteCharacteristicsSection.setOnClickListener(meFragmentActionHandler);
-        if (AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.keyUtils.LANGUAGE_SWITCHING_ENABLED)) {
+        if (Utils.enableLanguageSwitching()) {
             languageSwitcherSection.setOnClickListener(meFragmentActionHandler);
         }
     }
@@ -78,9 +78,13 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         if (viewId == R.id.logout_section) {
             DrishtiApplication.getInstance().logoutCurrentUser();
         } else if (viewId == R.id.site_characteristics_section) {
-            getContext().startActivity(new Intent(getContext(), SiteCharacteristicsActivity.class));
+            if (getContext() != null) {
+                getContext().startActivity(new Intent(getContext(), SiteCharacteristicsActivity.class));
+            }
         } else if (viewId == R.id.me_pop_characteristics_section) {
-            getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
+            if (getContext() != null) {
+                getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
+            }
         } else if (viewId == R.id.language_switcher_section) {
             languageSwitcherDialog(locales, languages);
         }
@@ -91,17 +95,25 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getActivity().getResources().getString(R.string.choose_language));
             builder.setItems(languages, (dialog, which) -> {
-                Pair<String, Locale> lang = locales.get(which);
-                languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), lang.getLeft()));
-                LangUtils.saveLanguage(getActivity().getApplication(), lang.getValue().getLanguage());
-                Intent intent = getActivity().getIntent();
-                getActivity().finish();
-                getActivity().startActivity(intent);
-                AncLibrary.getInstance().notifyAppContextChange();
+                if (getActivity() != null) {
+                    Pair<String, Locale> lang = locales.get(which);
+                    languageSwitcherText.setText(String.format(MeFragment.this.getActivity().getResources().getString(R.string.default_language_string), lang.getLeft()));
+                    LangUtils.saveLanguage(getActivity().getApplication(), lang.getValue().getLanguage());
+                    reloadClass();
+                    AncLibrary.getInstance().notifyAppContextChange();
+                }
             });
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        }
+    }
+
+    private void reloadClass() {
+        if (getActivity() != null) {
+            Intent intent = getActivity().getIntent();
+            getActivity().finish();
+            getActivity().startActivity(intent);
         }
     }
 
