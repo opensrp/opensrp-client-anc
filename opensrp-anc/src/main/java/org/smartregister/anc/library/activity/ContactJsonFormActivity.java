@@ -240,6 +240,16 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     }
 
+
+    @Override
+    public void performActionOnReceived(String essentials) {
+        try {
+            invokeRefreshLogic(null, false, null, null, essentials.split(":")[0]);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
     public void showProgressDialog(String titleIdentifier) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
