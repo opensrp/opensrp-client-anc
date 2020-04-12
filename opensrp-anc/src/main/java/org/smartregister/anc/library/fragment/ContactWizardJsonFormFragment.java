@@ -144,11 +144,12 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!getJsonApi().isPreviousPressed()) {
-            skipStepsOnNextPressed();
-        } else {
-            skipStepOnPreviousPressed();
-        }
+//        no need repetition
+//        if (!getJsonApi().isPreviousPressed()) {
+//            skipStepsOnNextPressed();
+//        } else {
+//            skipStepOnPreviousPressed();
+//        }
         setJsonFormFragment(this);
     }
 
