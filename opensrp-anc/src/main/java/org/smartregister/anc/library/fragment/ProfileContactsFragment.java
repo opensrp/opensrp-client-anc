@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
@@ -27,12 +28,13 @@ import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
+import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
@@ -119,6 +121,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         }
         setUpAlertStatusButton();
         contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+        populatePreviousContactMissingEssentials(clientDetails);
         initializeLastContactDetails(clientDetails);
 
         if (lastContactDetails.isEmpty() && lastContactTests.isEmpty()) {
@@ -127,6 +130,25 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         } else {
             noHealthRecordLayout.setVisibility(View.GONE);
             profileContactsLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void populatePreviousContactMissingEssentials(HashMap<String, String> clientDetails) {
+        try {
+            if (clientDetails != null && clientDetails.containsKey("edd") && StringUtils.isNotBlank(clientDetails.get("edd"))) {
+                Facts entries = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, false);
+                if (entries != null && entries.get(ConstantsUtils.GEST_AGE_OPENMRS) != null)
+                    return;
+                int gestAgeOpenmrs = Utils.getGestationAgeFromEDDate(clientDetails.get("edd"));
+                PreviousContact previousContact = new PreviousContact();
+                previousContact.setBaseEntityId(baseEntityId);
+                previousContact.setContactNo(contactNo);
+                previousContact.setKey(ConstantsUtils.GEST_AGE_OPENMRS);
+                previousContact.setValue(String.valueOf(gestAgeOpenmrs));
+                AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 
