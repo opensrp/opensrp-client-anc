@@ -524,6 +524,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
         Intent intent = new Intent(context, EditJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, metaData);
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         Timber.d("form is %s", metaData);
         context.startActivityForResult(intent, jsonFormActivityRequestCode);
 
@@ -638,6 +639,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID,
                         activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, form.toString());
+                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {

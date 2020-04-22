@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.PopulationCharacteristicsActivity;
@@ -22,16 +22,18 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.MeContract;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import timber.log.Timber;
 
 public class MeFragment extends org.smartregister.view.fragment.MeFragment implements MeContract.View {
     private RelativeLayout mePopCharacteristicsSection;
     private RelativeLayout siteCharacteristicsSection;
     private RelativeLayout languageSwitcherSection;
     private TextView languageSwitcherText;
-    private List<Pair<String, Locale>> locales;
+    private Map<String, Locale> locales = new HashMap<>();
     private String[] languages;
 
     @Nullable
@@ -86,26 +88,38 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 getContext().startActivity(new Intent(getContext(), PopulationCharacteristicsActivity.class));
             }
         } else if (viewId == R.id.language_switcher_section) {
-            languageSwitcherDialog(locales, languages);
+            languageSwitcherDialog();
         }
     }
 
-    private void languageSwitcherDialog(List<Pair<String, Locale>> locales, String[] languages) {
+    private void languageSwitcherDialog() {
         if (getActivity() != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getActivity().getResources().getString(R.string.choose_language));
-            builder.setItems(languages, (dialog, which) -> {
-                if (getActivity() != null) {
-                    Pair<String, Locale> lang = locales.get(which);
-                    languageSwitcherText.setText(String.format(MeFragment.this.getActivity().getResources().getString(R.string.default_language_string), lang.getLeft()));
-                    LangUtils.saveLanguage(getActivity().getApplication(), lang.getValue().getLanguage());
-                    reloadClass();
+            builder.setItems(languages, (dialog, position) -> {
+                if (MeFragment.this.getActivity() != null) {
+                    String selectedLanguage = languages[position];
+                    languageSwitcherText.setText(String.format(MeFragment.this.getActivity().getResources().getString(R.string.default_language_string), selectedLanguage));
+
+                    saveLanguage(selectedLanguage);
+                    MeFragment.this.reloadClass();
                     AncLibrary.getInstance().notifyAppContextChange();
                 }
             });
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        }
+    }
+
+    private void saveLanguage(String selectedLanguage) {
+        if (MeFragment.this.getActivity() != null && StringUtils.isNotBlank(selectedLanguage)) {
+            Locale selectedLanguageLocale = locales.get(selectedLanguage);
+            if (selectedLanguageLocale != null) {
+                LangUtils.saveLanguage(MeFragment.this.getActivity().getApplication(), selectedLanguageLocale.getLanguage());
+            } else {
+                Timber.i("Language could not be set");
+            }
         }
     }
 
@@ -119,19 +133,25 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
 
     private void registerLanguageSwitcher() {
         if (getActivity() != null) {
-            locales = Arrays.asList(Pair.of("English", Locale.ENGLISH), Pair.of("French", Locale.FRENCH));
+            addLanguages();
 
             languages = new String[locales.size()];
             Locale current = getActivity().getResources().getConfiguration().locale;
             int x = 0;
-            while (x < locales.size()) {
-                languages[x] = locales.get(x).getKey();
-                if (current.getLanguage().equals(locales.get(x).getValue().getLanguage())) {
-                    languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), locales.get(x).getKey()));
-                }
+            for (Map.Entry<String, Locale> language : locales.entrySet()) {
+                languages[x] = language.getKey(); //Update the languages strings array with the languages to be displayed on the alert dialog
                 x++;
+
+                if (current.getLanguage().equals(language.getValue().getLanguage())) {
+                    languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), language.getKey()));
+                }
             }
         }
+    }
+
+    private void addLanguages() {
+        locales.put("English", Locale.ENGLISH);
+        locales.put("French", Locale.FRENCH);
     }
 
 }

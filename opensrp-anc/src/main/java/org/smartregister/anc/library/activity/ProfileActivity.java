@@ -235,25 +235,16 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         arrayAdapter.add(getString(R.string.close_anc_record));
 
         builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
-            String textClicked = arrayAdapter.getItem(which);
-            if (textClicked != null) {
-                switch (textClicked) {
-                    case ConstantsUtils.CALL:
-                        launchPhoneDialer(phoneNumber);
-                        break;
-                    case ConstantsUtils.START_CONTACT:
-                    case ConstantsUtils.CONTINUE_CONTACT:
-                        continueToContact();
-                        break;
-                    case CLOSE_ANC_RECORD:
-                        ANCJsonFormUtils.launchANCCloseForm(ProfileActivity.this);
-                        break;
-                    default:
-                        if (textClicked.startsWith(ConstantsUtils.CONTINUE)) {
-                            continueToContact();
-                        }
-                        break;
-                }
+            switch (which) {
+                case 0:
+                    launchPhoneDialer(phoneNumber);
+                    break;
+                case 2:
+                    ANCJsonFormUtils.launchANCCloseForm(ProfileActivity.this);
+                    break;
+                default:
+                    continueToContact();
+                    break;
             }
 
             dialog.dismiss();

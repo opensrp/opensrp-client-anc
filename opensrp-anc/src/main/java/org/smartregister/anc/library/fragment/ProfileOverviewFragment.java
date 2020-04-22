@@ -63,7 +63,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             HashMap<String, String> clientDetails =
                     (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             if (clientDetails != null) {
-                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
                 contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             }
             yamlConfigListGlobal = new ArrayList<>();

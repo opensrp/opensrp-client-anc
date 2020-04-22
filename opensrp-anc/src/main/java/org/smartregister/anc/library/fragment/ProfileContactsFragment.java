@@ -103,7 +103,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 clientDetails =
                         (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             }
-            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
         }
     }
 
