@@ -407,7 +407,7 @@ public class Utils extends org.smartregister.util.Utils {
 
         //Set text first
         String nextContactRaw = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
-        Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.valueOf(nextContactRaw) : 1;
+        Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.parseInt(nextContactRaw) : 1;
 
         nextContactDate =
                 StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
