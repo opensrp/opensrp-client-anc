@@ -628,6 +628,10 @@ public class Utils extends org.smartregister.util.Utils {
         return false;
     }
 
+    public static Boolean enableLanguageSwitching() {
+        return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
+    }
+
     /**
      * Loads yaml files that contain rules for the profile displays
      *
@@ -691,9 +695,5 @@ public class Utils extends org.smartregister.util.Utils {
      */
     public ContactTasksRepository getContactTasksRepositoryHelper() {
         return AncLibrary.getInstance().getContactTasksRepository();
-    }
-
-    public static Boolean enableLanguageSwitching() {
-        return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
     }
 }

@@ -39,8 +39,6 @@ import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Locale;
 
 import id.zelory.compressor.Compressor;
@@ -288,7 +286,7 @@ public class AncLibrary {
     }
 
     public Iterable<Object> readYaml(String filename) {
-         return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFile((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
+        return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFile((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
     }
 
     public int getDatabaseVersion() {
