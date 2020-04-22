@@ -50,7 +50,8 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
                 if (attentionFlagConfig != null && attentionFlagConfig.getFields() != null) {
                     for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
                         if (AncLibrary.getInstance().getAncRulesEngineHelper()
-                                .getRelevance(facts, yamlConfigItem.getRelevance())) { attentionFlagList.add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts), attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.RED)));
+                                .getRelevance(facts, yamlConfigItem.getRelevance())) {
+                            attentionFlagList.add(new AttentionFlag(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts), attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.RED)));
                         }
                     }
                 }
