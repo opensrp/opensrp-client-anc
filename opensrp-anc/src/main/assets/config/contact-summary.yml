@@ -1,142 +1,143 @@
 ---
+properties_file_name: "contact_summary"
 group: hospital_referral
 fields:
-- template: "Woman referred to hospital"
+- template: "{{contact_summary.hospital_referral.woman_referred_to_hospital}}"
   relevance: "referred_hosp == 'yes'"
 
-- template: "Woman not referred to hospital: {referred_hosp_notdone_value}"
+- template: "{{contact_summary.hospital_referral.woman_not_referred_to_hospital}}: {referred_hosp_notdone_value}"
   relevance: "referred_hosp == 'no'"
 
-- template: "Danger sign(s): {danger_signs_value}"
+- template: "{{contact_summary.hospital_referral.danger_signs}}: {danger_signs_value}"
   relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
 
-- template: "Severe hypertension: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
+- template: "{{contact_summary.hospital_referral.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1"
 
-- template: "Hypertension and symptom of severe pre-eclampsia: {symp_sev_preeclampsia_value}"
+- template: "{{contact_summary.hospital_referral.hypertension_and_symptom_of_severe_pre_eclampsia}}: {symp_sev_preeclampsia_value}"
   relevance: "hypertension == 1 && symp_sev_preeclampsia != '' && !symp_sev_preeclampsia.contains('none')"
 
-- template: "Pre-eclampsia diagnosis"
+- template: "{{contact_summary.hospital_referral.pre_eclampsia_diagnosis}}"
   relevance: "preeclampsia == 1"
 
-- template: "Severe pre-eclampsia diagnosis"
+- template: "{{contact_summary.hospital_referral.severe_pre_eclampsia_diagnosis}}"
   relevance: "severe_preeclampsia == 1"
 
-- template: "Fever: {body_temp_repeat}ºC"
+- template: "{{contact_summary.hospital_referral.fever}}: {body_temp_repeat}ºC"
   relevance: "body_temp_repeat >= 38"
 
-- template: "Abnormal pulse rate: {pulse_rate_repeat}bpm"
+- template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}bpm"
   relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
-- template: "Respiratory distress: {respiratory_exam_abnormal_value}"
+- template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value}"
   relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
-- template: "Low oximetry: {oximetry}%"
+- template: "{{contact_summary.hospital_referral.low_oximetry}}: {oximetry}%"
   relevance: "oximetry < 92"
 
-- template: "Abnormal cardiac exam: {cardiac_exam_abnormal_value}"
+- template: "{{contact_summary.hospital_referral.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
   relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
 
-- template: "Abnormal breast exam: {breast_exam_abnormal_value}"
+- template: "{{contact_summary.hospital_referral.abnormal_breast_exam}}: {breast_exam_abnormal_value}"
   relevance: "!breast_exam_abnormal.contains('none') && !breast_exam_abnormal.isEmpty()"
 
-- template: "Abnormal abdominal exam: {abdominal_exam_abnormal_value}"
+- template: "{{contact_summary.hospital_referral.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value}"
   relevance: "!abdominal_exam_abnormal.contains('none') && !abdominal_exam_abnormal.isEmpty()"
 
-- template: "Abnormal pelvic exam: {pelvic_exam_abnormal_value}"
+- template: "{{contact_summary.hospital_referral.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value}"
   relevance: "!pelvic_exam_abnormal.contains('none') && !pelvic_exam_abnormal.isEmpty()"
 
-- template: "No fetal heartbeat observed"
+- template: "{{contact_summary.hospital_referral.no_fetal_heartbeat_observed}}"
   relevance: "fetal_heartbeat == 'no'"
 
-- template: "Abnormal fetal heart rate: {fetal_heart_rate_repeat}bpm"
+- template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
   relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
 
 ---
 group: reason_for_visit
 fields:
-- template: "Reason for coming to facility: {contact_reason_value}"
+- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value}"
   relevance: "contact_reason_value != ''"
 
-- template: "Specific complaint(s): {specific_complaint_value}"
+- template: "{{contact_summary.reason_for_visit.specific_complaint }}: {specific_complaint_value}"
   relevance: "specific_complaint_value != ''"
 
 ---
 group: demographic_info
 fields:
-- template: "Highest level of school: {educ_level_value}"
+- template: "{{contact_summary.demographic_info.educ_level}}: {educ_level_value}"
   relevance: "educ_level_value != ''"
 
-- template: "Marital status: {marital_status_value}"
+- template: "{{contact_summary.demographic_info.marital_status}}: {marital_status_value}"
   relevance: "marital_status_value != ''"
 
-- template: "Occupation: {occupation_value}"
+- template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"
   relevance: "occupation_value != ''"
 
 ---
 group: current_pregnancy
 fields:
-- template: "GA: {gest_age}"
+- template: "{{contact_summary.current_pregnancy.ga}}: {gest_age}"
   relevance: "gest_age !='' "
 
-- template: "EDD: {edd}"
+- template: "{{contact_summary.current_pregnancy.edd}}: {edd}"
   relevance: "edd != '' "
 
-- template: "Ultrasound date: {ultrasound_date}"
+- template: "{{contact_summary.current_pregnancy.ultrasound_date}}: {ultrasound_date}"
   relevance: "ultrasound_date != ''"
 
-- template: "No. of fetuses: {no_of_fetuses}"
+- template: "{{contact_summary.current_pregnancy.no_of_fetuses}}: {no_of_fetuses}"
   relevance: "no_of_fetuses != ''"
 
-- template: "Fetal presentation: {fetal_presentation_value}"
+- template: "{{contact_summary.current_pregnancy.fetal_presentation}}: {fetal_presentation_value}"
   relevance: "fetal_presentation != ''"
 
-- template: "Amniotic fluid: {amniotic_fluid_value}"
+- template: "{{contact_summary.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
   relevance: "amniotic_fluid != ''"
 
-- template: "Placenta location: {placenta_location_value}"
+- template: "{{contact_summary.current_pregnancy.placenta_location}}: {placenta_location_value}"
   relevance: "placenta_location != ''"
 
 ---
 group: obstetric_history
 fields:
-- template: "G = {gravida} P = {parity}"
+- template: "{{contact_summary.obstetric_history.gravida}} = {gravida} {{contact_summary.obstetric_history.parity}} = {parity}"
   relevance: "gravida !='' || parity != ''"
 
-- template: "No. of pregnancies lost/ended: {miscarriages_abortions}"
+- template: "{{contact_summary.obstetric_history.no_of_pregnancies_lost_ended=}}: {miscarriages_abortions}"
   relevance: "miscarriages_abortions > 0"
 
-- template: "No. of live births: {live_births}"
+- template: "{{contact_summary.obstetric_history.no_of_live_births}}: {live_births}"
   relevance: "live_births > 0"
 
-- template: "No. of stillbirths: {stillbirths}"
+- template: "{{contact_summary.obstetric_history.no_of_stillbirths}}: {stillbirths}"
   relevance: "stillbirths > 0"
 
-- template: "No. of C-sections: {c_sections}"
+- template: "{{contact_summary.obstetric_history.no_of_c_sections}}: {c_sections}"
   relevance: "c_sections > 0"
 
-- template: "Past pregnancy problems: {prev_preg_comps_value}"
+- template: "{{contact_summary.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps_value}"
   relevance: "(!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
 
-- template: "Past substances used: {substances_used_value}"
+- template: "{{contact_summary.obstetric_history.past_substances_used}}: {substances_used_value}"
   relevance: "(!substances_used.isEmpty()) "
 
 ---
 group: medical_history
 fields:
-- template: "Allergies: {allergies_value}, {}"
+- template: "{{contact_summary.medical_history.allergies}}: {allergies_value}, {}"
   relevance: "!allergies.isEmpty()"
 
-- template: "Surgeries: {surgeries_value}"
+- template: "{{contact_summary.medical_history.surgeries}}: {surgeries_value}"
   relevance: "!surgeries.isEmpty()"
 
-- template: "Chronic health conditions: {health_conditions_value}"
+- template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions_value}"
   relevance: "!health_conditions.isEmpty()"
 
-- template: "HIV diagnosis date: {hiv_diagnosis_date}"
+- template: "{{contact_summary.medical_history.hiv_diagnosis_date}}: {hiv_diagnosis_date}"
   relevance: "hiv_diagnosis_date != ''"
 
-- template: "HIV diagnosis date unknown"
+- template: "{{contact_summary.medical_history.hiv_diagnosis_date_unknown}}"
   relevance: "hiv_diagnosis_date_unknown.contains('yes') "
 ---
 group: immunisation_status
@@ -533,7 +534,7 @@ fields:
 - template: "Blood type test date: {blood_type_test_date}"
   relevance: "blood_type_test_date != ''"
 
-- template: "Blood type: {blood_type_value}"
+- template: "{{contact_summary.blood_type_test.blood_type}}: {blood_type_value}"
   relevance: "blood_type != ''"
 
 - template: "Rh factor: {rh_factor_value}"
