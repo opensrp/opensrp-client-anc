@@ -2,7 +2,6 @@ package org.smartregister.anc.presenter;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -18,13 +17,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.BaseUnitTest;
-import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.R;
 import org.smartregister.login.model.BaseLoginModel;
-import org.smartregister.util.SyncUtils;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.lang.ref.WeakReference;
@@ -48,9 +44,6 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Mock
     private BaseLoginContract.Model model;
-
-    @Mock
-    private Resources resources;
 
     private BaseLoginContract.Presenter presenter;
 
