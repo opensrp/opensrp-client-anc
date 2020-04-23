@@ -1,5 +1,6 @@
 package org.smartregister.anc.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import org.greenrobot.eventbus.Subscribe;
