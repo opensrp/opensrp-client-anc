@@ -329,14 +329,18 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static String fillTemplate(String stringValue, Facts facts) {
-        String stringValueResult = stringValue;
-        while (stringValueResult.contains("{")) {
-            String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
-            String value = processValue(key, facts);
-            stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
+        if (StringUtils.isNotBlank(stringValue)) {
+            String stringValueResult = stringValue;
+            while (stringValueResult.contains("{")) {
+                String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
+                String value = processValue(key, facts);
+                stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
+            }
+            //Remove unnecessary commas by cleaning the returned string
+            return cleanValueResult(stringValueResult);
+        } else {
+            return "";
         }
-        //Remove unnecessary commas by cleaning the returned string
-        return cleanValueResult(stringValueResult);
     }
 
     private static String processValue(String key, Facts facts) {
