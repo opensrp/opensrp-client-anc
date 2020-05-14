@@ -22,7 +22,7 @@ public class AncMetadata {
     /**
      * Provides the location levels defined in build gradle
      *
-     * @return
+     * @return {@link ArrayList}
      */
     public ArrayList<String> getLocationLevels() {
         return locationLevels;
@@ -35,7 +35,7 @@ public class AncMetadata {
     /**
      * Provides the health facility levels defined in build gradle
      *
-     * @return
+     * @return {@link ArrayList}
      */
     public ArrayList<String> getHealthFacilityLevels() {
         return healthFacilityLevels;
@@ -48,7 +48,7 @@ public class AncMetadata {
     /**
      * Used to get fields with tree attribute i.e those that are used as location picker
      *
-     * @return
+     * @return {@link List}
      */
     public List<String> getFieldsWithLocationHierarchy() {
         return fieldsWithLocationHierarchy;
