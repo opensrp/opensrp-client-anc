@@ -31,7 +31,7 @@ public class PatientRepository extends BaseRepository {
      * Provides all woman details needed for display and/or editing
      *
      * @param baseEntityId
-     * @return
+     * @return {@link Map}
      */
     public static Map<String, String> getWomanProfileDetails(String baseEntityId) {
         Cursor cursor = null;
