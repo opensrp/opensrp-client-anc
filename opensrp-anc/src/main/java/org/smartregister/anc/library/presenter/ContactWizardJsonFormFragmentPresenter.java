@@ -11,8 +11,8 @@ import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 /**
  * Created by keyman on 04/08/18.
