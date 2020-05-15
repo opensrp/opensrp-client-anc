@@ -61,7 +61,7 @@ public class RegisterQueryProvider {
 
     public String mainRegisterQuery() {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(getDemographicTable(), mainColumns());
+        queryBuilder.selectInitiateMainTable(getDemographicTable(), mainColumns());
         queryBuilder.customJoin(" join " + getDetailsTable()
                 + " on " + getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " ");
         return queryBuilder.getSelectquery();
