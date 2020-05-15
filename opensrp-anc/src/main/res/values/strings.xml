@@ -420,4 +420,5 @@
     <string name="default_language_string">Current language: %1s</string>
 
     <string name="choose_language">Choose language</string>
+    <string name="english_language">English</string>
 </resources>
