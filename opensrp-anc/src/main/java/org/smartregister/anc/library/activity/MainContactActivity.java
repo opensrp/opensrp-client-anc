@@ -326,7 +326,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             Iterator<String> keys = object.keys();
             while (keys.hasNext()) {
                 String key = keys.next();
-                if (key.startsWith(RuleConstant.STEP)) {
+                if (key.startsWith(RuleConstant.STEP) && !object.getJSONObject(key).has("skipped")) {
                     JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);

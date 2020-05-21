@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -33,8 +34,9 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
 
     @Override
     protected boolean moveToNextWizardStep() {
-        if (!"".equals(mStepDetails.optString(JsonFormConstants.NEXT))) {
-            JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(mStepDetails.optString(ConstantsUtils.NEXT));
+        String nextStep = getFormFragment().getJsonApi().nextStep();
+        if (StringUtils.isNotBlank(nextStep)) {
+            JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(nextStep);
             getView().hideKeyBoard();
             getView().transactThis(next);
             return true;
