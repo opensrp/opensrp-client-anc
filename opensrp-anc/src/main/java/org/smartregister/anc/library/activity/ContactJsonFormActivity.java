@@ -130,7 +130,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                                 quickCheckDangerSignsSelectionHandler(fields);
                             }
 
-                            invokeRefreshLogic(value, popup, parentKey, childKey, stepName);
+                            invokeRefreshLogic(value, popup, parentKey, childKey, stepName, false);
                             return;
                         }
                     }
