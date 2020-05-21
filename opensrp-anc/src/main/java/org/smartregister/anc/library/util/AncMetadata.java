@@ -5,6 +5,7 @@ import org.smartregister.anc.library.BuildConfig;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Specifies additional library independent configurations
@@ -12,7 +13,7 @@ import java.util.List;
 public class AncMetadata {
     private ArrayList<String> locationLevels;
     private ArrayList<String> healthFacilityLevels;
-    private List<String> fieldsWithLocationHierarchy;
+    private Set<String> fieldsWithLocationHierarchy;
 
     public AncMetadata() {
         locationLevels = new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
@@ -50,11 +51,11 @@ public class AncMetadata {
      *
      * @return {@link List}
      */
-    public List<String> getFieldsWithLocationHierarchy() {
+    public Set<String> getFieldsWithLocationHierarchy() {
         return fieldsWithLocationHierarchy;
     }
 
-    public void setFieldsWithLocationHierarchy(List<String> fieldsWithLocationHierarchy) {
+    public void setFieldsWithLocationHierarchy(Set<String> fieldsWithLocationHierarchy) {
         this.fieldsWithLocationHierarchy = fieldsWithLocationHierarchy;
     }
 }
