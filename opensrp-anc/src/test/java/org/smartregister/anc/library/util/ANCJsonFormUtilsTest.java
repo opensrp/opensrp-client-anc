@@ -50,6 +50,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -613,7 +614,7 @@ public class ANCJsonFormUtilsTest {
         String hierarchyString = "[\"Kenya\",\"Central\"]";
         String entireTree = "[{\"nodes\":[{\"level\":\"Province\",\"name\":\"Central\",\"key\":\"1\"}],\"level\":\"Country\",\"name\":\"Kenya\",\"key\":\"0\"}]";
         AncMetadata ancMetadata = new AncMetadata();
-        ancMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
+        ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
         Mockito.when(ancLibrary.getAncMetadata()).thenReturn(ancMetadata);
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         WhiteboxImpl.invokeMethod(ANCJsonFormUtils.class, "updateLocationTree", jsonArray, hierarchyString, hierarchyString, entireTree);
