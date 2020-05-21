@@ -22,6 +22,7 @@ import java.util.List;
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class ANCFormUtilsTest extends BaseUnitTest {
@@ -230,8 +231,8 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         JSONObject form = new JSONObject(quickCheckForm);
         JSONObject result = ANCFormUtils.getFormJsonCore(partialContact, form);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(form.toString(), result.toString());
+        assertNotNull(result);
+        assertEquals(form.toString(), result.toString());
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
     }
 
@@ -251,8 +252,8 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         global.put("contact_no", "1");
         formArg.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, global);
         JSONObject result = ANCFormUtils.getFormJsonCore(partialContact, formArg);
-        Assert.assertNotNull(result);
-        Assert.assertEquals(formArg.toString(), result.toString());
+        assertNotNull(result);
+        assertEquals(formArg.toString(), result.toString());
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
     }
 }
