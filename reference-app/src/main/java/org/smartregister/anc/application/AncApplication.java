@@ -63,11 +63,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
-        try {
-            Utils.saveLanguage("en");
-        } catch (Exception e) {
-            Timber.e(e, " --> saveLanguage");
-        }
+        setDefaultLanguage();
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
@@ -82,6 +78,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     .build(this, BuildConfig.FLURRY_API_KEY);
         }
 
+    }
+
+    private void setDefaultLanguage() {
+        try {
+            Utils.saveLanguage("en");
+        } catch (Exception e) {
+            Timber.e(e, " --> saveLanguage");
+        }
     }
 
     public static CommonFtsObject createCommonFtsObject() {

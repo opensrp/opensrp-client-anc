@@ -23,6 +23,16 @@ public class AncSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
+    public SyncFilter getSettingsSyncFilterParam() {
+        return super.getSettingsSyncFilterParam();
+    }
+
+    @Override
+    public boolean resolveSettings() {
+        return BuildConfig.RESOLVE_SETTINGS;
+    }
+
+    @Override
     public String getSyncFilterValue() {
         AllSharedPreferences sharedPreferences =
                 AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();

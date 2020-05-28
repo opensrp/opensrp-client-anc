@@ -73,6 +73,7 @@ android {
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
         buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
+        buildConfigField "boolean", "RESOLVE_SETTINGS", "true"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -232,7 +233,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.11.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.11.4001-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
