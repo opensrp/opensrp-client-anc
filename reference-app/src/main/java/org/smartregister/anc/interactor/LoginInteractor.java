@@ -3,6 +3,7 @@ package org.smartregister.anc.interactor;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.domain.LoginResponse;
+import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -33,6 +34,9 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SyncSettingsServiceJob
                 .scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
                         getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+        DocumentConfigurationServiceJob
+                .scheduleJob(DocumentConfigurationServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
+                        getFlexValue((int) BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
     }
 
     @Override
