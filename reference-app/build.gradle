@@ -19,7 +19,7 @@ jacoco {
 }
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
-ext.versionMinor = 3
+ext.versionMinor = 4
 ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
@@ -74,6 +74,8 @@ android {
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
         buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "RESOLVE_SETTINGS", "true"
+        buildConfigField "boolean", "HAS_GLOBAL_SETTINGS", "true"
+        buildConfigField "boolean", "HAS_SETTINGS_SYNC", "true"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -233,7 +235,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.11.4001-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.11.5000-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

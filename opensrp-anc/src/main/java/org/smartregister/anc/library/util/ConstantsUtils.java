@@ -239,4 +239,8 @@ public abstract class ConstantsUtils {
     public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
     }
+
+    public static class SettingsSyncParams{
+        public static final String LOCATION_ID = "locationId";
+    }
 }
