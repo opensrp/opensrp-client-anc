@@ -42,7 +42,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     protected void processServerSettings(LoginResponse loginResponse) {
-
         super.processServerSettings(loginResponse);
         AncLibrary.getInstance().populateGlobalSettings();
     }
