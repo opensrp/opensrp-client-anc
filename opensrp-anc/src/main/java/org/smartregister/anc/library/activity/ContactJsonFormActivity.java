@@ -88,7 +88,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         JsonWizardFormFragment contactJsonFormFragment =
                 ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
 
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment).addToBackStack(contactJsonFormFragment.getArguments().getString(JsonFormConstants.STEPNAME))
                 .commit();
     }
 
