@@ -22,12 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
@@ -144,15 +141,10 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
+    //
     @Override
     public void onResume() {
         super.onResume();
-//        no need repetition
-//        if (!getJsonApi().isPreviousPressed()) {
-//            skipStepsOnNextPressed();
-//        } else {
-//            skipStepOnPreviousPressed();
-//        }
         setJsonFormFragment(this);
     }
 
@@ -361,7 +353,8 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
                     view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
                 getJsonApi().setPreviousPressed(true);
-                getFragmentManager().popBackStack();
+                getJsonApi().getStack().pop();
+                getFragmentManager().popBackStack(getJsonApi().getStack().pop(), 0);
             } else if (view.getId() == R.id.refer) {
                 displayReferralDialog();
             } else if (view.getId() == R.id.proceed && getActivity() != null) {
