@@ -69,6 +69,9 @@ android {
                 arguments = [eventBusIndex: 'org.smartregister.anc.library.ANCEventBusIndex']
             }
         }
+
+        buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "District", "Facility", "Village"}'
+        buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
     }
     dexOptions {
         javaMaxHeapSize "4g"
