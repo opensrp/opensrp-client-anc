@@ -514,6 +514,19 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     public void startFormActivity(JSONObject form, Contact contact) {
+        Set<String> hiddenFields = null;
+        Set<String> disabledFields = null;
+        try {
+            JSONObject formConfig = com.vijay.jsonwizard.utils.Utils.getFormConfig(contact.getFormName(), JsonFormConstants.FORM_CONFIG_LOCATION, getApplicationContext());
+            if (formConfig != null) {
+                hiddenFields = com.vijay.jsonwizard.utils.Utils.convertJsonArrayToSet(formConfig.optJSONArray(JsonFormConstants.JSON_FORM_KEY.HIDDEN_FIELDS));
+                disabledFields = com.vijay.jsonwizard.utils.Utils.convertJsonArrayToSet(formConfig.optJSONArray(JsonFormConstants.JSON_FORM_KEY.DISABLED_FIELDS));
+            }
+        } catch (JSONException | IOException e) {
+            Timber.e(e);
+        }
+        contact.setHiddenFields(hiddenFields);
+        contact.setDisabledFields(disabledFields);
         super.startFormActivity(form, contact);
     }
 

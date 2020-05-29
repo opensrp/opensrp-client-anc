@@ -112,6 +112,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 entityId = entityId.replace("-", "");
             }
 
+            addRegistrationLocationHierarchyQuestions(form);
             // Inject opensrp id into the form
             JSONArray field = ANCJsonFormUtils.fields(form);
             JSONObject ancId = getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
@@ -124,13 +125,71 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (StringUtils.isNotBlank(entityId)) {
                 // Inject entity id into the remove form
                 form.remove(ANCJsonFormUtils.ENTITY_ID);
-                form.put(ANCJsonFormUtils.ENTITY_ID, entityId);
+                form.put(ENTITY_ID, entityId);
             }
         } else {
-            Timber.tag(TAG).w("Unsupported form requested for launch " + formName);
+            Timber.tag(TAG).w("Unsupported form requested for launch %s", formName);
         }
-        Timber.d("form is " + form.toString());
+        Timber.d("form is %s", form.toString());
         return form;
+    }
+
+    private static void addRegistrationLocationHierarchyQuestions(@NonNull JSONObject form) {
+        try {
+            JSONArray fields = com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(form);
+            AncMetadata metadata = AncLibrary.getInstance().getAncMetadata();
+            ArrayList<String> allLevels = metadata.getLocationLevels();
+            ArrayList<String> healthFacilities = metadata.getHealthFacilityLevels();
+            List<String> defaultLocation = LocationHelper.getInstance().generateDefaultLocationHierarchy(allLevels);
+            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> entireTree = LocationHelper.getInstance().generateLocationHierarchyTree(true, allLevels);
+            String defaultLocationString = AssetHandler.javaToJsonString(defaultLocation, new TypeToken<List<String>>() {
+            }.getType());
+
+            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, new TypeToken<List<String>>() {
+            }.getType());
+
+            String entireTreeString = AssetHandler.javaToJsonString(entireTree, new TypeToken<List<FormLocation>>() {
+            }.getType());
+
+            updateLocationTree(fields, defaultLocationString, defaultFacilityString, entireTreeString);
+        } catch (Exception e) {
+            Timber.e(e, "JsonFormUtils --> addRegLocHierarchyQuestions");
+        }
+    }
+
+    private static void updateLocationTree(@NonNull JSONArray fields,
+                                           @NonNull String defaultLocationString,
+                                           @NonNull String defaultFacilityString,
+                                           @NonNull String entireTreeString) {
+        AncMetadata ancMetadata = AncLibrary.getInstance().getAncMetadata();
+        if (ancMetadata.getFieldsWithLocationHierarchy() != null && !ancMetadata.getFieldsWithLocationHierarchy().isEmpty()) {
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject widget = fields.optJSONObject(i);
+                if (ancMetadata.getFieldsWithLocationHierarchy().contains(widget.optString(JsonFormConstants.KEY))) {
+                    if (StringUtils.isNotBlank(entireTreeString)) {
+                        addLocationTree(widget.optString(JsonFormConstants.KEY), widget, entireTreeString, JsonFormConstants.TREE);
+                    }
+                    if (StringUtils.isNotBlank(defaultFacilityString)) {
+                        addLocationTreeDefault(widget.optString(JsonFormConstants.KEY), widget, defaultLocationString);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void addLocationTree(@NonNull String widgetKey, @NonNull JSONObject widget, @NonNull String updateString, @NonNull String treeType) {
+        try {
+            if (widget.optString(JsonFormConstants.KEY).equals(widgetKey)) {
+                widget.put(treeType, new JSONArray(updateString));
+            }
+        } catch (JSONException e) {
+            Timber.e(e, "JsonFormUtils --> addLocationTree");
+        }
+    }
+
+    private static void addLocationTreeDefault(@NonNull String widgetKey, @NonNull JSONObject widget, @NonNull String updateString) {
+        addLocationTree(widgetKey, widget, updateString, JsonFormConstants.DEFAULT);
     }
 
     public static JSONObject getFieldJSONObject(JSONArray jsonArray, String key) {
@@ -162,15 +221,10 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String entityId = getEntityId(jsonForm);
             String encounterType = ANCJsonFormUtils.getString(jsonForm, ENCOUNTER_TYPE);
             JSONObject metadata = ANCJsonFormUtils.getJSONObject(jsonForm, METADATA);
-
-            // String lastLocationName = null;
-            // String lastLocationId = null;
-            // TODO Replace values for location questions with their corresponding location IDs
-
-
             addLastInteractedWith(fields);
             getDobStrings(fields);
             initializeFirstContactValues(fields);
+            processLocationFields(fields);
             FormTag formTag = getFormTag(allSharedPreferences);
 
 
@@ -184,6 +238,28 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } catch (Exception e) {
             Timber.e(e, "JsonFormUtils --> processRegistrationForm");
             return null;
+        }
+    }
+
+    protected static void processLocationFields(@NonNull JSONArray fields) throws JSONException {
+        for (int i = 0; i < fields.length(); i++) {
+            if (fields.optJSONObject(i).has(JsonFormConstants.TYPE) &&
+                    fields.optJSONObject(i).optString(JsonFormConstants.TYPE).equals(JsonFormConstants.TREE))
+                try {
+                    String rawValue = fields.optJSONObject(i).optString(JsonFormConstants.VALUE);
+                    if (StringUtils.isNotBlank(rawValue)) {
+                        JSONArray valueArray = new JSONArray(rawValue);
+                        if (valueArray.length() > 0) {
+                            String lastLocationName = valueArray.optString(valueArray.length() - 1);
+                            String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lastLocationName);
+                            fields.optJSONObject(i).put(JsonFormConstants.VALUE, lastLocationId);
+                        }
+                    }
+                } catch (NullPointerException e) {
+                    Timber.e(e);
+                } catch (IllegalArgumentException e) {
+                    Timber.e(e);
+                }
         }
     }
 
@@ -368,8 +444,9 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (lpv != null) {
                 lpv.init();
             }
-            ANCJsonFormUtils.addWomanRegisterHierarchyQuestions(form);
+
             Timber.d("Form is %s", form.toString());
+
             if (form != null) {
                 form.put(ANCJsonFormUtils.ENTITY_ID, womanClient.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
                 form.put(ANCJsonFormUtils.ENCOUNTER_TYPE, ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION);
@@ -410,48 +487,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    public static void addWomanRegisterHierarchyQuestions(JSONObject form) {
-        try {
-            JSONArray questions = form.getJSONObject("step1").getJSONArray("fields");
-            ArrayList<String> allLevels = new ArrayList<>();
-            allLevels.add("Country");
-            allLevels.add("Province");
-            allLevels.add("District");
-            allLevels.add("City/Town");
-            allLevels.add("Health Facility");
-            allLevels.add(Utils.HOME_ADDRESS);
-
-
-            ArrayList<String> healthFacilities = new ArrayList<>();
-            healthFacilities.add(Utils.HOME_ADDRESS);
-
-
-            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
-            List<FormLocation> upToFacilities =
-                    LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
-
-            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, new TypeToken<List<String>>() {
-            }.getType());
-
-            String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
-            }.getType());
-
-            for (int i = 0; i < questions.length(); i++) {
-                if (questions.getJSONObject(i).getString(ConstantsUtils.KeyUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.HOME_ADDRESS)) {
-                    if (StringUtils.isNotBlank(upToFacilitiesString)) {
-                        questions.getJSONObject(i).put(ConstantsUtils.KeyUtils.TREE, new JSONArray(upToFacilitiesString));
-                    }
-                    if (StringUtils.isNotBlank(defaultFacilityString)) {
-                        questions.getJSONObject(i).put(ConstantsUtils.KeyUtils.DEFAULT, defaultFacilityString);
-                    }
-                }
-            }
-
-        } catch (JSONException e) {
-            Timber.e(e, "JsonFormUtils --> addWomanRegisterHierarchyQuestions");
-        }
-    }
-
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
             throws JSONException {
 
@@ -474,7 +509,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (StringUtils.isNotBlank(womanClient.get(DBConstantsUtils.KeyUtils.DOB))) {
                 jsonObject.put(ANCJsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstantsUtils.KeyUtils.DOB)));
             }
-
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.VILLAGE)) {
+            reverseLocationTree(jsonObject, womanClient.get(ConstantsUtils.JsonFormKeyUtils.VILLAGE));
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.EDD)) {
             formatEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.EDD);
 
@@ -486,6 +522,29 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(jsonObject.getString(ANCJsonFormUtils.KEY)));
         } else {
             Timber.e("ERROR:: Unprocessed Form Object Key %s", jsonObject.getString(ANCJsonFormUtils.KEY));
+        }
+    }
+
+    private static void reverseLocationTree(@NonNull JSONObject jsonObject, @Nullable String entity) throws JSONException {
+        List<String> entityHierarchy = null;
+        if (entity != null) {
+            if (ConstantsUtils.OTHER.equalsIgnoreCase(entity)) {
+                entityHierarchy = new ArrayList<>();
+                entityHierarchy.add(entity);
+            } else {
+                String locationId = LocationHelper.getInstance().getOpenMrsLocationId(entity);
+                entityHierarchy = LocationHelper.getInstance().getOpenMrsLocationHierarchy(locationId, false);
+            }
+        }
+        ArrayList<String> allLevels = AncLibrary.getInstance().getAncMetadata().getHealthFacilityLevels();
+        List<FormLocation> entireTree = LocationHelper.getInstance().generateLocationHierarchyTree(true, allLevels);
+        String entireTreeString = AssetHandler.javaToJsonString(entireTree, new TypeToken<List<FormLocation>>() {
+        }.getType());
+        String facilityHierarchyString = AssetHandler.javaToJsonString(entityHierarchy, new TypeToken<List<String>>() {
+        }.getType());
+        if (StringUtils.isNotBlank(facilityHierarchyString)) {
+            jsonObject.put(JsonFormConstants.VALUE, facilityHierarchyString);
+            jsonObject.put(JsonFormConstants.TREE, new JSONArray(entireTreeString));
         }
     }
 
@@ -800,15 +859,15 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static Event processContactFormEvent(JSONObject jsonForm, String baseEntityId) {
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-        JSONArray fields = ANCJsonFormUtils.getMultiStepFormFields(jsonForm);
+        JSONArray fields = getMultiStepFormFields(jsonForm);
 
-        String entityId = ANCJsonFormUtils.getString(jsonForm, ANCJsonFormUtils.ENTITY_ID);
+        String entityId = getString(jsonForm, ANCJsonFormUtils.ENTITY_ID);
         if (StringUtils.isBlank(entityId)) {
             entityId = baseEntityId;
         }
 
-        String encounterType = ANCJsonFormUtils.getString(jsonForm, ENCOUNTER_TYPE);
-        JSONObject metadata = ANCJsonFormUtils.getJSONObject(jsonForm, METADATA);
+        String encounterType = getString(jsonForm, ENCOUNTER_TYPE);
+        JSONObject metadata = getJSONObject(jsonForm, METADATA);
 
         FormTag formTag = getFormTag(allSharedPreferences);
         Event baseEvent = org.smartregister.util.JsonFormUtils

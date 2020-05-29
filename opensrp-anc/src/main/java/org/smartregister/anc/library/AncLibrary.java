@@ -24,6 +24,7 @@ import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
+import org.smartregister.anc.library.util.AncMetadata;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -69,11 +70,24 @@ public class AncLibrary {
     private SubscriberInfoIndex subscriberInfoIndex;
     private int databaseVersion;
     private ActivityConfiguration activityConfiguration;
+    private AncMetadata ancMetadata = new AncMetadata();
 
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
         this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
-        this.registerQueryProvider = registerQueryProvider;
+        if (registerQueryProvider != null) {
+            this.registerQueryProvider = registerQueryProvider;
+        }
+    }
+
+    private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider, @Nullable AncMetadata metadata) {
+        this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        if (registerQueryProvider != null) {
+            this.registerQueryProvider = registerQueryProvider;
+        }
+        if (metadata != null) {
+            this.ancMetadata = metadata;
+        }
     }
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
@@ -134,6 +148,22 @@ public class AncLibrary {
     public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
         if (instance == null) {
             instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider);
+        }
+    }
+
+    /**
+     * Provides options for implementation specific classes
+     *
+     * @param context               {@link Context}
+     * @param dbVersion             {@link int dbVersion}
+     * @param activityConfiguration {@link ActivityConfiguration}
+     * @param subscriberInfoIndex   {@link SubscriberInfoIndex}
+     * @param registerQueryProvider {@link RegisterQueryProvider}
+     * @param metadata              {@link AncMetadata}
+     */
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider, @Nullable AncMetadata metadata) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider, metadata);
         }
     }
 
@@ -318,5 +348,9 @@ public class AncLibrary {
             Locale current = getApplicationContext().getResources().getConfiguration().locale;
             Utils.saveLanguage(current.getLanguage());
         }
+    }
+
+    public AncMetadata getAncMetadata() {
+        return ancMetadata;
     }
 }

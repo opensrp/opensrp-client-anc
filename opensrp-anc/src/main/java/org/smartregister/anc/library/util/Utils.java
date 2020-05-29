@@ -39,7 +39,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.MainContactActivity;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
@@ -217,7 +216,7 @@ public class Utils extends org.smartregister.util.Utils {
                 Activity activity = (Activity) context;
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
-                intent = new Intent(context, MainContactActivity.class);
+                intent = new Intent(context, AncLibrary.getInstance().getActivityConfiguration().getMainContactActivityClass());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
@@ -337,7 +336,7 @@ public class Utils extends org.smartregister.util.Utils {
         List<String> nonEmptyItems = new ArrayList<>();
 
         for (String item : result.split(",")) {
-            if (item.length() > 1) {
+            if (item.length() > 0) {
                 nonEmptyItems.add(item);
             }
         }
