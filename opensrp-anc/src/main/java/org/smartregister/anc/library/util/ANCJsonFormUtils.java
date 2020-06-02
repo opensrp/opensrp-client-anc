@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.common.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -50,6 +49,7 @@ import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.DrishtiApplication;
+import org.smartregister.view.activity.DynamicJsonFormActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -617,7 +617,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchANCCloseForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, JsonFormActivity.class);
+            Intent intent = new Intent(activity, DynamicJsonFormActivity.class);
             JSONObject form = FormUtils.getInstance(activity).getFormJson(ConstantsUtils.JsonFormUtils.ANC_CLOSE);
             if (form != null) {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID,
@@ -632,7 +632,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchSiteCharacteristicsForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, JsonFormActivity.class);
+            Intent intent = new Intent(activity, DynamicJsonFormActivity.class);
             JSONObject form = FormUtils.getInstance(activity).getFormJson(ConstantsUtils.JsonFormUtils.ANC_SITE_CHARACTERISTICS);
             if (form != null) {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID,

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -26,11 +25,12 @@ import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
-import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
+import org.smartregister.view.activity.DynamicJsonFormActivity;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
 import java.util.ArrayList;
@@ -165,7 +165,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     public void startTaskForm(JSONObject jsonForm, Task task) {
         setCurrentTask(task);
 
-        Intent intent = new Intent(getActivity(), JsonFormActivity.class);
+        Intent intent = new Intent(getActivity(), DynamicJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, String.valueOf(jsonForm));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, clientDetails);

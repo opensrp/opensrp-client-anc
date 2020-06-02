@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
@@ -30,11 +29,12 @@ import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
 import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
+import org.smartregister.view.activity.DynamicJsonFormActivity;
 
 import java.util.HashMap;
 
@@ -88,7 +88,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", JsonFormActivity.class.getCanonicalName())).create();
+                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", DynamicJsonFormActivity.class.getCanonicalName())).create();
 
         dialog.show();
     }
@@ -327,13 +327,13 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
-    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
-        this.formFragment = formFragment;
-    }
-
     @Override
     public ContactWizardJsonFormFragment getJsonFormFragment() {
         return formFragment;
+    }
+
+    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
+        this.formFragment = formFragment;
     }
 
     private class BottomNavigationListener implements View.OnClickListener {
