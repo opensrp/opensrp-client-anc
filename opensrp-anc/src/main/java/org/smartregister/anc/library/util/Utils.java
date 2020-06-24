@@ -42,7 +42,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
@@ -387,7 +386,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
-        Intent intent = new Intent(context, ProfileActivity.class);
+        Intent intent = new Intent(context, AncLibrary.getInstance().getActivityConfiguration().getProfileActivityClass());
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);
         context.startActivity(intent);
