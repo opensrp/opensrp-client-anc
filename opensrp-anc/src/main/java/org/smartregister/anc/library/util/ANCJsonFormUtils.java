@@ -302,8 +302,13 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    private static String initializeFirstContactValues(JSONArray fields) throws JSONException {
-        //initialize first contact values
+    /***
+     * Initializes the values in the mother details table used by contact containers
+     * @param fields {@link JSONArray}
+     * @return
+     * @throws JSONException
+     */
+    private static String initializeFirstContactValues(@NonNull JSONArray fields) throws JSONException {
         String strGroup = null;
 
         int nextContact = 1;
@@ -318,16 +323,16 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
                 strGroup = ANCJsonFormUtils.gson.toJson(previousVisitsMap);
 
-                Set<Map.Entry<String, HashMap<String, String>>> set = previousVisitsMap.entrySet();
+                Set<Map.Entry<String, HashMap<String, String>>> previousVisitsMapSet = previousVisitsMap.entrySet();
 
-                HashMap<String, String> hashMap = new LinkedHashMap<>();
+                HashMap<String, String> previousVisitsMapItem = new LinkedHashMap<>();
 
-                for (Map.Entry<String, HashMap<String, String>> entry : set) {
-                    hashMap = entry.getValue();
+                for (Map.Entry<String, HashMap<String, String>> entry : previousVisitsMapSet) {
+                    previousVisitsMapItem = entry.getValue();
                 }
 
                 JSONObject lastContactDateJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
-                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, hashMap.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE));
+                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, previousVisitsMapItem.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE));
             }
         }
         JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
