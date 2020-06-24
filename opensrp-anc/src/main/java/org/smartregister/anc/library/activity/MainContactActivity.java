@@ -21,6 +21,7 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.presenter.ContactPresenter;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -92,7 +93,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             process(contactForms);
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
-            if (StringUtils.isNotBlank(formInvalidFields) && contactNo > 1) {
+            if (StringUtils.isNotBlank(formInvalidFields) && contactNo > 1 && !PatientRepository.isFirstVisit(baseEntityId)) {
                 String[] pair = formInvalidFields.split(":");
                 if (ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(pair[0]))
                     requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
@@ -223,7 +224,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private void process(String[] mainContactForms) {
         //Fetch and load previously saved values
         try {
-            if (contactNo > 1) {
+            if (contactNo > 1 && !PatientRepository.isFirstVisit(baseEntityId)) {
                 for (String formEventType : new ArrayList<>(Arrays.asList(mainContactForms))) {
                     if (eventToFileMap.containsValue(formEventType)) {
                         updateGlobalValuesWithDefaults(formEventType);
@@ -315,7 +316,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             if (!ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) && (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
-            if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)) {
+            if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)
+            && !PatientRepository.isFirstVisit(baseEntityId)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
             }
 
@@ -737,6 +739,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             map.put(ConstantsUtils.KeyUtils.CONTACT_NO, contactNo.toString());
             map.put(ConstantsUtils.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
             map.put(ConstantsUtils.AGE, womanAge);
+
+            if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+                map.put(ConstantsUtils.IS_FIRST_CONTACT, String.valueOf(PatientRepository.isFirstVisit(baseEntityId)));
+            }
 
             //Inject gestational age when it has not been calculated from profile form
             if (TextUtils.isEmpty(formGlobalValues.get(ConstantsUtils.GEST_AGE_OPENMRS))) {

@@ -29,7 +29,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
-import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -141,7 +140,6 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
-    //
     @Override
     public void onResume() {
         super.onResume();
@@ -286,14 +284,24 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             proceedButton = buttonLayout.findViewById(R.id.proceed);
         }
 
-        setQuickCheckButtonsVisible(none, other, buttonLayout, referButton, proceedButton);
-        setQuickCheckButtonsInvisible(none, other, buttonLayout, referButton, proceedButton);
 
-        if ((none && !other) && buttonLayout != null) {
-            referButton.setVisibility(View.GONE);
-        }
+        Button finalReferButton = referButton;
+        Button finalProceedButton = proceedButton;
+        getJsonApi().getAppExecutors().mainThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                setQuickCheckButtonsVisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+                setQuickCheckButtonsInvisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+
+                if ((none && !other) && buttonLayout != null) {
+                    finalReferButton.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
     }
+
 
     @Nullable
     private LinearLayout getQuickCheckButtonsLayout() {
@@ -339,11 +347,22 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
-                    new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
+                    getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            next();
+                        }
+                    });
+//                    new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
-                        new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
+                        getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                next();
+                            }
+                        });
                     } else {
                         savePartial = true;
                         save();
@@ -353,8 +372,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
                     view.getId() == com.vijay.jsonwizard.R.id.previous_icon) {
                 assert getFragmentManager() != null;
                 getJsonApi().setPreviousPressed(true);
-                getJsonApi().getStack().pop();
-                getFragmentManager().popBackStack(getJsonApi().getStack().pop(), 0);
+                getFragmentManager().popBackStack();
             } else if (view.getId() == R.id.refer) {
                 displayReferralDialog();
             } else if (view.getId() == R.id.proceed && getActivity() != null) {
