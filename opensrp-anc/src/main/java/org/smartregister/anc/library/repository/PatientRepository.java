@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
+import android.support.annotation.NonNull;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -61,6 +62,19 @@ public class PatientRepository extends BaseRepository {
             }
         }
         return null;
+    }
+
+    public static boolean isFirstVisit(@NonNull String baseEntityId) {
+        SQLiteDatabase sqLiteDatabase = getMasterRepository().getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(getRegisterQueryProvider().getDetailsTable(),
+                new String[]{DBConstantsUtils.KeyUtils.EDD},
+                DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " = ? ",
+                new String[]{baseEntityId}, null, null, null, "1");
+        String isFirstVisit = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            isFirstVisit = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.EDD));
+        }
+        return StringUtils.isBlank(isFirstVisit);
     }
 
     protected static Repository getMasterRepository() {

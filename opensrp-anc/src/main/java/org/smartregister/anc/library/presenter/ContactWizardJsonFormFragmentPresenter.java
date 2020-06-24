@@ -8,6 +8,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
+import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,8 +38,11 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
         String nextStep = getFormFragment().getJsonApi().nextStep();
         if (StringUtils.isNotBlank(nextStep)) {
             JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(nextStep);
-            getView().hideKeyBoard();
-            getView().transactThis(next);
+            JsonFormFragmentView jsonFormFragmentView = getView();
+            if (jsonFormFragmentView != null) {
+                jsonFormFragmentView.hideKeyBoard();
+                jsonFormFragmentView.transactThis(next);
+            }
             return true;
         }
         return false;
@@ -63,7 +67,6 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
                 break;
         }
     }
-
 
     @Override
     protected void nativeRadioButtonClickActions(View view) {

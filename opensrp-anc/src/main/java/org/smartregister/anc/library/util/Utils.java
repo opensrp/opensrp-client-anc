@@ -50,8 +50,11 @@ import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.rule.AlertRule;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.IOException;
@@ -64,6 +67,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -713,5 +717,137 @@ public class Utils extends org.smartregister.util.Utils {
      */
     public ContactTasksRepository getContactTasksRepositoryHelper() {
         return AncLibrary.getInstance().getContactTasksRepository();
+    }
+
+    public static String getDueCheckStrategy() {
+        return getProperties(AncLibrary.getInstance().getApplicationContext()).getProperty(ConstantsUtils.Properties.DUE_CHECK_STRATEGY, "");
+    }
+
+    public static HashMap<String, HashMap<String, String>> buildRepeatingGroupValues(@NonNull JSONArray fields, String fieldName) throws JSONException {
+        ArrayList<String> keysArrayList = new ArrayList<>();
+        JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
+        HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
+        if (jsonObject != null) {
+            JSONArray jsonArray = jsonObject.optJSONArray(JsonFormConstants.VALUE);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject valueField = jsonArray.optJSONObject(i);
+                String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                keysArrayList.add(fieldKey);
+            }
+
+            for (int k = 0; k < fields.length(); k++) {
+                JSONObject valueField = fields.optJSONObject(k);
+                String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                String fieldValue = valueField.optString(JsonFormConstants.VALUE);
+
+                if (fieldKey.contains("_")) {
+                    fieldKey = fieldKey.substring(0, fieldKey.lastIndexOf("_"));
+                    if (keysArrayList.contains(fieldKey) && StringUtils.isNotBlank(fieldValue)) {
+                        String fieldKeyId = valueField.optString(JsonFormConstants.KEY).substring(fieldKey.length() + 1);
+                        valueField.put(JsonFormConstants.KEY, fieldKey);
+                        HashMap<String, String> hashMap = repeatingGroupMap.get(fieldKeyId) == null ? new HashMap<>() : repeatingGroupMap.get(fieldKeyId);
+                        hashMap.put(fieldKey, fieldValue);
+                        repeatingGroupMap.put(fieldKeyId, hashMap);
+                    }
+                }
+            }
+        }
+        return repeatingGroupMap;
+    }
+
+    public static Event createContactVisitEvent(@NonNull List<String> formSubmissionIDs,
+                                                @NonNull Map<String, String> womanDetails,
+                                                @Nullable String openTasks) {
+
+        try {
+            String contactNo = womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
+            String contactStartDate = womanDetails.get(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
+            String baseEntityId = womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
+
+            Event contactVisitEvent = (Event) new Event().withBaseEntityId(baseEntityId).withEventDate(new Date())
+                    .withEventType(ConstantsUtils.EventTypeUtils.CONTACT_VISIT).withEntityType(DBConstantsUtils.CONTACT_ENTITY_TYPE)
+                    .withFormSubmissionId(ANCJsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(ANCJsonFormUtils.getContactStartDate(contactStartDate));
+
+            String currentContactNo;
+
+            if (womanDetails.get(ConstantsUtils.REFERRAL) == null) {
+                currentContactNo = ConstantsUtils.CONTACT + " " + contactNo;
+            } else {
+                currentContactNo = ConstantsUtils.CONTACT + " " + womanDetails.get(ConstantsUtils.REFERRAL);
+            }
+
+            contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
+            contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
+            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, openTasks);
+
+            ANCJsonFormUtils.tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
+                    contactVisitEvent);
+
+            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
+
+            return contactVisitEvent;
+
+        } catch (NullPointerException e) {
+            Timber.e(e, " --> createContactVisitEvent");
+            return null;
+        }
+
+    }
+
+    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String baseEntityId) throws JSONException {
+        JSONObject jsonObject = new JSONObject(strGroup);
+        Iterator<String> repeatingGroupKeys = jsonObject.keys();
+        List<String> currentFormSubmissionIds = new ArrayList<>();
+
+        int count = 0;
+
+        while (repeatingGroupKeys.hasNext()) {
+
+            ++count;
+
+            JSONObject jsonSingleVisitObject = jsonObject.optJSONObject(repeatingGroupKeys.next());
+
+            String contactDate = jsonSingleVisitObject.optString(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE);
+
+            Facts entries = new Facts();
+
+            entries.put(ConstantsUtils.CONTACT_DATE, contactDate);
+
+            HashMap<String, String> details = new HashMap<>();
+
+            details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, String.valueOf(count + 1));
+
+            details.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, baseEntityId);
+
+            Event contactVisitEvent = Utils.createContactVisitEvent(new ArrayList<>(), details, null);
+
+            if (contactVisitEvent != null) {
+                JSONObject factsJsonObject = new JSONObject(ANCJsonFormUtils.gson.toJson(entries.asMap()));
+                Event event = Utils.addContactVisitDetails("", contactVisitEvent, null, factsJsonObject.toString());
+                JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
+                AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+                currentFormSubmissionIds.add(event.getFormSubmissionId());
+            }
+        }
+
+        long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        try {
+            AncLibrary.getInstance().getClientProcessorForJava().processClient(AncLibrary.getInstance().getEcSyncHelper().getEvents(currentFormSubmissionIds));
+            Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+
+    public static Event addContactVisitDetails(String attentionFlagsString, Event event,
+                                               String referral, String currentContactState) {
+        event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
+        if (currentContactState != null && referral == null) {
+            event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
+        }
+        return event;
     }
 }
