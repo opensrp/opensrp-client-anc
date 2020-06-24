@@ -723,7 +723,14 @@ public class Utils extends org.smartregister.util.Utils {
         return getProperties(AncLibrary.getInstance().getApplicationContext()).getProperty(ConstantsUtils.Properties.DUE_CHECK_STRATEGY, "");
     }
 
-    public static HashMap<String, HashMap<String, String>> buildRepeatingGroupValues(@NonNull JSONArray fields, String fieldName) throws JSONException {
+    /***
+     * Creates a map for repeating group fields and values
+     * @param fields {@link JSONArray}
+     * @param fieldName {@link String}
+     * @return {@link HashMap}
+     * @throws JSONException
+     */
+    public static HashMap<String, HashMap<String, String>> buildRepeatingGroupValues(@NonNull JSONArray fields, @NonNull String fieldName) throws JSONException {
         ArrayList<String> keysArrayList = new ArrayList<>();
         JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
         HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
@@ -755,6 +762,13 @@ public class Utils extends org.smartregister.util.Utils {
         return repeatingGroupMap;
     }
 
+    /***
+     * Creates contact visit event after each visit
+     * @param formSubmissionIDs {@link List}
+     * @param womanDetails {@link Map}
+     * @param openTasks {@link String}
+     * @return {@link Event}
+     */
     public static Event createContactVisitEvent(@NonNull List<String> formSubmissionIDs,
                                                 @NonNull Map<String, String> womanDetails,
                                                 @Nullable String openTasks) {
@@ -795,6 +809,12 @@ public class Utils extends org.smartregister.util.Utils {
 
     }
 
+    /***
+     * Creates partial previous visit events for clients from the registration form
+     * @param strGroup {@link String}
+     * @param baseEntityId {@link String}
+     * @throws JSONException
+     */
     public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String baseEntityId) throws JSONException {
         JSONObject jsonObject = new JSONObject(strGroup);
         Iterator<String> repeatingGroupKeys = jsonObject.keys();
@@ -814,13 +834,13 @@ public class Utils extends org.smartregister.util.Utils {
 
             entries.put(ConstantsUtils.CONTACT_DATE, contactDate);
 
-            HashMap<String, String> details = new HashMap<>();
+            HashMap<String, String> womanDetails = new HashMap<>();
 
-            details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, String.valueOf(count + 1));
+            womanDetails.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, String.valueOf(count + 1));
 
-            details.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, baseEntityId);
+            womanDetails.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, baseEntityId);
 
-            Event contactVisitEvent = Utils.createContactVisitEvent(new ArrayList<>(), details, null);
+            Event contactVisitEvent = Utils.createContactVisitEvent(new ArrayList<>(), womanDetails, null);
 
             if (contactVisitEvent != null) {
                 JSONObject factsJsonObject = new JSONObject(ANCJsonFormUtils.gson.toJson(entries.asMap()));
