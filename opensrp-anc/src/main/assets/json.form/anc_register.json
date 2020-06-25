@@ -413,25 +413,6 @@
         "openmrs_entity_id": "last_contact_record_date",
         "type": "hidden",
         "value": ""
-      },
-      {
-        "key": "previous_visits",
-        "type": "repeating_group",
-        "reference_edit_text_hint": "# of visits",
-        "repeating_group_label": "",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "value": [
-          {
-            "key": "visit_date",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "date_picker",
-            "hint": "Visit date"
-          }
-        ]
       }
     ]
   }
