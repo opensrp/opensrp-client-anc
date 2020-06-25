@@ -155,12 +155,12 @@ public class AncLibrary {
     /**
      * Provides options for implementation specific classes
      *
-     * @param context
-     * @param dbVersion
-     * @param activityConfiguration
-     * @param subscriberInfoIndex
-     * @param registerQueryProvider
-     * @param metadata
+     * @param context               {@link Context}
+     * @param dbVersion             {@link int dbVersion}
+     * @param activityConfiguration {@link ActivityConfiguration}
+     * @param subscriberInfoIndex   {@link SubscriberInfoIndex}
+     * @param registerQueryProvider {@link RegisterQueryProvider}
+     * @param metadata              {@link AncMetadata}
      */
     public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider, @Nullable AncMetadata metadata) {
         if (instance == null) {
