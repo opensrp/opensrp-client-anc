@@ -73,7 +73,9 @@ public class PatientRepository extends BaseRepository {
         String isFirstVisit = null;
         if (cursor != null && cursor.moveToFirst()) {
             isFirstVisit = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.EDD));
+            cursor.close();
         }
+
         return StringUtils.isBlank(isFirstVisit);
     }
 
