@@ -227,9 +227,11 @@ public class Utils extends org.smartregister.util.Utils {
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
 
-            JSONObject globals = new JSONObject();
-            globals.put(ConstantsUtils.CONTACT_NO, personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
-            form.put(ConstantsUtils.GLOBAL, globals);
+            if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+                JSONObject globals = new JSONObject();
+                globals.put(ConstantsUtils.IS_FIRST_CONTACT, PatientRepository.isFirstVisit(personObjectClient.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)));
+                form.put(ConstantsUtils.GLOBAL, globals);
+            }
 
             String processedForm = ANCFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 

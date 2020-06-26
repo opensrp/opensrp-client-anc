@@ -98,13 +98,19 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
-    //this creates partial previous visit events
+    /***
+     * creates partial previous visit events after creation of client
+     * @param pair {@link Pair}
+     * @param baseEntityId {@link String}
+     */
     private void createPartialPreviousEvent(Pair<Client, Event> pair, String baseEntityId) {
         appExecutors.diskIO().execute(() -> {
             try {
-                String strPreviousVisitsMap = pair.second.getIdentifiers().get(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP);
-                if (StringUtils.isNotBlank(strPreviousVisitsMap)) {
-                    Utils.createPreviousVisitFromGroup(strPreviousVisitsMap, baseEntityId);
+                if (pair.second != null && pair.second.getIdentifiers() != null) {
+                    String strPreviousVisitsMap = pair.second.getIdentifiers().get(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP);
+                    if (StringUtils.isNotBlank(strPreviousVisitsMap)) {
+                        Utils.createPreviousVisitFromGroup(strPreviousVisitsMap, baseEntityId);
+                    }
                 }
             } catch (JSONException e) {
                 Timber.e(e);
