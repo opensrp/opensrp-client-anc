@@ -796,8 +796,7 @@ public class Utils extends org.smartregister.util.Utils {
             contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
             contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, openTasks);
 
-            ANCJsonFormUtils.tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
-                    contactVisitEvent);
+            ANCJsonFormUtils.tagSyncMetadata(getAllSharedPreferences(), contactVisitEvent);
 
             PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
 
@@ -852,11 +851,11 @@ public class Utils extends org.smartregister.util.Utils {
             }
         }
 
-        long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+        long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
         try {
             AncLibrary.getInstance().getClientProcessorForJava().processClient(AncLibrary.getInstance().getEcSyncHelper().getEvents(currentFormSubmissionIds));
-            Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e);
         }
