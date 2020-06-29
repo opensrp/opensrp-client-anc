@@ -64,7 +64,7 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
         } catch (NullPointerException e) {
             clientDetails = new HashMap<>();
         }
-        String edd = StringUtils.isNotBlank(facts.get(DBConstantsUtils.KeyUtils.EDD)) ? facts.get(DBConstantsUtils.KeyUtils.EDD) : Utils.reverseHyphenSeperatedValues(clientDetails.get(ConstantsUtils.EDD), "-");
+        String edd = StringUtils.isNotBlank(facts.get(DBConstantsUtils.KeyUtils.EDD)) ? facts.get(DBConstantsUtils.KeyUtils.EDD) : clientDetails != null ? Utils.reverseHyphenSeperatedValues(clientDetails.get(ConstantsUtils.EDD), "-") : "";
         String contactNo = String.valueOf(intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
 
         if (edd != null && ((ContactSummaryFinishActivity) context).saveFinishMenuItem != null) {

@@ -371,6 +371,11 @@ public class ANCJsonFormUtilsTest {
         PowerMockito.mockStatic(LocationHelper.class);
         PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
 
+        AncMetadata ancMetadata = new AncMetadata();
+        ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        Mockito.when(ancLibrary.getAncMetadata()).thenReturn(ancMetadata);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+
         ArrayList<String> allLevels = new ArrayList<>();
         allLevels.add("Country");
         allLevels.add("Province");
@@ -387,7 +392,6 @@ public class ANCJsonFormUtilsTest {
         formLocation.key = DBConstantsUtils.KeyUtils.HOME_ADDRESS;
         formLocation.name = details.get(DBConstantsUtils.KeyUtils.HOME_ADDRESS);
         formLocations.add(formLocation);
-
 
         List<String> locations = new ArrayList<>();
         locations.add(details.get(Utils.HOME_ADDRESS));
