@@ -810,7 +810,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONObject clientForm = db.getClientByBaseEntityId(baseEntityId);
 
             JSONObject attributes = clientForm.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-            attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, contactVisitEvent.getDetails().get(ConstantsUtils.CONTACT));
+            attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
             attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
             attributes.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
                     womanDetails.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
