@@ -106,8 +106,8 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     private void createPartialPreviousEvent(Pair<Client, Event> pair, String baseEntityId) {
         appExecutors.diskIO().execute(() -> {
             try {
-                if (pair.second != null && pair.second.getIdentifiers() != null) {
-                    String strPreviousVisitsMap = pair.second.getIdentifiers().get(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP);
+                if (pair.second != null && pair.second.getDetails() != null) {
+                    String strPreviousVisitsMap = pair.second.getDetails().get(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP);
                     if (StringUtils.isNotBlank(strPreviousVisitsMap)) {
                         Utils.createPreviousVisitFromGroup(strPreviousVisitsMap, baseEntityId);
                     }

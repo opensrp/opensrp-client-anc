@@ -234,7 +234,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
 
             if (previousVisitsMap != null) {
-                baseEvent.addIdentifier(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP, previousVisitsMap);
+                baseEvent.addDetails(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP, previousVisitsMap);
             }
             tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
@@ -528,6 +528,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
             throws JSONException {
 
+        AncMetadata ancMetadata = AncLibrary.getInstance().getAncMetadata();
+
         if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.DOB_ENTERED)) {
             getDobUsingEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.DOB);
 
@@ -547,8 +549,9 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (StringUtils.isNotBlank(womanClient.get(DBConstantsUtils.KeyUtils.DOB))) {
                 jsonObject.put(ANCJsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstantsUtils.KeyUtils.DOB)));
             }
-        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.VILLAGE)) {
-            reverseLocationTree(jsonObject, womanClient.get(ConstantsUtils.JsonFormKeyUtils.VILLAGE));
+        } else if (ancMetadata != null && ancMetadata.getFieldsWithLocationHierarchy() != null &&
+                ancMetadata.getFieldsWithLocationHierarchy().contains(jsonObject.optString(ANCJsonFormUtils.KEY))) {
+            reverseLocationTree(jsonObject, womanClient.get(jsonObject.optString(ANCJsonFormUtils.KEY)));
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.EDD)) {
             formatEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.EDD);
 

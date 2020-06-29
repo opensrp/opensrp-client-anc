@@ -18,6 +18,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.domain.AttentionFlag;
@@ -32,6 +33,7 @@ import org.smartregister.anc.library.presenter.RegisterPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 
