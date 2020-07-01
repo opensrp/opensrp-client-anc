@@ -68,7 +68,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
     private ArgumentCaptor<Long> longArgumentCaptor;
 
     @Mock
-    AncLibrary ancLibrary;
+    private AncLibrary ancLibrary;
 
     @Before
     public void setUp() {
