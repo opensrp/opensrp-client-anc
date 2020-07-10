@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.interactor;
 
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;

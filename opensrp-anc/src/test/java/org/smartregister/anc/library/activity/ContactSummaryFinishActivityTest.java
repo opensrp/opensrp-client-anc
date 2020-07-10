@@ -2,8 +2,8 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
+com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;

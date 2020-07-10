@@ -35,14 +35,7 @@ public class AncSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
-    public boolean hasGlobalSettings() {
-        return BuildConfig.HAS_GLOBAL_SETTINGS;
-    }
-
-    @Override
-    public boolean hasExtraSettingsSync() {
-        return BuildConfig.HAS_SETTINGS_SYNC;
-    }
+    public boolean hasExtraSettingsSync() { return BuildConfig.HAS_EXTRA_SETTINGS_SYNC_FILTER; }
 
     @Override
     public List<String> getExtraSettingsParameters() {
