@@ -39,7 +39,6 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -56,7 +55,6 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
 
         mToolbar.findViewById(R.id.characteristics_toolbar_edit)
                 .setVisibility(title.equals(getString(R.string.population_characteristics)) ? View.GONE : View.VISIBLE);
-
     }
 
     protected abstract BaseCharacteristicsContract.BasePresenter getPresenter();
@@ -66,7 +64,6 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
     @Override
     public void onItemClick(View view, int position) {
         renderSubInfoAlertDialog(view.findViewById(R.id.info).getTag(R.id.CHARACTERISTIC_DESC).toString());
-
     }
 
     protected void renderSubInfoAlertDialog(String info) {
@@ -87,7 +84,6 @@ public abstract class BaseCharacteristicsActivity extends BaseActivity
 
     @Override
     public void renderSettings(List<ServerSetting> characteristics) {
-
         CharacteristicsAdapter adapter = new CharacteristicsAdapter(this, characteristics);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
