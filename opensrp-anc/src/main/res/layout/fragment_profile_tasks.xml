@@ -28,7 +28,7 @@
         android:textColor="@color/dark_grey"
         android:visibility="visible" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_display_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

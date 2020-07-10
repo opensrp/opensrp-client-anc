@@ -2,7 +2,7 @@ package org.smartregister.anc.library.util;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
