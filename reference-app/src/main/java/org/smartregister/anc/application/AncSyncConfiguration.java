@@ -43,7 +43,7 @@ public class AncSyncConfiguration extends SyncConfiguration {
         String providerId = sharedPreferences.fetchRegisteredANM();
 
         List<String> params = new ArrayList<>();
-        params.add(ConstantsUtils.SettingsSyncParams.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId));
+        params.add(ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId));
         return params;
     }
 
