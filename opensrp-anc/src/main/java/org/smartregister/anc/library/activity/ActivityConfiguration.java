@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
+
 import androidx.annotation.NonNull;
 
 /**

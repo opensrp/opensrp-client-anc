@@ -3,8 +3,6 @@ package org.smartregister.anc.library.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
@@ -88,7 +89,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", JsonFormActivity.class.getCanonicalName())).create();
+                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", FormConfigurationJsonFormActivity.class.getCanonicalName())).create();
 
         dialog.show();
     }

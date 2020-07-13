@@ -39,7 +39,7 @@ public abstract class BaseContactModel {
     }
 
     protected JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
-        JSONObject form = getFormUtils().getFormJson(formName);
+        JSONObject form = new com.vijay.jsonwizard.utils.FormUtils().getFormJsonFromRepositoryOrAssets(AncLibrary.getInstance().getApplicationContext(), formName);
         if (form == null) {
             return null;
         }

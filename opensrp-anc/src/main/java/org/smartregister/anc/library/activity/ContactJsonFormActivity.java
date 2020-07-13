@@ -10,7 +10,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
@@ -36,7 +36,7 @@ import timber.log.Timber;
  * Created by ndegwamartin on 30/06/2018.
  */
 
-public class ContactJsonFormActivity extends JsonFormActivity {
+public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
@@ -50,6 +50,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
     public void init(String json) {
         try {
             setmJSONObject(new JSONObject(json));

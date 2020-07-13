@@ -4,16 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.util.Pair;
+
 import com.google.common.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -713,8 +714,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchANCCloseForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, JsonFormActivity.class);
-            JSONObject form = FormUtils.getInstance(activity).getFormJson(ConstantsUtils.JsonFormUtils.ANC_CLOSE);
+            Intent intent = new Intent(activity, FormConfigurationJsonFormActivity.class);
+            JSONObject form = new com.vijay.jsonwizard.utils.FormUtils().getFormJsonFromRepositoryOrAssets(activity.getApplicationContext(), ConstantsUtils.JsonFormUtils.ANC_CLOSE);
             if (form != null) {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID, activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, form.toString());
@@ -728,8 +729,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static void launchSiteCharacteristicsForm(Activity activity) {
         try {
-            Intent intent = new Intent(activity, JsonFormActivity.class);
-            JSONObject form = FormUtils.getInstance(activity).getFormJson(ConstantsUtils.JsonFormUtils.ANC_SITE_CHARACTERISTICS);
+            Intent intent = new Intent(activity, FormConfigurationJsonFormActivity.class);
+            JSONObject form = new com.vijay.jsonwizard.utils.FormUtils().getFormJsonFromRepositoryOrAssets(activity.getApplicationContext(), ConstantsUtils.JsonFormUtils.ANC_SITE_CHARACTERISTICS);
             if (form != null) {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID,
                         activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));

@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-//import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +11,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+
+//import androidx.recyclerview.widget.GridLayoutManager;
 
 public abstract class BaseContactActivity extends SecuredActivity {
     protected ContactAdapter contactAdapter;

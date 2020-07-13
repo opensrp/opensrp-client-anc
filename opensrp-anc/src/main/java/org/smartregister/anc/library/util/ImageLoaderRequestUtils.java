@@ -2,7 +2,6 @@ package org.smartregister.anc.library.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-//import androidx.collection.LruCache;
 
 import androidx.collection.LruCache;
 
@@ -13,6 +12,8 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
+
+//import androidx.collection.LruCache;
 
 /**
  * Created by samuelgithengi on 1/19/18.

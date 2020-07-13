@@ -8,12 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-//import androidx.fragment.app.Fragment;
-//import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -50,6 +49,9 @@ import org.smartregister.view.activity.BaseProfileActivity;
 import java.util.HashMap;
 
 import timber.log.Timber;
+
+//import androidx.fragment.app.Fragment;
+//import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by ndegwamartin on 10/07/2018.

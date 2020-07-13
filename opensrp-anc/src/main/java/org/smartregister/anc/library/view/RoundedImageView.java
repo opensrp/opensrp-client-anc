@@ -10,9 +10,10 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import org.smartregister.anc.library.R;
 
