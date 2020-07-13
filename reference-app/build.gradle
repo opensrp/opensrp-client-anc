@@ -19,7 +19,7 @@ jacoco {
 }
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
-ext.versionMinor = 4
+ext.versionMinor = 5
 ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
@@ -211,7 +211,7 @@ tasks.withType(Test) {
 dependencies {
     def powerMockVersion = '2.0.4'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:1.9.2-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.13.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'

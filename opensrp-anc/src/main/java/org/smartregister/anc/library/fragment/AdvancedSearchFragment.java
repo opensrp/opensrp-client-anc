@@ -7,8 +7,6 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-//import androidx.loader.content.CursorLoader;
-//mport androidx.loader.content.Loader;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -51,6 +49,9 @@ import java.util.HashMap;
 import java.util.Set;
 
 import timber.log.Timber;
+
+//import androidx.loader.content.CursorLoader;
+//mport androidx.loader.content.Loader;
 
 public class AdvancedSearchFragment extends HomeRegisterFragment
         implements AdvancedSearchContract.View, RegisterFragmentContract.View {

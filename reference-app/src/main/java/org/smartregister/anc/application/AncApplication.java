@@ -8,6 +8,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.flurry.android.FlurryAgent;
+import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -77,7 +78,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     .withLogLevel(Log.VERBOSE)
                     .build(this, BuildConfig.FLURRY_API_KEY);
         }
-
+        NativeFormLibrary
+                .getInstance()
+                .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
     private void setDefaultLanguage() {

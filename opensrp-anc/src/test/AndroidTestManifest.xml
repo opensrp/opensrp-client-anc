@@ -16,7 +16,7 @@
         android:theme="@style/AncAppTheme">
         
         <activity
-            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:name="com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar"

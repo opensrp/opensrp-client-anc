@@ -1,10 +1,11 @@
 package org.smartregister.anc.library.view;
 
 import android.content.Context;
-//import androidx.cardview.widget.CardView;
 import android.util.AttributeSet;
 
 import androidx.cardview.widget.CardView;
+
+//import androidx.cardview.widget.CardView;
 
 public class SquareCardView extends CardView {
     public SquareCardView(Context context) {

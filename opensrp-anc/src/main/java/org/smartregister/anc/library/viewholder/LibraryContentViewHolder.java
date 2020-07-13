@@ -1,11 +1,12 @@
 package org.smartregister.anc.library.viewholder;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.listener.LibraryContentClickListener;

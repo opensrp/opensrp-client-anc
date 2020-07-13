@@ -4,10 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;

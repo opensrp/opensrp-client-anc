@@ -2,15 +2,15 @@ package org.smartregister.anc.library.activity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.TextView;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.CharacteristicsAdapter;

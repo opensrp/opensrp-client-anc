@@ -1,9 +1,10 @@
 package org.smartregister.anc.library.interactor;
 
 import android.content.Context;
+import android.text.TextUtils;
+
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
-import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
 import org.joda.time.LocalDate;

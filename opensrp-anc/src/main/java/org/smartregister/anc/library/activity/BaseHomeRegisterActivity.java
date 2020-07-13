@@ -3,11 +3,6 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -16,9 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -196,7 +195,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, JsonFormActivity.class);
+        Intent intent = new Intent(this, FormConfigurationJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
         intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);

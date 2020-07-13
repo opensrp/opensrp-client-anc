@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-//com.google.android.material.appbar.AppBarLayout;
-//import com.google.android.material.appbar.CollapsingToolbarLayout;
+import android.view.View;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import android.view.View;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -29,6 +28,9 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
+
+//com.google.android.material.appbar.AppBarLayout;
+//import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 /**
  * Created by ndegwamartin on 16/07/2018.
