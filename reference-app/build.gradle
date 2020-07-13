@@ -282,6 +282,7 @@ dependencies {
     }
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'org.smartregister:opensrp-plan-evaluator:0.0.13-SNAPSHOT'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
