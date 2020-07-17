@@ -115,7 +115,6 @@ These instructions will get you a copy of the project up and running on your loc
 |Service Delivery Support            |Diagnosis and Treatment decision support algorithms for all major pregnancy conditions                                                                                                         |opensrp-client-native-form (rules engine)                          |
 |Service Delivery Support            |Decision support algorithms for all WHO ANC guidelines                                                                                                                                         |opensrp-client-native-form (rules engine)                          |
 
-
 ## Versioning
 We use SemVer for versioning. For the versions available, see the tags on this repository.
 For more details check out <https://semver.org/>
@@ -136,4 +135,3 @@ Slack workspace: <opensrp.slack.com>
 
 ## License
 This project is licensed under the Apache 2.0 License - see the LICENSE.md file for details
-
