@@ -316,7 +316,7 @@ public class AncLibrary {
     }
 
     public Iterable<Object> readYaml(String filename) {
-        return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFile((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
+        return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFileWithDBProperties((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
     }
 
     public int getDatabaseVersion() {
