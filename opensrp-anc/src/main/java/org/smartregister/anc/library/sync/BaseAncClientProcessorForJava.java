@@ -191,7 +191,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             String openTasks = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.OPEN_TEST_TASKS);
             if (StringUtils.isNotBlank(openTasks)) {
                 JSONArray openTasksArray = new JSONArray(openTasks);
-                String contactNo = getContact(event);
 
                 for (int i = 0; i < openTasksArray.length(); i++) {
                     JSONObject tasks = new JSONObject(openTasksArray.getString(i));
