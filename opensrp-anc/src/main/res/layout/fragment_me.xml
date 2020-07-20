@@ -435,6 +435,16 @@
                     android:textSize="@dimen/login_build_text_view_textSize"
                     android:typeface="sans" />
 
+                <TextView
+                    android:id="@+id/form_manifest_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/register_search_bar_margin"
+                    android:text="@string/form_manifest_version"
+                    android:textColor="@color/dark_grey_text"
+                    android:textSize="@dimen/login_build_text_view_textSize"
+                    android:typeface="sans" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

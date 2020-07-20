@@ -60,12 +60,18 @@ public class AncRepository extends Repository {
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
                 case 2:
-                    // upgradeToVersion2(db);
+                    upgradeToVersion2(db);
                     break;
                 default:
                     break;
             }
             upgradeTo++;
+        }
+    }
+
+    private void upgradeToVersion2(SQLiteDatabase db) {
+        if (!ManifestRepository.isVersionColumnExist(db)) {
+            ManifestRepository.addVersionColumn(db);
         }
     }
 

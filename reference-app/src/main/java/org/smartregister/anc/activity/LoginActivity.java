@@ -1,6 +1,8 @@
 package org.smartregister.anc.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -29,6 +31,17 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (!mLoginPresenter.isUserLoggedOut()) {
             goToHome(false);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setUpViews();
+    }
+
+    private void setUpViews() {
+        TextView formReleaseTextView = findViewById(R.id.manifest_text_view);
+        formReleaseTextView.setText(new Utils().getManifestVersion(this));
     }
 
     @Override

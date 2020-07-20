@@ -60,6 +60,17 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
             languageSwitcherText = languageSwitcherSection.findViewById(R.id.language_switcher_text);
             registerLanguageSwitcher();
         }
+
+        setManifestVersion(view);
+    }
+
+    private void setManifestVersion(View view) {
+        TextView manifestVersionText = view.findViewById(R.id.form_manifest_version);
+        if (getActivity() != null) {
+            manifestVersionText.setText(new Utils().getManifestVersion(getActivity().getBaseContext()));
+        } else {
+            manifestVersionText.setVisibility(View.INVISIBLE);
+        }
     }
 
     protected void setClickListeners() {
