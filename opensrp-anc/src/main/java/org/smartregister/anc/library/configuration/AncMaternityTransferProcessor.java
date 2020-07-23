@@ -126,7 +126,7 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
                         String key = object.optString(JsonFormConstants.KEY);
 
                         if (clientDetails.get(key) != null) {
-                            object.put(JsonFormConstants.VALUE, updateValue(object, clientDetails.get(key)));
+                            updateValue(object, clientDetails.get(key));
                         }
 
                         if (columnMap.get(key) != null) {
@@ -152,9 +152,13 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
         return jsonForm;
     }
 
-    protected String updateValue(@NonNull JSONObject object, @NonNull String value) {
+    protected void updateValue(@NonNull JSONObject object, @NonNull String value) {
         Timber.i("key %s", object.optString(JsonFormConstants.KEY));
-        return value;
+        try {
+            object.put(JsonFormConstants.VALUE, value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     protected List<String> getCloseFormFieldsList() {
