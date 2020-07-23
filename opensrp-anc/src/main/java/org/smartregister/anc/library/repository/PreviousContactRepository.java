@@ -1,6 +1,8 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -11,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
-import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.BaseRepository;
@@ -126,21 +127,21 @@ public class PreviousContactRepository extends BaseRepository {
 
     /**
      * @param baseEntityId is the Base entity Id No to filter by
-     * @param keysList     an optional list of keys to query null otherwise to get all keys for that base entity id
+     * @param keysArr      an optional list of keys to query null otherwise to get all keys for that base entity id
      */
-    public List<PreviousContact> getPreviousContacts(String baseEntityId, List<String> keysList) {
+    public List<PreviousContact> getPreviousContacts(@NonNull String baseEntityId, @Nullable String[] keysArr) {
         String orderBy = ID + " DESC ";
         Cursor mCursor = null;
         String selection = "";
         String[] selectionArgs = null;
         List<PreviousContact> previousContacts = new ArrayList<>();
         try {
-            SQLiteDatabase db = getWritableDatabase();
+            SQLiteDatabase db = getReadableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId)) {
-                if (keysList != null) {
-                    selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN (?) " + BaseRepository.COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId, ANCFormUtils.getListValuesAsString(keysList)};
+                if (keysArr != null) {
+                    selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN ( '" + StringUtils.join(keysArr, "','") + "') ";
+                    selectionArgs = new String[]{baseEntityId};
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
                     selectionArgs = new String[]{baseEntityId};
@@ -155,7 +156,7 @@ public class PreviousContactRepository extends BaseRepository {
                 return previousContacts;
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e);
         } finally {
             if (mCursor != null) {
                 mCursor.close();

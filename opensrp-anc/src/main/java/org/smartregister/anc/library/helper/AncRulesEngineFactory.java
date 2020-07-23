@@ -15,6 +15,7 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
     private Map<String, String> globalValues;
     private AncRulesEngineHelper ancRulesEngineHelper;
     private String selectedRuleName;
+    private Facts globalFacts;
 
 
     public AncRulesEngineFactory(Context context, Map<String, String> globalValues, JSONObject mJSONObject) {
@@ -23,20 +24,21 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
         this.ancRulesEngineHelper.setJsonObject(mJSONObject);
         this.globalValues = globalValues;
 
+
+        if (globalValues != null) {
+            globalFacts = new Facts();
+            for (Map.Entry<String, String> entry : globalValues.entrySet()) {
+                globalFacts.put(RuleConstant.PREFIX.GLOBAL + entry.getKey(), getValue(entry.getValue()));
+            }
+        }
     }
 
     @Override
     protected Facts initializeFacts(Facts facts) {
-        if (globalValues != null) {
-            for (Map.Entry<String, String> entry : globalValues.entrySet()) {
-                facts.put(RuleConstant.PREFIX.GLOBAL + entry.getKey(), getValue(entry.getValue()));
-            }
-
-            facts.asMap().putAll(globalValues);
+        if (globalFacts != null) {
+            facts.asMap().putAll(globalFacts.asMap());
         }
-
         selectedRuleName = facts.get(RuleConstant.SELECTED_RULE);
-
         facts.put("helper", ancRulesEngineHelper);
         return facts;
     }

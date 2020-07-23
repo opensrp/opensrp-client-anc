@@ -88,6 +88,10 @@ public abstract class ConstantsUtils {
         }
     }
 
+    public interface ClosedNature {
+        String TRANSFERRED = "transferred";
+    }
+
     public static class AncRadioButtonOptionTypesUtils {
         public static final String DONE_TODAY = "done_today";
         public static final String DONE_EARLIER = "done_earlier";
@@ -112,6 +116,7 @@ public abstract class ConstantsUtils {
         public static final String CLOSE = "ANC Close";
         public static final String SITE_CHARACTERISTICS = "Site Characteristics";
         public static final String CONTACT_VISIT = "Contact Visit";
+        public static final String ANC_MATERNITY_TRANSFER = "anc_maternity_transfer";
     }
 
     public static class JsonFormUtils {

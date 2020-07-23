@@ -131,7 +131,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } else {
             Timber.tag(TAG).w("Unsupported form requested for launch %s", formName);
         }
-        Timber.d("form is %s", form.toString());
+        //Timber.d("form is %s", form.toString());
         return form;
     }
 
@@ -332,7 +332,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
 
                 JSONObject lastContactDateJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
-                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, previousVisitsMapItem.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE));
+                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, Utils.reverseHyphenSeperatedValues(previousVisitsMapItem.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE), "-"));
             }
         }
         JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
@@ -483,7 +483,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 lpv.init();
             }
 
-            Timber.d("Form is %s", form.toString());
+            //Timber.d("Form is %s", form.toString());
 
             if (form != null) {
                 form.put(ANCJsonFormUtils.ENTITY_ID, womanClient.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
@@ -624,7 +624,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
         Intent intent = new Intent(context, EditJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, metaData);
-        Timber.d("form is %s", metaData);
+        //Timber.d("form is %s", metaData);
         context.startActivityForResult(intent, jsonFormActivityRequestCode);
 
     }
@@ -776,7 +776,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                                                                            Map<String, String> characteristics) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(ConstantsUtils.JsonFormUtils.ANC_SITE_CHARACTERISTICS);
-            Timber.d("Form is " + form.toString());
+            //Timber.d("Form is " + form.toString());
             if (form != null) {
                 form.put(ANCJsonFormUtils.ENCOUNTER_TYPE, ConstantsUtils.EventTypeUtils.SITE_CHARACTERISTICS);
 

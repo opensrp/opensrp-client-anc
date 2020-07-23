@@ -1,11 +1,16 @@
 package org.smartregister.anc.library.interactor;
 
 import android.content.ContentValues;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
@@ -121,56 +126,83 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     @Override
     public void removeWomanFromANCRegister(final String closeFormJsonString, final String providerId) {
         Runnable runnable = () -> {
+            PatientRemovedEvent patientRemovedEvent = new PatientRemovedEvent();
             try {
-                Triple<Boolean, Event, Event> triple = ANCJsonFormUtils
-                        .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
+                boolean isClientToBeTransferred = processTransfer(closeFormJsonString, patientRemovedEvent);
 
-                if (triple == null) {
-                    return;
-                }
+                if (!isClientToBeTransferred) {
+                    Triple<Boolean, Event, Event> triple = ANCJsonFormUtils
+                            .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
 
-                boolean isDeath = triple.getLeft();
-                Event event = triple.getMiddle();
-                Event updateChildDetailsEvent = triple.getRight();
+                    if (triple == null) {
+                        return;
+                    }
 
-                String baseEntityId = event.getBaseEntityId();
+                    boolean isDeath = triple.getLeft();
+                    Event event = triple.getMiddle();
+                    Event updateChildDetailsEvent = triple.getRight();
 
-                //Update client to deceased
-                JSONObject client = getSyncHelper().getClient(baseEntityId);
-                if (isDeath) {
-                    client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, Utils.getTodaysDate());
-                    client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
-                }
-                JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-                attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
-                getSyncHelper().addClient(baseEntityId, client);
+                    String baseEntityId = event.getBaseEntityId();
 
-                //Add Remove Event for child to flag for Server delete
-                JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
-                getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
+                    //Update client to deceased
+                    JSONObject client = getSyncHelper().getClient(baseEntityId);
+                    if (isDeath) {
+                        client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, Utils.getTodaysDate());
+                        client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
+                    }
+                    JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
+                    attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
+                    client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
+                    getSyncHelper().addClient(baseEntityId, client);
 
-                //Update Child Entity to include death date
-                JSONObject eventJsonUpdateChildEvent =
-                        new JSONObject(ANCJsonFormUtils.gson.toJson(updateChildDetailsEvent));
-                getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
+                    //Add Remove Event for child to flag for Server delete
+                    JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
+                    getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
 
-                //Update REGISTER and FTS Tables
-                if (getAllCommonsRepository() != null) {
-                    ContentValues values = new ContentValues();
-                    values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                    getAllCommonsRepository().update(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, values, baseEntityId);
-                    getAllCommonsRepository().updateSearch(baseEntityId);
+                    //Update Child Entity to include death date
+                    JSONObject eventJsonUpdateChildEvent =
+                            new JSONObject(ANCJsonFormUtils.gson.toJson(updateChildDetailsEvent));
+                    getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
 
+                    //Update REGISTER and FTS Tables
+                    if (getAllCommonsRepository() != null) {
+                        ContentValues values = new ContentValues();
+                        values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
+                        getAllCommonsRepository().update(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, values, baseEntityId);
+                        getAllCommonsRepository().updateSearch(baseEntityId);
+
+                    }
                 }
             } catch (Exception e) {
                 Timber.e(e, " --> removeWomanFromANCRegister");
             } finally {
-                Utils.postStickyEvent(new PatientRemovedEvent());
+                Utils.postStickyEvent(patientRemovedEvent);
             }
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    protected boolean processTransfer(@NonNull String closeFormJsonString, @NonNull PatientRemovedEvent patientRemovedEvent) throws Exception {
+        JSONObject closeForm = new JSONObject(closeFormJsonString);
+        JSONArray fields = FormUtils.getMultiStepFormFields(closeForm);
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject object = fields.optJSONObject(i);
+            String key = object.optString(JsonFormConstants.KEY);
+            if ("anc_close_reason".equals(key)) {
+                String value = object.optString(JsonFormConstants.VALUE);
+                if (StringUtils.isNotBlank(value) && value.contains("labour")) {
+                    patientRemovedEvent.setClosedNature(ConstantsUtils.ClosedNature.TRANSFERRED);
+                    AncLibrary.getInstance()
+                            .getAncMetadata()
+                            .getTransferProcessorByEventType(ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER)
+                            .startTransferProcessing(closeForm);
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
     }
 
     public AllCommonsRepository getAllCommonsRepository() {
