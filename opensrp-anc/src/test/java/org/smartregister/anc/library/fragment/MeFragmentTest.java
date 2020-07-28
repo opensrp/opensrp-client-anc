@@ -1,43 +1,30 @@
 package org.smartregister.anc.library.fragment;
 
-import android.app.Activity;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.android.controller.ActivityController;
-import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.activity.BaseActivityUnitTest;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseUnitTest;
+import org.smartregister.view.activity.BaseRegisterActivity;
 
-public class MeFragmentTest extends BaseActivityUnitTest {
-    @Mock
-    private AncLibrary ancLibrary;
+public class MeFragmentTest extends BaseUnitTest {
     private BaseHomeRegisterActivity activity;
     private MeFragment meFragment;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        meFragment = Mockito.spy(MeFragment.class);
-    }
-
-    @Override
-    protected Activity getActivity() {
-        return null;
-    }
-
-    @Override
-    protected ActivityController getActivityController() {
-        return null;
+        activity = Mockito.mock(BaseHomeRegisterActivity.class);
+        meFragment = Mockito.mock(MeFragment.class);
     }
 
     @Test
     public void testActivityIsInstantiatedCorrectly() {
-        Assert.assertNotNull(activity);
+        Mockito.doReturn(meFragment).when(activity).findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
+        Assert.assertNotNull(meFragment);
+        Assert.assertTrue(meFragment instanceof MeFragment);
     }
 
 }

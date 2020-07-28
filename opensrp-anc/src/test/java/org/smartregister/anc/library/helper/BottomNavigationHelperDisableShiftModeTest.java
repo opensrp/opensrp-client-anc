@@ -1,7 +1,8 @@
 package org.smartregister.anc.library.helper;
 
 import android.app.Activity;
-import android.support.design.widget.BottomNavigationView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.junit.After;
 import org.junit.Assert;
