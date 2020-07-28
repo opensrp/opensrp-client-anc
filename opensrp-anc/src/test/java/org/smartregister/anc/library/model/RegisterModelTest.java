@@ -672,7 +672,6 @@ public class RegisterModelTest extends BaseUnitTest {
     public void testFormAsJson() throws Exception {
         FormUtils formUtils = Mockito.mock(FormUtils.class);
         RegisterModel registerModel = (RegisterModel) model;
-        registerModel.setFormUtils(formUtils);
 
         String formName = "anc_register";
         String entityId = "ENTITY_ID";
