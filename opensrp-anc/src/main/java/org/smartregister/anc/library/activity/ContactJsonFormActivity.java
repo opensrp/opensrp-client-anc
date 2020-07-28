@@ -9,7 +9,6 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
@@ -22,8 +21,9 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.view.activity.DynamicJsonFormActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +34,7 @@ import timber.log.Timber;
  * Created by ndegwamartin on 30/06/2018.
  */
 
-public class ContactJsonFormActivity extends JsonFormActivity {
+public class ContactJsonFormActivity extends DynamicJsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;

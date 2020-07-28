@@ -7,6 +7,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +30,8 @@ import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.job.DocumentConfigurationServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -108,6 +111,13 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         View attentionFlag = view.findViewById(R.id.risk);
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
+        }
+        ImageView imageView = view.findViewById(R.id.sync_refresh);
+        if (imageView != null) {
+            imageView.setOnClickListener(v -> {
+                SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+                DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
+            });
         }
     }
 

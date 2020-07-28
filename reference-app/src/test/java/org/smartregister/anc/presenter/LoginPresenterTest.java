@@ -88,6 +88,7 @@ public class LoginPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(false).when(model).isEmptyUsername(ArgumentMatchers.anyString());
         Mockito.doReturn(true).when(model).isPasswordValid(ArgumentMatchers.anyString());
+        Mockito.when(view.isAppVersionAllowed()).thenReturn(true);
         presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
         Mockito.verify(view).resetPaswordError();
         Mockito.verify(view).resetUsernameError();
@@ -107,6 +108,7 @@ public class LoginPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(false).when(model).isEmptyUsername(ArgumentMatchers.anyString());
         Mockito.doReturn(true).when(model).isPasswordValid(ArgumentMatchers.anyString());
+        Mockito.when(view.isAppVersionAllowed()).thenReturn(true);
         presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
         Mockito.verify(interactor).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(DUMMY_USERNAME), ArgumentMatchers.eq
                 (DUMMY_PASSWORD));
@@ -118,7 +120,7 @@ public class LoginPresenterTest extends BaseUnitTest {
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginModel(new BaseLoginModel());//create real model
         presenter.setLoginInteractor(interactor); //set mocked interactor
-
+        Mockito.when(view.isAppVersionAllowed()).thenReturn(true);
         presenter.attemptLogin(null, DUMMY_PASSWORD);
         String NULL_USERNAME = null;
         Mockito.verify(view).setUsernameError(R.string.error_field_required);
@@ -138,6 +140,7 @@ public class LoginPresenterTest extends BaseUnitTest {
 
         Mockito.doReturn(false).when(model).isPasswordValid(ArgumentMatchers.anyString());
 
+        Mockito.when(view.isAppVersionAllowed()).thenReturn(true);
         presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
 
         Mockito.verify(interactor, Mockito.times(0)).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(DUMMY_USERNAME),
