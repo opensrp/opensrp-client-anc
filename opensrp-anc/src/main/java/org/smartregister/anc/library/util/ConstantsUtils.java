@@ -253,5 +253,6 @@ public abstract class ConstantsUtils {
 
     public static class SettingsSyncParamsUtils {
         public static final String LOCATION_ID = "locationId";
+        public static final String IDENTIFIER = "identifier";
     }
 }
