@@ -14,6 +14,8 @@ import java.util.List;
  * Created by samuelgithengi on 10/19/18.
  */
 public class AncSyncConfiguration extends SyncConfiguration {
+    private static final String POPULATION_CHARACTERISTICS = "population_characteristics";
+
     @Override
     public int getSyncMaxRetries() {
         return BuildConfig.MAX_SYNC_RETRIES;
@@ -35,7 +37,9 @@ public class AncSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
-    public boolean hasExtraSettingsSync() { return BuildConfig.HAS_EXTRA_SETTINGS_SYNC_FILTER; }
+    public boolean hasExtraSettingsSync() {
+        return BuildConfig.HAS_EXTRA_SETTINGS_SYNC_FILTER;
+    }
 
     @Override
     public List<String> getExtraSettingsParameters() {
@@ -44,6 +48,7 @@ public class AncSyncConfiguration extends SyncConfiguration {
 
         List<String> params = new ArrayList<>();
         params.add(ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId));
+        params.add(ConstantsUtils.SettingsSyncParamsUtils.IDENTIFIER + "=" + POPULATION_CHARACTERISTICS);
         return params;
     }
 
