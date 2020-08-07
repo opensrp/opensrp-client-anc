@@ -405,7 +405,7 @@ fields:
 - template: "{{contact_summary.blood_pressure.bp_10_min_rest}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "bp_systolic_repeat != '' && bp_diastolic_repeat != ''"
 
-- template: "{{contact_summary.blood_pressure.systptoms_pre_eclampsi}}: {symp_sev_preeclampsia_value}"
+- template: "{{contact_summary.blood_pressure.systptoms_pre_eclampsia}}: {symp_sev_preeclampsia_value}"
   relevance: "symp_sev_preeclampsia != ''"
 
 - template: "{{contact_summary.blood_pressure.urine_dipstick_protein}}: {urine_protein_value}"
@@ -948,34 +948,34 @@ fields:
 group: deworming_and_malaria_prophylaxis
 fields:
 
-- template: "{{contact_summary.anaemia_prevention.single_dose_prescribed}}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.single_dose_prescribed}}"
   relevance: "deworm == 'done'"
 
-- template: "{{contact_summary.anaemia_prevention.single_dose_not_prescribed}}: {deworm_notdone_value}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.single_dose_not_prescribed}}: {deworm_notdone_value}"
   relevance: "deworm == 'not_done'"
 
-- template: "{{contact_summary.anaemia_prevention.iptp_sp_dose_1_given}}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_1_given}}"
   relevance: "iptp_sp1 == 'done'"
 
-- template: "{{contact_summary.anaemia_prevention.iptp_sp_dose_1_given}}: {iptp_sp_notdone_value}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_1_given}}: {iptp_sp_notdone_value}"
   relevance: "iptp_sp1 == 'not_done'"
 
-- template: "{{contact_summary.anaemia_prevention.iptp_sp_dose_2_given}}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_2_given}}"
   relevance: "iptp_sp2 == 'done'"
 
-- template: "{{contact_summary.anaemia_prevention.iptp_sp_dose_2_given}}: {iptp_sp_notdone_value}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_2_given}}: {iptp_sp_notdone_value}"
   relevance: "iptp_sp2 == 'not_done'"
 
-- template: "{{contact_summary.anaemia_prevention.iptp_sp_dose_3_given}}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_3_given}}"
   relevance: "iptp_sp3 == 'done'"
 
-- template: "{{contact_summary.anaemia_prevention.iptp_sp_dose_3_given}}: {iptp_sp_notdone_value}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_3_given}}: {iptp_sp_notdone_value}"
   relevance: "iptp_sp3 == 'not_done'"
 
-- template: "{{contact_summary.anaemia_prevention.malaria_prevention_counseling_done}}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.malaria_prevention_counseling_done}}"
   relevance: "malaria_counsel == 'done'"
 
-- template: "{{contact_summary.anaemia_prevention.malaria_prevention_counseling_not_done}}: {malaria_counsel_notdone_value}"
+- template: "{{contact_summary.deworming_and_malaria_prophylaxis.malaria_prevention_counseling_not_done}}: {malaria_counsel_notdone_value}"
   relevance: "malaria_counsel == 'not_done'"
 ---
 group: calcium_supplementation

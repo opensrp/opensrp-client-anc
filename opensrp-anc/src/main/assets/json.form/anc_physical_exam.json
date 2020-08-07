@@ -914,7 +914,7 @@
           },
           {
             "key": "+",
-            "text": "{{anc_physical_exam.step2.urine_protein.options.+.text}}",
+            "text": "{{anc_physical_exam.step2.urine_protein.options.plus_one.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -922,7 +922,7 @@
           },
           {
             "key": "++",
-            "text": "{{anc_physical_exam.step2.urine_protein.options.++.text}}",
+            "text": "{{anc_physical_exam.step2.urine_protein.options.plus_two.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -930,7 +930,7 @@
           },
           {
             "key": "+++",
-            "text": "{{anc_physical_exam.step2.urine_protein.options.+++.text}}",
+            "text": "{{anc_physical_exam.step2.urine_protein.options.plus_three.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -938,7 +938,7 @@
           },
           {
             "key": "++++",
-            "text": "{{anc_physical_exam.step2.urine_protein.options.++++.text}}",
+            "text": "{{anc_physical_exam.step2.urine_protein.options.plus_four.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
