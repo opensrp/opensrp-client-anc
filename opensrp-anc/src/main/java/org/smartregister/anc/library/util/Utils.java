@@ -700,6 +700,10 @@ public class Utils extends org.smartregister.util.Utils {
 
     @Nullable
     public String getManifestVersion(Context context) {
-        return context.getString(R.string.form_manifest_version,  CoreLibrary.getInstance().context().allSharedPreferences().fetchManifestVersion());
+        if (StringUtils.isNotBlank(CoreLibrary.getInstance().context().allSharedPreferences().fetchManifestVersion())) {
+            return context.getString(R.string.form_manifest_version, CoreLibrary.getInstance().context().allSharedPreferences().fetchManifestVersion());
+        } else {
+            return null;
+        }
     }
 }
