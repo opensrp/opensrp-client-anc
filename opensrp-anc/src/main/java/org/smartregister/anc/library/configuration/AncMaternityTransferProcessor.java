@@ -4,6 +4,7 @@ package org.smartregister.anc.library.configuration;
 import android.support.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +15,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.interactor.ClientTransferProcessor;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.tag.FormTag;
@@ -37,14 +39,23 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
     @Override
     public void startTransferProcessing(@NonNull JSONObject closeForm) throws Exception {
         setBaseEntityId(closeForm.optString(ENTITY_ID));
+        String closeReason = FormUtils.getFieldFromForm(closeForm, ConstantsUtils.JsonFormKeyUtils.ANC_CLOSE_REASON).optString(JsonFormConstants.VALUE);
 
+        List<String> formSubmissionIds = new ArrayList<>();
         //create transfer event
-        Event transferEvent = createAncMaternityTransferEvent(closeForm);
-        saveEvent(transferEvent, transferEvent.getBaseEntityId());
+        if (closeReason.equalsIgnoreCase("in_labour")) {
+            Event transferEvent = createAncMaternityTransferEvent(closeForm);
+            saveEvent(transferEvent, transferEvent.getBaseEntityId());
+            formSubmissionIds.add(transferEvent.getFormSubmissionId());
+        }
 
         //create anc close event
         Event closeEvent = createAncCloseEvent(closeForm);
-        saveEvent(closeEvent, transferEvent.getBaseEntityId());
+        if (closeReason.equalsIgnoreCase("woman_died")) {
+            closeEvent.setEventType("Death");
+        }
+        saveEvent(closeEvent, getBaseEntityId());
+        formSubmissionIds.add(closeEvent.getFormSubmissionId());
 
         long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
@@ -52,7 +63,8 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
                 .processClient(
                         AncLibrary.getInstance()
                                 .getEcSyncHelper()
-                                .getEvents(Arrays.asList(transferEvent.getFormSubmissionId(), closeEvent.getFormSubmissionId())));
+                                .getEvents(formSubmissionIds));
+
         Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 

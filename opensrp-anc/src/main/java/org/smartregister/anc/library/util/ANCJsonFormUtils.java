@@ -629,9 +629,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
+    public static Pair< Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
         try {
-            boolean isDeath = false;
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 
             if (!registrationFormParams.getLeft()) {
@@ -639,7 +638,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
 
             JSONObject jsonForm = registrationFormParams.getMiddle();
-            JSONArray fields = registrationFormParams.getRight();
 
             String encounterType = ANCJsonFormUtils.getString(jsonForm, ENCOUNTER_TYPE);
             JSONObject metadata = ANCJsonFormUtils.getJSONObject(jsonForm, METADATA);
@@ -660,18 +658,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                     .withProviderId(providerId).withEntityType(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)
                     .withFormSubmissionId(ANCJsonFormUtils.generateRandomUUIDString()).withDateCreated(new Date());
             tagSyncMetadata(allSharedPreferences, event);
-
-            for (int i = 0; i < fields.length(); i++) {
-                JSONObject jsonObject = ANCJsonFormUtils.getJSONObject(fields, i);
-
-                String value = ANCJsonFormUtils.getString(jsonObject, ANCJsonFormUtils.VALUE);
-                if (StringUtils.isNotBlank(value)) {
-                    ANCJsonFormUtils.addObservation(event, jsonObject);
-                    if (jsonObject.get(ANCJsonFormUtils.KEY).equals(ConstantsUtils.JsonFormKeyUtils.ANC_CLOSE_REASON)) {
-                        isDeath = "Woman Died".equalsIgnoreCase(value);
-                    }
-                }
-            }
 
             Iterator<?> keys = metadata.keys();
 
@@ -708,7 +694,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                             .withDateCreated(new Date());
             tagSyncMetadata(allSharedPreferences, updateChildDetailsEvent);
 
-            return Triple.of(isDeath, event, updateChildDetailsEvent);
+            return Pair.create(event, updateChildDetailsEvent);
         } catch (Exception e) {
             Timber.e(e, "JsonFormUtils --> saveRemovedFromANCRegister");
         }

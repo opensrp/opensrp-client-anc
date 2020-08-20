@@ -674,25 +674,27 @@ public class Utils extends org.smartregister.util.Utils {
         HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
         if (jsonObject != null) {
             JSONArray jsonArray = jsonObject.optJSONArray(JsonFormConstants.VALUE);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject valueField = jsonArray.optJSONObject(i);
-                String fieldKey = valueField.optString(JsonFormConstants.KEY);
-                keysArrayList.add(fieldKey);
-            }
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject valueField = jsonArray.optJSONObject(i);
+                    String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                    keysArrayList.add(fieldKey);
+                }
 
-            for (int k = 0; k < fields.length(); k++) {
-                JSONObject valueField = fields.optJSONObject(k);
-                String fieldKey = valueField.optString(JsonFormConstants.KEY);
-                String fieldValue = valueField.optString(JsonFormConstants.VALUE);
+                for (int k = 0; k < fields.length(); k++) {
+                    JSONObject valueField = fields.optJSONObject(k);
+                    String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                    String fieldValue = valueField.optString(JsonFormConstants.VALUE);
 
-                if (fieldKey.contains("_")) {
-                    fieldKey = fieldKey.substring(0, fieldKey.lastIndexOf("_"));
-                    if (keysArrayList.contains(fieldKey) && StringUtils.isNotBlank(fieldValue)) {
-                        String fieldKeyId = valueField.optString(JsonFormConstants.KEY).substring(fieldKey.length() + 1);
-                        valueField.put(JsonFormConstants.KEY, fieldKey);
-                        HashMap<String, String> hashMap = repeatingGroupMap.get(fieldKeyId) == null ? new HashMap<>() : repeatingGroupMap.get(fieldKeyId);
-                        hashMap.put(fieldKey, fieldValue);
-                        repeatingGroupMap.put(fieldKeyId, hashMap);
+                    if (fieldKey.contains("_")) {
+                        fieldKey = fieldKey.substring(0, fieldKey.lastIndexOf("_"));
+                        if (keysArrayList.contains(fieldKey) && StringUtils.isNotBlank(fieldValue)) {
+                            String fieldKeyId = valueField.optString(JsonFormConstants.KEY).substring(fieldKey.length() + 1);
+                            valueField.put(JsonFormConstants.KEY, fieldKey);
+                            HashMap<String, String> hashMap = repeatingGroupMap.get(fieldKeyId) == null ? new HashMap<>() : repeatingGroupMap.get(fieldKeyId);
+                            hashMap.put(fieldKey, fieldValue);
+                            repeatingGroupMap.put(fieldKeyId, hashMap);
+                        }
                     }
                 }
             }
