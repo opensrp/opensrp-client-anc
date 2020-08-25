@@ -33,7 +33,6 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
@@ -65,8 +64,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import timber.log.Timber;
@@ -223,15 +224,18 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             JSONObject metadata = ANCJsonFormUtils.getJSONObject(jsonForm, METADATA);
             addLastInteractedWith(fields);
             getDobStrings(fields);
-            initializeFirstContactValues(fields);
+            String previousVisitsMap = initializeFirstContactValues(fields);
             processLocationFields(fields);
-            FormTag formTag = getFormTag(allSharedPreferences);
 
+            FormTag formTag = getFormTag(allSharedPreferences);
 
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils
                     .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
 
+            if (previousVisitsMap != null) {
+                baseEvent.addDetails(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP, previousVisitsMap);
+            }
             tagSyncMetadata(allSharedPreferences, baseEvent);// tag docs
 
             return Pair.create(baseClient, baseEvent);
@@ -298,23 +302,57 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         }
     }
 
-    private static void initializeFirstContactValues(JSONArray fields) throws JSONException {
-        //initialize first contact values
+    /***
+     * Initializes the values in the mother details table used by contact containers
+     * @param fields {@link JSONArray}
+     * @return
+     * @throws JSONException
+     */
+    private static String initializeFirstContactValues(@NonNull JSONArray fields) throws JSONException {
+        String strGroup = null;
+
+        int nextContact = 1;
+
+        String nextContactDate = Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF);
+
+        if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+            HashMap<String, HashMap<String, String>> previousVisitsMap = Utils.buildRepeatingGroupValues(fields, ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS);
+            if (!previousVisitsMap.isEmpty()) {
+
+                nextContact = previousVisitsMap.size() + 1;
+
+                strGroup = ANCJsonFormUtils.gson.toJson(previousVisitsMap);
+
+                Set<Map.Entry<String, HashMap<String, String>>> previousVisitsMapSet = previousVisitsMap.entrySet();
+
+                HashMap<String, String> previousVisitsMapItem = new LinkedHashMap<>();
+
+                for (Map.Entry<String, HashMap<String, String>> entry : previousVisitsMapSet) {
+                    previousVisitsMapItem = entry.getValue();
+                }
+
+                JSONObject lastContactDateJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, previousVisitsMapItem.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE));
+            }
+        }
         JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         if (nextContactJSONObject.has(JsonFormConstants.VALUE) &&
                 "".equals(nextContactJSONObject.getString(JsonFormConstants.VALUE))) {
-            nextContactJSONObject.put(ANCJsonFormUtils.VALUE, 1);
+            nextContactJSONObject.put(ANCJsonFormUtils.VALUE, nextContact);
         }
 
         JSONObject nextContactDateJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
         if (nextContactDateJSONObject.has(JsonFormConstants.VALUE) &&
                 "".equals(nextContactDateJSONObject.getString(JsonFormConstants.VALUE))) {
-            nextContactDateJSONObject.put(ANCJsonFormUtils.VALUE, Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF));
+            nextContactDateJSONObject.put(ANCJsonFormUtils.VALUE, nextContactDate);
         }
+
+        return strGroup;
     }
 
+
     @NotNull
-    private static FormTag getFormTag(AllSharedPreferences allSharedPreferences) {
+    public static FormTag getFormTag(AllSharedPreferences allSharedPreferences) {
         FormTag formTag = new FormTag();
         formTag.providerId = allSharedPreferences.fetchRegisteredANM();
         formTag.appVersion = BuildConfig.VERSION_CODE;
@@ -322,7 +360,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return formTag;
     }
 
-    private static void tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
+    public static void tagSyncMetadata(AllSharedPreferences allSharedPreferences, Event event) {
         String providerId = allSharedPreferences.fetchRegisteredANM();
         event.setProviderId(providerId);
         event.setLocationId(allSharedPreferences.fetchDefaultLocalityId(providerId));
@@ -490,6 +528,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     protected static void processPopulatableFields(Map<String, String> womanClient, JSONObject jsonObject)
             throws JSONException {
 
+        AncMetadata ancMetadata = AncLibrary.getInstance().getAncMetadata();
+
         if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.DOB_ENTERED)) {
             getDobUsingEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.DOB);
 
@@ -509,8 +549,9 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (StringUtils.isNotBlank(womanClient.get(DBConstantsUtils.KeyUtils.DOB))) {
                 jsonObject.put(ANCJsonFormUtils.VALUE, Utils.getAgeFromDate(womanClient.get(DBConstantsUtils.KeyUtils.DOB)));
             }
-        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.VILLAGE)) {
-            reverseLocationTree(jsonObject, womanClient.get(ConstantsUtils.JsonFormKeyUtils.VILLAGE));
+        } else if (ancMetadata != null && ancMetadata.getFieldsWithLocationHierarchy() != null &&
+                ancMetadata.getFieldsWithLocationHierarchy().contains(jsonObject.optString(ANCJsonFormUtils.KEY))) {
+            reverseLocationTree(jsonObject, womanClient.get(jsonObject.optString(ANCJsonFormUtils.KEY)));
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.EDD)) {
             formatEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.EDD);
 
@@ -760,45 +801,24 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         return "";
     }
 
-    public static Pair<Event, Event> createContactVisitEvent(List<String> formSubmissionIDs,
-                                                             Map<String, String> womanDetails) {
+    public static Pair<Event, Event> createVisitAndUpdateEvent(List<String> formSubmissionIDs,
+                                                               Map<String, String> womanDetails) {
         if (formSubmissionIDs.size() < 1 && womanDetails.get(ConstantsUtils.REFERRAL) == null) {
             return null;
         }
 
         try {
-
-            String contactNo = womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
-            String contactStartDate = womanDetails.get(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
             String baseEntityId = womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
 
-            Event contactVisitEvent = (Event) new Event().withBaseEntityId(baseEntityId).withEventDate(new Date())
-                    .withEventType(ConstantsUtils.EventTypeUtils.CONTACT_VISIT).withEntityType(DBConstantsUtils.CONTACT_ENTITY_TYPE)
-                    .withFormSubmissionId(ANCJsonFormUtils.generateRandomUUIDString())
-                    .withDateCreated(getContactStartDate(contactStartDate));
-
-            String currentContactNo;
-            if (womanDetails.get(ConstantsUtils.REFERRAL) == null) {
-                currentContactNo = ConstantsUtils.CONTACT + " " + contactNo;
-            } else {
-                currentContactNo = ConstantsUtils.CONTACT + " " + womanDetails.get(ConstantsUtils.REFERRAL);
-            }
-            contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
-            contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
-            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, String.valueOf(getOpenTasks(baseEntityId)));
-
-            tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(),
-                    contactVisitEvent);
-
-            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
-
+            Event contactVisitEvent = Utils.createContactVisitEvent(formSubmissionIDs, womanDetails, String.valueOf(getOpenTasks(baseEntityId)));
 
             //Update client
             EventClientRepository db = AncLibrary.getInstance().getEventClientRepository();
+
             JSONObject clientForm = db.getClientByBaseEntityId(baseEntityId);
 
             JSONObject attributes = clientForm.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-            attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, contactNo);
+            attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
             attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
             attributes.put(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
                     womanDetails.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
@@ -808,13 +828,10 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             attributes.put(DBConstantsUtils.KeyUtils.EDD, womanDetails.get(DBConstantsUtils.KeyUtils.EDD));
             clientForm.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
 
-            FormTag formTag = getFormTag(AncLibrary.getInstance().getContext().allSharedPreferences());
-            formTag.childLocationId = LocationHelper.getInstance().getChildLocationId();
-            formTag.locationId = LocationHelper.getInstance().getParentLocationId();
-
             db.addorUpdateClient(baseEntityId, clientForm);
 
             Event updateClientEvent = createUpdateClientDetailsEvent(baseEntityId);
+
             return Pair.create(contactVisitEvent, updateClientEvent);
 
         } catch (Exception e) {
@@ -824,7 +841,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    private static Date getContactStartDate(String contactStartDate) {
+    public static Date getContactStartDate(String contactStartDate) {
         try {
             return new LocalDate(contactStartDate).toDate();
         } catch (Exception e) {

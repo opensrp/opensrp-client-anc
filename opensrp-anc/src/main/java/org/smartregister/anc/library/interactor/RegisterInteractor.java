@@ -6,16 +6,17 @@ import android.support.v4.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -23,10 +24,10 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
+import java.util.Collections;
 import java.util.Date;
 
 import timber.log.Timber;
@@ -79,8 +80,15 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
                                  final RegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
+
             saveRegistration(pair, jsonString, isEditMode);
+
             String baseEntityId = getBaseEntityId(pair);
+
+            if (!isEditMode && ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+                createPartialPreviousEvent(pair, baseEntityId);
+            }
+
             appExecutors.mainThread().execute(() -> {
                 callBack.setBaseEntityRegister(baseEntityId);
                 callBack.onRegistrationSaved(isEditMode);
@@ -88,6 +96,26 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    /***
+     * creates partial previous visit events after creation of client
+     * @param pair {@link Pair}
+     * @param baseEntityId {@link String}
+     */
+    private void createPartialPreviousEvent(Pair<Client, Event> pair, String baseEntityId) {
+        appExecutors.diskIO().execute(() -> {
+            try {
+                if (pair.second != null && pair.second.getDetails() != null) {
+                    String strPreviousVisitsMap = pair.second.getDetails().get(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP);
+                    if (StringUtils.isNotBlank(strPreviousVisitsMap)) {
+                        Utils.createPreviousVisitFromGroup(strPreviousVisitsMap, baseEntityId);
+                    }
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        });
     }
 
     @Override
@@ -205,10 +233,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-
-
-            // Todo: Use the event clients from above here
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(Collections.singletonList(baseEvent.getFormSubmissionId())));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e, " --> saveRegistration");

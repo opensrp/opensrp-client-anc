@@ -56,6 +56,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private List<Field> filterList;
+
     @Mock
     private Field sortField;
 

@@ -20,6 +20,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.powermock.reflect.internal.WhiteboxImpl;
 import org.robolectric.util.ReflectionHelpers;
 import org.skyscreamer.jsonassert.Customization;
@@ -51,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -371,6 +373,11 @@ public class ANCJsonFormUtilsTest {
         PowerMockito.mockStatic(LocationHelper.class);
         PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
 
+        AncMetadata ancMetadata = new AncMetadata();
+        ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        Mockito.when(ancLibrary.getAncMetadata()).thenReturn(ancMetadata);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+
         ArrayList<String> allLevels = new ArrayList<>();
         allLevels.add("Country");
         allLevels.add("Province");
@@ -387,7 +394,6 @@ public class ANCJsonFormUtilsTest {
         formLocation.key = DBConstantsUtils.KeyUtils.HOME_ADDRESS;
         formLocation.name = details.get(DBConstantsUtils.KeyUtils.HOME_ADDRESS);
         formLocations.add(formLocation);
-
 
         List<String> locations = new ArrayList<>();
         locations.add(details.get(Utils.HOME_ADDRESS));
@@ -649,4 +655,51 @@ public class ANCJsonFormUtilsTest {
         Assert.assertEquals(coJsonObject.optString(JsonFormConstants.ENCOUNTER_TYPE), resultEvent.getEventType());
         Assert.assertEquals("demo", resultEvent.getProviderId());
     }
+
+    @Test
+    @PrepareForTest(Utils.class)
+    public void testInitializeFirstContactValuesForDefaultStrategy() throws Exception {
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.class, "getDueCheckStrategy").thenReturn("");
+        JSONArray fields = new JSONObject(registerFormJsonString).optJSONObject(JsonFormConstants.STEP1)
+                .optJSONArray(JsonFormConstants.FIELDS);
+        String result = Whitebox.invokeMethod(ANCJsonFormUtils.class, "initializeFirstContactValues", fields);
+        JSONObject nextContactJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
+        JSONObject nextContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
+        Assert.assertEquals(String.valueOf(1), nextContactJsonObject.optString(JsonFormConstants.VALUE));
+        Assert.assertTrue(nextContactDateJsonObject.optString(JsonFormConstants.VALUE).isEmpty());
+        Assert.assertNull(result);
+    }
+
+    @Test
+    @PrepareForTest(Utils.class)
+    public void testInitializeFirstContactValuesForIsFirstContactStrategy() throws Exception {
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.class, "getDueCheckStrategy").thenReturn(ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT);
+
+        JSONArray fields = new JSONObject(registerFormJsonString).optJSONObject(JsonFormConstants.STEP1)
+                .optJSONArray(JsonFormConstants.FIELDS);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormConstants.KEY, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+        fields.put(jsonObject);
+
+        HashMap<String, String> groupItem = new LinkedHashMap<>();
+        groupItem.put("visit_date", "2020-04-04");
+        HashMap<String, HashMap<String, String>> groupMap = new HashMap<>();
+        groupMap.put("324-w3424", groupItem);
+
+        PowerMockito.when(Utils.class, "buildRepeatingGroupValues", Mockito.any(JSONArray.class), Mockito.anyString()).thenReturn(groupMap);
+
+        String result = Whitebox.invokeMethod(ANCJsonFormUtils.class, "initializeFirstContactValues", fields);
+        JSONObject nextContactJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
+        JSONObject nextContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
+        JSONObject lastContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+
+        Assert.assertEquals(String.valueOf(2), nextContactJsonObject.optString(JsonFormConstants.VALUE));
+        Assert.assertTrue(nextContactDateJsonObject.optString(JsonFormConstants.VALUE).isEmpty());
+        Assert.assertEquals("2020-04-04", lastContactDateJsonObject.optString(JsonFormConstants.VALUE));
+        Assert.assertNotNull(result);
+    }
+
 }
